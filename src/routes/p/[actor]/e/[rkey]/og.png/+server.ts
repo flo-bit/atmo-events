@@ -44,10 +44,9 @@ export async function GET({ params, platform, request }) {
 			eventData.media.find((m) => m.role === 'thumbnail') ??
 			eventData.media.find((m) => m.role === 'header');
 		if (media?.content) {
-			thumbnailUrl = getCDNImageBlobUrl({ did, blob: media.content }) ?? null;
+			thumbnailUrl = getCDNImageBlobUrl({ did, blob: media.content, format: 'png' }) ?? null;
 		}
 	}
-
 	return new ImageResponse(
 		EventOgImage,
 		{ width: 1200, height: 630, debug: false },

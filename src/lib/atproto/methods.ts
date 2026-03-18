@@ -324,7 +324,8 @@ export async function getBlobURL({
  */
 export function getCDNImageBlobUrl({
 	did,
-	blob
+	blob,
+	format = 'webp'
 }: {
 	did?: string;
 	blob: {
@@ -333,10 +334,11 @@ export function getCDNImageBlobUrl({
 			$link: string;
 		};
 	};
+	format?: 'webp' | 'jpeg' | 'png';
 }) {
 	did ??= user.did ?? undefined;
 
-	return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${blob.ref.$link}@webp`;
+	return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${blob.ref.$link}@${format}`;
 }
 
 /**

@@ -8,6 +8,7 @@ import type {
 } from '../lexicon-types';
 import { Client, simpleFetchHandler } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
+import { isResourceUri } from '@atcute/lexicons';
 
 export const CONTRAIL_URL = 'https://contrail.atmo.tools';
 export const RSVP_HYDRATE_LIMIT = 50;
@@ -191,6 +192,15 @@ export function getRsvpStatus(status?: string): 'going' | 'interested' | 'notgoi
 	if (status === RSVP_INTERESTED || status.endsWith('#interested')) return 'interested';
 	if (status.endsWith('#notgoing')) return 'notgoing';
 	return null;
+}
+
+export async function notifyContrailOfUpdate(uri: string) {
+	if (!isResourceUri(uri)) return;
+	try {
+		await contrail.post('rsvp.atmo.notifyOfUpdate', { input: { uri } });
+	} catch {
+		// best-effort, don't block on failure
+	}
 }
 
 export async function getProfileFromContrail(

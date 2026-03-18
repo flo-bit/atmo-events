@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { user } from '$lib/atproto/auth.svelte';
 	import { putRecord, deleteRecord, createTID } from '$lib/atproto/methods';
+	import { notifyContrailOfUpdate } from '$lib/contrail';
 	import { atProtoLoginModalState } from '@foxui/social';
 	import { Avatar, Button } from '@foxui/core';
 
@@ -26,8 +27,8 @@
 	let rsvpRkeyOverride: string | null | undefined = $state(undefined);
 	let rsvpSubmitting = $state(false);
 
-	let rsvpStatus = $derived(rsvpStatusOverride ?? initialRsvpStatus);
-	let rsvpRkey = $derived(rsvpRkeyOverride ?? initialRsvpRkey);
+	let rsvpStatus = $derived(rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus);
+	let rsvpRkey = $derived(rsvpRkeyOverride !== undefined ? rsvpRkeyOverride : initialRsvpRkey);
 
 	async function submitRsvp(status: 'going' | 'interested') {
 		if (!user.isLoggedIn || !user.did) return;
@@ -50,6 +51,8 @@
 			});
 
 			if (response.ok) {
+				const rsvpUri = `at://${user.did}/community.lexicon.calendar.rsvp/${key}`;
+				notifyContrailOfUpdate(rsvpUri);
 				rsvpStatusOverride = status;
 				rsvpRkeyOverride = key;
 				onrsvp?.(status);
@@ -65,10 +68,12 @@
 		if (!user.isLoggedIn || !user.did || !rsvpRkey) return;
 		rsvpSubmitting = true;
 		try {
+			const rsvpUri = `at://${user.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`;
 			await deleteRecord({
 				collection: 'community.lexicon.calendar.rsvp',
 				rkey: rsvpRkey
 			});
+			notifyContrailOfUpdate(rsvpUri);
 			rsvpStatusOverride = null;
 			rsvpRkeyOverride = null;
 			oncancel?.();
@@ -159,7 +164,7 @@
 	{:else}
 		{#if user.profile}
 			<div class="mb-4 flex items-center gap-2">
-				<span class="text-base-500 dark:text-base-400 text-sm">RSVPing as</span>
+				<span class="text-base-500 dark:text-base-400 text-sm">Attend as</span>
 				<Avatar
 					src={user.profile.avatar}
 					alt={user.profile.displayName || user.profile.handle}

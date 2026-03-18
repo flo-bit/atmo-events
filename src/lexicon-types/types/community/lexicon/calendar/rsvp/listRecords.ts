@@ -108,6 +108,10 @@ const _mainSchema = /*#__PURE__*/ v.query(
        */
       profiles: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
       /**
+       * Full-text search across: status, subject.uri
+       */
+      search: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+      /**
        * Field to sort by (default: time_us)
        */
       sort: /*#__PURE__*/ v.optional(

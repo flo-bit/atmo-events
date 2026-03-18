@@ -205,6 +205,10 @@ const _mainSchema = /*#__PURE__*/ v.query(
         /*#__PURE__*/ v.integer(),
       ),
       /**
+       * Full-text search across: mode, name, status, description
+       */
+      search: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+      /**
        * Field to sort by (default: time_us)
        */
       sort: /*#__PURE__*/ v.optional(

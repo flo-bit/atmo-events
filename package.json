@@ -61,9 +61,12 @@
 		"@foxui/social": "^0.5.1",
 		"@foxui/time": "^0.5.1",
 		"@internationalized/date": "^3.12.0",
+		"@tailwindcss/typography": "^0.5.19",
 		"dompurify": "^3.3.3",
+		"maplibre-gl": "^5.20.2",
 		"marked": "^17.0.4",
 		"svelte-boring-avatars": "^1.2.6",
+		"svelte-maplibre-gl": "^1.0.3",
 		"valibot": "^1.2.0"
 	}
 }

@@ -21,7 +21,11 @@
 			<Button onclick={() => atProtoLoginModalState.show()}>Login</Button>
 		</div>
 	{:else if data.events.length === 0}
-		<p class="text-base-500 text-center text-lg">No upcoming events on your calendar.</p>
+		<p class="text-base-600 dark:text-base-400 text-center text-sm">No upcoming events on your calendar.</p>
+		<div class="mt-6 flex justify-center gap-3">
+			<Button href="/">Join events</Button>
+			<Button href="/create" variant="secondary">Create event</Button>
+		</div>
 	{:else}
 		<div class="grid gap-6 sm:grid-cols-2">
 			{#each data.events as event (event.uri)}

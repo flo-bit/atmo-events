@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
 @source "../node_modules/@foxui";
 
 
@@ -32,28 +33,28 @@
 
 @layer base {
 	:root {
-		--accent-50: var(--color-fuchsia-50);
-		--accent-100: var(--color-fuchsia-100);
-		--accent-200: var(--color-fuchsia-200);
-		--accent-300: var(--color-fuchsia-300);
-		--accent-400: var(--color-fuchsia-400);
-		--accent-500: var(--color-fuchsia-500);
-		--accent-600: var(--color-fuchsia-600);
-		--accent-700: var(--color-fuchsia-700);
-		--accent-800: var(--color-fuchsia-800);
-		--accent-900: var(--color-fuchsia-900);
-		--accent-950: var(--color-fuchsia-950);
+		--accent-50: var(--color-teal-50);
+		--accent-100: var(--color-teal-100);
+		--accent-200: var(--color-teal-200);
+		--accent-300: var(--color-teal-300);
+		--accent-400: var(--color-teal-400);
+		--accent-500: var(--color-teal-500);
+		--accent-600: var(--color-teal-600);
+		--accent-700: var(--color-teal-700);
+		--accent-800: var(--color-teal-800);
+		--accent-900: var(--color-teal-900);
+		--accent-950: var(--color-teal-950);
 
-		--base-50: var(--color-mauve-50);
-		--base-100: var(--color-mauve-100);
-		--base-200: var(--color-mauve-200);
-		--base-300: var(--color-mauve-300);
-		--base-400: var(--color-mauve-400);
-		--base-500: var(--color-mauve-500);
-		--base-600: var(--color-mauve-600);
-		--base-700: var(--color-mauve-700);
-		--base-800: var(--color-mauve-800);
-		--base-900: var(--color-mauve-900);
-		--base-950: var(--color-mauve-950);
+		--base-50: var(--color-mist-50);
+		--base-100: var(--color-mist-100);
+		--base-200: var(--color-mist-200);
+		--base-300: var(--color-mist-300);
+		--base-400: var(--color-mist-400);
+		--base-500: var(--color-mist-500);
+		--base-600: var(--color-mist-600);
+		--base-700: var(--color-mist-700);
+		--base-800: var(--color-mist-800);
+		--base-900: var(--color-mist-900);
+		--base-950: var(--color-mist-950);
 	}
 }

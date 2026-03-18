@@ -3,6 +3,7 @@
 	import { atProtoLoginModalState } from '@foxui/social';
 	import { uploadBlob, putRecord, deleteRecord, resolveHandle } from '$lib/atproto/methods';
 	import { getCDNImageBlobUrl } from '$lib/atproto';
+	import { notifyContrailOfUpdate } from '$lib/contrail';
 	import { compressImage } from '$lib/atproto/image-helper';
 	import { validateLink } from '$lib/cal/helper';
 	import {
@@ -489,8 +490,9 @@
 			if (isNew || thumbnailChanged) {
 				if (thumbnailFile) {
 					const compressed = await compressImage(thumbnailFile);
-					const blobRef = await uploadBlob({ blob: compressed.blob });
-					if (blobRef) {
+					const result = await uploadBlob({ blob: compressed.blob });
+					if (result) {
+						const { aspectRatio: _ar, ...blobRef } = result as Record<string, unknown> & { aspectRatio?: unknown };
 						media = [
 							{
 								role: 'thumbnail',
@@ -563,6 +565,8 @@
 			});
 
 			if (response.ok) {
+				const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
+				await notifyContrailOfUpdate(eventUri);
 				localStorage.removeItem(DRAFT_KEY);
 				if (thumbnailKey) deleteImage(thumbnailKey);
 				const handle =
@@ -591,6 +595,8 @@
 				collection: 'community.lexicon.calendar.event',
 				rkey
 			});
+			const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
+			await notifyContrailOfUpdate(eventUri);
 			localStorage.removeItem(DRAFT_KEY);
 			if (thumbnailKey) deleteImage(thumbnailKey);
 			const handle =
@@ -710,6 +716,19 @@
 							{/if}
 						</div>
 					</div>
+					<Button
+						type="submit"
+						class="mt-3 w-full"
+						disabled={submitting || !name.trim() || !startsAt}
+					>
+						{submitting
+							? isNew
+								? 'Creating...'
+								: 'Saving...'
+							: isNew
+								? 'Create Event'
+								: 'Save Event'}
+					</Button>
 
 					<!-- Right column: event details -->
 					<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-5 md:row-start-1">

@@ -48,8 +48,8 @@
 />
 
 <Head
-	title="statusphere"
-	emojiFavicon="🥳"
-	description="svelte + cloudflare workers statusphere"
+	title="atmo.rsvp"
+	emojiFavicon="🗓️"
+	description="discover and attend events"
 	image="/og.png"
 />

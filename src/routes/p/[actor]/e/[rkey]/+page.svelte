@@ -3,6 +3,7 @@
 	import { getCDNImageBlobUrl } from '$lib/atproto';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { Avatar as FoxAvatar, Badge, Button } from '@foxui/core';
+	import Map from '$lib/components/Map.svelte';
 	import Avatar from 'svelte-boring-avatars';
 	import EventRsvp from './EventRsvp.svelte';
 	import EventAttendees from './EventAttendees.svelte';
@@ -62,23 +63,66 @@
 		return 'secondary';
 	}
 
-	function getLocationString(locations: FlatEventRecord['locations']): string | undefined {
-		if (!locations || locations.length === 0) return undefined;
+	function getLocationData(locations: FlatEventRecord['locations']) {
+		if (!locations || locations.length === 0) return null;
 
 		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { street?: string; locality?: string; region?: string }
+			| { name?: string; street?: string; locality?: string; region?: string; country?: string }
 			| undefined;
-		if (!loc) return undefined;
+		if (!loc) return null;
 
-		const street = loc.street || undefined;
-		const locality = loc.locality || undefined;
-		const region = loc.region || undefined;
+		const shortParts = [loc.street, loc.locality].filter(Boolean);
+		const fullParts = [loc.street, loc.locality, loc.region, loc.country].filter(Boolean);
+		if (fullParts.length === 0) return null;
 
-		const parts = [street, locality, region].filter(Boolean);
-		return parts.length > 0 ? parts.join(', ') : undefined;
+		const shortAddress = shortParts.join(', ');
+		const fullAddress = fullParts.join(', ');
+		const displayName = loc.name || undefined;
+		const fullString = displayName ? `${displayName}, ${fullAddress}` : fullAddress;
+		const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullString)}`;
+
+		return { name: displayName, shortAddress, fullAddress, fullString, mapsUrl };
 	}
 
-	let location = $derived(getLocationString(eventData.locations));
+	let locationData = $derived(getLocationData(eventData.locations));
+	let location = $derived(locationData?.fullString);
+
+	let geoLocation: { lat: number; lng: number } | null = $state(null);
+
+	function initGeoLocation() {
+		if (!eventData.locations || eventData.locations.length === 0) return;
+
+		// Check for explicit geo coordinates first
+		const geo = eventData.locations.find((v) => v.$type === 'community.lexicon.location.geo') as
+			| { latitude?: string; longitude?: string }
+			| undefined;
+		if (geo?.latitude && geo?.longitude) {
+			const lat = parseFloat(geo.latitude);
+			const lng = parseFloat(geo.longitude);
+			if (!isNaN(lat) && !isNaN(lng)) {
+				geoLocation = { lat, lng };
+				return;
+			}
+		}
+
+		// Geocode from address if available
+		const addressQuery = locationData?.fullAddress;
+		if (addressQuery) {
+			fetch(`/api/geocoding?q=${encodeURIComponent(addressQuery)}`)
+				.then((r) => (r.ok ? r.json() : null))
+				.then((data: unknown) => {
+					const d = data as Record<string, unknown> | null;
+					if (!d) return;
+					if (d.lat && d.lon) {
+						geoLocation = { lat: parseFloat(d.lat as string), lng: parseFloat(d.lon as string) };
+					}
+				})
+				.catch(() => {});
+		}
+	}
+
+	import { onMount } from 'svelte';
+	onMount(initGeoLocation);
 
 	let thumbnailImage = $derived.by(() => {
 		if (!eventData.media || eventData.media.length === 0) return null;
@@ -267,7 +311,7 @@
 						</div>
 					{/if}
 					{#if isOwner}
-						<Button href="./{rkey}/edit" size="sm" class="mt-3 w-full">Edit Event</Button>
+						<Button href="./{rkey}/edit" class="mt-9 w-full">Edit Event</Button>
 					{/if}
 				</div>
 			{/if}
@@ -318,8 +362,8 @@
 				</div>
 
 				<!-- Location row -->
-				{#if location}
-					<div class="mb-6 flex items-center gap-4">
+				{#if locationData}
+					<a href={locationData.mapsUrl} target="_blank" rel="noopener noreferrer" class="mb-6 flex items-center gap-4 hover:opacity-80 transition-opacity">
 						<div
 							class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 items-center justify-center rounded-xl border"
 						>
@@ -343,8 +387,15 @@
 								/>
 							</svg>
 						</div>
-						<p class="text-base-900 dark:text-base-50 font-semibold">{location}</p>
-					</div>
+						<div>
+							{#if locationData.name}
+								<p class="text-base-900 dark:text-base-50 font-semibold">{locationData.name}</p>
+								<p class="text-base-500 dark:text-base-400 text-sm">{locationData.shortAddress}</p>
+							{:else}
+								<p class="text-base-900 dark:text-base-50 font-semibold">{locationData.shortAddress}</p>
+							{/if}
+						</div>
+					</a>
 				{/if}
 
 				<EventRsvp
@@ -369,6 +420,25 @@
 						>
 							{@html descriptionHtml}
 						</div>
+					</div>
+				{/if}
+
+				<!-- Map -->
+				{#if geoLocation && locationData}
+					<div class="mt-8 mb-8">
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Location
+						</p>
+						<a href={locationData.mapsUrl} target="_blank" rel="noopener noreferrer" class="block hover:opacity-80 transition-opacity">
+							<div class="h-64 w-full overflow-hidden rounded-xl">
+								<Map lat={geoLocation.lat} lng={geoLocation.lng} />
+							</div>
+							<p class="text-base-500 dark:text-base-400 mt-2 text-sm">
+								{locationData.fullString}
+							</p>
+						</a>
 					</div>
 				{/if}
 			</div>
@@ -465,30 +535,6 @@
 					interestedCount={attendees.interestedCount}
 				/>
 			</div>
-
-			<!-- View on Smoke Signal link, currently disabled as some events dont work on smokesignal -->
-			<!-- <a
-				href={smokesignalUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="text-base-500 dark:text-base-400 hover:text-base-700 dark:hover:text-base-200 order-6 inline-flex items-center gap-1.5 text-sm transition-colors md:order-0 md:col-start-2"
-			>
-				View on Smoke Signal
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="2"
-					stroke="currentColor"
-					class="size-3.5"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-					/>
-				</svg>
-			</a> -->
 		</div>
 	</div>
 </div>
