@@ -604,7 +604,7 @@
 				user.profile?.handle && user.profile.handle !== 'handle.invalid'
 					? user.profile.handle
 					: user.did;
-			goto(`/p/${handle}/e`);
+			goto(`/p/${handle}`);
 		} catch (e) {
 			console.error('Failed to delete event:', e);
 			error = 'Failed to delete event. Please try again.';
