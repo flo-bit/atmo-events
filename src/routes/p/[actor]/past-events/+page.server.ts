@@ -33,8 +33,13 @@ export async function load({ params, url }) {
 		})
 	]);
 
+	const nowDate = new Date(now);
+	const events = (response ? flattenEventRecords(response.records) : []).filter(
+		(e) => new Date(e.endsAt || e.startsAt) < nowDate
+	);
+
 	return {
-		events: response ? flattenEventRecords(response.records) : [],
+		events,
 		cursor: response?.cursor ?? null,
 		actorProfile: profile,
 		actor,

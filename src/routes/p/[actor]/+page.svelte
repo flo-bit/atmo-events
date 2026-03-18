@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getProfileBlobUrl, type FlatEventRecord } from '$lib/contrail';
-	import { user } from '$lib/atproto/auth.svelte';
-	import { UserProfile } from '@foxui/social';
+	import { user, logout } from '$lib/atproto/auth.svelte';
+	import UserProfile from '$lib/components/UserProfile.svelte';
 	import { Button } from '@foxui/core';
 	import EventCard from '$lib/components/EventCard.svelte';
 
@@ -42,18 +42,20 @@
 	<div class="mx-auto max-w-2xl">
 		<!-- Header -->
 		<UserProfile
-			class=""
 			profile={{
 				handle: hostProfile?.handle,
 				displayName: hostName,
 				avatar: hostProfile?.record?.avatar
 					? getProfileBlobUrl(hostDid, hostProfile.record.avatar)
-					: undefined,
-				banner: hostProfile?.record?.banner
-					? getProfileBlobUrl(hostDid, hostProfile.record.banner)
 					: undefined
 			}}
-		/>
+		>
+			{#snippet actions()}
+				{#if isOwnProfile}
+					<Button onclick={logout} variant="rose">Logout</Button>
+				{/if}
+			{/snippet}
+		</UserProfile>
 
 		{#if isOwnProfile}
 			<Button href="/create" class="-mt-6 mb-6" size="lg">Create Event</Button>

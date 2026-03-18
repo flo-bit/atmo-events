@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from '@foxui/core';
 	import { atProtoLoginModalState } from '@foxui/social';
 	import { onMount } from 'svelte';
 

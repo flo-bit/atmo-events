@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from '$lib/atproto';
-	import type { FlatEventRecord } from '$lib/contrail';
+	import { isEventOngoing, type FlatEventRecord } from '$lib/contrail';
 	import Avatar from 'svelte-boring-avatars';
 
 	let {
@@ -59,6 +59,7 @@
 	let thumbnail = $derived(getThumbnail(event));
 	let location = $derived(getLocationString(event.locations));
 	let mode = $derived(getModeLabel(event.mode));
+	let isOngoing = $derived(isEventOngoing(event.startsAt, event.endsAt));
 </script>
 
 <a
@@ -88,8 +89,14 @@
 	</div>
 
 	<div class="min-w-0 self-center">
-		<p class="text-base-500 dark:text-base-400 text-xs font-medium">
+		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
 			{formatDateTime(event.startsAt)}
+			{#if isOngoing}
+				<span class="inline-flex items-center gap-1 rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-semibold text-accent-700 dark:bg-accent-900/30 dark:text-accent-400">
+					<span class="size-1.5 rounded-full bg-accent-500 animate-pulse"></span>
+					Live
+				</span>
+			{/if}
 		</p>
 		<h3
 			class="text-base-900 dark:text-base-50 group-hover:text-base-700 dark:group-hover:text-base-200 mt-0.5 line-clamp-2 text-sm leading-snug font-semibold transition-colors sm:text-base"

@@ -41,6 +41,7 @@
 				rkey: key,
 				record: {
 					$type: 'community.lexicon.calendar.rsvp',
+					createdWith: 'https://atmo.rsvp',
 					status: `community.lexicon.calendar.rsvp#${status}`,
 					subject: {
 						uri: eventUri,

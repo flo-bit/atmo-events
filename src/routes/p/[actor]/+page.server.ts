@@ -43,8 +43,11 @@ export async function load({ params }) {
 		listAttendingEventsFromContrail(actor)
 	]);
 
+	const nowDate = new Date(now);
 	const upcomingEvents = upcomingResponse ? flattenEventRecords(upcomingResponse.records) : [];
-	const pastEvents = pastResponse ? flattenEventRecords(pastResponse.records) : [];
+	const pastEvents = (pastResponse ? flattenEventRecords(pastResponse.records) : []).filter(
+		(e) => new Date(e.endsAt || e.startsAt) < nowDate
+	);
 
 	return {
 		upcomingEvents: upcomingEvents.slice(0, PREVIEW_LIMIT),

@@ -60,6 +60,7 @@
 		"@foxui/core": "^0.5.1",
 		"@foxui/social": "^0.5.1",
 		"@foxui/time": "^0.5.1",
+		"@foxui/visual": "^0.8.0",
 		"@internationalized/date": "^3.12.0",
 		"@tailwindcss/typography": "^0.5.19",
 		"dompurify": "^3.3.3",

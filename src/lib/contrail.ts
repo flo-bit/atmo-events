@@ -194,6 +194,12 @@ export function getRsvpStatus(status?: string): 'going' | 'interested' | 'notgoi
 	return null;
 }
 
+export function isEventOngoing(startsAt: string, endsAt?: string | null): boolean {
+	if (!endsAt) return false;
+	const now = new Date();
+	return new Date(startsAt) <= now && new Date(endsAt) >= now;
+}
+
 export async function notifyContrailOfUpdate(uri: string) {
 	if (!isResourceUri(uri)) return;
 	try {

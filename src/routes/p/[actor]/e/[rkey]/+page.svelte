@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { FlatEventRecord } from '$lib/contrail';
+	import { isEventOngoing, type FlatEventRecord } from '$lib/contrail';
 	import { getCDNImageBlobUrl } from '$lib/atproto';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { Avatar as FoxAvatar, Badge, Button } from '@foxui/core';
@@ -153,6 +153,8 @@
 			startDate.getDate() === endDate.getDate()
 	);
 
+	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
+
 	const renderer = new marked.Renderer();
 	renderer.link = ({ href, text }) =>
 		`<a target="_blank" rel="noopener noreferrer nofollow" href="${href}" class="text-accent-600 dark:text-accent-400 hover:underline">${text}</a>`;
@@ -295,7 +297,7 @@
 						<img
 							src={displayImage.url}
 							alt={displayImage.alt}
-							class="border-base-200 dark:border-base-800 aspect-square w-full rounded-2xl border object-cover"
+							class="border-base-200 dark:border-base-800 bg-base-200 dark:bg-base-950/50 aspect-square w-full rounded-2xl border object-cover"
 						/>
 					{:else}
 						<div
@@ -324,12 +326,20 @@
 					</h1>
 				</div>
 
-				<!-- Mode badge -->
-				{#if eventData.mode}
-					<div class="mb-8">
-						<Badge size="md" variant={getModeColor(eventData.mode)}
-							>{getModeLabel(eventData.mode)}</Badge
-						>
+				<!-- Badges -->
+				{#if eventData.mode || isOngoing}
+					<div class="mb-8 flex items-center gap-2">
+						{#if isOngoing}
+							<Badge size="md" variant="primary">
+								<span class="mr-1 inline-block size-1.5 animate-pulse rounded-full bg-accent-500"></span>
+								Live
+							</Badge>
+						{/if}
+						{#if eventData.mode}
+							<Badge size="md" variant={getModeColor(eventData.mode)}
+								>{getModeLabel(eventData.mode)}</Badge
+							>
+						{/if}
 					</div>
 				{/if}
 

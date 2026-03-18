@@ -1,4 +1,9 @@
-import { flattenEventRecord, contrail } from '$lib/contrail';
+import {
+	flattenEventRecord,
+	flattenEventRecords,
+	contrail,
+	listEventRecordsFromContrail
+} from '$lib/contrail';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -6,12 +11,25 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return { events: [], loggedIn: false };
 	}
 
-	const response = await contrail.get('community.lexicon.calendar.rsvp.listRecords', {
-		params: { actor: locals.did, hydrateEvent: true, limit: 100 }
-	});
+	const now = new Date().toISOString();
 
-	const now = new Date();
-	const events = (response.ok ? (response.data.records ?? []) : [])
+	const [rsvpResponse, hostingResponse] = await Promise.all([
+		contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+			params: { actor: locals.did, hydrateEvent: true, limit: 100 }
+		}),
+		listEventRecordsFromContrail({
+			actor: locals.did,
+			startsAtMin: now,
+			sort: 'startsAt',
+			order: 'asc',
+			limit: 100
+		})
+	]);
+
+	const nowDate = new Date();
+
+	// Events from RSVPs
+	const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
 		.filter((r) => {
 			const status = r.record?.status;
 			return status?.endsWith('#going') || status?.endsWith('#interested');
@@ -21,7 +39,19 @@ export const load: PageServerLoad = async ({ locals }) => {
 			const flat = flattenEventRecord(r.event);
 			return flat ? [flat] : [];
 		})
-		.filter((e) => new Date(e.endsAt || e.startsAt) >= now)
+		.filter((e) => new Date(e.endsAt || e.startsAt) >= nowDate);
+
+	// Events the user is hosting
+	const hostingEvents = hostingResponse ? flattenEventRecords(hostingResponse.records) : [];
+
+	// Merge and deduplicate
+	const seen = new Set<string>();
+	const events = [...rsvpEvents, ...hostingEvents]
+		.filter((e) => {
+			if (seen.has(e.uri)) return false;
+			seen.add(e.uri);
+			return true;
+		})
 		.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
 
 	return { events, loggedIn: true };

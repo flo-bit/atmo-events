@@ -519,6 +519,7 @@
 
 			const record: Record<string, unknown> = {
 				$type: 'community.lexicon.calendar.event',
+				createdWith: 'https://atmo.rsvp',
 				name: name.trim(),
 				mode: `community.lexicon.calendar.event#${mode}`,
 				status: 'community.lexicon.calendar.event#scheduled',
