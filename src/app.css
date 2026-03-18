@@ -3,7 +3,6 @@
 @plugin '@tailwindcss/forms';
 @source "../node_modules/@foxui";
 
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
 	--color-base-50: var(--base-50);

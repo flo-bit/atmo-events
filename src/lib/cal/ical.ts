@@ -75,6 +75,16 @@ function getModeLabel(mode: string): string {
 	return 'Event';
 }
 
+function toAbsoluteUrl(pathOrUrl: string | undefined, baseUrl?: string): string | undefined {
+	if (!pathOrUrl) return undefined;
+
+	try {
+		return new URL(pathOrUrl, baseUrl).toString();
+	} catch {
+		return undefined;
+	}
+}
+
 export interface ICalAttendee {
 	name: string;
 	status: 'going' | 'interested';
@@ -152,8 +162,10 @@ function generateVEvent(event: ICalEvent): string | null {
 
 	// Organizer
 	if (organizer) {
+		const organizerUrl = toAbsoluteUrl(`/${organizer}`, url) ?? url;
+
 		lines.push(
-			`ORGANIZER;CN=${escapeText(organizer)}:https://bsky.app/profile/${encodeURIComponent(organizer)}`
+			`ORGANIZER;CN=${escapeText(organizer)}:${organizerUrl}`
 		);
 	}
 
@@ -161,8 +173,12 @@ function generateVEvent(event: ICalEvent): string | null {
 	if (event.attendees) {
 		for (const attendee of event.attendees) {
 			const partstat = attendee.status === 'going' ? 'ACCEPTED' : 'TENTATIVE';
+			const attendeeUrl = toAbsoluteUrl(attendee.url, url) ?? url;
+
+			if (!attendeeUrl) continue;
+
 			lines.push(
-				`ATTENDEE;CN=${escapeText(attendee.name)};PARTSTAT=${partstat}:${attendee.url || `https://bsky.app/profile/${encodeURIComponent(attendee.name)}`}`
+				`ATTENDEE;CN=${escapeText(attendee.name)};PARTSTAT=${partstat}:${attendeeUrl}`
 			);
 		}
 	}

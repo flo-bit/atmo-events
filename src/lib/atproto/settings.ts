@@ -3,8 +3,6 @@ import { scope } from '@atcute/oauth-node-client';
 
 // writable collections
 export const collections = [
-	'xyz.statusphere.status',
-	'social.atmo.test.blob',
 	'community.lexicon.calendar.event',
 	'community.lexicon.calendar.rsvp'
 ] as const;

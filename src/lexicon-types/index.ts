@@ -1,4 +1,9 @@
 export * as AppBskyActorProfile from "./types/app/bsky/actor/profile.js";
+export * as ComExampleAdminGetCursor from "./types/com/example/admin/getCursor.js";
+export * as ComExampleAdminGetOverview from "./types/com/example/admin/getOverview.js";
+export * as ComExampleAdminReset from "./types/com/example/admin/reset.js";
+export * as ComExampleAdminSync from "./types/com/example/admin/sync.js";
+export * as ComExampleGetProfile from "./types/com/example/getProfile.js";
 export * as CommunityLexiconCalendarEvent from "./types/community/lexicon/calendar/event.js";
 export * as CommunityLexiconCalendarEventGetRecord from "./types/community/lexicon/calendar/event/getRecord.js";
 export * as CommunityLexiconCalendarEventListRecords from "./types/community/lexicon/calendar/event/listRecords.js";
@@ -13,3 +18,8 @@ export * as ContrailAdminGetCursor from "./types/contrail/admin/getCursor.js";
 export * as ContrailAdminGetOverview from "./types/contrail/admin/getOverview.js";
 export * as ContrailAdminReset from "./types/contrail/admin/reset.js";
 export * as ContrailAdminSync from "./types/contrail/admin/sync.js";
+export * as RsvpAtmoAdminGetCursor from "./types/rsvp/atmo/admin/getCursor.js";
+export * as RsvpAtmoAdminGetOverview from "./types/rsvp/atmo/admin/getOverview.js";
+export * as RsvpAtmoAdminReset from "./types/rsvp/atmo/admin/reset.js";
+export * as RsvpAtmoAdminSync from "./types/rsvp/atmo/admin/sync.js";
+export * as RsvpAtmoGetProfile from "./types/rsvp/atmo/getProfile.js";

@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.example.admin.reset",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Delete all data from all tables",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

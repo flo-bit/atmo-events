@@ -18,7 +18,7 @@ export async function GET({ url }) {
 			}
 		});
 		console.error(data.status, data.statusText);
-		const location = await data.json();
+		const location = (await data.json()) as Array<Record<string, unknown>>;
 
 		return json(location[0]);
 	} catch (error) {

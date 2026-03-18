@@ -1,30 +1,28 @@
-import '../lexicon-types/index.js';
-import { Client, simpleFetchHandler } from '@atcute/client';
+import { flattenEventRecords, listEventRecordsFromContrail } from '$lib/contrail';
 import type { PageServerLoad } from './$types';
-
-const contrail = new Client({
-	handler: simpleFetchHandler({ service: 'https://contrail.atmo.tools' })
-});
 
 export const load: PageServerLoad = async () => {
 	const now = new Date().toISOString();
 
-	const response = await contrail.get('community.lexicon.calendar.event.listRecords', {
-		params: {
-			startsAtMin: now,
-			rsvpsGoingCountMin: 2,
-			hydrateRsvps: 5,
-			profiles: true,
-			sort: 'startsAt',
-			order: 'asc',
-			limit: 50
-		}
+	const response = await listEventRecordsFromContrail({
+		startsAtMin: now,
+		rsvpsGoingCountMin: 2,
+		hydrateRsvps: 5,
+		profiles: true,
+		sort: 'startsAt',
+		order: 'asc',
+		limit: 20
 	});
 
-	if (!response.ok) return { events: [], profiles: [] };
+	if (!response) return { events: [], handles: {} };
+
+	const handles: Record<string, string> = {};
+	for (const p of response.profiles ?? []) {
+		if (p.handle) handles[p.did] = p.handle;
+	}
 
 	return {
-		events: response.data.records,
-		profiles: response.data.profiles ?? []
+		events: flattenEventRecords(response.records),
+		handles
 	};
 };

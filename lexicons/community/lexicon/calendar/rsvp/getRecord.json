@@ -19,10 +19,8 @@
             "description": "Include profile + identity info keyed by DID"
           },
           "hydrateEvent": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 50,
-            "description": "Number of event records to embed"
+            "type": "boolean",
+            "description": "Embed the referenced event record"
           }
         }
       },
@@ -57,16 +55,9 @@
             "time_us": {
               "type": "integer"
             },
-            "eventCount": {
-              "type": "integer",
-              "description": "Total event count"
-            },
             "event": {
-              "type": "array",
-              "items": {
-                "type": "ref",
-                "ref": "#hydrateEventRecord"
-              }
+              "type": "ref",
+              "ref": "#refEventRecord"
             },
             "profiles": {
               "type": "array",
@@ -79,7 +70,7 @@
         }
       }
     },
-    "hydrateEventRecord": {
+    "refEventRecord": {
       "type": "object",
       "required": ["uri", "did", "collection", "rkey", "time_us"],
       "properties": {
