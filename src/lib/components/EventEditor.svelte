@@ -487,13 +487,18 @@
 		try {
 			let media: Array<Record<string, unknown>> | undefined;
 
+			// Start with existing media, excluding thumbnail role
+			const existingMedia = (eventData?.media ?? []) as Array<Record<string, unknown>>;
+
 			if (isNew || thumbnailChanged) {
 				if (thumbnailFile) {
 					const compressed = await compressImage(thumbnailFile);
 					const result = await uploadBlob({ blob: compressed.blob });
 					if (result) {
 						const { aspectRatio: _ar, ...blobRef } = result as Record<string, unknown> & { aspectRatio?: unknown };
+						// Keep all non-thumbnail media, add new thumbnail
 						media = [
+							...existingMedia.filter((m) => m.role !== 'thumbnail'),
 							{
 								role: 'thumbnail',
 								content: blobRef,
@@ -504,12 +509,15 @@
 							}
 						];
 					}
+				} else {
+					// Thumbnail removed — keep all non-thumbnail media
+					const remaining = existingMedia.filter((m) => m.role !== 'thumbnail');
+					if (remaining.length > 0) media = remaining;
 				}
-				// If changed/new but no thumbnailFile, media stays undefined (thumbnail removed/absent)
 			} else {
-				// Thumbnail not changed — reuse original media from eventData
-				if (eventData?.media && eventData.media.length > 0) {
-					media = eventData.media as Array<Record<string, unknown>>;
+				// Thumbnail not changed — keep all original media
+				if (existingMedia.length > 0) {
+					media = existingMedia;
 				}
 			}
 
@@ -517,7 +525,9 @@
 				? new Date().toISOString()
 				: eventData?.createdAt || new Date().toISOString();
 
+			// Spread original record to preserve unspecced fields (e.g. additionalData)
 			const record: Record<string, unknown> = {
+				...(eventData ? { ...eventData } : {}),
 				$type: 'community.lexicon.calendar.event',
 				createdWith: 'https://atmo.rsvp',
 				name: name.trim(),
@@ -526,6 +536,16 @@
 				startsAt: new Date(startsAt).toISOString(),
 				createdAt
 			};
+			// Remove flattened fields that aren't part of the actual record
+			delete record.cid;
+			delete record.did;
+			delete record.rkey;
+			delete record.uri;
+			delete record.rsvps;
+			delete record.rsvpsCount;
+			delete record.rsvpsGoingCount;
+			delete record.rsvpsInterestedCount;
+			delete record.rsvpsNotgoingCount;
 
 			const trimmedDescription = description.trim();
 			if (trimmedDescription) {
