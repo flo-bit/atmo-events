@@ -69,6 +69,7 @@ export type EventAttendeesResult = {
 
 type ListEventsParams = {
 	actor?: ActorIdentifier;
+	search?: string;
 	startsAtMin?: string;
 	startsAtMax?: string;
 	endsAtMin?: string;
