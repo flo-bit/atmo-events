@@ -1,0 +1,142 @@
+---
+/**
+ * Simple HTML table layout for the schedule — used by themes that prefer
+ * a flat, retro look (geocities, aim) instead of the CSS-grid calendar.
+ *
+ * Receives the same props as DaySchedule so they're interchangeable.
+ */
+
+interface Speaker {
+  name: string;
+  id?: string;
+}
+
+interface ScheduleEvent {
+  id?: string;
+  title: string;
+  type: string;
+  speakers?: Speaker[];
+  start?: string;
+  end?: string;
+  room?: string;
+  description?: string;
+  link_url?: string;
+  link_text?: string;
+}
+
+interface Props {
+  events: ScheduleEvent[];
+  rooms: string[];
+  tableIndex?: number;
+}
+
+const { events, tableIndex = 0 } = Astro.props;
+
+function formatTime(iso: string) {
+  const m = iso.match(/T(\d{2}):(\d{2})/);
+  if (!m) return "";
+  let h = parseInt(m[1]);
+  const min = m[2];
+  const p = h >= 12 ? "pm" : "am";
+  h = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return min === "00" ? `${h}${p}` : `${h}:${min}${p}`;
+}
+
+const sorted = [...events]
+  .filter((e) => e.start && e.type !== "info")
+  .sort((a, b) => (a.start! > b.start! ? 1 : -1));
+
+const infoEvents = events.filter((e) => e.type === "info" && e.start);
+
+const linkableTypes = new Set(["workshop", "presentation", "lightning-talk", "panel"]);
+---
+
+<div class="schedule-table-wrap" data-table-index={tableIndex}>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Workshop</th>
+        <th>Who</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        infoEvents
+          .sort((a, b) => (a.start! > b.start! ? 1 : -1))
+          .map((event) => {
+            const time = `${formatTime(event.start!)}${event.end ? `–${formatTime(event.end)}` : ""}`;
+            return (
+              <tr class="schedule-info-row">
+                <td colspan="3">
+                  {event.title} · {time}
+                </td>
+              </tr>
+            );
+          })
+      }
+      {
+        sorted.map((event) => {
+          const time = `${formatTime(event.start!)}${event.end ? `–${formatTime(event.end)}` : ""}`;
+          const speakers = event.speakers?.map((s) => s.name).join(", ");
+          const href = event.id && linkableTypes.has(event.type) ? `/event/${event.id}` : null;
+          return (
+            <tr>
+              <td>{time}</td>
+              <td>
+                {href ? (
+                  <a href={href} class="text-primary underline" set:html={event.title} />
+                ) : (
+                  <span set:html={event.title} />
+                )}
+              </td>
+              <td>{speakers}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .schedule-table th {
+    background: var(--table-header-bg, var(--primary));
+    color: var(--table-header-fg, var(--primary-foreground));
+    border: var(--table-border-width, 1px) solid var(--table-border-color, var(--border));
+    padding: 0.35rem 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-family: var(--font-ui);
+  }
+  .schedule-table td {
+    background: var(--table-cell-bg, transparent);
+    border: var(--table-border-width, 1px) solid var(--table-border-color, var(--border));
+    padding: 0.25rem 0.5rem;
+    vertical-align: top;
+  }
+  .schedule-table tbody tr:nth-child(even) td {
+    background: var(--table-cell-bg-alt, var(--table-cell-bg, transparent));
+  }
+  .schedule-table {
+    border: var(--table-frame-width, 0) solid var(--table-border-color, var(--border));
+  }
+  .schedule-table-wrap {
+    margin-left: calc(-1 * var(--card-px, 2rem));
+    margin-right: calc(-1 * var(--card-px, 2rem));
+    width: calc(100% + 2 * var(--card-px, 2rem));
+  }
+  .schedule-table tbody tr:hover {
+    background: var(--accent);
+  }
+  .schedule-info-row td {
+    text-align: center;
+    font-weight: 600;
+    background: var(--accent);
+  }
+</style>

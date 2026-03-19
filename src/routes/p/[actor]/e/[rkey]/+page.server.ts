@@ -1,9 +1,12 @@
 import { error } from '@sveltejs/kit';
+import type { ActorIdentifier } from '@atcute/lexicons';
 import { getActor } from '$lib/actor';
 import {
 	flattenEventRecord,
 	getEventRecordFromContrail,
 	getHostProfile,
+	getProfileBlobUrl,
+	getProfileFromContrail,
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
 	listEventAttendeesFromContrail,
@@ -34,11 +37,34 @@ export async function load({ params, locals }) {
 		}
 
 		const fullEventRecord = eventRecord!;
-		const [attendees, viewerRsvpRecord] = await Promise.all([
+		const isAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)?.isAtmosphereconf;
+
+		const speakers = ((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
+			| Array<{ id: string; name: string }>
+			| undefined) ?? [];
+
+		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			listEventAttendeesFromContrail(fullEventRecord.uri),
 			locals.did
 				? getViewerRsvpFromContrail({ eventUri: fullEventRecord.uri, actor: locals.did })
-				: null
+				: null,
+			isAtmosphereconf
+				? getEventRecordFromContrail({ did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e', profiles: true })
+					.then((r) => r ? flattenEventRecord(r) : null)
+					.catch(() => null)
+				: null,
+			...speakers.map((s) =>
+				s.id
+					? getProfileFromContrail(s.id as ActorIdentifier)
+							.then((p) => ({
+								id: s.id,
+								name: s.name,
+								avatar: p?.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined,
+								handle: p?.handle || s.id
+							}))
+							.catch(() => ({ id: s.id, name: s.name, avatar: undefined, handle: s.id }))
+					: Promise.resolve({ id: undefined, name: s.name, avatar: undefined, handle: undefined })
+			)
 		]);
 
 		return {
@@ -48,7 +74,9 @@ export async function load({ params, locals }) {
 			hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
 			attendees,
 			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.record?.status),
-			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null
+			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
+			parentEvent,
+			speakerProfiles: speakerProfiles as Array<{ id?: string; name: string; avatar?: string; handle?: string }>
 		};
 	} catch (e) {
 		if (e && typeof e === 'object' && 'status' in e) throw e;

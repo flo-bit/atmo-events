@@ -7,6 +7,7 @@
 	import ShareModal from '$lib/components/ShareModal.svelte';
 	import Avatar from 'svelte-boring-avatars';
 	import EventRsvp from './EventRsvp.svelte';
+	import EventCard from '$lib/components/EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
@@ -25,7 +26,9 @@
 
 	let hostUrl = $derived(`/p/${hostProfile?.handle || did}`);
 	let eventPath = $derived(`/p/${hostProfile?.handle || did}/e/${data.rkey}`);
-	let shareUrl = $derived(typeof window !== 'undefined' ? `${window.location.origin}${eventPath}` : eventPath);
+	let shareUrl = $derived(
+		typeof window !== 'undefined' ? `${window.location.origin}${eventPath}` : eventPath
+	);
 
 	let startDate = $derived(new Date(eventData.startsAt));
 	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
@@ -252,6 +255,8 @@
 
 	let isOwner = $derived(user.isLoggedIn && user.did === did);
 
+	let speakers = $derived(data.speakerProfiles ?? []);
+
 	let attendeesRef: EventAttendees | undefined = $state();
 
 	function handleRsvp(status: 'going' | 'interested') {
@@ -264,7 +269,7 @@
 			handle: user.profile?.handle,
 			url: `/${user.profile?.handle || user.did}`
 		});
-		if(status === 'interested') return;
+		if (status === 'interested') return;
 		shareModalTitle = "You're going!";
 		shareModalText = `I'm going to "${eventData.name}"!\n\n${shareUrl}`;
 		showShareModal = true;
@@ -345,7 +350,7 @@
 			<!-- Right column: event details -->
 			<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
 				<div class="mb-2">
-					<h1 class="text-base-900 dark:text-base-50 text-4xl leading-tight font-bold sm:text-5xl">
+					<h1 class="text-base-900 dark:text-base-50 text-3xl leading-tight font-bold sm:text-4xl">
 						{eventData.name}
 					</h1>
 				</div>
@@ -355,7 +360,8 @@
 					<div class="mb-8 flex items-center gap-2">
 						{#if isOngoing}
 							<Badge size="md" variant="primary">
-								<span class="mr-1 inline-block size-1.5 animate-pulse rounded-full bg-accent-500"></span>
+								<span class="bg-accent-500 mr-1 inline-block size-1.5 animate-pulse rounded-full"
+								></span>
 								Live
 							</Badge>
 						{/if}
@@ -397,7 +403,12 @@
 
 				<!-- Location row -->
 				{#if locationData}
-					<a href={locationData.mapsUrl} target="_blank" rel="noopener noreferrer" class="mb-6 flex items-center gap-4 hover:opacity-80 transition-opacity">
+					<a
+						href={locationData.mapsUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="mb-6 flex items-center gap-4 transition-opacity hover:opacity-80"
+					>
 						<div
 							class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 items-center justify-center rounded-xl border"
 						>
@@ -426,10 +437,35 @@
 								<p class="text-base-900 dark:text-base-50 font-semibold">{locationData.name}</p>
 								<p class="text-base-500 dark:text-base-400 text-sm">{locationData.shortAddress}</p>
 							{:else}
-								<p class="text-base-900 dark:text-base-50 font-semibold">{locationData.shortAddress}</p>
+								<p class="text-base-900 dark:text-base-50 font-semibold">
+									{locationData.shortAddress}
+								</p>
 							{/if}
 						</div>
 					</a>
+				{/if}
+
+				<!-- Part of -->
+				{#if data.parentEvent}
+					<div
+						class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 mt-8 mb-2 justify-center rounded-2xl border p-4"
+					>
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Part of
+						</p>
+						<EventCard event={data.parentEvent} actor="atprotocol.dev" />
+						<Button href="/p/atmosphereconf.org" size="lg" class="mt-6 w-full">
+							See full schedule
+						</Button>
+					</div>
+				{/if}
+
+				{#if did === 'did:plc:lehcqqkwzcwvjvw66uthu5oq' && rkey === '3lte3c7x43l2e'}
+					<Button href="/p/atmosphereconf.org" size="lg" class="mb-4 w-full">
+						See full schedule
+					</Button>
 				{/if}
 
 				<EventRsvp
@@ -465,7 +501,12 @@
 						>
 							Location
 						</p>
-						<a href={locationData.mapsUrl} target="_blank" rel="noopener noreferrer" class="block hover:opacity-80 transition-opacity">
+						<a
+							href={locationData.mapsUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="block transition-opacity hover:opacity-80"
+						>
 							<div class="h-64 w-full overflow-hidden rounded-xl">
 								<Map lat={geoLocation.lat} lng={geoLocation.lng} />
 							</div>
@@ -488,7 +529,7 @@
 					</p>
 					<a
 						href={hostUrl}
-						class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium hover:underline"
+						class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
 					>
 						<FoxAvatar
 							src={hostProfile?.avatar}
@@ -500,6 +541,37 @@
 						</span>
 					</a>
 				</div>
+
+				<!-- Speakers -->
+				{#if speakers.length > 0}
+					<div>
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Speakers
+						</p>
+						<div class="space-y-2">
+							{#each speakers as speaker, i (speaker.id || i)}
+								{#if speaker.handle}
+									<a
+										href="/p/{speaker.handle}"
+										class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
+									>
+										<FoxAvatar src={speaker.avatar} alt={speaker.name} class="size-8 shrink-0" />
+										<span class="truncate text-sm">{speaker.name}</span>
+									</a>
+								{:else}
+									<div
+										class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium"
+									>
+										<FoxAvatar alt={speaker.name} class="size-8 shrink-0" />
+										<span class="truncate text-sm">{speaker.name}</span>
+									</div>
+								{/if}
+							{/each}
+						</div>
+					</div>
+				{/if}
 
 				{#if eventData.uris && eventData.uris.length > 0}
 					<!-- Links -->
@@ -579,5 +651,5 @@
 	title={shareModalTitle}
 	shareText={shareModalText}
 	eventName={eventData.name}
-	ogImageUrl={ogImageUrl}
+	{ogImageUrl}
 />

@@ -1,0 +1,272 @@
+---
+import ScheduleEventCell from "./ScheduleEventCell.astro";
+
+interface Speaker {
+  name: string;
+  id?: string;
+}
+
+interface ScheduleEvent {
+  id?: string;
+  title: string;
+  type: string;
+  speakers?: Speaker[];
+  start?: string;
+  end?: string;
+  room?: string;
+  description?: string;
+  link_url?: string;
+  link_text?: string;
+}
+
+interface Props {
+  events: ScheduleEvent[];
+  rooms: string[];
+}
+
+const { events, rooms } = Astro.props;
+
+// --- Time helpers ---
+
+const TZ = "America/Vancouver";
+
+function isoToMinutes(iso: string): number {
+  const d = new Date(iso);
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TZ,
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(d);
+  const h = parseInt(parts.find((p) => p.type === "hour")!.value);
+  const m = parseInt(parts.find((p) => p.type === "minute")!.value);
+  return h * 60 + m;
+}
+
+function formatHour(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const p = h >= 12 ? "PM" : "AM";
+  const d = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return `${d}${p}`;
+}
+
+// --- Grid math ---
+
+const parsed = events
+  .filter((e) => e.start)
+  .map((e) => {
+    const start = isoToMinutes(e.start!);
+    const end = e.end ? isoToMinutes(e.end) : start + 30;
+    return { ...e, startMin: start, endMin: end };
+  });
+
+const SLOT = 10;
+const minTime =
+  Math.floor(Math.min(...parsed.map((e) => e.startMin)) / SLOT) * SLOT;
+const maxTime = Math.ceil(Math.max(...parsed.map((e) => e.endMin)) / SLOT) * SLOT;
+const totalSlots = (maxTime - minTime) / SLOT;
+
+const isInfo = (type: string) => type === "info";
+
+const linkableTypes = new Set([
+  "workshop",
+  "presentation",
+  "lightning-talk",
+  "panel",
+]);
+function isLinkable(event: { id?: string; type: string }) {
+  return !!(event.id && linkableTypes.has(event.type));
+}
+
+const gridEvents = parsed
+  .filter((e) => isInfo(e.type) || rooms.includes(e.room || ""))
+  .filter((e) => !/breakfast/i.test(e.title))
+  .map((e, i, arr) => {
+    const fullWidth = isInfo(e.type);
+    return {
+      ...e,
+      startRow: Math.round((e.startMin - minTime) / SLOT) + 2,
+      spanRows: Math.max(1, Math.round((e.endMin - e.startMin) / SLOT)),
+      colStart: fullWidth ? 1 : rooms.indexOf(e.room!) + 1,
+      colSpan: fullWidth ? rooms.length : 1,
+      zIndex: e.startMin,
+    };
+  });
+
+// Shared time grid template
+const timeGridRows = `grid-template-rows: 0.5rem repeat(${totalSlots}, 2rem)`;
+---
+
+<div class="day-schedule border-border rounded-lg border">
+  <!-- ========== MOBILE: Vertical room tabs + single-room panels ========== -->
+
+  <div class="divide-border flex flex-col divide-y md:hidden">
+    {
+      rooms.map((room, i) => (
+        <button
+          data-room-tab={i}
+          class:list={[
+            "room-tab px-3 py-2.5 text-left text-xs font-semibold tracking-wide uppercase transition-colors",
+            i === 0
+              ? "border-l-primary bg-accent/50 text-primary border-l-2"
+              : "text-muted-foreground",
+          ]}
+        >
+          {room}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    rooms.map((room, roomIndex) => {
+      const roomEvents = gridEvents.filter(
+        (e) => isInfo(e.type) || e.room === room,
+      );
+      return (
+        <div
+          data-room-panel={roomIndex}
+          class:list={[
+            "border-border border-t md:hidden",
+            roomIndex !== 0 && "hidden",
+          ]}
+        >
+          <div class="flex">
+            <div class="border-border w-14 flex-none border-r" />
+            <div class="grid flex-auto grid-cols-1 grid-rows-1">
+              <div
+                class="divide-border/40 col-start-1 col-end-2 row-start-1 grid divide-y"
+                style={timeGridRows}
+              >
+                <div class="row-end-1 h-0" />
+                <div />
+                {Array.from({ length: totalSlots }).map((_, i) => (
+                  <div>
+                    {(minTime + i * SLOT) % 60 === 0 && (
+                      <div class="text-muted-foreground sticky left-0 z-20 -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none">
+                        {formatHour(minTime + i * SLOT)}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <ol
+                class="col-start-1 col-end-2 row-start-1 grid"
+                style={`grid-template-columns: 1fr; ${timeGridRows}`}
+              >
+                {roomEvents.map((event) => (
+                  <li
+                    class:list={[
+                      "relative flex min-h-5 p-0.5",
+                      isLinkable(event) && "group/evt cursor-pointer",
+                    ]}
+                    style={`grid-row: ${event.startRow} / span ${event.spanRows}; grid-column: 1; z-index: ${event.zIndex}`}
+                  >
+                    <ScheduleEventCell event={event} />
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  }
+
+  <!-- ========== DESKTOP: Full multi-column layout ========== -->
+  <div class="hidden md:block">
+    <div>
+      <div class="border-border bg-card flex rounded-t-lg border-b">
+        <div class="border-border w-14 flex-none border-r"></div>
+        <div
+          class="divide-border grid flex-auto divide-x"
+          style={`grid-template-columns: repeat(${rooms.length}, minmax(0, 1fr))`}
+        >
+          {
+            rooms.map((room) => (
+              <div class="text-muted-foreground px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase">
+                {room}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="border-border w-14 flex-none border-r"></div>
+        <div class="grid flex-auto grid-cols-1 grid-rows-1">
+          <div
+            class="divide-border/40 col-start-1 col-end-2 row-start-1 grid divide-y"
+            style={timeGridRows}
+          >
+            <div class="row-end-1 h-0"></div>
+            <div></div>
+            {
+              Array.from({ length: totalSlots }).map((_, i) => (
+                <div>
+                  {(minTime + i * SLOT) % 60 === 0 && (
+                    <div class="text-muted-foreground sticky left-0 z-20 -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none">
+                      {formatHour(minTime + i * SLOT)}
+                    </div>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+
+          <div
+            class="divide-border/40 col-start-1 col-end-2 row-start-1 grid grid-rows-1 divide-x"
+            style={`grid-template-columns: repeat(${rooms.length}, minmax(0, 1fr))`}
+          >
+            {rooms.map(() => <div class="row-span-full" />)}
+          </div>
+
+          <ol
+            class="col-start-1 col-end-2 row-start-1 grid"
+            style={`grid-template-columns: repeat(${rooms.length}, minmax(0, 1fr)); ${timeGridRows}`}
+          >
+            {
+              gridEvents.map((event) => (
+                <li
+                  class:list={[
+                    "relative flex min-h-5 p-0.5",
+                    isLinkable(event) && "group/evt cursor-pointer",
+                  ]}
+                  style={`grid-row: ${event.startRow} / span ${event.spanRows}; grid-column: ${event.colStart} / span ${event.colSpan}; z-index: ${event.zIndex}`}
+                >
+                  <ScheduleEventCell event={event} />
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".day-schedule").forEach((schedule) => {
+    const tabs = schedule.querySelectorAll<HTMLElement>("[data-room-tab]");
+    const panels = schedule.querySelectorAll<HTMLElement>("[data-room-panel]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const idx = tab.dataset.roomTab;
+
+        tabs.forEach((t) => {
+          const isActive = t === tab;
+          t.classList.toggle("border-l-2", isActive);
+          t.classList.toggle("border-l-primary", isActive);
+          t.classList.toggle("text-primary", isActive);
+          t.classList.toggle("bg-accent/50", isActive);
+          t.classList.toggle("text-muted-foreground", !isActive);
+        });
+
+        panels.forEach((p) => {
+          p.classList.toggle("hidden", p.dataset.roomPanel !== idx);
+        });
+      });
+    });
+  });
+</script>

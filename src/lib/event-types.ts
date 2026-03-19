@@ -20,4 +20,5 @@ export type EventData = CommunityLexiconCalendarEvent.Main & {
 		index: { byteStart: number; byteEnd: number };
 		features: Array<{ $type: string; did?: string; uri?: string; tag?: string }>;
 	}>;
+	additionalData?: Record<string, unknown>;
 };

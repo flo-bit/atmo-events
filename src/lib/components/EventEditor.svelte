@@ -741,7 +741,7 @@
 								required
 								placeholder="Event name"
 								rows={2}
-								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 text-4xl leading-tight font-bold focus:border-0 focus:ring-0 focus:outline-none sm:text-5xl"
+								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 text-3xl leading-tight font-bold focus:border-0 focus:ring-0 focus:outline-none sm:text-4xl"
 							></textarea>
 						</div>
 

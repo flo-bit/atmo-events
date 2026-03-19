@@ -32,6 +32,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.12.0
         version: 3.12.0
+      '@number-flow/svelte':
+        specifier: ^0.4.0
+        version: 0.4.0(svelte@5.48.0)
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.2.1)

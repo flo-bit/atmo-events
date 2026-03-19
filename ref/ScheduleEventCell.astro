@@ -1,0 +1,109 @@
+---
+interface Speaker {
+  name: string;
+  id?: string;
+}
+
+interface Props {
+  event: {
+    id?: string;
+    title: string;
+    type: string;
+    speakers?: Speaker[];
+    start?: string;
+    end?: string;
+    description?: string;
+  };
+}
+
+const { event } = Astro.props;
+
+const linkableTypes = new Set([
+  "workshop",
+  "presentation",
+  "lightning-talk",
+  "panel",
+]);
+const href =
+  event.id && linkableTypes.has(event.type) ? `/event/${event.id}` : null;
+const isInfo = event.type === "info";
+
+function formatTime(iso: string) {
+  const date = new Date(iso);
+  if (isNaN(date.getTime())) return "";
+  return date
+    .toLocaleTimeString("en-US", {
+      timeZone: "America/Vancouver",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .toLowerCase()
+    .replace(" ", "");
+}
+
+const durationMin =
+  event.start && event.end
+    ? (new Date(event.end).getTime() - new Date(event.start).getTime()) / 60_000
+    : 0;
+
+const time = (() => {
+  if (!event.start || durationMin <= 10) return "";
+  const s = formatTime(event.start);
+  const e = event.end ? formatTime(event.end) : "";
+  return e ? `${s} – ${e}` : s;
+})();
+
+function getColors(type: string) {
+  switch (type) {
+    case "info":
+      return "event-badge event-badge-info";
+    case "activity":
+      return "event-badge event-badge-activity";
+    case "workshop":
+      return "event-badge event-badge-workshop";
+    case "lightning-talk":
+      return "event-badge event-badge-lightning";
+    case "panel":
+      return "event-badge event-badge-panel";
+    default:
+      return "event-badge event-badge-presentation";
+  }
+}
+
+function getSubColors(type: string) {
+  switch (type) {
+    case "info":
+      return "event-sub-info";
+    case "activity":
+      return "event-sub-activity";
+    case "workshop":
+      return "event-sub-workshop";
+    case "lightning-talk":
+      return "event-sub-lightning";
+    case "panel":
+      return "event-sub-panel";
+    default:
+      return "event-sub-presentation";
+  }
+}
+
+const speakerNames = event.speakers?.map((s) => s.name).join(", ");
+---
+
+<Fragment>
+  {href && <a href={href} class="absolute inset-0 z-10" />}
+  <div
+    class:list={[
+      "flex-1 overflow-hidden rounded-md px-2 py-1.5 text-xs leading-tight transition-[filter]",
+      getColors(event.type),
+      isInfo && "flex flex-col items-center justify-center text-center",
+      href && "group-hover/evt:brightness-95",
+    ]}
+  >
+    <p class="truncate font-semibold" set:html={event.title} />
+    {time && (
+      <p class:list={["truncate", getSubColors(event.type)]}>{time}</p>
+    )}
+  </div>
+</Fragment>

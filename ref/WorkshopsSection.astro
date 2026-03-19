@@ -1,0 +1,167 @@
+---
+import Card from "@/components/ui/card.astro";
+import DaySchedule from "@/components/ui/DaySchedule.astro";
+import DayScheduleTable from "@/components/ui/DayScheduleTable.astro";
+import { getLiveCollection } from "astro:content";
+
+const { entries: events = [], error } = await getLiveCollection("events");
+if (error) {
+  throw error;
+}
+
+const TZ = "America/Vancouver";
+const localDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-CA", { timeZone: TZ });
+
+const allEvents = events.filter((e) => e.data.start);
+
+const workshopRooms = [
+  "2301 Classroom",
+  "2311 Classroom",
+  "Performance Theatre",
+  "Bukhman Lounge",
+];
+
+const conferenceRooms = [
+  "Great Hall South",
+  "Performance Theatre",
+  "Room 2301",
+];
+
+const tabs = [
+  {
+    id: "workshops",
+    label: "Workshops",
+    days: [
+      {
+        date: "2026-03-26",
+        heading: "Thursday, March 26th: Workshops",
+        rooms: workshopRooms,
+      },
+      {
+        date: "2026-03-27",
+        heading: "Friday, March 27th: Workshops & ATScience",
+        rooms: workshopRooms,
+      },
+    ],
+  },
+  {
+    id: "talks",
+    label: "Talks",
+    days: [
+      {
+        date: "2026-03-28",
+        heading: "Saturday, March 28th: Conference Day 1",
+        rooms: conferenceRooms,
+      },
+      {
+        date: "2026-03-29",
+        heading: "Sunday, March 29th: Conference Day 2",
+        rooms: conferenceRooms,
+      },
+    ],
+  },
+] as const;
+
+let tableCounter = 0;
+---
+
+<section>
+  <Card title="schedule">
+    We have two days of pre-conference events and activities, happening
+    Thursday, March 26th and Friday, March 27th, and two days of talks, panels,
+    and lightning talks on Saturday, March 28th and Sunday, March 29th.
+    <div class="bg-card mt-8 flex gap-2 py-2" id="schedule-tab-bar">
+      {
+        tabs.map((tab, i) => (
+          <button
+            data-schedule-tab={tab.id}
+            class:list={[
+              "schedule-tab rounded-md px-4 py-2 text-sm font-semibold transition-colors",
+              i === 0
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-secondary-foreground",
+            ]}
+          >
+            {tab.label}
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      tabs.map((tab, i) => (
+        <div data-schedule-panel={tab.id} class:list={[i !== 0 && "hidden"]}>
+          {tab.id === "workshops" && (
+            <p class="text-foreground mt-4">
+              Workshops are included with your ticket. There is a maximum
+              capacity, so please do select activities in your ticket
+              registration form.
+            </p>
+          )}
+          {tab.days.map(({ date, heading, rooms }) => {
+            const dayEvents = allEvents
+              .filter((w) => w.data.start && localDate(w.data.start) === date)
+              .map((w) => ({ id: w.id, ...w.data }));
+            const ti = tableCounter++;
+
+            return (
+              <div class="mt-6 overflow-hidden">
+                <h3 class="text-foreground mb-4 text-lg font-semibold">
+                  {heading}
+                </h3>
+                <div class="schedule-grid-view">
+                  <DaySchedule events={dayEvents} rooms={rooms} />
+                </div>
+                <div class="schedule-table-view">
+                  <DayScheduleTable events={dayEvents} rooms={rooms} tableIndex={ti} />
+                </div>
+              </div>
+            );
+          })}
+          <div class="mt-6 flex justify-end">
+            <button
+              data-schedule-goto={tabs[1 - i].id}
+              class="bg-secondary text-secondary-foreground rounded-md px-4 py-2 text-sm font-semibold transition-colors"
+            >
+              Go to {tabs[1 - i].label} →
+            </button>
+          </div>
+        </div>
+      ))
+    }
+  </Card>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLElement>("[data-schedule-tab]");
+  const panels = document.querySelectorAll<HTMLElement>(
+    "[data-schedule-panel]",
+  );
+  const gotos = document.querySelectorAll<HTMLElement>("[data-schedule-goto]");
+
+  function switchTab(id: string | undefined) {
+    if (!id) return;
+    tabs.forEach((t) => {
+      const active = t.dataset.scheduleTab === id;
+      t.classList.toggle("bg-primary", active);
+      t.classList.toggle("text-primary-foreground", active);
+      t.classList.toggle("bg-secondary", !active);
+      t.classList.toggle("text-secondary-foreground", !active);
+    });
+    panels.forEach((p) => {
+      p.classList.toggle("hidden", p.dataset.schedulePanel !== id);
+    });
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => switchTab(tab.dataset.scheduleTab));
+  });
+
+  gotos.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      switchTab(btn.dataset.scheduleGoto);
+      tabs[0]?.closest("section")?.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+</script>
