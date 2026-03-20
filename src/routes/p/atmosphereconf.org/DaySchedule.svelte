@@ -44,7 +44,7 @@
 </script>
 
 <div
-	class="border-base-200 dark:border-base-800 bg-base-200 dark:bg-base-950/50 overflow-hidden rounded-xl border"
+	class="border-base-200 dark:border-base-800 bg-base-100/60 dark:bg-base-950/50 overflow-hidden rounded-xl border"
 >
 	<!-- Mobile: room tabs -->
 	<div
@@ -122,7 +122,7 @@
 	<div class="hidden overflow-x-auto md:block">
 		<div style="min-width: {rooms.length * 10 + 4}rem">
 			<div
-				class="border-base-200 dark:border-base-800 bg-base-200 dark:bg-base-950/50 flex border-b"
+				class="border-base-200 dark:border-base-800 bg-base-100/60 dark:bg-base-950/50 flex border-b"
 			>
 				<div class="border-base-200 dark:border-base-800 w-14 shrink-0 border-r"></div>
 				<div
