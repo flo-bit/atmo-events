@@ -283,7 +283,7 @@ export async function listEventAttendeesFromContrail(
 				subjectUri: eventUri,
 				status: RSVP_GOING,
 				profiles: true,
-				limit: 100
+				limit: 200
 			}
 		}),
 		contrail.get('community.lexicon.calendar.rsvp.listRecords', {
@@ -291,7 +291,7 @@ export async function listEventAttendeesFromContrail(
 				subjectUri: eventUri,
 				status: RSVP_INTERESTED,
 				profiles: true,
-				limit: 100
+				limit: 200
 			}
 		})
 	]);
