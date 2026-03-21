@@ -73,7 +73,7 @@
 			{/if}
 
 			{#if event.description}
-				<p class="text-base-500 dark:text-base-400 mt-3 text-sm">{event.description}</p>
+				<p class="text-base-500 dark:text-base-400 mt-3 line-clamp-3 break-words text-sm">{event.description}</p>
 			{/if}
 
 			<EventRsvp
