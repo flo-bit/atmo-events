@@ -23,7 +23,8 @@
 	);
 
 	let scheduleEvents = $derived(getScheduleEvents(data.events));
-	let rsvpUris = $derived(new Set(data.rsvpEventUris ?? []));
+	let rsvpStatuses: Record<string, string> = $state(data.rsvpStatuses ?? {});
+	let rsvpRkeys: Record<string, string> = $state(data.rsvpRkeys ?? {});
 	let filterMode: string = $state('all');
 	let selectedDay: string = $state('all');
 
@@ -73,6 +74,18 @@
 		const lastEnd = last.end || last.start;
 		return now >= new Date(first) && now <= new Date(lastEnd);
 	});
+
+	function handleRsvpChange(uri: string, status: string | null, rkey?: string) {
+		if (status) {
+			rsvpStatuses = { ...rsvpStatuses, [uri]: status };
+			if (rkey) rsvpRkeys = { ...rsvpRkeys, [uri]: rkey };
+		} else {
+			const { [uri]: _, ...rest } = rsvpStatuses;
+			rsvpStatuses = rest;
+			const { [uri]: __, ...restKeys } = rsvpRkeys;
+			rsvpRkeys = restKeys;
+		}
+	}
 
 	function scrollToNow() {
 		const els = document.querySelectorAll('[data-now-line]');
@@ -193,8 +206,11 @@
 					bind:activeRoom={() => activeRooms[dayIndex] ?? 0, (v) => (activeRooms[dayIndex] = v)}
 					{nowVancouverKey}
 					{nowVancouverMinutes}
-					{rsvpUris}
+					{rsvpStatuses}
+					{rsvpRkeys}
 					dimUnattended={filterMode === 'attending'}
+					loggedIn={data.loggedIn}
+					onrsvpchange={handleRsvpChange}
 				/>
 			</section>
 		{/each}

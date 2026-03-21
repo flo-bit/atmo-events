@@ -18,8 +18,11 @@
 		activeRoom = $bindable(0),
 		nowVancouverKey,
 		nowVancouverMinutes,
-		rsvpUris = new Set(),
-		dimUnattended = false
+		rsvpStatuses = {},
+		rsvpRkeys = {},
+		dimUnattended = false,
+		loggedIn = false,
+		onrsvpchange
 	}: {
 		grid: GridData;
 		rooms: string[];
@@ -28,8 +31,11 @@
 		activeRoom: number;
 		nowVancouverKey: string;
 		nowVancouverMinutes: number;
-		rsvpUris?: Set<string>;
+		rsvpStatuses?: Record<string, string>;
+		rsvpRkeys?: Record<string, string>;
 		dimUnattended?: boolean;
+		loggedIn?: boolean;
+		onrsvpchange?: (uri: string, status: string | null, rkey?: string) => void;
 	} = $props();
 
 	let dayKey = $derived(dayEvents[0]?.start ? getDayKey(dayEvents[0].start) : '');
@@ -39,7 +45,8 @@
 		if (!dimUnattended) return false;
 		if (event.type === 'info') return true;
 		const uri = `at://${event.did}/community.lexicon.calendar.event/${event.rkey}`;
-		return !rsvpUris.has(uri);
+		const status = rsvpStatuses[uri];
+		return !status || status === 'notgoing';
 	}
 </script>
 
@@ -97,7 +104,7 @@
 								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: 1; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} />
+								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} {onrsvpchange} />
 							</li>
 						{/each}
 						{#if nowRow}
@@ -179,7 +186,7 @@
 								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: {event.colStart} / span {event.colSpan}; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} />
+								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} {onrsvpchange} />
 							</li>
 						{/each}
 						{#if nowRow}

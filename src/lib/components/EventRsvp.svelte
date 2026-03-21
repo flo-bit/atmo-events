@@ -12,14 +12,16 @@
 		initialRsvpStatus = null,
 		initialRsvpRkey = null,
 		onrsvp,
-		oncancel
+		oncancel,
+		onlogin
 	}: {
 		eventUri: string;
 		eventCid: string | null;
 		initialRsvpStatus?: 'going' | 'interested' | 'notgoing' | null;
 		initialRsvpRkey?: string | null;
-		onrsvp?: (status: 'going' | 'interested') => void;
+		onrsvp?: (status: 'going' | 'interested', rkey: string) => void;
 		oncancel?: () => void;
+		onlogin?: () => void;
 	} = $props();
 
 	let rsvpStatusOverride: 'going' | 'interested' | 'notgoing' | null | undefined = $state(
@@ -58,7 +60,7 @@
 				rsvpStatusOverride = status;
 				rsvpRkeyOverride = key;
 				launchConfetti();
-				onrsvp?.(status);
+				onrsvp?.(status, key);
 			}
 		} catch (e) {
 			console.error('Failed to submit RSVP:', e);
@@ -95,7 +97,7 @@
 		<div class="flex items-center justify-between gap-4">
 			<p class="text-base-600 dark:text-base-400 text-sm">Log in to RSVP to this event</p>
 
-			<Button onclick={() => atProtoLoginModalState.show()}>Log in to RSVP</Button>
+			<Button onclick={() => { onlogin?.(); atProtoLoginModalState.show(); }}>Log in to RSVP</Button>
 		</div>
 	{:else if rsvpStatus === 'going'}
 		<div class="flex items-center justify-between">

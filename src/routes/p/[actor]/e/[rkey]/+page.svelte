@@ -6,7 +6,7 @@
 	import Map from '$lib/components/Map.svelte';
 	import ShareModal from '$lib/components/ShareModal.svelte';
 	import Avatar from 'svelte-boring-avatars';
-	import EventRsvp from './EventRsvp.svelte';
+	import EventRsvp from '$lib/components/EventRsvp.svelte';
 	import EventCard from '$lib/components/EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
 	import { page } from '$app/state';

@@ -10,6 +10,8 @@ export interface ScheduleEvent {
 	room?: string;
 	description?: string;
 	did: string;
+	uri: string;
+	cid?: string | null;
 }
 
 export interface GridEvent extends ScheduleEvent {
@@ -131,7 +133,9 @@ export function getScheduleEvents(events: FlatEventRecord[]): ScheduleEvent[] {
 				end: e.endsAt,
 				room: ad.room as string | undefined,
 				description: e.description,
-				did: e.did
+				did: e.did,
+				uri: e.uri,
+				cid: e.cid
 			};
 		})
 		.sort((a, b) => a.start.localeCompare(b.start));

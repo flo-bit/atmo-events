@@ -25,14 +25,17 @@ export async function load({ locals }) {
 
 	const events = response ? flattenEventRecords(response.records) : [];
 
-	// Build a set of event URIs the user has RSVP'd to (going or interested)
-	const rsvpEventUris = new Set<string>();
+	// Build maps of event URI → rsvp status and rkey
+	const rsvpStatuses: Record<string, string> = {};
+	const rsvpRkeys: Record<string, string> = {};
 	if (rsvpResponse?.ok) {
 		for (const r of rsvpResponse.data.records ?? []) {
 			const status = r.record?.status;
-			if (status?.endsWith('#going') || status?.endsWith('#interested')) {
-				const uri = r.record?.subject?.uri;
-				if (uri) rsvpEventUris.add(uri);
+			const uri = r.record?.subject?.uri;
+			if (status && uri) {
+				const shortStatus = status.split('#').pop()!;
+				rsvpStatuses[uri] = shortStatus;
+				if (r.rkey) rsvpRkeys[uri] = r.rkey;
 			}
 		}
 	}
@@ -41,7 +44,8 @@ export async function load({ locals }) {
 		hostProfile: profile,
 		events,
 		actor,
-		rsvpEventUris: [...rsvpEventUris],
+		rsvpStatuses,
+		rsvpRkeys,
 		loggedIn: !!locals.did
 	};
 }

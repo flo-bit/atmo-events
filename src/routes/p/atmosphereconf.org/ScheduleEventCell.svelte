@@ -7,14 +7,33 @@
 		durationMinutes,
 		formatTime
 	} from './schedule-utils';
+	import { Modal, Button } from '@foxui/core';
+	import EventRsvp from '$lib/components/EventRsvp.svelte';
 
-	let { event }: { event: GridEvent } = $props();
+	let {
+		event,
+		rsvpStatuses = {},
+		rsvpRkeys = {},
+		loggedIn = false,
+		onrsvpchange
+	}: {
+		event: GridEvent;
+		rsvpStatuses?: Record<string, string>;
+		rsvpRkeys?: Record<string, string>;
+		loggedIn?: boolean;
+		onrsvpchange?: (uri: string, status: string | null, rkey?: string) => void;
+	} = $props();
+
+	let modalOpen = $state(false);
+
+	let initialRsvpStatus = $derived((rsvpStatuses[event.uri] as 'going' | 'interested' | 'notgoing' | undefined) ?? null);
+	let initialRsvpRkey = $derived(rsvpRkeys[event.uri] ?? null);
 </script>
 
 {#if linkableTypes.has(event.type) && event.rkey}
-	<a
-		href="/p/atmosphereconf.org/e/{event.rkey}"
-		class="flex-1 overflow-hidden rounded-md leading-tight transition-[filter] hover:brightness-95 {getEventColor(
+	<button
+		onclick={() => (modalOpen = true)}
+		class="relative cursor-pointer flex-1 overflow-hidden rounded-md leading-tight transition-[filter] hover:brightness-95 {getEventColor(
 			event.type
 		)} {event.type === 'info'
 			? 'flex flex-col items-center justify-center px-2 py-1.5 text-center text-xs'
@@ -26,7 +45,50 @@
 		{#if event.speakers?.length && !isLightning(event.type)}
 			<p class="mt-0.5 opacity-75">{event.speakers.map((s) => s.name).join(', ')}</p>
 		{/if}
-	</a>
+		{#if initialRsvpStatus === 'going'}
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-1 bottom-1 size-3 opacity-60">
+				<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+			</svg>
+		{:else if initialRsvpStatus === 'interested'}
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-1 bottom-1 size-3 opacity-60">
+				<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+			</svg>
+		{/if}
+	</button>
+
+	<Modal bind:open={modalOpen}>
+		<div>
+			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">{event.title}</h2>
+
+			{#if event.start}
+				<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
+					{formatTime(event.start)}{event.end ? ` – ${formatTime(event.end)}` : ''}
+				</p>
+			{/if}
+
+			{#if event.speakers?.length}
+				<p class="text-base-600 dark:text-base-300 mt-1 text-sm">
+					{event.speakers.map((s) => s.name).join(', ')}
+				</p>
+			{/if}
+
+			{#if event.description}
+				<p class="text-base-500 dark:text-base-400 mt-3 text-sm">{event.description}</p>
+			{/if}
+
+			<EventRsvp
+				eventUri={event.uri}
+				eventCid={event.cid ?? null}
+				{initialRsvpStatus}
+				{initialRsvpRkey}
+				onlogin={() => (modalOpen = false)}
+				onrsvp={(status, key) => { onrsvpchange?.(event.uri, status, key); modalOpen = false; }}
+				oncancel={() => { onrsvpchange?.(event.uri, null); }}
+			/>
+
+			<Button href="/p/atmosphereconf.org/e/{event.rkey}" variant="secondary" class="mt-2 w-full">Go to event</Button>
+		</div>
+	</Modal>
 {:else}
 	<div
 		class="flex-1 overflow-hidden rounded-md leading-tight {getEventColor(
