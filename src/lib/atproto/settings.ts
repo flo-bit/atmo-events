@@ -15,8 +15,12 @@ export const scopes = [
 	'atproto',
 	scope.repo({ collection: [...collections] }),
 	scope.blob({ accept: ['image/*'] }),
+	// aud=* is required — PDS doesn't support specific-DID rpc scoping:
+	// bare DID gets silently dropped from consent, DID#fragment shows in consent
+	// but getServiceAuth rejects fragments as invalid DIDs. Security is enforced
+	// API-side: verifyAndExchange() validates aud matches SERVICE_DID.
 	...(OPENMEET_SERVICE_DID
-		? [scope.rpc({ lxm: ['net.openmeet.auth'], aud: OPENMEET_SERVICE_DID })]
+		? [scope.rpc({ lxm: ['net.openmeet.auth'], aud: '*' })]
 		: [])
 ];
 
