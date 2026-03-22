@@ -3,6 +3,7 @@
 	import { marked } from 'marked';
 	import { sanitize } from '$lib/cal/sanitize';
 	import EventDetail from '$lib/components/EventDetail.svelte';
+	import Map from '$lib/components/Map.svelte';
 	import OpenMeetRsvp from './OpenMeetRsvp.svelte';
 
 	let { data } = $props();
@@ -41,6 +42,10 @@
 				mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`
 			}
 		: null}
+	{@const geoLocation = event.lat != null && event.lon != null
+		? { lat: event.lat, lng: event.lon }
+		: null}
+	{@const hostUrl = event.user?.did ? `/p/${event.user.handle || event.user.did}` : null}
 
 	<EventDetail
 		name={event.name}
@@ -71,6 +76,31 @@
 			<OpenMeetRsvp userRsvpStatus={event.userRsvpStatus} />
 		{/snippet}
 
+		{#snippet belowDescription()}
+			{#if geoLocation && location}
+				<div class="mt-8 mb-8">
+					<p
+						class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+					>
+						Location
+					</p>
+					<a
+						href={location.mapsUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="block transition-opacity hover:opacity-80"
+					>
+						<div class="h-64 w-full overflow-hidden rounded-xl">
+							<Map lat={geoLocation.lat} lng={geoLocation.lng} />
+						</div>
+						<p class="text-base-500 dark:text-base-400 mt-2 text-sm">
+							{event.location}
+						</p>
+					</a>
+				</div>
+			{/if}
+		{/snippet}
+
 		{#snippet sidebar()}
 			<!-- Hosted By -->
 			{#if event.user}
@@ -80,16 +110,34 @@
 					>
 						Hosted By
 					</p>
-					<div
-						class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium"
-					>
-						<FoxAvatar
-							src={event.user.photo?.path}
-							alt={event.user.name}
-							class="size-8 shrink-0"
-						/>
-						<span class="truncate text-sm">{event.user.name}</span>
-					</div>
+					{#if hostUrl}
+						<a
+							href={hostUrl}
+							class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
+						>
+							<FoxAvatar
+								src={event.user.avatar}
+								alt={event.user.displayName || event.user.handle || event.user.did}
+								class="size-8 shrink-0"
+							/>
+							<span class="truncate text-sm">
+								{event.user.displayName || event.user.handle || event.user.did}
+							</span>
+						</a>
+					{:else}
+						<div
+							class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium"
+						>
+							<FoxAvatar
+								src={event.user.avatar}
+								alt={event.user.displayName || 'Organizer'}
+								class="size-8 shrink-0"
+							/>
+							<span class="truncate text-sm">
+								{event.user.displayName || 'Organizer'}
+							</span>
+						</div>
+					{/if}
 				</div>
 			{/if}
 
@@ -117,24 +165,45 @@
 						Attendees
 					</p>
 					<div class="space-y-2">
-						{#each event.attendees as attendee (attendee.id)}
-							<div
-								class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium"
-							>
-								<FoxAvatar
-									src={attendee.user.photo?.path}
-									alt={attendee.user.name}
-									class="size-8 shrink-0"
-								/>
-								<div class="min-w-0">
-									<span class="truncate text-sm">{attendee.user.name}</span>
-									{#if attendee.role && attendee.role.name !== 'attendee'}
-										<span class="text-base-500 dark:text-base-400 ml-1 text-xs">
-											({attendee.role.name})
-										</span>
-									{/if}
+						{#each event.attendees as attendee (attendee.did || attendee.name)}
+							{#if attendee.url}
+								<a
+									href={attendee.url}
+									class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
+								>
+									<FoxAvatar
+										src={attendee.avatar}
+										alt={attendee.name || attendee.handle || attendee.did}
+										class="size-8 shrink-0"
+									/>
+									<div class="min-w-0">
+										<span class="truncate text-sm">{attendee.name || attendee.handle || attendee.did}</span>
+										{#if attendee.role && attendee.role !== 'participant'}
+											<span class="text-base-500 dark:text-base-400 ml-1 text-xs">
+												({attendee.role})
+											</span>
+										{/if}
+									</div>
+								</a>
+							{:else}
+								<div
+									class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium"
+								>
+									<FoxAvatar
+										src={attendee.avatar}
+										alt={attendee.name || 'Attendee'}
+										class="size-8 shrink-0"
+									/>
+									<div class="min-w-0">
+										<span class="truncate text-sm">{attendee.name || 'Attendee'}</span>
+										{#if attendee.role && attendee.role !== 'participant'}
+											<span class="text-base-500 dark:text-base-400 ml-1 text-xs">
+												({attendee.role})
+											</span>
+										{/if}
+									</div>
 								</div>
-							</div>
+							{/if}
 						{/each}
 						{#if event.attendeesCount > event.attendees.length}
 							<p class="text-base-500 dark:text-base-400 text-xs">
