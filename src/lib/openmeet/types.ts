@@ -50,25 +50,46 @@ export interface OpenMeetEvent {
 	slug: string;
 	name: string;
 	description: string;
-	startDate: string;
-	endDate: string | null;
-	location: string | null;
-	locationOnline: string | null;
-	type: string;
+	// Normalized list fields (lexicon names)
+	startsAt: string;
+	endsAt: string | null;
+	locations: Array<{ $type: string; description?: string; locality?: string; region?: string }>;
+	uris: Array<{ uri: string; name?: string }>;
+	mode: string;
+	uri: string | null;
+	did: string | null;
+	media: Array<{ role: string; alt?: string; url?: string; content?: unknown }>;
+	// Common fields
 	visibility: string;
 	status: string;
-	timeZone: string | null;
-	maxAttendees: number;
-	atprotoUri: string | null;
 	group: OpenMeetEventGroup | null;
-	user: OpenMeetUser | null;
-	attendees: OpenMeetAttendee[];
 	attendeesCount: number;
 	userRsvpStatus: string | null;
-	categories: OpenMeetCategory[];
-	image: string | null;
-	lat: number | null;
-	lon: number | null;
+	// Detail-only fields (present in detail response, not list)
+	timeZone?: string | null;
+	maxAttendees?: number;
+	user?: OpenMeetDetailUser | null;
+	attendees?: OpenMeetDetailAttendee[];
+	categories?: OpenMeetCategory[];
+	lat?: number | null;
+	lon?: number | null;
+}
+
+// Detail endpoint returns a different user/attendee shape than the old types
+export interface OpenMeetDetailUser {
+	did: string | null;
+	handle: string | null;
+	displayName: string;
+	avatar: string | null;
+}
+
+export interface OpenMeetDetailAttendee {
+	did: string | null;
+	handle: string | null;
+	name: string;
+	avatar: string | null;
+	url: string;
+	role: string | null;
 }
 
 export interface OpenMeetTokens {

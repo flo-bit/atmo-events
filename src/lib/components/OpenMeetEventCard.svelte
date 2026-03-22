@@ -13,6 +13,24 @@
 			minute: '2-digit'
 		});
 	}
+
+	function getLocationString(locations: OpenMeetEvent['locations']): string | undefined {
+		if (!locations?.length) return undefined;
+		const loc = locations[0];
+		return loc.description || [loc.locality, loc.region].filter(Boolean).join(', ') || undefined;
+	}
+
+	function getModeLabel(mode: string | undefined): string | undefined {
+		if (!mode) return undefined;
+		if (mode.includes('virtual')) return 'Virtual';
+		if (mode.includes('hybrid')) return 'Hybrid';
+		if (mode.includes('inperson')) return 'In-Person';
+		return undefined;
+	}
+
+	let thumbnail = $derived(event.media?.find((m) => m.role === 'thumbnail')?.url);
+	let location = $derived(getLocationString(event.locations));
+	let mode = $derived(getModeLabel(event.mode));
 </script>
 
 <a
@@ -20,9 +38,9 @@
 	class="group grid grid-cols-[4rem_1fr] gap-3 transition-colors sm:grid-cols-[5rem_1fr] sm:gap-4"
 >
 	<div class="w-full">
-		{#if event.image}
+		{#if thumbnail}
 			<img
-				src={event.image}
+				src={thumbnail}
 				alt={event.name}
 				class="border-base-200 dark:border-base-800 aspect-square w-full rounded-2xl border object-cover"
 			/>
@@ -43,7 +61,7 @@
 
 	<div class="min-w-0 self-center">
 		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
-			{formatDateTime(event.startDate)}
+			{formatDateTime(event.startsAt)}
 			{#if event.visibility !== 'public'}
 				<span class="inline-flex items-center gap-1 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-2.5">
@@ -58,10 +76,14 @@
 		>
 			{event.name}
 		</h3>
-		{#if event.location || event.group}
+		{#if location || mode || event.group}
 			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
-				{#if event.location}{event.location}{/if}
-				{#if event.location && event.group}
+				{#if location}{location}{/if}
+				{#if location && (mode || event.group)}
+					<span class="mx-1">&middot;</span>
+				{/if}
+				{#if mode}{mode}{/if}
+				{#if mode && event.group}
 					<span class="mx-1">&middot;</span>
 				{/if}
 				{#if event.group}{event.group.name}{/if}

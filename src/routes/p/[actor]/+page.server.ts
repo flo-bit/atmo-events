@@ -66,7 +66,7 @@ export async function load({ params, locals }: { params: { actor: string }; loca
 		(e: OpenMeetEvent) =>
 			e.userRsvpStatus &&
 			activeRsvpStatuses.has(e.userRsvpStatus) &&
-			(!e.atprotoUri || !attendingUris.has(e.atprotoUri))
+			(!e.uri || !attendingUris.has(e.uri))
 	);
 
 	return {

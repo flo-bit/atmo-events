@@ -26,8 +26,8 @@ export const actions: Actions = {
 			return fail(401, { error: 'Not connected to OpenMeet' });
 		}
 		const result = await attendEvent(locals.openmeetToken, params.slug);
-		if (!result) {
-			return fail(500, { error: 'Failed to RSVP' });
+		if (!result.ok) {
+			return fail(500, { error: result.error });
 		}
 		return { success: true, status: result.status };
 	},
@@ -35,9 +35,9 @@ export const actions: Actions = {
 		if (!locals.openmeetToken) {
 			return fail(401, { error: 'Not connected to OpenMeet' });
 		}
-		const ok = await cancelAttendEvent(locals.openmeetToken, params.slug);
-		if (!ok) {
-			return fail(500, { error: 'Failed to cancel RSVP' });
+		const result = await cancelAttendEvent(locals.openmeetToken, params.slug);
+		if (!result.ok) {
+			return fail(500, { error: result.error });
 		}
 		return { success: true };
 	}

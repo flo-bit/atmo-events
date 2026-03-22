@@ -29,8 +29,8 @@
 		typeof window !== 'undefined' ? `${window.location.origin}${eventPath}` : eventPath
 	);
 
-	let startDate = $derived(new Date(eventData.startsAt));
-	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
+	let startsAt = $derived(new Date(eventData.startsAt));
+	let endsAt = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
 
 	function getModeLabel(mode: string): string {
 		if (mode.includes('virtual')) return 'Virtual';
@@ -287,8 +287,8 @@
 	imageAlt={displayImage?.alt}
 	avatarSeed={data.rkey}
 	showImage={!isBannerOnly}
-	{startDate}
-	{endDate}
+	{startsAt}
+	{endsAt}
 	{descriptionHtml}
 	location={normalizedLocation}
 >

@@ -55,7 +55,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// Filter OpenMeet events: only include those NOT already in Contrail
 	// (private events won't have atprotoUri, so they always pass through)
 	const uniquePrivateEvents = privateEvents.filter(
-		(e: OpenMeetEvent) => !e.atprotoUri || !contrailUris.has(e.atprotoUri)
+		(e: OpenMeetEvent) => !e.uri || !contrailUris.has(e.uri)
 	);
 
 	// Merge into a single sorted array
@@ -68,7 +68,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		})),
 		...uniquePrivateEvents.map((e): OpenMeetDisplayEvent => ({
 			source: 'openmeet',
-			sortDate: e.startDate,
+			sortDate: e.startsAt,
 			event: e
 		}))
 	].sort((a, b) => new Date(a.sortDate).getTime() - new Date(b.sortDate).getTime());

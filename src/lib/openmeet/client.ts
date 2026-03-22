@@ -58,22 +58,35 @@ export async function getEvent(
 	return res.json();
 }
 
-export async function attendEvent(accessToken: string, slug: string): Promise<{ status: string } | null> {
+export async function attendEvent(
+	accessToken: string,
+	slug: string
+): Promise<{ ok: true; status: string } | { ok: false; error: string }> {
 	const res = await fetch(`${OPENMEET_URL}/api/events/${slug}/attend`, {
 		method: 'POST',
 		headers: headers(accessToken)
 	});
-	if (!res.ok) return null;
+	if (!res.ok) {
+		const body = await res.json().catch(() => ({}));
+		return { ok: false, error: (body as { message?: string }).message || `RSVP failed (${res.status})` };
+	}
 	const data = (await res.json()) as { status?: string };
-	return { status: data.status || 'confirmed' };
+	return { ok: true, status: data.status || 'confirmed' };
 }
 
-export async function cancelAttendEvent(accessToken: string, slug: string): Promise<boolean> {
+export async function cancelAttendEvent(
+	accessToken: string,
+	slug: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
 	const res = await fetch(`${OPENMEET_URL}/api/events/${slug}/cancel-attending`, {
 		method: 'POST',
 		headers: headers(accessToken)
 	});
-	return res.ok;
+	if (!res.ok) {
+		const body = await res.json().catch(() => ({}));
+		return { ok: false, error: (body as { message?: string }).message || `Cancel failed (${res.status})` };
+	}
+	return { ok: true };
 }
 
 /**

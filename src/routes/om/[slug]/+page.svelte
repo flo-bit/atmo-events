@@ -8,17 +8,25 @@
 
 	let { data } = $props();
 
-	function getModeLabel(type: string): string {
-		if (type === 'online') return 'Virtual';
-		if (type === 'hybrid') return 'Hybrid';
-		return 'In-Person';
+	function getModeLabel(mode: string | undefined): string {
+		if (!mode) return 'Event';
+		if (mode.includes('virtual')) return 'Virtual';
+		if (mode.includes('hybrid')) return 'Hybrid';
+		if (mode.includes('inperson')) return 'In-Person';
+		return 'Event';
 	}
 
-	function getModeColor(type: string): 'cyan' | 'purple' | 'amber' | 'secondary' {
-		if (type === 'online') return 'cyan';
-		if (type === 'hybrid') return 'purple';
-		if (type === 'in-person' || type === 'in_person') return 'amber';
+	function getModeColor(mode: string | undefined): 'cyan' | 'purple' | 'amber' | 'secondary' {
+		if (!mode) return 'secondary';
+		if (mode.includes('virtual')) return 'cyan';
+		if (mode.includes('hybrid')) return 'purple';
+		if (mode.includes('inperson')) return 'amber';
 		return 'secondary';
+	}
+
+	function getLocationString(locations: Array<{ $type: string; description?: string }> | undefined): string | null {
+		if (!locations?.length) return null;
+		return locations[0].description || null;
 	}
 </script>
 
@@ -36,10 +44,11 @@
 	{@const descriptionHtml = event.description
 		? sanitize(marked.parse(event.description) as string)
 		: null}
-	{@const location = event.location
+	{@const locationStr = getLocationString(event.locations)}
+	{@const location = locationStr
 		? {
-				text: event.location,
-				mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`
+				text: locationStr,
+				mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationStr)}`
 			}
 		: null}
 	{@const geoLocation = event.lat != null && event.lon != null
@@ -49,15 +58,15 @@
 
 	<EventDetail
 		name={event.name}
-		image={event.image}
+		image={event.media?.find(m => m.role === 'thumbnail')?.url}
 		avatarSeed={event.slug}
-		startDate={new Date(event.startDate)}
-		endDate={event.endDate ? new Date(event.endDate) : null}
+		startsAt={new Date(event.startsAt)}
+		endsAt={event.endsAt ? new Date(event.endsAt) : null}
 		{descriptionHtml}
 		{location}
 	>
 		{#snippet badges()}
-			<Badge size="md" variant={getModeColor(event.type)}>{getModeLabel(event.type)}</Badge>
+			<Badge size="md" variant={getModeColor(event.mode)}>{getModeLabel(event.mode)}</Badge>
 			<Badge size="md" variant="secondary">{event.visibility}</Badge>
 			{#if event.group}
 				<Badge size="md" variant="secondary">{event.group.name}</Badge>
@@ -94,7 +103,7 @@
 							<Map lat={geoLocation.lat} lng={geoLocation.lng} />
 						</div>
 						<p class="text-base-500 dark:text-base-400 mt-2 text-sm">
-							{event.location}
+							{locationStr}
 						</p>
 					</a>
 				</div>

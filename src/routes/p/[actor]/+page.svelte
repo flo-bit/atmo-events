@@ -32,12 +32,12 @@
 	let privateAttendingEvents = $derived(
 		[...(data.privateAttending ?? [])]
 			.filter((event: OpenMeetEvent) => {
-				const endDate = new Date(event.endDate || event.startDate);
+				const endDate = new Date(event.endsAt || event.startsAt);
 				return endDate >= now;
 			})
 			.sort(
 				(a: OpenMeetEvent, b: OpenMeetEvent) =>
-					new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+					new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
 			)
 	);
 </script>

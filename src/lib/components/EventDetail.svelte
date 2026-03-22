@@ -9,8 +9,8 @@
 		imageAlt = undefined,
 		avatarSeed,
 		showImage = true,
-		startDate,
-		endDate = null,
+		startsAt,
+		endsAt = null,
 		descriptionHtml = null,
 		location = null,
 		banner,
@@ -26,8 +26,8 @@
 		imageAlt?: string;
 		avatarSeed: string;
 		showImage?: boolean;
-		startDate: Date;
-		endDate?: Date | null;
+		startsAt: Date;
+		endsAt?: Date | null;
 		descriptionHtml?: string | null;
 		location?: { text: string; secondaryText?: string; mapsUrl: string } | null;
 		banner?: Snippet;
@@ -40,10 +40,10 @@
 	} = $props();
 
 	let isSameDay = $derived(
-		endDate &&
-			startDate.getFullYear() === endDate.getFullYear() &&
-			startDate.getMonth() === endDate.getMonth() &&
-			startDate.getDate() === endDate.getDate()
+		endsAt &&
+			startsAt.getFullYear() === endsAt.getFullYear() &&
+			startsAt.getMonth() === endsAt.getMonth() &&
+			startsAt.getDate() === endsAt.getDate()
 	);
 </script>
 
@@ -108,23 +108,23 @@
 						<span
 							class="text-base-500 dark:text-base-400 text-[9px] leading-none font-semibold"
 						>
-							{formatMonth(startDate)}
+							{formatMonth(startsAt)}
 						</span>
 						<span class="text-base-900 dark:text-base-50 text-lg leading-tight font-bold">
-							{formatDay(startDate)}
+							{formatDay(startsAt)}
 						</span>
 					</div>
 					<div>
 						<p class="text-base-900 dark:text-base-50 font-semibold">
-							{formatWeekday(startDate)}, {formatFullDate(startDate)}
-							{#if endDate && !isSameDay}
-								- {formatWeekday(endDate)}, {formatFullDate(endDate)}
+							{formatWeekday(startsAt)}, {formatFullDate(startsAt)}
+							{#if endsAt && !isSameDay}
+								- {formatWeekday(endsAt)}, {formatFullDate(endsAt)}
 							{/if}
 						</p>
 						<p class="text-base-500 dark:text-base-400 text-sm">
-							{formatTime(startDate)}
-							{#if endDate && isSameDay}
-								- {formatTime(endDate)}
+							{formatTime(startsAt)}
+							{#if endsAt && isSameDay}
+								- {formatTime(endsAt)}
 							{/if}
 						</p>
 					</div>

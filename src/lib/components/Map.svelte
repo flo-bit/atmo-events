@@ -12,11 +12,13 @@
 		zoom?: number;
 	} = $props();
 
-	let center = $state({ lng, lat });
+	let center: { lng: number; lat: number } = $state({ lng: 0, lat: 0 });
 	let showAttribution = $state(false);
 	let map: maplibregl.Map | undefined = $state();
 
-	const fixedCenter = { lng, lat };
+	$effect(() => { center = { lng, lat }; });
+
+	let fixedCenter = $derived({ lng, lat });
 
 	function handleZoom() {
 		if (map) {

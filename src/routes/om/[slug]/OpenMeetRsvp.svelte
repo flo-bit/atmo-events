@@ -10,7 +10,8 @@
 	} = $props();
 
 	let submitting = $state(false);
-	let currentStatus: string | null = $state(userRsvpStatus);
+	let currentStatus: string | null = $state(null);
+	$effect(() => { currentStatus = userRsvpStatus; });
 
 	function statusLabel(status: string): string {
 		switch (status) {
