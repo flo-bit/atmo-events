@@ -54,5 +54,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		})
 		.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
 
-	return { events, loggedIn: true };
+	return { events, loggedIn: true, did: locals.did };
 };
