@@ -32,13 +32,17 @@ export interface GridData {
 }
 
 const TZ = 'America/Vancouver';
-export const SLOT = 10;
-export const SLOT_HEIGHT = '1rem';
+export const SLOT = 5;
+export const SLOT_HEIGHT = '0.6rem';
 
 export const linkableTypes = new Set(['workshop', 'presentation', 'lightning-talk', 'panel']);
 
 export function isLightning(type: string): boolean {
 	return type === 'lightning-talk';
+}
+
+export function isCompact(type: string, start: string, end?: string): boolean {
+	return type === 'lightning-talk' || durationMinutes(start, end) <= 15;
 }
 
 export function toVancouverDate(iso: string): Date {
@@ -197,7 +201,7 @@ export function buildGrid(events: ScheduleEvent[], rooms: string[]): GridData {
 			spanRows: Math.max(1, Math.round((e.endMin - e.startMin) / SLOT)),
 			colStart: fullWidth ? 1 : rooms.indexOf(e.room!) + 1,
 			colSpan: fullWidth ? rooms.length : 1,
-			zIndex: e.startMin
+			zIndex: fullWidth ? 0 : e.startMin
 		};
 	});
 

@@ -2,7 +2,7 @@
 	import {
 		type GridEvent,
 		linkableTypes,
-		isLightning,
+		isCompact,
 		getEventColor,
 		durationMinutes,
 		formatTime
@@ -37,13 +37,13 @@
 			event.type
 		)} {event.type === 'info'
 			? 'flex flex-col items-center justify-center px-2 py-1.5 text-center text-xs'
-			: ''} {isLightning(event.type) ? 'px-1.5 py-0 text-[0.6rem]' : 'px-2 py-1.5 text-xs'}"
+			: ''} {isCompact(event.type, event.start, event.end) ? 'px-1.5 py-0 text-[0.6rem]' : 'px-2 py-1.5 text-xs'}"
 	>
 		<p class="font-semibold {durationMinutes(event.start, event.end) <= 30 ? 'line-clamp-1' : ''}">
 			{event.title}
 		</p>
-		{#if event.speakers?.length && !isLightning(event.type)}
-			<p class="mt-0.5 opacity-75">{event.speakers.map((s) => s.name).join(', ')}</p>
+		{#if event.speakers?.length && !isCompact(event.type, event.start, event.end)}
+			<p class="mt-0.5 opacity-75 {durationMinutes(event.start, event.end) < 60 ? 'line-clamp-1' : ''}">{event.speakers.map((s) => s.name).join(', ')}</p>
 		{/if}
 		{#if initialRsvpStatus === 'going'}
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-1 bottom-1 size-3 opacity-60">
@@ -57,8 +57,8 @@
 	</button>
 
 	<Modal bind:open={modalOpen}>
-		<div>
-			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">{event.title}</h2>
+		<div class="overflow-hidden">
+			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold break-words">{event.title}</h2>
 
 			{#if event.start}
 				<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
@@ -97,7 +97,7 @@
 			? durationMinutes(event.start, event.end) <= 30
 				? 'flex items-center justify-center gap-2 px-2 py-0.5 text-center text-xs'
 				: 'flex flex-col items-center justify-center px-2 py-1.5 text-center text-xs'
-			: ''} {isLightning(event.type) ? 'px-1.5 py-0 text-[0.6rem]' : 'px-2 py-1.5 text-xs'}"
+			: ''} {isCompact(event.type, event.start, event.end) ? 'px-1.5 py-0 text-[0.6rem]' : 'px-2 py-1.5 text-xs'}"
 	>
 		<p class="font-semibold {durationMinutes(event.start, event.end) <= 30 ? 'line-clamp-1' : ''}">
 			{event.title}
