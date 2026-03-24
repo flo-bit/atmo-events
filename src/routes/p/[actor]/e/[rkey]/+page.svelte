@@ -297,7 +297,6 @@
 	<meta name="description" content={eventData.description || `Event: ${eventData.name}`} />
 	<meta property="og:title" content={eventData.name} />
 	<meta property="og:description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta property="og:image" content={ogImageUrl} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={eventData.name} />
 	<meta name="twitter:description" content={eventData.description || `Event: ${eventData.name}`} />

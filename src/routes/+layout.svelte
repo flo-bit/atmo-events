@@ -5,6 +5,7 @@
 	import { user } from '$lib/atproto/auth.svelte';
 	import { Head, Navbar, Button, Avatar } from '@foxui/core';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 
 	let { children } = $props();
 </script>
@@ -66,5 +67,5 @@
 	title="atmo.rsvp"
 	emojiFavicon="🗓️"
 	description="discover and attend events"
-	image="/og.png"
+	image={page.data?.ogImage ?? '/og.png'}
 />

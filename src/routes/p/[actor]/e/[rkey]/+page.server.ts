@@ -13,7 +13,7 @@ import {
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
 
-export async function load({ params, locals }) {
+export async function load({ params, locals, url }) {
 	const { rkey } = params;
 
 	const did = await getActor(params.actor);
@@ -68,6 +68,7 @@ export async function load({ params, locals }) {
 		]);
 
 		return {
+			ogImage: `${url.origin}${url.pathname}/og.png`,
 			eventData,
 			actorDid: did,
 			rkey,
