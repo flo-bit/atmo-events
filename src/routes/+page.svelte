@@ -1,10 +1,16 @@
 <script lang="ts">
 	import EventCard from '$lib/components/EventCard.svelte';
+	import OpenMeetEventCard from '$lib/components/OpenMeetEventCard.svelte';
 	import { Button } from '@foxui/core';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { atProtoLoginModalState } from '@foxui/social';
+	import type { ContrailDisplayEvent, OpenMeetDisplayEvent } from './+page.server';
 
 	let { data } = $props();
+
+	function eventKey(item: ContrailDisplayEvent | OpenMeetDisplayEvent): string {
+		return item.source === 'contrail' ? item.event.uri : `om-${item.event.slug}`;
+	}
 </script>
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
@@ -37,8 +43,12 @@
 		<p class="text-base-500 text-center text-lg">No upcoming events found.</p>
 	{:else}
 		<div class="grid gap-6 sm:grid-cols-2">
-			{#each data.events as event (event.uri)}
-				<EventCard {event} actor={data.handles[event.did]} />
+			{#each data.events as item (eventKey(item))}
+				{#if item.source === 'contrail'}
+					<EventCard event={item.event} actor={item.actor} />
+				{:else}
+					<OpenMeetEventCard event={item.event} />
+				{/if}
 			{/each}
 		</div>
 	{/if}

@@ -10,10 +10,18 @@ export const collections = [
 export type AllowedCollection = (typeof collections)[number];
 
 // OAuth scope — add scope.blob(), scope.rpc(), etc. as needed
+const OPENMEET_SERVICE_DID = import.meta.env.VITE_OPENMEET_SERVICE_DID;
 export const scopes = [
 	'atproto',
 	scope.repo({ collection: [...collections] }),
-	scope.blob({ accept: ['image/*'] })
+	scope.blob({ accept: ['image/*'] }),
+	// aud=* is required — PDS doesn't support specific-DID rpc scoping:
+	// bare DID gets silently dropped from consent, DID#fragment shows in consent
+	// but getServiceAuth rejects fragments as invalid DIDs. Security is enforced
+	// API-side: verifyAndExchange() validates aud matches SERVICE_DID.
+	...(OPENMEET_SERVICE_DID
+		? [scope.rpc({ lxm: ['net.openmeet.auth'], aud: '*' })]
+		: [])
 ];
 
 // set to false to disable signup

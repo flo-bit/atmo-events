@@ -4,6 +4,8 @@
 	import UserProfile from '$lib/components/UserProfile.svelte';
 	import { Button } from '@foxui/core';
 	import EventCard from '$lib/components/EventCard.svelte';
+	import OpenMeetEventCard from '$lib/components/OpenMeetEventCard.svelte';
+	import type { OpenMeetEvent } from '$lib/openmeet/types';
 
 	let { data } = $props();
 
@@ -23,6 +25,18 @@
 			})
 			.sort(
 				(a: FlatEventRecord, b: FlatEventRecord) =>
+					new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+			)
+	);
+
+	let privateAttendingEvents = $derived(
+		[...(data.privateAttending ?? [])]
+			.filter((event: OpenMeetEvent) => {
+				const endDate = new Date(event.endsAt || event.startsAt);
+				return endDate >= now;
+			})
+			.sort(
+				(a: OpenMeetEvent, b: OpenMeetEvent) =>
 					new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
 			)
 	);
@@ -84,12 +98,15 @@
 		{/if}
 
 		<!-- Attending -->
-		{#if upcomingAttendingEvents.length > 0}
+		{#if upcomingAttendingEvents.length > 0 || privateAttendingEvents.length > 0}
 			<section class="mb-10">
 				<h2 class="text-base-900 dark:text-base-50 mb-4 text-lg font-semibold">Attending</h2>
 				<div class="space-y-5">
 					{#each upcomingAttendingEvents as event (event.uri)}
 						<EventCard {event} />
+					{/each}
+					{#each privateAttendingEvents as event (event.slug)}
+						<OpenMeetEventCard {event} />
 					{/each}
 				</div>
 			</section>
@@ -117,7 +134,7 @@
 			</section>
 		{/if}
 
-		{#if !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !data.pastEvents?.length}
+		{#if !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !privateAttendingEvents.length && !data.pastEvents?.length}
 			<div
 				class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
 			>

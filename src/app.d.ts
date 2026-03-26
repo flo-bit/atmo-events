@@ -11,6 +11,7 @@ declare global {
 			session: OAuthSession | null;
 			client: Client | null;
 			did: Did | null;
+			openmeetToken: string | null;
 		}
 		// interface PageData {}
 		// interface PageState {}
