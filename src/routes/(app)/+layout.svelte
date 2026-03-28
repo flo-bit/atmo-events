@@ -103,7 +103,6 @@
 
 <Head
 	title="atmo.rsvp"
-	emojiFavicon="🗓️"
 	description="discover and attend events"
 	image={page.data?.ogImage ?? '/og.png'}
 />
