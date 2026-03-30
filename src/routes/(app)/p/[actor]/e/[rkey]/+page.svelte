@@ -9,6 +9,7 @@
 	import EventRsvp from '$lib/components/EventRsvp.svelte';
 	import EventCard from '$lib/components/EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
+	import VodPlayer from '$lib/components/VodPlayer.svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { marked } from 'marked';
@@ -178,6 +179,7 @@
 	);
 
 	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
+	let isPast = $derived(endDate ? endDate < new Date() : false);
 
 	const renderer = new marked.Renderer();
 	renderer.link = ({ href, text }) =>
@@ -372,6 +374,13 @@
 					</div>
 				{/if}
 
+				<!-- VOD -->
+				{#if data.vod}
+					<div class="mb-6">
+						<VodPlayer playlistUrl={data.vod.playlistUrl} title={data.vod.title} />
+					</div>
+				{/if}
+
 				<!-- Date row -->
 				<div class="mb-4 flex items-center gap-4">
 					<div
@@ -467,14 +476,16 @@
 					</Button>
 				{/if}
 
-				<EventRsvp
-					{eventUri}
-					eventCid={eventData.cid ?? null}
-					initialRsvpStatus={data.viewerRsvpStatus}
-					initialRsvpRkey={data.viewerRsvpRkey}
-					onrsvp={handleRsvp}
-					oncancel={handleRsvpCancel}
-				/>
+				{#if !isPast}
+					<EventRsvp
+						{eventUri}
+						eventCid={eventData.cid ?? null}
+						initialRsvpStatus={data.viewerRsvpStatus}
+						initialRsvpRkey={data.viewerRsvpRkey}
+						onrsvp={handleRsvp}
+						oncancel={handleRsvpCancel}
+					/>
+				{/if}
 
 				<!-- About Event -->
 				{#if descriptionHtml}

@@ -25,6 +25,7 @@
 	let scheduleEvents = $derived(getScheduleEvents(data.events));
 	let rsvpStatuses: Record<string, string> = $state(data.rsvpStatuses ?? {});
 	let rsvpRkeys: Record<string, string> = $state(data.rsvpRkeys ?? {});
+	let eventVods = $derived(data.eventVods ?? {});
 	let filterMode: string = $state('all');
 	let selectedDay: string = $state('all');
 
@@ -172,24 +173,25 @@
 					{/each}
 				</ToggleGroup>
 			</div>
-			{#if data.loggedIn}
-				<div class="flex items-center gap-3">
-					<span class="text-base-500 dark:text-base-400 w-14 text-xs">Events</span>
-					<ToggleGroup
-						type="single"
-						bind:value={
-							() => filterMode,
-							(v) => {
-								if (v) filterMode = v;
-							}
+			<div class="flex items-center gap-3">
+				<span class="text-base-500 dark:text-base-400 w-14 text-xs">Events</span>
+				<ToggleGroup
+					type="single"
+					bind:value={
+						() => filterMode,
+						(v) => {
+							if (v) filterMode = v;
 						}
-						class="w-fit"
-					>
-						<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
+					}
+					class="w-fit"
+				>
+					<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
+					<ToggleGroupItem value="recorded" size="sm">Recorded</ToggleGroupItem>
+					{#if data.loggedIn}
 						<ToggleGroupItem value="attending" size="sm">Attending</ToggleGroupItem>
-					</ToggleGroup>
-				</div>
-			{/if}
+					{/if}
+				</ToggleGroup>
+			</div>
 		</div>
 
 		{#each filteredDayGroups as day, dayIndex}
@@ -208,7 +210,9 @@
 					{nowVancouverMinutes}
 					{rsvpStatuses}
 					{rsvpRkeys}
+					{eventVods}
 					dimUnattended={filterMode === 'attending'}
+					dimUnrecorded={filterMode === 'recorded'}
 					loggedIn={data.loggedIn}
 					onrsvpchange={handleRsvpChange}
 				/>

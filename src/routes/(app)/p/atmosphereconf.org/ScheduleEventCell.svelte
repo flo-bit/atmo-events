@@ -9,18 +9,21 @@
 	} from './schedule-utils';
 	import { Modal, Button } from '@foxui/core';
 	import EventRsvp from '$lib/components/EventRsvp.svelte';
+	import VodPlayer from '$lib/components/VodPlayer.svelte';
 
 	let {
 		event,
 		rsvpStatuses = {},
 		rsvpRkeys = {},
 		loggedIn = false,
+		vodPlaylistUrl,
 		onrsvpchange
 	}: {
 		event: GridEvent;
 		rsvpStatuses?: Record<string, string>;
 		rsvpRkeys?: Record<string, string>;
 		loggedIn?: boolean;
+		vodPlaylistUrl?: string;
 		onrsvpchange?: (uri: string, status: string | null, rkey?: string) => void;
 	} = $props();
 
@@ -28,6 +31,7 @@
 
 	let initialRsvpStatus = $derived((rsvpStatuses[event.uri] as 'going' | 'interested' | 'notgoing' | undefined) ?? null);
 	let initialRsvpRkey = $derived(rsvpRkeys[event.uri] ?? null);
+	let isPast = $derived(event.end ? new Date(event.end) < new Date() : false);
 </script>
 
 {#if linkableTypes.has(event.type) && event.rkey}
@@ -44,6 +48,11 @@
 		</p>
 		{#if event.speakers?.length && !isCompact(event.type, event.start, event.end)}
 			<p class="mt-0.5 opacity-75 {durationMinutes(event.start, event.end) < 60 ? 'line-clamp-1' : ''}">{event.speakers.map((s) => s.name).join(', ')}</p>
+		{/if}
+		{#if vodPlaylistUrl}
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute top-1 right-1 size-3 opacity-60">
+				<path d="M3.25 4A2.25 2.25 0 0 0 1 6.25v7.5A2.25 2.25 0 0 0 3.25 16h7.5A2.25 2.25 0 0 0 13 13.75v-1.956l3.203 1.602A.75.75 0 0 0 17.25 12.75v-5.5a.75.75 0 0 0-1.047-.646L13 8.206V6.25A2.25 2.25 0 0 0 10.75 4h-7.5Z" />
+			</svg>
 		{/if}
 		{#if initialRsvpStatus === 'going'}
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-1 bottom-1 size-3 opacity-60">
@@ -76,16 +85,23 @@
 				<p class="text-base-500 dark:text-base-400 mt-3 line-clamp-3 break-words text-sm">{event.description}</p>
 			{/if}
 
-			<EventRsvp
-				eventUri={event.uri}
-				eventCid={event.cid ?? null}
-				{initialRsvpStatus}
-				{initialRsvpRkey}
-				onlogin={() => (modalOpen = false)}
-				onrsvp={(status, key) => { onrsvpchange?.(event.uri, status, key); modalOpen = false; }}
-				oncancel={() => { onrsvpchange?.(event.uri, null); }}
-			/>
+			{#if !isPast}
+				<EventRsvp
+					eventUri={event.uri}
+					eventCid={event.cid ?? null}
+					{initialRsvpStatus}
+					{initialRsvpRkey}
+					onlogin={() => (modalOpen = false)}
+					onrsvp={(status, key) => { onrsvpchange?.(event.uri, status, key); modalOpen = false; }}
+					oncancel={() => { onrsvpchange?.(event.uri, null); }}
+				/>
+			{/if}
 
+			{#if vodPlaylistUrl}
+				<div class="mt-3">
+					<VodPlayer playlistUrl={vodPlaylistUrl} title={event.title} />
+				</div>
+			{/if}
 			<Button href="/p/atmosphereconf.org/e/{event.rkey}" variant="secondary" class="mt-2 w-full">Go to event</Button>
 		</div>
 	</Modal>

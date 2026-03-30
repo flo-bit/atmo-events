@@ -10,6 +10,8 @@
 		getNowGridRow
 	} from './schedule-utils';
 
+	import type { VodRecord } from '$lib/vods';
+
 	let {
 		grid,
 		rooms,
@@ -20,7 +22,9 @@
 		nowVancouverMinutes,
 		rsvpStatuses = {},
 		rsvpRkeys = {},
+		eventVods = {},
 		dimUnattended = false,
+		dimUnrecorded = false,
 		loggedIn = false,
 		onrsvpchange
 	}: {
@@ -33,7 +37,9 @@
 		nowVancouverMinutes: number;
 		rsvpStatuses?: Record<string, string>;
 		rsvpRkeys?: Record<string, string>;
+		eventVods?: Record<string, VodRecord>;
 		dimUnattended?: boolean;
+		dimUnrecorded?: boolean;
 		loggedIn?: boolean;
 		onrsvpchange?: (uri: string, status: string | null, rkey?: string) => void;
 	} = $props();
@@ -42,11 +48,18 @@
 	let nowRow = $derived(getNowGridRow(grid, dayKey, nowVancouverKey, nowVancouverMinutes));
 
 	function isDimmed(event: { did: string; rkey: string; type: string }): boolean {
-		if (!dimUnattended) return false;
-		if (event.type === 'info') return true;
-		const uri = `at://${event.did}/community.lexicon.calendar.event/${event.rkey}`;
-		const status = rsvpStatuses[uri];
-		return !status || status === 'notgoing';
+		if (dimUnrecorded) {
+			if (event.type === 'info') return true;
+			const uri = `at://${event.did}/community.lexicon.calendar.event/${event.rkey}`;
+			return !eventVods[uri];
+		}
+		if (dimUnattended) {
+			if (event.type === 'info') return true;
+			const uri = `at://${event.did}/community.lexicon.calendar.event/${event.rkey}`;
+			const status = rsvpStatuses[uri];
+			return !status || status === 'notgoing';
+		}
+		return false;
 	}
 </script>
 
@@ -104,7 +117,7 @@
 								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: 1; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} {onrsvpchange} />
+								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} vodPlaylistUrl={eventVods[event.uri]?.playlistUrl} {onrsvpchange} />
 							</li>
 						{/each}
 						{#if nowRow}
@@ -186,7 +199,7 @@
 								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: {event.colStart} / span {event.colSpan}; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} {onrsvpchange} />
+								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} vodPlaylistUrl={eventVods[event.uri]?.playlistUrl} {onrsvpchange} />
 							</li>
 						{/each}
 						{#if nowRow}
