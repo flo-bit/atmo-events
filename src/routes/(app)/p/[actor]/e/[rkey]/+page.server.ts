@@ -12,7 +12,7 @@ import {
 	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
-import { findVodForEvent } from '$lib/vods';
+import { getVodForEvent } from '$lib/vods';
 
 export async function load({ params, locals, url }) {
 	const { rkey } = params;
@@ -44,7 +44,9 @@ export async function load({ params, locals, url }) {
 			| Array<{ id: string; name: string }>
 			| undefined) ?? [];
 
-		const [attendees, viewerRsvpRecord, parentEvent, vod, ...speakerProfiles] = await Promise.all([
+		const vod = isAtmosphereconf ? getVodForEvent(rkey) : null;
+
+		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			listEventAttendeesFromContrail(fullEventRecord.uri),
 			locals.did
 				? getViewerRsvpFromContrail({ eventUri: fullEventRecord.uri, actor: locals.did })
@@ -53,9 +55,6 @@ export async function load({ params, locals, url }) {
 				? getEventRecordFromContrail({ did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e', profiles: true })
 					.then((r) => r ? flattenEventRecord(r) : null)
 					.catch(() => null)
-				: null,
-			isAtmosphereconf
-				? findVodForEvent(eventData.name).catch(() => null)
 				: null,
 			...speakers.map((s) =>
 				s.id

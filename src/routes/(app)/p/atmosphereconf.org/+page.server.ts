@@ -4,12 +4,12 @@ import {
 	listEventRecordsFromContrail,
 	contrail
 } from '$lib/contrail';
-import { fetchVods, type VodRecord } from '$lib/vods';
+import { getAllEventVods, type VodRecord } from '$lib/vods';
 
 export async function load({ locals }) {
 	const actor = 'atmosphereconf.org';
 
-	const [profile, response, rsvpResponse, vods] = await Promise.all([
+	const [profile, response, rsvpResponse] = await Promise.all([
 		getProfileFromContrail(actor),
 		listEventRecordsFromContrail({
 			actor,
@@ -21,8 +21,7 @@ export async function load({ locals }) {
 			? contrail.get('community.lexicon.calendar.rsvp.listRecords', {
 					params: { actor: locals.did, limit: 200 }
 				})
-			: null,
-		fetchVods().catch(() => [] as VodRecord[])
+			: null
 	]);
 
 	const events = response ? flattenEventRecords(response.records) : [];
@@ -42,16 +41,12 @@ export async function load({ locals }) {
 		}
 	}
 
-	// Build map of event name → VOD for quick lookup in the schedule
-	const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
-	const vodsByName: Record<string, VodRecord> = {};
-	for (const vod of vods) {
-		vodsByName[normalize(vod.title)] = vod;
-	}
+	// Build event URI → VOD map from static mapping
+	const vodsByRkey = getAllEventVods();
 	const eventVods: Record<string, VodRecord> = {};
 	for (const event of events) {
-		const match = vodsByName[normalize(event.name)];
-		if (match) eventVods[event.uri] = match;
+		const vod = vodsByRkey.get(event.rkey);
+		if (vod) eventVods[event.uri] = vod;
 	}
 
 	return {

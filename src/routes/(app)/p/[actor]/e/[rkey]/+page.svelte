@@ -11,7 +11,6 @@
 	import EventAttendees from './EventAttendees.svelte';
 	import VodPlayer from '$lib/components/VodPlayer.svelte';
 	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
 	import { marked } from 'marked';
 	import { sanitize } from '$lib/cal/sanitize';
 	import { generateICalEvent } from '$lib/cal/ical';
@@ -377,7 +376,7 @@
 				<!-- VOD -->
 				{#if data.vod}
 					<div class="mb-6">
-						<VodPlayer playlistUrl={data.vod.playlistUrl} title={data.vod.title} />
+						<VodPlayer playlistUrl={data.vod.playlistUrl} title={data.vod.vodTitle} />
 					</div>
 				{/if}
 

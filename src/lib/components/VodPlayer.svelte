@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import 'plyr/dist/plyr.css';
 	import type HlsType from 'hls.js';
 	import type PlyrType from 'plyr';
 
@@ -77,10 +78,6 @@
 		}
 	}
 </script>
-
-<svelte:head>
-	<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-</svelte:head>
 
 {#if error}
 	<div class="bg-base-100 dark:bg-base-900 border-base-200 dark:border-base-800 flex aspect-video w-full items-center justify-center rounded-xl border">
