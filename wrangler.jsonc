@@ -3,9 +3,7 @@
 	"name": "atmo-events",
 	"main": ".svelte-kit/cloudflare/_worker.js",
 	"compatibility_date": "2025-12-25",
-	"compatibility_flags": [
-		"nodejs_compat_v2"
-	],
+	"compatibility_flags": ["nodejs_compat_v2"],
 	"assets": {
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
@@ -15,6 +13,17 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "atmo-events",
+			"database_id": "b57d0c5a-e5ed-47f2-9f30-b39fa70cc068",
+			"remote": true
+		}
+	],
+	"triggers": {
+		"crons": ["*/1 * * * *"]
 	},
 	"kv_namespaces": [
 		{

@@ -6,7 +6,7 @@ export const load: LayoutServerLoad = async ({ locals, platform }) => {
 		return { did: null, profile: null };
 	}
 
-	const profile = await loadProfile(locals.did, platform?.env?.PROFILE_CACHE);
+	const profile = await loadProfile(locals.did, platform!.env.DB, platform?.env?.PROFILE_CACHE);
 
 	return {
 		did: locals.did,

@@ -1,15 +1,16 @@
 import { json, error } from '@sveltejs/kit';
 import { getActor } from '$lib/actor';
-import { getEventRecordFromContrail } from '$lib/contrail';
+import { getEventRecordFromContrail, getServerClient } from '$lib/contrail';
 
-export async function GET({ params }) {
+export async function GET({ params, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	const did = await getActor(params.actor);
 
 	if (!did || !params.rkey) {
 		throw error(404, 'Event not found');
 	}
 
-	const eventRecord = await getEventRecordFromContrail({
+	const eventRecord = await getEventRecordFromContrail(client, {
 		did,
 		rkey: params.rkey,
 		hydrateRsvps: 50,

@@ -2,10 +2,11 @@ import { error, json } from '@sveltejs/kit';
 import { getActor } from '$lib/actor';
 import { isActorIdentifier, type ResourceUri } from '@atcute/lexicons/syntax';
 import type { Did } from '@atcute/lexicons';
-import { contrail } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail';
 import { listRecords } from '$lib/atproto/methods';
 
-export async function GET({ params }) {
+export async function GET({ params, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}
@@ -39,7 +40,7 @@ export async function GET({ params }) {
 		const batch = uris.slice(i, i + 25);
 		const batchNum = Math.floor(i / 25) + 1;
 		try {
-			const result = await contrail.post('rsvp.atmo.notifyOfUpdate', {
+			const result = await client.post('rsvp.atmo.notifyOfUpdate', {
 				input: { uris: batch as ResourceUri[] }
 			});
 			if (result.ok) {

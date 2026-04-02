@@ -2,6 +2,7 @@ import { getActor } from '$lib/actor';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
+	getServerClient,
 	listAttendingEventsFromContrail,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
@@ -10,7 +11,8 @@ import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params }) {
+export async function load({ params, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;
@@ -21,8 +23,8 @@ export async function load({ params }) {
 	const now = new Date().toISOString();
 
 	const [profile, upcomingResponse, pastResponse, attendingEvents] = await Promise.all([
-		getProfileFromContrail(actor),
-		listEventRecordsFromContrail({
+		getProfileFromContrail(client, actor),
+		listEventRecordsFromContrail(client, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',
@@ -31,7 +33,7 @@ export async function load({ params }) {
 			actor,
 			limit: PREVIEW_LIMIT + 1
 		}),
-		listEventRecordsFromContrail({
+		listEventRecordsFromContrail(client, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',
@@ -40,7 +42,7 @@ export async function load({ params }) {
 			actor,
 			limit: PREVIEW_LIMIT + 1
 		}),
-		listAttendingEventsFromContrail(actor)
+		listAttendingEventsFromContrail(client, actor)
 	]);
 
 	const nowDate = new Date(now);

@@ -1,8 +1,9 @@
 import { error } from '@sveltejs/kit';
 import { getActor } from '$lib/actor';
-import { flattenEventRecord, getEventRecordFromContrail } from '$lib/contrail';
+import { flattenEventRecord, getEventRecordFromContrail, getServerClient } from '$lib/contrail';
 
-export async function load({ params }) {
+export async function load({ params, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	const { rkey } = params;
 
 	const did = await getActor(params.actor);
@@ -12,7 +13,7 @@ export async function load({ params }) {
 	}
 
 	try {
-		const eventRecord = await getEventRecordFromContrail({ did, rkey }).catch(() => null);
+		const eventRecord = await getEventRecordFromContrail(client, { did, rkey }).catch(() => null);
 		const eventData = eventRecord ? flattenEventRecord(eventRecord) : null;
 
 		if (!eventData) {

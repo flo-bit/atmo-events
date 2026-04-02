@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "rsvp.atmo.admin.getCursor",
+  "id": "rsvp.atmo.getCursor",
   "defs": {
     "main": {
       "type": "query",

@@ -31,7 +31,10 @@
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "required": ["indexed", "deleted"],
+          "required": [
+            "indexed",
+            "deleted"
+          ],
           "properties": {
             "indexed": {
               "type": "integer",

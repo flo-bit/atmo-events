@@ -88,12 +88,12 @@ const _mainSchema = /*#__PURE__*/ v.query(
       hydrateEvent: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
       /**
        * @minimum 1
-       * @maximum 100
+       * @maximum 200
        * @default 50
        */
       limit: /*#__PURE__*/ v.optional(
         /*#__PURE__*/ v.constrain(/*#__PURE__*/ v.integer(), [
-          /*#__PURE__*/ v.integerRange(1, 100),
+          /*#__PURE__*/ v.integerRange(1, 200),
         ]),
         50,
       ),
@@ -107,10 +107,6 @@ const _mainSchema = /*#__PURE__*/ v.query(
        * Include profile + identity info keyed by DID
        */
       profiles: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
-      /**
-       * Full-text search across: status, subject.uri
-       */
-      search: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
       /**
        * Field to sort by (default: time_us)
        */

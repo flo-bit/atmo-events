@@ -1,12 +1,13 @@
 import {
 	flattenEventRecord,
 	flattenEventRecords,
-	contrail,
+	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, platform }) => {
+	const client = getServerClient(platform!.env.DB);
 	if (!locals.did) {
 		return { events: [], loggedIn: false };
 	}
@@ -14,10 +15,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const now = new Date().toISOString();
 
 	const [rsvpResponse, hostingResponse] = await Promise.all([
-		contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+		client.get('community.lexicon.calendar.rsvp.listRecords', {
 			params: { actor: locals.did, hydrateEvent: true, limit: 100 }
 		}),
-		listEventRecordsFromContrail({
+		listEventRecordsFromContrail(client, {
 			actor: locals.did,
 			startsAtMin: now,
 			sort: 'startsAt',

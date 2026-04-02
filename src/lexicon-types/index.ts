@@ -9,9 +9,7 @@ export * as CommunityLexiconLocationAddress from "./types/community/lexicon/loca
 export * as CommunityLexiconLocationFsq from "./types/community/lexicon/location/fsq.js";
 export * as CommunityLexiconLocationGeo from "./types/community/lexicon/location/geo.js";
 export * as CommunityLexiconLocationHthree from "./types/community/lexicon/location/hthree.js";
-export * as RsvpAtmoAdminGetCursor from "./types/rsvp/atmo/admin/getCursor.js";
-export * as RsvpAtmoAdminGetOverview from "./types/rsvp/atmo/admin/getOverview.js";
-export * as RsvpAtmoAdminReset from "./types/rsvp/atmo/admin/reset.js";
-export * as RsvpAtmoAdminSync from "./types/rsvp/atmo/admin/sync.js";
+export * as RsvpAtmoGetCursor from "./types/rsvp/atmo/getCursor.js";
+export * as RsvpAtmoGetOverview from "./types/rsvp/atmo/getOverview.js";
 export * as RsvpAtmoGetProfile from "./types/rsvp/atmo/getProfile.js";
 export * as RsvpAtmoNotifyOfUpdate from "./types/rsvp/atmo/notifyOfUpdate.js";

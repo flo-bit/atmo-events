@@ -157,12 +157,12 @@ const _mainSchema = /*#__PURE__*/ v.query(
       ),
       /**
        * @minimum 1
-       * @maximum 100
+       * @maximum 200
        * @default 50
        */
       limit: /*#__PURE__*/ v.optional(
         /*#__PURE__*/ v.constrain(/*#__PURE__*/ v.integer(), [
-          /*#__PURE__*/ v.integerRange(1, 100),
+          /*#__PURE__*/ v.integerRange(1, 200),
         ]),
         50,
       ),

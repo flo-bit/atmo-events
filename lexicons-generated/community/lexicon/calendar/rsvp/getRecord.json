@@ -1,13 +1,15 @@
 {
   "lexicon": 1,
-  "id": "community.lexicon.calendar.event.getRecord",
+  "id": "community.lexicon.calendar.rsvp.getRecord",
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get a single community.lexicon.calendar.event record by AT URI",
+      "description": "Get a single community.lexicon.calendar.rsvp record by AT URI",
       "parameters": {
         "type": "params",
-        "required": ["uri"],
+        "required": [
+          "uri"
+        ],
         "properties": {
           "uri": {
             "type": "string",
@@ -18,11 +20,9 @@
             "type": "boolean",
             "description": "Include profile + identity info keyed by DID"
           },
-          "hydrateRsvps": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 50,
-            "description": "Number of rsvps records to embed"
+          "hydrateEvent": {
+            "type": "boolean",
+            "description": "Embed the referenced event record"
           }
         }
       },
@@ -30,7 +30,13 @@
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "required": ["uri", "did", "collection", "rkey", "time_us"],
+          "required": [
+            "uri",
+            "did",
+            "collection",
+            "rkey",
+            "time_us"
+          ],
           "properties": {
             "uri": {
               "type": "string",
@@ -52,30 +58,14 @@
             },
             "record": {
               "type": "ref",
-              "ref": "community.lexicon.calendar.event#main"
+              "ref": "community.lexicon.calendar.rsvp#main"
             },
             "time_us": {
               "type": "integer"
             },
-            "rsvpsCount": {
-              "type": "integer",
-              "description": "Total rsvps count"
-            },
-            "rsvpsInterestedCount": {
-              "type": "integer",
-              "description": "rsvps count where status = interested"
-            },
-            "rsvpsGoingCount": {
-              "type": "integer",
-              "description": "rsvps count where status = going"
-            },
-            "rsvpsNotgoingCount": {
-              "type": "integer",
-              "description": "rsvps count where status = notgoing"
-            },
-            "rsvps": {
+            "event": {
               "type": "ref",
-              "ref": "#hydrateRsvps"
+              "ref": "#refEventRecord"
             },
             "profiles": {
               "type": "array",
@@ -88,9 +78,15 @@
         }
       }
     },
-    "hydrateRsvpsRecord": {
+    "refEventRecord": {
       "type": "object",
-      "required": ["uri", "did", "collection", "rkey", "time_us"],
+      "required": [
+        "uri",
+        "did",
+        "collection",
+        "rkey",
+        "time_us"
+      ],
       "properties": {
         "uri": {
           "type": "string",
@@ -112,49 +108,18 @@
         },
         "record": {
           "type": "ref",
-          "ref": "community.lexicon.calendar.rsvp#main"
+          "ref": "community.lexicon.calendar.event#main"
         },
         "time_us": {
           "type": "integer"
         }
       }
     },
-    "hydrateRsvps": {
-      "type": "object",
-      "properties": {
-        "interested": {
-          "type": "array",
-          "items": {
-            "type": "ref",
-            "ref": "#hydrateRsvpsRecord"
-          }
-        },
-        "going": {
-          "type": "array",
-          "items": {
-            "type": "ref",
-            "ref": "#hydrateRsvpsRecord"
-          }
-        },
-        "notgoing": {
-          "type": "array",
-          "items": {
-            "type": "ref",
-            "ref": "#hydrateRsvpsRecord"
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "ref",
-            "ref": "#hydrateRsvpsRecord"
-          }
-        }
-      }
-    },
     "profileEntry": {
       "type": "object",
-      "required": ["did"],
+      "required": [
+        "did"
+      ],
       "properties": {
         "did": {
           "type": "string",
@@ -188,18 +153,26 @@
       "properties": {
         "avatar": {
           "type": "blob",
-          "accept": ["image/png", "image/jpeg"],
+          "accept": [
+            "image/png",
+            "image/jpeg"
+          ],
           "maxSize": 1000000,
           "description": "Small image to be displayed next to posts from account. AKA, 'profile picture'"
         },
         "banner": {
           "type": "blob",
-          "accept": ["image/png", "image/jpeg"],
+          "accept": [
+            "image/png",
+            "image/jpeg"
+          ],
           "maxSize": 1000000,
           "description": "Larger horizontal image to display behind profile view."
         },
         "labels": {
-          "refs": ["com.atproto.label.defs#selfLabels"],
+          "refs": [
+            "com.atproto.label.defs#selfLabels"
+          ],
           "type": "union",
           "description": "Self-label values, specific to the Bluesky application, on the overall account."
         },

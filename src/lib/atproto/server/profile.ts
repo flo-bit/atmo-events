@@ -1,5 +1,5 @@
 import type { Did } from '@atcute/lexicons';
-import { getProfileFromContrail, getProfileBlobUrl } from '$lib/contrail';
+import { getProfileFromContrail, getProfileBlobUrl, getServerClient } from '$lib/contrail';
 
 const PROFILE_CACHE_TTL = 60 * 60; // 1 hour
 
@@ -8,7 +8,7 @@ const PROFILE_CACHE_TTL = 60 * 60; // 1 hour
  * Falls back to a fresh fetch if the cache KV doesn't exist or on cache miss.
  * Returns undefined if the profile can't be loaded.
  */
-export async function loadProfile(did: Did, profileCache?: KVNamespace) {
+export async function loadProfile(did: Did, db: D1Database, profileCache?: KVNamespace) {
 	// Try cache first
 	if (profileCache) {
 		try {
@@ -19,7 +19,7 @@ export async function loadProfile(did: Did, profileCache?: KVNamespace) {
 		}
 	}
 
-	const profile = await fetchProfile(did);
+	const profile = await fetchProfile(did, db);
 
 	// Write to cache (fire-and-forget)
 	if (profileCache && profile) {
@@ -31,9 +31,10 @@ export async function loadProfile(did: Did, profileCache?: KVNamespace) {
 	return profile;
 }
 
-async function fetchProfile(did: Did) {
+async function fetchProfile(did: Did, db: D1Database) {
 	try {
-		const p = await getProfileFromContrail(did);
+		const client = getServerClient(db);
+		const p = await getProfileFromContrail(client, did);
 
 		if (!p || p.handle === 'handle.invalid') {
 			return { did, handle: 'handle.invalid' };

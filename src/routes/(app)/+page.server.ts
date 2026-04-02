@@ -1,10 +1,11 @@
-import { flattenEventRecords, listEventRecordsFromContrail } from '$lib/contrail';
+import { flattenEventRecords, getServerClient, listEventRecordsFromContrail } from '$lib/contrail';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform }) => {
+	const client = getServerClient(platform!.env.DB);
 	const now = new Date().toISOString();
 
-	const response = await listEventRecordsFromContrail({
+	const response = await listEventRecordsFromContrail(client, {
 		startsAtMin: now,
 		rsvpsGoingCountMin: 2,
 		hydrateRsvps: 5,

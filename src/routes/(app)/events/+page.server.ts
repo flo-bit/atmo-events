@@ -1,13 +1,14 @@
-import { flattenEventRecords, listEventRecordsFromContrail } from '$lib/contrail';
+import { flattenEventRecords, getServerClient, listEventRecordsFromContrail } from '$lib/contrail';
 import type { PageServerLoad } from './$types';
 
 const PAGE_SIZE = 20;
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = async ({ url, platform }) => {
+	const client = getServerClient(platform!.env.DB);
 	const now = new Date().toISOString();
 	const cursor = url.searchParams.get('cursor') ?? undefined;
 
-	const response = await listEventRecordsFromContrail({
+	const response = await listEventRecordsFromContrail(client, {
 		startsAtMin: now,
 		profiles: true,
 		sort: 'startsAt',

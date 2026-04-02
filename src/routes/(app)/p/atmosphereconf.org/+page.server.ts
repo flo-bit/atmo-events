@@ -1,24 +1,25 @@
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
-	listEventRecordsFromContrail,
-	contrail
+	getServerClient,
+	listEventRecordsFromContrail
 } from '$lib/contrail';
 import { vodFromAtUri, type VodRecord } from '$lib/vods';
 
-export async function load({ locals }) {
+export async function load({ locals, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	const actor = 'atmosphereconf.org';
 
 	const [profile, response, rsvpResponse] = await Promise.all([
-		getProfileFromContrail(actor),
-		listEventRecordsFromContrail({
+		getProfileFromContrail(client, actor),
+		listEventRecordsFromContrail(client, {
 			actor,
 			sort: 'startsAt',
 			order: 'asc',
 			limit: 200
 		}),
 		locals.did
-			? contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+			? client.get('community.lexicon.calendar.rsvp.listRecords', {
 					params: { actor: locals.did, limit: 200 }
 				})
 			: null

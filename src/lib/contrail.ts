@@ -6,18 +6,14 @@ import type {
 	CommunityLexiconCalendarEventListRecords,
 	CommunityLexiconCalendarRsvpListRecords
 } from '../lexicon-types';
-import { Client, simpleFetchHandler } from '@atcute/client';
+import type { Client } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
-import { isResourceUri } from '@atcute/lexicons';
 
-export const CONTRAIL_URL = 'http://contrail.atmo.rsvp';
+export { getServerClient } from '$lib/contrail/index';
+
 export const RSVP_HYDRATE_LIMIT = 20;
 export const RSVP_GOING = 'community.lexicon.calendar.rsvp#going';
 export const RSVP_INTERESTED = 'community.lexicon.calendar.rsvp#interested';
-
-export const contrail = new Client({
-	handler: simpleFetchHandler({ service: CONTRAIL_URL })
-});
 
 type ProfileOutput = RsvpAtmoGetProfile.$output;
 type EventListOutput = CommunityLexiconCalendarEventListRecords.$output;
@@ -201,19 +197,26 @@ export function isEventOngoing(startsAt: string, endsAt?: string | null): boolea
 	return new Date(startsAt) <= now && new Date(endsAt) >= now;
 }
 
+/**
+ * Client-side: notify contrail of a record update via the /xrpc/ proxy route.
+ */
 export async function notifyContrailOfUpdate(uri: string) {
-	if (!isResourceUri(uri)) return;
 	try {
-		await contrail.post('rsvp.atmo.notifyOfUpdate', { input: { uri } });
+		await fetch('/xrpc/rsvp.atmo.notifyOfUpdate', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ uri })
+		});
 	} catch {
 		// best-effort, don't block on failure
 	}
 }
 
 export async function getProfileFromContrail(
+	client: Client,
 	actor: ActorIdentifier
 ): Promise<ProfileOutput | null> {
-	const response = await contrail.get('rsvp.atmo.getProfile', {
+	const response = await client.get('rsvp.atmo.getProfile', {
 		params: { actor }
 	});
 
@@ -222,9 +225,10 @@ export async function getProfileFromContrail(
 }
 
 export async function listEventRecordsFromContrail(
+	client: Client,
 	params: ListEventsParams
 ): Promise<EventListOutput | null> {
-	const response = await contrail.get('community.lexicon.calendar.event.listRecords', {
+	const response = await client.get('community.lexicon.calendar.event.listRecords', {
 		params
 	});
 
@@ -232,18 +236,21 @@ export async function listEventRecordsFromContrail(
 	return response.data;
 }
 
-export async function getEventRecordFromContrail({
-	did,
-	rkey,
-	hydrateRsvps,
-	profiles
-}: {
-	did: string;
-	rkey: string;
-	hydrateRsvps?: number;
-	profiles?: boolean;
-}): Promise<EventGetOutput | null> {
-	const response = await contrail.get('community.lexicon.calendar.event.getRecord', {
+export async function getEventRecordFromContrail(
+	client: Client,
+	{
+		did,
+		rkey,
+		hydrateRsvps,
+		profiles
+	}: {
+		did: string;
+		rkey: string;
+		hydrateRsvps?: number;
+		profiles?: boolean;
+	}
+): Promise<EventGetOutput | null> {
+	const response = await client.get('community.lexicon.calendar.event.getRecord', {
 		params: {
 			uri: `at://${did}/community.lexicon.calendar.event/${rkey}`,
 			...(hydrateRsvps ? { hydrateRsvps } : {}),
@@ -255,14 +262,17 @@ export async function getEventRecordFromContrail({
 	return response.data;
 }
 
-export async function getViewerRsvpFromContrail({
-	eventUri,
-	actor
-}: {
-	eventUri: string;
-	actor: ActorIdentifier;
-}): Promise<RsvpListRecord | null> {
-	const response = await contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+export async function getViewerRsvpFromContrail(
+	client: Client,
+	{
+		eventUri,
+		actor
+	}: {
+		eventUri: string;
+		actor: ActorIdentifier;
+	}
+): Promise<RsvpListRecord | null> {
+	const response = await client.get('community.lexicon.calendar.rsvp.listRecords', {
 		params: {
 			actor,
 			subjectUri: eventUri,
@@ -275,10 +285,11 @@ export async function getViewerRsvpFromContrail({
 }
 
 export async function listEventAttendeesFromContrail(
+	client: Client,
 	eventUri: string
 ): Promise<EventAttendeesResult> {
 	const [goingResponse, interestedResponse] = await Promise.all([
-		contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+		client.get('community.lexicon.calendar.rsvp.listRecords', {
 			params: {
 				subjectUri: eventUri,
 				status: RSVP_GOING,
@@ -286,7 +297,7 @@ export async function listEventAttendeesFromContrail(
 				limit: 200
 			}
 		}),
-		contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+		client.get('community.lexicon.calendar.rsvp.listRecords', {
 			params: {
 				subjectUri: eventUri,
 				status: RSVP_INTERESTED,
@@ -325,8 +336,8 @@ export async function listEventAttendeesFromContrail(
 	};
 }
 
-export async function listAttendingEventsFromContrail(actor: ActorIdentifier) {
-	const response = await contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+export async function listAttendingEventsFromContrail(client: Client, actor: ActorIdentifier) {
+	const response = await client.get('community.lexicon.calendar.rsvp.listRecords', {
 		params: {
 			actor,
 			hydrateEvent: true,

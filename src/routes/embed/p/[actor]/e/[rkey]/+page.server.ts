@@ -5,11 +5,13 @@ import {
 	getEventRecordFromContrail,
 	getHostProfile,
 	getRsvpStatus,
+	getServerClient,
 	getViewerRsvpFromContrail
 } from '$lib/contrail';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
-export async function load({ params, url }) {
+export async function load({ params, url, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	const { rkey } = params;
 	const did = await getActor(params.actor);
 
@@ -18,7 +20,7 @@ export async function load({ params, url }) {
 	}
 
 	try {
-		const eventRecord = await getEventRecordFromContrail({
+		const eventRecord = await getEventRecordFromContrail(client, {
 			did,
 			rkey,
 			profiles: true
@@ -33,7 +35,7 @@ export async function load({ params, url }) {
 		const viewerDid = url.searchParams.get('did');
 
 		const viewerRsvpRecord = viewerDid
-			? await getViewerRsvpFromContrail({
+			? await getViewerRsvpFromContrail(client, {
 					eventUri: eventRecord!.uri,
 					actor: viewerDid as ActorIdentifier
 				})

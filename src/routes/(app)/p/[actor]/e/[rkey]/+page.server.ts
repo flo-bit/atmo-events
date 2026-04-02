@@ -8,13 +8,15 @@ import {
 	getProfileBlobUrl,
 	getProfileFromContrail,
 	getRsvpStatus,
+	getServerClient,
 	getViewerRsvpFromContrail,
 	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
 import { vodFromAtUri } from '$lib/vods';
 
-export async function load({ params, locals, url }) {
+export async function load({ params, locals, url, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	const { rkey } = params;
 
 	const did = await getActor(params.actor);
@@ -24,7 +26,7 @@ export async function load({ params, locals, url }) {
 	}
 
 	try {
-		const eventRecord = await getEventRecordFromContrail({
+		const eventRecord = await getEventRecordFromContrail(client, {
 			did,
 			rkey,
 			hydrateRsvps: RSVP_HYDRATE_LIMIT,
@@ -48,18 +50,18 @@ export async function load({ params, locals, url }) {
 		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
-			listEventAttendeesFromContrail(fullEventRecord.uri),
+			listEventAttendeesFromContrail(client, fullEventRecord.uri),
 			locals.did
-				? getViewerRsvpFromContrail({ eventUri: fullEventRecord.uri, actor: locals.did })
+				? getViewerRsvpFromContrail(client, { eventUri: fullEventRecord.uri, actor: locals.did })
 				: null,
 			isAtmosphereconf
-				? getEventRecordFromContrail({ did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e', profiles: true })
+				? getEventRecordFromContrail(client, { did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e', profiles: true })
 					.then((r) => r ? flattenEventRecord(r) : null)
 					.catch(() => null)
 				: null,
 			...speakers.map((s) =>
 				s.id
-					? getProfileFromContrail(s.id as ActorIdentifier)
+					? getProfileFromContrail(client, s.id as ActorIdentifier)
 							.then((p) => ({
 								id: s.id,
 								name: s.name,

@@ -373,13 +373,6 @@
 					</div>
 				{/if}
 
-				<!-- VOD -->
-				{#if data.vod}
-					<div class="mb-6">
-						<VodPlayer playlistUrl={data.vod.playlistUrl} title={eventData.name} />
-					</div>
-				{/if}
-
 				<!-- Date row -->
 				<div class="mb-4 flex items-center gap-4">
 					<div
@@ -499,6 +492,18 @@
 						>
 							{@html descriptionHtml}
 						</div>
+					</div>
+				{/if}
+
+				<!-- Recording -->
+				{#if data.vod}
+					<div class="mt-8 mb-8">
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Recording
+						</p>
+						<VodPlayer playlistUrl={data.vod.playlistUrl} title={eventData.name} />
 					</div>
 				{/if}
 

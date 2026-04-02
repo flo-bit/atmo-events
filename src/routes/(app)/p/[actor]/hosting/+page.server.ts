@@ -2,6 +2,7 @@ import { getActor } from '$lib/actor';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
+	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
@@ -9,7 +10,8 @@ import { error } from '@sveltejs/kit';
 
 const PAGE_SIZE = 20;
 
-export async function load({ params, url }) {
+export async function load({ params, url, platform }) {
+	const client = getServerClient(platform!.env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;
@@ -21,8 +23,8 @@ export async function load({ params, url }) {
 	const now = new Date().toISOString();
 
 	const [profile, response] = await Promise.all([
-		getProfileFromContrail(actor),
-		listEventRecordsFromContrail({
+		getProfileFromContrail(client, actor),
+		listEventRecordsFromContrail(client, {
 			profiles: true,
 			sort: 'startsAt',
 			order: 'asc',

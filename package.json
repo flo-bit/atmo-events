@@ -1,13 +1,17 @@
 {
-	"name": "svelte-cloudflare-statusphere",
+	"name": "atmo-events",
 	"private": true,
 	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && tsx scripts/append-scheduled.ts",
+		"generate": "tsx scripts/generate.ts",
+		"generate:pull": "tsx scripts/generate.ts && lex-cli pull && tsx scripts/generate.ts && lex-cli pull && lex-cli generate",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
+		"sync": "tsx scripts/sync.ts",
+		"sync:remote": "tsx scripts/sync.ts --remote",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
@@ -56,6 +60,7 @@
 	"dependencies": {
 		"@atcute/bluesky-richtext-parser": "^2.1.1",
 		"@atcute/jetstream": "^1.1.2",
+		"@atmo-dev/contrail": "^0.0.6",
 		"@ethercorps/sveltekit-og": "^4.2.1",
 		"@foxui/core": "^0.8.2",
 		"@foxui/social": "^0.8.4",

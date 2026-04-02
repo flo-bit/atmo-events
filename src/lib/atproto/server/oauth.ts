@@ -53,15 +53,16 @@ function createStores(env?: App.Platform['env']): OAuthClientStores {
 	};
 }
 
+let cachedClient: OAuthClient | null = null;
+
 export function createOAuthClient(env?: App.Platform['env']): OAuthClient {
+	if (cachedClient) return cachedClient;
+
 	const actorResolver = createActorResolver();
 	const stores = createStores(env);
 
 	if (dev && !env?.OAUTH_PUBLIC_URL) {
-		// Dev without tunnel: loopback public client (no keyset).
-		// Omit client_id — the library builds it automatically from redirect_uris + scope.
-		// redirect_uris must use 127.0.0.1 (not localhost).
-		return new OAuthClient({
+		cachedClient = new OAuthClient({
 			metadata: {
 				redirect_uris: [`http://127.0.0.1:${DEV_PORT}${REDIRECT_PATH}`],
 				scope: scopes
@@ -69,9 +70,9 @@ export function createOAuthClient(env?: App.Platform['env']): OAuthClient {
 			actorResolver,
 			stores
 		});
+		return cachedClient;
 	}
 
-	// Confidential client (production, or dev with tunnel via OAUTH_PUBLIC_URL)
 	if (!env?.OAUTH_PUBLIC_URL) {
 		throw new Error('OAUTH_PUBLIC_URL is not set');
 	}
@@ -81,7 +82,7 @@ export function createOAuthClient(env?: App.Platform['env']): OAuthClient {
 	const site = env.OAUTH_PUBLIC_URL;
 	const key: ClientAssertionPrivateJwk = JSON.parse(env.CLIENT_ASSERTION_KEY);
 
-	return new OAuthClient({
+	cachedClient = new OAuthClient({
 		metadata: {
 			client_id: site + '/oauth-client-metadata.json',
 			redirect_uris: [site + REDIRECT_PATH],
@@ -92,6 +93,7 @@ export function createOAuthClient(env?: App.Platform['env']): OAuthClient {
 		actorResolver,
 		stores
 	});
+	return cachedClient;
 }
 
 export type { OAuthSession };
