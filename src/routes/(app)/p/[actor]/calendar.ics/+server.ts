@@ -3,13 +3,13 @@ import { getActor } from '$lib/actor';
 import { generateICalFeed, type ICalEvent } from '$lib/cal/ical';
 import { isActorIdentifier, type ActorIdentifier } from '@atcute/lexicons/syntax';
 import {
-	contrail,
 	flattenEventRecord,
 	flattenEventRecords,
+	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
 
-export async function GET({ params }) {
+export async function GET({ params, platform }) {
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}
@@ -21,14 +21,15 @@ export async function GET({ params }) {
 	}
 
 	try {
+		const client = getServerClient(platform!.env.DB);
 		const now = new Date().toISOString();
 
 		const actorId = did as ActorIdentifier;
 		const [rsvpResponse, hostingResponse] = await Promise.all([
-			contrail.get('community.lexicon.calendar.rsvp.listRecords', {
+			client.get('community.lexicon.calendar.rsvp.listRecords', {
 				params: { actor: actorId, hydrateEvent: true, limit: 100 }
 			}),
-			listEventRecordsFromContrail({
+			listEventRecordsFromContrail(client, {
 				actor: actorId,
 				startsAtMin: now,
 				sort: 'startsAt',
