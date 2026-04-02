@@ -6,6 +6,7 @@
 	import { notifyContrailOfUpdate } from '$lib/contrail';
 	import { compressImage } from '$lib/atproto/image-helper';
 	import { validateLink } from '$lib/cal/helper';
+	import * as TID from '@atcute/tid';
 	import {
 		Avatar as FoxAvatar,
 		Button,
@@ -14,7 +15,8 @@
 		PopoverContent,
 		ToggleGroup,
 		ToggleGroupItem,
-		Input
+		Input,
+		Checkbox
 	} from '@foxui/core';
 	import { goto } from '$app/navigation';
 	import { tokenize, type Token } from '@atcute/bluesky-richtext-parser';
@@ -23,6 +25,7 @@
 	import { browser } from '$app/environment';
 	import { putImage, getImage, deleteImage } from '$lib/components/image-store';
 	import { Modal } from '@foxui/core';
+	import { PlainTextEditor } from '@foxui/text';
 	import Avatar from 'svelte-boring-avatars';
 	import DateTimePicker from '$lib/components/DateTimePicker.svelte';
 	import type { FlatEventRecord } from '$lib/contrail';
@@ -65,7 +68,8 @@
 	let thumbnailKey: string | null = $state(null);
 	let thumbnailChanged = $state(false);
 
-	let name = $state('');
+	// svelte-ignore state_referenced_locally
+	let name = $state(eventData?.name || '');
 	let description = $state('');
 	let startsAt = $state('');
 	let endsAt = $state('');
@@ -74,7 +78,10 @@
 	let thumbnailPreview: string | null = $state(null);
 	let submitting = $state(false);
 	let error: string | null = $state(null);
-	let titleEl: HTMLTextAreaElement | undefined = $state(undefined);
+	import type { Readable } from 'svelte/store';
+	import { get } from 'svelte/store';
+	import type { Editor } from '@tiptap/core';
+	let titleEditor: Readable<Editor> | undefined = $state(undefined);
 
 	let location: EventLocation | null = $state(null);
 	let locationChanged = $state(false);
@@ -92,6 +99,24 @@
 	let linkError = $state('');
 
 	let draftLoaded = $state(false);
+
+	let showRecurringModal = $state(false);
+	let recurringInterval = $state(1);
+	let recurringUnit: 'days' | 'weeks' | 'months' | 'years' = $state('weeks');
+	let recurringCount = $state(4);
+	let recurringNumberInTitle = $state(false);
+	let recurringCreating = $state(false);
+	let recurringError: string | null = $state(null);
+	let recurringCreated = $state(0);
+
+	let titleNumberMatch = $derived(name.match(/#?(\d+)\s*$/));
+	let detectedStartNumber = $derived(titleNumberMatch ? parseInt(titleNumberMatch[1]) : null);
+
+	$effect(() => {
+		if (detectedStartNumber !== null) {
+			recurringNumberInTitle = true;
+		}
+	});
 
 	function isoToDatetimeLocal(iso: string): string {
 		const date = new Date(iso);
@@ -203,7 +228,7 @@
 		}
 		draftLoaded = true;
 		if (!startsAt) editingDates = true;
-		titleEl?.focus();
+		if (titleEditor) get(titleEditor)?.commands.focus();
 	});
 
 	let saveDraftTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -633,6 +658,127 @@
 			showDeleteConfirm = false;
 		}
 	}
+
+	$inspect(name);
+
+	async function handleCreateRecurring() {
+		if (!name.trim() || !startsAt || !user.isLoggedIn || !user.did) return;
+
+		recurringCreating = true;
+		recurringError = null;
+		recurringCreated = 0;
+
+		try {
+			const baseStart = new Date(startsAt);
+			const baseEnd = endsAt ? new Date(endsAt) : null;
+			const duration = baseEnd ? baseEnd.getTime() - baseStart.getTime() : 0;
+			const baseName = recurringNumberInTitle && titleNumberMatch
+				? name.replace(/#?\d+\s*$/, '').trimEnd()
+				: name.trim();
+			const startNum = detectedStartNumber ?? 1;
+			const hasHash = titleNumberMatch ? titleNumberMatch[0].includes('#') : false;
+
+			// Build the same record shape as handleSubmit
+			let media: Array<Record<string, unknown>> | undefined;
+			const existingMedia = (eventData?.media ?? []) as Array<Record<string, unknown>>;
+
+			if (isNew || thumbnailChanged) {
+				if (thumbnailFile) {
+					const compressed = await compressImage(thumbnailFile);
+					const result = await uploadBlob({ blob: compressed.blob });
+					if (result) {
+						const { aspectRatio: _ar, ...blobRef } = result as Record<string, unknown> & { aspectRatio?: unknown };
+						media = [
+							...existingMedia.filter((m) => m.role !== 'thumbnail'),
+							{
+								role: 'thumbnail',
+								content: blobRef,
+								aspect_ratio: { width: compressed.aspectRatio.width, height: compressed.aspectRatio.height }
+							}
+						];
+					}
+				} else {
+					const remaining = existingMedia.filter((m) => m.role !== 'thumbnail');
+					if (remaining.length > 0) media = remaining;
+				}
+			} else if (existingMedia.length > 0) {
+				media = existingMedia;
+			}
+
+			const parentUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
+
+			for (let i = 0; i < recurringCount; i++) {
+				const eventStart = new Date(baseStart);
+				const offset = (i + 1);
+				if (recurringUnit === 'days') eventStart.setDate(eventStart.getDate() + offset * recurringInterval);
+				else if (recurringUnit === 'weeks') eventStart.setDate(eventStart.getDate() + offset * recurringInterval * 7);
+				else if (recurringUnit === 'months') eventStart.setMonth(eventStart.getMonth() + offset * recurringInterval);
+				else if (recurringUnit === 'years') eventStart.setFullYear(eventStart.getFullYear() + offset * recurringInterval);
+
+				const eventEnd = duration ? new Date(eventStart.getTime() + duration) : null;
+
+				let eventName = baseName;
+				if (recurringNumberInTitle) {
+					const num = startNum + (i + 1);
+					eventName = hasHash ? `${baseName} #${num}` : `${baseName} ${num}`;
+				}
+
+				const newRkey = TID.now();
+				const record: Record<string, unknown> = {
+					$type: 'community.lexicon.calendar.event',
+					createdWith: 'https://atmo.rsvp',
+					name: eventName,
+					mode: `community.lexicon.calendar.event#${mode}`,
+					status: 'community.lexicon.calendar.event#scheduled',
+					startsAt: eventStart.toISOString(),
+					createdAt: new Date().toISOString(),
+					recurringEventOf: parentUri
+				};
+
+				const trimmedDescription = description.trim();
+				if (trimmedDescription) {
+					record.description = trimmedDescription;
+				}
+				if (eventEnd) {
+					record.endsAt = eventEnd.toISOString();
+				}
+				if (media) {
+					record.media = media;
+				}
+				if (links.length > 0) {
+					record.uris = links;
+				}
+				if (location) {
+					record.locations = [{
+						$type: 'community.lexicon.location.address',
+						...location
+					}];
+				}
+
+				const response = await putRecord({
+					collection: 'community.lexicon.calendar.event',
+					rkey: newRkey,
+					record
+				});
+
+				if (response.ok) {
+					const eventUri = `at://${user.did}/community.lexicon.calendar.event/${newRkey}`;
+					await notifyContrailOfUpdate(eventUri);
+					recurringCreated = i + 1;
+				} else {
+					recurringError = `Failed to create event ${i + 1}. Stopping.`;
+					return;
+				}
+			}
+
+			showRecurringModal = false;
+		} catch (e) {
+			console.error('Failed to create recurring events:', e);
+			recurringError = 'Failed to create recurring events. Please try again.';
+		} finally {
+			recurringCreating = false;
+		}
+	}
 </script>
 
 <div class="px-6 py-12 sm:py-12">
@@ -744,25 +890,25 @@
 					>
 						{submitting
 							? isNew
-								? 'Creating...'
+								? 'Publishing...'
 								: 'Saving...'
 							: isNew
-								? 'Create Event'
+								? 'Publish Event'
 								: 'Save Event'}
 					</Button>
-
-					<!-- Right column: event details -->
+						<!-- Right column: event details -->
 					<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-5 md:row-start-1">
 						<!-- Name -->
-						<div class="mb-2">
-							<textarea
-								bind:this={titleEl}
-								bind:value={name}
-								required
+						<div class="mb-2 min-h-14">
+							<PlainTextEditor
+								content={name}
+								bind:editor={titleEditor}
 								placeholder="Event name"
-								rows={2}
-								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 text-3xl leading-tight font-bold focus:border-0 focus:ring-0 focus:outline-none sm:text-4xl"
-							></textarea>
+								onupdate={() => {
+									if (titleEditor) name = get(titleEditor)?.getText() ?? '';
+								}}
+								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full text-3xl leading-tight font-bold focus:outline-none sm:text-4xl"
+							/>
 						</div>
 
 						<!-- Mode toggle -->
@@ -778,10 +924,11 @@
 									}
 								}
 								class="w-fit"
+								size="xs"
 							>
-								<ToggleGroupItem size="sm" value="inperson">In Person</ToggleGroupItem>
-								<ToggleGroupItem size="sm" value="virtual">Virtual</ToggleGroupItem>
-								<ToggleGroupItem size="sm" value="hybrid">Hybrid</ToggleGroupItem>
+								<ToggleGroupItem value="inperson">In Person</ToggleGroupItem>
+								<ToggleGroupItem value="virtual">Virtual</ToggleGroupItem>
+								<ToggleGroupItem value="hybrid">Hybrid</ToggleGroupItem>
 							</ToggleGroup>
 						</div>
 
@@ -1033,12 +1180,26 @@
 						<Button type="submit" disabled={submitting || !name.trim() || !startsAt}>
 							{submitting
 								? isNew
-									? 'Creating...'
+									? 'Publishing...'
 									: 'Saving...'
 								: isNew
-									? 'Create Event'
+									? 'Publish Event'
 									: 'Save Changes'}
 						</Button>
+						{#if !isNew}
+							<Button
+								type="button"
+								variant="secondary"
+								disabled={submitting || !name.trim() || !startsAt}
+								onclick={() => {
+									recurringError = null;
+									recurringCreated = 0;
+									showRecurringModal = true;
+								}}
+							>
+								Add recurring events
+							</Button>
+						{/if}
 					</div>
 
 					<!-- Hosted By -->
@@ -1280,4 +1441,87 @@
 			target="_blank">OpenStreetMap contributors</a
 		>
 	</p>
+</Modal>
+
+<Modal bind:open={showRecurringModal}>
+	<p class="text-base-900 dark:text-base-50 text-lg font-semibold">Add recurring events</p>
+	<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
+		Create multiple copies of this event at regular intervals.
+	</p>
+
+	<div class="mt-4 space-y-4">
+		<div>
+			<!-- svelte-ignore a11y_label_has_associated_control -->
+			<label class="text-base-700 dark:text-base-300 mb-1 block text-sm font-medium">
+				Number of events to create
+			</label>
+			<Input type="number" bind:value={recurringCount} min={1} max={52} class="w-24" />
+		</div>
+
+		<div>
+			<!-- svelte-ignore a11y_label_has_associated_control -->
+			<label class="text-base-700 dark:text-base-300 mb-1 block text-sm font-medium">
+				Repeat every
+			</label>
+			<div class="flex items-center gap-2">
+				<Input type="number" bind:value={recurringInterval} min={1} max={99} class="w-20" />
+				<ToggleGroup type="single" bind:value={recurringUnit}>
+					<ToggleGroupItem value="days">days</ToggleGroupItem>
+					<ToggleGroupItem value="weeks">weeks</ToggleGroupItem>
+					<ToggleGroupItem value="months">months</ToggleGroupItem>
+					<ToggleGroupItem value="years">years</ToggleGroupItem>
+				</ToggleGroup>
+			</div>
+		</div>
+
+		<div>
+			<div class="flex items-center gap-2">
+				<Checkbox bind:checked={recurringNumberInTitle} sizeVariant="sm" />
+				<span class="text-base-700 dark:text-base-300 text-sm font-medium">Number in title</span>
+			</div>
+			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
+				{#if recurringNumberInTitle && detectedStartNumber !== null}
+					Titles will count up from #{detectedStartNumber + 1}
+				{:else if recurringNumberInTitle}
+					A number will be appended to each title
+				{:else}
+					Append a number to each event title
+				{/if}
+			</p>
+		</div>
+	</div>
+
+	{#if recurringError}
+		<p class="mt-4 text-sm text-red-600 dark:text-red-400">{recurringError}</p>
+	{/if}
+
+	{#if recurringCreating && recurringCreated > 0}
+		<p class="text-base-500 dark:text-base-400 mt-4 text-sm">
+			Created {recurringCreated} of {recurringCount} events...
+		</p>
+	{/if}
+
+	{#if recurringCreated > 0 && !recurringCreating}
+		<p class="mt-4 text-sm text-green-600 dark:text-green-400">
+			Successfully created {recurringCreated} recurring events!
+		</p>
+	{/if}
+
+	<div class="mt-4 flex justify-end gap-2">
+		<Button
+			variant="secondary"
+			onclick={() => (showRecurringModal = false)}
+			disabled={recurringCreating}
+		>
+			{recurringCreated > 0 && !recurringCreating ? 'Close' : 'Cancel'}
+		</Button>
+		{#if !recurringCreated || recurringCreating}
+			<Button
+				onclick={handleCreateRecurring}
+				disabled={recurringCreating || recurringCount < 1}
+			>
+				{recurringCreating ? `Creating...` : `Create ${recurringCount} event${recurringCount === 1 ? '' : 's'}`}
+			</Button>
+		{/if}
+	</div>
 </Modal>

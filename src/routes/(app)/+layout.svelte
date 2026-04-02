@@ -47,19 +47,21 @@
 			<span class="sr-only">search for events</span>
 		</a>
 		{#if user.isLoggedIn}
-			<Button href="/create" class="hidden sm:inline-flex">Create Event</Button>
-			<Button href="/create" size="icon" class="sm:hidden">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="2"
-					stroke="currentColor"
-					class="size-5"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-				</svg>
-			</Button>
+			{#if !page.url.pathname.startsWith('/create')}
+				<Button href="/create" class="hidden sm:inline-flex">Create Event</Button>
+				<Button href="/create" size="icon" class="sm:hidden">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						class="size-5"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+					</svg>
+				</Button>
+			{/if}
 			<a href="/p/{user.profile?.handle || user.did}" class="shrink-0">
 				<Avatar
 					src={user.profile?.avatar}

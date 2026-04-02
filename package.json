@@ -64,6 +64,7 @@
 		"@ethercorps/sveltekit-og": "^4.2.1",
 		"@foxui/core": "^0.8.2",
 		"@foxui/social": "^0.8.4",
+		"@foxui/text": "^0.8.2",
 		"@foxui/time": "^0.8.2",
 		"@foxui/visual": "^0.8.2",
 		"@internationalized/date": "^3.12.0",
