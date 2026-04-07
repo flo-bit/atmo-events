@@ -1,16 +1,43 @@
+<script lang="ts" module>
+	export type VodPlayerApi = {
+		seek: (time: number) => void;
+	};
+</script>
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import 'plyr/dist/plyr.css';
 	import type HlsType from 'hls.js';
 	import type PlyrType from 'plyr';
 
-	let { playlistUrl, title }: { playlistUrl: string; title: string } = $props();
+	let {
+		playlistUrl,
+		title,
+		subtitlesUrl,
+		currentTime = $bindable(0),
+		api = $bindable(undefined)
+	}: {
+		playlistUrl: string;
+		title: string;
+		subtitlesUrl?: string;
+		currentTime?: number;
+		api?: VodPlayerApi;
+	} = $props();
 
 	let videoEl: HTMLVideoElement | undefined = $state();
 	let error = $state(false);
 
 	let hls: HlsType | null = null;
 	let plyr: PlyrType | null = null;
+
+	api = {
+		seek(time: number) {
+			if (plyr) {
+				plyr.currentTime = time;
+				plyr.play();
+			}
+		}
+	};
 
 	onMount(() => {
 		init();
@@ -52,16 +79,41 @@
 			}
 
 			plyr = new Plyr(videoEl, {
-				controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
-				settings: ['speed'],
+				controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+				settings: ['captions', 'speed'],
 				speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
+				captions: { active: !!subtitlesUrl, language: 'en', update: true },
 				ratio: '16:9'
 			});
 
-			// When user clicks play, tell HLS to start loading segments
 			plyr.on('play', () => {
 				hls?.startLoad();
 			});
+
+			plyr.on('timeupdate', () => {
+				currentTime = plyr?.currentTime ?? 0;
+			});
+
+			// Add track after Plyr init and force captions on
+			if (subtitlesUrl) {
+				const media = plyr.media as HTMLVideoElement;
+				// Remove any existing tracks first
+				media.querySelectorAll('track').forEach((t) => t.remove());
+				// Add fresh track
+				const track = document.createElement('track');
+				track.kind = 'captions';
+				track.label = 'English';
+				track.srclang = 'en';
+				track.src = subtitlesUrl;
+				track.default = true;
+				media.appendChild(track);
+				// Wait for track to load, then activate
+				track.addEventListener('load', () => {
+					plyr!.toggleCaptions(true);
+				});
+				// Also try toggling after a short delay as fallback
+				setTimeout(() => plyr?.toggleCaptions(true), 500);
+			}
 		} catch {
 			error = true;
 		}
@@ -74,7 +126,7 @@
 	</div>
 {:else}
 	<div class="border-base-300 dark:border-base-400/40 aspect-video w-full max-w-full overflow-hidden rounded-xl border">
-		<video bind:this={videoEl} class="h-full w-full" aria-label={title}></video>
+		<video bind:this={videoEl} class="h-full w-full" aria-label={title} crossorigin="anonymous"></video>
 	</div>
 {/if}
 

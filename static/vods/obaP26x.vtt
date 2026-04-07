@@ -1,0 +1,1630 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.600
+I'm a staff engineer, staff software engineer at GitHub and
+
+00:00:05.600 --> 00:00:07.000
+promise I know how to use computers.
+
+00:00:07.000 --> 00:00:11.200
+I'm an app proto enthusiast, why I'm here
+
+00:00:11.200 --> 00:00:16.660
+, and also a member of the chronically online and really
+
+00:00:16.660 --> 00:00:19.860
+, really love online communities.
+
+00:00:19.860 --> 00:00:23.160
+I work remote and so online communities is really how I engage
+
+00:00:23.160 --> 00:00:25.190
+with a lot of folks and so that's what I got
+
+00:00:25.330 --> 00:00:26.550
+really interested in.
+
+00:00:26.940 --> 00:00:28.880
+I co-host the Overcommitted podcast.
+
+00:00:28.880 --> 00:00:31.000
+I'm going to be recording this weekend.
+
+00:00:31.000 --> 00:00:32.900
+If you want to talk about your experience here, let me
+
+00:00:32.900 --> 00:00:34.460
+know because we're going to do a special episode.
+
+00:00:34.460 --> 00:00:37.920
+And I also brought some stickers that I'll put out once
+
+00:00:37.920 --> 00:00:41.350
+I find where all of the stickers are congregating.
+
+00:00:41.350 --> 00:00:44.910
+So a few months ago, I had this thought that I
+
+00:00:44.910 --> 00:00:47.640
+thought was a brilliant idea.
+
+00:00:47.640 --> 00:00:49.830
+I was like, why isn't there a Goodreads
+
+00:00:49.830 --> 00:00:51.620
+or like a letterbox on at proto?
+
+00:00:51.720 --> 00:00:53.180
+This does not exist yet.
+
+00:00:53.230 --> 00:00:56.280
+And so I started building this app called Collective which was
+
+00:00:56.500 --> 00:00:58.220
+sort of, you know, the same thing.
+
+00:00:58.220 --> 00:01:01.130
+Turns out it did exist.
+
+00:01:01.130 --> 00:01:03.460
+And there's quite a few of them.
+
+00:01:03.520 --> 00:01:07.110
+One of them in particular that I really like is called pop
+
+00:01:07.110 --> 00:01:07.630
+feed.
+
+00:01:08.080 --> 00:01:08.300
+social.
+
+00:01:08.300 --> 00:01:11.320
+They did this way, way better than I had done.
+
+00:01:11.420 --> 00:01:13.990
+And I highly recommend you check it out if you're interested
+
+00:01:13.990 --> 00:01:14.860
+in something like that.
+
+00:01:15.090 --> 00:01:21.690
+But one thing that I got really stumped by while working
+
+00:01:21.690 --> 00:01:25.690
+on this problem was I have an online developer community for Over
+
+00:01:25.690 --> 00:01:26.390
+committed.
+
+00:01:26.410 --> 00:01:27.740
+And we have a book club.
+
+00:01:27.740 --> 00:01:30.360
+So we like to read technical books together.
+
+00:01:30.400 --> 00:01:33.140
+If you are also interested in reading books, let me know
+
+00:01:33.140 --> 00:01:33.300
+.
+
+00:01:33.300 --> 00:01:34.540
+You're welcome to join.
+
+00:01:34.600 --> 00:01:37.250
+Right now we coordinate on Discord.
+
+00:01:37.250 --> 00:01:40.990
+And Discord is great, but I really wanted Collective to
+
+00:01:41.260 --> 00:01:44.210
+help, you know, facilitate the book club situation.
+
+00:01:44.210 --> 00:01:46.130
+Because it's really awkward to say, all right, we
+
+00:01:46.130 --> 00:01:48.010
+'re going to put our list on GitHub and then we're
+
+00:01:48.010 --> 00:01:50.980
+going to have the conversations in Discord and then we'll have
+
+00:01:51.010 --> 00:01:51.730
+some events.
+
+00:01:51.730 --> 00:01:53.450
+And it's just, it's kind of a mess.
+
+00:01:53.500 --> 00:01:54.940
+So I was like, you know what, wouldn't it
+
+00:01:54.940 --> 00:01:56.280
+be nice if we could solve this problem?
+
+00:01:56.510 --> 00:02:00.360
+Discord now owns our member list.
+
+00:02:00.360 --> 00:02:02.090
+It owns our reading history.
+
+00:02:02.090 --> 00:02:05.780
+It owns every single conversation we've had about every single book
+
+00:02:05.780 --> 00:02:05.980
+.
+
+00:02:05.980 --> 00:02:09.220
+If Discord decides to change their terms, which I'm sure
+
+00:02:09.220 --> 00:02:14.180
+they would never do, then we lose all of that.
+
+00:02:14.180 --> 00:02:18.180
+The entire history of our entire community can just be erased.
+
+00:02:18.230 --> 00:02:20.700
+And that's a real bummer.
+
+00:02:20.700 --> 00:02:23.910
+It's not necessarily just a Discord problem.
+
+00:02:23.910 --> 00:02:25.820
+This is also a platform problem.
+
+00:02:25.820 --> 00:02:30.370
+Every single group that has been built online on Reddit or on
+
+00:02:30.370 --> 00:02:35.090
+Facebook or on Slack, the platform owns every one of those
+
+00:02:35.090 --> 00:02:37.480
+spaces and the platform gets to make all of the decisions about
+
+00:02:37.670 --> 00:02:38.460
+what happens there.
+
+00:02:38.460 --> 00:02:45.680
+And when the platform disappears, that means the community disappears too
+
+00:02:45.950 --> 00:02:46.060
+.
+
+00:02:46.060 --> 00:02:49.580
+You've got Google Plus, MySpace, Twitter, what
+
+00:02:49.580 --> 00:02:52.140
+once existed of it, all gone.
+
+00:02:52.140 --> 00:02:56.490
+Along with every single conversation and every shared memory and piece of
+
+00:02:56.490 --> 00:02:57.500
+community knowledge.
+
+00:03:01.260 --> 00:03:03.480
+So I think that AppRoto did a really great job
+
+00:03:03.480 --> 00:03:04.860
+of solving personal ownership.
+
+00:03:04.860 --> 00:03:07.210
+Your posts live in your repo.
+
+00:03:07.210 --> 00:03:10.050
+Your social graph is completely under your control.
+
+00:03:10.050 --> 00:03:12.970
+And your identity is portable to wherever you want to bring it
+
+00:03:12.970 --> 00:03:13.140
+.
+
+00:03:13.140 --> 00:03:15.080
+But there's still an open question one.
+
+00:03:15.190 --> 00:03:19.180
+Question about what about shared things?
+
+00:03:19.180 --> 00:03:21.040
+So what about book clubs?
+
+00:03:21.040 --> 00:03:23.020
+Or community projects?
+
+00:03:23.020 --> 00:03:24.700
+Or the group chat itself?
+
+00:03:24.700 --> 00:03:27.780
+Does that belong to the individual or does it belong to the
+
+00:03:28.010 --> 00:03:28.840
+group as a whole?
+
+00:03:28.950 --> 00:03:34.560
+So these are the design questions that I was thinking about going
+
+00:03:34.560 --> 00:03:35.110
+into this.
+
+00:03:35.110 --> 00:03:37.660
+Because I wanted to build something that would make it so that
+
+00:03:37.660 --> 00:03:41.030
+my group could live not just in collective itself, not just
+
+00:03:41.150 --> 00:03:43.540
+on blue sky where we chat to each other.
+
+00:03:43.580 --> 00:03:45.980
+I want it to exist on its own and not be controlled
+
+00:03:45.980 --> 00:03:47.980
+by whichever platform we are working in.
+
+00:03:47.980 --> 00:03:51.900
+So the first question was where does the data live?
+
+00:03:51.900 --> 00:03:53.550
+Is this a shared PDS?
+
+00:03:53.550 --> 00:03:56.000
+Is it someone's personal repo?
+
+00:03:56.000 --> 00:03:58.140
+Whoever created the group?
+
+00:03:58.430 --> 00:03:59.170
+We'll get into that.
+
+00:03:59.170 --> 00:04:00.220
+That can be problematic.
+
+00:04:01.010 --> 00:04:04.860
+Yep.
+
+00:04:04.860 --> 00:04:06.540
+Somebody is familiar with this problem.
+
+00:04:06.540 --> 00:04:09.240
+And then who controls it?
+
+00:04:09.240 --> 00:04:12.830
+Like does the person who created the group get automatic full control
+
+00:04:12.830 --> 00:04:14.180
+over that group forever?
+
+00:04:15.260 --> 00:04:15.570
+No.
+
+00:04:15.570 --> 00:04:16.590
+Absolutely not.
+
+00:04:16.590 --> 00:04:17.720
+Like that's crazy.
+
+00:04:17.720 --> 00:04:19.930
+Because then, you know, anyway, we'll get into
+
+00:04:19.980 --> 00:04:20.300
+that.
+
+00:04:20.300 --> 00:04:24.140
+And then how do members themselves relate to the group?
+
+00:04:24.140 --> 00:04:27.670
+Do they have to sign up through whatever group mechanism they're
+
+00:04:27.670 --> 00:04:28.030
+in?
+
+00:04:28.310 --> 00:04:32.220
+What determines how a group, how an individual controls their own
+
+00:04:32.220 --> 00:04:33.980
+affiliation with the group?
+
+00:04:33.980 --> 00:04:37.260
+And so those are the things that I brought into thinking on
+
+00:04:37.260 --> 00:04:37.820
+this problem.
+
+00:04:37.820 --> 00:04:39.920
+And I do want to give some shout outs to a ton
+
+00:04:40.010 --> 00:04:43.790
+of folks in the community that have already been thinking a lot
+
+00:04:43.790 --> 00:04:44.640
+about this.
+
+00:04:44.640 --> 00:04:48.530
+And that their work has gone into what I ended up building
+
+00:04:48.530 --> 00:04:48.860
+.
+
+00:04:48.860 --> 00:04:52.060
+So Brian Newbold, I just met you this morning.
+
+00:04:52.060 --> 00:04:54.060
+Sorry, I'm stalking you online.
+
+00:04:54.060 --> 00:04:59.370
+But he had some great, great leaflets on this.
+
+00:04:59.370 --> 00:05:00.530
+Nick Jerakines.
+
+00:05:00.530 --> 00:05:03.250
+I don't think he's in here, but I technically
+
+00:05:03.290 --> 00:05:06.200
+work with him as how he's been introducing me today.
+
+00:05:06.200 --> 00:05:08.780
+We work at GitHub together and I've been bugging him
+
+00:05:08.780 --> 00:05:09.020
+.
+
+00:05:09.020 --> 00:05:10.920
+He's had some great stuff.
+
+00:05:10.940 --> 00:05:13.310
+I have Mary, the front page team.
+
+00:05:13.310 --> 00:05:15.980
+Erland, who I don't believe is here.
+
+00:05:15.980 --> 00:05:18.510
+And then also I wanted to give a shout out to Amelia
+
+00:05:18.510 --> 00:05:22.820
+who has been very patient at answering all of my questions here
+
+00:05:22.820 --> 00:05:23.160
+.
+
+00:05:23.180 --> 00:05:24.700
+Yes.
+
+00:05:24.700 --> 00:05:28.920
+So I've been collecting these and I built a thing with
+
+00:05:28.920 --> 00:05:29.580
+that.
+
+00:05:29.580 --> 00:05:34.300
+So AppRoto's philosophy is really your data, your
+
+00:05:34.550 --> 00:05:34.700
+repo.
+
+00:05:35.420 --> 00:05:38.870
+That works for personal data but not so great for shared state
+
+00:05:38.870 --> 00:05:39.100
+.
+
+00:05:39.200 --> 00:05:42.630
+It doesn't really fit neatly into this one person's repo
+
+00:05:42.630 --> 00:05:42.820
+.
+
+00:05:42.820 --> 00:05:46.450
+So how do we extend that ownership model to collective data without
+
+00:05:46.540 --> 00:05:49.020
+losing what it is that makes AppRoto so special?
+
+00:05:49.020 --> 00:05:55.100
+And this is the approach that I came up with which is
+
+00:05:55.100 --> 00:05:55.990
+open social.
+
+00:05:55.990 --> 00:05:56.680
+community.
+
+00:05:56.700 --> 00:06:00.240
+It isn't really the answer, but it's an answer
+
+00:06:00.240 --> 00:06:00.510
+.
+
+00:06:00.510 --> 00:06:03.160
+And, you know, you can try it out and see
+
+00:06:03.160 --> 00:06:05.200
+if this is a thing that fits you or built your own
+
+00:06:05.200 --> 00:06:05.610
+thing.
+
+00:06:05.750 --> 00:06:07.420
+That's the beauty of this community.
+
+00:06:07.420 --> 00:06:10.820
+It's group infrastructure.
+
+00:06:10.820 --> 00:06:12.490
+It's not itself an app view.
+
+00:06:12.510 --> 00:06:15.970
+It's just an infrastructure and a set of APIs that anybody
+
+00:06:15.980 --> 00:06:18.930
+can integrate with, any app you can integrate with, or
+
+00:06:18.930 --> 00:06:21.420
+any community can manage their own group through.
+
+00:06:21.420 --> 00:06:24.730
+And I'm going to walk through a couple of the design
+
+00:06:24.730 --> 00:06:26.660
+decisions that were made.
+
+00:06:26.720 --> 00:06:30.410
+So the first one, which is the most important to that
+
+00:06:30.600 --> 00:06:35.260
+ownership question, is groups are stored as AppRoto identities
+
+00:06:35.260 --> 00:06:36.060
+themselves.
+
+00:06:36.060 --> 00:06:37.330
+They're their own did.
+
+00:06:37.390 --> 00:06:40.620
+I've separated the group infrastructure from the app because I don
+
+00:06:40.700 --> 00:06:43.030
+'t want to get into the situation where I've built this
+
+00:06:43.030 --> 00:06:45.660
+fantastic community and then the app goes in a direction that I
+
+00:06:45.660 --> 00:06:47.860
+don't agree with and then we're just completely locked in
+
+00:06:47.870 --> 00:06:48.040
+.
+
+00:06:48.150 --> 00:06:51.280
+Membership is a two-way handshake.
+
+00:06:51.280 --> 00:06:53.030
+Not anybody can just join any group.
+
+00:06:53.030 --> 00:06:55.450
+I mean, maybe there are some groups who are okay with
+
+00:06:55.450 --> 00:06:57.480
+that, but there's definitely some that aren't.
+
+00:06:57.480 --> 00:06:59.100
+And you can't just say, hey, I'm going
+
+00:06:59.100 --> 00:07:00.400
+to join this group now.
+
+00:07:00.400 --> 00:07:03.500
+And then, finally, there's a wrapper pattern to have
+
+00:07:03.500 --> 00:07:07.840
+shared content that makes it easy to show within an app view
+
+00:07:07.970 --> 00:07:14.300
+without necessarily overloading that repo with a lot of extra stuff
+
+00:07:14.300 --> 00:07:14.300
+.
+
+00:07:15.740 --> 00:07:16.680
+So what does that look like?
+
+00:07:16.680 --> 00:07:19.180
+Every group gets its own did.
+
+00:07:19.180 --> 00:07:22.820
+So, for example, my book club is its own web
+
+00:07:22.820 --> 00:07:25.060
+, did web over committed.
+
+00:07:25.060 --> 00:07:25.560
+dev.
+
+00:07:25.670 --> 00:07:28.790
+It has its own handle, its own repo on a PD
+
+00:07:28.790 --> 00:07:33.100
+S and then group shared data is stored within that repo.
+
+00:07:33.100 --> 00:07:36.960
+That makes a group a first-class citizen of the protocol
+
+00:07:36.960 --> 00:07:39.100
+itself and it means that it gets to take advantage of a
+
+00:07:39.100 --> 00:07:40.430
+lot of the stuff that's already built there.
+
+00:07:40.620 --> 00:07:43.180
+It's not a row in some apps database.
+
+00:07:43.180 --> 00:07:46.170
+It's an entity with its own identity.
+
+00:07:46.170 --> 00:07:49.370
+And just like personal dids, that entity is, at
+
+00:07:49.370 --> 00:07:51.560
+least, hopefully, portable.
+
+00:07:55.340 --> 00:08:00.130
+And then the infrastructure, instead of being an app view itself
+
+00:08:00.220 --> 00:08:02.280
+, this is what the infrastructure looks like.
+
+00:08:02.280 --> 00:08:05.420
+So I can have collective, which is, has access to
+
+00:08:05.520 --> 00:08:07.340
+open social community.
+
+00:08:07.340 --> 00:08:11.060
+But then you can also have your own other apps that have
+
+00:08:11.250 --> 00:08:12.040
+access to it.
+
+00:08:12.150 --> 00:08:15.340
+Any app view can connect to it.
+
+00:08:15.360 --> 00:08:18.340
+And you can also have, you know, your podcast app
+
+00:08:18.340 --> 00:08:22.060
+or your reading app or multiple of those if you want.
+
+00:08:22.060 --> 00:08:24.270
+Maybe you want to multiple, you want to support blue sky
+
+00:08:24.290 --> 00:08:26.450
+and black sky and Erosky, all from the same
+
+00:08:26.460 --> 00:08:28.980
+thing, to have one group, then that's totally reasonable
+
+00:08:28.980 --> 00:08:29.180
+.
+
+00:08:29.450 --> 00:08:33.500
+Each app gets its own namespace within open social.
+
+00:08:33.500 --> 00:08:35.380
+So collective stores app.
+
+00:08:35.380 --> 00:08:36.760
+collectivesocial.
+
+00:08:36.870 --> 00:08:37.350
+group.
+
+00:08:37.350 --> 00:08:38.530
+list lexicons.
+
+00:08:38.530 --> 00:08:43.490
+And then other apps cannot create other lexicons within the
+
+00:08:43.490 --> 00:08:47.980
+group unless they have access to those namespaces.
+
+00:08:47.980 --> 00:08:51.520
+That prevents other apps from overriding data that, you
+
+00:08:51.520 --> 00:08:54.370
+know, you don't want somebody else to be able to
+
+00:08:54.380 --> 00:08:57.710
+change the data for your podcast app from collective or vice versa
+
+00:08:57.710 --> 00:08:57.710
+.
+
+00:08:57.950 --> 00:09:00.700
+Same group, different data and no conflicts.
+
+00:09:00.700 --> 00:09:03.720
+The group there is the shared context then.
+
+00:09:03.830 --> 00:09:07.890
+And then the group gets a decision on which apps it also
+
+00:09:07.900 --> 00:09:08.610
+has access to.
+
+00:09:08.610 --> 00:09:10.520
+So if an app does go in a direction that the group
+
+00:09:10.740 --> 00:09:13.040
+decides that they don't want access to, they can also
+
+00:09:13.040 --> 00:09:16.040
+prevent that group from having access or that app from having access
+
+00:09:16.150 --> 00:09:16.700
+to that group.
+
+00:09:16.700 --> 00:09:21.020
+The next one.
+
+00:09:21.020 --> 00:09:22.860
+So membership as a two-way handshake.
+
+00:09:22.860 --> 00:09:26.160
+This means that there is a membership record in an individual's
+
+00:09:26.160 --> 00:09:28.400
+repo and then also in the group repo.
+
+00:09:28.400 --> 00:09:32.080
+That confirms that not only has the member agreed that they want
+
+00:09:32.080 --> 00:09:34.330
+to be involved in this group, but the group has agreed
+
+00:09:34.330 --> 00:09:38.680
+that that person is involved in that membership record.
+
+00:09:38.910 --> 00:09:44.500
+That means that an individual can leave any time without needing permission
+
+00:09:44.500 --> 00:09:46.440
+from the group to leave the group.
+
+00:09:46.660 --> 00:09:49.060
+And then at the same time, the group can, you
+
+00:09:49.110 --> 00:09:52.160
+know, excommunicate somebody if needed without having to get
+
+00:09:52.190 --> 00:09:54.460
+permission to update that individual's repo.
+
+00:09:57.420 --> 00:10:00.040
+And that's a nice opportunity for privacy here, too.
+
+00:10:00.150 --> 00:10:03.010
+So you can have a group of membership records that, you
+
+00:10:03.010 --> 00:10:05.480
+know, have hashes that are storing instead of the actual
+
+00:10:05.710 --> 00:10:09.190
+membership identity, which means that then you don't necessarily have
+
+00:10:09.190 --> 00:10:11.240
+a list of all the people that are in the group sitting
+
+00:10:11.280 --> 00:10:13.020
+in the repo, which can also be beneficial.
+
+00:10:13.020 --> 00:10:16.900
+And then the wrapper pattern.
+
+00:10:16.930 --> 00:10:20.130
+So in this case, this is for user content.
+
+00:10:20.140 --> 00:10:23.820
+So the group creates a wrapper around that content.
+
+00:10:23.820 --> 00:10:27.340
+Bob, in this case, will own the book review.
+
+00:10:27.340 --> 00:10:29.740
+They create the book review and they own that content.
+
+00:10:29.800 --> 00:10:33.460
+But then the group owns a wrap or wrapper around that content
+
+00:10:33.460 --> 00:10:33.620
+.
+
+00:10:33.620 --> 00:10:36.510
+That means that the group has access to remove that content from
+
+00:10:36.510 --> 00:10:37.980
+the group if needed.
+
+00:10:37.980 --> 00:10:40.220
+And then Bob, if he decides to leave the group,
+
+00:10:40.280 --> 00:10:42.770
+he still owns his own book review, which is nice.
+
+00:10:45.900 --> 00:10:48.780
+Then the group repo also ends up being an index of references
+
+00:10:48.780 --> 00:10:52.390
+and not necessarily a copy of all of the content, which
+
+00:10:52.390 --> 00:10:54.380
+can also be a bit problematic.
+
+00:10:54.380 --> 00:10:58.400
+And then this is what it looks like end-to-
+
+00:10:58.670 --> 00:10:59.150
+end.
+
+00:10:59.170 --> 00:11:04.420
+So you register an app, in this case collective, as
+
+00:11:04.420 --> 00:11:05.970
+an app view with OpenSocial.
+
+00:11:05.980 --> 00:11:08.850
+Community and get an API key which can be used for
+
+00:11:09.470 --> 00:11:10.190
+authentication.
+
+00:11:10.190 --> 00:11:14.540
+And then you can create your group through those collective APIs.
+
+00:11:15.180 --> 00:11:17.540
+I'm still working on some PDS things involved to make
+
+00:11:17.540 --> 00:11:20.630
+that simpler because nobody wants to have to create a did and
+
+00:11:20.630 --> 00:11:22.230
+then put it over anywhere else.
+
+00:11:22.230 --> 00:11:23.420
+But we'll get to that.
+
+00:11:23.420 --> 00:11:26.320
+Members join through that two-way handshake, which,
+
+00:11:26.320 --> 00:11:28.110
+again, can be within the app view if you'd like
+
+00:11:28.110 --> 00:11:29.400
+or through OpenSocial.
+
+00:11:29.400 --> 00:11:29.980
+Community.
+
+00:11:29.980 --> 00:11:32.140
+It has its own UI for that.
+
+00:11:32.210 --> 00:11:36.940
+And then members contribute content via their wrappers, also through
+
+00:11:36.940 --> 00:11:37.500
+APIs.
+
+00:11:37.500 --> 00:11:42.450
+They support community creation, membership management, namespace, record
+
+00:11:42.480 --> 00:11:43.260
+storage.
+
+00:11:43.260 --> 00:11:47.330
+Because I work in the enterprise space at GitHub, there's
+
+00:11:47.330 --> 00:11:51.230
+also audit logging and custom roles and permissions, which were probably
+
+00:11:51.230 --> 00:11:52.970
+a little bit unnecessary.
+
+00:11:53.110 --> 00:11:55.020
+But it's what I know.
+
+00:11:55.020 --> 00:11:59.690
+And because I don't want to just talk about it,
+
+00:11:59.740 --> 00:12:02.250
+I'm going to show you a little demo through images.
+
+00:12:02.380 --> 00:12:05.000
+So this is what it actually looks like on the web.
+
+00:12:05.220 --> 00:12:06.940
+Both OpenSocial and Collective are up.
+
+00:12:06.940 --> 00:12:08.460
+Like I said, don't use Collective.
+
+00:12:08.460 --> 00:12:09.980
+It's not very good.
+
+00:12:09.980 --> 00:12:11.260
+But OpenSocial is up.
+
+00:12:11.260 --> 00:12:13.180
+And I've spent a lot more time looking at this.
+
+00:12:13.180 --> 00:12:15.540
+So this is how you can register a developer app.
+
+00:12:15.540 --> 00:12:17.650
+You can go in and initially set, like, what are
+
+00:12:17.740 --> 00:12:20.160
+the lexicons that you want groups to be able to
+
+00:12:20.590 --> 00:12:20.780
+manage.
+
+00:12:20.840 --> 00:12:23.730
+And you can say, with the regular create, read,
+
+00:12:23.730 --> 00:12:26.670
+update, or delete, do you want everybody in the group
+
+00:12:26.680 --> 00:12:29.420
+to be able to do that or just group members?
+
+00:12:29.420 --> 00:12:31.780
+So you can have a completely open one or say, like
+
+00:12:31.780 --> 00:12:34.140
+, eh, let's say that only admins can delete
+
+00:12:34.140 --> 00:12:35.180
+things or something.
+
+00:12:35.180 --> 00:12:38.580
+Next, you can view the group itself.
+
+00:12:38.580 --> 00:12:40.520
+The list of members.
+
+00:12:40.620 --> 00:12:43.100
+You can search through it.
+
+00:12:43.100 --> 00:12:45.820
+See who has registered with this group.
+
+00:12:46.850 --> 00:12:51.100
+And also have different community settings.
+
+00:12:51.100 --> 00:12:55.170
+So community admin can configure settings like whether the community is completely
+
+00:12:55.230 --> 00:12:55.520
+open.
+
+00:12:55.520 --> 00:12:56.360
+Anybody can join.
+
+00:12:56.400 --> 00:12:59.930
+Whether they want it to be closed where they need approval.
+
+00:12:59.950 --> 00:13:03.580
+Or whether it's private but asterisk on private.
+
+00:13:03.580 --> 00:13:06.430
+Because everything's in a repo in app proto.
+
+00:13:06.430 --> 00:13:09.650
+So private doesn't really exist just yet.
+
+00:13:09.680 --> 00:13:10.860
+But it will.
+
+00:13:10.860 --> 00:13:12.540
+There's some very smart people working on that problem.
+
+00:13:12.540 --> 00:13:17.820
+These governance decisions are explicit and visible.
+
+00:13:17.820 --> 00:13:18.660
+They're not buried.
+
+00:13:18.660 --> 00:13:21.160
+They're just all stored within the group's repo.
+
+00:13:21.270 --> 00:13:26.140
+And then finally, there's app permissions.
+
+00:13:26.200 --> 00:13:29.240
+So a community admin can say, I want access to this
+
+00:13:29.460 --> 00:13:31.970
+app but not this one within this group context.
+
+00:13:32.060 --> 00:13:35.700
+And theoretically, there's also some opportunity here to create some
+
+00:13:35.700 --> 00:13:39.780
+sort of a record now saying this is where this group has
+
+00:13:39.780 --> 00:13:40.410
+access to.
+
+00:13:40.630 --> 00:13:44.060
+Maybe we can just create, like, a Steam or Rob
+
+00:13:44.060 --> 00:13:47.280
+lox type app store where you can access all of these
+
+00:13:47.820 --> 00:13:48.240
+different apps.
+
+00:13:48.240 --> 00:13:51.790
+You can access collective or blue sky or black sky or stream
+
+00:13:51.790 --> 00:13:52.170
+place.
+
+00:13:52.170 --> 00:13:53.120
+All within one space.
+
+00:13:53.120 --> 00:13:55.740
+And you can say these are the places that my community is
+
+00:13:55.740 --> 00:13:56.660
+gathering.
+
+00:13:56.700 --> 00:14:01.490
+So that it's easy to gather across different contexts.
+
+00:14:01.580 --> 00:14:04.620
+And then finally, collective.
+
+00:14:04.620 --> 00:14:08.060
+So you have the ability to discover new communities.
+
+00:14:08.120 --> 00:14:09.910
+Search for them and view them.
+
+00:14:09.910 --> 00:14:12.220
+Each community has its own handle.
+
+00:14:12.220 --> 00:14:13.100
+Membership status.
+
+00:14:13.100 --> 00:14:16.490
+You can see here, we've got overcommitted.
+
+00:14:16.490 --> 00:14:18.670
+dev, which is the overcommitted book club, which
+
+00:14:18.670 --> 00:14:19.950
+I already have access to.
+
+00:14:20.120 --> 00:14:22.620
+And then a few of the book club features on collective.
+
+00:14:22.620 --> 00:14:25.920
+Because why would I build just one app when I could build
+
+00:14:25.920 --> 00:14:26.220
+two?
+
+00:14:26.220 --> 00:14:29.820
+Is what the overcommitted group actually looks like.
+
+00:14:29.820 --> 00:14:32.430
+So it has a collection of lists of different books, including
+
+00:14:32.430 --> 00:14:33.900
+the book that we're currently reading.
+
+00:14:33.900 --> 00:14:38.220
+And an ability to set different sections by date.
+
+00:14:38.940 --> 00:14:41.550
+An ability to comment on different sections of the book.
+
+00:14:41.790 --> 00:14:45.180
+And an ability to make sure that you're not spoiling
+
+00:14:45.180 --> 00:14:50.220
+those things so that you complete the book reading before you actually
+
+00:14:50.220 --> 00:14:51.260
+participate in the discussion.
+
+00:14:51.260 --> 00:14:54.760
+This is the most recent book that we read, Writing for
+
+00:14:54.870 --> 00:14:55.900
+Developers.
+
+00:14:55.900 --> 00:14:59.560
+Cynthia Dunlap and Peter Sarna are both very active
+
+00:14:59.740 --> 00:15:00.540
+on Blue Sky.
+
+00:15:00.540 --> 00:15:03.660
+And I highly recommend you check out the book if you are
+
+00:15:03.660 --> 00:15:06.990
+in the very small niche of developers who also like to write
+
+00:15:07.050 --> 00:15:07.880
+for other people.
+
+00:15:07.980 --> 00:15:13.620
+And then, yeah, so the full app is available at
+
+00:15:13.670 --> 00:15:14.370
+opensocial.
+
+00:15:14.390 --> 00:15:14.940
+community.
+
+00:15:14.940 --> 00:15:19.060
+If you're interested in building on it, let me know
+
+00:15:19.130 --> 00:15:19.260
+.
+
+00:15:19.260 --> 00:15:22.020
+Because I would love to see how this actually scales across other
+
+00:15:22.020 --> 00:15:22.460
+apps.
+
+00:15:22.460 --> 00:15:25.020
+Like I said, there's a lot of features that are
+
+00:15:25.020 --> 00:15:27.470
+built in already that are probably overkill.
+
+00:15:27.470 --> 00:15:30.640
+But -- And then we also have collective social, which I
+
+00:15:30.640 --> 00:15:34.360
+think is mostly just for book club organization.
+
+00:15:34.360 --> 00:15:38.780
+But we also have some movies and some other ways to collect
+
+00:15:38.780 --> 00:15:40.970
+podcasts and things like that.
+
+00:15:40.970 --> 00:15:43.700
+So yeah, that one is in alpha, I will say
+
+00:15:43.770 --> 00:15:46.770
+, as a way of saying it's not quite ready.
+
+00:15:48.940 --> 00:15:51.550
+But what about -- so this brings me to some important points
+
+00:15:51.790 --> 00:15:52.460
+about groups.
+
+00:15:52.460 --> 00:15:55.260
+So specifically about governance and moderation.
+
+00:15:55.260 --> 00:15:58.410
+So one of the things that Brian brought up in one of
+
+00:15:58.460 --> 00:16:01.840
+his posts brought to my attention is from Nathan Schneider,
+
+00:16:01.840 --> 00:16:05.180
+who coined the term implicit feudalism, which is a
+
+00:16:05.180 --> 00:16:08.100
+very large way of saying that there's a default pattern where
+
+00:16:08.100 --> 00:16:11.920
+whoever creates a thing online typically ends up owning that thing.
+
+00:16:11.920 --> 00:16:13.800
+And I think that that goes in multiple ways.
+
+00:16:13.910 --> 00:16:16.380
+That's not just the group itself.
+
+00:16:16.380 --> 00:16:21.830
+It's the platform that actually allows the creation of the group
+
+00:16:22.110 --> 00:16:22.380
+.
+
+00:16:22.380 --> 00:16:28.900
+So by default, there is a bias towards building communities as
+
+00:16:28.900 --> 00:16:32.170
+fiefdoms, where somebody owns that group.
+
+00:16:32.170 --> 00:16:35.260
+And they want to, of course, increase membership and be
+
+00:16:35.260 --> 00:16:37.570
+the person who owns that community.
+
+00:16:37.570 --> 00:16:40.060
+But that doesn't -- that means that that person has absolute
+
+00:16:40.060 --> 00:16:41.080
+power over the group.
+
+00:16:41.300 --> 00:16:44.510
+And a member needs to start seeking permission to be able to
+
+00:16:44.510 --> 00:16:47.180
+do anything, which is something that I've experienced a lot
+
+00:16:47.180 --> 00:16:48.190
+in community spaces.
+
+00:16:48.190 --> 00:16:50.190
+It would be really nice if we did this thing, but
+
+00:16:50.190 --> 00:16:52.830
+then they need to get permission from the person who runs the
+
+00:16:52.830 --> 00:16:56.380
+community to actually do that instead of just doing the thing.
+
+00:16:56.380 --> 00:17:00.770
+So what shared groups on AppProto can enable for us
+
+00:17:00.770 --> 00:17:03.590
+is we can have different governance patterns.
+
+00:17:03.660 --> 00:17:06.600
+What does that actually look like when we have control over it
+
+00:17:06.600 --> 00:17:08.220
+separate from the platform?
+
+00:17:09.340 --> 00:17:12.750
+We have an ability to make that completely transparent where the rules
+
+00:17:12.750 --> 00:17:16.280
+are visible for everybody and that you can create rules that fit
+
+00:17:16.500 --> 00:17:19.000
+your community because it's not a one-size-fits
+
+00:17:19.090 --> 00:17:20.030
+-all approach here.
+
+00:17:20.030 --> 00:17:24.220
+Different communities are going to want different ways of managing themselves.
+
+00:17:24.220 --> 00:17:26.200
+And so we want to be able to make sure that it
+
+00:17:26.310 --> 00:17:29.240
+'s flexible enough that they can do what they want to do
+
+00:17:29.240 --> 00:17:30.380
+across all of the different apps.
+
+00:17:30.380 --> 00:17:35.440
+And then moderation is the other spot that I've been looking
+
+00:17:35.440 --> 00:17:39.630
+at this from, which is a layered moderation approach that is
+
+00:17:39.630 --> 00:17:41.180
+already built in.
+
+00:17:41.180 --> 00:17:43.580
+This is a thing that already exists with labelers.
+
+00:17:43.760 --> 00:17:46.050
+And the group itself can act as its own labeler.
+
+00:17:46.050 --> 00:17:50.360
+Admins can approve labelers that align with the community values
+
+00:17:50.580 --> 00:17:54.540
+and then we can layer on that by moderating within the
+
+00:17:54.540 --> 00:17:55.660
+specific spaces that they're in.
+
+00:17:55.660 --> 00:17:59.890
+And then individual members can still add their own labelers or
+
+00:17:59.980 --> 00:18:02.340
+muting or anything like that on top of that so that
+
+00:18:02.340 --> 00:18:05.410
+they see exactly the stuff that they want to see and nothing
+
+00:18:05.410 --> 00:18:05.660
+else.
+
+00:18:05.660 --> 00:18:11.420
+The advantage here for using this wrapper pattern means that there's
+
+00:18:11.420 --> 00:18:14.460
+an implicit moderation built into the group itself.
+
+00:18:14.460 --> 00:18:18.060
+You can remove a wrapper and that content is hidden from the
+
+00:18:18.060 --> 00:18:18.760
+community.
+
+00:18:18.760 --> 00:18:20.380
+But the user's data is still intact.
+
+00:18:21.100 --> 00:18:25.000
+You can remove a membership proof and that revokes access without
+
+00:18:25.110 --> 00:18:29.500
+actually destroying the rest of the access to the group.
+
+00:18:29.750 --> 00:18:35.100
+You can delete content which leaves a tombstone preserving conversation structure
+
+00:18:35.100 --> 00:18:35.100
+.
+
+00:18:35.100 --> 00:18:39.220
+And then there's options there for, you know, appealing
+
+00:18:39.220 --> 00:18:40.450
+those moderation decisions.
+
+00:18:40.540 --> 00:18:42.840
+You can, you know, maybe just soft delete those things
+
+00:18:42.840 --> 00:18:45.020
+and then bring them back so that they can be appealed
+
+00:18:45.120 --> 00:18:45.460
+easily.
+
+00:18:47.900 --> 00:18:49.100
+There's still a lot to figure out.
+
+00:18:49.100 --> 00:18:51.500
+I think that private groups is probably the thing that I'm
+
+00:18:51.500 --> 00:18:53.180
+most interested in.
+
+00:18:53.180 --> 00:18:56.610
+It's important not just, you know, because not every
+
+00:18:56.610 --> 00:18:58.460
+group needs to be available.
+
+00:18:58.460 --> 00:18:59.980
+What if it's just your friend's group chat?
+
+00:18:59.980 --> 00:19:02.410
+You know, that doesn't necessarily need to have everything visible
+
+00:19:02.410 --> 00:19:04.860
+online, but it's also important for community safety.
+
+00:19:04.860 --> 00:19:08.540
+I participate in a lot of parenting groups online because I am
+
+00:19:08.540 --> 00:19:11.740
+a mom of three young kids and none of us want pictures
+
+00:19:11.740 --> 00:19:13.680
+of our kids shared on the internet.
+
+00:19:13.680 --> 00:19:16.380
+So having that privacy is extremely important.
+
+00:19:16.380 --> 00:19:17.660
+Group creation.
+
+00:19:17.660 --> 00:19:21.500
+I've been talking to Bailey a little bit about that today
+
+00:19:21.500 --> 00:19:25.050
+, where there are some really awesome ideas on how to make
+
+00:19:25.270 --> 00:19:28.460
+this easy because you don't want to necessarily tell somebody,
+
+00:19:28.460 --> 00:19:31.020
+all right, if you want to have your own community,
+
+00:19:31.020 --> 00:19:32.580
+first set up a PDS.
+
+00:19:32.650 --> 00:19:35.840
+Like, that's not the way to sell anything to anybody
+
+00:19:35.840 --> 00:19:36.140
+.
+
+00:19:36.330 --> 00:19:39.860
+So making that easy and frictionless when a user's using
+
+00:19:39.910 --> 00:19:41.260
+it is very critical.
+
+00:19:41.980 --> 00:19:43.950
+And then finally, how do we make this interoperable
+
+00:19:44.140 --> 00:19:44.140
+?
+
+00:19:44.200 --> 00:19:46.890
+Not just with app proto, but what about the activity pub
+
+00:19:46.890 --> 00:19:47.050
+?
+
+00:19:47.050 --> 00:19:50.380
+Like, why would the decentralized communities need to be separated?
+
+00:19:50.380 --> 00:19:52.940
+We can bring them together within their own identity.
+
+00:19:53.010 --> 00:19:57.740
+So why are groups important?
+
+00:19:57.740 --> 00:20:00.040
+What becomes possible?
+
+00:20:00.090 --> 00:20:04.300
+So then this means that the whole reason why this is important
+
+00:20:04.300 --> 00:20:09.100
+is the playlist that somebody creates on Spotify that's owned by
+
+00:20:09.260 --> 00:20:13.420
+the friend group that's not necessarily owned by Spotify itself.
+
+00:20:13.420 --> 00:20:16.990
+A study group can have their own shared notes belonging to students
+
+00:20:17.070 --> 00:20:17.180
+.
+
+00:20:17.180 --> 00:20:23.660
+Discussion forums can stay with the author and not with the
+
+00:20:23.730 --> 00:20:26.760
+individual or not with the group, the platform.
+
+00:20:26.860 --> 00:20:31.530
+I think that decentralization is not just about personal data sovereignty
+
+00:20:31.580 --> 00:20:33.660
+, but it's also about collective data sovereignty.
+
+00:20:33.660 --> 00:20:37.740
+A community's shared knowledge and history and spaces should belong to
+
+00:20:37.740 --> 00:20:41.880
+the community forever, not just while they're on the platform
+
+00:20:41.990 --> 00:20:42.540
+that they're on.
+
+00:20:42.640 --> 00:20:46.780
+So the question, the answer to who owns the group chat
+
+00:20:46.780 --> 00:20:48.540
+, the group should.
+
+00:20:48.540 --> 00:20:51.700
+I'd love to talk more about this if this is a
+
+00:20:51.700 --> 00:20:54.520
+thing that you're interested in.
+
+00:20:54.540 --> 00:20:56.300
+I've got some resources linked here.
+
+00:20:56.300 --> 00:20:58.810
+You're welcome to check out and I've also got some
+
+00:20:58.810 --> 00:21:00.860
+links to all of these community references.
+
+00:21:00.860 --> 00:21:04.110
+I'll post this, I guess, maybe in Discord and
+
+00:21:04.110 --> 00:21:05.660
+Roomie chat.
+
+00:21:05.740 --> 00:21:07.340
+I've got a repo for all of this.
+
+00:21:07.340 --> 00:21:10.220
+Symbol.
+
+00:21:10.220 --> 00:21:10.620
+Okay.
+
+00:21:10.620 --> 00:21:13.270
+Yeah, we'll put it somewhere on the internet and you
+
+00:21:13.270 --> 00:21:14.460
+'ll be able to access it.
+
+00:21:16.300 --> 00:21:25.750
+We're going to keep the 15
+
+00:21:25.750 --> 00:21:30.140
+minute offset if you want to take a few questions.
+
+00:21:30.140 --> 00:21:31.180
+Oh god.
+
+00:21:31.180 --> 00:21:32.380
+Oh god.
+
+00:21:32.380 --> 00:21:34.540
+Any questions?
+
+00:21:34.590 --> 00:21:35.370
+Any questions?
+
+00:21:39.660 --> 00:21:41.500
+Oh, yeah.
+
+00:21:41.500 --> 00:21:44.050
+I think I'm not, I'm very interested to see
+
+00:21:44.050 --> 00:21:45.020
+what comes out.
+
+00:21:45.020 --> 00:21:47.580
+Oh, yes.
+
+00:21:47.580 --> 00:21:49.810
+Thoughts on private groups.
+
+00:21:49.900 --> 00:21:53.920
+I think that that data should not be stored in a PD
+
+00:21:54.070 --> 00:21:54.220
+S.
+
+00:21:54.220 --> 00:21:56.080
+I'm very excited to see what happens with a lot of
+
+00:21:56.080 --> 00:21:59.150
+the permissioned data and what comes out of that to see
+
+00:21:59.150 --> 00:22:00.340
+what that forms.
+
+00:22:00.340 --> 00:22:02.690
+It's not a thing that I've spent a lot of
+
+00:22:02.790 --> 00:22:08.720
+time doing, but it's a thing that I definitely want
+
+00:22:08.720 --> 00:22:09.700
+.
+
+00:22:09.750 --> 00:22:18.650
+The question was when you
+
+00:22:18.650 --> 00:22:24.380
+are setting roles, can you set custom roles?
+
+00:22:24.380 --> 00:22:25.410
+And the answer is yes.
+
+00:22:25.410 --> 00:22:28.520
+You can set custom roles with different permissions that are set up
+
+00:22:28.630 --> 00:22:29.020
+.
+
+00:22:29.050 --> 00:22:34.720
+And you can define what permissions as an app view provider of
+
+00:22:34.720 --> 00:22:37.420
+which ones should be created.
+
+00:22:37.420 --> 00:22:38.540
+It's very complicated.
+
+00:22:38.540 --> 00:22:40.760
+Honestly, it's probably overcomplicated.
+
+00:22:40.870 --> 00:22:42.690
+But yes, that is, that does exist.
+
+00:22:42.690 --> 00:22:42.980
+Thanks.
+
+00:22:43.020 --> 00:22:46.360
+So theoretically also custom role names.
+
+00:22:46.400 --> 00:22:47.660
+Custom, oh yes, for sure.
+
+00:22:47.660 --> 00:22:48.380
+Custom role names.
+
+00:22:48.460 --> 00:22:50.530
+There's some defaults, member and admin.
+
+00:22:50.710 --> 00:22:53.210
+And then from there, the world is your oyster.
+
+00:23:01.810 --> 00:23:05.740
+Yes.
+
+00:23:05.740 --> 00:23:15.510
+So the question was about identity and the different
+
+00:23:15.850 --> 00:23:17.500
+roles.
+
+00:23:19.670 --> 00:23:22.660
+Yes.
+
+00:23:22.940 --> 00:23:26.460
+So the question was about identity and the different roles.
+
+00:23:26.460 --> 00:23:29.480
+Is there any roles?
+
+00:23:29.590 --> 00:23:31.100
+Oh, verification of the individual.
+
+00:23:31.100 --> 00:23:32.940
+Oh, oh, interesting.
+
+00:23:32.940 --> 00:23:37.260
+We believe handles are real people.
+
+00:23:37.260 --> 00:23:40.600
+That's true.
+
+00:23:40.640 --> 00:23:43.890
+I'm a firm believer that like a handle is like pretty
+
+00:23:43.900 --> 00:23:45.830
+, if you own, I own BrittanyEllec.
+
+00:23:45.830 --> 00:23:49.820
+com and there's nobody else that can really take that without
+
+00:23:49.820 --> 00:23:52.650
+having access to my DNS, which is a different problem.
+
+00:23:52.770 --> 00:23:56.290
+Um, but, uh, yeah, I don't really
+
+00:23:56.290 --> 00:23:58.810
+have strong opinions, though, on like verifying individuals.
+
+00:23:58.810 --> 00:24:01.360
+I think that that could probably be the, something that the
+
+00:24:01.360 --> 00:24:02.700
+group decides how they want to handle it.
+
+00:24:02.700 --> 00:24:05.260
+Awesome.
+
+00:24:05.260 --> 00:24:06.940
+Thank you very much for taking a few questions.
+
+00:24:06.940 --> 00:24:07.370
+Yeah.
+
+00:24:07.370 --> 00:24:07.820
+Yeah.

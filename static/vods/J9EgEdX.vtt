@@ -1,0 +1,1183 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.620
+all right cool thanks for making it even though it's like
+
+00:00:05.670 --> 00:00:10.320
+the last talk of the day so i'm excited to talk
+
+00:00:10.320 --> 00:00:15.250
+a little bit about how we use at proto for funding impact
+
+00:00:15.250 --> 00:00:21.950
+and resource allocation and luckily i'm actually not here by myself
+
+00:00:21.950 --> 00:00:24.750
+but there's also shafi in the back and adam
+
+00:00:24.750 --> 00:00:28.950
+here so if you have additional questions later especially on the technical
+
+00:00:28.950 --> 00:00:32.010
+side both of them can definitely help you more than i can
+
+00:00:32.510 --> 00:00:35.680
+because i'm actually a political economist by now i also have
+
+00:00:35.680 --> 00:00:42.310
+acquired some technical knowledge but it's not my expertise but it
+
+00:00:42.310 --> 00:00:47.300
+is theirs cool and also i will in this talk sometimes say
+
+00:00:47.300 --> 00:00:50.630
+we are building this we are building that it is not just
+
+00:00:50.700 --> 00:00:53.580
+kind of the hypersets foundation that i'm steward
+
+00:00:53.580 --> 00:00:58.080
+ing but there are other organizations like gainforest and my earth
+
+00:00:58.080 --> 00:01:02.410
+that are building with us these impact funding mechanisms and hypers
+
+00:01:02.460 --> 00:01:05.300
+ets is one of the primitives that we are steward
+
+00:01:05.300 --> 00:01:08.200
+ing so that's why the hypersets collective is the
+
+00:01:08.200 --> 00:01:11.850
+word that we use for like the organizations and the people the
+
+00:01:12.170 --> 00:01:16.770
+contributors who help build this i deeply believe that right now in
+
+00:01:16.770 --> 00:01:21.660
+the current conditions what we choose to fund is the world that
+
+00:01:21.660 --> 00:01:26.070
+we are creating and the exciting thing is that at proto has
+
+00:01:26.320 --> 00:01:29.690
+a lot to say about this and this is in that way
+
+00:01:29.690 --> 00:01:33.820
+i think one of the most important use cases where we can
+
+00:01:34.080 --> 00:01:40.690
+apply at proto too why this this is important is because there
+
+00:01:40.690 --> 00:01:45.790
+is something that we collectively value that doesn't have a normal
+
+00:01:45.790 --> 00:01:49.270
+uh business model and this is actually a lot of things that
+
+00:01:49.280 --> 00:01:52.740
+we care about digital public goods open source software regional land projects
+
+00:01:52.740 --> 00:01:58.500
+um science journalism community organizing those are actually the things that make
+
+00:01:58.500 --> 00:02:02.880
+a good life and we are actually not really funding them they
+
+00:02:02.880 --> 00:02:06.000
+are all underfunded if we would put more resources into this
+
+00:02:06.010 --> 00:02:11.240
+we would actually create a better world um how i am thinking
+
+00:02:11.550 --> 00:02:15.540
+about this is that when we make decisions together what we want
+
+00:02:15.540 --> 00:02:19.500
+to fund we have at least these three layers we have funding
+
+00:02:19.670 --> 00:02:25.160
+mechanisms this can be grants milestone bounties price competitions crowd
+
+00:02:25.160 --> 00:02:28.860
+funding etc etc so there are different funding mechanisms then there are
+
+00:02:28.860 --> 00:02:33.270
+different decision making mechanisms that can be a jury in a foundation
+
+00:02:33.340 --> 00:02:36.930
+that can be also in crowdfunding kind of just like the
+
+00:02:36.930 --> 00:02:42.560
+crowd deciding it can be any democratic mechanism deliberative mechanism it
+
+00:02:42.560 --> 00:02:44.670
+can be just a funder saying it's my money i
+
+00:02:44.670 --> 00:02:48.040
+'m the dictator about this money that's also fine but these
+
+00:02:48.040 --> 00:02:52.010
+these are different decision making mechanisms which i think now is an
+
+00:02:52.010 --> 00:02:55.520
+exciting part that we will see a lot of innovation in the
+
+00:02:55.520 --> 00:03:00.880
+future because with like kind of human ai collaboration how we can
+
+00:03:00.880 --> 00:03:06.460
+make decisions in the future will really change and this also interacts
+
+00:03:06.630 --> 00:03:10.790
+with the context layer because now the ais can read for us
+
+00:03:10.880 --> 00:03:14.070
+much more context than what we can so from my perspective sometimes
+
+00:03:14.070 --> 00:03:16.550
+i say it's like the dream of a political scientists come
+
+00:03:16.550 --> 00:03:20.000
+true because you can come up for funding mechanism decision making mechanisms
+
+00:03:20.000 --> 00:03:23.090
+in the past the voters just didn't behave the way you
+
+00:03:23.090 --> 00:03:27.030
+wanted them to behave they were not informed they didn't actually
+
+00:03:27.030 --> 00:03:31.190
+do what would be necessary to actually reach good decisions so the
+
+00:03:31.440 --> 00:03:36.010
+context layer that's where at proto comes in because context like
+
+00:03:36.240 --> 00:03:39.310
+the context for an ai is what do we put into the
+
+00:03:39.470 --> 00:03:43.280
+decision making mechanism so in the case of regenerative land project
+
+00:03:43.280 --> 00:03:47.700
+this is for example satellite imagery this is by acoustics data
+
+00:03:47.840 --> 00:03:53.040
+but also community input and expert input so in the case when
+
+00:03:53.040 --> 00:03:55.240
+there's a region of land project i grew up in a
+
+00:03:55.320 --> 00:03:58.580
+small town of 300 people in germany if there's a
+
+00:03:58.720 --> 00:04:02.290
+if there's a project the people in the town they know
+
+00:04:02.420 --> 00:04:05.030
+if it's good or if it's just some bullshit carbon
+
+00:04:05.100 --> 00:04:09.460
+project that is not actually helping stewarding nature so why
+
+00:04:09.530 --> 00:04:13.280
+do we not just ask the people that already know and then
+
+00:04:13.280 --> 00:04:18.560
+yes let's add some technical data from satellite imagery that support
+
+00:04:18.560 --> 00:04:22.080
+that that um that opinion or if they actually disagree with each
+
+00:04:22.080 --> 00:04:25.540
+other then we can also have a conflict resolution mechanism where like
+
+00:04:25.580 --> 00:04:28.660
+okay we see there's some kind of a conflict um but
+
+00:04:28.980 --> 00:04:33.440
+this is exciting because at photo makes it easy to collect this
+
+00:04:33.440 --> 00:04:37.220
+context and it makes it possible that we are not just collecting
+
+00:04:37.380 --> 00:04:40.620
+the data but we are also collecting who said it because that
+
+00:04:40.620 --> 00:04:43.860
+is important when we analyze it because it depends on your your
+
+00:04:43.900 --> 00:04:47.580
+reputation if this is if this really um should be considered in
+
+00:04:47.580 --> 00:04:53.120
+the decision making process or not so this is all the kind
+
+00:04:53.120 --> 00:04:57.230
+of a loop because the project actually create the work the impact
+
+00:04:57.230 --> 00:05:01.340
+then there will be third party measurements and evaluations community input all
+
+00:05:01.340 --> 00:05:05.140
+of that um and so if we do that loop over and
+
+00:05:05.280 --> 00:05:09.800
+over we can also over time improve that decision making mechanism um
+
+00:05:09.910 --> 00:05:13.120
+because this is not a static system this is ideally a self
+
+00:05:13.120 --> 00:05:16.120
+-improving system similar to how we now train ais
+
+00:05:16.230 --> 00:05:21.060
+to become better over time with this context and the tools that
+
+00:05:21.090 --> 00:05:25.100
+we have here now we can also over time make better decisions
+
+00:05:25.100 --> 00:05:29.340
+um that what we have today here's today context is frag
+
+00:05:29.340 --> 00:05:33.450
+mented data silo trust signals accumulate that's exactly what we
+
+00:05:33.460 --> 00:05:36.750
+see from social media but it's the same in funding data
+
+00:05:36.910 --> 00:05:40.500
+if you have like a crowdfunding platform you have um the
+
+00:05:40.500 --> 00:05:44.880
+foundation that raises like that gives us out grants with data so
+
+00:05:45.070 --> 00:05:48.400
+these are all data silos and the projects have to put in
+
+00:05:48.400 --> 00:05:52.760
+the data over and over again so we think we can change
+
+00:05:52.760 --> 00:05:57.060
+that and we are collaborating with a bunch of projects here that
+
+00:05:57.390 --> 00:06:00.480
+are working on this we are trying to kind of help build
+
+00:06:00.480 --> 00:06:05.140
+one context that different platforms can tap into and if you don
+
+00:06:05.140 --> 00:06:10.020
+'t recognize all these logos we will get into that this is
+
+00:06:10.350 --> 00:06:13.530
+where i normally spend a lot of time on um which is
+
+00:06:13.790 --> 00:06:17.550
+nice because here i don't um but all of these reasons
+
+00:06:17.630 --> 00:06:20.640
+why you want decentralized social media also apply to why do you
+
+00:06:20.640 --> 00:06:26.630
+want to have decentralized information for decision-making mechanisms that concern
+
+00:06:26.630 --> 00:06:32.680
+the public good um another one is in the ideal case we
+
+00:06:32.910 --> 00:06:39.180
+will actually create a lot of um network effects so network effects
+
+00:06:39.350 --> 00:06:43.260
+if there are more funders obviously that's good for projects
+
+00:06:43.520 --> 00:06:46.850
+in this network because when you have your data more funders
+
+00:06:47.030 --> 00:06:50.020
+can see the data but also for projects it's good if
+
+00:06:50.020 --> 00:06:53.270
+you have a lot of evaluators because you will get better
+
+00:06:53.280 --> 00:06:56.110
+information to the funders and i mean it's only good
+
+00:06:56.110 --> 00:06:59.500
+for the good projects not for the other ones um but there
+
+00:06:59.500 --> 00:07:06.190
+'s everybody benefits for more um actors contributing to this network and
+
+00:07:06.260 --> 00:07:10.540
+what we of course want is that the value compounds across the
+
+00:07:10.600 --> 00:07:14.900
+network and not inside of a platform another reason is that when
+
+00:07:15.230 --> 00:07:19.220
+we think about the projects and funders and evaluators today
+
+00:07:19.220 --> 00:07:23.200
+this is how we might think about it but already today you
+
+00:07:23.200 --> 00:07:26.690
+don't write your grant application yourself anymore you actually let it
+
+00:07:26.870 --> 00:07:30.690
+let somebody write it in ai and the funders they get
+
+00:07:30.850 --> 00:07:34.390
+so many applications they have to use ai to to sort them
+
+00:07:34.390 --> 00:07:37.290
+and find out like at least pre-select some of
+
+00:07:37.470 --> 00:07:41.350
+them and then they make decisions on what to fund so this
+
+00:07:41.350 --> 00:07:43.940
+is the word that that we probably have today and i think
+
+00:07:44.150 --> 00:07:49.180
+at proto makes it possible that um we put like shared observ
+
+00:07:49.180 --> 00:07:52.690
+able records in the middle and i think this is really important
+
+00:07:52.690 --> 00:07:57.050
+to make this system accountable um to uh to what we as
+
+00:07:57.480 --> 00:08:02.770
+humans actually still want to fund this is kind of an overview
+
+00:08:02.770 --> 00:08:08.530
+of like the shift that we want to um get to what
+
+00:08:08.530 --> 00:08:11.970
+we believe is really a modern funding stack and it's all
+
+00:08:11.970 --> 00:08:16.630
+that that i already introduced it is users control their data we
+
+00:08:16.640 --> 00:08:21.040
+have many evaluators we have many interoperable funding mechanisms
+
+00:08:21.040 --> 00:08:25.900
+it is about narratives verified data and trust-based funding not
+
+00:08:26.040 --> 00:08:30.340
+just about i have really nice pictures um it is about human
+
+00:08:30.670 --> 00:08:34.100
+air collective intelligence and we are building self-reinfor
+
+00:08:34.110 --> 00:08:41.360
+cing um systems here all right um switching gears a little bit
+
+00:08:41.360 --> 00:08:45.050
+this was like the the high level where do we want to
+
+00:08:45.360 --> 00:08:49.980
+go this is a little bit of how so a hyper cert
+
+00:08:50.030 --> 00:08:54.560
+um is kind of a living record of work so it starts
+
+00:08:54.560 --> 00:08:58.010
+with just a record who did what when and where this can
+
+00:08:58.100 --> 00:09:00.890
+be for the past or for the future so it can be
+
+00:09:00.890 --> 00:09:06.070
+a proposal as well this is kind of the record here and
+
+00:09:06.080 --> 00:09:09.840
+in that protocol of course it's just like one record and
+
+00:09:09.860 --> 00:09:14.050
+in our case that is an activity claim then the evaluate is
+
+00:09:14.050 --> 00:09:17.510
+all the data that can be added to that to really make
+
+00:09:17.520 --> 00:09:20.350
+sense of it and this can be self-evaluations
+
+00:09:20.500 --> 00:09:24.170
+or additional data from third parties but that's why we say
+
+00:09:24.170 --> 00:09:27.170
+it's a living record because it over time more and more
+
+00:09:27.350 --> 00:09:31.910
+information about this work will accumulate and that makes it possible to
+
+00:09:31.910 --> 00:09:36.910
+really make good funding decisions funding decisions either as grants because you
+
+00:09:36.910 --> 00:09:39.990
+also observe the the other um work that they have done in
+
+00:09:39.990 --> 00:09:43.500
+the past you have the reputation or you have outcome-based
+
+00:09:43.860 --> 00:09:47.030
+funding where you see somebody has actually proves that their work was
+
+00:09:47.280 --> 00:09:53.830
+meaningful and that's why they get funding um afterwards all right
+
+00:09:53.830 --> 00:09:58.400
+let's get into use cases um my earth is a um
+
+00:09:58.400 --> 00:10:06.580
+a project that basically wants to fund the regeneration and
+
+00:10:06.580 --> 00:10:10.260
+that means funding a lot of projects and when i say a
+
+00:10:10.300 --> 00:10:14.690
+lot of projects we actually need to fund hundreds of thousands of
+
+00:10:14.920 --> 00:10:18.070
+projects in the world that are really connected to the land that
+
+00:10:18.320 --> 00:10:21.720
+they are stewarding and this is not just we like
+
+00:10:21.770 --> 00:10:27.280
+we cannot scale the projects up because then the projects actually lose
+
+00:10:27.280 --> 00:10:31.870
+the connection with the land so this is really a challenge of
+
+00:10:31.920 --> 00:10:35.170
+a kind of decentralized sense making system how do we actually know
+
+00:10:35.170 --> 00:10:39.200
+where all the projects are um and they are taking on this
+
+00:10:39.200 --> 00:10:43.660
+challenge they are using hyperserts to record the data
+
+00:10:43.660 --> 00:10:47.670
+and add kind of the other data and stay interoperable
+
+00:10:47.840 --> 00:10:52.630
+with other platforms that also work in um in this space they
+
+00:10:52.880 --> 00:10:58.810
+will have a crowdfunding campaign in june i believe one
+
+00:10:59.360 --> 00:11:03.920
+second so in june um a crowdfunding campaign for a
+
+00:11:03.920 --> 00:11:10.510
+hundred uh land projects with a matching fund of 500 000 so
+
+00:11:10.510 --> 00:11:16.240
+this really will get adoption um latest then maybe some other platforms
+
+00:11:16.590 --> 00:11:22.460
+um uh do already some prototypes before but that's our really
+
+00:11:22.460 --> 00:11:24.740
+the first big use case a hundred projects will be on board
+
+00:11:24.740 --> 00:11:28.240
+ed um and then all the communities will join to um to
+
+00:11:28.240 --> 00:11:34.960
+fund these projects um another project gainforest and shafi
+
+00:11:34.960 --> 00:11:37.360
+the is the co-founder of that in the back um
+
+00:11:37.360 --> 00:11:41.590
+also works in the same space and that's exciting because gain
+
+00:11:41.600 --> 00:11:47.270
+forest also works on um how do we help communities deploy technology
+
+00:11:47.280 --> 00:11:51.150
+like bioacoustics to give them tools to prove what
+
+00:11:51.390 --> 00:11:55.180
+they have done and so when communities that are part of the
+
+00:11:55.230 --> 00:12:00.100
+crowdfunding campaign for my earth go to gainforest and work
+
+00:12:00.100 --> 00:12:05.300
+with them and create data then this data is recorded on a
+
+00:12:05.300 --> 00:12:09.050
+proto and shows up on the crowdfunding platform for my earth
+
+00:12:09.140 --> 00:12:14.430
+um the time is not working anymore okay cool yeah let me
+
+00:12:14.670 --> 00:12:17.530
+know if i when i have like five minutes cool um so
+
+00:12:17.760 --> 00:12:22.130
+here we really see already why the usefulness like the useful
+
+00:12:22.130 --> 00:12:26.540
+ness of the interoperability between platforms um gainforest also
+
+00:12:26.800 --> 00:12:32.880
+is building um a platform to help the communities fundraise directly
+
+00:12:32.880 --> 00:12:35.210
+this is called boomy certs so we have here bo
+
+00:12:35.210 --> 00:12:37.910
+omy certs where you can see um kind of the the
+
+00:12:38.190 --> 00:12:43.440
+different communities and you can fund fund them directly here so a
+
+00:12:43.440 --> 00:12:47.740
+boomy cert is a hyper cert um and you have basically
+
+00:12:47.910 --> 00:12:52.660
+like a very familiar interface but it's based on the at
+
+00:12:52.660 --> 00:12:57.910
+proto shared shared shared records um another use case protocol apps so
+
+00:12:57.910 --> 00:13:01.920
+i actually started the project about hyperserts at protocol
+
+00:13:02.130 --> 00:13:04.160
+apps then spun it out to the hyperserts foundation
+
+00:13:04.160 --> 00:13:08.190
+um protocol apps will actually use hyperserts in their
+
+00:13:08.410 --> 00:13:12.310
+platform or like use it right now already if you apply to
+
+00:13:12.320 --> 00:13:17.290
+a grant for pl research you actually create a hypersert
+
+00:13:17.290 --> 00:13:24.000
+s and actually i because we have like how much time time
+
+00:13:24.000 --> 00:13:29.710
+do we second 17 17 okay then actually because uh the bo
+
+00:13:29.720 --> 00:13:35.070
+omy certs platform here can also show it to you directly
+
+00:13:35.070 --> 00:13:39.200
+there's for example bees and trees and then you can see
+
+00:13:39.200 --> 00:13:44.910
+the site boundaries where it actually is you can donate to it
+
+00:13:44.910 --> 00:13:49.270
+um and so this is still in better but this is like
+
+00:13:49.270 --> 00:13:54.080
+one of the platforms then when we have uh protocol labs you
+
+00:13:54.320 --> 00:13:57.780
+can actually see that um i can sign in to the grants
+
+00:13:57.780 --> 00:14:03.480
+platform here with my proto account which is cool and then start
+
+00:14:03.480 --> 00:14:08.990
+an application application and here you see it was saved as a
+
+00:14:09.150 --> 00:14:14.800
+hypersert on their personal data server um then another um
+
+00:14:14.800 --> 00:14:20.880
+application is summer simocracy simocracy is the idea that um
+
+00:14:20.880 --> 00:14:27.460
+the decision making mechanisms uh it's like painfully painful and
+
+00:14:27.460 --> 00:14:31.550
+it costs a lot of time so what if we would have
+
+00:14:31.550 --> 00:14:35.960
+just a digital twin for ourselves who acts on our behalf to
+
+00:14:35.960 --> 00:14:40.240
+make to have all the discussions and make the decisions for us
+
+00:14:40.240 --> 00:14:44.750
+so we ran a experiment at funding the commons in san
+
+00:14:44.750 --> 00:14:48.400
+francisco two weeks ago where there it was i don't
+
+00:14:48.400 --> 00:14:51.330
+know who knows frontier towers but it's basically a co-
+
+00:14:51.390 --> 00:14:55.330
+working place there are multiple floor leads that organize the co-
+
+00:14:55.330 --> 00:14:59.830
+working space and we distributed five thousand us dollars two things that
+
+00:14:59.830 --> 00:15:03.110
+happened in the co-working space and the way it was
+
+00:15:03.240 --> 00:15:06.750
+done is all of them had like a 30-minute structured
+
+00:15:06.750 --> 00:15:11.540
+interview that created their ai agent and then the and anybody could
+
+00:15:11.760 --> 00:15:17.080
+propose things every proposal was a hypersert then the agents
+
+00:15:17.080 --> 00:15:24.220
+were actually discussing among themselves what should be funded with a complicated
+
+00:15:24.430 --> 00:15:27.270
+mechanism that's called the s process which is a really cool
+
+00:15:27.350 --> 00:15:32.180
+process where you aggregate different marginal utility curves which most people cannot
+
+00:15:32.180 --> 00:15:36.100
+do um but it is actually really like in theory like an
+
+00:15:36.430 --> 00:15:40.650
+amazing process that's used by the survival and flourishing fund
+
+00:15:40.650 --> 00:15:45.950
+and um then the result was um like we then compared the
+
+00:15:45.950 --> 00:15:49.950
+result to what the humans actually would have decided themselves and there
+
+00:15:49.950 --> 00:15:53.140
+was not a clear this is clearly better but it was a
+
+00:15:53.140 --> 00:15:59.930
+reasonable thing that the ai agents actually decided and the exciting part
+
+00:16:00.040 --> 00:16:04.000
+of this is this is like a really bare bare model of
+
+00:16:04.000 --> 00:16:08.510
+this and it will just improve over time and that's the
+
+00:16:08.820 --> 00:16:11.610
+cool thing that's like we we have a model that kind
+
+00:16:11.660 --> 00:16:17.290
+of works already but it only has like possibilities to improve so
+
+00:16:17.520 --> 00:16:22.530
+that's democracy and um so we had the frontier towers and
+
+00:16:22.530 --> 00:16:26.420
+you can actually see all the the the ai agents um and
+
+00:16:26.510 --> 00:16:30.400
+you can also chat with them to get to know them they
+
+00:16:30.400 --> 00:16:37.180
+have like a constitution values etc um another application and this actually
+
+00:16:37.180 --> 00:16:42.000
+comes out of the idea of um if you have a conference
+
+00:16:42.000 --> 00:16:46.230
+like this we have the beautiful science of like who funded this
+
+00:16:46.230 --> 00:16:51.560
+this conference but actually in the background there are lots more contributors
+
+00:16:51.560 --> 00:16:55.230
+um that are not on there like the volunteers and so can
+
+00:16:55.310 --> 00:16:58.890
+we actually when we have work in a hypersert can
+
+00:16:58.890 --> 00:17:03.340
+we show not only um the financial contributors but also the in
+
+00:17:03.340 --> 00:17:07.000
+-kind contributors volunteers and this is in that way just a
+
+00:17:07.030 --> 00:17:15.010
+different view on um kind of the uh the work and the
+
+00:17:15.010 --> 00:17:19.310
+contributors so when we take for example a github repo
+
+00:17:19.310 --> 00:17:27.090
+here and i paste it in here we can fetch all the
+
+00:17:27.090 --> 00:17:33.820
+contributors and i guess this is actually the repo for the website
+
+00:17:33.840 --> 00:17:36.840
+so we can see i mean this is like i don't
+
+00:17:36.890 --> 00:17:40.310
+say this is the actual contribution because this is just based on
+
+00:17:40.310 --> 00:17:43.150
+the github commits but you can see who actually contributed
+
+00:17:43.150 --> 00:17:45.740
+to it and if you now say actually we all know that
+
+00:17:45.740 --> 00:17:49.260
+uh boris actually didn't do it uh then we can
+
+00:17:49.520 --> 00:17:56.740
+decrease boris uh that's right so and now you can
+
+00:17:57.070 --> 00:18:00.200
+think of okay what is the community mechanism to actually do this
+
+00:18:00.200 --> 00:18:03.780
+right and you can also say now okay actually the financial contributors
+
+00:18:03.820 --> 00:18:06.770
+are also meaningful let's add them as well and um then
+
+00:18:06.770 --> 00:18:10.160
+i mean there are some settings to make it beautiful you can
+
+00:18:10.160 --> 00:18:13.090
+have like a background et cetera et cetera you can share it
+
+00:18:13.090 --> 00:18:16.510
+anywhere but you can also think of like every open source project
+
+00:18:16.510 --> 00:18:19.330
+could have that on their website with a donate button and if
+
+00:18:19.330 --> 00:18:24.080
+you donate you also come to the um to the hyperboard
+
+00:18:24.080 --> 00:18:32.630
+so i think these are some of the use cases
+
+00:18:32.800 --> 00:18:40.850
+some of the use cases and um now i'll switch
+
+00:18:40.850 --> 00:18:45.970
+gears again except maybe pause here if somebody has a question in
+
+00:18:46.430 --> 00:18:50.720
+between um a question about whether you have looked at value flows
+
+00:18:51.070 --> 00:18:56.050
+value flows yeah i mean if there's a specific solution i
+
+00:18:56.050 --> 00:19:00.060
+think there are like quite a few projects that have thought about
+
+00:19:00.060 --> 00:19:04.180
+how how like value flows um and um also like source cred
+
+00:19:04.180 --> 00:19:09.140
+and others there have been like projects for um attribution um
+
+00:19:09.140 --> 00:19:13.380
+like and i think this is something where we want to really
+
+00:19:13.710 --> 00:19:17.770
+focus on the context layer and then lots of different attribution
+
+00:19:17.770 --> 00:19:21.460
+mechanisms can be built on top of it because we are not
+
+00:19:21.460 --> 00:19:24.970
+the ones who can say you are this community should use this
+
+00:19:24.970 --> 00:19:36.960
+it needs to come out of the community
+
+00:19:36.960 --> 00:19:40.810
+um how the the lexicons and records work in that
+
+00:19:40.810 --> 00:19:46.070
+way or um like how is an organization yeah like how this
+
+00:19:46.070 --> 00:19:52.130
+kind of thing that wants to be funded yeah so this this
+
+00:19:52.130 --> 00:19:58.430
+would be for example like this would be a specific um platform
+
+00:19:58.670 --> 00:20:01.490
+that is built on top of this so then you would talk
+
+00:20:01.490 --> 00:20:05.360
+about more earth gain forest democracy and how they would implement it
+
+00:20:05.570 --> 00:20:08.480
+because we are just implementing kind of the lexicons that
+
+00:20:08.480 --> 00:20:12.310
+can be used by them and in my earth case for example
+
+00:20:12.350 --> 00:20:17.130
+in the first round so it's basically a hundred projects will
+
+00:20:17.230 --> 00:20:21.540
+be selected by like more classical selection panel or like actually like
+
+00:20:21.600 --> 00:20:26.200
+together with partner organizations um that there's a minimum quality that
+
+00:20:26.200 --> 00:20:30.140
+we already know about the 100 projects and then um on the
+
+00:20:30.140 --> 00:20:33.940
+um on the side the projects can add more of their own
+
+00:20:33.940 --> 00:20:39.360
+data um then we will work with like trusted evaluators that
+
+00:20:39.370 --> 00:20:42.850
+we know that can also add data so this is in that
+
+00:20:42.850 --> 00:20:46.320
+way the choice of more earth how they want to use the
+
+00:20:46.430 --> 00:20:50.470
+the hyper search standard that we are proposing so it's not
+
+00:20:50.480 --> 00:20:53.680
+that we like it's kind of the platform's choice yeah
+
+00:20:53.790 --> 00:20:57.560
+but happy to chat more about it um afterwards cool um so
+
+00:20:57.560 --> 00:21:02.750
+changing gears a little bit into what is what is the underlying
+
+00:21:02.760 --> 00:21:08.650
+technology that we have because we had some challenges from the user
+
+00:21:08.760 --> 00:21:13.060
+experience where how do we actually build for land stewards how do
+
+00:21:13.390 --> 00:21:15.970
+we build not only for land stewards in the u.
+
+00:21:15.970 --> 00:21:19.700
+s and europe but actually for answers in the global majority and
+
+00:21:19.760 --> 00:21:22.570
+how do we explain to them what at proto is or can
+
+00:21:22.750 --> 00:21:28.810
+we just avoid that um and so what you see here is
+
+00:21:28.810 --> 00:21:34.500
+basically the um we have of course here defined the lexic
+
+00:21:34.830 --> 00:21:39.830
+ons for the projects etc we have the personal data servers but
+
+00:21:39.830 --> 00:21:43.370
+we also have also something called the certified group service um i
+
+00:21:43.420 --> 00:21:46.560
+will go into that in a second what that is um this
+
+00:21:46.560 --> 00:21:51.350
+is something that has not been built but the project was originally
+
+00:21:51.360 --> 00:21:55.490
+very web3 token centric um and there might be still
+
+00:21:55.490 --> 00:22:00.080
+a use case where you want to add kind of an on
+
+00:22:00.200 --> 00:22:03.720
+-chain component to it when you for example similar to carbon
+
+00:22:03.920 --> 00:22:07.580
+credits when you want to make sure that somebody really can prove
+
+00:22:07.580 --> 00:22:11.040
+that they funded exactly how much of an impact i think we
+
+00:22:11.040 --> 00:22:14.360
+can also find solutions that are more at proto-native
+
+00:22:14.360 --> 00:22:17.910
+um but potentially as a part where um on-chain data
+
+00:22:17.910 --> 00:22:24.660
+might be useful um and then yeah the platforms i have talked
+
+00:22:25.150 --> 00:22:30.490
+about already um something else um that we um built is kind
+
+00:22:30.670 --> 00:22:36.560
+of a login experience that is uh just passwordless um because
+
+00:22:36.560 --> 00:22:41.680
+the user experience from my earth when you go to my earth
+
+00:22:41.680 --> 00:22:45.240
+you log in and it tells you something about at proto it
+
+00:22:45.240 --> 00:22:49.300
+tells you something about a different service that you don't know
+
+00:22:49.600 --> 00:22:54.070
+you actually already use lose users and so what we did is
+
+00:22:54.070 --> 00:22:57.650
+you basically sign up you put in your email you get a
+
+00:22:57.650 --> 00:23:00.850
+one-time password you put it in you you have signed
+
+00:23:00.850 --> 00:23:04.300
+up you have signed up and you have a user account and
+
+00:23:04.300 --> 00:23:08.150
+then later on you can set your your at proto handle you
+
+00:23:08.410 --> 00:23:14.910
+can set your password afterwards um so this is kind of uh
+
+00:23:14.990 --> 00:23:20.780
+certified um yeah it's just like the login it's not
+
+00:23:20.790 --> 00:23:23.580
+from the ui it's not very segments um from the
+
+00:23:23.580 --> 00:23:27.630
+login it's not very exciting because from the ui it
+
+00:23:27.680 --> 00:23:31.790
+'s just like very very basic um but it's not something
+
+00:23:31.790 --> 00:23:35.660
+that is that easy actually to do um in the at proto
+
+00:23:35.660 --> 00:23:40.540
+ecosystem and this is uh something where if you want to know
+
+00:23:40.670 --> 00:23:46.020
+more about the technical details uh talk to adam it really is
+
+00:23:46.020 --> 00:23:50.610
+about reducing the friction during onboarding um and what you saw
+
+00:23:50.610 --> 00:23:55.820
+actually on this slide if somebody comes to any of these platforms
+
+00:23:56.080 --> 00:23:59.360
+they still can just sign in with at proto or blue sky
+
+00:23:59.360 --> 00:24:03.480
+with their normal um normal way but they can also use our
+
+00:24:03.480 --> 00:24:11.640
+passwordless login cool certified group service and
+
+00:24:11.640 --> 00:24:17.020
+i will switch briefly so i think i can also show it
+
+00:24:17.020 --> 00:24:26.100
+to you actually i will show you the
+
+00:24:26.640 --> 00:24:35.740
+exciting uh way to log in
+
+00:24:35.740 --> 00:24:44.050
+with otp so i think i don
+
+00:24:44.050 --> 00:24:52.240
+'t know if there has been an easier login
+
+00:24:52.240 --> 00:24:59.070
+to the atmosphere before but here you can see there are different
+
+00:24:59.140 --> 00:25:04.180
+groups there are some groups that have been and some groups that
+
+00:25:04.490 --> 00:25:10.610
+i have publicly acknowledged and i've just created a lot of
+
+00:25:10.610 --> 00:25:13.840
+test groups and some others that i have not publicly acknowledged so
+
+00:25:13.840 --> 00:25:16.960
+publicly it's not known that i'm part of it um
+
+00:25:16.960 --> 00:25:22.760
+here the episodes foundation and kind of the very common uh common
+
+00:25:22.760 --> 00:25:24.570
+ui as well um i can just like switch to the
+
+00:25:24.800 --> 00:25:30.380
+episodes foundation blocked into the profile i can see the members i
+
+00:25:30.390 --> 00:25:35.120
+have an activity log what happened in the group i can add
+
+00:25:36.740 --> 00:25:44.070
+different users in a very familiar way as well and that's
+
+00:25:44.070 --> 00:25:48.160
+kind of the certified group service and this is in that way
+
+00:25:48.160 --> 00:25:51.440
+there's an overlap with what we heard today i don't
+
+00:25:51.440 --> 00:25:55.950
+know who was there from britney britney um so and
+
+00:25:55.950 --> 00:25:59.040
+we will check um how we have built it how they have
+
+00:25:59.040 --> 00:26:03.010
+built it but there's definitely something where i'm very excited
+
+00:26:03.010 --> 00:26:07.680
+about how we can allow groups to have accounts because in our
+
+00:26:07.680 --> 00:26:10.880
+use case when we have land stewards they have projects they might
+
+00:26:10.880 --> 00:26:15.380
+have volunteers the volunteers the volunteers take pictures of um tree planting
+
+00:26:15.510 --> 00:26:23.180
+and they should publish that for the organization and they should potentially
+
+00:26:23.220 --> 00:26:27.470
+not be able to interact with all the other data entries so
+
+00:26:27.510 --> 00:26:31.140
+this is kind of the the interesting role-based access control
+
+00:26:31.140 --> 00:26:36.480
+that we can implement here uh...
+
+00:26:36.480 --> 00:26:44.710
+and two minutes all right um this is how we implemented
+
+00:26:44.710 --> 00:26:50.230
+the the group service um so when like the group has a
+
+00:26:50.240 --> 00:26:54.980
+vanilla pds and that also means they can transfer the data
+
+00:26:54.980 --> 00:27:01.840
+whenever they want to anywhere else um and the user when they
+
+00:27:01.840 --> 00:27:03.600
+want to write into the group repo just ask the plc
+
+00:27:03.600 --> 00:27:09.840
+registry because the group is also registered as a normal did um
+
+00:27:10.040 --> 00:27:13.910
+and in the plc registry there's a service that the
+
+00:27:13.910 --> 00:27:17.580
+um the user that knows okay this is a group service that
+
+00:27:17.580 --> 00:27:21.230
+i have to ask the group service checks can this user act
+
+00:27:21.230 --> 00:27:25.920
+on behalf of this group if so then the group service has
+
+00:27:25.920 --> 00:27:29.280
+the app password to actually write into the group service and then
+
+00:27:29.280 --> 00:27:32.770
+it's also recorded who did what for on behalf of the
+
+00:27:32.950 --> 00:27:38.560
+group and this is interesting for role-based access control but
+
+00:27:38.560 --> 00:27:43.100
+also for so many more use cases if we have private spaces
+
+00:27:43.100 --> 00:27:47.420
+then who is the owner of the private space maybe it should
+
+00:27:47.420 --> 00:27:51.940
+be a group and maybe the governance mechanism should be in addition
+
+00:27:52.250 --> 00:27:57.640
+to the group service cool if you want to build with hyp
+
+00:27:57.650 --> 00:28:02.660
+erserts we have built a couple of things the scaffold
+
+00:28:02.700 --> 00:28:05.340
+app that's easy to use as an example there's a
+
+00:28:05.460 --> 00:28:10.180
+cli you can also just point your agent to hypers
+
+00:28:10.370 --> 00:28:10.920
+can.
+
+00:28:10.920 --> 00:28:14.960
+dev agents there's an indexer who indexes our data
+
+00:28:15.920 --> 00:28:19.930
+i introduced certified as an easy login experience but you can also
+
+00:28:19.930 --> 00:28:22.930
+use any other and hyperscan.
+
+00:28:22.930 --> 00:28:28.180
+dev gets you to an overview of everything that happens in the
+
+00:28:28.180 --> 00:28:34.000
+hyperserts ecosystem and additional tools also like badges and
+
+00:28:34.000 --> 00:28:38.380
+identity link which potentially links like a web3 wallet to your
+
+00:28:38.390 --> 00:28:42.040
+identity that i haven't really talked about but all of that
+
+00:28:42.150 --> 00:28:45.410
+you can also find over on hyperscan yeah and we
+
+00:28:45.560 --> 00:28:49.790
+are here to talk if you want to build with us please
+
+00:28:49.790 --> 00:28:53.300
+reach out here on the bottom or just talk to us right
+
+00:28:53.790 --> 00:29:01.010
+after this or while we are here at the conference everywhere i
+
+00:29:01.190 --> 00:29:05.870
+'m based in general in berlin but traveling a bunch then
+
+00:29:05.870 --> 00:29:09.080
+we have london and zurich paris we have
+
+00:29:09.150 --> 00:29:12.260
+a developer in bhutan and then the also the more earth
+
+00:29:12.350 --> 00:29:16.860
+crew that we are building very closely with they're also kind
+
+00:29:16.990 --> 00:29:24.320
+of global um yeah thank you

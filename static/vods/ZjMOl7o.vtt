@@ -1,0 +1,715 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.310
+Hi everyone.
+
+00:00:03.310 --> 00:00:07.560
+Welcome to a talk about Matadisco, which is very
+
+00:00:07.560 --> 00:00:09.830
+, very disco.
+
+00:00:10.000 --> 00:00:13.600
+The first thing you need to know is that you might think
+
+00:00:13.600 --> 00:00:15.000
+of me as Robin Bergen.
+
+00:00:15.000 --> 00:00:17.990
+I don't know who has been spreading that rumor.
+
+00:00:18.000 --> 00:00:20.990
+My name is actually Volker and I am giving that talk
+
+00:00:21.150 --> 00:00:24.000
+because I am the creator of Matadisco.
+
+00:00:24.000 --> 00:00:26.000
+Are we clear on this?
+
+00:00:26.000 --> 00:00:27.000
+Yes.
+
+00:00:27.000 --> 00:00:28.000
+Yes?
+
+00:00:28.180 --> 00:00:29.990
+Okay, thank you.
+
+00:00:30.000 --> 00:00:35.000
+So, you know, one thing that's pretty cool about
+
+00:00:35.000 --> 00:00:36.990
+- have you heard of the AT protocol?
+
+00:00:37.000 --> 00:00:40.420
+Some of you call it at proto for some reason - is
+
+00:00:40.420 --> 00:00:44.030
+that it does like social stuff, but it's not just
+
+00:00:44.220 --> 00:00:45.000
+social media.
+
+00:00:45.000 --> 00:00:48.350
+And in fact, science is itself a social process and an
+
+00:00:48.350 --> 00:00:50.000
+entirely democratic one.
+
+00:00:50.000 --> 00:00:55.000
+And so we should also use social internet for science.
+
+00:00:55.000 --> 00:00:57.000
+And we could disco with data.
+
+00:00:57.000 --> 00:00:59.990
+What is the problem that this is looking at?
+
+00:01:00.000 --> 00:01:04.010
+Well, it turns out that a lot of what happens around
+
+00:01:04.100 --> 00:01:07.850
+science, apart from the science itself, sucks.
+
+00:01:08.000 --> 00:01:11.990
+Data in the science universe is pretty bad.
+
+00:01:12.000 --> 00:01:14.990
+There's a ton of really cool data.
+
+00:01:15.000 --> 00:01:18.310
+Lots of people are sharing it in the open in all kinds
+
+00:01:18.310 --> 00:01:20.720
+of ways, but like, it's all siloed
+
+00:01:20.720 --> 00:01:21.000
+.
+
+00:01:21.000 --> 00:01:23.000
+It's really hard to discover.
+
+00:01:23.000 --> 00:01:25.990
+A lot of the servers are terribly slow.
+
+00:01:26.000 --> 00:01:27.000
+The APIs don't work.
+
+00:01:27.000 --> 00:01:30.250
+The portals are designed by, I think, grad students
+
+00:01:30.250 --> 00:01:32.000
+, maybe not scientists.
+
+00:01:32.000 --> 00:01:34.750
+So, you know, some of those things are pretty bad
+
+00:01:34.750 --> 00:01:34.990
+.
+
+00:01:35.000 --> 00:01:37.480
+And one of the big classics is, of course, like
+
+00:01:37.720 --> 00:01:41.000
+all these scientists putting all their data on GitHub.
+
+00:01:41.000 --> 00:01:44.740
+Because we all know that nothing bad happens on proprietary social media
+
+00:01:44.740 --> 00:01:46.000
+platforms, right?
+
+00:01:46.000 --> 00:01:48.990
+So anyway, we're trying to like, you know,
+
+00:01:49.150 --> 00:01:53.780
+Tom Nicholas from Frost wrote this like really cool blog post about
+
+00:01:53.780 --> 00:01:54.000
+it.
+
+00:01:54.000 --> 00:01:57.910
+And it's important to think about this because you never know
+
+00:01:57.910 --> 00:02:00.000
+when you're going to need it.
+
+00:02:00.000 --> 00:02:02.590
+So one of the things I've worked on before, I
+
+00:02:02.590 --> 00:02:06.690
+was a small part of the New York Times team that collected
+
+00:02:06.690 --> 00:02:11.030
+data for the, you've probably sadly seen this, the
+
+00:02:11.030 --> 00:02:12.000
+COVID tracker.
+
+00:02:12.000 --> 00:02:16.390
+And what we had to do for that to work was scrape
+
+00:02:16.390 --> 00:02:18.990
+data from like all over.
+
+00:02:19.000 --> 00:02:21.910
+And that actually that the team got a Pulitzer Prize for
+
+00:02:22.150 --> 00:02:26.850
+web scraping, which is quite interesting in and of itself.
+
+00:02:27.000 --> 00:02:30.990
+Like the level at which this data was bad is terrible.
+
+00:02:31.000 --> 00:02:33.000
+So like Italy, for instance, did a good job.
+
+00:02:33.000 --> 00:02:35.000
+They put all their numbers on GitHub.
+
+00:02:35.000 --> 00:02:36.000
+It was really easy.
+
+00:02:36.000 --> 00:02:38.000
+It was JSON, et cetera.
+
+00:02:38.000 --> 00:02:42.570
+In the US, most of the time data was per county
+
+00:02:42.570 --> 00:02:43.000
+.
+
+00:02:43.000 --> 00:02:45.990
+And those counties all had different systems.
+
+00:02:46.000 --> 00:02:49.200
+So you had to have different scrapers per county at the
+
+00:02:49.200 --> 00:02:49.990
+US level.
+
+00:02:50.000 --> 00:02:52.950
+One of my favorite ones was France, which I worked on
+
+00:02:52.950 --> 00:02:56.050
+a scraper for where like every day someone would get all
+
+00:02:56.210 --> 00:03:00.480
+the numbers from all of France, paste them on the J
+
+00:03:00.480 --> 00:03:03.930
+PEG with like a nice textured background and put the J
+
+00:03:03.930 --> 00:03:06.780
+PEG on the web such that scraping that involved a lot
+
+00:03:06.940 --> 00:03:10.200
+of processing to clean it up enough to OCR it to
+
+00:03:10.200 --> 00:03:10.990
+get the data out.
+
+00:03:11.000 --> 00:03:14.310
+And so this is the kind of situation where you do need
+
+00:03:14.310 --> 00:03:14.990
+stuff.
+
+00:03:15.000 --> 00:03:18.600
+And like more generally, even without COVID, you know,
+
+00:03:18.600 --> 00:03:22.250
+like if you imagine the impact of making research better, like
+
+00:03:22.250 --> 00:03:25.760
+every time we make it slightly better, scientists can science more
+
+00:03:25.760 --> 00:03:26.000
+.
+
+00:03:26.000 --> 00:03:28.990
+And so what does like good look like?
+
+00:03:29.000 --> 00:03:31.980
+Well, so in that blog post I referenced earlier, like
+
+00:03:32.150 --> 00:03:35.010
+you can think of like a number of properties that would be
+
+00:03:35.010 --> 00:03:37.400
+pretty cool to have in, you know, sort of like
+
+00:03:37.560 --> 00:03:41.290
+the scientific data space in terms of discovery of data repositories
+
+00:03:41.290 --> 00:03:43.000
+, data sets, et cetera.
+
+00:03:43.000 --> 00:03:45.290
+Um, and you know, you want it unified, everyone
+
+00:03:45.290 --> 00:03:45.990
+can find it.
+
+00:03:46.000 --> 00:03:47.000
+Of course it's free.
+
+00:03:47.000 --> 00:03:48.000
+It works.
+
+00:03:48.000 --> 00:03:49.000
+It works on any scale.
+
+00:03:49.000 --> 00:03:51.090
+I'm not going to read through all of it, like
+
+00:03:51.090 --> 00:03:54.000
+, but like all of these properties are pretty interesting.
+
+00:03:54.000 --> 00:03:57.650
+And Volcker, um, has made a tool with the
+
+00:03:57.650 --> 00:04:00.990
+IPF foundation called Matadisco.
+
+00:04:01.000 --> 00:04:03.990
+And what Matadisco does is extremely simple.
+
+00:04:04.000 --> 00:04:08.430
+It tracks data that gets published to all kinds of different,
+
+00:04:08.430 --> 00:04:10.990
+um, data sets and data sources.
+
+00:04:11.000 --> 00:04:13.150
+Currently it's limited to just a few because it's still
+
+00:04:13.150 --> 00:04:13.990
+like ramping up.
+
+00:04:14.000 --> 00:04:16.990
+But the idea is to put all the metadata around all,
+
+00:04:17.150 --> 00:04:20.990
+everything that happens, everything that's published, um, directly
+
+00:04:21.210 --> 00:04:23.520
+on AT Proto, such that then you can write apps
+
+00:04:23.550 --> 00:04:27.570
+that just listen to, uh, whatever jet stream, whatever
+
+00:04:27.610 --> 00:04:29.330
+'s, whatever's convenient in terms of fire hoses for
+
+00:04:29.330 --> 00:04:30.000
+you.
+
+00:04:30.000 --> 00:04:33.220
+And then react to that and do things with that data,
+
+00:04:33.220 --> 00:04:36.450
+pull it down, et cetera, knowing of course that,
+
+00:04:36.450 --> 00:04:39.000
+um, all of this is nicely verified.
+
+00:04:39.000 --> 00:04:41.710
+And so if you, if you think of the list of
+
+00:04:42.150 --> 00:04:45.990
+properties that I, I, I produced earlier, well,
+
+00:04:45.990 --> 00:04:48.000
+it hits quite a number of them, right?
+
+00:04:48.000 --> 00:04:50.000
+You have something that's inherently social.
+
+00:04:50.000 --> 00:04:51.000
+You can subscribe to it.
+
+00:04:51.000 --> 00:04:53.490
+You have a right to exit because it's all on the
+
+00:04:53.660 --> 00:04:53.990
+PDS.
+
+00:04:54.000 --> 00:04:55.000
+That's part of the protocol.
+
+00:04:55.000 --> 00:04:57.000
+And, you know, sustainably fundable.
+
+00:04:57.000 --> 00:04:59.500
+Well, it's not very expensive, um, but like
+
+00:04:59.620 --> 00:05:02.000
+we could, we could figure it out.
+
+00:05:02.000 --> 00:05:03.520
+Um, and, and there's a few properties that it
+
+00:05:03.520 --> 00:05:06.450
+doesn't completely hit, but in general, like simply by
+
+00:05:06.540 --> 00:05:10.380
+pushing all this metadata about data sets to the, to the
+
+00:05:10.380 --> 00:05:13.980
+protocol is getting a lot of these things working already.
+
+00:05:14.000 --> 00:05:16.600
+And so, um, I made, you know, a
+
+00:05:16.600 --> 00:05:19.590
+, a, a very simple, uh, demo of this
+
+00:05:19.590 --> 00:05:20.000
+.
+
+00:05:20.000 --> 00:05:23.320
+You can go on my GitHub, vmx.
+
+00:05:23.320 --> 00:05:23.750
+github.
+
+00:05:23.850 --> 00:05:25.000
+io/matterdiscoviewer.
+
+00:05:25.000 --> 00:05:27.080
+It's all on the matterdisco.
+
+00:05:27.080 --> 00:05:27.990
+org thing.
+
+00:05:28.000 --> 00:05:30.990
+Um, and you know, this is just like tracking,
+
+00:05:31.140 --> 00:05:34.530
+um, satellite images as they get published, as they get
+
+00:05:34.680 --> 00:05:37.820
+pushed out and they come in directly on the fire hose and
+
+00:05:37.870 --> 00:05:39.990
+you can display them directly.
+
+00:05:40.000 --> 00:05:42.500
+Of course, this is not super interesting in and of itself
+
+00:05:42.620 --> 00:05:44.450
+, but, um, we can, we can build stuff
+
+00:05:44.540 --> 00:05:45.000
+on it.
+
+00:05:45.000 --> 00:05:48.550
+And, you know, we're currently in the process of
+
+00:05:48.550 --> 00:05:51.000
+integrating further sources.
+
+00:05:51.000 --> 00:05:53.990
+This is like stuff from, uh, IIIF.
+
+00:05:54.000 --> 00:05:56.030
+And so, you know, data, data sets, when
+
+00:05:56.040 --> 00:06:00.400
+you talk about scientific data sets, people immediately think like satellite
+
+00:06:00.400 --> 00:06:01.000
+images, dynamics, whatever.
+
+00:06:01.000 --> 00:06:03.480
+But like, you know, they, we also have like
+
+00:06:03.480 --> 00:06:07.990
+museum pieces, you know, cultural things like, um,
+
+00:06:07.990 --> 00:06:11.670
+IIIF can do like sync between video and like, um
+
+00:06:11.670 --> 00:06:12.980
+, notation stuff.
+
+00:06:13.000 --> 00:06:16.740
+And so, yep, all of this, um, brought
+
+00:06:16.850 --> 00:06:18.730
+together, go to matterdisco.
+
+00:06:18.730 --> 00:06:19.000
+org.
+
+00:06:19.000 --> 00:06:21.990
+It's brought to you by the lovely IPFS foundation.
+
+00:06:22.000 --> 00:06:24.000
+And, uh, Ted has a question.
+
+00:06:24.000 --> 00:06:25.000
+Um, hi, Volker.
+
+00:06:25.000 --> 00:06:26.000
+Thanks for this.
+
+00:06:26.000 --> 00:06:27.000
+This is really cool.
+
+00:06:27.000 --> 00:06:28.970
+Um, uh, I was wondering if you'd seen the
+
+00:06:28.970 --> 00:06:31.260
+sort of lensing work that Nick Jerkinis and,
+
+00:06:31.350 --> 00:06:33.990
+uh, Blaine Cook and other folks have done.
+
+00:06:34.000 --> 00:06:36.910
+Um, because if you get all this data up on protocol
+
+00:06:37.150 --> 00:06:41.370
+, like being able to quickly translate into other formats would be
+
+00:06:41.430 --> 00:06:41.850
+wild.
+
+00:06:42.000 --> 00:06:44.740
+So I haven't seen that specific thing, but I,
+
+00:06:44.740 --> 00:06:47.540
+I, I knew about the old Cambria stuff and Bl
+
+00:06:47.550 --> 00:06:51.400
+aine has been, what's a nice word for harassing
+
+00:06:51.490 --> 00:06:54.850
+, encouraging me, um, to, to, to have
+
+00:06:54.850 --> 00:06:56.570
+a conversation with him, which is always a pleasure, of
+
+00:06:56.690 --> 00:06:58.000
+course, uh, specifically about that.
+
+00:06:58.000 --> 00:07:00.400
+So I, yeah, I really want to look at it
+
+00:07:00.400 --> 00:07:03.960
+because the better we, we pump the source metadata in,
+
+00:07:03.960 --> 00:07:05.850
+and of course those differ.
+
+00:07:06.000 --> 00:07:07.960
+Um, so yeah, being able to lens them between,
+
+00:07:07.960 --> 00:07:09.990
+between, between formats would be amazing.
+
+00:07:10.000 --> 00:07:11.000
+Yep.
+
+00:07:11.000 --> 00:07:13.000
+Um, Nick has it currently deployed actually.
+
+00:07:13.000 --> 00:07:14.520
+So let's, let's, let's, let's
+
+00:07:14.520 --> 00:07:15.990
+just, we can just do things.
+
+00:07:16.000 --> 00:07:17.000
+Yeah.
+
+00:07:17.000 --> 00:07:18.000
+We can just science and that's it.
+
+00:07:18.000 --> 00:07:19.000
+Any other questions?
+
+00:07:20.180 --> 00:07:24.000
+Yeah.
+
+00:07:24.000 --> 00:07:25.000
+I just had a comment.
+
+00:07:25.000 --> 00:07:26.000
+Wait, in the, in the, in the mic.
+
+00:07:26.000 --> 00:07:27.000
+Yeah.
+
+00:07:27.000 --> 00:07:29.490
+I'm a climate scientist and distributing data is a huge deal
+
+00:07:29.680 --> 00:07:29.990
+for us.
+
+00:07:30.000 --> 00:07:32.220
+And I, I, I, we can talk more about
+
+00:07:32.220 --> 00:07:34.910
+it, but, uh, the customers who want, uh
+
+00:07:34.910 --> 00:07:36.860
+, climate data and it'd be really great to do that
+
+00:07:36.860 --> 00:07:36.990
+.
+
+00:07:37.000 --> 00:07:38.000
+Yeah.
+
+00:07:38.000 --> 00:07:40.000
+Um, the, you know, bring it our way.
+
+00:07:40.000 --> 00:07:41.000
+One of the things that's great.
+
+00:07:41.000 --> 00:07:44.420
+So like, as you know, there's ongoing epist
+
+00:07:44.420 --> 00:07:47.420
+emic side in the U S and like a lot of people
+
+00:07:47.420 --> 00:07:50.560
+have been trying to save data sets as fast as possible by
+
+00:07:50.560 --> 00:07:52.000
+, by putting them on, on, on BitTor
+
+00:07:52.000 --> 00:07:52.000
+rent.
+
+00:07:52.000 --> 00:07:54.780
+What's difficult with that is you can't know if they
+
+00:07:54.780 --> 00:07:57.540
+'re publishing the real original thing or if it's been tam
+
+00:07:57.540 --> 00:07:58.990
+pered with because it's very difficult.
+
+00:07:59.000 --> 00:08:02.070
+I mean, there's currently no source to know, um
+
+00:08:02.150 --> 00:08:04.920
+, what it was like with this, this, because 80
+
+00:08:04.920 --> 00:08:05.990
+proto is built on data.
+
+00:08:06.000 --> 00:08:08.990
+All brought to you by the IPFS foundation.
+
+00:08:09.000 --> 00:08:11.990
+Um, uh, everything can have a CID.
+
+00:08:12.000 --> 00:08:13.000
+So everything can be verified.
+
+00:08:13.000 --> 00:08:15.420
+So it's, it becomes possible to load data, you
+
+00:08:15.420 --> 00:08:17.700
+know, that, you know, and have like a public
+
+00:08:17.770 --> 00:08:20.410
+, um, description of that, that gives you very far
+
+00:08:20.430 --> 00:08:22.000
+verifiability built in.
+
+00:08:22.000 --> 00:08:24.280
+Um, so I think this is, this is a win
+
+00:08:24.280 --> 00:08:27.040
+for the next wave of, of epistemic side old
+
+00:08:27.040 --> 00:08:28.000
+maniacs.
+
+00:08:28.000 --> 00:08:30.000
+Have you thought about a T log over it?
+
+00:08:30.000 --> 00:08:31.000
+Yeah.
+
+00:08:31.000 --> 00:08:33.000
+And we could probably do a T log over it.
+
+00:08:33.000 --> 00:08:34.000
+All these things compose.
+
+00:08:34.000 --> 00:08:35.000
+Right.
+
+00:08:35.000 --> 00:08:39.450
+Um, Hey, uh, how much data have you,
+
+00:08:39.540 --> 00:08:42.850
+uh, uploaded to various PDS is enough to knock over
+
+00:08:43.010 --> 00:08:44.000
+your sky.
+
+00:08:44.000 --> 00:08:45.000
+PDS.
+
+00:08:45.000 --> 00:08:47.000
+We're only pushing the metadata out, right?
+
+00:08:47.000 --> 00:08:49.130
+We're not pushing because like some of these data sets are
+
+00:08:49.130 --> 00:08:49.990
+insanely massive.
+
+00:08:50.000 --> 00:08:52.000
+We would like knock over everything.
+
+00:08:52.000 --> 00:08:54.950
+Um, but like we've pushed, I mean, I
+
+00:08:55.150 --> 00:08:58.000
+don't know, like a hundred millions of records.
+
+00:08:58.000 --> 00:09:01.740
+Um, if you, if you, if you look on
+
+00:09:01.850 --> 00:09:06.060
+UFO, uh, meta disco is regularly in the top 10
+
+00:09:06.060 --> 00:09:08.960
+lexicons, even though no one knows what it is
+
+00:09:08.960 --> 00:09:09.990
+at this point.
+
+00:09:11.000 --> 00:09:19.000
+So, yeah, any other takers?
+
+00:09:19.000 --> 00:09:20.000
+Just go use it.
+
+00:09:20.000 --> 00:09:21.670
+And yeah, if you want to onboard stuff, talk to
+
+00:09:21.740 --> 00:09:22.000
+us.
+
+00:09:22.000 --> 00:09:23.000
+Okay.
+
+00:09:23.000 --> 00:09:24.000
+Thank you, Walker.
+
+00:09:24.000 --> 00:09:25.000
+Thank you very much.
+
+00:09:26.180 --> 00:09:29.520
+Thank you very much.

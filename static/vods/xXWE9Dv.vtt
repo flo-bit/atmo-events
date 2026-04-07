@@ -1,0 +1,1891 @@
+WEBVTT
+
+00:00:00.020 --> 00:00:07.580
+I would like to tell you all a story about how I
+
+00:00:07.610 --> 00:00:12.410
+ended up supporting the game dev industry on blue sky and the
+
+00:00:12.410 --> 00:00:15.480
+atmosphere, accidentally.
+
+00:00:15.480 --> 00:00:18.290
+But first, an introduction.
+
+00:00:18.290 --> 00:00:20.220
+My name is Trezzy.
+
+00:00:20.220 --> 00:00:22.620
+I've lived many lives.
+
+00:00:22.620 --> 00:00:25.310
+I've been a professional musician, an indie filmmaker, I
+
+00:00:25.310 --> 00:00:28.560
+'ve been a graphic designer, a stunt actor, but most
+
+00:00:28.570 --> 00:00:32.050
+importantly, I've been a software engineer for more than two
+
+00:00:32.050 --> 00:00:35.520
+decades and I've been working in and around the games industry
+
+00:00:35.520 --> 00:00:36.600
+for many years.
+
+00:00:36.600 --> 00:00:39.780
+I'm also the founder of Burb House Games.
+
+00:00:39.780 --> 00:00:45.200
+It's a game studio focused on building games using web technologies
+
+00:00:45.200 --> 00:00:45.590
+.
+
+00:00:45.590 --> 00:00:50.620
+I'm also the curator of the game dev feeds on blue
+
+00:00:50.620 --> 00:00:53.770
+sky, the operator of the games industry labeler, also
+
+00:00:53.770 --> 00:00:56.580
+on blue sky, the author of happy view and debuff
+
+00:00:56.580 --> 00:00:58.640
+and the steward of the Penaract, the founder
+
+00:00:58.640 --> 00:01:01.710
+of cartridge, but I might be maybe getting a little bit
+
+00:01:01.710 --> 00:01:04.310
+ahead of myself here, so we'll we'll get into
+
+00:01:04.330 --> 00:01:06.200
+all of it.
+
+00:01:06.200 --> 00:01:11.780
+I want to preface this story by saying that I did
+
+00:01:11.780 --> 00:01:15.480
+not start this journey that I'm about to describe with some
+
+00:01:15.480 --> 00:01:16.470
+master plan.
+
+00:01:16.470 --> 00:01:18.830
+I didn't sit down and say I'm going to save
+
+00:01:18.830 --> 00:01:20.020
+video games.
+
+00:01:20.020 --> 00:01:24.170
+I joined blue sky because I was mad at Twitter and so
+
+00:01:24.170 --> 00:01:27.720
+I started building because that's just sort of what I do
+
+00:01:27.720 --> 00:01:29.800
+and once the ball was rolling there wasn't a whole lot
+
+00:01:29.800 --> 00:01:30.620
+of stopping it.
+
+00:01:30.620 --> 00:01:33.190
+So I'm going to walk you all through how I got
+
+00:01:33.190 --> 00:01:35.680
+to where I am today with all the things that I've
+
+00:01:35.680 --> 00:01:40.170
+built and I'm hopeful that you know with that discussion I
+
+00:01:40.170 --> 00:01:44.530
+can help others get started on some new projects, maybe find
+
+00:01:44.530 --> 00:01:48.650
+direction on things that they've already begun, but most importantly
+
+00:01:48.650 --> 00:01:50.730
+by the end of this thing we're going to try and
+
+00:01:50.730 --> 00:01:54.690
+distill a blueprint that you and other builders can use to make
+
+00:01:54.690 --> 00:01:58.940
+the atmosphere work for whatever industry you care about.
+
+00:01:58.940 --> 00:02:02.570
+To kick things off let me tell you about the game dev
+
+00:02:02.610 --> 00:02:03.270
+feeds.
+
+00:02:03.330 --> 00:02:08.260
+When blue sky launched custom feeds I was stoked.
+
+00:02:08.260 --> 00:02:12.440
+Not only were we getting algorithmic choice but we had community
+
+00:02:12.440 --> 00:02:15.450
+control over it and that was such a powerful idea.
+
+00:02:15.480 --> 00:02:17.060
+I was hooked.
+
+00:02:17.060 --> 00:02:21.540
+I love video games and the game development community so I thought
+
+00:02:21.570 --> 00:02:24.770
+it sure would be cool to gather all of that content in
+
+00:02:24.770 --> 00:02:27.570
+a way that has never happened on Twitter.
+
+00:02:27.570 --> 00:02:29.560
+So I built the game dev feeds.
+
+00:02:29.560 --> 00:02:32.510
+There's the core of the game dev feed itself, which
+
+00:02:32.510 --> 00:02:34.770
+is sort of the core of the community.
+
+00:02:34.770 --> 00:02:38.040
+It acts as a town hall for our our little band.
+
+00:02:38.040 --> 00:02:39.780
+There's also game news.
+
+00:02:39.780 --> 00:02:41.460
+We've got jobs and careers.
+
+00:02:41.460 --> 00:02:44.860
+I also have the screenshot Saturday and Wishlist Wednesday feeds which
+
+00:02:44.860 --> 00:02:48.990
+are both manifest versions of hashtag trends that game devs used
+
+00:02:48.990 --> 00:02:51.840
+to use on on Twitter to share their games outside of the
+
+00:02:51.840 --> 00:02:53.040
+developer community.
+
+00:02:53.040 --> 00:02:56.900
+At first these were nice little community tools.
+
+00:02:56.900 --> 00:02:59.400
+There were, you know, tens of people using them.
+
+00:02:59.400 --> 00:03:01.140
+I was very happy with that.
+
+00:03:01.140 --> 00:03:05.340
+And then there were hundreds and then suddenly there were thousands of
+
+00:03:05.350 --> 00:03:09.820
+feeds blew up and today I have around 32,000 daily
+
+00:03:09.820 --> 00:03:12.160
+active users across the feeds.
+
+00:03:12.160 --> 00:03:14.760
+It's probably a drop in the bucket for Indra's
+
+00:03:14.760 --> 00:03:18.230
+news feeds but for a much smaller community like game devs
+
+00:03:18.230 --> 00:03:19.620
+it's it's pretty exciting.
+
+00:03:19.620 --> 00:03:22.740
+So I hadn't planned for it but the community that had
+
+00:03:22.740 --> 00:03:26.860
+been gathering slowly suddenly they decided that blue sky and specifically the
+
+00:03:26.860 --> 00:03:29.520
+feeds that I've been building made for a pretty good place
+
+00:03:29.570 --> 00:03:30.460
+to be.
+
+00:03:30.460 --> 00:03:34.410
+Shout out by the way to great social who hosts all of
+
+00:03:34.410 --> 00:03:37.250
+my feeds they've provided me with the tools that enable the
+
+00:03:37.250 --> 00:03:39.380
+feeds to thrive the way they do today.
+
+00:03:39.380 --> 00:03:42.130
+If it wasn't for Devon reaching out about a year
+
+00:03:42.130 --> 00:03:44.900
+ago I don't know if I'd be up here speaking
+
+00:03:44.900 --> 00:03:45.180
+.
+
+00:03:45.180 --> 00:03:47.800
+A bit of time passed.
+
+00:03:47.800 --> 00:03:52.770
+Many alfs were exchanged and then blue sky launched labelers
+
+00:03:52.770 --> 00:03:52.960
+.
+
+00:03:52.960 --> 00:03:55.980
+I thought, as I was seeing what other people were doing
+
+00:03:56.060 --> 00:03:58.510
+with them, what if I could build a labeler that
+
+00:03:58.510 --> 00:04:02.500
+helps people in the game dev industry find other professionals and track
+
+00:04:02.510 --> 00:04:03.790
+them throughout their timelines.
+
+00:04:03.810 --> 00:04:08.020
+Developers, studios, publishers, journalists, media creators.
+
+00:04:08.030 --> 00:04:11.750
+It seemed like a fun little project.
+
+00:04:11.820 --> 00:04:12.930
+So I built it.
+
+00:04:12.930 --> 00:04:15.060
+I set up my own Ozone instance.
+
+00:04:15.060 --> 00:04:18.150
+I was manually reviewing every request.
+
+00:04:18.150 --> 00:04:19.020
+It blew up.
+
+00:04:19.020 --> 00:04:22.950
+I was completely underwater with thousands of labeling requests coming through.
+
+00:04:22.950 --> 00:04:24.820
+But the community found it really useful.
+
+00:04:24.820 --> 00:04:30.500
+It helped them define and understand professional relationships and trust relationships across
+
+00:04:30.500 --> 00:04:31.620
+blue sky.
+
+00:04:31.620 --> 00:04:36.810
+Today, the labeler has over 6,000 game developers
+
+00:04:36.810 --> 00:04:41.690
+, 450 studios, nearly 500 content creators in the games space
+
+00:04:41.690 --> 00:04:47.450
+, 700 games business folks, more than 150 games journalists.
+
+00:04:47.450 --> 00:04:50.180
+In total, like we said earlier, I applied more than
+
+00:04:50.180 --> 00:04:55.140
+9,000 labels to games industry professionals and businesses.
+
+00:04:55.140 --> 00:04:58.420
+The games industry, you know, it's continued to show
+
+00:04:58.420 --> 00:05:01.310
+up on the atmosphere in a way that I really never expected
+
+00:05:01.310 --> 00:05:01.540
+.
+
+00:05:01.540 --> 00:05:03.860
+And I didn't know it at the time.
+
+00:05:03.860 --> 00:05:07.270
+But working on the labeler and on the feeds had me
+
+00:05:07.270 --> 00:05:09.890
+working through a lot of questions that it turns out, I
+
+00:05:09.890 --> 00:05:11.540
+would need to answer pretty soon.
+
+00:05:11.540 --> 00:05:13.870
+So things settled for a while.
+
+00:05:13.870 --> 00:05:17.690
+But that brings us to last year, 2025.
+
+00:05:17.890 --> 00:05:20.720
+That's when the delistings happened.
+
+00:05:20.720 --> 00:05:25.390
+A radical group put pressure on payment processors like Visa and Master
+
+00:05:25.390 --> 00:05:28.800
+Card, who in turn put pressure on game platforms to
+
+00:05:28.800 --> 00:05:31.140
+delist adult and not-safe-for-work
+
+00:05:31.140 --> 00:05:32.180
+games from Steam.
+
+00:05:32.180 --> 00:05:34.350
+It happened overnight.
+
+00:05:34.350 --> 00:05:35.420
+There was no warning.
+
+00:05:35.420 --> 00:05:39.220
+Game developers were waking up to find their content gone, and
+
+00:05:39.220 --> 00:05:41.220
+the appeals process was scattered at best.
+
+00:05:41.220 --> 00:05:45.380
+Now, it doesn't matter if you play or care for
+
+00:05:45.380 --> 00:05:47.670
+adult or not-safe-for-work games.
+
+00:05:47.670 --> 00:05:48.510
+Some people do.
+
+00:05:48.530 --> 00:05:50.970
+And regardless, those games deserve to exist.
+
+00:05:51.030 --> 00:05:54.340
+And the developers that make them deserve to be able to express
+
+00:05:54.340 --> 00:05:54.900
+their art.
+
+00:05:54.900 --> 00:05:58.970
+But the delistings didn't stop at adult content.
+
+00:05:58.970 --> 00:06:03.770
+Marginalized communities like LGBT developers and developers of color
+
+00:06:03.770 --> 00:06:04.960
+also got swept up.
+
+00:06:05.050 --> 00:06:08.240
+Many of these games had nothing to do with adult content,
+
+00:06:08.240 --> 00:06:11.140
+but they were flagged or pulled because the dragnet
+
+00:06:11.140 --> 00:06:13.300
+on the delistings was wide.
+
+00:06:13.300 --> 00:06:16.260
+And the appeals process, again, was barely functional.
+
+00:06:16.260 --> 00:06:20.120
+A few months later, the same thing happened on itch
+
+00:06:20.120 --> 00:06:20.330
+.
+
+00:06:20.330 --> 00:06:23.490
+io, which has long been considered a bastion for indie
+
+00:06:23.580 --> 00:06:25.680
+games, especially the weird ones.
+
+00:06:25.710 --> 00:06:29.580
+Developers woke up to find their games gone, revenue gone
+
+00:06:29.580 --> 00:06:32.020
+, visibility completely wiped.
+
+00:06:32.020 --> 00:06:35.410
+And because none of that data belonged to the developers, there
+
+00:06:35.410 --> 00:06:36.900
+was little they could do.
+
+00:06:36.910 --> 00:06:40.450
+Now, remember I'm running the labelers, I'm
+
+00:06:40.450 --> 00:06:43.110
+running the largest game dev feeds on Blue Sky.
+
+00:06:43.110 --> 00:06:46.270
+I have tens of thousands of developers in this community.
+
+00:06:46.270 --> 00:06:49.060
+They're not strangers, they're people that I interact with
+
+00:06:49.060 --> 00:06:49.780
+regularly.
+
+00:06:49.780 --> 00:06:53.140
+People I've built a reputation with that have put their trust
+
+00:06:53.140 --> 00:06:55.540
+in me as a steward of this community.
+
+00:06:55.540 --> 00:06:57.890
+So they started reaching out.
+
+00:06:57.890 --> 00:07:00.970
+Throughout all of this, they were posting publicly and reaching out
+
+00:07:00.990 --> 00:07:02.230
+to me privately in DMs.
+
+00:07:02.230 --> 00:07:05.520
+And the question was, what can we do to survive this
+
+00:07:05.580 --> 00:07:05.680
+?
+
+00:07:05.780 --> 00:07:09.190
+How can we use the atmosphere to make it so that no
+
+00:07:09.190 --> 00:07:13.320
+platform and no payment processor has the power to make a developer
+
+00:07:13.450 --> 00:07:14.340
+'s work disappear?
+
+00:07:14.350 --> 00:07:18.850
+At first, I said, I don't know, good
+
+00:07:18.850 --> 00:07:19.060
+luck.
+
+00:07:19.060 --> 00:07:23.660
+I already had a lot on my plate, but it sort
+
+00:07:23.660 --> 00:07:25.180
+of stuck in my head.
+
+00:07:25.180 --> 00:07:27.620
+I couldn't really quit thinking about it.
+
+00:07:27.620 --> 00:07:29.220
+So I did start building.
+
+00:07:29.230 --> 00:07:32.980
+Before I get into what I actually built, yeah, I
+
+00:07:33.030 --> 00:07:34.970
+know I do a lot of prefaces.
+
+00:07:34.970 --> 00:07:37.860
+I'm going to share some things that I picked up along
+
+00:07:37.860 --> 00:07:38.260
+the way.
+
+00:07:38.260 --> 00:07:42.280
+Throughout all this work, I've been trying to convince game
+
+00:07:42.280 --> 00:07:45.850
+developers to migrate from Twitter to Blue Sky, onto the atmosphere
+
+00:07:45.850 --> 00:07:46.090
+.
+
+00:07:46.240 --> 00:07:48.920
+And in all of those conversations, I've had to explain
+
+00:07:48.920 --> 00:07:51.540
+why Blue Sky and the atmosphere mattered.
+
+00:07:51.540 --> 00:07:54.350
+And I had to do it to people who could not care
+
+00:07:54.350 --> 00:07:55.850
+less about the protocol.
+
+00:07:55.850 --> 00:07:58.740
+But if the blueprint that I'm handing you today is going
+
+00:07:58.750 --> 00:08:01.510
+to work for other industries, you're going to need to
+
+00:08:01.510 --> 00:08:02.650
+do the same thing.
+
+00:08:02.740 --> 00:08:06.640
+So one thing to keep in mind with this is that while
+
+00:08:06.640 --> 00:08:10.480
+game devs are people too, they're not average users
+
+00:08:10.480 --> 00:08:10.890
+.
+
+00:08:10.890 --> 00:08:11.940
+They're creators.
+
+00:08:11.940 --> 00:08:14.860
+They often use social media more like a storefront than anything
+
+00:08:14.860 --> 00:08:15.300
+else.
+
+00:08:15.300 --> 00:08:17.840
+So it's a little bit different than talking to your average
+
+00:08:17.840 --> 00:08:20.260
+individual that's just setting up their social media.
+
+00:08:20.260 --> 00:08:24.400
+So I'm essentially speaking to them like businesses, not individuals
+
+00:08:24.400 --> 00:08:24.580
+.
+
+00:08:24.580 --> 00:08:27.650
+With that in mind, here's the framing that I found
+
+00:08:27.650 --> 00:08:28.980
+actually clicks.
+
+00:08:28.980 --> 00:08:33.330
+Number one, you choose who stewards your data.
+
+00:08:33.330 --> 00:08:35.470
+We all know this one, right?
+
+00:08:35.470 --> 00:08:38.160
+You get to decide who's responsible for your data.
+
+00:08:38.160 --> 00:08:40.070
+If you sign up on Blue Sky, they're the ste
+
+00:08:40.100 --> 00:08:40.990
+ward of your data.
+
+00:08:40.990 --> 00:08:43.080
+If you signed up on Black Sky, you can thank Rudy
+
+00:08:43.080 --> 00:08:44.660
+and his team for keeping it safe.
+
+00:08:44.670 --> 00:08:46.950
+And if you're deeper in the atmosphere, like a lot
+
+00:08:46.950 --> 00:08:49.540
+of us in this room, maybe your data is on a
+
+00:08:49.540 --> 00:08:51.200
+raspberry pie in your kitchen.
+
+00:08:51.200 --> 00:08:52.050
+I don't know.
+
+00:08:52.050 --> 00:08:54.230
+The point is, it's your choice.
+
+00:08:54.230 --> 00:08:56.870
+The control is in your hands, and you can choose a
+
+00:08:56.870 --> 00:08:59.120
+new steward later, even if the current one doesn't
+
+00:08:59.120 --> 00:09:00.100
+want you to leave.
+
+00:09:00.100 --> 00:09:02.920
+Steam would never.
+
+00:09:02.920 --> 00:09:06.260
+Number two, your data works everywhere.
+
+00:09:06.260 --> 00:09:09.210
+If I make a post on Blue Sky, any other app
+
+00:09:09.210 --> 00:09:12.090
+that supports those posts, Black Sky, North Sky, Euros
+
+00:09:12.090 --> 00:09:14.180
+ky, and a soda, and about a gajillion
+
+00:09:14.180 --> 00:09:16.840
+more, can also see that post.
+
+00:09:16.860 --> 00:09:20.840
+Users on those platforms can like it and engage with it.
+
+00:09:20.840 --> 00:09:24.260
+And if you choose a new steward later, you can
+
+00:09:24.260 --> 00:09:27.290
+take all of that data with you because it belongs to you
+
+00:09:27.290 --> 00:09:29.300
+, not to any single platform.
+
+00:09:29.310 --> 00:09:33.650
+And number three, the community is smaller.
+
+00:09:33.750 --> 00:09:35.380
+But this is real.
+
+00:09:35.380 --> 00:09:40.120
+On Twitter, you scream into an algorithm that prioritizes exploitation
+
+00:09:40.120 --> 00:09:41.200
+over engagement.
+
+00:09:41.200 --> 00:09:43.800
+On Blue Sky, when you post about your game, the
+
+00:09:43.800 --> 00:09:46.440
+people who've opted into the game dev feed, they're
+
+00:09:46.440 --> 00:09:47.780
+there for that content.
+
+00:09:47.780 --> 00:09:50.290
+So they actually see it.
+
+00:09:50.290 --> 00:09:55.610
+Your screenshot Saturday posts get real engagement from people who genuinely care
+
+00:09:55.610 --> 00:09:57.490
+, not bots and drive-by follows.
+
+00:09:57.490 --> 00:10:00.700
+For anyone trying to build an audience, whether that's game
+
+00:10:00.700 --> 00:10:04.280
+devs, musicians, educators, whoever, a smaller community
+
+00:10:04.280 --> 00:10:08.440
+paying attention is worth far more than a massive one that isn
+
+00:10:08.440 --> 00:10:08.840
+'t.
+
+00:10:08.840 --> 00:10:09.890
+So that's it.
+
+00:10:09.890 --> 00:10:12.430
+That's what's been working for me.
+
+00:10:12.570 --> 00:10:15.670
+You own your data, it works everywhere, and the people
+
+00:10:15.670 --> 00:10:16.970
+here are actually engaged.
+
+00:10:16.970 --> 00:10:19.860
+That's the spiel that's been working really well for
+
+00:10:19.860 --> 00:10:22.700
+bringing these folks over to the atmosphere.
+
+00:10:22.700 --> 00:10:26.420
+So I'd encourage all of you to steal it, because
+
+00:10:26.420 --> 00:10:28.710
+you'll need it when the people in your industry start asking
+
+00:10:28.710 --> 00:10:29.690
+why they should care.
+
+00:10:29.690 --> 00:10:33.140
+Okay, so back to the building.
+
+00:10:33.140 --> 00:10:36.760
+The community was asking for help, and I had an idea
+
+00:10:36.760 --> 00:10:37.860
+of how to give it.
+
+00:10:37.940 --> 00:10:41.560
+The first question I had to answer was, what does video
+
+00:10:41.560 --> 00:10:44.480
+game data look like on the atmosphere?
+
+00:10:44.650 --> 00:10:48.160
+Right now, every platform has its own answer.
+
+00:10:48.160 --> 00:10:51.690
+Steam has its own data format, Epic has its own,
+
+00:10:51.690 --> 00:10:55.060
+and then there's IGDB, which is worth pausing
+
+00:10:55.060 --> 00:10:55.300
+on.
+
+00:10:55.310 --> 00:10:59.070
+Because IGDB is the de facto game database for most of
+
+00:10:59.110 --> 00:11:00.340
+the industry.
+
+00:11:00.340 --> 00:11:03.350
+Discord pulls game data from IGDB.
+
+00:11:03.950 --> 00:11:07.780
+So does Xbox, so does Epic, GOG, Unity
+
+00:11:07.790 --> 00:11:10.980
+, dozens of major companies depend on it.
+
+00:11:10.980 --> 00:11:16.840
+And it's owned by Twitch, which is owned by Amazon
+
+00:11:16.840 --> 00:11:17.220
+.
+
+00:11:17.220 --> 00:11:21.940
+Fun fact, Amazon also owns IMDB.
+
+00:11:21.940 --> 00:11:28.200
+One company controls the authoritative databases for film, television,
+
+00:11:28.200 --> 00:11:29.220
+and games.
+
+00:11:29.220 --> 00:11:34.340
+Every one of the platforms I mentioned earlier is building on data
+
+00:11:34.350 --> 00:11:38.050
+owned by a single corporation, and the developers whose games are
+
+00:11:38.050 --> 00:11:40.900
+in the IGDB, they're guests.
+
+00:11:41.070 --> 00:11:45.370
+They can submit corrections, but they don't own anything.
+
+00:11:45.450 --> 00:11:49.070
+In my conversations with game developers, I found a lot of
+
+00:11:49.070 --> 00:11:52.200
+them didn't even know that their games were on the platform
+
+00:11:52.200 --> 00:11:54.110
+, and they certainly didn't know that they could edit it
+
+00:11:54.110 --> 00:11:54.260
+.
+
+00:11:54.260 --> 00:11:58.580
+So that's a supply chain risk for an entire industry.
+
+00:12:00.270 --> 00:12:03.760
+And for me, sitting there with a community, asking what
+
+00:12:03.760 --> 00:12:07.690
+can we do, it felt pretty obvious where to start.
+
+00:12:07.710 --> 00:12:13.900
+Step one was defining a shared language for games on the atmosphere
+
+00:12:13.900 --> 00:12:14.110
+.
+
+00:12:14.190 --> 00:12:18.960
+The game lexicons cover everything about a game that you
+
+00:12:18.960 --> 00:12:22.100
+'d want in any application on the network.
+
+00:12:22.100 --> 00:12:25.860
+The game itself, title, descriptions, genres, platforms,
+
+00:12:25.860 --> 00:12:29.010
+release dates, screenshots, it's offshoots, expans
+
+00:12:29.050 --> 00:12:31.630
+ions, downloadable content, updates, mods, and then
+
+00:12:31.630 --> 00:12:33.280
+of course the data around it as well.
+
+00:12:33.380 --> 00:12:37.000
+So achievements, high scores, reviews, and credits for contributors
+
+00:12:37.000 --> 00:12:37.220
+.
+
+00:12:37.220 --> 00:12:42.380
+But because these are lexicons on the protocol, they
+
+00:12:42.380 --> 00:12:44.240
+'re not locked to any single application.
+
+00:12:44.240 --> 00:12:47.210
+The developer publishes their game data once to their own PD
+
+00:12:47.210 --> 00:12:50.800
+S, and any application on the network that understands the le
+
+00:12:50.950 --> 00:12:53.730
+xicons can display it, search it, reference it.
+
+00:12:53.730 --> 00:12:57.700
+Right now, a game developer updating their game's description has
+
+00:12:57.700 --> 00:12:59.360
+to do it on Steam, Epic, GOG, Hum
+
+00:12:59.360 --> 00:13:01.280
+ble, Itch, IGDB, their own website,
+
+00:13:01.280 --> 00:13:03.300
+their press kit, their publisher's website.
+
+00:13:03.310 --> 00:13:07.670
+With the atmosphere, update it once, it propagates everywhere
+
+00:13:07.740 --> 00:13:08.020
+.
+
+00:13:08.020 --> 00:13:09.700
+Well, kinda.
+
+00:13:09.700 --> 00:13:13.640
+We have to be honest about our expectations for adoption, right
+
+00:13:13.640 --> 00:13:13.830
+?
+
+00:13:13.830 --> 00:13:17.430
+Those other platforms aren't going to start pulling from the atmosphere
+
+00:13:17.430 --> 00:13:20.200
+tomorrow just because the data is there.
+
+00:13:20.200 --> 00:13:23.350
+We build the foundation, though, because we have to start
+
+00:13:23.350 --> 00:13:24.250
+somewhere.
+
+00:13:24.250 --> 00:13:27.510
+So we build the foundation, we prove the value, and
+
+00:13:27.690 --> 00:13:30.600
+then over time, we either convince platforms to adopt it,
+
+00:13:30.600 --> 00:13:33.630
+or we build something so compelling that they don't really have
+
+00:13:33.640 --> 00:13:34.340
+a choice.
+
+00:13:34.350 --> 00:13:35.860
+That's the long game.
+
+00:13:35.860 --> 00:13:40.740
+Now, lexicons by themselves are just definitions.
+
+00:13:40.740 --> 00:13:44.670
+You still need something to make them work on the network.
+
+00:13:44.670 --> 00:13:46.650
+Blue Sky calls it an app view.
+
+00:13:46.710 --> 00:13:49.650
+Others call it an app server, or an API, or
+
+00:13:49.670 --> 00:13:50.810
+a flibbity gibbet.
+
+00:13:50.810 --> 00:13:52.230
+There's a lot of things.
+
+00:13:52.230 --> 00:13:56.260
+The proper name and description of an app view are hotly
+
+00:13:56.270 --> 00:13:56.980
+contested.
+
+00:13:56.980 --> 00:13:59.680
+But really, it's just the layer that sits between the
+
+00:13:59.680 --> 00:14:02.020
+data on the network and the people trying to use it.
+
+00:14:02.020 --> 00:14:05.540
+If lexicons are the shared language, the app views
+
+00:14:05.550 --> 00:14:07.740
+are the applications that speak it.
+
+00:14:08.350 --> 00:14:12.220
+Traditionally, building an app view means writing custom software from
+
+00:14:12.220 --> 00:14:14.100
+scratch for your specific use case.
+
+00:14:14.100 --> 00:14:16.810
+You have to handle indexing records from the network.
+
+00:14:16.810 --> 00:14:19.770
+You have to implement queries and procedure XRPCs.
+
+00:14:19.780 --> 00:14:21.880
+You have to know what XRPCs are.
+
+00:14:21.880 --> 00:14:25.750
+You probably need to handle authentication, and you'll likely need
+
+00:14:25.760 --> 00:14:28.420
+additional infrastructure, databases, search indexes.
+
+00:14:28.430 --> 00:14:30.850
+That's a significant amount of work, and it's a
+
+00:14:30.850 --> 00:14:34.400
+real barrier for anyone who wants to build on the atmosphere.
+
+00:14:34.400 --> 00:14:36.380
+So, I built HappyView.
+
+00:14:36.380 --> 00:14:39.640
+HappyView is a lexicon-driven app view builder
+
+00:14:39.640 --> 00:14:40.020
+.
+
+00:14:40.130 --> 00:14:43.470
+You upload your lexicons, it dynamically generates XR
+
+00:14:43.470 --> 00:14:47.050
+PCs for querying and writing data, watches the network
+
+00:14:47.050 --> 00:14:49.980
+for new records in your lexicon collections, it index
+
+00:14:49.980 --> 00:14:52.240
+es them, and it proxies rights back to users
+
+00:14:52.240 --> 00:14:53.850
+' PDSs.
+
+00:14:53.870 --> 00:14:56.440
+You define the schema, you upload it, you have a
+
+00:14:56.440 --> 00:14:57.220
+working app view.
+
+00:14:57.220 --> 00:15:00.760
+Auth included, out of the box, totally open source,
+
+00:15:00.760 --> 00:15:02.900
+but HappyView isn't specific to games.
+
+00:15:02.900 --> 00:15:03.930
+It's generic.
+
+00:15:03.940 --> 00:15:06.420
+It's open source infrastructure, so you can use it for
+
+00:15:06.420 --> 00:15:09.140
+whatever industry you're currently looking at.
+
+00:15:09.140 --> 00:15:12.520
+The game lexicons are the first production use case built
+
+00:15:12.530 --> 00:15:14.810
+on HappyView, but I'm hoping they will not be
+
+00:15:14.900 --> 00:15:15.520
+the last.
+
+00:15:15.550 --> 00:15:20.820
+Now, I used HappyView and the games lexicons
+
+00:15:20.820 --> 00:15:23.460
+to create the Pinteract app view.
+
+00:15:23.460 --> 00:15:27.580
+Some of you all may know it by its sort of infamous
+
+00:15:27.580 --> 00:15:29.770
+handle, games.
+
+00:15:29.770 --> 00:15:30.610
+games.
+
+00:15:30.610 --> 00:15:32.020
+games.
+
+00:15:32.030 --> 00:15:32.150
+games.
+
+00:15:32.150 --> 00:15:32.230
+games.
+
+00:15:32.330 --> 00:15:34.620
+And of course, that means that the NSID for the
+
+00:15:34.620 --> 00:15:36.640
+game lexicon is games.
+
+00:15:36.640 --> 00:15:37.290
+games.
+
+00:15:37.410 --> 00:15:38.190
+games.
+
+00:15:38.190 --> 00:15:39.060
+games.
+
+00:15:39.060 --> 00:15:40.330
+game.
+
+00:15:40.330 --> 00:15:41.700
+You're welcome.
+
+00:15:41.710 --> 00:15:47.000
+Shout out to Ted Han, by the way, for appoint
+
+00:15:47.000 --> 00:15:49.620
+ing me at that domain and coming up with the much simpler
+
+00:15:49.630 --> 00:15:52.820
+name I mentioned just a minute ago, the Pinteract
+
+00:15:52.820 --> 00:15:53.050
+.
+
+00:15:53.050 --> 00:15:56.690
+The Pinteract currently holds data for more than 350,
+
+00:15:56.690 --> 00:15:58.820
+000 games across all platforms.
+
+00:15:58.820 --> 00:16:01.220
+You can think of the Pinteract as the alternative to
+
+00:16:01.220 --> 00:16:03.380
+the IGDB API.
+
+00:16:03.390 --> 00:16:06.290
+It's the open, decentralized version of the game data layer
+
+00:16:06.290 --> 00:16:08.570
+that the whole industry has been building on.
+
+00:16:08.570 --> 00:16:11.130
+And it's currently live and open, so feel free to
+
+00:16:11.130 --> 00:16:13.540
+go play with it after I'm done.
+
+00:16:13.540 --> 00:16:16.110
+I'll be holding links to the end because I know you
+
+00:16:16.130 --> 00:16:18.340
+rascals better than to restrain yourselves from a new
+
+00:16:18.340 --> 00:16:18.580
+toy.
+
+00:16:18.630 --> 00:16:22.530
+Now that the data layer was in place, I needed a
+
+00:16:22.530 --> 00:16:26.860
+way for everyday users, both gamers and developers, to access
+
+00:16:26.860 --> 00:16:27.570
+that data.
+
+00:16:27.570 --> 00:16:29.700
+So that's where Cartridge comes in.
+
+00:16:29.700 --> 00:16:34.030
+Cartridge is the first application built on the Pinteract
+
+00:16:34.030 --> 00:16:34.290
+.
+
+00:16:34.290 --> 00:16:38.030
+It's a games database, sure, an alternative to IG
+
+00:16:38.030 --> 00:16:41.020
+DB itself, but it's also a games discovery platform for
+
+00:16:41.020 --> 00:16:43.670
+players, where I'm building features to make it easier for
+
+00:16:43.750 --> 00:16:45.940
+gamers to find the games that they love.
+
+00:16:45.940 --> 00:16:48.770
+But more importantly, and sort of back to the mission,
+
+00:16:48.770 --> 00:16:51.740
+it's where developers can go to take control of their game
+
+00:16:51.740 --> 00:16:52.290
+'s data.
+
+00:16:52.290 --> 00:16:55.940
+Game developers aren't going to interact with raw lexicons
+
+00:16:55.950 --> 00:16:58.430
+and app views and XRPCs, and they shouldn
+
+00:16:58.430 --> 00:16:59.210
+'t have to.
+
+00:16:59.210 --> 00:17:03.140
+They're building games, not infrastructure for the atmosphere.
+
+00:17:03.140 --> 00:17:06.180
+When a developer signs in, they get a dashboard, from
+
+00:17:06.260 --> 00:17:10.030
+there they can create game records, update descriptions, upload screenshots
+
+00:17:10.030 --> 00:17:13.300
+, manage credits, all the stuff that they're currently doing
+
+00:17:13.310 --> 00:17:15.690
+across 10 different platforms.
+
+00:17:15.690 --> 00:17:19.380
+Except now they're doing it once on their terms, and
+
+00:17:19.380 --> 00:17:21.620
+the data lives in their PDS.
+
+00:17:21.620 --> 00:17:24.660
+Okay, that actually means they're doing it 11 times now
+
+00:17:24.690 --> 00:17:27.060
+, but we talked about this long game.
+
+00:17:28.670 --> 00:17:33.210
+Now, IGDB itself has around 350,000 games.
+
+00:17:33.370 --> 00:17:35.930
+That may sound familiar, because that's about how many games
+
+00:17:35.930 --> 00:17:37.160
+we have on cartridge.
+
+00:17:37.160 --> 00:17:40.370
+Actually, that's exactly the same number, because IGDB
+
+00:17:40.370 --> 00:17:43.940
+is the original source of all the data that is currently in
+
+00:17:43.940 --> 00:17:45.040
+the Pinteract.
+
+00:17:45.040 --> 00:17:46.500
+And yes, I did check.
+
+00:17:46.520 --> 00:17:48.900
+IGDB's API allows me to do that.
+
+00:17:48.910 --> 00:17:52.960
+But it gets better over time, as developers claim and take
+
+00:17:52.960 --> 00:17:54.500
+ownership of their games.
+
+00:17:54.500 --> 00:17:57.960
+They enrich the data, and we can build a rich graph
+
+00:17:57.960 --> 00:18:02.010
+of the data between games and other things on the network,
+
+00:18:02.010 --> 00:18:03.870
+like blue sky posts, pop feed.
+
+00:18:03.870 --> 00:18:08.170
+social reviews, leaflet and pocket articles referencing games.
+
+00:18:08.170 --> 00:18:12.020
+And there are technical advantages, real technical advantages to using the
+
+00:18:12.020 --> 00:18:13.700
+Pinteract app view over IGDB.
+
+00:18:13.700 --> 00:18:16.980
+There's no Twitch credentials necessary for one thing.
+
+00:18:16.980 --> 00:18:20.020
+You get unauthenticated API access, we have semantic
+
+00:18:20.020 --> 00:18:23.680
+search instead of plain text matching, and we have discovery feeds
+
+00:18:23.680 --> 00:18:25.060
+that IGDB simply doesn't offer.
+
+00:18:25.060 --> 00:18:28.090
+But the important part isn't the feature comparison.
+
+00:18:28.090 --> 00:18:30.900
+It's what happens when a developer actually claims their game.
+
+00:18:30.910 --> 00:18:37.310
+They verify ownership, they claim the record, and they migrate
+
+00:18:37.340 --> 00:18:38.090
+it to their PDS.
+
+00:18:38.100 --> 00:18:40.660
+Now it's theirs, fully.
+
+00:18:40.670 --> 00:18:43.400
+Their data is managed by the steward of their choice rather
+
+00:18:43.400 --> 00:18:44.970
+than the devil, I mean Amazon.
+
+00:18:45.110 --> 00:18:49.970
+If cartridge disappears tomorrow, their game data would still be on
+
+00:18:49.970 --> 00:18:53.800
+the network in their PDS accessible to any application that speaks
+
+00:18:53.800 --> 00:18:54.700
+to the lexicons.
+
+00:18:54.700 --> 00:18:58.410
+That right there, that's what data sovereignty means, right
+
+00:18:58.410 --> 00:18:58.740
+?
+
+00:18:58.740 --> 00:19:01.050
+It's not just a buzzword, it's a technical
+
+00:19:01.140 --> 00:19:01.690
+reality.
+
+00:19:01.710 --> 00:19:02.980
+We're doing it on the atmosphere.
+
+00:19:02.990 --> 00:19:07.890
+Now cartridge isn't officially launched.
+
+00:19:07.890 --> 00:19:10.560
+I can't tell you about tremendous user growth or anything.
+
+00:19:10.590 --> 00:19:13.000
+There's no press releases, no big announcements, and I
+
+00:19:13.000 --> 00:19:15.740
+still have some work to finish before I'm comfortable really opening
+
+00:19:15.740 --> 00:19:17.360
+the floodgates on the application.
+
+00:19:17.360 --> 00:19:20.140
+So the social proof of all this may feel a little bit
+
+00:19:20.140 --> 00:19:23.210
+flimsy, but what's happened during development is what
+
+00:19:23.300 --> 00:19:25.460
+really tells me that I've been on the right track.
+
+00:19:25.460 --> 00:19:29.600
+When I started sharing my work on the Pinteract publicly
+
+00:19:29.600 --> 00:19:33.240
+, developers started responding with use cases I hadn't considered.
+
+00:19:33.240 --> 00:19:36.820
+Luca from the Northsky team brought up managing a game's
+
+00:19:36.830 --> 00:19:39.260
+credits and updating them regularly.
+
+00:19:39.260 --> 00:19:43.610
+You allow games to fetch those credits and fix developers dead names
+
+00:19:43.730 --> 00:19:43.860
+.
+
+00:19:43.870 --> 00:19:45.220
+I hadn't considered that.
+
+00:19:45.220 --> 00:19:46.580
+I'm a straight white guy.
+
+00:19:46.580 --> 00:19:50.910
+But for trans developers in the game industry, that's not
+
+00:19:50.910 --> 00:19:52.160
+a niche concern, right?
+
+00:19:52.160 --> 00:19:53.140
+That's their name.
+
+00:19:53.140 --> 00:19:54.100
+It's important.
+
+00:19:54.100 --> 00:19:58.900
+And right now, getting a credit updated in a shipped game
+
+00:19:58.910 --> 00:20:02.020
+is a nightmare of bureaucracy and platform policies.
+
+00:20:02.020 --> 00:20:05.240
+With developer-controlled credits on protocol, it's an update
+
+00:20:05.240 --> 00:20:07.680
+to a record owned by that contributor.
+
+00:20:07.770 --> 00:20:12.300
+Somebody else started talking about player-owned save data, cloud
+
+00:20:12.300 --> 00:20:12.750
+saves.
+
+00:20:12.750 --> 00:20:14.820
+And this one's a little personal for me.
+
+00:20:14.820 --> 00:20:18.240
+City of Heroes, some of you may remember, it was
+
+00:20:18.240 --> 00:20:22.130
+a really popular MMO, massively multiplayer online game, owned
+
+00:20:22.130 --> 00:20:24.860
+by NCSoft and developed by Paragon Studios.
+
+00:20:24.860 --> 00:20:26.980
+It was released in 2004.
+
+00:20:26.980 --> 00:20:28.980
+I played it way too much.
+
+00:20:28.990 --> 00:20:31.740
+And eight years later, in 2012, NCSoft term
+
+00:20:31.740 --> 00:20:35.280
+inated the entirety of the Paragon Studios staff, shut down
+
+00:20:35.280 --> 00:20:36.900
+the game, and shut down the servers.
+
+00:20:36.900 --> 00:20:41.740
+The time invested in these characters that people had created, that
+
+00:20:41.740 --> 00:20:44.980
+they loved, the experience that players so thoroughly enjoyed, it
+
+00:20:45.060 --> 00:20:46.510
+was all gone.
+
+00:20:46.510 --> 00:20:47.700
+Seemingly forever.
+
+00:20:47.710 --> 00:20:51.430
+Years later, a community on Reddit actually revived the game.
+
+00:20:51.500 --> 00:20:54.120
+They had a private server and they sort of, you know
+
+00:20:54.120 --> 00:20:55.260
+, hit it for a while.
+
+00:20:55.260 --> 00:20:58.070
+But they were able to bring it back, which is incredible
+
+00:20:58.070 --> 00:20:58.320
+.
+
+00:20:58.410 --> 00:21:01.900
+Except all the original player data is gone.
+
+00:21:01.900 --> 00:21:04.970
+I can't load up the characters that I made and fell
+
+00:21:04.990 --> 00:21:06.760
+in love with a decade ago.
+
+00:21:06.780 --> 00:21:08.580
+They don't exist anymore.
+
+00:21:08.580 --> 00:21:10.090
+My inner child is sad.
+
+00:21:10.090 --> 00:21:11.610
+So is my outer child.
+
+00:21:14.350 --> 00:21:17.760
+On the protocol, that save data could live in the player
+
+00:21:17.760 --> 00:21:18.420
+'s PDS.
+
+00:21:18.420 --> 00:21:23.250
+The game shuts down, gets revived five years later, ten
+
+00:21:23.250 --> 00:21:24.110
+years later.
+
+00:21:24.110 --> 00:21:25.860
+Your saves are still there.
+
+00:21:25.860 --> 00:21:29.400
+Now for competitive games, that save data could live, sorry
+
+00:21:29.400 --> 00:21:31.700
+, you need some form of verification.
+
+00:21:31.700 --> 00:21:34.340
+You can't let people write, "I got a perfect
+
+00:21:34.340 --> 00:21:37.170
+score" into their repos when you're trying to compare
+
+00:21:37.170 --> 00:21:37.780
+scores.
+
+00:21:37.780 --> 00:21:41.700
+So I actually use Nick Garakine's attestation
+
+00:21:41.890 --> 00:21:46.970
+spec already to allow you to have that information stored in the
+
+00:21:46.990 --> 00:21:49.290
+player's repos, where it is still non-cop
+
+00:21:49.290 --> 00:21:49.780
+yable.
+
+00:21:49.790 --> 00:21:50.660
+It's non-forgeable.
+
+00:21:50.660 --> 00:21:51.460
+It's verifiable.
+
+00:21:51.470 --> 00:21:57.380
+So I'm also building game engine SDKs for Unity,
+
+00:21:57.380 --> 00:22:00.760
+Unreal, and Godot, which are all game engines.
+
+00:22:00.770 --> 00:22:04.020
+So developers can interact with all this data directly from within the
+
+00:22:04.020 --> 00:22:07.130
+tools that they already use without ever having to think about the
+
+00:22:07.140 --> 00:22:08.220
+protocol underneath.
+
+00:22:08.220 --> 00:22:09.770
+And there's more on the horizon.
+
+00:22:09.860 --> 00:22:12.760
+Decentralized modding, game distribution, sales.
+
+00:22:12.760 --> 00:22:16.020
+These are big unsolved problems on the atmosphere, but the
+
+00:22:16.030 --> 00:22:18.800
+foundational pieces for doing it, at least with games, are
+
+00:22:18.800 --> 00:22:20.100
+already on the network.
+
+00:22:20.100 --> 00:22:23.860
+Game data, developer identity, player identity, that's all
+
+00:22:23.860 --> 00:22:24.590
+ready to go.
+
+00:22:24.590 --> 00:22:27.700
+So the question about how to do this is just how.
+
+00:22:27.710 --> 00:22:28.260
+It's not if.
+
+00:22:28.260 --> 00:22:29.200
+Okay.
+
+00:22:29.200 --> 00:22:33.060
+I just walked you through my entire journey.
+
+00:22:33.060 --> 00:22:35.700
+The feeds, the labeler, the delistings,
+
+00:22:35.710 --> 00:22:37.980
+and how they drove me to create the lexicons,
+
+00:22:37.980 --> 00:22:40.010
+HappyView, and Cartridge.
+
+00:22:40.140 --> 00:22:43.720
+Now, let's talk a little bit about what other atmosphere
+
+00:22:43.730 --> 00:22:46.010
+builders can hopefully take away from it.
+
+00:22:46.100 --> 00:22:50.010
+I took a community that I was already a part of.
+
+00:22:50.010 --> 00:22:53.160
+I found the data that causes the most pain for my community
+
+00:22:53.170 --> 00:22:56.770
+, which in my case was games scattered across platforms that developers
+
+00:22:56.770 --> 00:22:59.640
+don't control, and I built tools and infrastructure that let
+
+00:22:59.640 --> 00:23:00.480
+them own it.
+
+00:23:00.490 --> 00:23:02.810
+That's not unique to games, though.
+
+00:23:02.810 --> 00:23:04.860
+It's a pattern, and once you see it, it
+
+00:23:04.860 --> 00:23:06.810
+'s a little difficult to unsee.
+
+00:23:06.810 --> 00:23:08.490
+Take music, for example.
+
+00:23:08.490 --> 00:23:11.500
+An artist releases a track, and now they're managing metadata
+
+00:23:11.500 --> 00:23:14.710
+across Spotify, Apple Music, Bandcamp, SoundCloud,
+
+00:23:14.790 --> 00:23:15.810
+YouTube, Tidal.
+
+00:23:15.810 --> 00:23:19.440
+Every platform has its own dashboard, its own format, and
+
+00:23:19.440 --> 00:23:20.510
+its own rules.
+
+00:23:20.510 --> 00:23:24.600
+An artist gets dropped, or a distributor folds, and suddenly
+
+00:23:24.600 --> 00:23:26.550
+the musician's catalog is in limbo.
+
+00:23:26.550 --> 00:23:29.730
+Their fans can't find their music, their revenue disappears.
+
+00:23:29.730 --> 00:23:32.030
+It's the same pattern, but it's a different industry
+
+00:23:32.030 --> 00:23:32.260
+.
+
+00:23:32.260 --> 00:23:34.580
+How about education?
+
+00:23:34.580 --> 00:23:35.300
+That's a weird one, right?
+
+00:23:35.300 --> 00:23:38.710
+Your degree, your credentials, your transcripts, they're
+
+00:23:38.710 --> 00:23:42.620
+all locked within institutional silos that may or may not still exist
+
+00:23:42.620 --> 00:23:43.910
+in 20 years.
+
+00:23:43.910 --> 00:23:47.540
+If you don't get how this is relevant, try transferring
+
+00:23:47.550 --> 00:23:50.810
+credits between universities, or getting a copy of your degree after
+
+00:23:50.810 --> 00:23:52.340
+the original was destroyed.
+
+00:23:52.350 --> 00:23:54.600
+The pattern is always the same.
+
+00:23:54.600 --> 00:23:58.500
+Data is published to centralize third-party platforms that we
+
+00:23:58.500 --> 00:24:00.860
+don't control, and formats we don't choose, and
+
+00:24:00.860 --> 00:24:02.650
+we hope that nothing goes wrong.
+
+00:24:02.740 --> 00:24:06.200
+When it does, we have little to no recourse.
+
+00:24:06.200 --> 00:24:07.450
+Now, here's the thing.
+
+00:24:07.450 --> 00:24:09.940
+Everything I've built for games, the lexicon,
+
+00:24:09.950 --> 00:24:13.550
+the management platform, the claim and migration system, what I
+
+00:24:13.550 --> 00:24:16.910
+'ve built is game-specific, but the infrastructure isn't
+
+00:24:16.930 --> 00:24:17.130
+.
+
+00:24:17.130 --> 00:24:20.240
+HappyView, which is open source, doesn't care what
+
+00:24:20.330 --> 00:24:21.220
+your data is.
+
+00:24:21.220 --> 00:24:22.550
+It just needs lexicons.
+
+00:24:22.550 --> 00:24:25.330
+Now, let me try and make this even a little more
+
+00:24:25.330 --> 00:24:26.090
+concrete.
+
+00:24:26.100 --> 00:24:29.170
+Let's say you want to solve this particular piece of the
+
+00:24:29.170 --> 00:24:31.310
+puzzle for the music industry, right?
+
+00:24:31.310 --> 00:24:33.300
+Step one, what data is scattered?
+
+00:24:33.310 --> 00:24:37.420
+Track metadata, album metadata, artist credits, licensing agreements,
+
+00:24:37.420 --> 00:24:39.300
+distribution records, right?
+
+00:24:39.300 --> 00:24:42.020
+So step two, we define the lexicons for those
+
+00:24:42.020 --> 00:24:42.590
+things.
+
+00:24:42.590 --> 00:24:43.520
+What's a track?
+
+00:24:43.520 --> 00:24:46.460
+It has a title, a duration, it has contributors and
+
+00:24:46.460 --> 00:24:49.630
+rights holders, release dates, and it's going to point
+
+00:24:49.630 --> 00:24:51.650
+to a blob that represents the audio, right?
+
+00:24:51.650 --> 00:24:52.450
+What's an album?
+
+00:24:52.450 --> 00:24:54.800
+It's a collection of tracks with its own metadata, like
+
+00:24:54.900 --> 00:24:55.520
+its title.
+
+00:24:55.550 --> 00:24:58.810
+An artist is going to have a discography, collaborators,
+
+00:24:58.810 --> 00:25:02.320
+rights relationships, and maybe that's an actor in our le
+
+00:25:02.320 --> 00:25:03.460
+xicon, right?
+
+00:25:03.460 --> 00:25:07.050
+You design those schemas for step three, upload them to
+
+00:25:07.050 --> 00:25:10.000
+HappyView, or you know, quick slice if you want
+
+00:25:10.000 --> 00:25:12.440
+to try other options, and now you've got an app
+
+00:25:12.440 --> 00:25:15.420
+view that indexes music data from the network.
+
+00:25:15.420 --> 00:25:17.780
+Step four, you build the interface, right?
+
+00:25:17.780 --> 00:25:19.140
+This is the easy part, right?
+
+00:25:19.140 --> 00:25:22.880
+Where an artist logs in, claims their catalog, and is
+
+00:25:22.880 --> 00:25:24.650
+now in control of their own data.
+
+00:25:24.650 --> 00:25:27.450
+It's the same pattern I followed for games, just different
+
+00:25:27.450 --> 00:25:28.580
+domain knowledge.
+
+00:25:28.580 --> 00:25:29.750
+So that's it.
+
+00:25:29.750 --> 00:25:32.900
+You can do this for music, for education, you can
+
+00:25:32.900 --> 00:25:35.310
+do it for healthcare records, for legal documents, for anything
+
+00:25:35.310 --> 00:25:38.580
+where centralization is failing the people who create the data.
+
+00:25:38.580 --> 00:25:39.810
+This is one pattern.
+
+00:25:39.810 --> 00:25:43.300
+It's not the only centralization problem out there, but
+
+00:25:43.300 --> 00:25:46.770
+your domain might have a slightly different one, locked up credentials
+
+00:25:46.770 --> 00:25:48.730
+, gated access, licensing nightmares.
+
+00:25:48.750 --> 00:25:52.240
+The pattern might look slightly different, but the tooling that I
+
+00:25:52.240 --> 00:25:56.260
+'ve shown you today, it should be generic enough to handle
+
+00:25:56.260 --> 00:25:57.580
+pretty much all of them.
+
+00:25:57.580 --> 00:26:00.660
+The hardest part is figuring out what data in your domain actually
+
+00:26:00.670 --> 00:26:04.150
+needs to be decentralized, and then designing lexicons that
+
+00:26:04.150 --> 00:26:05.770
+accurately represent it.
+
+00:26:05.770 --> 00:26:09.170
+That's domain expertise, not protocol expertise, and that's
+
+00:26:09.170 --> 00:26:12.310
+why it really has to come from people who know their industries
+
+00:26:12.310 --> 00:26:15.610
+, not from people outside guessing at what a community needs.
+
+00:26:15.700 --> 00:26:17.860
+One more thing.
+
+00:26:17.860 --> 00:26:21.790
+I've been talking about the protocol a lot because y'
+
+00:26:21.790 --> 00:26:24.660
+all are the people building on it, right?
+
+00:26:24.660 --> 00:26:27.850
+But when I'm talking to a game developer about cartridge or
+
+00:26:27.850 --> 00:26:30.170
+about blue sky, none of this comes up.
+
+00:26:30.300 --> 00:26:32.980
+They don't know what an app view is.
+
+00:26:32.980 --> 00:26:35.450
+Like I said earlier, they don't care about XR
+
+00:26:35.450 --> 00:26:35.830
+PCs.
+
+00:26:35.830 --> 00:26:39.680
+They just want to manage their game data and not get screwed
+
+00:26:39.680 --> 00:26:41.430
+by big corporations.
+
+00:26:41.430 --> 00:26:45.490
+The protocol is invisible in the product and in the conversations.
+
+00:26:45.550 --> 00:26:47.570
+That's not an accident.
+
+00:26:47.570 --> 00:26:49.270
+That's the whole point.
+
+00:26:49.270 --> 00:26:53.860
+Everything I've built treats at protocol as an implementation detail,
+
+00:26:53.860 --> 00:26:55.330
+not the selling point.
+
+00:26:55.330 --> 00:26:58.410
+It's not why a game developer would use cartridge.
+
+00:26:58.410 --> 00:27:00.660
+They'd use it because it solves their problems.
+
+00:27:00.660 --> 00:27:03.120
+The protocol is just how it works under the hood.
+
+00:27:03.220 --> 00:27:06.590
+So when you go to build for your industry, that's
+
+00:27:06.590 --> 00:27:09.710
+the mindset that's going to get people to use what you
+
+00:27:09.850 --> 00:27:10.420
+make.
+
+00:27:10.420 --> 00:27:13.180
+Don't sell the protocol, solve the problem.
+
+00:27:13.180 --> 00:27:16.330
+The protocol is what makes your solution possible, but it's
+
+00:27:16.330 --> 00:27:17.380
+never the pitch.
+
+00:27:17.380 --> 00:27:18.340
+Thank you.
+
+00:27:27.790 --> 00:27:29.960
+That was fantastic, Tracy.
+
+00:27:29.960 --> 00:27:34.020
+I hope a bunch of people are lighting up their scrapers
+
+00:27:34.020 --> 00:27:37.300
+and attacking so many other industries.
+
+00:27:37.300 --> 00:27:41.370
+The fire safety talk was one that would pair really nicely with
+
+00:27:41.370 --> 00:27:44.090
+yours because they have the same pain.
+
+00:27:44.090 --> 00:27:45.160
+Thank you.
+
+00:27:45.160 --> 00:27:46.180
+Awesome.
+
+00:27:46.180 --> 00:27:46.180
+Yep.

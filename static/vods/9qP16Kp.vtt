@@ -1,0 +1,478 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.150
+All right.
+
+00:00:03.150 --> 00:00:03.860
+Hi, everybody.
+
+00:00:04.520 --> 00:00:07.000
+Welcome to the lightning talk section.
+
+00:00:07.000 --> 00:00:08.440
+My name is Jessie.
+
+00:00:08.440 --> 00:00:12.240
+I'm going to be giving a quick lightning talk on halluc
+
+00:00:12.240 --> 00:00:17.280
+inating the app protocol, grounding your AI agents with the official
+
+00:00:17.280 --> 00:00:18.740
+app proto docs.
+
+00:00:18.980 --> 00:00:22.560
+If you met me last year, I was at the conference
+
+00:00:22.720 --> 00:00:24.280
+talking about OAuth.
+
+00:00:24.280 --> 00:00:28.290
+Today I am here because I chose to build and serve for
+
+00:00:28.470 --> 00:00:32.930
+free a remote MCP server for the app protocol documentation that
+
+00:00:33.080 --> 00:00:34.470
+is available online.
+
+00:00:34.470 --> 00:00:37.670
+I'm hoping it is a helpful tool for developers.
+
+00:00:37.670 --> 00:00:42.020
+And you may be wondering why would somebody decide to build a
+
+00:00:42.020 --> 00:00:45.860
+remote MCP server for the documentation?
+
+00:00:45.950 --> 00:00:49.000
+I'm hopefully going to explain.
+
+00:00:49.000 --> 00:00:52.250
+So first, if you are not familiar with what RAG
+
+00:00:52.250 --> 00:00:53.890
+is, I'm not going to get too deep into this
+
+00:00:53.890 --> 00:00:56.880
+because it's a lightning talk, but RAG stands for
+
+00:00:56.880 --> 00:00:59.470
+Retrieval Augmented Generation.
+
+00:00:59.590 --> 00:01:03.540
+And you can think of retrieval augmented generation as adding index
+
+00:01:03.540 --> 00:01:05.460
+ing to your source content.
+
+00:01:05.820 --> 00:01:09.890
+So the same way that adding a SQL index to like a
+
+00:01:09.890 --> 00:01:14.550
+large SQL table will make querying that data more efficient,
+
+00:01:14.550 --> 00:01:18.240
+RAG makes LLM queries more efficient.
+
+00:01:18.240 --> 00:01:21.000
+By preprocessing the source content into an index of
+
+00:01:21.020 --> 00:01:24.820
+vector embeddings, you get more efficient retrieval of content
+
+00:01:24.820 --> 00:01:27.120
+that is specifically related to your query.
+
+00:01:27.170 --> 00:01:31.220
+So the way this works is it allows you to combine multiple
+
+00:01:31.220 --> 00:01:34.100
+reference sources into a single index.
+
+00:01:34.120 --> 00:01:37.830
+You can have that content supersede whatever the model was trained
+
+00:01:37.830 --> 00:01:38.120
+on.
+
+00:01:38.120 --> 00:01:41.120
+So you can have more up to date, more relevant content
+
+00:01:41.120 --> 00:01:41.360
+.
+
+00:01:41.360 --> 00:01:44.320
+And then you can also make sure that your retrievals are
+
+00:01:44.720 --> 00:01:46.600
+getting grounded in that content.
+
+00:01:46.770 --> 00:01:48.920
+So you're reducing hallucinations.
+
+00:01:49.700 --> 00:01:53.000
+Quickly, what is an MCP server?
+
+00:01:53.000 --> 00:01:55.930
+So if you're not familiar with MCP, it came
+
+00:01:55.930 --> 00:01:57.240
+out in late 2024.
+
+00:01:57.240 --> 00:02:01.720
+Basically, MCP servers expose tools, prompts, and resources
+
+00:02:01.720 --> 00:02:02.680
+to your agents.
+
+00:02:02.680 --> 00:02:05.410
+So if you are in Cloud Code or ChatGPT
+
+00:02:05.460 --> 00:02:10.240
+or whatever your like tool of choice is, you can often
+
+00:02:10.240 --> 00:02:13.680
+install an MCP server that will expose these additional tools,
+
+00:02:14.080 --> 00:02:16.320
+prompts, and resources to your queries.
+
+00:02:16.320 --> 00:02:21.240
+So let's compare what happens when you do a URL search
+
+00:02:21.240 --> 00:02:25.240
+to when you're using something like a a rag instance.
+
+00:02:25.240 --> 00:02:28.630
+So if you say, I'm building an app proto app
+
+00:02:28.760 --> 00:02:31.310
+, and I want you to search the app proto documentations
+
+00:02:31.310 --> 00:02:34.890
+for lexicons, and then you're incorporating that into
+
+00:02:34.890 --> 00:02:35.880
+your query.
+
+00:02:35.880 --> 00:02:38.880
+Basically, the key point here, you can see this like
+
+00:02:38.880 --> 00:02:40.890
+whole little chart of what's happening.
+
+00:02:41.120 --> 00:02:44.140
+Your prompt, your agent has to go get the docs,
+
+00:02:44.140 --> 00:02:47.600
+it has to tokenize that information, it has to process
+
+00:02:47.600 --> 00:02:48.160
+it.
+
+00:02:48.160 --> 00:02:51.890
+And basically, the takeaway here is that everything that's going
+
+00:02:51.890 --> 00:02:55.160
+into your chat context is getting tokenized and embedded.
+
+00:02:55.160 --> 00:02:57.350
+That that could be pre processed.
+
+00:02:57.530 --> 00:03:00.480
+And that's what the rag approach allows us to do.
+
+00:03:00.480 --> 00:03:04.850
+So instead of your agent tokenizing and embedding all of
+
+00:03:05.000 --> 00:03:09.590
+those documentation sources, all of that tokenization and embedding
+
+00:03:09.590 --> 00:03:12.580
+vector embedding creation has already happened.
+
+00:03:12.650 --> 00:03:15.200
+And it's just being served by the MCP server.
+
+00:03:15.200 --> 00:03:20.280
+MCP servers come in two flavors, they come in local
+
+00:03:20.280 --> 00:03:24.070
+servers that we run on our local machines and remote servers that
+
+00:03:24.070 --> 00:03:25.840
+are hosted somewhere in the cloud.
+
+00:03:25.840 --> 00:03:31.280
+By essentially pre processing a rag index and then caching it
+
+00:03:31.280 --> 00:03:33.690
+and serving it in the cloud as a remote server, you
+
+00:03:33.690 --> 00:03:37.570
+'re effectively caching that tokenization process for anyone in the
+
+00:03:37.570 --> 00:03:39.040
+world who wants to consume it.
+
+00:03:39.040 --> 00:03:43.760
+So this is why I built a app proto docs MCP
+
+00:03:43.760 --> 00:03:44.700
+server.
+
+00:03:44.700 --> 00:03:48.400
+Last year, when I was first getting into MCP and
+
+00:03:48.400 --> 00:03:52.010
+trying to explore it and study it, I thought Cloudfl
+
+00:03:52.310 --> 00:03:55.460
+are's documentation server was really interesting to me.
+
+00:03:55.460 --> 00:03:57.790
+They had some templates I wanted to clone and see if I
+
+00:03:57.850 --> 00:03:58.720
+could play with it.
+
+00:03:58.720 --> 00:04:01.680
+This was also in the spirit of we can just build things
+
+00:04:02.080 --> 00:04:02.160
+.
+
+00:04:02.160 --> 00:04:07.980
+So you can find these online on GitHub at Ember MC
+
+00:04:07.980 --> 00:04:10.220
+P app proto docs and the worker.
+
+00:04:10.240 --> 00:04:11.880
+How does this actually work?
+
+00:04:12.050 --> 00:04:15.730
+There are three pieces to my MCP server that serves the
+
+00:04:16.460 --> 00:04:17.040
+documentation.
+
+00:04:17.050 --> 00:04:20.060
+There's a cron scraper that actually goes and scrap
+
+00:04:20.260 --> 00:04:23.340
+es the documentation sites once a week so that it's kept
+
+00:04:23.340 --> 00:04:25.840
+up to date as new documentation is added.
+
+00:04:25.840 --> 00:04:30.640
+There's the rag index where a different model preprocess
+
+00:04:30.640 --> 00:04:35.500
+es those documentation source sites into a rag index.
+
+00:04:35.500 --> 00:04:39.110
+And then there's the actual MCP server itself which exp
+
+00:04:39.110 --> 00:04:42.480
+oses that rag index for your agents to query it.
+
+00:04:42.480 --> 00:04:47.470
+So the cron scraper it lives at app proto docs
+
+00:04:47.520 --> 00:04:48.080
+worker.
+
+00:04:48.080 --> 00:04:52.570
+Right now there are only three sources here that are being scra
+
+00:04:52.570 --> 00:04:53.010
+ped.
+
+00:04:53.010 --> 00:04:56.640
+I'm actually making a list at this conference of sources that
+
+00:04:56.640 --> 00:04:59.010
+people want added to this so if you have sources that you
+
+00:04:59.010 --> 00:05:02.270
+would like added or feel like should be included please let me
+
+00:05:02.270 --> 00:05:02.810
+know.
+
+00:05:02.810 --> 00:05:05.680
+You can also open PRs on this public repo.
+
+00:05:05.680 --> 00:05:09.750
+Then we have the rag index and I am using a tool
+
+00:05:09.750 --> 00:05:13.280
+that Cloudflare has made very affordable right now.
+
+00:05:13.280 --> 00:05:16.680
+I don't expect it to stay this affordable forever but right
+
+00:05:16.680 --> 00:05:18.030
+now it's lovely.
+
+00:05:18.030 --> 00:05:22.160
+And so I am using the open source Quen3 model
+
+00:05:22.160 --> 00:05:25.410
+to do the vector embedding that creates the index and that
+
+00:05:25.430 --> 00:05:28.480
+'s this Cloudflare has some really easy tools that make
+
+00:05:28.480 --> 00:05:30.320
+it very simple to do this.
+
+00:05:30.320 --> 00:05:33.440
+So that is kind of using some of their stuff.
+
+00:05:33.440 --> 00:05:37.410
+And then the MCP server itself, mine only exposes
+
+00:05:37.410 --> 00:05:41.040
+a single tool and that tool is called search documentation.
+
+00:05:42.480 --> 00:05:46.020
+You can make MCP servers as complicated and as interesting as
+
+00:05:46.080 --> 00:05:48.910
+you want but mine was just as kind of a prototype so
+
+00:05:48.910 --> 00:05:50.720
+it just does search documentation.
+
+00:05:50.720 --> 00:05:55.310
+To install this in your agent what you want to do is
+
+00:05:55.310 --> 00:05:59.600
+depends on your agent but for example in Cloud you add a
+
+00:05:59.600 --> 00:06:04.300
+JSON config which points at the MCP server mine lives at
+
+00:06:04.300 --> 00:06:06.480
+this URL.
+
+00:06:06.480 --> 00:06:10.150
+And I was not the first nor will I be the last
+
+00:06:10.420 --> 00:06:13.850
+person to create an MCP server for at Proto.
+
+00:06:13.850 --> 00:06:17.760
+So I wanted to highlight some of the other very awesome MC
+
+00:06:17.820 --> 00:06:20.390
+P servers that exist in the community.
+
+00:06:20.390 --> 00:06:22.550
+I've added two more since I've been here.
+
+00:06:22.670 --> 00:06:25.030
+If you have one that should be on this list, this
+
+00:06:25.030 --> 00:06:27.160
+is published as a public gist that I'm going to
+
+00:06:27.520 --> 00:06:29.120
+share on Blue Sky after the talk.
+
+00:06:29.320 --> 00:06:31.820
+So feel free to tell me about your MCP server and
+
+00:06:31.820 --> 00:06:33.200
+I'll make sure it gets included.
+
+00:06:33.200 --> 00:06:36.880
+We have mine which is does search documentation.
+
+00:06:36.880 --> 00:06:41.960
+We have Lexicon Gardens MCP server which actually serves le
+
+00:06:41.960 --> 00:06:46.680
+xicons to and has a describe lexicon as well
+
+00:06:46.680 --> 00:06:52.490
+as some authenticated methods where you can actually create and invoke
+
+00:06:52.490 --> 00:06:53.600
+XRPC endpoints.
+
+00:06:53.600 --> 00:06:57.790
+We have the AshEx has an @proto.
+
+00:06:57.790 --> 00:06:57.960
+mcp which is a local documentation MCP server.
+
+00:06:57.960 --> 00:06:58.140
+So this is one that you install locally, you run it
+
+00:06:58.140 --> 00:07:00.720
+in Python, you perform the RAG indexing locally and
+
+00:07:00.720 --> 00:07:03.180
+you have your own local version of that.
+
+00:07:03.180 --> 00:07:03.760
+That one actually works off of the GitHub repos as opposed
+
+00:07:03.760 --> 00:07:09.200
+to the like HTML content of the doc sites.
+
+00:07:09.200 --> 00:07:09.200
+We also have some different ones.
+
+00:07:09.200 --> 00:07:13.000
+There's Cameron has a very extensive one that actually has a
+
+00:07:13.000 --> 00:07:15.200
+disclaimer to not use this as a REST API because it
+
+00:07:15.200 --> 00:07:15.200
+has so many tools and features.
+
+00:07:15.200 --> 00:07:23.470
+We have the one that has the one that
+
+00:07:23.470 --> 00:07:28.270
+has the one that has the one that has the most for
+
+00:07:28.270 --> 00:07:28.640
+ks which is Brian's which is actually more of like a
+
+00:07:28.640 --> 00:07:28.640
+blue sky client.
+
+00:07:28.640 --> 00:07:36.920
+A lot of the ones that act
+
+00:07:36.920 --> 00:07:47.040
+as blue sky clients use app
+
+00:07:47.160 --> 00:07:47.450
+password authentication.
+
+00:07:47.450 --> 00:07:48.080
+So yeah, there are a bunch of really cool mc
+
+00:07:48.080 --> 00:07:48.080
+p servers out there and you can use them to attach to
+
+00:07:48.080 --> 00:07:48.080
+your agents and reduce hallucinations.
+
+00:07:48.080 --> 00:07:56.700
+And ground your development in the official
+
+00:07:56.980 --> 00:08:03.440
+app proto documentation and official lexicons.
+
+00:08:03.440 --> 00:08:06.480
+That's it.

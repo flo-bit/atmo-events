@@ -1,0 +1,2080 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:02.150
+So, hi.
+
+00:00:02.280 --> 00:00:03.320
+I'm Matt.
+
+00:00:03.460 --> 00:00:09.150
+My main thing I do, I'm on the core Ast
+
+00:00:09.170 --> 00:00:10.800
+ro team for the Astro Web Framework.
+
+00:00:10.810 --> 00:00:13.610
+I also work at Cloudflare, but I'm not
+
+00:00:13.630 --> 00:00:16.450
+here to talk about any of that today.
+
+00:00:16.570 --> 00:00:19.790
+I'm here to talk about Cirrus, which is my
+
+00:00:19.790 --> 00:00:20.420
+PDS.
+
+00:00:24.310 --> 00:00:27.430
+So, I have built a PDS that I use to
+
+00:00:27.430 --> 00:00:31.610
+help self-host, and I hopefully might convince some of
+
+00:00:31.610 --> 00:00:33.460
+you people here to self-host your PDS as well
+
+00:00:33.470 --> 00:00:33.660
+.
+
+00:00:33.670 --> 00:00:41.740
+But first, what is a PDS?
+
+00:00:41.750 --> 00:00:46.750
+PDS is a personal data server.
+
+00:00:46.770 --> 00:00:51.060
+It is where all of your stuff is on the AppR
+
+00:00:51.060 --> 00:00:52.780
+oto network.
+
+00:00:52.990 --> 00:00:56.610
+Now, a lot of people here probably know this, but
+
+00:00:56.860 --> 00:01:00.520
+your PDS holds pretty much everything on the AppRoto
+
+00:01:00.520 --> 00:01:02.120
+network for you.
+
+00:01:02.150 --> 00:01:06.200
+It's all of your posts, of course, but it
+
+00:01:06.200 --> 00:01:11.560
+'s also all of your likes and your friends and your whole
+
+00:01:11.620 --> 00:01:14.930
+social graph, but it's also everything from any of your
+
+00:01:15.160 --> 00:01:17.690
+other third-party apps that you're working with.
+
+00:01:18.090 --> 00:01:20.920
+All of the different network, all of the things on the
+
+00:01:21.030 --> 00:01:23.020
+AppRoto network live on your PDS.
+
+00:01:23.030 --> 00:01:25.420
+They also, all of the blobs live on there as
+
+00:01:25.420 --> 00:01:27.860
+well, which are, you know, the files, the
+
+00:01:28.040 --> 00:01:30.660
+images, and the videos, and things like that.
+
+00:01:31.310 --> 00:01:35.370
+So, the whole point of a PDS is to make
+
+00:01:35.370 --> 00:01:41.860
+it so that you are able to have the network as decentralized
+
+00:01:41.860 --> 00:01:44.540
+, so that you own all of your data.
+
+00:01:46.470 --> 00:01:50.010
+And what I didn't realize is, as well as being
+
+00:01:50.350 --> 00:01:54.010
+where all your data is, it's also where you talk
+
+00:01:54.010 --> 00:01:54.600
+to.
+
+00:01:54.830 --> 00:01:56.960
+So, it's where your API calls go when you're
+
+00:01:57.200 --> 00:01:58.140
+using the network.
+
+00:01:58.230 --> 00:02:01.720
+So, when you've got the, like, Blue Sky
+
+00:02:01.720 --> 00:02:05.520
+app, for example, on your phone or on the web
+
+00:02:05.520 --> 00:02:08.890
+, it's not talking to Blue Sky when it's connected
+
+00:02:08.890 --> 00:02:09.000
+.
+
+00:02:09.230 --> 00:02:11.210
+If you look at the network panel, and honestly, I
+
+00:02:11.210 --> 00:02:13.160
+mean, the first time I knew this was when I opened
+
+00:02:13.160 --> 00:02:15.300
+up the network panel and saw that it was hitting my PDF
+
+00:02:15.300 --> 00:02:15.480
+.
+
+00:02:16.010 --> 00:02:17.730
+You talk directly to your PDS.
+
+00:02:17.930 --> 00:02:23.220
+So, all of your connections and everything go directly to your
+
+00:02:23.220 --> 00:02:23.860
+PDS.
+
+00:02:23.870 --> 00:02:27.180
+So, most of the stuff a PDS does is talking
+
+00:02:27.300 --> 00:02:28.160
+to you.
+
+00:02:28.170 --> 00:02:33.140
+This, obviously, your PDS doesn't have all of
+
+00:02:33.180 --> 00:02:34.940
+the data on it.
+
+00:02:34.950 --> 00:02:37.580
+Most of the data on the network is somewhere else.
+
+00:02:37.590 --> 00:02:40.410
+So, for anything that it doesn't have, like all
+
+00:02:40.460 --> 00:02:44.710
+of your timeline and everything else, it proxies it
+
+00:02:44.770 --> 00:02:48.240
+to the app view, which, you know, in most
+
+00:02:48.240 --> 00:02:51.390
+cases is Blue Sky, which holds everything.
+
+00:02:51.570 --> 00:02:56.060
+But how does the relay, how does Blue Sky or the
+
+00:02:56.570 --> 00:02:59.730
+rest of the network get your data?
+
+00:02:59.930 --> 00:03:02.070
+It's done through a relay.
+
+00:03:02.170 --> 00:03:04.820
+So, there are two relays that Blue Sky has,
+
+00:03:04.820 --> 00:03:05.000
+U.
+
+00:03:05.110 --> 00:03:05.390
+S.
+
+00:03:05.390 --> 00:03:06.180
+East and U.
+
+00:03:06.180 --> 00:03:06.460
+S.
+
+00:03:06.460 --> 00:03:07.070
+West.
+
+00:03:07.090 --> 00:03:09.540
+They recently changed them around.
+
+00:03:09.950 --> 00:03:13.430
+And, basically, your PDS, when you publish something
+
+00:03:13.430 --> 00:03:15.520
+, it sends it out to the relay.
+
+00:03:15.530 --> 00:03:18.340
+So, the way that works is it's a web socket
+
+00:03:18.400 --> 00:03:20.800
+, like a permanent web socket.
+
+00:03:20.810 --> 00:03:23.770
+The relay connects to your web socket, and it's,
+
+00:03:23.770 --> 00:03:28.440
+whenever you post something, it sends it out into the relay
+
+00:03:28.630 --> 00:03:28.970
+.
+
+00:03:29.870 --> 00:03:32.670
+And, as you can probably see from this at the moment
+
+00:03:32.740 --> 00:03:35.450
+, it's not actually doing a huge amount of work,
+
+00:03:35.450 --> 00:03:36.900
+the PDS, per person.
+
+00:03:36.910 --> 00:03:39.580
+It's only doing something when you post on it or when
+
+00:03:39.580 --> 00:03:40.960
+you make a query on it.
+
+00:03:41.210 --> 00:03:45.050
+Because the app view isn't, so when somebody goes and
+
+00:03:45.110 --> 00:03:48.840
+looks at your timeline, they aren't hitting your PDS
+
+00:03:49.030 --> 00:03:49.260
+.
+
+00:03:49.270 --> 00:03:52.380
+What they're doing is it's being relayed to the
+
+00:03:52.380 --> 00:03:54.320
+app view from the relays.
+
+00:03:54.330 --> 00:03:58.680
+And the relays hold every single post on the network.
+
+00:03:58.690 --> 00:04:04.250
+Every single record, every single event on the network goes through
+
+00:04:04.250 --> 00:04:06.820
+the relays, and they send it off to the app
+
+00:04:06.820 --> 00:04:07.260
+view.
+
+00:04:07.350 --> 00:04:09.070
+So, all of the work, really, the heavy work
+
+00:04:09.200 --> 00:04:10.850
+, is done by the relays and the app view.
+
+00:04:10.870 --> 00:04:14.440
+So, it's a PDS, doesn't actually do
+
+00:04:14.440 --> 00:04:18.500
+a huge amount of work, but, and you can,
+
+00:04:18.670 --> 00:04:22.780
+anyone can host them, but that's not what people are
+
+00:04:23.030 --> 00:04:23.430
+doing.
+
+00:04:23.470 --> 00:04:26.060
+So, you know, 99 point, this, I mean
+
+00:04:26.060 --> 00:04:28.500
+, these are numbers out of last week.
+
+00:04:28.510 --> 00:04:29.830
+99.
+
+00:04:30.000 --> 00:04:35.020
+4% of all users are using the Blue Sky PDS
+
+00:04:35.130 --> 00:04:35.700
+s.
+
+00:04:35.710 --> 00:04:37.400
+They're the mushroom ones.
+
+00:04:37.410 --> 00:04:38.460
+They're named after mushrooms.
+
+00:04:39.970 --> 00:04:45.310
+There are some, obviously, fast-growing other PD
+
+00:04:45.310 --> 00:04:46.220
+S hosts.
+
+00:04:46.470 --> 00:04:50.900
+The new kid on the block is Eurosky.
+
+00:04:51.070 --> 00:04:52.800
+I'm not including the bridgey ones on here, because
+
+00:04:52.990 --> 00:04:53.810
+they don't really count.
+
+00:04:53.830 --> 00:04:56.640
+But the bridgey one is like 10 times more than that
+
+00:04:56.650 --> 00:04:59.250
+, but I'm not including it, because they're not
+
+00:04:59.250 --> 00:05:01.460
+real, you know, not real accounts.
+
+00:05:02.670 --> 00:05:04.810
+So, Eurosky is the new kid.
+
+00:05:04.930 --> 00:05:08.470
+It's grown very fast and has managed to make it all
+
+00:05:08.470 --> 00:05:10.370
+the way up to almost 0.
+
+00:05:10.370 --> 00:05:12.220
+02% of all users.
+
+00:05:12.230 --> 00:05:16.680
+I mean, I think, and obviously, Black Sky is
+
+00:05:17.230 --> 00:05:21.800
+also very, you know, is a very solid percentage of
+
+00:05:21.800 --> 00:05:25.550
+users in terms of the ones who are using a third-
+
+00:05:25.550 --> 00:05:28.120
+party PDS or an independent PDS.
+
+00:05:28.850 --> 00:05:32.160
+And then there's another, you know, less than 3
+
+00:05:32.280 --> 00:05:35.450
+,000 PDSs out there, which, you know
+
+00:05:35.470 --> 00:05:38.430
+, collectively make up, you know, 0.
+
+00:05:38.430 --> 00:05:39.630
+03% of users.
+
+00:05:40.050 --> 00:05:42.580
+And that includes all of mine.
+
+00:05:42.590 --> 00:05:45.400
+Now, why is that?
+
+00:05:45.410 --> 00:05:48.360
+Why is it that people aren't hosting these things?
+
+00:05:48.370 --> 00:05:55.200
+It's because it's really heavy and not designed for hosting
+
+00:05:55.200 --> 00:05:58.040
+an individual thing.
+
+00:05:58.210 --> 00:06:03.850
+This is the Blue Sky reference PDS is a, like
+
+00:06:03.980 --> 00:06:06.600
+, a Docker image.
+
+00:06:06.610 --> 00:06:08.300
+There's a hell of a lot of stuff going on in
+
+00:06:08.300 --> 00:06:08.720
+there.
+
+00:06:08.730 --> 00:06:10.460
+It's, you know, it's well-documented
+
+00:06:10.580 --> 00:06:12.260
+, and you can host it, and it's great for
+
+00:06:12.270 --> 00:06:16.160
+hosting thousands of users, but it is complete overkill for
+
+00:06:16.160 --> 00:06:18.440
+hosting a single account.
+
+00:06:20.150 --> 00:06:23.910
+So, I wanted to build something that was easier and that
+
+00:06:24.020 --> 00:06:27.340
+was simpler and was a bit more like how you would host
+
+00:06:27.400 --> 00:06:28.860
+a single website.
+
+00:06:28.870 --> 00:06:31.010
+You know, if you're deploying a little single-user
+
+00:06:31.240 --> 00:06:33.270
+website, you're not going to spin up, most people
+
+00:06:33.270 --> 00:06:35.120
+are not going to spin up a Docker image.
+
+00:06:35.190 --> 00:06:37.330
+They're not going to hold, you know, ran up
+
+00:06:37.500 --> 00:06:39.640
+a whole thing that's got, you know, all the
+
+00:06:40.190 --> 00:06:41.940
+databases and all that kind of stuff.
+
+00:06:41.950 --> 00:06:45.000
+Most people will just deploy it to a serverless platform or
+
+00:06:45.000 --> 00:06:47.390
+something and host it for free somewhere.
+
+00:06:47.790 --> 00:06:50.420
+And I, you know, I thought, let's,
+
+00:06:50.420 --> 00:06:52.840
+you know, why can't we do PDSs that
+
+00:06:52.840 --> 00:06:54.680
+are as simple as that?
+
+00:06:54.690 --> 00:06:59.180
+So, I'm going to show doing exactly that.
+
+00:07:00.030 --> 00:07:02.520
+So, this is my risky demo.
+
+00:07:02.530 --> 00:07:06.150
+This is where I'm going to attempt to actually deploy this
+
+00:07:06.400 --> 00:07:06.560
+.
+
+00:07:06.570 --> 00:07:09.340
+So, I've...
+
+00:07:09.350 --> 00:07:17.510
+Yes, I can call that up there
+
+00:07:17.730 --> 00:07:18.740
+.
+
+00:07:18.750 --> 00:07:22.780
+So, I somehow managed to get the create PDS name
+
+00:07:22.780 --> 00:07:23.300
+on NPM.
+
+00:07:23.670 --> 00:07:25.390
+So, I'm making a big thing of that and have
+
+00:07:25.620 --> 00:07:28.160
+made stickers with it and everything because I'm so pleased that
+
+00:07:28.220 --> 00:07:29.320
+I got hold of the PDS name.
+
+00:07:30.030 --> 00:07:33.280
+So, what I'm going to do is NPM create
+
+00:07:33.280 --> 00:07:33.980
+PDS.
+
+00:07:33.990 --> 00:07:35.710
+Actually, I'm going to do PNPM because I
+
+00:07:35.920 --> 00:07:37.450
+don't want to wait around all day.
+
+00:07:37.470 --> 00:07:41.720
+Well, I can get there in.
+
+00:07:41.730 --> 00:07:46.160
+I'm watching this on the screen mirroring on here.
+
+00:07:46.310 --> 00:07:48.030
+So, it's not the easiest things of doing.
+
+00:07:48.050 --> 00:07:50.520
+So, this is just like a CLI that what I
+
+00:07:50.520 --> 00:07:53.690
+wanted to do was just to make it as easy as possible
+
+00:07:53.820 --> 00:07:54.150
+.
+
+00:07:54.170 --> 00:07:57.480
+Because moving over to a different PDS is actually, there
+
+00:07:57.600 --> 00:07:59.180
+'s quite a lot involved.
+
+00:07:59.190 --> 00:08:00.910
+You know, there's a lot of tools out there for
+
+00:08:01.140 --> 00:08:02.690
+helping you, like PDS mover and so on.
+
+00:08:02.710 --> 00:08:05.120
+But what I wanted to do was to make something that worked
+
+00:08:05.120 --> 00:08:05.900
+end-to-end.
+
+00:08:05.910 --> 00:08:09.220
+Now, if I ran through this without talking, it would
+
+00:08:09.340 --> 00:08:10.980
+take less than a minute.
+
+00:08:10.990 --> 00:08:13.020
+It wouldn't be much of a talk.
+
+00:08:13.030 --> 00:08:14.550
+So, I'm going to spin it out a bit.
+
+00:08:14.570 --> 00:08:15.680
+You bear with me.
+
+00:08:15.690 --> 00:08:16.780
+I hope you don't get bored.
+
+00:08:16.790 --> 00:08:19.280
+So, folder name.
+
+00:08:19.410 --> 00:08:22.690
+Okay, I'm going to call this Atmo PDS
+
+00:08:22.690 --> 00:08:22.980
+.
+
+00:08:23.090 --> 00:08:26.630
+Package manner, PNPM, initialize git repository
+
+00:08:26.910 --> 00:08:27.020
+.
+
+00:08:27.030 --> 00:08:29.160
+Now, the point for this is it creates like a little
+
+00:08:29.400 --> 00:08:32.670
+folder, like you are deploying a website on your computer.
+
+00:08:33.630 --> 00:08:36.230
+And it's just pulling it down, setting up a PD
+
+00:08:36.240 --> 00:08:36.450
+S.
+
+00:08:37.850 --> 00:08:41.800
+I'm not going to migrate my account on this demo here
+
+00:08:41.800 --> 00:08:42.140
+.
+
+00:08:43.410 --> 00:08:44.860
+I'm going to YOLO this a bit, but
+
+00:08:44.910 --> 00:08:47.220
+I'm not going to try migrating my primary account or
+
+00:08:47.280 --> 00:08:47.680
+any.
+
+00:08:47.690 --> 00:08:49.820
+I mean, also, it can take a while because it
+
+00:08:50.020 --> 00:08:51.940
+'s got to move all of your blobs from one to
+
+00:08:51.940 --> 00:08:52.680
+the other.
+
+00:08:52.690 --> 00:08:54.400
+So, that is the bit that takes a long time.
+
+00:08:54.410 --> 00:08:57.710
+When I moved my main account, it took about 10 minutes
+
+00:08:57.710 --> 00:08:58.900
+to move between them.
+
+00:09:00.190 --> 00:09:02.690
+I'm sure that there are people who've complained to me
+
+00:09:02.690 --> 00:09:05.090
+that once they started to get to 50 gig, it was
+
+00:09:05.200 --> 00:09:05.830
+hitting limits.
+
+00:09:05.850 --> 00:09:09.120
+So, some people post considerably more than I do.
+
+00:09:09.130 --> 00:09:10.860
+So, I'm not.
+
+00:09:10.910 --> 00:09:13.680
+And then this is where the domain is.
+
+00:09:13.690 --> 00:09:16.990
+Now, I said before that I work at Cloudflare
+
+00:09:16.990 --> 00:09:17.280
+.
+
+00:09:17.350 --> 00:09:19.020
+This is not a sponsored talk.
+
+00:09:19.030 --> 00:09:20.750
+One of the key things that's going to come out of
+
+00:09:20.940 --> 00:09:22.770
+this is that you can do this without paying Cloudflare
+
+00:09:22.930 --> 00:09:23.430
+anything.
+
+00:09:23.450 --> 00:09:26.450
+The idea is that this is, you know, basically free
+
+00:09:26.450 --> 00:09:26.960
+tier.
+
+00:09:26.970 --> 00:09:29.780
+Maybe you'll pay a penny or so for the blob hosting
+
+00:09:29.910 --> 00:09:30.160
+.
+
+00:09:31.140 --> 00:09:33.950
+But you need a domain that is on Cloudflare.
+
+00:09:33.990 --> 00:09:39.220
+So, I'm going to do atmos.
+
+00:09:39.220 --> 00:09:40.240
+mk.
+
+00:09:40.610 --> 00:09:41.460
+gg.
+
+00:09:41.470 --> 00:09:45.960
+Now, I'm going to choose the same account handle as
+
+00:09:45.960 --> 00:09:47.420
+the domain.
+
+00:09:47.430 --> 00:09:51.580
+And that unlocks something that makes everything a lot easier.
+
+00:09:51.590 --> 00:09:55.580
+Because if I've got the same name and the same as
+
+00:09:55.580 --> 00:09:59.220
+the PDF, because this is a single user.
+
+00:09:59.270 --> 00:10:00.180
+This is something we can do.
+
+00:10:00.190 --> 00:10:03.500
+The PDF is also able to serve the documents, the identity
+
+00:10:03.680 --> 00:10:04.580
+documents.
+
+00:10:04.590 --> 00:10:07.540
+So, you don't need to do any verification.
+
+00:10:07.550 --> 00:10:09.170
+So, while I go through this, I'm not going
+
+00:10:09.170 --> 00:10:11.420
+to be going off and doing any DNS records or anything like
+
+00:10:11.450 --> 00:10:11.740
+that.
+
+00:10:11.750 --> 00:10:12.940
+I'm going to just say, yeah, I'm going
+
+00:10:12.940 --> 00:10:13.890
+to choose the same thing.
+
+00:10:13.970 --> 00:10:16.640
+And I'm generating a did web document.
+
+00:10:16.870 --> 00:10:19.420
+So, if you know what a did web is, then
+
+00:10:19.420 --> 00:10:20.160
+great.
+
+00:10:20.170 --> 00:10:20.570
+Well done.
+
+00:10:20.590 --> 00:10:22.140
+I'm in the only place in the world where there's
+
+00:10:22.140 --> 00:10:23.900
+going to be more than about three people who do know what
+
+00:10:24.020 --> 00:10:24.520
+that is.
+
+00:10:25.230 --> 00:10:28.520
+But for those who don't, did plc is the
+
+00:10:28.520 --> 00:10:30.680
+centralized record.
+
+00:10:30.690 --> 00:10:34.310
+So, the did is your kind of unique identifier that you
+
+00:10:34.460 --> 00:10:37.780
+can take around even if you change your handle.
+
+00:10:37.790 --> 00:10:40.990
+Did plc is the centralized one where it's sort of
+
+00:10:40.990 --> 00:10:44.390
+like managed for you on the plc directory, which you
+
+00:10:44.410 --> 00:10:45.220
+'ll find at plc.
+
+00:10:45.220 --> 00:10:48.360
+directory, which is hosted by Blue Sky.
+
+00:10:48.690 --> 00:10:52.410
+Did web is a kind of more simple, but it's
+
+00:10:52.560 --> 00:10:54.600
+got some downsides.
+
+00:10:54.610 --> 00:10:58.770
+But basically, all that is involved for hosting a did web
+
+00:10:58.770 --> 00:11:02.510
+is that you have a file on a web server somewhere that
+
+00:11:02.510 --> 00:11:03.290
+'s like .
+
+00:11:03.290 --> 00:11:04.630
+wellknown-did.
+
+00:11:04.750 --> 00:11:05.350
+json.
+
+00:11:05.490 --> 00:11:08.520
+I am going to use the same domain for my did,
+
+00:11:08.520 --> 00:11:11.490
+my handle, and my PDS, which means that I
+
+00:11:11.490 --> 00:11:15.020
+can host them all, which makes everything a hell of a
+
+00:11:15.020 --> 00:11:15.870
+lot easier.
+
+00:11:17.230 --> 00:11:18.950
+Worker name, that doesn't mean anything.
+
+00:11:19.030 --> 00:11:22.280
+That just has to be unique per my account.
+
+00:11:22.290 --> 00:11:25.560
+So, I'm going to take this opportunity to have a
+
+00:11:25.560 --> 00:11:26.710
+sip of water.
+
+00:11:26.730 --> 00:11:29.930
+So, this one, I think some of you people here
+
+00:11:29.930 --> 00:11:32.300
+might find this interesting.
+
+00:11:32.310 --> 00:11:34.840
+You can choose where your data goes.
+
+00:11:34.850 --> 00:11:36.980
+Now, this is going on Cloudflare, as I
+
+00:11:37.220 --> 00:11:37.540
+said.
+
+00:11:38.810 --> 00:11:41.300
+It's storing it in a durable object, which is one
+
+00:11:41.300 --> 00:11:44.010
+of these weird things that we have at Cloudflare that
+
+00:11:44.010 --> 00:11:47.200
+I didn't really understand until I started working there a few
+
+00:11:47.280 --> 00:11:48.160
+months ago.
+
+00:11:48.170 --> 00:11:49.890
+And as soon as I started working there, I was like
+
+00:11:50.120 --> 00:11:52.530
+, I want to use these for everything because they're amazingly
+
+00:11:52.530 --> 00:11:52.950
+cool.
+
+00:11:53.910 --> 00:11:56.030
+That's my sales pitch for the day.
+
+00:11:56.250 --> 00:11:59.560
+But one of the things you can do with a durable object
+
+00:11:59.560 --> 00:12:03.800
+is they come with their own little embedded SQLite database,
+
+00:12:03.800 --> 00:12:05.780
+and you can say where you want it to go.
+
+00:12:06.350 --> 00:12:09.510
+So, most people would say automatic, which will basically put
+
+00:12:09.510 --> 00:12:11.990
+it near to where you are when you first create it.
+
+00:12:12.670 --> 00:12:17.100
+But we also, if you want to have data localization
+
+00:12:17.270 --> 00:12:22.320
+, you can have a guaranteed localization in the EU.
+
+00:12:22.330 --> 00:12:25.620
+So, this one is where it's guaranteed and is GDP
+
+00:12:25.620 --> 00:12:28.580
+R compliant and e-privacy and whatever.
+
+00:12:28.750 --> 00:12:30.470
+So, you can choose that.
+
+00:12:30.690 --> 00:12:33.270
+Or you can just say if you want it to be located
+
+00:12:33.270 --> 00:12:35.790
+near, you know, if you're creating it at a
+
+00:12:35.790 --> 00:12:38.720
+conference, which is not where you are, you want to
+
+00:12:38.720 --> 00:12:40.550
+say, actually, I want it to be created somewhere else
+
+00:12:40.550 --> 00:12:40.710
+.
+
+00:12:40.750 --> 00:12:44.030
+These are not ones that are going to give you a guaranteed
+
+00:12:44.030 --> 00:12:46.910
+location, but I'm going to just choose auto.
+
+00:12:46.930 --> 00:12:51.100
+So, I said that there was downsides to using a
+
+00:12:51.100 --> 00:12:52.120
+did web.
+
+00:12:52.130 --> 00:12:55.370
+If you're using did PLC, you need a signing
+
+00:12:55.370 --> 00:12:57.980
+key to sign all of your records.
+
+00:12:57.990 --> 00:13:02.480
+If you're using PLC, then you can rotate your
+
+00:13:03.000 --> 00:13:04.640
+signing key.
+
+00:13:04.650 --> 00:13:06.620
+So, it's not quite so much of a disaster if
+
+00:13:06.620 --> 00:13:08.110
+you lose your signing key.
+
+00:13:08.410 --> 00:13:10.540
+If you are self-hosting your did web and you
+
+00:13:10.780 --> 00:13:12.900
+lose your signing key, you are screwed.
+
+00:13:13.070 --> 00:13:16.260
+You basically can't sign any more records anymore.
+
+00:13:16.270 --> 00:13:18.000
+So, save them.
+
+00:13:18.170 --> 00:13:20.310
+I am not going to save this.
+
+00:13:20.470 --> 00:13:22.130
+I'm going to save it to a file because this is
+
+00:13:22.130 --> 00:13:22.820
+disposable.
+
+00:13:22.830 --> 00:13:24.970
+Have you saved your signing key securely?
+
+00:13:27.450 --> 00:13:28.440
+So, there's a password.
+
+00:13:28.450 --> 00:13:30.970
+Now, I wanted to make this all as non-pass
+
+00:13:30.970 --> 00:13:32.260
+word as possible.
+
+00:13:32.270 --> 00:13:34.340
+So, this is most stuff I can do on here I
+
+00:13:34.340 --> 00:13:35.570
+do using passkeys.
+
+00:13:35.610 --> 00:13:38.420
+But obviously, as many people here know, Blue Sky doesn
+
+00:13:38.550 --> 00:13:39.780
+'t support passkeys.
+
+00:13:39.790 --> 00:13:41.440
+So, I need a password.
+
+00:13:41.450 --> 00:13:43.840
+And the password is just in order to sign into Blue Sky
+
+00:13:43.840 --> 00:13:44.320
+itself.
+
+00:13:45.010 --> 00:13:46.640
+I'm going to generate one automatically.
+
+00:13:46.650 --> 00:13:49.390
+So, you've noticed that this is saying that a lot
+
+00:13:49.390 --> 00:13:52.290
+of these things have got saved to 1Password.
+
+00:13:52.310 --> 00:13:54.440
+That's just because it's detected that I've got 1
+
+00:13:54.680 --> 00:13:55.800
+Password CLI installed.
+
+00:13:55.810 --> 00:13:56.930
+So, it will just use that.
+
+00:13:56.950 --> 00:13:58.980
+I'm going to copy it to the clipboard.
+
+00:13:58.990 --> 00:14:01.130
+But if you're doing it with 1Password, that
+
+00:14:01.310 --> 00:14:03.480
+'s the easiest because it saves it as a Blue Sky login
+
+00:14:03.480 --> 00:14:03.780
+.
+
+00:14:03.790 --> 00:14:05.210
+So, it just works straight away.
+
+00:14:06.670 --> 00:14:08.790
+And so, I'm going to copy it to clipboard
+
+00:14:09.040 --> 00:14:09.270
+.
+
+00:14:09.290 --> 00:14:12.530
+So, now I just need to remember to not copy anything
+
+00:14:12.530 --> 00:14:14.770
+else before I finish this demo.
+
+00:14:14.790 --> 00:14:19.290
+The email address, I don't use the email address in
+
+00:14:19.800 --> 00:14:20.890
+this at all.
+
+00:14:20.910 --> 00:14:23.270
+In fact, I don't have it even wired up to
+
+00:14:23.280 --> 00:14:26.100
+email sending because it's a single user.
+
+00:14:26.110 --> 00:14:27.480
+So, I don't need to verify anything.
+
+00:14:27.490 --> 00:14:28.420
+I don't need to notify.
+
+00:14:28.430 --> 00:14:29.980
+I don't need to, you know, if I'm
+
+00:14:29.980 --> 00:14:32.020
+moving away, I don't need to, like, send
+
+00:14:32.020 --> 00:14:32.460
+it.
+
+00:14:32.470 --> 00:14:34.830
+But, so, the reason I support email addresses is that
+
+00:14:34.840 --> 00:14:36.060
+some services want one.
+
+00:14:36.070 --> 00:14:39.250
+So, the first one that I ran into that with was
+
+00:14:39.250 --> 00:14:39.840
+deck.
+
+00:14:39.970 --> 00:14:44.880
+blue, which gave a perverse error message that I eventually
+
+00:14:44.880 --> 00:14:47.960
+tracked down to, meaning that I needed an email address.
+
+00:14:47.970 --> 00:14:50.480
+So, you can create an email address and we will use
+
+00:14:50.480 --> 00:14:51.750
+it for nothing at all.
+
+00:14:51.770 --> 00:14:55.700
+So, now we've saved all those secrets locally.
+
+00:14:55.710 --> 00:14:58.240
+I'm going to push those to Cloudflare.
+
+00:14:58.250 --> 00:14:59.900
+None of those are secrets.
+
+00:14:59.910 --> 00:15:00.570
+You can see up there.
+
+00:15:00.590 --> 00:15:03.680
+But I'm just going to push the secrets.
+
+00:15:05.470 --> 00:15:13.510
+And now, I'm going to deploy it to Cloudfl
+
+00:15:13.510 --> 00:15:14.880
+are.
+
+00:15:14.930 --> 00:15:16.450
+And this is the risky bit.
+
+00:15:16.470 --> 00:15:19.140
+So, I'm compiling this with Vite.
+
+00:15:19.150 --> 00:15:22.150
+It's basically, this whole thing is just a, it
+
+00:15:22.150 --> 00:15:24.280
+'s all written in TypeScript.
+
+00:15:24.290 --> 00:15:26.710
+The actual thing it's generated, if I've got time
+
+00:15:26.710 --> 00:15:28.780
+at the end of this, I can show what it's
+
+00:15:28.820 --> 00:15:30.940
+generated, is basically a Cloudflare worker that is two
+
+00:15:31.160 --> 00:15:31.540
+lines.
+
+00:15:31.550 --> 00:15:34.740
+It's literally just importing and exporting the handler for it.
+
+00:15:34.750 --> 00:15:36.630
+But I've created a whole project in there so that I
+
+00:15:36.700 --> 00:15:38.530
+'ve got somewhere to put all of your secrets.
+
+00:15:38.550 --> 00:15:41.190
+So, it does mean that I, for every single account
+
+00:15:41.190 --> 00:15:43.650
+that I've created on here, I've got a separate
+
+00:15:43.650 --> 00:15:45.220
+folder in my repos directory.
+
+00:15:47.230 --> 00:15:49.460
+So, that's the downside of single-user PDS
+
+00:15:49.470 --> 00:15:49.760
+s.
+
+00:15:49.770 --> 00:15:51.190
+I'm sure there's a smarter way I could do it
+
+00:15:51.310 --> 00:15:51.360
+.
+
+00:15:51.370 --> 00:15:54.080
+But I wanted to make sure this was single-user.
+
+00:15:54.090 --> 00:15:57.660
+So, that should actually be live now.
+
+00:15:58.190 --> 00:16:00.440
+So, I am going to attempt to, oh, I
+
+00:16:00.560 --> 00:16:03.280
+almost did something very stupid there.
+
+00:16:03.290 --> 00:16:04.810
+Nobody stopped me.
+
+00:16:04.830 --> 00:16:09.140
+I'm going to, that's not what I, yeah
+
+00:16:09.140 --> 00:16:09.320
+.
+
+00:16:09.610 --> 00:16:10.380
+That's where I'm at.
+
+00:16:10.390 --> 00:16:13.580
+So, the very first thing I'm going to do is
+
+00:16:13.580 --> 00:16:14.400
+log in.
+
+00:16:14.410 --> 00:16:18.250
+So, this bit here is where you choose which PDS
+
+00:16:18.310 --> 00:16:18.600
+.
+
+00:16:18.610 --> 00:16:20.010
+So, this is a hosting provider.
+
+00:16:20.030 --> 00:16:20.850
+It means PDS.
+
+00:16:21.410 --> 00:16:24.000
+So, my PDS that I, it was Atmos
+
+00:16:24.000 --> 00:16:25.360
+, wasn't it?
+
+00:16:25.370 --> 00:16:28.060
+You can see Atmo 2.
+
+00:16:28.070 --> 00:16:29.790
+That was this morning's run through.
+
+00:16:29.870 --> 00:16:31.590
+So, if this has gone wrong, that would be the
+
+00:16:31.820 --> 00:16:32.960
+video you would be watching.
+
+00:16:32.970 --> 00:16:34.700
+Atmos.
+
+00:16:34.920 --> 00:16:35.780
+mk.
+
+00:16:35.910 --> 00:16:37.100
+gg.
+
+00:16:37.110 --> 00:16:39.120
+So, that's the PDS.
+
+00:16:39.130 --> 00:16:42.750
+And because we use the same, I'm going to do
+
+00:16:42.900 --> 00:16:43.560
+Atmos.
+
+00:16:43.660 --> 00:16:44.280
+mk.
+
+00:16:44.280 --> 00:16:45.060
+gg here.
+
+00:16:45.070 --> 00:16:47.740
+And place, that looks about the right length.
+
+00:16:47.750 --> 00:16:48.800
+I think we've lucked out.
+
+00:16:50.590 --> 00:16:51.740
+Add your birth date.
+
+00:16:51.750 --> 00:16:53.900
+Yeah, that'll do.
+
+00:16:53.990 --> 00:16:57.290
+The, if I'm in, I don't know why
+
+00:16:57.290 --> 00:16:59.980
+it started doing this.
+
+00:16:59.990 --> 00:17:03.220
+Because I did set it up that it verifies me.
+
+00:17:03.230 --> 00:17:03.940
+Because I'm in the UK.
+
+00:17:03.950 --> 00:17:07.120
+So, in the UK, you have to verify your age
+
+00:17:07.120 --> 00:17:08.020
+on this.
+
+00:17:08.030 --> 00:17:10.170
+So, I've got it hard-coded that everyone
+
+00:17:10.400 --> 00:17:12.320
+is verified when you create it.
+
+00:17:12.330 --> 00:17:15.110
+Because, you know, if you're responsible enough to create
+
+00:17:15.110 --> 00:17:18.330
+your own PDS, then you're responsible enough to chat
+
+00:17:18.330 --> 00:17:19.360
+with people.
+
+00:17:19.770 --> 00:17:24.260
+So, I've, I have now got this account on
+
+00:17:24.780 --> 00:17:25.410
+here.
+
+00:17:25.470 --> 00:17:29.750
+Now, if you were to go and look for me and
+
+00:17:29.750 --> 00:17:33.510
+I was to post anything, nothing was actually going to happen
+
+00:17:33.510 --> 00:17:33.640
+.
+
+00:17:33.650 --> 00:17:36.460
+So, what I'm going to do here is actually connect
+
+00:17:36.590 --> 00:17:37.700
+to the network.
+
+00:17:40.110 --> 00:17:47.420
+So, this is, okay.
+
+00:17:47.430 --> 00:17:49.150
+So, this is the dashboard.
+
+00:17:49.330 --> 00:17:51.740
+So, this is how, obviously, we showed before that
+
+00:17:51.740 --> 00:17:53.750
+we were having to be part of the network.
+
+00:17:54.970 --> 00:17:59.450
+The, the Blue Sky network has to know that we exist
+
+00:17:59.980 --> 00:18:00.180
+.
+
+00:18:00.190 --> 00:18:03.810
+This, I managed to log in here without the Blue Sky
+
+00:18:03.950 --> 00:18:07.100
+, without the whole Atmos, Atproto network knowing
+
+00:18:07.100 --> 00:18:09.410
+I exist, because I talk directly to my PDS here
+
+00:18:09.640 --> 00:18:09.830
+.
+
+00:18:09.870 --> 00:18:11.590
+So, as far as, you know, the network knows
+
+00:18:11.820 --> 00:18:12.590
+, I don't exist.
+
+00:18:12.610 --> 00:18:15.120
+But, as far as my browser here knows, I have
+
+00:18:15.120 --> 00:18:17.900
+just gone, gone through a, you know, a jot
+
+00:18:17.900 --> 00:18:20.580
+signing, hit the APIs, all that bloody blah.
+
+00:18:20.850 --> 00:18:22.370
+So, at the moment, nobody knows.
+
+00:18:22.390 --> 00:18:24.100
+But, I've got one subscriber here.
+
+00:18:24.110 --> 00:18:25.760
+That one subscriber is me.
+
+00:18:25.770 --> 00:18:29.070
+That is the, the dashboard connecting to it.
+
+00:18:29.150 --> 00:18:31.140
+So, nothing is going on there.
+
+00:18:31.150 --> 00:18:32.380
+Oh, my God.
+
+00:18:32.390 --> 00:18:33.360
+I was hoping this might happen.
+
+00:18:33.370 --> 00:18:38.580
+So, some people know about me.
+
+00:18:38.590 --> 00:18:41.160
+What I'm going to do here is I'm going to
+
+00:18:41.160 --> 00:18:42.700
+request the crawl.
+
+00:18:42.710 --> 00:18:44.840
+And what that is doing is telling the relays I exist
+
+00:18:45.080 --> 00:18:45.240
+.
+
+00:18:45.250 --> 00:18:46.090
+And look, U.
+
+00:18:46.090 --> 00:18:46.350
+S.
+
+00:18:46.350 --> 00:18:46.970
+East and U.
+
+00:18:47.130 --> 00:18:47.330
+S.
+
+00:18:47.330 --> 00:18:48.740
+West now know I exist.
+
+00:18:49.070 --> 00:18:51.090
+Basically, what this did is just pinged them with a
+
+00:18:51.090 --> 00:18:52.260
+, with a crawl request.
+
+00:18:52.270 --> 00:18:54.400
+And now, we can see that the firehose is
+
+00:18:54.640 --> 00:18:55.260
+connected.
+
+00:18:55.270 --> 00:18:57.670
+So, we've got two things connected on the fireh
+
+00:18:57.670 --> 00:18:58.070
+ose.
+
+00:18:58.090 --> 00:19:01.690
+They're at cursor zero because we have nothing in this repo
+
+00:19:01.860 --> 00:19:01.980
+.
+
+00:19:01.990 --> 00:19:03.720
+So, let's change that one.
+
+00:19:03.790 --> 00:19:04.660
+Let's write a post.
+
+00:19:04.670 --> 00:19:08.820
+I'm going to say, hello, Atmosphere.
+
+00:19:08.830 --> 00:19:12.370
+And let's post that.
+
+00:19:12.530 --> 00:19:13.220
+There we go.
+
+00:19:13.230 --> 00:19:16.400
+So, this is the event here that has happened on the
+
+00:19:16.400 --> 00:19:18.240
+, on the, the firehose.
+
+00:19:18.350 --> 00:19:20.070
+So, this is my, this is my most trickly
+
+00:19:20.300 --> 00:19:22.070
+little firehose you're going to get.
+
+00:19:22.090 --> 00:19:24.920
+I've dropped a single, a single event has come off
+
+00:19:25.030 --> 00:19:26.510
+that, that firehose.
+
+00:19:26.530 --> 00:19:28.960
+And I can see it's worked because it's shown up
+
+00:19:28.960 --> 00:19:29.350
+here.
+
+00:19:29.470 --> 00:19:31.140
+It wouldn't have shown up otherwise.
+
+00:19:31.150 --> 00:19:33.270
+If, if the thing's not working, it wouldn't
+
+00:19:33.510 --> 00:19:33.870
+show up.
+
+00:19:34.150 --> 00:19:37.690
+So, what some people here might find is that if you
+
+00:19:38.020 --> 00:19:42.880
+search for me on blue sky, I may not be visible
+
+00:19:42.880 --> 00:19:44.660
+because it might not have been indexed.
+
+00:19:44.670 --> 00:19:48.510
+So, what I was trying, and I might be able
+
+00:19:48.570 --> 00:19:52.100
+to do this, is, it is visible?
+
+00:19:52.110 --> 00:19:52.840
+The account is visible.
+
+00:19:52.850 --> 00:19:53.620
+It is visible.
+
+00:19:53.630 --> 00:19:56.420
+So, I've got 10 followers now.
+
+00:19:56.450 --> 00:19:57.970
+Well, I can see all this stuff going on here.
+
+00:19:58.230 --> 00:20:00.360
+So, I've still only got one post.
+
+00:20:00.550 --> 00:20:01.660
+I've not done anything else.
+
+00:20:01.670 --> 00:20:03.800
+So, I think the first thing I need to do is
+
+00:20:04.040 --> 00:20:05.160
+give myself a name.
+
+00:20:05.170 --> 00:20:09.660
+I'm going to just say, I'm going to say
+
+00:20:10.180 --> 00:20:13.920
+that I am Atmo PDS account.
+
+00:20:13.970 --> 00:20:15.220
+I know, very interesting.
+
+00:20:15.230 --> 00:20:21.040
+And so, what that has done is that's created another
+
+00:20:21.040 --> 00:20:22.840
+record here.
+
+00:20:22.850 --> 00:20:26.620
+So, this is the profile is a record itself.
+
+00:20:26.630 --> 00:20:28.720
+So, but now I've got all of these followers.
+
+00:20:28.730 --> 00:20:31.380
+So, if I follow all of these people back, you
+
+00:20:31.380 --> 00:20:34.300
+can see that this is creating a follow record.
+
+00:20:34.310 --> 00:20:37.110
+So, each one of you people here, say, say
+
+00:20:37.250 --> 00:20:40.560
+, hi, if you're, if you're one of
+
+00:20:40.930 --> 00:20:42.470
+the people I'm following.
+
+00:20:42.810 --> 00:20:45.180
+Each one of these here is creating a new record.
+
+00:20:45.190 --> 00:20:48.500
+Now, if I was to then go on to any one
+
+00:20:48.520 --> 00:20:53.760
+of these other atmosphere, non-blue sky things, and
+
+00:20:53.760 --> 00:20:56.360
+created another record on here, it would show up.
+
+00:20:56.370 --> 00:20:58.380
+So, you can see I've got three types of thing
+
+00:20:58.380 --> 00:20:58.840
+here.
+
+00:20:58.850 --> 00:21:00.570
+I've got a lot of follows in there.
+
+00:21:00.730 --> 00:21:02.070
+But I think what I'm going to do is I'm
+
+00:21:02.270 --> 00:21:03.800
+going to go and see Willow's stuff, because I
+
+00:21:03.800 --> 00:21:05.220
+know that she writes some good things.
+
+00:21:05.510 --> 00:21:07.890
+And I'm going to say, oh, yes, those
+
+00:21:07.890 --> 00:21:09.540
+are amazing stickers.
+
+00:21:09.550 --> 00:21:11.270
+Oh, hi, James.
+
+00:21:11.650 --> 00:21:13.050
+I'm going to like both of these.
+
+00:21:13.070 --> 00:21:15.560
+And there we can see those are coming up through as likes
+
+00:21:15.560 --> 00:21:16.380
+on there as well.
+
+00:21:16.530 --> 00:21:20.760
+These notifications are not on the network.
+
+00:21:20.770 --> 00:21:23.640
+What I've got here is I'm directly logging in to
+
+00:21:23.710 --> 00:21:27.390
+the app view to grab the notifications, because the notifications are
+
+00:21:27.390 --> 00:21:30.160
+authenticated, which means that they can't be on the
+
+00:21:30.160 --> 00:21:32.060
+app protein network itself.
+
+00:21:32.790 --> 00:21:35.570
+So, basically, it's the same as the stuff that
+
+00:21:35.570 --> 00:21:37.220
+'s coming through on that.
+
+00:21:37.290 --> 00:21:41.610
+So, what I've got is that I'm able to
+
+00:21:41.610 --> 00:21:47.310
+show all of these things that we've created.
+
+00:21:47.330 --> 00:21:49.990
+And this is, you know, this, if I'd
+
+00:21:49.990 --> 00:21:54.060
+done this without waffling, that would have taken less
+
+00:21:54.060 --> 00:21:55.380
+than a minute.
+
+00:21:56.170 --> 00:21:58.970
+And some of you people here might have tried it out while
+
+00:21:59.110 --> 00:22:00.540
+I've been sitting here.
+
+00:22:00.550 --> 00:22:03.860
+You would, I mean, the difficult part is you would
+
+00:22:03.980 --> 00:22:07.280
+need an account with a domain on Cloudflare.
+
+00:22:07.290 --> 00:22:10.030
+You also, unfortunately, do need a credit card or a
+
+00:22:10.030 --> 00:22:12.940
+card or some payment method, not because we're going to
+
+00:22:13.060 --> 00:22:15.450
+charge you, but because we need to store blobs on
+
+00:22:15.670 --> 00:22:16.040
+there.
+
+00:22:16.290 --> 00:22:20.360
+And blobs are massively abused on Cloudflare.
+
+00:22:20.370 --> 00:22:23.650
+People, you know, put all kinds of crap up there
+
+00:22:23.650 --> 00:22:26.610
+, which means that you can't put blobs, you
+
+00:22:26.610 --> 00:22:29.560
+can't use R2, which is the S3 compatible
+
+00:22:29.660 --> 00:22:32.220
+thing, without a card on there.
+
+00:22:32.230 --> 00:22:34.830
+So, even though, you know, it will, if
+
+00:22:34.830 --> 00:22:37.750
+you get charged, it will be pennies, but that
+
+00:22:37.750 --> 00:22:39.600
+'s the way that that goes.
+
+00:22:39.610 --> 00:22:45.860
+So, let's, that was, I'm not done
+
+00:22:46.230 --> 00:22:48.360
+yet, guys.
+
+00:22:48.650 --> 00:22:49.680
+Thanks for the applause.
+
+00:22:49.690 --> 00:22:50.560
+Thanks for the applause.
+
+00:22:50.570 --> 00:22:52.540
+But I haven't told you how it works yet.
+
+00:22:52.550 --> 00:22:55.380
+So, I'm going to put my glasses on so I
+
+00:22:55.490 --> 00:22:59.190
+can see you lovely people again, and I'm going to
+
+00:22:59.190 --> 00:23:02.800
+actually talk about how this thing works.
+
+00:23:02.810 --> 00:23:05.850
+I've got, still got a few minutes, six minutes
+
+00:23:05.850 --> 00:23:06.110
+.
+
+00:23:06.150 --> 00:23:07.820
+Okay, I've got time to talk about how it works
+
+00:23:07.820 --> 00:23:07.870
+.
+
+00:23:08.010 --> 00:23:10.150
+So, it's inside Cloudflare.
+
+00:23:10.170 --> 00:23:13.710
+It's, that's mainly just because it's an easy
+
+00:23:13.720 --> 00:23:17.360
+way for me to put everything all in one place.
+
+00:23:17.430 --> 00:23:23.430
+And the key part of that is the, the fire hose
+
+00:23:23.430 --> 00:23:23.680
+.
+
+00:23:23.990 --> 00:23:25.560
+And I'll get into why that, why that's,
+
+00:23:25.560 --> 00:23:26.460
+that's special.
+
+00:23:26.470 --> 00:23:28.960
+But basically, so as I said, the client is,
+
+00:23:28.960 --> 00:23:31.760
+you know, the browser, the web browser or the,
+
+00:23:31.760 --> 00:23:34.630
+or your mobile app.
+
+00:23:35.850 --> 00:23:39.310
+And that talks to the worker, which is basically, it
+
+00:23:39.310 --> 00:23:42.100
+'s running a HONO little web server on there that
+
+00:23:42.470 --> 00:23:44.600
+just does the XRPC API endpoints.
+
+00:23:44.890 --> 00:23:46.440
+There's like a load of API endpoints that it serves
+
+00:23:46.440 --> 00:23:46.940
+on there.
+
+00:23:47.970 --> 00:23:50.570
+And it's, you know, doing the sending messages to
+
+00:23:50.570 --> 00:23:50.940
+it.
+
+00:23:50.950 --> 00:23:55.020
+And the durable object, which I mentioned there, is where
+
+00:23:55.020 --> 00:23:58.340
+the, the kind of the magic happens in there.
+
+00:23:58.350 --> 00:24:01.220
+So, it's got a SQLite database in there,
+
+00:24:01.290 --> 00:24:04.260
+which stores your whole repo in there.
+
+00:24:04.350 --> 00:24:06.940
+All of the MST stuff in there is all one big
+
+00:24:06.940 --> 00:24:09.800
+database or little database, really.
+
+00:24:09.810 --> 00:24:13.120
+And then there's the fire hose.
+
+00:24:13.190 --> 00:24:16.440
+Now, the fire hose is the thing that makes it really
+
+00:24:16.440 --> 00:24:19.540
+difficult to host a PDS on a serverless platform in
+
+00:24:19.810 --> 00:24:20.680
+most cases.
+
+00:24:20.690 --> 00:24:24.000
+So, you can't put it on like an AWS Lambda
+
+00:24:24.120 --> 00:24:30.710
+or something like that because it needs a continuously connected web socket
+
+00:24:30.870 --> 00:24:31.070
+.
+
+00:24:32.530 --> 00:24:35.220
+The actual thing that made me, like, decide to build
+
+00:24:35.220 --> 00:24:37.860
+this was when I heard about, found out that you could
+
+00:24:37.860 --> 00:24:40.600
+do hibernating web sockets on durable objects.
+
+00:24:40.610 --> 00:24:44.590
+What that means is that you can have a web socket on
+
+00:24:44.590 --> 00:24:47.970
+this, on this PDS that is open all the time
+
+00:24:47.970 --> 00:24:51.380
+and connected to the relay all the time.
+
+00:24:51.870 --> 00:24:55.180
+But you're not paying unless you are sending an event.
+
+00:24:55.290 --> 00:24:58.160
+If there is nothing going from it, it just goes to
+
+00:24:58.230 --> 00:24:58.830
+sleep.
+
+00:24:58.850 --> 00:25:00.280
+It hibernates it.
+
+00:25:00.290 --> 00:25:01.890
+But as far as the relay is concerned, it's still
+
+00:25:01.890 --> 00:25:02.430
+connected.
+
+00:25:02.470 --> 00:25:04.860
+It thinks that it's connected, but it's actually just
+
+00:25:04.860 --> 00:25:06.900
+being held by, you know, some part of our Cloud
+
+00:25:06.920 --> 00:25:08.320
+flow infra or something.
+
+00:25:08.330 --> 00:25:10.460
+But when you then want to add, send an event,
+
+00:25:10.700 --> 00:25:13.200
+when you're posting something, it wakes it up and p
+
+00:25:13.340 --> 00:25:15.800
+ings it off onto the relay and you get charged for a
+
+00:25:15.800 --> 00:25:16.720
+few seconds.
+
+00:25:17.090 --> 00:25:19.100
+Well, you don't get charged because it will be within
+
+00:25:19.100 --> 00:25:21.060
+the free tier unless, I think, even the craziest of
+
+00:25:21.060 --> 00:25:22.990
+posters won't be able to get outside the free tier on
+
+00:25:22.990 --> 00:25:23.350
+this one.
+
+00:25:23.590 --> 00:25:26.870
+And then it uses R2 for storing all the blobs
+
+00:25:26.870 --> 00:25:27.160
+.
+
+00:25:27.190 --> 00:25:29.330
+That's all still inside Cloudflare.
+
+00:25:29.430 --> 00:25:31.840
+And then it proxies it to the app view,
+
+00:25:31.840 --> 00:25:34.440
+which is, you know, wherever it is.
+
+00:25:34.450 --> 00:25:37.940
+And I didn't show you a few things.
+
+00:25:37.950 --> 00:25:40.500
+So there's account migration, which is built in.
+
+00:25:40.510 --> 00:25:41.500
+So that was one of the things.
+
+00:25:41.510 --> 00:25:44.100
+I didn't want you to have to use any third-
+
+00:25:44.100 --> 00:25:46.920
+party service, however good they are.
+
+00:25:46.970 --> 00:25:50.510
+I wanted it to all be just done through this Create PD
+
+00:25:50.510 --> 00:25:51.450
+S workflow.
+
+00:25:51.630 --> 00:25:53.760
+So if you are using, if you are migrating something
+
+00:25:54.000 --> 00:25:55.980
+, you will move over to where, you know, it
+
+00:25:55.980 --> 00:25:57.880
+will take you through a different flow.
+
+00:25:58.030 --> 00:26:01.120
+You'll put in your password and it will migrate everything.
+
+00:26:01.130 --> 00:26:02.850
+It will download it all and then upload it.
+
+00:26:03.010 --> 00:26:05.730
+And then it will help you do the PLC, the
+
+00:26:05.730 --> 00:26:09.110
+did PLC migration and all that kind of stuff.
+
+00:26:09.130 --> 00:26:11.100
+It uses passkeys for most stuff.
+
+00:26:11.110 --> 00:26:13.410
+I was going to demo passkeys, but it sticks a
+
+00:26:13.480 --> 00:26:15.540
+bloody great QR code up on the screen.
+
+00:26:16.850 --> 00:26:18.120
+So I was like, no, this is probably not the
+
+00:26:18.120 --> 00:26:18.960
+best way of doing that.
+
+00:26:18.970 --> 00:26:22.890
+But that's something I'm particularly pleased with because to add
+
+00:26:22.890 --> 00:26:25.230
+a passkey on there, it does a QR code in
+
+00:26:25.590 --> 00:26:28.740
+the terminal that you can use to scan it.
+
+00:26:28.770 --> 00:26:30.490
+And that works for all of the, you know, all
+
+00:26:30.490 --> 00:26:32.490
+the third-party services and everything.
+
+00:26:34.610 --> 00:26:38.200
+So this is a personal data server.
+
+00:26:38.350 --> 00:26:39.000
+This is the thing.
+
+00:26:39.010 --> 00:26:41.680
+This is you can build one for yourself.
+
+00:26:41.690 --> 00:26:46.630
+And I think there are, I think that there's a
+
+00:26:46.700 --> 00:26:52.000
+, you know, most people do want to have their PD
+
+00:26:52.000 --> 00:26:54.580
+S hosted by Blue Sky.
+
+00:26:55.010 --> 00:26:56.900
+You know, that's where it makes sense to do it
+
+00:26:56.960 --> 00:26:57.120
+.
+
+00:26:57.130 --> 00:27:00.400
+But I think that if we want the app proto network to
+
+00:27:00.400 --> 00:27:04.760
+be properly decentralized, we need to have lots of different ways
+
+00:27:04.930 --> 00:27:05.880
+of hosting.
+
+00:27:05.890 --> 00:27:08.560
+And I think that, you know, it needs to be
+
+00:27:08.560 --> 00:27:11.420
+easy for a service to have their own PDS.
+
+00:27:11.610 --> 00:27:14.240
+You know, one of the, any of these other services
+
+00:27:14.240 --> 00:27:16.040
+can provide it for their users.
+
+00:27:16.130 --> 00:27:18.940
+They want, and, but I think there also needs to
+
+00:27:18.940 --> 00:27:22.120
+be an easy way for people to deploy it themselves.
+
+00:27:22.450 --> 00:27:25.970
+And I think that one of the things that I really love
+
+00:27:26.270 --> 00:27:29.250
+about this group of all of us, you know, weird
+
+00:27:29.250 --> 00:27:33.030
+os and most affectionately here is that it reminds me a
+
+00:27:33.030 --> 00:27:34.960
+lot of early web stuff.
+
+00:27:34.970 --> 00:27:37.710
+And one of the whole things about the early web is that
+
+00:27:37.710 --> 00:27:40.330
+you could, you know, deploy your own stuff and do
+
+00:27:40.330 --> 00:27:43.720
+all kinds of, and I think that the fact that all
+
+00:27:43.990 --> 00:27:50.420
+of the reference architecture of the atmosphere is blue sky stuff.
+
+00:27:51.290 --> 00:27:54.830
+It means that it's, you know, very much angled
+
+00:27:54.830 --> 00:27:58.750
+, not just towards the social use case, but also to
+
+00:27:58.750 --> 00:28:00.430
+the massive scale.
+
+00:28:00.450 --> 00:28:03.750
+And it's great that people are building all these other different
+
+00:28:03.760 --> 00:28:04.880
+implementations.
+
+00:28:04.930 --> 00:28:08.230
+But I think that we need more ways for people to just
+
+00:28:08.280 --> 00:28:11.960
+make this as easy as, you know, sticking something on
+
+00:28:11.960 --> 00:28:14.280
+Netlify or Vercel or Cloudflare or
+
+00:28:14.280 --> 00:28:17.120
+whatever, whatever you think of them.
+
+00:28:17.130 --> 00:28:19.280
+They are a very, very easy way of putting a website
+
+00:28:19.460 --> 00:28:19.700
+up.
+
+00:28:19.710 --> 00:28:22.420
+And I wanted this to be a way to make it that
+
+00:28:22.420 --> 00:28:23.940
+easy to put a PDF up.
+
+00:28:23.950 --> 00:28:26.670
+So hopefully some people will try this out.
+
+00:28:26.690 --> 00:28:28.820
+Follow me.
+
+00:28:28.950 --> 00:28:33.430
+Follow my 15 other variations of this that I used over the
+
+00:28:33.890 --> 00:28:36.580
+past week while I've been practicing.
+
+00:28:36.650 --> 00:28:39.620
+I'm sure they're all going to have really useful things
+
+00:28:39.620 --> 00:28:40.190
+to say.
+
+00:28:40.230 --> 00:28:41.950
+And thank you, everybody.
+
+00:28:41.990 --> 00:28:45.480
+One minute.

@@ -1,0 +1,1939 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.840
+It's also very important to the ethos of the work
+
+00:00:04.960 --> 00:00:06.720
+that we do at Black Sky.
+
+00:00:06.720 --> 00:00:09.230
+And I love this quote because as someone who studies race in
+
+00:00:09.340 --> 00:00:11.600
+the internet, a lot of times they will try to make
+
+00:00:11.600 --> 00:00:14.360
+you choose what issue is the most important issue when it comes
+
+00:00:14.360 --> 00:00:16.900
+to trust and safety, but there is no single issue when
+
+00:00:16.980 --> 00:00:21.550
+we're dealing with marginalized identities that overlap.
+
+00:00:21.800 --> 00:00:24.310
+So like I said, for the past 12 plus years,
+
+00:00:24.420 --> 00:00:26.600
+I've been doing research about this.
+
+00:00:26.600 --> 00:00:30.720
+I've talked to black women and non-binary people across
+
+00:00:30.720 --> 00:00:32.520
+the black diaspora.
+
+00:00:32.520 --> 00:00:35.320
+And this is directly from the research that I did with interviewing
+
+00:00:35.320 --> 00:00:35.720
+them.
+
+00:00:35.720 --> 00:00:39.050
+And when I was doing this work, I was always dreaming
+
+00:00:39.050 --> 00:00:42.820
+of being able to work with a company or an organization that
+
+00:00:42.820 --> 00:00:46.950
+was actually trying to mitigate harm against black women and non-
+
+00:00:46.950 --> 00:00:51.100
+binary gender expansive people specifically, but also anti-blackness
+
+00:00:51.100 --> 00:00:51.360
+.
+
+00:00:51.360 --> 00:00:54.160
+And this was like my driving force, but I didn't
+
+00:00:54.160 --> 00:00:56.480
+know if anything existed like that.
+
+00:00:56.480 --> 00:00:58.820
+So when I decided to make my Blue Sky account, one
+
+00:00:58.900 --> 00:01:01.800
+of my really good friends told me about Black Sky.
+
+00:01:01.800 --> 00:01:03.260
+And I was like, "Hmm, what's that?"
+
+00:01:03.260 --> 00:01:05.030
+So I slid in Rudy's DMs and I said
+
+00:01:05.030 --> 00:01:07.390
+, "Hey, we need to meet." And from then
+
+00:01:07.390 --> 00:01:09.100
+I became a volunteer moderator.
+
+00:01:09.100 --> 00:01:11.990
+And one of the things that I really wanted to focus on
+
+00:01:11.990 --> 00:01:14.560
+doing my work as a moderator, because I came from a
+
+00:01:14.560 --> 00:01:17.770
+research background, was taking the research that I had used,
+
+00:01:17.850 --> 00:01:20.930
+the reading that I had done, and using that to help
+
+00:01:20.990 --> 00:01:25.230
+implement trust and safety for our moderation tool, which is what
+
+00:01:25.230 --> 00:01:27.000
+I'll be talking about today.
+
+00:01:27.000 --> 00:01:29.800
+So when I first started, there was a very, very
+
+00:01:29.800 --> 00:01:32.790
+, very small team of moderators, Rudy being one of
+
+00:01:32.790 --> 00:01:33.440
+them.
+
+00:01:33.440 --> 00:01:36.280
+And this is what the original page looked like.
+
+00:01:36.280 --> 00:01:37.380
+We had two labels.
+
+00:01:37.380 --> 00:01:40.240
+It was misogynoir and anti-black harassment.
+
+00:01:40.240 --> 00:01:43.620
+And this is our beautiful team that has grown over the past
+
+00:01:43.620 --> 00:01:44.460
+year or so.
+
+00:01:44.500 --> 00:01:48.000
+And I'm saying here that the beginning matters because there was
+
+00:01:48.010 --> 00:01:51.470
+a need for this type of moderation tool and tech in general
+
+00:01:51.470 --> 00:01:55.720
+, but being in a decentralized space allowed us to actually create
+
+00:01:55.860 --> 00:02:01.160
+said tool and have control over how we can moderate these spaces
+
+00:02:01.160 --> 00:02:03.200
+to make people safe.
+
+00:02:03.200 --> 00:02:06.000
+So who puts the trust in trust and safety, right?
+
+00:02:06.000 --> 00:02:08.470
+One of the big things that I talk a lot about in
+
+00:02:08.470 --> 00:02:11.410
+my work and really drives the work that we do is that
+
+00:02:11.410 --> 00:02:14.320
+if you don't have community trust, then you don't
+
+00:02:14.450 --> 00:02:18.280
+have a very good trust and safety situation going on.
+
+00:02:18.280 --> 00:02:19.280
+And that's just the reality.
+
+00:02:19.280 --> 00:02:21.490
+Because when you think about trust and safety, the trust is
+
+00:02:21.690 --> 00:02:24.330
+coming from the community members to believe that you are going to
+
+00:02:24.330 --> 00:02:27.260
+be able to actually protect them or mitigate the harm that will
+
+00:02:27.260 --> 00:02:29.400
+come up and that you're going to actually listen to what
+
+00:02:29.500 --> 00:02:32.520
+their needs are and not try to create a top down environment
+
+00:02:32.520 --> 00:02:34.840
+of what you think trust and safety looks like.
+
+00:02:34.840 --> 00:02:38.760
+So this is how we get down at Black Sky.
+
+00:02:38.760 --> 00:02:42.080
+We have volunteer moderators who are community members from the Black
+
+00:02:42.080 --> 00:02:43.420
+Diaspora internationally.
+
+00:02:43.420 --> 00:02:46.080
+Shout out to JD.
+
+00:02:46.080 --> 00:02:49.590
+We have an open communication and feedback loop where we have a
+
+00:02:49.690 --> 00:02:52.720
+separate signal just for the moderators.
+
+00:02:52.720 --> 00:02:55.460
+We have a Black Sky trust and safety signal.
+
+00:02:55.460 --> 00:02:57.880
+And then we have, of course, our all teams.
+
+00:02:57.880 --> 00:03:01.390
+And the style is that if any issues come up or confusion
+
+00:03:01.490 --> 00:03:05.030
+or there is a difficult case or report that comes through,
+
+00:03:05.030 --> 00:03:07.800
+we have full-blown discussions before we decide how to
+
+00:03:07.800 --> 00:03:09.380
+moderate that.
+
+00:03:09.380 --> 00:03:11.480
+And for some people, they may not think that is,
+
+00:03:11.690 --> 00:03:13.380
+like, sustainable, but it's worked.
+
+00:03:13.380 --> 00:03:15.540
+And I have the data to prove that later.
+
+00:03:15.540 --> 00:03:19.020
+And we also have accessible documentation, which was really important to
+
+00:03:19.150 --> 00:03:22.000
+me as an educator, to make sure that whatever we're
+
+00:03:22.360 --> 00:03:25.120
+doing internally, you can go on our doc site and you
+
+00:03:25.120 --> 00:03:28.100
+can read exactly how we're doing it.
+
+00:03:28.100 --> 00:03:30.130
+And our trust and safety lead, JD, did a really
+
+00:03:30.130 --> 00:03:34.160
+good job of creating our internal SOP, which allowed community
+
+00:03:34.160 --> 00:03:38.840
+members to understand how moderation works as people who may not have
+
+00:03:38.840 --> 00:03:40.520
+a background in trust and safety.
+
+00:03:40.520 --> 00:03:42.980
+Because I'm a firm believer that, like, everyone is
+
+00:03:42.980 --> 00:03:45.660
+an expert on their Black experience and, like, your credentials
+
+00:03:45.660 --> 00:03:47.140
+honestly don't mean anything, right?
+
+00:03:47.140 --> 00:03:49.290
+So I have a PhD, but I also have experience with
+
+00:03:49.560 --> 00:03:50.560
+digital massage noir.
+
+00:03:50.560 --> 00:03:52.510
+I've also been on the internet since dial-up,
+
+00:03:52.510 --> 00:03:52.960
+right?
+
+00:03:52.960 --> 00:03:58.510
+So my personal experience really shapes how I view safety online.
+
+00:03:58.520 --> 00:04:01.470
+And it allows you to not let your credentials overrule the
+
+00:04:01.740 --> 00:04:05.080
+actual realities of what's happening on the internet, right?
+
+00:04:05.080 --> 00:04:07.880
+Because the reality is your community doesn't care that you worked
+
+00:04:07.880 --> 00:04:10.010
+in trust and safety for 15 years if you all don't
+
+00:04:10.010 --> 00:04:12.700
+have anything that's actually moderating the harm that they're
+
+00:04:12.770 --> 00:04:14.540
+dealing with on a day-to-day basis, right
+
+00:04:14.540 --> 00:04:14.760
+?
+
+00:04:14.760 --> 00:04:18.560
+It's a mute point.
+
+00:04:18.560 --> 00:04:24.610
+So, you know, Black Sky is all about self-
+
+00:04:24.610 --> 00:04:27.560
+determination and self-governance, and we really stick
+
+00:04:27.560 --> 00:04:28.320
+by that.
+
+00:04:28.340 --> 00:04:30.620
+And I know that in a lot of movement spaces, there
+
+00:04:30.750 --> 00:04:34.090
+are organizations that use these types of buzzwords, but there
+
+00:04:34.090 --> 00:04:36.700
+still is, like I said earlier, like a top-
+
+00:04:36.700 --> 00:04:39.120
+down type of effect.
+
+00:04:39.120 --> 00:04:40.120
+But that's not how it works for us.
+
+00:04:40.120 --> 00:04:43.620
+So, remember, in the beginning, there were two labels
+
+00:04:43.620 --> 00:04:43.920
+.
+
+00:04:43.920 --> 00:04:46.340
+So when I started moderating, I was really starting to
+
+00:04:46.350 --> 00:04:49.960
+think about how there were specific cases that didn't fall under
+
+00:04:49.960 --> 00:04:51.120
+those two labels.
+
+00:04:51.120 --> 00:04:52.960
+And I'll give an example.
+
+00:04:52.960 --> 00:04:55.670
+There was a report that was made about a particular post,
+
+00:04:55.670 --> 00:04:59.070
+and it was actually internalized anti-black rhetoric, right
+
+00:04:59.070 --> 00:04:59.280
+?
+
+00:04:59.280 --> 00:05:01.250
+But the only label we had at the time was anti-
+
+00:05:01.250 --> 00:05:02.230
+black harassment.
+
+00:05:02.300 --> 00:05:03.600
+That person was not harassing people.
+
+00:05:03.600 --> 00:05:06.110
+They were making a statement, but it was anti-black
+
+00:05:06.220 --> 00:05:06.360
+.
+
+00:05:06.360 --> 00:05:08.220
+So when I saw that, I was like, ooh,
+
+00:05:08.220 --> 00:05:09.870
+we actually need more labels.
+
+00:05:09.880 --> 00:05:12.720
+So because we use Black Sky's People's Assembly, which
+
+00:05:12.720 --> 00:05:16.380
+is through polis, where people can submit features or even
+
+00:05:16.380 --> 00:05:19.560
+labels or things that they need, I decided to come up
+
+00:05:19.560 --> 00:05:23.180
+with some labels and I deployed it in the People's Assembly
+
+00:05:23.300 --> 00:05:25.120
+, and people voted on it, right?
+
+00:05:25.120 --> 00:05:28.630
+So the community got to decide if these labels were actually important
+
+00:05:28.730 --> 00:05:31.320
+, and it was a resounding yes.
+
+00:05:31.320 --> 00:05:36.030
+And we have decided internally that we are going to constantly be
+
+00:05:36.030 --> 00:05:40.060
+updating our labels because when it comes to trust and safety,
+
+00:05:40.060 --> 00:05:42.960
+you have to have your finger on the pulse, right?
+
+00:05:43.020 --> 00:05:46.530
+You cannot just make a list of trust and safety labels or
+
+00:05:46.630 --> 00:05:49.860
+a labeler that only does this one specific thing and not
+
+00:05:49.860 --> 00:05:51.810
+think about the cultural context, right?
+
+00:05:51.900 --> 00:05:53.780
+The times that we're living in, what may come up
+
+00:05:53.780 --> 00:05:56.110
+in the news, what new harms may come up that we
+
+00:05:56.110 --> 00:05:58.180
+didn't even know was a thing, right?
+
+00:05:58.180 --> 00:06:02.120
+I'll go over more of the labels that we end up
+
+00:06:02.120 --> 00:06:06.920
+deploying later, but by having Black Sky's People's Assembly
+
+00:06:06.920 --> 00:06:09.500
+, it allows us to stay rooted in community, right?
+
+00:06:09.500 --> 00:06:12.450
+What I had on my earlier slide, which is the whole
+
+00:06:12.710 --> 00:06:16.060
+purpose of trying to steward for a group of people.
+
+00:06:16.060 --> 00:06:20.260
+I know that typically in big tech, it can feel very
+
+00:06:20.260 --> 00:06:25.280
+suffocating, not really understanding the transparency of trust and
+
+00:06:25.280 --> 00:06:27.800
+safety, but I do believe that on the protocol, we
+
+00:06:27.800 --> 00:06:32.330
+have a responsibility of providing the transparency that people may not get
+
+00:06:32.330 --> 00:06:33.940
+on other applications.
+
+00:06:33.940 --> 00:06:38.060
+So, and here's where the data points come in,
+
+00:06:38.060 --> 00:06:42.390
+this is the researcher in me, this is my favorite part
+
+00:06:42.390 --> 00:06:42.820
+.
+
+00:06:42.820 --> 00:06:45.770
+Okay, so when I first became a volunteer moderator, I
+
+00:06:46.040 --> 00:06:49.410
+think there were maybe like two or three, one of them
+
+00:06:49.410 --> 00:06:51.020
+being Rudy.
+
+00:06:51.020 --> 00:06:54.200
+And we had a very small team, we still have a
+
+00:06:54.240 --> 00:06:58.710
+very small team, and we were able to moderate over 49
+
+00:06:58.710 --> 00:07:01.660
+,000 reports, right?
+
+00:07:01.660 --> 00:07:05.470
+Human to human moderation, right, in the trenches.
+
+00:07:05.500 --> 00:07:09.140
+And of those reports, by October 2025, we were able
+
+00:07:09.140 --> 00:07:11.650
+to label 583 of them as misogynoir.
+
+00:07:11.760 --> 00:07:15.270
+And like I stated earlier, there is not a moderation tool
+
+00:07:15.370 --> 00:07:17.140
+on any app that does this.
+
+00:07:17.140 --> 00:07:21.940
+I want to make that clear every single time.
+
+00:07:21.940 --> 00:07:25.340
+And the reason why I keep saying this is because as someone
+
+00:07:25.340 --> 00:07:29.540
+who has literally researched this stuff for so long, experienced it
+
+00:07:29.690 --> 00:07:33.100
+, witnessed it, it almost felt as if it was impossible
+
+00:07:33.100 --> 00:07:37.250
+for it to happen, and this environment made it possible,
+
+00:07:37.250 --> 00:07:41.760
+which gives me hope that other moderation tools are possible as well
+
+00:07:41.760 --> 00:07:43.460
+for particular groups.
+
+00:07:43.460 --> 00:07:46.010
+So the labels that I had submitted to the People's Assembly
+
+00:07:46.080 --> 00:07:48.520
+, that the community voted, voted on, and all votes
+
+00:07:48.520 --> 00:07:52.300
+are anonymous, was anti-black harassment was already one,
+
+00:07:52.300 --> 00:07:54.710
+misogynoir, but we added violence, right,
+
+00:07:54.710 --> 00:07:58.420
+because there were people getting threats, and that didn't follow
+
+00:07:58.420 --> 00:08:01.100
+under harassment or misogynoir.
+
+00:08:01.100 --> 00:08:03.340
+Doxing, that's an automatic no-no,
+
+00:08:03.520 --> 00:08:05.320
+that was not a label that we had.
+
+00:08:05.340 --> 00:08:07.970
+We moderated for it, but we also wanted to be
+
+00:08:07.970 --> 00:08:09.780
+able to label that as well.
+
+00:08:09.780 --> 00:08:12.690
+Non-consensual intimate images, which is important to
+
+00:08:12.690 --> 00:08:14.840
+me because a lot of the work that I had been doing
+
+00:08:14.840 --> 00:08:17.350
+before was focusing on, like, deep fake porn and how
+
+00:08:17.350 --> 00:08:21.200
+people were using AI to manipulate having, you know, non
+
+00:08:21.200 --> 00:08:24.360
+-consensual sexual relations with people on the internet.
+
+00:08:24.360 --> 00:08:26.110
+Synthetic media, which was a big one, which
+
+00:08:26.110 --> 00:08:28.160
+is why I talk a lot about, like, changing your
+
+00:08:28.160 --> 00:08:31.080
+labels and, like, adding new labels is because the up
+
+00:08:31.130 --> 00:08:34.090
+tick of synthetic media, there needs to be moderation for
+
+00:08:34.140 --> 00:08:37.160
+that, that is directly impacting the black community.
+
+00:08:37.160 --> 00:08:39.530
+So, to be transparent, we've seen things like be
+
+00:08:39.580 --> 00:08:45.160
+headings, you know, people making videos of Michelle Obama
+
+00:08:45.160 --> 00:08:48.640
+being, you know, harmed, putting black women's faces
+
+00:08:48.650 --> 00:08:50.160
+on George Floyd, right?
+
+00:08:50.160 --> 00:08:52.390
+All of these things are coming through the reports, and if
+
+00:08:52.530 --> 00:08:54.760
+you're subscribed to our label or use blackside.
+
+00:08:54.760 --> 00:08:57.220
+community, you might not even see those things because when
+
+00:08:57.220 --> 00:08:59.810
+we get the reports, we're going through them, right
+
+00:08:59.810 --> 00:08:59.960
+?
+
+00:08:59.960 --> 00:09:03.590
+And then white supremacy or anti-black rhetoric was a very
+
+00:09:03.590 --> 00:09:08.260
+interesting conversation amongst the moderators before we decided to, like
+
+00:09:08.260 --> 00:09:11.760
+, push these out for votes because we wanted to make sure
+
+00:09:11.760 --> 00:09:15.210
+that if someone's post got labeled for that, we knew
+
+00:09:15.210 --> 00:09:18.490
+how to explain why if they wanted to appeal it, right
+
+00:09:18.490 --> 00:09:18.760
+?
+
+00:09:18.760 --> 00:09:21.470
+And when it comes to anti-black rhetoric, when it
+
+00:09:21.470 --> 00:09:23.960
+comes to misogynoir, these things can also be
+
+00:09:23.960 --> 00:09:27.740
+internalized as well, and the purpose of the labeler
+
+00:09:27.970 --> 00:09:32.710
+and the moderation tool is not to say that one particular race
+
+00:09:32.860 --> 00:09:35.690
+of people are harming black people, it is that everyone
+
+00:09:35.690 --> 00:09:38.370
+can enact in this type of harm, and we have to
+
+00:09:38.450 --> 00:09:40.560
+moderate towards all of it.
+
+00:09:40.560 --> 00:09:45.560
+So, down here, if you know about the labeler
+
+00:09:45.560 --> 00:09:46.150
+or you use blacksky.
+
+00:09:46.200 --> 00:09:48.990
+community, which you should be, if someone has a
+
+00:09:48.990 --> 00:09:53.320
+label on their post, it'll say what the label is
+
+00:09:53.460 --> 00:09:55.360
+for, right?
+
+00:09:55.360 --> 00:09:57.360
+And if they want to appeal it, they can.
+
+00:09:57.360 --> 00:10:00.120
+They can click on the label, they can send an email
+
+00:10:00.120 --> 00:10:00.760
+and appeal it.
+
+00:10:00.760 --> 00:10:03.450
+We have a whole entire appealing process, which also is a
+
+00:10:03.450 --> 00:10:05.560
+conversation amongst the team as well.
+
+00:10:05.560 --> 00:10:08.510
+There are some things that are, like, a no-
+
+00:10:08.510 --> 00:10:08.960
+go.
+
+00:10:08.960 --> 00:10:10.990
+If you're doxing non-consensual intimate
+
+00:10:11.340 --> 00:10:13.810
+images, like, you're out of here because that's
+
+00:10:13.810 --> 00:10:15.360
+just wrong on all levels.
+
+00:10:15.360 --> 00:10:17.810
+And if we were in the UK, you have 48 hours
+
+00:10:17.810 --> 00:10:19.160
+to take it down by law.
+
+00:10:19.160 --> 00:10:21.260
+We don't have that here right now, so we have
+
+00:10:21.260 --> 00:10:23.160
+to, you know, set some boundaries.
+
+00:10:23.160 --> 00:10:27.930
+And we also have the option to label accounts that have repeated
+
+00:10:27.930 --> 00:10:28.920
+behavior.
+
+00:10:28.960 --> 00:10:32.280
+We have the option to greenlist them, which is a
+
+00:10:32.280 --> 00:10:34.720
+subscription list where it has all the people who have been green
+
+00:10:34.870 --> 00:10:37.100
+listed, which means that it can, like, automatically block
+
+00:10:37.340 --> 00:10:37.910
+those accounts.
+
+00:10:37.960 --> 00:10:38.960
+You won't see their content.
+
+00:10:38.960 --> 00:10:41.910
+And then we also have ban from TV as well, which
+
+00:10:42.180 --> 00:10:45.760
+allows them to not interact with the Black Sky feed.
+
+00:10:45.760 --> 00:10:48.710
+And this is important because we want to make sure that if
+
+00:10:48.980 --> 00:10:52.240
+someone is repeatedly causing harm, that we are setting up guard
+
+00:10:52.240 --> 00:10:54.760
+rails so they don't continue to cause harm.
+
+00:10:54.760 --> 00:11:00.260
+It also requires a lot of cultural nuance, being tapped in
+
+00:11:00.260 --> 00:11:03.630
+, long conversations, doing your Googles, no Gemini
+
+00:11:03.630 --> 00:11:04.520
+, right?
+
+00:11:04.560 --> 00:11:07.490
+It takes a lot of that because there are instances where there
+
+00:11:07.490 --> 00:11:09.560
+may be a celebrity, I won't say any names,
+
+00:11:09.560 --> 00:11:12.740
+who have a history of violence towards Black women, who may
+
+00:11:12.780 --> 00:11:16.530
+have people rally behind them, but they have a history of
+
+00:11:16.780 --> 00:11:19.360
+harassing Black women on different platforms.
+
+00:11:19.360 --> 00:11:22.170
+They've been banned from those platforms, so we must do
+
+00:11:22.170 --> 00:11:25.490
+the same for ours to be proactive, which is something that
+
+00:11:25.490 --> 00:11:27.310
+I'm going to also talk about as well.
+
+00:11:27.360 --> 00:11:30.710
+Before I do that, I do want to shout out AC
+
+00:11:30.710 --> 00:11:31.360
+ORN.
+
+00:11:31.360 --> 00:11:37.360
+So our wonderful engineer, Richie, made ACORN
+
+00:11:37.360 --> 00:11:37.360
+.
+
+00:11:37.360 --> 00:11:40.310
+And ACORN came out of a lot of the frust
+
+00:11:40.570 --> 00:11:43.560
+rations we were having with Ozone, to be transparent,
+
+00:11:43.560 --> 00:11:46.070
+when it came to just accessibility as far as, like,
+
+00:11:46.180 --> 00:11:48.930
+being able to do it on a tablet or a mobile phone
+
+00:11:48.930 --> 00:11:53.830
+, just having certain things that would just make the process easier
+
+00:11:53.830 --> 00:11:54.160
+.
+
+00:11:54.160 --> 00:11:58.150
+And although I am not an expert on the back end of
+
+00:11:58.150 --> 00:12:01.560
+content moderation, that's what JD is really good at,
+
+00:12:01.560 --> 00:12:04.760
+we were able to actually collaborate on what that would look like
+
+00:12:04.760 --> 00:12:07.890
+, and they were able to work in tandem to create a
+
+00:12:07.970 --> 00:12:10.910
+platform for Black Sky to moderate with.
+
+00:12:10.960 --> 00:12:14.780
+Another thing is that one of the things that I implemented when
+
+00:12:14.850 --> 00:12:18.760
+I first started moderating was ways to take care of yourself
+
+00:12:18.760 --> 00:12:18.960
+.
+
+00:12:18.960 --> 00:12:21.270
+So I, like, made a little, like, doc
+
+00:12:21.380 --> 00:12:24.330
+with, like, somatic stuff, like, you know
+
+00:12:24.330 --> 00:12:27.940
+, healing and sounds and, like, websites and resources that
+
+00:12:27.940 --> 00:12:29.160
+are pinned in the signal.
+
+00:12:29.160 --> 00:12:32.640
+And we want to continue to build out those types of wellness
+
+00:12:32.640 --> 00:12:37.160
+things within our setup because content moderation can cause a lot of
+
+00:12:37.160 --> 00:12:38.160
+decision fatigue.
+
+00:12:38.160 --> 00:12:39.360
+It can cause a lot of fatigue.
+
+00:12:39.360 --> 00:12:40.360
+It can cause a lot of trauma.
+
+00:12:40.530 --> 00:12:42.580
+You see a lot of things that you may not see on
+
+00:12:42.580 --> 00:12:44.360
+a day-to-day basis.
+
+00:12:44.360 --> 00:12:47.310
+And because we have community members doing the moderation and not,
+
+00:12:47.570 --> 00:12:51.540
+like, professional trust and safety people, we want to make
+
+00:12:51.540 --> 00:12:55.880
+sure that they feel safe as well, especially because commercial content
+
+00:12:55.880 --> 00:13:01.200
+moderation is treated like slave labor labor in other countries like the
+
+00:13:01.780 --> 00:13:03.560
+Philippines, and we don't go for that.
+
+00:13:03.560 --> 00:13:09.220
+So ACORN was built for Black Sky for us to
+
+00:13:09.220 --> 00:13:15.550
+be able to create a more accessible and a space for moderation
+
+00:13:15.600 --> 00:13:16.540
+to happen.
+
+00:13:16.560 --> 00:13:20.270
+And they're continuously building out new features as we see,
+
+00:13:20.280 --> 00:13:21.760
+like, okay, well, maybe we should do this.
+
+00:13:21.760 --> 00:13:24.300
+Well, maybe we should add this and, like, making
+
+00:13:24.380 --> 00:13:25.760
+things time-bound as well.
+
+00:13:25.760 --> 00:13:29.980
+So people are forced to take breaks because we had a really
+
+00:13:30.060 --> 00:13:30.760
+big backlog.
+
+00:13:30.760 --> 00:13:33.080
+And JD and I were, like, really, like,
+
+00:13:33.190 --> 00:13:36.190
+around the clock moderating and, like, Rudy was jumping
+
+00:13:36.190 --> 00:13:36.360
+in.
+
+00:13:36.360 --> 00:13:38.160
+And we kind of all realized that, like, okay,
+
+00:13:38.160 --> 00:13:41.060
+we don't want the other moderators to ever have to
+
+00:13:41.060 --> 00:13:46.560
+do that because that can be very traumatic in the long run
+
+00:13:46.560 --> 00:13:46.560
+.
+
+00:13:46.560 --> 00:13:48.940
+And we want them to be able to sustain doing the work
+
+00:13:48.980 --> 00:13:50.560
+to keep their community safe.
+
+00:13:50.560 --> 00:13:55.810
+And here on my left is what it looks like when you
+
+00:13:55.860 --> 00:13:57.550
+go to label.
+
+00:13:57.560 --> 00:14:00.510
+So on our side panel, which you all don't see
+
+00:14:00.760 --> 00:14:02.560
+, it has all of the labels in their definitions.
+
+00:14:02.560 --> 00:14:05.960
+So you automatically know what the label is actually about.
+
+00:14:05.960 --> 00:14:07.850
+So you don't have to keep going back and forth to
+
+00:14:07.850 --> 00:14:08.360
+the SOP.
+
+00:14:08.360 --> 00:14:11.050
+And then we really encourage all moderators to leave some type
+
+00:14:11.050 --> 00:14:11.760
+of comment.
+
+00:14:11.760 --> 00:14:13.520
+I just put massage and wash so you can see where it
+
+00:14:13.520 --> 00:14:13.760
+goes.
+
+00:14:13.760 --> 00:14:16.960
+Because if another moderator comes in behind it, they can kind
+
+00:14:16.990 --> 00:14:19.280
+of know, like, why this person was moderated this
+
+00:14:19.280 --> 00:14:19.760
+way.
+
+00:14:19.760 --> 00:14:21.360
+Is this person a repeat offender?
+
+00:14:21.360 --> 00:14:22.760
+What do we want to do next?
+
+00:14:22.760 --> 00:14:25.720
+And this also helps with appeals, right, because anybody can
+
+00:14:25.980 --> 00:14:26.760
+repeal the label.
+
+00:14:26.760 --> 00:14:31.440
+And when we have that information in ACORN, it
+
+00:14:31.440 --> 00:14:35.160
+allows us to be able to make a decision with the investigation
+
+00:14:35.160 --> 00:14:37.760
+on if it's something that we will, you know,
+
+00:14:37.760 --> 00:14:37.760
+lift.
+
+00:14:37.760 --> 00:14:40.560
+Or if there's a conversation that needs to be had.
+
+00:14:40.560 --> 00:14:42.730
+Which I think is really why we have gained a lot of
+
+00:14:42.970 --> 00:14:45.590
+trust within the community is how we handle these types of situations
+
+00:14:45.590 --> 00:14:45.760
+.
+
+00:14:45.760 --> 00:14:48.710
+So this is where things go wrong in trust and safety.
+
+00:14:48.760 --> 00:14:52.580
+And I know people have in their bios, like, this
+
+00:14:52.580 --> 00:14:55.160
+is not a representation of my organization, but it is.
+
+00:14:55.160 --> 00:14:58.110
+This is truly how we feel, right?
+
+00:14:58.160 --> 00:15:00.560
+There is a lack of community trust, right?
+
+00:15:00.560 --> 00:15:04.200
+People do not trust a lot of people in trust and safety
+
+00:15:04.200 --> 00:15:07.550
+because there is an ignorance of cultural nuances, right?
+
+00:15:07.560 --> 00:15:10.510
+There is an unwillingness to acknowledge mistakes.
+
+00:15:10.560 --> 00:15:13.510
+A lot of people are reactive instead of proactive.
+
+00:15:13.560 --> 00:15:16.510
+And the words and actions don't match.
+
+00:15:16.560 --> 00:15:18.960
+And that's a danger zone, right?
+
+00:15:18.960 --> 00:15:19.960
+That is a recipe for disaster.
+
+00:15:19.960 --> 00:15:22.910
+And we've all seen disasters everywhere online.
+
+00:15:22.960 --> 00:15:26.770
+And the biggest thing is that not understanding the community you serve
+
+00:15:26.770 --> 00:15:27.960
+, right?
+
+00:15:27.960 --> 00:15:30.920
+It is very difficult for your community to trust that you care
+
+00:15:31.180 --> 00:15:34.410
+about what is important to them if they don't even think
+
+00:15:34.410 --> 00:15:36.960
+that you actually know what's going on, right?
+
+00:15:36.960 --> 00:15:39.230
+That you're so disconnected that, like, oh, I
+
+00:15:39.340 --> 00:15:41.550
+'m just logging in to do some trust and safety, but
+
+00:15:41.550 --> 00:15:44.310
+I don't even pay attention to what's happening in those
+
+00:15:44.570 --> 00:15:45.360
+communities.
+
+00:15:45.360 --> 00:15:48.550
+Which is why I really enjoy my role, because not only
+
+00:15:48.590 --> 00:15:50.920
+do I get to assist with the content moderation and trust and
+
+00:15:50.920 --> 00:15:52.850
+safety, but I also get to pay attention to what's
+
+00:15:52.850 --> 00:15:55.160
+actually happening within the community.
+
+00:15:55.160 --> 00:15:58.110
+And not just within Black Sky, but the protocol at large
+
+00:15:58.380 --> 00:15:58.560
+.
+
+00:15:58.560 --> 00:16:01.360
+And that helps me signal to JD and the other moderators
+
+00:16:01.360 --> 00:16:03.360
+, like, hey, this topic has come up.
+
+00:16:03.360 --> 00:16:05.360
+We may get a lot of reports for this, right?
+
+00:16:05.360 --> 00:16:07.870
+That's being proactive.
+
+00:16:07.960 --> 00:16:10.360
+So, you know, I'm not here to, you
+
+00:16:10.390 --> 00:16:14.960
+know, bash people over the head, right?
+
+00:16:14.960 --> 00:16:17.910
+I'm also here to provide repair and to help people rebuild
+
+00:16:18.070 --> 00:16:20.560
+, because I do really believe in trust and safety.
+
+00:16:20.560 --> 00:16:22.620
+And I do think that, you know, there is a
+
+00:16:22.930 --> 00:16:27.860
+level of grace, but there's also, there is a
+
+00:16:27.880 --> 00:16:32.070
+level of wanting to do better and to use your self-
+
+00:16:32.070 --> 00:16:34.890
+efficacy, believing that you can do better, that
+
+00:16:34.890 --> 00:16:36.550
+pushes me to run a strict program.
+
+00:16:36.560 --> 00:16:39.510
+So this is where the strict program begins for all the trust
+
+00:16:39.740 --> 00:16:40.560
+and safety people.
+
+00:16:40.560 --> 00:16:43.070
+Ongoing training, right?
+
+00:16:43.160 --> 00:16:46.960
+And you need to have your trainings be specific to the things
+
+00:16:46.960 --> 00:16:50.150
+that are coming up within your communities, right?
+
+00:16:50.160 --> 00:16:54.560
+And the training is really good for, not only for your
+
+00:16:54.560 --> 00:16:58.160
+internal team to understand, but also like, okay, this
+
+00:16:58.160 --> 00:17:01.250
+keeps coming up when we're reporting something and the mods are
+
+00:17:01.390 --> 00:17:02.160
+getting stuck on it.
+
+00:17:02.160 --> 00:17:05.100
+So we need to create a training on this particular label because
+
+00:17:05.100 --> 00:17:07.430
+they may not understand what misogynoir is, right
+
+00:17:07.460 --> 00:17:07.750
+?
+
+00:17:07.760 --> 00:17:08.760
+And that was a big thing.
+
+00:17:08.760 --> 00:17:10.830
+People don't really know what misogynoir is and
+
+00:17:10.830 --> 00:17:12.980
+they think there's like misogynoir light and mis
+
+00:17:13.060 --> 00:17:13.590
+ogynoir 2.
+
+00:17:13.590 --> 00:17:16.760
+0, but like it all falls under misogynoir
+
+00:17:16.760 --> 00:17:16.760
+.
+
+00:17:16.760 --> 00:17:18.760
+And that's a part of the training, right?
+
+00:17:18.760 --> 00:17:19.760
+Community feedback, right?
+
+00:17:19.760 --> 00:17:22.620
+If the community is constantly telling you like, why are you
+
+00:17:22.620 --> 00:17:25.160
+constantly suspending these specific accounts?
+
+00:17:25.160 --> 00:17:26.160
+Why is this happening?
+
+00:17:26.160 --> 00:17:27.160
+What's going on?
+
+00:17:27.160 --> 00:17:29.560
+You all need to be transparent about that.
+
+00:17:29.560 --> 00:17:32.080
+And there is a strategic way to do that through like your
+
+00:17:32.180 --> 00:17:35.150
+communications channels and trust and safety reports.
+
+00:17:35.160 --> 00:17:37.360
+Staying mission aligned, right?
+
+00:17:37.360 --> 00:17:40.840
+Words plus actions that don't match equals a danger zone,
+
+00:17:40.970 --> 00:17:41.560
+right?
+
+00:17:41.560 --> 00:17:44.970
+If you say you care about a community, you must stay
+
+00:17:44.970 --> 00:17:45.960
+mission aligned.
+
+00:17:45.960 --> 00:17:49.470
+And that also means that you may have to do some research
+
+00:17:49.570 --> 00:17:49.760
+.
+
+00:17:49.760 --> 00:17:52.160
+You might have to actually listen to those being most harmed.
+
+00:17:52.160 --> 00:17:55.640
+And you may start to start having hard conversations about how your
+
+00:17:55.770 --> 00:17:59.960
+trust and safety is set up, what those policies actually mean
+
+00:17:59.960 --> 00:17:59.960
+.
+
+00:17:59.960 --> 00:18:02.510
+And if you need to go back to the drawing board and
+
+00:18:02.580 --> 00:18:04.960
+come into terms with the fact that you may not be equipped
+
+00:18:04.960 --> 00:18:06.340
+to do these policies on your own.
+
+00:18:06.360 --> 00:18:09.180
+You may have to hire people who are a part of those
+
+00:18:09.180 --> 00:18:10.760
+communities, right?
+
+00:18:10.760 --> 00:18:13.700
+Have them as consultants to help you build out some of the
+
+00:18:13.700 --> 00:18:16.520
+policies for the groups that you are working with.
+
+00:18:16.560 --> 00:18:22.080
+So in the end, I just want to say that I
+
+00:18:22.080 --> 00:18:25.390
+know that trust and safety is really obvious for a lot of
+
+00:18:25.410 --> 00:18:27.560
+people because it's very vague.
+
+00:18:27.560 --> 00:18:30.520
+It's been vague from a user standpoint, from a community
+
+00:18:30.780 --> 00:18:33.560
+standpoint, it's vague for researchers like myself.
+
+00:18:33.560 --> 00:18:36.510
+But I do believe that from the work that I've been
+
+00:18:36.780 --> 00:18:39.590
+able to do with Black Sky, from how I see the
+
+00:18:39.590 --> 00:18:43.200
+reactions of how we're moderating, from the way we
+
+00:18:43.200 --> 00:18:47.700
+'re able to continue to build and grow and create a community
+
+00:18:47.780 --> 00:18:50.880
+ecosystem where people are asking like, well, how are y
+
+00:18:50.880 --> 00:18:52.040
+'all moderating things?
+
+00:18:52.040 --> 00:18:54.990
+It lets me know that people are interested in being better at
+
+00:18:55.260 --> 00:18:57.560
+trust and safety, but like I said, it also takes
+
+00:18:57.560 --> 00:19:00.070
+self-efficacy and believing that you can actually do
+
+00:19:00.160 --> 00:19:03.110
+it and holding yourself accountable when you're trying to take the
+
+00:19:03.110 --> 00:19:06.480
+easy way out or push the blame on someone else.
+
+00:19:06.480 --> 00:19:07.480
+Thank you.
+
+00:19:22.040 --> 00:19:25.850
+Thank you very much.
+
+00:19:25.880 --> 00:19:26.460
+That was wonderful.
+
+00:19:26.460 --> 00:19:28.700
+We have some time for questions.
+
+00:19:28.700 --> 00:19:29.500
+I see one.
+
+00:19:29.500 --> 00:19:31.610
+How would you like people to refer to you as Dr.
+
+00:19:31.610 --> 00:19:32.020
+K, Dr.
+
+00:19:32.070 --> 00:19:32.460
+Coghill?
+
+00:19:32.640 --> 00:19:32.890
+Dr.
+
+00:19:32.890 --> 00:19:33.400
+K is fine.
+
+00:19:33.400 --> 00:19:33.720
+Wonderful.
+
+00:19:33.720 --> 00:19:34.960
+I'll bring the mic to you.
+
+00:19:34.960 --> 00:19:37.920
+Hi, Dr.
+
+00:19:38.180 --> 00:19:39.380
+K.
+
+00:19:39.380 --> 00:19:40.360
+Hi, Brian.
+
+00:19:40.360 --> 00:19:43.000
+I just want to ask something that you talked about that I
+
+00:19:43.000 --> 00:19:47.510
+thought was really important was the understanding the communities that you serve
+
+00:19:47.680 --> 00:19:47.760
+.
+
+00:19:48.500 --> 00:19:50.870
+And one of the things, you know, we've heard
+
+00:19:50.930 --> 00:19:53.730
+these sayings, which is like, doing trust and safety
+
+00:19:53.730 --> 00:19:55.120
+right is impossible.
+
+00:19:55.120 --> 00:19:58.580
+And what I think sometimes, what I wonder, what I
+
+00:19:58.580 --> 00:20:04.880
+want to ask is, how do you help people define,
+
+00:20:05.190 --> 00:20:11.100
+how do we help people understand what the community or communities they
+
+00:20:11.100 --> 00:20:12.700
+serve are?
+
+00:20:13.160 --> 00:20:15.560
+So that they're delivering trust and safety, like, for
+
+00:20:15.590 --> 00:20:17.710
+example, when you think about a blue sky, there's
+
+00:20:17.710 --> 00:20:18.640
+not one community.
+
+00:20:18.640 --> 00:20:21.390
+There's so many communities, and that's why you can
+
+00:20:21.390 --> 00:20:23.180
+'t moderate them the same way.
+
+00:20:23.180 --> 00:20:26.890
+And so how do you, is it that big world social
+
+00:20:26.900 --> 00:20:31.740
+networks that aren't aligned around an ethos or a mission
+
+00:20:31.740 --> 00:20:34.770
+are doomed to have this problem?
+
+00:20:34.860 --> 00:20:37.080
+Or is there a way to do that when you have these
+
+00:20:37.290 --> 00:20:42.010
+intersecting groups with different experiences and different backgrounds and different places
+
+00:20:42.180 --> 00:20:42.300
+?
+
+00:20:42.380 --> 00:20:45.690
+How do you help TNS deal in a space like that
+
+00:20:45.690 --> 00:20:46.040
+?
+
+00:20:46.040 --> 00:20:48.990
+Yeah, so I want to go back to Dr.
+
+00:20:49.260 --> 00:20:51.230
+Safiya Noble's book, Algorithms of Oppression
+
+00:20:51.230 --> 00:20:51.440
+.
+
+00:20:51.440 --> 00:20:54.390
+I believe in the last chapter she talks about that they need
+
+00:20:54.580 --> 00:20:57.200
+to bring humanities back into computer science.
+
+00:20:57.660 --> 00:21:00.610
+They need to hire black women at these trust and safety spaces
+
+00:21:00.870 --> 00:21:03.720
+and building the algorithms, and that's where it begins,
+
+00:21:03.720 --> 00:21:04.260
+right?
+
+00:21:04.260 --> 00:21:07.080
+A lot of trust and safety teams are overwhelmingly white, and
+
+00:21:07.080 --> 00:21:08.180
+that's the problem.
+
+00:21:08.180 --> 00:21:11.500
+And because of that, it makes it difficult to know what
+
+00:21:11.500 --> 00:21:16.140
+the intersecting identities and communities are because you may have some
+
+00:21:16.140 --> 00:21:19.480
+, like, unchecked biases that you may not even realize
+
+00:21:19.480 --> 00:21:21.240
+when you're creating the labels, right?
+
+00:21:21.440 --> 00:21:24.400
+And you have control over how many labels you have and how
+
+00:21:24.650 --> 00:21:26.080
+often you change them.
+
+00:21:26.080 --> 00:21:28.960
+So if you realize that you're getting complaints or you realize
+
+00:21:28.960 --> 00:21:31.140
+that there's been an uptick of a particular type
+
+00:21:31.140 --> 00:21:34.080
+of report, it would make sense to, you know,
+
+00:21:34.080 --> 00:21:37.170
+laser focus in on that and add that as a label.
+
+00:21:37.260 --> 00:21:40.020
+I also think that, like, yes, social networks are
+
+00:21:40.020 --> 00:21:40.220
+big.
+
+00:21:40.460 --> 00:21:42.460
+There's all types of people, but I also see that
+
+00:21:42.460 --> 00:21:43.410
+as an excuse, right?
+
+00:21:43.520 --> 00:21:45.800
+Because if you want to keep the internet safe, there will
+
+00:21:45.940 --> 00:21:47.560
+never be a safe internet, but there is a way to
+
+00:21:47.630 --> 00:21:48.500
+mitigate harm.
+
+00:21:48.500 --> 00:21:51.020
+And if that is the goal of what you're trying to
+
+00:21:51.120 --> 00:21:52.320
+do, it is possible.
+
+00:21:52.360 --> 00:21:56.060
+It's just going to take the work and also is going
+
+00:21:56.060 --> 00:21:59.750
+to require you to be tapped in more so than you may
+
+00:21:59.750 --> 00:22:00.640
+not be.
+
+00:22:00.640 --> 00:22:05.890
+Yeah, and that's why it's important for you to
+
+00:22:05.940 --> 00:22:13.260
+have different types of community members and trust and safety people on
+
+00:22:13.260 --> 00:22:17.480
+your teams so you can have those people with those expert experiences
+
+00:22:17.480 --> 00:22:19.440
+, not an expert resume.
+
+00:22:19.440 --> 00:22:27.440
+So something that I noticed listening to this talk is
+
+00:22:27.440 --> 00:22:35.990
+that there feels like there's room being made for restor
+
+00:22:35.990 --> 00:22:41.100
+ative justice in communities as part of moderation.
+
+00:22:41.100 --> 00:22:45.140
+And are there any conversations that you can share about what that
+
+00:22:45.210 --> 00:22:47.220
+might look like at Black Sky?
+
+00:22:48.860 --> 00:22:51.810
+Yeah, so we haven't talked deeply particularly about restorative
+
+00:22:52.080 --> 00:22:55.290
+justice, but that is a framework that is grounded in the
+
+00:22:55.410 --> 00:22:56.300
+work that I do.
+
+00:22:56.360 --> 00:22:59.850
+And one of the ways that I think we implement restorative
+
+00:22:59.850 --> 00:23:03.930
+justice is through our self-governance and also through our
+
+00:23:04.060 --> 00:23:10.420
+appeal process, where we will have the conversation about exactly what
+
+00:23:10.420 --> 00:23:13.080
+was said, what was done.
+
+00:23:13.080 --> 00:23:16.030
+And I know that that can be difficult depending on the scale
+
+00:23:16.250 --> 00:23:18.840
+of the organization or the company you're with.
+
+00:23:18.860 --> 00:23:21.610
+But that one-to-one is really helpful to explain
+
+00:23:21.610 --> 00:23:25.010
+to people, you know, why certain labels were applied.
+
+00:23:25.080 --> 00:23:29.480
+I also think that because we have such a strong trusting community
+
+00:23:29.480 --> 00:23:32.740
+, like they trust in us to mitigate the harm, we
+
+00:23:32.740 --> 00:23:37.790
+lean into the restorative justice model naturally when it comes to
+
+00:23:37.790 --> 00:23:40.500
+how we deal with harm in general.
+
+00:23:40.800 --> 00:23:42.880
+It's not very punitive, right?
+
+00:23:42.880 --> 00:23:45.830
+You don't automatically get labeled, you don't automatically get
+
+00:23:46.100 --> 00:23:46.360
+banned.
+
+00:23:46.440 --> 00:23:50.170
+It is a longer process and there's always room for you
+
+00:23:50.170 --> 00:23:53.820
+to appeal or for you to want to have a conversation of
+
+00:23:53.820 --> 00:23:55.720
+trying to change that behavior.
+
+00:23:55.720 --> 00:23:59.230
+Because the goal is not to exclude people from community if they
+
+00:23:59.330 --> 00:24:02.390
+actually want to come together and do the work to be better
+
+00:24:02.390 --> 00:24:04.160
+, you know, community members.
+
+00:24:14.400 --> 00:24:17.910
+When trust and safety work goes well, it's often invisible
+
+00:24:18.010 --> 00:24:18.760
+, right?
+
+00:24:18.760 --> 00:24:20.980
+If there's not bad content, it's not out there
+
+00:24:21.170 --> 00:24:21.240
+.
+
+00:24:21.240 --> 00:24:24.160
+And kind of the value to the community maybe isn't felt
+
+00:24:24.160 --> 00:24:26.900
+or what kinds of work is being done doesn't get seen
+
+00:24:26.900 --> 00:24:27.200
+.
+
+00:24:27.200 --> 00:24:30.080
+So transparency reports can be a way to do that, but
+
+00:24:30.080 --> 00:24:32.960
+they can be very kind of like pie graph, some numbers
+
+00:24:33.110 --> 00:24:34.600
+, a little abstract.
+
+00:24:34.600 --> 00:24:36.850
+Do you have any thoughts on kind of like how to communicate
+
+00:24:37.010 --> 00:24:38.980
+with the community, like the work that's being done or
+
+00:24:38.980 --> 00:24:41.150
+like, you know, involving people in the process can be
+
+00:24:41.150 --> 00:24:41.700
+part of that.
+
+00:24:41.780 --> 00:24:45.740
+Yeah, so one of the things that I think we do
+
+00:24:45.740 --> 00:24:49.340
+well is we do a lot of like blog posts and we
+
+00:24:49.480 --> 00:24:52.600
+do a lot of educational stuff.
+
+00:24:52.600 --> 00:24:54.890
+That's like one of the big parts of like my work
+
+00:24:55.010 --> 00:24:59.320
+in particular is providing like educational materials exactly about why we moderate
+
+00:24:59.320 --> 00:25:02.830
+a certain way, how many reports we're getting, really
+
+00:25:02.830 --> 00:25:07.020
+like talking about like the, like, which is important for
+
+00:25:07.020 --> 00:25:09.860
+a lot of the community members is like when you go to
+
+00:25:09.980 --> 00:25:14.650
+moderate something, what is the best way to explain what you
+
+00:25:14.920 --> 00:25:16.900
+'re, what, when you're going to report something,
+
+00:25:16.900 --> 00:25:18.620
+what is the best way to explain what you're reporting,
+
+00:25:18.620 --> 00:25:19.020
+right?
+
+00:25:19.020 --> 00:25:21.770
+What are the steps to take to make sure that the proper
+
+00:25:21.770 --> 00:25:22.980
+label is being put?
+
+00:25:22.980 --> 00:25:27.140
+And then also we do not make large decisions around moderation without
+
+00:25:27.140 --> 00:25:29.130
+going to the community first.
+
+00:25:29.140 --> 00:25:31.170
+And if you've been paying attention to the work we've
+
+00:25:31.170 --> 00:25:33.780
+been doing recently with Black Sky Only posts, like we're
+
+00:25:33.780 --> 00:25:37.160
+not going to move the needle if the community is like,
+
+00:25:37.160 --> 00:25:38.660
+please give us a moment.
+
+00:25:38.800 --> 00:25:39.800
+We need to think this through.
+
+00:25:39.800 --> 00:25:43.590
+And I think that that types of transparency makes it more accessible
+
+00:25:43.590 --> 00:25:44.250
+as well.
+
+00:25:44.260 --> 00:25:45.160
+Cause I definitely agree.
+
+00:25:45.160 --> 00:25:47.700
+Like the pie charts and things can be very confusing.
+
+00:25:47.700 --> 00:25:51.520
+So having other mediums of that knowledge base is helpful for
+
+00:25:51.590 --> 00:25:53.740
+all different types of community members.
+
+00:25:53.740 --> 00:25:57.210
+I had a question.
+
+00:25:57.940 --> 00:26:02.160
+You talked earlier about, um, making intentional choices and how
+
+00:26:02.240 --> 00:26:05.080
+you moderate and how context is important.
+
+00:26:05.080 --> 00:26:08.790
+Um, how do you balance the sense of urgency of moderation
+
+00:26:08.790 --> 00:26:13.520
+versus, uh, um, collective choice or, or maybe
+
+00:26:13.630 --> 00:26:15.960
+, uh, collective choice isn't the best word, but
+
+00:26:15.960 --> 00:26:18.140
+, uh, seeking, seeking, seeking the choice of other
+
+00:26:18.240 --> 00:26:20.610
+peers in this trust and safety space to, to make a
+
+00:26:20.610 --> 00:26:22.240
+choice together about something.
+
+00:26:22.240 --> 00:26:26.140
+Uh, cause I, I just wonder about how difficult it
+
+00:26:26.140 --> 00:26:28.800
+is to be, uh, how, how important it is
+
+00:26:28.800 --> 00:26:31.360
+to be immediately reactive versus more intentional.
+
+00:26:31.840 --> 00:26:36.000
+Yeah, so because we have, um, very detailed labels
+
+00:26:36.000 --> 00:26:39.230
+and our SFP is labeled, when we do get edge
+
+00:26:39.230 --> 00:26:41.300
+cases, they're very rare.
+
+00:26:41.540 --> 00:26:44.050
+So the way that we do it is like, we go
+
+00:26:44.160 --> 00:26:47.300
+to, yeah, we go to our chat and somebody will
+
+00:26:47.440 --> 00:26:51.120
+drop it in and ask for feedback and people will chime in
+
+00:26:51.120 --> 00:26:54.200
+on the feedback and then we'll move with the decision.
+
+00:26:54.200 --> 00:26:57.690
+Um, if something urgent comes in nine times out of 10
+
+00:26:57.690 --> 00:27:01.020
+, it is something that's already attached to a label,
+
+00:27:01.020 --> 00:27:01.760
+right?
+
+00:27:01.760 --> 00:27:04.140
+Um, edge cases are things that are like when we had
+
+00:27:04.180 --> 00:27:06.510
+the anti-black rhetoric thing, we were like, is
+
+00:27:06.510 --> 00:27:08.520
+that harassment or is that rhetoric?
+
+00:27:08.720 --> 00:27:11.420
+That is what those conversations look like.
+
+00:27:11.420 --> 00:27:14.370
+But if someone is doing something that is violent, there's
+
+00:27:14.610 --> 00:27:16.990
+not really a conversation that needs to be had.
+
+00:27:17.000 --> 00:27:18.820
+It's very like transparent and clear.
+
+00:27:18.820 --> 00:27:26.850
+As a person who has these particular intersecting identities and
+
+00:27:26.850 --> 00:27:32.360
+it's a sort of the work that I've thought about
+
+00:27:32.360 --> 00:27:35.000
+a lot, how do you deal with things like anti-
+
+00:27:35.090 --> 00:27:36.400
+fatness as anti-blackness?
+
+00:27:37.060 --> 00:27:39.570
+Like, where is that sitting today in the moderation that you
+
+00:27:39.680 --> 00:27:40.020
+'re doing?
+
+00:27:40.180 --> 00:27:42.640
+Yeah, so we are constantly working on new labels and that
+
+00:27:42.640 --> 00:27:43.690
+is one of the labels.
+
+00:27:43.720 --> 00:27:46.010
+But right now, like, just like when we were using
+
+00:27:46.140 --> 00:27:48.280
+just misogynoir and anti-black harassment, if
+
+00:27:48.280 --> 00:27:49.870
+you're being fat phobic to a black person, that
+
+00:27:49.970 --> 00:27:50.870
+'s anti-black rhetoric.
+
+00:27:50.920 --> 00:27:52.620
+Yeah.
+
+00:27:52.620 --> 00:27:53.760
+Yeah.
+
+00:27:53.760 --> 00:27:56.720
+But we are going to be adding more specific labels like text
+
+00:27:56.990 --> 00:27:59.920
+urism, colorism, Islamophobia, all those particular
+
+00:28:00.310 --> 00:28:00.880
+things.
+
+00:28:03.740 --> 00:28:04.510
+Hi, Dr.
+
+00:28:04.510 --> 00:28:04.900
+K.
+
+00:28:04.900 --> 00:28:08.990
+Just trying to empathize with or trying to put myself in
+
+00:28:09.040 --> 00:28:13.370
+the place of your team, how are you distributing the workload
+
+00:28:13.370 --> 00:28:16.200
+of moderating in a way that's equitable?
+
+00:28:17.600 --> 00:28:20.320
+And you mentioned some things are time-bound.
+
+00:28:20.320 --> 00:28:21.680
+But, yeah.
+
+00:28:21.680 --> 00:28:24.440
+So, oh, sorry.
+
+00:28:24.440 --> 00:28:25.200
+I got stuff to think.
+
+00:28:25.200 --> 00:28:30.700
+So, our volunteer moderators are not required to moderate,
+
+00:28:30.700 --> 00:28:36.580
+which means that a lot of the maybe access moderation does fall
+
+00:28:36.580 --> 00:28:38.800
+on, like, JD and I.
+
+00:28:38.940 --> 00:28:42.300
+Mainly JD at this point, but we are bringing on new
+
+00:28:42.300 --> 00:28:46.940
+volunteer moderators and we are looking into possibly building out a
+
+00:28:46.940 --> 00:28:48.700
+peer-to-peer moderation.
+
+00:28:48.960 --> 00:28:52.860
+So, we are able to distribute it more evenly.
+
+00:28:52.860 --> 00:28:56.370
+But because it's volunteer moderation, we do not require anyone
+
+00:28:56.470 --> 00:28:57.300
+to moderate.
+
+00:28:57.300 --> 00:28:59.720
+Like, they can jump in and out whenever they want because
+
+00:28:59.730 --> 00:29:01.950
+that's what, like, safety looks like in that space
+
+00:29:01.950 --> 00:29:02.140
+.
+
+00:29:03.540 --> 00:29:05.400
+Well, we've got just a few moments left, so
+
+00:29:05.400 --> 00:29:06.910
+let's do one more thank you for Dr.
+
+00:29:06.910 --> 00:29:07.250
+K.
+
+00:29:07.260 --> 00:29:10.660
+Thank you.

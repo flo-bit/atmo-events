@@ -1,0 +1,2884 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.840
+So yeah, while Matt and Rowan are setting up here
+
+00:00:03.840 --> 00:00:07.840
+, I just want to introduce them.
+
+00:00:07.840 --> 00:00:09.990
+Because it's not every day that you get to see people
+
+00:00:09.990 --> 00:00:12.640
+visiting from the future, but you're about to see that
+
+00:00:12.640 --> 00:00:14.180
+happen right now.
+
+00:00:14.180 --> 00:00:16.920
+We're very fortunate to be visited by some researchers who are
+
+00:00:16.920 --> 00:00:20.270
+coming to tell us about the future of science publishing and communication
+
+00:00:20.270 --> 00:00:21.130
+from the future.
+
+00:00:21.160 --> 00:00:23.500
+It's a special day today.
+
+00:00:23.500 --> 00:00:26.170
+Rowan is the CEO and founder of Curvenote,
+
+00:00:26.170 --> 00:00:32.830
+where he leads the development of tools designed to free scientific communication
+
+00:00:32.940 --> 00:00:34.280
+from PDFs.
+
+00:00:34.280 --> 00:00:37.390
+Rowan is also the founder of the Continuous Science Foundation
+
+00:00:37.480 --> 00:00:40.420
+, a non-profit organization for the next generation of science
+
+00:00:40.420 --> 00:00:41.240
+communication.
+
+00:00:41.240 --> 00:00:45.020
+CSF is developing standards to support a more continuous and compos
+
+00:00:45.030 --> 00:00:46.520
+able model of science.
+
+00:00:46.520 --> 00:00:48.380
+Rowan is also visiting his alma mater today.
+
+00:00:48.380 --> 00:00:50.640
+He has a PhD from UBC in geophysics,
+
+00:00:50.640 --> 00:00:55.500
+computational geophysics, and has received multiple awards for innovative
+
+00:00:55.500 --> 00:00:59.360
+research dissemination and open education resources, including visible geology,
+
+00:00:59.360 --> 00:01:03.660
+and interactive geoscience modeling application used by over 1 million
+
+00:01:03.660 --> 00:01:03.660
+students globally.
+
+00:01:03.660 --> 00:01:08.590
+Matt Akamatsu is an assistant professor of biology at the
+
+00:01:08.590 --> 00:01:09.420
+University of Washington in Seattle.
+
+00:01:09.420 --> 00:01:11.910
+He's also the co-founder of the Discourse Graph
+
+00:01:11.910 --> 00:01:16.260
+s Project, supported by the Chan Zuckerberg Initiative and Nav
+
+00:01:16.260 --> 00:01:17.660
+igation Fund.
+
+00:01:17.660 --> 00:01:20.830
+They're creating systems and software tools for modular research in the
+
+00:01:20.830 --> 00:01:21.410
+age of AI.
+
+00:01:21.420 --> 00:01:24.850
+Matt Akamatsu is a recipient of the 2020 Porter Prize
+
+00:01:24.850 --> 00:01:29.570
+for Research Excellence from the American Society of Cell Biology, the
+
+00:01:29.610 --> 00:01:33.240
+K99 Pathway to Independence Award, and the Experimental
+
+00:01:33.240 --> 00:01:35.290
+Foundations Beyond the Journal Award.
+
+00:01:35.320 --> 00:01:38.610
+Matt Akamatsu received his PhD in biophysics at
+
+00:01:38.610 --> 00:01:42.420
+Yale, did postdoc at Berkeley, and started at IS
+
+00:01:42.420 --> 00:01:43.860
+LAB in UW.
+
+00:01:43.860 --> 00:01:44.860
+Take it away, guys.
+
+00:01:44.870 --> 00:01:46.860
+Matt Akamatsu: Excellent.
+
+00:01:46.870 --> 00:01:49.860
+Thank you so much.
+
+00:01:49.860 --> 00:01:55.380
+I'm absolutely thrilled and excited to talk to you today about
+
+00:01:55.380 --> 00:01:59.990
+the movement towards modular open science and some of the work that
+
+00:01:59.990 --> 00:02:03.250
+we're doing at Continuous Science Foundation and Curb Note
+
+00:02:03.320 --> 00:02:05.340
+towards these goals.
+
+00:02:05.340 --> 00:02:08.790
+And so today, science is trapped in this sort of paper
+
+00:02:08.900 --> 00:02:09.960
+-shaped box.
+
+00:02:09.980 --> 00:02:14.660
+We're communicating our discoveries using print-era concepts that const
+
+00:02:14.660 --> 00:02:19.110
+rain the way that we communicate, evaluate, and ultimately build
+
+00:02:19.110 --> 00:02:22.340
+towards scientific knowledge and progress.
+
+00:02:22.340 --> 00:02:26.860
+But the science that's being produced has changed so massively with
+
+00:02:26.900 --> 00:02:32.560
+larger data sets, larger scale collaborations, continuous sharing of computational
+
+00:02:32.560 --> 00:02:34.240
+notebooks and graphs.
+
+00:02:34.240 --> 00:02:39.240
+The way that we communicate science has really not kept up to
+
+00:02:39.240 --> 00:02:40.460
+that change.
+
+00:02:40.560 --> 00:02:45.560
+Our mission at the Continuous Science Foundation is to help move
+
+00:02:45.560 --> 00:02:50.340
+the open science movement from sort of the sole focus on reading
+
+00:02:50.340 --> 00:02:54.700
+and access, the open access movement, to a future that
+
+00:02:54.700 --> 00:02:58.970
+'s more focused on utility and reuse that's built on these
+
+00:02:58.980 --> 00:03:05.530
+same foundations of openness and designed for modern discovery patterns, where
+
+00:03:05.530 --> 00:03:09.620
+the code, data, protocols, methods are available.
+
+00:03:09.620 --> 00:03:10.620
+They're interconnected.
+
+00:03:10.620 --> 00:03:11.820
+They're modular.
+
+00:03:11.820 --> 00:03:16.580
+They can be composed together through remixing and sort of importing
+
+00:03:16.680 --> 00:03:18.460
+somebody else's work.
+
+00:03:18.460 --> 00:03:21.910
+And that really is the ethos of science, is building
+
+00:03:22.010 --> 00:03:25.560
+upon other people's work, is standing on the shoulders of
+
+00:03:25.870 --> 00:03:28.620
+giants.
+
+00:03:28.620 --> 00:03:32.580
+There's an illusion published by Louis Albert Necker in 18
+
+00:03:32.580 --> 00:03:33.300
+32.
+
+00:03:33.300 --> 00:03:34.880
+He was a crystallographer.
+
+00:03:34.900 --> 00:03:36.700
+And this is the Necker cube.
+
+00:03:36.700 --> 00:03:39.340
+And it's 12 lines on a page.
+
+00:03:39.340 --> 00:03:42.090
+But if you stare at the bottom, the left sort of
+
+00:03:42.090 --> 00:03:45.130
+side pops out and it changes and it flips orientation.
+
+00:03:45.180 --> 00:03:47.860
+If you look at the top, again, there's this
+
+00:03:47.860 --> 00:03:49.460
+perceptual reversal.
+
+00:03:49.500 --> 00:03:55.570
+It has the same underlying data, but different interpretations, different
+
+00:03:55.570 --> 00:03:59.340
+stories that you can tell about fitting those data points together.
+
+00:03:59.340 --> 00:04:03.210
+And this is the way that I like to think about modular
+
+00:04:03.210 --> 00:04:08.940
+science, is we have these Lego bricks, these modules of
+
+00:04:08.940 --> 00:04:11.380
+science, the components, the figures, the equations, the
+
+00:04:11.380 --> 00:04:14.280
+data sets, the scripts, the visualization routines, those protocols
+
+00:04:14.280 --> 00:04:17.110
+, questions, claims, evidence, and they're in these
+
+00:04:17.210 --> 00:04:18.700
+different spaces.
+
+00:04:18.700 --> 00:04:21.250
+They can live on the floor, scattered.
+
+00:04:21.260 --> 00:04:25.230
+They can be sorted into buckets or assembled on a shelf as
+
+00:04:25.230 --> 00:04:27.340
+sort of a published paper.
+
+00:04:27.340 --> 00:04:33.110
+And so the assembly into a paper, it tells a story
+
+00:04:33.110 --> 00:04:33.420
+.
+
+00:04:33.500 --> 00:04:36.380
+It's that narrative that introduces a new concept.
+
+00:04:36.380 --> 00:04:37.880
+It changes minds.
+
+00:04:37.900 --> 00:04:41.830
+The components of scientific discourse are bundled together into that sort
+
+00:04:41.830 --> 00:04:44.610
+of narrative, that traditional way of publishing.
+
+00:04:44.620 --> 00:04:48.620
+This composed artifact, that paper, that story.
+
+00:04:48.630 --> 00:04:56.700
+But our scientific ways, our sharing industry, and the standards
+
+00:04:56.770 --> 00:05:00.400
+today, they demand that you sort of glue that trophy together
+
+00:05:00.400 --> 00:05:01.740
+when you share it.
+
+00:05:01.740 --> 00:05:05.520
+That eight page paper with its four sort of paneled figures
+
+00:05:05.530 --> 00:05:07.260
+, a zip file supplement.
+
+00:05:07.260 --> 00:05:08.840
+It's all fused together.
+
+00:05:08.860 --> 00:05:11.970
+And if you want to reuse a figure or a data set
+
+00:05:11.970 --> 00:05:14.380
+, you have to sort of chisel out that figure.
+
+00:05:14.380 --> 00:05:16.910
+You have to take a screenshot of it, copy that data
+
+00:05:16.910 --> 00:05:17.260
+set.
+
+00:05:17.260 --> 00:05:19.420
+And as soon as you take it out of that piece of
+
+00:05:19.420 --> 00:05:22.620
+paper, that figure gets amnesia.
+
+00:05:22.620 --> 00:05:26.180
+It sort of forgets all about its attribution, its
+
+00:05:26.180 --> 00:05:27.160
+trust, its licensing.
+
+00:05:27.180 --> 00:05:28.680
+It loses its context.
+
+00:05:28.700 --> 00:05:31.980
+It loses like that license and that credit behind it.
+
+00:05:31.980 --> 00:05:35.710
+All of that rich metadata that sort of our scientific commons
+
+00:05:35.710 --> 00:05:37.500
+are designed to support.
+
+00:05:37.500 --> 00:05:42.860
+And so these were really the challenges that prompted the first wave
+
+00:05:42.860 --> 00:05:44.010
+of modular science.
+
+00:05:44.060 --> 00:05:48.140
+Many people recognize that it's not enough to share an advertisement
+
+00:05:48.140 --> 00:05:49.640
+of your experiment.
+
+00:05:49.660 --> 00:05:53.110
+You should share the data and the methods and the code underlying
+
+00:05:53.220 --> 00:05:53.580
+it.
+
+00:05:55.020 --> 00:06:00.060
+And so the prescription in 2010 was for modular science.
+
+00:06:00.060 --> 00:06:00.860
+It was pretty simple.
+
+00:06:00.860 --> 00:06:04.140
+You just break it into pieces and you put it into buckets
+
+00:06:04.140 --> 00:06:04.140
+.
+
+00:06:04.140 --> 00:06:09.900
+And you put it in the appropriate repository for that component.
+
+00:06:09.900 --> 00:06:10.820
+So protocols.
+
+00:06:10.820 --> 00:06:12.380
+io, you share your protocols.
+
+00:06:12.380 --> 00:06:13.500
+Figures go to fig share.
+
+00:06:13.500 --> 00:06:16.780
+Software heritage is the place that you share your code.
+
+00:06:16.780 --> 00:06:20.860
+A specialized data repository for genomics or microscopy data.
+
+00:06:20.860 --> 00:06:23.380
+And Zenodo can sort of take up all of the rest
+
+00:06:23.380 --> 00:06:23.660
+.
+
+00:06:24.620 --> 00:06:28.060
+And so these are the buckets of modular science.
+
+00:06:28.060 --> 00:06:32.340
+The digital repositories for archiving, tagging, organizing
+
+00:06:32.340 --> 00:06:34.860
+your data, protocols, code, and figures.
+
+00:06:34.860 --> 00:06:39.140
+And they really are actually excellent buckets.
+
+00:06:39.180 --> 00:06:41.900
+They exist fit for purpose for science.
+
+00:06:41.900 --> 00:06:45.900
+But they're largely designed for after the work is done.
+
+00:06:45.900 --> 00:06:48.450
+When you're starting to organize it, package it up,
+
+00:06:48.460 --> 00:06:50.110
+and put it in these places.
+
+00:06:50.140 --> 00:06:53.980
+So tidying up your workspace, putting the blocks away,
+
+00:06:53.980 --> 00:06:57.890
+and sort of pointing them from your glued together trophy on a
+
+00:06:57.890 --> 00:06:58.300
+shelf.
+
+00:06:58.300 --> 00:07:01.410
+And they're structured.
+
+00:07:01.500 --> 00:07:02.300
+They're organized.
+
+00:07:02.300 --> 00:07:05.410
+They strive to be these sort of tidy, curated spaces.
+
+00:07:05.420 --> 00:07:08.110
+And you fill out your intake form, specify your authors,
+
+00:07:08.110 --> 00:07:10.370
+license, description, your ORCID, your ROAR
+
+00:07:10.370 --> 00:07:10.850
+, your funders.
+
+00:07:10.860 --> 00:07:12.440
+All of these references.
+
+00:07:12.460 --> 00:07:16.620
+And it's really a very high bar to share work.
+
+00:07:16.620 --> 00:07:22.410
+And if you have some visualization code or a scratch script that
+
+00:07:22.490 --> 00:07:26.650
+you really know is the secret of how your work hangs together
+
+00:07:26.650 --> 00:07:32.620
+, it's like the bar for sharing that is so high
+
+00:07:32.620 --> 00:07:33.180
+.
+
+00:07:33.180 --> 00:07:35.500
+So all of those small things sort of get lost.
+
+00:07:35.500 --> 00:07:39.700
+They don't fit together on the shelf with that glued together
+
+00:07:39.730 --> 00:07:40.540
+trophy.
+
+00:07:40.540 --> 00:07:44.820
+And they don't really amount to enough to justify the investments
+
+00:07:44.900 --> 00:07:47.340
+to sort of formally request bucket status.
+
+00:07:47.340 --> 00:07:52.860
+And that's the aggregation of all of these small components
+
+00:07:52.860 --> 00:07:55.740
+of sort of the workflows and scripts of science fitting together.
+
+00:07:55.740 --> 00:07:59.190
+That's where the tacit knowledge of science lives of all
+
+00:07:59.290 --> 00:08:03.380
+of those workflow scripts of saying, yeah, I've seen
+
+00:08:03.380 --> 00:08:04.140
+that before.
+
+00:08:04.140 --> 00:08:06.460
+I'll grab you the notebook or I'll grab you that
+
+00:08:06.460 --> 00:08:08.760
+script or I've seen that last year and that's a
+
+00:08:08.760 --> 00:08:09.240
+dead end.
+
+00:08:09.260 --> 00:08:14.620
+And so these buckets are sort of both that very high bar
+
+00:08:14.620 --> 00:08:18.380
+and they're not fully aligned with science and with research,
+
+00:08:18.380 --> 00:08:24.050
+which is often much more much less structured than sort of the
+
+00:08:24.050 --> 00:08:26.800
+scientific method like laid out on a piece of paper step by
+
+00:08:26.800 --> 00:08:27.100
+step.
+
+00:08:27.100 --> 00:08:28.590
+That's that's how it works.
+
+00:08:28.620 --> 00:08:30.890
+It's much more fluid, much more serendipitous
+
+00:08:30.890 --> 00:08:31.100
+.
+
+00:08:31.100 --> 00:08:34.460
+You need to access all of the pieces to build new things
+
+00:08:34.460 --> 00:08:37.340
+and you sort of dump the buckets out onto the floor.
+
+00:08:37.340 --> 00:08:41.730
+And this this is the space to build, to experiment,
+
+00:08:41.730 --> 00:08:45.020
+to support that sort of serendipity of science.
+
+00:08:45.020 --> 00:08:49.180
+Maybe the equivalent of sort of leaving of that Petri dish
+
+00:08:49.180 --> 00:08:52.700
+out and Fleming discovering penicillin in 1928
+
+00:08:52.700 --> 00:08:52.700
+.
+
+00:08:52.700 --> 00:08:57.560
+Or maybe you have like slightly better lab hygiene protocols and setups
+
+00:08:57.560 --> 00:09:01.340
+and software so that you don't step on the pieces of
+
+00:09:01.340 --> 00:09:04.770
+Lego on the floor, but sort of have that goal to
+
+00:09:04.830 --> 00:09:10.440
+access those pieces readily and build them and put them together so
+
+00:09:10.490 --> 00:09:14.050
+that you can pull data from someone's lab in Tokyo,
+
+00:09:14.060 --> 00:09:17.930
+pull a protocol from Germany and remix them with your ideas to
+
+00:09:17.930 --> 00:09:21.270
+build something new, to learn something new, to discover something
+
+00:09:21.370 --> 00:09:21.820
+new.
+
+00:09:21.820 --> 00:09:28.680
+And so these these are the the three states of scientific components
+
+00:09:28.680 --> 00:09:29.820
+and modularity.
+
+00:09:29.820 --> 00:09:32.160
+They're on the floor, that chaos, that serend
+
+00:09:32.160 --> 00:09:35.240
+ipity, that remixing in the buckets organized by types
+
+00:09:35.240 --> 00:09:38.450
+, protocols, data, repositories, that's that first
+
+00:09:38.450 --> 00:09:41.580
+wave of modular science that was really tackling that problem.
+
+00:09:41.580 --> 00:09:45.550
+Or they're on the shelf, that composed artifact, that
+
+00:09:45.570 --> 00:09:46.620
+paper, that story.
+
+00:09:46.620 --> 00:09:50.070
+And all of these are are right.
+
+00:09:50.170 --> 00:09:51.010
+They're they're correct.
+
+00:09:51.020 --> 00:09:54.470
+They're like good ways that are fit for purpose for that
+
+00:09:54.570 --> 00:09:54.860
+task.
+
+00:09:55.420 --> 00:09:57.880
+And they're sort of that different side of that necr
+
+00:09:57.880 --> 00:10:01.520
+acube, that that illusion that flips and pops in and
+
+00:10:01.560 --> 00:10:05.790
+out for that right time that you need it for teaching or
+
+00:10:05.790 --> 00:10:08.460
+learning or discovering or building.
+
+00:10:08.460 --> 00:10:14.570
+And so I think this this is what the next wave of
+
+00:10:14.850 --> 00:10:19.520
+modular science is about, is not just sort of breaking it
+
+00:10:19.520 --> 00:10:23.660
+apart to share, which is sort of somewhat unnatural, especially
+
+00:10:23.660 --> 00:10:26.980
+if you have these sort of smaller artifacts that don't fit
+
+00:10:26.980 --> 00:10:30.830
+on a shelf sort of behind that trophy, is thinking about
+
+00:10:30.900 --> 00:10:35.220
+those sort of aggregate components that that are the connective space
+
+00:10:35.220 --> 00:10:36.540
+of science.
+
+00:10:36.550 --> 00:10:39.870
+And sharing those, there's such a high bar for for
+
+00:10:39.870 --> 00:10:43.100
+sharing those in in this sort of first wave.
+
+00:10:43.100 --> 00:10:47.670
+And it ends in this sort of disconnection, this constellation
+
+00:10:47.670 --> 00:10:51.180
+of research artifacts, where you have to tell a fable
+
+00:10:51.180 --> 00:10:55.510
+to imagine how it's all connected together, instead of actually
+
+00:10:55.510 --> 00:10:57.010
+connecting it together.
+
+00:10:57.020 --> 00:11:02.730
+And the second wave of modular science is about improving that packaging
+
+00:11:02.730 --> 00:11:06.710
+experience, working with the researcher as they're on the floor
+
+00:11:06.710 --> 00:11:09.760
+, as they're building, that is where the modularity
+
+00:11:09.760 --> 00:11:10.430
+emerges.
+
+00:11:10.430 --> 00:11:13.970
+You don't write a manuscript top to bottom 10,000
+
+00:11:13.980 --> 00:11:17.360
+unbroken words, one after another, with perfect figures,
+
+00:11:17.360 --> 00:11:20.540
+you iterate on the figures, you iterate one panel at a
+
+00:11:20.540 --> 00:11:23.750
+time, one script at a time, asking for feedback in
+
+00:11:23.750 --> 00:11:28.200
+this sort of modular composable way with with collaborators, and
+
+00:11:28.220 --> 00:11:30.960
+building up from that modular work.
+
+00:11:30.980 --> 00:11:35.940
+And it's a connected graph of discourse or computational narratives,
+
+00:11:35.940 --> 00:11:39.580
+supported by modern tooling like Obsidian or Mist Markdown,
+
+00:11:39.580 --> 00:11:43.400
+that can define the context of that data and how it travels
+
+00:11:43.400 --> 00:11:44.250
+together.
+
+00:11:44.250 --> 00:11:47.590
+And the result of all of this is sort of this multiplic
+
+00:11:47.590 --> 00:11:51.480
+ative additive compounding effect of how these things come together.
+
+00:11:54.380 --> 00:11:58.720
+And so I think it's also not worth losing sight of
+
+00:11:58.740 --> 00:12:03.290
+the end goal of this is actually to tell some of these
+
+00:12:03.320 --> 00:12:04.250
+new stories.
+
+00:12:04.250 --> 00:12:07.140
+These compositions are the point of science.
+
+00:12:07.150 --> 00:12:10.760
+And maybe we should aspirationally have these less be less like
+
+00:12:10.820 --> 00:12:14.370
+trophies on a shelf behind glass, but shared a little
+
+00:12:14.380 --> 00:12:17.400
+bit more continuously a little bit earlier.
+
+00:12:17.410 --> 00:12:21.620
+And here there's like this meta study that is crying out
+
+00:12:21.630 --> 00:12:25.590
+from here of how teapots are associated with the Lego
+
+00:12:25.600 --> 00:12:28.550
+bricks on the shelf that you actually want to pull these out
+
+00:12:28.550 --> 00:12:30.780
+and put them together and try something new.
+
+00:12:30.780 --> 00:12:37.490
+And so that that is like a very different thought of modular
+
+00:12:37.490 --> 00:12:39.900
+science than this first wave.
+
+00:12:39.900 --> 00:12:43.230
+So instead of thinking about the figures off on their own,
+
+00:12:43.260 --> 00:12:47.440
+we're thinking about the structure of these artifacts inside.
+
+00:12:47.440 --> 00:12:51.340
+So not import figure, but import figure from a paper.
+
+00:12:51.340 --> 00:12:54.440
+And that can compose all the way down so that you can
+
+00:12:54.460 --> 00:12:58.990
+get inside of these artifacts and bring modularity with you as
+
+00:12:59.070 --> 00:13:01.180
+it's traveling throughout the ecosystem.
+
+00:13:05.260 --> 00:13:08.020
+And so I, I just want to give a flavor of
+
+00:13:08.020 --> 00:13:11.840
+sort of the syntax of how we're thinking about, about
+
+00:13:11.880 --> 00:13:15.260
+modular science in this second wave.
+
+00:13:15.260 --> 00:13:18.140
+And it really does, I think the Lego metaphor works well
+
+00:13:18.140 --> 00:13:22.710
+here because it does have these specific ways that science fits together
+
+00:13:22.730 --> 00:13:22.950
+.
+
+00:13:22.950 --> 00:13:26.620
+This is the schemas and the standards and the pieces behind
+
+00:13:26.620 --> 00:13:30.670
+research of how they click together that you can make very different
+
+00:13:30.860 --> 00:13:31.580
+things.
+
+00:13:31.580 --> 00:13:33.500
+And there isn't glue here.
+
+00:13:33.500 --> 00:13:36.780
+You're also able to take them apart and put them into
+
+00:13:36.780 --> 00:13:38.460
+different compositions.
+
+00:13:38.460 --> 00:13:42.880
+And that is the goal of the project out of the Contin
+
+00:13:42.880 --> 00:13:48.480
+uous Science Foundation called Open Exchange Architecture, OXA or
+
+00:13:48.480 --> 00:13:49.180
+OXA.
+
+00:13:49.180 --> 00:13:54.050
+They are new standards for modular and composable scientific content.
+
+00:13:54.070 --> 00:13:56.330
+And you can learn more about that at OXA.
+
+00:13:56.330 --> 00:13:57.320
+dev.
+
+00:13:57.320 --> 00:14:02.830
+And this is a large project that's bringing together a lot
+
+00:14:02.940 --> 00:14:07.740
+of existing players in the scientific ecosystem, all the way from
+
+00:14:07.750 --> 00:14:11.500
+authoring tools like Korto or Mist Markdown that
+
+00:14:11.500 --> 00:14:15.300
+people might have started to use to publishers like eLife for
+
+00:14:15.310 --> 00:14:19.340
+traditional manuscripts or Open Archive for preprints, as well
+
+00:14:19.340 --> 00:14:23.500
+as licensing organizations like Creative Commons who are involved in sort of
+
+00:14:23.500 --> 00:14:28.270
+bringing all of these together into a modern computational, complete modular
+
+00:14:28.270 --> 00:14:32.860
+and composable format that can actually support our scientific narratives.
+
+00:14:32.860 --> 00:14:37.990
+And so some of the principles that we have for OX
+
+00:14:38.000 --> 00:14:39.900
+A is, of course, it's open.
+
+00:14:39.900 --> 00:14:43.180
+It's a JSON schema-based representation.
+
+00:14:43.180 --> 00:14:47.730
+It's a tree-based representation of the scientific content specifically
+
+00:14:47.730 --> 00:14:47.920
+.
+
+00:14:47.920 --> 00:14:50.940
+And so this is anything from the paragraph, citations,
+
+00:14:50.940 --> 00:14:52.950
+figures, equations, or code.
+
+00:14:52.950 --> 00:14:56.220
+It is extensible to these sort of new types of data
+
+00:14:56.230 --> 00:14:59.470
+, composable so that you can bring one person's work
+
+00:14:59.470 --> 00:15:02.930
+and compose it inside of yours, typed down, very similar
+
+00:15:02.930 --> 00:15:06.010
+to the sort of the at proto schemas, and thinking
+
+00:15:06.010 --> 00:15:09.090
+about that interoperability modularity.
+
+00:15:09.090 --> 00:15:13.950
+And throughout all of this, really thinking about the computation as
+
+00:15:13.950 --> 00:15:17.400
+a first class citizen within this schema itself.
+
+00:15:17.420 --> 00:15:22.870
+It's also going through, we're thinking at this stage
+
+00:15:22.880 --> 00:15:26.050
+a lot about the governance and how we're actually building this
+
+00:15:26.050 --> 00:15:26.360
+up.
+
+00:15:26.360 --> 00:15:29.230
+And so there's an RFC process that actually goes through
+
+00:15:29.280 --> 00:15:32.440
+and we're beginning this movement, I think, in the
+
+00:15:32.440 --> 00:15:35.580
+right way from that perspective, so that we're actually building
+
+00:15:35.580 --> 00:15:38.300
+this up and being fit for purpose all the way through.
+
+00:15:38.300 --> 00:15:43.340
+And it also, of course, has an at proto recognition
+
+00:15:43.340 --> 00:15:44.120
+on that.
+
+00:15:44.120 --> 00:15:49.430
+So you can transfer out of this much more schema, sorry
+
+00:15:49.430 --> 00:15:52.320
+, tree-based schema, which is sort of the native
+
+00:15:52.320 --> 00:15:55.390
+representation of OXA, to something that's a little
+
+00:15:55.390 --> 00:15:58.750
+closer to what at proto works with, which is a fac
+
+00:15:58.750 --> 00:16:01.970
+et-based piece where you can actually have some of those
+
+00:16:01.980 --> 00:16:06.140
+annotations, which might be a citation or an additional abbrevi
+
+00:16:06.140 --> 00:16:10.390
+ation or something that is deeply nested inside of this schema
+
+00:16:10.390 --> 00:16:13.720
+, but can be distributed from sort of a social perspective.
+
+00:16:13.720 --> 00:16:16.540
+And so there's a lot of thought going in here.
+
+00:16:16.540 --> 00:16:18.620
+And this is definitely early stages.
+
+00:16:18.620 --> 00:16:22.380
+And so we're inviting a lot of people to come,
+
+00:16:22.380 --> 00:16:25.480
+be involved in sort of the definition of the schema as it
+
+00:16:25.480 --> 00:16:26.660
+starts to exist.
+
+00:16:26.660 --> 00:16:31.380
+And I want to just give a couple different flavors with my
+
+00:16:31.440 --> 00:16:34.240
+Curvenote hat on about some of the case studies that
+
+00:16:34.260 --> 00:16:37.340
+we're bringing to bear with these ideas.
+
+00:16:37.340 --> 00:16:41.880
+And so this Elemental Microscopy is a journal that
+
+00:16:41.880 --> 00:16:44.830
+we're working with that's trying to do something a little
+
+00:16:44.830 --> 00:16:48.840
+bit more exciting than just sort of a picture on a page
+
+00:16:48.880 --> 00:16:52.740
+with a blowout of that sort of one and a half
+
+00:16:52.790 --> 00:16:56.750
+terabytes of data is you should actually be able, similar
+
+00:16:56.750 --> 00:17:00.370
+to Google Maps, to just like zoom into it directly as
+
+00:17:00.370 --> 00:17:03.580
+you're reading, is we have all of these sorts of
+
+00:17:03.580 --> 00:17:05.810
+visuals out there already.
+
+00:17:05.810 --> 00:17:08.170
+Scientists are using them in their day-to-day work
+
+00:17:08.170 --> 00:17:08.330
+.
+
+00:17:08.330 --> 00:17:11.340
+So we should be able to compose those into the ways that
+
+00:17:11.340 --> 00:17:13.070
+we are sharing science.
+
+00:17:13.070 --> 00:17:16.460
+And this is speaking to that modularity as well.
+
+00:17:16.460 --> 00:17:19.800
+That one and a half terabytes doesn't live inside of
+
+00:17:19.800 --> 00:17:20.530
+the paper.
+
+00:17:20.530 --> 00:17:23.960
+It does live in its appropriate bucket, but it can be
+
+00:17:23.960 --> 00:17:28.530
+composed into the way that we share and read and communicate science
+
+00:17:28.530 --> 00:17:28.780
+.
+
+00:17:28.780 --> 00:17:32.720
+So thinking about not a constellation of research objects that we're
+
+00:17:32.720 --> 00:17:35.760
+sort of painting the stars, but actually showing you how it
+
+00:17:35.760 --> 00:17:36.620
+all fits together.
+
+00:17:41.020 --> 00:17:44.700
+The other project that's one of the other projects that Cur
+
+00:17:44.700 --> 00:17:48.090
+venote is working on is a partnership with Open Archive
+
+00:17:48.090 --> 00:17:48.320
+.
+
+00:17:48.320 --> 00:17:52.360
+Open Archive is the parent organization around Bio Archive and
+
+00:17:52.360 --> 00:17:56.570
+Med Archive, which are the largest biomedical preprint servers
+
+00:17:56.570 --> 00:17:56.820
+.
+
+00:17:56.850 --> 00:17:59.890
+And we are currently reprocessing 8.
+
+00:18:00.020 --> 00:18:04.220
+1 terabytes of articles to this new format.
+
+00:18:04.220 --> 00:18:06.620
+And so this is something that's ongoing right now.
+
+00:18:06.620 --> 00:18:09.260
+There's about half a million preprints that are coming together
+
+00:18:09.260 --> 00:18:09.260
+.
+
+00:18:09.270 --> 00:18:15.720
+And this is going to support more exciting reading experiences where you
+
+00:18:15.720 --> 00:18:18.360
+can hover over a figure and bring that in.
+
+00:18:18.360 --> 00:18:20.060
+You can dive into that right away.
+
+00:18:20.060 --> 00:18:24.440
+And so this is within the context of a single article that
+
+00:18:24.440 --> 00:18:28.770
+you can bring that modular piece to bear in the context and
+
+00:18:28.770 --> 00:18:31.570
+bring that sort of forward in your way of working.
+
+00:18:31.570 --> 00:18:40.340
+But that also should be able to exist across
+
+00:18:40.340 --> 00:18:41.640
+research articles.
+
+00:18:41.680 --> 00:18:44.850
+And so some research articles, if you hover over them,
+
+00:18:44.860 --> 00:18:47.320
+are closed access and they're not that exciting.
+
+00:18:47.340 --> 00:18:49.860
+But if they're open access or a preprint, you
+
+00:18:49.860 --> 00:18:53.140
+should be able to bring the figure from that to bear right
+
+00:18:53.140 --> 00:18:54.380
+as you're reading.
+
+00:18:54.400 --> 00:18:58.470
+And so really thinking again about this sort of modular composable
+
+00:18:58.470 --> 00:19:02.940
+way of working that really can improve both the reading experience of
+
+00:19:02.940 --> 00:19:03.900
+a researcher.
+
+00:19:03.900 --> 00:19:07.650
+Like if if you have a reference that says see figure three
+
+00:19:07.660 --> 00:19:11.240
+in someone at all, like you have to scroll to the
+
+00:19:11.260 --> 00:19:13.500
+bottom of the page, download the PDF, jump through a
+
+00:19:13.500 --> 00:19:16.280
+paywall, bring it up in your reference manager, scroll
+
+00:19:16.280 --> 00:19:20.610
+to page 50 and actually get the the figure there.
+
+00:19:20.620 --> 00:19:23.410
+And by the time you've got there, you've lost
+
+00:19:23.420 --> 00:19:26.870
+all of your context and machines often can't follow all of
+
+00:19:26.970 --> 00:19:29.210
+that work either.
+
+00:19:29.250 --> 00:19:33.330
+And so this, this I think is thinking about that sort
+
+00:19:33.330 --> 00:19:36.620
+of next wave of modular science, both from the user experience
+
+00:19:36.710 --> 00:19:40.480
+standpoint, the schemas that are supporting it, as well
+
+00:19:40.480 --> 00:19:44.200
+as the ways that sort of the community can get involved throughout
+
+00:19:44.200 --> 00:19:44.380
+.
+
+00:19:44.380 --> 00:19:51.150
+And so not thinking about trophies on a shelf that are
+
+00:19:51.150 --> 00:19:54.130
+glued together, but pieces that you can take.
+
+00:19:54.130 --> 00:19:59.650
+And those are a starting point for the next analysis, lowering
+
+00:19:59.670 --> 00:20:03.820
+the barrier to entry for inclusion in these buckets that you can
+
+00:20:03.820 --> 00:20:07.520
+maybe package these up with the pieces that you are sharing and
+
+00:20:07.520 --> 00:20:10.460
+still be indexed in, in these different ways, as
+
+00:20:10.470 --> 00:20:14.990
+well as supporting researchers as they're working on the floor with
+
+00:20:14.990 --> 00:20:19.450
+better tooling, better graph based waves of working better computational notebooks
+
+00:20:19.450 --> 00:20:23.590
+that actually support the organization and communication of all of these results
+
+00:20:23.590 --> 00:20:23.730
+.
+
+00:20:23.740 --> 00:20:27.680
+And so that is, I think the way this new wave
+
+00:20:27.680 --> 00:20:32.010
+of modular science is not saying one of these ways of working
+
+00:20:32.020 --> 00:20:35.140
+is better than the other, but it's flipping that perspective
+
+00:20:35.170 --> 00:20:39.370
+back and forth between all of these different ways of working all
+
+00:20:39.370 --> 00:20:39.800
+at once.
+
+00:20:39.820 --> 00:20:45.900
+And so I think the other really exciting piece that was talked
+
+00:20:45.900 --> 00:20:49.290
+about at the start as well is this is our time.
+
+00:20:49.290 --> 00:20:52.860
+This is our semblance of this space and there is so
+
+00:20:52.860 --> 00:20:56.820
+much going on that we can actually affect massive change in the
+
+00:20:56.820 --> 00:20:58.380
+way that science is done.
+
+00:20:58.380 --> 00:21:00.940
+So I am Groen Cockett.
+
+00:21:00.940 --> 00:21:02.520
+I'm the CEO of Curvenote and also one of
+
+00:21:02.540 --> 00:21:06.370
+the co-founders of Continuous Science Foundation and follow
+
+00:21:06.400 --> 00:21:07.820
+me on Blue Sky.
+
+00:21:07.820 --> 00:21:09.740
+So thank you very much.
+
+00:21:09.740 --> 00:21:15.580
+- Thank you very much.
+
+00:21:16.070 --> 00:21:19.580
+- Thank you.
+
+00:21:20.070 --> 00:21:25.580
+- I think we're doing a few times before.
+
+00:21:26.130 --> 00:21:29.580
+- Thank you.
+
+00:21:30.070 --> 00:21:31.580
+- Thank you.
+
+00:21:32.070 --> 00:21:33.580
+- Thank you.
+
+00:21:33.590 --> 00:21:42.910
+- Hello, yes
+
+00:21:42.910 --> 00:21:51.380
+, great.
+
+00:21:51.910 --> 00:21:53.420
+- Hello, yes.
+
+00:21:53.910 --> 00:21:55.420
+- Great.
+
+00:21:55.910 --> 00:22:11.420
+- - -
+
+00:22:11.420 --> 00:22:19.950
+Well, thank you
+
+00:22:19.950 --> 00:22:23.260
+, Rowan, for such an inspiring talk.
+
+00:22:23.260 --> 00:22:27.400
+Rowan and I first met about this time last year at
+
+00:22:27.420 --> 00:22:32.210
+a Continuous Science Foundation workshop that Rowan organized in Ban
+
+00:22:32.210 --> 00:22:36.460
+ff in which we converged at this idea of modular research
+
+00:22:36.460 --> 00:22:39.420
+as a new paradigm for open science.
+
+00:22:39.420 --> 00:22:43.380
+And so I'll show today how our research lab at the
+
+00:22:43.380 --> 00:22:48.770
+University of Washington uses modular science principles for interoperable and
+
+00:22:48.780 --> 00:22:51.330
+extensible open research practices.
+
+00:22:54.690 --> 00:22:59.010
+- Why don't I turn this down a little bit?
+
+00:22:59.010 --> 00:22:59.820
+There's a little bit of an echo.
+
+00:22:59.830 --> 00:23:07.010
+Or is it this?
+
+00:23:07.020 --> 00:23:09.180
+Turn that off.
+
+00:23:09.180 --> 00:23:10.130
+Better?
+
+00:23:10.220 --> 00:23:10.700
+Better.
+
+00:23:10.700 --> 00:23:10.940
+Yes.
+
+00:23:10.940 --> 00:23:13.490
+So my name is Matt Akamatsu.
+
+00:23:13.500 --> 00:23:16.370
+I'm an assistant professor of biology at the University of Washington
+
+00:23:16.380 --> 00:23:16.380
+.
+
+00:23:17.020 --> 00:23:21.590
+And today I'll show how discourse graphs help our labs to
+
+00:23:21.660 --> 00:23:25.900
+enable modular and interoperable research practices.
+
+00:23:25.900 --> 00:23:30.420
+So I started my lab at the University of Washington about three
+
+00:23:30.420 --> 00:23:31.420
+and a half years ago.
+
+00:23:31.420 --> 00:23:32.860
+Here we are on the right.
+
+00:23:32.860 --> 00:23:35.800
+And I've also co-founded the discourse graphs project,
+
+00:23:35.800 --> 00:23:40.390
+which is an open science and collaboration, tooling, software development
+
+00:23:40.490 --> 00:23:42.620
+platform, and organization.
+
+00:23:42.620 --> 00:23:47.700
+And through these two organizations, we design, build, and
+
+00:23:47.740 --> 00:23:53.020
+test new ways to do scientific research that enables better, faster
+
+00:23:53.070 --> 00:23:58.700
+research collaboration and sharing of our research outputs in real time.
+
+00:23:58.700 --> 00:24:03.660
+These projects are motivated by many of the systemic barriers to research
+
+00:24:03.670 --> 00:24:08.820
+collaboration that Rowan just described that have been exacerbated now
+
+00:24:08.820 --> 00:24:14.430
+that generative AI is a regular participant in the scientific research
+
+00:24:14.460 --> 00:24:15.500
+and publishing process.
+
+00:24:15.500 --> 00:24:21.610
+That is best exemplified by this scandal that broke out sometime
+
+00:24:21.630 --> 00:24:26.590
+last year in the International Conference on Learning Representations, where
+
+00:24:26.640 --> 00:24:31.070
+it became apparent that the majority of, or many of the
+
+00:24:31.070 --> 00:24:36.700
+submissions as well as reviews for this conference, for these conference
+
+00:24:36.700 --> 00:24:41.400
+papers on machine learning, were entirely generated by low-quality
+
+00:24:41.400 --> 00:24:43.420
+AI that didn't make any sense.
+
+00:24:43.420 --> 00:24:48.380
+And so that caused this researcher to say we're entering an
+
+00:24:48.380 --> 00:24:51.670
+era in which distinguishing real science science from low-quality
+
+00:24:51.670 --> 00:24:52.690
+AI will be essential.
+
+00:24:52.690 --> 00:24:59.970
+An AI tool did an analysis of these reviews and submissions that
+
+00:25:00.060 --> 00:25:05.540
+indicated that over 20% of the submissions were entirely AI-
+
+00:25:05.540 --> 00:25:09.800
+generated and another large percentage of them were moderately AI
+
+00:25:09.800 --> 00:25:10.880
+-generated.
+
+00:25:10.880 --> 00:25:14.380
+And so it says it seems that 21% of these reviews
+
+00:25:14.380 --> 00:25:15.180
+may be AI.
+
+00:25:15.180 --> 00:25:18.630
+But that leads to the same type of question, how strongly
+
+00:25:18.730 --> 00:25:23.020
+should we trust this particular report and this tool?
+
+00:25:23.020 --> 00:25:25.380
+So the caveat, LLM-generated text detection
+
+00:25:25.380 --> 00:25:26.140
+is not perfect.
+
+00:25:26.140 --> 00:25:31.350
+So this is illustrating that we need some better grounded piece
+
+00:25:31.350 --> 00:25:35.230
+of information, some evidence to help us to weigh how much
+
+00:25:35.240 --> 00:25:39.420
+we should trust this measurement and by extension how much we should
+
+00:25:39.420 --> 00:25:45.060
+trust these scientific research submissions that up until now have been the
+
+00:25:45.110 --> 00:25:49.340
+substrate for how you share your research communication.
+
+00:25:49.340 --> 00:25:52.860
+But that's under tremendous strain because of large language models.
+
+00:25:52.860 --> 00:25:56.910
+So we wonder, in this day and age, what is
+
+00:25:56.910 --> 00:26:02.400
+the appropriate source code for scientific communication in the age of AI
+
+00:26:02.470 --> 00:26:02.860
+?
+
+00:26:02.860 --> 00:26:05.430
+And I pose this question tongue-in-cheek because
+
+00:26:05.470 --> 00:26:07.730
+, as many of you know, the role of source code
+
+00:26:07.730 --> 00:26:11.820
+itself has changed quite a bit over the past year in programming
+
+00:26:11.840 --> 00:26:15.390
+because it now can be freely generated by AI and regenerated
+
+00:26:15.390 --> 00:26:17.660
+from specific instructions.
+
+00:26:17.660 --> 00:26:23.480
+So we expect the same transformation may occur for scientific research communication
+
+00:26:23.480 --> 00:26:25.820
+, where up until now the state-of-the-
+
+00:26:25.840 --> 00:26:30.420
+art has been this long-form narrative PDF that's dozens
+
+00:26:30.420 --> 00:26:34.460
+of pages long, compiles five years worth of work,
+
+00:26:34.460 --> 00:26:38.460
+and several dozen results into this single document with a linear auth
+
+00:26:38.470 --> 00:26:39.420
+orship list.
+
+00:26:39.430 --> 00:26:44.170
+Likely, we'll need some other substrate for communicating our
+
+00:26:44.170 --> 00:26:47.740
+research that is smaller than this long-form journal PDF,
+
+00:26:47.740 --> 00:26:52.190
+but larger than the individual raw data or text.
+
+00:26:52.190 --> 00:26:56.880
+And our principles of operation, as Rowan introduced, are
+
+00:26:56.940 --> 00:27:00.860
+that we'd like this system to be reusable so that we
+
+00:27:00.880 --> 00:27:05.840
+can build upon different elements of the research process and synthesize
+
+00:27:05.840 --> 00:27:10.300
+them into living theories of knowledge about our favorite corner of the
+
+00:27:10.300 --> 00:27:11.780
+natural world.
+
+00:27:11.780 --> 00:27:16.200
+We need each element to have clear provenance and attribution
+
+00:27:16.220 --> 00:27:18.960
+, and we'd love for it to center human decision-
+
+00:27:18.960 --> 00:27:24.140
+making in an era when the AI scientists are getting increasingly powerful
+
+00:27:24.140 --> 00:27:24.440
+.
+
+00:27:24.440 --> 00:27:28.640
+Absent a deliberate design for collaboration, we might find ourselves
+
+00:27:28.640 --> 00:27:31.420
+out of a job for the fun parts of doing science.
+
+00:27:31.430 --> 00:27:35.620
+Therefore, our goal is to decouple research into modular
+
+00:27:35.620 --> 00:27:39.840
+elements that each can be reused, cited, and synthes
+
+00:27:39.840 --> 00:27:40.440
+ized.
+
+00:27:40.500 --> 00:27:45.670
+Those atomic elements are questions, claims, and evidence, which
+
+00:27:45.670 --> 00:27:46.780
+we connect into a graph.
+
+00:27:46.780 --> 00:27:51.300
+This data model comes from the science philosopher Stephen Tullman
+
+00:27:51.340 --> 00:27:56.540
+, who argues that science is less a series of monolithic
+
+00:27:56.540 --> 00:28:00.090
+truths and more a series of claims that are supported by more
+
+00:28:00.090 --> 00:28:01.420
+or less evidence.
+
+00:28:01.420 --> 00:28:03.930
+And over time, you gather more evidence, some of the
+
+00:28:03.930 --> 00:28:05.700
+claims go away and new claims arise.
+
+00:28:05.710 --> 00:28:08.520
+And so we'd like to be able to capture not only
+
+00:28:08.520 --> 00:28:11.110
+the claims, but the evidence that supports them so that we
+
+00:28:11.110 --> 00:28:11.960
+can update them.
+
+00:28:11.980 --> 00:28:15.960
+And this particular project is the product of a five and a
+
+00:28:15.960 --> 00:28:21.790
+half year collaboration between myself and human computer interaction researcher Joelle
+
+00:28:21.790 --> 00:28:23.900
+Chan at the University of Maryland.
+
+00:28:23.900 --> 00:28:27.880
+And together, we build both the information model and plugins to
+
+00:28:27.880 --> 00:28:32.100
+popular note-taking software so that we can run our labs
+
+00:28:32.220 --> 00:28:38.270
+on this modular research paradigm and test what works, what genuinely
+
+00:28:38.270 --> 00:28:40.850
+helps the advancement of our lab's research.
+
+00:28:40.860 --> 00:28:44.280
+So to this end, we've built discourse graphs, which
+
+00:28:44.280 --> 00:28:47.670
+are both a protocol and an app for interoperable knowledge
+
+00:28:47.670 --> 00:28:48.200
+exchange.
+
+00:28:48.220 --> 00:28:50.540
+Here's the information model.
+
+00:28:50.540 --> 00:28:55.190
+We take our scientific arguments and projects and decouple them
+
+00:28:55.190 --> 00:28:59.170
+into questions, claims and evidence and connect them into a graph
+
+00:28:59.170 --> 00:28:59.500
+.
+
+00:28:59.500 --> 00:29:03.540
+The question is the unknown that you'd like to make known
+
+00:29:03.540 --> 00:29:05.160
+with your research project.
+
+00:29:05.160 --> 00:29:08.680
+The claim is the current answer to the research question, which
+
+00:29:08.680 --> 00:29:11.860
+it wants to be supported by one or more lines of evidence
+
+00:29:11.860 --> 00:29:12.110
+.
+
+00:29:12.110 --> 00:29:17.390
+Each piece of evidence is a specific observation from your work with
+
+00:29:17.390 --> 00:29:21.900
+an outcome and it's grounded in a single study or experiment
+
+00:29:21.900 --> 00:29:24.710
+or at least a published research article.
+
+00:29:24.710 --> 00:29:26.900
+The article grounds the evidence.
+
+00:29:26.910 --> 00:29:30.620
+The evidence supports or opposes the claim and the claim,
+
+00:29:30.620 --> 00:29:35.280
+when incomplete, always motivates a new experiment that you want to
+
+00:29:35.280 --> 00:29:38.300
+do driving the research research cycle forward.
+
+00:29:38.300 --> 00:29:41.180
+I'll give a historical example.
+
+00:29:41.180 --> 00:29:46.830
+70 years ago, there were two competing claims for what is
+
+00:29:46.830 --> 00:29:49.650
+the three-dimensional structure of DNA.
+
+00:29:49.650 --> 00:29:52.070
+Is it a double helix or is it a triple hel
+
+00:29:52.070 --> 00:29:52.480
+ix?
+
+00:29:52.520 --> 00:29:56.710
+Where are the negatively charged phosphates in this DNA helix
+
+00:29:56.710 --> 00:29:57.020
+?
+
+00:29:57.020 --> 00:30:02.230
+And there was no evidence to distinguish between these two competing claims
+
+00:30:02.270 --> 00:30:05.890
+until Rosalind Franklin's famous x-ray diffraction
+
+00:30:05.990 --> 00:30:11.900
+experiment showed this very characteristic diffraction pattern that gave us some
+
+00:30:11.900 --> 00:30:16.220
+information about what the spacing is likely to be between these DNA
+
+00:30:16.230 --> 00:30:23.420
+bases and that supported the double helix model for the structure
+
+00:30:23.420 --> 00:30:24.430
+of DNA.
+
+00:30:24.530 --> 00:30:29.630
+So in this discourse graphs framing, Rosalind Franklin could
+
+00:30:29.700 --> 00:30:34.850
+have posted this single result to the group, to the group
+
+00:30:34.850 --> 00:30:37.620
+'s personal data server, I suppose, and said, "
+
+00:30:37.670 --> 00:30:38.940
+This is a result.
+
+00:30:38.940 --> 00:30:40.500
+It's reproducible.
+
+00:30:40.500 --> 00:30:42.780
+I'm going to show you -- I'm going to tell
+
+00:30:42.780 --> 00:30:43.920
+you the observation.
+
+00:30:43.920 --> 00:30:45.970
+I'm going to tell you the -- I'm going to
+
+00:30:45.970 --> 00:30:49.530
+give you the associated figure and a little methods context.
+
+00:30:49.580 --> 00:30:51.940
+Let's figure out what it means together." And in order
+
+00:30:51.940 --> 00:30:55.940
+to strengthen their claim that DNA has a double helix structure
+
+00:30:55.940 --> 00:30:59.450
+, Watson and Crick would have needed to cite Franklin's
+
+00:30:59.450 --> 00:31:00.840
+piece of evidence.
+
+00:31:00.880 --> 00:31:03.730
+Otherwise, it would remain an untested claim.
+
+00:31:03.730 --> 00:31:07.410
+And what I love about this model is that it creates an
+
+00:31:07.410 --> 00:31:14.600
+automatic attribution structure that appropriately credits Franklin's contribution to this
+
+00:31:14.600 --> 00:31:19.580
+discovery over the course of just making a stronger scientific argument.
+
+00:31:19.580 --> 00:31:25.050
+Alternatively, in a world absent evidence, the modelers could
+
+00:31:25.190 --> 00:31:29.420
+instead request that somebody do this DNA diffraction experiment because it
+
+00:31:29.420 --> 00:31:31.150
+'s important for their model.
+
+00:31:31.150 --> 00:31:34.390
+And then some -- an experimentalist might claim that experiment,
+
+00:31:34.390 --> 00:31:36.540
+carry it out, tell them what the result was.
+
+00:31:37.260 --> 00:31:41.240
+And then the modelers get some credit for their intellectual contribution
+
+00:31:41.250 --> 00:31:42.050
+to the idea.
+
+00:31:42.070 --> 00:31:46.460
+And the experimentalists get their credit for doing the work.
+
+00:31:46.460 --> 00:31:49.740
+In both cases, the attribution trail isn't some after
+
+00:31:49.740 --> 00:31:51.150
+-the-fact accounting.
+
+00:31:51.150 --> 00:31:54.460
+Instead, it's baked into the ongoing research process.
+
+00:31:54.460 --> 00:31:58.620
+So we got very excited about this model and whether it might
+
+00:31:58.620 --> 00:32:04.810
+support our researchers' everyday work and also allow for this natural
+
+00:32:04.810 --> 00:32:08.380
+sort of self-organizing system for modular science.
+
+00:32:08.460 --> 00:32:12.740
+So we've spent the last number of years developing open source
+
+00:32:12.740 --> 00:32:15.910
+plug-ins for some of our favorite note-taking apps
+
+00:32:15.910 --> 00:32:20.060
+like Obsidian or Rome Research in which I'm presenting in
+
+00:32:20.060 --> 00:32:24.190
+order to make life easier for the researchers in our labs.
+
+00:32:24.190 --> 00:32:27.330
+These plug-ins help grad students, postdocs,
+
+00:32:27.360 --> 00:32:32.210
+undergraduates to orient their projects in context with open questions and
+
+00:32:32.210 --> 00:32:36.270
+key hypotheses and keep them on track towards the question that they
+
+00:32:36.270 --> 00:32:38.170
+decided they wanted to answer.
+
+00:32:38.170 --> 00:32:41.870
+It allows them to inventory super early stage results as soon as
+
+00:32:41.870 --> 00:32:45.520
+they think they might have an observation and share them with the
+
+00:32:45.520 --> 00:32:49.380
+team every week in our group meetings and then synthesize those
+
+00:32:49.380 --> 00:32:55.620
+results into scientific arguments and scientific stories in context with the published
+
+00:32:55.620 --> 00:33:00.930
+literature so that they have rigorous and updatable stories of the
+
+00:33:00.930 --> 00:33:03.740
+state of knowledge for their research field.
+
+00:33:03.740 --> 00:33:08.480
+And so we've found that running our labs on this information
+
+00:33:08.480 --> 00:33:14.580
+model has enabled large-scale collaboration, coordination, and sense
+
+00:33:14.610 --> 00:33:18.010
+-making among members of our lab.
+
+00:33:18.010 --> 00:33:22.910
+So here's a couple examples showing how using discourse graphs as
+
+00:33:22.910 --> 00:33:28.460
+our lab's graph-based shared lab notebook and meetings documentation
+
+00:33:28.460 --> 00:33:33.390
+and storyboard for our manuscripts and stories has led to a
+
+00:33:33.400 --> 00:33:39.160
+richly interconnected graph of questions, claims, claims, and
+
+00:33:39.160 --> 00:33:41.010
+evidence that our lab runs on.
+
+00:33:41.010 --> 00:33:47.120
+In this visualization, each line represents a single reference of one
+
+00:33:47.120 --> 00:33:51.370
+person's question, claim, or evidence by another person in
+
+00:33:51.370 --> 00:33:56.110
+our 10-person lab that grows over the three and a
+
+00:33:56.110 --> 00:34:01.740
+half years of our lab's creation, which shows how around
+
+00:34:01.740 --> 00:34:08.380
+3,500 of these cross-author references have been generated
+
+00:34:08.410 --> 00:34:12.380
+, indicating that we are building off of each other's intellectual
+
+00:34:12.380 --> 00:34:13.570
+work in real time.
+
+00:34:13.580 --> 00:34:16.720
+This is both evidence from the published literature as well as new
+
+00:34:16.720 --> 00:34:20.520
+evidence from our ongoing experiments and simulations.
+
+00:34:20.520 --> 00:34:24.080
+And we're even building theories of knowledge where one person's
+
+00:34:24.080 --> 00:34:27.340
+evidence supports somebody else's hypothesis.
+
+00:34:27.340 --> 00:34:33.790
+Here's another example showing that we're not only sharing knowledge
+
+00:34:33.890 --> 00:34:38.140
+, but we're also distributing the work, the requested experiments
+
+00:34:38.160 --> 00:34:38.420
+.
+
+00:34:38.460 --> 00:34:44.900
+In this plot we show the transfer of a requested experiment.
+
+00:34:44.900 --> 00:34:49.410
+Somebody says, "You know, this analysis experiment is a
+
+00:34:49.420 --> 00:34:49.980
+good idea.
+
+00:34:49.980 --> 00:34:51.290
+Somebody should do it.
+
+00:34:51.290 --> 00:34:53.330
+I don't have time to do it right now, but
+
+00:34:53.330 --> 00:34:56.260
+either me in the future or an undergraduate will come in,
+
+00:34:56.260 --> 00:34:58.690
+see this dashboard, claim it, and say, "This
+
+00:34:58.720 --> 00:35:02.380
+is how I can contribute to important problems in the lab."
+
+00:35:02.380 --> 00:35:08.030
+And so this diagram shows how the transfer of experiments that were
+
+00:35:08.030 --> 00:35:11.860
+requested and then claimed, often by a different person in the
+
+00:35:11.860 --> 00:35:16.650
+lab, and some of which culminate in a new observation
+
+00:35:16.700 --> 00:35:18.140
+that completes the experiment.
+
+00:35:18.140 --> 00:35:19.020
+I have the result.
+
+00:35:19.030 --> 00:35:20.060
+I have the analysis.
+
+00:35:20.060 --> 00:35:21.500
+Here's the outcome.
+
+00:35:21.500 --> 00:35:24.220
+We can close this issue.
+
+00:35:25.020 --> 00:35:28.820
+And so this show, and the other thing I love about
+
+00:35:28.840 --> 00:35:34.610
+this transfer is that a number of these posts and claiming and
+
+00:35:34.640 --> 00:35:38.700
+completion of experiments were done entirely without my knowledge until they were
+
+00:35:38.720 --> 00:35:42.300
+completed, which as the principal investigator gives me a lot of
+
+00:35:42.300 --> 00:35:45.610
+assurance that researchers are getting the mentorship that they need from each
+
+00:35:45.610 --> 00:35:50.250
+other, finding important work to do, and having a very
+
+00:35:50.250 --> 00:35:53.530
+clear trail of who did the work work in a self-
+
+00:35:53.530 --> 00:35:55.890
+organizing fashion.
+
+00:35:55.900 --> 00:35:59.630
+So in this case, something like 30% of these issues
+
+00:35:59.630 --> 00:36:02.630
+, requests for experiments, were claimed.
+
+00:36:02.730 --> 00:36:05.100
+40% of them yielded a result, and 15%
+
+00:36:05.100 --> 00:36:07.820
+of those happened between different lab members.
+
+00:36:09.260 --> 00:36:13.220
+So with this proof of concept within our own labs, we
+
+00:36:13.220 --> 00:36:17.330
+now seek to bring these tools in a pilot program to other
+
+00:36:17.420 --> 00:36:19.170
+research labs throughout North America.
+
+00:36:19.170 --> 00:36:23.610
+So we're halfway through a user pilot supported by the Chan
+
+00:36:23.740 --> 00:36:28.020
+Zuckerberg Initiative and the Navigation Fund, in which we
+
+00:36:28.020 --> 00:36:32.660
+develop these plugins so that they are easy to use for these
+
+00:36:32.660 --> 00:36:38.380
+research labs and organizations so that they may better track their experiments
+
+00:36:38.380 --> 00:36:43.330
+, post research updates, and synthesize their work into their
+
+00:36:43.350 --> 00:36:45.420
+ongoing manuscripts, etc.
+
+00:36:45.420 --> 00:36:50.410
+What we found so far is that these discourse graphs help researchers
+
+00:36:50.420 --> 00:36:54.640
+, for example, synthesize results into scientific stories in context
+
+00:36:54.640 --> 00:36:55.980
+with the literature.
+
+00:36:55.980 --> 00:37:00.230
+First, in this non-linear format, akin to the
+
+00:37:00.240 --> 00:37:03.780
+floor of Lego bricks that Rowan just described, here we
+
+00:37:03.790 --> 00:37:08.550
+'re looking at an open canvas where the researcher in Obsidian
+
+00:37:08.550 --> 00:37:15.780
+can share these individual experiments, results, meaning evidence, and
+
+00:37:15.980 --> 00:37:21.070
+claims in this open graph along with whatever notes he might want
+
+00:37:21.070 --> 00:37:26.740
+to include and connect them into this non-linear graph.
+
+00:37:26.740 --> 00:37:31.020
+He calls this his murder board or his whodunit
+
+00:37:31.020 --> 00:37:37.020
+pertaining to his research question that is grounded in the individual evidence
+
+00:37:37.020 --> 00:37:41.660
+from the literature and from his ongoing experimental observations.
+
+00:37:41.660 --> 00:37:45.260
+And he uses it to plan what is the right experiment to
+
+00:37:45.260 --> 00:37:49.680
+do next and communicate to the rest of his lab what his
+
+00:37:49.720 --> 00:37:50.680
+findings are.
+
+00:37:50.720 --> 00:37:54.760
+We're making it possible for him to share individual results with
+
+00:37:54.790 --> 00:37:59.910
+collaborators or wider networks of researchers, but it's also possible
+
+00:37:59.910 --> 00:38:05.500
+to compile these individual results into a figure for a traditional manuscript
+
+00:38:05.500 --> 00:38:08.510
+if that's what you need to do.
+
+00:38:08.530 --> 00:38:11.710
+So here's an example from our lab where an undergraduate is
+
+00:38:11.710 --> 00:38:15.750
+compiling the figures for his manuscript starting with the question.
+
+00:38:15.750 --> 00:38:19.570
+Each panel of the figure corresponds to one piece of evidence.
+
+00:38:19.570 --> 00:38:22.740
+It's an observation that you put there because it's strengthening
+
+00:38:22.740 --> 00:38:25.540
+your overall claim that you're trying to make in the figure
+
+00:38:25.570 --> 00:38:25.820
+.
+
+00:38:25.820 --> 00:38:30.300
+So using discourse graphs demystifies the process of compiling
+
+00:38:30.300 --> 00:38:35.100
+or recompiling your scientific narrative from the underlying evidence.
+
+00:38:35.100 --> 00:38:40.470
+We've found so far that discourse graphs help researchers in the
+
+00:38:40.480 --> 00:38:43.580
+pilot labs and in our own labs to do the following.
+
+00:38:43.580 --> 00:38:46.260
+It helps them think like a scientist.
+
+00:38:46.260 --> 00:38:50.190
+People report through qualitative research that we're doing with Joelle
+
+00:38:50.190 --> 00:38:54.160
+'s lab that they have found huge improvements in their thinking and
+
+00:38:54.160 --> 00:38:55.260
+doing of science.
+
+00:38:55.260 --> 00:38:58.540
+And even when they're not using the plug-in,
+
+00:38:58.540 --> 00:39:00.690
+it helps keep them in the frame of mind.
+
+00:39:00.720 --> 00:39:03.860
+They call it the discourse graphs frame of mind where they remember
+
+00:39:03.860 --> 00:39:07.630
+their goal is to be addressing questions by providing evidence that supports
+
+00:39:07.630 --> 00:39:09.260
+or opposes their hypotheses.
+
+00:39:09.260 --> 00:39:13.260
+It also helps them feel like a scientist, saying that they
+
+00:39:13.260 --> 00:39:18.140
+now have the confidence to share a result without having to claim
+
+00:39:18.140 --> 00:39:20.730
+that they have the be-all end-all interpretation of
+
+00:39:20.730 --> 00:39:21.390
+that result.
+
+00:39:21.440 --> 00:39:22.920
+They say this is the observation.
+
+00:39:22.920 --> 00:39:24.940
+Let's all figure out together what you think it means.
+
+00:39:24.940 --> 00:39:26.590
+I'm just an undergraduate.
+
+00:39:26.630 --> 00:39:29.220
+And so now they have the confidence to share their results much
+
+00:39:29.220 --> 00:39:33.340
+earlier than they would have otherwise given that they're sharing it
+
+00:39:33.340 --> 00:39:36.860
+within a trusted environment of their lab or their collaborators.
+
+00:39:36.860 --> 00:39:41.970
+Here's another researcher saying that now I have a motivation because
+
+00:39:41.980 --> 00:39:45.090
+I feel like I have permission to use the words "hy
+
+00:39:45.090 --> 00:39:49.900
+pothesis" supporting my hypotheses because they're now baked
+
+00:39:49.900 --> 00:39:52.690
+into the way that I'm sharing my work.
+
+00:39:52.690 --> 00:39:56.330
+So now I can use those words and that makes it much
+
+00:39:56.330 --> 00:39:59.670
+easier and makes me feel like I'm a scientist.
+
+00:39:59.670 --> 00:40:02.290
+And so it feels like it's true progress where I'm
+
+00:40:02.290 --> 00:40:05.870
+not just sort of collecting data, but I'm generating novel
+
+00:40:05.910 --> 00:40:09.180
+observations instead of just where do I start.
+
+00:40:09.180 --> 00:40:13.040
+And very excitingly, we have an early indication that some
+
+00:40:13.080 --> 00:40:18.540
+researchers feel that documenting their research in discourse graphs better reflects the
+
+00:40:18.540 --> 00:40:22.340
+true nature of doing science than writing up narratives and making slides
+
+00:40:22.360 --> 00:40:22.820
+hows.
+
+00:40:22.820 --> 00:40:26.350
+So they say converting to this kind of structure is maybe more
+
+00:40:26.350 --> 00:40:30.420
+aligned with what the actual process is like of answering research questions
+
+00:40:30.420 --> 00:40:34.060
+that can be complementary to writing up your long-form narratives
+
+00:40:34.080 --> 00:40:37.950
+, but may end up being more useful and truer to
+
+00:40:37.990 --> 00:40:42.380
+the way that the process of science that people actually want to
+
+00:40:42.390 --> 00:40:45.740
+be carrying out, particularly in collaborations.
+
+00:40:45.740 --> 00:40:52.610
+I'm also excited about how having this modular graph structure makes
+
+00:40:52.610 --> 00:40:58.940
+it easy for our research knowledge base to interact with AIs
+
+00:40:58.940 --> 00:41:04.860
+so that they can give us attributable synthesized information from
+
+00:41:04.860 --> 00:41:06.490
+our lab knowledge base.
+
+00:41:06.490 --> 00:41:09.840
+So here I'm plugging in our lab graph into our favorite
+
+00:41:09.890 --> 00:41:12.910
+AI, Claude, and gave it some instructions for how
+
+00:41:12.910 --> 00:41:16.140
+it can navigate our graph and asking it to give me an
+
+00:41:16.140 --> 00:41:19.450
+update on on recent results so that we can have a real
+
+00:41:19.450 --> 00:41:22.690
+-time view of the key results in the lab and a
+
+00:41:22.690 --> 00:41:24.700
+type of real-time research assessment.
+
+00:41:24.700 --> 00:41:27.900
+So it says here are the recent results from the lab and
+
+00:41:27.900 --> 00:41:30.500
+I'll give you some links, I'll tell you who
+
+00:41:30.500 --> 00:41:32.780
+did it, I'll tell you how important it is,
+
+00:41:32.780 --> 00:41:37.140
+and we can, you know, vibe code or any arbitrary
+
+00:41:37.140 --> 00:41:41.030
+visualization or dashboard that we think might be relevant.
+
+00:41:41.050 --> 00:41:44.680
+And this, I think, reflects the the heterogeneity
+
+00:41:44.680 --> 00:41:48.760
+of algorithms that ATProto enables too, where once you
+
+00:41:48.760 --> 00:41:53.590
+and your community decide what the relevant metrics or what's the
+
+00:41:53.590 --> 00:41:58.110
+most important thing, then you can show for your community the
+
+00:41:58.110 --> 00:42:03.320
+highest relevance, in this case individual results connected to the key
+
+00:42:03.410 --> 00:42:08.540
+questions, motivated by a piece of evidence that I collected that
+
+00:42:08.540 --> 00:42:12.380
+'s in my one of my postdoc papers and connected to
+
+00:42:12.410 --> 00:42:18.060
+an undergraduate's result as well that you can freely navigate through
+
+00:42:18.090 --> 00:42:20.810
+the graph and then also contribute to.
+
+00:42:20.810 --> 00:42:26.850
+We now can share our research not only in long-form
+
+00:42:27.070 --> 00:42:32.680
+narratives but also in these modular research elements which we call the
+
+00:42:32.680 --> 00:42:34.010
+evidence bundle.
+
+00:42:34.010 --> 00:42:38.310
+The evidence bundle is a data object that contains the observation,
+
+00:42:38.350 --> 00:42:41.820
+the key figure, and a little bit of methods context and
+
+00:42:41.820 --> 00:42:45.200
+optionally the the raw data and the plots that led to
+
+00:42:45.200 --> 00:42:48.700
+the creation of this plot, which get remixed and re
+
+00:42:48.710 --> 00:42:50.900
+used in different contexts.
+
+00:42:50.940 --> 00:42:55.700
+The evidence bundle was born in my lab notebook in Rome and
+
+00:42:55.740 --> 00:42:59.830
+I use our discourse graph software to inventory it and update it
+
+00:42:59.830 --> 00:43:01.120
+over time.
+
+00:43:01.120 --> 00:43:05.900
+It then becomes a persistent object in the lab's graph with
+
+00:43:05.900 --> 00:43:08.670
+enough information for the rest of the lab to understand it,
+
+00:43:08.670 --> 00:43:13.450
+which we can then connect into these mini discourse graphs that support
+
+00:43:13.460 --> 00:43:14.940
+our ongoing hypotheses.
+
+00:43:14.940 --> 00:43:18.780
+We put this in the repository somewhere and then we can use
+
+00:43:18.780 --> 00:43:23.730
+it to compile either a traditional narrative or multiple narratives in different
+
+00:43:23.730 --> 00:43:28.060
+venues for different audiences and then we can also post it on
+
+00:43:28.060 --> 00:43:29.410
+on blue sky.
+
+00:43:29.410 --> 00:43:33.050
+Right now as a prototype this evidence bundle lives in gith
+
+00:43:33.050 --> 00:43:35.300
+ub but there's no reason it couldn't live on a
+
+00:43:35.300 --> 00:43:39.710
+personal data server and then take advantage of the many apps and
+
+00:43:39.710 --> 00:43:43.200
+tools that many of you in the audience are building and I
+
+00:43:43.210 --> 00:43:46.100
+would love to do that together.
+
+00:43:46.120 --> 00:43:51.270
+So we are very excited about the promise for modular research as
+
+00:43:51.270 --> 00:43:53.780
+a way to support people's ongoing science.
+
+00:43:53.780 --> 00:43:57.720
+We think for it to take hold we need to have the
+
+00:43:57.720 --> 00:44:04.920
+attribution of your modular research contributions be more valuable useful and
+
+00:44:05.020 --> 00:44:09.440
+accurate than the current method of counting up the authorships in
+
+00:44:09.440 --> 00:44:10.940
+journal articles.
+
+00:44:10.940 --> 00:44:17.740
+So we are working on that technology and on demonstrating the ability
+
+00:44:17.760 --> 00:44:21.460
+to do modular research attribution.
+
+00:44:21.460 --> 00:44:24.100
+So here you might have two labs that are working on a
+
+00:44:24.100 --> 00:44:25.260
+similar question.
+
+00:44:25.260 --> 00:44:27.820
+We'd like to make it possible if they each have their
+
+00:44:27.820 --> 00:44:31.960
+own discourse graphs for each person to be able to submit one
+
+00:44:31.960 --> 00:44:36.150
+result and have it cited by the other lab or their larger
+
+00:44:36.150 --> 00:44:39.900
+community and one lab can request an experiment.
+
+00:44:39.900 --> 00:44:44.330
+Each result has shared upon metadata in a schema of the type
+
+00:44:44.330 --> 00:44:48.980
+that Rowan just described so that you can attribute each person
+
+00:44:48.980 --> 00:44:54.960
+'s contribution in a way that initially requires some access control so
+
+00:44:54.960 --> 00:44:59.520
+that they're willing to share their work individually and then is
+
+00:44:59.550 --> 00:45:01.380
+more widely shareable.
+
+00:45:01.380 --> 00:45:05.740
+We're making this possible in a workshop catalyzing modular
+
+00:45:05.740 --> 00:45:13.240
+interoperable research attribution and in a workshop in Ireland
+
+00:45:13.240 --> 00:45:17.710
+in June where we're bringing together tool builders and researchers to
+
+00:45:17.710 --> 00:45:22.320
+make a proof of concept a system by which you can trade
+
+00:45:22.320 --> 00:45:27.840
+individual research elements and Ronan and I have co-founded
+
+00:45:27.840 --> 00:45:32.300
+a community of organizations called the Kairos Network which is
+
+00:45:32.300 --> 00:45:37.290
+meant to support different tool building organizations that have shared values that
+
+00:45:37.290 --> 00:45:40.950
+are committed to interoperability so that modular research can be
+
+00:45:40.950 --> 00:45:46.300
+carried out with the hope that it becomes a persistent and sustainable
+
+00:45:46.300 --> 00:45:52.460
+source of support for this tool this new tool building ecosystem.
+
+00:45:53.740 --> 00:45:58.550
+So in summary by decoupling research into its atomic elements
+
+00:45:58.710 --> 00:46:03.770
+questions claims and evidence and connecting them into a graph we enable
+
+00:46:03.770 --> 00:46:09.590
+trainees experts and AIs alike to make discrete contributions to shared
+
+00:46:09.670 --> 00:46:14.280
+research collaborations in a way where you can see the direct proven
+
+00:46:14.280 --> 00:46:18.540
+ance you can attribute each person's contribution and you can build
+
+00:46:18.550 --> 00:46:23.840
+upon it in a way that leaves space for each researcher to
+
+00:46:23.840 --> 00:46:29.810
+be recognized and allows them to work collaboratively with AIs
+
+00:46:29.810 --> 00:46:34.220
+and with each other and preserve the most fun parts of doing
+
+00:46:34.220 --> 00:46:35.500
+research together.
+
+00:46:35.990 --> 00:46:46.410
+Thank you
+
+00:46:46.500 --> 00:46:48.460
+.
+
+00:46:48.460 --> 00:46:49.740
+Okay, that was excellent.
+
+00:46:49.740 --> 00:46:50.220
+Can you hear me?
+
+00:46:50.220 --> 00:46:50.780
+Is this mic?
+
+00:46:52.380 --> 00:46:53.880
+So any question?
+
+00:46:53.940 --> 00:46:55.260
+And Rowan?
+
+00:46:55.260 --> 00:46:56.900
+Okay, I'll start.
+
+00:46:56.940 --> 00:47:07.340
+Go Crop.
+
+00:47:07.350 --> 00:47:15.700
+Can I just before
+
+00:47:15.700 --> 00:47:22.920
+just for the streaming uh the question was about can we get
+
+00:47:22.920 --> 00:47:32.330
+the research funding organizations
+
+00:47:32.590 --> 00:47:40.840
+on board are summarized yeah so
+
+00:47:40.920 --> 00:47:46.490
+I do think there are there is movement on the research funding
+
+00:47:46.490 --> 00:47:52.040
+agencies Gates Foundation came out with some changes about a year ago
+
+00:47:52.180 --> 00:47:56.350
+focusing more on preprints than the sort of journal artifact that
+
+00:47:56.350 --> 00:48:00.340
+was followed through by Howard Hughes Medical Institute about a month and
+
+00:48:00.340 --> 00:48:05.370
+a half ago and then Michael J Fox Foundation just like two
+
+00:48:05.370 --> 00:48:09.540
+weeks ago has changed their policy so there is actually movement that
+
+00:48:09.540 --> 00:48:13.900
+'s happening in that space one of the things that I do
+
+00:48:13.900 --> 00:48:16.630
+at Curvenote is we run internal workspaces for
+
+00:48:16.630 --> 00:48:20.220
+Howard Hughes Medical Institute for example and a large part of that
+
+00:48:20.220 --> 00:48:24.870
+is actually compliance dashboards for the open access researchers so that
+
+00:48:24.870 --> 00:48:29.240
+they can have different metrics on on sort of how they're
+
+00:48:29.240 --> 00:48:33.500
+assessing research that can then like have some of these like different
+
+00:48:33.500 --> 00:48:39.100
+skews towards data or evidence or sort of the actual mechanisms
+
+00:48:39.100 --> 00:48:42.350
+and process of science rather than sort of the end artifact so
+
+00:48:42.370 --> 00:48:46.220
+I do I think there's room to be optimistic sort of
+
+00:48:46.220 --> 00:48:49.540
+up and down this the stack of research all the way up
+
+00:48:49.540 --> 00:48:51.340
+to these sort of funders all the way at the end
+
+00:48:54.860 --> 00:49:05.180
+okay who's next moving along
+
+00:49:05.180 --> 00:49:20.510
+yes so
+
+00:49:20.970 --> 00:49:24.540
+could you repeat the question uh so yeah there's most of
+
+00:49:24.540 --> 00:49:24.610
+scientific research is actually closed access a lot of it more recently
+
+00:49:24.610 --> 00:49:24.660
+is moving towards open access but there are still a lot of
+
+00:49:24.660 --> 00:49:34.860
+paywalls in this space from
+
+00:49:34.860 --> 00:49:41.340
+my specific focus i'm like looking forward like the future is
+
+00:49:41.340 --> 00:49:44.970
+open the future is open access and sort of building these modular
+
+00:49:45.070 --> 00:49:51.340
+tools around that and using those to reinforce practices in that space
+
+00:49:51.340 --> 00:49:56.380
+that allow people to sort of share openly as well and so
+
+00:49:56.380 --> 00:50:07.980
+i think that's that's my goal personally
+
+00:50:07.990 --> 00:50:14.210
+so i think also and maybe matt you want to talk about
+
+00:50:14.230 --> 00:50:18.280
+this because i think there is like that early stage where you
+
+00:50:18.280 --> 00:50:21.180
+are in a much more trusted environment and you have these sort
+
+00:50:21.180 --> 00:50:23.900
+of circles of trust that you want to build i think it
+
+00:50:23.930 --> 00:50:29.530
+'s not um appropriate necessarily to share everything openly all the time
+
+00:50:29.530 --> 00:50:33.530
+for everyone and so i definitely think that we need these like
+
+00:50:33.580 --> 00:50:37.530
+ways of working that support tight-knit trusted communities and
+
+00:50:37.530 --> 00:50:42.220
+that that is especially important yeah we we think you can you
+
+00:50:42.220 --> 00:50:47.840
+can reuse these individual like panels from from an existing figure from
+
+00:50:47.850 --> 00:50:51.510
+an existing published paper and reuse it for your own purposes in
+
+00:50:51.510 --> 00:50:56.770
+your sort of collaborations knowledge graph as a sort of fair reuse
+
+00:50:56.770 --> 00:51:01.370
+example and as rowan was saying more and more of these
+
+00:51:01.370 --> 00:51:04.620
+published papers even if they end up in a closed journal have
+
+00:51:04.620 --> 00:51:08.400
+an open preprint alternative and so the more accessible that each
+
+00:51:08.400 --> 00:51:14.440
+preprint becomes the more that becomes the the genuinely useful unit
+
+00:51:14.440 --> 00:51:33.420
+for knowledge yeah
+
+00:51:33.420 --> 00:51:41.430
+for us it's making
+
+00:51:41.470 --> 00:51:41.670
+sure you have the right time stamp and making sure that you
+
+00:51:41.680 --> 00:51:41.900
+can you can see which reference that you made we haven't
+
+00:51:41.900 --> 00:51:43.510
+found it necessary to have some sort of auto update yet like
+
+00:51:43.510 --> 00:51:52.810
+a notification is is is is enough at this
+
+00:51:52.810 --> 00:51:57.740
+stage um so for the the current scope that we're looking
+
+00:51:57.740 --> 00:52:00.290
+at we found it sufficient to have this persistent object and you
+
+00:52:00.290 --> 00:52:02.630
+get an update if the if it changes because we're not
+
+00:52:02.630 --> 00:52:10.610
+trying to algorithmically generate conclusions yet i think so long as
+
+00:52:10.610 --> 00:52:13.970
+there are timestamps and you can scroll forward and backward in
+
+00:52:13.970 --> 00:52:18.380
+the history of the result that will get us a lot of
+
+00:52:18.380 --> 00:53:08.310
+the way there a lot of the way there is
+
+00:53:08.390 --> 00:53:12.830
+yeah so so one part is in structuring the the content
+
+00:53:12.830 --> 00:53:15.340
+so that it's clear that there should be a place where
+
+00:53:15.340 --> 00:53:18.790
+there's methods context and then you you share it and you
+
+00:53:18.890 --> 00:53:21.130
+talk about it in a way that you think other people in
+
+00:53:21.130 --> 00:53:23.400
+your lab will be able to understand and right now in a
+
+00:53:23.400 --> 00:53:28.220
+relative freeform manner you can also include comments uh in a
+
+00:53:28.220 --> 00:53:32.100
+way that we're just sort of hacking into like locally for
+
+00:53:32.100 --> 00:53:35.980
+for rome research but i think it's important to have
+
+00:53:35.980 --> 00:53:41.420
+basically the conversation and those those comments connected into uh the the
+
+00:53:41.420 --> 00:53:45.230
+the the back story so right now for for every app that
+
+00:53:45.280 --> 00:53:49.740
+we use we just allow the sort of threaded conversation to be
+
+00:53:49.740 --> 00:53:52.650
+to be associated and it sort of gives it's almost like
+
+00:53:52.700 --> 00:53:56.940
+an extended part of the lab notebook that you then eventually sort
+
+00:53:56.960 --> 00:54:03.270
+of close and you can see the history even though most people
+
+00:54:03.370 --> 00:54:09.830
+are going to just like in wikipedia want to see
+
+00:54:09.830 --> 00:54:13.480
+that yeah yeah right now what we find is that so for
+
+00:54:13.480 --> 00:54:17.550
+example there was an undergraduate who joined the labs looking for a
+
+00:54:17.550 --> 00:54:20.880
+project to work on and he had heard in lab meeting from
+
+00:54:20.880 --> 00:54:24.710
+this other uh postbac researcher and thought i like how
+
+00:54:24.710 --> 00:54:27.330
+this person works let me go see if they have any open
+
+00:54:27.340 --> 00:54:30.270
+issues and that is an excuse for me to go message him
+
+00:54:30.270 --> 00:54:33.310
+on slack and then talk to him in person and get more
+
+00:54:33.310 --> 00:54:36.830
+of the in-person mentorship so the the matching happened through
+
+00:54:36.830 --> 00:54:40.540
+the app and much of the mentorship was still live in person
+
+00:54:42.130 --> 00:54:51.250
+informal
+
+00:54:51.810 --> 00:55:01.260
+yeah
+
+00:55:01.260 --> 00:55:08.890
+so the question is can other plans to allow people to publish
+
+00:55:08.890 --> 00:55:12.560
+into the app proto system uh and yes so we're designing
+
+00:55:12.560 --> 00:55:16.050
+the systems for people to be able to share from one graph
+
+00:55:16.080 --> 00:55:20.530
+to another and then uh more publicly as well um so we
+
+00:55:20.530 --> 00:55:24.490
+have a draft schema uh for for sharing peer-to-
+
+00:55:24.490 --> 00:55:27.200
+peer and we have a draft lexicon i learned
+
+00:55:27.200 --> 00:55:30.900
+yesterday that isn't in use yet um but the the hope
+
+00:55:30.900 --> 00:55:36.280
+is during this in-person modular attribution workshop we make
+
+00:55:36.280 --> 00:55:41.240
+it uh technically possible and show examples of people being able to
+
+00:55:41.250 --> 00:55:44.600
+share um keeping in mind that the first the majority of use
+
+00:55:44.620 --> 00:55:46.990
+cases at first are this peer-to-peer so
+
+00:55:46.990 --> 00:55:50.000
+so long as there's some you know access controls between people
+
+00:55:50.000 --> 00:55:52.160
+'s uh pds's i think it'll it'll take
+
+00:55:52.160 --> 00:55:55.010
+off and then you like flip the switch when when they're
+
+00:55:55.020 --> 00:56:08.220
+ready to and
+
+00:56:08.220 --> 00:56:11.420
+you like to share it more openly so there's there's
+
+00:56:11.420 --> 00:56:14.860
+at some point there's malicious actors and there's motivation for
+
+00:56:14.860 --> 00:56:20.380
+that uh scarcity of jobs reputation etc and uh so you know
+
+00:56:20.380 --> 00:56:23.770
+stealing attribution and stuff i mean there's there's mechanisms
+
+00:56:23.910 --> 00:56:29.480
+these people have tried to use for this from back and forth
+
+00:56:29.520 --> 00:56:33.100
+right so uh um i guess what i haven't heard is
+
+00:56:33.120 --> 00:56:39.540
+anything about authentication and and security and and adversary models for when
+
+00:56:39.590 --> 00:56:42.630
+somebody tries to gain this new system uh and you know you
+
+00:56:42.630 --> 00:56:46.060
+don't want to do what the web unfortunately is which was
+
+00:56:46.060 --> 00:56:48.400
+filled with it and then move on to security off to the
+
+00:56:48.400 --> 00:56:52.960
+outside so have you thought about that yeah i mean i think
+
+00:56:52.960 --> 00:56:56.530
+that's what that's what app proto can be so good
+
+00:56:56.530 --> 00:56:58.740
+for if you're going to tie this oh yeah yeah so
+
+00:56:58.740 --> 00:57:02.080
+the so the question is uh what do you do about security
+
+00:57:02.080 --> 00:57:04.980
+what do you do about attempts to game the system um that
+
+00:57:04.980 --> 00:57:10.140
+have been tried with the current version of publishing uh that um
+
+00:57:10.140 --> 00:57:14.080
+that people will will eventually try in this system as well um
+
+00:57:14.090 --> 00:57:18.190
+so having this uh persistent identifier for you and your history of
+
+00:57:18.190 --> 00:57:20.960
+work i think goes a long way seeing the extent to which
+
+00:57:20.960 --> 00:57:24.250
+your work is reproduced by others in other contexts and having
+
+00:57:24.250 --> 00:57:27.660
+that be a signal that some communities elevate i think will will
+
+00:57:27.660 --> 00:57:31.550
+help a lot as well and for us having the sharing be
+
+00:57:31.550 --> 00:57:37.440
+with your trusted communities who you have a social connection to through
+
+00:57:37.440 --> 00:57:42.650
+conferences etc makes it more likely that you will have some social
+
+00:57:42.650 --> 00:57:47.570
+cohesion as you uh eventually share to a public platform with
+
+00:57:47.600 --> 00:57:51.830
+with that that lacks context but i think having these expanding circles
+
+00:57:51.830 --> 00:57:55.390
+of of communities and and trusts who are genuinely interested in addressing
+
+00:57:55.390 --> 00:57:58.840
+the research question together has been a missing part in the first
+
+00:57:58.840 --> 00:58:04.110
+generation of platforms and sharing yeah i think one one one thing
+
+00:58:04.110 --> 00:58:06.460
+that i'll maybe add to that is even or like if
+
+00:58:06.460 --> 00:58:09.340
+we're looking at some of these sort of attacks today are
+
+00:58:09.340 --> 00:58:13.410
+like hallucinated references that are just like completely made up and
+
+00:58:13.410 --> 00:58:19.120
+in this better network like where you can actually like hover over
+
+00:58:19.130 --> 00:58:23.780
+something and see if that thing exists like that just that like
+
+00:58:23.780 --> 00:58:28.420
+better formats like wipes out a whole sort of side of the
+
+00:58:28.420 --> 00:58:32.040
+attack and then i think again leaning on some of the expertise
+
+00:58:32.040 --> 00:58:36.000
+that has built up in the social media space around moderation and
+
+00:58:36.040 --> 00:58:39.220
+and that side i think that is more mature than what is
+
+00:58:39.220 --> 00:58:43.420
+in the scientific space right now okay

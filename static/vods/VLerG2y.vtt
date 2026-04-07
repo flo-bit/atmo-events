@@ -1,0 +1,1243 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.380
+Yeah, let's kick this off.
+
+00:00:01.460 --> 00:00:03.900
+Okay, so hello everyone.
+
+00:00:03.900 --> 00:00:05.360
+I'm Leijie Wang.
+
+00:00:05.460 --> 00:00:08.520
+I'm a PhD student from University of Washington.
+
+00:00:08.520 --> 00:00:11.550
+Even though I'm at Seattle, very close to Vancouver,
+
+00:00:11.560 --> 00:00:14.120
+but because of the visa issues, I cannot come in person
+
+00:00:14.240 --> 00:00:14.460
+.
+
+00:00:14.460 --> 00:00:15.760
+So that's why I'm over the Zoom.
+
+00:00:15.760 --> 00:00:19.440
+But today I would like to be glad to present our work
+
+00:00:19.440 --> 00:00:22.980
+about Blue Sky Custom Feeds and the title, Understand the
+
+00:00:22.980 --> 00:00:24.960
+Landscape of Custom Feeds on Blue Sky.
+
+00:00:24.960 --> 00:00:29.640
+I'll start with thinking about the platforms you use every day
+
+00:00:29.640 --> 00:00:29.960
+.
+
+00:00:30.000 --> 00:00:32.550
+Like YouTube, TikTok, Instagram, or Spotify.
+
+00:00:32.560 --> 00:00:36.330
+Each of them has a recommendation feed that feels quite personal to
+
+00:00:36.330 --> 00:00:36.780
+you.
+
+00:00:36.780 --> 00:00:40.600
+But you have no saying how that particular algorithm works or what
+
+00:00:40.600 --> 00:00:41.790
+you're optimized for.
+
+00:00:41.860 --> 00:00:44.410
+Like whether you're optimized for likes or dislikes.
+
+00:00:44.420 --> 00:00:49.070
+The ranking is just instead decided by those single centralized algorithms controlled
+
+00:00:49.070 --> 00:00:50.260
+by those big companies.
+
+00:00:50.260 --> 00:00:55.080
+And this concentration of power in these days has two consequences.
+
+00:00:55.080 --> 00:00:58.820
+So first, you don't have no visibility into why certain
+
+00:00:58.820 --> 00:01:00.380
+content appeal into their feed.
+
+00:01:00.400 --> 00:01:02.280
+The algorithm is just a black box.
+
+00:01:02.280 --> 00:01:05.930
+And we see a lot of complaints about them in these days
+
+00:01:05.930 --> 00:01:06.240
+.
+
+00:01:06.240 --> 00:01:10.430
+And the second, creators often learn to optimize for that particular
+
+00:01:10.430 --> 00:01:11.990
+algorithm to appease them.
+
+00:01:12.000 --> 00:01:14.920
+And over time, we can see the content start to become
+
+00:01:14.920 --> 00:01:16.550
+homogeneous everywhere.
+
+00:01:16.600 --> 00:01:18.980
+Like there are all kinds of clickbait kind of content.
+
+00:01:20.320 --> 00:01:22.760
+And this is what Blue Sky does something different here.
+
+00:01:22.760 --> 00:01:24.620
+Like they call algorithmic choice.
+
+00:01:24.620 --> 00:01:27.940
+Blue Sky Custom Feeds allow users to create, subscribe,
+
+00:01:27.940 --> 00:01:32.620
+and share their feed algorithms instead of being stuck with that particular
+
+00:01:32.620 --> 00:01:33.280
+default.
+
+00:01:33.940 --> 00:01:36.660
+And on the consumer side, the field consumers, they can
+
+00:01:36.660 --> 00:01:40.060
+further subscribe to the feeds offered by their communities.
+
+00:01:40.060 --> 00:01:43.500
+And on the creator side, third-party tools make it
+
+00:01:43.500 --> 00:01:47.100
+possible for anyone to build and publish their own feeds.
+
+00:01:49.100 --> 00:01:51.940
+This connects to a very long-standing vision in the research
+
+00:01:51.940 --> 00:01:54.500
+community, the idea of middleware.
+
+00:01:54.500 --> 00:01:56.490
+The core idea is simple.
+
+00:01:56.500 --> 00:02:00.480
+What if the social media services, like recommendation, moderation,
+
+00:02:00.480 --> 00:02:03.530
+or the governance in the communities, did not have to be
+
+00:02:03.530 --> 00:02:05.640
+controlled by the platforms?
+
+00:02:06.480 --> 00:02:10.360
+What if they could be provided by these independent middleware services
+
+00:02:10.360 --> 00:02:13.100
+so that users have the choice among them?
+
+00:02:13.140 --> 00:02:18.800
+And this is just a theoretical vision is already happening at scale
+
+00:02:19.020 --> 00:02:19.180
+.
+
+00:02:19.180 --> 00:02:21.740
+Today, as people already know in the room, like the
+
+00:02:21.860 --> 00:02:25.900
+Blue Sky today has 42 million active users and over 40,
+
+00:02:25.900 --> 00:02:28.780
+000 custom feeds have been created.
+
+00:02:28.780 --> 00:02:32.750
+So this makes custom feeds as the first large-scale instant
+
+00:02:32.770 --> 00:02:36.990
+iation of the middleware vision for feed recommendation specifically.
+
+00:02:37.020 --> 00:02:42.460
+But for this particular ecosystem to work, someone has to actually
+
+00:02:42.460 --> 00:02:43.440
+build in their feeds.
+
+00:02:43.440 --> 00:02:46.720
+And that's the feed creators we focus in this particular work
+
+00:02:46.760 --> 00:02:47.000
+.
+
+00:02:47.000 --> 00:02:49.280
+But we know little about them.
+
+00:02:49.280 --> 00:02:52.100
+Like, what motivates them to create feeds in the first place
+
+00:02:52.100 --> 00:02:52.310
+?
+
+00:02:52.320 --> 00:02:55.600
+And what does it actually take to run a particular custom feed
+
+00:02:55.640 --> 00:02:55.880
+?
+
+00:02:55.880 --> 00:02:59.140
+And what challenges and opportunities do they face?
+
+00:02:59.140 --> 00:03:01.690
+These are the questions driving our work.
+
+00:03:03.000 --> 00:03:06.370
+So in particular, we organize our work around these three research
+
+00:03:06.370 --> 00:03:07.140
+questions.
+
+00:03:07.140 --> 00:03:10.420
+First, what kinds of custom feeds are there?
+
+00:03:10.460 --> 00:03:15.080
+Second, what kinds of how do the feed creators building,
+
+00:03:15.080 --> 00:03:18.280
+maintaining, and sustaining their custom feed ecosystem?
+
+00:03:18.280 --> 00:03:23.480
+Third, what kinds of challenges and opportunities exist for the custom
+
+00:03:23.480 --> 00:03:24.900
+feed ecosystem?
+
+00:03:24.940 --> 00:03:30.200
+To answer these research questions, we conducted semi-structured
+
+00:03:30.200 --> 00:03:34.000
+interviews with 24 feed creators on Blue Sky.
+
+00:03:34.000 --> 00:03:37.430
+And this particular chart shows the range of feeds they created,
+
+00:03:37.430 --> 00:03:40.200
+measured by the likes they received on Blue Sky.
+
+00:03:40.200 --> 00:03:44.270
+Some creators that are relatively small, with under like 100 likes
+
+00:03:44.270 --> 00:03:44.500
+.
+
+00:03:44.500 --> 00:03:47.870
+But there are others who are building feeds over 10,000
+
+00:03:47.870 --> 00:03:48.400
+likes.
+
+00:03:48.400 --> 00:03:51.240
+So we have a good spread in our interviews, from the
+
+00:03:51.240 --> 00:03:54.100
+hobbyist builders to some of the most popular feeds on the
+
+00:03:54.300 --> 00:03:55.010
+platform.
+
+00:03:56.680 --> 00:03:58.400
+And here we talk about our findings.
+
+00:03:58.400 --> 00:04:03.200
+Our first key finding is that we identify there are two kinds
+
+00:04:03.200 --> 00:04:07.300
+of feed orientations that the custom feeds can fall into.
+
+00:04:07.320 --> 00:04:10.280
+The first is the utility-providing feed.
+
+00:04:10.280 --> 00:04:13.620
+They are focused on delivering the content to the feed consumers,
+
+00:04:13.620 --> 00:04:17.090
+thinking of them as a well-curated feeder, filter
+
+00:04:17.090 --> 00:04:17.360
+.
+
+00:04:18.200 --> 00:04:21.120
+And there's also community-building feeds that are very different
+
+00:04:21.120 --> 00:04:21.340
+.
+
+00:04:21.340 --> 00:04:24.910
+They're cultivating the space for the feed consumers to connect
+
+00:04:24.910 --> 00:04:26.020
+with each other.
+
+00:04:26.020 --> 00:04:29.120
+And as we will see, these two orientations shape their
+
+00:04:29.120 --> 00:04:33.040
+motivations, their daily tasks, and how they're sustaining their
+
+00:04:33.040 --> 00:04:34.220
+feeds in the long term.
+
+00:04:34.220 --> 00:04:39.170
+Specific for the utility-providing feeds, the feed
+
+00:04:39.170 --> 00:04:42.980
+is primarily a content delivery mechanism for the feed consumers.
+
+00:04:42.980 --> 00:04:46.040
+The creator's job is mostly done as setup.
+
+00:04:46.680 --> 00:04:50.370
+They configure the hashtags, keywords, or data accounts, and
+
+00:04:50.370 --> 00:04:52.660
+just let the feed run on the blue sky.
+
+00:04:52.660 --> 00:04:56.440
+On the other hand, the feed consumers, they are purely
+
+00:04:56.440 --> 00:04:58.220
+receptive or passive.
+
+00:04:58.220 --> 00:05:01.360
+They just follow the feed like they're following a particular channel
+
+00:05:01.360 --> 00:05:03.060
+or follow a particular blog site.
+
+00:05:03.060 --> 00:05:08.330
+They do not actively contribute to what particular content appears in the
+
+00:05:08.330 --> 00:05:10.010
+feed by themselves.
+
+00:05:10.020 --> 00:05:14.820
+And within the utility feed, we also see two distinct sub
+
+00:05:14.820 --> 00:05:15.660
+types.
+
+00:05:16.340 --> 00:05:18.900
+The first is what we call set it and forget it mode
+
+00:05:19.020 --> 00:05:19.260
+.
+
+00:05:19.260 --> 00:05:22.710
+People just catch the relevant post of a given topic just with
+
+00:05:22.710 --> 00:05:26.290
+a very simple list of keywords, such as mushrooms or some
+
+00:05:26.290 --> 00:05:27.680
+fan communities.
+
+00:05:27.680 --> 00:05:31.640
+The creator just sets it up once and just largely forgot it
+
+00:05:31.640 --> 00:05:32.860
+and step away.
+
+00:05:34.260 --> 00:05:37.430
+The second type is very highly curated feeds, those use v
+
+00:05:37.430 --> 00:05:42.180
+etted poster lists or custom ranking algorithms to ensure the content they
+
+00:05:42.180 --> 00:05:44.280
+delivered are super high quality.
+
+00:05:44.280 --> 00:05:47.020
+It's almost like an editor's choice or editor's pick
+
+00:05:47.020 --> 00:05:48.240
+in the newspapers.
+
+00:05:48.240 --> 00:05:52.240
+Unlike the first type, they require very ongoing maintenance.
+
+00:05:52.280 --> 00:05:57.450
+The creators constantly turning and tuning and updating their algorithms to ensure
+
+00:05:57.450 --> 00:05:59.880
+the content is always high quality.
+
+00:05:59.880 --> 00:06:04.940
+Community building feeds work very differently from these utility feeds.
+
+00:06:04.940 --> 00:06:08.580
+Here, the feed consumers are not just passive recipients.
+
+00:06:08.960 --> 00:06:13.170
+They actively contribute in the content and interact with each other simply
+
+00:06:13.170 --> 00:06:16.190
+by the feed, like they were adding a particular keyword to
+
+00:06:16.190 --> 00:06:20.310
+their post so that they're essentially having conversations with each other
+
+00:06:20.380 --> 00:06:21.140
+in the feed.
+
+00:06:21.680 --> 00:06:24.920
+The feed becomes a very shared social place, and the feed
+
+00:06:24.920 --> 00:06:26.980
+creator's role shifts here too.
+
+00:06:26.980 --> 00:06:30.480
+Instead of configuring rules, they tend to be social space
+
+00:06:30.480 --> 00:06:34.000
+, maintaining norms and keeping the community healthy.
+
+00:06:35.680 --> 00:06:39.080
+I will give you two concrete examples of community building feeds.
+
+00:06:39.080 --> 00:06:41.500
+So there's a particular feed that we found out in our
+
+00:06:41.500 --> 00:06:42.320
+interviews.
+
+00:06:42.320 --> 00:06:46.120
+They just surface a post from the users below a particular threshold
+
+00:06:46.120 --> 00:06:49.640
+of follower numbers so that they can design it to welcome the
+
+00:06:49.650 --> 00:06:53.340
+newcomers and give the less known voices a chance to be
+
+00:06:53.340 --> 00:06:54.900
+seen in their feed.
+
+00:06:54.900 --> 00:06:58.290
+And another, just like the feed consumers curating the content
+
+00:06:58.290 --> 00:06:59.300
+by themselves.
+
+00:06:59.300 --> 00:07:01.860
+So they can just reply to any post on Blue Sky with
+
+00:07:01.980 --> 00:07:03.420
+a particular keyword.
+
+00:07:03.620 --> 00:07:06.060
+And in this way, they are nominating the post to
+
+00:07:06.060 --> 00:07:08.060
+appear in the feed automatically.
+
+00:07:08.060 --> 00:07:12.470
+And one of our participants captured the creator's role very well
+
+00:07:12.470 --> 00:07:12.760
+.
+
+00:07:12.760 --> 00:07:16.040
+They said, I almost see myself as a librarian.
+
+00:07:16.060 --> 00:07:18.240
+I'm making sure people are not yelling.
+
+00:07:18.240 --> 00:07:21.140
+They are not picking up their trash and putting books back when
+
+00:07:21.140 --> 00:07:22.460
+they are supposed to be.
+
+00:07:22.460 --> 00:07:26.430
+I'm making a place as presentable and welcoming as possible
+
+00:07:26.510 --> 00:07:26.820
+.
+
+00:07:26.920 --> 00:07:30.090
+So they are just tending to that particular social space as
+
+00:07:30.090 --> 00:07:33.440
+a feed creator, which is very different from the utility feed
+
+00:07:33.440 --> 00:07:34.220
+creators.
+
+00:07:34.220 --> 00:07:37.390
+And after that, let's take a look at how people
+
+00:07:37.390 --> 00:07:39.880
+are building their custom feeds.
+
+00:07:39.940 --> 00:07:43.720
+And we found out that most feed creators navigate an ecosystem of
+
+00:07:43.720 --> 00:07:45.060
+third-party tools.
+
+00:07:45.060 --> 00:07:47.120
+They do not have to start from scratch.
+
+00:07:47.560 --> 00:07:50.020
+But for some of them, those tools are not enough for
+
+00:07:50.020 --> 00:07:50.840
+their needs.
+
+00:07:50.840 --> 00:07:53.160
+So they end up building their own infrastructures.
+
+00:07:54.700 --> 00:07:57.620
+So for example, most feed creators, they rely on third
+
+00:07:57.620 --> 00:07:58.560
+-party tools.
+
+00:07:58.560 --> 00:08:01.480
+And there is a real diversity of options for them.
+
+00:08:01.480 --> 00:08:04.960
+Brown Sky Feed, Blue Sky Feed creators, and Grace,
+
+00:08:04.960 --> 00:08:06.420
+just to name a few.
+
+00:08:07.060 --> 00:08:10.450
+So the variety matters, it means that the creators can always
+
+00:08:10.450 --> 00:08:14.400
+choose a tool that best fits their needs and their technical levels
+
+00:08:14.410 --> 00:08:14.660
+.
+
+00:08:14.660 --> 00:08:19.460
+Within these tools, creators try to combine various kinds of building
+
+00:08:19.460 --> 00:08:22.440
+blocks to shape what appears in the feed.
+
+00:08:22.440 --> 00:08:27.060
+Some using those keywords or regular expression matching to catch a post
+
+00:08:27.060 --> 00:08:28.560
+on a specific topic.
+
+00:08:28.560 --> 00:08:32.200
+Others try to maintain the vetted accounts list, hand-
+
+00:08:32.200 --> 00:08:35.060
+picking who got included in their feed.
+
+00:08:35.800 --> 00:08:38.390
+And some also use a Blue Sky Labellers system to
+
+00:08:38.480 --> 00:08:42.440
+help filter the content as part of their content moderation efforts.
+
+00:08:42.460 --> 00:08:46.720
+But the third-party do not work for everyone.
+
+00:08:46.720 --> 00:08:50.520
+Some creators have the needs that go beyond what existing tools can
+
+00:08:50.520 --> 00:08:51.270
+support.
+
+00:08:51.300 --> 00:08:53.790
+And they end up building their own infrastructures.
+
+00:08:53.800 --> 00:08:58.870
+So for instance, one participant built a fully personalized recommendation system
+
+00:08:58.870 --> 00:08:59.640
+on their own.
+
+00:08:59.640 --> 00:09:03.080
+Because they need a fine-grained interaction data that this
+
+00:09:03.080 --> 00:09:05.620
+third-party tool simply cannot access.
+
+00:09:05.800 --> 00:09:10.860
+And another tried to run a custom implementation in Rust because their
+
+00:09:10.860 --> 00:09:14.710
+feed lodges are often too complex for any block-based
+
+00:09:14.750 --> 00:09:17.340
+tools offered by these third-party tools.
+
+00:09:17.340 --> 00:09:20.150
+And they also need to support a much larger scale of use
+
+00:09:20.150 --> 00:09:20.390
+.
+
+00:09:20.400 --> 00:09:23.870
+So in this way, these feed creators are not casual hobby
+
+00:09:23.870 --> 00:09:25.800
+ists who just try it for fun.
+
+00:09:25.800 --> 00:09:30.480
+They are essentially running some independent technical infrastructure through the custom feeds
+
+00:09:30.480 --> 00:09:30.720
+.
+
+00:09:30.720 --> 00:09:36.340
+And our third key finding is about what it takes to maintain
+
+00:09:36.340 --> 00:09:38.980
+a custom feed over time.
+
+00:09:39.580 --> 00:09:42.380
+And it turns out the maintenance goes well beyond just keeping the
+
+00:09:42.380 --> 00:09:43.580
+hour with them running.
+
+00:09:43.600 --> 00:09:47.770
+Creators are handling moderation, deriving discovery, and try
+
+00:09:47.770 --> 00:09:50.220
+to listen to the consumer feedback.
+
+00:09:50.260 --> 00:09:53.660
+And for most of these tasks, they get very little support
+
+00:09:53.660 --> 00:09:55.520
+from the Blue Sky platform.
+
+00:09:57.580 --> 00:10:02.110
+So for instance, the utility providing feed, the moderation effort
+
+00:10:02.110 --> 00:10:06.030
+is very different across these different kinds of feeds.
+
+00:10:06.040 --> 00:10:09.490
+But for the utility providing feeds, it's more about largely
+
+00:10:09.490 --> 00:10:10.590
+upfront effort.
+
+00:10:10.620 --> 00:10:14.250
+They set up some strict rules to deliver the content, which
+
+00:10:14.250 --> 00:10:18.160
+means that usually there isn't much toxic content to moderate for
+
+00:10:18.160 --> 00:10:20.060
+after the feed goes alive.
+
+00:10:20.440 --> 00:10:23.580
+But for the community feed, it's often ongoing because the
+
+00:10:23.580 --> 00:10:25.840
+community itself is always evolving.
+
+00:10:25.840 --> 00:10:28.940
+There's new member joins, there's new dynamic emerge,
+
+00:10:28.940 --> 00:10:31.440
+and norms need to be actively maintained.
+
+00:10:31.440 --> 00:10:34.170
+And on top of that, the moderation deletion is
+
+00:10:34.170 --> 00:10:35.760
+also much more nuanced.
+
+00:10:35.760 --> 00:10:38.610
+It's not just about the topic being misaligned with
+
+00:10:38.610 --> 00:10:41.400
+your feed topic, but instead it's a social delet
+
+00:10:41.400 --> 00:10:41.840
+ion.
+
+00:10:41.840 --> 00:10:44.430
+They need to carefully make sure their deletions do not
+
+00:10:44.520 --> 00:10:46.340
+hurt the community relationship.
+
+00:10:48.440 --> 00:10:51.720
+And the Blue Sky also decentralizes the creation of the feed
+
+00:10:51.760 --> 00:10:54.850
+, but they do not decentralize the discovery of the feed
+
+00:10:54.850 --> 00:10:55.060
+.
+
+00:10:55.140 --> 00:10:58.840
+The feed tab on the Blue Sky is often static, ranked
+
+00:10:58.840 --> 00:11:02.220
+by the popularities, serving the same set of feeds that
+
+00:11:02.270 --> 00:11:03.810
+were popular two years ago.
+
+00:11:03.820 --> 00:11:06.730
+And for the new feeds, especially non-engaged ones
+
+00:11:06.730 --> 00:11:09.510
+, they have little chance to be seen by the newcomers
+
+00:11:09.720 --> 00:11:09.940
+.
+
+00:11:09.940 --> 00:11:13.480
+And the creators need to take matters into their own time.
+
+00:11:13.700 --> 00:11:16.580
+They have to promote the feeds by themselves, on the social
+
+00:11:16.580 --> 00:11:19.160
+media, in the communities, whenever they can.
+
+00:11:20.540 --> 00:11:23.700
+And we heard these frustrations directed from the creators.
+
+00:11:23.700 --> 00:11:28.560
+One participant told us, I have been commenting on every single
+
+00:11:28.630 --> 00:11:31.600
+feed topic post I found, telling them about the feeds and
+
+00:11:31.600 --> 00:11:33.580
+how to set up their Blue Sky accounts.
+
+00:11:33.620 --> 00:11:37.000
+And they've sent out thousands of messages.
+
+00:11:37.000 --> 00:11:41.100
+And they concluded that, even though the feed is successful,
+
+00:11:41.100 --> 00:11:44.200
+but obviously it's not a sustainable strategy for a lot of
+
+00:11:44.200 --> 00:11:45.280
+feed creators.
+
+00:11:45.280 --> 00:11:50.060
+And another participant complained that, if creating a new account and
+
+00:11:50.060 --> 00:11:52.500
+they go to the feed tab, you will see the same
+
+00:11:52.500 --> 00:11:54.240
+top feed from two years ago.
+
+00:11:54.240 --> 00:11:57.610
+They are all in English and often only about the United States
+
+00:11:57.610 --> 00:11:57.860
+.
+
+00:11:57.860 --> 00:12:00.740
+So it's not interesting for the people outside of the United
+
+00:12:00.740 --> 00:12:01.360
+States.
+
+00:12:03.620 --> 00:12:08.060
+And the centralized algorithms can improve the continuously on these YouTube or
+
+00:12:08.060 --> 00:12:09.280
+TikTok platforms.
+
+00:12:09.320 --> 00:12:11.840
+They're listening to your clicks, your skips, and
+
+00:12:11.840 --> 00:12:15.500
+the dwell times, and feedback into their recommendation algorithms.
+
+00:12:15.500 --> 00:12:18.090
+But in the Blue Sky for the custom feeds, they have
+
+00:12:18.180 --> 00:12:20.050
+not that kind of infrastructure.
+
+00:12:21.120 --> 00:12:24.640
+There are several kinds of feedback they can tap into, like
+
+00:12:24.640 --> 00:12:27.870
+they get some implicit feedbacks from the people who likes,
+
+00:12:27.870 --> 00:12:31.020
+replies, or reposts their feeds from their custom feeds
+
+00:12:31.040 --> 00:12:31.260
+.
+
+00:12:31.260 --> 00:12:35.640
+But they lack the technical tools to actually analyze and learn from
+
+00:12:35.640 --> 00:12:36.950
+this data at scale.
+
+00:12:37.080 --> 00:12:40.630
+They also got a lot of some sort of explicit feedback from
+
+00:12:40.630 --> 00:12:45.580
+their direct messages or some survey responses they distributed in their feed
+
+00:12:45.660 --> 00:12:46.040
+.
+
+00:12:46.120 --> 00:12:49.080
+But it's often very rare and only come from the people
+
+00:12:49.080 --> 00:12:52.480
+who are mostly motivated to consume their feed content.
+
+00:12:52.480 --> 00:12:56.120
+There are also some third-party tools that provide some basic
+
+00:12:56.120 --> 00:13:00.150
+analytics, things like the daily active users or the posted volumes
+
+00:13:00.150 --> 00:13:00.440
+.
+
+00:13:00.440 --> 00:13:03.890
+But this only tells the feed creators that the feed is still
+
+00:13:03.900 --> 00:13:07.440
+alive, but not whether it's actually working on that.
+
+00:13:07.440 --> 00:13:10.250
+The result is that the feed creators do not get a lot
+
+00:13:10.250 --> 00:13:13.420
+of feedback to continuously improving their feed.
+
+00:13:13.560 --> 00:13:16.130
+And in the long term, they just lose their motivation to
+
+00:13:16.240 --> 00:13:16.660
+do that.
+
+00:13:16.660 --> 00:13:22.320
+And our fourth and final key finding is about sustaining the custom
+
+00:13:22.560 --> 00:13:23.280
+feeds.
+
+00:13:23.340 --> 00:13:27.460
+The custom feed ecosystem, over 40,000 feeds, run
+
+00:13:27.460 --> 00:13:30.070
+almost entirely on volunteer labels.
+
+00:13:30.080 --> 00:13:33.600
+Creators need to adopt the cost of running the feed themselves
+
+00:13:33.600 --> 00:13:36.340
+, with very little to no platform support.
+
+00:13:37.120 --> 00:13:40.390
+And what is sustaining them isn't their financial incentives or the
+
+00:13:40.390 --> 00:13:41.800
+platform recognitions.
+
+00:13:41.800 --> 00:13:44.290
+It's often just intrinsic motivation.
+
+00:13:44.300 --> 00:13:48.470
+And if we take a step back, there's some cost
+
+00:13:48.470 --> 00:13:50.840
+of sustaining a feed.
+
+00:13:50.840 --> 00:13:53.780
+And on the infrastructure side, the creators need to pay out
+
+00:13:53.780 --> 00:13:57.320
+of the pocket for third-party tool subscriptions to keep their
+
+00:13:57.320 --> 00:13:58.320
+feed running.
+
+00:13:58.400 --> 00:14:01.500
+And beyond the money, there's also time commitment.
+
+00:14:01.500 --> 00:14:04.780
+They have to do the regular maintenance, moderation, and responding
+
+00:14:04.820 --> 00:14:05.980
+to the user feedback.
+
+00:14:05.980 --> 00:14:09.450
+But what keeps the creator going, we call it the hobby
+
+00:14:09.450 --> 00:14:10.360
+ist model.
+
+00:14:10.360 --> 00:14:12.420
+The motivation is the owning few.
+
+00:14:12.440 --> 00:14:17.520
+For the utility-providing creators, seeing their subscriber account
+
+00:14:17.520 --> 00:14:18.940
+grow is a key signal.
+
+00:14:19.260 --> 00:14:22.520
+It tells them the feed is still useful and worth maintaining.
+
+00:14:22.520 --> 00:14:26.160
+But that also is saying that without that particular signal, feed
+
+00:14:26.160 --> 00:14:28.900
+creators are more likely to lose motivations.
+
+00:14:28.900 --> 00:14:32.590
+And that's why we have this bunch of set and forget
+
+00:14:32.590 --> 00:14:35.120
+it feeds for the utility part.
+
+00:14:35.120 --> 00:14:39.310
+For the community-building creators, the motivation comes from something
+
+00:14:39.310 --> 00:14:40.420
+very different.
+
+00:14:40.420 --> 00:14:43.380
+They are seeing that people are actually connecting with each other through
+
+00:14:43.380 --> 00:14:44.020
+their feed.
+
+00:14:44.020 --> 00:14:46.420
+And that makes them happy about their job.
+
+00:14:46.620 --> 00:14:50.590
+But this mirrors what we see in those volunteer ecosystems like Reddit
+
+00:14:50.590 --> 00:14:53.940
+and Discord, where the community itself is just a reward.
+
+00:14:53.940 --> 00:14:58.490
+We also asked about feed creators about monetarization, and
+
+00:14:58.540 --> 00:15:02.240
+most felt that not all the feeds can justify it.
+
+00:15:02.240 --> 00:15:05.850
+The key factor is that whether the feed is built on dedicated
+
+00:15:05.850 --> 00:15:07.660
+, irreplaceable effort.
+
+00:15:07.660 --> 00:15:10.600
+So, for example, the set and forget feeds, they
+
+00:15:10.600 --> 00:15:12.400
+are very easy to replicate.
+
+00:15:12.720 --> 00:15:15.650
+If someone charges for it, users can just build the feeds
+
+00:15:15.650 --> 00:15:17.340
+by themselves, elsewhere.
+
+00:15:17.340 --> 00:15:21.680
+But for the highly curated feeds, they are very different.
+
+00:15:21.680 --> 00:15:25.130
+The creators have the ongoing effort and judgment to make the feed
+
+00:15:25.130 --> 00:15:27.140
+valuable to their feed consumers.
+
+00:15:27.140 --> 00:15:30.750
+And we do see some successful examples of monetarization in
+
+00:15:30.750 --> 00:15:32.780
+that space in our interviews.
+
+00:15:35.340 --> 00:15:38.790
+Creators volunteer their efforts very willingly, but they also think
+
+00:15:38.790 --> 00:15:41.880
+the infrastructure costs deserve some financial support.
+
+00:15:41.880 --> 00:15:46.680
+One participant put it very simply that it's not about getting
+
+00:15:46.680 --> 00:15:47.380
+rich.
+
+00:15:47.380 --> 00:15:49.520
+It's just about getting covering expense.
+
+00:15:49.520 --> 00:15:51.780
+So I'm not going to pay out of the pocket to
+
+00:15:51.780 --> 00:15:53.200
+help the community.
+
+00:15:54.260 --> 00:15:57.470
+And another friend, even more positive, they're charging a
+
+00:15:57.470 --> 00:16:00.600
+small amount of dollars isn't just fair to the creators.
+
+00:16:00.600 --> 00:16:04.570
+It's creating a positive loop of dollars going through the communities
+
+00:16:04.650 --> 00:16:08.720
+so that the whole Blue Sky Custom Feeds can go more
+
+00:16:08.720 --> 00:16:09.510
+alive.
+
+00:16:09.540 --> 00:16:13.840
+So with all these findings, we have these two design implications
+
+00:16:13.840 --> 00:16:17.290
+to see how we can further improve the Blue Sky Custom Fe
+
+00:16:17.290 --> 00:16:20.060
+eds as a community, and also as researchers.
+
+00:16:20.060 --> 00:16:24.250
+We see there's two key directions to better support feed creators
+
+00:16:24.250 --> 00:16:26.920
+beyond the initial building process.
+
+00:16:26.920 --> 00:16:30.140
+First, we need to help creators to better make sense of
+
+00:16:30.140 --> 00:16:33.650
+the implicit feedback they get from their feed creators.
+
+00:16:33.660 --> 00:16:37.580
+Feed consumers like likes, reports, and replies exist.
+
+00:16:37.580 --> 00:16:41.310
+But creators need to better choose to better turn into that noisy
+
+00:16:41.310 --> 00:16:45.010
+data, into some actionable insights they can use to improve their
+
+00:16:45.010 --> 00:16:45.600
+feeds.
+
+00:16:47.360 --> 00:16:50.200
+Second, we also need to rethink about the feed discovery.
+
+00:16:50.200 --> 00:16:53.050
+Right now, it's still platform-controlled, even though
+
+00:16:53.050 --> 00:16:55.580
+it's very fair-controlled, like it's always ranked
+
+00:16:55.600 --> 00:16:56.800
+by the popularities.
+
+00:16:56.800 --> 00:17:01.080
+But enabling more personalized feed discovery, beyond just the platform-
+
+00:17:01.080 --> 00:17:04.800
+controlled ranking, will give new users, and not English feeds
+
+00:17:04.800 --> 00:17:07.970
+, a real chance to reach to the right users.
+
+00:17:08.100 --> 00:17:13.580
+And we also want to say something about the sustainability.
+
+00:17:14.360 --> 00:17:17.920
+If creators burn out and cannot cover their costs, feeds just
+
+00:17:17.920 --> 00:17:22.610
+will stop being maintained, and the communities building around them will
+
+00:17:22.610 --> 00:17:23.680
+slowly go away.
+
+00:17:23.680 --> 00:17:28.020
+From our interviews, we've found two potential positives that the
+
+00:17:28.020 --> 00:17:31.520
+feed creators themselves are already experienced with.
+
+00:17:31.520 --> 00:17:33.360
+One is their donations.
+
+00:17:33.360 --> 00:17:36.410
+They will solicit some donations from their feed consumers.
+
+00:17:37.060 --> 00:17:40.680
+This is similar to how the Wikipedia sustain itself through those volunteer
+
+00:17:40.680 --> 00:17:42.220
+-like community donations.
+
+00:17:42.220 --> 00:17:47.020
+And we also see those popular feeds doing transparent advertising.
+
+00:17:47.020 --> 00:17:50.400
+They have some ads within their feeds, but the ad is
+
+00:17:50.400 --> 00:17:52.900
+opt-in, and the community scoped ads, so
+
+00:17:53.060 --> 00:17:55.780
+that they can keep the revenue, but do not deliver like
+
+00:17:55.780 --> 00:17:58.220
+very irrelevant ads to their consumers.
+
+00:17:59.340 --> 00:18:02.830
+Although, neither of them is a perfect solution, but they
+
+00:18:02.830 --> 00:18:06.070
+both point out towards a model where the community of the custom
+
+00:18:06.120 --> 00:18:10.020
+feeds can support the infrastructure and support itself in the long term
+
+00:18:10.020 --> 00:18:10.260
+.
+
+00:18:10.260 --> 00:18:15.580
+Here's all of our presentations, and thank you for everyone
+
+00:18:15.580 --> 00:18:17.500
+listening, even though it's over Zoom.
+
+00:18:17.500 --> 00:18:19.300
+And do you have any questions?
+
+00:18:19.300 --> 00:18:20.760
+And here's my contact.
+
+00:18:20.840 --> 00:18:29.940
+Do we have any questions, comments, thoughts
+
+00:18:29.940 --> 00:18:30.680
+?
+
+00:18:30.680 --> 00:18:33.310
+Nope?
+
+00:18:33.360 --> 00:18:35.240
+Oh, what you got?
+
+00:18:35.240 --> 00:18:39.160
+If you were managing Blue Sky, the app, what would
+
+00:18:39.160 --> 00:18:39.960
+you do?
+
+00:18:39.960 --> 00:18:42.790
+The question was, if you were managing Blue Sky, the
+
+00:18:42.790 --> 00:18:44.280
+app, what would you do?
+
+00:18:45.620 --> 00:18:48.500
+I think, as I can see in the design implications,
+
+00:18:48.500 --> 00:18:51.560
+I would at least try to improve the feed discovery feature.
+
+00:18:51.560 --> 00:18:54.100
+Like, I think people do want that part to be,
+
+00:18:54.100 --> 00:18:57.050
+like, it's inevitable they're going to be some sort
+
+00:18:57.050 --> 00:19:00.950
+of centralized by the Blue Sky platform to design how to rank
+
+00:19:00.950 --> 00:19:03.720
+in these different kinds of feeds.
+
+00:19:03.720 --> 00:19:06.310
+But obviously, I think one single feature you can see just
+
+00:19:06.400 --> 00:19:09.300
+to recommend relevant feeds for people to explore, so that they
+
+00:19:09.340 --> 00:19:12.760
+'re not being stuck in those popularity ranking feeds, which is
+
+00:19:12.760 --> 00:19:15.410
+always just the same set of feeds all over the years.
+
+00:19:16.080 --> 00:19:19.970
+And I think another important part people constantly want is about better
+
+00:19:19.970 --> 00:19:22.960
+guidelines, about how to do the advertisement in their feeds.
+
+00:19:23.040 --> 00:19:25.440
+Like, people are kind of trying to figure it out by
+
+00:19:25.440 --> 00:19:29.130
+themselves and trying to testing that in their own population, the
+
+00:19:29.130 --> 00:19:30.690
+consumer's populations.
+
+00:19:30.740 --> 00:19:33.840
+But it's more beneficial for them to see, like,
+
+00:19:33.840 --> 00:19:37.060
+what kinds of ads are tolerable in the feeds so that
+
+00:19:37.060 --> 00:19:40.790
+they can be more actionable and more comfortable to place ads in
+
+00:19:40.790 --> 00:19:43.280
+their feeds so that they're not going to do the free
+
+00:19:43.280 --> 00:19:44.860
+label for the whole ecosystem.
+
+00:19:45.620 --> 00:19:52.080
+I think that's it.
+
+00:19:52.080 --> 00:19:52.860
+Thank you very much.
+
+00:19:52.860 --> 00:19:53.280
+Yeah.
+
+00:19:53.280 --> 00:19:54.550
+Thank you, everyone.
+
+00:19:54.560 --> 00:19:55.040
+Cheers.

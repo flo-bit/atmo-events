@@ -1,0 +1,1759 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.150
+Okay.
+
+00:00:02.150 --> 00:00:03.110
+Can anybody hear me?
+
+00:00:03.270 --> 00:00:06.890
+Okay.
+
+00:00:06.990 --> 00:00:11.990
+Hi.
+
+00:00:11.990 --> 00:00:17.440
+I couldn't find the water, so today it's going
+
+00:00:17.440 --> 00:00:17.920
+to be Coke.
+
+00:00:17.980 --> 00:00:19.180
+So, hi.
+
+00:00:19.180 --> 00:00:21.900
+My name is Dan Abimov.
+
+00:00:21.900 --> 00:00:26.910
+I used to work on Blue Sky for a little bit and
+
+00:00:26.910 --> 00:00:31.570
+on React for a little bit before that, and right now
+
+00:00:31.570 --> 00:00:34.530
+I'm just doing random stuff.
+
+00:00:34.720 --> 00:00:38.610
+And so, some projects you start because you have a real
+
+00:00:38.610 --> 00:00:40.450
+problem that you want to solve.
+
+00:00:40.550 --> 00:00:43.360
+This is not one of those projects.
+
+00:00:43.360 --> 00:00:46.230
+So, this is one of those projects where I just had
+
+00:00:46.230 --> 00:00:49.780
+this idea that I know React pretty well and I know how
+
+00:00:50.040 --> 00:00:53.980
+components work, and I also kind of know Etprato
+
+00:00:53.980 --> 00:00:56.700
+at this point, and I just had this idea, like
+
+00:00:56.700 --> 00:00:58.780
+, what if you put components on Etprato?
+
+00:00:58.780 --> 00:01:01.060
+And I just couldn't like kind of get rid of this
+
+00:01:01.060 --> 00:01:03.070
+idea, and at some point I decided, okay, I
+
+00:01:03.070 --> 00:01:06.360
+just need to try and see where that leads.
+
+00:01:06.360 --> 00:01:09.510
+So, I vibe-coded a prototype like a couple
+
+00:01:09.740 --> 00:01:13.520
+of months ago in one week, and it kind of looked
+
+00:01:13.520 --> 00:01:14.360
+like this.
+
+00:01:14.360 --> 00:01:18.970
+I ended up spending the next two months completely rebuilding it properly
+
+00:01:18.970 --> 00:01:19.360
+.
+
+00:01:19.360 --> 00:01:21.470
+But I'll just show you the prototype first, and then
+
+00:01:21.560 --> 00:01:25.200
+I'll kind of show you how it works.
+
+00:01:25.200 --> 00:01:28.080
+So, what you see here is, I guess, it
+
+00:01:28.080 --> 00:01:31.100
+'s kind of like a Blue Sky profile page.
+
+00:01:31.100 --> 00:01:34.360
+So, I'm just using that as an example.
+
+00:01:34.360 --> 00:01:35.900
+You know, it has, like, different tabs.
+
+00:01:35.900 --> 00:01:38.070
+It has, you know, the replies tab, and the
+
+00:01:38.700 --> 00:01:43.040
+media tab, it has pagination.
+
+00:01:43.040 --> 00:01:44.540
+It has this critical component.
+
+00:01:44.540 --> 00:01:46.640
+You know, there's this, like, third-party
+
+00:01:46.700 --> 00:01:51.660
+website that has this feature that lets you see kind of social
+
+00:01:51.660 --> 00:01:55.490
+connection and, like, jump between people and, you know
+
+00:01:55.490 --> 00:01:59.370
+, see who kind of interacted with whom recently, which I
+
+00:01:59.370 --> 00:02:02.240
+think is a really nice, you know, kind of thing
+
+00:02:02.240 --> 00:02:04.520
+you can do when the data is open.
+
+00:02:04.520 --> 00:02:09.480
+But one frustration for me with a lot of apps, like
+
+00:02:09.480 --> 00:02:13.350
+, with app paradigm in general, is that things like this
+
+00:02:13.350 --> 00:02:15.720
+have to live somewhere else.
+
+00:02:15.720 --> 00:02:18.900
+Like, if you, there's really no point in continuum
+
+00:02:18.900 --> 00:02:21.360
+between, you know, if here's, like, a
+
+00:02:21.380 --> 00:02:23.720
+one-off tool that I throw away that, like,
+
+00:02:23.720 --> 00:02:26.400
+lives on some URL somewhere that is, like, not discover
+
+00:02:26.400 --> 00:02:28.200
+able, and here's, like, a whole app.
+
+00:02:28.220 --> 00:02:31.860
+And there really isn't much, like, in the middle
+
+00:02:31.860 --> 00:02:32.200
+.
+
+00:02:32.200 --> 00:02:35.010
+And so I thought it would be interesting if there was a
+
+00:02:35.010 --> 00:02:39.070
+way for, you know, people to kind of prototype features
+
+00:02:39.070 --> 00:02:41.490
+like this in a place where you can find them.
+
+00:02:41.490 --> 00:02:44.360
+And so maybe let's have a look at how this actually
+
+00:02:44.360 --> 00:02:46.930
+works, because so far, you know, it just looks
+
+00:02:46.930 --> 00:02:49.860
+like kind of like a worse browser.
+
+00:02:49.860 --> 00:02:54.190
+But one interesting thing we can do is I can click Inspect
+
+00:02:54.600 --> 00:02:55.180
+on it.
+
+00:02:55.180 --> 00:02:58.490
+And it kind of opens up a little bit.
+
+00:02:58.490 --> 00:03:01.640
+You can see, you know, that actually, like,
+
+00:03:01.650 --> 00:03:04.460
+what I've been looking for is, it's kind of
+
+00:03:04.460 --> 00:03:08.570
+like a tree, kind of like a React tree, except
+
+00:03:08.570 --> 00:03:12.600
+each of these things is actually a Prado record somewhere.
+
+00:03:12.820 --> 00:03:16.880
+So these are different components that could be implemented by different people
+
+00:03:16.880 --> 00:03:19.800
+, could live in different places, and so on.
+
+00:03:21.010 --> 00:03:23.750
+And maybe let's kind of pull it out a little bit
+
+00:03:23.750 --> 00:03:23.970
+.
+
+00:03:23.970 --> 00:03:26.430
+So this is my profile header.
+
+00:03:26.430 --> 00:03:29.750
+And this is profile posts.
+
+00:03:29.810 --> 00:03:35.360
+And profile posts is probably, you know, you wouldn't
+
+00:03:35.360 --> 00:03:38.280
+be surprised that it's a list of posts.
+
+00:03:38.280 --> 00:03:41.030
+And a post itself, you know, it has, like
+
+00:03:41.030 --> 00:03:43.220
+, avatar and handle.
+
+00:03:45.420 --> 00:03:48.510
+Yeah, yeah, we need to go deeper.
+
+00:03:48.600 --> 00:03:53.160
+Yeah, so, okay, so what, you know,
+
+00:03:53.160 --> 00:03:55.080
+what, what can we do with it?
+
+00:03:55.080 --> 00:03:58.520
+So one thing I want to do is, I'm actually
+
+00:03:58.520 --> 00:04:02.860
+gonna, I'm gonna open this as a different user.
+
+00:04:02.860 --> 00:04:06.120
+So I have, like, another browser here.
+
+00:04:06.120 --> 00:04:10.520
+Let's, let's take this profile header.
+
+00:04:10.520 --> 00:04:13.540
+So I'm now logged in, not as the never move
+
+00:04:13.540 --> 00:04:15.160
+, but like, as another user.
+
+00:04:15.160 --> 00:04:17.000
+And I have this remix button here.
+
+00:04:17.000 --> 00:04:18.680
+So I'm gonna press remix.
+
+00:04:18.690 --> 00:04:20.440
+And I hope that it works.
+
+00:04:20.480 --> 00:04:23.720
+And so this opens up sort of an editor.
+
+00:04:23.720 --> 00:04:25.960
+So this is the profile header.
+
+00:04:26.040 --> 00:04:28.960
+And you can see there's a bunch of something that looks
+
+00:04:28.960 --> 00:04:31.150
+like JSX here, but, you know, really is
+
+00:04:31.150 --> 00:04:31.800
+JSON.
+
+00:04:31.820 --> 00:04:33.960
+That's what JSX has always been.
+
+00:04:33.960 --> 00:04:38.680
+And I can actually look at, like, another way to
+
+00:04:38.840 --> 00:04:40.300
+look at it is just on ptsls.
+
+00:04:40.300 --> 00:04:42.440
+So I'm gonna open ptsls.
+
+00:04:42.440 --> 00:04:45.790
+And I have this inlay component collection.
+
+00:04:46.160 --> 00:04:48.600
+And I have this profile header.
+
+00:04:48.620 --> 00:04:52.180
+And so this stuff that you see here, like, there
+
+00:04:52.180 --> 00:04:55.590
+'s, like, a stack with, like, avatar,
+
+00:04:55.640 --> 00:04:57.420
+and, like, title, and caption, and, like
+
+00:04:57.420 --> 00:04:58.290
+, all of that jazz.
+
+00:04:58.370 --> 00:05:01.600
+And, like, the cover is actually, like, you
+
+00:05:01.600 --> 00:05:05.490
+can also see here that this is this JSON structure, which
+
+00:05:05.490 --> 00:05:07.640
+is just, like, a UI tree.
+
+00:05:07.640 --> 00:05:11.480
+And it imports from some dits, which are, this
+
+00:05:11.480 --> 00:05:13.010
+is, like, the built-ins.
+
+00:05:13.010 --> 00:05:14.440
+This is the design system.
+
+00:05:14.440 --> 00:05:16.730
+And these are actually, like, my other components.
+
+00:05:16.730 --> 00:05:19.040
+So it's kind of like dits act kind of like
+
+00:05:19.040 --> 00:05:19.880
+packages.
+
+00:05:19.880 --> 00:05:23.420
+And here it says that this component can act as a kind
+
+00:05:23.440 --> 00:05:26.440
+of a view of the profile collection.
+
+00:05:26.690 --> 00:05:29.660
+So it's like a thing that can render a profile,
+
+00:05:29.660 --> 00:05:31.200
+at least one of those things.
+
+00:05:31.280 --> 00:05:33.470
+And so I'm gonna remix this a little bit.
+
+00:05:33.560 --> 00:05:35.880
+I'll, I think I'll get rid of the cover
+
+00:05:35.880 --> 00:05:36.090
+.
+
+00:05:36.150 --> 00:05:38.870
+And actually, like, maybe, you know, maybe I
+
+00:05:38.870 --> 00:05:41.240
+'ll get rid of the avatar, too.
+
+00:05:41.280 --> 00:05:44.420
+And instead, I'll add a, I'll add a
+
+00:05:44.520 --> 00:05:46.070
+Skircle component.
+
+00:05:46.070 --> 00:05:48.280
+So you've seen the Skircle before.
+
+00:05:49.320 --> 00:05:51.580
+So I'll just, I'll just throw that in here
+
+00:05:51.580 --> 00:05:53.560
+so that it's, it's easy to find.
+
+00:05:53.560 --> 00:05:57.110
+I think I'll actually, let me put it here.
+
+00:05:57.240 --> 00:06:01.290
+And I'll make this a row instead of, yeah,
+
+00:06:01.290 --> 00:06:03.320
+and maybe, maybe I'll add some inset.
+
+00:06:03.340 --> 00:06:06.380
+Okay, so this is, like, my take on what
+
+00:06:06.380 --> 00:06:08.670
+a profile header should be.
+
+00:06:08.670 --> 00:06:11.860
+So there's already a profile header component.
+
+00:06:11.860 --> 00:06:16.830
+But I'm gonna publish another profile header component from kind of
+
+00:06:16.830 --> 00:06:19.560
+my perspective, from this user's perspective.
+
+00:06:19.650 --> 00:06:21.640
+And so this, you know, this doesn't change,
+
+00:06:21.640 --> 00:06:23.330
+like, what we're looking at here.
+
+00:06:23.330 --> 00:06:25.950
+But actually, like, again, you know, I can
+
+00:06:26.060 --> 00:06:27.480
+switch between them.
+
+00:06:27.480 --> 00:06:30.370
+So here's, here's the new profile header component from
+
+00:06:30.370 --> 00:06:31.830
+, you know, my other user.
+
+00:06:31.830 --> 00:06:34.250
+And, you know, you can see there are, like
+
+00:06:34.250 --> 00:06:36.610
+, all these different ways to look at the profile, right
+
+00:06:36.610 --> 00:06:36.730
+?
+
+00:06:36.790 --> 00:06:40.250
+Like, what, what makes a profile a profile, even
+
+00:06:40.250 --> 00:06:43.070
+like something like, like, like, like BDSLS
+
+00:06:43.120 --> 00:06:43.880
+shows it.
+
+00:06:43.880 --> 00:06:48.670
+And so, okay, so I made this profile header,
+
+00:06:48.680 --> 00:06:52.020
+but this profile component written by somebody else, it doesn't
+
+00:06:52.020 --> 00:06:53.240
+use that header, right?
+
+00:06:53.380 --> 00:06:56.750
+But what I can do is, again, I can click
+
+00:06:56.840 --> 00:06:57.800
+remix here.
+
+00:06:57.800 --> 00:07:00.560
+And so now we're gonna, wait, is it,
+
+00:07:00.560 --> 00:07:02.970
+is it going to the wrong thing?
+
+00:07:02.970 --> 00:07:05.550
+I think it's going, let me just refresh just in
+
+00:07:05.600 --> 00:07:06.200
+case.
+
+00:07:06.200 --> 00:07:08.730
+Yeah, it went to the wrong thing.
+
+00:07:08.860 --> 00:07:12.250
+But here's the, so here's the, the profile
+
+00:07:12.250 --> 00:07:16.170
+component itself that contains, you can see it has the profile
+
+00:07:16.300 --> 00:07:19.690
+header, it has the tabs with like posts and replies,
+
+00:07:19.690 --> 00:07:22.760
+and kind of, you know, delegates to those.
+
+00:07:23.640 --> 00:07:24.690
+It has the Skircle tab.
+
+00:07:24.690 --> 00:07:26.580
+I'm not going to need that because I move, I
+
+00:07:26.580 --> 00:07:28.710
+'ve moved the Skircle, you know, into,
+
+00:07:28.710 --> 00:07:32.000
+and I guess Paul doesn't listen to music, so it
+
+00:07:32.000 --> 00:07:34.200
+doesn't have till FM plays.
+
+00:07:34.200 --> 00:07:37.390
+I'll just get rid of that too, actually, for
+
+00:07:37.390 --> 00:07:37.800
+now.
+
+00:07:37.840 --> 00:07:42.950
+Yeah, and so, but now we have two versions of
+
+00:07:43.150 --> 00:07:45.640
+the profile header, right?
+
+00:07:45.660 --> 00:07:47.560
+There's one by Dan Abramov, which is the
+
+00:07:47.640 --> 00:07:49.080
+original one, it's here.
+
+00:07:49.080 --> 00:07:51.910
+And then there's profile header by my user, which is
+
+00:07:51.910 --> 00:07:52.990
+just created.
+
+00:07:52.990 --> 00:07:55.330
+And so what I'm going to do is I'm going
+
+00:07:55.330 --> 00:07:58.870
+to slide this a little bit up so that it takes preced
+
+00:07:58.910 --> 00:07:59.470
+ence.
+
+00:07:59.470 --> 00:08:03.290
+So now the profile header is going to refer to the version
+
+00:08:03.290 --> 00:08:05.350
+that, you know, that I remixed from my user
+
+00:08:05.350 --> 00:08:05.560
+.
+
+00:08:05.560 --> 00:08:08.840
+So this is kind of like a low stakes way to like
+
+00:08:08.840 --> 00:08:11.860
+play around with, okay, this is what I think a
+
+00:08:11.860 --> 00:08:13.690
+profile page should be.
+
+00:08:13.690 --> 00:08:15.660
+So I'm just going to, you know, I'm
+
+00:08:15.660 --> 00:08:17.980
+just going to publish this as profile.
+
+00:08:17.980 --> 00:08:20.280
+And again, the, you know, it's, it
+
+00:08:20.280 --> 00:08:22.120
+'s, it's just an option here.
+
+00:08:22.120 --> 00:08:24.630
+So now you can see that this is, this is my
+
+00:08:24.740 --> 00:08:26.900
+take, you know, my user's take on what a
+
+00:08:27.000 --> 00:08:33.560
+profile page could be.
+
+00:08:33.560 --> 00:08:38.840
+Okay, so, of course, we don't want to
+
+00:08:38.840 --> 00:08:44.260
+always create everything from scratch unless you're using LLMs
+
+00:08:44.260 --> 00:08:44.360
+.
+
+00:08:44.360 --> 00:08:46.990
+I, this project is like a very caveman mode.
+
+00:08:46.990 --> 00:08:49.160
+I'm sure there's like a way to get LL
+
+00:08:49.170 --> 00:08:50.200
+M to do this as well.
+
+00:08:50.200 --> 00:08:51.980
+And I don't know if it makes sense.
+
+00:08:51.990 --> 00:08:54.270
+But I'm just I'm just showing you kind of the
+
+00:08:54.440 --> 00:08:56.150
+vanilla version.
+
+00:08:56.150 --> 00:08:59.290
+And so Canvas, you know, this thing, I'm
+
+00:08:59.290 --> 00:09:01.560
+calling it like a Canvas, right?
+
+00:09:01.560 --> 00:09:04.740
+It's just like this, this thing where you can kind
+
+00:09:04.740 --> 00:09:08.260
+of jump around and kind of see different things and pull them
+
+00:09:08.360 --> 00:09:08.910
+apart.
+
+00:09:08.940 --> 00:09:12.840
+But one problem, that's my first prototype.
+
+00:09:12.840 --> 00:09:14.680
+But I realized that, okay, like, how do you
+
+00:09:14.750 --> 00:09:17.440
+actually discover these components that other people create?
+
+00:09:17.520 --> 00:09:19.400
+And that's, you know, I made the editor,
+
+00:09:19.400 --> 00:09:21.690
+but then the question was, where do you find them?
+
+00:09:21.750 --> 00:09:25.340
+So I realized I needed something like a browser, too.
+
+00:09:25.340 --> 00:09:28.390
+That's kind of like, I guess, kind of like
+
+00:09:28.390 --> 00:09:29.580
+PDSLS, right?
+
+00:09:29.740 --> 00:09:32.340
+So we, we could say, you know, if you
+
+00:09:32.340 --> 00:09:34.250
+'ve ever, if you've ever seen PDSLS,
+
+00:09:34.250 --> 00:09:37.080
+you know, this interface where, like, you select the
+
+00:09:37.080 --> 00:09:40.510
+, you select the user, and then you select the collection
+
+00:09:40.510 --> 00:09:41.080
+type.
+
+00:09:41.080 --> 00:09:45.280
+And you can just like navigate between records, right?
+
+00:09:45.400 --> 00:09:47.720
+So this is kind of PDSLS inspired.
+
+00:09:47.720 --> 00:09:53.110
+But maybe you can like register this, like other ways to
+
+00:09:53.120 --> 00:09:56.620
+view the same data, right, that are like more human
+
+00:09:56.760 --> 00:09:57.800
+friendly.
+
+00:09:57.820 --> 00:10:02.180
+And I'll just show you like the process for what,
+
+00:10:02.180 --> 00:10:05.030
+you know, what it feels like to create one of those
+
+00:10:05.030 --> 00:10:05.090
+.
+
+00:10:05.240 --> 00:10:07.660
+So I'll say I'll go to profile.
+
+00:10:07.680 --> 00:10:12.360
+And again, like just a profile record, like looks like
+
+00:10:12.360 --> 00:10:14.370
+this, this is a built in component, I'm gonna
+
+00:10:14.370 --> 00:10:16.920
+create a new one, gives me this template with like,
+
+00:10:16.920 --> 00:10:19.480
+stuff that's available.
+
+00:10:19.480 --> 00:10:22.790
+And I'm just gonna say, okay, like, let
+
+00:10:22.790 --> 00:10:25.560
+'s say I want, I want an avatar.
+
+00:10:25.560 --> 00:10:28.010
+And it knows that, oh, like, there's already
+
+00:10:28.010 --> 00:10:29.800
+a did here, so it refills it.
+
+00:10:29.800 --> 00:10:32.290
+And I want like a, you know, I want like
+
+00:10:32.290 --> 00:10:36.680
+a title with, let's say, like, Paul's
+
+00:10:36.680 --> 00:10:38.230
+, like, display name, right?
+
+00:10:38.450 --> 00:10:41.410
+So we put display name here, and let's make this
+
+00:10:41.410 --> 00:10:43.880
+like a, oops, oops, oops, a row.
+
+00:10:47.260 --> 00:10:50.270
+Okay, so I'm gonna publish this as like profile example
+
+00:10:50.270 --> 00:10:50.520
+.
+
+00:10:50.540 --> 00:10:55.480
+Okay, so here's my profile.
+
+00:10:55.480 --> 00:10:58.340
+Where is it in the list?
+
+00:10:58.340 --> 00:10:59.720
+I don't see it in the list.
+
+00:10:59.720 --> 00:11:00.440
+Oh, there it is.
+
+00:11:00.440 --> 00:11:03.320
+So here's my profile example component.
+
+00:11:03.320 --> 00:11:07.750
+Let's check that it appears in my other users, b
+
+00:11:07.750 --> 00:11:08.280
+tsls.
+
+00:11:08.520 --> 00:11:14.850
+So there it is, profile example, you can see the
+
+00:11:14.850 --> 00:11:16.600
+tree and stuff.
+
+00:11:17.480 --> 00:11:20.200
+So there are three types of inlay components.
+
+00:11:20.200 --> 00:11:25.290
+So this kind of component is called a template component because the
+
+00:11:25.290 --> 00:11:28.570
+, the actual JSON for how to, for the UI lives
+
+00:11:28.570 --> 00:11:30.920
+directly inside the record.
+
+00:11:30.920 --> 00:11:33.680
+So, you know, if inlay dies, you can
+
+00:11:33.680 --> 00:11:37.510
+, you know, you can just interpret the same data and
+
+00:11:37.550 --> 00:11:39.540
+kind of bring it back to life.
+
+00:11:39.540 --> 00:11:41.310
+But it's very limited, right?
+
+00:11:41.410 --> 00:11:44.430
+Because I can't have, this is not JavaScript, this
+
+00:11:44.550 --> 00:11:45.750
+is just like a JSX editor.
+
+00:11:45.750 --> 00:11:47.430
+It's just like, it could be, it could have
+
+00:11:47.460 --> 00:11:49.360
+been like a block editor or whatever.
+
+00:11:49.360 --> 00:11:51.980
+But it doesn't have like loops, it doesn't have
+
+00:11:51.980 --> 00:11:54.180
+conditions, it doesn't have like any fancy, I can
+
+00:11:54.180 --> 00:11:56.150
+'t, you can't like hit another app view, another
+
+00:11:56.310 --> 00:11:57.320
+service or whatever.
+
+00:11:57.320 --> 00:11:58.840
+So it's a bit limited.
+
+00:11:58.850 --> 00:12:01.720
+But the one thing we can do is we can eject.
+
+00:12:01.720 --> 00:12:03.320
+I really like this feature.
+
+00:12:03.320 --> 00:12:06.120
+I build it into everything.
+
+00:12:07.400 --> 00:12:09.450
+Okay, wait, I can't eject from this one because
+
+00:12:09.450 --> 00:12:11.880
+I haven't, I haven't created a token.
+
+00:12:11.880 --> 00:12:14.630
+Let me use, let me just do the same example from
+
+00:12:14.630 --> 00:12:17.000
+my user where I already connected.
+
+00:12:17.010 --> 00:12:22.200
+So there's, there's this thing called valtown.
+
+00:12:22.200 --> 00:12:24.680
+I don't know if you, let me delete this.
+
+00:12:27.020 --> 00:12:28.840
+Call this profile example.
+
+00:12:28.840 --> 00:12:30.360
+Yeah.
+
+00:12:30.360 --> 00:12:33.050
+So there's a, there's this thing called valtown
+
+00:12:33.050 --> 00:12:39.390
+, which is like a kind of simple coding environment for publishing
+
+00:12:39.390 --> 00:12:42.300
+some server code, kind of like REPL for, you
+
+00:12:42.300 --> 00:12:44.120
+know, that lets you like run a server.
+
+00:12:44.120 --> 00:12:47.200
+So when you press eject on a component, what it's
+
+00:12:47.320 --> 00:12:49.260
+going to do is it's going to hit the valtown
+
+00:12:49.260 --> 00:12:54.120
+API, which is for some reason taking like five seconds and
+
+00:12:54.120 --> 00:12:56.300
+generate what they call eval.
+
+00:12:56.300 --> 00:12:58.970
+So eval is just, you know, it's just
+
+00:12:58.970 --> 00:12:59.780
+a server.
+
+00:12:59.890 --> 00:13:02.790
+And I, I made some helpers for this thing.
+
+00:13:02.790 --> 00:13:04.450
+And like these are lexicons.
+
+00:13:04.450 --> 00:13:06.440
+So it, it like gets type checked.
+
+00:13:06.440 --> 00:13:10.610
+But this is, you know, this is my component.
+
+00:13:10.610 --> 00:13:13.150
+Like I just, I just moved it from here.
+
+00:13:13.150 --> 00:13:14.630
+Now I can like call it.
+
+00:13:14.630 --> 00:13:17.690
+So it's an xrpc call to that component
+
+00:13:17.690 --> 00:13:20.460
+, which means that I can, you know, I can
+
+00:13:20.460 --> 00:13:21.690
+treat it as code.
+
+00:13:21.690 --> 00:13:26.200
+I could make like a different, you know, API calls
+
+00:13:26.320 --> 00:13:27.880
+here or whatever.
+
+00:13:27.880 --> 00:13:29.260
+And let's see.
+
+00:13:29.400 --> 00:13:32.280
+Yeah, you see it, it, it updated.
+
+00:13:32.280 --> 00:13:33.480
+So it works.
+
+00:13:33.490 --> 00:13:36.440
+All right.
+
+00:13:36.460 --> 00:13:39.880
+Now I need to drink.
+
+00:13:46.040 --> 00:13:48.460
+So let's, uh, let's build another fun little
+
+00:13:48.470 --> 00:13:49.320
+component.
+
+00:13:49.320 --> 00:13:53.160
+Um, so let's go to this, uh, what
+
+00:13:53.160 --> 00:13:53.480
+is it?
+
+00:13:53.500 --> 00:13:57.720
+Uh, no, the, the UNME connection thing that
+
+00:13:57.720 --> 00:14:00.200
+everybody's been using at the conference.
+
+00:14:00.200 --> 00:14:03.150
+Uh, well, spoiler, I already, I already made
+
+00:14:03.150 --> 00:14:03.560
+it.
+
+00:14:03.560 --> 00:14:07.150
+Uh, well, let me, let me just delete it
+
+00:14:07.310 --> 00:14:07.320
+.
+
+00:14:07.320 --> 00:14:10.620
+So, so I can demo it again.
+
+00:14:10.620 --> 00:14:13.500
+Uh, where is the, why can't I delete it
+
+00:14:13.800 --> 00:14:14.360
+actually?
+
+00:14:14.440 --> 00:14:16.140
+Is it from a different?
+
+00:14:16.140 --> 00:14:17.850
+Oh, I made it from a different account.
+
+00:14:17.850 --> 00:14:18.660
+Wait one second.
+
+00:14:18.660 --> 00:14:19.390
+I'll delete it.
+
+00:14:19.430 --> 00:14:20.440
+Don't close your eyes.
+
+00:14:20.440 --> 00:14:24.420
+Uh, so that you haven't seen it.
+
+00:14:24.420 --> 00:14:26.200
+And then I'll just make it again.
+
+00:14:26.220 --> 00:14:26.710
+Okay.
+
+00:14:26.710 --> 00:14:27.500
+It's gone.
+
+00:14:27.500 --> 00:14:28.360
+It's gone.
+
+00:14:28.360 --> 00:14:30.180
+Uh, so we're, we're going to make a
+
+00:14:30.180 --> 00:14:32.840
+little component, you know, like when you look at P
+
+00:14:32.840 --> 00:14:35.500
+GSLS version of this, like connections, it's like
+
+00:14:35.500 --> 00:14:36.640
+, what is going on here?
+
+00:14:36.720 --> 00:14:39.400
+Subject did and, and, and so on.
+
+00:14:39.400 --> 00:14:41.900
+So, uh, let's see, we're going to
+
+00:14:41.900 --> 00:14:45.260
+create a little, a little component that I'm going to
+
+00:14:45.260 --> 00:14:48.810
+take the did of myself, uh, you know, from
+
+00:14:48.810 --> 00:14:51.950
+the record and let's, let's show, uh,
+
+00:14:51.950 --> 00:14:54.890
+maybe like a, like an avi handle.
+
+00:14:54.960 --> 00:14:57.000
+Maybe it's not a bad idea.
+
+00:14:57.010 --> 00:15:00.070
+And then let's take the did of the subject and maybe
+
+00:15:00.070 --> 00:15:03.800
+also show an avi handle and maybe let's like just
+
+00:15:03.800 --> 00:15:06.680
+, just do some emoji, like high five.
+
+00:15:06.680 --> 00:15:12.820
+And yeah, so, and we're, and let's
+
+00:15:12.820 --> 00:15:16.600
+say we, we still add a timestamp.
+
+00:15:16.620 --> 00:15:17.110
+Okay.
+
+00:15:17.110 --> 00:15:19.960
+So we're going to publish this as a connection.
+
+00:15:19.960 --> 00:15:22.470
+So now you can see, you know, you can see
+
+00:15:22.470 --> 00:15:24.040
+what's been going on.
+
+00:15:25.020 --> 00:15:26.600
+Uh, yeah.
+
+00:15:26.600 --> 00:15:27.800
+Uh, let's see.
+
+00:15:27.800 --> 00:15:29.320
+Let's see who I said hi to.
+
+00:15:29.320 --> 00:15:34.600
+Yeah.
+
+00:15:34.600 --> 00:15:36.200
+Okay.
+
+00:15:36.200 --> 00:15:36.990
+So this is working.
+
+00:15:36.990 --> 00:15:41.710
+Um, let's go back to the, uh, let
+
+00:15:41.710 --> 00:15:42.920
+'s go back to the profile.
+
+00:15:48.120 --> 00:15:50.390
+So I kind of have this, this playground where I can
+
+00:15:50.390 --> 00:15:53.730
+, you know, kind of just play with different components,
+
+00:15:53.730 --> 00:15:55.000
+kind of riff on them.
+
+00:15:55.000 --> 00:15:57.880
+Um, it's, it is a bit tedious sometimes.
+
+00:15:57.880 --> 00:15:59.600
+Like if I want to, like maybe I just want to
+
+00:15:59.600 --> 00:16:01.160
+change something globally, right?
+
+00:16:01.160 --> 00:16:03.080
+Like in NPM, like the model so far I'm
+
+00:16:03.080 --> 00:16:06.040
+following is similar to NPM, but like each component has
+
+00:16:06.040 --> 00:16:07.080
+dependencies.
+
+00:16:07.080 --> 00:16:08.600
+And so like, if you want to change something, you
+
+00:16:08.600 --> 00:16:10.760
+fork that component, and then you kind of have to fork
+
+00:16:10.780 --> 00:16:12.150
+upwards dependency chain.
+
+00:16:12.150 --> 00:16:13.950
+Uh, but for example, in NPM, there's
+
+00:16:13.960 --> 00:16:17.050
+this feature, uh, like, uh, resolutions at the
+
+00:16:17.190 --> 00:16:19.430
+top where you can just say, you know, for everything
+
+00:16:19.520 --> 00:16:21.770
+, like I actually want to globally make something different.
+
+00:16:21.770 --> 00:16:23.860
+So for example, like, let's say, uh,
+
+00:16:23.860 --> 00:16:27.290
+you know, like yesterday, Paul was showing this example with
+
+00:16:27.290 --> 00:16:30.950
+, uh, removing, uh, the handles and just showing
+
+00:16:30.950 --> 00:16:34.360
+, uh, the, uh, display names, uh,
+
+00:16:34.360 --> 00:16:35.270
+way ahead of you.
+
+00:16:35.270 --> 00:16:37.460
+Uh, well, the truth is I actually haven't built
+
+00:16:37.510 --> 00:16:38.530
+a handle component.
+
+00:16:38.530 --> 00:16:41.160
+So I just, I literally can't make the handle work
+
+00:16:41.160 --> 00:16:41.350
+.
+
+00:16:41.350 --> 00:16:43.230
+Uh, but I have a different idea.
+
+00:16:43.230 --> 00:16:47.070
+So I, I kind of want to remix this AV handle
+
+00:16:47.070 --> 00:16:48.200
+thing.
+
+00:16:48.240 --> 00:16:52.380
+And specifically, um, you know, I, I want
+
+00:16:52.380 --> 00:16:57.080
+to, uh, democrat, democratize, uh, education
+
+00:16:57.080 --> 00:16:57.080
+.
+
+00:16:57.660 --> 00:17:00.750
+So I want to make us all PhDs.
+
+00:17:00.880 --> 00:17:04.970
+So I'm just going to put PhD here, uh,
+
+00:17:04.970 --> 00:17:06.440
+and I'm going to publish that.
+
+00:17:06.440 --> 00:17:09.170
+But now the problem is, okay, you know, like
+
+00:17:09.170 --> 00:17:11.400
+you want things to be predictable.
+
+00:17:11.400 --> 00:17:14.360
+So you don't really want like everything to just fall apart
+
+00:17:14.360 --> 00:17:16.860
+because like you change one little thing.
+
+00:17:17.020 --> 00:17:19.190
+So you kind of want to be like intentional, uh,
+
+00:17:19.280 --> 00:17:22.440
+about like, do you want to like override something?
+
+00:17:22.440 --> 00:17:25.410
+And so I'm not going to like fork all the way
+
+00:17:25.410 --> 00:17:26.000
+to the top.
+
+00:17:26.000 --> 00:17:28.760
+Instead, I'm going to use something slightly different.
+
+00:17:28.760 --> 00:17:32.250
+So I have this like stack feature here, which is,
+
+00:17:32.310 --> 00:17:36.010
+uh, kind of like a global resolution mechanism, which has
+
+00:17:36.010 --> 00:17:39.010
+like first, you know, you go through whatever the component
+
+00:17:39.010 --> 00:17:42.090
+author specifies, and then you can fall back on like
+
+00:17:42.230 --> 00:17:44.750
+my versions of components if some I'm missing.
+
+00:17:44.750 --> 00:17:48.010
+But I can actually drag that up and say, whoa,
+
+00:17:48.010 --> 00:17:51.120
+wait, I, okay, that was, that was not
+
+00:17:51.160 --> 00:17:52.100
+intentional.
+
+00:17:52.100 --> 00:17:55.080
+Uh, but we can pretend that this didn't happen.
+
+00:17:55.080 --> 00:17:58.200
+So, uh, you can, you know, you can
+
+00:17:58.200 --> 00:18:00.540
+say that I want to prefer, uh, this version,
+
+00:18:00.540 --> 00:18:02.840
+uh, that, that I, you know, of any
+
+00:18:02.860 --> 00:18:03.510
+component.
+
+00:18:03.510 --> 00:18:06.030
+And so when I, when I drag this thing above,
+
+00:18:06.040 --> 00:18:09.860
+it means that it will prefer my versions of a component throughout
+
+00:18:09.860 --> 00:18:10.980
+the whole tree.
+
+00:18:10.980 --> 00:18:13.360
+So this is why, uh, everyone is a PhD now
+
+00:18:13.480 --> 00:18:13.640
+.
+
+00:18:13.640 --> 00:18:15.800
+Great.
+
+00:18:15.800 --> 00:18:23.080
+Um, okay.
+
+00:18:23.150 --> 00:18:25.960
+We're, we're gonna run out of time soon.
+
+00:18:25.960 --> 00:18:28.040
+I just want to, um, I want to see why
+
+00:18:28.040 --> 00:18:31.490
+this broke, because I kind of wanted to show this.
+
+00:18:31.490 --> 00:18:36.350
+So, uh, connection, a result type connection.
+
+00:18:36.350 --> 00:18:44.040
+Uh, so is it called, did I not save it
+
+00:18:44.180 --> 00:18:44.790
+?
+
+00:18:44.850 --> 00:18:47.860
+Oh, it has a different NSID.
+
+00:18:47.860 --> 00:18:49.370
+I created it.
+
+00:18:49.540 --> 00:18:50.260
+Yeah.
+
+00:18:50.260 --> 00:18:51.790
+I created it from a different user.
+
+00:18:51.940 --> 00:18:54.150
+Uh, okay.
+
+00:18:54.150 --> 00:18:56.230
+I'll just, I'll just, I'll just publish
+
+00:18:56.320 --> 00:19:00.400
+it from, from, uh, yeah, I did not
+
+00:19:00.500 --> 00:19:01.480
+anticipate this.
+
+00:19:01.480 --> 00:19:04.350
+Uh, one second, let me delete this.
+
+00:19:04.350 --> 00:19:09.310
+And, uh, this is published by, it's not
+
+00:19:09.450 --> 00:19:13.400
+easy to, to be two different users at the same time
+
+00:19:13.400 --> 00:19:13.720
+.
+
+00:19:13.720 --> 00:19:18.010
+Let me just delete this as if it didn't exist.
+
+00:19:18.010 --> 00:19:22.040
+And I'm gonna, I'm just gonna create this again
+
+00:19:22.040 --> 00:19:24.440
+from my real user, because that's, that's what
+
+00:19:24.440 --> 00:19:26.560
+I'm already hardcoding somewhere else.
+
+00:19:26.560 --> 00:19:28.760
+So this is my connection component.
+
+00:19:28.760 --> 00:19:30.240
+Okay, cool.
+
+00:19:30.360 --> 00:19:32.440
+And the, uh, yeah.
+
+00:19:32.590 --> 00:19:34.900
+So the other thing I wanted to show here is, um
+
+00:19:34.900 --> 00:19:37.390
+, so feeds, right?
+
+00:19:37.390 --> 00:19:41.770
+Uh, like in feeds, uh, we, like feeds
+
+00:19:41.770 --> 00:19:46.210
+are another area where there's like, uh, some providers
+
+00:19:46.210 --> 00:19:48.990
+of, uh, like the actual, like feed content,
+
+00:19:49.080 --> 00:19:51.750
+but the format of the feed itself is determined by the app
+
+00:19:51.750 --> 00:19:51.920
+.
+
+00:19:51.920 --> 00:19:54.600
+And you can't really experiment with like what goes into a
+
+00:19:54.600 --> 00:19:56.720
+feed, uh, if you're not an art, an
+
+00:19:56.720 --> 00:19:57.530
+app author.
+
+00:19:57.590 --> 00:20:01.290
+So something, uh, something I wanted to show here is
+
+00:20:01.290 --> 00:20:04.470
+that, uh, actually like, if you look at the
+
+00:20:04.630 --> 00:20:08.010
+post list component, uh, where I'm, that is
+
+00:20:08.740 --> 00:20:12.310
+responsible for showing, you know, this list of posts,
+
+00:20:12.320 --> 00:20:15.850
+if you look at its source, um, which is here
+
+00:20:15.850 --> 00:20:20.010
+, like profile posts, for example.
+
+00:20:20.010 --> 00:20:22.800
+So if you look at its source, uh, the way
+
+00:20:22.800 --> 00:20:26.040
+it works is that it hits, uh, some did,
+
+00:20:26.040 --> 00:20:28.260
+uh, with, uh, with a query, right?
+
+00:20:28.260 --> 00:20:31.460
+So I'm calling this like get, uh, profile posts
+
+00:20:31.460 --> 00:20:32.030
+page.
+
+00:20:32.030 --> 00:20:34.760
+And I have this, uh, you know, in my
+
+00:20:34.760 --> 00:20:37.620
+Val town, I have, uh, uh, like I
+
+00:20:37.780 --> 00:20:41.720
+have a service run in that is, uh, uh,
+
+00:20:41.720 --> 00:20:44.110
+wait, then this is not the one, this one.
+
+00:20:44.210 --> 00:20:48.260
+So, so this is, this is the thing that gives
+
+00:20:48.260 --> 00:20:51.580
+, that generates the profile page, uh, the profile posts
+
+00:20:51.580 --> 00:20:51.770
+.
+
+00:20:51.780 --> 00:20:54.440
+And you can see that it hits the Busk API and
+
+00:20:54.440 --> 00:20:57.710
+then it just returns UI components, right?
+
+00:20:57.710 --> 00:21:00.240
+So this is how, this is how we see, uh
+
+00:21:00.240 --> 00:21:04.180
+, you know, like this stuff is coming from here.
+
+00:21:04.180 --> 00:21:07.410
+And similarly, the, uh, the media tab where we
+
+00:21:07.410 --> 00:21:10.720
+see a grid of those images, like it's, it
+
+00:21:10.750 --> 00:21:12.040
+'s not like hard coded.
+
+00:21:12.040 --> 00:21:14.450
+It's also like, it's just a component hidden,
+
+00:21:14.450 --> 00:21:16.200
+a list of get profile media page.
+
+00:21:16.760 --> 00:21:19.250
+And here it's like a bunch of blobs that are
+
+00:21:19.250 --> 00:21:21.960
+getting clipped, uh, as, as squares.
+
+00:21:21.960 --> 00:21:24.400
+Or like get TLFM plays, uh, on,
+
+00:21:24.480 --> 00:21:28.100
+well, again, uh, Paul doesn't listen to music
+
+00:21:28.150 --> 00:21:30.680
+, but, uh, if you go to my profile,
+
+00:21:30.680 --> 00:21:34.670
+uh, yeah, you can, it's like everything is
+
+00:21:34.670 --> 00:21:36.520
+a little browser.
+
+00:21:36.520 --> 00:21:41.000
+Uh, yeah, if you go to my profile and look
+
+00:21:41.000 --> 00:21:43.490
+at plays, you see like it's, this is,
+
+00:21:43.490 --> 00:21:44.830
+this is TLFM plays.
+
+00:21:44.830 --> 00:21:47.100
+And it just, uh, you know, this is how
+
+00:21:47.100 --> 00:21:47.770
+it works.
+
+00:21:47.770 --> 00:21:50.060
+It just fetches the collection and renders a TL,
+
+00:21:50.060 --> 00:21:51.720
+an array of TL play components.
+
+00:21:51.720 --> 00:21:55.690
+Uh, but, you know, what if you want to
+
+00:21:55.690 --> 00:21:58.280
+experiment with the content of those feeds themselves?
+
+00:21:58.280 --> 00:22:02.010
+And so, uh, actually each of these, you know
+
+00:22:02.010 --> 00:22:04.620
+, like I provide these endpoints here, uh, but
+
+00:22:04.620 --> 00:22:06.430
+these are also dynamically bound.
+
+00:22:07.080 --> 00:22:10.810
+So the way it actually works is that in my pgs
+
+00:22:10.810 --> 00:22:13.480
+ls, uh, there's a, uh, there's
+
+00:22:13.480 --> 00:22:16.950
+an endpoint collection that says to get, uh, you know
+
+00:22:16.950 --> 00:22:21.130
+, get profile posts page, uh, gets resolved to a
+
+00:22:21.220 --> 00:22:24.180
+service running here, which is, you know, this code
+
+00:22:24.180 --> 00:22:24.380
+.
+
+00:22:24.390 --> 00:22:26.980
+And so this is how it renders an array of posts
+
+00:22:27.060 --> 00:22:27.320
+.
+
+00:22:27.320 --> 00:22:31.400
+Uh, but what my other user does, uh, so
+
+00:22:31.430 --> 00:22:35.030
+my other user, uh, has, uh, also has
+
+00:22:35.030 --> 00:22:39.370
+an endpoint record for the same endpoint, and it says actually
+
+00:22:39.370 --> 00:22:41.380
+let's hit this other, you know, let's hit
+
+00:22:41.430 --> 00:22:42.360
+this other service.
+
+00:22:42.380 --> 00:22:47.780
+And this other service is, uh, here it is.
+
+00:22:47.870 --> 00:22:52.850
+So this is a different implementation of the get profile posts page
+
+00:22:52.850 --> 00:22:53.080
+.
+
+00:22:53.080 --> 00:22:56.220
+And here it fetches the posts, but it also fet
+
+00:22:56.220 --> 00:22:58.360
+ches the UNME connections.
+
+00:22:58.360 --> 00:23:02.280
+And, you know, and the element is just like a
+
+00:23:02.400 --> 00:23:06.650
+connection, the connection, uh, component that I created earlier
+
+00:23:06.650 --> 00:23:06.840
+.
+
+00:23:06.840 --> 00:23:08.760
+And it kind of just interleaves them.
+
+00:23:08.850 --> 00:23:11.290
+And so this is, uh, this is when, you
+
+00:23:11.290 --> 00:23:14.380
+know, when I prioritize, uh, sorry, in here
+
+00:23:14.380 --> 00:23:18.390
+, when I prioritize, uh, my other stuff in the
+
+00:23:18.390 --> 00:23:21.690
+stack, then this is why it's gonna just, yeah
+
+00:23:21.830 --> 00:23:24.070
+, like, it's just gonna show them inline.
+
+00:23:24.070 --> 00:23:26.840
+So this is something that you can also experiment with.
+
+00:23:26.840 --> 00:23:32.040
+Um, yeah.
+
+00:23:32.040 --> 00:23:33.890
+And, you know, this is, this is, uh
+
+00:23:33.950 --> 00:23:35.080
+, this is just a prototype.
+
+00:23:35.080 --> 00:23:36.590
+Like, I, I don't know if it's,
+
+00:23:36.600 --> 00:23:38.890
+I, I may like, I've coded like a Swift
+
+00:23:38.950 --> 00:23:40.230
+2i client for it.
+
+00:23:40.230 --> 00:23:42.360
+So the, uh, I said there are three, uh
+
+00:23:42.430 --> 00:23:43.850
+, three types of components.
+
+00:23:43.850 --> 00:23:47.490
+There's template components that are the UI lives in the record
+
+00:23:47.500 --> 00:23:47.800
+.
+
+00:23:47.800 --> 00:23:50.590
+Uh, there's external components, which are, you know
+
+00:23:50.590 --> 00:23:53.230
+, the ones that, uh, are ejected, which
+
+00:23:53.230 --> 00:23:55.840
+hit like a service or like, uh, like a valve
+
+00:23:55.840 --> 00:23:57.720
+or your own server or whatever.
+
+00:23:57.720 --> 00:23:59.400
+And the third type is built in.
+
+00:23:59.420 --> 00:24:02.510
+And so the, you know, when you looked at the
+
+00:24:02.600 --> 00:24:04.280
+, um, you can see this, this, uh,
+
+00:24:04.280 --> 00:24:06.280
+the red ones are overwritten.
+
+00:24:06.600 --> 00:24:07.930
+Uh, from the stack.
+
+00:24:07.930 --> 00:24:10.320
+Uh, so it's like, I want to do something
+
+00:24:10.320 --> 00:24:11.560
+different here.
+
+00:24:11.580 --> 00:24:16.160
+So, um, you can see that here, like these
+
+00:24:16.180 --> 00:24:17.640
+are, these are the built ins.
+
+00:24:17.640 --> 00:24:20.600
+So they don't have any implementation on the, on the
+
+00:24:20.640 --> 00:24:21.350
+protocol.
+
+00:24:21.350 --> 00:24:24.760
+This is something that like the design system implements.
+
+00:24:24.760 --> 00:24:26.680
+And I, you know, I have my own design system
+
+00:24:26.770 --> 00:24:28.600
+that is, uh, there's like what I'm using
+
+00:24:28.600 --> 00:24:30.880
+here, all this like row, caption, avatar, all
+
+00:24:31.000 --> 00:24:32.040
+the stuff you've seen.
+
+00:24:32.040 --> 00:24:34.080
+But in principle, you could make, you know, you
+
+00:24:34.080 --> 00:24:36.120
+could fork my, I just open sourced, uh,
+
+00:24:36.150 --> 00:24:36.580
+inlay.
+
+00:24:36.580 --> 00:24:38.600
+So it's, uh, it's untangled.
+
+00:24:38.610 --> 00:24:42.250
+Uh, uh, or is it a tangled, uh,
+
+00:24:42.250 --> 00:24:42.920
+inlay?
+
+00:24:42.920 --> 00:24:44.520
+Yeah, there it is.
+
+00:24:44.520 --> 00:24:47.310
+Um, so the app is also open source.
+
+00:24:47.320 --> 00:24:49.490
+Uh, so, you know, you can fork it,
+
+00:24:49.490 --> 00:24:51.400
+you can make your own version.
+
+00:24:51.400 --> 00:24:54.230
+You can decide to have a different set of primitives.
+
+00:24:54.230 --> 00:24:56.570
+Uh, and, uh, to, uh, like I
+
+00:24:56.570 --> 00:25:00.200
+, I made these primitives to be like cross platforms.
+
+00:25:00.200 --> 00:25:02.360
+So you could make like a Swift UI client for them or
+
+00:25:02.360 --> 00:25:04.650
+something else, but you could make them like closer to HTML
+
+00:25:04.650 --> 00:25:05.520
+if you want.
+
+00:25:05.520 --> 00:25:07.620
+And yeah, this is just an idea I'm kind of
+
+00:25:07.620 --> 00:25:08.600
+throwing out.
+
+00:25:08.600 --> 00:25:11.580
+Like, I'm probably not gonna like maintain this forever.
+
+00:25:11.580 --> 00:25:12.840
+Uh, but it's on the protocol.
+
+00:25:12.840 --> 00:25:15.590
+So in some sense, it is maintained forever.
+
+00:25:15.650 --> 00:25:16.440
+So thank you.
+
+00:25:20.920 --> 00:25:21.810
+Oh, I forgot.
+
+00:25:21.810 --> 00:25:23.440
+Uh, yeah, it's, it's, it's
+
+00:25:23.590 --> 00:25:24.520
+called inlay.
+
+00:25:24.520 --> 00:25:25.710
+It's like inlay.
+
+00:25:25.800 --> 00:25:26.270
+at.
+
+00:25:26.270 --> 00:25:28.690
+Yeah, this is, this is, this is how you
+
+00:25:28.690 --> 00:25:29.720
+find it.
+
+00:25:29.720 --> 00:25:31.310
+Okay, sorry.
+
+00:25:31.310 --> 00:25:32.040
+Bye.

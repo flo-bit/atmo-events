@@ -1,0 +1,1060 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+everything thank you very much yeah hi welcome everybody i hope you
+
+00:00:04.000 --> 00:00:08.720
+had a good lunch break um welcome back to our afternoon session
+
+00:00:08.720 --> 00:00:13.550
+uh hi i'm sandra i will speak about digital ser
+
+00:00:13.700 --> 00:00:18.010
+enity and how that goes advocating for it in europe and
+
+00:00:18.020 --> 00:00:21.520
+i'm very thankful for new public because i'm one of
+
+00:00:21.520 --> 00:00:26.160
+some speakers that i could make it to atmosphere conf due to
+
+00:00:26.160 --> 00:00:31.240
+the sponsorship by new public so thanks very much for having me
+
+00:00:31.320 --> 00:00:36.880
+i feel honored oh sorry no there it is um okay okay
+
+00:00:36.880 --> 00:00:45.300
+okay sorry i should use this one yeah so within
+
+00:00:45.300 --> 00:00:49.380
+the next 30 minutes i will speak a little about what's
+
+00:00:49.380 --> 00:00:52.800
+going on with digital serenity and what the concepts in
+
+00:00:52.800 --> 00:00:57.950
+europe are discussed about this and the goal really is to exchange
+
+00:00:57.950 --> 00:01:03.140
+knowledge knowledge on framings what people use in canada in
+
+00:01:03.140 --> 00:01:07.820
+europe but also on a more global perspective because i think it
+
+00:01:07.820 --> 00:01:11.660
+'s very important to exchange knowledge and get to know each other
+
+00:01:11.660 --> 00:01:15.360
+and everything and i also think that we need to speak more
+
+00:01:15.360 --> 00:01:20.290
+about our political demands it's good and relevant to build things
+
+00:01:20.290 --> 00:01:24.700
+and to use existing infrastructure but i think it's also very
+
+00:01:24.700 --> 00:01:29.620
+important to to be more present about what we demand actually and
+
+00:01:29.620 --> 00:01:32.570
+if we have a little bit time left i would like to
+
+00:01:32.650 --> 00:01:39.670
+speak a little bit about cross protocol corporation yeah so that's
+
+00:01:39.670 --> 00:01:43.950
+me i'm sandra i live in vienna and ber
+
+00:01:43.950 --> 00:01:51.170
+lin my professional background is within political science but i also worked
+
+00:01:51.280 --> 00:01:56.100
+in communication and the policy field on several projects and as you
+
+00:01:56.100 --> 00:02:00.580
+can see by my different handles i'm not only active within
+
+00:02:00.580 --> 00:02:05.520
+at proto but also i'm coming from the activity pub field
+
+00:02:05.520 --> 00:02:11.860
+so the penguin is my handle within mastodon and activity
+
+00:02:11.860 --> 00:02:19.070
+pub and that being said besides my professional background i'm engaged
+
+00:02:19.360 --> 00:02:25.650
+since more than 10 years within the digital rights environment so i
+
+00:02:25.650 --> 00:02:30.450
+advocate for freedom of information in austria by now we finally
+
+00:02:30.450 --> 00:02:34.250
+after more than 15 years have a freedom of information act and
+
+00:02:34.250 --> 00:02:40.010
+it's always about openness and and digital user rights so this
+
+00:02:40.010 --> 00:02:47.560
+is my perspective but i'm also active with chaos communication congress
+
+00:02:47.590 --> 00:02:51.440
+i don't know who have you heard of of this yeah
+
+00:02:51.440 --> 00:02:58.070
+okay so and they're putting up some ethical principles they commit
+
+00:02:58.160 --> 00:03:04.420
+themselves to and i feel very connected to those it's not
+
+00:03:04.420 --> 00:03:11.120
+only about making public data available but also protecting private data and
+
+00:03:11.120 --> 00:03:15.380
+stating that information should be free um but there's also one
+
+00:03:15.380 --> 00:03:19.000
+the third one uh which brings us to our topic which is
+
+00:03:19.000 --> 00:03:24.610
+promote decentralization right so how did i come here uh we
+
+00:03:24.610 --> 00:03:30.050
+had in europe uh exactly one year ago we had something called
+
+00:03:30.080 --> 00:03:33.260
+ahoy which was uh our european social web day together
+
+00:03:33.260 --> 00:03:37.270
+with the indie sky and that's where i met uh bor
+
+00:03:37.420 --> 00:03:41.450
+is and ted and also sebastian um from eurosky which
+
+00:03:41.450 --> 00:03:46.210
+we had the launch in november which was a very valuable
+
+00:03:46.210 --> 00:03:49.910
+day and you can re-watch all the videos uh on
+
+00:03:49.910 --> 00:03:55.100
+that presentations as well and then by now i'm lucky we
+
+00:03:55.100 --> 00:03:58.900
+'re here and i hope there will be many more atmosphere conference
+
+00:03:58.900 --> 00:04:02.790
+and maybe soon one in europe i think that would be something
+
+00:04:02.940 --> 00:04:11.020
+to look for so let's get into it so um i
+
+00:04:11.020 --> 00:04:16.480
+think i don't have to speak that much about it while
+
+00:04:16.570 --> 00:04:22.410
+we're here um but just to maybe bring some attention um
+
+00:04:22.440 --> 00:04:28.950
+digital sovereignty is since the last year a topic not only for
+
+00:04:28.950 --> 00:04:32.950
+europe but also in canada right so and at eurosky
+
+00:04:32.950 --> 00:04:36.310
+i met jen from ganda who spoke also about their
+
+00:04:36.390 --> 00:04:42.280
+their uh discussions about digital sovereignty and we also had like uh
+
+00:04:42.320 --> 00:04:49.420
+several incidents i would call them with regard to international organizations but
+
+00:04:49.420 --> 00:04:57.430
+also threatening uh governments and their societies with um different outcomes let
+
+00:04:57.480 --> 00:05:05.520
+'s say that way um so if we speak about digital sovereignty
+
+00:05:05.520 --> 00:05:12.310
+um the main idea is to develop an own technical stack so
+
+00:05:12.460 --> 00:05:19.990
+you overcome relying on providers that are subject to foreign jurisdiction um
+
+00:05:19.990 --> 00:05:26.030
+the other biggest the other second idea is that you need to
+
+00:05:26.170 --> 00:05:32.160
+support european corporations in order to get to reach digital sovereignty
+
+00:05:32.160 --> 00:05:37.520
+but i would like to highlight that with this approach i think
+
+00:05:37.520 --> 00:05:41.840
+the danger of sovereignty washing just as we have open washing uh
+
+00:05:41.840 --> 00:05:51.120
+is is growing uh therefore um so digital sovereignty
+
+00:05:51.120 --> 00:05:57.280
+and the agenda around this is also intertwined with the offers
+
+00:05:57.280 --> 00:06:02.800
+to build alternatives to centralize big tech social networks right and
+
+00:06:02.800 --> 00:06:05.880
+we need to have a space for our public discourse we need
+
+00:06:05.990 --> 00:06:10.430
+to be able to exchange freely and have a pluralistic information
+
+00:06:10.430 --> 00:06:15.530
+ecosystem and oh sorry i would argue and i will argue that
+
+00:06:15.530 --> 00:06:20.520
+we need to do this through building and using existing public social
+
+00:06:20.520 --> 00:06:25.420
+networks that are based on open protocols and what we see right
+
+00:06:25.420 --> 00:06:34.000
+now within different developments uh for european social networks there
+
+00:06:34.050 --> 00:06:39.110
+are very different approaches let's say that way um so we
+
+00:06:39.110 --> 00:06:44.140
+have european locked in social networks that was just the start
+
+00:06:44.140 --> 00:06:48.980
+of medium a german one um but also as you probably know
+
+00:06:48.980 --> 00:06:54.320
+we have other open protocol based ones uh that but connect themselves
+
+00:06:54.320 --> 00:07:01.920
+to age verification and id scans like we social um and then
+
+00:07:01.920 --> 00:07:06.600
+to put even more one aspect of an ideal and not very
+
+00:07:06.600 --> 00:07:11.360
+valuable one in my eyes for state-run digital infrastructure and
+
+00:07:11.360 --> 00:07:21.840
+uh social networks so the french president emmanuel macron uh
+
+00:07:21.840 --> 00:07:24.720
+gave a speech uh last autumn where he analyzed the situation right
+
+00:07:24.720 --> 00:07:32.410
+i think um but when it comes to saying that uh anonymous
+
+00:07:32.410 --> 00:07:37.750
+accounts are the problem i think that is not that right because
+
+00:07:37.800 --> 00:07:42.240
+uh hate is spread as well with full names in the internet
+
+00:07:42.260 --> 00:07:47.310
+field so uh that's why i'm very much pro right
+
+00:07:47.310 --> 00:07:50.800
+for anonymity and we have that right and we should still
+
+00:07:50.800 --> 00:07:55.190
+fight hard for that right also against our authorities against our national
+
+00:07:55.500 --> 00:08:01.920
+governments um yeah and just a little bit short i have to
+
+00:08:02.020 --> 00:08:04.920
+speed up a little um this this concept of state-run
+
+00:08:05.000 --> 00:08:10.490
+digital infrastructure in the academic field it's called uh digital public
+
+00:08:10.500 --> 00:08:14.470
+infrastructure dpi and in the european context uh it's
+
+00:08:14.470 --> 00:08:19.580
+mainly thought about european digital wallet id systems payment systems but
+
+00:08:19.580 --> 00:08:22.850
+the focus is a state run it's state control so it
+
+00:08:22.850 --> 00:08:27.430
+'s state control over their citizens and i think or i hope
+
+00:08:27.610 --> 00:08:32.720
+what we all here are more in favor of is a public
+
+00:08:32.720 --> 00:08:38.490
+digital infrastructure so tech digital infrastructure for the public and also run
+
+00:08:38.490 --> 00:08:43.210
+by the public but public funded as well without state control so
+
+00:08:43.210 --> 00:08:49.770
+this is the concept of public digital infrastructure um there there's
+
+00:08:49.840 --> 00:08:54.200
+already some conceptual work around it um i i put the references
+
+00:08:54.270 --> 00:08:59.350
+here so i hope if you're interested you can check that
+
+00:08:59.500 --> 00:09:07.460
+out even more so um yeah so um the first uh association
+
+00:09:07.460 --> 00:09:12.760
+i think one has of speaking about digital sovereignty and europe is
+
+00:09:12.760 --> 00:09:16.160
+of course you do it by legislation right you probably heard about
+
+00:09:16.160 --> 00:09:21.190
+the general data protection regulations gdpr and the more younger
+
+00:09:21.280 --> 00:09:27.400
+ones the digital service uh uh act and the digital markets act
+
+00:09:27.440 --> 00:09:31.710
+and the dma is more there to make sure that our
+
+00:09:31.860 --> 00:09:36.460
+digital markets function well so the european union established themselves the
+
+00:09:36.460 --> 00:09:41.720
+goal to have functional markets right um and they acknowledge that this
+
+00:09:41.720 --> 00:09:46.030
+is not that there yet so the dma was uh put
+
+00:09:46.030 --> 00:09:50.340
+up for that uh to fight against oligopols and
+
+00:09:50.340 --> 00:09:54.820
+to to to to make sure that european users have uh
+
+00:09:54.820 --> 00:09:59.870
+choices and then the dsa is more consumer rights uh function
+
+00:09:59.870 --> 00:10:04.550
+so it would there are the rights included that how you can
+
+00:10:04.640 --> 00:10:12.630
+delete stuff or your general rights against uh um digital corporations and
+
+00:10:12.630 --> 00:10:18.140
+i would say uh that was and is a success story really
+
+00:10:18.140 --> 00:10:22.930
+you have on both ends you have people arguing the enforcement of
+
+00:10:22.930 --> 00:10:26.310
+the dsa is still too weak uh and on the other
+
+00:10:26.310 --> 00:10:31.440
+hand you have i will come back to that um voices uh
+
+00:10:31.440 --> 00:10:35.250
+that say we need to deregulate even more and we
+
+00:10:35.250 --> 00:10:39.320
+need to have the so-called digital omnibus that
+
+00:10:39.400 --> 00:10:43.280
+that uh want to get rid of a lot of user and
+
+00:10:43.280 --> 00:10:46.230
+so on the other hand we need to see the rights on
+
+00:10:46.230 --> 00:10:50.250
+the premise of our economic standards in europe have we could become
+
+00:10:50.330 --> 00:10:56.010
+more powerful so to speak um just shortly we have also europe
+
+00:10:56.200 --> 00:11:01.910
+an threats against our own legislation i would call them we have
+
+00:11:01.910 --> 00:11:05.020
+the case of a former head lobbyist of meta who is
+
+00:11:05.020 --> 00:11:08.720
+now a member of our european parliament and by the e
+
+00:11:08.720 --> 00:11:13.680
+ep was uh nominated as the appointed rapporteur on exact
+
+00:11:13.680 --> 00:11:16.550
+us digital omnibus so i think what's it's
+
+00:11:16.550 --> 00:11:21.270
+clear what the problem is and also within uh european jurisdiction
+
+00:11:21.580 --> 00:11:26.180
+um a lot of digital companies put their head offices inire
+
+00:11:26.180 --> 00:11:29.830
+land because they have the lowest taxes there but also um the
+
+00:11:30.010 --> 00:11:36.920
+the the the enforcement of the regulation is somewhat unsatisfactory
+
+00:11:37.000 --> 00:11:42.080
+max schrams and his none of your business association is
+
+00:11:42.080 --> 00:11:47.110
+trying to enforce more and more of the dsa also against
+
+00:11:47.110 --> 00:11:54.470
+irish pressures and a different aspect is also that it's
+
+00:11:54.480 --> 00:11:59.260
+very unequal forces so this is a study by corporate europe
+
+00:11:59.260 --> 00:12:04.550
+observatory and lobby control and it's stating that just in
+
+00:12:04.550 --> 00:12:08.620
+2025 just for brussels so it's not about ber
+
+00:12:08.620 --> 00:12:12.560
+lin lobbyists or lobbyists situated in berlin or in
+
+00:12:12.560 --> 00:12:15.750
+paris it's just for brussels it's 150
+
+00:12:15.930 --> 00:12:20.840
+million euros uh just this year so you can see um it
+
+00:12:20.840 --> 00:12:27.320
+'s of high relevance what digital policies are about the digital policies
+
+00:12:27.320 --> 00:12:32.590
+we we have in europe um yeah so a little bit deeper
+
+00:12:32.590 --> 00:12:37.510
+uh on on our what's going on in europe um last
+
+00:12:37.510 --> 00:12:42.780
+may we had an election uh on our european parliament and
+
+00:12:42.780 --> 00:12:45.750
+what's relevant there is that we had a change of major
+
+00:12:45.960 --> 00:12:50.460
+ities and by now we have a conservative right majority uh within
+
+00:12:50.460 --> 00:12:57.650
+the european parliament um and also what is very important for
+
+00:12:57.650 --> 00:13:00.970
+this year is that we have the negotiations on the so-
+
+00:13:00.970 --> 00:13:04.640
+called multi-annual financial framework more or less the budget
+
+00:13:04.640 --> 00:13:08.710
+of the european union and um this is also an indicator
+
+00:13:08.710 --> 00:13:12.890
+right right now it's very important to put up our political
+
+00:13:12.890 --> 00:13:16.790
+demands because what's not now in the budget won't be
+
+00:13:16.790 --> 00:13:20.160
+there for the next six years so we have like this year
+
+00:13:20.210 --> 00:13:23.520
+is really really important and that's why i make all the
+
+00:13:23.520 --> 00:13:27.280
+effort to spread the message because we need to be loud because
+
+00:13:27.280 --> 00:13:31.790
+money wise we don't even get there anyway all we have
+
+00:13:31.790 --> 00:13:36.480
+is the power of us and i would like to spread some
+
+00:13:36.480 --> 00:13:40.090
+ideas of what political demands could be so we all can repeat
+
+00:13:40.160 --> 00:13:44.420
+them and spread them so um yeah i hope i hope you
+
+00:13:44.420 --> 00:13:48.090
+join me in this effort um and as i said we need
+
+00:13:48.090 --> 00:13:53.150
+to fight this deregulation and simplification approach and what
+
+00:13:53.150 --> 00:13:56.430
+'s uh what's a hopeful aspect of it the dma
+
+00:13:56.430 --> 00:14:01.990
+probably will be expanded uh for social networks as well and and
+
+00:14:02.140 --> 00:14:08.240
+the debate uh for for expanding interoperability is also strong
+
+00:14:08.240 --> 00:14:14.000
+but needs more commitment i think but those are two positive things
+
+00:14:14.000 --> 00:14:18.610
+and this picture here shows uh our panel discussion which we had
+
+00:14:18.730 --> 00:14:23.030
+at foster a very big developer conference in brussels and
+
+00:14:23.030 --> 00:14:26.660
+alexandra geese is member of the european parliament
+
+00:14:26.660 --> 00:14:30.050
+and she's very active in in in uh pointing out our
+
+00:14:30.050 --> 00:14:35.580
+approaches as well that open protocol based social networks are relevant for
+
+00:14:35.600 --> 00:14:40.400
+democracy and they need funding as well um so i i want
+
+00:14:40.400 --> 00:14:43.170
+to give a shout out to her and her whole team um
+
+00:14:43.170 --> 00:14:51.200
+so the as i as i told you before the main tool
+
+00:14:51.200 --> 00:14:55.910
+for how european union thinks they will achieve digital sovereignty is
+
+00:14:56.040 --> 00:15:01.860
+by the idea of implementing euro stacks there are different approaches on
+
+00:15:01.860 --> 00:15:04.920
+this but more or less it's the idea of we need
+
+00:15:04.920 --> 00:15:09.570
+to buy european and then we will reach digital sovereignty so
+
+00:15:09.570 --> 00:15:13.960
+um more or less and that's my critical stand point of
+
+00:15:14.040 --> 00:15:19.120
+the it says um we just need the same infrastructure just make
+
+00:15:19.120 --> 00:15:22.620
+it european and then and then our problems are solved and
+
+00:15:22.620 --> 00:15:26.230
+i think that's obviously not the case so i come up
+
+00:15:26.410 --> 00:15:32.400
+with three uh critique points that would broaden the concept of digital
+
+00:15:32.400 --> 00:15:35.010
+serenity right now it's very narrow and i think
+
+00:15:35.010 --> 00:15:38.300
+it makes a lot of sense to broaden it up because then
+
+00:15:38.300 --> 00:15:43.630
+digital serenity will help us solve anyway their uh societal
+
+00:15:43.660 --> 00:15:47.890
+problems on a long-term basis yeah so what are my
+
+00:15:47.890 --> 00:15:54.160
+critique points so the first critique point uh is that making it
+
+00:15:54.260 --> 00:15:58.440
+european is not enough right it needs to be open and
+
+00:15:58.440 --> 00:16:05.520
+public benefit as well those those are um yeah indicators that will
+
+00:16:05.520 --> 00:16:10.700
+help achieve real digital sovereignty real digital autonomy also for the users
+
+00:16:10.700 --> 00:16:16.280
+against their their authorities so to speak and also it helps bringing
+
+00:16:16.280 --> 00:16:22.000
+people together being working collaborative on ideas it's uh it's
+
+00:16:22.000 --> 00:16:27.660
+in many um ways beneficial i would argue and just to give
+
+00:16:27.660 --> 00:16:32.910
+a little bit spotlight on european initiatives the open firm europe
+
+00:16:32.910 --> 00:16:36.780
+uh took up on the idea of a european sovereign tech
+
+00:16:36.860 --> 00:16:41.860
+fund um which is a very very very valuable concept in my
+
+00:16:41.860 --> 00:16:45.440
+eyes that's why i want to highlight the work nick gates
+
+00:16:45.440 --> 00:16:52.670
+is the one um working on this um the second critique point
+
+00:16:52.750 --> 00:16:57.770
+is that buying european of course will be done with public
+
+00:16:57.770 --> 00:17:02.020
+money right and um so if the idea is that you uh
+
+00:17:02.020 --> 00:17:06.600
+that you uh spent a high amount of public money buying europe
+
+00:17:06.600 --> 00:17:11.760
+an private uh products uh i would argue from from a user
+
+00:17:11.760 --> 00:17:18.990
+rights based approach that of course some amount of this public money
+
+00:17:19.040 --> 00:17:22.650
+then needs to be spent in order to buy and establish public
+
+00:17:22.650 --> 00:17:27.530
+digital infrastructure um it's so obvious for me it's it
+
+00:17:27.530 --> 00:17:29.960
+'s it's always very hard for me to state that because
+
+00:17:29.960 --> 00:17:33.510
+in my eyes um yeah and uh if you don't know
+
+00:17:33.520 --> 00:17:38.130
+it by now the free software foundation europe uh long has this
+
+00:17:38.130 --> 00:17:42.580
+long uh campaign for public money public code uh which we refer
+
+00:17:42.580 --> 00:17:45.140
+to uh which we refer to as well and uh matth
+
+00:17:45.200 --> 00:17:49.920
+ias kirchner is the president of of this organization and
+
+00:17:49.920 --> 00:17:55.760
+as this topic is debated within the german parliament quite well um
+
+00:17:55.760 --> 00:18:00.070
+we found out that uh just on the federal level from the
+
+00:18:00.250 --> 00:18:07.760
+german state they spent around 750 canadian dollars per year just
+
+00:18:07.760 --> 00:18:16.530
+for microsoft licenses um yeah okay
+
+00:18:16.550 --> 00:18:21.920
+um so public procurement is like a very relevant uh level uh
+
+00:18:21.920 --> 00:18:28.710
+leveller um and another uh very recommended organization the public future
+
+00:18:28.710 --> 00:18:33.200
+uh the open future institute uh by uh and aditya
+
+00:18:33.200 --> 00:18:36.390
+and susana rosso just published this uh some days ago
+
+00:18:36.400 --> 00:18:39.810
+but i recommend reading all of their policy briefs it's
+
+00:18:39.810 --> 00:18:44.060
+very valuable knowledge um they pointed out like how that we need
+
+00:18:44.060 --> 00:18:49.670
+to focus more on public procurement uh and exactly that's also
+
+00:18:49.820 --> 00:18:55.560
+what happening uh more and more governments or or state entities decide
+
+00:18:55.700 --> 00:19:01.330
+to procure open source based uh uh software but and and just
+
+00:19:01.330 --> 00:19:06.430
+to name some so the austrian minute one austrian ministry
+
+00:19:06.490 --> 00:19:10.560
+started to using nextcloud within the hybrid version the austrian
+
+00:19:10.560 --> 00:19:14.900
+army uses open desk open desk as a a tool that was
+
+00:19:14.900 --> 00:19:20.800
+as written there as well uh developed by um uh the german
+
+00:19:20.800 --> 00:19:26.270
+uh senders um the german army uses matrix and so the
+
+00:19:26.270 --> 00:19:31.680
+list goes on but still we have uh other approaches like the
+
+00:19:31.680 --> 00:19:36.270
+state of bavaria uh buying microsoft products again for
+
+00:19:36.270 --> 00:19:42.320
+one how you say that billion euros one yeah a lot of
+
+00:19:42.320 --> 00:19:46.870
+money without like a legal legal legal right to do so actually
+
+00:19:46.890 --> 00:19:52.530
+so um and this is especially relevant like we already have uh
+
+00:19:52.560 --> 00:19:57.280
+several building blocks of public digital infrastructure right they're all open
+
+00:19:57.280 --> 00:20:01.630
+open open open source based and they are there and they could
+
+00:20:01.710 --> 00:20:04.880
+be uh by it so to say if not at least funded
+
+00:20:04.890 --> 00:20:07.780
+um and that's what we should do i think and of
+
+00:20:07.800 --> 00:20:12.370
+course interoperable social networks are a relevant part of of
+
+00:20:12.370 --> 00:20:18.040
+such and stack um my third critique point would be uh exactly
+
+00:20:18.090 --> 00:20:21.720
+that that if we want to achieve real digital serenity
+
+00:20:21.820 --> 00:20:26.210
+social networks need to be understood as a relevant part of that
+
+00:20:26.310 --> 00:20:29.530
+and social so like we can't achieve digital serenity
+
+00:20:29.530 --> 00:20:33.580
+without social serenity and hannah aubry who
+
+00:20:33.610 --> 00:20:37.110
+is the community director of macedon uh published a blog
+
+00:20:37.310 --> 00:20:41.210
+post on that um if you want to read further so all
+
+00:20:41.210 --> 00:20:49.680
+of this critique um i i addressed also to politicians themselves um
+
+00:20:49.790 --> 00:20:55.170
+in autumn there was the summit on european digital sovereignty and
+
+00:20:55.170 --> 00:20:59.040
+when it was um announced and the program was announced it was
+
+00:20:59.040 --> 00:21:04.400
+obvious that the main topics circle around ai and cloud infrastructure and
+
+00:21:04.400 --> 00:21:08.480
+stuff and and we sat together and uh tried to find a
+
+00:21:08.620 --> 00:21:12.950
+way to bring our demands to the table so what we did
+
+00:21:13.040 --> 00:21:17.550
+is i found co-founded the alliance called open networks and
+
+00:21:17.550 --> 00:21:22.600
+democratic public spheres by now we are supported with more than 30
+
+00:21:22.710 --> 00:21:28.300
+other organizations we come up with four demands that interact which is
+
+00:21:28.300 --> 00:21:35.760
+which is other um yeah and again to establish long-term
+
+00:21:35.760 --> 00:21:42.960
+solutions um that that's the goal um yeah and only i
+
+00:21:42.960 --> 00:21:46.910
+i will present only one demand of those that we had and
+
+00:21:46.970 --> 00:21:50.540
+i think that's a very impactful one uh ralf stock
+
+00:21:50.540 --> 00:21:54.990
+man who is the head of the digital affairs within berlin
+
+00:21:54.990 --> 00:22:00.250
+library came up with the so-called plus one principle and
+
+00:22:00.250 --> 00:22:06.560
+this plus one principle is addressed at public institutions because again they
+
+00:22:06.620 --> 00:22:12.460
+are funded with public money so they should feel a higher uh
+
+00:22:12.460 --> 00:22:17.840
+how do you say that um they should feel responsible uh uh
+
+00:22:17.940 --> 00:22:23.800
+to make wise decisions and if they're doing uh social media
+
+00:22:23.840 --> 00:22:30.680
+communications they should feel obliged to publish their communications in at least
+
+00:22:30.790 --> 00:22:37.000
+one open protocol uh open protocol based social network right um and
+
+00:22:37.000 --> 00:22:40.890
+as this was presented at our berlin fedi day uh
+
+00:22:40.890 --> 00:22:43.740
+it has the fediware logo i hope you don't
+
+00:22:43.740 --> 00:22:49.280
+mind um but the argument is um yeah if if they say
+
+00:22:49.360 --> 00:22:52.620
+uh we need to stay on those big tech platforms we can
+
+00:22:52.620 --> 00:22:57.360
+'t leave because there are the people whoever that then still is
+
+00:22:57.360 --> 00:23:01.470
+um that makes a bridge to say okay if you think you
+
+00:23:01.470 --> 00:23:06.290
+have to stay there at least do one other uh social network
+
+00:23:06.480 --> 00:23:12.750
+um yeah and i want to uh highlight also to lauren
+
+00:23:12.750 --> 00:23:20.850
+'s blog about connected places he writes about uh both protocols and
+
+00:23:20.850 --> 00:23:25.250
+it's very critical which is good um and he says um
+
+00:23:25.250 --> 00:23:30.230
+law makers should not only speak about digital sovereignty but they should
+
+00:23:30.380 --> 00:23:34.560
+use uh the networks that are already there otherwise uh it's
+
+00:23:34.640 --> 00:23:38.470
+just birds right and i think he's right on that one
+
+00:23:38.650 --> 00:23:43.360
+um it's not only about social networks i think again the
+
+00:23:43.360 --> 00:23:48.960
+interrelatedness is also uh should be important for media systems
+
+00:23:49.060 --> 00:23:53.830
+and maybe you have heard of this public spaces incubator which
+
+00:23:53.980 --> 00:23:58.110
+is an initiative not only for european public broadcasts but
+
+00:23:58.110 --> 00:24:02.340
+also uh uh non-european ones and um
+
+00:24:02.340 --> 00:24:09.840
+besides their prototypes um they want to implement uh both protocols within
+
+00:24:09.840 --> 00:24:15.120
+their uh network services um and i think this is yeah something
+
+00:24:15.120 --> 00:24:22.690
+to look out for um okay five more minutes um another initiative
+
+00:24:22.760 --> 00:24:27.600
+i want to highlight is self-social they came up with
+
+00:24:27.600 --> 00:24:32.330
+uh 10 demands on their own and what what their latest uh
+
+00:24:32.330 --> 00:24:37.420
+initiative is the so-called digital independence day so the first
+
+00:24:37.520 --> 00:24:42.160
+sunday every month they call for digital independence day and the
+
+00:24:42.260 --> 00:24:45.840
+idea is at least on this one sunday you can uh
+
+00:24:45.840 --> 00:24:51.960
+try to switch over from one big tech services to one non
+
+00:24:52.100 --> 00:24:55.170
+-big tech and so they come up at d dot day
+
+00:24:55.190 --> 00:25:00.970
+with several cookbook recipes uh which are differentiated between is
+
+00:25:01.080 --> 00:25:03.650
+it easy or is it hard how hard is it and they
+
+00:25:03.680 --> 00:25:06.760
+tell you step by step what you need to think about and
+
+00:25:06.830 --> 00:25:09.830
+how you can do that and i think that's only not
+
+00:25:09.830 --> 00:25:14.830
+from from an individual user's perspective but also again for uh
+
+00:25:14.840 --> 00:25:18.930
+public institutions it's like very helpful to have examples of of
+
+00:25:18.930 --> 00:25:23.370
+initiatives that have done that so for example the university of in
+
+00:25:23.370 --> 00:25:26.320
+nsbruck is uh is hosting their own mastodon
+
+00:25:26.320 --> 00:25:30.490
+uh server right at their own instance uh for all for all
+
+00:25:30.490 --> 00:25:35.170
+employees and they will extend that to students as well uh and
+
+00:25:35.170 --> 00:25:40.800
+making uh services as pixel fed for example uh usable for those
+
+00:25:40.800 --> 00:25:44.960
+um so please check out d-day they i i checked
+
+00:25:44.960 --> 00:25:47.850
+yesterday and there will be one event on the 5th of
+
+00:25:47.850 --> 00:25:50.180
+april the 5th of april will be the next
+
+00:25:50.180 --> 00:25:53.650
+one in colorado i think but maybe in canada we
+
+00:25:53.650 --> 00:25:58.720
+soon have events as well that would be nice right so to
+
+00:25:58.720 --> 00:26:03.780
+sum up uh what are some demands uh that um i think
+
+00:26:03.780 --> 00:26:09.040
+are available uh for not even not not all only europe i
+
+00:26:09.040 --> 00:26:14.230
+think we need to push further that interoperability is expanded
+
+00:26:14.360 --> 00:26:19.090
+and portability will be established so not only data portability
+
+00:26:19.200 --> 00:26:23.270
+but of course it's proto portability of identities and feeds
+
+00:26:23.350 --> 00:26:28.240
+right it's to make real choices available and we need to
+
+00:26:28.380 --> 00:26:34.950
+call for funding for public digital infrastructure and implement the one plus
+
+00:26:35.040 --> 00:26:40.540
+one principle at least for public institutions so three more minutes left
+
+00:26:40.620 --> 00:26:53.760
+that's good um
+
+00:26:53.760 --> 00:26:55.450
+as you have heard uh my background is with an activity pub
+
+00:26:55.450 --> 00:27:00.300
+so i'm active there since some years and not only because
+
+00:27:00.300 --> 00:27:06.200
+of my nature of i want to get to know uh more
+
+00:27:06.340 --> 00:27:10.610
+people and their ideas and i think that's the strength for
+
+00:27:10.610 --> 00:27:14.640
+us to get to know each other and learn from us um
+
+00:27:14.640 --> 00:27:21.030
+i think we have within the the open protocols i think we
+
+00:27:21.180 --> 00:27:28.000
+have some fields that i think would make perfect uh examples where
+
+00:27:28.000 --> 00:27:31.830
+we can work together or at least talk to each other despite
+
+00:27:32.040 --> 00:27:37.550
+differences um i think the field of moderation is uh such a
+
+00:27:37.550 --> 00:27:41.710
+topic as well as trust and safety and the one i'm
+
+00:27:41.710 --> 00:27:45.690
+here for policy and advocacy so um if you're working in
+
+00:27:45.690 --> 00:27:50.520
+that field around policy and advocacy please let us talk later um
+
+00:27:50.560 --> 00:27:56.560
+and um yeah i just want to make the point that um
+
+00:27:59.360 --> 00:28:04.390
+we need more cooperation uh and and i hope such events at
+
+00:28:04.480 --> 00:28:11.290
+atmosphere make that possible um for us yeah one example um i
+
+00:28:11.290 --> 00:28:15.550
+was invited uh to join jess michael from ift
+
+00:28:15.700 --> 00:28:18.930
+us and aaron from blue sky to speak about trust and
+
+00:28:18.950 --> 00:28:23.440
+safety exactly in canadian embassy in berlin um so yeah
+
+00:28:23.520 --> 00:28:28.630
+hopefully we have uh more more meetings like this and yeah work
+
+00:28:28.630 --> 00:28:37.230
+together um so i would like to call uh
+
+00:28:37.230 --> 00:28:43.260
+to work together get to know each other learn from each other
+
+00:28:43.330 --> 00:28:48.230
+uh in order so we can achieve a better digital future for
+
+00:28:48.380 --> 00:28:53.150
+all of us no matter if we're in europe or elsewhere
+
+00:28:53.180 --> 00:28:57.380
+and um yeah i i hope we can get to know each
+
+00:28:57.380 --> 00:29:03.640
+other better repeat our method messages together build together in general um
+
+00:29:03.750 --> 00:29:08.150
+and yeah please let's do that so if you want to
+
+00:29:08.150 --> 00:29:12.200
+stay in contact or reach out those here you can find me
+
+00:29:12.340 --> 00:29:14.320
+but also i will also i will be here till monday
+
+00:29:14.320 --> 00:29:20.440
+as well thanks so much

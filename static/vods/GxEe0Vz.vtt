@@ -1,0 +1,1567 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.080
+hello hello all right welcome to the design panel if you're
+
+00:00:07.080 --> 00:00:09.810
+not familiar if you haven't met me I'm Darren I
+
+00:00:09.810 --> 00:00:14.750
+am the only product designer on blue sky right now hopefully there
+
+00:00:14.750 --> 00:00:18.660
+will be another one soon check out our careers page if you
+
+00:00:18.660 --> 00:00:22.610
+know anyone looking but yeah as of tomorrow it will be my
+
+00:00:22.740 --> 00:00:28.500
+one-year anniversary of this guy so very excited but yeah
+
+00:00:28.500 --> 00:00:35.580
+I'm very passionate about building social media that is equitable and
+
+00:00:35.670 --> 00:00:40.800
+really values the user control of people you know I grew up
+
+00:00:40.800 --> 00:00:43.900
+with social media and I'm I'm very like upset with
+
+00:00:43.920 --> 00:00:47.820
+how it has evolved over time to just like kind of capture
+
+00:00:47.820 --> 00:00:51.360
+your attention at all costs and become part of that attention economy
+
+00:00:51.490 --> 00:00:54.530
+so that's something that I'm very passionate about and a
+
+00:00:54.530 --> 00:00:57.000
+value that I hold dear to me as I'm designing for
+
+00:00:57.000 --> 00:01:01.620
+blue sky but yeah we have an awesome panel planned for you
+
+00:01:01.870 --> 00:01:05.160
+guys today I'm very grateful to be on the stage and
+
+00:01:05.160 --> 00:01:09.530
+share it with these amazing builders and designers I think design is
+
+00:01:09.590 --> 00:01:15.830
+really at the intersection of art and technology as well as psychology
+
+00:01:15.880 --> 00:01:21.290
+and I think their work really exemplifies that on the platform
+
+00:01:21.290 --> 00:01:27.960
+so I have one more topic but yeah if you guys want
+
+00:01:27.960 --> 00:01:29.240
+to just do a quick round of intro and then we can
+
+00:01:29.240 --> 00:01:32.910
+get started hey everyone my name is Dame I built an app
+
+00:01:33.610 --> 00:01:37.460
+called Anasota it's a weird social media interface for
+
+00:01:37.460 --> 00:01:40.650
+blue sky and the atmosphere themed around moths and other weird
+
+00:01:40.650 --> 00:01:45.750
+things like that what's up everyone my name is Peter Mont
+
+00:01:45.750 --> 00:01:48.250
+elieu and I'm a creative technologist and full stack
+
+00:01:48.250 --> 00:01:52.730
+engineer from Denver Colorado I work for a company called hovercraft
+
+00:01:52.730 --> 00:01:57.140
+studio where I do web and experiential experiences for companies like
+
+00:01:57.410 --> 00:02:00.450
+Nike open AI and Google and on app proto I've been
+
+00:02:00.450 --> 00:02:04.400
+building aether OS and beacon bits for the last six months
+
+00:02:04.400 --> 00:02:07.310
+or so I'm stoked to be on the stage with all
+
+00:02:07.310 --> 00:02:09.900
+y'all it's been a super privilege just to be
+
+00:02:09.900 --> 00:02:12.860
+here and I want to thank you Darren for bringing me up
+
+00:02:12.860 --> 00:02:18.920
+here Hello my name is Brooke or you may know me as
+
+00:02:18.920 --> 00:02:19.520
+brookie.
+
+00:02:19.520 --> 00:02:22.800
+blog I'm the creator of pocket blog it's a
+
+00:02:23.020 --> 00:02:25.850
+blogging platform that makes it really easy to start blogging
+
+00:02:25.860 --> 00:02:29.950
+for anybody I also created the you and me dot at if
+
+00:02:29.950 --> 00:02:37.230
+you have been using that at the conference thank you and then
+
+00:02:37.230 --> 00:02:41.420
+I also work on standard site so if you know about standard
+
+00:02:41.420 --> 00:02:46.780
+site it's bringing publishers together and really making it easy to
+
+00:02:46.850 --> 00:02:54.480
+distribute publications and documents across the atmosphere Sweet before we jump into
+
+00:02:54.480 --> 00:02:55.360
+the questions I actually just want to see a quick show of
+
+00:02:55.360 --> 00:02:55.360
+hands how many people in the audience are designers with it identifies
+
+00:02:55.360 --> 00:02:55.360
+that cool we have a few and how many are builders looking
+
+00:02:55.360 --> 00:03:08.100
+to upgrade their design skills all right
+
+00:03:08.100 --> 00:03:08.430
+sweet most of the room while you come to the right place
+
+00:03:08.430 --> 00:03:08.700
+all right so we're going to fire it off the first
+
+00:03:08.700 --> 00:03:09.110
+question here which is just what is something that you've built
+
+00:03:09.110 --> 00:03:09.460
+in that product that you're really proud of and what were
+
+00:03:09.460 --> 00:03:10.180
+you trying to accomplish with that project uh yeah so i mean
+
+00:03:10.180 --> 00:03:10.570
+i've definitely i've built quite a few different things over
+
+00:03:10.570 --> 00:03:10.910
+the past twelve months or so um i definitely would say an
+
+00:03:10.910 --> 00:03:11.090
+asota is the one i'm most proud of i've
+
+00:03:11.090 --> 00:03:11.410
+been working out the longest and um yeah i'm proud of
+
+00:03:11.420 --> 00:03:12.100
+it because i it's something that i uh i had a
+
+00:03:12.100 --> 00:03:12.100
+vision for it was something that i uh it was something that
+
+00:03:12.100 --> 00:03:42.080
+i was uh it
+
+00:03:42.080 --> 00:03:42.080
+was something that i didn't feel like existed uh i didn
+
+00:03:42.080 --> 00:03:43.960
+'t feel like existed uh uh or was even really possible prior
+
+00:03:44.090 --> 00:03:47.900
+to the atmosphere um and it really was a way for me
+
+00:03:47.900 --> 00:03:51.630
+to try to uh reclaim social media to be something that i
+
+00:03:51.630 --> 00:03:55.220
+felt like worked for me um you know i've been chron
+
+00:03:55.580 --> 00:03:58.080
+ically online for a long time and you know i took a
+
+00:03:58.080 --> 00:04:01.160
+long break from social media a couple years ago and decided i
+
+00:04:01.160 --> 00:04:03.660
+'d come back and see if i could somehow make it work
+
+00:04:03.660 --> 00:04:07.080
+again um and yes i was really excited to try to build
+
+00:04:07.280 --> 00:04:12.060
+this uh this basically a social media interface for myself um with
+
+00:04:12.060 --> 00:04:14.430
+the hunch that other people might enjoy it too um yeah so
+
+00:04:14.450 --> 00:04:17.750
+anasota is uh yeah it's a social media interface
+
+00:04:17.750 --> 00:04:22.430
+uh that i think is more peaceful and more uh yeah weird
+
+00:04:22.430 --> 00:04:25.720
+and fun and bizarre it has like game components to it it
+
+00:04:25.720 --> 00:04:28.690
+'s uh yeah it's based off of uh the name of
+
+00:04:28.690 --> 00:04:31.940
+a moth um and i'm just really excited how it
+
+00:04:31.940 --> 00:04:34.650
+turned out uh it's it's getting better every month and
+
+00:04:34.650 --> 00:04:38.710
+uh even at the conference i put out a big release with
+
+00:04:38.720 --> 00:04:47.030
+uh finally a brand mark and everything actually looks looks
+
+00:04:47.030 --> 00:04:56.850
+pretty good
+
+00:04:57.010 --> 00:05:12.020
+now so i'm excited
+
+00:05:12.020 --> 00:05:12.020
+yeah um so it's pretty hard to top ather os
+
+00:05:12.020 --> 00:05:12.020
+getting name dropped by paul on the stage yesterday uh but
+
+00:05:12.020 --> 00:05:12.020
+i think yeah making beacon bits for the last few months creating
+
+00:05:12.020 --> 00:05:12.020
+a 3d layer where people are interacting and having i don
+
+00:05:12.020 --> 00:05:12.020
+'t know their beacons just influencing something on a map
+
+00:05:12.020 --> 00:05:12.020
+and seeing like the collaboration between all that was really powerful uh
+
+00:05:12.020 --> 00:05:12.020
+and at the end of this event i'm gonna be finally
+
+00:05:12.020 --> 00:05:14.260
+unveiling what what happens at the end of that event so
+
+00:05:14.260 --> 00:05:17.190
+stick around for that um but yeah it's just been fun
+
+00:05:17.190 --> 00:05:18.630
+to be able to mess around with 3d technology on mapping
+
+00:05:18.630 --> 00:05:26.220
+like that uh collaboratively um so something i'm proud of
+
+00:05:26.330 --> 00:05:30.530
+uh building on at proto is pocket blog pocket blog is my
+
+00:05:30.610 --> 00:05:34.860
+my baby uh and it is pocket not pack it or pick
+
+00:05:34.860 --> 00:05:38.890
+it or whatever else you may think it may be um and
+
+00:05:39.530 --> 00:05:45.490
+and basically um i the reason that i made it was because
+
+00:05:45.490 --> 00:05:49.000
+i wanted to start a blog of my own and i actually
+
+00:05:49.000 --> 00:05:51.610
+i haven't really had much time to be blogging on
+
+00:05:51.610 --> 00:05:54.720
+my own because i've been building it and it's been
+
+00:05:54.720 --> 00:05:59.570
+so so wonderful which is it's not a bad problem to
+
+00:05:59.890 --> 00:06:04.590
+have um but yeah i think that really the main thing is
+
+00:06:04.590 --> 00:06:08.250
+i wanted something simpler to start blogging uh and something that
+
+00:06:08.290 --> 00:06:11.910
+feels like all of the tools that you need are really at
+
+00:06:11.910 --> 00:06:17.890
+your fingertips without having to really search too hard to find everything
+
+00:06:17.890 --> 00:06:24.770
+that makes running a blog possible possible i'm glad we set
+
+00:06:24.770 --> 00:06:25.980
+the record straight that's pocket i was asking around before the
+
+00:06:25.980 --> 00:06:32.980
+dog i was like does anyone know how to say this um
+
+00:06:32.980 --> 00:06:37.380
+cool so you know social media has been around for you know
+
+00:06:37.380 --> 00:06:40.420
+over 20 years now since like web 2.
+
+00:06:40.420 --> 00:06:43.820
+0 has has existed and a lot of the design paradig
+
+00:06:43.850 --> 00:06:46.730
+ms have really been solidified at this point i'm curious
+
+00:06:46.730 --> 00:06:48.980
+how you stay fresh in such a well-defined design space
+
+00:06:48.980 --> 00:06:52.210
+yeah that's a good question uh i've i mean i
+
+00:06:52.230 --> 00:06:56.720
+'ve been i've been i started my career in design and
+
+00:06:56.720 --> 00:07:00.490
+i kind of took a winding roundabout path to get where
+
+00:07:00.490 --> 00:07:03.240
+i am today i i sort of merged off of design and
+
+00:07:03.240 --> 00:07:06.630
+went into sort of social media management community management that sort of
+
+00:07:06.630 --> 00:07:10.070
+thing uh and uh i kind of i mean to some degree
+
+00:07:10.180 --> 00:07:14.500
+i sort of stopped following like design trends and like what was
+
+00:07:14.500 --> 00:07:17.980
+happening and i just kept doing my own thing and i mainly
+
+00:07:17.980 --> 00:07:23.430
+started making art and doing things personally um and we when i
+
+00:07:23.430 --> 00:07:25.860
+went to when i went to sort of design anasota
+
+00:07:25.990 --> 00:07:29.980
+and make it into what it is i i did not really
+
+00:07:29.980 --> 00:07:34.560
+look at really anything that was in the industry or anything i
+
+00:07:34.560 --> 00:07:38.100
+was i my my core thesis with it is i i wanted
+
+00:07:38.310 --> 00:07:44.430
+to make something that felt distinctly uh i wanted to make
+
+00:07:44.430 --> 00:07:46.510
+something that felt distinctly uh well and away from anything that
+
+00:07:46.510 --> 00:07:48.340
+uh was coming out of like silicon valley um so you know
+
+00:07:48.340 --> 00:07:50.610
+when i was making anasota i was reading books about
+
+00:07:50.610 --> 00:07:53.960
+moths i was going out at night setting up light traps
+
+00:07:53.960 --> 00:07:58.590
+and mothing and uh i took tons of inspiration from all
+
+00:07:58.590 --> 00:08:05.170
+that as well as things like uh you know classic text based
+
+00:08:05.670 --> 00:08:08.600
+rpgs and um tarot cards cards and things like
+
+00:08:08.610 --> 00:08:12.550
+that and um what came about from all that is just kind
+
+00:08:12.580 --> 00:08:15.620
+of a weird amalgamation so i i think uh i
+
+00:08:15.630 --> 00:08:17.930
+think my big takeaway from that was just like oh there's
+
+00:08:17.930 --> 00:08:21.920
+some really interesting things that can happen when you let uh influences
+
+00:08:22.000 --> 00:08:27.250
+outside of like the normal spaces uh come up to the surface
+
+00:08:27.450 --> 00:08:30.610
+so um yeah i don't know just look look look in
+
+00:08:30.610 --> 00:08:36.870
+weird places there's lots of great inspiration in weird places yeah
+
+00:08:36.930 --> 00:08:41.090
+honestly in this day and age you can vibe code something really
+
+00:08:41.210 --> 00:08:44.300
+quickly and it'll look like any other social app so i
+
+00:08:44.300 --> 00:08:48.070
+think there's great importance to be more avant-garde
+
+00:08:48.070 --> 00:08:50.940
+like look for things that are outside of that space and like
+
+00:08:50.940 --> 00:08:57.270
+seek it and absorb it as much as possible um yeah i
+
+00:08:57.270 --> 00:09:00.610
+think yeah i think obviously some app experiences aren't going to
+
+00:09:00.610 --> 00:09:03.660
+work for everyone but like if it works for you someone will
+
+00:09:03.780 --> 00:09:07.330
+find the way you think and you'll collaborate and they'll
+
+00:09:07.330 --> 00:09:13.220
+enjoy what you're doing okay so um when it comes to
+
+00:09:13.220 --> 00:09:21.270
+design for me it's really like simplifying things
+
+00:09:21.270 --> 00:09:25.840
+down to the basics and the essentials so i usually will start
+
+00:09:25.910 --> 00:09:31.730
+with an idea um and it's usually much more complicated than
+
+00:09:31.730 --> 00:09:34.620
+it needs to be so if i feel confused at all i
+
+00:09:34.620 --> 00:09:37.710
+'m trying to look and see like you know what can i
+
+00:09:37.830 --> 00:09:40.740
+take away from this to simplify the process and how can i
+
+00:09:40.740 --> 00:09:45.100
+make it like as understandable as possible i really try to think
+
+00:09:45.190 --> 00:09:50.870
+of things from like a user experience sort of perspective um um
+
+00:09:50.930 --> 00:09:54.080
+and like all the time like i'll build something and i
+
+00:09:54.080 --> 00:09:56.940
+'ll get frustrated with it and i'm like this is just
+
+00:09:56.940 --> 00:09:59.320
+too hard this is too confusing and i'll be like what
+
+00:09:59.320 --> 00:10:02.020
+needs to go you know like just cut something out cut something
+
+00:10:02.290 --> 00:10:05.930
+out and and make it easier to do because so many platforms
+
+00:10:06.040 --> 00:10:12.450
+these days are like just so overwhelming with like layers and layers
+
+00:10:12.530 --> 00:10:16.270
+of like interface all to do one simple thing like i don
+
+00:10:16.270 --> 00:10:17.700
+'t know if you've i don't know if i'm
+
+00:10:17.720 --> 00:10:19.640
+allowed to say this but i don't know if you've
+
+00:10:19.640 --> 00:10:22.220
+ever been like on instagram and you're like just trying to
+
+00:10:22.220 --> 00:10:25.300
+find like a post that you've liked you have to go
+
+00:10:25.300 --> 00:10:28.940
+through like six menus to find a post that you've liked
+
+00:10:28.940 --> 00:10:32.230
+and that seems like such a basic feature all that you do
+
+00:10:32.230 --> 00:10:36.080
+on instagram is like stuff so i would like to see my
+
+00:10:36.080 --> 00:10:40.160
+likes you know so really just like if it feels like too
+
+00:10:40.270 --> 00:10:44.210
+many steps to do something how can we reduce that and get
+
+00:10:44.210 --> 00:10:49.640
+it down to as few steps as possible definitely often the the
+
+00:10:49.640 --> 00:10:53.220
+most beautiful or like the the simplest option is the most beautiful
+
+00:10:53.240 --> 00:10:59.630
+and elegant one to move forward with so what um are there
+
+00:10:59.640 --> 00:11:03.660
+any specific problems with social media today that you think uh can
+
+00:11:03.780 --> 00:11:09.210
+be solved through design yeah i mean i think i mean i
+
+00:11:09.210 --> 00:11:11.510
+think a lot of things can at least be partially solved through
+
+00:11:11.610 --> 00:11:16.940
+design um i mean i think one of the biggest things is
+
+00:11:17.170 --> 00:11:24.150
+um just the fact that that you know historically with social media
+
+00:11:24.150 --> 00:11:29.040
+everyone has been funneled through one client interface so facebook is
+
+00:11:29.040 --> 00:11:32.090
+used by billions of people around the world in different cultures and
+
+00:11:32.180 --> 00:11:37.110
+communities and things and they all have different needs and different desires
+
+00:11:37.590 --> 00:11:42.480
+and wishes and preferences and things like this um and so well
+
+00:11:42.510 --> 00:11:46.950
+like design can definitely solve some things um there's also like
+
+00:11:46.950 --> 00:11:50.570
+some amount that you can't you can't funnel everyone through
+
+00:11:50.570 --> 00:11:54.140
+one particular thing and it won't work for necessarily everyone um
+
+00:11:54.140 --> 00:11:58.040
+so i think some of it just comes down to having to
+
+00:11:58.190 --> 00:12:03.940
+have uh very specific um you know people in mind as you
+
+00:12:03.940 --> 00:12:07.480
+'re designing something um but i also think that together we're
+
+00:12:07.560 --> 00:12:10.290
+just uh there are a lot of things that fundamentally i guess
+
+00:12:10.300 --> 00:12:13.250
+over the past 20 years we've realized are not maybe the
+
+00:12:13.250 --> 00:12:17.180
+healthiest patterns to be seeing and some of those things can
+
+00:12:17.290 --> 00:12:21.060
+be pretty pretty easy like easily changed in the sense of whether
+
+00:12:21.060 --> 00:12:24.110
+it's removing things or whether it's um changing the framing
+
+00:12:24.110 --> 00:12:28.870
+of something and um and some of it just comes down to
+
+00:12:28.940 --> 00:12:32.500
+experimenting and figuring out like yeah what is uh if this particular
+
+00:12:33.190 --> 00:12:35.640
+thing is not working and is making people unhappy or is not
+
+00:12:35.640 --> 00:12:40.290
+healthy or good for society can we can we flip that on
+
+00:12:40.290 --> 00:12:42.610
+its head and just try something incredibly different so um yes i
+
+00:12:42.610 --> 00:12:48.290
+think design definitely can can impact things those things dramatically i mean
+
+00:12:48.290 --> 00:12:50.710
+it's i mean it's to some degree the thesis behind
+
+00:12:50.710 --> 00:12:53.520
+anisota is like if we could rethink how this looked
+
+00:12:53.610 --> 00:12:56.210
+from the ground up in a lot of ways uh you know
+
+00:12:56.240 --> 00:12:59.240
+what might happen and tbd on what that is i
+
+00:12:59.240 --> 00:13:03.530
+don't know yeah i don't i don't really have
+
+00:13:03.530 --> 00:13:06.510
+a concrete answer for that but i think uh aaron cass
+
+00:13:06.610 --> 00:13:10.480
+ine's talk yesterday that started off the whole thing uh was
+
+00:13:10.900 --> 00:13:14.790
+incredibly powerful and it it got me thinking more about what could
+
+00:13:14.790 --> 00:13:17.480
+be out of that uh and i'm i don't know
+
+00:13:17.490 --> 00:13:19.940
+what it is yet but i i want to try and do
+
+00:13:19.940 --> 00:13:23.100
+something in that regard because it's it's pretty powerful i
+
+00:13:23.180 --> 00:13:32.160
+think um designing for at proto specifically brings a lot of interesting
+
+00:13:32.290 --> 00:13:36.460
+things to the table um something in particular that i've seen
+
+00:13:36.460 --> 00:13:41.940
+a lot of people sort of trying different situations with is for
+
+00:13:42.190 --> 00:13:48.710
+like authentication flow registration flow um because of the nature of app
+
+00:13:48.710 --> 00:13:52.670
+proto where you create an account and you can now suddenly log
+
+00:13:52.670 --> 00:13:55.870
+into all these wonderful services it's really difficult to figure out
+
+00:13:55.950 --> 00:14:00.100
+how to explain that to the end user like i know for
+
+00:14:00.210 --> 00:14:03.940
+most of us here it's a pretty understandable situation but when
+
+00:14:03.940 --> 00:14:06.940
+it comes to people that are you know not used to being
+
+00:14:06.940 --> 00:14:12.330
+in the developer community um it's a really difficult thing to
+
+00:14:12.330 --> 00:14:16.150
+communicate and we see a lot of people you know writing a
+
+00:14:16.250 --> 00:14:21.270
+whole story saying like this is your everything account and you can
+
+00:14:21.270 --> 00:14:24.940
+use it at these places and at proto and all that stuff
+
+00:14:24.940 --> 00:14:29.040
+and i think it's really it's an interesting problem of
+
+00:14:29.190 --> 00:14:34.070
+how do we explain that to the everyday person and and make
+
+00:14:34.070 --> 00:14:38.740
+it feel approachable without like bombarding people with like too
+
+00:14:38.740 --> 00:14:43.640
+many too many terms and too many complex ideas because if you
+
+00:14:43.640 --> 00:14:48.200
+do get an understanding of um like at proto and like your
+
+00:14:48.200 --> 00:14:52.130
+everything handle it does make a lot of sense but it's
+
+00:14:52.130 --> 00:14:55.940
+a really difficult problem to communicate that um with the everyday user
+
+00:14:56.220 --> 00:15:03.760
+definitely i am i think in many ways people who are drawn
+
+00:15:03.800 --> 00:15:07.450
+to app proto because they're almost refugees from the current landscape
+
+00:15:07.530 --> 00:15:11.500
+of social media um i did a project in my senior year
+
+00:15:11.500 --> 00:15:15.820
+of college where we identified the addictive mechanics of social media and
+
+00:15:16.000 --> 00:15:20.940
+then we built an arcade that exposed each of those mechanics separately
+
+00:15:21.030 --> 00:15:24.320
+and we we did an exhibition and um where um you know
+
+00:15:24.320 --> 00:15:25.940
+families would come in and like kids would start playing the game
+
+00:15:26.180 --> 00:15:29.390
+and they would love the game and then we would like at
+
+00:15:29.390 --> 00:15:34.360
+some point during the game we would reveal the mechanic underlying the
+
+00:15:34.360 --> 00:15:37.690
+game and the kid would immediately just like you know disengage
+
+00:15:37.690 --> 00:15:39.810
+and walk off and then the you know the parents who are
+
+00:15:39.810 --> 00:15:42.400
+with the kids were like oh wait no hold on come back
+
+00:15:42.400 --> 00:15:45.290
+you have to learn this like you this is important this is
+
+00:15:45.300 --> 00:15:47.940
+what's wrong with your phone right now this is why you
+
+00:15:47.940 --> 00:15:53.010
+'re addicted to it um so that's definitely something that at
+
+00:15:53.150 --> 00:15:55.940
+blue sky we definitely try to be very conscious of as we
+
+00:15:55.940 --> 00:16:00.090
+'re designing um so yeah i think also the riff off of
+
+00:16:00.190 --> 00:16:05.940
+that for this next question um are there any specific uh challenges
+
+00:16:05.940 --> 00:16:11.400
+or rewarding aspects of designing for a decentralized uh social uh social
+
+00:16:11.400 --> 00:16:14.460
+landscape or on that further yeah i mean i think the most
+
+00:16:14.460 --> 00:16:17.710
+rewarding thing is just it's so remixable you can you
+
+00:16:17.710 --> 00:16:20.660
+can take anything and just like make it your own you can
+
+00:16:20.660 --> 00:16:24.020
+you can give your own spin on things because it's so
+
+00:16:24.190 --> 00:16:26.910
+flexible and malleable and there's not really there's
+
+00:16:26.910 --> 00:16:30.050
+so much so so many fewer barriers to being able to do
+
+00:16:30.190 --> 00:16:32.670
+different things so it feels like you're in a sandbox and
+
+00:16:32.680 --> 00:16:35.790
+you can just like or like you're playing with legos
+
+00:16:35.790 --> 00:16:37.820
+and there's just like so many different things you could possibly
+
+00:16:37.820 --> 00:16:39.940
+do which can also be overwhelming it's like what what exactly
+
+00:16:40.190 --> 00:16:42.510
+do i do here um but i think it is one of
+
+00:16:42.510 --> 00:16:45.280
+those it's kind of like when you get a when you
+
+00:16:45.280 --> 00:16:48.140
+get like a fresh notebook and you're like what do i
+
+00:16:48.290 --> 00:16:50.450
+what do i put on the first page here uh and that
+
+00:16:50.450 --> 00:16:53.110
+'s kind of what my journey was with making things in the
+
+00:16:53.290 --> 00:16:56.440
+atmosphere is i'm just going to start making random things and
+
+00:16:56.440 --> 00:16:58.700
+and see what happens and and i did that for about a
+
+00:16:58.700 --> 00:17:02.200
+year until i and that's when i eventually was like okay
+
+00:17:02.200 --> 00:17:04.600
+now that i've made all these different things i'm i
+
+00:17:04.620 --> 00:17:08.940
+'m gonna actually try to like hone in on something um of
+
+00:17:08.940 --> 00:17:11.020
+all the different things that i made i want to hone in
+
+00:17:11.020 --> 00:17:14.330
+on one particular sort of niche and figure out like oh what
+
+00:17:14.340 --> 00:17:16.660
+how can i this is the thing i love this is the
+
+00:17:16.680 --> 00:17:19.400
+aspect of the atmosphere i love and i'm gonna dive deeper
+
+00:17:19.400 --> 00:17:23.340
+into that because there's really so many different niches and
+
+00:17:23.380 --> 00:17:25.470
+parts of it and um i think that's what's interesting
+
+00:17:25.470 --> 00:17:28.510
+it really does feel like there's something for everyone like journalists
+
+00:17:28.510 --> 00:17:32.020
+are doing things uh you know artists are doing things content creators
+
+00:17:32.180 --> 00:17:35.440
+are doing things um which is just so fun i don't
+
+00:17:35.440 --> 00:17:37.590
+know i don't feel like i've ever seen a community
+
+00:17:37.680 --> 00:17:39.900
+that has been able to like reach so many different types of
+
+00:17:39.910 --> 00:17:43.930
+people beyond just like software engineers and developers and and those kind
+
+00:17:43.930 --> 00:17:46.940
+of folks so i think that's that's my favorite part
+
+00:17:47.190 --> 00:17:52.200
+yeah i think it's pretty powerful just the level of that
+
+00:17:52.210 --> 00:17:54.460
+we get for free out of this um but it's also
+
+00:17:54.480 --> 00:17:58.590
+can be super overwhelming for anyone who's trying to do something
+
+00:17:58.590 --> 00:18:01.920
+that much more complex so there's like just trade-offs
+
+00:18:01.960 --> 00:18:05.390
+in knowing like what your product is what you're trying to
+
+00:18:05.390 --> 00:18:08.930
+achieve um and yeah i think that just adds either to the
+
+00:18:09.040 --> 00:18:12.660
+complexity or the beauty or the beauty of it but uh it
+
+00:18:12.680 --> 00:18:17.940
+'s something to embrace i think one of the most like wonderful
+
+00:18:17.940 --> 00:18:23.480
+things that i um like about the app proto and um really
+
+00:18:23.480 --> 00:18:30.930
+dislike applications on the atmosphere is that since we're publishing these
+
+00:18:30.930 --> 00:18:33.930
+lexicons it really opens up a lot of possibilities for
+
+00:18:34.190 --> 00:18:38.580
+communities to um send sort of form around even just your le
+
+00:18:38.580 --> 00:18:42.630
+xicons so for example with you and me at it's
+
+00:18:42.630 --> 00:18:46.940
+a very simple concept very simple lexicon but the first
+
+00:18:47.290 --> 00:18:50.890
+thing that happened when i like sort of put it out there
+
+00:18:50.890 --> 00:18:53.180
+and announced it is people were were like oh it should do
+
+00:18:53.290 --> 00:18:56.510
+this it should have a leaderboard it should have um this
+
+00:18:56.510 --> 00:19:01.500
+it should be you know verifiable between like each person instead
+
+00:19:01.540 --> 00:19:04.240
+of just one-sided and the really cool thing about at
+
+00:19:04.240 --> 00:19:09.240
+proto is that that's all possible and i don't have
+
+00:19:09.240 --> 00:19:15.110
+to do it so business goose um who's great made a
+
+00:19:15.110 --> 00:19:18.710
+leaderboard and it shows all of your connections and shows the
+
+00:19:18.750 --> 00:19:22.770
+top people that are connecting and it's really cool because like
+
+00:19:22.770 --> 00:19:27.110
+that's something that the community really wanted and like of course
+
+00:19:27.120 --> 00:19:29.430
+if i had more time i would have loved to build that
+
+00:19:29.430 --> 00:19:31.470
+as well but um i also didn't want to over compl
+
+00:19:31.470 --> 00:19:35.600
+icate what what it is and make it more confusing than it
+
+00:19:35.610 --> 00:19:37.930
+needs to be so it's really great that i can just
+
+00:19:38.190 --> 00:19:42.530
+make something that's like the simplest like bare bones like piece
+
+00:19:42.890 --> 00:19:46.660
+of the puzzle and then anybody who wants to can come and
+
+00:19:46.670 --> 00:19:50.940
+build something on top of that and and really extend the capabilities
+
+00:19:50.940 --> 00:19:59.270
+um of of the platform that's awesome yeah
+
+00:19:59.270 --> 00:20:02.830
+um that's something that's really surprised me about this community
+
+00:20:02.830 --> 00:20:05.430
+is exactly what you said it's just like someone can have
+
+00:20:05.430 --> 00:20:07.480
+the seed of an idea and get it out there and share
+
+00:20:07.480 --> 00:20:11.380
+it and then um someone else can just totally take that and
+
+00:20:11.380 --> 00:20:14.310
+riff off of it and build something beautiful and build it in
+
+00:20:14.310 --> 00:20:16.670
+their own vision and then someone else can just take it from
+
+00:20:16.670 --> 00:20:21.290
+there so yeah another really great thing is like with um with
+
+00:20:21.290 --> 00:20:25.120
+standard site like we just built the lexicons and the
+
+00:20:25.190 --> 00:20:28.220
+documentation and put it out there and now there's like all
+
+00:20:28.220 --> 00:20:32.510
+these different like programs that help people implement it which is really
+
+00:20:32.610 --> 00:20:34.940
+great because we didn't really provide that we just said like
+
+00:20:34.940 --> 00:20:37.470
+you know here it is we're using it in our own
+
+00:20:37.560 --> 00:20:39.940
+ways uh if you want to you can figure it out too
+
+00:20:39.940 --> 00:20:42.980
+but now we have like sequoia and like um which
+
+00:20:43.190 --> 00:20:46.870
+makes it so that anybody can really publish like their their static
+
+00:20:46.940 --> 00:20:51.850
+blogs to standard site um and all these other um tools are
+
+00:20:52.180 --> 00:20:55.540
+being built on top of that and all without us really doing
+
+00:20:55.540 --> 00:20:58.100
+anything other than being like here's the lexicon you
+
+00:20:58.100 --> 00:21:04.920
+know figure it out yeah i remember when standard dot site launched
+
+00:21:04.930 --> 00:21:06.940
+and there were a bunch of us at blue sky here were
+
+00:21:06.940 --> 00:21:09.040
+super psyched we were like we had no intervention in this
+
+00:21:09.040 --> 00:21:13.940
+it just kind of happened organically and we love that yeah
+
+00:21:14.290 --> 00:21:19.360
+um okay here's another uh question here that's so that
+
+00:21:19.360 --> 00:21:26.190
+maybe a little bit more controversial or you know yeah uh so
+
+00:21:26.190 --> 00:21:30.660
+i think we're all surprised at how quickly ai has advanced
+
+00:21:30.660 --> 00:21:33.600
+and and you know we're all i think exploring it in
+
+00:21:33.630 --> 00:21:36.990
+our own ways and incorporating it into our own workflows um i
+
+00:21:37.150 --> 00:21:40.630
+'m just curious how it's shown up in your own process
+
+00:21:40.630 --> 00:21:44.940
+and how you've incorporated it into your work if at all
+
+00:21:44.940 --> 00:21:47.800
+uh yeah no it's definitely it's definitely very involved in
+
+00:21:47.800 --> 00:21:49.910
+my workflow um yeah i mean i'm i'm not a
+
+00:21:50.010 --> 00:21:53.510
+software engineer i'm you know i'm an artist a communic
+
+00:21:53.610 --> 00:21:55.380
+ator that kind of person so like i'm well i have
+
+00:21:55.380 --> 00:21:58.750
+you know like any good millennial i have uh you know
+
+00:21:58.750 --> 00:22:02.590
+some knowledge of and experience making websites and html c
+
+00:22:02.590 --> 00:22:05.480
+ss that kind of thing and i built some you know rud
+
+00:22:05.480 --> 00:22:10.030
+imentary software things uh in in other arenas but uh
+
+00:22:10.190 --> 00:22:12.920
+prior to the atmosphere i'd never made a web app before
+
+00:22:12.940 --> 00:22:15.170
+and so this was kind of like okay i'm gonna you
+
+00:22:15.290 --> 00:22:18.940
+know i started working on my first little tool i guess i
+
+00:22:19.040 --> 00:22:21.150
+don't know two years ago and at the time there was
+
+00:22:21.270 --> 00:22:23.510
+no clod code there was none of that i was literally
+
+00:22:24.150 --> 00:22:26.750
+like sometimes typing into the clod chat bot and just being
+
+00:22:26.750 --> 00:22:30.030
+like explain this to me what do i do here like um
+
+00:22:30.170 --> 00:22:31.940
+and it couldn't really generate code bases or anything like that
+
+00:22:31.940 --> 00:22:34.940
+so i was just asking it to like generate chunks of things
+
+00:22:34.940 --> 00:22:38.560
+and then i would piece them together like lego bricks and
+
+00:22:38.560 --> 00:22:41.990
+um whereas now it's like it's very incredibly uh i
+
+00:22:42.180 --> 00:22:44.750
+had a feeling it would get to the stage that it got
+
+00:22:44.750 --> 00:22:47.940
+to i didn't quite expect it to get there this quickly
+
+00:22:48.180 --> 00:22:51.870
+um but uh yeah i don't know it's it's
+
+00:22:51.940 --> 00:22:55.440
+uh i still very much um there's still lots of elements
+
+00:22:55.440 --> 00:22:59.920
+of the process though that are i feel like uh reserved for
+
+00:22:59.930 --> 00:23:03.460
+i guess myself to handle like i there's you know like
+
+00:23:03.520 --> 00:23:07.950
+the design piece is one of the things that i don't
+
+00:23:07.950 --> 00:23:12.770
+really uh involve clod with that much um i i think
+
+00:23:12.770 --> 00:23:16.730
+that that's one of the it's sort of the the
+
+00:23:16.730 --> 00:23:20.440
+layer of the app that um everyone sees and engages with whereas
+
+00:23:20.440 --> 00:23:23.260
+the code is sort of all behind the scenes and um so
+
+00:23:23.260 --> 00:23:26.330
+yeah the design component is one of the things i i guess
+
+00:23:26.340 --> 00:23:29.150
+i i just haven't really involved ai in very much but
+
+00:23:29.190 --> 00:23:32.180
+um i'm sure there are ways to do that um but
+
+00:23:32.180 --> 00:23:35.140
+yeah for net for me it's just mostly like oh uh
+
+00:23:35.190 --> 00:23:39.360
+help me plan out the architecture of this feature and then write
+
+00:23:39.360 --> 00:23:44.290
+code for it and and then off to the races really yeah
+
+00:23:44.290 --> 00:23:48.400
+so i've been coding since the late 1900s at this
+
+00:23:48.400 --> 00:23:52.940
+point and i feel like i've gotten a lot under my
+
+00:23:52.940 --> 00:23:56.480
+belt but uh it's i mean to say that things have
+
+00:23:57.190 --> 00:24:02.330
+changed is just an understatement um i think i always
+
+00:24:02.330 --> 00:24:06.510
+start with wireframes i always start with ideas first uh and
+
+00:24:06.730 --> 00:24:09.630
+kind of flesh that out first whether it's a story whether
+
+00:24:09.630 --> 00:24:15.340
+it's an underlying concept um and then you know slowly but
+
+00:24:15.340 --> 00:24:20.830
+surely introduce ai elements to like like allow you to really flesh
+
+00:24:20.970 --> 00:24:24.920
+it out and build things that would take years in in months
+
+00:24:24.940 --> 00:24:28.180
+um but yeah it's it's definitely a huge part of
+
+00:24:28.290 --> 00:24:35.660
+the process now a hot topic i love that um yeah so
+
+00:24:35.780 --> 00:24:42.910
+i feel like with ai tools it's really um it's
+
+00:24:42.930 --> 00:24:46.640
+really a fine line between like you know what is going to
+
+00:24:46.640 --> 00:24:51.100
+be actually helpful for people and what is like what we're
+
+00:24:51.210 --> 00:24:54.840
+calling ai slop which is like stuff that we're just like
+
+00:24:54.950 --> 00:24:56.470
+you know is this really like a good use of our like
+
+00:24:56.530 --> 00:25:01.310
+resources and like like is this good like for the planet or
+
+00:25:01.310 --> 00:25:04.710
+like i don't know but like i do think that there
+
+00:25:04.710 --> 00:25:08.250
+is a lot that is going to be very beneficial from uh
+
+00:25:08.250 --> 00:25:11.790
+from ai and a lot of um things that a lot of
+
+00:25:11.790 --> 00:25:15.550
+possibilities that this is going to open up for everyday people and
+
+00:25:15.550 --> 00:25:21.940
+for developers alike um i actually started building pocket blog before the
+
+00:25:22.290 --> 00:25:26.050
+whole ai craze but i i don't think that pocket
+
+00:25:26.050 --> 00:25:30.820
+blog would be where it is today without tools like cloud code
+
+00:25:30.930 --> 00:25:37.600
+um i've been like developing for a long time actually started
+
+00:25:37.600 --> 00:25:40.480
+coding on roblox i had a front page game back
+
+00:25:40.480 --> 00:25:43.930
+in the day and i had like millions of views and like
+
+00:25:43.930 --> 00:25:47.710
+i bought my first computer with roblox money which is
+
+00:25:47.760 --> 00:25:54.180
+like amazing but roblox well you could like um transact
+
+00:25:54.180 --> 00:25:57.590
+they have a developer exchange program so if you get paid rob
+
+00:25:57.590 --> 00:26:00.430
+ux on roblox you can cash that out for real
+
+00:26:00.580 --> 00:26:03.980
+money so i i bought my first computer with roblox
+
+00:26:03.980 --> 00:26:09.060
+money long story short um but yeah like i really i don
+
+00:26:09.060 --> 00:26:12.940
+'t think that i would be where i am today without um
+
+00:26:12.940 --> 00:26:16.870
+um without like being able to use these new ai tools but
+
+00:26:17.180 --> 00:26:21.400
+i did start like the dream was there before this happened so
+
+00:26:21.400 --> 00:26:24.000
+i'm really thankful for what we have and i'm really
+
+00:26:24.220 --> 00:26:28.590
+excited to see uh like where this can move in a way
+
+00:26:28.590 --> 00:26:34.940
+that's going to be beneficial for everybody involved and hopefully things
+
+00:26:34.940 --> 00:26:38.960
+will move away from the more catastrophic side uh which if we
+
+00:26:39.040 --> 00:26:43.290
+can we're the ones that can make that happen um and
+
+00:26:43.290 --> 00:26:46.300
+i think that it's really important for us to like put
+
+00:26:46.300 --> 00:26:49.850
+our best foot forward and be responsible with how we use these
+
+00:26:49.880 --> 00:26:53.980
+things and not take advantage of you know the power that it
+
+00:26:53.980 --> 00:26:59.090
+gives thank goodness for roblox thank goodness for roblo
+
+00:26:59.090 --> 00:27:04.530
+x um yeah i think something that's been really surprising to
+
+00:27:04.530 --> 00:27:06.710
+me is uh i used to be very anti-ai like
+
+00:27:06.750 --> 00:27:10.040
+up up until like six months ago actually and in in my
+
+00:27:10.060 --> 00:27:13.560
+mind i don't have a technical bone in my body i
+
+00:27:13.560 --> 00:27:17.370
+'m a pure designer um and up until recently i was like
+
+00:27:17.370 --> 00:27:19.820
+oh design is just like a developer thing it's just like
+
+00:27:19.820 --> 00:27:22.500
+it makes them work faster that's great um but what i
+
+00:27:22.510 --> 00:27:27.440
+'ve been really surprised by is it's it's uh comprehension
+
+00:27:27.440 --> 00:27:31.440
+of uh design has been leveled up like you know ten
+
+00:27:31.570 --> 00:27:35.040
+fold in the last couple of months and to the point where
+
+00:27:35.040 --> 00:27:37.760
+i can send a screenshot and just say hey what do you
+
+00:27:37.760 --> 00:27:40.890
+think about this this flow or this interaction and it will give
+
+00:27:41.010 --> 00:27:43.860
+me really solid feedback as if it was from like a senior
+
+00:27:43.860 --> 00:27:47.300
+designer that i was working with or collaborating with so it i
+
+00:27:47.310 --> 00:27:53.900
+have incorporated it into you know my design process definitely with fig
+
+00:27:53.900 --> 00:27:55.840
+ma and i'm excited to see where it goes i've
+
+00:27:55.840 --> 00:27:58.710
+been exploring tools with with actually designing i don't think they
+
+00:27:58.710 --> 00:28:02.960
+'re quite there yet um but it's definitely a good collabor
+
+00:28:02.960 --> 00:28:06.620
+ator in in feedback so i'm excited to see how it
+
+00:28:06.620 --> 00:28:10.650
+evolves and and how it you know i'm definitely going to
+
+00:28:10.750 --> 00:28:14.380
+keep exploring with it um cool we're down to our last
+
+00:28:14.380 --> 00:28:17.150
+question here i think a lot of people in the audience are
+
+00:28:17.190 --> 00:28:20.880
+you know builders who are looking to really upgrade their design do
+
+00:28:20.880 --> 00:28:26.060
+you have any recommendations or um advice for for people who who
+
+00:28:26.060 --> 00:28:29.700
+want to build beautiful experiences yeah i mean that's a great
+
+00:28:29.760 --> 00:28:33.150
+question i guess there's really two paths well there's many
+
+00:28:33.150 --> 00:28:35.940
+paths but the two big sort of broad groups that i think
+
+00:28:35.940 --> 00:28:39.980
+of are folks that want to actually learn like the nitty
+
+00:28:40.000 --> 00:28:44.510
+-gritty elements of design and like make that uh an
+
+00:28:44.580 --> 00:28:48.670
+actual like discipline and focus for themselves versus folks that want to
+
+00:28:48.830 --> 00:28:52.580
+um they they don't really want to be designers necessarily but
+
+00:28:52.690 --> 00:28:55.240
+they want maybe you're a software engineer and you want your
+
+00:28:55.590 --> 00:28:59.070
+web apps and or apps and things just to look better um
+
+00:28:59.070 --> 00:29:02.540
+i mean i think there's like there's definitely like a
+
+00:29:02.540 --> 00:29:05.610
+phenomenon we're seeing even in the atmosphere where you know now
+
+00:29:05.610 --> 00:29:08.600
+that you know cloud code exists and it's much easier to
+
+00:29:08.600 --> 00:29:11.650
+build web apps and ship things um there's something i feel
+
+00:29:11.650 --> 00:29:16.220
+like a a lot of folks are not really thinking about the
+
+00:29:16.230 --> 00:29:18.800
+design side of things and what you end up seeing is like
+
+00:29:18.800 --> 00:29:22.450
+user interfaces that look very very similar like you go to one
+
+00:29:22.480 --> 00:29:26.510
+website and it looks the same as the next and um so
+
+00:29:26.540 --> 00:29:28.490
+like if you're in that boat you're not trying to
+
+00:29:28.490 --> 00:29:30.910
+like actually go deep on design like i think there's some
+
+00:29:30.910 --> 00:29:34.290
+very practical things that you can learn to you know uh help
+
+00:29:34.820 --> 00:29:38.030
+steer these tools in the right direction so that the things that
+
+00:29:38.150 --> 00:29:42.240
+you are creating uh better reflect your own unique style or tastes
+
+00:29:42.390 --> 00:29:45.620
+or things and they don't just end up looking like vanilla
+
+00:29:45.700 --> 00:29:49.080
+whatever comes out of the comes out of the thing um whereas
+
+00:29:49.080 --> 00:29:51.590
+if you're you actually want to go deep into design i
+
+00:29:51.790 --> 00:29:54.870
+mean i think i think a lot of that stuff hasn't
+
+00:29:54.920 --> 00:29:57.930
+changed i mean you think it's you you have to be
+
+00:29:57.930 --> 00:30:01.560
+uh you know reading books you have to be looking at some
+
+00:30:01.570 --> 00:30:04.470
+of the great designers of the past and that work is still
+
+00:30:04.950 --> 00:30:09.060
+incredibly relevant and um i think you know for me it's
+
+00:30:09.060 --> 00:30:14.060
+a big part of the process is just regularly consuming uh good
+
+00:30:14.060 --> 00:30:16.970
+art and good design and letting that sort of absorb into my
+
+00:30:16.970 --> 00:30:19.850
+brain and influence and influence me because it it's kind of
+
+00:30:19.850 --> 00:30:22.790
+it's very ambiguous feeling it's not like a very like
+
+00:30:22.880 --> 00:30:25.520
+it's not a switch you can flip it just takes a
+
+00:30:25.530 --> 00:30:29.310
+lot of like consuming lots of good content and good ideas and
+
+00:30:29.310 --> 00:30:33.720
+design so that on the other end something your own unique take
+
+00:30:33.830 --> 00:30:36.810
+on things flows out on the other end and it's not
+
+00:30:36.920 --> 00:30:45.270
+you know it's not generic definitely um i think i think
+
+00:30:45.320 --> 00:30:48.490
+i think a good oh you're good uh i think a
+
+00:30:48.490 --> 00:30:52.020
+good designer just borrows from designs but uh to be a
+
+00:30:52.020 --> 00:30:56.860
+great designer you have to study from the world study movies games
+
+00:30:56.860 --> 00:31:01.680
+uh other media and other mediums that influence you to make
+
+00:31:01.680 --> 00:31:06.910
+a better design um and just keep your mind open like try
+
+00:31:06.910 --> 00:31:11.290
+new things try new applications don't stay rigid in one thing
+
+00:31:11.370 --> 00:31:14.590
+uh and it'll help you out the mind is like a
+
+00:31:15.010 --> 00:31:19.740
+parachute it only works when it's open those are really great
+
+00:31:19.750 --> 00:31:23.210
+points um i don't want to get repetitive so i i
+
+00:31:23.210 --> 00:31:27.020
+believe a lot of the same things the bit of advice that
+
+00:31:27.020 --> 00:31:30.740
+i would have is to really just like think about who your
+
+00:31:30.820 --> 00:31:37.500
+application is for and put yourself in their shoes and also after
+
+00:31:37.510 --> 00:31:41.080
+you design something think of the least technical person that you know
+
+00:31:41.430 --> 00:31:45.910
+and show them your design and if they're confused you need
+
+00:31:45.910 --> 00:31:51.200
+to start over so yeah that's really it you want to
+
+00:31:51.220 --> 00:31:54.800
+think about like who's going to be using your application first
+
+00:31:54.940 --> 00:31:57.650
+um and then think about who you would want to use your
+
+00:31:57.660 --> 00:32:02.280
+application that maybe doesn't fit into that initial category of people
+
+00:32:02.330 --> 00:32:07.580
+and really design for them yeah i love that i love all
+
+00:32:07.580 --> 00:32:11.400
+those answers never underestimate the power of a user test too i
+
+00:32:11.400 --> 00:32:14.310
+feel like i've had so many assumptions from like you know
+
+00:32:14.310 --> 00:32:16.880
+heads down on on something and then i just put it in
+
+00:32:16.880 --> 00:32:18.750
+front of someone else and it makes no sense to them and
+
+00:32:18.750 --> 00:32:21.150
+i'm like oh okay back to the drawing board let's
+
+00:32:21.170 --> 00:32:24.340
+so that's a really powerful way to upgrade your design even
+
+00:32:24.340 --> 00:32:28.640
+if it's just one person yes absolutely yeah um well awesome
+
+00:32:28.710 --> 00:32:32.640
+i think that's that's all we have for you today
+
+00:32:32.740 --> 00:32:38.240
+um i i truly believe that anyone can be anyone who's
+
+00:32:38.500 --> 00:32:41.630
+looking to uh level up their skills feel free to talk to
+
+00:32:41.630 --> 00:32:44.710
+me or reach out to me or anyone up here um and
+
+00:32:44.710 --> 00:32:48.200
+ask for feedback and ask for you know i would be happy
+
+00:32:48.200 --> 00:32:51.770
+to look over anyone's work and the projects that they're
+
+00:32:51.890 --> 00:32:54.600
+working on right now and and give that feedback so yeah i
+
+00:32:54.790 --> 00:32:58.730
+just want to thank thank you all again for coming up here
+
+00:32:59.400 --> 00:33:15.100
+and uh sharing your thoughts all right

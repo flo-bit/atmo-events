@@ -1,0 +1,424 @@
+WEBVTT
+
+00:00:00.920 --> 00:00:07.760
+okay cool uh okay yep all right thanks for coming to my
+
+00:00:07.780 --> 00:00:11.230
+talk uh my name is stefan noel and today i
+
+00:00:11.230 --> 00:00:14.590
+'d like to talk to you about burning down data walls in
+
+00:00:14.590 --> 00:00:15.090
+the u.
+
+00:00:15.240 --> 00:00:21.690
+s fire service and beyond so just a bit of overview so
+
+00:00:21.700 --> 00:00:27.990
+first a bit about ul the company behind the fire safety research
+
+00:00:28.190 --> 00:00:33.970
+institute then what is nervous and what problems we were trying to
+
+00:00:33.970 --> 00:00:39.490
+solve and then the fire software landscape and then some opportunities for
+
+00:00:39.490 --> 00:00:43.540
+at proto okay i'm a senior front-end engineer at
+
+00:00:43.540 --> 00:00:48.770
+the fire safety research institute these are just my handles and tech
+
+00:00:48.770 --> 00:00:52.760
+that i'm interested in and you can usually find me in
+
+00:00:52.760 --> 00:00:57.250
+south florida or a bit sometimes in costa rica
+
+00:00:57.370 --> 00:01:05.510
+or portugal so you well you usually can you might recognize
+
+00:01:05.710 --> 00:01:08.660
+our logos or maybe not if you squint hard enough um
+
+00:01:08.660 --> 00:01:12.170
+on your smoke alarm your circuit breaker and if you take out
+
+00:01:12.170 --> 00:01:14.930
+your laptop charger you'll probably find us on there as well
+
+00:01:17.610 --> 00:01:22.360
+and the history so the history of you will coincides with
+
+00:01:22.460 --> 00:01:25.400
+the uh the electrification of the u.
+
+00:01:25.470 --> 00:01:30.440
+s and um basically in the ahead of the chicago world
+
+00:01:30.440 --> 00:01:36.550
+fair um there were a lot of fires basically and um our
+
+00:01:36.570 --> 00:01:40.610
+founder uh william henry merrill noticed that it was
+
+00:01:40.610 --> 00:01:46.000
+due to a lack of standards and um above a firehouse
+
+00:01:46.010 --> 00:01:50.790
+in downtown chicago ul was founded so this is just to
+
+00:01:50.790 --> 00:01:55.610
+give you a sense of the scale of uh fire in the
+
+00:01:55.700 --> 00:01:55.910
+u.
+
+00:01:55.910 --> 00:02:00.340
+s there are over 30 000 fire departments and they have all
+
+00:02:00.460 --> 00:02:07.640
+different ways to do things and around 19 000 are completely volunteer
+
+00:02:08.970 --> 00:02:12.330
+and then around 3 000 are completely career so they get uh
+
+00:02:12.330 --> 00:02:17.020
+salaried and then the rest are a combination of um
+
+00:02:17.020 --> 00:02:21.880
+yeah basically salaried and and volunteers and fdny
+
+00:02:21.980 --> 00:02:24.520
+is the largest in the u.
+
+00:02:24.600 --> 00:02:30.550
+s and uh yeah the the scale ranges from extremely large to
+
+00:02:30.550 --> 00:02:34.640
+extremely small sometimes it's just whoever shows up for the day
+
+00:02:34.640 --> 00:02:40.770
+and there are 36 around 36 million calls for fire service per
+
+00:02:40.820 --> 00:02:46.480
+year but 65 of those calls that firefighters respond to are medical
+
+00:02:46.480 --> 00:02:51.690
+in nature so i'll just run you through the life of
+
+00:02:51.690 --> 00:02:58.500
+a fire incident and the kind of software usually involved in that
+
+00:02:58.510 --> 00:03:03.280
+so step one is the fire occurs you become aware of it
+
+00:03:03.280 --> 00:03:09.420
+then you then you run then you call 9-1-
+
+00:03:09.460 --> 00:03:16.370
+1 then you uh that that call to 9-1-
+
+00:03:16.540 --> 00:03:21.150
+1 is actually communicating with somebody at what's called a public
+
+00:03:21.150 --> 00:03:26.720
+service answering point a piece up is how they the acronym is
+
+00:03:26.960 --> 00:03:30.790
+and so this is where the cad software comes in this is
+
+00:03:30.790 --> 00:03:34.330
+a computer-aided dispatch and then they're the ones
+
+00:03:34.540 --> 00:03:38.620
+who dispatch the fire truck their goal is to arrive there in
+
+00:03:38.620 --> 00:03:44.100
+within six minutes because when it comes to fire every every second
+
+00:03:44.100 --> 00:03:52.580
+counts and then the firefighters arrive on scene and then
+
+00:03:52.590 --> 00:03:58.400
+they fill out the details about what happened on the fire report
+
+00:03:58.400 --> 00:04:02.160
+so firefighters aren't really excited about filling out the report but
+
+00:04:02.160 --> 00:04:05.200
+that data is really useful and we use it in order to
+
+00:04:05.530 --> 00:04:09.780
+inform our research try to improve response times and yes it's
+
+00:04:09.780 --> 00:04:13.000
+not it's not it's not data for profit it's
+
+00:04:13.000 --> 00:04:17.670
+for for research so that last step uh that's what's
+
+00:04:17.680 --> 00:04:23.770
+called a record management system an rms and before neres
+
+00:04:23.770 --> 00:04:29.090
+there was n first so what would happen is the the fire
+
+00:04:29.090 --> 00:04:34.200
+software that they would use would basically take whatever they entered in
+
+00:04:34.240 --> 00:04:37.920
+plain text and they would submit it to an ftp server
+
+00:04:37.930 --> 00:04:42.730
+and then one to two years later around the time by which
+
+00:04:42.780 --> 00:04:47.030
+which is no longer useful at all then they can finally get
+
+00:04:47.030 --> 00:04:51.680
+that data out and a major problem was that the data standard
+
+00:04:51.680 --> 00:04:57.320
+hadn't updated since 2014 so all of these different software providers
+
+00:04:57.330 --> 00:05:02.750
+would have they would be stuffing data into this one field where
+
+00:05:02.750 --> 00:05:07.400
+they can put in whatever they they wanted and basically there was
+
+00:05:07.400 --> 00:05:15.410
+no data portability because of that so then nearest
+
+00:05:15.410 --> 00:05:19.890
+comes in and we made the schema more flexible to try to
+
+00:05:20.240 --> 00:05:26.870
+prevent that kind of vendor locking in addition we also provide this
+
+00:05:26.870 --> 00:05:32.630
+a free rms in order for them to enter their data
+
+00:05:32.730 --> 00:05:38.940
+and we also provide the like essential analytics for them out and
+
+00:05:38.940 --> 00:05:43.400
+all of this is provided uh for free and in and it
+
+00:05:43.400 --> 00:05:46.890
+'s also we provide a rest api not an ftb
+
+00:05:46.940 --> 00:05:54.680
+server um we we will also be providing nearest public which will
+
+00:05:54.710 --> 00:06:00.600
+also provide aggregate data um and get that that will be available
+
+00:06:00.630 --> 00:06:04.640
+uh you won't need authentication in order to get to that
+
+00:06:05.960 --> 00:06:11.250
+uh so did we solve everything was all we needed to reverse
+
+00:06:11.250 --> 00:06:15.850
+time back to the open api days and just have a
+
+00:06:15.850 --> 00:06:20.960
+separate entity and in charge of that api well the fire
+
+00:06:20.960 --> 00:06:27.490
+service software needs go beyond just incident data it includes pre-
+
+00:06:27.580 --> 00:06:32.240
+planning for how you would plan your response to a fire
+
+00:06:32.970 --> 00:06:39.370
+access points just structure inspections for fire code violations permit management personal
+
+00:06:39.370 --> 00:06:45.360
+management to manage the training of firefighters uh staffing and scheduling because
+
+00:06:45.400 --> 00:06:50.890
+firefighters usually they work 48 hours in a row and trade shifts
+
+00:06:50.950 --> 00:06:55.260
+all the time and you have to manage your fire trucks and
+
+00:06:55.270 --> 00:07:03.700
+and fire hoses and yeah uh medication as well so there
+
+00:07:03.700 --> 00:07:09.030
+'s a lot of software that firefighters need but the thing is
+
+00:07:09.120 --> 00:07:15.600
+they they want only one invoice one bill at the end because
+
+00:07:15.600 --> 00:07:21.550
+request for proposal is difficult especially in the larger fire departments so
+
+00:07:21.560 --> 00:07:27.100
+what happened is they wanted to they had one fire software that
+
+00:07:27.100 --> 00:07:33.390
+was really good at one thing and then these companies in order
+
+00:07:33.390 --> 00:07:38.480
+to provide what firefighters wanted became mediocre in a lot of things
+
+00:07:38.490 --> 00:07:42.780
+they in order to implement these other features they had to well
+
+00:07:42.780 --> 00:07:47.560
+try to implement it themselves but usually would aggressively acquire in order
+
+00:07:47.600 --> 00:07:51.780
+to do so to become a kind of everything app for fire
+
+00:07:51.780 --> 00:07:56.370
+and those departments who only wanted some of the features would now
+
+00:07:56.370 --> 00:08:00.950
+have to pay for all of them and what fire departments really
+
+00:08:00.960 --> 00:08:06.580
+wanted was just one one bill and software that did a lot
+
+00:08:06.580 --> 00:08:10.990
+of things and this had led to one tool to rule them
+
+00:08:10.990 --> 00:08:15.260
+all and that has led to just a few companies ruling them
+
+00:08:15.260 --> 00:08:18.970
+all and so now about 60 percent of the market share is
+
+00:08:19.170 --> 00:08:23.140
+owned by four companies and it's often driven by medical reporting
+
+00:08:23.180 --> 00:08:27.710
+needs as you saw that 65 percent of the calls are are
+
+00:08:27.770 --> 00:08:32.030
+medical in nature so this is kind of related to what what
+
+00:08:32.090 --> 00:08:37.440
+rudy mentioned before um but people don't want more and
+
+00:08:37.450 --> 00:08:41.900
+more apps but also the the billing experience um it's important
+
+00:08:41.900 --> 00:08:48.710
+here as well and when it comes to fire trucks the the
+
+00:08:48.960 --> 00:08:53.040
+situation is even even more dire and the price hikes that
+
+00:08:53.060 --> 00:09:00.560
+resulted is is even worse and fire isn't just the u
+
+00:09:00.560 --> 00:09:00.800
+.
+
+00:09:00.800 --> 00:09:04.040
+s problem it's global and we want to connect to and
+
+00:09:04.060 --> 00:09:10.040
+work with um international communities and the eu has actually uh recently
+
+00:09:10.120 --> 00:09:14.950
+started a fire stat and canada has uh also expressed interest
+
+00:09:14.950 --> 00:09:20.760
+in something similar of a reporting at a national level and yet
+
+00:09:20.760 --> 00:09:25.440
+to understand the fire problem we would we will need global standards
+
+00:09:25.450 --> 00:09:30.160
+and what if we can go beyond incidents and also include all
+
+00:09:30.160 --> 00:09:36.450
+the data from fire all the different fire software that that firefighters
+
+00:09:36.450 --> 00:09:40.040
+use i think at proto has a lot of potential here and
+
+00:09:40.040 --> 00:09:43.280
+if if you have ideas on on how to push safety science
+
+00:09:43.280 --> 00:09:46.810
+fire fire science and safety science forward um we we are open
+
+00:09:46.840 --> 00:09:52.760
+to collaboration so if if you would like to get started on
+
+00:09:52.800 --> 00:09:57.860
+on in fire software one one way would be to integrate with
+
+00:09:57.860 --> 00:10:00.800
+uh neris um this top link here is it's the
+
+00:10:00.800 --> 00:10:03.300
+link that will show you all the steps you create some geo
+
+00:10:03.300 --> 00:10:07.620
+tickets and we'll set you up with a dedicated department and
+
+00:10:07.620 --> 00:10:11.010
+this below the link below is the the link to our ap
+
+00:10:11.050 --> 00:10:16.590
+i docs and just some final thoughts the transition to now has
+
+00:10:16.590 --> 00:10:22.310
+just happened january of this year and the moat is
+
+00:10:22.310 --> 00:10:26.990
+lower than ever we're seeing two-person startups making real
+
+00:10:26.990 --> 00:10:31.600
+headway and word of mouth spreads fast in the fire service
+
+00:10:31.600 --> 00:10:35.840
+and i would love to see at proto enter this this space
+
+00:10:35.840 --> 00:10:38.970
+as well you don't need fire knowledge to build um or
+
+00:10:39.100 --> 00:10:45.400
+nearest uh the second uh just the open question again um inter
+
+00:10:45.400 --> 00:10:50.070
+op gives us a lot more user choice but can we have
+
+00:10:50.070 --> 00:10:56.550
+um a better billing experience as well um and then finally um
+
+00:10:56.610 --> 00:11:01.650
+the the fire space who would have thought it's it would
+
+00:11:01.650 --> 00:11:08.080
+be uh dominated by by for pc funded companies as well and
+
+00:11:08.080 --> 00:11:13.080
+you've you've heard it before uh products drive protocols and
+
+00:11:13.130 --> 00:11:15.750
+i'd love to see us drive at proto forward with fire
+
+00:11:15.900 --> 00:11:24.090
+software thank you that that
+
+00:11:24.090 --> 00:11:29.640
+was great so you you actually uh you pitched civic tech global
+
+00:11:29.680 --> 00:11:35.120
+standards and then you snuck in um an app proto wallet
+
+00:11:35.120 --> 00:11:38.080
+in the side of things as well did i hear that yeah
+
+00:11:38.080 --> 00:11:43.680
+you did that was amazing yeah thank you very much you

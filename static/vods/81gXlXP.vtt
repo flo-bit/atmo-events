@@ -1,0 +1,1351 @@
+WEBVTT
+
+00:00:01.730 --> 00:00:07.000
+Is it showing up?
+
+00:00:07.000 --> 00:00:08.000
+Oh, no.
+
+00:00:08.010 --> 00:00:08.740
+Can everyone hear me at least?
+
+00:00:08.800 --> 00:00:09.190
+Okay, good.
+
+00:00:09.430 --> 00:00:09.610
+All right.
+
+00:00:10.060 --> 00:00:12.590
+Wow, I was not expecting this many people at the end
+
+00:00:12.590 --> 00:00:14.140
+of a conference, but we're gonna roll with it.
+
+00:00:14.140 --> 00:00:17.260
+I'm still recovering from last night, so we're gonna
+
+00:00:17.260 --> 00:00:17.910
+do our best.
+
+00:00:17.910 --> 00:00:20.640
+It's Nick's fault, actually, so you can blame
+
+00:00:20.640 --> 00:00:21.070
+him.
+
+00:00:21.070 --> 00:00:24.370
+So today I wanted to talk about at least my year building
+
+00:00:24.370 --> 00:00:27.150
+Bridgie and breaking down the walls of the open social web
+
+00:00:27.150 --> 00:00:27.290
+.
+
+00:00:27.290 --> 00:00:29.120
+My co-founder, Ryan Barrett, has been doing
+
+00:00:29.120 --> 00:00:30.610
+it much longer than I have.
+
+00:00:30.610 --> 00:00:32.490
+But, yeah, please clap.
+
+00:00:32.490 --> 00:00:33.980
+Please clap for Ryan Barrett.
+
+00:00:33.980 --> 00:00:37.750
+He's an amazing person.
+
+00:00:37.860 --> 00:00:40.650
+But, yeah, it's been a year for me,
+
+00:00:40.650 --> 00:00:44.380
+and over the last year, I think we've built a
+
+00:00:44.420 --> 00:00:47.320
+lot, but more importantly, I think through that building,
+
+00:00:47.320 --> 00:00:50.030
+I've learned a lot more about, not just about the
+
+00:00:50.030 --> 00:00:52.730
+ecosystems and how they operate and what we need to start caring
+
+00:00:52.730 --> 00:00:55.440
+about, but about the way that we can start building as
+
+00:00:55.450 --> 00:00:55.890
+well.
+
+00:00:55.890 --> 00:00:58.600
+And so I wanted to share some of those findings.
+
+00:00:58.600 --> 00:00:59.700
+A little introduction to myself.
+
+00:00:59.700 --> 00:01:00.220
+I'm Anuja Huja.
+
+00:01:00.250 --> 00:01:03.420
+I'm the Executive Director at AnuSocial.
+
+00:01:03.420 --> 00:01:06.900
+We are, our goal is to liberate people's online
+
+00:01:06.900 --> 00:01:09.480
+relationships from any one technology.
+
+00:01:09.480 --> 00:01:12.180
+We're a non-profit, and we've been operating
+
+00:01:12.180 --> 00:01:14.730
+for about a month and, a year and change, a
+
+00:01:14.730 --> 00:01:15.380
+month.
+
+00:01:15.400 --> 00:01:17.720
+That was last year.
+
+00:01:17.720 --> 00:01:19.080
+I also write on my blog, Augment, where I
+
+00:01:19.080 --> 00:01:21.980
+'m actually experimenting with a bunch of open social web tools as
+
+00:01:21.980 --> 00:01:22.480
+well.
+
+00:01:22.480 --> 00:01:24.720
+But today I wanted to focus on the work that we've
+
+00:01:24.720 --> 00:01:26.220
+been doing at AnuSocial.
+
+00:01:26.220 --> 00:01:30.160
+And I always like to start these presentations with the statement that
+
+00:01:30.160 --> 00:01:31.440
+I remind myself of.
+
+00:01:31.440 --> 00:01:34.040
+And it's a promise that I make my friends, my
+
+00:01:34.040 --> 00:01:37.050
+family, and my colleagues, whenever I introduce them to the
+
+00:01:37.050 --> 00:01:38.860
+idea of the open social web.
+
+00:01:38.860 --> 00:01:40.720
+And it's this concept of, "You can follow anyone
+
+00:01:40.720 --> 00:01:44.860
+from anywhere in Liefer, another platform at any time."
+
+00:01:44.860 --> 00:01:46.630
+And I think the only thing that bothers me about this statement
+
+00:01:46.630 --> 00:01:49.100
+is the fact that I always have to add the caveat of
+
+00:01:49.100 --> 00:01:50.860
+"kinda." And we all know why.
+
+00:01:50.860 --> 00:01:52.860
+I'm not going to get into some reasons.
+
+00:01:52.860 --> 00:01:55.130
+But to me, the fact that there's a "k
+
+00:01:55.130 --> 00:01:56.680
+inda" really sucks.
+
+00:01:56.680 --> 00:01:58.200
+And so the thing that we're trying to do at An
+
+00:01:58.200 --> 00:01:59.860
+uSocial is trying to make that "kinda"
+
+00:01:59.860 --> 00:02:03.400
+smaller and smaller and smaller over time until it no longer exists
+
+00:02:03.400 --> 00:02:03.680
+.
+
+00:02:03.680 --> 00:02:05.670
+So that's really the basis of the work that we're
+
+00:02:05.670 --> 00:02:06.680
+trying to do.
+
+00:02:06.680 --> 00:02:11.210
+I introduced a version of that idea back last year at At
+
+00:02:11.210 --> 00:02:13.680
+mosphere Conference, where I had my presentation, Bridges
+
+00:02:13.680 --> 00:02:14.680
+and the Last Network Effect.
+
+00:02:14.680 --> 00:02:16.180
+I have a blog post about it.
+
+00:02:16.180 --> 00:02:19.270
+I'm not going to recap too much about that presentation in
+
+00:02:19.270 --> 00:02:20.200
+particular.
+
+00:02:20.200 --> 00:02:22.960
+But at the time when I did that presentation, Anu
+
+00:02:22.960 --> 00:02:25.260
+Social was like a new foundation.
+
+00:02:25.260 --> 00:02:28.170
+We just started and a lot of the stuff that I was
+
+00:02:28.490 --> 00:02:30.740
+saying on stage were really just like dreams.
+
+00:02:30.740 --> 00:02:32.260
+It was more of a multi-year vision.
+
+00:02:32.260 --> 00:02:34.630
+And quite frankly, I actually didn't think most of it
+
+00:02:34.630 --> 00:02:36.900
+was possible.
+
+00:02:36.900 --> 00:02:39.350
+But it turned out that it wasn't a multi-year
+
+00:02:39.350 --> 00:02:42.180
+vision because with Ryan Barrett, I was able to do
+
+00:02:42.180 --> 00:02:43.380
+it in a single year.
+
+00:02:43.380 --> 00:02:46.560
+We actually ended up building most of the stuff that I talked
+
+00:02:46.560 --> 00:02:48.650
+about there, or at least the foundational layers of what we
+
+00:02:48.650 --> 00:02:49.300
+had to build.
+
+00:02:49.300 --> 00:02:51.970
+And so today I wanted to go through some of the highlights
+
+00:02:52.010 --> 00:02:55.060
+of that year and specifically talk about some of the lessons I
+
+00:02:55.060 --> 00:02:57.360
+learned while we were doing it.
+
+00:02:57.360 --> 00:02:58.340
+So let's talk about 2025.
+
+00:02:58.340 --> 00:03:01.940
+Our biggest launch of the year was probably Bounce.
+
+00:03:01.940 --> 00:03:04.050
+It was an eject button for the OpenSocial Web where
+
+00:03:04.050 --> 00:03:07.560
+you could actually migrate your social graph between protocols, keeping all
+
+00:03:07.560 --> 00:03:10.650
+of your followers and as many bridged follows as possible.
+
+00:03:10.660 --> 00:03:12.550
+This ended up being way bigger than I thought.
+
+00:03:12.550 --> 00:03:14.580
+I thought a bunch of protocol nerds would get excited.
+
+00:03:14.580 --> 00:03:16.660
+It turned out everyone was excited.
+
+00:03:16.660 --> 00:03:18.900
+And we got a bunch of users to try it out for
+
+00:03:18.900 --> 00:03:19.860
+the first time.
+
+00:03:19.860 --> 00:03:22.260
+People are reviewing their social graphs on there all the time.
+
+00:03:22.260 --> 00:03:23.800
+We thought it was just like a neat UI trick.
+
+00:03:23.800 --> 00:03:26.820
+Turns out people really care about their social graphs and finding out
+
+00:03:26.820 --> 00:03:28.240
+how multi-protocol they are.
+
+00:03:28.240 --> 00:03:29.380
+Very surprising.
+
+00:03:29.380 --> 00:03:30.820
+I did not expect that at all.
+
+00:03:30.820 --> 00:03:34.760
+But what I learned was we could actually do a lot more
+
+00:03:34.760 --> 00:03:36.490
+with the bridge than I originally thought.
+
+00:03:36.490 --> 00:03:39.010
+And that was like the biggest lesson for me was this bridge
+
+00:03:39.010 --> 00:03:41.050
+is more than just connecting communication.
+
+00:03:41.050 --> 00:03:43.550
+We could actually start doing a lot more if we use it
+
+00:03:43.550 --> 00:03:45.220
+as the foundation for other products.
+
+00:03:45.220 --> 00:03:47.590
+We also launched a settings page.
+
+00:03:47.590 --> 00:03:49.750
+We launched a bunch of features for that last year.
+
+00:03:49.750 --> 00:03:50.880
+So I don't want to go into each thing.
+
+00:03:50.880 --> 00:03:52.980
+But the one thing that I wanted to call out that I
+
+00:03:52.980 --> 00:03:57.080
+was really excited about was launching app proto block lists on Bridge
+
+00:03:57.080 --> 00:03:59.770
+yFed which meant that Fediverse users could take advantage
+
+00:03:59.770 --> 00:04:01.140
+of an atmosphere feature.
+
+00:04:01.140 --> 00:04:03.590
+And it was the first time where it clicked for me where
+
+00:04:03.590 --> 00:04:06.250
+I was like we're not just bridging profiles and posts
+
+00:04:06.250 --> 00:04:06.430
+.
+
+00:04:06.430 --> 00:04:10.000
+We can actually bridge full-blown features across ecosystems using
+
+00:04:10.010 --> 00:04:10.820
+BridgeyFed.
+
+00:04:10.820 --> 00:04:13.690
+And like huh, that like really unlocked something in my brain
+
+00:04:13.690 --> 00:04:13.700
+.
+
+00:04:13.700 --> 00:04:15.450
+And I haven't been able to stop thinking about it since
+
+00:04:15.450 --> 00:04:16.100
+we launched it.
+
+00:04:16.100 --> 00:04:19.630
+The other thing that we launched was unbridge notifications which if
+
+00:04:19.760 --> 00:04:21.860
+someone was on the other side of the bridge and they communicated
+
+00:04:21.860 --> 00:04:24.060
+with you but they weren't bridged themselves, we couldn
+
+00:04:24.060 --> 00:04:26.350
+'t show it on your native platform, that sucks.
+
+00:04:26.350 --> 00:04:29.620
+There's no visibility of trolls or like people that you actually
+
+00:04:29.620 --> 00:04:31.280
+care about interacting with you.
+
+00:04:31.280 --> 00:04:34.390
+And so we gave you some visibility into that over notifications,
+
+00:04:34.390 --> 00:04:35.020
+over your DMs.
+
+00:04:35.020 --> 00:04:37.920
+That was a really neat trick that Ryan put together for us
+
+00:04:37.920 --> 00:04:38.180
+.
+
+00:04:38.180 --> 00:04:43.060
+And then finally we started seeing a bunch of platforms just putting
+
+00:04:43.200 --> 00:04:45.620
+bridging as a part of their platforms, which was really
+
+00:04:45.620 --> 00:04:45.860
+cool.
+
+00:04:45.860 --> 00:04:47.800
+One that I want to call out is AltStore.
+
+00:04:47.920 --> 00:04:49.780
+They're, yeah, clap for AltStore.
+
+00:04:49.780 --> 00:04:51.220
+They're freaking amazing.
+
+00:04:51.220 --> 00:04:52.270
+They're here by the way.
+
+00:04:52.270 --> 00:04:53.690
+You should talk to them.
+
+00:04:53.690 --> 00:04:54.780
+They're awesome.
+
+00:04:54.780 --> 00:04:57.380
+And the cool thing about AltStore is they're also
+
+00:04:57.380 --> 00:04:59.710
+breaking down walls, specifically the walled garden of Apple which
+
+00:04:59.710 --> 00:05:01.670
+should have been broken down a long time ago.
+
+00:05:01.670 --> 00:05:03.610
+But that's a whole other story.
+
+00:05:03.610 --> 00:05:07.050
+We also learned something much bigger this year, at least to
+
+00:05:07.050 --> 00:05:07.460
+me.
+
+00:05:07.460 --> 00:05:10.080
+It was that Bridgifed actually hosts some of the
+
+00:05:10.080 --> 00:05:12.340
+most active users on either network.
+
+00:05:12.340 --> 00:05:15.680
+We have about 150,000 accounts on Bridgifed
+
+00:05:15.680 --> 00:05:16.030
+now.
+
+00:05:16.210 --> 00:05:19.320
+And they are some of the most power user people and they
+
+00:05:19.320 --> 00:05:22.180
+don't care about who they're talking to and where they
+
+00:05:22.250 --> 00:05:22.500
+are.
+
+00:05:22.500 --> 00:05:24.470
+They just want to build a community.
+
+00:05:24.470 --> 00:05:27.290
+And all they care about is connecting with people regardless of the
+
+00:05:27.290 --> 00:05:28.260
+platform they're on.
+
+00:05:28.260 --> 00:05:31.580
+That was just a statement I made last year.
+
+00:05:31.580 --> 00:05:33.770
+Turns out like a lot of people agree with that.
+
+00:05:33.770 --> 00:05:38.100
+And they're some of the most active users everywhere.
+
+00:05:38.100 --> 00:05:40.370
+With Bounce as well, I recently learned that we're
+
+00:05:40.370 --> 00:05:43.560
+doing about six to eight migrations every month, which is
+
+00:05:43.560 --> 00:05:45.900
+a whole lot more than I expected for protocol migration.
+
+00:05:45.900 --> 00:05:48.190
+I know that's small numbers when you compare it to the
+
+00:05:48.190 --> 00:05:50.290
+crazy numbers that folks are doing on PDS Mover and
+
+00:05:50.290 --> 00:05:50.900
+Black Sky.
+
+00:05:50.900 --> 00:05:54.360
+But protocol movement's a lot more complicated and a lot more
+
+00:05:54.410 --> 00:05:54.700
+scary.
+
+00:05:54.700 --> 00:05:55.630
+And we're still in beta.
+
+00:05:55.630 --> 00:05:57.550
+And most people don't even know we exist.
+
+00:05:57.550 --> 00:06:00.070
+And so eight to ten migrations a month -- sorry,
+
+00:06:00.070 --> 00:06:02.980
+six to eight migrations a month kind of blew my mind
+
+00:06:02.980 --> 00:06:03.200
+.
+
+00:06:03.430 --> 00:06:06.600
+But the thing is like these numbers don't really mean a
+
+00:06:06.610 --> 00:06:07.460
+lot to me.
+
+00:06:07.460 --> 00:06:09.090
+I don't really look -- like Ryan will tell you this
+
+00:06:09.090 --> 00:06:09.200
+.
+
+00:06:09.200 --> 00:06:09.880
+I don't look at DAOs.
+
+00:06:09.880 --> 00:06:10.740
+I don't look at MAUs.
+
+00:06:10.740 --> 00:06:12.740
+I don't really look at the activity that's happening on
+
+00:06:12.870 --> 00:06:13.310
+this stuff.
+
+00:06:13.310 --> 00:06:15.380
+In fact, I poked Ryan for these numbers like last
+
+00:06:15.380 --> 00:06:18.150
+minute because I was like I should probably say some of these
+
+00:06:18.150 --> 00:06:20.780
+numbers while I'm on stage as like the executive director.
+
+00:06:20.780 --> 00:06:22.860
+But like to me, this stuff doesn't really matter.
+
+00:06:22.860 --> 00:06:25.220
+And I think Lawrence Hoff of Connected Spaces wrote it
+
+00:06:25.220 --> 00:06:27.220
+better than I could ever say it.
+
+00:06:27.220 --> 00:06:29.540
+He said that tools like Bounce suggest the direction of the
+
+00:06:29.540 --> 00:06:33.510
+open social web is less about specific protocols and more about expanding
+
+00:06:33.510 --> 00:06:34.380
+user agency.
+
+00:06:34.380 --> 00:06:36.260
+And I think he kind of nailed it.
+
+00:06:36.260 --> 00:06:38.590
+The way that we say it, which I think is less
+
+00:06:38.590 --> 00:06:42.050
+creative, is we just think these things should exist and that
+
+00:06:42.050 --> 00:06:42.910
+people need them.
+
+00:06:42.910 --> 00:06:44.820
+And so we build them because they need them.
+
+00:06:44.820 --> 00:06:46.250
+And that's really it.
+
+00:06:46.260 --> 00:06:47.570
+Maybe five users are going to use it.
+
+00:06:47.570 --> 00:06:49.700
+Maybe 150,000 people are going to use it.
+
+00:06:49.700 --> 00:06:52.790
+But to us, these things need to exist because people care
+
+00:06:52.790 --> 00:06:55.700
+about connecting with people and using the tools that work best for
+
+00:06:55.700 --> 00:06:56.180
+them.
+
+00:06:56.180 --> 00:06:58.110
+And so that's why we build the things that we build
+
+00:06:58.110 --> 00:06:58.340
+.
+
+00:06:58.340 --> 00:07:01.290
+Or as David Pierce on The Verge said about Bounce
+
+00:07:01.300 --> 00:07:03.050
+, the idea that I can just pick up my stuff on
+
+00:07:03.050 --> 00:07:05.860
+a social network and put it down on another social network,
+
+00:07:05.860 --> 00:07:07.330
+like that's it, baby.
+
+00:07:07.590 --> 00:07:08.340
+That's the stuff.
+
+00:07:08.340 --> 00:07:13.870
+And so this year we're going to keep doing that stuff
+
+00:07:13.870 --> 00:07:17.820
+because clearly that stuff matters and we really want to keep doing
+
+00:07:17.820 --> 00:07:18.340
+that work.
+
+00:07:18.340 --> 00:07:21.520
+And so we've already hit the ground running with 2026
+
+00:07:21.520 --> 00:07:21.780
+.
+
+00:07:21.780 --> 00:07:23.860
+It's only been three months and we've actually launched a
+
+00:07:23.930 --> 00:07:24.550
+bunch of stuff.
+
+00:07:24.550 --> 00:07:26.640
+I want to quickly go over some of those things.
+
+00:07:26.640 --> 00:07:29.580
+For one, we launched the Fediverse version of block lists
+
+00:07:29.580 --> 00:07:30.890
+for atmosphere users.
+
+00:07:30.900 --> 00:07:33.010
+So now we've bridged a feature from the Fediverse
+
+00:07:33.190 --> 00:07:34.110
+over to the atmosphere.
+
+00:07:34.110 --> 00:07:37.160
+And we've actually given people some options from reputable sources
+
+00:07:37.160 --> 00:07:39.220
+who give you full-blown block lists right away.
+
+00:07:39.220 --> 00:07:40.590
+So you don't even have to think about it.
+
+00:07:40.590 --> 00:07:42.020
+You just go to our page, you click a few block
+
+00:07:42.020 --> 00:07:43.720
+lists, and then you don't have to worry about some
+
+00:07:43.720 --> 00:07:44.980
+of the worst trolls on the Fediverse.
+
+00:07:45.110 --> 00:07:49.140
+We also improved unbridge notifications with a full UI.
+
+00:07:49.140 --> 00:07:51.220
+So when people interact with you and they can't bridge themselves
+
+00:07:51.220 --> 00:07:53.030
+, and they're not bridging themselves, sorry, you
+
+00:07:53.030 --> 00:07:54.730
+can just go to the BridgeFed UI.
+
+00:07:54.730 --> 00:07:56.920
+You can like, repost, block, or reply to
+
+00:07:56.920 --> 00:07:57.300
+them.
+
+00:07:57.300 --> 00:08:01.240
+And to me, this was like another unlock because I realized
+
+00:08:01.240 --> 00:08:02.740
+that, hey, we can actually just do one-way
+
+00:08:02.740 --> 00:08:04.490
+interactions once in a while and it's not that big of
+
+00:08:04.490 --> 00:08:04.900
+a deal.
+
+00:08:04.900 --> 00:08:07.660
+And we also did it in a way where it preserves
+
+00:08:07.660 --> 00:08:08.930
+the privacy of the other user.
+
+00:08:08.930 --> 00:08:10.900
+Like if they don't want to be on the atmosphere or
+
+00:08:10.900 --> 00:08:12.360
+the Fediverse, they don't have to be.
+
+00:08:12.360 --> 00:08:14.500
+They can still interact with people on either side.
+
+00:08:14.500 --> 00:08:17.140
+And I think that that's really important as well.
+
+00:08:17.140 --> 00:08:19.700
+And the biggest, like most exciting thing that's happened so
+
+00:08:19.700 --> 00:08:21.460
+far this year, at least for me, was long form
+
+00:08:21.460 --> 00:08:21.950
+bridging.
+
+00:08:22.040 --> 00:08:23.350
+We're now bridging standard.
+
+00:08:23.350 --> 00:08:26.260
+site, connecting blogs across the atmosphere, the Fediverse,
+
+00:08:26.260 --> 00:08:28.360
+and the web all at once.
+
+00:08:28.360 --> 00:08:30.900
+It's really, really exciting to me.
+
+00:08:30.900 --> 00:08:32.990
+And I want to give a huge shout out to Leaflet
+
+00:08:32.990 --> 00:08:35.970
+Pocket and Offprint, who not only created standard.
+
+00:08:35.970 --> 00:08:39.000
+site, but also helped us a lot in the process of
+
+00:08:39.000 --> 00:08:40.480
+us building standard.
+
+00:08:40.480 --> 00:08:41.620
+site into BridgeFed.
+
+00:08:41.620 --> 00:08:44.840
+I'm really excited to see people start using this.
+
+00:08:44.840 --> 00:08:46.730
+I'm already using it on my blog, and I've
+
+00:08:46.730 --> 00:08:48.970
+already heard from a few people who've started using it as
+
+00:08:49.180 --> 00:08:49.330
+well.
+
+00:08:49.330 --> 00:08:50.900
+So I'm super excited about this.
+
+00:08:50.900 --> 00:08:53.130
+I also want to take an opportunity to apologize to Jared.
+
+00:08:53.130 --> 00:08:55.430
+I don't think he's in the room, but Jared
+
+00:08:55.430 --> 00:08:58.930
+was at a conference in Europe, and he was about to
+
+00:08:58.930 --> 00:09:00.350
+promote Leaflet and standard.
+
+00:09:00.350 --> 00:09:02.260
+site, and then we exploded their app view.
+
+00:09:02.260 --> 00:09:04.740
+Like overnight, because we didn't tell him that we were
+
+00:09:04.740 --> 00:09:07.780
+doing this, and we just turned on our fire hose,
+
+00:09:07.780 --> 00:09:08.870
+and he was like, "Dude, what's happening
+
+00:09:08.870 --> 00:09:10.070
+with my app view?" He messaged me, I was
+
+00:09:10.070 --> 00:09:11.720
+like, "I don't think we did anything." And
+
+00:09:11.720 --> 00:09:13.580
+Ryan's like, "Yeah, we did." So yeah
+
+00:09:13.580 --> 00:09:16.350
+, I just wanted to publicly apologize to Jared, but we
+
+00:09:16.350 --> 00:09:17.270
+can just do things.
+
+00:09:17.270 --> 00:09:18.260
+So yeah, we did it.
+
+00:09:18.260 --> 00:09:22.090
+But yeah, so that's what we've done so much
+
+00:09:22.090 --> 00:09:23.010
+so far with BridgeFed.
+
+00:09:23.010 --> 00:09:24.640
+But one of the neat things we did with the standard.
+
+00:09:24.640 --> 00:09:27.110
+site integration is we actually made it way easier to add other
+
+00:09:27.110 --> 00:09:29.070
+lexicons to BridgeFed to bridge to the Fed
+
+00:09:29.070 --> 00:09:29.700
+iverse.
+
+00:09:29.700 --> 00:09:32.320
+And so if you're building a new product with its own
+
+00:09:32.320 --> 00:09:36.180
+lexicon, and you think it deserves more distribution across
+
+00:09:36.180 --> 00:09:38.570
+these ecosystems across the web, across the Fediverse, please
+
+00:09:38.570 --> 00:09:39.230
+reach out to us.
+
+00:09:39.230 --> 00:09:40.890
+We've actually made it like dead easy.
+
+00:09:40.890 --> 00:09:42.630
+And we'd love to work with more people, and I
+
+00:09:42.630 --> 00:09:45.390
+think the distribution is really important to the users that are on
+
+00:09:45.390 --> 00:09:46.130
+your platforms.
+
+00:09:46.130 --> 00:09:47.380
+So we'd love to work with you.
+
+00:09:47.380 --> 00:09:50.300
+If you look at our GitHub, you might notice that we
+
+00:09:50.300 --> 00:09:52.420
+'ve also been playing around with some other protocols.
+
+00:09:52.420 --> 00:09:54.280
+Not going to talk too much about that today, but you
+
+00:09:54.280 --> 00:09:56.420
+can probably take a look and find out within a couple of
+
+00:09:56.420 --> 00:09:57.140
+minutes.
+
+00:09:57.140 --> 00:09:59.620
+Hopefully something to announce later this year.
+
+00:09:59.620 --> 00:10:00.900
+So that's BridgeFed.
+
+00:10:00.900 --> 00:10:02.660
+Then there's Bounce.
+
+00:10:02.660 --> 00:10:05.820
+Bounce was a really exciting project, as I said before
+
+00:10:05.820 --> 00:10:05.970
+.
+
+00:10:05.980 --> 00:10:08.490
+But one of the limitations that we had in the original version
+
+00:10:08.490 --> 00:10:11.110
+of Bounce is you actually had to have an existing account
+
+00:10:11.110 --> 00:10:12.260
+at least on one side.
+
+00:10:12.260 --> 00:10:13.810
+So if you wanted to move from the Fediverse to the
+
+00:10:13.810 --> 00:10:15.300
+Atmosphere, you had to have an Atmosphere
+
+00:10:15.300 --> 00:10:15.540
+account.
+
+00:10:15.540 --> 00:10:16.960
+If you wanted to move from the Atmosphere to the
+
+00:10:16.960 --> 00:10:18.790
+Fediverse, you had to have a Fediverse account already
+
+00:10:18.790 --> 00:10:18.980
+.
+
+00:10:18.980 --> 00:10:21.700
+With the Fediverse, that doesn't matter as much because
+
+00:10:21.810 --> 00:10:22.520
+you can merge accounts.
+
+00:10:22.520 --> 00:10:24.520
+So if you had an Atmosphere account that was brid
+
+00:10:24.520 --> 00:10:27.660
+ged, we just merged the bridged version of your account
+
+00:10:27.660 --> 00:10:27.990
+in.
+
+00:10:27.990 --> 00:10:29.620
+But the other way is not possible.
+
+00:10:29.620 --> 00:10:31.730
+You cannot merge Atmosphere repos.
+
+00:10:31.740 --> 00:10:34.690
+And so we'd have to actually drop one of your accounts
+
+00:10:34.690 --> 00:10:35.060
+.
+
+00:10:35.060 --> 00:10:37.360
+And oftentimes that was the bridged version of the account.
+
+00:10:37.440 --> 00:10:39.370
+So we actually had some users that migrated from the Atmos
+
+00:10:39.370 --> 00:10:41.370
+phere to the Fediverse and they wanted to go back.
+
+00:10:41.370 --> 00:10:42.810
+And we had no way to send them back.
+
+00:10:42.810 --> 00:10:44.470
+And it really, really sucked.
+
+00:10:44.470 --> 00:10:47.040
+But the reason we didn't launch with that was, for
+
+00:10:47.040 --> 00:10:50.700
+one, Blue Sky wasn't allowing migrations back into their
+
+00:10:50.700 --> 00:10:51.650
+PDSs at that time.
+
+00:10:51.650 --> 00:10:52.330
+They do now.
+
+00:10:52.330 --> 00:10:53.460
+So that's changed.
+
+00:10:53.460 --> 00:10:55.670
+And the other thing that's changed since then is that there
+
+00:10:55.670 --> 00:10:57.780
+'s just a lot more PDS providers, which is like
+
+00:10:57.780 --> 00:10:58.980
+just really exciting.
+
+00:10:58.980 --> 00:11:01.200
+Kudos to everyone running their own PDSs, people
+
+00:11:01.200 --> 00:11:02.900
+running PDS migration services.
+
+00:11:02.900 --> 00:11:04.910
+We've taken a lot of inspiration from you guys.
+
+00:11:04.910 --> 00:11:07.020
+And so I'm really excited to announce that in the next
+
+00:11:07.020 --> 00:11:09.350
+couple of weeks, we're actually going to launch full mig
+
+00:11:09.520 --> 00:11:13.220
+rations from the Fediverse to the Atmosphere, to
+
+00:11:13.220 --> 00:11:16.020
+any PDS that you want, whether that's Black Sky
+
+00:11:16.020 --> 00:11:18.670
+, Euro Sky, your own self-hosted of PD
+
+00:11:18.670 --> 00:11:20.340
+S or self-hosted social.
+
+00:11:20.340 --> 00:11:21.090
+It's your choice.
+
+00:11:21.090 --> 00:11:22.770
+You get to choose the PDS where you go and you
+
+00:11:22.770 --> 00:11:25.540
+can migrate all of your Fediverse followers in as you go
+
+00:11:25.540 --> 00:11:25.700
+.
+
+00:11:25.700 --> 00:11:27.460
+Thank you.
+
+00:11:27.460 --> 00:11:30.910
+Yeah, personally, very excited.
+
+00:11:30.910 --> 00:11:33.940
+I really wanted to launch with that.
+
+00:11:34.020 --> 00:11:35.380
+But yeah, limitations were there.
+
+00:11:35.380 --> 00:11:38.750
+A cool byproduct of that, though, is that because
+
+00:11:38.750 --> 00:11:40.860
+we're able to move people to PDSs and Fed
+
+00:11:41.220 --> 00:11:43.940
+iverse accounts and merge Fediverse accounts, we can actually give
+
+00:11:43.940 --> 00:11:46.020
+people a credible exit from BridgyFed itself.
+
+00:11:46.020 --> 00:11:48.340
+There's a lot of other bridges and multi-protocol
+
+00:11:48.340 --> 00:11:49.720
+services out there now.
+
+00:11:49.720 --> 00:11:53.360
+And they also have tools like Bounce that are fully integrated
+
+00:11:53.370 --> 00:11:54.260
+into them.
+
+00:11:54.260 --> 00:11:56.350
+And so we want to give you the opportunity to be able
+
+00:11:56.350 --> 00:11:58.610
+to leave BridgyFed if one of those other services
+
+00:11:58.610 --> 00:12:00.400
+or platforms actually serves you better.
+
+00:12:00.400 --> 00:12:02.270
+And so now you can actually split your BridgyFed
+
+00:12:02.270 --> 00:12:04.680
+account in half, create two native accounts, and then do
+
+00:12:04.680 --> 00:12:05.770
+what you will from there.
+
+00:12:05.770 --> 00:12:06.570
+It's your choice.
+
+00:12:06.570 --> 00:12:07.610
+It's your accounts.
+
+00:12:07.610 --> 00:12:08.180
+It's your life.
+
+00:12:08.180 --> 00:12:10.580
+So we're really excited to give people, finally, a
+
+00:12:10.580 --> 00:12:12.180
+credible exit from BridgyFed.
+
+00:12:12.180 --> 00:12:13.680
+We don't want to be the only people here.
+
+00:12:13.680 --> 00:12:14.910
+We don't want to be centralized.
+
+00:12:14.910 --> 00:12:16.820
+We want as many bridges out there as possible.
+
+00:12:16.820 --> 00:12:18.460
+So we're really excited to be able to give people that
+
+00:12:18.570 --> 00:12:19.060
+opportunity.
+
+00:12:19.060 --> 00:12:22.270
+The other thing that we're going to be launching later this
+
+00:12:22.270 --> 00:12:24.820
+year is being able to reconnect with unbridged follows.
+
+00:12:24.820 --> 00:12:27.840
+So when you bounce, we can bring all of your followers
+
+00:12:27.840 --> 00:12:28.500
+with you.
+
+00:12:28.500 --> 00:12:31.220
+But anyone that isn't bridged, who you used to
+
+00:12:31.220 --> 00:12:32.800
+follow, we can't, you can't follow them.
+
+00:12:32.950 --> 00:12:33.630
+They're not bridged.
+
+00:12:33.630 --> 00:12:35.380
+They don't show up in your native account.
+
+00:12:35.380 --> 00:12:36.340
+So one of the things we're going to do to circum
+
+00:12:36.340 --> 00:12:39.650
+vent that is actually keep stock of all the users, that
+
+00:12:39.650 --> 00:12:42.500
+all of the people that you can no longer follow.
+
+00:12:42.500 --> 00:12:44.430
+And if they ever bridge that account in the future, we
+
+00:12:44.430 --> 00:12:47.140
+give you a notification so that you can immediately reconnect with them
+
+00:12:47.140 --> 00:12:48.820
+when they arrive natively to your platform.
+
+00:12:49.030 --> 00:12:51.300
+So we're getting closer.
+
+00:12:51.300 --> 00:12:54.460
+You can follow anyone from anywhere and leave for another platform at
+
+00:12:54.460 --> 00:12:54.990
+any time.
+
+00:12:54.990 --> 00:12:56.900
+And it's still kind of, but I think in the
+
+00:12:56.900 --> 00:12:58.980
+last year, we've done a pretty great job of making
+
+00:12:59.120 --> 00:13:00.500
+that kind of a whole lot smaller.
+
+00:13:00.500 --> 00:13:03.150
+There's also a whole bunch of APIs that we launched that
+
+00:13:03.150 --> 00:13:05.340
+I didn't get the chance to talk about here, that
+
+00:13:05.340 --> 00:13:08.080
+you can use a lot of these features natively in your
+
+00:13:08.080 --> 00:13:08.580
+clients.
+
+00:13:08.680 --> 00:13:10.580
+So if you have a client and you're building on the
+
+00:13:10.580 --> 00:13:12.410
+social web, please reach out to us.
+
+00:13:12.410 --> 00:13:14.280
+You can actually make a lot of this stuff feel a lot
+
+00:13:14.280 --> 00:13:16.940
+more native and make that kind of even smaller on your platform
+
+00:13:16.940 --> 00:13:17.090
+.
+
+00:13:17.090 --> 00:13:18.580
+So please reach out to us for that.
+
+00:13:18.580 --> 00:13:21.300
+Before I leave though, I know I'm running out of
+
+00:13:21.300 --> 00:13:21.700
+time.
+
+00:13:21.700 --> 00:13:24.100
+Sorry, I'm so sorry.
+
+00:13:24.100 --> 00:13:25.060
+I had so much to say.
+
+00:13:25.060 --> 00:13:27.180
+I had a bunch of dreams that I said last year that
+
+00:13:27.180 --> 00:13:28.020
+we accomplished.
+
+00:13:28.020 --> 00:13:30.450
+But if there's one thing that I've learned in the
+
+00:13:30.450 --> 00:13:32.580
+last year is that I need to dream a little bit bigger
+
+00:13:32.580 --> 00:13:34.100
+because Ryan is just insane.
+
+00:13:34.260 --> 00:13:36.820
+He can build literally anything I throw at him.
+
+00:13:36.820 --> 00:13:37.860
+So I'm going to dream way bigger.
+
+00:13:37.860 --> 00:13:39.170
+I didn't even tell Ryan I'm going to say this
+
+00:13:39.170 --> 00:13:39.700
+, by the way.
+
+00:13:39.700 --> 00:13:45.080
+Paul Frazee said something really interesting yesterday in his presentation
+
+00:13:45.080 --> 00:13:45.220
+.
+
+00:13:45.220 --> 00:13:48.180
+He said that one of the biggest benefits of the atmosphere is
+
+00:13:48.180 --> 00:13:50.900
+that you have a single account that works across multiple different services
+
+00:13:50.900 --> 00:13:52.900
+and shares data across all of those services.
+
+00:13:52.900 --> 00:13:55.220
+I've been calling that the everything account.
+
+00:13:55.220 --> 00:13:57.000
+I'm not the only one that's been calling it everything
+
+00:13:57.000 --> 00:13:57.140
+.
+
+00:13:57.140 --> 00:13:59.620
+I think Dame has been calling it the everything ecosystem.
+
+00:13:59.620 --> 00:14:01.500
+So like I'm not the only one saying this, but
+
+00:14:01.500 --> 00:14:03.630
+I've been using the everything account because that's what's
+
+00:14:03.630 --> 00:14:05.380
+been making sense to me and some other folks.
+
+00:14:05.380 --> 00:14:09.210
+But the everything account isn't like an everything account.
+
+00:14:09.210 --> 00:14:11.300
+It's an everything account for the atmosphere.
+
+00:14:11.300 --> 00:14:12.950
+And with Bridgifed, if there's one thing
+
+00:14:13.040 --> 00:14:15.380
+that I've realized over the course of the last year is
+
+00:14:15.380 --> 00:14:18.740
+it can actually help make the atmosphere account and everything account for
+
+00:14:18.740 --> 00:14:19.460
+everything.
+
+00:14:19.460 --> 00:14:21.220
+And so my dream over the next few years, maybe it
+
+00:14:21.220 --> 00:14:22.660
+'s going to be multi-year or maybe Ryan's going
+
+00:14:22.660 --> 00:14:23.780
+to push some code tonight.
+
+00:14:24.900 --> 00:14:27.870
+But my dream for the future is actually to make your atmosphere
+
+00:14:27.870 --> 00:14:29.780
+account, your everything account for everything.
+
+00:14:29.780 --> 00:14:31.890
+And so that's the mission that I'm on for the
+
+00:14:31.890 --> 00:14:33.960
+next few years with Ryan and the rest of the Anu
+
+00:14:33.960 --> 00:14:34.580
+Social team.
+
+00:14:34.580 --> 00:14:36.090
+So thank you guys very much.
+
+00:14:36.090 --> 00:14:37.380
+I'm sorry for going over.
+
+00:14:37.380 --> 00:14:42.550
+We are a non-profit with two full-time volunteers
+
+00:14:42.550 --> 00:14:44.660
+for the last year.
+
+00:14:44.760 --> 00:14:46.990
+So if you believe in our mission, please go to our
+
+00:14:46.990 --> 00:14:48.050
+Patreon, patreon.
+
+00:14:48.050 --> 00:14:48.900
+com/anusocial.
+
+00:14:48.900 --> 00:14:52.470
+You can get People's Not Platform merch on store.
+
+00:14:52.870 --> 00:14:53.470
+anu.
+
+00:14:53.470 --> 00:14:54.970
+social.
+
+00:14:54.970 --> 00:14:56.420
+And you can find me all over the atmosphere.
+
+00:14:56.420 --> 00:14:57.250
+Thank you guys so much.
+
+00:14:57.250 --> 00:14:58.380
+And I'm really sorry for taking away too much.

@@ -1,0 +1,2857 @@
+WEBVTT
+
+00:00:00.260 --> 00:00:00.590
+...
+
+00:00:00.590 --> 00:00:05.360
+trying to migrate a community to Blue Sky, and we
+
+00:00:05.360 --> 00:00:08.080
+wanted to hear from other people that are also working with their
+
+00:00:08.080 --> 00:00:10.910
+communities and trying to build community on Blue Sky, and we
+
+00:00:10.910 --> 00:00:14.350
+'re on Twitter, or other social networks, and hear from
+
+00:00:14.350 --> 00:00:17.740
+you also, what works, what insights do you have from
+
+00:00:17.850 --> 00:00:19.280
+your experience?
+
+00:00:19.860 --> 00:00:22.620
+So, I'll start, and I'll kind of continue
+
+00:00:22.620 --> 00:00:26.190
+that question about Sky Follower Bridge, so I think
+
+00:00:26.210 --> 00:00:29.100
+that's a really cool tool, but I think one of
+
+00:00:29.240 --> 00:00:33.280
+the challenges with it is if people are joining after you've
+
+00:00:33.280 --> 00:00:36.150
+searched, then they don't appear.
+
+00:00:36.390 --> 00:00:38.990
+You have to go research, so I'm a PhD student
+
+00:00:38.990 --> 00:00:41.990
+, but I've, on the side, been slowly working
+
+00:00:41.990 --> 00:00:45.220
+towards a tool that is, it has to work similarly in
+
+00:00:45.220 --> 00:00:47.840
+the case of X, because X, you can't export
+
+00:00:48.000 --> 00:00:51.190
+your followers and get username handles.
+
+00:00:51.380 --> 00:00:53.920
+It gives you gibberish numbers.
+
+00:00:54.180 --> 00:00:59.330
+Other platforms, they do actually export user handles, so there
+
+00:00:59.330 --> 00:01:04.330
+'s a little bit of complexity there in terms of data management
+
+00:01:04.340 --> 00:01:06.140
+from EU programs.
+
+00:01:06.420 --> 00:01:09.810
+And so, I've been thinking through a little bit of
+
+00:01:09.850 --> 00:01:12.800
+this, I kind of did a vibe-coded version
+
+00:01:12.800 --> 00:01:16.200
+, and now I'm slowly thinking through building this up as
+
+00:01:16.200 --> 00:01:20.160
+an actual system, where Blue Sky, and Skylight,
+
+00:01:20.160 --> 00:01:24.490
+and all these different AT protocol apps can actually implement this as
+
+00:01:24.500 --> 00:01:27.090
+a notification that you can get, "Oh, someone just
+
+00:01:27.090 --> 00:01:30.970
+joined." Now you can follow them, or automatically follow them
+
+00:01:30.970 --> 00:01:32.120
+, or whatever.
+
+00:01:33.020 --> 00:01:35.960
+So, there's a lot of really cool implementations,
+
+00:01:35.960 --> 00:01:38.640
+too, of like, verifying that you are who,
+
+00:01:38.640 --> 00:01:42.290
+you as your Blue Sky handle and your DID, you're
+
+00:01:42.310 --> 00:01:46.210
+associated with this LinkedIn account, and if we can get that
+
+00:01:46.210 --> 00:01:51.730
+as like, a verified, authenticated match, that makes
+
+00:01:51.730 --> 00:01:54.590
+it a lot easier to find those matches, because sometimes the
+
+00:01:54.590 --> 00:01:57.280
+handles are a little bit different, especially since we can have
+
+00:01:57.280 --> 00:02:01.600
+domain handles on Blue Sky, that changes the equation a little
+
+00:02:01.600 --> 00:02:01.880
+bit.
+
+00:02:01.990 --> 00:02:04.860
+So, that is something I've been thinking about personally,
+
+00:02:04.860 --> 00:02:07.450
+and trying to like, move people over, is like,
+
+00:02:07.450 --> 00:02:10.670
+I want to be notified when someone is coming to Blue Sky
+
+00:02:10.670 --> 00:02:13.280
+, and not only that, I want them sorted in order
+
+00:02:13.330 --> 00:02:16.880
+of who's actually posting, not just who's here.
+
+00:02:16.880 --> 00:02:19.010
+I think that would also help with what you said, Scott
+
+00:02:19.010 --> 00:02:20.890
+, like, if someone moves over to Blue Sky, and
+
+00:02:20.890 --> 00:02:23.320
+people get notified, they would get followed, and then you
+
+00:02:23.320 --> 00:02:25.790
+get that dopamine hit of like, "Oh, people are
+
+00:02:25.790 --> 00:02:28.250
+engaging with me, and they like to see me here."
+
+00:02:28.250 --> 00:02:29.880
+So, yeah, there's something there, maybe.
+
+00:02:30.140 --> 00:02:32.990
+Yeah, and I think I want to pick up on one
+
+00:02:32.990 --> 00:02:37.350
+thing that we'll probably need to engage with, like,
+
+00:02:37.430 --> 00:02:41.290
+almost kind of a hosting, like, the welcoming committee,
+
+00:02:41.360 --> 00:02:44.880
+if you will, you know, kind of that piece.
+
+00:02:45.140 --> 00:02:47.490
+Because that was a common refrain I heard, like, "
+
+00:02:47.490 --> 00:02:49.880
+Oh, it's just that I don't get engagement.
+
+00:02:49.880 --> 00:02:52.100
+Nobody, you know, like, nothing happens." And it
+
+00:02:52.100 --> 00:02:53.610
+'s like, "Well, yeah, you're new."
+
+00:02:53.610 --> 00:02:55.860
+And, you know, like, you might have had,
+
+00:02:55.950 --> 00:02:59.450
+you know, other platforms, and they engaged in a certain
+
+00:02:59.450 --> 00:02:59.880
+way.
+
+00:02:59.990 --> 00:03:02.460
+Or that kind of fertile ground to have people that kind of
+
+00:03:02.460 --> 00:03:04.370
+are engaging, like, "Oh, yeah, let's
+
+00:03:04.370 --> 00:03:07.240
+jump in, like, welcome." I remember, like,
+
+00:03:07.240 --> 00:03:11.220
+during the entire phase of when we were trying, when we
+
+00:03:11.220 --> 00:03:14.880
+, you know, in beta, when we still had the
+
+00:03:14.880 --> 00:03:16.710
+invites, and we're bringing people over for Science Twitter and
+
+00:03:16.710 --> 00:03:19.250
+that, you know, people actually set up, like,
+
+00:03:19.250 --> 00:03:21.730
+you know, Hi SciSky, where it's like
+
+00:03:21.730 --> 00:03:22.880
+, "You're new here.
+
+00:03:22.880 --> 00:03:25.860
+Tell us what you do." And that, I think,
+
+00:03:25.950 --> 00:03:27.880
+was one of the ways that kind of set the ground a
+
+00:03:27.880 --> 00:03:27.880
+little bit.
+
+00:03:27.980 --> 00:03:29.430
+It was like, "Yeah, this is what I do
+
+00:03:29.430 --> 00:03:31.430
+." And you just, you kind of follow that, and
+
+00:03:31.560 --> 00:03:32.880
+enough people were doing it.
+
+00:03:32.880 --> 00:03:35.480
+You didn't necessarily have to have the entire community do it
+
+00:03:35.480 --> 00:03:38.320
+, but the bigger ecosystem was kind of popping in, and
+
+00:03:38.380 --> 00:03:43.180
+saying, "We're glad you're here." So,
+
+00:03:43.180 --> 00:03:45.860
+I guess, how am I supposed to hold this?
+
+00:03:46.140 --> 00:03:48.860
+Yeah, just at the bottom.
+
+00:03:49.140 --> 00:03:52.610
+Three kind of general reflections or, like, reactions to Scott
+
+00:03:52.610 --> 00:03:54.880
+'s talk and thinking about...
+
+00:03:54.880 --> 00:03:55.880
+So, I'm Maria Antoniak.
+
+00:03:55.880 --> 00:03:59.860
+I'm a computer scientist at the University of Colorado Boulder.
+
+00:03:59.990 --> 00:04:05.360
+I work in natural language processing, or otherwise known as AI
+
+00:04:05.400 --> 00:04:05.880
+now.
+
+00:04:05.880 --> 00:04:07.880
+So, that's my academic community.
+
+00:04:07.880 --> 00:04:10.860
+I'm coming from, like, NLP, machine learning
+
+00:04:10.950 --> 00:04:16.880
+, Twitter, and now the AI social media community.
+
+00:04:17.050 --> 00:04:19.810
+And so, thinking about how that community has migrated or not
+
+00:04:19.840 --> 00:04:20.880
+migrated...
+
+00:04:20.880 --> 00:04:24.880
+That community has not migrated very well.
+
+00:04:25.010 --> 00:04:26.500
+And I think there are a few reasons...
+
+00:04:26.500 --> 00:04:27.860
+There's a lot of reasons for that.
+
+00:04:27.890 --> 00:04:28.880
+And there's also a lot of mystery.
+
+00:04:28.880 --> 00:04:31.620
+Like, if I knew all the answers, then I would
+
+00:04:31.620 --> 00:04:33.880
+already have them all in blue sky.
+
+00:04:34.090 --> 00:04:37.180
+But so, one of the things is the industry connections in
+
+00:04:37.180 --> 00:04:38.880
+our research community.
+
+00:04:38.880 --> 00:04:42.380
+So, of course, a lot of what is happening in
+
+00:04:42.380 --> 00:04:45.880
+AI is to do with what is happening in industry.
+
+00:04:46.070 --> 00:04:49.250
+And that what is happening in research is also connected to what
+
+00:04:49.250 --> 00:04:50.880
+is happening in industry.
+
+00:04:50.880 --> 00:04:53.270
+And so, I think there's a general sense that,
+
+00:04:53.270 --> 00:04:54.600
+you know, if you want to be in the know,
+
+00:04:54.600 --> 00:04:55.930
+if you want to know what's happening in industry, if
+
+00:04:56.010 --> 00:04:57.040
+you want to know what's happening in industry, if you
+
+00:04:57.090 --> 00:04:59.250
+want those kind of connections, if you're one of these
+
+00:04:59.250 --> 00:05:02.850
+, like, sorry, but like, grifters and
+
+00:05:02.850 --> 00:05:05.880
+hangers on who start up whatever, whatever.
+
+00:05:06.010 --> 00:05:08.490
+So, there's this feeling that you need to be on
+
+00:05:08.490 --> 00:05:08.860
+X.
+
+00:05:08.890 --> 00:05:10.880
+And that's where people are.
+
+00:05:10.880 --> 00:05:15.870
+So, I think that is genuinely difficult to break away from
+
+00:05:15.880 --> 00:05:15.880
+.
+
+00:05:16.140 --> 00:05:17.440
+Starter packs.
+
+00:05:17.440 --> 00:05:23.880
+We tried this and it worked initially.
+
+00:05:23.880 --> 00:05:25.860
+Like, I think there was also this sense of like,
+
+00:05:25.880 --> 00:05:29.880
+oh, there's this like a prestigious list.
+
+00:05:30.050 --> 00:05:32.140
+And I want to be part of the prestigious list or,
+
+00:05:32.140 --> 00:05:34.740
+you know, I see that there are important people on that
+
+00:05:34.740 --> 00:05:36.660
+list and I also want to be on that list and I
+
+00:05:36.660 --> 00:05:38.880
+want to be in the place where this list is.
+
+00:05:39.090 --> 00:05:41.860
+And so, we had temporarily a lot of movement when we
+
+00:05:41.890 --> 00:05:44.620
+had, I was the one running our NLP starter pack
+
+00:05:44.620 --> 00:05:44.880
+.
+
+00:05:44.880 --> 00:05:47.310
+And then there was like a lot of backlash, not just
+
+00:05:47.310 --> 00:05:47.880
+for NLP.
+
+00:05:47.970 --> 00:05:52.590
+I think other starter packs in general, like they have some
+
+00:05:52.660 --> 00:05:58.550
+kind of design limitations and some problems, at least at that
+
+00:05:58.550 --> 00:06:00.300
+time, or like if you were added to a starter pack
+
+00:06:00.300 --> 00:06:01.880
+, you didn't know that you were added to a starter
+
+00:06:01.880 --> 00:06:01.880
+pack.
+
+00:06:02.100 --> 00:06:05.430
+And, and you would suddenly get a thousand new, depending
+
+00:06:05.530 --> 00:06:08.480
+on who you were, you might get like a thousand new
+
+00:06:08.480 --> 00:06:10.880
+mysterious followers overnight.
+
+00:06:10.950 --> 00:06:14.170
+A lot of them, not anyone that you know or connected
+
+00:06:14.170 --> 00:06:18.070
+to, and suddenly your posts are getting a lot more attention
+
+00:06:18.070 --> 00:06:20.870
+, sometimes very negative attention.
+
+00:06:21.110 --> 00:06:22.880
+So, I don't know.
+
+00:06:22.880 --> 00:06:25.370
+I think we need something like a starter pack, but,
+
+00:06:25.370 --> 00:06:26.880
+and sorry, one more thing.
+
+00:06:27.010 --> 00:06:28.880
+And then think about welcoming committee as well.
+
+00:06:28.880 --> 00:06:32.760
+I think about like old days of Twitter and like they're
+
+00:06:32.830 --> 00:06:33.880
+like follow Friday.
+
+00:06:34.140 --> 00:06:35.880
+What's that?
+
+00:06:35.990 --> 00:06:38.940
+It's like hashtag follow Friday and fear five accounts that you
+
+00:06:38.940 --> 00:06:39.880
+should follow.
+
+00:06:40.140 --> 00:06:43.650
+There were all these kind of things on Twitter that I just
+
+00:06:43.650 --> 00:06:45.200
+, on one hand we could be like, okay, well
+
+00:06:45.200 --> 00:06:45.880
+we should do that too.
+
+00:06:46.140 --> 00:06:49.010
+Like we, but I don't know that it translates to
+
+00:06:49.010 --> 00:06:52.610
+our modern time and just like the way that we operate on
+
+00:06:52.610 --> 00:06:53.880
+social media.
+
+00:06:53.990 --> 00:06:54.880
+Like even when I say it out loud, right?
+
+00:06:54.880 --> 00:06:56.860
+It sounds like cringey.
+
+00:06:57.060 --> 00:06:58.880
+And I don't know what the right way is.
+
+00:06:58.880 --> 00:07:01.460
+Like I'm not the right cool person to do non cr
+
+00:07:01.630 --> 00:07:02.880
+ingey things.
+
+00:07:03.090 --> 00:07:07.340
+But like someone should be thinking about that and replacing those old
+
+00:07:07.660 --> 00:07:10.880
+welcoming committee procedures with something new.
+
+00:07:11.140 --> 00:07:15.670
+Just to call out Francisco, if you want to join this
+
+00:07:15.680 --> 00:07:18.350
+panel as someone's on Twitter, like feel free to hop
+
+00:07:18.430 --> 00:07:18.880
+in.
+
+00:07:18.880 --> 00:07:20.480
+I don't want to put you on the spot, but
+
+00:07:20.480 --> 00:07:22.430
+just, yeah, feel free if you want to crash the
+
+00:07:22.530 --> 00:07:22.880
+party.
+
+00:07:23.140 --> 00:07:23.880
+Okay.
+
+00:07:25.410 --> 00:07:28.880
+Yeah, just come up.
+
+00:07:29.010 --> 00:07:31.860
+We're pulling in a guest for the audience on stream.
+
+00:07:31.990 --> 00:07:32.880
+Phoning a friend.
+
+00:07:32.990 --> 00:07:33.880
+Phoning a friend.
+
+00:07:33.990 --> 00:07:34.880
+Phoning a friend.
+
+00:07:34.880 --> 00:07:38.880
+I don't guarantee I'll speak much.
+
+00:07:39.140 --> 00:07:39.880
+Sure.
+
+00:07:39.980 --> 00:07:40.880
+But please introduce yourself.
+
+00:07:41.140 --> 00:07:41.880
+Introduce myself.
+
+00:07:42.140 --> 00:07:42.880
+Yeah.
+
+00:07:43.140 --> 00:07:43.880
+Hello.
+
+00:07:44.080 --> 00:07:46.860
+I am Francisco.
+
+00:07:46.960 --> 00:07:48.880
+I'm a heavy Twitter user.
+
+00:07:49.610 --> 00:07:53.880
+Twitter users anonymous.
+
+00:07:54.140 --> 00:07:54.880
+Sorry?
+
+00:07:55.090 --> 00:07:55.880
+Intervention right now.
+
+00:07:55.970 --> 00:07:56.880
+It is an intervention.
+
+00:07:57.000 --> 00:07:59.220
+No, I've been so excited about Blue Sky for five
+
+00:07:59.340 --> 00:07:59.860
+years.
+
+00:08:00.140 --> 00:08:04.880
+And, you know, a lot of my motivations are around
+
+00:08:04.880 --> 00:08:07.880
+getting to data sovereignty, right?
+
+00:08:08.140 --> 00:08:12.250
+And moving the discourse that I think is important off of Twitter
+
+00:08:12.660 --> 00:08:13.880
+and to Blue Sky.
+
+00:08:14.140 --> 00:08:14.880
+Okay.
+
+00:08:15.140 --> 00:08:15.880
+Yeah.
+
+00:08:16.080 --> 00:08:18.200
+And I do, you know, I have a background in
+
+00:08:18.200 --> 00:08:21.880
+AI safety and tools for thought and community building.
+
+00:08:22.140 --> 00:08:27.020
+And so this is all kind of my wheelhouse a little
+
+00:08:27.020 --> 00:08:27.880
+bit.
+
+00:08:28.100 --> 00:08:31.380
+The thoughts about the sort of some of the resist, resist
+
+00:08:31.380 --> 00:08:31.880
+, like resistance.
+
+00:08:32.060 --> 00:08:32.880
+The resistance?
+
+00:08:33.140 --> 00:08:33.880
+Yeah.
+
+00:08:34.140 --> 00:08:34.880
+Yeah.
+
+00:08:35.050 --> 00:08:39.130
+So, obviously there's just the network effects, the Matthew
+
+00:08:39.660 --> 00:08:40.880
+effects, right?
+
+00:08:41.140 --> 00:08:43.860
+That winner takes all.
+
+00:08:44.130 --> 00:08:46.090
+Like, it's much more worth it for me to post
+
+00:08:46.090 --> 00:08:46.860
+on Twitter.
+
+00:08:46.990 --> 00:08:50.880
+I get rewarded a lot more with attention.
+
+00:08:51.140 --> 00:08:56.360
+The way I've been hoping to approach this is if I
+
+00:08:56.390 --> 00:09:03.230
+show that there are cool enough modes of interaction elsewhere with open
+
+00:09:03.340 --> 00:09:03.860
+data.
+
+00:09:03.980 --> 00:09:04.880
+It could be Blue Sky.
+
+00:09:05.040 --> 00:09:08.880
+It could be through custom data sovereignty solutions.
+
+00:09:09.140 --> 00:09:12.430
+Like, the community archive is something that I did for my
+
+00:09:12.560 --> 00:09:13.880
+Twitter community.
+
+00:09:14.140 --> 00:09:14.880
+Yeah.
+
+00:09:15.140 --> 00:09:21.360
+If you show new use cases, then people might be persuaded
+
+00:09:21.360 --> 00:09:23.880
+by the extra value.
+
+00:09:24.140 --> 00:09:24.880
+Yeah.
+
+00:09:25.140 --> 00:09:25.880
+Yeah.
+
+00:09:26.010 --> 00:09:28.230
+So, I think that gets to kind of this idea of
+
+00:09:28.340 --> 00:09:32.580
+whether we're just trying to replicate Blue Sky or replicate Twitter
+
+00:09:32.580 --> 00:09:35.880
+on Blue Sky or are we trying to do something different?
+
+00:09:35.960 --> 00:09:39.610
+I think a lot of us here understand that the AT protocol
+
+00:09:39.610 --> 00:09:42.880
+offers a lot more than what Twitter itself could offer.
+
+00:09:43.110 --> 00:09:46.220
+And so, how do we start building out these systems to
+
+00:09:46.220 --> 00:09:47.880
+attract other people?
+
+00:09:48.060 --> 00:09:49.880
+And how do we get out that knowledge?
+
+00:09:49.960 --> 00:09:53.350
+I think that is one big struggle maybe for some of us
+
+00:09:53.370 --> 00:09:56.880
+here is we're only on the AT protocol now.
+
+00:09:56.880 --> 00:09:57.880
+We're not posting anywhere else.
+
+00:09:58.000 --> 00:10:00.160
+So, how do we get these other people who are on
+
+00:10:00.160 --> 00:10:01.880
+the other platforms over here?
+
+00:10:02.100 --> 00:10:04.710
+And I know in my community, research-wise, I
+
+00:10:04.710 --> 00:10:07.880
+'m chemical engineering and like computational biology.
+
+00:10:07.950 --> 00:10:09.880
+A lot of them are on LinkedIn.
+
+00:10:10.140 --> 00:10:12.860
+They moved off of X, but they're on LinkedIn.
+
+00:10:13.060 --> 00:10:15.120
+And when I go and look at those posts, they're
+
+00:10:15.120 --> 00:10:15.860
+long posts.
+
+00:10:16.130 --> 00:10:17.880
+They're not 300 characters.
+
+00:10:18.140 --> 00:10:21.380
+And so, I think Leah has extended lexicon that
+
+00:10:21.560 --> 00:10:23.880
+allows you to do longer posts.
+
+00:10:24.120 --> 00:10:27.320
+And so, that I think is definitely an attractor for
+
+00:10:27.320 --> 00:10:28.880
+a lot of scientists.
+
+00:10:29.140 --> 00:10:33.880
+They post long posts and they don't really love threads.
+
+00:10:33.880 --> 00:10:36.640
+I also just want to throw in another question of the mix
+
+00:10:36.640 --> 00:10:36.860
+.
+
+00:10:37.140 --> 00:10:38.730
+Before we get on to kind of solutions, I was also
+
+00:10:38.730 --> 00:10:41.350
+, because we talked in our kind of some of our pre
+
+00:10:41.370 --> 00:10:45.880
+-conversations about young researchers and like their new social
+
+00:10:45.880 --> 00:10:46.880
+media habits or lack thereof.
+
+00:10:47.070 --> 00:10:49.720
+And yeah, also just kind of putting that in and maybe
+
+00:10:49.720 --> 00:10:51.880
+if you also have some insights there.
+
+00:10:52.140 --> 00:10:55.270
+Yeah, I think that was a piece that came to me
+
+00:10:55.290 --> 00:10:59.880
+as I saw like engaging the people that actually did have large
+
+00:10:59.880 --> 00:11:03.880
+presences on Twitter that had dropped off, you know.
+
+00:11:03.880 --> 00:11:05.880
+I think they had kind of like just washed their hands.
+
+00:11:06.140 --> 00:11:07.950
+Like, I don't know if I want to do that
+
+00:11:07.950 --> 00:11:08.860
+game again.
+
+00:11:09.100 --> 00:11:12.620
+And like that, there were multiple reasons for that kind of
+
+00:11:12.620 --> 00:11:13.880
+disengagement.
+
+00:11:14.140 --> 00:11:19.880
+And I think like we should be looking at the younger,
+
+00:11:19.880 --> 00:11:23.150
+the actual doc students and undergrads and like giving them
+
+00:11:23.150 --> 00:11:26.880
+a chance because they're going to be the ones that actually
+
+00:11:26.880 --> 00:11:27.880
+build the stuff.
+
+00:11:28.060 --> 00:11:29.700
+They're going to be the ones that are going to have
+
+00:11:29.700 --> 00:11:31.880
+the ideas like let's reinvent the wheel here.
+
+00:11:32.070 --> 00:11:34.720
+And that's what I think where you can get people really
+
+00:11:34.720 --> 00:11:35.880
+interested in it.
+
+00:11:36.040 --> 00:11:39.430
+So, you know, we might have actually passed a torch
+
+00:11:39.560 --> 00:11:43.880
+moment of like the opportunity to really reconstitute it.
+
+00:11:44.080 --> 00:11:46.560
+But I think we can take some of the pieces and make
+
+00:11:46.560 --> 00:11:47.880
+something better.
+
+00:11:48.140 --> 00:11:51.830
+And I think just one other side I had was that the
+
+00:11:51.830 --> 00:11:55.620
+, you know, the challenge really comes down to is like
+
+00:11:55.620 --> 00:11:58.630
+it's kind of similar to somebody who is really into coffee
+
+00:11:58.630 --> 00:11:59.880
+, right.
+
+00:12:00.130 --> 00:12:03.170
+And like, you know, grinds their own beans and
+
+00:12:03.170 --> 00:12:07.480
+does the, you know, very particular way that they brew
+
+00:12:07.490 --> 00:12:07.880
+it.
+
+00:12:08.040 --> 00:12:09.880
+You know, I think that's this community.
+
+00:12:10.090 --> 00:12:13.880
+We're very into what the AP protocol can do.
+
+00:12:14.080 --> 00:12:16.570
+But if you try to explain that too much, it really
+
+00:12:16.570 --> 00:12:17.880
+overwhelms people.
+
+00:12:18.140 --> 00:12:19.880
+Like, why would I want to do that?
+
+00:12:20.090 --> 00:12:21.730
+Like, I mean like, so you're telling me it
+
+00:12:21.790 --> 00:12:22.860
+'s always out there.
+
+00:12:23.080 --> 00:12:25.630
+And like they people know when I block and, and it
+
+00:12:25.630 --> 00:12:28.160
+'s like, yeah, but that's actually there's some
+
+00:12:28.160 --> 00:12:28.880
+benefit.
+
+00:12:29.000 --> 00:12:30.530
+And I ran into that several times when I'm trying to
+
+00:12:30.570 --> 00:12:33.280
+explain to people, it's like finding that balance of like
+
+00:12:33.280 --> 00:12:34.860
+, you want to try it.
+
+00:12:35.110 --> 00:12:37.910
+And like, you know, people might, you know,
+
+00:12:37.910 --> 00:12:41.050
+for example, a kind of ventilated seat in your car
+
+00:12:41.140 --> 00:12:42.880
+, like, why would I ever need that?
+
+00:12:43.000 --> 00:12:43.880
+You take a three hour drive.
+
+00:12:44.140 --> 00:12:47.820
+You're like, oh, yeah, yeah, now I
+
+00:12:47.820 --> 00:12:48.880
+get it.
+
+00:12:49.110 --> 00:12:52.220
+But you got to be there to try it out because otherwise
+
+00:12:52.220 --> 00:12:53.880
+it just doesn't click.
+
+00:12:54.100 --> 00:12:59.880
+So yeah, thinking about like junior researchers, younger people,
+
+00:12:59.880 --> 00:13:02.040
+again, there's this, there's kind of the marketing
+
+00:13:02.140 --> 00:13:04.930
+problem of like blue skies scene, I guess, is like
+
+00:13:04.930 --> 00:13:05.880
+millennial.
+
+00:13:06.100 --> 00:13:08.590
+And I don't know, I can't solve that problem
+
+00:13:08.590 --> 00:13:08.860
+.
+
+00:13:08.880 --> 00:13:10.880
+I don't know what to do about that.
+
+00:13:11.140 --> 00:13:13.860
+But then we've tried to get feedback.
+
+00:13:13.950 --> 00:13:17.720
+I try to talk to more junior students, younger people about
+
+00:13:17.720 --> 00:13:21.450
+like, how they feel about social media, and blue sky
+
+00:13:21.450 --> 00:13:22.860
+in particular.
+
+00:13:23.110 --> 00:13:25.860
+And I wouldn't say I have like a full picture.
+
+00:13:26.080 --> 00:13:28.140
+But part of what I hear, well, part of it
+
+00:13:28.140 --> 00:13:30.880
+, I think is just, in general, the community is
+
+00:13:31.140 --> 00:13:31.880
+fractured.
+
+00:13:32.060 --> 00:13:34.770
+And there are other things going on, especially in the US
+
+00:13:34.770 --> 00:13:38.360
+, where like anyone on a visa posting on social media at
+
+00:13:38.360 --> 00:13:43.880
+all is a very scary, potentially very high consequence act right
+
+00:13:43.880 --> 00:13:44.880
+now.
+
+00:13:45.000 --> 00:13:46.880
+So there's that whole background.
+
+00:13:47.090 --> 00:13:49.540
+But usually what I hear is like, oh, it feels
+
+00:13:49.540 --> 00:13:52.880
+scary or feels like you're up on a stage or,
+
+00:13:53.070 --> 00:13:55.230
+and to some extent, I do think we have some new
+
+00:13:55.340 --> 00:13:57.880
+challenges like what I was just mentioning.
+
+00:13:58.140 --> 00:14:01.930
+But also some of these are just, they actually may not
+
+00:14:01.930 --> 00:14:03.880
+be unique to right now.
+
+00:14:04.040 --> 00:14:06.060
+And I can remember when I was a junior student, I
+
+00:14:06.060 --> 00:14:06.860
+just lurked.
+
+00:14:06.990 --> 00:14:08.880
+Of course, yeah, I also felt nervous.
+
+00:14:09.010 --> 00:14:10.660
+And I wasn't going to just like chime in to random
+
+00:14:10.830 --> 00:14:12.880
+conversations between senior researchers.
+
+00:14:12.980 --> 00:14:13.880
+I lurked.
+
+00:14:14.050 --> 00:14:14.880
+And that was fine.
+
+00:14:15.000 --> 00:14:15.880
+And I gained a lot from that.
+
+00:14:15.990 --> 00:14:17.890
+So there needs to be, so maybe on one hand,
+
+00:14:17.890 --> 00:14:20.880
+like, it's okay, that's not a new thing
+
+00:14:20.880 --> 00:14:24.920
+for people newer to a community to be more nervous about posting
+
+00:14:24.920 --> 00:14:26.880
+or joining, interacting in the community.
+
+00:14:27.130 --> 00:14:31.010
+But then what we can do as more senior people or people
+
+00:14:31.100 --> 00:14:33.860
+who are more comfortable posting and being active is to, you
+
+00:14:33.860 --> 00:14:37.880
+know, give them something to gain from being there.
+
+00:14:37.990 --> 00:14:41.710
+So interacting with each other, having conversations, posting about papers
+
+00:14:41.770 --> 00:14:45.510
+, posting papers of junior researchers, and trying to also build
+
+00:14:45.920 --> 00:14:50.880
+infrastructure to support that kind of sharing or encourage that kind of
+
+00:14:50.880 --> 00:14:50.880
+sharing.
+
+00:14:50.950 --> 00:14:54.010
+I think that's one of the reasons that Paper Sky Jest
+
+00:14:54.010 --> 00:14:54.880
+is so great, right?
+
+00:14:55.140 --> 00:14:56.880
+Like highlighting papers.
+
+00:14:57.140 --> 00:14:59.860
+And that gives a clear gain to people.
+
+00:15:00.120 --> 00:15:05.120
+So I'm actually not that much younger, really, but
+
+00:15:05.130 --> 00:15:06.880
+I am a current PhD student.
+
+00:15:07.140 --> 00:15:10.490
+And since I was, like, applying, you know,
+
+00:15:10.530 --> 00:15:12.880
+a few years ago, or I don't know what time
+
+00:15:12.880 --> 00:15:12.880
+is.
+
+00:15:13.140 --> 00:15:13.880
+Four years ago?
+
+00:15:14.080 --> 00:15:14.880
+Oh, God.
+
+00:15:15.140 --> 00:15:15.880
+Yeah.
+
+00:15:15.980 --> 00:15:17.880
+So I was applying, like, five years ago.
+
+00:15:18.060 --> 00:15:20.050
+And what I can say is that I was pretty much on
+
+00:15:20.090 --> 00:15:20.860
+Instagram.
+
+00:15:21.050 --> 00:15:23.860
+So it's a very visual-based community.
+
+00:15:24.140 --> 00:15:31.540
+But there is a very large, wonderful ecosystem of women scientists
+
+00:15:31.540 --> 00:15:36.250
+, scientists, communicators, who were posting things to just
+
+00:15:36.250 --> 00:15:40.880
+help other -- these were PhD students who had just started posting
+
+00:15:41.080 --> 00:15:45.010
+to help other people who were interested in PhDs to get
+
+00:15:45.020 --> 00:15:48.120
+into their PhD programs, just talking about their experiences, talking
+
+00:15:48.120 --> 00:15:51.870
+about the different types of programs, different situations that occur with
+
+00:15:51.870 --> 00:15:54.720
+all the different programs that exist, and that kind of thing
+
+00:15:54.720 --> 00:15:54.880
+.
+
+00:15:55.140 --> 00:16:00.440
+And what I found is most of them are still on Instagram
+
+00:16:00.440 --> 00:16:00.880
+.
+
+00:16:00.980 --> 00:16:04.430
+I've seen a few try to come over, and they
+
+00:16:04.570 --> 00:16:06.880
+don't get engagement.
+
+00:16:07.020 --> 00:16:08.880
+So they're like, why be here?
+
+00:16:09.140 --> 00:16:12.030
+Because there's also a fair amount of overlap with, okay
+
+00:16:12.030 --> 00:16:13.880
+, like, how can I use this to monetize?
+
+00:16:14.140 --> 00:16:16.860
+Like, how can I use this for extra income?
+
+00:16:16.880 --> 00:16:17.880
+I'm a PhD student.
+
+00:16:17.950 --> 00:16:19.880
+I don't have a lot of free time.
+
+00:16:19.990 --> 00:16:22.150
+So if I'm going to be making this content, that
+
+00:16:22.150 --> 00:16:23.880
+content takes a lot of time.
+
+00:16:23.950 --> 00:16:24.880
+I've done it.
+
+00:16:25.030 --> 00:16:28.140
+It takes a lot of time to make the quality content that
+
+00:16:28.140 --> 00:16:29.880
+these students were making.
+
+00:16:30.140 --> 00:16:34.150
+And so being able to kind of get some incentive to do
+
+00:16:34.170 --> 00:16:36.880
+that is pretty beneficial.
+
+00:16:37.030 --> 00:16:39.980
+So if you come over from Instagram to Blue Sky, and
+
+00:16:39.980 --> 00:16:42.270
+then no one's liking anything, it's just kind of
+
+00:16:42.270 --> 00:16:44.530
+like, I'm not making money and no one's seeing
+
+00:16:44.560 --> 00:16:44.880
+it.
+
+00:16:45.110 --> 00:16:45.880
+What's the point?
+
+00:16:46.030 --> 00:16:48.780
+So one of the things I've been trying to work on
+
+00:16:48.780 --> 00:16:51.880
+is a custom feed that's PhD chatter.
+
+00:16:52.030 --> 00:16:53.950
+And I know on Twitter, like, people just, like
+
+00:16:53.950 --> 00:16:54.860
+, used a hashtag.
+
+00:16:55.060 --> 00:16:57.860
+And then over time, it became, like, algorithmic
+
+00:16:57.890 --> 00:17:00.880
+where you didn't necessarily need to do that.
+
+00:17:01.120 --> 00:17:04.230
+And so kind of what people did when they came over to
+
+00:17:04.240 --> 00:17:07.880
+Blue Sky was just try to do hashtag-based feeds.
+
+00:17:08.030 --> 00:17:10.570
+But what ends up happening is those end up being chronological
+
+00:17:10.570 --> 00:17:13.880
+feeds where people aren't getting the content that they want.
+
+00:17:14.140 --> 00:17:17.310
+Like, it kind of sometimes feels like you're getting ad
+
+00:17:17.310 --> 00:17:18.880
+blasted a little bit.
+
+00:17:19.140 --> 00:17:23.430
+And so what I've been working on is more of a
+
+00:17:23.630 --> 00:17:28.670
+regex, like, semantic style matching of, like
+
+00:17:28.670 --> 00:17:30.730
+, language, like, common language that you might use when
+
+00:17:30.830 --> 00:17:34.680
+talking about research, when talking about your dissertation, your PhD
+
+00:17:34.680 --> 00:17:39.880
+paper, what you're doing in your academic career.
+
+00:17:40.120 --> 00:17:43.690
+And then filtering that from people's bios to just pull in
+
+00:17:43.720 --> 00:17:44.880
+, okay, this is a PhD student.
+
+00:17:45.140 --> 00:17:47.860
+Let's filter out the professors.
+
+00:17:48.060 --> 00:17:50.860
+But I think even if you're filtering out the professors,
+
+00:17:50.890 --> 00:17:54.350
+sometimes knowing that they can see it is a little bit of
+
+00:17:54.350 --> 00:17:54.880
+a deterrent.
+
+00:17:55.140 --> 00:17:59.190
+Because, especially as an undergrad, I know, I was
+
+00:17:59.220 --> 00:18:03.990
+, like, the brief moments I spent on Twitter actually was
+
+00:18:03.990 --> 00:18:04.860
+probably pre-undergrad.
+
+00:18:05.100 --> 00:18:08.140
+And, like, I wouldn't want any professor or teacher
+
+00:18:08.140 --> 00:18:09.880
+seeing what I was saying.
+
+00:18:09.980 --> 00:18:13.880
+I was just whining because I needed to whine.
+
+00:18:14.070 --> 00:18:16.380
+And so I think we also need those, like, closed
+
+00:18:16.380 --> 00:18:22.020
+permission spaces really to attract different groups, to give them that
+
+00:18:22.030 --> 00:18:24.880
+space to be free and feel comfortable.
+
+00:18:25.140 --> 00:18:28.480
+But we also need to kind of, like, grow how
+
+00:18:28.570 --> 00:18:31.880
+do we get people to find these feeds?
+
+00:18:32.120 --> 00:18:33.880
+The search is not very good.
+
+00:18:34.140 --> 00:18:38.880
+And so how do we get people even exposed to these things
+
+00:18:38.880 --> 00:18:38.880
+?
+
+00:18:39.140 --> 00:18:43.350
+And finding the people that they can connect with that aren't
+
+00:18:43.660 --> 00:18:46.880
+necessarily people they're already connected with.
+
+00:18:47.140 --> 00:18:51.530
+And I think that was a thing people found Twitter very useful
+
+00:18:51.660 --> 00:18:58.860
+for that hasn't necessarily existed as much yet on Blue Sky
+
+00:18:58.940 --> 00:19:00.880
+, at least in the academic sense.
+
+00:19:00.980 --> 00:19:06.440
+I think that's very much been building up from existing networks
+
+00:19:06.440 --> 00:19:10.870
+rather than trying to expand and grow networks.
+
+00:19:10.880 --> 00:19:13.190
+I know Eugene has a practice of, like, trying to
+
+00:19:13.190 --> 00:19:15.880
+find junior researchers' papers and posting about them.
+
+00:19:16.140 --> 00:19:19.410
+And maybe we could do more of that somehow and make it
+
+00:19:19.430 --> 00:19:21.880
+more, like, I don't know, feeds that promote
+
+00:19:21.880 --> 00:19:25.870
+young researchers or give them more engagement somehow.
+
+00:19:26.140 --> 00:19:28.950
+Yeah, I think, again, gain or showing, like
+
+00:19:28.950 --> 00:19:32.150
+, I've, through Blue Sky, got to know some
+
+00:19:32.250 --> 00:19:33.880
+junior PhD students.
+
+00:19:34.020 --> 00:19:36.120
+And we're now collaborating through, like, you know,
+
+00:19:36.120 --> 00:19:37.880
+nice little social media interactions.
+
+00:19:38.070 --> 00:19:41.430
+So, I don't know, somehow, like, showing
+
+00:19:41.570 --> 00:19:44.880
+the rest of them that this is possible.
+
+00:19:45.020 --> 00:19:47.860
+It's to your benefit to be posting about stuff.
+
+00:19:48.140 --> 00:19:50.860
+You want people to see your papers.
+
+00:19:51.140 --> 00:19:52.980
+There's a lot to gain by being on there, even
+
+00:19:52.980 --> 00:19:54.880
+if you aren't posting all the time.
+
+00:19:55.610 --> 00:20:01.880
+There's a nice hack.
+
+00:20:02.140 --> 00:20:05.830
+Barely a hack, but replying to people on the
+
+00:20:05.830 --> 00:20:09.570
+topic of, oh, you know, making content is expensive
+
+00:20:09.640 --> 00:20:09.880
+.
+
+00:20:10.140 --> 00:20:11.880
+Nobody sees my posts.
+
+00:20:12.090 --> 00:20:14.050
+When you're a small account, you want to reply to
+
+00:20:14.050 --> 00:20:14.880
+bigger accounts.
+
+00:20:15.090 --> 00:20:17.810
+And that's kind of how you give yourself to know for
+
+00:20:17.850 --> 00:20:18.880
+other people.
+
+00:20:19.140 --> 00:20:23.960
+And, you know, this, you can have good reply
+
+00:20:23.960 --> 00:20:25.880
+game, right?
+
+00:20:26.140 --> 00:20:28.630
+Like, you've got to, you've got to reply
+
+00:20:28.630 --> 00:20:30.880
+properly, like, like, it's improv or something.
+
+00:20:31.030 --> 00:20:32.520
+You know, like, in a yes and kind of way
+
+00:20:32.530 --> 00:20:34.880
+, you want to be supporting the person you're replying
+
+00:20:34.880 --> 00:20:35.880
+to.
+
+00:20:36.070 --> 00:20:38.860
+You want to be adding something to the conversation.
+
+00:20:39.140 --> 00:20:43.270
+And this is one of, you know, a basket of
+
+00:20:43.660 --> 00:20:49.060
+norms that kind of support a generative, like, intellectual
+
+00:20:49.060 --> 00:20:50.860
+environment online, right?
+
+00:20:51.130 --> 00:20:54.710
+And the norms aren't necessarily the same as they are in
+
+00:20:54.720 --> 00:20:58.890
+real life because you have a different set of affordances,
+
+00:20:58.890 --> 00:20:59.880
+you know.
+
+00:20:59.950 --> 00:21:02.810
+I almost wonder if that's a way that you can kind
+
+00:21:02.850 --> 00:21:05.710
+of build this up is, you know, we have these
+
+00:21:05.710 --> 00:21:12.600
+, you know, kind of pitches and sessions usually at conferences
+
+00:21:12.600 --> 00:21:15.460
+where it's like kind of the junior members and students,
+
+00:21:15.460 --> 00:21:16.880
+you know, how do you kickstart your career?
+
+00:21:17.140 --> 00:21:19.860
+This would be valuable content.
+
+00:21:20.140 --> 00:21:22.500
+Like, I mean, it, I think that's one
+
+00:21:22.500 --> 00:21:26.720
+of the age pieces is like Twitter started off like nobody knew
+
+00:21:26.720 --> 00:21:27.880
+what it was.
+
+00:21:28.080 --> 00:21:30.430
+And it kind of evolved into like, oh, this can
+
+00:21:30.430 --> 00:21:31.880
+actually be powerful.
+
+00:21:32.140 --> 00:21:34.960
+And so I think you're, if we'd all rolled
+
+00:21:34.960 --> 00:21:38.880
+the clock back, you know, five or 10 years,
+
+00:21:38.880 --> 00:21:40.580
+and we're like, we were coming in from this,
+
+00:21:40.580 --> 00:21:42.080
+like, okay, I need to do this, but I
+
+00:21:42.080 --> 00:21:42.860
+don't know how.
+
+00:21:43.140 --> 00:21:46.880
+And, like, I don't want to mess up.
+
+00:21:47.130 --> 00:21:50.230
+And I think, and, like, particularly in, you
+
+00:21:50.240 --> 00:21:54.880
+know, Twitter, the actual incentive structure is conflict.
+
+00:21:55.030 --> 00:21:57.420
+So it is about, like, even if you were,
+
+00:21:57.420 --> 00:22:00.710
+like, an undergrad, you might have somebody jump on you
+
+00:22:00.710 --> 00:22:03.420
+out of the blue with this huge account, and you're
+
+00:22:03.420 --> 00:22:04.870
+just like, what did I do?
+
+00:22:05.080 --> 00:22:07.200
+And that's why I think, like, you know,
+
+00:22:07.200 --> 00:22:10.700
+the Leah features are phenomenal in that way, because it is
+
+00:22:10.700 --> 00:22:13.530
+in that sense, like, let's give you a little
+
+00:22:13.530 --> 00:22:14.860
+bit more control.
+
+00:22:15.120 --> 00:22:16.880
+Like, like, do you want to stand up?
+
+00:22:17.040 --> 00:22:17.880
+Like, no, that's wrong.
+
+00:22:18.080 --> 00:22:18.880
+And here's why.
+
+00:22:18.970 --> 00:22:19.880
+And, like, I'm going to get in this.
+
+00:22:20.020 --> 00:22:21.980
+Or, like, I'm not up for this, and
+
+00:22:21.980 --> 00:22:24.880
+I just need you to go away before this goes on.
+
+00:22:25.110 --> 00:22:28.050
+And so you have that lever, which I think could be
+
+00:22:28.050 --> 00:22:31.880
+a piece that does help cultivate the next generation.
+
+00:22:31.880 --> 00:22:34.810
+I'm just having one more thought about this right now,
+
+00:22:34.850 --> 00:22:36.880
+which is, like, maybe it's just all wrong,
+
+00:22:36.880 --> 00:22:40.170
+especially for, like, if we're not the junior people
+
+00:22:40.170 --> 00:22:41.860
+, to be worrying about why aren't junior people?
+
+00:22:42.140 --> 00:22:43.880
+How do we make it cool?
+
+00:22:44.020 --> 00:22:45.730
+And instead, like, I could think, you know,
+
+00:22:45.790 --> 00:22:47.810
+any academic in the room, if you've organized a talk
+
+00:22:47.810 --> 00:22:49.360
+series or a cloakroom, you're like, why is
+
+00:22:49.400 --> 00:22:49.880
+no one coming?
+
+00:22:50.060 --> 00:22:50.880
+How do I get this?
+
+00:22:51.090 --> 00:22:52.880
+Like, you need to get the faculty to come.
+
+00:22:53.020 --> 00:22:55.860
+If their advisors are on blue sky, they're going to
+
+00:22:55.890 --> 00:22:56.880
+be on blue sky.
+
+00:22:57.000 --> 00:22:58.880
+So maybe we should just focus on that.
+
+00:22:59.060 --> 00:23:02.270
+How do we get the senior researchers who are comfortable posting,
+
+00:23:02.270 --> 00:23:05.340
+clearly, because they're posting on X or LinkedIn, how
+
+00:23:05.340 --> 00:23:08.870
+do we get them on blue sky?
+
+00:23:09.120 --> 00:23:12.990
+We can open it up to the crowd, if you want
+
+00:23:12.990 --> 00:23:15.880
+to talk, ask questions.
+
+00:23:16.080 --> 00:23:18.690
+And I think there's a really good point about that it
+
+00:23:18.690 --> 00:23:21.880
+'s hard as a senior academic to know what's necessary.
+
+00:23:21.970 --> 00:23:26.010
+I was thinking about how we can also avoid turning up like
+
+00:23:26.160 --> 00:23:28.880
+a square peg into a round hole with content.
+
+00:23:29.070 --> 00:23:33.350
+So maybe the solution for people of early career, frankly,
+
+00:23:33.350 --> 00:23:35.880
+to see there are a lot of different trends here.
+
+00:23:35.880 --> 00:23:38.710
+I think there are a lot of different things that we can
+
+00:23:38.710 --> 00:23:41.710
+do, and I don't remember what we can do these
+
+00:23:41.710 --> 00:23:42.880
+days.
+
+00:23:42.880 --> 00:23:45.200
+I think I see things like the group chats that are far
+
+00:23:45.200 --> 00:23:47.960
+more popular, and people generally don't have more contacts,
+
+00:23:47.960 --> 00:23:48.880
+and you can post your faces.
+
+00:23:49.140 --> 00:23:51.860
+What is it that you can say for a national value?
+
+00:23:51.950 --> 00:23:55.680
+I think it makes me wonder if things like really could somehow
+
+00:23:55.680 --> 00:23:58.180
+be adapted to work to the kind of landscape space, and
+
+00:23:58.190 --> 00:24:02.270
+having to describe a chat spaces for the person, but also
+
+00:24:02.270 --> 00:24:05.350
+make things like having to be pressuring on these things about
+
+00:24:05.430 --> 00:24:05.880
+bias.
+
+00:24:05.880 --> 00:24:08.210
+I think we're really missing out in this country that there
+
+00:24:08.210 --> 00:24:08.880
+'s a group here.
+
+00:24:09.020 --> 00:24:12.270
+We're looking out on these kind of abilities to have these
+
+00:24:12.300 --> 00:24:13.880
+more close, safe spaces.
+
+00:24:14.140 --> 00:24:17.340
+Because I agree with Ireland that I think a lot of how
+
+00:24:17.340 --> 00:24:20.880
+unsafe I thought you wanted to spend the rest of it online
+
+00:24:20.880 --> 00:24:20.880
+.
+
+00:24:21.040 --> 00:24:23.520
+It's safe to pass it from so you can see it
+
+00:24:23.520 --> 00:24:25.880
+, and you're really great by it.
+
+00:24:26.610 --> 00:24:29.880
+Hi.
+
+00:24:30.140 --> 00:24:30.880
+Hi.
+
+00:24:31.400 --> 00:24:34.880
+What is that?
+
+00:24:35.620 --> 00:24:37.870
+Sorry?
+
+00:24:38.020 --> 00:24:41.670
+So to summarize kind of the comment and question for the stream
+
+00:24:41.670 --> 00:24:47.060
+, Emily was just kind of reiterating the point of,
+
+00:24:47.130 --> 00:24:50.880
+okay, yeah, as an undergrad, it was so overwhelming
+
+00:24:50.880 --> 00:24:53.980
+to be able to post, and then know some big professor
+
+00:24:53.980 --> 00:24:56.880
+could see this and do something about it.
+
+00:24:57.140 --> 00:25:01.770
+Maybe we can use Rumi as a potential avenue for providing
+
+00:25:01.770 --> 00:25:06.870
+group chats, which seem maybe more popular with the younger generations
+
+00:25:06.880 --> 00:25:10.050
+, and provide a more private space for them to interact while
+
+00:25:10.050 --> 00:25:15.880
+still being on the same platform where their professors are.
+
+00:25:16.050 --> 00:25:18.860
+So I don't actually know what Rumi does.
+
+00:25:18.880 --> 00:25:21.490
+I'm assuming it's like-- It's like Discord on
+
+00:25:21.490 --> 00:25:21.880
+APRA.
+
+00:25:21.990 --> 00:25:22.880
+It's like Discord.
+
+00:25:23.140 --> 00:25:23.880
+Cool.
+
+00:25:24.140 --> 00:25:24.880
+Yeah.
+
+00:25:25.120 --> 00:25:27.470
+Well, I think a lot about the dark forest problem,
+
+00:25:27.470 --> 00:25:31.690
+which is basically this, that the open internet, you know
+
+00:25:31.690 --> 00:25:33.880
+, opens you up to surveillance and wanted attention.
+
+00:25:34.140 --> 00:25:38.190
+And, you know, there's the dark forest collective who
+
+00:25:38.240 --> 00:25:40.880
+kind of write about this a bit.
+
+00:25:41.140 --> 00:25:44.430
+And then the usual answer they give is, oh, people
+
+00:25:44.570 --> 00:25:46.880
+retreat to the cozy web, which is group chats.
+
+00:25:47.140 --> 00:25:47.880
+Right?
+
+00:25:48.100 --> 00:25:51.530
+One thing that bothers me about that solution is that you don
+
+00:25:51.560 --> 00:25:52.880
+'t get discovery.
+
+00:25:53.110 --> 00:25:56.600
+And, you know, the contributions you make in the safety
+
+00:25:56.600 --> 00:26:00.880
+of your group chat don't necessarily percolate to,
+
+00:26:00.880 --> 00:26:01.880
+you know, the knowledge comments.
+
+00:26:02.140 --> 00:26:02.880
+Right?
+
+00:26:03.140 --> 00:26:06.870
+Unless someone takes the link you just posted or takes a screenshot
+
+00:26:06.870 --> 00:26:08.880
+and repost it to some other group chat.
+
+00:26:09.100 --> 00:26:13.670
+So I think, I think it's really important to figure
+
+00:26:13.670 --> 00:26:18.540
+out if there's something in between, you know, the
+
+00:26:18.630 --> 00:26:21.880
+open internet and group chats.
+
+00:26:22.140 --> 00:26:25.530
+And I think we have someone from Rumi in the room
+
+00:26:25.570 --> 00:26:25.880
+.
+
+00:26:26.910 --> 00:26:30.880
+Thank you.
+
+00:26:31.140 --> 00:26:31.880
+Thank you.
+
+00:26:31.880 --> 00:26:32.880
+I love this comment.
+
+00:26:33.000 --> 00:26:34.880
+I totally agree.
+
+00:26:35.140 --> 00:26:38.480
+That's, that's such a critical part of why we
+
+00:26:38.570 --> 00:26:40.880
+'re making Rumi on Ad Proto.
+
+00:26:41.040 --> 00:26:41.880
+Like, this is what we want.
+
+00:26:42.030 --> 00:26:45.580
+We, like, we know that communities want to work together
+
+00:26:45.580 --> 00:26:46.880
+to create stuff.
+
+00:26:47.110 --> 00:26:50.340
+And if that's a community of researchers, like, you
+
+00:26:50.340 --> 00:26:53.150
+know, working on a problem, whether it's, like
+
+00:26:53.210 --> 00:26:56.870
+, within an academy or some other context.
+
+00:26:57.140 --> 00:27:02.280
+Like, people creating ideas together and, like, chat for
+
+00:27:02.280 --> 00:27:02.880
+us.
+
+00:27:03.050 --> 00:27:07.130
+We create chat because we feel that chat is the lowest barrier
+
+00:27:07.210 --> 00:27:10.880
+of entry to contributing to a, to a discussion.
+
+00:27:11.130 --> 00:27:13.570
+And we want to create Rumi, you know, I
+
+00:27:13.570 --> 00:27:16.360
+'m not trying to just sell Rumi, but, like
+
+00:27:16.370 --> 00:27:16.880
+, yeah.
+
+00:27:17.050 --> 00:27:19.550
+To say, like, we can, we can do that
+
+00:27:19.550 --> 00:27:24.280
+and then progressively, like, build in the structure and we
+
+00:27:24.280 --> 00:27:27.080
+can keep refining on our ideas and move to, like
+
+00:27:27.080 --> 00:27:28.860
+, publishing to the broader ecosystem.
+
+00:27:29.060 --> 00:27:32.570
+We want to get, have these ideas but not lose them
+
+00:27:32.570 --> 00:27:32.880
+.
+
+00:27:33.030 --> 00:27:34.990
+Not, like, lose that knowledge and, yeah, to
+
+00:27:34.990 --> 00:27:39.480
+be cultivating, cultivating knowledge and sharing it with whoever
+
+00:27:39.480 --> 00:27:41.880
+we want to collaborate with in the broader world.
+
+00:27:41.980 --> 00:27:43.580
+So, I just wanted to say, like, yeah,
+
+00:27:43.580 --> 00:27:44.860
+thank you for your comment.
+
+00:27:45.130 --> 00:27:46.880
+Like, yeah, we're right with you.
+
+00:27:47.040 --> 00:27:50.880
+I've got another question.
+
+00:27:50.960 --> 00:27:51.880
+Do you have the comments?
+
+00:27:52.190 --> 00:27:52.880
+Wonderful.
+
+00:27:53.140 --> 00:27:53.880
+Yeah.
+
+00:27:54.060 --> 00:27:57.050
+So, I don't really have too much of a horse
+
+00:27:57.050 --> 00:28:00.670
+in this, but I just follow a lot of scientists on
+
+00:28:00.670 --> 00:28:00.880
+X and Blue Sky.
+
+00:28:01.080 --> 00:28:03.160
+And this is, I just want to preface this by
+
+00:28:03.160 --> 00:28:06.090
+saying, you know, I don't think that people shouldn
+
+00:28:06.130 --> 00:28:08.760
+'t do this, but, and this is going to be
+
+00:28:08.760 --> 00:28:10.960
+a bit brusque, but, you know, I
+
+00:28:10.960 --> 00:28:14.420
+was just thinking about the stuff about the starter pack and the
+
+00:28:14.420 --> 00:28:16.880
+stuff about, like, creating cultural norms.
+
+00:28:17.050 --> 00:28:19.220
+And I'm kind of just like going to drive the dagger
+
+00:28:19.220 --> 00:28:21.550
+and it's like, you know, with the starter packs
+
+00:28:21.630 --> 00:28:24.020
+, when you follow them and you know that they're all
+
+00:28:24.020 --> 00:28:26.860
+like seasoned micro bloggers, you're like, okay,
+
+00:28:26.880 --> 00:28:29.400
+if I hit this starter pack follow, am I going to
+
+00:28:29.430 --> 00:28:33.880
+get a lot of like good science and new emerging science stuff
+
+00:28:33.880 --> 00:28:33.880
+?
+
+00:28:34.050 --> 00:28:36.740
+Or am I going to get like, a bunch of crash
+
+00:28:36.740 --> 00:28:40.540
+outs from X addicts who are like, dash brought trauma
+
+00:28:40.540 --> 00:28:40.880
+.
+
+00:28:41.140 --> 00:28:41.880
+Right.
+
+00:28:42.030 --> 00:28:45.100
+So I'm thinking like, is there something we can do
+
+00:28:45.100 --> 00:28:48.880
+about like, how to like rehabilitate people who have been
+
+00:28:48.880 --> 00:28:52.120
+using micro blogging for a long time to make it more
+
+00:28:52.120 --> 00:28:54.880
+comfortable for finding cool stuff.
+
+00:28:55.130 --> 00:28:58.350
+And also just maintain like, you know, like, I
+
+00:28:58.350 --> 00:29:00.880
+don't want to say you can't do it.
+
+00:29:01.050 --> 00:29:01.880
+You've earned it.
+
+00:29:02.010 --> 00:29:03.730
+You know, you've done like great stuff, but also
+
+00:29:03.790 --> 00:29:04.860
+we see a lot of it already.
+
+00:29:05.040 --> 00:29:08.580
+So if there's like new interfaces, new norms that can
+
+00:29:08.580 --> 00:29:09.880
+be done about this.
+
+00:29:10.140 --> 00:29:19.120
+I had a joke earlier
+
+00:29:19.120 --> 00:29:20.860
+.
+
+00:29:20.880 --> 00:29:22.510
+I was going to say, you know, ask Maria,
+
+00:29:22.510 --> 00:29:26.360
+like, was she doing machine learning starter pack number one,
+
+00:29:26.370 --> 00:29:28.880
+two, four, five.
+
+00:29:29.090 --> 00:29:29.880
+The original.
+
+00:29:30.090 --> 00:29:30.880
+The original.
+
+00:29:31.090 --> 00:29:31.880
+The original.
+
+00:29:32.140 --> 00:29:35.000
+That was one thing I noticed too, is that we did
+
+00:29:35.000 --> 00:29:38.040
+spill over and there was kind of jockeying for
+
+00:29:38.040 --> 00:29:38.880
+like prestige.
+
+00:29:39.140 --> 00:29:41.910
+Like, oh, you got to make it onto the,
+
+00:29:41.910 --> 00:29:43.880
+you know, that list.
+
+00:29:44.140 --> 00:29:47.370
+And so that is, you know, part of the challenge
+
+00:29:47.570 --> 00:29:47.880
+.
+
+00:29:48.140 --> 00:29:52.380
+And I think it's something where, you know, to
+
+00:29:52.630 --> 00:29:56.180
+get back to the kind of roomy piece, I like
+
+00:29:56.180 --> 00:29:59.510
+the idea of, you know, creating space for people to
+
+00:29:59.510 --> 00:30:00.880
+get their bearings.
+
+00:30:00.970 --> 00:30:02.020
+You know, you almost have to let, you have to
+
+00:30:02.030 --> 00:30:02.880
+figure out your identity.
+
+00:30:03.110 --> 00:30:05.560
+You know, are you going to be, you know,
+
+00:30:05.560 --> 00:30:07.880
+what hats are you going to wear?
+
+00:30:08.120 --> 00:30:11.090
+And I think the people that I see that enjoy it the
+
+00:30:11.090 --> 00:30:12.880
+most switch those out.
+
+00:30:13.060 --> 00:30:14.520
+They're like, yeah, I'm a scientist, but
+
+00:30:14.530 --> 00:30:15.860
+I was talking about it at lunch.
+
+00:30:16.110 --> 00:30:18.720
+You know, one of the people in my feed that's
+
+00:30:18.720 --> 00:30:22.880
+actually did stick around is huge into vintage computers.
+
+00:30:23.120 --> 00:30:26.430
+And he will post his weekends are full of going in there
+
+00:30:26.560 --> 00:30:28.880
+and showing off those computers.
+
+00:30:29.040 --> 00:30:30.910
+And so that's just, you know, that's related
+
+00:30:30.910 --> 00:30:32.880
+to his job, but that's just his passion.
+
+00:30:33.050 --> 00:30:35.650
+And I think, oh, letting people figure out that identity
+
+00:30:35.650 --> 00:30:35.860
+.
+
+00:30:36.140 --> 00:30:38.130
+Like, I'm not going to be, you know,
+
+00:30:38.130 --> 00:30:40.880
+like I've got to be the PhD student in this.
+
+00:30:40.880 --> 00:30:42.880
+I've got to represent my field and my school.
+
+00:30:43.080 --> 00:30:45.550
+And like, it's okay to show off your knitting,
+
+00:30:45.550 --> 00:30:47.880
+to show you what you're enjoyed with.
+
+00:30:48.140 --> 00:30:51.880
+And I think that space is needed.
+
+00:30:52.140 --> 00:30:54.160
+Yeah, so I'm going to play off that in a
+
+00:30:54.160 --> 00:30:54.860
+second.
+
+00:30:55.040 --> 00:30:57.070
+But I just want to mention that we did have a break
+
+00:30:57.070 --> 00:30:57.860
+planned now.
+
+00:30:57.980 --> 00:30:59.670
+So if you need a break, please go take a break
+
+00:30:59.670 --> 00:30:59.880
+.
+
+00:31:00.020 --> 00:31:03.020
+We are going to continue with the talks at 3:00
+
+00:31:03.020 --> 00:31:03.880
+promptly.
+
+00:31:04.130 --> 00:31:06.910
+But yeah, so I think, like, the thing that
+
+00:31:06.910 --> 00:31:10.240
+is wonderful about Blue Sky is, you know, I did
+
+00:31:10.370 --> 00:31:14.130
+feel a lot of that pressure to just be one person and
+
+00:31:14.660 --> 00:31:16.880
+post about one thing on Instagram.
+
+00:31:17.140 --> 00:31:18.880
+Because these things have one algorithm.
+
+00:31:19.090 --> 00:31:21.160
+They see what you're posting about, and that's the
+
+00:31:21.160 --> 00:31:21.860
+algorithm.
+
+00:31:22.090 --> 00:31:23.880
+Like, you can't change what you're doing.
+
+00:31:24.120 --> 00:31:26.310
+Like, I saw many people go through this of, like
+
+00:31:26.340 --> 00:31:28.880
+, just having multiple accounts to post about all these different things
+
+00:31:28.880 --> 00:31:28.880
+.
+
+00:31:29.140 --> 00:31:30.880
+And I could never do that.
+
+00:31:31.120 --> 00:31:33.670
+Like, I just, like, am incapable of having multiple
+
+00:31:33.670 --> 00:31:35.880
+accounts and posting multiple things.
+
+00:31:36.040 --> 00:31:39.250
+So I find Blue Sky, like, very welcoming in that
+
+00:31:39.250 --> 00:31:41.880
+respect of, I can post whatever.
+
+00:31:42.050 --> 00:31:44.040
+And if you don't want to see some content, don
+
+00:31:44.040 --> 00:31:44.860
+'t follow me.
+
+00:31:45.140 --> 00:31:47.860
+Just use feeds where you see my posts.
+
+00:31:48.100 --> 00:31:49.910
+Like, I think there's a lot of people here at
+
+00:31:49.930 --> 00:31:52.880
+atmosphere conference where I don't actually follow them.
+
+00:31:53.140 --> 00:31:57.770
+But I regularly interact with them because I use the atmosphere feed
+
+00:31:57.770 --> 00:32:00.350
+that I've made where I can see all of their relevant
+
+00:32:00.430 --> 00:32:00.880
+posts to me.
+
+00:32:01.050 --> 00:32:03.230
+And sometimes I'll follow them, but I like to keep
+
+00:32:03.340 --> 00:32:05.880
+my follow list very low so I don't get overwhelmed.
+
+00:32:06.090 --> 00:32:09.270
+And I don't really want to see political content because I
+
+00:32:09.300 --> 00:32:10.880
+get very overwhelmed.
+
+00:32:11.140 --> 00:32:14.200
+But, like, I post, I actually don't post
+
+00:32:14.200 --> 00:32:17.660
+that much science, but that's because my science is hard
+
+00:32:17.660 --> 00:32:17.880
+.
+
+00:32:18.120 --> 00:32:21.870
+And also I haven't published anything yet, which we love
+
+00:32:21.870 --> 00:32:24.880
+open science and we would love to do that.
+
+00:32:25.140 --> 00:32:26.880
+But doing it is hard.
+
+00:32:27.140 --> 00:32:30.880
+Yeah, so I mostly post AT science stuff.
+
+00:32:31.010 --> 00:32:31.880
+But sometimes I post art.
+
+00:32:32.140 --> 00:32:33.880
+Sometimes I post, I don't know.
+
+00:32:33.960 --> 00:32:35.880
+I don't even know what I do.
+
+00:32:36.110 --> 00:32:38.590
+But, yeah, I think to that point of, like
+
+00:32:38.590 --> 00:32:41.960
+, starter packs, every time there was a starter pack,
+
+00:32:41.960 --> 00:32:44.080
+I know, like, there was one for a few that
+
+00:32:44.080 --> 00:32:44.880
+I was interested in.
+
+00:32:45.140 --> 00:32:47.860
+And I always converted them to a list.
+
+00:32:47.960 --> 00:32:51.880
+I didn't want to be forced to follow every single person
+
+00:32:51.880 --> 00:32:54.880
+because then you also are following, I think, the default
+
+00:32:54.880 --> 00:32:56.880
+is that you see everyone's reposts.
+
+00:32:57.060 --> 00:33:00.440
+And their replies in your following feed, I immediately turned those
+
+00:33:00.530 --> 00:33:00.880
+off.
+
+00:33:01.030 --> 00:33:03.680
+But I don't think that's necessarily something everyone was doing
+
+00:33:03.680 --> 00:33:03.860
+.
+
+00:33:04.060 --> 00:33:06.650
+And so I think there was also some amount of people just
+
+00:33:06.650 --> 00:33:09.880
+not using Blue Sky because they'd go to their following feed
+
+00:33:09.880 --> 00:33:13.030
+and it's just retweets of all the horrors
+
+00:33:13.110 --> 00:33:14.860
+of the world.
+
+00:33:15.140 --> 00:33:16.880
+Because there's a lot of them and that's valid.
+
+00:33:17.060 --> 00:33:19.040
+But once you've seen it, once you know it,
+
+00:33:19.040 --> 00:33:20.880
+okay, go do what you can about it.
+
+00:33:21.140 --> 00:33:23.860
+You don't need to keep seeing it.
+
+00:33:24.080 --> 00:33:24.880
+Like, do something.
+
+00:33:25.140 --> 00:33:26.880
+Don't just drown.
+
+00:33:27.140 --> 00:33:28.880
+But, yeah.
+
+00:33:28.990 --> 00:33:30.880
+So, starter packs, not my favorite.
+
+00:33:30.980 --> 00:33:33.860
+I do like lists and I do like feeds.
+
+00:33:34.120 --> 00:33:36.920
+And if you want to talk to me about making a feed
+
+00:33:36.920 --> 00:33:38.880
+, I can help you with that.
+
+00:33:39.120 --> 00:33:44.140
+So, we have two more comments from the room and then
+
+00:33:44.140 --> 00:33:50.150
+maybe somebody of you wants to close the panel and then go
+
+00:33:50.150 --> 00:33:53.150
+to the break and the next session will start at 3:
+
+00:33:53.150 --> 00:33:53.880
+00 PM.
+
+00:33:54.040 --> 00:33:55.880
+So, we have one, two more.
+
+00:33:56.140 --> 00:33:56.880
+Thank you.
+
+00:33:57.140 --> 00:34:01.440
+Being sciency, I'd like to make a hypothesis and
+
+00:34:01.660 --> 00:34:07.000
+that is that some of the challenges that you've described and
+
+00:34:07.000 --> 00:34:12.440
+the solutions that you've described are bounded within the ways that
+
+00:34:12.440 --> 00:34:14.880
+the Blue Sky app itself works.
+
+00:34:15.140 --> 00:34:19.130
+And we've talked a lot about protocol and backend and tech
+
+00:34:19.230 --> 00:34:20.880
+y nerd stuff here.
+
+00:34:21.100 --> 00:34:24.660
+But I wonder if you have any thoughts about whether a different
+
+00:34:24.660 --> 00:34:28.880
+app view, different interface is something that, for instance,
+
+00:34:28.880 --> 00:34:32.270
+could put longer form posts side by side with short posts or
+
+00:34:32.270 --> 00:34:36.880
+whatever might help ease that onboarding and community building.
+
+00:34:37.140 --> 00:34:37.880
+Yes.
+
+00:34:38.070 --> 00:34:45.350
+I gave a talk this morning about Leah, which is a
+
+00:34:45.430 --> 00:34:52.500
+app view that tries to build in a lot of our various
+
+00:34:52.500 --> 00:34:57.880
+learnings and wishes for customization for research specific uses.
+
+00:34:58.050 --> 00:34:59.880
+So, check out that talk.
+
+00:34:59.960 --> 00:35:03.090
+I'll say too, like one thing that that's also
+
+00:35:03.090 --> 00:35:04.880
+emerged from seeing.
+
+00:35:05.140 --> 00:35:10.840
+So, like Richard Ferro does the Med Sky Community and
+
+00:35:10.840 --> 00:35:12.880
+he's a machine.
+
+00:35:13.120 --> 00:35:18.340
+He's got like 70 feeds and he did the Olympics feed
+
+00:35:18.340 --> 00:35:20.880
+and he does Latin Sky.
+
+00:35:21.050 --> 00:35:22.800
+And so, Richard, I don't know if you're
+
+00:35:22.830 --> 00:35:25.200
+watching on the stream, but, you know, hats off
+
+00:35:25.200 --> 00:35:25.880
+to you.
+
+00:35:26.140 --> 00:35:30.040
+But the reason I bring it up is because he's taking
+
+00:35:30.110 --> 00:35:34.460
+nuance from Black Sky too and seeing like, oh, there
+
+00:35:34.470 --> 00:35:37.560
+could be some really cool stuff we can do there with label
+
+00:35:37.560 --> 00:35:39.880
+ers and like verified users.
+
+00:35:40.050 --> 00:35:42.760
+And, you know, because he's also concerned about medical
+
+00:35:42.760 --> 00:35:43.880
+misinformation.
+
+00:35:44.100 --> 00:35:45.880
+And so, how do you fight that?
+
+00:35:46.140 --> 00:35:49.380
+And so, that's, I think, the iceberg that
+
+00:35:49.390 --> 00:35:53.100
+we're standing on is like there's a lot of depth
+
+00:35:53.100 --> 00:35:53.880
+here.
+
+00:35:54.060 --> 00:35:54.880
+There's a lot of opportunity.
+
+00:35:55.050 --> 00:35:58.370
+And it sometimes becomes overwhelming with that there's almost too many
+
+00:35:58.370 --> 00:35:59.880
+tools first to engage with.
+
+00:36:00.100 --> 00:36:02.660
+Like which ones are effective, which ones are going to work
+
+00:36:02.660 --> 00:36:02.860
+.
+
+00:36:02.880 --> 00:36:05.220
+I think we have to kind of build it like Maria's
+
+00:36:05.340 --> 00:36:07.990
+done and see, you know, like what resonates with the
+
+00:36:07.990 --> 00:36:08.880
+community?
+
+00:36:09.110 --> 00:36:09.880
+What do they need?
+
+00:36:10.140 --> 00:36:12.860
+And that's what I think, you know, how we
+
+00:36:12.870 --> 00:36:13.880
+get there.
+
+00:36:14.140 --> 00:36:14.880
+Yeah.
+
+00:36:15.030 --> 00:36:17.860
+So, I think Leah is a really good direction.
+
+00:36:18.140 --> 00:36:21.530
+And I really like the idea of, you know, being
+
+00:36:21.570 --> 00:36:25.140
+able to do embedded lexicons because then we're taking
+
+00:36:25.140 --> 00:36:27.880
+advantage of this AT protocol ecosystem.
+
+00:36:28.140 --> 00:36:32.880
+But we're leveraging it in a very AT science format.
+
+00:36:33.140 --> 00:36:38.020
+And I'll just mention Richard also runs the stem labelers
+
+00:36:38.020 --> 00:36:41.440
+feed, which I think is stemlabels.
+
+00:36:41.440 --> 00:36:41.880
+xyz.
+
+00:36:41.880 --> 00:36:44.130
+I could be wrong on that, but you can find me
+
+00:36:44.130 --> 00:36:45.880
+if I'm wrong and ask me later.
+
+00:36:46.080 --> 00:36:48.430
+But he also runs that feed, or sorry, not that
+
+00:36:48.430 --> 00:36:51.460
+feed, that labeler, which also has lists for each
+
+00:36:51.460 --> 00:36:51.880
+one.
+
+00:36:52.060 --> 00:36:54.170
+And so, I would like to encourage you all, if
+
+00:36:54.170 --> 00:36:57.180
+you are scientists of any kind, you know, as we
+
+00:36:57.180 --> 00:37:00.880
+mentioned earlier, don't have to be a traditional scientist,
+
+00:37:00.880 --> 00:37:01.870
+grab a label.
+
+00:37:01.880 --> 00:37:04.160
+I know it's a little bit difficult right now to find
+
+00:37:04.160 --> 00:37:04.860
+the labels.
+
+00:37:04.970 --> 00:37:08.400
+I'd like to think about how we can move that to
+
+00:37:08.420 --> 00:37:10.880
+an easier to access system.
+
+00:37:11.140 --> 00:37:14.660
+And I think that's one challenge that we have as a
+
+00:37:14.660 --> 00:37:19.880
+science community is we are generally scientists at our core.
+
+00:37:20.010 --> 00:37:21.880
+We have jobs that are in science.
+
+00:37:22.070 --> 00:37:26.880
+We're often overloaded with work already as researchers.
+
+00:37:27.120 --> 00:37:31.130
+And so, being able to connect with the wider developer community
+
+00:37:31.370 --> 00:37:35.410
+and have them get interested in this and have them help us
+
+00:37:35.410 --> 00:37:38.680
+build these things because we are much more limited in our time
+
+00:37:38.680 --> 00:37:38.860
+.
+
+00:37:39.050 --> 00:37:41.660
+And then that gets into, of course, questions of funding
+
+00:37:41.660 --> 00:37:41.860
+.
+
+00:37:42.090 --> 00:37:44.640
+Okay, how do we make sure these developers are getting funded
+
+00:37:44.640 --> 00:37:44.860
+?
+
+00:37:45.140 --> 00:37:50.510
+But really building those bridges, I think, is also beneficial
+
+00:37:50.510 --> 00:37:53.880
+for science as a science, you know?
+
+00:37:54.070 --> 00:37:56.030
+Well, we can start building, like, the open science
+
+00:37:56.030 --> 00:37:57.880
+stuff that was being talked about earlier.
+
+00:37:58.060 --> 00:38:03.550
+We can start making these modular data connections and evidence linking to
+
+00:38:03.550 --> 00:38:07.940
+claims and all of these things if we are working people with
+
+00:38:07.940 --> 00:38:11.810
+people who know science, who know development, but then also
+
+00:38:11.850 --> 00:38:14.570
+taking people who are really just mostly science and people who are
+
+00:38:14.660 --> 00:38:17.760
+really mostly just developers and bringing us all together, I think
+
+00:38:17.760 --> 00:38:20.280
+, is really how we move and make, like, these
+
+00:38:20.280 --> 00:38:22.880
+app views and get people attracted to it.
+
+00:38:23.140 --> 00:38:25.640
+Because I think you're right, like, blue sky by
+
+00:38:25.640 --> 00:38:27.880
+itself, that's what people know.
+
+00:38:28.010 --> 00:38:30.690
+So there's always this challenge of, okay, how do
+
+00:38:30.690 --> 00:38:33.140
+we get them to know, well, you have this blue
+
+00:38:33.140 --> 00:38:36.400
+sky account, but you can just use Leah, which gives
+
+00:38:36.400 --> 00:38:37.870
+you your science that you want.
+
+00:38:38.010 --> 00:38:42.880
+I think, yeah, well, one more question.
+
+00:38:43.140 --> 00:38:47.900
+Okay, so this is, I don't know, comment
+
+00:38:47.900 --> 00:38:51.880
+or discussion, I don't know.
+
+00:38:52.050 --> 00:38:56.160
+So I've heard today a lot of discussion around governance,
+
+00:38:56.170 --> 00:38:59.160
+around the sciences, basically, you know, how do we
+
+00:38:59.160 --> 00:39:02.860
+make sure we have full control over our research and the documentation
+
+00:39:02.950 --> 00:39:05.170
+with it and making sure, you know, just get in
+
+00:39:05.170 --> 00:39:06.880
+rock hands, you know, hide from AI training, for
+
+00:39:06.880 --> 00:39:06.880
+example.
+
+00:39:07.120 --> 00:39:10.230
+And then kind of the segue always goes into Rumi and
+
+00:39:10.240 --> 00:39:10.880
+such.
+
+00:39:11.140 --> 00:39:17.130
+So one of the things I'm for full disclosure, North
+
+00:39:17.130 --> 00:39:19.660
+Sky Social, I'm working on a private permission data service
+
+00:39:19.660 --> 00:39:19.880
+.
+
+00:39:20.060 --> 00:39:22.590
+And so with that, it's basically a permission layer,
+
+00:39:22.590 --> 00:39:25.610
+you know, where you can kind of define communities or groups
+
+00:39:25.610 --> 00:39:25.880
+.
+
+00:39:26.090 --> 00:39:28.470
+And so this is where, you know, we're doing
+
+00:39:28.470 --> 00:39:30.990
+with the goal of like, you know, for, you
+
+00:39:30.990 --> 00:39:35.870
+know, marginalized communities that are always basically being targeted.
+
+00:39:36.020 --> 00:39:37.500
+And one thing for me is like, I'm always,
+
+00:39:37.500 --> 00:39:39.610
+I'm basically like, looking at other use cases for it
+
+00:39:39.610 --> 00:39:39.880
+.
+
+00:39:39.990 --> 00:39:42.230
+So I remember like, I talked to Torsten last month
+
+00:39:42.340 --> 00:39:44.230
+, the Berlin AT Pro to meet up, around what they
+
+00:39:44.230 --> 00:39:46.970
+'re doing with like, papers and document documents, which doesn
+
+00:39:46.980 --> 00:39:49.870
+'t quite fit for how it works.
+
+00:39:50.010 --> 00:39:51.730
+But this is where I say like, general comment is like
+
+00:39:51.790 --> 00:39:54.950
+, if there are other use cases from the sciences that actually
+
+00:39:54.950 --> 00:39:57.670
+would fit this, I'm very eager to also discuss that
+
+00:39:57.670 --> 00:39:57.880
+.
+
+00:39:58.140 --> 00:40:00.810
+Like our, you know, I'm doing some also my
+
+00:40:00.850 --> 00:40:01.880
+spare time.
+
+00:40:02.040 --> 00:40:04.220
+But it's always something that's like, once we kind
+
+00:40:04.340 --> 00:40:06.730
+of get it, it's actually being developed in the open
+
+00:40:06.730 --> 00:40:07.880
+, everything's out or the codes aren't out there.
+
+00:40:08.070 --> 00:40:10.180
+But I would be keen to kind of see what else can
+
+00:40:10.180 --> 00:40:13.460
+actually be supported for it, because it's basically being developed
+
+00:40:13.460 --> 00:40:17.030
+as like, as like primitives, that anything can actually
+
+00:40:17.110 --> 00:40:17.870
+be used for it.
+
+00:40:18.910 --> 00:40:21.880
+Okay.
+
+00:40:21.960 --> 00:40:26.010
+I just had one closing thought if we're thinking about like
+
+00:40:26.020 --> 00:40:29.880
+, why scientists are migrating or not migrating.
+
+00:40:29.960 --> 00:40:34.190
+I think we might also overestimate their understanding of anything
+
+00:40:34.660 --> 00:40:36.880
+about at proto and atmosphere.
+
+00:40:37.130 --> 00:40:39.700
+Like when I told people I'm going to atmosphere conf,
+
+00:40:39.700 --> 00:40:42.520
+even people who are very active on blue sky have no idea
+
+00:40:42.520 --> 00:40:43.880
+what atmosphere is.
+
+00:40:44.050 --> 00:40:47.530
+So we might be, there might be a lot more marketing
+
+00:40:47.570 --> 00:40:48.880
+that we can do.
+
+00:40:49.140 --> 00:40:51.860
+There are already strong movements in science like open science.
+
+00:40:52.060 --> 00:40:54.230
+And so if we can sell things the right way and make
+
+00:40:54.340 --> 00:40:56.640
+it clear, and that's something that like custom apps can
+
+00:40:56.660 --> 00:40:57.880
+also let us do.
+
+00:40:58.090 --> 00:41:03.990
+We can do that marketing and emphasize certain features in ways that
+
+00:41:03.990 --> 00:41:05.880
+blue sky does not.
+
+00:41:05.880 --> 00:41:07.880
+I think we're closing up for now.
+
+00:41:08.140 --> 00:41:08.880
+So just.
+
+00:41:09.140 --> 00:41:09.880
+Yeah.
+
+00:41:09.880 --> 00:41:10.500
+So we'll, yeah, we'll move on to the
+
+00:41:10.500 --> 00:41:10.880
+next session.
+
+00:41:11.120 --> 00:41:14.880
+And we also have a session upstairs with Matthew Lowery.
+
+00:41:15.140 --> 00:41:17.860
+Yeah, maybe we can give a round of applause first.
+
+00:41:18.140 --> 00:41:18.880
+Thank you.
+
+00:41:19.160 --> 00:41:25.120
+Please continue in the end conference if you, if you have
+
+00:41:25.120 --> 00:41:27.880
+more thoughts on this.
+
+00:41:28.030 --> 00:41:30.810
+Um, and yeah, now we just have a parallel session
+
+00:41:30.820 --> 00:41:35.880
+upstairs with Matthew Lowery about sustainability and building research institutions on
+
+00:41:35.880 --> 00:41:36.880
+at proto and what that looks like.
+
+00:41:36.960 --> 00:41:38.880
+Uh, there'll be a few interesting speakers there.
+
+00:41:39.100 --> 00:41:41.170
+And, uh, here we'll have some, uh,
+
+00:41:41.170 --> 00:41:45.270
+researchers telling us about their PhD research on at proto and blue
+
+00:41:45.290 --> 00:41:45.880
+sky.
+
+00:41:46.140 --> 00:41:46.660
+into the sky.

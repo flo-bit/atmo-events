@@ -1,0 +1,1390 @@
+WEBVTT
+
+00:00:00.040 --> 00:00:01.620
+Apologies, technical glitch.
+
+00:00:01.630 --> 00:00:08.460
+Today I'm going to talk a little bit about the,
+
+00:00:08.460 --> 00:00:11.280
+maybe we could call it the elephant in the room, I
+
+00:00:11.280 --> 00:00:11.640
+don't know.
+
+00:00:11.680 --> 00:00:14.800
+We're going to talk about authoritarianism and we're going
+
+00:00:14.820 --> 00:00:20.470
+to talk about the fact that openness as a concept and the
+
+00:00:20.490 --> 00:00:26.180
+way that the challenges and that the AT protocol was built to
+
+00:00:26.180 --> 00:00:32.110
+kind of contest weren't necessarily designed to imagine that the country
+
+00:00:32.110 --> 00:00:35.830
+in which it was built was going to be potentially an adversary
+
+00:00:35.900 --> 00:00:36.160
+.
+
+00:00:36.200 --> 00:00:42.770
+For context, I spent most of my career working in countries
+
+00:00:42.770 --> 00:00:49.150
+where people did not assume that their governments were supportive of their
+
+00:00:49.170 --> 00:00:55.650
+rights and freedoms and do not assume that a state is a
+
+00:00:55.650 --> 00:00:58.590
+benevolent actor in the service of their interests.
+
+00:00:58.640 --> 00:01:01.970
+And we have a, I think everybody knows very well,
+
+00:01:01.970 --> 00:01:05.870
+the Silicon Valley vision and version of the history of the Internet
+
+00:01:05.880 --> 00:01:05.990
+.
+
+00:01:06.040 --> 00:01:10.990
+It's worth noting that many people never experienced that version of
+
+00:01:10.990 --> 00:01:16.360
+the Internet and that the idea of the Internet as a space
+
+00:01:16.360 --> 00:01:21.840
+for political contestation basically emerged coterminous with the
+
+00:01:21.840 --> 00:01:23.040
+idea of the Internet.
+
+00:01:23.080 --> 00:01:27.790
+So, TomlNet, which was the Toml nationalist
+
+00:01:27.860 --> 00:01:34.160
+organizing newspaper and website, launched in 1997, the same year
+
+00:01:34.180 --> 00:01:35.610
+that the New York Times went online.
+
+00:01:37.660 --> 00:01:42.320
+Gapas revolutionaries were using tripod and early hosting service
+
+00:01:42.320 --> 00:01:44.550
+in the early '90s to organize, as were Malays
+
+00:01:44.580 --> 00:01:46.100
+ian independence activists.
+
+00:01:46.110 --> 00:01:51.660
+So, we have a whole alternative history of the use of
+
+00:01:51.660 --> 00:01:57.820
+the Internet for political activism and for resistance.
+
+00:01:57.880 --> 00:02:03.220
+So, today, something like 25 countries are full democracies
+
+00:02:03.220 --> 00:02:10.300
+, out of 184, 85, and only 75 or
+
+00:02:10.300 --> 00:02:12.100
+so have democratic forms as a whole.
+
+00:02:12.140 --> 00:02:15.940
+So, most people in the world have a very different relationship
+
+00:02:15.940 --> 00:02:21.000
+with their governments and their understanding of what regulatory authority can do
+
+00:02:21.180 --> 00:02:28.460
+and their understanding of what openness means in the context of societies
+
+00:02:28.460 --> 00:02:28.980
+.
+
+00:02:29.020 --> 00:02:34.540
+And I want to use that as a basis for trying to
+
+00:02:34.540 --> 00:02:39.530
+establish some basic terms about what we mean by authoritarianism.
+
+00:02:39.580 --> 00:02:42.640
+So, digital authoritarianism is a term that's been kind
+
+00:02:42.640 --> 00:02:44.840
+of in vogue for the past five or six years,
+
+00:02:44.880 --> 00:02:48.850
+and it describes very basically the use of technology to advance rep
+
+00:02:49.000 --> 00:02:50.480
+ressive political interests.
+
+00:02:50.520 --> 00:02:53.320
+A slightly older and I think more apt term is networked
+
+00:02:53.320 --> 00:02:56.980
+authoritarianism, which emphasizes the idea that people can be co
+
+00:02:56.980 --> 00:03:01.610
+-opted into supporting authoritarian power by participating in information systems
+
+00:03:01.640 --> 00:03:01.840
+.
+
+00:03:01.880 --> 00:03:04.660
+So, apologies if a lot of this is a little bit
+
+00:03:04.670 --> 00:03:07.920
+dense, but there's a -- and maybe folks that you
+
+00:03:07.940 --> 00:03:10.850
+all know all this already, and apologies if that's true
+
+00:03:10.850 --> 00:03:13.080
+, but I feel like it's helpful to establish some kind
+
+00:03:13.080 --> 00:03:15.720
+of grounding terminology and definitions.
+
+00:03:15.760 --> 00:03:23.560
+In this space, the kind of epistemic challenges,
+
+00:03:23.560 --> 00:03:27.400
+the idea that our information spaces are broken and fragmented,
+
+00:03:27.440 --> 00:03:31.060
+as we heard so eloquently this morning, the idea that
+
+00:03:31.120 --> 00:03:34.280
+that's true is not solely an artifact of our technological afford
+
+00:03:34.440 --> 00:03:37.120
+ances and underlying financial incentives.
+
+00:03:37.160 --> 00:03:41.310
+In many cases, this is the result of intentional efforts by
+
+00:03:41.310 --> 00:03:45.520
+people with power to shape narrative, to persuade and influence,
+
+00:03:45.520 --> 00:03:51.320
+to simultaneously narrow spaces for expression and political action, through regulatory
+
+00:03:51.320 --> 00:03:53.700
+and through technological approaches.
+
+00:03:53.740 --> 00:03:56.590
+So, this isn't happening organically as a result of
+
+00:03:56.600 --> 00:03:57.880
+market artifacts.
+
+00:03:57.920 --> 00:04:00.700
+That's also important, but it's not only that.
+
+00:04:00.740 --> 00:04:03.610
+And in defining the threat, we can also define the fields
+
+00:04:03.640 --> 00:04:04.710
+of contestation.
+
+00:04:04.840 --> 00:04:09.540
+And I'm not going to read this to you.
+
+00:04:09.600 --> 00:04:10.900
+You can read it yourself.
+
+00:04:10.910 --> 00:04:19.670
+But in general, authoritarianism has a -- it's useful
+
+00:04:19.670 --> 00:04:23.080
+to give it a tight and narrow definition so that we can
+
+00:04:23.080 --> 00:04:23.600
+talk about it.
+
+00:04:23.640 --> 00:04:25.920
+There are many definitions of authoritarianism.
+
+00:04:25.960 --> 00:04:28.480
+This is the one that I'm working with.
+
+00:04:28.520 --> 00:04:32.210
+And I find it to be useful because it allows us to
+
+00:04:32.210 --> 00:04:37.980
+talk about authoritarian practices and not just authoritarian states.
+
+00:04:38.020 --> 00:04:43.600
+So, you can have authoritarianism as a practice that exists
+
+00:04:43.600 --> 00:04:46.870
+within a state that is technically categorized by political scientists as
+
+00:04:46.870 --> 00:04:49.460
+not authoritarian.
+
+00:04:49.500 --> 00:04:56.340
+And things like appropriate citizen oversight or the use of accountability and
+
+00:04:56.530 --> 00:05:01.550
+transparency and legitimacy in the application of technology is key to this
+
+00:05:01.550 --> 00:05:02.420
+definition.
+
+00:05:02.460 --> 00:05:06.210
+So, even in countries that formerly are democratic, you might
+
+00:05:06.210 --> 00:05:14.210
+find evidence of authoritarian practices that significantly affect our ability to
+
+00:05:14.330 --> 00:05:17.950
+function in terms of our ability to express ourselves or mobilize or
+
+00:05:18.030 --> 00:05:19.740
+build movements.
+
+00:05:19.780 --> 00:05:22.850
+And many of us in this room, I'm guessing,
+
+00:05:22.850 --> 00:05:28.740
+also live in countries where there is the potential or actual presence
+
+00:05:28.750 --> 00:05:31.970
+of democratic backsliding.
+
+00:05:32.100 --> 00:05:34.050
+That's a term that I hope everybody understands.
+
+00:05:34.070 --> 00:05:39.950
+Basically, it means when democratic governments are suddenly no longer democratic
+
+00:05:40.010 --> 00:05:40.210
+.
+
+00:05:40.380 --> 00:05:43.690
+And what we're seeing in our geopolitical space, which
+
+00:05:43.690 --> 00:05:47.810
+is the kind of the end of the post-World War
+
+00:05:47.880 --> 00:05:50.980
+II, potentially the end of the post-World War II
+
+00:05:50.980 --> 00:05:51.930
+liberal era.
+
+00:05:51.980 --> 00:05:55.830
+And the emergence of a transactional geopolitics that kind of
+
+00:05:55.830 --> 00:05:59.650
+threatens to undermine a lot of the basic premises for what we
+
+00:05:59.650 --> 00:06:03.740
+mean by openness in the international order.
+
+00:06:03.840 --> 00:06:08.280
+And that idea of openness in the international order is twinned
+
+00:06:08.280 --> 00:06:11.820
+to the idea of openness in information spaces.
+
+00:06:11.860 --> 00:06:19.060
+So, when we, building open, decentralized technologies, use
+
+00:06:19.080 --> 00:06:22.520
+language to define what we mean by openness, we are also
+
+00:06:22.550 --> 00:06:25.180
+inherently talking about this other history.
+
+00:06:25.220 --> 00:06:28.070
+And if that history is now being challenged, what does it
+
+00:06:28.080 --> 00:06:29.500
+mean for us in this room?
+
+00:06:29.510 --> 00:06:37.410
+More specifically, on the left, this is what authoritarianism
+
+00:06:37.580 --> 00:06:38.500
+does to us.
+
+00:06:39.620 --> 00:06:44.230
+Pluralistic ignorance, which means the fact that you don
+
+00:06:44.230 --> 00:06:46.480
+'t know, I don't know what you're thinking,
+
+00:06:46.550 --> 00:06:48.950
+you don't know what I'm thinking, we have no
+
+00:06:48.950 --> 00:06:52.500
+idea that we might have some ideas in common.
+
+00:06:52.540 --> 00:06:56.370
+Social isolation and epistemic vertigo, which means that
+
+00:06:56.370 --> 00:06:59.100
+we have no basis for common knowledge.
+
+00:06:59.140 --> 00:07:02.840
+These are the challenges that our information spaces are creating for us
+
+00:07:02.840 --> 00:07:03.100
+.
+
+00:07:03.140 --> 00:07:04.780
+And again, we heard a lot about that this morning,
+
+00:07:04.780 --> 00:07:07.100
+so I don't necessarily feel a need to repeat myself or
+
+00:07:07.100 --> 00:07:09.540
+repeat what was said.
+
+00:07:09.620 --> 00:07:12.620
+And then our goals on the right, and this is a
+
+00:07:12.620 --> 00:07:15.420
+set of normative claims, like, I'm for these
+
+00:07:15.450 --> 00:07:17.020
+things, so I'm not going to pretend that I'm
+
+00:07:17.020 --> 00:07:17.300
+not.
+
+00:07:17.340 --> 00:07:22.120
+Shared reality, collective action, information integrity, values that
+
+00:07:22.220 --> 00:07:26.300
+support more democratic participation, more shared power.
+
+00:07:26.310 --> 00:07:29.710
+That's what's at stake.
+
+00:07:36.590 --> 00:07:40.830
+Before, so I am the executive chair of the newly formed
+
+00:07:40.830 --> 00:07:44.800
+Modal Foundation, which is the entity, the legal entity
+
+00:07:44.800 --> 00:07:46.050
+behind Eurosky.
+
+00:07:46.070 --> 00:07:50.260
+And I've been in this role and working in this space
+
+00:07:50.270 --> 00:07:51.800
+for about eight months.
+
+00:07:51.840 --> 00:07:57.040
+Before that, I spent a huge chunk of my life working
+
+00:07:57.110 --> 00:08:01.460
+in countries and contexts that were politically contested.
+
+00:08:01.500 --> 00:08:05.470
+And I spent the last decade working on research in information ecosystems
+
+00:08:05.620 --> 00:08:05.820
+.
+
+00:08:05.860 --> 00:08:08.730
+The last big project I did was called the Unfreedom
+
+00:08:08.760 --> 00:08:12.690
+Monitor, in which I did a 20-country study of
+
+00:08:12.880 --> 00:08:19.940
+the relationship between technology, regulatory structures, and narrative power.
+
+00:08:20.900 --> 00:08:27.360
+And the essence of that idea is that regulatory and technical systems
+
+00:08:27.360 --> 00:08:32.450
+are being used to narrow the space for expression and political participation
+
+00:08:32.450 --> 00:08:32.610
+.
+
+00:08:33.360 --> 00:08:39.430
+And the authorities in many countries are using that resultantly narrow
+
+00:08:39.460 --> 00:08:43.580
+ed space to amplify a set of narratives to try to convince
+
+00:08:43.660 --> 00:08:47.980
+people to give up their rights and freedoms in exchange for their
+
+00:08:47.980 --> 00:08:48.490
+safety.
+
+00:08:48.540 --> 00:08:52.480
+And I found that to be true in many different political contexts
+
+00:08:52.480 --> 00:08:54.650
+in countries around the world.
+
+00:08:54.700 --> 00:08:57.240
+And this was a participatory research project.
+
+00:08:57.280 --> 00:08:59.000
+About 30 of us worked on it over a two-year
+
+00:08:59.000 --> 00:08:59.500
+period.
+
+00:08:59.540 --> 00:09:06.610
+Very briefly, looking at this topic, authoritarian strategies involve coerc
+
+00:09:06.690 --> 00:09:10.400
+ion, co-optation, and persuasion.
+
+00:09:10.440 --> 00:09:13.220
+So I'm not going to define them too carefully.
+
+00:09:13.230 --> 00:09:14.460
+I think you understand what they mean.
+
+00:09:14.500 --> 00:09:16.800
+Fields of contestation, I already mentioned.
+
+00:09:16.840 --> 00:09:19.800
+And then the primary actors, states, cooperations, and
+
+00:09:19.800 --> 00:09:20.420
+publics.
+
+00:09:20.460 --> 00:09:27.230
+And we found in this research that countries have become very ad
+
+00:09:27.230 --> 00:09:34.160
+ept at remixing these different fields in order to create fields
+
+00:09:34.160 --> 00:09:36.260
+of repression.
+
+00:09:36.300 --> 00:09:39.170
+And it's very hard to contest.
+
+00:09:39.220 --> 00:09:41.910
+So I'm going to give one simple example that many of
+
+00:09:41.940 --> 00:09:43.620
+you are probably aware of.
+
+00:09:43.660 --> 00:09:45.120
+That's the Twitter files.
+
+00:09:45.160 --> 00:09:46.600
+Everybody know what the Twitter files was?
+
+00:09:46.640 --> 00:09:47.720
+Anybody not know?
+
+00:09:47.750 --> 00:09:51.720
+Twitter files was an information operation.
+
+00:09:51.760 --> 00:09:55.320
+And it was a group of, I'll call them political
+
+00:09:55.440 --> 00:10:00.340
+operatives or information operatives, who claimed that the Biden
+
+00:10:00.350 --> 00:10:06.840
+administration in the United States was censoring expression around vaccine,
+
+00:10:06.850 --> 00:10:12.440
+around vaccine communications, and trying to force the social media companies
+
+00:10:12.440 --> 00:10:18.150
+to remove anti-vax narratives and misinformation and disinformation
+
+00:10:18.150 --> 00:10:18.440
+.
+
+00:10:18.480 --> 00:10:23.580
+It was untrue, but it crossed all of these fields
+
+00:10:23.580 --> 00:10:25.320
+in its architecture.
+
+00:10:25.580 --> 00:10:28.880
+And it was very, very successful as an information operation.
+
+00:10:28.920 --> 00:10:34.430
+It targeted information integrity researchers, and it destroyed the field of
+
+00:10:34.430 --> 00:10:38.700
+information research in the United States as a result.
+
+00:10:39.120 --> 00:10:42.340
+These were the people who were exposing truths on the platform,
+
+00:10:42.350 --> 00:10:46.800
+studying the platforms, and identifying systemic problems on the platforms.
+
+00:10:46.840 --> 00:10:50.400
+They did this by creating a false narrative of state censorship.
+
+00:10:52.820 --> 00:10:56.490
+That's the narrative one of having a political ally take over
+
+00:10:56.500 --> 00:11:00.660
+Twitter and changing the algorithm to change what we could see.
+
+00:11:00.700 --> 00:11:05.730
+Spinning up a false congressional investigation and suing the individual
+
+00:11:05.730 --> 00:11:10.040
+researchers who were involved in doing the research in the first place
+
+00:11:10.040 --> 00:11:10.280
+.
+
+00:11:10.840 --> 00:11:14.660
+And finally, pressuring the institutions and funders of this
+
+00:11:14.660 --> 00:11:18.730
+research with the threats of even greater losses in the event that
+
+00:11:18.860 --> 00:11:20.690
+they didn't defund this work.
+
+00:11:20.740 --> 00:11:24.900
+And that was both state entities and private entities that were funding
+
+00:11:24.900 --> 00:11:26.420
+this type of research.
+
+00:11:27.300 --> 00:11:30.990
+And the result is decimated field of analysis, less knowledge
+
+00:11:30.990 --> 00:11:38.270
+, more social isolation, and more epistemic vertigo
+
+00:11:38.280 --> 00:11:38.890
+.
+
+00:11:38.940 --> 00:11:43.120
+Very briefly, this is the Information Monitor project.
+
+00:11:43.160 --> 00:11:47.020
+I mentioned it already, so I'm just going to very
+
+00:11:47.020 --> 00:11:52.760
+briefly talk through some themes in terms of understanding how we think
+
+00:11:52.760 --> 00:11:54.520
+about the system.
+
+00:11:55.300 --> 00:11:59.240
+Four big categories of information space.
+
+00:11:59.280 --> 00:12:02.260
+Access, data governance, information, and speech.
+
+00:12:02.300 --> 00:12:05.900
+These are all contested areas where the battle over rights and
+
+00:12:05.980 --> 00:12:08.980
+freedoms in information spaces are happening.
+
+00:12:08.990 --> 00:12:17.810
+Social controls that governments and states are applying through
+
+00:12:17.810 --> 00:12:20.080
+those fields.
+
+00:12:20.120 --> 00:12:24.630
+Freedom restrictions, information manipulation, internet control, surveillance, system
+
+00:12:24.680 --> 00:12:25.240
+management.
+
+00:12:25.300 --> 00:12:27.440
+Freedom attacks, and technology controls.
+
+00:12:27.480 --> 00:12:30.400
+I can come back to these later if you want me to
+
+00:12:30.400 --> 00:12:30.700
+.
+
+00:12:30.710 --> 00:12:32.810
+I'm going to get on to open social protocols fast,
+
+00:12:32.810 --> 00:12:35.130
+so I'm just going to zip through these so you have
+
+00:12:35.130 --> 00:12:35.800
+a sense.
+
+00:12:35.840 --> 00:12:39.300
+This is published documentation, and I can direct you to it
+
+00:12:39.300 --> 00:12:41.040
+if you want to read it later.
+
+00:12:42.320 --> 00:12:45.690
+And lastly, the types of concrete harms that people experience.
+
+00:12:45.740 --> 00:12:49.500
+Intimidation, judicial, physical, and technical are
+
+00:12:49.500 --> 00:12:53.280
+broad categories, and these are kind of extensible issues.
+
+00:12:53.320 --> 00:12:56.990
+The things that happen to individuals or groups as a result of
+
+00:12:57.000 --> 00:13:01.250
+participating in trying to express or participate in civic life.
+
+00:13:06.840 --> 00:13:07.310
+Okay.
+
+00:13:07.360 --> 00:13:10.280
+Open social as a field of contestation.
+
+00:13:10.320 --> 00:13:15.410
+I have two more slides only, and then we'll hopefully
+
+00:13:15.410 --> 00:13:19.020
+have about 10 minutes to talk.
+
+00:13:19.060 --> 00:13:25.170
+Open social technologies like ATProto and everything that we're
+
+00:13:25.380 --> 00:13:30.410
+doing here today have the potential to offer a structural response to
+
+00:13:30.410 --> 00:13:34.120
+the primary levers of control that we're experiencing.
+
+00:13:34.160 --> 00:13:37.860
+So coercion, resistance, co-option, exit
+
+00:13:37.860 --> 00:13:41.000
+, persuasion, algorithmic agency.
+
+00:13:41.260 --> 00:13:45.600
+And we have a bunch of potential tools available to us that
+
+00:13:45.600 --> 00:13:50.240
+the kinds of technologies that we're building enable us, that
+
+00:13:50.570 --> 00:13:52.520
+allow us or help us to act.
+
+00:13:52.660 --> 00:13:59.480
+And these are shared truths in public data that's kind of
+
+00:13:59.480 --> 00:14:06.140
+a core backbone of what it means to build open public information
+
+00:14:06.140 --> 00:14:09.030
+as a ballast or as a counterweight to attempts to
+
+00:14:09.040 --> 00:14:10.060
+create isolation.
+
+00:14:10.730 --> 00:14:15.540
+Information and identity provenance, data ownership, decentralization,
+
+00:14:15.640 --> 00:14:19.200
+and as a mechanism for resilience, as a mechanism for economic
+
+00:14:19.200 --> 00:14:21.780
+and technological and informational resilience.
+
+00:14:21.820 --> 00:14:25.790
+Cooperative models that allow us to share resources and drive costs
+
+00:14:25.940 --> 00:14:26.460
+down.
+
+00:14:26.500 --> 00:14:30.020
+And the idea that we can actually use different states and their
+
+00:14:30.180 --> 00:14:33.080
+sovereignty, a strategic depth for resistance.
+
+00:14:33.120 --> 00:14:38.320
+So we have the option of other jurisdictions to support actions.
+
+00:14:38.420 --> 00:14:41.960
+There are others, other affordances and other things that could
+
+00:14:42.100 --> 00:14:42.680
+be built.
+
+00:14:42.720 --> 00:14:44.510
+And that's kind of going to be the question in the
+
+00:14:44.510 --> 00:14:44.890
+room.
+
+00:14:44.940 --> 00:14:51.050
+The counterweight is what does this kind of reliance on
+
+00:14:51.260 --> 00:14:54.520
+an open system expose us to?
+
+00:14:55.500 --> 00:14:57.410
+One is that provenance becomes evidence.
+
+00:14:57.460 --> 00:15:01.390
+You know, immutable provenance of information and identity also
+
+00:15:01.390 --> 00:15:02.480
+creates risk.
+
+00:15:02.490 --> 00:15:06.400
+Public data and context remix.
+
+00:15:06.440 --> 00:15:09.600
+So once you put something out into a public network, somebody
+
+00:15:09.600 --> 00:15:12.240
+else can take it and put it somewhere else out of your
+
+00:15:12.240 --> 00:15:12.980
+control.
+
+00:15:13.700 --> 00:15:18.110
+And that is, that's a feature in our system when
+
+00:15:18.110 --> 00:15:23.020
+we have a guarantee of a non-authoritarian state that
+
+00:15:23.020 --> 00:15:26.420
+is actually available to adjudicate, you know, ad
+
+00:15:26.440 --> 00:15:30.990
+judicate your rights in a way that is legitimate and equitable
+
+00:15:30.990 --> 00:15:31.220
+.
+
+00:15:31.260 --> 00:15:33.660
+And when it's not, when that's not true,
+
+00:15:33.670 --> 00:15:35.440
+it becomes a serious risk.
+
+00:15:37.060 --> 00:15:40.220
+We've already seen that states are quite adept at identifying
+
+00:15:40.230 --> 00:15:44.410
+vulnerable targets within networks of activists, within networks of people who
+
+00:15:44.410 --> 00:15:48.380
+express themselves or use open technologies as a way of breaking collective
+
+00:15:48.380 --> 00:15:49.080
+action.
+
+00:15:49.120 --> 00:15:53.730
+Picking off vulnerable individuals or groups, making examples of them
+
+00:15:53.730 --> 00:15:57.370
+in ways that are silencing or suppressing and create fear
+
+00:15:57.370 --> 00:15:59.580
+that suffuse civic networks.
+
+00:16:01.000 --> 00:16:04.290
+And resource scarcity because a lot of us are enthusiasts, a
+
+00:16:04.290 --> 00:16:06.680
+lot of us are doing this out of a passion.
+
+00:16:06.720 --> 00:16:09.570
+And you can do that until you're hit by a slap
+
+00:16:09.570 --> 00:16:12.780
+lawsuit or until you're hit by any kind of, like
+
+00:16:12.780 --> 00:16:17.250
+, serious legal counterweight that can absorb years of your life
+
+00:16:17.250 --> 00:16:19.160
+and all of your savings.
+
+00:16:19.340 --> 00:16:22.900
+So lawfare, that's commonly called.
+
+00:16:22.940 --> 00:16:25.250
+Narrative power and market pressure.
+
+00:16:25.300 --> 00:16:28.560
+Those are the forces that are often arrayed against open networks
+
+00:16:28.560 --> 00:16:28.760
+.
+
+00:16:30.600 --> 00:16:32.160
+So that's the end of what I have to say.
+
+00:16:32.200 --> 00:16:35.530
+I hope that will help us to think about and frame as
+
+00:16:35.550 --> 00:16:39.030
+a, think about it and create a frame for this moment
+
+00:16:39.140 --> 00:16:39.460
+.
+
+00:16:39.520 --> 00:16:41.760
+And I'd be super happy to hear what others have to
+
+00:16:41.760 --> 00:16:42.700
+say about this.
+
+00:16:42.740 --> 00:16:44.810
+If we have, we have about five minutes.
+
+00:16:44.860 --> 00:16:46.930
+So, and also I will say, this is a public
+
+00:16:46.950 --> 00:16:48.480
+streamed conversation.
+
+00:16:48.520 --> 00:16:50.100
+So please don't share anything sensitive.
+
+00:16:50.140 --> 00:16:52.450
+I'm very happy to talk about this.
+
+00:16:52.470 --> 00:16:56.980
+Anything that is, shouldn't be public offline.
+
+00:16:57.020 --> 00:16:57.900
+Thank you.
+
+00:17:00.570 --> 00:17:08.660
+I see one hand over
+
+00:17:08.770 --> 00:17:12.580
+here.
+
+00:17:12.620 --> 00:17:13.840
+Oh, right there first.
+
+00:17:13.880 --> 00:17:16.160
+Yeah, very interesting.
+
+00:17:16.200 --> 00:17:18.250
+Thanks for structuring all this.
+
+00:17:19.900 --> 00:17:23.600
+These tools that you mentioned, could you connect it up with
+
+00:17:23.600 --> 00:17:26.730
+BlueSky or the ADProtosystem, which
+
+00:17:26.760 --> 00:17:29.890
+of these sort of are available already, what needs to be
+
+00:17:29.890 --> 00:17:32.920
+done in the ecosystem to foster some of these other things?
+
+00:17:32.960 --> 00:17:35.100
+So if you could just try to bridge that gap, I
+
+00:17:35.120 --> 00:17:36.330
+would appreciate it.
+
+00:17:37.500 --> 00:17:41.060
+You mean the, this one, tools for resistance one?
+
+00:17:41.100 --> 00:17:42.420
+Yeah, all, yeah.
+
+00:17:42.460 --> 00:17:43.490
+Like the strategies.
+
+00:17:43.540 --> 00:17:45.680
+I mean, it's not only about, it's not
+
+00:17:45.700 --> 00:17:48.500
+only about BlueSky, but there are some things in
+
+00:17:48.500 --> 00:17:51.180
+the BlueSky system that are amenable to, that
+
+00:17:51.180 --> 00:17:53.020
+I would put on the pro side.
+
+00:17:53.060 --> 00:17:56.240
+And so algorithmic, the ability to build your own feed
+
+00:17:56.240 --> 00:17:59.880
+to ensure that the information that you're seeing and share it
+
+00:17:59.880 --> 00:18:02.470
+in a very direct and unmediated way in the way
+
+00:18:02.470 --> 00:18:05.820
+that monolithic platforms don't allow you, affords or
+
+00:18:05.860 --> 00:18:08.200
+facilitates information integrity.
+
+00:18:08.480 --> 00:18:14.590
+It foregrounds provenance and foregrounds individual connectivity, which
+
+00:18:14.800 --> 00:18:19.500
+diminishes social and informational fragmentation.
+
+00:18:19.540 --> 00:18:22.790
+So that's a great example of how this can, this
+
+00:18:22.790 --> 00:18:23.960
+is a benefit.
+
+00:18:23.970 --> 00:18:28.510
+Another one is public data, because public information shared widely at
+
+00:18:28.560 --> 00:18:32.140
+a social level is, especially information that has, that is
+
+00:18:32.170 --> 00:18:35.610
+like validated at the provenance level, is a core part
+
+00:18:35.610 --> 00:18:40.410
+of being able to push back at a social scale against authoritarian
+
+00:18:40.410 --> 00:18:45.020
+framings that try to strip information out of our civic space
+
+00:18:45.020 --> 00:18:53.340
+and make knowledge a political tool instead of a basis for shared
+
+00:18:53.410 --> 00:18:54.480
+facticity.
+
+00:18:54.520 --> 00:18:57.500
+There could be, there are, I mean, I think
+
+00:18:57.500 --> 00:19:00.370
+a lot of what's happening in the AT proto-s
+
+00:19:00.370 --> 00:19:04.360
+cience community is exactly about this, honestly.
+
+00:19:04.700 --> 00:19:07.120
+I mean, epistemics, scientific epistemics is
+
+00:19:07.120 --> 00:19:10.060
+kind of the highest level of knowledge in terms of its rigor
+
+00:19:10.060 --> 00:19:13.440
+, but of course there's journal, there's also journal
+
+00:19:13.440 --> 00:19:16.580
+istic epistemics, there's legal epistemics,
+
+00:19:16.580 --> 00:19:19.660
+there's all of these different standards of knowledge and the ability
+
+00:19:19.660 --> 00:19:24.130
+to create and manage different levels of standards of knowledge within any
+
+00:19:24.130 --> 00:19:27.530
+kind of kind of knowledge sorting space, I find to be
+
+00:19:27.530 --> 00:19:28.820
+incredibly valuable and useful.
+
+00:19:29.200 --> 00:19:31.150
+And I think there's a lot we could do there,
+
+00:19:31.170 --> 00:19:33.590
+and I also, once we get to permission data, that
+
+00:19:33.590 --> 00:19:37.050
+also adds a really interesting layer here because then, then we
+
+00:19:37.050 --> 00:19:39.560
+aren't necessarily at risk of putting everything out into the open
+
+00:19:39.560 --> 00:19:42.160
+all the time in ways that might create, rebound on people
+
+00:19:42.160 --> 00:19:43.990
+as individuals in a network.
+
+00:19:44.010 --> 00:19:52.080
+And that's actually one of the questions for the room,
+
+00:19:52.080 --> 00:19:55.590
+I mean, I have ideas about that, but I imagine
+
+00:19:55.590 --> 00:19:59.510
+there's probably more that could be done, more that could
+
+00:19:59.590 --> 00:20:02.310
+be built, and there are probably your vulnerabilities that I haven
+
+00:20:02.360 --> 00:20:04.060
+'t identified, I didn't manage, I'm sure I
+
+00:20:04.060 --> 00:20:04.960
+didn't hit all of them.
+
+00:20:05.040 --> 00:20:08.730
+So I have something, these are the ones that are most
+
+00:20:08.730 --> 00:20:10.000
+evident to me.
+
+00:20:10.040 --> 00:20:12.780
+Yeah, I have another question here, please, or comment
+
+00:20:12.780 --> 00:20:13.000
+.
+
+00:20:13.040 --> 00:20:15.490
+Yeah, I just had a question, I'm really curious
+
+00:20:15.490 --> 00:20:20.720
+about the research about kind of authoritarian practices that are being done
+
+00:20:20.790 --> 00:20:22.510
+, and I was curious to know if there was, if
+
+00:20:22.510 --> 00:20:26.570
+that research was applied to companies or corporation, and corporations in
+
+00:20:26.570 --> 00:20:31.590
+the sense of how there might be authoritarian practices that are happening
+
+00:20:31.590 --> 00:20:33.960
+through like corporate levers, I'm curious about that.
+
+00:20:34.040 --> 00:20:37.980
+Very often what we see is some kind of combinatorial
+
+00:20:37.980 --> 00:20:42.930
+approach, so a state will either co-opt or co
+
+00:20:42.950 --> 00:20:48.810
+erce a company, or those companies will become contracts providers
+
+00:20:48.810 --> 00:20:52.590
+for technologies that are being used for, so the spyware
+
+00:20:52.590 --> 00:20:54.000
+industry is a great example, right?
+
+00:20:54.040 --> 00:20:58.820
+That's quite a profitable industry, and spyware used narrow
+
+00:20:58.920 --> 00:21:05.000
+ly to target things like sexual predators with like appropriate legal oversight
+
+00:21:05.000 --> 00:21:08.670
+is not necessarily an authoritarian tool, so the idea that we
+
+00:21:08.670 --> 00:21:12.580
+have authoritarian technologies is actually a little bit not the way I
+
+00:21:12.580 --> 00:21:14.000
+would phrase it.
+
+00:21:14.040 --> 00:21:19.400
+But when that technology is to surveil people, but when
+
+00:21:19.400 --> 00:21:22.740
+that technology is used to surveil people en masse without oversight
+
+00:21:22.740 --> 00:21:26.000
+, then those companies are facilitating authoritarianism.
+
+00:21:26.040 --> 00:21:28.890
+The other piece of this is you will see, like I
+
+00:21:28.900 --> 00:21:32.150
+can think of a great example in Myanmar from a few years
+
+00:21:32.360 --> 00:21:38.000
+ago when the government forced the sale of a telecommunications
+
+00:21:38.000 --> 00:21:41.170
+company owned by Norway, a Norwegian company, and then used
+
+00:21:41.610 --> 00:21:44.310
+all of the, got access through that sale to all of
+
+00:21:44.310 --> 00:21:46.720
+the personal data of the millions of people, the tens of
+
+00:21:46.730 --> 00:21:50.990
+millions of people who had cell phone network, whose cell phone
+
+00:21:51.020 --> 00:21:53.000
+networks provisioned through that company.
+
+00:21:53.040 --> 00:21:55.730
+So they forced a military, so they forced a sale to
+
+00:21:55.730 --> 00:21:58.480
+a military company, and then got access to personal data of
+
+00:21:58.530 --> 00:21:59.880
+like half the country as a result.
+
+00:22:00.040 --> 00:22:02.210
+So that's how, that's how, it's not
+
+00:22:02.240 --> 00:22:05.000
+, that tends to be how the dynamics work.
+
+00:22:05.040 --> 00:22:08.340
+Do we have time for one more question, or are we
+
+00:22:08.340 --> 00:22:09.000
+good?
+
+00:22:09.040 --> 00:22:10.000
+One more.
+
+00:22:10.040 --> 00:22:11.990
+Or comment, if there is one?
+
+00:22:12.010 --> 00:22:13.000
+Okay.
+
+00:22:13.040 --> 00:22:14.000
+If not?
+
+00:22:14.040 --> 00:22:15.990
+Oh, Julia, great.
+
+00:22:16.040 --> 00:22:17.000
+Can we go around?
+
+00:22:17.040 --> 00:22:20.000
+That panel's supposed to be really loud.
+
+00:22:20.040 --> 00:22:21.000
+No, it's not.
+
+00:22:21.010 --> 00:22:22.000
+Okay.
+
+00:22:22.010 --> 00:22:27.000
+Well, first, thanks for this talk.
+
+00:22:27.010 --> 00:22:29.500
+I think it's super interesting and very, very relevant and
+
+00:22:29.500 --> 00:22:30.000
+timely.
+
+00:22:30.010 --> 00:22:31.970
+I think one of the things we talked a lot about,
+
+00:22:31.970 --> 00:22:34.500
+at least in your talk, is about how open systems can
+
+00:22:34.500 --> 00:22:37.910
+kind of provide these tools for resistance, or at least provide
+
+00:22:37.930 --> 00:22:40.000
+a playground for developing and sustaining tools of resistance.
+
+00:22:40.040 --> 00:22:42.730
+I was wondering if you can speak a little bit more about
+
+00:22:42.760 --> 00:22:46.000
+the different types of risks that open systems also bring.
+
+00:22:46.040 --> 00:22:47.630
+Yeah, like a little bit more so, and if we
+
+00:22:47.630 --> 00:22:49.000
+'ve seen any evidence of that.
+
+00:22:49.040 --> 00:22:50.870
+Like, for example, I think, you know, we
+
+00:22:50.870 --> 00:22:54.000
+know that they're having like long running information campaigns.
+
+00:22:54.040 --> 00:22:57.000
+Does it become easier to track because it's public record?
+
+00:22:57.040 --> 00:23:01.740
+Or are there other new novel ways of manipulating information campaigns because
+
+00:23:01.820 --> 00:23:05.790
+it is an open network that kind of like builds assumed trust
+
+00:23:05.790 --> 00:23:07.000
+, if that makes sense?
+
+00:23:07.010 --> 00:23:08.000
+Yeah.
+
+00:23:08.040 --> 00:23:10.730
+One of the things I was mulling is if and
+
+00:23:10.760 --> 00:23:15.210
+when there might be some kind of systemic attack against the AT
+
+00:23:15.210 --> 00:23:15.970
+proto.
+
+00:23:16.040 --> 00:23:19.310
+And to me, the measure is I came up with a
+
+00:23:19.310 --> 00:23:21.000
+couple answers.
+
+00:23:21.040 --> 00:23:26.000
+The first is this space becomes important enough at a social level
+
+00:23:26.000 --> 00:23:28.970
+that it becomes a particular threat to a group in power.
+
+00:23:29.040 --> 00:23:31.880
+And we've already started to see some intimations of that
+
+00:23:31.880 --> 00:23:34.000
+on the Blue Sky Network in the past year.
+
+00:23:34.040 --> 00:23:36.700
+So that's one thing that I keep my eyes out for
+
+00:23:36.700 --> 00:23:37.000
+.
+
+00:23:37.040 --> 00:23:42.240
+So trolling or provocations like the Trump administration signs up
+
+00:23:42.300 --> 00:23:46.930
+for a Blue Sky account and then starts intentionally breaking the terms
+
+00:23:46.930 --> 00:23:50.280
+of service, hoping to get kicked off the network that they
+
+00:23:50.280 --> 00:23:52.980
+could then use that as an example or as an opportunity to
+
+00:23:53.000 --> 00:23:57.720
+bring a lawsuit against, a lawsuit for censorship against the company
+
+00:23:57.730 --> 00:23:57.910
+.
+
+00:23:58.010 --> 00:24:04.060
+Another one would be at the level of narrative power, which
+
+00:24:04.060 --> 00:24:09.590
+is the systematic attempt to kind of pigeonhole the vast and
+
+00:24:09.660 --> 00:24:13.980
+quite differentiated set of communities that are on Blue Sky as
+
+00:24:14.070 --> 00:24:17.820
+a certain one political class, like unified ideological political class that
+
+00:24:17.820 --> 00:24:18.910
+are not worth listening to.
+
+00:24:19.040 --> 00:24:21.020
+So so so we've seen that again and again, oh
+
+00:24:21.020 --> 00:24:23.000
+, this is just like a liberal pocket.
+
+00:24:23.040 --> 00:24:25.380
+And so you can just safely ignore it because you're not
+
+00:24:25.380 --> 00:24:27.990
+going to have anything other than an echo chamber here in the
+
+00:24:27.990 --> 00:24:29.000
+Blue Sky context.
+
+00:24:29.040 --> 00:24:31.630
+A third would be using it as a as a like as
+
+00:24:31.630 --> 00:24:34.000
+an intentional provocation.
+
+00:24:34.040 --> 00:24:36.000
+So leveraging it against.
+
+00:24:36.040 --> 00:24:41.600
+I mean, I can imagine an external state actor like,
+
+00:24:41.600 --> 00:24:45.650
+say, the Iranian government kind of coming onto the platform and
+
+00:24:45.650 --> 00:24:49.630
+mass and then trying and or even somebody saying, these P
+
+00:24:49.660 --> 00:24:50.000
+.
+
+00:24:50.000 --> 00:24:50.210
+D.
+
+00:24:50.210 --> 00:24:52.940
+S., like loading it up with pornography and then creating a
+
+00:24:52.940 --> 00:24:55.000
+case that then collapses the whole thing.
+
+00:24:55.040 --> 00:24:56.990
+So using the judicial system against itself.
+
+00:24:57.040 --> 00:24:59.090
+And there's another I could probably I don't want to
+
+00:24:59.090 --> 00:25:01.980
+give the other side too many other options, but there's
+
+00:25:01.980 --> 00:25:04.970
+a lot of ways that you could red team this in ways
+
+00:25:05.030 --> 00:25:07.000
+that are actually really important to think about.
+
+00:25:07.040 --> 00:25:10.140
+And I would love to see some kind of careful and strategic
+
+00:25:10.190 --> 00:25:13.880
+thinking about how to protect both the people on the network,
+
+00:25:13.970 --> 00:25:16.000
+firstly, and secondly, the network itself.
+
+00:25:16.040 --> 00:25:17.000
+So, thank you.
+
+00:25:17.010 --> 00:25:18.000
+Excellent.
+
+00:25:18.040 --> 00:25:19.000
+Thank you very much.
+
+00:25:19.010 --> 00:25:20.000
+A round of applause for Ivan Plea.
+
+00:25:20.010 --> 00:25:21.000
+.

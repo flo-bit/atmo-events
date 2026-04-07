@@ -1,0 +1,727 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.320
+GraphQL and AppProto are what I sort of came
+
+00:00:06.320 --> 00:00:10.030
+to find out what they were comparing two different front-end
+
+00:00:10.030 --> 00:00:12.630
+protocols for the social web.
+
+00:00:12.720 --> 00:00:16.590
+My background is I was a former social graph developer for eight
+
+00:00:16.670 --> 00:00:17.240
+years.
+
+00:00:17.240 --> 00:00:20.410
+I designed server-to-client APIs for web,
+
+00:00:20.450 --> 00:00:24.530
+cross-platform APIs, working on native code Android and
+
+00:00:24.530 --> 00:00:24.910
+iOS.
+
+00:00:24.920 --> 00:00:28.900
+I worked on efficiency and latency challenges, building social media U
+
+00:00:28.910 --> 00:00:31.860
+Is and real-time data access to apps.
+
+00:00:31.860 --> 00:00:34.990
+And I found this tooling so good, it was open source
+
+00:00:34.990 --> 00:00:37.160
+and I used it in my own projects.
+
+00:00:37.160 --> 00:00:39.150
+So naturally, the first time I came across ATProto
+
+00:00:39.150 --> 00:00:41.340
+, I was like, wait, what is the difference between
+
+00:00:41.400 --> 00:00:41.950
+these two?
+
+00:00:41.960 --> 00:00:46.580
+I just described everything that may be true of ATProto
+
+00:00:46.580 --> 00:00:46.850
+.
+
+00:00:46.920 --> 00:00:49.580
+So GraphQL is an ubiquitous library, and you don
+
+00:00:49.600 --> 00:00:51.330
+'t have to take my word for it.
+
+00:00:51.360 --> 00:00:52.640
+You just go to GraphQL.
+
+00:00:52.660 --> 00:00:55.760
+org and see the number of large companies that are using it
+
+00:00:55.760 --> 00:00:58.460
+, like Meta, AWS, GitHub.
+
+00:00:58.460 --> 00:01:00.960
+In my world, GraphQL was so ubiquitous that it
+
+00:01:00.970 --> 00:01:04.140
+was sort of obvious that at least someone out there would be
+
+00:01:04.140 --> 00:01:07.340
+trying to make a comparison of the two technologies, given how
+
+00:01:07.340 --> 00:01:10.400
+you could just pop open a web browser, a web dev
+
+00:01:10.400 --> 00:01:14.770
+console, and sort of see the truth that most websites are
+
+00:01:14.920 --> 00:01:17.090
+using it.
+
+00:01:17.100 --> 00:01:19.730
+One major social media website is not listed in that previous list
+
+00:01:19.730 --> 00:01:23.180
+, maybe because their CEO doesn't understand how GraphQL works
+
+00:01:23.180 --> 00:01:23.420
+.
+
+00:01:23.420 --> 00:01:24.660
+Let's not make that mistake today.
+
+00:01:24.660 --> 00:01:26.580
+Let's find out.
+
+00:01:26.580 --> 00:01:28.440
+So first, when I was looking at this problem, I
+
+00:01:28.440 --> 00:01:30.420
+was like, all right, well, I'll search Graph
+
+00:01:30.530 --> 00:01:31.650
+QL and at Proto Bridge.
+
+00:01:31.660 --> 00:01:33.560
+Surely someone will have documented this.
+
+00:01:33.560 --> 00:01:36.700
+And no, every single one of these results is someone not
+
+00:01:36.720 --> 00:01:39.490
+answering that question or a mismatch.
+
+00:01:39.620 --> 00:01:42.390
+The AI overview gives a description of what that would be,
+
+00:01:42.420 --> 00:01:43.880
+but that is not the answer.
+
+00:01:43.880 --> 00:01:47.090
+And unfortunately, now the top answer for this is this talk
+
+00:01:47.130 --> 00:01:49.990
+, which means this has to be the canonical answer to that
+
+00:01:49.990 --> 00:01:50.200
+.
+
+00:01:50.200 --> 00:01:52.220
+So let's try to do a good job.
+
+00:01:52.220 --> 00:01:55.690
+I asked you to put on your GraphQL colored glasses as
+
+00:01:55.830 --> 00:01:59.040
+I, a GraphQL developer, tries to grapple with
+
+00:01:59.040 --> 00:02:01.760
+the atmosphere.
+
+00:02:01.760 --> 00:02:04.290
+The source code for a demo if I have time, whatever
+
+00:02:04.290 --> 00:02:07.310
+, will be available at the bottom of this for the rest
+
+00:02:07.310 --> 00:02:08.600
+of the talk.
+
+00:02:08.640 --> 00:02:10.000
+So I'd like an intro to what GraphQL is if
+
+00:02:10.020 --> 00:02:10.900
+you're not familiar.
+
+00:02:10.900 --> 00:02:12.420
+So there's a website, GraphQL.
+
+00:02:12.420 --> 00:02:14.640
+org, there's an open source spec, and there's
+
+00:02:14.640 --> 00:02:18.020
+a foundation which many companies have joined to work on it.
+
+00:02:18.020 --> 00:02:21.490
+It was built by Meta in 2012 to address resource constraints
+
+00:02:21.630 --> 00:02:25.350
+on their mobile applications, open source in 2015, and the
+
+00:02:25.350 --> 00:02:28.020
+foundation was launched in 2019.
+
+00:02:28.020 --> 00:02:29.910
+You can see some things which are very similar to AT Pr
+
+00:02:29.910 --> 00:02:32.340
+oto, schema definition language, it wraps REST, much
+
+00:02:32.340 --> 00:02:34.520
+like XRPC, and there's types of schemas
+
+00:02:34.540 --> 00:02:35.640
+, like Lexicon.
+
+00:02:35.640 --> 00:02:39.040
+Maybe two differences, it controls how much data is fetched
+
+00:02:39.040 --> 00:02:42.240
+, and ways to fetch data recursively, which I'll
+
+00:02:42.240 --> 00:02:43.560
+talk about.
+
+00:02:43.560 --> 00:02:45.960
+First is the GraphQL schema language.
+
+00:02:45.960 --> 00:02:48.570
+Here I've modeled a conference, an attendee, and
+
+00:02:48.570 --> 00:02:49.360
+a location.
+
+00:02:49.360 --> 00:02:51.220
+You can see that it's very human readable.
+
+00:02:51.220 --> 00:02:54.350
+It was designed for front-end and back-end collaboration
+
+00:02:54.350 --> 00:02:54.600
+.
+
+00:02:54.600 --> 00:02:57.080
+It supports objects, interfaces, unions.
+
+00:02:57.080 --> 00:03:00.550
+Each field, individually, can accept arguments in return, scal
+
+00:03:00.760 --> 00:03:03.910
+ars, or other types, and other fields can accept arguments
+
+00:03:03.920 --> 00:03:04.470
+as well.
+
+00:03:04.480 --> 00:03:08.480
+I think this is the difference between AT Proto and Graph
+
+00:03:08.480 --> 00:03:08.890
+QL.
+
+00:03:08.980 --> 00:03:11.140
+Like Lexicon, it's forward compatible.
+
+00:03:11.140 --> 00:03:13.490
+Unlike Lexicon, you don't need to query all of
+
+00:03:13.490 --> 00:03:14.300
+the fields.
+
+00:03:14.300 --> 00:03:16.790
+So, you know, you could define a monolithic object
+
+00:03:16.790 --> 00:03:19.190
+like this, and you could only list the ID and the
+
+00:03:19.190 --> 00:03:21.890
+name, and you'll just get the ID and the name
+
+00:03:21.890 --> 00:03:22.070
+.
+
+00:03:22.200 --> 00:03:23.210
+Let's talk about querying.
+
+00:03:23.360 --> 00:03:25.630
+So here's an example of querying all the Star Wars
+
+00:03:25.630 --> 00:03:26.140
+films.
+
+00:03:26.140 --> 00:03:27.130
+The first three.
+
+00:03:27.140 --> 00:03:29.020
+It will return a list of film objects, and all we
+
+00:03:29.020 --> 00:03:30.610
+'re going to do is pick up the title.
+
+00:03:30.640 --> 00:03:33.140
+Not the ratings, not everyone's opinions about them, but
+
+00:03:33.140 --> 00:03:35.530
+just return what's on the right.
+
+00:03:35.640 --> 00:03:38.030
+And GraphQL's query DSL has this nice property where
+
+00:03:38.030 --> 00:03:40.710
+it kind of looks like the JSON on the right.
+
+00:03:40.720 --> 00:03:41.640
+So people really love that in live demos.
+
+00:03:41.640 --> 00:03:44.660
+And then we could go and we could add another block here
+
+00:03:44.670 --> 00:03:44.940
+.
+
+00:03:44.940 --> 00:03:46.510
+Not only do I have the films, I want to add
+
+00:03:46.630 --> 00:03:49.300
+like, oh, I want to get the first three characters
+
+00:03:49.300 --> 00:03:52.740
+from each of the films, and the response will update accordingly
+
+00:03:52.740 --> 00:03:52.770
+.
+
+00:03:52.980 --> 00:03:55.250
+One of the nice things about this in GraphQL world is
+
+00:03:55.250 --> 00:03:57.600
+that, like, when you select an object and then you
+
+00:03:57.600 --> 00:03:59.700
+select subfields on it, you're doing this within
+
+00:03:59.700 --> 00:04:00.570
+the same request.
+
+00:04:00.640 --> 00:04:02.660
+I think in ATproto, you make it like a
+
+00:04:02.680 --> 00:04:05.480
+ref, and then you have to go resolve that ref with
+
+00:04:05.480 --> 00:04:07.380
+another network call.
+
+00:04:07.380 --> 00:04:09.320
+It's all resolved for you, and there's, depending
+
+00:04:09.330 --> 00:04:11.130
+on how your back end is designed, this could be more
+
+00:04:11.290 --> 00:04:14.010
+efficient because you're basically doing a SQL join, not just
+
+00:04:14.050 --> 00:04:16.140
+two separate SQL calls.
+
+00:04:16.140 --> 00:04:17.130
+Okay.
+
+00:04:17.140 --> 00:04:18.130
+The ATproto comparison.
+
+00:04:18.140 --> 00:04:19.800
+I'm going to make an XRPC, and I
+
+00:04:19.930 --> 00:04:23.180
+'m going to get an object which eventually wraps a post,
+
+00:04:23.180 --> 00:04:24.320
+let's say.
+
+00:04:24.320 --> 00:04:28.160
+Now, this definition is-- sorry, I want to spend
+
+00:04:28.270 --> 00:04:30.600
+the next thing-- yeah, so this definition is interesting because
+
+00:04:30.700 --> 00:04:33.070
+the post is sort of like the canonical DB format, and
+
+00:04:33.280 --> 00:04:37.350
+there are a pattern in Blue Sky where you actually fork that
+
+00:04:37.350 --> 00:04:39.160
+and create a post view.
+
+00:04:39.320 --> 00:04:42.060
+This is the thing stripped of, like, its like counts
+
+00:04:42.090 --> 00:04:45.000
+and follower counts, like counts, reply counts, and everything
+
+00:04:45.000 --> 00:04:46.980
+because it doesn't have that information when you publish it.
+
+00:04:47.000 --> 00:04:49.500
+So you need to create a lexicon view to sort
+
+00:04:49.500 --> 00:04:52.880
+of add that information in, and that's muted by the
+
+00:04:52.880 --> 00:04:53.820
+app view.
+
+00:04:53.820 --> 00:04:56.140
+So this sort of changes it from the GraphQL world where
+
+00:04:56.150 --> 00:04:59.300
+the consumer defines what data they're getting to you actually have
+
+00:04:59.410 --> 00:05:01.940
+to publish this and have a lexicon-oriented data
+
+00:05:01.940 --> 00:05:05.480
+model to show what you want.
+
+00:05:05.480 --> 00:05:06.820
+Let's look at the schema comparison.
+
+00:05:06.820 --> 00:05:08.800
+So this is an example of a post-defined in Graph
+
+00:05:08.800 --> 00:05:10.290
+QL, looks very human-readable.
+
+00:05:10.440 --> 00:05:12.890
+Here is an example of a post-defined in lex
+
+00:05:12.890 --> 00:05:13.400
+icon.
+
+00:05:13.440 --> 00:05:16.570
+It's certainly machine-readable, but I wouldn't
+
+00:05:16.570 --> 00:05:18.330
+say it's human-readable.
+
+00:05:18.440 --> 00:05:20.660
+Is there really a big difference between the two, though?
+
+00:05:20.660 --> 00:05:22.520
+No, I think they're pretty homomorphic, even
+
+00:05:22.520 --> 00:05:24.520
+though the one on the right is much simpler, and they
+
+00:05:24.520 --> 00:05:26.280
+don't have, like, constraints around strings, etc.
+
+00:05:26.280 --> 00:05:28.440
+And part of the reason for that is, like, well
+
+00:05:28.440 --> 00:05:30.690
+, yeah, you could go on a bunch of annotations
+
+00:05:30.700 --> 00:05:32.540
+on the thing on the right, but really we're just
+
+00:05:32.540 --> 00:05:33.480
+talking about data.
+
+00:05:33.500 --> 00:05:35.660
+And if data could be homomorphic, that means you
+
+00:05:35.660 --> 00:05:37.900
+could bridge the two, which will be the part of the
+
+00:05:37.940 --> 00:05:38.490
+talk I end on.
+
+00:05:38.500 --> 00:05:42.890
+So I want to consider three scenarios or takeaways for AT dev
+
+00:05:42.890 --> 00:05:43.340
+s.
+
+00:05:43.340 --> 00:05:46.420
+A is what GraphQL offers that is different from what exists
+
+00:05:46.420 --> 00:05:47.680
+in the atmosphere.
+
+00:05:47.680 --> 00:05:50.140
+Now, the second -- oh, yeah, and just as
+
+00:05:50.140 --> 00:05:52.500
+a top-line summary, it's, like, these
+
+00:05:52.500 --> 00:05:55.240
+are the sort of things that I talked about already.
+
+00:05:55.240 --> 00:05:57.500
+There's other things that I could get into, like generation
+
+00:05:57.500 --> 00:05:59.940
+via server definitions and, like, tooling, a very robust
+
+00:06:00.300 --> 00:06:02.490
+ecosystem of tooling that's cropped up over the last decade
+
+00:06:02.500 --> 00:06:03.490
+and a half.
+
+00:06:03.500 --> 00:06:05.490
+I think a lot of these are just because of the age
+
+00:06:05.490 --> 00:06:08.070
+of the protocol, not things that won't actually come to
+
+00:06:08.130 --> 00:06:11.940
+the atmosphere, but it's worth considering where developers are coming
+
+00:06:11.940 --> 00:06:14.830
+from when you're trying to give them a way to interface
+
+00:06:14.860 --> 00:06:15.480
+with AT.
+
+00:06:15.480 --> 00:06:19.300
+So question, is GraphQL federated?
+
+00:06:19.300 --> 00:06:23.410
+On the largest open source company's website, they actually list
+
+00:06:23.410 --> 00:06:27.880
+-- Apollo -- they list that GraphQL has federation.
+
+00:06:27.880 --> 00:06:30.420
+But I will actually give you the example of what are first
+
+00:06:30.450 --> 00:06:33.020
+-party APIs that you can consume GraphQL with.
+
+00:06:33.020 --> 00:06:34.610
+And I went to this page and I kept scrolling and I
+
+00:06:34.810 --> 00:06:36.100
+only came away with GitHub, GitLab.
+
+00:06:36.100 --> 00:06:40.100
+Shopify and Yelp as examples.
+
+00:06:40.100 --> 00:06:42.880
+So, really, it's not federated if there are
+
+00:06:42.900 --> 00:06:45.930
+so few first-party implementations that they're willing to
+
+00:06:45.960 --> 00:06:47.240
+bank other people accessing.
+
+00:06:47.280 --> 00:06:49.460
+And I think the reason for that is the NSID.
+
+00:06:49.480 --> 00:06:52.950
+And the NSID means that I can actually publish something --
+
+00:06:52.950 --> 00:06:54.980
+let's take the Yelp review API.
+
+00:06:54.980 --> 00:06:58.140
+I can publish an object from my API, which is the
+
+00:06:58.140 --> 00:07:01.370
+Yelp review API, if they were conforming to that
+
+00:07:01.470 --> 00:07:01.970
+schema.
+
+00:07:01.980 --> 00:07:04.140
+If they're conforming to GraphQL, you can't
+
+00:07:04.140 --> 00:07:04.400
+.
+
+00:07:04.400 --> 00:07:05.390
+I'm lying.
+
+00:07:05.400 --> 00:07:06.400
+It's not true.
+
+00:07:06.400 --> 00:07:07.390
+They could change it at any time.
+
+00:07:07.400 --> 00:07:09.420
+They could change it when you have a lossy lex
+
+00:07:09.420 --> 00:07:11.400
+icon inside of your own applications.
+
+00:07:11.400 --> 00:07:13.400
+But it doesn't accomplish federation.
+
+00:07:13.400 --> 00:07:16.730
+And what they mean for federation inside of Apollo is actually
+
+00:07:16.730 --> 00:07:20.520
+federation across REST backends, GraphQL backends
+
+00:07:20.520 --> 00:07:21.400
+, et cetera.
+
+00:07:21.400 --> 00:07:24.140
+Try to take all the different data sources you might have and
+
+00:07:24.140 --> 00:07:25.400
+put them into one pipe.
+
+00:07:25.400 --> 00:07:30.520
+So, GraphQL's role in existing applications to bridge to
+
+00:07:30.690 --> 00:07:34.190
+AppProto might be, a lot of companies are using
+
+00:07:34.190 --> 00:07:34.580
+it.
+
+00:07:34.580 --> 00:07:36.580
+It consumes a lot of APIs.
+
+00:07:36.580 --> 00:07:39.110
+Maybe if we introduce AppProto to those consumers, we
+
+00:07:39.140 --> 00:07:42.170
+can get more AppProto connections and integrations into public
+
+00:07:42.170 --> 00:07:42.520
+apps.
+
+00:07:42.640 --> 00:07:45.570
+I'm going to skip to my pitch about what a new
+
+00:07:45.570 --> 00:07:47.760
+application could consider.
+
+00:07:47.840 --> 00:07:49.090
+Eight minutes?
+
+00:07:49.120 --> 00:07:50.110
+Yeah.
+
+00:07:50.120 --> 00:07:54.380
+So, brief pitch for -- I started this by working on
+
+00:07:54.380 --> 00:07:58.240
+a Craigslist competitor marketplace-style app, which I
+
+00:07:58.310 --> 00:08:01.210
+called Mothball, no relation to Anasota.
+
+00:08:01.300 --> 00:08:02.840
+This was the pitch I came in with.
+
+00:08:02.840 --> 00:08:04.540
+I was going to build an Expo app and be like
+
+00:08:04.640 --> 00:08:06.800
+, "What is it like to build an application with App
+
+00:08:06.810 --> 00:08:10.350
+Proto integration?" And I started with a GraphQL,
+
+00:08:10.350 --> 00:08:12.040
+a mock GraphQL, and I was going to move it
+
+00:08:12.050 --> 00:08:12.780
+to the server.
+
+00:08:12.780 --> 00:08:14.840
+And then I learned about AppProto, and now I
+
+00:08:14.840 --> 00:08:16.200
+'m down this rabbit hole.
+
+00:08:16.200 --> 00:08:18.600
+So I was thinking low latency in mobile and web.
+
+00:08:18.600 --> 00:08:21.640
+There's some strategic benefit there with GraphQL.
+
+00:08:21.640 --> 00:08:23.800
+You can do sensitive off-proto data, and you
+
+00:08:23.800 --> 00:08:25.160
+can wrap non-AT services.
+
+00:08:25.160 --> 00:08:28.990
+There's geocarding search indexes, et cetera
+
+00:08:29.110 --> 00:08:31.080
+, behind a single API.
+
+00:08:31.080 --> 00:08:33.350
+That might be a case for using GraphQL as a front
+
+00:08:33.380 --> 00:08:35.040
+-end for AppProto on new apps.
+
+00:08:35.040 --> 00:08:37.820
+But I think the best case scenario is actually this middle ground
+
+00:08:37.840 --> 00:08:39.180
+where we bridge the two.
+
+00:08:39.180 --> 00:08:41.540
+So now I'll stop there for questions, but while I
+
+00:08:41.540 --> 00:08:43.180
+show this demo really quick.
+
+00:08:43.180 --> 00:08:47.040
+The demo is just this button.
+
+00:08:47.100 --> 00:08:49.100
+So here we go.
+
+00:08:49.100 --> 00:08:53.100
+This is the lexicon of XRPC request,
+
+00:08:53.100 --> 00:08:55.030
+and on the right, I'm fetching live data from
+
+00:08:55.200 --> 00:08:56.100
+the atmosphere.
+
+00:08:56.100 --> 00:08:58.990
+Here's an example of doing multiple XRPCs in
+
+00:08:58.990 --> 00:09:02.030
+the same call from feed and from your actor.
+
+00:09:02.100 --> 00:09:03.930
+Go check out my repo if you want to play around more
+
+00:09:03.930 --> 00:09:05.060
+with this code generation.
+
+00:09:05.100 --> 00:09:07.100
+Thanks very much.
+
+00:09:07.100 --> 00:09:09.460
+Thank you, Tim.

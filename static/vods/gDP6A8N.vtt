@@ -1,0 +1,1114 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:03.560
+Thank you very much.
+
+00:00:03.770 --> 00:00:06.600
+So, hi, I'm Kobi.
+
+00:00:06.600 --> 00:00:09.160
+I work in Bank Capital Crypto.
+
+00:00:09.170 --> 00:00:14.360
+And today I want to talk about what I titled as Account
+
+00:00:14.360 --> 00:00:17.670
+Logic in Ad Proto, Using Trusted Execution Environ
+
+00:00:17.670 --> 00:00:18.320
+ments.
+
+00:00:18.330 --> 00:00:21.310
+So it's a bunch of things, so let's break
+
+00:00:21.330 --> 00:00:22.540
+them down.
+
+00:00:22.540 --> 00:00:25.720
+A short disclaimer before I start.
+
+00:00:26.290 --> 00:00:31.520
+Bank Capital Crypto is an investor in Turnkey and Blue
+
+00:00:31.550 --> 00:00:33.910
+Sky, both of which I'll mention in the talk.
+
+00:00:33.930 --> 00:00:37.670
+So, yeah, let's go to the actual stuff.
+
+00:00:37.830 --> 00:00:41.380
+So, first of all, before we kind of get into
+
+00:00:41.380 --> 00:00:45.010
+what this does, I want to give an overview of how
+
+00:00:45.050 --> 00:00:47.080
+accounts look like in Ad Proto.
+
+00:00:47.090 --> 00:00:50.060
+And specifically, I'm a cryptographer, or I guess
+
+00:00:50.070 --> 00:00:54.050
+a supply cryptographer, and I want to talk about those
+
+00:00:54.050 --> 00:00:55.960
+aspects of accounts.
+
+00:00:56.290 --> 00:01:01.260
+So, accounts in Ad Proto, they have users,
+
+00:01:01.270 --> 00:01:05.260
+and users I kind of call decentralized identifiers.
+
+00:01:05.270 --> 00:01:13.320
+And each decentralized identifier basically has cryptographic keys attached to it
+
+00:01:13.320 --> 00:01:13.680
+.
+
+00:01:13.690 --> 00:01:21.360
+And these cryptographic keys control what is authorized by each user
+
+00:01:21.370 --> 00:01:26.000
+to be posted or done in their name.
+
+00:01:26.010 --> 00:01:30.390
+There are different kinds of deeds, and we will talk about
+
+00:01:30.390 --> 00:01:33.640
+a couple of them later and what guarantees each of them gives
+
+00:01:33.640 --> 00:01:33.980
+you.
+
+00:01:34.010 --> 00:01:37.560
+But what you have to know is just this fact.
+
+00:01:37.670 --> 00:01:43.560
+Each user has this decentralized identifier attached to them, and each
+
+00:01:43.560 --> 00:01:46.990
+of them has what's called a repo sign-in key
+
+00:01:46.990 --> 00:01:47.220
+.
+
+00:01:47.230 --> 00:01:52.510
+This repo sign-in key basically authenticates every operation that
+
+00:01:52.510 --> 00:01:53.790
+your deeds make.
+
+00:01:55.310 --> 00:01:57.040
+So, that means posting.
+
+00:01:57.050 --> 00:01:58.910
+That means doing likes.
+
+00:01:58.930 --> 00:02:04.610
+That means doing everything else that other apps do on your account
+
+00:02:04.610 --> 00:02:04.990
+.
+
+00:02:05.000 --> 00:02:06.660
+So, it could be anything.
+
+00:02:06.670 --> 00:02:09.600
+What is the guarantee that you get?
+
+00:02:09.610 --> 00:02:10.780
+This is a sign-in key.
+
+00:02:10.790 --> 00:02:12.590
+This is a digital signature.
+
+00:02:12.610 --> 00:02:17.870
+So, the guarantee that you get is this deed agreed for
+
+00:02:17.870 --> 00:02:22.290
+this record to be published or for this operation to be performed
+
+00:02:22.360 --> 00:02:22.520
+.
+
+00:02:22.530 --> 00:02:26.050
+But that's kind of what you get, which is already
+
+00:02:26.050 --> 00:02:27.220
+very powerful.
+
+00:02:27.230 --> 00:02:30.680
+You already get end-to-end verifiability.
+
+00:02:30.690 --> 00:02:35.970
+So, a deed that is published on, that is used
+
+00:02:35.970 --> 00:02:38.640
+on the network has these keys.
+
+00:02:38.650 --> 00:02:42.500
+So, whenever you want to verify a post is valid,
+
+00:02:42.530 --> 00:02:44.280
+you can go to the post.
+
+00:02:44.290 --> 00:02:46.130
+You can see which deed posted it.
+
+00:02:46.150 --> 00:02:50.330
+You can then take what's called a deed document, which
+
+00:02:50.330 --> 00:02:52.730
+then lists what cryptographic keys it has.
+
+00:02:52.750 --> 00:02:54.590
+You can get those keys.
+
+00:02:54.610 --> 00:02:57.720
+You can verify the signature on something.
+
+00:02:57.730 --> 00:03:00.080
+Let's call it verify the signature on the record.
+
+00:03:00.090 --> 00:03:01.960
+And pretty much done.
+
+00:03:01.990 --> 00:03:05.500
+So, this is a very nice property of AdProto
+
+00:03:05.500 --> 00:03:06.280
+in general.
+
+00:03:06.290 --> 00:03:12.720
+But what if you wanted a bit more from this guarantee?
+
+00:03:12.730 --> 00:03:16.280
+So, not only this deed authorized is supposed to be published
+
+00:03:16.350 --> 00:03:19.110
+, what if you want more?
+
+00:03:19.630 --> 00:03:23.340
+So, what if you want to have some logic attached to
+
+00:03:23.340 --> 00:03:26.040
+each operation that is performed in your name?
+
+00:03:26.050 --> 00:03:30.950
+An example, like a few examples, would be, let
+
+00:03:30.950 --> 00:03:35.880
+'s say that each post that is published in your account,
+
+00:03:35.890 --> 00:03:38.550
+you want it to be verified by some LLM that
+
+00:03:38.550 --> 00:03:42.630
+runs some analysis and check that it's like a non-
+
+00:03:42.630 --> 00:03:45.750
+toxic post that runs an LLM that runs on
+
+00:03:45.750 --> 00:03:46.260
+your computer.
+
+00:03:47.350 --> 00:03:51.970
+What if we want to get a guarantee that the images that
+
+00:03:51.970 --> 00:03:56.030
+you're posting or that someone else is posting are coming from
+
+00:03:56.030 --> 00:03:57.660
+a trusted source?
+
+00:03:57.660 --> 00:04:00.420
+So, for example, you have cameras today that have digital
+
+00:04:00.420 --> 00:04:01.400
+signatures on them.
+
+00:04:01.400 --> 00:04:04.070
+So, you can verify that these are images that have not
+
+00:04:04.070 --> 00:04:05.430
+been tampered with, for example.
+
+00:04:06.930 --> 00:04:09.640
+What about a kind of multi-signature accounts or
+
+00:04:09.640 --> 00:04:11.490
+an organizational account?
+
+00:04:11.510 --> 00:04:16.120
+Each post has to be authorized by two out of three people
+
+00:04:16.130 --> 00:04:24.800
+so that if you want some more trust
+
+00:04:24.800 --> 00:04:27.380
+in those posts, you can add that kind of logic.
+
+00:04:27.390 --> 00:04:30.940
+Or maybe you want some verified bot accounts.
+
+00:04:31.070 --> 00:04:34.380
+So, that, for example, could be a bot account
+
+00:04:34.390 --> 00:04:38.330
+that runs with a given system prompt because we don't want
+
+00:04:38.400 --> 00:04:41.120
+just any random bots posting everything.
+
+00:04:41.130 --> 00:04:45.700
+Maybe we want to limit them to some things that are more
+
+00:04:45.700 --> 00:04:46.540
+positive.
+
+00:04:46.550 --> 00:04:50.830
+So, generally, what if we attach logic to record authorization
+
+00:04:50.830 --> 00:04:51.000
+?
+
+00:04:51.010 --> 00:04:59.140
+If we're talking about signatures, then the limits are that
+
+00:04:59.140 --> 00:05:04.460
+what I've mentioned, which is you just can say that
+
+00:05:04.460 --> 00:05:06.780
+the deed agreed for something to be published.
+
+00:05:06.790 --> 00:05:12.140
+But with logic, you can say the deed ran this program
+
+00:05:12.140 --> 00:05:17.100
+before publishing and this is a strong guarantee that you can get
+
+00:05:17.100 --> 00:05:17.240
+.
+
+00:05:17.250 --> 00:05:24.050
+You can do that with signatures if you trust the signer
+
+00:05:24.050 --> 00:05:24.240
+.
+
+00:05:24.250 --> 00:05:29.080
+So, you know, if you trust the people who run
+
+00:05:29.080 --> 00:05:34.740
+the deed to run this program for you or run this program
+
+00:05:34.740 --> 00:05:37.690
+by themselves, then you can get this guarantee.
+
+00:05:37.710 --> 00:05:41.520
+But in a big network with lots of people, sometimes in
+
+00:05:41.520 --> 00:05:47.070
+adversarial scenarios, you want some third-party guarantee that
+
+00:05:47.070 --> 00:05:47.900
+this program ran.
+
+00:05:47.910 --> 00:05:51.240
+And this acts as a filter to the operations you perform.
+
+00:05:51.250 --> 00:05:57.150
+So, now let's talk about what trusted execution environments are
+
+00:05:57.150 --> 00:05:57.420
+.
+
+00:05:57.420 --> 00:05:59.250
+It's a bit of a mouthful, at least for
+
+00:05:59.270 --> 00:05:59.520
+me.
+
+00:05:59.530 --> 00:06:06.940
+Trusted execution environments or TEs are special kind of hardware
+
+00:06:06.950 --> 00:06:11.290
+that are built in a way that allows you to get a
+
+00:06:11.290 --> 00:06:13.560
+guarantee of what's running inside it.
+
+00:06:13.570 --> 00:06:20.690
+Specifically, these machines or these machines with special security chips allow
+
+00:06:20.690 --> 00:06:25.230
+you to measure, get some measurements of what's running inside
+
+00:06:25.300 --> 00:06:25.790
+it.
+
+00:06:25.810 --> 00:06:29.820
+So, you can get the guarantee of what code is running
+
+00:06:29.820 --> 00:06:30.820
+inside them.
+
+00:06:30.830 --> 00:06:33.520
+You can do that really all the way down.
+
+00:06:33.530 --> 00:06:37.610
+You can do that to the base OS that's running inside
+
+00:06:37.610 --> 00:06:38.140
+the TE.
+
+00:06:38.150 --> 00:06:43.820
+You can say what binary is running there.
+
+00:06:43.830 --> 00:06:48.360
+And even more, you can even get a more powerful guarantee
+
+00:06:48.360 --> 00:06:50.880
+, which is even what source code is running there.
+
+00:06:51.830 --> 00:06:54.330
+in the way that, let's say that you have some
+
+00:06:54.330 --> 00:06:57.100
+source code published on GitHub, Tangle, whatever.
+
+00:06:57.110 --> 00:07:02.040
+You can build it in a special way that is called a
+
+00:07:02.040 --> 00:07:05.620
+reproducible build that gets you the same binary each time.
+
+00:07:05.630 --> 00:07:10.190
+You can then check that this binary is what's running in
+
+00:07:10.190 --> 00:07:10.900
+the TE.
+
+00:07:12.270 --> 00:07:17.310
+One downside of TE is that it adds some trust assumption on
+
+00:07:17.310 --> 00:07:21.580
+the TE provider or the TE manufacturer more correctly.
+
+00:07:21.590 --> 00:07:25.700
+Concretely, you need to trust that the TE manufacturer
+
+00:07:25.710 --> 00:07:31.870
+built the trusted platform in a way that is robust, that
+
+00:07:31.870 --> 00:07:35.100
+does give you this guarantee that these measurements are correct.
+
+00:07:35.110 --> 00:07:37.640
+That's unavoidable, but that's the trust assumption
+
+00:07:37.640 --> 00:07:38.480
+that you would have to make.
+
+00:07:40.910 --> 00:07:46.930
+Okay, so what we want to talk about is how these
+
+00:07:46.930 --> 00:07:51.340
+two areas connect, how at Proto that has keys connect
+
+00:07:51.350 --> 00:07:52.100
+to TEs.
+
+00:07:52.110 --> 00:07:55.440
+So there is this concept called key encumbrance.
+
+00:07:55.450 --> 00:08:01.600
+And key encumbrance means a public-private keeper
+
+00:08:01.610 --> 00:08:05.830
+for, let's say, digital signatures where the private key
+
+00:08:05.850 --> 00:08:07.650
+is never known to the public.
+
+00:08:07.670 --> 00:08:14.920
+It is only generated inside this TE and the TE does not
+
+00:08:14.920 --> 00:08:17.420
+provide a way for you to extract it outside.
+
+00:08:17.430 --> 00:08:22.530
+What we can do now, we can think about, okay
+
+00:08:22.540 --> 00:08:26.250
+, we have a TE that runs a specific program and we
+
+00:08:26.250 --> 00:08:31.580
+have a key that's locked inside it and will never be
+
+00:08:31.580 --> 00:08:32.860
+put outside.
+
+00:08:34.470 --> 00:08:40.050
+what if we add specific conditions under which signatures can be done
+
+00:08:40.050 --> 00:08:40.220
+.
+
+00:08:40.230 --> 00:08:43.780
+So basically what we can do is we can tie a key
+
+00:08:43.780 --> 00:08:45.160
+to a specific program.
+
+00:08:45.170 --> 00:08:49.300
+And the really nice property that you get with this kind of
+
+00:08:49.300 --> 00:08:55.100
+setup is that you can convert logic to digital signatures.
+
+00:08:55.110 --> 00:08:57.720
+And what I mean here is the following.
+
+00:08:58.990 --> 00:09:03.660
+let's say that you have the guarantee that, okay,
+
+00:09:03.670 --> 00:09:05.340
+there is a TE provider that you trust.
+
+00:09:05.350 --> 00:09:09.900
+You then have a key that is generated inside this TE.
+
+00:09:09.910 --> 00:09:15.690
+Then you have the program that you know what are the conditions
+
+00:09:15.710 --> 00:09:19.080
+it would sign under that uses that specific key.
+
+00:09:21.190 --> 00:09:27.760
+And you get this kind of chain of verifiability where
+
+00:09:27.760 --> 00:09:33.480
+you only need to verify this attestation or this proof
+
+00:09:33.490 --> 00:09:38.000
+that this key came from a valid TE once.
+
+00:09:38.010 --> 00:09:42.300
+And once you do that you can just verify signatures.
+
+00:09:42.310 --> 00:09:44.700
+You don't have to do anything else anymore.
+
+00:09:44.710 --> 00:09:53.020
+So this is the kind of minimal overhead
+
+00:09:53.030 --> 00:09:57.410
+that you can have while still getting a very powerful guarantee.
+
+00:09:57.430 --> 00:10:02.100
+So this is this verifiability all the way down.
+
+00:10:02.110 --> 00:10:08.880
+You usually have from this TE manufacturer a root certificate that cert
+
+00:10:08.880 --> 00:10:10.980
+ifies this is the correct hardware.
+
+00:10:10.990 --> 00:10:13.820
+This is valid hardware that is secure.
+
+00:10:13.890 --> 00:10:18.200
+You then have proof of what program is running.
+
+00:10:18.960 --> 00:10:21.580
+So you know this is the expected logic that runs there.
+
+00:10:21.590 --> 00:10:29.180
+And then you know that whenever the TE produces signatures the logic
+
+00:10:29.180 --> 00:10:32.920
+agrees with whatever you wanted to run there.
+
+00:10:32.930 --> 00:10:38.130
+Now maybe you can think about okay, but that means I
+
+00:10:38.130 --> 00:10:42.550
+now have to start verifying these weird TE proofs all
+
+00:10:42.550 --> 00:10:42.940
+the time.
+
+00:10:42.950 --> 00:10:44.280
+No.
+
+00:10:44.290 --> 00:10:47.820
+Because you can maybe assume that some people verify them.
+
+00:10:47.830 --> 00:10:53.360
+As long as enough people in the world go ahead and verify
+
+00:10:53.360 --> 00:10:58.840
+TE proofs about these keys other people relays other actors
+
+00:10:58.840 --> 00:11:00.520
+in the network can just verify signatures.
+
+00:11:00.620 --> 00:11:03.900
+Okay.
+
+00:11:03.910 --> 00:11:13.500
+Now let's talk about a specific concrete application where
+
+00:11:13.510 --> 00:11:20.080
+here we want to talk about this example of two out of
+
+00:11:20.090 --> 00:11:23.710
+three people need to authorize each record that is posted on
+
+00:11:23.710 --> 00:11:24.480
+your account.
+
+00:11:24.510 --> 00:11:31.500
+One way to do it would be to say okay when we
+
+00:11:31.500 --> 00:11:34.460
+launch the TE one of the arguments of the program would be
+
+00:11:34.460 --> 00:11:40.380
+a set of three keys and these three keys have to have
+
+00:11:40.380 --> 00:11:42.660
+a quorum of two of them signing each time.
+
+00:11:42.670 --> 00:11:44.280
+That's one way.
+
+00:11:44.290 --> 00:11:49.320
+Another way would be to use the natural elements that we already
+
+00:11:49.330 --> 00:11:52.080
+have in at proto and specifically deeds.
+
+00:11:52.090 --> 00:11:57.910
+So like Matt showed in his talk there are multiple kinds of
+
+00:11:57.910 --> 00:12:02.300
+deeds there is deed web there is deed plc deed web
+
+00:12:02.310 --> 00:12:08.480
+basically trusts and some trust of the DNS provider and you just
+
+00:12:08.490 --> 00:12:15.960
+go to some specific URL under your domain name and you get
+
+00:12:15.970 --> 00:12:20.090
+the deed document and it has a field which describes the keys
+
+00:12:20.100 --> 00:12:20.100
+.
+
+00:12:20.110 --> 00:12:22.160
+Okay so that's what you can get from deed web.
+
+00:12:22.170 --> 00:12:27.180
+And deed plc has a bit of more more of a
+
+00:12:27.190 --> 00:12:32.600
+complex structure and concretely deed plc is what's used
+
+00:12:32.600 --> 00:12:38.200
+by the main blue sky network and it works in a way
+
+00:12:38.210 --> 00:12:42.090
+that when an account is created it's created with some gen
+
+00:12:42.090 --> 00:12:48.480
+esis state and then whenever you want to make updates to this
+
+00:12:48.480 --> 00:12:51.800
+state you have to sign them cryptographically as well and
+
+00:12:51.800 --> 00:12:55.080
+you submit them to plc and then you create some sort
+
+00:12:55.090 --> 00:12:55.660
+of chain.
+
+00:12:55.670 --> 00:13:03.140
+Each update in plc of course references the previous state of
+
+00:13:03.150 --> 00:13:11.860
+your deed okay and
+
+00:13:11.870 --> 00:13:29.400
+where now is that me solved
+
+00:13:29.510 --> 00:13:35.030
+magically so that's what's called in plc the audit
+
+00:13:35.050 --> 00:13:38.670
+log and it looks something like this you have the genesis
+
+00:13:38.670 --> 00:13:43.700
+state which has this field called prev to be null because there
+
+00:13:43.700 --> 00:13:49.040
+is no previous state but every time you make an update you
+
+00:13:49.050 --> 00:13:53.800
+have a reference to the previous state so if you want to
+
+00:13:53.800 --> 00:14:01.260
+know the current state of a deed you ask to see the
+
+00:14:01.270 --> 00:14:04.880
+audit log and you can verify this audit log up until the
+
+00:14:04.890 --> 00:14:13.080
+current state now you may you might think you might already
+
+00:14:13.080 --> 00:14:17.460
+guess where I'm going with this and I will say that
+
+00:14:17.470 --> 00:14:20.500
+a lot of these ideas are not new I'm just like
+
+00:14:20.500 --> 00:14:23.320
+trying to show how potentially we can apply them in net proto
+
+00:14:23.330 --> 00:14:30.800
+and even we've seen uses of tees in things like
+
+00:14:30.810 --> 00:14:34.540
+privacy preserving analytics we've seen them in delegating access to
+
+00:14:34.550 --> 00:14:42.260
+online accounts so this is a combination of these ideas here so
+
+00:14:42.270 --> 00:14:47.350
+now you might ask yourself what key should I encumber one
+
+00:14:47.370 --> 00:14:50.840
+maybe obvious choice would be this add proto key or what I
+
+00:14:50.850 --> 00:14:55.640
+call the repo signing key and this add proto key controls every
+
+00:14:55.650 --> 00:15:00.340
+operation that you make in your account but that's also its
+
+00:15:00.350 --> 00:15:03.900
+downside and again I reference Matt's talk because we've seen
+
+00:15:03.910 --> 00:15:08.120
+every time that he made an operation and every time something happened
+
+00:15:08.130 --> 00:15:13.920
+you need to add a record to your PDS so that
+
+00:15:13.920 --> 00:15:16.760
+'s a good choice if you want everything to be really really
+
+00:15:16.760 --> 00:15:26.480
+protected but it also adds this friction so
+
+00:15:26.480 --> 00:15:30.340
+what we did here is we instead worked with what's called
+
+00:15:30.350 --> 00:15:34.300
+a proof attestation key or like this hashtag sign key
+
+00:15:34.310 --> 00:15:42.100
+that only signs attestations on records that are posts it
+
+00:15:42.100 --> 00:15:48.140
+does introduce the requirement for extra verification infrastructure but that verification infrastructure
+
+00:15:48.150 --> 00:15:54.320
+is still only verification of signatures and concretely we created a
+
+00:15:54.320 --> 00:16:00.540
+proof of concept and this proof of concept draws on proof and
+
+00:16:00.540 --> 00:16:05.800
+attestation work that Nick Jerakinis worked on and
+
+00:16:05.810 --> 00:16:12.860
+this specific work also includes contributions from Nick Jerakinis Andrea
+
+00:16:12.870 --> 00:16:17.340
+Novakovic from my team and also the turnkey team
+
+00:16:17.350 --> 00:16:22.200
+so concretely what we did here is we created a new
+
+00:16:22.210 --> 00:16:26.120
+app like a bset app you can imagine just as any
+
+00:16:26.120 --> 00:16:32.100
+other app that you could be logging into and an author in
+
+00:16:32.100 --> 00:16:37.920
+this app would be creating a post draft so okay there is
+
+00:16:37.920 --> 00:16:42.580
+a post draft now signers would start adding signatures to this
+
+00:16:42.590 --> 00:16:47.660
+post draft they would say okay we are agreeing to sign this
+
+00:16:47.670 --> 00:16:53.420
+post if it is also signed by one of the keys that
+
+00:16:53.420 --> 00:16:58.520
+we know are locked in a T okay so the signer
+
+00:16:58.530 --> 00:17:01.320
+1 would do that signer 2 would do that signer
+
+00:17:01.330 --> 00:17:04.000
+3 is offline but it's fine we have 2 out of
+
+00:17:04.010 --> 00:17:10.920
+3 once we have that that's where the interesting part gets
+
+00:17:10.930 --> 00:17:17.480
+in we send this collection of signatures with a post draft to
+
+00:17:17.490 --> 00:17:22.480
+the T the T also gets this audit log from PLC
+
+00:17:22.490 --> 00:17:32.090
+and runs the following logic is is the audit log correct what
+
+00:17:32.110 --> 00:17:36.650
+is the list of three keys that the audit log results with
+
+00:17:36.670 --> 00:17:42.660
+and do I have at least two signatures that come from these
+
+00:17:42.670 --> 00:17:50.500
+keys if so only and only then it signs with its own
+
+00:17:50.510 --> 00:17:54.300
+encumbered key sends it to the app and the app
+
+00:17:54.310 --> 00:18:00.280
+publishes it to your PDS and concretely we even
+
+00:18:00.290 --> 00:18:07.200
+have here I'll show it soon so this is the guarantees
+
+00:18:07.210 --> 00:18:14.900
+that I mentioned and this is a concrete post that was actually
+
+00:18:14.910 --> 00:18:20.230
+signed by a real TE and posted on blue sky from the
+
+00:18:20.250 --> 00:18:21.760
+author 3.
+
+00:18:21.770 --> 00:18:23.400
+te pds.
+
+00:18:23.400 --> 00:18:28.420
+com and what you can see here is that it has a
+
+00:18:28.430 --> 00:18:32.400
+few nice things this is the proof of the station work that
+
+00:18:32.410 --> 00:18:40.480
+Nick had it adds this signatures field and the interesting part is
+
+00:18:40.490 --> 00:18:46.160
+this one these are part of the post draft but this is
+
+00:18:46.170 --> 00:18:50.300
+where we have a signature that came from and actually encumber
+
+00:18:50.300 --> 00:18:55.960
+ed TE so whenever someone reads the record that is attached to
+
+00:18:55.970 --> 00:19:01.340
+this post they can go and verify the signature of this and
+
+00:19:01.340 --> 00:19:05.440
+then they can go and verify that this list of keys here
+
+00:19:05.450 --> 00:19:13.880
+have have a root certificate at the station attached
+
+00:19:13.890 --> 00:19:17.280
+to them and therefore you can get end-to-end
+
+00:19:17.290 --> 00:19:25.520
+verifiability still preserved so
+
+00:19:26.230 --> 00:19:30.020
+yeah that's the main thing I wanted to talk about maybe
+
+00:19:30.020 --> 00:19:36.480
+I'll touch on two related concepts one is this concept of
+
+00:19:36.490 --> 00:19:40.120
+reproducible build because this is something that we're not always
+
+00:19:40.130 --> 00:19:46.340
+thinking about when developing software usually so when we're creating Node
+
+00:19:46.340 --> 00:19:46.440
+.
+
+00:19:46.440 --> 00:19:50.200
+js code C code RAS code whatever whenever we compile it
+
+00:19:50.210 --> 00:19:54.580
+we sometimes get a different binary for many reasons sometimes versions change
+
+00:19:54.590 --> 00:19:59.900
+of our dependencies sometimes just our compilers add timestamps
+
+00:19:59.910 --> 00:20:04.260
+which is reasonable but it changes the binary that we get eventually
+
+00:20:04.270 --> 00:20:08.440
+and that is a bit disastrous when you want to get the
+
+00:20:08.450 --> 00:20:14.880
+guarantee that a specific program is running in a T but luckily
+
+00:20:14.880 --> 00:20:18.380
+a lot of people have thought about it and it's something
+
+00:20:18.390 --> 00:20:21.700
+that people have worked on for decades and there is good infrastructure
+
+00:20:21.710 --> 00:20:24.250
+to do that so you can take code in C you can
+
+00:20:24.270 --> 00:20:28.800
+take code in Rust or whatever is still reasonable to do it
+
+00:20:28.810 --> 00:20:33.810
+in and build it and you can get something that translates source
+
+00:20:33.820 --> 00:20:36.680
+code to binary in a way that you always get the same
+
+00:20:36.690 --> 00:20:44.310
+hash so that means that we don't add trust on whoever
+
+00:20:44.330 --> 00:20:48.140
+deploys the program to the TE anyone could go and fetch
+
+00:20:48.150 --> 00:20:51.720
+the source code and rebuild themselves which is nice like this is
+
+00:20:51.730 --> 00:20:58.300
+preserve the decentralized nature of what we're trying to get yeah
+
+00:20:58.310 --> 00:21:03.320
+and this is a whole verifiability chain that I mentioned
+
+00:21:03.330 --> 00:21:07.190
+I'll just look at it briefly so we have a published
+
+00:21:07.210 --> 00:21:15.780
+post we have signatures on this post we have a
+
+00:21:15.790 --> 00:21:23.210
+deed that lives on PLC and has TE keys that it
+
+00:21:23.230 --> 00:21:28.480
+allows to sign and we also have attestation that these
+
+00:21:28.490 --> 00:21:33.580
+keys came from the right manufacturer and are actually secure keys and
+
+00:21:33.580 --> 00:21:42.280
+the verification that this whole chain happened correctly so
+
+00:21:42.290 --> 00:21:47.100
+now because I know I'm still a cryptographer I want
+
+00:21:47.110 --> 00:21:51.560
+to give alternatives that maybe some of you would want to utilize
+
+00:21:51.570 --> 00:21:59.580
+instead and two alternatives that might get
+
+00:21:59.580 --> 00:22:03.590
+you to similar concepts would be something called multiparty computation
+
+00:22:03.610 --> 00:22:08.180
+which is a concept that allows you to split a cryptographic
+
+00:22:08.190 --> 00:22:13.360
+key in a way that whenever it's used it still seems
+
+00:22:13.370 --> 00:22:18.990
+like a single person signature like we know to verify but instead
+
+00:22:19.010 --> 00:22:21.420
+you split it to let's say two out of three people
+
+00:22:21.430 --> 00:22:27.260
+so that they have to run a very complex cryptographic protocol
+
+00:22:27.270 --> 00:22:33.700
+and then produce this signature that looks like any other signature you
+
+00:22:33.700 --> 00:22:38.320
+could do that but now you don't have the guarantee that
+
+00:22:38.330 --> 00:22:42.440
+some specific program is running you have to trust that an honest
+
+00:22:42.450 --> 00:22:47.660
+majority of people in this committee of signers are running the
+
+00:22:47.660 --> 00:22:53.080
+correct program reasonable but that's the trade-off and there
+
+00:22:53.090 --> 00:23:00.620
+is also another complex concept of zero knowledge proofs which is
+
+00:23:00.630 --> 00:23:04.840
+again allows you to take a program convert it to some different
+
+00:23:04.850 --> 00:23:09.120
+kind of math and then get a guarantee that specific logic ran
+
+00:23:09.130 --> 00:23:14.760
+on specific inputs that's nice but what it produces is not
+
+00:23:14.770 --> 00:23:19.800
+signatures what it produces is proofs and these proofs can
+
+00:23:19.810 --> 00:23:26.300
+sometimes be large these proofs can also be slower to verify
+
+00:23:26.310 --> 00:23:34.140
+sometimes so also powerful different trade-offs another thing that these
+
+00:23:34.150 --> 00:23:37.800
+could give you is the fact that they can also interact with
+
+00:23:37.800 --> 00:23:41.430
+the real world so for example some of them can also make
+
+00:23:41.450 --> 00:23:49.530
+requests from inside the TE and fetch data for example which is
+
+00:23:49.550 --> 00:23:51.630
+let's say in zk proofs it's not really
+
+00:23:51.650 --> 00:23:57.640
+possible maybe in some different ways npc is possible but then
+
+00:23:57.650 --> 00:24:02.680
+you run into some race conditions maybe every time you fetch and
+
+00:24:02.690 --> 00:24:07.740
+different parties would fetch different things load balancing whatever something you can
+
+00:24:07.750 --> 00:24:13.420
+do and yeah I will say that is used very specific implementation
+
+00:24:13.430 --> 00:24:18.460
+of TE is here but most of this concept are transferable
+
+00:24:18.470 --> 00:24:25.100
+to other TE systems as well and yeah before I wrap up
+
+00:24:25.100 --> 00:24:29.510
+I'll just also put some glaring open questions that exist
+
+00:24:29.530 --> 00:24:35.460
+in this proof of concept one of them is what about protecting
+
+00:24:35.470 --> 00:24:39.180
+the deed itself so if you remember what I was saying is
+
+00:24:39.190 --> 00:24:42.420
+that we take the list of keys that are authorized to sign
+
+00:24:42.430 --> 00:24:47.400
+from the deed document and that can be updated that can be
+
+00:24:47.410 --> 00:24:51.720
+updated in PLC that can be updated in deed web so
+
+00:24:51.730 --> 00:24:56.200
+maybe we need strong protections on the deed itself because otherwise it
+
+00:24:56.200 --> 00:25:01.220
+could just put any keys it wants and then maybe the ver
+
+00:25:01.220 --> 00:25:06.400
+ifiability becomes meaningless but that's also okay because in some
+
+00:25:06.410 --> 00:25:11.860
+sense you can say that updates to the deed should be rare
+
+00:25:11.870 --> 00:25:14.990
+like it's not something that needs to happen every day so
+
+00:25:15.000 --> 00:25:18.300
+you can think about stronger protections that you can add to deeds
+
+00:25:18.310 --> 00:25:23.660
+and maybe the rotation key which is what controls updates to the
+
+00:25:23.670 --> 00:25:30.260
+deed in PLC can be under really strong guard or whatever
+
+00:25:30.270 --> 00:25:36.880
+so that's one thing another thing is if you you might
+
+00:25:36.890 --> 00:25:40.800
+remember that I said that in order to know what are the
+
+00:25:40.810 --> 00:25:44.240
+keys that are authorized to sign we send the whole audit log
+
+00:25:44.250 --> 00:25:50.980
+to the T and but what if we didn't send the
+
+00:25:50.990 --> 00:25:57.000
+entire audit log what if we stopped before the last update so
+
+00:25:57.010 --> 00:26:02.640
+it might not have the most fresh list of keys so this
+
+00:26:02.650 --> 00:26:06.740
+is a problem like you can think about solving it in different
+
+00:26:06.750 --> 00:26:10.460
+ways maybe making requests out of the T to fetch the audit
+
+00:26:10.470 --> 00:26:14.710
+log and then you don't need to trust the input audit
+
+00:26:14.730 --> 00:26:19.190
+log maybe there is a solution that can be done on PL
+
+00:26:19.190 --> 00:26:25.880
+C itself maybe PLC could start signing responses that's different
+
+00:26:25.890 --> 00:26:30.300
+ways and yeah many many other things that are left open here
+
+00:26:30.310 --> 00:26:35.850
+and when people look at it they are welcome to discuss this
+
+00:26:35.870 --> 00:26:40.120
+with me or others but yeah many other things are open in
+
+00:26:40.130 --> 00:26:45.260
+this proof of concept but yeah I hope that it opens some
+
+00:26:45.270 --> 00:26:51.240
+new notion for at least some of you thank you

@@ -1,0 +1,415 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:07.290
+so I'm Tim thanks for being here this is my second
+
+00:00:07.290 --> 00:00:12.720
+atmosphere and I just drove up from Northern California it's been
+
+00:00:12.900 --> 00:00:20.690
+great everybody including the organizers has really been fantastic this is a
+
+00:00:20.710 --> 00:00:29.000
+short presentation of a hack I thought you might be interested
+
+00:00:29.000 --> 00:00:31.780
+in it it's it's an unusual way that I use
+
+00:00:31.800 --> 00:00:35.660
+at proto and maybe it would trigger some ideas for things that
+
+00:00:35.660 --> 00:00:40.310
+you might want to do with it too so I'm a
+
+00:00:40.320 --> 00:00:47.780
+software developer I recently left a corporate job to make something new
+
+00:00:47.810 --> 00:00:51.560
+it's a lot to talk about so first I'm gonna
+
+00:00:51.690 --> 00:00:55.280
+focus on a kind of a key problem that I had which
+
+00:00:55.280 --> 00:00:58.970
+is how can I get feedback on early versions of my work
+
+00:00:59.410 --> 00:01:02.200
+you might have heard of products that help with this I've
+
+00:01:02.340 --> 00:01:14.670
+shown a couple on the slide oh I'm not showing yeah
+
+00:01:15.060 --> 00:01:23.330
+we tested earlier and
+
+00:01:23.330 --> 00:01:33.060
+it worked oh here no oh I probably
+
+00:01:33.060 --> 00:01:44.960
+need to mirror my screens yeah yeah yeah
+
+00:01:44.990 --> 00:01:53.200
+does that look better okay okay thanks yeah anyway
+
+00:01:53.240 --> 00:01:57.490
+that was my title screen so I'm a software developer I
+
+00:01:57.490 --> 00:02:01.460
+'ve actually spent most of my time coding for the last two
+
+00:02:01.460 --> 00:02:03.820
+years and haven't really talked to people so I'm a
+
+00:02:03.820 --> 00:02:10.540
+little awkward but I was talking about wanting ways to get feedback
+
+00:02:10.540 --> 00:02:13.850
+on my work and there are these products that my friends have
+
+00:02:13.890 --> 00:02:17.230
+told me about config cat launch darkly and I guess post
+
+00:02:17.280 --> 00:02:20.780
+hog and these are all fine but I'm like just one
+
+00:02:21.100 --> 00:02:24.380
+person I'm just a person with a laptop and to me
+
+00:02:24.380 --> 00:02:32.600
+they seem like too much now you might ask why don
+
+00:02:32.600 --> 00:02:35.410
+'t I just open source it and I've actually done a
+
+00:02:35.410 --> 00:02:40.700
+lot of open source over the years and as good as good
+
+00:02:40.780 --> 00:02:42.990
+as good as it is it also has some downsides I
+
+00:02:42.990 --> 00:02:47.660
+mean kind of the obvious thing is you might your code might
+
+00:02:47.660 --> 00:02:50.290
+become used by one of your rivals it might be something that
+
+00:02:50.310 --> 00:02:56.540
+they or their training their coding assistants use but really kind of
+
+00:02:56.540 --> 00:02:59.180
+is that you might commit too soon to a set of features
+
+00:02:59.180 --> 00:03:06.560
+that you regret later and even worse you might unexpectedly unexpectedly become
+
+00:03:06.560 --> 00:03:10.780
+someone's critical dependency and that sounds far-fetched
+
+00:03:10.780 --> 00:03:16.700
+but it actually happened to me I was an engineer at Google
+
+00:03:16.700 --> 00:03:21.800
+and I had a project and kind of unknown to me it
+
+00:03:21.800 --> 00:03:27.020
+became useful to Kubernetes and before I knew it it was a
+
+00:03:27.060 --> 00:03:32.140
+critical dependency of kubectl the Kubernetes CLI and
+
+00:03:32.140 --> 00:03:37.420
+I wasn't on the Kubernetes team and as I moved around
+
+00:03:37.420 --> 00:03:41.340
+in Google none of my managers appreciated me spending any time taking
+
+00:03:41.340 --> 00:03:44.940
+care of this project so it just became a tax on me
+
+00:03:44.940 --> 00:03:50.390
+like a lot of open source projects do so what do you
+
+00:03:50.420 --> 00:03:52.690
+want to do or do I want to do instead I'd
+
+00:03:52.740 --> 00:03:56.390
+like to have a way to release early binaries and you
+
+00:03:56.400 --> 00:04:00.160
+know this is independent of what I do eventually but in the
+
+00:04:00.160 --> 00:04:03.630
+beginning I'd like to just give people binaries that they
+
+00:04:03.650 --> 00:04:07.340
+can easily install but control who can use them so that I
+
+00:04:07.340 --> 00:04:13.000
+can get feedback both directly and through analytics on how that's
+
+00:04:13.020 --> 00:04:17.660
+been going and the way that I do this is that I
+
+00:04:17.660 --> 00:04:21.180
+just might this is a server side component so I just publish
+
+00:04:21.180 --> 00:04:24.600
+docker binaries and I make all my builds require a
+
+00:04:24.600 --> 00:04:28.110
+license key which is just a JWT and we all know
+
+00:04:28.110 --> 00:04:31.470
+about JWTs the JWT identifies the user and says they
+
+00:04:31.470 --> 00:04:34.760
+have a license to use this and then I add at proto
+
+00:04:34.760 --> 00:04:39.600
+sign-in to my website and anyone can log in to
+
+00:04:39.650 --> 00:04:45.180
+my project website with their blue sky or whatever at proto id
+
+00:04:45.180 --> 00:04:49.890
+and mint their own license key but in order to decide who
+
+00:04:49.970 --> 00:04:54.010
+can mint the license key now this is the hack instead of
+
+00:04:54.010 --> 00:04:58.110
+keeping a list I just say that whoever my project account follows
+
+00:04:58.390 --> 00:05:03.100
+can mint a license so if agent io follows you you're
+
+00:05:03.100 --> 00:05:11.430
+in the beta so I really like this because it's
+
+00:05:11.440 --> 00:05:17.990
+so simple and because I'm using at proto identities know like
+
+00:05:18.050 --> 00:05:21.730
+I talk to enterprise companies that have their own like login with
+
+00:05:21.740 --> 00:05:24.460
+this or that none of them can be mad that I'm
+
+00:05:24.460 --> 00:05:27.640
+using one of their competitors to log in to my website so
+
+00:05:27.640 --> 00:05:31.850
+I'm neutral and then I didn't even add a le
+
+00:05:31.850 --> 00:05:35.340
+xicon it was just so easy I just have a dedicated
+
+00:05:35.340 --> 00:05:38.730
+account for this and whoever it follows is in my beta and
+
+00:05:38.730 --> 00:05:42.060
+then I get this thing that my friend marsh calls social proof
+
+00:05:42.070 --> 00:05:46.810
+or social unproof if I'm not having users basically anyone
+
+00:05:46.810 --> 00:05:49.600
+can see who my users are so they can see who else
+
+00:05:49.600 --> 00:05:53.320
+is interested in the product and so that means it might not
+
+00:05:53.320 --> 00:05:56.300
+be right for you so if you don't like exposing that
+
+00:05:56.310 --> 00:06:01.180
+you might just want to keep a private list and like anything
+
+00:06:01.180 --> 00:06:04.790
+it's breakable so if you're you know enough of
+
+00:06:04.790 --> 00:06:13.290
+a hacker to break my licenses okay and then people
+
+00:06:13.290 --> 00:06:19.200
+need at proto accounts and if people interested in my project don
+
+00:06:19.250 --> 00:06:22.060
+'t have one they have to get an app proto account which
+
+00:06:22.060 --> 00:06:25.780
+is not a problem to any of us right so that's
+
+00:06:25.780 --> 00:06:30.750
+my story this is just a list of things that I like
+
+00:06:30.750 --> 00:06:33.500
+to talk about or I'm interested in hearing about so if
+
+00:06:33.500 --> 00:06:38.140
+you see me around and just want to say hi talk about
+
+00:06:38.180 --> 00:06:40.960
+any of those things or anything that's interesting to you that
+
+00:06:40.960 --> 00:06:43.270
+'s cool we don't have much time left but I'll
+
+00:06:43.330 --> 00:06:49.160
+be here late today and I also how many minutes do I
+
+00:06:49.200 --> 00:06:55.010
+have left give me a budget you got time okay I'm
+
+00:06:55.040 --> 00:06:58.400
+going to take maybe five minutes this is what I'm building
+
+00:06:58.400 --> 00:07:02.730
+this is what I call io io is a network proxy I
+
+00:07:02.730 --> 00:07:06.450
+'m going to disconnect from it from a second so it's
+
+00:07:06.450 --> 00:07:11.240
+actually running on a droplet on digital ocean and I can
+
+00:07:11.260 --> 00:07:15.430
+ssh to it and when I do I get this terminal
+
+00:07:15.540 --> 00:07:18.760
+ui and I can use the terminal ui to see
+
+00:07:18.760 --> 00:07:23.050
+all the api traffic that io manages and so what I
+
+00:07:23.050 --> 00:07:27.250
+'m showing are different kinds of traffic that it manages and I
+
+00:07:27.250 --> 00:07:30.470
+want to just focus on this one on the right I call
+
+00:07:30.470 --> 00:07:37.180
+it ingress these are the https terminations of my server
+
+00:07:37.180 --> 00:07:41.660
+so each of these is under ingress this is a server
+
+00:07:41.660 --> 00:07:49.870
+a service that you connect to with https this one repo works
+
+00:07:49.920 --> 00:07:54.930
+is a pds that I'm writing and so now I
+
+00:07:54.990 --> 00:07:58.490
+'m I just stepped down into it and I'm looking at
+
+00:07:58.490 --> 00:08:03.020
+the traffic so somebody well here's my subscribe repos traffic
+
+00:08:03.030 --> 00:08:09.960
+these are calls to get like lists of repos and I
+
+00:08:09.960 --> 00:08:13.340
+can kind of drill into this and I can see the request
+
+00:08:13.340 --> 00:08:17.090
+this is the headers and response headers the request and response headers
+
+00:08:17.100 --> 00:08:20.500
+for this and I can see this is for debugging I can
+
+00:08:20.560 --> 00:08:23.500
+see the request and response bodies and this is what I'm
+
+00:08:23.500 --> 00:08:29.690
+returning so so that's you know for observation now here I
+
+00:08:29.700 --> 00:08:33.900
+'ve got an implementation of the statusphere app and this status
+
+00:08:33.900 --> 00:08:38.310
+phere app is actually also running on my proxy so if I
+
+00:08:38.320 --> 00:08:42.950
+go back up I've got this statusphere dot babu
+
+00:08:42.950 --> 00:08:50.300
+dot dev I want to sign into this statusphere app this
+
+00:08:50.300 --> 00:08:54.560
+I should probably say is not the original statusphere app this
+
+00:08:54.560 --> 00:08:57.890
+is one that I modified to take advantage of my proxy and
+
+00:08:57.890 --> 00:09:02.600
+I'm going to mention here I'm going to use an
+
+00:09:02.600 --> 00:09:05.200
+identity on my new pds that I'm working on and
+
+00:09:05.210 --> 00:09:10.060
+you can see it's being developed by my fancy login screen
+
+00:09:10.070 --> 00:09:18.300
+and my very fancy confirmation screen and so now
+
+00:09:18.300 --> 00:09:22.300
+I'm in so my user is just named alpha user and
+
+00:09:22.300 --> 00:09:28.460
+I'm going to set its status to what do we like
+
+00:09:28.460 --> 00:09:32.480
+well I like that so so it's a butterfly so I
+
+00:09:32.480 --> 00:09:36.050
+mean this is the statusphere app we all know this right
+
+00:09:36.050 --> 00:09:39.060
+so I come back and see what's going on in my
+
+00:09:39.060 --> 00:09:44.140
+proxy so we can look at the pds and these are
+
+00:09:44.150 --> 00:09:46.940
+the calls that were made to my pds so I can
+
+00:09:47.080 --> 00:09:54.730
+see down here sign in the original like par request that we
+
+00:09:54.790 --> 00:09:57.830
+could look into that so this is the par request that's
+
+00:09:57.830 --> 00:10:01.490
+the par request message that was sent by my app that's
+
+00:10:01.570 --> 00:10:06.110
+the request that's the response body of the par request okay
+
+00:10:06.600 --> 00:10:13.030
+and all the other traffic and meanwhile I can also go over
+
+00:10:13.030 --> 00:10:26.780
+to the statusphere app and see its traffic which includes the
+
+00:10:26.780 --> 00:10:30.420
+callback and the other messages that it sends so oh am
+
+00:10:30.420 --> 00:10:33.740
+I looking at the right one okay so anyway this is IO
+
+00:10:33.740 --> 00:10:37.260
+it's a tool for building services and observing them as they
+
+00:10:37.270 --> 00:10:41.640
+run I'm doing a kind of open beta now so if
+
+00:10:41.640 --> 00:10:44.660
+you connect with me I'll give you a license and I
+
+00:10:44.660 --> 00:10:47.690
+'d love to hear what you think thanks hey thank you very
+
+00:10:47.690 --> 00:10:49.740
+much Tim we're going to have a

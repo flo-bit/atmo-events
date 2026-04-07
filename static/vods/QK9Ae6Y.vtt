@@ -1,0 +1,2101 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:15.120
+Hello everyone, I'm Rudy
+
+00:00:15.120 --> 00:00:20.880
+Fraser and it brings me a lot of joy to be presenting
+
+00:00:21.260 --> 00:00:30.610
+on this topic here at the second atmosphere conference
+
+00:00:31.100 --> 00:00:31.410
+.
+
+00:00:31.460 --> 00:00:33.340
+It's been really cool to be able to ask people if
+
+00:00:33.350 --> 00:00:37.550
+this is their first atmosphere conference and if this is your first
+
+00:00:37.680 --> 00:00:41.960
+atmosphere conference, welcome.
+
+00:00:41.960 --> 00:00:44.340
+And yeah, I hope that there's something here that you
+
+00:00:44.340 --> 00:00:50.100
+can take away and ship something and build something for the community
+
+00:00:50.100 --> 00:00:51.710
+and ecosystem.
+
+00:00:51.920 --> 00:00:54.810
+So as I said, I'm Rudy Fraser.
+
+00:00:54.810 --> 00:00:57.640
+I'm the founder and CEO of Black Sky Algorithms
+
+00:00:57.640 --> 00:00:57.920
+.
+
+00:00:57.920 --> 00:01:02.020
+I am previously a fellow at the Applied Social Media Lab
+
+00:01:02.020 --> 00:01:03.700
+at the Berkman Klein Center.
+
+00:01:03.700 --> 00:01:06.440
+I'm the board chair of PAC Collective, which is
+
+00:01:06.440 --> 00:01:11.530
+a nonprofit that fiscally hosts about 25 mutual aid groups
+
+00:01:11.670 --> 00:01:13.340
+in New York City.
+
+00:01:13.340 --> 00:01:17.080
+And I'm an organizer with We the People NYC.
+
+00:01:17.080 --> 00:01:22.240
+Black Sky launched about three years ago now.
+
+00:01:22.240 --> 00:01:26.180
+And we started off as just a custom feed on the Blue
+
+00:01:26.180 --> 00:01:27.320
+Sky app.
+
+00:01:27.320 --> 00:01:32.780
+And now has been used by over 2 million people.
+
+00:01:32.780 --> 00:01:36.400
+The feeds are used by a quarter million people every month.
+
+00:01:36.530 --> 00:01:39.560
+And we are a member supported organization.
+
+00:01:39.660 --> 00:01:44.300
+And that member support is really important because the last time that
+
+00:01:44.300 --> 00:01:47.450
+I was here at Atmosphere conference, it was just
+
+00:01:47.450 --> 00:01:48.860
+me on this slide.
+
+00:01:49.050 --> 00:01:51.820
+But now it's our entire team.
+
+00:01:51.820 --> 00:01:52.860
+And our entire team is here today.
+
+00:01:52.860 --> 00:02:01.680
+So if you see folks with a Black Sky shirt
+
+00:02:02.140 --> 00:02:06.520
+on, tell them what's up.
+
+00:02:06.890 --> 00:02:07.190
+Yeah.
+
+00:02:07.190 --> 00:02:10.380
+And I think that the thesis for Black Sky is that we
+
+00:02:10.380 --> 00:02:15.890
+really do believe that App Protocol has these unique properties that allow
+
+00:02:15.890 --> 00:02:20.090
+folks to -- it helped us bootstrap a pretty large
+
+00:02:20.260 --> 00:02:21.360
+community.
+
+00:02:21.360 --> 00:02:26.590
+And we think that we're really interested in helping other folks
+
+00:02:26.590 --> 00:02:31.590
+basically do the same thing, leveraging the stuff in the protocol
+
+00:02:31.590 --> 00:02:32.140
+.
+
+00:02:32.140 --> 00:02:32.830
+Okay.
+
+00:02:32.830 --> 00:02:36.300
+So the title of this talk is Groundings with my siblings
+
+00:02:36.300 --> 00:02:36.680
+.
+
+00:02:36.680 --> 00:02:39.340
+And I want to start by explaining where that comes from.
+
+00:02:39.340 --> 00:02:42.940
+Walter Rodney was a Guyanese activist, scholar,
+
+00:02:42.940 --> 00:02:43.340
+Pan-Africanist.
+
+00:02:43.340 --> 00:02:47.420
+And I think most important for us today, he was a
+
+00:02:47.420 --> 00:02:49.020
+practitioner.
+
+00:02:49.020 --> 00:02:53.680
+He's best known for how Europe underdeveloped Africa.
+
+00:02:53.680 --> 00:02:56.460
+But his earlier work, The Groundings with my brothers,
+
+00:02:56.460 --> 00:02:58.650
+is one that changed how I think about what I'm doing
+
+00:02:58.650 --> 00:02:59.340
+with Black Sky.
+
+00:02:59.340 --> 00:03:05.340
+Rodney was 26 years old, fresh off his PhD teaching
+
+00:03:05.340 --> 00:03:08.140
+at the University of the West Indies in Jamaica in 1968
+
+00:03:08.140 --> 00:03:08.300
+.
+
+00:03:08.300 --> 00:03:12.000
+And he did something that the university and the Jamaican government
+
+00:03:12.000 --> 00:03:13.340
+could not understand.
+
+00:03:13.340 --> 00:03:14.540
+He left the campus.
+
+00:03:14.540 --> 00:03:20.600
+He went into the communities and sat down with Rastaf
+
+00:03:20.620 --> 00:03:21.420
+arians.
+
+00:03:21.420 --> 00:03:24.810
+People that -- and I think a lot of people have an
+
+00:03:25.060 --> 00:03:28.270
+understanding of like Rastafarians in like Bob Marley
+
+00:03:28.270 --> 00:03:31.530
+'s sense, but Rastafarians in Jamaica are considered
+
+00:03:31.530 --> 00:03:33.020
+like -- they're like houseless people.
+
+00:03:33.020 --> 00:03:36.060
+They're like the -- they're like gutter punks
+
+00:03:36.060 --> 00:03:36.300
+.
+
+00:03:36.410 --> 00:03:38.140
+Like they're outcasts.
+
+00:03:38.340 --> 00:03:40.180
+And yeah.
+
+00:03:40.530 --> 00:03:43.590
+And so he sat down with these folks and they reasoned
+
+00:03:43.590 --> 00:03:44.260
+together.
+
+00:03:44.260 --> 00:03:45.920
+And that's what grounding is.
+
+00:03:46.000 --> 00:03:49.560
+It's a Rastafari concept, sitting down together
+
+00:03:49.560 --> 00:03:50.510
+to reason.
+
+00:03:50.510 --> 00:03:54.320
+And the part that I keep coming back to is that Rod
+
+00:03:54.320 --> 00:04:00.720
+ney insisted that he was the student in those exchanges.
+
+00:04:00.720 --> 00:04:04.170
+He said, "I got knowledge from them, real knowledge
+
+00:04:04.170 --> 00:04:07.330
+." He went in thinking he had something to teach, and
+
+00:04:07.330 --> 00:04:10.800
+he came out understanding that the people closest to the problem already
+
+00:04:10.800 --> 00:04:11.990
+had the analysis.
+
+00:04:11.990 --> 00:04:15.130
+They didn't -- they just didn't have the platform that
+
+00:04:15.140 --> 00:04:15.720
+he had.
+
+00:04:15.740 --> 00:04:19.570
+His widow, Patricia, described grounding not as an event,
+
+00:04:19.710 --> 00:04:22.690
+but as a practice, a way of living.
+
+00:04:22.690 --> 00:04:27.650
+One where academics and activism were integrated and inseparable.
+
+00:04:27.660 --> 00:04:32.700
+I'm borrowing this framework because over the last year, I
+
+00:04:32.700 --> 00:04:36.190
+feel like I left the code base and went to -- kind
+
+00:04:36.190 --> 00:04:40.720
+of did the inverse -- went to college campuses, went to
+
+00:04:40.720 --> 00:04:44.500
+conferences, went to community spaces, sat down with people,
+
+00:04:44.500 --> 00:04:48.860
+spoke, listened, probably talked to the most people I've
+
+00:04:49.170 --> 00:04:51.500
+spoken to in my life in the last year.
+
+00:04:51.500 --> 00:04:57.590
+And like Rodney, I learned more from those conversations than
+
+00:04:57.660 --> 00:04:59.750
+than I could have given back in those moments.
+
+00:04:59.750 --> 00:05:01.490
+And so that's what this talk is about.
+
+00:05:01.630 --> 00:05:04.830
+It's like what I heard, what surprised me, what
+
+00:05:04.830 --> 00:05:07.980
+we got wrong, and kind of, yeah, what we
+
+00:05:07.980 --> 00:05:10.780
+took away from these moments.
+
+00:05:10.780 --> 00:05:15.130
+So here's what that grounding looked like in practice: 15
+
+00:05:15.290 --> 00:05:18.750
+different cities, several college campuses and schools, a lot of
+
+00:05:18.750 --> 00:05:21.900
+times sitting with people who have never heard of App Protocol,
+
+00:05:21.900 --> 00:05:25.730
+never heard of Blue Sky, but who cared deeply about the
+
+00:05:25.870 --> 00:05:30.310
+same problems that I believe everyone in this room is building towards
+
+00:05:30.310 --> 00:05:30.640
+.
+
+00:05:30.640 --> 00:05:34.170
+And now I'm grounding with you.
+
+00:05:35.000 --> 00:05:38.810
+Really, I should be probably sitting amongst y'all,
+
+00:05:38.810 --> 00:05:39.210
+right?
+
+00:05:39.210 --> 00:05:41.560
+Like it's instead of just like speaking from the from the
+
+00:05:41.560 --> 00:05:42.020
+podium.
+
+00:05:42.100 --> 00:05:47.030
+But I want to give you what Rodney gave the people
+
+00:05:47.030 --> 00:05:50.460
+he sat with, which is just honesty and his experience.
+
+00:05:50.740 --> 00:05:55.020
+There's a tendency in tech circles and communities to only share
+
+00:05:55.020 --> 00:05:58.050
+the wins, only share the big fundraisers, and
+
+00:05:58.050 --> 00:06:00.940
+I think if you follow me on Blue Sky, Black Sky
+
+00:06:00.940 --> 00:06:03.620
+, I tell you when I think we're doing something wrong
+
+00:06:03.620 --> 00:06:03.740
+.
+
+00:06:03.740 --> 00:06:09.520
+And yeah, and so I don't think you learn from
+
+00:06:09.540 --> 00:06:13.890
+just wins or highlight reels.
+
+00:06:13.890 --> 00:06:17.910
+I think you learn from losses and from pain.
+
+00:06:17.910 --> 00:06:24.520
+The open source community is at least adjacent to the ideal that
+
+00:06:24.700 --> 00:06:27.180
+information wants to be free.
+
+00:06:27.180 --> 00:06:31.420
+And so this is my giving this information to you for free
+
+00:06:31.420 --> 00:06:34.030
+so that you can build something that folks find valuable and you
+
+00:06:34.030 --> 00:06:37.100
+don't have to go through the same pain points that we
+
+00:06:37.100 --> 00:06:37.340
+had.
+
+00:06:40.380 --> 00:06:41.380
+Okay.
+
+00:06:41.380 --> 00:06:45.310
+First up, PDSs.
+
+00:06:45.310 --> 00:06:48.440
+I think portability is a core premise of the protocol.
+
+00:06:48.780 --> 00:06:52.640
+But there's a pattern in how it actually becomes real for
+
+00:06:52.640 --> 00:06:53.100
+people.
+
+00:06:53.100 --> 00:06:58.230
+So in this chart, you can see, so over time
+
+00:06:58.230 --> 00:07:01.950
+, right, this is a chart pulled from Makuba.
+
+00:07:01.950 --> 00:07:03.580
+I think it's their name.
+
+00:07:03.580 --> 00:07:09.600
+They have this dashboard of independent weekly users posting from non-
+
+00:07:09.600 --> 00:07:11.020
+Blue Sky PDSs.
+
+00:07:11.020 --> 00:07:17.650
+And that first gray circle there was -- I kind of unintention
+
+00:07:17.860 --> 00:07:22.570
+ally posted about giving away invite codes.
+
+00:07:22.570 --> 00:07:24.780
+I was talking about giving away invite codes to our mods,
+
+00:07:25.420 --> 00:07:28.540
+and then Black Sky was like, there are invite codes?
+
+00:07:28.810 --> 00:07:32.220
+What are the invite codes for?
+
+00:07:32.430 --> 00:07:36.090
+And so, and so, yeah, so I did the
+
+00:07:36.090 --> 00:07:39.340
+like Oprah meme and then we got like 200 replies asking for
+
+00:07:39.340 --> 00:07:40.140
+invite codes.
+
+00:07:40.150 --> 00:07:47.170
+And at the time, I remember being pretty frustrated with where
+
+00:07:47.170 --> 00:07:50.020
+the atmosphere community was at on data portability.
+
+00:07:50.020 --> 00:07:52.870
+I feel like there are times when stuff is like treated as
+
+00:07:52.870 --> 00:07:53.820
+a solved problem.
+
+00:07:53.820 --> 00:07:56.300
+And so, I made a post about it.
+
+00:07:56.720 --> 00:08:01.390
+And a day later, I made a video showing how to
+
+00:08:01.420 --> 00:08:05.320
+migrate using the GOAT command line tool.
+
+00:08:05.320 --> 00:08:11.480
+That video now has 1,000 views on YouTube of just
+
+00:08:11.480 --> 00:08:14.250
+like a 45-minute video where I'm just like,
+
+00:08:14.250 --> 00:08:14.700
+this is hard.
+
+00:08:14.700 --> 00:08:15.820
+You probably don't want to do this.
+
+00:08:15.820 --> 00:08:21.020
+And then the very next day, Bailey Townsend shipped
+
+00:08:21.020 --> 00:08:23.340
+version 1 of PDS Mover.
+
+00:08:23.350 --> 00:08:31.400
+And yeah, and so and
+
+00:08:31.500 --> 00:08:36.300
+like you can kind of clearly see that that makes that makes
+
+00:08:36.300 --> 00:08:37.500
+a difference, right?
+
+00:08:38.780 --> 00:08:44.150
+The purple circle is some band controversies that we won't
+
+00:08:44.150 --> 00:08:45.660
+get too, too deep into.
+
+00:08:45.670 --> 00:08:51.030
+But, you know, it was, again, a real
+
+00:08:51.240 --> 00:08:52.140
+pain point.
+
+00:08:52.140 --> 00:08:54.450
+I think sometimes people see things on the internet and they think
+
+00:08:54.450 --> 00:08:57.810
+it's like, it maybe doesn't affect real life.
+
+00:08:57.950 --> 00:09:00.990
+But again, I'm in all these different places.
+
+00:09:00.990 --> 00:09:04.110
+I was at a conference in the Bay Area, this like
+
+00:09:04.110 --> 00:09:05.340
+observatory.
+
+00:09:05.620 --> 00:09:09.340
+And multiple times in the night, people kept coming up to
+
+00:09:09.340 --> 00:09:11.100
+me is like, so what's going on with Link?
+
+00:09:11.100 --> 00:09:15.260
+I'm just like, do you know him personally?
+
+00:09:15.260 --> 00:09:17.570
+But they just heard about the story.
+
+00:09:17.570 --> 00:09:19.740
+And for us, it was very painful.
+
+00:09:19.740 --> 00:09:22.590
+It brought our entire mission, like sometimes people like, why
+
+00:09:22.590 --> 00:09:23.580
+do you even need a PDS?
+
+00:09:23.580 --> 00:09:27.100
+It brought our whole mission into question of like, why do
+
+00:09:27.100 --> 00:09:28.700
+you even exist then if this could happen?
+
+00:09:29.120 --> 00:09:33.480
+And so it was and it had a real dollar value to
+
+00:09:33.480 --> 00:09:33.750
+it.
+
+00:09:33.750 --> 00:09:36.040
+Like we ended up shelling out $14,000 to
+
+00:09:36.170 --> 00:09:38.540
+like set up an app view server just to like bare metal
+
+00:09:38.540 --> 00:09:38.710
+.
+
+00:09:38.710 --> 00:09:41.210
+And then went and that's not counting the labor to like
+
+00:09:41.220 --> 00:09:47.850
+get all that stuff built and shipped.
+
+00:09:47.850 --> 00:09:51.840
+And then the blue circle, which is the big spike,
+
+00:09:51.840 --> 00:09:53.730
+is Eurosky launching.
+
+00:09:53.730 --> 00:09:55.340
+Shout out to them.
+
+00:09:55.340 --> 00:10:02.000
+So you can see all this happened at the end of last
+
+00:10:02.370 --> 00:10:03.220
+year.
+
+00:10:03.270 --> 00:10:06.810
+And there were just like very specific things people did to change
+
+00:10:06.810 --> 00:10:08.030
+the narrative.
+
+00:10:08.030 --> 00:10:10.840
+And as I mentioned to Blue Sky folks, like with all
+
+00:10:10.940 --> 00:10:14.130
+due respect to Blue Sky, like this was a fully community
+
+00:10:14.330 --> 00:10:15.220
+driven effort.
+
+00:10:15.220 --> 00:10:17.900
+There was no like outside initiative.
+
+00:10:17.900 --> 00:10:19.950
+It was just folks saw a problem.
+
+00:10:19.950 --> 00:10:21.160
+They worked on it.
+
+00:10:21.290 --> 00:10:25.940
+I know Bailey was like going back and forth with folks figuring
+
+00:10:25.940 --> 00:10:26.960
+out how to make it better.
+
+00:10:26.960 --> 00:10:28.220
+We were going back and forth.
+
+00:10:28.220 --> 00:10:31.130
+I was every invite code was done via my DMs at
+
+00:10:31.150 --> 00:10:31.900
+one point.
+
+00:10:31.900 --> 00:10:37.460
+So I was literally talking to hundreds of people to like coordinate
+
+00:10:37.730 --> 00:10:37.820
+this.
+
+00:10:38.940 --> 00:10:43.040
+And so the pattern there is the story is really just like
+
+00:10:43.110 --> 00:10:45.890
+there was a tool, but it wasn't accessible to folks
+
+00:10:45.890 --> 00:10:46.330
+, right?
+
+00:10:46.330 --> 00:10:48.220
+The command line tools didn't move the needle.
+
+00:10:48.220 --> 00:10:51.760
+And then it went to this client side Chromium based
+
+00:10:51.760 --> 00:10:53.380
+tool that was mobile friendly.
+
+00:10:53.380 --> 00:10:55.100
+And that was what folks needed.
+
+00:10:55.100 --> 00:10:58.780
+And yeah.
+
+00:10:58.780 --> 00:11:02.490
+And so it was just like, to me that felt very
+
+00:11:02.490 --> 00:11:02.920
+clear.
+
+00:11:02.920 --> 00:11:05.810
+The users that we knew, like they weren't ever going
+
+00:11:05.850 --> 00:11:09.280
+to like download the source code and like build something to use
+
+00:11:09.280 --> 00:11:09.680
+it.
+
+00:11:09.680 --> 00:11:13.180
+You know, it needed to be really clear and concise.
+
+00:11:13.180 --> 00:11:16.660
+And we found out from just doing that, like there are
+
+00:11:16.660 --> 00:11:19.980
+people using all types of browsers I've never heard of,
+
+00:11:19.990 --> 00:11:22.620
+personally.
+
+00:11:22.620 --> 00:11:23.700
+And in different scenarios.
+
+00:11:23.700 --> 00:11:25.660
+So imagine you got some -- one of our first users who
+
+00:11:25.790 --> 00:11:28.840
+migrated, it was like a half a gigabyte blob storage
+
+00:11:28.840 --> 00:11:29.100
+.
+
+00:11:29.100 --> 00:11:32.380
+Imagine if you're trying to do that client side over like
+
+00:11:32.380 --> 00:11:36.010
+a cell phone network with some random browser.
+
+00:11:36.010 --> 00:11:36.700
+You know what I mean?
+
+00:11:38.460 --> 00:11:40.130
+And so -- and yeah.
+
+00:11:40.130 --> 00:11:42.250
+And so -- and then what I think I tilt -- I
+
+00:11:42.250 --> 00:11:44.220
+tip my hat to the Eurosky folks.
+
+00:11:44.220 --> 00:11:45.900
+What they did was they did it server side.
+
+00:11:45.900 --> 00:11:49.420
+And so it was like it just happened in the background for
+
+00:11:49.460 --> 00:11:49.820
+the user.
+
+00:11:49.820 --> 00:11:53.020
+And it became really turnkey.
+
+00:11:53.070 --> 00:11:55.620
+And so we took that inspiration from that and built what became
+
+00:11:55.620 --> 00:11:56.030
+move.
+
+00:11:56.030 --> 00:11:56.660
+blacksky.
+
+00:11:56.660 --> 00:11:59.100
+community which followed that same pattern.
+
+00:12:00.700 --> 00:12:03.940
+Also, because we have this community space, we're able
+
+00:12:04.070 --> 00:12:08.850
+to like analyze the -- this 20 million record feed database and
+
+00:12:08.850 --> 00:12:12.220
+was able to find like the real -- people had real fear
+
+00:12:12.220 --> 00:12:12.540
+.
+
+00:12:12.540 --> 00:12:14.750
+They had -- they thought that their accounts were going to get
+
+00:12:14.750 --> 00:12:16.700
+deleted if they did the migration process.
+
+00:12:16.700 --> 00:12:21.680
+And so like another thing that we did was like add social
+
+00:12:21.680 --> 00:12:22.050
+proof.
+
+00:12:22.050 --> 00:12:23.140
+So like when you go to move.
+
+00:12:23.140 --> 00:12:23.650
+blacksky.
+
+00:12:23.690 --> 00:12:27.260
+community now, you see how many people are on the
+
+00:12:27.260 --> 00:12:28.220
+PDS.
+
+00:12:28.220 --> 00:12:30.860
+You see -- and it's sorted by people with big followers
+
+00:12:30.860 --> 00:12:32.640
+because people are like, oh, if I have a bigger
+
+00:12:32.640 --> 00:12:33.980
+account, how will this work for me?
+
+00:12:33.980 --> 00:12:36.940
+So having that kind of social proof.
+
+00:12:36.970 --> 00:12:41.130
+But the -- but we found that that was the effective way
+
+00:12:41.340 --> 00:12:44.220
+to help people get through the migration.
+
+00:12:44.240 --> 00:12:49.180
+And yeah, now our PDS has over 30,000
+
+00:12:49.180 --> 00:12:50.140
+accounts on it.
+
+00:12:58.310 --> 00:13:02.650
+All right.
+
+00:13:02.650 --> 00:13:03.450
+All right.
+
+00:13:03.450 --> 00:13:03.670
+The next one.
+
+00:13:03.670 --> 00:13:03.880
+A favorite.
+
+00:13:03.880 --> 00:13:04.030
+The app.
+
+00:13:04.060 --> 00:13:04.860
+bski compatible app view.
+
+00:13:05.320 --> 00:13:08.660
+I want to -- this is like an important one for me
+
+00:13:08.660 --> 00:13:12.620
+because I think sometimes people point out, I guess, where
+
+00:13:12.680 --> 00:13:15.140
+we're at and not necessarily where we want to be going
+
+00:13:15.140 --> 00:13:15.320
+.
+
+00:13:15.320 --> 00:13:17.660
+Blacksky is not trying to be a micro blogging app
+
+00:13:17.660 --> 00:13:17.740
+.
+
+00:13:17.740 --> 00:13:20.050
+We're not trying to like compete with like blue sky on
+
+00:13:20.050 --> 00:13:20.540
+that.
+
+00:13:20.600 --> 00:13:27.500
+The app modality or medium is not important for us.
+
+00:13:28.300 --> 00:13:32.130
+But to fulfill the mission of reaching millions of people, but
+
+00:13:32.270 --> 00:13:34.880
+being independent, we needed to do this.
+
+00:13:34.880 --> 00:13:36.980
+We needed to be able to say that we could do a
+
+00:13:36.980 --> 00:13:38.780
+backfill of the entire network.
+
+00:13:38.780 --> 00:13:39.880
+It needed to be possible.
+
+00:13:39.880 --> 00:13:41.020
+People have said it was done.
+
+00:13:41.020 --> 00:13:43.250
+We need to like actually do it.
+
+00:13:43.390 --> 00:13:46.460
+And more than anything for me, I need to prove to
+
+00:13:46.460 --> 00:13:48.790
+myself this could be done in a way that people would actively
+
+00:13:48.790 --> 00:13:49.260
+use it.
+
+00:13:49.260 --> 00:13:51.190
+That I would be able to log in, open it up
+
+00:13:51.190 --> 00:13:54.500
+every day, and like it would be an effective experience for
+
+00:13:54.500 --> 00:13:54.940
+me.
+
+00:13:54.940 --> 00:13:55.890
+And it was hard.
+
+00:13:55.890 --> 00:14:00.230
+And the things that I knew were going to be frustrating for
+
+00:14:00.580 --> 00:14:03.100
+people were the things that ended up being frustrating.
+
+00:14:03.100 --> 00:14:06.650
+Some people like to act on the internet that like follower counts
+
+00:14:06.650 --> 00:14:07.660
+don't matter.
+
+00:14:07.660 --> 00:14:09.820
+The biggest complaint is the follower counts.
+
+00:14:09.820 --> 00:14:11.660
+Not matching blue sky.
+
+00:14:13.660 --> 00:14:17.120
+To the point where we built a feature that says backfill
+
+00:14:17.120 --> 00:14:21.050
+and progress that analyzes what our count says compared to what
+
+00:14:21.050 --> 00:14:23.420
+blue skies says compared to what microcosm says.
+
+00:14:23.450 --> 00:14:26.010
+And if it's a big enough difference, then we show
+
+00:14:26.010 --> 00:14:26.940
+that badge to people.
+
+00:14:26.940 --> 00:14:31.070
+To try to get ahead of that and like communicate that they
+
+00:14:31.070 --> 00:14:32.540
+'re this, we're working on it.
+
+00:14:32.540 --> 00:14:33.580
+Right?
+
+00:14:33.580 --> 00:14:35.820
+Profile pictures not loading.
+
+00:14:35.820 --> 00:14:37.180
+People are like, I can't recognize it.
+
+00:14:37.180 --> 00:14:38.460
+I don't know this person by their handle.
+
+00:14:38.460 --> 00:14:40.780
+I know them by their profile picture.
+
+00:14:40.780 --> 00:14:41.580
+Right?
+
+00:14:41.580 --> 00:14:43.520
+So like, if you don't have the profile loading,
+
+00:14:43.520 --> 00:14:45.810
+now it's like a weird experience when you're scrolling your
+
+00:14:45.820 --> 00:14:46.300
+timeline.
+
+00:14:46.300 --> 00:14:50.170
+Stuff like that matters a lot.
+
+00:14:50.210 --> 00:14:53.580
+Another thing that we found out that I don't think blue
+
+00:14:53.580 --> 00:14:57.070
+sky knew themselves is that if you're banned from blue sky
+
+00:14:57.070 --> 00:15:00.300
+, you aren't banned from the image CDN.
+
+00:15:00.300 --> 00:15:02.480
+So your profile picture can load.
+
+00:15:02.480 --> 00:15:04.860
+But you are banned from the video CDN.
+
+00:15:04.860 --> 00:15:06.490
+So you can't upload videos.
+
+00:15:08.940 --> 00:15:11.140
+And so now we're like, oh, we got an
+
+00:15:11.140 --> 00:15:11.870
+app view.
+
+00:15:11.870 --> 00:15:12.460
+Boom.
+
+00:15:12.460 --> 00:15:14.060
+We unbanned you.
+
+00:15:14.260 --> 00:15:16.140
+Like, we reversed the decision.
+
+00:15:16.140 --> 00:15:17.560
+And then they tried to upload a video.
+
+00:15:17.560 --> 00:15:19.100
+But we're still using their video CDN.
+
+00:15:19.530 --> 00:15:22.020
+And now, once again, we look like we haven't
+
+00:15:22.020 --> 00:15:23.260
+fulfilled our mission.
+
+00:15:23.260 --> 00:15:27.610
+And it's important to know these things.
+
+00:15:27.700 --> 00:15:31.100
+I have on the kind of, just like, I think
+
+00:15:31.100 --> 00:15:33.390
+what people think it's like setting up an app view.
+
+00:15:33.390 --> 00:15:35.020
+I just want to highlight some of that stuff.
+
+00:15:35.120 --> 00:15:39.610
+They think the top is just, like, record hydration.
+
+00:15:39.610 --> 00:15:42.590
+Then it's like, there's 42 million people, but
+
+00:15:42.590 --> 00:15:44.240
+we don't care about all of them.
+
+00:15:44.250 --> 00:15:47.330
+So, like, what's the order that you backfilled
+
+00:15:47.330 --> 00:15:49.020
+the people's accounts?
+
+00:15:49.150 --> 00:15:51.260
+Then there was, like, stuff was taking too long.
+
+00:15:51.260 --> 00:15:53.680
+And then people wanted to use Skeets app with our app
+
+00:15:53.760 --> 00:15:53.930
+view.
+
+00:15:53.970 --> 00:15:56.460
+And then Skeets app had, like, a timeout
+
+00:15:56.460 --> 00:15:56.880
+on it.
+
+00:15:56.880 --> 00:15:59.360
+So that was, like, shorter than our timeout.
+
+00:15:59.360 --> 00:16:01.920
+So then it was a bunch of 502 errors if you
+
+00:16:01.920 --> 00:16:03.120
+tried to use Skeets.
+
+00:16:03.120 --> 00:16:05.020
+Notifications is its own thing.
+
+00:16:05.020 --> 00:16:06.880
+There was a bug at one point where it was giving you
+
+00:16:06.880 --> 00:16:08.020
+duplicate notifications.
+
+00:16:08.020 --> 00:16:08.860
+That's annoying.
+
+00:16:08.970 --> 00:16:12.170
+Post aggregation, profile aggregation, those are the file
+
+00:16:12.170 --> 00:16:12.620
+accounts.
+
+00:16:12.620 --> 00:16:15.260
+Handle resolution.
+
+00:16:15.260 --> 00:16:18.530
+Being able to, like, include the germ DM.
+
+00:16:18.530 --> 00:16:19.520
+Get timeline.
+
+00:16:19.520 --> 00:16:22.560
+The further down is, like, the harder the thing's
+
+00:16:22.560 --> 00:16:23.100
+got.
+
+00:16:23.220 --> 00:16:25.960
+And so get timeline.
+
+00:16:25.980 --> 00:16:29.460
+Like, your following feed is, like, really hard.
+
+00:16:29.460 --> 00:16:30.330
+Mod appeals.
+
+00:16:30.440 --> 00:16:33.850
+So if Blue Sky bans them and they're, like
+
+00:16:33.850 --> 00:16:36.530
+, we got -- people were reaching out to us, like
+
+00:16:36.530 --> 00:16:38.250
+, which one of you banned us?
+
+00:16:38.380 --> 00:16:43.100
+It's a very tricky and complicated thing to answer.
+
+00:16:43.100 --> 00:16:46.150
+And then get back to people about, like, you know
+
+00:16:46.150 --> 00:16:48.620
+, and again, every single time something like this happens,
+
+00:16:48.620 --> 00:16:50.690
+it's, like, if you can't -- if --
+
+00:16:50.690 --> 00:16:54.190
+like, why do you exist if we're still, you
+
+00:16:54.190 --> 00:16:55.980
+know, experiencing these things?
+
+00:16:55.980 --> 00:16:56.780
+OAuth.
+
+00:16:56.780 --> 00:17:00.480
+You found out that OAuth doesn't allow you -- if
+
+00:17:00.480 --> 00:17:03.290
+you do a social app fork, you're used to being
+
+00:17:03.290 --> 00:17:05.050
+able to, like, delete your account, deactivate your
+
+00:17:05.050 --> 00:17:05.500
+account.
+
+00:17:05.500 --> 00:17:08.310
+We included OAuth to make it, like, really easy
+
+00:17:08.310 --> 00:17:10.460
+for anyone, like, even if they're not on our
+
+00:17:10.460 --> 00:17:12.400
+PDS, to be able to log into Black Sky.
+
+00:17:13.060 --> 00:17:15.860
+But then you couldn't -- the OAuth permissions don't
+
+00:17:15.860 --> 00:17:17.740
+allow you to delete your account.
+
+00:17:17.740 --> 00:17:20.490
+And so then we're, like -- then we had to
+
+00:17:20.490 --> 00:17:23.370
+, like, hack on PDS Gatekeeper to, like
+
+00:17:23.370 --> 00:17:26.250
+, do some things where, like, now we ask you
+
+00:17:26.250 --> 00:17:27.760
+-- if you're on our PDS, we ask you
+
+00:17:27.760 --> 00:17:28.680
+for the password.
+
+00:17:28.680 --> 00:17:30.740
+And that allows you to delete the account.
+
+00:17:30.740 --> 00:17:32.930
+And if you're not, we send you to the account
+
+00:17:32.980 --> 00:17:33.810
+management page.
+
+00:17:33.950 --> 00:17:36.640
+But we know that there -- the account management page also,
+
+00:17:36.640 --> 00:17:38.150
+like, doesn't have, like, all the things that
+
+00:17:38.150 --> 00:17:38.620
+you need.
+
+00:17:38.620 --> 00:17:39.770
+Right?
+
+00:17:39.770 --> 00:17:41.060
+So pain.
+
+00:17:41.060 --> 00:17:43.260
+All this is pain.
+
+00:17:43.940 --> 00:17:48.060
+And, again, you, like -- you learn from the
+
+00:17:48.060 --> 00:17:48.210
+pain.
+
+00:17:48.420 --> 00:17:51.130
+But we experience the pain.
+
+00:17:51.130 --> 00:17:52.840
+So now if you want to do this, you know it
+
+00:17:52.840 --> 00:17:53.890
+'s kind of coming.
+
+00:17:54.000 --> 00:17:54.060
+Right?
+
+00:17:54.060 --> 00:17:56.670
+That's the whole message of this.
+
+00:17:56.670 --> 00:17:58.730
+Post-Nerd at Proto.
+
+00:17:59.700 --> 00:18:08.630
+So something
+
+00:18:08.690 --> 00:18:12.330
+that I -- yeah, I keep coming back to is,
+
+00:18:12.330 --> 00:18:14.320
+like, and I actually got this from Marissa from our
+
+00:18:14.320 --> 00:18:16.290
+team, is, like, this concept of, like,
+
+00:18:16.430 --> 00:18:17.420
+the job to be done.
+
+00:18:17.420 --> 00:18:21.740
+When I'm speaking to people, it's not to do
+
+00:18:21.740 --> 00:18:23.840
+at Proto advocacy.
+
+00:18:24.410 --> 00:18:27.570
+Like, someone took their time out of their day to hear
+
+00:18:27.570 --> 00:18:29.860
+if I can solve the pain point for them.
+
+00:18:29.940 --> 00:18:32.570
+I'm not going to pitch you on, you know,
+
+00:18:32.570 --> 00:18:35.000
+like -- I'm not going to pitch you on the cause
+
+00:18:35.000 --> 00:18:35.260
+.
+
+00:18:35.260 --> 00:18:36.710
+I'm supposed to pitch you on, like, I can
+
+00:18:36.720 --> 00:18:38.860
+actually fix this thing that you're experiencing.
+
+00:18:38.860 --> 00:18:42.900
+So if you -- you know, a lot of the a
+
+00:18:42.900 --> 00:18:44.820
+lot of the app protocol devs are the community.
+
+00:18:44.820 --> 00:18:46.380
+We're talking about record hydration.
+
+00:18:46.380 --> 00:18:48.360
+We're talking about Postgres optimizations.
+
+00:18:48.360 --> 00:18:52.310
+You've gotten -- those conversations are very far away from what
+
+00:18:52.310 --> 00:18:53.790
+the user is experiencing.
+
+00:18:53.790 --> 00:18:56.380
+Unless your user is a developer, which they could be.
+
+00:18:56.380 --> 00:19:00.010
+But for us, we're trying to onboard communities of storyt
+
+00:19:00.010 --> 00:19:04.300
+ellers who are not sold on decentralized social media.
+
+00:19:04.300 --> 00:19:07.280
+They're sold on community building as a tool.
+
+00:19:07.280 --> 00:19:11.800
+And then we said that this protocol allows us to get the
+
+00:19:11.810 --> 00:19:13.180
+things that you want out of it.
+
+00:19:13.180 --> 00:19:17.970
+And yeah, so I spoke to many groups -- many groups
+
+00:19:18.050 --> 00:19:20.630
+like this, along with AJ from Northwestern.
+
+00:19:20.630 --> 00:19:22.620
+We spoke with Movement for Black Lives.
+
+00:19:22.620 --> 00:19:23.760
+We spoke with Slow Factory.
+
+00:19:23.760 --> 00:19:26.140
+These are people who, like, they're activist organizations,
+
+00:19:26.140 --> 00:19:29.050
+community builders with millions of followers on other platforms.
+
+00:19:29.050 --> 00:19:31.420
+They've had people on their teams who've, like,
+
+00:19:31.420 --> 00:19:33.540
+built -- they're, like, VPs of engineering at
+
+00:19:33.540 --> 00:19:35.580
+, like, social media companies.
+
+00:19:35.610 --> 00:19:37.580
+So they understand social media.
+
+00:19:37.700 --> 00:19:40.460
+They understand decentralized social media to a degree.
+
+00:19:40.460 --> 00:19:49.210
+Very Aligned couldn't close those deals people.
+
+00:19:49.210 --> 00:19:50.340
+For various different reasons.
+
+00:19:50.440 --> 00:19:52.540
+There were -- and there were -- there were young folks at
+
+00:19:52.540 --> 00:19:57.050
+our South by Southwest talk who came to learn how decentralized social
+
+00:19:57.050 --> 00:19:59.340
+media can be a part of their content creator journey.
+
+00:19:59.340 --> 00:20:02.370
+And if you -- and this -- which was, like,
+
+00:20:02.370 --> 00:20:04.710
+a little weird for me because it's, like, you
+
+00:20:04.710 --> 00:20:07.260
+'re in college and I think maybe do something else.
+
+00:20:07.260 --> 00:20:13.360
+But -- And then I got to imagine how disappointing it was
+
+00:20:13.360 --> 00:20:14.300
+for you to, like, want to be get -- you
+
+00:20:14.300 --> 00:20:15.310
+want to get lit on the internet.
+
+00:20:15.310 --> 00:20:17.260
+And then you -- we were talking to you about podcasting
+
+00:20:17.260 --> 00:20:17.690
+and RSS.
+
+00:20:17.900 --> 00:20:20.300
+You know.
+
+00:20:20.300 --> 00:20:22.480
+But, you know, we can't write -- we can
+
+00:20:22.480 --> 00:20:23.800
+'t write people off.
+
+00:20:23.940 --> 00:20:26.200
+If we want this stuff to grow, right?
+
+00:20:26.200 --> 00:20:28.730
+Like, another -- I posted about this one example.
+
+00:20:28.730 --> 00:20:30.890
+Like, there's a media organization.
+
+00:20:30.890 --> 00:20:33.510
+They wanted to reach a particular audience.
+
+00:20:33.510 --> 00:20:36.140
+They wanted to reach black Chicagoans.
+
+00:20:36.260 --> 00:20:42.060
+We did not lose this deal because the complexity of that protocol
+
+00:20:42.060 --> 00:20:42.260
+.
+
+00:20:42.260 --> 00:20:45.110
+That wasn't, like, hard to explain to people.
+
+00:20:45.320 --> 00:20:46.950
+We didn't lose it because they were, like, oh
+
+00:20:46.950 --> 00:20:47.750
+, Mastodon exists.
+
+00:20:47.750 --> 00:20:48.860
+That's not why we lost it.
+
+00:20:49.280 --> 00:20:54.180
+We -- we lost it because they had a specific need.
+
+00:20:54.180 --> 00:20:56.190
+They wanted to reach black Chicagoans.
+
+00:20:56.190 --> 00:20:57.900
+It's a decentralized network.
+
+00:20:57.900 --> 00:20:59.620
+We don't have all that information.
+
+00:20:59.620 --> 00:21:00.180
+You know.
+
+00:21:00.180 --> 00:21:01.080
+It's disparate.
+
+00:21:01.080 --> 00:21:02.220
+You may be on our PDS.
+
+00:21:02.220 --> 00:21:05.190
+But, like, maybe some of you are on a PD
+
+00:21:05.190 --> 00:21:05.440
+S.
+
+00:21:05.440 --> 00:21:07.200
+Other people are on other PDSs.
+
+00:21:07.200 --> 00:21:08.260
+You're on the feed.
+
+00:21:08.340 --> 00:21:10.830
+Maybe you're doing -- using a different client app.
+
+00:21:10.830 --> 00:21:11.880
+All these different things.
+
+00:21:11.880 --> 00:21:12.730
+It makes it hard.
+
+00:21:12.730 --> 00:21:15.030
+Like, even if -- even if we kind of knew these
+
+00:21:15.030 --> 00:21:17.810
+people existed, there wouldn't be a way to, like
+
+00:21:17.810 --> 00:21:20.220
+, do the same -- because they were able to then go
+
+00:21:20.220 --> 00:21:20.870
+to Facebook.
+
+00:21:20.870 --> 00:21:23.120
+And Facebook's, like, give us $20,000
+
+00:21:23.210 --> 00:21:23.270
+.
+
+00:21:23.270 --> 00:21:25.280
+We'll get you in front of a million people in the
+
+00:21:25.280 --> 00:21:25.930
+next year.
+
+00:21:25.930 --> 00:21:27.580
+Can't promise that to people.
+
+00:21:28.010 --> 00:21:31.740
+And, yeah.
+
+00:21:31.740 --> 00:21:35.180
+And we've only -- we've only ever done inbound
+
+00:21:35.180 --> 00:21:35.400
+.
+
+00:21:35.400 --> 00:21:38.160
+We think that some things that maybe -- we have some,
+
+00:21:38.240 --> 00:21:40.900
+like, theories that if we build out this project called Black
+
+00:21:40.900 --> 00:21:43.450
+Sky Cash, it will make the pitch more compelling to people
+
+00:21:43.580 --> 00:21:43.580
+.
+
+00:21:43.580 --> 00:21:45.620
+It'll make a clear monetization strategy.
+
+00:21:45.620 --> 00:21:48.940
+So maybe even if some things aren't necessarily all the way
+
+00:21:48.940 --> 00:21:50.370
+there yet, it's like, oh, here's,
+
+00:21:50.370 --> 00:21:52.940
+like, a way that you can build community, do democratic
+
+00:21:52.940 --> 00:21:56.070
+governance, and have a way for you to fund things.
+
+00:21:56.070 --> 00:21:59.420
+But the job to be done is never use AppProto
+
+00:21:59.550 --> 00:21:59.580
+.
+
+00:21:59.580 --> 00:22:00.050
+Right?
+
+00:22:00.050 --> 00:22:02.240
+The job to be done is solve the problem that I have
+
+00:22:02.240 --> 00:22:02.460
+.
+
+00:22:02.460 --> 00:22:09.500
+And now -- and this one's very important.
+
+00:22:09.900 --> 00:22:14.260
+Because we're pitching community builders, we are pitching the atmosphere
+
+00:22:14.260 --> 00:22:15.580
+in these spaces.
+
+00:22:15.940 --> 00:22:19.350
+Like, I'm not pitching Black Sky, necessarily.
+
+00:22:19.350 --> 00:22:22.620
+I'm pitching everyone's projects that are here.
+
+00:22:22.620 --> 00:22:25.660
+I know, like, I sometimes talk kind of crazy on
+
+00:22:25.740 --> 00:22:29.740
+the internet.
+
+00:22:29.740 --> 00:22:31.390
+But I am a lot of people's cheerleaders --
+
+00:22:31.390 --> 00:22:32.120
+cheerleader.
+
+00:22:32.130 --> 00:22:34.470
+I can't do all the things that y'all have
+
+00:22:34.470 --> 00:22:34.700
+done.
+
+00:22:34.700 --> 00:22:40.130
+But I do tend to get people to open up about their
+
+00:22:40.260 --> 00:22:41.790
+problems.
+
+00:22:41.840 --> 00:22:43.660
+And when they do, I pitch your products.
+
+00:22:43.660 --> 00:22:47.620
+An example is, like, at South by Southwest, Karen
+
+00:22:47.620 --> 00:22:51.150
+Atia, who was fired from the Washington Post because of
+
+00:22:51.150 --> 00:22:53.220
+a post on Blue Sky about Charlie Kirk.
+
+00:22:53.300 --> 00:22:55.680
+We were talking and she was like, you know, I
+
+00:22:55.680 --> 00:22:58.220
+wish there was a way to go live and stream for my
+
+00:22:58.410 --> 00:22:59.370
+Blue Sky account.
+
+00:22:59.370 --> 00:23:01.620
+And I was like, there is.
+
+00:23:01.620 --> 00:23:03.300
+Have you heard of StreamPlace?
+
+00:23:03.300 --> 00:23:05.020
+I was like, it's another app.
+
+00:23:05.020 --> 00:23:07.730
+And she's like, well, why is it another app
+
+00:23:07.730 --> 00:23:07.900
+?
+
+00:23:07.900 --> 00:23:12.090
+And so we've had this pitch of, like, you
+
+00:23:12.100 --> 00:23:14.990
+have -- you know, there's the whole login with Blue
+
+00:23:14.990 --> 00:23:17.760
+Sky, login with app protocol.
+
+00:23:17.830 --> 00:23:20.780
+That's even like a second step.
+
+00:23:20.780 --> 00:23:22.870
+It's just like, why do I have to go to
+
+00:23:22.870 --> 00:23:25.630
+another place if you're saying that I can use this same
+
+00:23:25.630 --> 00:23:26.220
+thing?
+
+00:23:26.220 --> 00:23:27.180
+Right?
+
+00:23:27.180 --> 00:23:29.740
+So to me, this is like a tension in the atmosphere
+
+00:23:29.740 --> 00:23:30.440
+right now.
+
+00:23:30.570 --> 00:23:33.800
+You can log into a dozen different apps with a single identity
+
+00:23:33.800 --> 00:23:33.980
+.
+
+00:23:33.980 --> 00:23:35.080
+That's great to us.
+
+00:23:35.080 --> 00:23:37.990
+But to everyday people, being told, use this app for
+
+00:23:38.140 --> 00:23:40.760
+microblogging, use this one for live streaming, use
+
+00:23:40.760 --> 00:23:43.570
+this one for long form content, it doesn't create delight
+
+00:23:43.570 --> 00:23:43.770
+.
+
+00:23:43.770 --> 00:23:46.660
+It feels like what they already have, a bunch of apps
+
+00:23:46.740 --> 00:23:46.900
+.
+
+00:23:46.900 --> 00:23:49.740
+And there's no even way to discover all the apps.
+
+00:23:49.740 --> 00:23:52.380
+There's not an app store for app protocol.
+
+00:23:52.570 --> 00:23:55.900
+So the -- there's no aha moment there for people.
+
+00:23:55.900 --> 00:23:57.520
+Like, we have the aha moment.
+
+00:23:57.520 --> 00:23:58.840
+We look at the firehose.
+
+00:23:58.840 --> 00:24:00.220
+We look at your repository.
+
+00:24:00.220 --> 00:24:02.360
+We know that all this data is on one account.
+
+00:24:02.360 --> 00:24:05.760
+The user is just like, okay, this is another --
+
+00:24:05.860 --> 00:24:07.780
+this is another skin of a thing.
+
+00:24:07.790 --> 00:24:08.450
+Right?
+
+00:24:08.450 --> 00:24:13.050
+So for me, what would be compelling, and I think
+
+00:24:13.350 --> 00:24:16.920
+to the people that I've been talking to, is something
+
+00:24:16.920 --> 00:24:20.060
+like an app protocol browser, an app protocol app store.
+
+00:24:20.060 --> 00:24:25.180
+Something that turns log in with your identity across many apps from
+
+00:24:25.860 --> 00:24:30.950
+developer premise, or a premise, to a user experience.
+
+00:24:30.950 --> 00:24:33.640
+So that's the question mark there.
+
+00:24:33.640 --> 00:24:36.780
+It's like, I think we talk about app protocol,
+
+00:24:36.780 --> 00:24:38.210
+as like, the protocol.
+
+00:24:38.220 --> 00:24:40.340
+And we use the comparison to the web.
+
+00:24:40.420 --> 00:24:44.220
+Had debates about that even just in this trip.
+
+00:24:44.220 --> 00:24:46.700
+And I'm like, so what is the -- well,
+
+00:24:46.700 --> 00:24:48.010
+the web has Firefox.
+
+00:24:48.010 --> 00:24:50.680
+And I can go to any website with Firefox.
+
+00:24:50.680 --> 00:24:53.460
+And it feels really simple, intuitive.
+
+00:24:53.540 --> 00:24:54.100
+Right?
+
+00:24:54.100 --> 00:24:57.050
+There's no universal app protocol client.
+
+00:24:57.340 --> 00:25:00.890
+If you had to download -- the equivalent is like downloading an
+
+00:25:00.970 --> 00:25:02.220
+app on your phone.
+
+00:25:02.660 --> 00:25:05.730
+But then again, now we're just back to downloading a
+
+00:25:05.730 --> 00:25:06.860
+bunch of apps on your phone.
+
+00:25:06.860 --> 00:25:10.860
+And if you have logged in with Google, then like,
+
+00:25:10.860 --> 00:25:12.350
+as a user, I'm like, what's the difference
+
+00:25:12.350 --> 00:25:12.540
+?
+
+00:25:12.550 --> 00:25:16.370
+All right.
+
+00:25:16.510 --> 00:25:22.120
+Finally, there is a book by Douglas Hofstadter called
+
+00:25:22.320 --> 00:25:23.050
+I'm a Strange Loop.
+
+00:25:24.940 --> 00:25:32.810
+Oh, recognition.
+
+00:25:33.340 --> 00:25:37.580
+Nice.
+
+00:25:37.590 --> 00:25:42.460
+Of yourself perceiving the world.
+
+00:25:42.460 --> 00:25:46.400
+And that model changes what you perceive, which changes the model
+
+00:25:46.400 --> 00:25:46.540
+.
+
+00:25:48.300 --> 00:25:52.340
+So when we started using moderation, we used Blue Skies
+
+00:25:52.340 --> 00:25:53.100
+Ozone.
+
+00:25:53.100 --> 00:25:55.260
+It's open source.
+
+00:25:55.330 --> 00:25:56.360
+It works.
+
+00:25:58.140 --> 00:25:59.420
+But it wasn't built for us.
+
+00:25:59.420 --> 00:26:00.010
+Right?
+
+00:26:00.010 --> 00:26:02.620
+It was built for Blue Skies Trust and Safety Team.
+
+00:26:02.620 --> 00:26:08.810
+Our moderation team, it started out as like very community moderation
+
+00:26:08.810 --> 00:26:09.260
+.
+
+00:26:09.260 --> 00:26:12.540
+And we still want that to be that way.
+
+00:26:12.630 --> 00:26:15.090
+We're even building more ways that the community can participate in
+
+00:26:15.090 --> 00:26:15.660
+moderation.
+
+00:26:15.660 --> 00:26:20.250
+It's more like Ozone was built for a particular worldview
+
+00:26:20.350 --> 00:26:22.790
+, not necessarily a scale.
+
+00:26:22.830 --> 00:26:27.100
+Because we can do peer moderation at scale.
+
+00:26:27.220 --> 00:26:28.940
+Reddit does peer moderation at scale.
+
+00:26:28.940 --> 00:26:34.140
+It's just a different opinion of how things work.
+
+00:26:34.260 --> 00:26:36.430
+And so for us, Dr.
+
+00:26:36.430 --> 00:26:39.950
+K, JD, they're community members.
+
+00:26:39.950 --> 00:26:44.540
+They weren't reviewing content for a platform.
+
+00:26:44.540 --> 00:26:46.370
+They were protecting a space that they're a part of.
+
+00:26:46.380 --> 00:26:50.650
+And so Rishi on the team built Acorn.
+
+00:26:50.650 --> 00:26:51.340
+And literally...
+
+00:26:51.350 --> 00:26:59.580
+And as I understand it, because Rishi is very
+
+00:26:59.580 --> 00:27:02.650
+interested in co-working with people, because we're all
+
+00:27:02.650 --> 00:27:03.260
+remote right now.
+
+00:27:03.260 --> 00:27:07.780
+He and JD got on calls every day and just worked side
+
+00:27:07.780 --> 00:27:08.210
+by side.
+
+00:27:08.220 --> 00:27:11.480
+And when JD ran into a problem, Rishi built something
+
+00:27:11.610 --> 00:27:12.050
+for it.
+
+00:27:12.150 --> 00:27:15.970
+And so, yeah.
+
+00:27:16.110 --> 00:27:18.040
+And so what you're looking at on the screen is like
+
+00:27:18.140 --> 00:27:21.240
+the first thing a moderator sees when they open a session.
+
+00:27:21.240 --> 00:27:23.260
+Not a queue, a check-in.
+
+00:27:23.260 --> 00:27:25.420
+How are you feeling right now?
+
+00:27:25.420 --> 00:27:26.730
+Do you have water nearby?
+
+00:27:26.780 --> 00:27:27.850
+You can step away.
+
+00:27:27.850 --> 00:27:29.580
+Your well-being comes first.
+
+00:27:29.620 --> 00:27:32.220
+There are session goals.
+
+00:27:32.320 --> 00:27:33.930
+It could be time-based or item-based.
+
+00:27:33.980 --> 00:27:39.020
+So moderators choose how much weight they can take on.
+
+00:27:39.020 --> 00:27:40.620
+Because you could just loop, right?
+
+00:27:40.620 --> 00:27:41.710
+And just keep going.
+
+00:27:41.710 --> 00:27:44.140
+And that could be really, really heavy.
+
+00:27:44.140 --> 00:27:50.340
+We're building collaboration tools in it.
+
+00:27:50.460 --> 00:27:52.960
+We're building ways for us to govern our community from it
+
+00:27:52.960 --> 00:27:53.140
+.
+
+00:27:53.140 --> 00:27:56.230
+We're going to build ways to issue badges to our community
+
+00:27:56.380 --> 00:27:57.370
+through it.
+
+00:27:57.370 --> 00:27:58.940
+Where we use...
+
+00:27:58.940 --> 00:28:01.750
+Our feed kind of works like a subreddit.
+
+00:28:01.960 --> 00:28:04.260
+So Acorn is going to be built to like manage a
+
+00:28:04.260 --> 00:28:05.970
+subreddit where you can remove members.
+
+00:28:05.970 --> 00:28:07.020
+You can remove posts.
+
+00:28:07.130 --> 00:28:10.470
+You could do this from your phone.
+
+00:28:10.470 --> 00:28:12.100
+Our mods...
+
+00:28:12.100 --> 00:28:16.380
+Our mods want to moderate from their mobile devices.
+
+00:28:16.680 --> 00:28:19.180
+And yeah.
+
+00:28:19.180 --> 00:28:20.160
+Ozone doesn't...
+
+00:28:20.220 --> 00:28:21.510
+It just doesn't work like that.
+
+00:28:21.510 --> 00:28:23.130
+It makes it really difficult to.
+
+00:28:23.130 --> 00:28:24.650
+And again, that's not a...
+
+00:28:24.740 --> 00:28:27.450
+That's not just because it's some big platform, some
+
+00:28:27.450 --> 00:28:29.020
+billion-person platform.
+
+00:28:29.020 --> 00:28:29.730
+It's just us.
+
+00:28:29.870 --> 00:28:32.940
+We built it the way our users, our community, our
+
+00:28:32.940 --> 00:28:33.820
+mods do things.
+
+00:28:33.820 --> 00:28:39.910
+And so that's the strange loop.
+
+00:28:39.970 --> 00:28:42.480
+Like, you are the user.
+
+00:28:42.700 --> 00:28:45.200
+You're also the builder.
+
+00:28:45.200 --> 00:28:51.040
+And the thing you build changes your user experience, which changes
+
+00:28:51.330 --> 00:28:52.540
+what you build next.
+
+00:28:52.540 --> 00:28:55.240
+Toni Morrison said, if the book you want to read doesn
+
+00:28:55.240 --> 00:28:56.890
+'t exist, you have to write it.
+
+00:28:58.860 --> 00:28:59.740
+But it's deeper than that.
+
+00:28:59.740 --> 00:29:01.690
+So once you write it, now it's out in the
+
+00:29:01.690 --> 00:29:02.380
+world.
+
+00:29:02.380 --> 00:29:03.580
+Now it's coming back to you.
+
+00:29:03.580 --> 00:29:03.980
+Right?
+
+00:29:03.980 --> 00:29:06.460
+So the gift and the recipient keep changing each other.
+
+00:29:06.460 --> 00:29:10.540
+So every lesson today comes from the same place.
+
+00:29:10.540 --> 00:29:12.530
+We are the user.
+
+00:29:12.530 --> 00:29:13.180
+Right?
+
+00:29:13.180 --> 00:29:15.590
+I was the first one to migrate to the Black Sky PD
+
+00:29:15.590 --> 00:29:15.850
+S.
+
+00:29:15.850 --> 00:29:18.220
+I also had the pain when it was just GOAT.
+
+00:29:18.220 --> 00:29:19.340
+Right?
+
+00:29:19.380 --> 00:29:22.020
+I knew the app you had to work because...
+
+00:29:22.020 --> 00:29:24.350
+Like, the way that the community would expect it.
+
+00:29:24.350 --> 00:29:26.280
+I knew follower counts had to be right.
+
+00:29:26.280 --> 00:29:28.610
+Like, the first app view that I used that was independent
+
+00:29:28.610 --> 00:29:29.580
+from Blue Sky.
+
+00:29:29.580 --> 00:29:30.820
+It was like, half my followers now.
+
+00:29:30.820 --> 00:29:31.410
+This is weird.
+
+00:29:31.420 --> 00:29:32.620
+So you just...
+
+00:29:32.620 --> 00:29:34.330
+You can predict these things.
+
+00:29:34.330 --> 00:29:34.700
+Right?
+
+00:29:34.700 --> 00:29:36.740
+And I know we have to...
+
+00:29:36.740 --> 00:29:39.660
+We have to get beyond just the dev community.
+
+00:29:39.660 --> 00:29:39.900
+Right?
+
+00:29:39.940 --> 00:29:42.540
+Like, if we want it to be a big thing,
+
+00:29:42.540 --> 00:29:44.250
+like, it has to be fun.
+
+00:29:44.340 --> 00:29:45.660
+It has to be cool.
+
+00:29:45.660 --> 00:29:47.120
+It has to have different...
+
+00:29:47.730 --> 00:29:49.000
+It has to have that delight.
+
+00:29:49.000 --> 00:29:49.380
+Right?
+
+00:29:49.380 --> 00:29:50.860
+It has to have these aha moments.
+
+00:29:51.040 --> 00:29:54.220
+And so, yeah.
+
+00:29:54.280 --> 00:29:55.740
+So that's the kind of thing.
+
+00:29:55.740 --> 00:29:57.280
+We became...
+
+00:29:57.280 --> 00:29:59.420
+We become who we build for.
+
+00:29:59.440 --> 00:30:01.110
+And that's not, like, a bug.
+
+00:30:01.320 --> 00:30:02.420
+That's, like, the whole point.
+
+00:30:02.420 --> 00:30:04.460
+And that's our practice of how we work on things.
+
+00:30:04.560 --> 00:30:14.900
+Thank you.

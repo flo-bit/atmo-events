@@ -1,0 +1,733 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:07.480
+Yeah, so the title's actually kind of a pun or
+
+00:00:07.480 --> 00:00:08.000
+something.
+
+00:00:08.010 --> 00:00:10.460
+So, yeah, so hi, I'm Paul Syvers
+
+00:00:10.460 --> 00:00:12.860
+on from the Naval Research Lab.
+
+00:00:12.870 --> 00:00:16.200
+If you don't know me, the thing I'm probably
+
+00:00:16.210 --> 00:00:20.190
+most known for is I invented onion routing with a couple of
+
+00:00:20.190 --> 00:00:23.200
+my NRL colleagues forever ago, back in the 90s
+
+00:00:23.200 --> 00:00:25.960
+, and then a few years later with a couple of non
+
+00:00:25.960 --> 00:00:29.900
+-NRL colleagues created a version of that we called Tor
+
+00:00:29.900 --> 00:00:30.240
+.
+
+00:00:30.260 --> 00:00:33.520
+And this is the main thing I've been working on pretty
+
+00:00:33.520 --> 00:00:34.740
+much ever since.
+
+00:00:34.770 --> 00:00:43.330
+What I've been working on mostly for the last several
+
+00:00:43.330 --> 00:00:51.170
+years is the question of there's a lot of domain names
+
+00:00:51.170 --> 00:00:53.800
+that have associated onion addresses.
+
+00:00:53.800 --> 00:00:56.100
+If you don't know what an onion address is, I
+
+00:00:56.130 --> 00:00:58.060
+don't have enough time to explain it.
+
+00:00:58.070 --> 00:01:01.280
+So, for our purposes, you can just think of it
+
+00:01:01.280 --> 00:01:04.260
+as pretty much like a PLC did because it's a
+
+00:01:04.260 --> 00:01:07.840
+cryptographically self-certifying address.
+
+00:01:07.840 --> 00:01:14.940
+And domain names are generally human meaningful, and onion addresses are
+
+00:01:14.940 --> 00:01:18.480
+these cryptographically things that are not, and turns out
+
+00:01:18.480 --> 00:01:26.610
+how to discover when things are associated and how to be sure
+
+00:01:26.620 --> 00:01:31.070
+they're bound together has all kinds of problems that, has
+
+00:01:31.070 --> 00:01:37.750
+all kinds of problems, and which I have spelled out in
+
+00:01:37.750 --> 00:01:40.040
+all of these papers that I'm not going to actually talk
+
+00:01:40.040 --> 00:01:43.120
+about, but that's there if you want to go look
+
+00:01:43.120 --> 00:01:46.560
+for them, and then also, fortunately, solutions to these
+
+00:01:46.560 --> 00:01:46.660
+.
+
+00:01:46.660 --> 00:01:52.940
+What are the goals of the work here is to sort of
+
+00:01:52.940 --> 00:01:58.710
+synthesize those things with, at proto-identities,
+
+00:01:58.710 --> 00:02:02.900
+so handles and dids, with a couple of goals.
+
+00:02:02.900 --> 00:02:08.570
+One is to improve and generalize blue sky verified accounts,
+
+00:02:08.620 --> 00:02:13.250
+to be more than they are now, explicit about who the
+
+00:02:13.250 --> 00:02:16.410
+verifier is, and also to provide some context, to
+
+00:02:16.410 --> 00:02:21.470
+be decentralized, so it's not limited just to the blue
+
+00:02:21.470 --> 00:02:26.480
+sky trusted verifiers, and also open, so that anybody
+
+00:02:26.480 --> 00:02:33.600
+can have a verified identity, and in addition, we want
+
+00:02:33.600 --> 00:02:37.330
+to synthesize these together in a way that allows us to
+
+00:02:37.330 --> 00:02:43.580
+have self-certifying meaningful identities that are consistently transparent,
+
+00:02:43.580 --> 00:02:46.930
+that are blocking resistant, this is one of the things onion
+
+00:02:46.930 --> 00:02:51.530
+services provide in a way I won't explain, and robust
+
+00:02:51.530 --> 00:02:56.080
+to TLS certificate hijack, and also, everything we
+
+00:02:56.080 --> 00:03:00.220
+'ve done is sort of fully backwards compatible, so that if
+
+00:03:00.220 --> 00:03:05.000
+you are running something that doesn't know anything about our stuff
+
+00:03:05.000 --> 00:03:07.640
+, as long as it uses the standard protocols, nothing's
+
+00:03:07.640 --> 00:03:08.580
+going to break.
+
+00:03:08.580 --> 00:03:11.610
+You won't get the advantages, but nothing's going to
+
+00:03:11.610 --> 00:03:12.250
+break.
+
+00:03:12.270 --> 00:03:15.830
+So this is joint work with the force of nature, who
+
+00:03:15.830 --> 00:03:20.780
+is Nick Jarakinas, who's right there.
+
+00:03:20.790 --> 00:03:23.440
+And yes.
+
+00:03:23.440 --> 00:03:26.050
+So suppose, as an example, I didn't know about
+
+00:03:26.050 --> 00:03:28.340
+smoke signal, and Nick says, oh, here's this
+
+00:03:28.350 --> 00:03:30.750
+cool thing, smoke signal, you should check it out.
+
+00:03:30.760 --> 00:03:34.200
+And let's assume that he and I have a trusted channel
+
+00:03:34.200 --> 00:03:38.080
+over signal, and we've validated that, that I trust
+
+00:03:38.080 --> 00:03:42.670
+Nick about identifiers for domains, or maybe just for particular
+
+00:03:42.700 --> 00:03:46.320
+domains, we can come back to that.
+
+00:03:46.320 --> 00:03:49.030
+But what if smoke signal.
+
+00:03:49.240 --> 00:03:51.990
+events has a TLS hijack?
+
+00:03:52.020 --> 00:03:54.430
+So just what I mean by that, well, if you
+
+00:03:54.440 --> 00:03:55.720
+go to smoke signal.
+
+00:03:55.780 --> 00:03:58.580
+events, you get the little, the usual lock icon
+
+00:03:58.580 --> 00:03:58.810
+.
+
+00:03:58.820 --> 00:04:02.070
+And if you click on that, you can see a certificate
+
+00:04:02.070 --> 00:04:05.360
+that says that an authority, in this case, let's
+
+00:04:05.360 --> 00:04:09.010
+encrypt, says, oh, the key that's authentic
+
+00:04:09.010 --> 00:04:13.870
+ating this connection is, in fact, associated with the name
+
+00:04:13.870 --> 00:04:15.100
+smoke signal.
+
+00:04:15.100 --> 00:04:17.770
+So that's great.
+
+00:04:17.800 --> 00:04:22.150
+Only problem is, it's way too easy to obtain bog
+
+00:04:22.150 --> 00:04:24.460
+us TLS certificates.
+
+00:04:24.460 --> 00:04:27.180
+It's not completely trivial, and a lot of people have
+
+00:04:27.380 --> 00:04:29.340
+done a lot of work to make it harder, but I
+
+00:04:29.340 --> 00:04:31.840
+don't think there's a problem that's going away anytime
+
+00:04:32.040 --> 00:04:32.420
+soon.
+
+00:04:32.420 --> 00:04:35.620
+It's just a big, bad problem.
+
+00:04:35.630 --> 00:04:39.570
+So the answer, what if it gets hijacked, is
+
+00:04:39.570 --> 00:04:44.780
+somebody can basically set up their own version of smoke signal,
+
+00:04:44.780 --> 00:04:48.540
+and get me to think whatever about upcoming events, or maybe
+
+00:04:48.540 --> 00:04:53.900
+reveal some kind of sensitive information in the course of RSV
+
+00:04:53.900 --> 00:04:57.690
+Ping, so in general, bad situation.
+
+00:04:57.700 --> 00:05:02.150
+But what if instead of giving me just the link to smoke
+
+00:05:02.150 --> 00:05:03.070
+signal.
+
+00:05:03.070 --> 00:05:08.600
+events, the URL includes the PLC did for smoke
+
+00:05:08.600 --> 00:05:10.580
+signal.
+
+00:05:10.590 --> 00:05:12.600
+events.
+
+00:05:12.600 --> 00:05:16.500
+And again, we have the trusted channel that I'm getting
+
+00:05:16.500 --> 00:05:18.520
+things from, Nick from.
+
+00:05:18.520 --> 00:05:23.140
+Now if I go and follow that URL, we have a
+
+00:05:23.160 --> 00:05:30.540
+Firefox extension that Nick created, that ultimately I would like this
+
+00:05:30.540 --> 00:05:33.560
+to just be built into Firefox, but you need to crawl
+
+00:05:33.590 --> 00:05:34.840
+before you walk.
+
+00:05:34.840 --> 00:05:43.010
+So this extension checks that there's a header that
+
+00:05:43.010 --> 00:05:45.140
+gets sent.
+
+00:05:45.140 --> 00:05:48.120
+And it makes sure that the key that's on the header
+
+00:05:48.120 --> 00:05:53.280
+is in fact associated with this did, and further that the
+
+00:05:53.480 --> 00:06:00.850
+did that's in the did document matches the did that was
+
+00:06:00.850 --> 00:06:02.720
+in the URL.
+
+00:06:02.730 --> 00:06:06.230
+As opposed to if, for example, the did was not
+
+00:06:06.230 --> 00:06:09.680
+a good did, then you would fail the checks.
+
+00:06:09.690 --> 00:06:12.260
+So great.
+
+00:06:12.260 --> 00:06:16.710
+So this provides what I like to call dirt simple trust.
+
+00:06:16.740 --> 00:06:19.410
+The idea is I need, all I need is the address
+
+00:06:19.660 --> 00:06:20.980
+and I'm kind of done.
+
+00:06:20.980 --> 00:06:21.980
+That's enough.
+
+00:06:21.980 --> 00:06:24.650
+I can't, I can't be hijacked or anything
+
+00:06:24.900 --> 00:06:29.070
+as long as we have this I discovered it in this way
+
+00:06:29.070 --> 00:06:30.080
+.
+
+00:06:30.090 --> 00:06:32.720
+Relatedly, it also offers what I would call authority
+
+00:06:32.720 --> 00:06:33.700
+independence.
+
+00:06:33.700 --> 00:06:37.690
+So the idea is no authority, no CA can say,
+
+00:06:37.760 --> 00:06:41.360
+oh, no, here's the new key for, for
+
+00:06:41.360 --> 00:06:47.060
+smoke signal, because they don't control the key that is
+
+00:06:47.060 --> 00:06:50.920
+associated with the did, I can't be tricked about that
+
+00:06:51.090 --> 00:06:51.620
+.
+
+00:06:51.620 --> 00:06:57.450
+So because I learned of this URL from Nick, and because
+
+00:06:57.450 --> 00:07:02.520
+it passed the checks when I tried to connect to it,
+
+00:07:02.560 --> 00:07:06.960
+I can trust that Nick told me that the handle and did
+
+00:07:06.960 --> 00:07:10.950
+are in fact bound together, and further that, because I
+
+00:07:10.950 --> 00:07:14.360
+trust Nick, I can trust that they are bound together.
+
+00:07:14.360 --> 00:07:18.140
+But we're not quite done, because in order to do
+
+00:07:18.140 --> 00:07:21.640
+this, we had to have this, you know, signal
+
+00:07:21.650 --> 00:07:22.630
+exchange.
+
+00:07:22.640 --> 00:07:25.210
+And Nick has been very tolerant of me, but I think
+
+00:07:25.210 --> 00:07:28.520
+if every time I wanted to have a secure connection with anything
+
+00:07:28.520 --> 00:07:31.110
+, I had to have a signal communication with him, maybe
+
+00:07:31.110 --> 00:07:33.290
+that would try even Nick's patients.
+
+00:07:33.300 --> 00:07:39.370
+So we, therefore, have it automated so that we have
+
+00:07:39.450 --> 00:07:45.050
+a record that you get a signed header that's signed by
+
+00:07:45.050 --> 00:07:46.830
+, say, njrakinis.
+
+00:07:46.830 --> 00:07:50.530
+me, as well as by smoke signal, that says that
+
+00:07:50.790 --> 00:07:52.280
+these are bound together.
+
+00:07:52.300 --> 00:07:56.860
+And further, and this is where I'm introducing contextual labels
+
+00:07:56.860 --> 00:08:00.000
+, it could have a label like, for example, this
+
+00:08:00.000 --> 00:08:02.460
+is a Nick project, this is a project that Nick did
+
+00:08:02.460 --> 00:08:02.710
+.
+
+00:08:02.730 --> 00:08:07.170
+So let's contrast this with the way Blue Sky currently handles
+
+00:08:07.260 --> 00:08:09.000
+verified accounts.
+
+00:08:09.040 --> 00:08:14.120
+So you can, Blue Sky will directly verify somebody's account
+
+00:08:14.120 --> 00:08:18.550
+as belonging to someone, but they also have a handful of
+
+00:08:18.550 --> 00:08:21.020
+trusted verifiers.
+
+00:08:21.030 --> 00:08:23.520
+And that's fine, but it has some limitations.
+
+00:08:23.520 --> 00:08:28.390
+For one thing, you have to be important in order to
+
+00:08:28.390 --> 00:08:31.020
+get a verified account.
+
+00:08:31.020 --> 00:08:33.980
+Or you have to be affiliated with one of these, there
+
+00:08:33.980 --> 00:08:36.900
+'s about 20 currently trusted verifiers.
+
+00:08:36.900 --> 00:08:39.620
+Most of them are journalism organizations, and I mean, I
+
+00:08:39.820 --> 00:08:42.080
+think that's great, but the rest of us are just
+
+00:08:42.080 --> 00:08:44.340
+SOL if we don't have, you know, one of
+
+00:08:44.340 --> 00:08:45.890
+these affiliations.
+
+00:08:45.900 --> 00:08:52.360
+So what we have is it supports that kind of functionality,
+
+00:08:52.360 --> 00:08:57.390
+and I think should replace it.
+
+00:08:57.400 --> 00:08:59.920
+So you can just do the same thing, that's what
+
+00:08:59.930 --> 00:09:02.820
+I've got here on the left, your left, whatever
+
+00:09:02.830 --> 00:09:03.070
+.
+
+00:09:03.080 --> 00:09:05.800
+But it doesn't have to be centralized like that.
+
+00:09:05.880 --> 00:09:09.060
+You could also have, say, like the town of Spring
+
+00:09:09.060 --> 00:09:14.140
+field is going to tell you what the local cities are in
+
+00:09:14.140 --> 00:09:14.690
+Springfield.
+
+00:09:14.700 --> 00:09:17.900
+So you might have a local news source in Springfield,
+
+00:09:17.900 --> 00:09:21.830
+and this is a good way you can resist pink slime journalism
+
+00:09:21.830 --> 00:09:25.980
+because you won't have some, you know, somebody from
+
+00:09:25.980 --> 00:09:29.140
+far away masquerading as being from Springfield.
+
+00:09:29.210 --> 00:09:32.400
+Or it can also be even at the individual level.
+
+00:09:32.400 --> 00:09:33.940
+So this scales both up and down.
+
+00:09:33.950 --> 00:09:37.370
+So like if you're somebody, I just made this entity
+
+00:09:37.370 --> 00:09:39.860
+up, as far as I know, but you know,
+
+00:09:39.870 --> 00:09:42.790
+you have somebody named Vegan Piper, maybe you trust them
+
+00:09:42.820 --> 00:09:46.540
+about where there are vegan restaurants around.
+
+00:09:46.550 --> 00:09:48.780
+But maybe you don't trust them about that.
+
+00:09:48.780 --> 00:09:51.950
+But you do trust them about, you know, bagpipe
+
+00:09:51.950 --> 00:09:52.860
+supplies.
+
+00:09:52.860 --> 00:09:57.050
+So you can choose which you want to trust them on.
+
+00:09:57.070 --> 00:09:59.580
+So I don't have a lot of time here.
+
+00:09:59.590 --> 00:10:00.780
+So that's it.
+
+00:10:00.780 --> 00:10:03.860
+And I'll be happy to take any questions.
+
+00:10:03.870 --> 00:10:12.270
+Do we have any questions for
+
+00:10:12.270 --> 00:10:14.820
+Paul?
+
+00:10:14.860 --> 00:10:16.850
+We've got a couple of minutes.
+
+00:10:16.860 --> 00:10:17.850
+Hooray.
+
+00:10:17.870 --> 00:10:18.850
+Yes.
+
+00:10:18.860 --> 00:10:19.850
+All right.
+
+00:10:19.860 --> 00:10:22.460
+For the record, those of us at Blue Sky also think
+
+00:10:22.460 --> 00:10:25.850
+that they should replace the verification system.
+
+00:10:25.870 --> 00:10:26.850
+Yeah.
+
+00:10:26.860 --> 00:10:28.910
+You know, you have to crawl before you go, Dave
+
+00:10:28.910 --> 00:10:31.340
+, you know, a real problem that was being solved in
+
+00:10:31.340 --> 00:10:35.070
+real time right away and clearly the right thing to do.
+
+00:10:35.110 --> 00:10:36.860
+But I think this is a good migration.
+
+00:10:36.870 --> 00:10:37.850
+Yeah.
+
+00:10:37.870 --> 00:10:38.860
+Absolutely.
+
+00:10:38.870 --> 00:10:39.860
+Fantastic.
+
+00:10:39.870 --> 00:10:40.850
+There was a question over here.
+
+00:10:40.860 --> 00:10:41.850
+Oh.
+
+00:10:41.860 --> 00:10:42.850
+Or did you change your mind?
+
+00:10:42.870 --> 00:10:43.850
+Yeah.
+
+00:10:43.870 --> 00:10:44.850
+Yeah.
+
+00:10:44.860 --> 00:10:45.850
+Hi.
+
+00:10:45.870 --> 00:10:46.850
+Yeah.
+
+00:10:46.860 --> 00:10:50.080
+I was just wondering if you've investigated in your work putting
+
+00:10:50.080 --> 00:10:54.060
+the signature information or any kind of that relational information on the
+
+00:10:54.060 --> 00:10:55.190
+atmosphere itself.
+
+00:10:55.200 --> 00:10:57.680
+I get why it has to be in the HTTP signatures,
+
+00:10:57.680 --> 00:11:00.770
+but if there's any connection to like some sort of record
+
+00:11:00.770 --> 00:11:04.200
+that this person trusts this org or something like that.
+
+00:11:04.200 --> 00:11:06.600
+Well, it's, I mean, it, I mean
+
+00:11:06.600 --> 00:11:09.200
+, yeah, it is, it's in there.
+
+00:11:09.200 --> 00:11:10.190
+I mean.
+
+00:11:10.200 --> 00:11:12.280
+So there's, there's, you know, like you
+
+00:11:12.290 --> 00:11:15.200
+talked, so a lot of content made it onto the floor
+
+00:11:15.200 --> 00:11:16.200
+, unfortunately.
+
+00:11:16.210 --> 00:11:17.190
+Yes.
+
+00:11:17.200 --> 00:11:20.200
+So a HTTP signature could reference, for example, a,
+
+00:11:20.200 --> 00:11:26.310
+uh, have, could include an ATURI that is
+
+00:11:26.310 --> 00:11:29.370
+in the, in the repository that has more involved contextual trust
+
+00:11:29.370 --> 00:11:30.200
+information.
+
+00:11:30.200 --> 00:11:33.850
+And the DIT documents themselves represent a whole lot of information
+
+00:11:33.960 --> 00:11:34.200
+.
+
+00:11:34.200 --> 00:11:38.110
+You can have key controllers, identity controllers, also known as
+
+00:11:38.110 --> 00:11:43.830
+relationships, and the bi-directional relationship representing conceptual,
+
+00:11:43.830 --> 00:11:46.500
+or consensual, uh, uh, referencing for D
+
+00:11:46.500 --> 00:11:48.790
+ITs, uh, keys, verification methods, et cetera
+
+00:11:48.790 --> 00:11:48.960
+.
+
+00:11:48.960 --> 00:11:52.630
+And even shared keys across them can show that, Hey,
+
+00:11:52.720 --> 00:11:56.380
+this identity, uh, you know, is affiliated with John
+
+00:11:56.380 --> 00:11:59.070
+Hopkins, for example, which is affiliated with, you know
+
+00:11:59.070 --> 00:12:00.960
+, a parent entity and so forth.
+
+00:12:00.960 --> 00:12:04.800
+And the, the trust can be, uh, traversed
+
+00:12:04.800 --> 00:12:06.960
+, um, using those.
+
+00:12:06.960 --> 00:12:07.960
+That's the idea.
+
+00:12:07.970 --> 00:12:08.950
+Yeah.
+
+00:12:08.960 --> 00:12:10.650
+In, in my role as MC, I'm going to
+
+00:12:10.650 --> 00:12:12.960
+move us along, but do please, uh, talk to
+
+00:12:12.960 --> 00:12:13.960
+Paul and Nick.
+
+00:12:13.960 --> 00:12:16.210
+As you say, for the benefits of people online, what
+
+00:12:16.210 --> 00:12:20.520
+was asked was, well, is this directly built into AT
+
+00:12:20.570 --> 00:12:20.960
+?
+
+00:12:20.960 --> 00:12:24.290
+And, uh, uh, the short version is Nick said
+
+00:12:24.330 --> 00:12:24.960
+yes.
+
+00:12:24.970 --> 00:12:25.960
+Excellent.
+
+00:12:25.970 --> 00:12:26.960
+Fantastic.
+
+00:12:26.970 --> 00:12:27.960
+Excellent.

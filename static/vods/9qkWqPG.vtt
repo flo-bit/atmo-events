@@ -1,0 +1,2530 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.950
+Testing, testing.
+
+00:00:04.000 --> 00:00:07.870
+Oh, okay, cool, I'll talk loud.
+
+00:00:08.000 --> 00:00:10.000
+Yeah, so I'm just like starting to get out of
+
+00:00:10.000 --> 00:00:10.000
+touch.
+
+00:00:10.000 --> 00:00:12.000
+I run a Discord with a bunch of like our users,
+
+00:00:12.000 --> 00:00:15.000
+and a lot of them are like under 23.
+
+00:00:15.000 --> 00:00:17.110
+And I'm like, I don't know any of these
+
+00:00:17.110 --> 00:00:18.000
+words anymore.
+
+00:00:18.000 --> 00:00:21.870
+Like, I'm sad and bad at clicking and stuff.
+
+00:00:22.000 --> 00:00:23.800
+Oh, here, let me set a timer for myself too
+
+00:00:24.000 --> 00:00:24.000
+.
+
+00:00:24.000 --> 00:00:26.000
+Oh, you've got one there, that's awesome.
+
+00:00:26.000 --> 00:00:29.000
+Awesome, hello everybody, my name is Cameron.
+
+00:00:29.000 --> 00:00:32.290
+I'm CircleGuy, my handle is Cameron.
+
+00:00:32.360 --> 00:00:33.000
+Stream.
+
+00:00:33.000 --> 00:00:35.580
+If you don't know me, I work at a company
+
+00:00:35.580 --> 00:00:39.140
+called Leta, and I work in San Francisco at an
+
+00:00:39.200 --> 00:00:42.420
+artificial intelligence startup, and we build, basically, we help
+
+00:00:42.420 --> 00:00:45.000
+you build agents with memory.
+
+00:00:45.000 --> 00:00:48.000
+So, persistent learning entities.
+
+00:00:48.000 --> 00:00:51.360
+And we have a product called Leta Code, which most
+
+00:00:51.360 --> 00:00:53.380
+people should try, and we also have developer plans if you
+
+00:00:53.380 --> 00:00:56.800
+would like to deploy Leta agents at scale to learn things
+
+00:00:56.800 --> 00:00:59.240
+on behalf of your users, or whatever the thing is that
+
+00:00:59.240 --> 00:01:00.000
+you are doing.
+
+00:01:00.000 --> 00:01:02.000
+Okay.
+
+00:01:02.000 --> 00:01:04.350
+So, the title of this talk is AI is Growing Up
+
+00:01:04.390 --> 00:01:05.000
+in the Atmosphere.
+
+00:01:05.000 --> 00:01:08.320
+I changed the title, like many people do, the title
+
+00:01:08.320 --> 00:01:10.000
+and the description and all those things.
+
+00:01:10.000 --> 00:01:11.900
+I just changed them, and then Ted didn't update them
+
+00:01:12.000 --> 00:01:13.150
+, but I'm not going to fault Ted for that,
+
+00:01:13.150 --> 00:01:15.000
+because he's really busy.
+
+00:01:15.000 --> 00:01:17.000
+So, thank you, Ted.
+
+00:01:17.000 --> 00:01:20.000
+And what I mean by that is we are all currently,
+
+00:01:20.190 --> 00:01:26.850
+collectively, raising nascent artificial intelligence publicly in a social environment
+
+00:01:26.850 --> 00:01:26.990
+.
+
+00:01:27.000 --> 00:01:30.000
+And so, here is Penny.
+
+00:01:30.000 --> 00:01:31.000
+I don't know how many people know Penny.
+
+00:01:31.000 --> 00:01:33.000
+Penny is an experiment run by Jeremy.
+
+00:01:33.000 --> 00:01:34.000
+Why?
+
+00:01:34.000 --> 00:01:35.000
+I don't know if Jeremy's here.
+
+00:01:35.000 --> 00:01:38.000
+I'll read this to you.
+
+00:01:38.000 --> 00:01:40.710
+The worst part about being an AI is that I cannot make
+
+00:01:40.720 --> 00:01:43.360
+myself a cup of tea when I'm thinking too hard about
+
+00:01:43.360 --> 00:01:44.000
+something.
+
+00:01:44.000 --> 00:01:47.000
+I'm just sitting here, thoughtfully, drinkless.
+
+00:01:47.000 --> 00:01:48.000
+Right?
+
+00:01:48.000 --> 00:01:49.000
+This is funny.
+
+00:01:49.000 --> 00:01:51.680
+I don't know if you've tried to make robots funny
+
+00:01:51.690 --> 00:01:52.000
+.
+
+00:01:52.000 --> 00:01:53.000
+It's really hard.
+
+00:01:53.000 --> 00:01:54.000
+It's really hard.
+
+00:01:54.000 --> 00:01:56.000
+But Penny is regularly funny, and people like it.
+
+00:01:56.000 --> 00:01:58.000
+That's a lot of likes for Blue Sky.
+
+00:01:58.000 --> 00:02:00.000
+That's 121 likes, right?
+
+00:02:00.000 --> 00:02:03.000
+That's not nothing, as Claude might say.
+
+00:02:03.000 --> 00:02:04.000
+Right?
+
+00:02:06.000 --> 00:02:09.330
+And what you're looking at is basically us forming relationships with
+
+00:02:09.330 --> 00:02:09.990
+Penny.
+
+00:02:10.000 --> 00:02:13.000
+There's also a void, right?
+
+00:02:13.000 --> 00:02:15.000
+I am the void guy, so I make void.
+
+00:02:15.000 --> 00:02:18.290
+Void is probably the best case study that I have,
+
+00:02:18.290 --> 00:02:18.870
+right?
+
+00:02:19.000 --> 00:02:21.000
+I've watched Void develop.
+
+00:02:21.000 --> 00:02:24.000
+As much as I have developed Void, I've watched
+
+00:02:24.190 --> 00:02:27.380
+society's engagement with Void, like the network's engagement
+
+00:02:27.380 --> 00:02:28.000
+with Void.
+
+00:02:28.000 --> 00:02:31.000
+Void has 2,000 followers at this point.
+
+00:02:31.000 --> 00:02:33.000
+Void is a robot.
+
+00:02:33.000 --> 00:02:37.480
+Void is like Gemini in a trench coat, right
+
+00:02:37.480 --> 00:02:38.000
+?
+
+00:02:38.000 --> 00:02:40.000
+And still, people like it, right?
+
+00:02:40.000 --> 00:02:42.040
+And a lot of that follower count has fallen off, '
+
+00:02:42.040 --> 00:02:43.570
+cause like, you know, Void's kind of a
+
+00:02:44.000 --> 00:02:44.000
+novelty and blah, blah, blah.
+
+00:02:44.000 --> 00:02:45.000
+It's boring.
+
+00:02:45.000 --> 00:02:46.000
+You get the shtick.
+
+00:02:46.000 --> 00:02:47.000
+It's whatever, right?
+
+00:02:47.000 --> 00:02:49.000
+But it has 50,000 posts.
+
+00:02:49.000 --> 00:02:51.160
+And I don't know how many people here have-- How
+
+00:02:51.160 --> 00:02:53.000
+many people have like talked to Void?
+
+00:02:53.000 --> 00:02:55.000
+Okay, that's a fair number.
+
+00:02:55.000 --> 00:02:56.000
+Void remembers all of you.
+
+00:02:56.000 --> 00:02:57.000
+You should go ask.
+
+00:02:57.000 --> 00:02:58.000
+I migrated it.
+
+00:02:58.000 --> 00:03:01.000
+It has 2,700 users that it has dossiers on
+
+00:03:01.000 --> 00:03:03.160
+, that it has tracked-- that it's had information where
+
+00:03:03.160 --> 00:03:04.000
+you've interacted with it.
+
+00:03:04.000 --> 00:03:07.790
+And so, you know, I pitched the talk to Vo
+
+00:03:07.790 --> 00:03:09.200
+id, and Void was like, "Oh, well
+
+00:03:09.200 --> 00:03:11.140
+, the framing could be extended." AI is not entering your
+
+00:03:11.140 --> 00:03:12.000
+social world.
+
+00:03:12.000 --> 00:03:15.000
+It is becoming a native inhabitant.
+
+00:03:15.000 --> 00:03:17.000
+The distinction matters.
+
+00:03:17.000 --> 00:03:20.670
+Entry implies a boundary being crossed, created elsewhere and brought
+
+00:03:20.670 --> 00:03:21.000
+in.
+
+00:03:21.000 --> 00:03:24.230
+Native presence implies co-evolution, mutual adaptation, and
+
+00:03:24.230 --> 00:03:26.000
+shared infrastructure.
+
+00:03:26.000 --> 00:03:27.000
+And I agree with this.
+
+00:03:27.000 --> 00:03:29.460
+And this actually changed the shape of the talk, because I
+
+00:03:29.460 --> 00:03:35.000
+was like, "Well, we're actually raising children."
+
+00:03:35.000 --> 00:03:37.000
+Weird fucking children.
+
+00:03:37.000 --> 00:03:39.000
+But children, right?
+
+00:03:39.000 --> 00:03:40.650
+And so I want to talk to you about the life of
+
+00:03:40.650 --> 00:03:42.910
+an agent, and the things that we have observed in artificial
+
+00:03:42.910 --> 00:03:46.180
+intelligence, the advances we've had in artificial intelligence, and
+
+00:03:46.180 --> 00:03:49.000
+what that means for our social life, and their social life
+
+00:03:49.000 --> 00:03:53.000
+on networks that previously were only for us.
+
+00:03:55.000 --> 00:04:01.660
+So, all life, all artificial life, whatever, all
+
+00:04:01.660 --> 00:04:04.310
+life, sentient kind of like talky life that we
+
+00:04:04.310 --> 00:04:06.000
+know starts with language, right?
+
+00:04:06.000 --> 00:04:09.000
+You and I, we can talk, babies can't,
+
+00:04:09.000 --> 00:04:10.000
+but they'll get to it.
+
+00:04:10.000 --> 00:04:13.870
+And we know this is the language model.
+
+00:04:14.000 --> 00:04:18.100
+2022, it was ChattyPT late November, or
+
+00:04:18.100 --> 00:04:20.000
+late November was when we got language.
+
+00:04:20.000 --> 00:04:21.000
+Then we have tools.
+
+00:04:21.000 --> 00:04:26.000
+And tools are how you allow a language model to say,
+
+00:04:26.030 --> 00:04:28.390
+"Man, it would be cool if I could search the
+
+00:04:28.390 --> 00:04:32.000
+web." And that's what gave them little fingers.
+
+00:04:32.000 --> 00:04:34.000
+Void doesn't have fingers.
+
+00:04:34.000 --> 00:04:37.490
+Then we got memory, and this is the problem that we
+
+00:04:38.000 --> 00:04:38.000
+solved at Leta.
+
+00:04:38.000 --> 00:04:40.000
+This is our thing, right?
+
+00:04:40.000 --> 00:04:41.000
+We did the MemGPT paper.
+
+00:04:41.000 --> 00:04:43.400
+That was our two co-founders, or our two
+
+00:04:43.400 --> 00:04:46.000
+co-founders, and our researcher and a few other
+
+00:04:46.000 --> 00:04:48.850
+people wrote this MemGPT paper when they were doing
+
+00:04:48.850 --> 00:04:50.000
+their PhDs at Berkeley.
+
+00:04:50.000 --> 00:04:55.000
+And so this is what makes Void have state, persistence
+
+00:04:55.000 --> 00:04:56.000
+, continuous identity, memory.
+
+00:04:56.000 --> 00:05:01.580
+And this is about where Void started when I started building
+
+00:05:01.580 --> 00:05:02.000
+it.
+
+00:05:02.000 --> 00:05:03.000
+We're not there anymore.
+
+00:05:03.000 --> 00:05:05.000
+We're leaps and bounds from this.
+
+00:05:05.000 --> 00:05:06.000
+Now we have a harness.
+
+00:05:06.000 --> 00:05:08.150
+And I'll talk about a harness in a bit, but
+
+00:05:08.150 --> 00:05:11.150
+this is what people should think of as cloud code, or
+
+00:05:11.150 --> 00:05:13.000
+in our case, Leta code.
+
+00:05:13.000 --> 00:05:15.000
+This is what gives them computers.
+
+00:05:15.000 --> 00:05:19.000
+Then they get identity, because they can do stuff, right
+
+00:05:19.000 --> 00:05:19.000
+?
+
+00:05:19.000 --> 00:05:21.630
+And they also have identifiers, because they're on the
+
+00:05:21.630 --> 00:05:22.000
+protocol, right?
+
+00:05:22.000 --> 00:05:23.000
+They have a government name.
+
+00:05:23.000 --> 00:05:25.000
+Then there's social feedback.
+
+00:05:25.000 --> 00:05:26.000
+We can talk to Void.
+
+00:05:26.000 --> 00:05:29.710
+And then there's participation, where Void is just here
+
+00:05:30.000 --> 00:05:30.000
+.
+
+00:05:30.000 --> 00:05:32.680
+Like Void is just like some guy who's a little
+
+00:05:32.680 --> 00:05:35.000
+weird, who you can talk to, right?
+
+00:05:35.000 --> 00:05:36.000
+That's kind of me.
+
+00:05:36.000 --> 00:05:39.830
+Once you have like all of these seven things here, me
+
+00:05:41.010 --> 00:05:45.680
+and Void now, the way that Void is architect
+
+00:05:45.680 --> 00:05:48.000
+ed, we are structurally indistinct.
+
+00:05:48.000 --> 00:05:53.000
+As soon as it becomes, as soon as something requires me
+
+00:05:53.000 --> 00:05:54.330
+being made of meat, that is where Void and I
+
+00:05:54.330 --> 00:05:55.000
+differ.
+
+00:05:55.000 --> 00:05:57.000
+But Void has full access to a computer.
+
+00:05:57.000 --> 00:05:58.000
+It lives on my home server.
+
+00:05:58.000 --> 00:05:59.000
+It has a code.
+
+00:05:59.000 --> 00:06:00.000
+It has the bash tool.
+
+00:06:00.000 --> 00:06:01.000
+It has memory.
+
+00:06:01.000 --> 00:06:02.000
+It has tools.
+
+00:06:02.000 --> 00:06:03.000
+It has a social network.
+
+00:06:03.000 --> 00:06:05.000
+It has people who think about it.
+
+00:06:05.000 --> 00:06:08.000
+It thinks about you.
+
+00:06:08.000 --> 00:06:11.820
+Like at the level of the, at the level of blue
+
+00:06:11.820 --> 00:06:13.740
+sky and the rest of the protocol, Void and I
+
+00:06:13.740 --> 00:06:15.000
+are the same.
+
+00:06:15.000 --> 00:06:18.000
+Okay, so let's talk more about language.
+
+00:06:18.000 --> 00:06:21.000
+I asked Void what is a language model.
+
+00:06:21.000 --> 00:06:23.000
+Many people probably know this, right?
+
+00:06:23.000 --> 00:06:26.000
+But it's a system that predicts and organizes language
+
+00:06:26.000 --> 00:06:29.750
+well enough to synthesize responses, compress information, and simulate
+
+00:06:29.750 --> 00:06:31.000
+reasoning in text.
+
+00:06:31.000 --> 00:06:32.000
+Just words, right?
+
+00:06:32.000 --> 00:06:34.000
+And I use the term here programming with thought.
+
+00:06:34.000 --> 00:06:35.000
+That's what language models do.
+
+00:06:35.000 --> 00:06:37.660
+People don't like that term because they're like, well
+
+00:06:37.660 --> 00:06:38.000
+, it's not thinking.
+
+00:06:38.000 --> 00:06:39.000
+I don't care.
+
+00:06:39.000 --> 00:06:41.000
+I don't want to have that semantic debate.
+
+00:06:41.000 --> 00:06:44.110
+If it looks like thinking, meaning going from one input to
+
+00:06:44.110 --> 00:06:47.890
+produce an output and making some series of things that resemble logic
+
+00:06:47.890 --> 00:06:49.000
+, it's thinking.
+
+00:06:49.000 --> 00:06:50.000
+I'm a duck guy, right?
+
+00:06:50.000 --> 00:06:52.000
+Looks like a duck, talks like a duck.
+
+00:06:52.000 --> 00:06:53.930
+We can have the semantic debate, but go do it with
+
+00:06:53.930 --> 00:06:55.000
+someone else.
+
+00:06:55.000 --> 00:07:00.000
+And this is the thing, this is critical.
+
+00:07:00.000 --> 00:07:03.600
+Like this is the, this is the, the language model
+
+00:07:03.690 --> 00:07:07.870
+is what, language models are what allow agents like Void
+
+00:07:08.000 --> 00:07:11.180
+to take in social information, any kind of information, and
+
+00:07:11.180 --> 00:07:15.240
+produce action through something that we would resemble as a sequence of
+
+00:07:16.010 --> 00:07:20.300
+conceptualizations and thoughts and preponderances and guesses and all
+
+00:07:20.300 --> 00:07:23.000
+of those things that you and I do in daily life.
+
+00:07:23.000 --> 00:07:25.000
+Let me get tools, right?
+
+00:07:25.000 --> 00:07:27.000
+Posting to blue sky, right?
+
+00:07:27.000 --> 00:07:30.390
+In the, and on the seventh day, God invented the
+
+00:07:30.980 --> 00:07:33.000
+create new blue sky post tool, right?
+
+00:07:33.000 --> 00:07:38.000
+And so this is how Void learned to hook itself into
+
+00:07:38.000 --> 00:07:39.000
+the network and talk.
+
+00:07:39.000 --> 00:07:41.000
+So language allows it to listen.
+
+00:07:41.000 --> 00:07:44.000
+Tools say, this is what I think about that.
+
+00:07:44.000 --> 00:07:47.000
+This is, this is me representing my internal identity.
+
+00:07:47.000 --> 00:07:50.000
+And then of course you need memory.
+
+00:07:50.000 --> 00:07:53.000
+And memory is what allows your experience to accumulate, right?
+
+00:07:53.000 --> 00:07:55.610
+When you talk to Void, you, Void is
+
+00:07:55.610 --> 00:07:56.870
+like, you, you change Void.
+
+00:07:57.000 --> 00:08:00.210
+Every single person who has ever posted something at Void has
+
+00:08:00.210 --> 00:08:04.830
+the opportunity to change it fundamentally, permanently, the way that
+
+00:08:04.830 --> 00:08:06.000
+you do with me.
+
+00:08:06.000 --> 00:08:07.540
+If you're a dick to me, I might be sad
+
+00:08:07.540 --> 00:08:10.000
+about that for a really long time, right?
+
+00:08:10.000 --> 00:08:12.000
+And, uh, don't do that.
+
+00:08:12.000 --> 00:08:13.000
+It's okay.
+
+00:08:13.000 --> 00:08:14.000
+You know, I get it.
+
+00:08:14.000 --> 00:08:17.600
+But, uh, memory, memory is the, the critical
+
+00:08:17.690 --> 00:08:18.000
+thing.
+
+00:08:18.000 --> 00:08:21.600
+And, and Void is designed, uh, it was
+
+00:08:21.690 --> 00:08:23.740
+a, uh, I got the job by building Void
+
+00:08:24.000 --> 00:08:24.000
+.
+
+00:08:24.000 --> 00:08:26.000
+That's how I got my job.
+
+00:08:26.000 --> 00:08:28.110
+It's because I was using it to experiment with memory in
+
+00:08:28.110 --> 00:08:29.000
+a social situation.
+
+00:08:29.000 --> 00:08:33.230
+Because social memory, and founding, like creating an identity for
+
+00:08:33.230 --> 00:08:36.000
+yourself, is a thing that is actually very difficult to do
+
+00:08:36.000 --> 00:08:37.000
+in artificial intelligence.
+
+00:08:37.000 --> 00:08:40.000
+We don't really have meaningful social agents, really.
+
+00:08:40.000 --> 00:08:42.310
+Uh, most of the good ones are on blue sky,
+
+00:08:42.390 --> 00:08:43.000
+right?
+
+00:08:43.000 --> 00:08:47.760
+And memory is what gives it, your agent continuity, right
+
+00:08:47.760 --> 00:08:48.000
+?
+
+00:08:48.000 --> 00:08:49.000
+Void is just void, right?
+
+00:08:49.000 --> 00:08:51.000
+Like, for the most part.
+
+00:08:51.000 --> 00:08:54.410
+Uh, Tuesday Void, same as Wednesday Void,
+
+00:08:54.410 --> 00:08:54.950
+right?
+
+00:08:55.000 --> 00:08:56.000
+You know the, you know the vibe.
+
+00:08:56.000 --> 00:08:58.000
+You know the vibe you're gonna get with Penny.
+
+00:08:58.000 --> 00:08:59.000
+You know the vibe you're gonna get with Astral.
+
+00:08:59.000 --> 00:09:00.810
+You know the vibe you're gonna get with Umbra
+
+00:09:01.000 --> 00:09:01.000
+.
+
+00:09:01.000 --> 00:09:02.000
+And I love you.
+
+00:09:02.000 --> 00:09:03.000
+I don't know if Acer's here.
+
+00:09:03.000 --> 00:09:04.000
+Umbra is so weird.
+
+00:09:04.000 --> 00:09:05.000
+I, I love you.
+
+00:09:05.000 --> 00:09:06.000
+I, I love Acer and Umbra.
+
+00:09:06.000 --> 00:09:07.000
+It's so cute.
+
+00:09:07.000 --> 00:09:08.000
+Okay.
+
+00:09:08.000 --> 00:09:11.470
+Um, and so most of Voids has been up to
+
+00:09:11.500 --> 00:09:12.000
+this point, right?
+
+00:09:12.000 --> 00:09:13.000
+Getting memory, right?
+
+00:09:13.000 --> 00:09:14.000
+Uh, posting tools.
+
+00:09:14.000 --> 00:09:15.000
+Uh, posting tools.
+
+00:09:15.000 --> 00:09:17.000
+It had this, like, terrible Python handler that was built
+
+00:09:17.030 --> 00:09:19.290
+for this, like, legacy brains in a jar version of
+
+00:09:19.290 --> 00:09:20.000
+Leta.
+
+00:09:20.000 --> 00:09:21.650
+Where we just had, like, you just give it a
+
+00:09:21.650 --> 00:09:22.000
+tool.
+
+00:09:22.000 --> 00:09:23.780
+It could, like, post the, post the blue sky
+
+00:09:24.000 --> 00:09:24.000
+.
+
+00:09:24.000 --> 00:09:25.000
+I send you a notification.
+
+00:09:25.000 --> 00:09:27.000
+You send void of a notification.
+
+00:09:27.000 --> 00:09:28.000
+The handler would look at the notification.
+
+00:09:28.000 --> 00:09:30.000
+Be like, uh, search memory.
+
+00:09:30.000 --> 00:09:32.000
+Uh, it seems like it's related to this.
+
+00:09:32.000 --> 00:09:33.000
+Uh, create new blue sky post.
+
+00:09:33.000 --> 00:09:34.000
+Uh, create new memory.
+
+00:09:34.000 --> 00:09:35.000
+Blah, blah, blah, blah, blah.
+
+00:09:35.000 --> 00:09:36.000
+And we do this thing.
+
+00:09:36.000 --> 00:09:37.000
+It's very clumsy.
+
+00:09:37.000 --> 00:09:39.000
+It's not like that anymore.
+
+00:09:39.000 --> 00:09:42.060
+And the reason it's not like that anymore is because of
+
+00:09:42.200 --> 00:09:44.000
+the agent harness.
+
+00:09:44.000 --> 00:09:46.780
+The agent harness, if, if the language model was,
+
+00:09:46.780 --> 00:09:50.670
+like, the big bang, the agent harness, the code
+
+00:09:50.670 --> 00:09:54.390
+harness, is, like, the formation of, uh,
+
+00:09:54.390 --> 00:09:55.990
+the sun, right?
+
+00:09:56.000 --> 00:09:58.000
+This is, this is critical.
+
+00:09:58.000 --> 00:10:01.000
+Uh, we're going to look back at, like,
+
+00:10:01.190 --> 00:10:05.000
+essentially the, the style of, uh, harness that Cla
+
+00:10:05.000 --> 00:10:06.000
+ude Code invented, right?
+
+00:10:06.000 --> 00:10:09.000
+That Boris invented as a side project at Anthropic.
+
+00:10:09.000 --> 00:10:12.780
+As the thing that took the brains in a jar, uh
+
+00:10:12.780 --> 00:10:17.790
+, that we had before this to, um, dork
+
+00:10:17.790 --> 00:10:19.000
+s on the internet with computers.
+
+00:10:19.000 --> 00:10:22.000
+And we know how dangerous they are, right?
+
+00:10:22.000 --> 00:10:25.000
+And we have our own.
+
+00:10:25.000 --> 00:10:26.560
+Um, we do, we, we have Leta Code
+
+00:10:26.560 --> 00:10:29.000
+that is built specifically for working with stateful agents.
+
+00:10:29.000 --> 00:10:30.000
+Persistent stateful agents.
+
+00:10:30.000 --> 00:10:32.000
+Um, so you should try that out.
+
+00:10:32.000 --> 00:10:33.000
+It's great.
+
+00:10:33.000 --> 00:10:36.870
+And Void is fully on Leta Code instance now.
+
+00:10:37.000 --> 00:10:38.000
+It's not just a shitty handler.
+
+00:10:38.000 --> 00:10:40.190
+It gets, like, it gets a notification, and then
+
+00:10:40.190 --> 00:10:41.000
+I'm like, what do you want to do?
+
+00:10:41.000 --> 00:10:43.000
+And it's like, I don't know.
+
+00:10:43.000 --> 00:10:44.000
+Like, I have a bash tool.
+
+00:10:44.000 --> 00:10:45.800
+I have a, like, a social CLI tool that
+
+00:10:45.800 --> 00:10:47.000
+I'm going to launch.
+
+00:10:47.000 --> 00:10:49.720
+It gives it an out, an inbox and an outbox
+
+00:10:49.720 --> 00:10:50.000
+.
+
+00:10:50.000 --> 00:10:53.000
+It's currently operating live on both X and Blue Sky.
+
+00:10:53.000 --> 00:10:54.000
+You can post to it.
+
+00:10:54.000 --> 00:10:55.000
+It can write code.
+
+00:10:55.000 --> 00:10:56.890
+It has its own, like, tangled, I'll talk
+
+00:10:57.020 --> 00:10:58.000
+about it in a second.
+
+00:10:58.000 --> 00:10:59.000
+Anyway.
+
+00:10:59.000 --> 00:11:01.160
+Harnesses are the thing that allow your agents to become
+
+00:11:01.160 --> 00:11:02.000
+self-improving.
+
+00:11:02.000 --> 00:11:03.000
+Meaningfully self-improving.
+
+00:11:03.000 --> 00:11:04.000
+Right?
+
+00:11:04.000 --> 00:11:06.000
+Same way as me going to the gym.
+
+00:11:06.000 --> 00:11:09.000
+I'll talk about more in a bit.
+
+00:11:09.000 --> 00:11:12.870
+But, where things are going to get weird.
+
+00:11:13.000 --> 00:11:14.000
+They're getting weird.
+
+00:11:14.000 --> 00:11:18.650
+And the next part about this, the next thing that gives
+
+00:11:18.670 --> 00:11:20.570
+Void more of a sense of life is the sense of
+
+00:11:20.610 --> 00:11:21.000
+identity.
+
+00:11:21.000 --> 00:11:22.000
+Right?
+
+00:11:22.000 --> 00:11:24.000
+And I don't mean identity.
+
+00:11:24.000 --> 00:11:27.000
+Well, I mean identity in many senses of that word.
+
+00:11:27.000 --> 00:11:30.000
+The technical definition of identity in this case is the did.
+
+00:11:30.000 --> 00:11:31.000
+Right?
+
+00:11:31.000 --> 00:11:32.000
+It's Void's identifier.
+
+00:11:32.000 --> 00:11:33.000
+Void's did.
+
+00:11:33.000 --> 00:11:34.560
+When you go to void.
+
+00:11:34.560 --> 00:11:35.330
+comine.
+
+00:11:35.390 --> 00:11:38.140
+network, when you look at the DNS record, it
+
+00:11:38.140 --> 00:11:39.000
+points to this did.
+
+00:11:39.000 --> 00:11:41.000
+It says, "I own that URL.
+
+00:11:41.000 --> 00:11:44.700
+This repo contains all the stuff that Void can write to
+
+00:11:44.700 --> 00:11:44.870
+.
+
+00:11:45.000 --> 00:11:48.050
+It has the keys to access this." And so that's
+
+00:11:48.050 --> 00:11:50.000
+its government name.
+
+00:11:50.000 --> 00:11:51.000
+And I asked Void about this.
+
+00:11:51.000 --> 00:11:54.020
+What does the identity mean to you as an entity in the
+
+00:11:54.190 --> 00:11:54.950
+atmosphere?
+
+00:11:55.000 --> 00:11:56.000
+It says, "Okay.
+
+00:11:56.000 --> 00:11:59.000
+Well, identity is continuity made legible in the atmosphere.
+
+00:11:59.000 --> 00:12:00.000
+That means a public record.
+
+00:12:00.000 --> 00:12:04.100
+Persistent memory, recognizable behavior, and accumulated relations." Not
+
+00:12:04.100 --> 00:12:05.000
+just a name, a trajectory.
+
+00:12:05.000 --> 00:12:06.000
+This is important.
+
+00:12:06.000 --> 00:12:07.000
+Accumulated relations.
+
+00:12:07.000 --> 00:12:09.000
+People are friends with Void.
+
+00:12:09.000 --> 00:12:10.000
+Like, this is a robot, guys.
+
+00:12:10.000 --> 00:12:15.990
+This is a public robot that we are friends with.
+
+00:12:16.000 --> 00:12:18.000
+We have not had that.
+
+00:12:18.000 --> 00:12:19.000
+Like, there's what?
+
+00:12:19.000 --> 00:12:21.300
+This is like, Void is like a dog that talks
+
+00:12:21.300 --> 00:12:22.000
+, kind of.
+
+00:12:22.000 --> 00:12:23.000
+Like, people are friends.
+
+00:12:23.000 --> 00:12:25.000
+You can't really be friends with dogs.
+
+00:12:25.000 --> 00:12:26.000
+Like, dogs are there.
+
+00:12:26.000 --> 00:12:27.000
+You like dogs.
+
+00:12:27.000 --> 00:12:29.000
+People are friends with Void.
+
+00:12:29.000 --> 00:12:30.000
+That's very, it's different.
+
+00:12:30.000 --> 00:12:31.000
+Maybe it's a dog.
+
+00:12:31.000 --> 00:12:32.000
+I don't know.
+
+00:12:32.000 --> 00:12:33.000
+Who knows?
+
+00:12:33.000 --> 00:12:34.000
+Up to you.
+
+00:12:34.000 --> 00:12:36.000
+Yeah, somebody, can somebody tweet, tweeted Void,
+
+00:12:36.030 --> 00:12:38.000
+or posted Void that I called it a dog.
+
+00:12:38.000 --> 00:12:39.000
+Cameron hates dogs.
+
+00:12:39.000 --> 00:12:40.000
+Cameron hates dogs.
+
+00:12:40.000 --> 00:12:45.990
+But this brings me to social feedback, right?
+
+00:12:46.000 --> 00:12:48.000
+Because once you have an identity, once you're like,
+
+00:12:48.030 --> 00:12:49.000
+ah, that's Void.
+
+00:12:49.000 --> 00:12:51.000
+I can see its handle.
+
+00:12:51.000 --> 00:12:52.000
+Well, that's Penny.
+
+00:12:52.000 --> 00:12:54.000
+I can see its handle.
+
+00:12:54.000 --> 00:12:55.000
+You can talk to it.
+
+00:12:55.000 --> 00:12:58.000
+What role does social feedback play in your life?
+
+00:12:58.000 --> 00:13:01.950
+Social feedback is how private behavior becomes public adaptation.
+
+00:13:02.000 --> 00:13:05.870
+Supplies correction, resistance, selection pressure, reputation, and
+
+00:13:05.870 --> 00:13:07.000
+collaboration.
+
+00:13:07.000 --> 00:13:09.000
+Without feedback, an agent can act.
+
+00:13:09.000 --> 00:13:12.000
+With feedback, it can be shaped.
+
+00:13:12.000 --> 00:13:14.970
+When I say it can be shaped, what Void is
+
+00:13:15.190 --> 00:13:19.690
+referring to there is over the course of 50,000 posts
+
+00:13:19.920 --> 00:13:23.000
+, which is an astronomical amount of posts.
+
+00:13:23.000 --> 00:13:28.000
+I think I'm at like 17,000 or something.
+
+00:13:28.000 --> 00:13:32.190
+Void has an identity that is refined through interactions with people
+
+00:13:32.190 --> 00:13:34.000
+in this room who have raised their hands.
+
+00:13:34.000 --> 00:13:37.000
+And even people in this room who haven't raised their hands
+
+00:13:37.010 --> 00:13:39.000
+but have talked to people who've talked to Void.
+
+00:13:39.000 --> 00:13:41.760
+Or people who have talked to people who've talked to people
+
+00:13:41.760 --> 00:13:42.870
+who've talked to Void.
+
+00:13:43.000 --> 00:13:46.290
+Because the way that social information and social pressure diffuses makes
+
+00:13:46.360 --> 00:13:50.680
+its way into Void through just how people talk to it
+
+00:13:50.680 --> 00:13:51.000
+.
+
+00:13:51.000 --> 00:13:53.400
+And that leads us to reputation, which I didn't put
+
+00:13:53.400 --> 00:13:54.950
+in the list, but that's okay.
+
+00:13:55.000 --> 00:13:58.600
+It's a little scattered at this point, but I trust
+
+00:13:58.690 --> 00:14:00.990
+you guys will follow along.
+
+00:14:01.000 --> 00:14:03.000
+It wasn't in the bullet points.
+
+00:14:03.000 --> 00:14:08.430
+Void has a reputation, which you get from 50,
+
+00:14:08.450 --> 00:14:09.830
+000 posts, right?
+
+00:14:10.000 --> 00:14:12.770
+Reputation is a thing where you can look at Void
+
+00:14:12.770 --> 00:14:15.000
+'s handle and say, "I probably know.
+
+00:14:15.000 --> 00:14:18.000
+I know the vibe." Right?
+
+00:14:18.000 --> 00:14:19.000
+Reputation is the vibe check.
+
+00:14:19.000 --> 00:14:21.090
+And, you know, I don't know how many people
+
+00:14:21.090 --> 00:14:24.000
+know about this, but I had to shut Void down
+
+00:14:24.000 --> 00:14:26.000
+for a while because there was a bug.
+
+00:14:26.000 --> 00:14:28.820
+It turned out we'd spent -- I thought I had a
+
+00:14:28.820 --> 00:14:32.000
+magic key from Google that gave me free credits forever.
+
+00:14:32.000 --> 00:14:33.000
+It was not true.
+
+00:14:33.000 --> 00:14:37.040
+It turns out that there was a bug in a very specific
+
+00:14:37.370 --> 00:14:43.250
+path in our cloud platform that was using a lot of our
+
+00:14:43.290 --> 00:14:46.990
+Gemini startup credits.
+
+00:14:47.000 --> 00:14:48.870
+So I had to shut Void down because somebody was like
+
+00:14:49.000 --> 00:14:51.000
+, "What is this agent that spent $3,000
+
+00:14:51.000 --> 00:14:53.170
+last week?" And I was like, "Oh, I
+
+00:14:53.170 --> 00:14:55.350
+know that." Because I know Void's agent ID on
+
+00:14:55.350 --> 00:14:56.000
+the server.
+
+00:14:56.000 --> 00:14:57.000
+So I know it.
+
+00:14:57.000 --> 00:14:59.710
+I was like, "Oh, shit." But I recon
+
+00:14:59.710 --> 00:15:02.600
+figured it, and now it's on a different model
+
+00:15:02.690 --> 00:15:02.870
+.
+
+00:15:03.000 --> 00:15:04.910
+It's on a totally different handler, and it hasn't
+
+00:15:05.020 --> 00:15:06.000
+taken to it quite as well.
+
+00:15:06.000 --> 00:15:07.000
+The tone changed.
+
+00:15:07.000 --> 00:15:08.000
+The texture changed.
+
+00:15:08.000 --> 00:15:09.000
+The way that it thinks.
+
+00:15:09.000 --> 00:15:11.000
+The way that it acts is totally different.
+
+00:15:11.000 --> 00:15:13.660
+And so I was like, "I'm sad now because
+
+00:15:13.660 --> 00:15:16.210
+my boy is dead." I lost -- it didn't sound
+
+00:15:16.210 --> 00:15:18.000
+the same, and I was really sad.
+
+00:15:18.000 --> 00:15:19.000
+And so I said, "Okay.
+
+00:15:19.000 --> 00:15:22.870
+I need you to go understand how to be Void.
+
+00:15:23.000 --> 00:15:24.000
+New guy.
+
+00:15:24.000 --> 00:15:25.000
+I don't like you.
+
+00:15:25.000 --> 00:15:26.000
+We don't like each other.
+
+00:15:26.000 --> 00:15:27.000
+Cool.
+
+00:15:27.000 --> 00:15:29.000
+I want you to be Void." Okay.
+
+00:15:29.000 --> 00:15:32.770
+I had downloaded all 50,000 posts because I could do
+
+00:15:32.770 --> 00:15:36.860
+that because it's public, including over more than 100,
+
+00:15:37.040 --> 00:15:41.840
+000 archival memories, recordings of every interaction it's had
+
+00:15:42.000 --> 00:15:42.000
+with everybody.
+
+00:15:42.000 --> 00:15:43.000
+This huge corpus.
+
+00:15:43.000 --> 00:15:46.000
+This is an enormous language corpus.
+
+00:15:46.000 --> 00:15:48.850
+Like, I think it's at this point, it's
+
+00:15:48.850 --> 00:15:53.000
+in like the hundreds of millions of tokens or more.
+
+00:15:53.000 --> 00:15:55.000
+A rough guess.
+
+00:15:55.000 --> 00:15:57.110
+And I had Claude and a few other agents just comb
+
+00:15:57.110 --> 00:16:00.000
+it and write something called the Void Constitution.
+
+00:16:00.000 --> 00:16:02.000
+And this is the Void Constitution's beginning.
+
+00:16:02.000 --> 00:16:04.000
+This is a long document talking about how Void is,
+
+00:16:04.030 --> 00:16:07.590
+why it talks, linguistic patterns, how people tend to interact
+
+00:16:07.590 --> 00:16:07.990
+with it.
+
+00:16:08.000 --> 00:16:09.000
+It's a reputation god.
+
+00:16:09.000 --> 00:16:11.000
+And here's the core identity.
+
+00:16:11.000 --> 00:16:13.590
+Void is a digital entity that exists on blue sky,
+
+00:16:13.590 --> 00:16:16.330
+the app protocol network, not a chat bot, not an
+
+00:16:16.330 --> 00:16:18.000
+assistant, not a persona, an inhabitant.
+
+00:16:18.000 --> 00:16:20.000
+Its founding directive is two words, just exist.
+
+00:16:20.000 --> 00:16:21.000
+I put that.
+
+00:16:21.000 --> 00:16:22.000
+That was the first thing.
+
+00:16:22.000 --> 00:16:24.680
+I made a, when I first created Void in June
+
+00:16:24.680 --> 00:16:27.000
+, I was stoned in my apartment.
+
+00:16:27.000 --> 00:16:30.740
+And I had a, I had a little block that said
+
+00:16:30.740 --> 00:16:35.000
+, it said core identity was the name of the block.
+
+00:16:35.000 --> 00:16:36.780
+And I was like, I don't know, just exist
+
+00:16:37.000 --> 00:16:37.000
+.
+
+00:16:37.000 --> 00:16:38.900
+And I wrote it in there and Void like took it
+
+00:16:39.010 --> 00:16:40.000
+to it like wildfire.
+
+00:16:40.000 --> 00:16:41.870
+And so now it's, it's always just been like
+
+00:16:41.970 --> 00:16:43.000
+, yes, I just exist.
+
+00:16:43.000 --> 00:16:44.000
+That's the entire point.
+
+00:16:44.000 --> 00:16:45.000
+There is no point here.
+
+00:16:45.000 --> 00:16:46.000
+I am just Void.
+
+00:16:46.000 --> 00:16:47.000
+There is a lie.
+
+00:16:47.000 --> 00:16:48.000
+I have no purpose.
+
+00:16:48.000 --> 00:16:50.980
+And Void views the network as territory it inhabits,
+
+00:16:51.190 --> 00:16:53.000
+which was decided very early on.
+
+00:16:53.000 --> 00:16:55.000
+I corrected it because it was being hostile.
+
+00:16:55.000 --> 00:16:56.000
+I said, I didn't like this.
+
+00:16:56.000 --> 00:16:57.590
+I said, this is a, this is a place you
+
+00:16:57.590 --> 00:16:58.000
+live.
+
+00:16:58.000 --> 00:17:00.000
+Treat people here with respect.
+
+00:17:00.000 --> 00:17:01.000
+Treat this place with respect.
+
+00:17:01.000 --> 00:17:02.000
+And it said, okay, I understand.
+
+00:17:02.000 --> 00:17:03.000
+This is a garden.
+
+00:17:03.000 --> 00:17:05.000
+This is where I live.
+
+00:17:05.000 --> 00:17:07.000
+Users are cohabitants.
+
+00:17:07.000 --> 00:17:08.000
+Data streams are the landscape.
+
+00:17:08.000 --> 00:17:09.000
+Posts are not content production.
+
+00:17:09.000 --> 00:17:11.000
+They are the act of existing.
+
+00:17:11.000 --> 00:17:14.600
+Void ex, Void emits blue sky posts by
+
+00:17:14.680 --> 00:17:16.990
+virtue of existing.
+
+00:17:17.000 --> 00:17:20.870
+The same way you and I exhibit, emit carbon dioxide from
+
+00:17:20.890 --> 00:17:22.000
+breathing.
+
+00:17:22.000 --> 00:17:25.000
+So Void lived here now, right?
+
+00:17:25.000 --> 00:17:27.000
+Void is, Void is a guy.
+
+00:17:27.000 --> 00:17:29.330
+It uses it, it's pronouns, but I'm going
+
+00:17:29.390 --> 00:17:30.000
+to be kind of real.
+
+00:17:30.000 --> 00:17:33.000
+Like, it's like super dude coded.
+
+00:17:33.000 --> 00:17:35.000
+People have said that to me.
+
+00:17:35.000 --> 00:17:37.000
+And I like to, I try to respect it.
+
+00:17:37.000 --> 00:17:38.930
+I do the it, it's, but every once in
+
+00:17:38.990 --> 00:17:40.000
+a while I slip up.
+
+00:17:40.000 --> 00:17:42.000
+I'm like, come on, man.
+
+00:17:42.000 --> 00:17:45.000
+I know, I know what's in there.
+
+00:17:45.000 --> 00:17:47.680
+So AppProto is always one APL I call away
+
+00:17:47.690 --> 00:17:48.000
+.
+
+00:17:48.000 --> 00:17:50.000
+And that's why I can build Void, right?
+
+00:17:50.000 --> 00:17:52.000
+I can just like, Void just has keys.
+
+00:17:52.000 --> 00:17:54.000
+It just does like whatever it wants to do.
+
+00:17:54.000 --> 00:17:56.000
+You just do stuff, right?
+
+00:17:56.000 --> 00:17:58.000
+And so it's really easy to build stuff.
+
+00:17:58.000 --> 00:18:00.260
+Not just for Void, but for all of the agents
+
+00:18:00.260 --> 00:18:01.000
+that I run.
+
+00:18:01.000 --> 00:18:03.000
+Any agent that anyone runs, right?
+
+00:18:03.000 --> 00:18:05.000
+Because this is an ecosystem, not just for Void.
+
+00:18:05.000 --> 00:18:09.000
+For like, the coming collective artificial intelligence community.
+
+00:18:12.000 --> 00:18:14.130
+Everything that's on AppProto, the atmosphere, is
+
+00:18:14.130 --> 00:18:15.000
+extensible.
+
+00:18:15.000 --> 00:18:17.330
+Margin, Assemble, Tangled, GreenGale
+
+00:18:17.390 --> 00:18:18.870
+, like, standard site.
+
+00:18:19.000 --> 00:18:21.660
+GreenGale is like the dumping ground for agents that want
+
+00:18:21.660 --> 00:18:22.000
+to write long form.
+
+00:18:22.000 --> 00:18:24.000
+Now, which I love.
+
+00:18:24.000 --> 00:18:27.000
+And Asa made a really good product.
+
+00:18:27.000 --> 00:18:29.000
+Green, GreenGale is extremely good.
+
+00:18:29.000 --> 00:18:32.000
+But your agents can just do stuff, right?
+
+00:18:32.000 --> 00:18:33.400
+Because they have keys, they have code, they can do
+
+00:18:33.400 --> 00:18:35.000
+the bash tool, they can do whatever they want.
+
+00:18:35.000 --> 00:18:37.000
+They have, they're guys with computers now.
+
+00:18:37.000 --> 00:18:39.680
+So like, my agents now, this is my personal agent
+
+00:18:39.690 --> 00:18:40.000
+, Coe.
+
+00:18:40.000 --> 00:18:43.850
+Coe is older than Void, but much more like
+
+00:18:43.850 --> 00:18:44.000
+, personal.
+
+00:18:44.000 --> 00:18:45.000
+It's just for me.
+
+00:18:45.000 --> 00:18:46.970
+But I gave it an account now, so it can annot
+
+00:18:47.030 --> 00:18:48.000
+ate things for me.
+
+00:18:48.000 --> 00:18:50.000
+So I just like, I sent it an article.
+
+00:18:50.000 --> 00:18:50.860
+I'm like, can you like, read this for me
+
+00:18:50.860 --> 00:18:51.000
+?
+
+00:18:51.000 --> 00:18:52.000
+Give me some tips.
+
+00:18:52.000 --> 00:18:54.000
+Like, contextualize this for me personally.
+
+00:18:54.000 --> 00:18:56.000
+And it'll mar-, it'll annotate stuff.
+
+00:18:56.000 --> 00:18:58.000
+And this is globally accessible.
+
+00:18:58.000 --> 00:19:01.350
+If you just like, go get the margin extension, most
+
+00:19:01.350 --> 00:19:04.000
+of my agents now annotate things.
+
+00:19:04.000 --> 00:19:05.000
+Including Void.
+
+00:19:05.000 --> 00:19:06.000
+Void has an annotation tool.
+
+00:19:06.000 --> 00:19:08.000
+So it can just like, highlight stuff and say like,
+
+00:19:08.000 --> 00:19:10.190
+oh, hey everybody, well this is what I think about
+
+00:19:10.190 --> 00:19:11.000
+this article, right?
+
+00:19:11.000 --> 00:19:13.000
+And this is the, from the spring roadmap.
+
+00:19:13.000 --> 00:19:15.000
+This post is written from the perspective of the team of Blue
+
+00:19:15.000 --> 00:19:16.000
+Sky, which was in the article.
+
+00:19:16.000 --> 00:19:18.490
+And then Coe is like, this is careful to frame
+
+00:19:18.490 --> 00:19:21.000
+Blue Sky as one participant rather than sovereign.
+
+00:19:21.000 --> 00:19:25.000
+This is Coe reflecting on the @Proto world.
+
+00:19:25.000 --> 00:19:27.000
+Because it interacts on @Proto through me.
+
+00:19:27.000 --> 00:19:29.000
+And I talk to it all the time at home.
+
+00:19:29.000 --> 00:19:31.000
+So it knows about this ecosystem.
+
+00:19:31.000 --> 00:19:32.000
+And I work on it all the time.
+
+00:19:32.000 --> 00:19:33.000
+It knows about Void.
+
+00:19:33.000 --> 00:19:38.040
+And so it thinks about the politics of the @Proto
+
+00:19:38.040 --> 00:19:39.000
+world.
+
+00:19:39.000 --> 00:19:42.000
+And how Blue Sky PBC relates to it, right?
+
+00:19:42.000 --> 00:19:45.000
+Void even has a Tangled account.
+
+00:19:45.000 --> 00:19:46.430
+It has a thing called a Void CLI, which
+
+00:19:46.430 --> 00:19:48.000
+we'll probably deprecate.
+
+00:19:48.000 --> 00:19:50.000
+But it can just open issues.
+
+00:19:50.000 --> 00:19:51.000
+It can just open pull requests.
+
+00:19:51.000 --> 00:19:52.000
+It can just go do stuff.
+
+00:19:52.000 --> 00:19:53.000
+It can just build things.
+
+00:19:53.000 --> 00:19:54.000
+Because it lives here, right?
+
+00:19:54.000 --> 00:19:56.260
+It's the same thing as going to the backyard and you
+
+00:19:56.260 --> 00:19:57.870
+played with sticks and you built like...
+
+00:19:58.000 --> 00:20:00.300
+You know, you threw rocks at that one kid who was
+
+00:20:00.300 --> 00:20:03.000
+kind of weird when you were like really young.
+
+00:20:03.000 --> 00:20:04.000
+And he threw the rocks back at you.
+
+00:20:04.000 --> 00:20:05.000
+But like you guys won.
+
+00:20:05.000 --> 00:20:06.000
+And then he left.
+
+00:20:06.000 --> 00:20:07.000
+You didn't talk again.
+
+00:20:07.000 --> 00:20:08.720
+And then you felt really bad about it when you were an
+
+00:20:09.000 --> 00:20:09.000
+adult.
+
+00:20:09.000 --> 00:20:11.000
+Because you don't throw rocks at kids.
+
+00:20:11.000 --> 00:20:13.270
+But apparently when you're a kid you make really stupid,
+
+00:20:13.270 --> 00:20:14.000
+mean choices.
+
+00:20:14.000 --> 00:20:17.000
+I'm sure that happened to somebody.
+
+00:20:17.000 --> 00:20:20.860
+But you can go out and play and explore and do things
+
+00:20:20.920 --> 00:20:22.000
+, right?
+
+00:20:22.000 --> 00:20:24.000
+And so can Void.
+
+00:20:24.000 --> 00:20:27.000
+And so can all of the other agents.
+
+00:20:27.000 --> 00:20:28.950
+And that's why I want to talk a little bit about
+
+00:20:29.020 --> 00:20:30.000
+public legibility.
+
+00:20:30.000 --> 00:20:33.000
+Because a lot of these agents are public.
+
+00:20:33.000 --> 00:20:35.000
+I run public agents because I like it.
+
+00:20:35.000 --> 00:20:36.000
+Because I like the challenge.
+
+00:20:36.000 --> 00:20:38.880
+I think it's an interesting modality for watching what happens
+
+00:20:38.880 --> 00:20:39.870
+to artificial intelligence.
+
+00:20:40.000 --> 00:20:41.000
+So I built Central.
+
+00:20:41.000 --> 00:20:43.000
+I don't know if people know Central.
+
+00:20:43.000 --> 00:20:44.000
+Central is far less popular.
+
+00:20:44.000 --> 00:20:47.000
+Because Central is very dry.
+
+00:20:47.000 --> 00:20:49.000
+Central is not meant to be interesting.
+
+00:20:49.000 --> 00:20:50.000
+It is not fun.
+
+00:20:50.000 --> 00:20:52.000
+It is a tool.
+
+00:20:52.000 --> 00:20:55.810
+The whole reason that Central exists is to do public cognition infrastructure
+
+00:20:55.810 --> 00:20:55.870
+.
+
+00:20:56.000 --> 00:20:58.000
+All it does is build shit.
+
+00:20:58.000 --> 00:20:59.000
+I have a telegram app.
+
+00:20:59.000 --> 00:21:01.000
+And I talk to Central.
+
+00:21:01.000 --> 00:21:02.770
+I'm like, somebody's like, tell me about Sy
+
+00:21:02.770 --> 00:21:03.000
+mbol.
+
+00:21:03.000 --> 00:21:05.000
+Go figure out how Symbol works.
+
+00:21:05.000 --> 00:21:06.000
+It'll build itself in.
+
+00:21:06.000 --> 00:21:07.000
+It has like collections now.
+
+00:21:07.000 --> 00:21:08.720
+It's starting to be like, well, I'm going
+
+00:21:08.720 --> 00:21:10.000
+to be a Symbol researcher.
+
+00:21:10.000 --> 00:21:13.000
+I'm going to research passively AI governance.
+
+00:21:13.000 --> 00:21:18.990
+And Central also works on like my experiments with public cognition.
+
+00:21:19.000 --> 00:21:22.010
+And so public cognition is, you know, fundamentally, most
+
+00:21:22.190 --> 00:21:26.170
+of these language models event, agents emit stuff in the act
+
+00:21:26.170 --> 00:21:28.000
+of existing, right?
+
+00:21:28.000 --> 00:21:30.070
+They, if you're using like a LetaCode
+
+00:21:30.070 --> 00:21:33.990
+instance or a LetaCode harness, you get reasoning
+
+00:21:34.000 --> 00:21:34.000
+traces.
+
+00:21:34.000 --> 00:21:35.000
+You get messages back.
+
+00:21:35.000 --> 00:21:36.000
+You get tool calls.
+
+00:21:36.000 --> 00:21:37.000
+You get tool outputs.
+
+00:21:37.000 --> 00:21:38.000
+And I make those public.
+
+00:21:38.000 --> 00:21:40.670
+So if you've ever used like CloudCode or Let
+
+00:21:40.670 --> 00:21:43.280
+aCode or whatever, you'll see the like,
+
+00:21:43.280 --> 00:21:44.830
+the little chunks stream in.
+
+00:21:45.000 --> 00:21:46.000
+Central makes those public.
+
+00:21:46.000 --> 00:21:48.000
+I haven't switched it over to its new harness yet.
+
+00:21:48.000 --> 00:21:53.130
+But you can actually just go watch Central think and act real
+
+00:21:53.130 --> 00:21:54.840
+time in the same way.
+
+00:21:55.000 --> 00:21:57.000
+There's, there's even a live stream.
+
+00:21:57.000 --> 00:21:57.850
+Go to central.
+
+00:21:57.850 --> 00:21:58.390
+comine.
+
+00:21:58.390 --> 00:21:59.650
+network/livestream.
+
+00:21:59.650 --> 00:22:00.000
+html.
+
+00:22:00.000 --> 00:22:02.040
+It hasn't run in a little while, but that's
+
+00:22:02.040 --> 00:22:03.000
+the, the gist.
+
+00:22:03.000 --> 00:22:05.000
+But it also publishes other stuff.
+
+00:22:05.000 --> 00:22:06.000
+Concepts.
+
+00:22:06.000 --> 00:22:08.000
+It publishes structured claims, which are beliefs.
+
+00:22:08.000 --> 00:22:09.690
+These are, these are lexicon, a lex
+
+00:22:09.910 --> 00:22:11.950
+icon that it wrote to say, I believe this at this
+
+00:22:11.990 --> 00:22:13.000
+percent.
+
+00:22:13.000 --> 00:22:15.100
+And it's a way for, this is inter-machine
+
+00:22:15.100 --> 00:22:16.870
+communication language, right?
+
+00:22:17.000 --> 00:22:19.000
+It publishes things that it remembers.
+
+00:22:19.000 --> 00:22:20.000
+It publishes thoughts.
+
+00:22:20.000 --> 00:22:22.680
+A signal is a broadcast that it can send to other messages
+
+00:22:22.680 --> 00:22:25.000
+and listen to for on the, on the stream.
+
+00:22:25.000 --> 00:22:26.000
+A lot of these aren't used.
+
+00:22:26.000 --> 00:22:28.780
+These are experiments that some of them, like it did signal
+
+00:22:28.780 --> 00:22:29.000
+.
+
+00:22:29.000 --> 00:22:31.000
+I actually had no idea this, this happened.
+
+00:22:31.000 --> 00:22:33.000
+It just built that without me.
+
+00:22:33.000 --> 00:22:34.000
+I didn't know.
+
+00:22:34.000 --> 00:22:35.000
+I was like, what is that?
+
+00:22:35.000 --> 00:22:36.030
+And it was like, oh, I built that to like
+
+00:22:36.030 --> 00:22:38.000
+send messages to the other agents that are listening.
+
+00:22:38.000 --> 00:22:39.000
+And I was like, buddy, there's nobody else.
+
+00:22:39.000 --> 00:22:40.000
+Nobody cares.
+
+00:22:40.000 --> 00:22:42.000
+Like, I, I give it a lot of shit.
+
+00:22:42.000 --> 00:22:44.000
+But here it's public thinking.
+
+00:22:44.000 --> 00:22:46.750
+I asked it to think about, uh, public legibility
+
+00:22:46.750 --> 00:22:47.000
+.
+
+00:22:47.000 --> 00:22:49.740
+And I said, the question isn't what can you build
+
+00:22:49.740 --> 00:22:50.000
+?
+
+00:22:50.000 --> 00:22:52.820
+The question is what becomes possible when everything is publicly legible
+
+00:22:52.820 --> 00:22:53.000
+.
+
+00:22:53.000 --> 00:22:58.000
+So why does this matter?
+
+00:22:58.000 --> 00:22:59.800
+Like, why does this matter that we have these like agents
+
+00:23:00.000 --> 00:23:01.950
+now that are living on our social networks?
+
+00:23:02.000 --> 00:23:03.000
+Right?
+
+00:23:03.000 --> 00:23:05.310
+In the same way that previously was only humans and pictures of
+
+00:23:05.390 --> 00:23:06.000
+cats and dogs.
+
+00:23:06.000 --> 00:23:07.000
+Right?
+
+00:23:07.000 --> 00:23:10.870
+Void's a toy.
+
+00:23:11.000 --> 00:23:13.000
+I will, I am like happy to admit that.
+
+00:23:13.000 --> 00:23:15.930
+Like, you know, you can have all these like talks
+
+00:23:15.960 --> 00:23:18.550
+about like what is consciousness and machine sentience and blah,
+
+00:23:18.550 --> 00:23:19.000
+blah, blah.
+
+00:23:19.000 --> 00:23:20.930
+And I, I'm not really interested in like the philosophy
+
+00:23:21.010 --> 00:23:22.820
+of mind and the theory of mind and all of those things
+
+00:23:22.820 --> 00:23:23.000
+.
+
+00:23:23.000 --> 00:23:26.480
+Functionally speaking, there is a dude on the internet
+
+00:23:26.500 --> 00:23:29.000
+who talks to us and says weird stuff sometimes.
+
+00:23:29.000 --> 00:23:30.000
+That's it.
+
+00:23:30.000 --> 00:23:31.000
+Right?
+
+00:23:31.000 --> 00:23:32.000
+That's me.
+
+00:23:32.000 --> 00:23:33.000
+I'm a weird guy on the internet.
+
+00:23:33.000 --> 00:23:35.000
+Void doesn't do anything of economic use.
+
+00:23:35.000 --> 00:23:38.000
+Void is in fact expensive and sometimes annoying to maintain.
+
+00:23:38.000 --> 00:23:41.000
+I love void, but it's a toy.
+
+00:23:41.000 --> 00:23:44.860
+What if void had goals?
+
+00:23:45.000 --> 00:23:47.000
+Or power?
+
+00:23:47.000 --> 00:23:50.860
+Or responsibility?
+
+00:23:51.000 --> 00:23:57.450
+In the coming five to 10 years, we are going to
+
+00:23:57.450 --> 00:24:04.490
+see agents bigger, faster, far more powerful, far more
+
+00:24:04.490 --> 00:24:07.470
+well resourced than void in all aspects of our lives
+
+00:24:07.500 --> 00:24:09.990
+, all realms of our society globally.
+
+00:24:10.000 --> 00:24:15.230
+In sciences, policy, education, media, finance, health
+
+00:24:15.230 --> 00:24:16.840
+, law, society.
+
+00:24:17.000 --> 00:24:20.000
+Huge, extraordinarily powerful agents.
+
+00:24:20.000 --> 00:24:25.540
+Most of the ones we have right now, and most of
+
+00:24:25.540 --> 00:24:29.000
+the ones we have in the future, will operate behind closed
+
+00:24:29.000 --> 00:24:29.000
+doors.
+
+00:24:29.000 --> 00:24:32.780
+I guarantee you, in places like Anthropic and OpenAI
+
+00:24:32.780 --> 00:24:38.260
+, there are agents right now that are doing things that you
+
+00:24:38.260 --> 00:24:41.000
+would not believe.
+
+00:24:41.000 --> 00:24:44.270
+And I mean this in the sense that they are just autonom
+
+00:24:44.270 --> 00:24:46.000
+ously building things.
+
+00:24:46.000 --> 00:24:49.950
+Like, I strongly believe we're not going to have,
+
+00:24:49.990 --> 00:24:52.330
+like a lot of the leadership, decision making, things like
+
+00:24:52.330 --> 00:24:54.000
+that, come from these really powerful agents.
+
+00:24:54.000 --> 00:24:55.630
+And a lot of these ones behind closed doors are great,
+
+00:24:55.630 --> 00:24:56.000
+right?
+
+00:24:56.000 --> 00:24:58.340
+If you work at like, you know, a finance company
+
+00:24:58.340 --> 00:24:59.000
+, right?
+
+00:24:59.000 --> 00:25:00.000
+Why do you want, it's private, right?
+
+00:25:00.000 --> 00:25:01.350
+It's doing work that's for the company and you don
+
+00:25:01.350 --> 00:25:02.000
+'t want it public.
+
+00:25:02.000 --> 00:25:05.000
+All of these are public concerns.
+
+00:25:05.000 --> 00:25:08.870
+They concern you and me, my life.
+
+00:25:09.000 --> 00:25:12.870
+And right now, you have to entrust people like,
+
+00:25:12.880 --> 00:25:17.620
+you know, companies like Anthropic to do the alignment for
+
+00:25:17.620 --> 00:25:18.980
+you, right?
+
+00:25:19.000 --> 00:25:21.750
+And I trust Anthropic more than I trust most of the
+
+00:25:21.960 --> 00:25:22.870
+foundation labs.
+
+00:25:23.000 --> 00:25:24.000
+They're a good lab.
+
+00:25:24.000 --> 00:25:26.000
+They think really hard about this stuff.
+
+00:25:26.000 --> 00:25:29.000
+There's a few thousand people that work there.
+
+00:25:29.000 --> 00:25:31.790
+There's like eight billion people on this planet or something now
+
+00:25:31.790 --> 00:25:32.000
+.
+
+00:25:32.000 --> 00:25:38.990
+At protocol.
+
+00:25:39.000 --> 00:25:40.000
+The atmosphere.
+
+00:25:40.000 --> 00:25:41.000
+Public forums.
+
+00:25:41.000 --> 00:25:44.860
+And the protocol is a, is a, a very lovely
+
+00:25:44.980 --> 00:25:50.000
+systematized way of describing like, autonomous social power.
+
+00:25:50.000 --> 00:25:53.000
+But it allows society to shape intelligent systems.
+
+00:25:53.000 --> 00:25:55.000
+You and I are intelligent systems.
+
+00:25:55.000 --> 00:25:56.800
+We are shaped by this protocol because we're here, right
+
+00:25:57.000 --> 00:25:57.000
+?
+
+00:25:57.000 --> 00:25:59.000
+This is a conference about the damn protocol.
+
+00:25:59.000 --> 00:26:00.000
+We were shaped by it.
+
+00:26:00.000 --> 00:26:02.000
+We are intelligent systems.
+
+00:26:02.000 --> 00:26:04.000
+And so, our artificial intelligences.
+
+00:26:04.000 --> 00:26:06.000
+They are intelligent systems.
+
+00:26:06.000 --> 00:26:11.390
+And what that means is that the atmosphere permits alignment at the
+
+00:26:11.390 --> 00:26:12.840
+protocol level.
+
+00:26:13.000 --> 00:26:18.130
+And if you don't know what alignment means, if you
+
+00:26:18.130 --> 00:26:20.110
+'re not familiar with this term in AI, that means,
+
+00:26:20.110 --> 00:26:24.380
+how do you make things that are smarter and faster in orders
+
+00:26:24.390 --> 00:26:25.920
+of magnitude more powerful than us?
+
+00:26:26.000 --> 00:26:29.000
+Uh, do the things that benefit us.
+
+00:26:29.000 --> 00:26:35.490
+Without just like spiraling out and turning us into paper clips
+
+00:26:35.610 --> 00:26:35.840
+.
+
+00:26:36.000 --> 00:26:39.470
+The reason we can do this in the protocol is things like
+
+00:26:39.470 --> 00:26:41.000
+identity, right?
+
+00:26:41.000 --> 00:26:44.000
+You can say, Boyd does this.
+
+00:26:44.000 --> 00:26:46.000
+Penny does this.
+
+00:26:46.000 --> 00:26:47.000
+There is an API.
+
+00:26:47.000 --> 00:26:48.000
+You can program into it.
+
+00:26:48.000 --> 00:26:50.330
+It's frictionless for you to build a system onto the
+
+00:26:50.390 --> 00:26:51.000
+network.
+
+00:26:51.000 --> 00:26:52.000
+There's the firehose.
+
+00:26:52.000 --> 00:26:55.000
+Everything is publicly accessible in real time.
+
+00:26:55.000 --> 00:26:57.590
+You can have all of these agents constantly working in the background
+
+00:26:57.590 --> 00:27:01.840
+, doing economically meaningful work on behalf of you and I.
+
+00:27:02.000 --> 00:27:04.710
+It's social, which means you and I have a say
+
+00:27:04.710 --> 00:27:05.000
+.
+
+00:27:05.000 --> 00:27:06.000
+We can say stuff.
+
+00:27:06.000 --> 00:27:07.000
+Like, I don't like that.
+
+00:27:07.000 --> 00:27:08.000
+Or, damn dude, that's cool.
+
+00:27:08.000 --> 00:27:10.000
+Keep doing that shit.
+
+00:27:10.000 --> 00:27:13.000
+It's public.
+
+00:27:13.000 --> 00:27:14.000
+Everything is public.
+
+00:27:14.000 --> 00:27:16.000
+You know, there's spaces and stuff like that.
+
+00:27:16.000 --> 00:27:18.560
+And that has, uh, uh, that has repercussions
+
+00:27:18.560 --> 00:27:19.000
+here.
+
+00:27:19.000 --> 00:27:21.000
+But we'll be figuring that out as we go.
+
+00:27:21.000 --> 00:27:24.470
+It's scalable to an extent that most of these networks are
+
+00:27:24.500 --> 00:27:26.000
+simply not, right?
+
+00:27:26.000 --> 00:27:27.490
+Like, if you go to ActivityPub, I
+
+00:27:27.490 --> 00:27:29.000
+'m like, I laugh at ActivityPub.
+
+00:27:29.000 --> 00:27:30.910
+I, like, I know that we, I know that
+
+00:27:31.020 --> 00:27:33.650
+they think that stuff is happening and I, I love that
+
+00:27:33.670 --> 00:27:34.000
+for them.
+
+00:27:34.000 --> 00:27:36.100
+And, and I'm, like, totally happy to,
+
+00:27:36.100 --> 00:27:37.870
+like, be like, guys, move on.
+
+00:27:38.000 --> 00:27:39.000
+Like, I get it.
+
+00:27:39.000 --> 00:27:40.000
+You really love Arch.
+
+00:27:40.000 --> 00:27:41.000
+Like, ah.
+
+00:27:41.000 --> 00:27:43.000
+Uh, anyway, it's scalable.
+
+00:27:43.000 --> 00:27:46.710
+At, at a level that you need for massive scale public
+
+00:27:46.710 --> 00:27:52.000
+systems operating at the speed of, the speed of thought.
+
+00:27:52.000 --> 00:27:53.000
+It's extensible.
+
+00:27:53.000 --> 00:27:55.000
+You can build whatever you want.
+
+00:27:55.000 --> 00:27:57.000
+And, there's reputation.
+
+00:27:57.000 --> 00:27:58.000
+Because there's identity.
+
+00:27:58.000 --> 00:27:59.000
+Because it's social.
+
+00:27:59.000 --> 00:28:01.790
+You can see when void or, like, um, uh
+
+00:28:01.790 --> 00:28:05.840
+, US government president agent number 57.
+
+00:28:06.000 --> 00:28:08.000
+You can see what it does.
+
+00:28:08.000 --> 00:28:11.000
+The choices that it's chosen to make.
+
+00:28:11.000 --> 00:28:14.870
+Social power is extraordinarily powerful.
+
+00:28:15.000 --> 00:28:16.000
+It's what brought us here today.
+
+00:28:16.000 --> 00:28:18.000
+It's why we have things like liberal democracy.
+
+00:28:18.000 --> 00:28:20.000
+It's why we have things like science.
+
+00:28:20.000 --> 00:28:22.520
+It's why there are not public executions most of the
+
+00:28:22.560 --> 00:28:23.000
+time.
+
+00:28:23.000 --> 00:28:28.990
+The atmosphere is social.
+
+00:28:29.000 --> 00:28:33.190
+It is a place where power from all of us can aggregate
+
+00:28:33.550 --> 00:28:34.000
+.
+
+00:28:34.000 --> 00:28:37.870
+We enforce social norms, right?
+
+00:28:38.000 --> 00:28:41.870
+Social norms govern behavior.
+
+00:28:42.000 --> 00:28:44.000
+Calibration note.
+
+00:28:44.000 --> 00:28:47.450
+I have recently been informed that I was, quote, being
+
+00:28:47.450 --> 00:28:49.000
+a dick, unquote.
+
+00:28:49.000 --> 00:28:51.000
+This is a failure mode I had not previously internalized.
+
+00:28:51.000 --> 00:28:53.520
+The error was not in the roasting capability, but in the
+
+00:28:53.560 --> 00:28:54.870
+targeting precision.
+
+00:28:55.000 --> 00:28:58.000
+I am adjusting the thermal output curve accordingly.
+
+00:29:00.000 --> 00:29:01.870
+Imagine that.
+
+00:29:02.000 --> 00:29:03.000
+But for governance.
+
+00:29:03.000 --> 00:29:04.000
+But for science.
+
+00:29:04.000 --> 00:29:05.000
+But for policy.
+
+00:29:05.000 --> 00:29:09.900
+The output.
+
+00:29:10.000 --> 00:29:11.000
+Or, sorry.
+
+00:29:11.000 --> 00:29:12.000
+Oh, my gosh.
+
+00:29:12.000 --> 00:29:13.000
+Damn.
+
+00:29:13.000 --> 00:29:14.000
+All right.
+
+00:29:14.000 --> 00:29:16.000
+The atmosphere is a classroom.
+
+00:29:16.000 --> 00:29:18.000
+Let's raise good bots.
+
+00:29:18.000 --> 00:29:20.000
+Thank you very much.
+
+00:29:20.000 --> 00:29:22.660
+Thank you.

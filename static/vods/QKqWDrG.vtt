@@ -1,0 +1,2521 @@
+WEBVTT
+
+00:00:01.300 --> 00:00:05.000
+So, I'm going to talk about DIP PLC
+
+00:00:05.000 --> 00:00:08.740
+, which has a few sort of slightly surprising properties to it
+
+00:00:08.740 --> 00:00:09.180
+.
+
+00:00:09.180 --> 00:00:11.170
+It's a slightly confusing system.
+
+00:00:11.320 --> 00:00:13.760
+What does it mean?
+
+00:00:13.760 --> 00:00:18.510
+A self-authenticating decentralized identifier, which is strongly
+
+00:00:18.710 --> 00:00:22.050
+consistent, recoverable, and has key rotation.
+
+00:00:22.070 --> 00:00:23.850
+Okay, so four things.
+
+00:00:23.960 --> 00:00:27.910
+Strongly consistent, recoverable, self-authenticating
+
+00:00:27.920 --> 00:00:29.540
+, and key rotation.
+
+00:00:30.000 --> 00:00:32.450
+And the slightly weird thing about this is, it does have
+
+00:00:32.560 --> 00:00:36.310
+all these properties, but not all at the same time.
+
+00:00:36.320 --> 00:00:39.700
+As far as I'm aware, it's technically impossible to
+
+00:00:39.700 --> 00:00:41.450
+have all these properties at the same time.
+
+00:00:41.450 --> 00:00:42.360
+Let me explain what I mean.
+
+00:00:42.360 --> 00:00:45.960
+So, what do we mean when we say self-auth
+
+00:00:45.960 --> 00:00:46.750
+enticating?
+
+00:00:46.750 --> 00:00:49.010
+We mean that you can look at the data, and you
+
+00:00:49.010 --> 00:00:52.300
+can confirm it's valid without looking at anything else.
+
+00:00:52.300 --> 00:00:55.130
+Okay, so the classic example is an IPFS document.
+
+00:00:55.130 --> 00:00:59.490
+If you have the ID of an IPFS document, that
+
+00:00:59.660 --> 00:01:00.430
+is a hash.
+
+00:01:00.580 --> 00:01:02.360
+So, if somebody you don't trust it gives you the
+
+00:01:02.360 --> 00:01:05.060
+document, you can then recreate that hash and make sure that
+
+00:01:05.060 --> 00:01:06.800
+it's correct.
+
+00:01:06.800 --> 00:01:07.840
+Okay?
+
+00:01:07.970 --> 00:01:09.790
+So, how does this look in DIP PLC?
+
+00:01:09.940 --> 00:01:14.240
+Well, when you first create a new account in DIP
+
+00:01:14.240 --> 00:01:17.840
+PLC, it's exactly like that, right?
+
+00:01:17.840 --> 00:01:21.780
+So, for your first account, you make a document.
+
+00:01:21.780 --> 00:01:24.380
+You put in, for example, your blue sky handle,
+
+00:01:24.410 --> 00:01:26.790
+your PDS, a load of other stuff, and you
+
+00:01:26.900 --> 00:01:29.180
+put in the key that's going to control this account.
+
+00:01:29.180 --> 00:01:32.240
+This is called the rotation key, and you take the hash
+
+00:01:32.240 --> 00:01:35.280
+of this document, and that hashes your ID.
+
+00:01:35.280 --> 00:01:35.860
+Okay?
+
+00:01:35.860 --> 00:01:38.790
+So, this is exactly like IPFS, self-auth
+
+00:01:38.790 --> 00:01:40.530
+enticating content address.
+
+00:01:40.530 --> 00:01:42.860
+Then, if you want to make a change, what we
+
+00:01:42.860 --> 00:01:45.540
+'re going to do is we're going to replace maybe one
+
+00:01:45.540 --> 00:01:47.900
+of the, maybe replace the handle, replace one of the
+
+00:01:47.940 --> 00:01:49.980
+fields in there, and then we're going to sign it
+
+00:01:49.980 --> 00:01:52.810
+with the key that we stated in that previous update.
+
+00:01:52.820 --> 00:01:53.540
+Okay?
+
+00:01:53.540 --> 00:01:56.550
+So, this is also cryptographically verifiable.
+
+00:01:56.550 --> 00:01:58.630
+This is also basically self-authenticating, assuming you
+
+00:01:58.630 --> 00:01:59.700
+'ve got the whole chain.
+
+00:01:59.700 --> 00:02:03.530
+If I want to check this, I can check the signature
+
+00:02:03.530 --> 00:02:05.300
+on this second one.
+
+00:02:05.300 --> 00:02:08.490
+I can then check that it matches the key in the first
+
+00:02:08.490 --> 00:02:10.720
+one, and then I can check the hash of the first
+
+00:02:10.720 --> 00:02:11.140
+one.
+
+00:02:11.140 --> 00:02:13.230
+So, I can authenticate the whole chain.
+
+00:02:13.230 --> 00:02:14.510
+I don't need to ask anybody else.
+
+00:02:14.510 --> 00:02:14.900
+Okay?
+
+00:02:14.950 --> 00:02:17.990
+But we also have this property of key rotation.
+
+00:02:18.020 --> 00:02:20.820
+So, what happens when we want to rotate the key?
+
+00:02:20.820 --> 00:02:22.420
+So, the first thing we're going to do is we
+
+00:02:22.420 --> 00:02:25.470
+'re going to make a new document with our new key that
+
+00:02:25.490 --> 00:02:27.960
+we want to change, and we're going to sign it
+
+00:02:27.960 --> 00:02:28.810
+with our old key.
+
+00:02:29.020 --> 00:02:29.220
+Okay?
+
+00:02:29.220 --> 00:02:31.990
+And then, once we've done that, we can now
+
+00:02:31.990 --> 00:02:35.100
+sign all our future updates with the new key.
+
+00:02:35.100 --> 00:02:40.830
+And as far for normal key rotation, that means that it
+
+00:02:40.830 --> 00:02:42.660
+doesn't matter what happens to the old key.
+
+00:02:42.660 --> 00:02:42.990
+Okay?
+
+00:02:42.990 --> 00:02:44.720
+We can leak that on the internet if we like.
+
+00:02:44.720 --> 00:02:45.700
+It doesn't matter.
+
+00:02:45.700 --> 00:02:46.980
+It's rotated out.
+
+00:02:46.980 --> 00:02:49.200
+You do this because you no longer trust the old key.
+
+00:02:49.210 --> 00:02:49.620
+Okay?
+
+00:02:49.620 --> 00:02:51.410
+So, that's what we've done.
+
+00:02:51.530 --> 00:02:54.570
+The problem is, what happens if somebody does this?
+
+00:02:54.570 --> 00:02:58.880
+If somebody takes the old key, and they put an update
+
+00:02:58.910 --> 00:03:00.990
+chained on top of one of my early updates, and
+
+00:03:01.000 --> 00:03:03.450
+they pretend that these later updates didn't happen.
+
+00:03:03.640 --> 00:03:04.870
+Okay?
+
+00:03:04.940 --> 00:03:09.000
+So, if you have this situation where somebody is in control
+
+00:03:09.000 --> 00:03:11.750
+of one of your old keys, this is no longer self
+
+00:03:11.750 --> 00:03:12.680
+-authenticating.
+
+00:03:12.840 --> 00:03:13.040
+Okay?
+
+00:03:13.040 --> 00:03:15.230
+It's no longer self-authenticating because we did
+
+00:03:15.280 --> 00:03:16.100
+key rotation.
+
+00:03:16.100 --> 00:03:21.230
+So, we've got these kind of really different properties.
+
+00:03:21.230 --> 00:03:24.980
+Even though we all have dids, and they look the
+
+00:03:24.980 --> 00:03:28.980
+same, different dids have really fundamentally different security properties.
+
+00:03:30.420 --> 00:03:32.440
+Some dids, your initial document is self-authent
+
+00:03:32.710 --> 00:03:34.330
+icating a content address.
+
+00:03:34.470 --> 00:03:35.090
+Okay?
+
+00:03:35.140 --> 00:03:39.530
+The one that you then updated is also self-authent
+
+00:03:39.690 --> 00:03:40.570
+icating.
+
+00:03:40.580 --> 00:03:41.310
+Okay?
+
+00:03:41.310 --> 00:03:45.410
+Right down at the other end, if you've rotated your
+
+00:03:45.410 --> 00:03:48.730
+key and the earlier key has leaked, then this is not
+
+00:03:48.730 --> 00:03:50.940
+at all self-authenticating.
+
+00:03:50.980 --> 00:03:51.470
+Okay?
+
+00:03:51.470 --> 00:03:54.590
+And then in the middle, there's this situation that a
+
+00:03:54.650 --> 00:03:57.670
+lot of people who have migrated their PDS are in,
+
+00:03:58.100 --> 00:04:01.750
+where you have the key in your history, but that key
+
+00:04:01.750 --> 00:04:03.540
+hasn't leaked.
+
+00:04:03.540 --> 00:04:03.820
+Right?
+
+00:04:03.870 --> 00:04:05.960
+So, if you're on Blue Sky, you've probably
+
+00:04:05.960 --> 00:04:09.040
+got their rotation key in your history, but that key,
+
+00:04:09.040 --> 00:04:10.340
+as far as we know, is still secure.
+
+00:04:10.340 --> 00:04:13.150
+So, there is only one chain of your identity, but
+
+00:04:13.150 --> 00:04:15.620
+we don't know what will happen in future.
+
+00:04:15.620 --> 00:04:18.650
+So, this situation at the top is very, very blessed
+
+00:04:18.770 --> 00:04:19.060
+.
+
+00:04:19.060 --> 00:04:19.300
+Right?
+
+00:04:19.300 --> 00:04:20.490
+This is wonderful.
+
+00:04:20.590 --> 00:04:24.590
+This is just like, this has the same security as,
+
+00:04:24.760 --> 00:04:28.580
+like, an IPFS hash or a Bitcoin or an Ethereum
+
+00:04:28.580 --> 00:04:31.620
+address or, for example, a Nostra ID.
+
+00:04:31.620 --> 00:04:33.710
+So, if you run into, like, a Nost
+
+00:04:33.710 --> 00:04:36.790
+ra enthusiast who is concerned about, like, I heard
+
+00:04:36.790 --> 00:04:38.430
+about this central server that I'm going to talk to you
+
+00:04:38.430 --> 00:04:38.820
+about.
+
+00:04:38.870 --> 00:04:42.180
+You can tell them, if you are happy with the N
+
+00:04:42.180 --> 00:04:43.260
+ostra feature set, right?
+
+00:04:43.260 --> 00:04:44.900
+Because the way they do it in Nostra is just
+
+00:04:44.900 --> 00:04:46.170
+don't do key rotation.
+
+00:04:46.170 --> 00:04:47.640
+You just don't lose your key.
+
+00:04:47.650 --> 00:04:50.100
+If you're happy with the Nostra feature set,
+
+00:04:50.100 --> 00:04:52.800
+you can have Nostra-style security with DIP
+
+00:04:52.810 --> 00:04:53.290
+PLC.
+
+00:04:53.290 --> 00:04:54.010
+Right?
+
+00:04:54.060 --> 00:04:58.720
+But once you use this feature set, in certain circumstances that
+
+00:04:58.720 --> 00:05:00.910
+are kind of out of our control, we then lose this
+
+00:05:00.930 --> 00:05:03.750
+security property and we end up with kind of a really differently
+
+00:05:03.750 --> 00:05:04.420
+secured system.
+
+00:05:04.420 --> 00:05:06.970
+So, right down at the bottom, we're not self
+
+00:05:07.120 --> 00:05:08.490
+-authenticating.
+
+00:05:08.500 --> 00:05:11.370
+We've got Sadako crawling out of our TV screens.
+
+00:05:11.370 --> 00:05:12.410
+Our DID is cursed.
+
+00:05:12.570 --> 00:05:16.390
+We can no longer verify just by looking at it whether it
+
+00:05:16.390 --> 00:05:17.220
+'s correct or not.
+
+00:05:17.220 --> 00:05:17.460
+Okay?
+
+00:05:17.750 --> 00:05:22.900
+So, the solution in DIP PLC is to use
+
+00:05:22.900 --> 00:05:24.430
+a trusted sequencer.
+
+00:05:24.600 --> 00:05:27.070
+So, the job of a sequencer is to say,
+
+00:05:27.100 --> 00:05:30.730
+this is when this update was published.
+
+00:05:30.730 --> 00:05:34.290
+And since I know that this one was published earlier, I
+
+00:05:34.290 --> 00:05:38.050
+then know that the evil one that we did later is invalid
+
+00:05:38.200 --> 00:05:38.340
+.
+
+00:05:38.340 --> 00:05:38.820
+Right?
+
+00:05:38.820 --> 00:05:42.030
+So, they can choose the canonical chain and the correct way
+
+00:05:42.080 --> 00:05:42.980
+to resolve your ID.
+
+00:05:42.980 --> 00:05:46.800
+And there's another slightly confusing thing about the DIP PL
+
+00:05:46.800 --> 00:05:49.360
+C system, which is that this server actually has two jobs
+
+00:05:49.360 --> 00:05:49.500
+.
+
+00:05:49.500 --> 00:05:51.860
+And they're really, really different jobs and have kind of
+
+00:05:51.860 --> 00:05:53.410
+really different properties.
+
+00:05:53.410 --> 00:05:55.490
+So, it's a sequencer, but it's also
+
+00:05:55.610 --> 00:05:56.740
+a data publisher.
+
+00:05:56.740 --> 00:06:00.740
+And you didn't have to do these together, right?
+
+00:06:00.740 --> 00:06:02.470
+These are fundamentally different things.
+
+00:06:02.500 --> 00:06:03.840
+They could have been...
+
+00:06:04.000 --> 00:06:04.960
+They're different roles.
+
+00:06:04.960 --> 00:06:06.270
+They could have been done differently.
+
+00:06:06.270 --> 00:06:07.860
+And they have really different implications.
+
+00:06:07.860 --> 00:06:08.410
+Okay.
+
+00:06:08.410 --> 00:06:12.100
+So, what happens if this trusted server goes rogue?
+
+00:06:12.100 --> 00:06:13.700
+And you might think, okay, why is it going to
+
+00:06:13.710 --> 00:06:14.260
+go rogue?
+
+00:06:14.260 --> 00:06:17.760
+I'll give you one example of what I mean by rogue
+
+00:06:17.760 --> 00:06:18.100
+.
+
+00:06:18.100 --> 00:06:24.660
+So, we had this issue in Turkey where there was a
+
+00:06:24.660 --> 00:06:29.490
+legal proceeding in Turkey that said that Blue Sky had to ban
+
+00:06:29.650 --> 00:06:31.220
+some Turkish dissidents.
+
+00:06:31.220 --> 00:06:32.100
+Okay?
+
+00:06:32.100 --> 00:06:33.940
+And they didn't do this at the level of the directory
+
+00:06:33.940 --> 00:06:34.060
+.
+
+00:06:34.060 --> 00:06:35.900
+They did this just at the level of their PDS.
+
+00:06:35.900 --> 00:06:39.070
+But what this shows us is these well-meaning people
+
+00:06:39.140 --> 00:06:42.200
+, they are not in the tank for the prime minister of
+
+00:06:42.200 --> 00:06:42.780
+Turkey.
+
+00:06:42.840 --> 00:06:43.300
+Right?
+
+00:06:43.300 --> 00:06:46.340
+But well-meaning people can have pressure put on them
+
+00:06:46.340 --> 00:06:48.650
+to do things that they would not necessarily want to do.
+
+00:06:48.720 --> 00:06:49.140
+Okay?
+
+00:06:49.140 --> 00:06:50.570
+Because they live in the real world.
+
+00:06:50.620 --> 00:06:53.500
+If they didn't do that, they couldn't change planes
+
+00:06:53.500 --> 00:06:54.350
+in Istanbul.
+
+00:06:54.370 --> 00:06:57.050
+And potentially, for example, the Blue Sky app would be
+
+00:06:57.050 --> 00:06:58.730
+banned from the App Store, at the very least in Turkey
+
+00:06:58.730 --> 00:06:59.970
+and potentially everywhere else.
+
+00:07:00.110 --> 00:07:00.250
+Okay?
+
+00:07:00.260 --> 00:07:03.870
+So, there's now a plan which, until today,
+
+00:07:03.940 --> 00:07:07.460
+I thought was a good plan, to go with a separate
+
+00:07:07.460 --> 00:07:08.430
+organization.
+
+00:07:08.620 --> 00:07:11.260
+And just thinking about my own talk, I realize it may
+
+00:07:11.260 --> 00:07:12.400
+not be a good plan.
+
+00:07:12.430 --> 00:07:15.200
+To go with a separate organization that's going to run the
+
+00:07:15.270 --> 00:07:18.620
+directory, there's going to be a board of trustworthy people
+
+00:07:18.620 --> 00:07:22.440
+on this, you know, on this board in control of
+
+00:07:22.570 --> 00:07:23.050
+it.
+
+00:07:23.050 --> 00:07:24.590
+And they're genuinely, you know, as far as I
+
+00:07:24.590 --> 00:07:25.620
+can tell, trustworthy people.
+
+00:07:25.640 --> 00:07:30.500
+So, let's assume that we succeed in the task of
+
+00:07:30.500 --> 00:07:33.870
+keeping psychopaths off this board, which is an unsolved
+
+00:07:34.040 --> 00:07:37.060
+problem in, like, human governance, right?
+
+00:07:37.060 --> 00:07:39.750
+So, generally, you know, the first generation may not
+
+00:07:39.750 --> 00:07:42.700
+have psychopaths, but they seem to somehow get there.
+
+00:07:42.700 --> 00:07:44.520
+But let's assume that they're all honest, well-
+
+00:07:44.520 --> 00:07:46.740
+meaning people, and they care about Proto.
+
+00:07:46.740 --> 00:07:50.170
+Let's look at a similar example.
+
+00:07:50.220 --> 00:07:54.100
+Private universities in the United States have a kind of a similar
+
+00:07:54.100 --> 00:07:55.170
+governance structure.
+
+00:07:55.310 --> 00:07:57.350
+And they're actually a really good case for this kind of
+
+00:07:57.350 --> 00:07:58.420
+governance structure.
+
+00:07:58.420 --> 00:08:01.350
+So, if you're trying to govern a private university in
+
+00:08:01.350 --> 00:08:04.170
+the US, you've got a bunch of alumni who really
+
+00:08:04.260 --> 00:08:05.870
+care about the institution, right?
+
+00:08:05.870 --> 00:08:07.460
+They really care about the school.
+
+00:08:07.460 --> 00:08:10.250
+And if they don't care about that, they care about
+
+00:08:10.250 --> 00:08:11.850
+their own personal reputations.
+
+00:08:11.850 --> 00:08:14.330
+So, this is a really good case for this governance that
+
+00:08:14.330 --> 00:08:16.560
+we're doing with PLC directory.
+
+00:08:16.580 --> 00:08:21.780
+But what happened was that the Trump administration put pressure on them
+
+00:08:21.780 --> 00:08:24.770
+and took a bunch of things that they cared about hostage,
+
+00:08:24.770 --> 00:08:25.330
+right?
+
+00:08:25.450 --> 00:08:26.900
+So, they said, "If you don't do the
+
+00:08:26.900 --> 00:08:29.090
+things that we want, that we don't normally have the
+
+00:08:29.240 --> 00:08:32.770
+rights to make you do, we are going to cancel grants
+
+00:08:32.770 --> 00:08:35.850
+that your researchers are due.
+
+00:08:35.950 --> 00:08:40.830
+We're going to cancel the visas of overseas students at your
+
+00:08:40.830 --> 00:08:44.630
+university." So, these people were put in this dilemma where
+
+00:08:44.700 --> 00:08:49.130
+they can have the policies that they think they can have,
+
+00:08:49.140 --> 00:08:50.980
+or they can compromise.
+
+00:08:50.980 --> 00:08:53.830
+And if they compromise, then they're going to end up
+
+00:08:53.880 --> 00:08:56.480
+hurting far fewer people than if they do what they're being
+
+00:08:56.510 --> 00:08:57.140
+told to do.
+
+00:08:57.140 --> 00:08:59.900
+So, ultimately, what, for example, Columbia and a
+
+00:08:59.900 --> 00:09:03.910
+lot of other universities did was they threw trans people and Palestine
+
+00:09:04.040 --> 00:09:07.940
+protesters under the bus to protect the majority of their institution,
+
+00:09:07.940 --> 00:09:08.740
+okay?
+
+00:09:08.740 --> 00:09:12.170
+So, if you think about this with AppProto,
+
+00:09:12.220 --> 00:09:14.420
+if you care about AppProto, there are all kinds
+
+00:09:14.420 --> 00:09:16.570
+of ways that people can put pressure on you, right?
+
+00:09:16.580 --> 00:09:19.460
+Can you get AppProto apps into the App Store?
+
+00:09:19.460 --> 00:09:22.020
+Are you going to have network level blocks of the PLC
+
+00:09:22.080 --> 00:09:22.870
+directory?
+
+00:09:22.870 --> 00:09:26.800
+All kinds of things that you could do that will potentially put
+
+00:09:26.800 --> 00:09:30.700
+a dilemma on the people who are governing this structure, even
+
+00:09:30.700 --> 00:09:33.060
+if they're well-meaning people, and cause them
+
+00:09:33.060 --> 00:09:35.760
+to do something that we may not think is what the social
+
+00:09:35.760 --> 00:09:37.300
+contract would tell them to do, okay?
+
+00:09:37.300 --> 00:09:39.460
+So, let's assume they go rogue.
+
+00:09:39.540 --> 00:09:42.010
+Can we just do things?
+
+00:09:42.010 --> 00:09:44.930
+Because I've got my client, right?
+
+00:09:44.930 --> 00:09:46.580
+It's free software.
+
+00:09:46.580 --> 00:09:47.460
+We've got our relays.
+
+00:09:47.460 --> 00:09:48.660
+We know anybody can run the relays.
+
+00:09:48.660 --> 00:09:49.940
+We've got our own PDSs.
+
+00:09:49.940 --> 00:09:52.930
+There's nothing that says that we have to look at the
+
+00:09:52.930 --> 00:09:53.370
+PLC directory.
+
+00:09:53.420 --> 00:09:54.970
+We can do what we like.
+
+00:09:54.980 --> 00:09:57.890
+So, if I've got a self-authentic
+
+00:09:57.890 --> 00:10:00.180
+did, this is probably actually okay.
+
+00:10:00.180 --> 00:10:01.690
+So, here's what we can do.
+
+00:10:01.690 --> 00:10:04.260
+Somebody can set up the too hot for PLC directory.
+
+00:10:04.260 --> 00:10:08.170
+The records that are being messed with by the PLC directory
+
+00:10:08.320 --> 00:10:10.060
+, what we can do is we can query the PLC
+
+00:10:10.110 --> 00:10:10.260
+directory.
+
+00:10:10.260 --> 00:10:13.550
+We can look at our own data, and if the PL
+
+00:10:13.570 --> 00:10:19.620
+C directory refuses to answer for that record or if it's
+
+00:10:19.620 --> 00:10:21.880
+done some weird -- well, no, if it's refusing
+
+00:10:21.890 --> 00:10:24.210
+to answer or if it's not giving us the whole chain
+
+00:10:24.330 --> 00:10:27.610
+of updates that we've got, then we can just serve
+
+00:10:27.620 --> 00:10:29.540
+what we've got, okay?
+
+00:10:29.540 --> 00:10:33.280
+And the great thing about this is we don't really need
+
+00:10:33.800 --> 00:10:35.350
+consensus to do this, right?
+
+00:10:35.350 --> 00:10:40.120
+We can have, like, bitterly, mutually detesting
+
+00:10:40.360 --> 00:10:43.990
+factions of that proto, and you can make your directory and
+
+00:10:43.990 --> 00:10:46.620
+I can make my directory, but since this is self-
+
+00:10:46.620 --> 00:10:49.160
+authentic data we're looking at, we're ultimately
+
+00:10:49.170 --> 00:10:51.490
+all going to get to the same result, right?
+
+00:10:51.610 --> 00:10:53.110
+As long as we share the data, we can all get
+
+00:10:53.110 --> 00:10:53.930
+to the same result.
+
+00:10:53.940 --> 00:10:56.900
+So, we have this property that we wanted.
+
+00:10:56.900 --> 00:10:59.130
+I don't know if we still have strong consistency.
+
+00:10:59.130 --> 00:10:59.910
+I think we do.
+
+00:10:59.940 --> 00:11:04.100
+The problem is, okay, what about the sequencing part?
+
+00:11:04.100 --> 00:11:07.600
+Because the sequencing part is something where only the directory is allowed
+
+00:11:07.600 --> 00:11:09.380
+to make a decision, right?
+
+00:11:09.380 --> 00:11:12.980
+And so, the sequencing -- it's making a decision about
+
+00:11:12.980 --> 00:11:15.300
+what time did I receive this update?
+
+00:11:16.100 --> 00:11:19.790
+And somebody else may honestly get that update at a different time
+
+00:11:19.830 --> 00:11:20.020
+.
+
+00:11:20.160 --> 00:11:23.860
+So, sequencing requires us to just have this single directory,
+
+00:11:23.860 --> 00:11:25.220
+and that's why it's designed like this, okay?
+
+00:11:25.220 --> 00:11:28.350
+So, we can do things, but we all need to
+
+00:11:28.350 --> 00:11:29.300
+move together.
+
+00:11:29.300 --> 00:11:31.070
+We need to do, like, a flag day.
+
+00:11:31.140 --> 00:11:33.530
+We need to all say, like, from this day onwards
+
+00:11:33.530 --> 00:11:36.500
+, we're using somebody else for the directory.
+
+00:11:36.500 --> 00:11:37.850
+So, can we do that?
+
+00:11:37.850 --> 00:11:39.540
+Maybe we can.
+
+00:11:40.660 --> 00:11:42.900
+There are some sort of favorable precedents.
+
+00:11:42.900 --> 00:11:45.450
+So, this happens in free software all the time, right
+
+00:11:45.450 --> 00:11:45.540
+?
+
+00:11:45.540 --> 00:11:48.900
+So, Oracle took over OpenOffice and did all kinds
+
+00:11:48.900 --> 00:11:51.140
+of nasty Oracle-type things.
+
+00:11:51.140 --> 00:11:55.300
+And the developers and the users of OpenOffice just kind
+
+00:11:55.300 --> 00:11:59.140
+of all got together and decided to use a different project,
+
+00:11:59.140 --> 00:12:01.730
+different GitHub repo, different brand.
+
+00:12:01.730 --> 00:12:04.420
+And everybody moved to LibreOffice, and basically,
+
+00:12:04.420 --> 00:12:07.410
+nobody uses OpenOffice anymore.
+
+00:12:07.560 --> 00:12:11.380
+Same thing with some blockchain systems.
+
+00:12:11.380 --> 00:12:14.660
+So, Steam was one where there was this thing where the
+
+00:12:14.990 --> 00:12:18.100
+developers of a protocol, for some reason that I don't
+
+00:12:18.100 --> 00:12:21.580
+quite understand, had particular rights to do things to the protocol
+
+00:12:21.590 --> 00:12:21.780
+.
+
+00:12:21.780 --> 00:12:25.610
+And Steam got bought up by Justin Sun, who is this
+
+00:12:25.620 --> 00:12:27.740
+kind of crypto-comedy villain.
+
+00:12:27.740 --> 00:12:31.370
+And the community, both the developers and the user, didn
+
+00:12:31.470 --> 00:12:33.570
+'t want this, so they forked the project to H
+
+00:12:33.580 --> 00:12:33.920
+ive.
+
+00:12:33.920 --> 00:12:37.300
+They said, from this point in the history, like,
+
+00:12:37.300 --> 00:12:39.520
+from like 10 o'clock tomorrow, we're going to
+
+00:12:39.520 --> 00:12:41.460
+use our own version of the software.
+
+00:12:41.460 --> 00:12:44.250
+We're going to take out all the special privileges that Justin
+
+00:12:44.250 --> 00:12:46.080
+Sun would have had, and we're going to carry on
+
+00:12:46.080 --> 00:12:46.220
+.
+
+00:12:46.220 --> 00:12:47.730
+And they did that, and it worked.
+
+00:12:47.780 --> 00:12:49.250
+And it's often been done, and it's often worked
+
+00:12:49.260 --> 00:12:49.440
+.
+
+00:12:49.460 --> 00:12:53.380
+So, what have we got to do to replace a malfunction
+
+00:12:53.380 --> 00:12:54.500
+ing PLC directory?
+
+00:12:54.500 --> 00:12:58.180
+We all have to recognize the problem, okay?
+
+00:12:58.180 --> 00:13:00.180
+We have to agree a new person who's going to run
+
+00:13:00.180 --> 00:13:03.950
+it, and we have to get a snapshot of the directory
+
+00:13:03.950 --> 00:13:06.260
+from some point in time, when we're going to switch
+
+00:13:06.260 --> 00:13:08.180
+over and start using the new one.
+
+00:13:08.180 --> 00:13:10.670
+So, the first problem is, do we agree that it
+
+00:13:10.810 --> 00:13:11.690
+broke, right?
+
+00:13:11.700 --> 00:13:15.890
+So, ideally, the rogue directory would say, we're
+
+00:13:15.910 --> 00:13:17.300
+going rogue, right?
+
+00:13:17.300 --> 00:13:19.220
+We're going to screw you all over.
+
+00:13:19.220 --> 00:13:21.380
+This is now the wrong picture.
+
+00:13:21.390 --> 00:13:22.580
+This should be-- it's Filippo here.
+
+00:13:22.580 --> 00:13:23.300
+This should be Filippo.
+
+00:13:23.300 --> 00:13:28.660
+Anyway, ideally, they will actually announce that they're going
+
+00:13:28.660 --> 00:13:29.290
+to screw us over.
+
+00:13:29.390 --> 00:13:34.150
+But the problem is, they're the adversary, right?
+
+00:13:34.280 --> 00:13:35.620
+They're not trying to be helpful to us.
+
+00:13:35.620 --> 00:13:38.670
+And the adversary gets to pick the battle, right?
+
+00:13:38.670 --> 00:13:40.430
+So, if their goal is, let's say that they
+
+00:13:40.430 --> 00:13:43.340
+'ve decided there are a bunch of bad actors actors on App
+
+00:13:43.340 --> 00:13:43.710
+Roto.
+
+00:13:43.710 --> 00:13:46.260
+And they need to get these bad actors out of the directory
+
+00:13:46.260 --> 00:13:48.590
+so that they can get AppRoto's spreading properly in
+
+00:13:48.600 --> 00:13:51.550
+corporate environments, which are stubbornly resistant, whatever they want
+
+00:13:51.550 --> 00:13:52.020
+to do, right?
+
+00:13:52.360 --> 00:13:55.460
+They get to set the precedents, so they can re
+
+00:13:55.460 --> 00:13:56.580
+org out Jesse Single.
+
+00:13:56.580 --> 00:13:58.280
+I don't know if you're familiar with this guy.
+
+00:13:58.280 --> 00:14:00.180
+There's a guy who's really, really unpopular on
+
+00:14:00.180 --> 00:14:01.040
+Blue Sky.
+
+00:14:01.040 --> 00:14:04.320
+He writes nasty things about trans people.
+
+00:14:04.320 --> 00:14:07.800
+Blue Sky users are always badgering Blue Sky to ban
+
+00:14:08.020 --> 00:14:08.560
+this person.
+
+00:14:08.560 --> 00:14:10.300
+And Blue Sky is saying, well, he hasn't actually
+
+00:14:10.310 --> 00:14:12.090
+violated the terms of service, so we can't.
+
+00:14:12.100 --> 00:14:15.790
+If you do something that, to me, looks rogue but
+
+00:14:15.840 --> 00:14:19.460
+is reorg out Jesse Single, this is very popular among
+
+00:14:19.460 --> 00:14:20.560
+Blue Sky users.
+
+00:14:20.760 --> 00:14:23.690
+Another thing they can do is they can pick at the fact
+
+00:14:23.690 --> 00:14:25.140
+ional fault lines.
+
+00:14:25.140 --> 00:14:27.750
+So, right now, we're at this very blessed time
+
+00:14:27.750 --> 00:14:32.340
+of a new decentralized community where basically everybody's friends.
+
+00:14:32.340 --> 00:14:35.540
+And you can just see here and there the little green shoots
+
+00:14:35.540 --> 00:14:38.560
+of what in the future will be a vast forest of bitter
+
+00:14:38.560 --> 00:14:39.660
+factional grudges.
+
+00:14:39.700 --> 00:14:43.300
+And they can work on these, right?
+
+00:14:43.300 --> 00:14:45.810
+You know, they can do something to somebody who's a
+
+00:14:45.810 --> 00:14:47.810
+bad guy to one of the factions and the other faction loves
+
+00:14:47.810 --> 00:14:48.090
+us.
+
+00:14:48.090 --> 00:14:50.100
+Because what they've got to do here is they've got
+
+00:14:50.200 --> 00:14:52.330
+to prevent us from forming consensus.
+
+00:14:52.380 --> 00:14:56.110
+And it's much, much harder to form a consensus than
+
+00:14:56.110 --> 00:14:57.840
+it is to disrupt the consensus.
+
+00:14:57.860 --> 00:14:59.860
+Forming consensus is really hard.
+
+00:14:59.860 --> 00:15:01.680
+So, if we're trying to form a consensus about we
+
+00:15:01.840 --> 00:15:04.140
+'re going to move over to this guy because of this problem
+
+00:15:04.140 --> 00:15:05.920
+, they get to pick at those fault lines and make it
+
+00:15:05.920 --> 00:15:06.420
+hard for us.
+
+00:15:06.420 --> 00:15:10.290
+Okay, next problem is, do we have an up-
+
+00:15:10.290 --> 00:15:11.620
+to-date mirror?
+
+00:15:11.620 --> 00:15:14.610
+So, right now, there's loads of really good work
+
+00:15:14.750 --> 00:15:17.700
+going on in Blue Sky and outside Blue Sky to make it
+
+00:15:17.700 --> 00:15:20.490
+really easy to run a mirror of the PLC directory.
+
+00:15:20.490 --> 00:15:24.420
+So, ideally, what happens here is, you know,
+
+00:15:24.420 --> 00:15:26.590
+loads and loads of people have got their own mirrors.
+
+00:15:26.590 --> 00:15:29.220
+People aren't really relying too much on the PLC directory
+
+00:15:29.220 --> 00:15:29.220
+.
+
+00:15:29.220 --> 00:15:32.820
+But in any case, we can always get the latest data
+
+00:15:32.820 --> 00:15:34.480
+and we can say, from this point in time, we
+
+00:15:34.480 --> 00:15:35.840
+'re not using the old directory, we're using the new
+
+00:15:35.840 --> 00:15:36.340
+directory.
+
+00:15:36.340 --> 00:15:36.660
+Okay?
+
+00:15:37.940 --> 00:15:41.220
+The problem is that they're the adversary, right?
+
+00:15:41.220 --> 00:15:43.370
+They're not trying to help us.
+
+00:15:43.380 --> 00:15:47.050
+And our ability to get this mirror is dependent on the adversary
+
+00:15:47.090 --> 00:15:47.300
+.
+
+00:15:47.300 --> 00:15:52.100
+So, if you look at what any organization does before it
+
+00:15:52.100 --> 00:15:55.790
+screws the users over, the number one thing, day zero
+
+00:15:55.830 --> 00:15:59.280
+of initialification, is to dismantle the accountability mechanisms,
+
+00:15:59.280 --> 00:15:59.540
+right?
+
+00:15:59.540 --> 00:16:03.140
+Dismantle anything that will give your users the ability
+
+00:16:03.140 --> 00:16:03.830
+to exit.
+
+00:16:03.860 --> 00:16:07.060
+So, for example, if you're Instagram or Reddit or
+
+00:16:07.060 --> 00:16:11.480
+Twitter, then you're going to turn off your API.
+
+00:16:11.620 --> 00:16:15.780
+This happens before the actual, like, the algorithms go to
+
+00:16:15.780 --> 00:16:18.750
+shit and your application experience becomes useless.
+
+00:16:18.750 --> 00:16:20.970
+First, you turn off the APIs and then you wait a
+
+00:16:20.970 --> 00:16:21.380
+bit.
+
+00:16:21.380 --> 00:16:24.190
+And that way, nobody else has got a way to help
+
+00:16:24.190 --> 00:16:26.980
+you exit, to give you an alternative.
+
+00:16:26.980 --> 00:16:28.380
+Another example.
+
+00:16:28.480 --> 00:16:32.780
+Week one of the Trump administration, on the first Friday night
+
+00:16:32.780 --> 00:16:36.730
+, he fired the 17th inspector general, who were supposed
+
+00:16:36.830 --> 00:16:42.310
+to be the independent observers who would hold him accountable for corruption
+
+00:16:42.310 --> 00:16:44.220
+in his administration.
+
+00:16:44.270 --> 00:16:47.200
+If you're actually going to do corruption, you remove the
+
+00:16:47.200 --> 00:16:49.700
+things that will hold you accountable for corruption.
+
+00:16:49.700 --> 00:16:50.420
+Okay?
+
+00:16:50.420 --> 00:16:53.300
+So, what would it look like?
+
+00:16:53.300 --> 00:16:55.300
+Well, the mirrors just sort of stopped working on a Friday
+
+00:16:55.300 --> 00:16:56.030
+night, you know?
+
+00:16:56.030 --> 00:16:58.260
+Nobody seems to be able to pull from them anymore, don
+
+00:16:58.260 --> 00:16:59.220
+'t know what's going on.
+
+00:16:59.220 --> 00:17:00.170
+I'm hitting this end point.
+
+00:17:00.170 --> 00:17:00.790
+It's not working.
+
+00:17:00.860 --> 00:17:01.480
+It's working for me.
+
+00:17:01.480 --> 00:17:02.420
+It's not working for you.
+
+00:17:02.420 --> 00:17:05.470
+You know, you get somebody to answer on a Tuesday and
+
+00:17:05.560 --> 00:17:06.910
+they'll say, "Oh, we're looking into it
+
+00:17:06.910 --> 00:17:07.030
+.
+
+00:17:07.030 --> 00:17:09.690
+You know, maybe waste our time a little bit.
+
+00:17:09.690 --> 00:17:10.970
+Give us, like, a URL for some log files so
+
+00:17:10.970 --> 00:17:12.510
+they see if you can help, you know, see if
+
+00:17:12.510 --> 00:17:14.780
+you can diagnose the problem." And it's like eight ter
+
+00:17:14.820 --> 00:17:16.780
+abytes of just irrelevant log files, you know?
+
+00:17:16.780 --> 00:17:18.010
+They've got all the cards here.
+
+00:17:18.010 --> 00:17:20.260
+Another thing they can do is they can spam the mirrors to
+
+00:17:20.340 --> 00:17:24.200
+death because one of the amazing things about this system is that
+
+00:17:24.200 --> 00:17:27.110
+it's designed to kind of hold infinity records.
+
+00:17:27.110 --> 00:17:29.870
+Like, there's no cost to writing to it.
+
+00:17:29.870 --> 00:17:33.100
+The only limitation on putting loads of stuff in the PLC
+
+00:17:33.100 --> 00:17:36.060
+directory is that the operator is doing some rate limiting on,
+
+00:17:36.060 --> 00:17:37.940
+like, IPs and PDSs and stuff like that
+
+00:17:37.940 --> 00:17:38.110
+.
+
+00:17:38.110 --> 00:17:40.400
+But in theory, as far as I know, everything is
+
+00:17:40.410 --> 00:17:41.780
+supposed to go in there.
+
+00:17:42.010 --> 00:17:44.880
+So, they can allow other people spam in there.
+
+00:17:44.890 --> 00:17:47.920
+They can turn off the rate limiting until the mirrors fall over
+
+00:17:47.920 --> 00:17:48.080
+.
+
+00:17:48.080 --> 00:17:49.820
+They can also create their own spam.
+
+00:17:49.830 --> 00:17:52.580
+And the great thing about creating your own spam is you can
+
+00:17:52.580 --> 00:17:55.160
+do this deterministically from a secret seed.
+
+00:17:55.160 --> 00:17:57.910
+The mirrors have to hold all the data to have a complete
+
+00:17:57.940 --> 00:17:58.240
+set.
+
+00:17:58.240 --> 00:17:59.880
+You don't even have to hold the data.
+
+00:17:59.880 --> 00:18:02.160
+All you need is your seed and a serial number, and
+
+00:18:02.160 --> 00:18:03.330
+you can serve it.
+
+00:18:03.330 --> 00:18:06.090
+So, they've got all the cards when it comes to
+
+00:18:06.090 --> 00:18:08.860
+, like, spamming the mirrors and just making it impossible
+
+00:18:08.860 --> 00:18:10.180
+for people to hold them accountable.
+
+00:18:10.310 --> 00:18:12.250
+Okay.
+
+00:18:12.250 --> 00:18:14.080
+So, what can we do to mitigate this?
+
+00:18:14.080 --> 00:18:16.150
+I should be clear these aren't quite solutions, but they
+
+00:18:16.150 --> 00:18:16.730
+will help.
+
+00:18:16.740 --> 00:18:20.270
+So, we can run lots of mirrors, right?
+
+00:18:20.270 --> 00:18:23.680
+And this is something that's already, like, already happening
+
+00:18:23.680 --> 00:18:24.580
+a little bit.
+
+00:18:25.220 --> 00:18:28.650
+So, we can – when we write, instead of writing
+
+00:18:28.700 --> 00:18:31.300
+to the PLC directory, we can write to the mirror
+
+00:18:31.300 --> 00:18:34.820
+and have the mirror keep a log and share what they write
+
+00:18:34.830 --> 00:18:36.900
+, and then forward that on to the directory.
+
+00:18:36.900 --> 00:18:39.170
+So, that way, if the directory isn't giving us
+
+00:18:39.170 --> 00:18:42.420
+all its data, we should still kind of maybe be able
+
+00:18:42.420 --> 00:18:43.860
+to piece some of it together.
+
+00:18:43.860 --> 00:18:47.560
+Try to get consensus on what the mirrors are actually showing us
+
+00:18:47.690 --> 00:18:47.940
+.
+
+00:18:47.940 --> 00:18:50.930
+So, if the mirroring stops working on a Friday,
+
+00:18:51.070 --> 00:18:53.460
+we want also – we at least want to know that as
+
+00:18:53.460 --> 00:18:55.300
+of Thursday, we all know what it should be showing.
+
+00:18:55.320 --> 00:18:57.940
+There's then some technical things that I'll come to.
+
+00:18:58.020 --> 00:19:00.180
+This is really important.
+
+00:19:00.180 --> 00:19:02.690
+We need to figure out what is the social contract to did
+
+00:19:02.800 --> 00:19:04.940
+PLC and get this really clear and get this clear as
+
+00:19:04.940 --> 00:19:06.100
+soon as we possibly can.
+
+00:19:06.100 --> 00:19:09.310
+Like, I read the spec with my crypto brain, and
+
+00:19:09.310 --> 00:19:11.230
+it talks about avoiding censorship.
+
+00:19:11.230 --> 00:19:13.400
+And to my – like, in crypto, like, if
+
+00:19:13.400 --> 00:19:16.200
+you're preventing a ransomware payment from going to Kim Jong
+
+00:19:16.200 --> 00:19:17.570
+-un, that's censorship.
+
+00:19:17.570 --> 00:19:19.610
+But, like, I don't know what the rest of
+
+00:19:19.620 --> 00:19:23.200
+the app proto community thinks about this.
+
+00:19:23.200 --> 00:19:26.260
+Like, is it the job of the PLC directory to
+
+00:19:26.260 --> 00:19:29.430
+accommodate everybody, you know, spammers, scammers,
+
+00:19:29.430 --> 00:19:30.590
+malware authors?
+
+00:19:30.590 --> 00:19:32.940
+Are they all supposed to go in there or not?
+
+00:19:32.940 --> 00:19:34.250
+Like, what's the deal?
+
+00:19:34.260 --> 00:19:37.260
+What happens to, you know, child porn or accounts linking
+
+00:19:37.360 --> 00:19:38.330
+to child porn?
+
+00:19:38.340 --> 00:19:40.790
+What is the actual job of this directory?
+
+00:19:40.900 --> 00:19:43.550
+What is it that would tell us if it was going rogue
+
+00:19:43.550 --> 00:19:43.670
+?
+
+00:19:43.700 --> 00:19:45.690
+I don't know if that's clear to some people.
+
+00:19:45.690 --> 00:19:46.690
+It's not clear to me.
+
+00:19:46.840 --> 00:19:49.680
+So – and the later we leave this, the harder it
+
+00:19:49.680 --> 00:19:52.090
+is to figure it out, not least because we'll have
+
+00:19:52.140 --> 00:19:53.610
+all the factional squabbling.
+
+00:19:53.620 --> 00:19:57.380
+So some more things – some practical things you can do.
+
+00:19:57.380 --> 00:20:00.100
+Keep your ID self-authenticating, right?
+
+00:20:00.100 --> 00:20:03.090
+So remember I said earlier we had the blessed dids where
+
+00:20:03.230 --> 00:20:06.550
+you could fully validate just from available data, and we had
+
+00:20:06.550 --> 00:20:09.050
+the cursed dids with Sadako crawling out of your TV
+
+00:20:09.240 --> 00:20:11.940
+screen, where we potentially had a fork in the timeline,
+
+00:20:11.940 --> 00:20:15.010
+or we had, like, potentially somebody could create a data
+
+00:20:15.010 --> 00:20:17.150
+fork in the timeline.
+
+00:20:17.150 --> 00:20:20.180
+So if you keep your own rotation key, if, when
+
+00:20:20.180 --> 00:20:21.650
+you sign up, you make your own – make your own
+
+00:20:21.650 --> 00:20:23.890
+rotation key, write down the seed phrase or whatever you do
+
+00:20:24.040 --> 00:20:27.220
+, and don't lose that, you probably never need to
+
+00:20:27.320 --> 00:20:28.200
+change it, right?
+
+00:20:28.200 --> 00:20:30.450
+I mean, you know, Nostra doesn't do
+
+00:20:30.570 --> 00:20:34.080
+rotation keys, it seems like a – there's an obvious
+
+00:20:34.090 --> 00:20:38.340
+pattern if you're using most out-processed stuff where
+
+00:20:38.340 --> 00:20:41.230
+you feel like you register on Blue Sky first, and then
+
+00:20:41.230 --> 00:20:44.520
+you move to whatever PDS you were hoping to stick with
+
+00:20:44.520 --> 00:20:44.650
+.
+
+00:20:44.650 --> 00:20:46.400
+It's better if you can just go straight to the PD
+
+00:20:46.400 --> 00:20:48.260
+S, and that way you don't have this rotation key
+
+00:20:48.260 --> 00:20:50.580
+in your history that is controlled by Blue Sky.
+
+00:20:50.660 --> 00:20:54.490
+I don't quite – okay, I put don't use
+
+00:20:54.500 --> 00:20:54.660
+it.
+
+00:20:54.660 --> 00:20:58.010
+This is a slightly too strong a case, but there's
+
+00:20:58.010 --> 00:21:02.100
+this – remember we had recoverable in the four features.
+
+00:21:02.290 --> 00:21:05.400
+So there's this feature in DIP PLC where if
+
+00:21:05.400 --> 00:21:08.040
+you have a high-profile, like a high-
+
+00:21:08.040 --> 00:21:10.890
+priority rotation key and a low-priority
+
+00:21:11.070 --> 00:21:14.700
+rotation key, you can cancel the actions of the low priority
+
+00:21:14.700 --> 00:21:16.780
+one with the high priority one.
+
+00:21:16.780 --> 00:21:20.200
+And this is sort of useful, but it automatically creates this
+
+00:21:20.200 --> 00:21:21.210
+fork in your dead, right?
+
+00:21:21.280 --> 00:21:24.040
+It automatically causes Sadako to come crawling out of your TV
+
+00:21:24.490 --> 00:21:28.550
+screen and reduces your – the security properties of your account.
+
+00:21:28.580 --> 00:21:31.850
+So, one more thing.
+
+00:21:31.860 --> 00:21:34.310
+If you are hosting PDSs for somebody else, a
+
+00:21:34.310 --> 00:21:37.920
+dead rotation key is toxic waste, right?
+
+00:21:37.920 --> 00:21:40.370
+Plan the life cycle of your rotation keys.
+
+00:21:40.520 --> 00:21:43.080
+If you use – I don't know if this is still
+
+00:21:43.080 --> 00:21:45.140
+true, but when I tried it – if you use the
+
+00:21:45.140 --> 00:21:48.900
+stock PDS that Blue Sky provided, it will set one
+
+00:21:48.900 --> 00:21:50.500
+rotation key for all your users.
+
+00:21:50.500 --> 00:21:55.110
+And that means that if one of your users moves off your
+
+00:21:55.180 --> 00:21:58.940
+PDS, then you still can't delete it because you
+
+00:21:58.940 --> 00:22:00.040
+need it for other users.
+
+00:22:00.040 --> 00:22:01.950
+It would be better to do what we do with the signing
+
+00:22:02.010 --> 00:22:05.440
+keys and create it when they sign up and then delete it
+
+00:22:05.440 --> 00:22:06.660
+if they move off, okay?
+
+00:22:06.660 --> 00:22:11.700
+So, all this just makes it – it makes the individual
+
+00:22:12.050 --> 00:22:15.450
+user safer, but it also means that in the case where
+
+00:22:15.450 --> 00:22:18.710
+we have to do this switch from a rogue PLC directory
+
+00:22:18.710 --> 00:22:21.410
+, we have far less ambiguous data that we have to somehow
+
+00:22:21.410 --> 00:22:22.090
+deal with.
+
+00:22:22.180 --> 00:22:23.130
+So, okay.
+
+00:22:23.390 --> 00:22:26.530
+Let me talk a bit about ways that this can be more
+
+00:22:26.730 --> 00:22:27.460
+robust.
+
+00:22:27.460 --> 00:22:30.040
+And the first one I'm very pleased to say is happening
+
+00:22:30.040 --> 00:22:30.210
+.
+
+00:22:30.210 --> 00:22:31.380
+This is really cool.
+
+00:22:31.380 --> 00:22:33.240
+So, T-logs.
+
+00:22:33.240 --> 00:22:36.800
+We heard from Filippo earlier about T-logs
+
+00:22:36.800 --> 00:22:36.980
+.
+
+00:22:36.980 --> 00:22:40.260
+This should make it much more reliable to mirror.
+
+00:22:40.260 --> 00:22:42.900
+We can all tell that we've got the same mirror quite
+
+00:22:42.900 --> 00:22:43.590
+easily.
+
+00:22:43.590 --> 00:22:46.510
+We can quite easily sync up on the same thing.
+
+00:22:46.570 --> 00:22:49.080
+And we've got like a log of the history of what
+
+00:22:49.080 --> 00:22:51.130
+the sequence actually sequenced.
+
+00:22:51.130 --> 00:22:53.060
+So, this is really important.
+
+00:22:53.080 --> 00:22:58.360
+We can have loads of people with like very lightweight devices ver
+
+00:22:58.390 --> 00:23:01.700
+ifying that that log is being appended to and not like
+
+00:23:01.700 --> 00:23:03.410
+reorg, as I understand it.
+
+00:23:03.410 --> 00:23:06.310
+And we can also have people run monitors who check that the
+
+00:23:06.310 --> 00:23:08.660
+rules are actually correctly applied.
+
+00:23:08.680 --> 00:23:11.700
+So, this is already great and it will really help.
+
+00:23:11.760 --> 00:23:15.600
+Ideally, we will push this as far down the stack as
+
+00:23:15.720 --> 00:23:16.950
+we possibly can.
+
+00:23:16.980 --> 00:23:20.980
+So, ideally, if the directory stops cooperating with the
+
+00:23:21.000 --> 00:23:23.400
+system, we want stuff to break.
+
+00:23:23.400 --> 00:23:28.820
+But this is the problem of having this kind of single position
+
+00:23:28.820 --> 00:23:30.020
+of authority.
+
+00:23:30.020 --> 00:23:32.310
+They've got the official organization.
+
+00:23:32.310 --> 00:23:34.690
+They've got the single right privileges.
+
+00:23:34.800 --> 00:23:37.900
+The problem with this is they have the ability to just kind
+
+00:23:37.940 --> 00:23:39.620
+of turn that stuff off, right?
+
+00:23:39.620 --> 00:23:41.590
+Because if you're a developer, you know, you've
+
+00:23:41.590 --> 00:23:44.260
+got a choice between no records and invalid records.
+
+00:23:44.260 --> 00:23:46.000
+What are you going to do, right?
+
+00:23:46.000 --> 00:23:49.310
+Unless we can really, really quickly coordinate this flag and move
+
+00:23:49.350 --> 00:23:51.050
+to a new directory.
+
+00:23:51.060 --> 00:23:54.610
+And this is the difference with how certificate transparency works with certificate
+
+00:23:54.760 --> 00:23:55.860
+authorities, right?
+
+00:23:55.880 --> 00:24:00.850
+With like certificate transparency for SSL certificates.
+
+00:24:01.000 --> 00:24:05.230
+Because there, if you have a bad certificate authority that refuses
+
+00:24:05.230 --> 00:24:10.260
+to participate in the or breaks its participation in the scheme,
+
+00:24:10.260 --> 00:24:14.140
+which apparently does sometimes happen, your users can always get a
+
+00:24:14.280 --> 00:24:16.570
+certificate from another authority.
+
+00:24:16.580 --> 00:24:19.360
+But this is specifically the power that we don't have,
+
+00:24:19.360 --> 00:24:21.300
+at least in protocol in this system.
+
+00:24:21.300 --> 00:24:23.910
+You cannot move sequencer in didplc.
+
+00:24:23.910 --> 00:24:27.730
+All we can do is try to coordinate this incredible flag day
+
+00:24:27.730 --> 00:24:28.000
+.
+
+00:24:28.030 --> 00:24:33.960
+There's a proposal a while back by Nick, who's
+
+00:24:34.200 --> 00:24:38.330
+someone you know, to make it possible to choose your directory
+
+00:24:38.330 --> 00:24:38.650
+.
+
+00:24:38.750 --> 00:24:41.690
+I don't think this allows you to escape from a bad
+
+00:24:41.960 --> 00:24:44.270
+directory, but I think it potentially really helps.
+
+00:24:44.340 --> 00:24:48.530
+So that instead of having this single privileged position of the did
+
+00:24:48.680 --> 00:24:51.700
+plc directory that is in charge of didplc,
+
+00:24:52.500 --> 00:24:54.260
+you potentially have a bunch of different operators.
+
+00:24:54.260 --> 00:24:55.700
+So I really like this.
+
+00:24:55.700 --> 00:24:58.720
+And then, finally, I'm going to talk about some
+
+00:24:58.720 --> 00:25:00.660
+decentralized consensus approaches.
+
+00:25:00.660 --> 00:25:07.910
+So there are two serious problems with decentralized consensus for this application
+
+00:25:07.920 --> 00:25:10.340
+and for a lot of approach applications.
+
+00:25:10.340 --> 00:25:14.960
+The first is that, like, in the American culture wars
+
+00:25:14.960 --> 00:25:16.730
+, everything must have a side.
+
+00:25:16.730 --> 00:25:20.010
+And apparently, like, an open validator set is MA
+
+00:25:20.010 --> 00:25:22.170
+GA-coded nowadays, right?
+
+00:25:22.170 --> 00:25:25.490
+So, like, you can't say blockchain.
+
+00:25:25.490 --> 00:25:28.700
+You know, you have to kind of reinvent blockchain but not
+
+00:25:28.700 --> 00:25:29.700
+tell people.
+
+00:25:29.700 --> 00:25:32.320
+So there's that problem.
+
+00:25:32.350 --> 00:25:37.130
+And then the other problem is writing to a decentralized ledger
+
+00:25:37.180 --> 00:25:39.450
+generally costs you money.
+
+00:25:39.540 --> 00:25:43.150
+And the reason why it costs you money is because it needs
+
+00:25:43.150 --> 00:25:44.900
+to somehow manage spam, right?
+
+00:25:44.900 --> 00:25:49.940
+So if you don't want to put anybody in charge of
+
+00:25:49.940 --> 00:25:54.600
+deciding what is a legitimate transaction, and also if you want
+
+00:25:54.600 --> 00:26:00.330
+to preserve the ability to mirror the entire dataset, then the
+
+00:26:00.380 --> 00:26:05.410
+only way I think that anybody knows is to charge money to
+
+00:26:05.410 --> 00:26:05.860
+write.
+
+00:26:05.860 --> 00:26:08.730
+So a couple of approaches.
+
+00:26:08.740 --> 00:26:13.480
+Well, there's a BFT system that somebody wrote.
+
+00:26:13.720 --> 00:26:16.570
+I think a lot of this stuff could probably be rewritten
+
+00:26:16.570 --> 00:26:18.160
+in the light of T-logs.
+
+00:26:18.160 --> 00:26:20.940
+But there's a BFT suggestion using Comet BFT
+
+00:26:21.090 --> 00:26:21.300
+.
+
+00:26:21.300 --> 00:26:23.580
+I haven't looked very hard at it, but it's
+
+00:26:23.590 --> 00:26:24.900
+maybe interesting.
+
+00:26:24.900 --> 00:26:27.380
+A couple of ideas by me.
+
+00:26:27.380 --> 00:26:30.570
+The idea here is if we're going to use a blockchain
+
+00:26:30.570 --> 00:26:33.400
+, we want to have to avoid writing to it all the
+
+00:26:33.400 --> 00:26:34.090
+time.
+
+00:26:34.090 --> 00:26:37.570
+And we especially want to avoid regular users having to write to
+
+00:26:37.710 --> 00:26:37.930
+it.
+
+00:26:37.930 --> 00:26:39.250
+So a couple of things.
+
+00:26:39.360 --> 00:26:40.660
+P2P guardrails.
+
+00:26:40.660 --> 00:26:43.160
+This is a suggestion where, firstly, you can change your
+
+00:26:43.220 --> 00:26:43.860
+sequencer.
+
+00:26:43.860 --> 00:26:46.580
+So if the directory is bad, you can escape.
+
+00:26:46.680 --> 00:26:51.060
+Secondly, if the sequencer refuses to sequence something for you
+
+00:26:51.060 --> 00:26:53.540
+, then you or somebody on your behalf can send it to
+
+00:26:53.640 --> 00:26:55.620
+the blockchain and we can read it off there.
+
+00:26:55.620 --> 00:26:59.880
+And finally, we do some reorg protection based on kind
+
+00:26:59.880 --> 00:27:02.320
+of T-log-like checksums so that you can
+
+00:27:02.320 --> 00:27:05.970
+prove that you previously had something already accepted and that it shouldn
+
+00:27:05.970 --> 00:27:06.730
+'t be reorg'd.
+
+00:27:06.740 --> 00:27:10.380
+And then finally, this one, didcow.
+
+00:27:10.380 --> 00:27:13.860
+This is a proposal for a new kind of did.
+
+00:27:13.860 --> 00:27:18.370
+And actually, what set me thinking about this was I saw
+
+00:27:18.700 --> 00:27:22.790
+that people are trying to do organizational control of dids.
+
+00:27:22.860 --> 00:27:26.730
+So, for example, you've got a decentralized organization,
+
+00:27:26.730 --> 00:27:29.060
+you've got a bunch of different people, and they all
+
+00:27:29.060 --> 00:27:32.400
+want to share control in some way of a did.
+
+00:27:32.410 --> 00:27:35.390
+And this is something that some of the blockchain tooling does really
+
+00:27:35.390 --> 00:27:36.020
+, really well.
+
+00:27:36.020 --> 00:27:38.130
+So I thought it would be useful if you had kind of
+
+00:27:38.270 --> 00:27:43.220
+an explicitly kind of blockchain oriented way of doing this.
+
+00:27:43.220 --> 00:27:47.060
+And the proposal is very simply, you make an ID with
+
+00:27:47.060 --> 00:27:50.820
+the controller blockchain address that wraps your regular ID.
+
+00:27:50.900 --> 00:27:54.980
+You don't have to do a blockchain transaction to write this
+
+00:27:54.980 --> 00:27:57.490
+because if there's nothing on the blockchain, we're just
+
+00:27:57.540 --> 00:27:59.620
+going to use the thing that was in your address.
+
+00:28:01.140 --> 00:28:04.520
+And then if you want to move your wrapped ID, let
+
+00:28:04.520 --> 00:28:07.330
+'s say you lose trust in did PLC, or you
+
+00:28:07.480 --> 00:28:09.410
+want to move from a cursed PLC entry to a non
+
+00:28:09.410 --> 00:28:11.360
+-cursed one, or you want to move to a
+
+00:28:11.360 --> 00:28:14.170
+did web or a different did web, whatever you want to
+
+00:28:14.280 --> 00:28:17.660
+do, you can repoint this one with a blockchain transaction
+
+00:28:17.760 --> 00:28:17.920
+.
+
+00:28:18.740 --> 00:28:20.520
+Okay, so that's all I got.
+
+00:28:20.520 --> 00:28:23.860
+I've put links for all the technical things I talked about
+
+00:28:23.860 --> 00:28:26.600
+up here, and I've also pinned this to my profile
+
+00:28:26.610 --> 00:28:28.340
+on GoatNavy on Blue Sky.
+
+00:28:28.340 --> 00:28:30.370
+That clock says one minute, but we actually have a couple
+
+00:28:30.370 --> 00:28:30.820
+of minutes.
+
+00:28:30.900 --> 00:28:32.410
+So do we have any questions?
+
+00:28:32.420 --> 00:28:34.760
+And actually, no, first, thank you.
+
+00:28:34.790 --> 00:28:35.780
+This was amazing.
+
+00:28:42.260 --> 00:28:42.580
+Okay.
+
+00:28:42.580 --> 00:28:49.260
+So why don't we just all use did webs and then
+
+00:28:49.310 --> 00:28:54.560
+push the fight to the DNS layer?
+
+00:28:54.580 --> 00:28:55.460
+Yeah.
+
+00:28:55.460 --> 00:28:58.440
+If you'd asked me that a year ago, I would
+
+00:28:58.440 --> 00:29:00.740
+have said we should all use did webs.
+
+00:29:00.740 --> 00:29:08.030
+But at that time, I had very naive assumptions about the
+
+00:29:08.060 --> 00:29:13.520
+nation state governed liberal institutions like, with a did web,
+
+00:29:13.560 --> 00:29:16.690
+everything is under a registrar, which is under a nation
+
+00:29:16.810 --> 00:29:17.250
+state.
+
+00:29:17.250 --> 00:29:19.970
+And it seems like nation states will turn to fascism even
+
+00:29:19.970 --> 00:29:22.580
+within like a three year time span or something.
+
+00:29:22.580 --> 00:29:25.900
+So I don't feel like that confident, like having a
+
+00:29:25.900 --> 00:29:28.330
+did web for the next 20 years.
+
+00:29:28.430 --> 00:29:30.940
+If it was five years, I'm kind of cool with
+
+00:29:30.940 --> 00:29:31.890
+the did web.
+
+00:29:32.030 --> 00:29:32.700
+So yeah.
+
+00:29:32.700 --> 00:29:35.570
+So I think for long term, there's that.
+
+00:29:35.570 --> 00:29:38.550
+And then the practical problem with did web is just that people
+
+00:29:38.550 --> 00:29:42.030
+have a hard time not losing their control of their own of
+
+00:29:42.360 --> 00:29:43.400
+their domain.
+
+00:29:43.430 --> 00:29:47.140
+And also that the registrar will keep putting the price up
+
+00:29:47.140 --> 00:29:48.060
+with the domain as well.
+
+00:29:48.100 --> 00:29:50.500
+Hi.
+
+00:29:50.500 --> 00:29:53.850
+Thank you for all of the list of things we can do
+
+00:29:53.950 --> 00:29:54.980
+to screw everybody over.
+
+00:29:54.980 --> 00:29:56.630
+No.
+
+00:29:56.730 --> 00:29:58.890
+Okay.
+
+00:29:59.070 --> 00:29:59.650
+Seriously.
+
+00:29:59.760 --> 00:30:02.100
+Speaking of my personal capacity.
+
+00:30:02.100 --> 00:30:02.820
+But okay.
+
+00:30:02.840 --> 00:30:04.550
+So homework.
+
+00:30:04.560 --> 00:30:09.620
+Sounds like we should make the policies for what is and isn
+
+00:30:09.620 --> 00:30:14.020
+'t going to go in explicit so they will bind us for
+
+00:30:14.020 --> 00:30:14.500
+the future.
+
+00:30:14.500 --> 00:30:15.860
+Yes.
+
+00:30:15.860 --> 00:30:17.860
+We should like Tlogs are good.
+
+00:30:17.860 --> 00:30:19.090
+I saw here.
+
+00:30:19.090 --> 00:30:24.960
+And maybe considered Tlog witnesses, Tlog mirrors, T
+
+00:30:24.960 --> 00:30:25.860
+log monitors.
+
+00:30:25.860 --> 00:30:28.850
+Well monitors are permissionless.
+
+00:30:28.990 --> 00:30:29.470
+But witnesses.
+
+00:30:29.530 --> 00:30:30.100
+Anything else?
+
+00:30:30.100 --> 00:30:30.900
+Right.
+
+00:30:30.900 --> 00:30:34.900
+So apart from kind of changing the whole system.
+
+00:30:34.900 --> 00:30:42.900
+Actually, one thing that occurred to me the other day was
+
+00:30:42.920 --> 00:30:49.560
+it would make more sense to separate out the reading and the
+
+00:30:49.630 --> 00:30:50.150
+sequencing.
+
+00:30:50.250 --> 00:30:50.730
+Right?
+
+00:30:50.760 --> 00:30:53.410
+So if you are writing that Tlog, you don't
+
+00:30:53.410 --> 00:30:56.180
+necessarily need to be running the directory.
+
+00:30:56.330 --> 00:30:57.860
+Does that make sense?
+
+00:30:57.860 --> 00:30:58.090
+Right?
+
+00:30:58.100 --> 00:31:01.090
+You need your own version of the directory and you give proof
+
+00:31:01.240 --> 00:31:03.130
+s to people when they asked to write to it.
+
+00:31:03.140 --> 00:31:05.780
+But anybody could be running those directories.
+
+00:31:05.780 --> 00:31:09.060
+And I think it would be really useful if we could just
+
+00:31:09.060 --> 00:31:12.030
+avoid this social point of like the PLC directory, which
+
+00:31:12.200 --> 00:31:15.460
+is clearly like the dictator of all things PLC.
+
+00:31:16.820 --> 00:31:17.870
+That would really help.
+
+00:31:17.870 --> 00:31:20.500
+So like at least potentially, you know, maybe have different
+
+00:31:20.500 --> 00:31:21.140
+organizations.
+
+00:31:21.140 --> 00:31:23.980
+Maybe Blue Sky should keep PLC directory and you should just
+
+00:31:23.980 --> 00:31:26.180
+do sequencing at the non-profit.
+
+00:31:26.180 --> 00:31:28.660
+And the non-sequencing part here is just a read
+
+00:31:28.740 --> 00:31:32.260
+-only service that makes things available.
+
+00:31:32.260 --> 00:31:32.730
+Is that right?
+
+00:31:32.740 --> 00:31:34.950
+Well, actually, I mean, there's a couple of
+
+00:31:34.950 --> 00:31:35.730
+ways to do it.
+
+00:31:35.870 --> 00:31:37.680
+One way to do it would be just to do timestamps
+
+00:31:37.700 --> 00:31:37.700
+.
+
+00:31:37.700 --> 00:31:40.880
+So you would literally get a message and say, "What
+
+00:31:40.880 --> 00:31:43.300
+time did I give you this message?" And then you give
+
+00:31:43.300 --> 00:31:45.170
+it back to them with a signature.
+
+00:31:45.170 --> 00:31:48.290
+But I think you could do something similar with the T log
+
+00:31:48.400 --> 00:31:50.100
+, like some feature of T logs.
+
+00:31:50.100 --> 00:31:52.600
+Yeah, I think the T log equivalent is a read-
+
+00:31:52.660 --> 00:31:55.990
+only replica, which can also choose to the set of witnesses
+
+00:31:55.990 --> 00:31:57.040
+that signed that T log.
+
+00:31:57.040 --> 00:31:58.820
+But that can be done permissionlessly.
+
+00:31:58.820 --> 00:32:00.740
+Like anybody can spin one of those up downstream.
+
+00:32:01.220 --> 00:32:03.540
+Anybody can spring up a mirror.
+
+00:32:03.540 --> 00:32:08.880
+But what I want to communicate here is that the switching over
+
+00:32:09.080 --> 00:32:11.210
+from the PLC, like the PLC, it's
+
+00:32:11.260 --> 00:32:14.190
+a social arrangement, just as much as a technical arrangement,
+
+00:32:14.190 --> 00:32:14.260
+right?
+
+00:32:14.260 --> 00:32:18.500
+So who do people think runs the PLC?
+
+00:32:18.500 --> 00:32:22.020
+And this is why earlier I said, like, until I
+
+00:32:22.020 --> 00:32:24.070
+was practicing this talk, I thought it was a good idea
+
+00:32:24.070 --> 00:32:25.380
+to move to a new organization.
+
+00:32:25.380 --> 00:32:28.940
+And now I don't, because the new organization will actually
+
+00:32:28.940 --> 00:32:31.620
+have much more authority than the old organization.
+
+00:32:31.620 --> 00:32:35.040
+Like, if I look at those really good social recovery operations
+
+00:32:35.060 --> 00:32:37.780
+, they're all against some evil corporation.
+
+00:32:37.780 --> 00:32:41.620
+So we can we can totally paint blue sky as an evil
+
+00:32:41.620 --> 00:32:46.670
+corporation, and like organize this social recovery to foil their evil
+
+00:32:46.670 --> 00:32:47.180
+plans.
+
+00:32:47.180 --> 00:32:50.180
+But like with a Swiss organization that's, you know,
+
+00:32:50.180 --> 00:32:50.980
+it's...
+
+00:32:50.980 --> 00:32:54.890
+Worse reputation is that better.
+
+00:32:55.040 --> 00:32:57.980
+You have to wear, you have to wear hoods with
+
+00:32:58.030 --> 00:32:59.590
+the robes with hoods, basically.
+
+00:32:59.590 --> 00:33:00.730
+And then yeah, okay.
+
+00:33:00.730 --> 00:33:01.850
+Let's take two more.
+
+00:33:01.860 --> 00:33:03.460
+Anybody else?
+
+00:33:03.460 --> 00:33:07.240
+Well, this is maybe going into the weeds a bit too
+
+00:33:07.240 --> 00:33:07.890
+much.
+
+00:33:08.010 --> 00:33:11.000
+But I'm curious why the did cow proposal didn't have
+
+00:33:11.000 --> 00:33:13.740
+included chain ID, if I understand correctly, the address is
+
+00:33:13.740 --> 00:33:14.820
+a smart contract.
+
+00:33:14.820 --> 00:33:15.380
+That's correct.
+
+00:33:15.380 --> 00:33:18.660
+The reason why it didn't include a chain ID was big
+
+00:33:18.660 --> 00:33:19.460
+was two reasons.
+
+00:33:19.460 --> 00:33:21.690
+Firstly, it's already quite long.
+
+00:33:21.700 --> 00:33:27.310
+And secondly, the big burden, I think actually, of
+
+00:33:27.310 --> 00:33:30.610
+those two proposals, and also probably the reason why the guard
+
+00:33:30.610 --> 00:33:33.480
+rails proposal is actually obviously dead in the water, is
+
+00:33:33.480 --> 00:33:36.790
+that you need a, you need an RPC endpoint,
+
+00:33:36.790 --> 00:33:37.620
+right?
+
+00:33:37.620 --> 00:33:39.570
+You need a connection to the block, a reconnection to
+
+00:33:39.570 --> 00:33:41.140
+the blockchain to resolve anything.
+
+00:33:41.140 --> 00:33:45.030
+So if we have lots of other chains there, then whoever
+
+00:33:45.030 --> 00:33:47.740
+is resolving this has got to have lots of different working R
+
+00:33:47.740 --> 00:33:48.820
+PC endpoints.
+
+00:33:48.840 --> 00:33:49.870
+So I'm kind of like, okay, what's the
+
+00:33:49.870 --> 00:33:50.820
+simplest thing that could work?
+
+00:33:50.820 --> 00:33:53.620
+You know, one RPC, no chain ID.
+
+00:33:54.920 --> 00:33:56.180
+Okay.
+
+00:33:56.180 --> 00:33:57.540
+Any other questions?
+
+00:33:58.920 --> 00:34:05.140
+Thank you for closing out the conference with this particular talk.
+
+00:34:05.140 --> 00:34:08.340
+Thanks for having me.
+
+00:34:08.340 --> 00:34:08.660
+Okay.
+
+00:34:08.660 --> 00:34:10.000
+Thank you again.

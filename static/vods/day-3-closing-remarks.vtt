@@ -1,0 +1,607 @@
+WEBVTT
+
+00:00:00.030 --> 00:00:04.330
+and we've now gotten it and we're going to give
+
+00:00:04.330 --> 00:00:14.820
+it away would you
+
+00:00:14.820 --> 00:00:23.600
+like to talk about at geo so Skylar has set
+
+00:00:23.600 --> 00:00:31.800
+up a giant server in Canada powered by hydropower that
+
+00:00:31.800 --> 00:00:34.940
+has the entire four square open places database in it which is
+
+00:00:34.940 --> 00:00:37.760
+why you need a big server and if you go to at
+
+00:00:37.880 --> 00:00:42.870
+geo org we have a bunch of running services in the meantime
+
+00:00:42.930 --> 00:00:45.960
+the lexicon that Nick helped birth has already kind of
+
+00:00:45.960 --> 00:00:48.220
+made its way into a bunch of things and the pain point
+
+00:00:48.220 --> 00:00:52.400
+in fact is looking up venues that actually exist and and editing
+
+00:00:52.400 --> 00:00:55.620
+them so we're super stoked that you know one one cover
+
+00:00:55.670 --> 00:00:58.570
+should have we've shipped some things and we have a lot
+
+00:00:58.570 --> 00:01:02.240
+more geo to build may be helpful with the little permissions and
+
+00:01:02.240 --> 00:01:06.840
+privacy around some of that geo stuff exactly all supported by the
+
+00:01:06.840 --> 00:01:10.180
+community fund so yes if you want to build on that come
+
+00:01:10.530 --> 00:01:13.680
+find Skylar or hit us up awesome and I will hand
+
+00:01:13.680 --> 00:01:16.810
+it to Ted to talk a little bit about our next gr
+
+00:01:16.810 --> 00:01:20.700
+antees thank you and I just want to start with like
+
+00:01:20.700 --> 00:01:23.520
+what was the reason that we got involved with Indie Sky
+
+00:01:23.520 --> 00:01:27.300
+and was sort of like common touch points with free our feeds
+
+00:01:27.300 --> 00:01:30.120
+the thing that we really landed on was what are the things
+
+00:01:30.300 --> 00:01:33.620
+that we could do to encourage building outside of blue sky other
+
+00:01:33.620 --> 00:01:37.470
+companies because the way that we think about this is like if
+
+00:01:37.470 --> 00:01:39.790
+there's a credible exit that needs to happen there needs to
+
+00:01:39.790 --> 00:01:42.450
+be a credible community that you can exit to that is all
+
+00:01:42.450 --> 00:01:46.010
+of you here and part of what we've been thinking about
+
+00:01:46.100 --> 00:01:49.500
+for the past year is how do we help move these conversations
+
+00:01:49.500 --> 00:01:52.320
+along where can we get to the questions that haven't been
+
+00:01:52.320 --> 00:01:57.050
+asked yet and there have been amazing members of the community like
+
+00:01:57.060 --> 00:02:00.810
+Bailey with PDS mover who gotten us past the point of
+
+00:02:00.810 --> 00:02:04.230
+just talking about oh theoretically you can move between PDS is
+
+00:02:04.230 --> 00:02:06.810
+to what is the experience of moving from PDS to PD
+
+00:02:06.810 --> 00:02:09.580
+S actually look like what happens when you need to move a
+
+00:02:09.580 --> 00:02:12.420
+whole lot of people at once it's not just technical it
+
+00:02:12.420 --> 00:02:15.170
+is explaining what is a PDS what are the steps that
+
+00:02:15.170 --> 00:02:18.280
+you need to take right and so these are the conversations we
+
+00:02:18.280 --> 00:02:21.340
+want to be able to facilitate and also make sure that we
+
+00:02:21.360 --> 00:02:25.650
+can get to that next level both between within this community and
+
+00:02:25.650 --> 00:02:30.300
+with users so the grant funding and the fund grantees
+
+00:02:30.300 --> 00:02:34.820
+that we are announcing today are black sky for better user documentation
+
+00:02:34.820 --> 00:02:40.310
+particularly focusing on the search sorry not better user documentation there's
+
+00:02:40.310 --> 00:02:44.300
+literally no user documentation yes yes of the app by blue sky
+
+00:02:44.320 --> 00:02:46.480
+black sky so black sky is going to ship the first version
+
+00:02:46.480 --> 00:02:56.730
+version can we get a mother heckin round of applause so
+
+00:02:56.800 --> 00:02:59.480
+thank you once again for black sky for leading the way at
+
+00:02:59.620 --> 00:03:03.210
+least we slipped you a small check this time around yeah and
+
+00:03:03.210 --> 00:03:08.210
+we want to encourage people to build in in other spaces and
+
+00:03:08.350 --> 00:03:13.260
+we think that um spaces like uh uh um standard site which
+
+00:03:13.260 --> 00:03:16.100
+has emerged over the past year as a collaboration within the app
+
+00:03:16.150 --> 00:03:19.620
+proto community is like vital and critical but one of the other
+
+00:03:19.620 --> 00:03:22.880
+questions is how do these things interface with other communities and existing
+
+00:03:22.880 --> 00:03:27.580
+communities of users and so Tyler's efforts with wire service really
+
+00:03:27.580 --> 00:03:30.720
+started to bridge the gap into the wordpress community and start
+
+00:03:30.720 --> 00:03:34.660
+to bring at least metadata initially into the app proto ecosystem so
+
+00:03:34.660 --> 00:03:38.700
+that these things can be published connect with the standard site uh
+
+00:03:38.700 --> 00:03:42.780
+uh lexicons and um uh begin that conversation of what
+
+00:03:42.780 --> 00:03:46.460
+it looks like to move into these uh existing ecosystems thank you
+
+00:03:46.460 --> 00:03:51.710
+Tyler yes thank you and we also think it's really important
+
+00:03:52.740 --> 00:03:57.500
+to think about these next layers of as more users come into
+
+00:03:57.500 --> 00:04:01.090
+the ecosystem how how are we cooperating with them how are
+
+00:04:01.090 --> 00:04:04.950
+we uh bringing some sense of order or uh community within these
+
+00:04:05.060 --> 00:04:07.770
+spaces and so we're um uh we're going to be
+
+00:04:08.100 --> 00:04:10.860
+giving out two grants um one debuff to trezzy
+
+00:04:10.860 --> 00:04:14.550
+who's built the game dev labeler and uh cartridge which
+
+00:04:14.580 --> 00:04:18.460
+is a system for being able to uh ingest um uh
+
+00:04:18.460 --> 00:04:22.650
+information from labelers and other sorts of systems and uh take
+
+00:04:22.740 --> 00:04:27.100
+action on all lexicons in uh the app proto ecosystem
+
+00:04:27.100 --> 00:04:30.540
+not just the blue sky lexicons um and uh sky
+
+00:04:30.540 --> 00:04:35.220
+watch um uh from mountain herder um julia and in
+
+00:04:35.220 --> 00:04:40.080
+order to uh work on the general threat intelligence problem right these
+
+00:04:40.100 --> 00:04:44.300
+are if we're talking about community moderation what are the infrastructure
+
+00:04:44.320 --> 00:04:47.300
+that we are going to have to be able to share signals
+
+00:04:47.300 --> 00:04:50.880
+and be able to uh communicate um the things that we're
+
+00:04:50.880 --> 00:04:54.490
+observing out uh in the world so that app views and label
+
+00:04:54.490 --> 00:04:58.340
+ers can actually make better decisions about what's going on in
+
+00:04:58.340 --> 00:05:04.860
+the atmosphere thank you trezzy and mountain herder so
+
+00:05:04.860 --> 00:05:12.610
+these are relatively small grants 2500 usd each um we'll
+
+00:05:12.610 --> 00:05:16.700
+put that up and announce it and also put links where you
+
+00:05:16.700 --> 00:05:21.520
+can make those dollars grow with those four entities as well um
+
+00:05:21.520 --> 00:05:25.740
+i know that patrick hi remote patrick has long talked
+
+00:05:25.770 --> 00:05:28.750
+about please please please um you know give us a gith
+
+00:05:28.750 --> 00:05:31.860
+ub sponsor like give us something like that we know it's
+
+00:05:31.860 --> 00:05:34.060
+not a lot but people actually do want to vote uh with
+
+00:05:34.060 --> 00:05:37.060
+their dollars and with their energy for for what you're doing
+
+00:05:37.060 --> 00:05:40.590
+for the community and we really appreciate it um we did a
+
+00:05:40.590 --> 00:05:47.370
+little founders and funders session yesterday broadly speaking about funding um
+
+00:05:47.380 --> 00:05:50.540
+and uh dietrich participated in that he was one of the
+
+00:05:50.590 --> 00:05:54.270
+first people said that that said yes i'll come along um
+
+00:05:54.270 --> 00:05:57.840
+and i wanted to highlight these things uh burrito dot space
+
+00:05:57.840 --> 00:06:00.700
+you can easily find it in the last couple of posts um
+
+00:06:01.060 --> 00:06:09.430
+so like cheese and cultures uh the ecosystem is delicate uh there
+
+00:06:09.430 --> 00:06:14.370
+'s a lot a lot a lot of enthusiasm and huge talent
+
+00:06:14.370 --> 00:06:20.190
+but there actually isn't magical investor monies the grant options
+
+00:06:20.190 --> 00:06:24.110
+are thin many first-time founders many don't want investor
+
+00:06:24.270 --> 00:06:29.530
+investment uh a few other options the macro environment is a touch
+
+00:06:29.530 --> 00:06:35.260
+scary so this is a collective challenge we can just do things
+
+00:06:35.260 --> 00:06:38.900
+uh maybe we can just pay for things if we pull it
+
+00:06:38.900 --> 00:06:43.880
+up across enough things gander as an example um did a
+
+00:06:43.880 --> 00:06:50.460
+crowd equity raise um and had 2000 individual canadians uh
+
+00:06:50.460 --> 00:06:55.360
+invest because there was a demand of saying we need this sort
+
+00:06:55.370 --> 00:06:59.100
+of thing ourselves so that's an example if you're using
+
+00:06:59.190 --> 00:07:04.820
+something for free it can go away fig this morning said a
+
+00:07:04.820 --> 00:07:09.950
+sterix it turns out this stuff is getting cheaper and cheaper
+
+00:07:09.950 --> 00:07:13.720
+to run but we need that diversity we need more things running
+
+00:07:13.760 --> 00:07:19.090
+the operator may be struggling or maybe just doing it because they
+
+00:07:19.140 --> 00:07:23.380
+still think it's an obligation that they they started um to
+
+00:07:23.380 --> 00:07:30.930
+those of you running infra please add a payment tier uh make
+
+00:07:30.930 --> 00:07:40.420
+co-ops make them locally run community in front together and
+
+00:07:40.420 --> 00:07:46.140
+learn from the past magical thinking does not make a healthy atmosphere
+
+00:07:46.140 --> 00:07:50.850
+so thank you dietrich for letting me me read two ske
+
+00:07:50.850 --> 00:08:06.060
+ets um
+
+00:08:06.060 --> 00:08:09.390
+and with that we're actually going to welcome tony schne
+
+00:08:09.390 --> 00:08:17.520
+ider thank you hi everyone i
+
+00:08:17.520 --> 00:08:21.100
+'m tony i'm the new ceo of blue sky
+
+00:08:21.100 --> 00:08:24.320
+and as someone who grew up in switzerland i appreciate all
+
+00:08:24.320 --> 00:08:30.140
+the cheese talk that just happened um i am three weeks into
+
+00:08:30.140 --> 00:08:33.340
+my new job i spent the first two weeks getting onboarded
+
+00:08:33.340 --> 00:08:36.960
+into blue sky and the last couple of days getting onboarded
+
+00:08:36.960 --> 00:08:40.530
+into the atmosphere i feel like and the first thing i want
+
+00:08:40.530 --> 00:08:43.330
+to say is thank you to all of you everybody i've
+
+00:08:43.330 --> 00:08:47.150
+met in person has been extremely nice and welcoming and i'm
+
+00:08:47.150 --> 00:08:50.620
+getting a sense of this community um you're all working on
+
+00:08:50.620 --> 00:08:54.980
+something really important but you're doing it with a lot of
+
+00:08:54.980 --> 00:08:59.260
+collaboration and grace and a sense of humor and i really appreciate
+
+00:08:59.360 --> 00:09:04.140
+it um i usually don't like being up on stage but
+
+00:09:04.140 --> 00:09:07.020
+uh boris and ted convinced me that it would be good
+
+00:09:07.070 --> 00:09:11.690
+idea to introduce myself to you because i did join the blue
+
+00:09:11.690 --> 00:09:15.700
+sky leadership team and blue sky is the biggest company in the
+
+00:09:15.700 --> 00:09:20.500
+atmosphere we hope that changes in the future we would love to
+
+00:09:20.510 --> 00:09:24.670
+be a small slice in a giant pie that we all make
+
+00:09:24.670 --> 00:09:28.380
+together but for now we are biggest and you should know who
+
+00:09:28.380 --> 00:09:32.260
+the people are behind this company um the most important thing i
+
+00:09:32.260 --> 00:09:35.640
+want to tell you is that i love at proto in the
+
+00:09:35.640 --> 00:09:40.300
+atmosphere we're not changing anything we're going to continue to
+
+00:09:40.300 --> 00:09:43.080
+support this community and the things you're building with all the
+
+00:09:43.080 --> 00:09:46.920
+levers that are available to us so me arriving and taking over
+
+00:09:46.920 --> 00:09:49.830
+from jay doesn't mean any change in that we're
+
+00:09:49.830 --> 00:09:54.080
+completely behind what you building we don't want to just build
+
+00:09:54.080 --> 00:09:58.320
+a company we want to help a whole ecosystem emerge and the
+
+00:09:58.320 --> 00:10:01.710
+other thing i wanted to do is just tell you a little
+
+00:10:01.710 --> 00:10:06.940
+bit about myself like i mentioned i actually was born and raised
+
+00:10:06.940 --> 00:10:11.100
+in switzerland i moved to california to study computer
+
+00:10:11.200 --> 00:10:15.530
+science go to college there and then i stayed i joined a
+
+00:10:15.530 --> 00:10:20.180
+startup i got married i started a family the startup was bought
+
+00:10:20.180 --> 00:10:23.020
+by another startup and then a bunch of us started a company
+
+00:10:23.020 --> 00:10:26.480
+together that was my first time as a ceo and then
+
+00:10:26.480 --> 00:10:31.220
+that led to probably the most formative job i've had
+
+00:10:31.220 --> 00:10:34.390
+in my career so far and it's when i was the
+
+00:10:34.390 --> 00:10:37.320
+founding ceo of a company called automatic which was the company
+
+00:10:37.320 --> 00:10:38.450
+behind wordpress.
+
+00:10:38.450 --> 00:10:44.360
+com and i remember early wordpress days this is now 20
+
+00:10:44.360 --> 00:10:49.740
+years ago um a room not dissimilar to this a
+
+00:10:49.740 --> 00:10:52.990
+few hundred people in that case it was bloggers and open
+
+00:10:53.410 --> 00:10:57.960
+source developers and there was something special in the air we really
+
+00:10:58.110 --> 00:11:03.100
+felt like the case of wordpress it was decentralized publishing um
+
+00:11:03.100 --> 00:11:07.410
+that we thought could be something really big and i remember at
+
+00:11:07.420 --> 00:11:12.480
+the time people told me especially investors that you have a choice
+
+00:11:12.480 --> 00:11:16.030
+to make you can either build an open source community or you
+
+00:11:16.030 --> 00:11:19.410
+can build a company but you can't do both and we
+
+00:11:19.410 --> 00:11:24.060
+thought actually we want to do both and we did one better
+
+00:11:24.060 --> 00:11:29.660
+wordpress continued to thrive to this day 20 years later it
+
+00:11:29.660 --> 00:11:33.660
+'s huge it now incredibly powers over 40 percent of all the
+
+00:11:33.760 --> 00:11:37.680
+websites on the internet thriving as an open source community and we
+
+00:11:37.680 --> 00:11:43.440
+didn't just build one company we helped build a whole ecosystem
+
+00:11:43.440 --> 00:11:47.550
+that is now also very big there's over 10 billion dollars
+
+00:11:47.550 --> 00:11:51.380
+a year that flows through the wordpress ecosystem and automatic is
+
+00:11:51.380 --> 00:11:55.720
+less than 10 percent of that the rest is thousands tens of
+
+00:11:55.720 --> 00:12:02.460
+thousands of other businesses people making a living on that platform so
+
+00:12:02.460 --> 00:12:06.300
+i've seen that happen i know it's possible to build
+
+00:12:06.300 --> 00:12:11.380
+not just a company on an open ecosystem but lots of companies
+
+00:12:11.380 --> 00:12:15.640
+and um lots of people being able to make a living and
+
+00:12:15.640 --> 00:12:19.340
+my hope is that i can bring some of that experience to
+
+00:12:19.340 --> 00:12:23.940
+this community because i believe that the people are building the atmosphere
+
+00:12:23.940 --> 00:12:28.360
+people who are um coming up with the ideas and the systems
+
+00:12:28.510 --> 00:12:30.930
+and the products and are building the community should be able to
+
+00:12:30.940 --> 00:12:34.860
+do so and actually make a living at it and i think
+
+00:12:34.860 --> 00:12:43.150
+that's possible thank you thank you t
+
+00:12:43.150 --> 00:12:51.880
+ony simple easy after party adjun
+
+00:12:51.880 --> 00:12:57.910
+ction uh eva has gone ahead uh uh and uh they
+
+00:12:57.910 --> 00:13:01.080
+'ve organized some local djs for us uh at 7 30
+
+00:13:01.080 --> 00:13:01.480
+p.
+
+00:13:01.480 --> 00:13:04.880
+m uh dj cassis back to back with earthware
+
+00:13:04.950 --> 00:13:09.190
+uh links uh are posted on the account 8 30 to 9
+
+00:13:09.200 --> 00:13:09.830
+30 p.
+
+00:13:09.850 --> 00:13:13.180
+m dj trance rights um and then uh a friend
+
+00:13:13.550 --> 00:13:16.940
+of mine uh ian uh who works out of z space
+
+00:13:16.960 --> 00:13:19.260
+those of you who managed to come by uh i think we
+
+00:13:19.260 --> 00:13:22.130
+'re going to get him to do some of his uh video
+
+00:13:22.130 --> 00:13:26.710
+djing as well um tomorrow doors at 8 30 a.
+
+00:13:26.720 --> 00:13:32.380
+m so make your choices regarding after party night uh you will
+
+00:13:32.380 --> 00:13:34.990
+be downtown um uh it's going to be a little bit
+
+00:13:34.990 --> 00:13:38.380
+full we're going to have food there you could go out
+
+00:13:38.400 --> 00:13:40.560
+and eat and join us midway through there'll be some
+
+00:13:40.560 --> 00:13:44.140
+finger food you could come for a while etc all of these
+
+00:13:44.140 --> 00:13:48.300
+options are open for you um we keep getting amazing weather and
+
+00:13:48.300 --> 00:13:56.300
+i hope i haven't jinxed us this is the
+
+00:13:56.300 --> 00:14:00.470
+end of your day one please join us at 9 00 a
+
+00:14:00.470 --> 00:14:00.790
+.
+
+00:14:00.820 --> 00:14:03.740
+m npmx crew are going to be kicking us off
+
+00:14:03.740 --> 00:14:12.080
+so happy to have them joining us thank you this is
+
+00:14:12.080 --> 00:14:16.220
+the end of your day and see you in about an hour
+
+00:14:16.220 --> 00:14:16.220
+and a half

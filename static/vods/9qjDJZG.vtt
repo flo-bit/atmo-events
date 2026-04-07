@@ -1,0 +1,2230 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.240
+Hello, everyone.
+
+00:00:02.240 --> 00:00:04.000
+My name is Dane.
+
+00:00:04.000 --> 00:00:06.300
+Thanks for coming to my talk.
+
+00:00:06.300 --> 00:00:08.580
+How has everyone been enjoying the conference so far?
+
+00:00:08.580 --> 00:00:09.220
+Has it been good?
+
+00:00:09.220 --> 00:00:09.990
+I've been loving it.
+
+00:00:10.000 --> 00:00:14.870
+So, today's the last day of the conference, and
+
+00:00:14.870 --> 00:00:19.520
+we have heard a lot of really interesting talks from a lot
+
+00:00:19.520 --> 00:00:21.000
+of different people over the past couple days.
+
+00:00:21.000 --> 00:00:24.160
+And there's been some really interesting and weird references that have
+
+00:00:24.160 --> 00:00:26.000
+been made, too, like some really cool ones.
+
+00:00:26.000 --> 00:00:29.000
+Like we had Aaron yesterday talking about kelp.
+
+00:00:29.010 --> 00:00:32.000
+We had Blaine talking about cheese making.
+
+00:00:32.000 --> 00:00:35.010
+And then we had Lawrence talking about K-pop and the
+
+00:00:35.010 --> 00:00:36.000
+K-pop fandom.
+
+00:00:36.000 --> 00:00:39.560
+I just love that all these references happened at this conference so
+
+00:00:39.560 --> 00:00:40.000
+far.
+
+00:00:40.000 --> 00:00:43.400
+It especially makes me feel good because it makes what I'm
+
+00:00:43.400 --> 00:00:46.000
+about to talk about seem not quite as crazy.
+
+00:00:46.000 --> 00:00:49.340
+Because my talk is titled "From Toilets to Moss
+
+00:00:49.400 --> 00:00:53.460
+: The Future of Social Media is Weird and Not for Everyone
+
+00:00:53.500 --> 00:00:56.290
+." So, to kick things off, I want to introduce
+
+00:00:57.010 --> 00:01:00.000
+myself a little bit for those who don't know me.
+
+00:01:00.000 --> 00:01:04.440
+I am not Three Moss in a Trenchcoat, despite
+
+00:01:04.510 --> 00:01:07.460
+what my bio on Blue Sky says, unfortunately, though sometimes
+
+00:01:07.500 --> 00:01:08.000
+I wish that I was.
+
+00:01:08.000 --> 00:01:12.170
+I was born and raised in Appalachia around the
+
+00:01:12.230 --> 00:01:17.940
+exact same time that the World Wide Web came into existence.
+
+00:01:18.000 --> 00:01:21.650
+So, I've kind of grown up alongside of the Web
+
+00:01:21.660 --> 00:01:24.000
+and seen it grow as I have.
+
+00:01:24.000 --> 00:01:28.160
+I am an artist, I'm a tech worker, and
+
+00:01:28.230 --> 00:01:30.590
+I created the app Anasota, which some of you
+
+00:01:30.700 --> 00:01:32.000
+may have seen or tried recently.
+
+00:01:32.000 --> 00:01:35.630
+But my background is in communications, content, social media,
+
+00:01:35.630 --> 00:01:37.000
+and things like that.
+
+00:01:37.000 --> 00:01:41.590
+But I've been working in the decentralized Web space actually for
+
+00:01:41.590 --> 00:01:45.000
+the past five years, before Blue Sky even existed.
+
+00:01:45.000 --> 00:01:47.870
+I was Blue Sky user number 1216, so I've
+
+00:01:48.010 --> 00:01:51.000
+been around in this community for quite some time.
+
+00:01:51.000 --> 00:01:53.930
+I've had a few breaks here and there, but I
+
+00:01:54.010 --> 00:01:59.000
+really sort of came back and became more active in 2024 again
+
+00:01:59.000 --> 00:02:02.810
+and started making things on the App Protocol.
+
+00:02:03.000 --> 00:02:09.000
+But as a result of my personal interests and professional obligations,
+
+00:02:09.000 --> 00:02:14.580
+I have been relatively chronically online for various stretches of my
+
+00:02:14.580 --> 00:02:15.000
+life.
+
+00:02:15.000 --> 00:02:18.660
+And that has, along with the fact that I grew up
+
+00:02:18.980 --> 00:02:23.240
+alongside the Internet, it's really caused me to both have
+
+00:02:23.240 --> 00:02:26.820
+kind of a love-hate relationship with the Internet.
+
+00:02:27.000 --> 00:02:30.110
+I love the Internet for, I love Twitter, I love
+
+00:02:30.110 --> 00:02:33.990
+the old Internet, I loved all these different things.
+
+00:02:34.000 --> 00:02:37.100
+But it's also been hard to watch how they've impacted
+
+00:02:37.100 --> 00:02:39.000
+my life, both good and bad.
+
+00:02:39.000 --> 00:02:42.000
+And it's also been hard watching Twitter die.
+
+00:02:42.000 --> 00:02:44.270
+It's been hard watching so many things happen to so many
+
+00:02:44.400 --> 00:02:48.410
+of these apps and websites that we love and sort of continually
+
+00:02:48.580 --> 00:02:50.000
+getting worse and worse in a lot of ways.
+
+00:02:50.000 --> 00:02:54.610
+But yeah, it has impacted me in amazing ways, though
+
+00:02:54.610 --> 00:02:55.000
+.
+
+00:02:55.000 --> 00:02:57.750
+Like, I've gotten multiple jobs just from being on Twitter
+
+00:02:58.000 --> 00:02:58.000
+.
+
+00:02:58.000 --> 00:03:00.000
+I met my partner online.
+
+00:03:00.000 --> 00:03:05.010
+But yeah, it definitely had these negative impacts of impacting society
+
+00:03:05.010 --> 00:03:09.000
+negatively, impacting my mental health negatively.
+
+00:03:09.000 --> 00:03:12.480
+And I think what I ultimately realized as a result of all
+
+00:03:12.480 --> 00:03:15.440
+that was that, yeah, these apps and a lot of
+
+00:03:15.580 --> 00:03:19.420
+the web is not necessarily really built for me, necessarily for
+
+00:03:19.420 --> 00:03:20.000
+anyone in particular.
+
+00:03:20.000 --> 00:03:23.650
+It's often built for, you know, big tech shareholders
+
+00:03:23.980 --> 00:03:24.000
+.
+
+00:03:24.000 --> 00:03:25.000
+It's built for advertising.
+
+00:03:25.000 --> 00:03:26.990
+It's built for extraction, all these different things.
+
+00:03:27.000 --> 00:03:31.000
+And it's more like we, or at least me,
+
+00:03:31.000 --> 00:03:33.100
+I've been able to make these things work in spite of
+
+00:03:33.100 --> 00:03:33.990
+all these things.
+
+00:03:34.000 --> 00:03:39.000
+But even then, there have been so many limitations.
+
+00:03:39.000 --> 00:03:41.380
+As a result of this, I feel like there's a
+
+00:03:42.010 --> 00:03:45.040
+temptation to look back, especially for folks like me who grew
+
+00:03:45.040 --> 00:03:48.580
+up alongside the early internet, there's a temptation to look
+
+00:03:48.850 --> 00:03:50.510
+back at it and be like, I wish we could go
+
+00:03:50.510 --> 00:03:51.000
+back there.
+
+00:03:51.000 --> 00:03:52.990
+I wish we could go and return to the past.
+
+00:03:53.000 --> 00:03:56.620
+And I think that's like a very, I get that
+
+00:03:56.620 --> 00:03:58.000
+sentiment.
+
+00:03:58.000 --> 00:03:59.920
+But I also think that it's like, it's kind
+
+00:03:59.920 --> 00:04:02.440
+of misguided and maybe even a little dangerous at times
+
+00:04:02.510 --> 00:04:06.040
+of like, like we don't ultimately want to, I
+
+00:04:06.040 --> 00:04:08.000
+don't think we should make, try to make the internet
+
+00:04:08.190 --> 00:04:09.000
+great again.
+
+00:04:09.000 --> 00:04:12.650
+I think that, I think, and if we can't
+
+00:04:12.920 --> 00:04:16.700
+do that, and we shouldn't do it, at least
+
+00:04:16.700 --> 00:04:20.100
+that mindset, I guess the question that emerges for me is
+
+00:04:20.170 --> 00:04:23.000
+what should we do and what should that future look like?
+
+00:04:23.000 --> 00:04:28.060
+And after working in the decentralized web space for the past five
+
+00:04:28.590 --> 00:04:32.500
+years, it's definitely given me some ideas and thoughts about
+
+00:04:32.500 --> 00:04:37.000
+what I think might be trying to emerge from this cocoon
+
+00:04:37.000 --> 00:04:37.000
+.
+
+00:04:38.850 --> 00:04:42.390
+And, and I say trying because I think despite like all
+
+00:04:42.400 --> 00:04:46.800
+of our excitement about the atmosphere and the things that we're
+
+00:04:46.800 --> 00:04:50.500
+building and creating here, none of it really is a guarantee
+
+00:04:50.970 --> 00:04:51.000
+.
+
+00:04:51.000 --> 00:04:52.850
+Like we're, we're sort of right now trying to
+
+00:04:52.860 --> 00:04:54.000
+make this thing happen.
+
+00:04:54.000 --> 00:04:58.300
+And it's uncertain, it's uncertain if it will happen
+
+00:04:58.300 --> 00:04:59.000
+or not.
+
+00:04:59.000 --> 00:05:02.000
+And I think it's important to keep that in mind.
+
+00:05:02.000 --> 00:05:03.990
+Cause it's going to take a lot of work.
+
+00:05:04.000 --> 00:05:06.290
+But it's kind of like, you know, if some
+
+00:05:06.520 --> 00:05:09.550
+of you may have followed me and, and watch some of
+
+00:05:09.550 --> 00:05:13.000
+my live streams on stream place last year, I was,
+
+00:05:13.000 --> 00:05:15.000
+I was raising monarch butterflies and I was streaming that.
+
+00:05:15.000 --> 00:05:18.610
+And you could see the butterflies emerging for their cocoons and
+
+00:05:18.610 --> 00:05:20.000
+all the chrysalises.
+
+00:05:20.000 --> 00:05:22.620
+Um, and, but the reality is some of them didn
+
+00:05:22.660 --> 00:05:25.010
+'t make it, you know, like I had, I
+
+00:05:25.050 --> 00:05:28.850
+think 12 different butterflies and I think four or five of them
+
+00:05:28.860 --> 00:05:29.940
+didn't make it.
+
+00:05:30.000 --> 00:05:31.000
+Um, yes.
+
+00:05:31.000 --> 00:05:32.820
+I mean, in the same way, like this, uh
+
+00:05:32.850 --> 00:05:34.650
+, what we're doing here, uh, it's not
+
+00:05:34.650 --> 00:05:36.000
+guaranteed to succeed.
+
+00:05:36.000 --> 00:05:38.210
+Uh, we've made a lot of progress, I think
+
+00:05:38.210 --> 00:05:40.710
+over the past, I mean, even the past six months
+
+00:05:40.710 --> 00:05:42.000
+, it's been pretty cool to see what's been happening
+
+00:05:42.000 --> 00:05:45.000
+and the number of people that are here today.
+
+00:05:45.000 --> 00:05:47.290
+Um, but, uh, so let's, let's
+
+00:05:47.390 --> 00:05:50.000
+, let's dive a little bit more.
+
+00:05:50.000 --> 00:05:53.000
+I just realized I forgot to advance my slides here.
+
+00:05:53.000 --> 00:05:54.700
+Um, let's, let's dive a little bit more
+
+00:05:54.850 --> 00:05:57.150
+into what the future might look like through the lens of some
+
+00:05:57.230 --> 00:05:59.000
+of the things that I've been working on in the atmosphere
+
+00:05:59.000 --> 00:05:59.990
+over the past 12 months.
+
+00:06:00.000 --> 00:06:02.710
+Um, so to get started, uh, the very first
+
+00:06:03.010 --> 00:06:06.970
+thing I made was in 2024, it was literally a simple
+
+00:06:06.980 --> 00:06:09.760
+tool I built just for me, uh, to go through
+
+00:06:09.760 --> 00:06:13.660
+my, my post archive and choose whether I wanted to keep
+
+00:06:13.970 --> 00:06:16.360
+something or delete something and sort of like that KonMari
+
+00:06:16.360 --> 00:06:16.940
+fashion.
+
+00:06:17.000 --> 00:06:20.030
+Um, and this very much was, well, I have
+
+00:06:20.030 --> 00:06:24.410
+some, well, I have some background in doing some software
+
+00:06:24.410 --> 00:06:28.610
+stuff and like, um, you know, making websites and
+
+00:06:28.610 --> 00:06:29.000
+HTML and CSS.
+
+00:06:29.000 --> 00:06:30.990
+I had never actually made a web app before.
+
+00:06:31.000 --> 00:06:33.290
+So this was like the first thing I ever did in that
+
+00:06:33.490 --> 00:06:34.000
+vein.
+
+00:06:34.000 --> 00:06:35.990
+Um, and it was here in the atmosphere.
+
+00:06:36.000 --> 00:06:39.290
+Uh, the second thing I did was this platform called cred
+
+00:06:39.290 --> 00:06:39.500
+.
+
+00:06:39.500 --> 00:06:40.000
+blue.
+
+00:06:40.000 --> 00:06:43.550
+It was kind of a weird, fun experiment in understanding the
+
+00:06:43.550 --> 00:06:46.920
+data model of the app protocol better, understanding what was possible
+
+00:06:46.920 --> 00:06:49.990
+, just like testing things and seeing what would happen.
+
+00:06:50.000 --> 00:06:52.120
+And it was just a way to like create a, a
+
+00:06:52.120 --> 00:06:55.000
+, a social score based on someone's profile.
+
+00:06:55.000 --> 00:06:57.460
+Um, so that was, that was the second thing I
+
+00:06:57.460 --> 00:06:58.000
+made.
+
+00:06:58.000 --> 00:06:59.860
+Uh, the next thing I made was this, uh,
+
+00:06:59.860 --> 00:07:02.000
+more of an art project and creative thing.
+
+00:07:02.000 --> 00:07:06.000
+It was a dynamic avatar that runs off of my iPhone.
+
+00:07:06.000 --> 00:07:09.650
+And what happens is every day, every hour, my avatar
+
+00:07:09.980 --> 00:07:13.840
+automatically updates to match the, sort of the way the sky
+
+00:07:13.930 --> 00:07:16.460
+, the sky gradient looks, um, wherever I am in
+
+00:07:16.460 --> 00:07:17.000
+my local time.
+
+00:07:17.000 --> 00:07:18.760
+So if you've seen my, if you see my avatar
+
+00:07:18.850 --> 00:07:21.140
+on the feed and you've seen that changes colors, that
+
+00:07:21.140 --> 00:07:23.000
+'s, that's exactly what it's doing.
+
+00:07:23.000 --> 00:07:24.570
+It's been doing that now for, I guess, over
+
+00:07:24.610 --> 00:07:24.990
+a year.
+
+00:07:25.000 --> 00:07:26.990
+It's been running nonstop right off my iPhone.
+
+00:07:27.000 --> 00:07:31.050
+Um, and then after that I made this weird thing called
+
+00:07:31.050 --> 00:07:32.000
+flushes.
+
+00:07:32.000 --> 00:07:33.990
+Uh, this happened about a year ago.
+
+00:07:34.000 --> 00:07:36.770
+Uh, right around, I think exactly coinciding with last
+
+00:07:37.000 --> 00:07:38.000
+year's conference.
+
+00:07:38.000 --> 00:07:40.620
+Um, it was basically an experiment to try to figure out
+
+00:07:40.620 --> 00:07:43.000
+one, how do I make an app view?
+
+00:07:43.000 --> 00:07:44.000
+I've never made an app view.
+
+00:07:44.000 --> 00:07:45.990
+I don't even really know what an app view is.
+
+00:07:46.000 --> 00:07:48.270
+Um, so it was better, it was going one step
+
+00:07:48.270 --> 00:07:52.000
+further and learning more about, uh, the app protocol.
+
+00:07:52.000 --> 00:07:55.650
+And honestly asking this question of what, can, can,
+
+00:07:55.650 --> 00:08:00.000
+can you easily make a new social network or a social platform
+
+00:08:00.000 --> 00:08:00.000
+really easily?
+
+00:08:00.000 --> 00:08:01.990
+And how quickly can you do that?
+
+00:08:02.000 --> 00:08:05.650
+And this was made in like two days and, you know
+
+00:08:05.970 --> 00:08:07.060
+, it, it went kind of like, uh, viral
+
+00:08:07.060 --> 00:08:11.100
+within the atmosphere community and people started posting and using it a
+
+00:08:11.100 --> 00:08:11.990
+bunch the first few days.
+
+00:08:12.000 --> 00:08:14.280
+Um, it was just interesting to see what, what happened
+
+00:08:14.430 --> 00:08:15.000
+there.
+
+00:08:15.000 --> 00:08:16.650
+And it, but it taught me a lot about, uh
+
+00:08:16.650 --> 00:08:18.000
+, I guess what was possible.
+
+00:08:18.000 --> 00:08:19.870
+Um, and then after that, I, uh, I
+
+00:08:19.870 --> 00:08:22.670
+, I decided to move on to something a bit more serious
+
+00:08:22.670 --> 00:08:23.000
+.
+
+00:08:23.000 --> 00:08:25.150
+I wanted to, um, I wanted to start creating more
+
+00:08:25.150 --> 00:08:27.000
+serious projects in the atmosphere.
+
+00:08:27.000 --> 00:08:29.620
+And I thought, what, what better way to do that
+
+00:08:29.760 --> 00:08:32.830
+than create some sort of umbrella brand, which I can funnel
+
+00:08:32.830 --> 00:08:33.990
+all my projects through.
+
+00:08:34.000 --> 00:08:37.000
+Um, so I made something even more serious.
+
+00:08:37.000 --> 00:08:39.220
+I made an app potato mascot, um, which is this
+
+00:08:39.220 --> 00:08:40.000
+little guy.
+
+00:08:40.000 --> 00:08:42.620
+Uh, I designed him and put him all over the place
+
+00:08:43.000 --> 00:08:43.000
+.
+
+00:08:43.000 --> 00:08:44.000
+There's lots of stickers.
+
+00:08:44.000 --> 00:08:45.670
+I'm sure you've seen some out in the, you
+
+00:08:45.850 --> 00:08:47.650
+know, there's probably lots more out there if you want
+
+00:08:47.820 --> 00:08:48.000
+one.
+
+00:08:48.000 --> 00:08:49.740
+Um, uh, and this is just, this is,
+
+00:08:49.850 --> 00:08:52.000
+this is kind of what I feel like sometimes.
+
+00:08:52.000 --> 00:08:54.270
+It's like, you know, as an artist or a
+
+00:08:54.270 --> 00:08:57.300
+communicator and more technical spaces, uh, I feel a
+
+00:08:57.300 --> 00:08:58.000
+little out of my depth.
+
+00:08:58.000 --> 00:09:01.420
+Uh, but, uh, finally, I just wanna move
+
+00:09:01.420 --> 00:09:03.070
+on to the last thing, sort of the most recent thing
+
+00:09:03.070 --> 00:09:04.000
+that I've made.
+
+00:09:04.000 --> 00:09:06.610
+And I've been working on a lot, um, is
+
+00:09:06.610 --> 00:09:10.060
+this app, uh, called Anasota, which is
+
+00:09:10.060 --> 00:09:12.040
+, uh, it started as a blue sky client, a
+
+00:09:12.090 --> 00:09:13.940
+very unique blue sky client.
+
+00:09:14.000 --> 00:09:16.280
+I call it a, a new, more peaceful, uh
+
+00:09:16.280 --> 00:09:20.650
+, social interface that helps you be offline more and online better
+
+00:09:20.700 --> 00:09:20.990
+.
+
+00:09:21.000 --> 00:09:23.290
+And, uh, Anasota was really asking the questions
+
+00:09:23.660 --> 00:09:27.000
+of what social media might could look like if I tried,
+
+00:09:27.000 --> 00:09:29.510
+like, rethinking things from the ground up from a more
+
+00:09:29.510 --> 00:09:30.990
+, like, artsy, creative perspective.
+
+00:09:31.000 --> 00:09:34.420
+Um, and it, it all started, uh, literally
+
+00:09:34.420 --> 00:09:37.440
+, I guess I had this idea, I guess a little
+
+00:09:37.700 --> 00:09:39.000
+over a year ago.
+
+00:09:39.000 --> 00:09:41.170
+I posted this on blue sky, I said, we need
+
+00:09:41.170 --> 00:09:44.060
+an extremely weird and avant-garde blue sky client,
+
+00:09:44.070 --> 00:09:45.990
+and I think I'm gonna have to build it myself.
+
+00:09:46.000 --> 00:09:48.180
+Uh, so when I started working on it, I started
+
+00:09:48.180 --> 00:09:51.060
+brainstorming ideas and wondering what, what could I, what
+
+00:09:51.760 --> 00:09:53.000
+direction could I take this in?
+
+00:09:53.000 --> 00:09:54.000
+And, and what should I call it?
+
+00:09:54.000 --> 00:09:54.990
+And all these different things.
+
+00:09:55.000 --> 00:09:57.290
+And I started looking to other areas of my life for inspiration
+
+00:09:58.000 --> 00:10:00.770
+, and, uh, one of those areas was, uh
+
+00:10:00.800 --> 00:10:03.770
+, my more recent interest in going mothing and, uh
+
+00:10:03.770 --> 00:10:04.950
+, learning about moths.
+
+00:10:05.000 --> 00:10:07.830
+Uh, so, so during the warmer months, I've
+
+00:10:08.010 --> 00:10:11.990
+started going out into my yard and other places and taking lights
+
+00:10:12.000 --> 00:10:15.240
+and cameras with me and creating these light traps that moss will
+
+00:10:15.240 --> 00:10:16.000
+be attracted to at night.
+
+00:10:16.000 --> 00:10:18.630
+Um, it usually ranges from, like, starting at,
+
+00:10:18.690 --> 00:10:19.650
+like, 10 p.
+
+00:10:19.650 --> 00:10:20.000
+m.
+
+00:10:20.000 --> 00:10:21.170
+and going into, like, 3 a.
+
+00:10:21.250 --> 00:10:21.440
+m.
+
+00:10:21.440 --> 00:10:22.000
+at night.
+
+00:10:22.000 --> 00:10:23.700
+Um, but I'll, yeah, set up my cameras
+
+00:10:23.850 --> 00:10:26.160
+and all that kind of stuff and document them and just learn
+
+00:10:26.230 --> 00:10:27.000
+about moss.
+
+00:10:27.000 --> 00:10:28.960
+And, uh, yeah, now I've, I've
+
+00:10:28.960 --> 00:10:31.780
+, I've seen so many different types of moths just
+
+00:10:31.850 --> 00:10:33.000
+in my backyard.
+
+00:10:33.000 --> 00:10:35.570
+It's really incredible to see the range and diversity of what
+
+00:10:35.570 --> 00:10:37.000
+you can see in your backyard.
+
+00:10:37.000 --> 00:10:40.580
+Um, so from there, I started thinking, what,
+
+00:10:40.580 --> 00:10:43.000
+uh, what could I name my app?
+
+00:10:43.000 --> 00:10:46.000
+And I really started honing in on moths.
+
+00:10:46.000 --> 00:10:47.990
+And this is the Anasota moth.
+
+00:10:48.000 --> 00:10:50.710
+This is an oakworm moth by its more common name
+
+00:10:50.710 --> 00:10:51.000
+.
+
+00:10:51.000 --> 00:10:54.000
+And this, this particular photo is a photo I took.
+
+00:10:54.000 --> 00:10:55.520
+This is a moth that showed up on my front door
+
+00:10:55.630 --> 00:10:55.990
+one day.
+
+00:10:56.000 --> 00:10:58.270
+I woke up, I went outside, and this was on
+
+00:10:58.340 --> 00:10:59.000
+my door.
+
+00:10:59.010 --> 00:11:00.000
+I'd never seen one before.
+
+00:11:00.000 --> 00:11:02.280
+It has these two little white dots, and it's very
+
+00:11:02.390 --> 00:11:03.000
+orange.
+
+00:11:03.000 --> 00:11:05.000
+It's very cute and fuzzy.
+
+00:11:05.000 --> 00:11:06.000
+I just fell in love with it.
+
+00:11:06.010 --> 00:11:07.000
+It's probably my favorite moth now.
+
+00:11:07.000 --> 00:11:08.000
+And so I was like, that's it.
+
+00:11:08.000 --> 00:11:08.990
+That's what I'm gonna call the app.
+
+00:11:09.000 --> 00:11:13.000
+Um, and so I started really going deep into moths
+
+00:11:13.000 --> 00:11:15.990
+and learning all about them and all these different things.
+
+00:11:16.000 --> 00:11:18.730
+And this is what Anasota looks like, the app
+
+00:11:19.000 --> 00:11:19.000
+.
+
+00:11:19.010 --> 00:11:20.000
+Um, this is the interface for it.
+
+00:11:20.000 --> 00:11:21.990
+A very different kind of client.
+
+00:11:22.000 --> 00:11:24.000
+Um, this is all blue sky data, though.
+
+00:11:24.000 --> 00:11:25.990
+This is pulling in from people's blue sky accounts.
+
+00:11:26.000 --> 00:11:28.000
+These are posts from blue sky.
+
+00:11:28.000 --> 00:11:30.410
+But what you're looking at here in particular is this is
+
+00:11:30.410 --> 00:11:33.000
+what someone's profile looks like in Anasota.
+
+00:11:33.000 --> 00:11:36.030
+Anasota is, is not, is taking away the
+
+00:11:36.030 --> 00:11:39.000
+idea of infinite scrolling feeds.
+
+00:11:39.000 --> 00:11:40.990
+You don't really scroll through posts in Anasota.
+
+00:11:41.000 --> 00:11:44.460
+It's a card deck that you swipe through and you look
+
+00:11:44.460 --> 00:11:46.000
+at posts one by one.
+
+00:11:46.000 --> 00:11:49.000
+What you're saying right here is this is a profile page
+
+00:11:49.010 --> 00:11:52.000
+and the first card at the very top of the deck is
+
+00:11:52.000 --> 00:11:54.000
+representative of the person's profile.
+
+00:11:54.000 --> 00:11:56.460
+And then as you swipe, you see posts one by one
+
+00:11:56.520 --> 00:12:00.000
+from that person based on recency and things like that.
+
+00:12:00.000 --> 00:12:01.990
+Um, other cool things about Anasota.
+
+00:12:02.000 --> 00:12:05.060
+Uh, you actually can discover moths in the app as
+
+00:12:05.060 --> 00:12:08.000
+you're browsing and swiping through posts.
+
+00:12:08.000 --> 00:12:11.600
+You'll randomly discover a new moth and these moths
+
+00:12:11.600 --> 00:12:14.790
+and moth data and images are pulled in via the i
+
+00:12:14.790 --> 00:12:16.000
+Naturalist API.
+
+00:12:16.000 --> 00:12:18.100
+Which is, I use iNaturalist, uh,
+
+00:12:18.100 --> 00:12:21.170
+when I started going mothing, I would start cataloging
+
+00:12:21.170 --> 00:12:22.990
+all the moths that I found using iNaturalist
+
+00:12:23.000 --> 00:12:23.000
+.
+
+00:12:23.000 --> 00:12:26.660
+And I thought what better way to introduce that more into the
+
+00:12:26.970 --> 00:12:29.000
+app than using their free open API.
+
+00:12:29.000 --> 00:12:30.990
+And it's really easy and incredible to use.
+
+00:12:31.000 --> 00:12:33.760
+Um, other interesting things about Anasota that make it
+
+00:12:33.760 --> 00:12:36.610
+a little bit different are, um, a variety of different
+
+00:12:36.760 --> 00:12:37.000
+features.
+
+00:12:37.000 --> 00:12:40.300
+Like we have, we now have this forest map, um
+
+00:12:40.300 --> 00:12:43.990
+, every time you, every time going into Anasota
+
+00:12:44.000 --> 00:12:50.220
+and browsing your social media feed, it's an expedition to
+
+00:12:50.220 --> 00:12:51.000
+a forest.
+
+00:12:51.000 --> 00:12:52.990
+And it maps out your expedition.
+
+00:12:53.000 --> 00:12:56.550
+You'll see points on this topographic map where the fog
+
+00:12:56.550 --> 00:12:59.790
+of war, and you'll see moments where you've discovered
+
+00:12:59.790 --> 00:13:02.000
+moths or pick up items or things like that.
+
+00:13:02.000 --> 00:13:05.650
+Um, we have waypoints, which is this feature that
+
+00:13:05.790 --> 00:13:07.000
+I concocted.
+
+00:13:07.000 --> 00:13:09.710
+As more and more blue skies, blue sky clients and apps
+
+00:13:09.710 --> 00:13:13.080
+and atmosphere things started emerging, people wanted ways to be able
+
+00:13:13.080 --> 00:13:13.990
+to hop between them.
+
+00:13:14.000 --> 00:13:16.350
+So in Anasota, you can quickly tap at the
+
+00:13:16.970 --> 00:13:19.000
+corner of a top of a card and jump into that post
+
+00:13:19.000 --> 00:13:21.530
+and see it on blue sky or black sky or red dwarf
+
+00:13:21.530 --> 00:13:23.000
+or any of these other clients.
+
+00:13:23.000 --> 00:13:24.810
+Um, notifications are really great in, in Anasota
+
+00:13:24.860 --> 00:13:24.990
+.
+
+00:13:25.000 --> 00:13:26.990
+It's, uh, there's lots of cool features like
+
+00:13:27.000 --> 00:13:30.170
+bashing notifications, highlights, there's all sorts of things
+
+00:13:30.580 --> 00:13:31.000
+like that.
+
+00:13:31.000 --> 00:13:32.990
+It makes them more digestible.
+
+00:13:33.000 --> 00:13:36.000
+Um, there's a cool onboarding experience now with,
+
+00:13:36.010 --> 00:13:38.260
+that sets sort of a tone and does some storytelling and,
+
+00:13:38.260 --> 00:13:41.110
+and grants you some initial items to use in your journey if
+
+00:13:41.110 --> 00:13:42.940
+you choose the story mode of the app.
+
+00:13:43.000 --> 00:13:45.620
+Um, and this is an example of, uh, what
+
+00:13:46.010 --> 00:13:47.000
+posts look like.
+
+00:13:47.000 --> 00:13:48.940
+So on the left you have a post in blue sky and
+
+00:13:48.940 --> 00:13:51.280
+then on the right you have the exact same post but in
+
+00:13:51.280 --> 00:13:52.000
+Anasota.
+
+00:13:52.000 --> 00:13:56.690
+Um, blue sky obviously is a more traditional Twitter style client
+
+00:13:56.690 --> 00:13:57.000
+.
+
+00:13:57.000 --> 00:13:58.000
+It has a lot of things going on here.
+
+00:13:58.000 --> 00:14:00.790
+It's got lots of icons, lots of numbers, um
+
+00:14:01.000 --> 00:14:02.890
+, and it's within the context of a feed of tons
+
+00:14:02.890 --> 00:14:06.000
+of other posts as you're scrolling and scrolling and scrolling.
+
+00:14:06.000 --> 00:14:07.630
+Um, whereas in Anasota it's, it's
+
+00:14:07.650 --> 00:14:09.000
+, it's a bit more minimal.
+
+00:14:09.000 --> 00:14:11.290
+Um, and then in the bottom right instead of, uh
+
+00:14:11.390 --> 00:14:14.000
+, engagement metric numbers there is a rarity card.
+
+00:14:14.000 --> 00:14:17.340
+Um, that is similar, it takes inspiration for like trading
+
+00:14:17.390 --> 00:14:19.000
+cards that have rarity icons.
+
+00:14:19.000 --> 00:14:22.300
+It basically is just a calculation or like a simple algorithm that
+
+00:14:22.390 --> 00:14:25.650
+abstracts all the engagement metrics and displays them as a r
+
+00:14:25.700 --> 00:14:28.000
+arity icon that you can familiarize yourself with.
+
+00:14:28.000 --> 00:14:30.290
+So you can start getting a sense for how engaged a post
+
+00:14:30.500 --> 00:14:33.570
+is without actually having to like see all that data and numbers
+
+00:14:33.760 --> 00:14:35.000
+right there in front of you.
+
+00:14:35.000 --> 00:14:36.990
+But you can hover over the rarity icon and see the
+
+00:14:37.000 --> 00:14:39.000
+actual numbers or flip the card on the back.
+
+00:14:39.000 --> 00:14:42.240
+You can flip cards over to see more things like those engagements
+
+00:14:42.240 --> 00:14:43.000
+or details.
+
+00:14:43.000 --> 00:14:46.580
+And then last thing we did, um, at the end
+
+00:14:46.580 --> 00:14:48.910
+of last year was, uh, sort of like a,
+
+00:14:48.910 --> 00:14:52.940
+uh, Spotify wrap type experience within, within Anasota
+
+00:14:52.970 --> 00:14:55.000
+using the sort of Anasota theme.
+
+00:14:55.000 --> 00:14:58.650
+Um, that basically recaps people's year on blue sky
+
+00:14:58.980 --> 00:14:59.000
+.
+
+00:14:59.000 --> 00:15:00.990
+It pulls in, they can search their account.
+
+00:15:01.000 --> 00:15:03.720
+It pulls in all their data and it, it creates these
+
+00:15:03.720 --> 00:15:06.000
+, you know, cool visualizations and analysis.
+
+00:15:06.000 --> 00:15:08.830
+It shows you like the top words that you use that year
+
+00:15:09.000 --> 00:15:12.310
+, top connections or the people that you engage with the most
+
+00:15:12.310 --> 00:15:12.990
+things like that.
+
+00:15:13.000 --> 00:15:16.960
+Um, I think, I think when it initially launched and
+
+00:15:16.980 --> 00:15:19.350
+was shared, it ended up being used, I think by
+
+00:15:19.350 --> 00:15:21.000
+like 50,000 unique people.
+
+00:15:21.000 --> 00:15:24.000
+It was really cool to see it spreading around the community.
+
+00:15:24.000 --> 00:15:26.130
+Um, so yeah, these are some of the things that
+
+00:15:26.130 --> 00:15:28.150
+I've like, I've been working on and making in
+
+00:15:28.230 --> 00:15:29.000
+the atmosphere.
+
+00:15:29.000 --> 00:15:30.990
+And they've taught me a lot.
+
+00:15:31.000 --> 00:15:33.220
+And I, I think there's some ideas and themes that
+
+00:15:33.220 --> 00:15:34.900
+emerged, um, that I want to share and talk about
+
+00:15:34.980 --> 00:15:38.680
+, uh, that are basically lessons of what I think potentially
+
+00:15:38.680 --> 00:15:39.000
+might happen in the future.
+
+00:15:39.000 --> 00:15:40.990
+Or it might is already happening.
+
+00:15:41.000 --> 00:15:43.290
+Um, uh, let's see, let me scroll down
+
+00:15:44.010 --> 00:15:45.000
+through my notes.
+
+00:15:45.000 --> 00:15:48.490
+Um, so first of all, um, the future is
+
+00:15:48.490 --> 00:15:51.000
+decentralized, right?
+
+00:15:51.000 --> 00:15:52.000
+Do we think that's true?
+
+00:15:52.000 --> 00:15:54.450
+Um, so I've been working in the open web,
+
+00:15:54.450 --> 00:15:57.000
+like I said, for around five years now.
+
+00:15:57.000 --> 00:15:58.620
+And when I got here, like that was the theme is
+
+00:15:58.850 --> 00:16:00.000
+decentralization is the answer.
+
+00:16:00.000 --> 00:16:01.000
+This is the key.
+
+00:16:01.000 --> 00:16:02.000
+This is the thing we're trying to do here.
+
+00:16:02.000 --> 00:16:03.990
+Um, and it makes sense, uh, initially.
+
+00:16:04.000 --> 00:16:08.000
+Um, I still believe that it is somewhat true.
+
+00:16:08.000 --> 00:16:11.650
+Um, but I also think that it's a little misleading
+
+00:16:11.650 --> 00:16:12.000
+.
+
+00:16:12.000 --> 00:16:15.340
+Um, I think that it's actually kind of the wrong
+
+00:16:15.390 --> 00:16:16.000
+goal.
+
+00:16:16.000 --> 00:16:17.680
+Um, it's, uh, it's, it's
+
+00:16:17.850 --> 00:16:21.000
+not really much to be chased after in and of itself.
+
+00:16:21.000 --> 00:16:24.430
+It's something that we're doing and using a quality that
+
+00:16:24.430 --> 00:16:27.590
+we're trying to use to obtain a specific goal or state
+
+00:16:27.700 --> 00:16:27.990
+.
+
+00:16:28.000 --> 00:16:32.440
+Um, but it's also kind of an illusion because,
+
+00:16:32.510 --> 00:16:35.840
+um, it's a very ambiguous word that has so many
+
+00:16:35.930 --> 00:16:39.000
+different meanings in different contexts, in different perspectives.
+
+00:16:39.000 --> 00:16:42.000
+And there's questions of is the atmosphere decentralized?
+
+00:16:42.000 --> 00:16:43.990
+Is activity pub decentralized?
+
+00:16:44.000 --> 00:16:45.000
+What about Noster?
+
+00:16:45.000 --> 00:16:46.000
+And all these different things.
+
+00:16:46.000 --> 00:16:49.280
+Um, and there's so many criteria which you can measure
+
+00:16:49.280 --> 00:16:50.000
+that by.
+
+00:16:50.000 --> 00:16:52.630
+Um, and it ends up just becoming debates that we have
+
+00:16:53.010 --> 00:16:54.000
+endlessly on blue sky.
+
+00:16:54.000 --> 00:16:55.970
+I'm sure many of you probably, I know I have
+
+00:16:55.970 --> 00:16:58.000
+participated in some of those debates.
+
+00:16:58.000 --> 00:17:00.630
+Um, but it's, it's an illusion in the
+
+00:17:01.010 --> 00:17:05.730
+sense that no matter how decentralized you think you can make something
+
+00:17:05.730 --> 00:17:08.000
+, ultimately there's always something underneath.
+
+00:17:09.000 --> 00:17:12.000
+That is not decentralized.
+
+00:17:12.000 --> 00:17:13.000
+That you can't really escape.
+
+00:17:13.000 --> 00:17:15.150
+Uh, if, if Noster, if Atmosphere
+
+00:17:15.150 --> 00:17:19.390
+, all these different things are fully decentralized in this utopic
+
+00:17:19.390 --> 00:17:19.990
+way.
+
+00:17:20.000 --> 00:17:21.810
+Uh, at the end of the day, there's,
+
+00:17:21.850 --> 00:17:24.940
+uh, an internet service provider that can shut off your access
+
+00:17:24.940 --> 00:17:26.000
+to the internet.
+
+00:17:26.000 --> 00:17:27.990
+A government that can shut off your access to the government.
+
+00:17:28.000 --> 00:17:29.750
+And at that point, it's like, well, it
+
+00:17:29.850 --> 00:17:31.000
+doesn't really matter.
+
+00:17:31.000 --> 00:17:34.020
+Um, but also, it, there's a tendency with
+
+00:17:34.020 --> 00:17:37.100
+, uh, decentralization to think that, oh, I
+
+00:17:37.100 --> 00:17:37.990
+can separate myself from everyone else.
+
+00:17:38.000 --> 00:17:39.000
+I can become independent.
+
+00:17:39.000 --> 00:17:40.000
+I can control things.
+
+00:17:40.000 --> 00:17:42.000
+I can do what I want.
+
+00:17:42.000 --> 00:17:43.000
+I can, yeah, all these different things.
+
+00:17:43.000 --> 00:17:46.530
+But ultimately, it's, um, we tend to forget
+
+00:17:46.530 --> 00:17:49.990
+just how, or even aware of just how, like,
+
+00:17:50.000 --> 00:17:51.000
+interconnected everything really is.
+
+00:17:51.000 --> 00:17:53.270
+Um, there's this great term, uh, by a
+
+00:17:54.010 --> 00:17:56.170
+Vietnamese Buddhist monk, uh, I mean, Thich N
+
+00:17:56.180 --> 00:17:57.000
+hat Hanh.
+
+00:17:57.000 --> 00:17:58.990
+Uh, he coined this term interbeing.
+
+00:17:59.000 --> 00:18:02.630
+And it's really about this idea of, like, focusing
+
+00:18:02.630 --> 00:18:06.700
+and trying to better understand and be aware of just how our
+
+00:18:06.700 --> 00:18:10.000
+, our existence is so intertwined with everything else.
+
+00:18:10.000 --> 00:18:14.260
+Um, and it's just not really actually possible to,
+
+00:18:14.260 --> 00:18:18.000
+like, separate ourselves, uh, fully.
+
+00:18:18.000 --> 00:18:19.990
+Um, so I like to keep that in mind.
+
+00:18:20.000 --> 00:18:23.330
+Um, and I think that it can potentially help us ref
+
+00:18:23.390 --> 00:18:26.990
+ocus to maybe some going beyond decentralization.
+
+00:18:27.000 --> 00:18:29.830
+Maybe we don't want to lose that phrase completely, but
+
+00:18:30.010 --> 00:18:32.170
+what a lot of people are trying to ask when they're
+
+00:18:32.170 --> 00:18:35.350
+thinking about these things and users are asking or feeling is these
+
+00:18:35.410 --> 00:18:36.990
+questions of, like, can I leave this thing?
+
+00:18:37.000 --> 00:18:38.000
+Can I, can I build something here?
+
+00:18:38.000 --> 00:18:40.000
+Can I, can I make this my own?
+
+00:18:40.000 --> 00:18:43.640
+Um, and I think words and concepts like interoperability
+
+00:18:43.860 --> 00:18:47.190
+, autonomy, and malleability are actually a lot more
+
+00:18:47.190 --> 00:18:50.050
+helpful, potentially, because there's lots of ways that you
+
+00:18:50.100 --> 00:18:51.000
+can achieve those things.
+
+00:18:51.000 --> 00:18:54.660
+Um, and malleability, specifically, is one I
+
+00:18:54.980 --> 00:18:56.000
+really love.
+
+00:18:56.000 --> 00:18:58.290
+And it's funny, because I was, as I was
+
+00:18:59.010 --> 00:19:01.010
+preparing this talk, I, of course, had no idea
+
+00:19:01.020 --> 00:19:03.100
+what Jay was going to announce the other, you know,
+
+00:19:03.100 --> 00:19:05.000
+just yesterday or what she was planning.
+
+00:19:05.000 --> 00:19:07.290
+But it does really fit into what I had planned to talk
+
+00:19:07.430 --> 00:19:08.000
+about.
+
+00:19:08.000 --> 00:19:10.280
+There's this, uh, really great, uh, essay
+
+00:19:10.430 --> 00:19:13.060
+by Ink and Switch, uh, that they released, I
+
+00:19:13.100 --> 00:19:15.840
+forget, maybe sometime last year, called Malleable Software
+
+00:19:15.840 --> 00:19:16.000
+.
+
+00:19:16.000 --> 00:19:18.000
+And I love this essay.
+
+00:19:18.000 --> 00:19:19.720
+Um, it's very long, but it has some great
+
+00:19:19.860 --> 00:19:21.000
+quotes, like this one.
+
+00:19:21.000 --> 00:19:23.470
+Um, the original promise of personal computing was a new kind
+
+00:19:23.520 --> 00:19:26.060
+of clay, a malleable material that users could res
+
+00:19:26.180 --> 00:19:30.230
+hape at will, but instead we got appliances built far away
+
+00:19:30.240 --> 00:19:32.000
+, sealed, and unchangeable.
+
+00:19:32.000 --> 00:19:33.580
+Um, and for me, this, I don't know
+
+00:19:33.640 --> 00:19:35.000
+, this really resonates.
+
+00:19:35.000 --> 00:19:36.580
+And this makes me feel like, yeah, this is an
+
+00:19:36.640 --> 00:19:38.000
+apt description of what happened.
+
+00:19:38.000 --> 00:19:40.890
+Um, and I do think that as a result of some
+
+00:19:41.010 --> 00:19:47.000
+things that, some new technologies and communities that are evolving now
+
+00:19:47.000 --> 00:19:50.190
+and converging, I think that it makes some malle
+
+00:19:50.200 --> 00:19:52.420
+able software much more of a potential reality than it ever has
+
+00:19:52.420 --> 00:19:53.000
+been in the past.
+
+00:19:53.000 --> 00:19:57.150
+Um, specifically, I think that the atmosphere we're participating
+
+00:19:57.230 --> 00:20:00.460
+in here with the app protocol, combined with what some of
+
+00:20:00.510 --> 00:20:03.710
+what Jay was talking about, these sort of agentic workflows
+
+00:20:03.710 --> 00:20:07.460
+with LLMs, they really can begin to bring down
+
+00:20:07.600 --> 00:20:11.500
+a lot of barriers to entry and allow people who previously probably
+
+00:20:11.500 --> 00:20:15.000
+wouldn't have tried or attempted to make their, their,
+
+00:20:15.050 --> 00:20:19.000
+their digital environments their own or make software experiences themselves.
+
+00:20:19.000 --> 00:20:20.760
+Um, it makes it, um, yeah, it makes
+
+00:20:20.850 --> 00:20:22.000
+it a lot more possible.
+
+00:20:22.000 --> 00:20:24.900
+Um, you know, the atmosphere gives people, like,
+
+00:20:24.970 --> 00:20:28.000
+a foundation that they can easily take and build upon.
+
+00:20:28.000 --> 00:20:30.770
+It gives you a social graph, it gives you pre-
+
+00:20:31.010 --> 00:20:34.170
+existing content, it gives you identities, um, that you
+
+00:20:34.170 --> 00:20:34.990
+don't have to rebuild from scratch.
+
+00:20:35.000 --> 00:20:37.170
+It would, it's make, it, it's what
+
+00:20:37.170 --> 00:20:40.200
+makes, uh, something like Flushes possible that I
+
+00:20:40.200 --> 00:20:41.990
+could do in two, two days.
+
+00:20:42.000 --> 00:20:45.010
+Um, uh, another great quote from that essay that I
+
+00:20:45.010 --> 00:20:47.000
+want to highlight is this one.
+
+00:20:47.000 --> 00:20:49.290
+It says, "Everyone deserves the right to evolve their digital
+
+00:20:49.430 --> 00:20:50.000
+environments.
+
+00:20:50.000 --> 00:20:52.350
+It's an important way to fulfill our creative potential and maintain
+
+00:20:52.950 --> 00:20:56.440
+a sense of agency in a world that is increasingly defined in
+
+00:20:56.580 --> 00:20:59.170
+code." Um, and I think this is really what I
+
+00:20:59.170 --> 00:21:02.530
+'ve been trying to do and what I think the atmosphere has
+
+00:21:02.760 --> 00:21:05.800
+helped enable me to do, is it's allowed someone like
+
+00:21:05.850 --> 00:21:09.650
+me who does not have necessarily the resources, the ability to
+
+00:21:09.800 --> 00:21:13.000
+create an entirely new social network myself, but it allows me
+
+00:21:13.000 --> 00:21:17.060
+to engage with that digital environment in a way that feels more
+
+00:21:17.100 --> 00:21:21.100
+at home to me or fits better with my own needs and
+
+00:21:21.100 --> 00:21:21.940
+style.
+
+00:21:22.000 --> 00:21:24.080
+Um, this brings me to, like, the second,
+
+00:21:24.080 --> 00:21:27.070
+the second point I want to talk about, which is this
+
+00:21:27.760 --> 00:21:31.000
+idea that I have of the client being the content.
+
+00:21:31.000 --> 00:21:34.650
+And I'm sure many of you reference, understand this reference
+
+00:21:34.970 --> 00:21:36.880
+, which is a, uh, a remix of a quote
+
+00:21:36.880 --> 00:21:40.350
+by Marshall McLuhan back in the '60s with his
+
+00:21:40.350 --> 00:21:44.000
+book, "The Medium is the Message." Um, and
+
+00:21:44.000 --> 00:21:46.440
+to tie this a little bit back into moths, um
+
+00:21:46.510 --> 00:21:49.150
+, moths are interesting for a lot of reasons, but
+
+00:21:49.150 --> 00:21:52.100
+they're very different, obviously, from many other creatures and
+
+00:21:52.100 --> 00:21:53.000
+even, obviously, humans.
+
+00:21:53.000 --> 00:21:55.290
+Um, moths have, uh, you know, compound
+
+00:21:55.990 --> 00:21:59.270
+eyes that I think range from anywhere from, like, 200
+
+00:21:59.270 --> 00:22:02.000
+to 200,000, uh, 20,000 facets.
+
+00:22:02.000 --> 00:22:07.000
+Um, their, uh, antennae are incredibly sensitive.
+
+00:22:07.000 --> 00:22:11.000
+Uh, they can detect chemicals and things within the air.
+
+00:22:11.000 --> 00:22:12.990
+Um, and they help them fly.
+
+00:22:13.000 --> 00:22:15.550
+They have, uh, hearing organs, which are kind of
+
+00:22:15.550 --> 00:22:17.000
+like ears, but not quite like ears.
+
+00:22:17.000 --> 00:22:20.000
+But they can detect, like, ultrasonic frequencies.
+
+00:22:20.000 --> 00:22:22.160
+Um, so they're, they have these, like,
+
+00:22:22.160 --> 00:22:25.590
+sensory organs that allow them to experience the world in a unique
+
+00:22:25.760 --> 00:22:26.000
+way.
+
+00:22:26.000 --> 00:22:29.260
+Um, and there's this term called, I think it
+
+00:22:29.260 --> 00:22:30.000
+'s pronounced umwelt.
+
+00:22:30.000 --> 00:22:32.170
+It's a, it's based on a German word,
+
+00:22:32.170 --> 00:22:33.000
+I believe.
+
+00:22:33.000 --> 00:22:35.440
+Um, but it means the specific way in which an organism
+
+00:22:36.000 --> 00:22:39.990
+, which organisms of a particular species perceive and experience the world
+
+00:22:40.000 --> 00:22:43.320
+, shaped by the capabilities of their sensory organs and perceptual
+
+00:22:43.390 --> 00:22:44.000
+systems.
+
+00:22:44.000 --> 00:22:47.320
+So, I think that, uh, this is very,
+
+00:22:47.400 --> 00:22:51.310
+uh, apt for what we're experiencing now in this era
+
+00:22:51.310 --> 00:22:53.940
+of malleable software that is coming into existence.
+
+00:22:54.000 --> 00:22:58.540
+Um, because previously, uh, previously in the old era
+
+00:22:58.540 --> 00:23:01.840
+of social media, we had, uh, things like Facebook
+
+00:23:01.930 --> 00:23:05.330
+, which was one user interface designed in Silicon Valley by,
+
+00:23:05.400 --> 00:23:09.180
+you know, tech giants and things like this, serving billions
+
+00:23:09.180 --> 00:23:13.500
+of people all over the world from different communities and contexts with
+
+00:23:13.760 --> 00:23:14.990
+different needs and wants and desires.
+
+00:23:15.000 --> 00:23:19.440
+And it was basically kind of forcing them to experience the digital
+
+00:23:19.510 --> 00:23:21.990
+world in this one particular way.
+
+00:23:22.000 --> 00:23:24.670
+Um, and then I think a good example of this is
+
+00:23:25.010 --> 00:23:27.420
+going back to this is there's two different ways that you
+
+00:23:27.420 --> 00:23:28.000
+can view data.
+
+00:23:28.000 --> 00:23:29.980
+Or there's not just two, these are just two examples
+
+00:23:29.980 --> 00:23:31.000
+of ways you can view data.
+
+00:23:31.000 --> 00:23:34.000
+Um, the same underlying data.
+
+00:23:34.000 --> 00:23:37.970
+Um, and I think what I ultimately think and hope and
+
+00:23:37.980 --> 00:23:41.000
+I think is going to happen is potentially we might see,
+
+00:23:41.000 --> 00:23:44.560
+again, to drop back to moths and the animal kingdom
+
+00:23:44.560 --> 00:23:49.000
+is potentially a world in which there are so many different types
+
+00:23:49.000 --> 00:23:52.600
+of, uh, of clients that maybe they're forks
+
+00:23:52.600 --> 00:23:54.960
+of one client and they go off in one direction and they
+
+00:23:54.960 --> 00:23:56.000
+'re very similar.
+
+00:23:56.000 --> 00:23:57.850
+Um, you know, the Anasota moth has
+
+00:23:57.860 --> 00:24:00.440
+, I think there's like seven or eight different, um
+
+00:24:00.510 --> 00:24:02.910
+, species of Anasota moths that all have slightly
+
+00:24:02.910 --> 00:24:03.990
+different variations.
+
+00:24:04.000 --> 00:24:06.190
+So, you know, you have forks of the blue
+
+00:24:06.190 --> 00:24:09.340
+sky client now that people can easily fork it and change it
+
+00:24:09.340 --> 00:24:11.690
+to be different colors or add new features that aren't in
+
+00:24:11.850 --> 00:24:14.000
+the official client and things like this.
+
+00:24:14.000 --> 00:24:15.720
+So I think we could easily see a world in which you
+
+00:24:15.850 --> 00:24:19.620
+could almost like have a taxonomy of client interfaces for the
+
+00:24:19.800 --> 00:24:20.990
+atmosphere.
+
+00:24:21.000 --> 00:24:24.650
+Um, and in the same way, like again, moss
+
+00:24:24.970 --> 00:24:29.220
+, there are moss and butterflies are within the same, uh
+
+00:24:29.220 --> 00:24:30.000
+, order.
+
+00:24:30.000 --> 00:24:31.990
+It's the order of Lepidoptera.
+
+00:24:32.000 --> 00:24:35.650
+And, uh, moss, there are like 180,000
+
+00:24:35.970 --> 00:24:39.140
+known species of moss, but only like around 20,000
+
+00:24:39.140 --> 00:24:41.000
+known species of butterflies.
+
+00:24:41.000 --> 00:24:44.100
+Um, and even within all those different things, there's
+
+00:24:44.100 --> 00:24:46.000
+just an incredible diversity.
+
+00:24:46.000 --> 00:24:47.990
+Like these are all photos that I took in my yard.
+
+00:24:48.000 --> 00:24:49.650
+Um, and it is, I don't know, it
+
+00:24:49.650 --> 00:24:52.000
+'s very stunning to see the differences.
+
+00:24:52.000 --> 00:24:54.790
+Um, but all this comes back to like this idea of
+
+00:24:55.000 --> 00:24:59.650
+, yes, uh, Facebook is one social client designed in
+
+00:24:59.670 --> 00:25:02.990
+a very particular way, trying to serve three billion people.
+
+00:25:03.000 --> 00:25:04.550
+And I don't think that makes sense and isn't very
+
+00:25:04.820 --> 00:25:04.990
+healthy.
+
+00:25:05.000 --> 00:25:07.770
+Um, but with things like Anasota and other clients
+
+00:25:08.010 --> 00:25:10.870
+that are popping up, uh, uh, the goal for
+
+00:25:10.870 --> 00:25:13.610
+these things and at least for me when I'm designing An
+
+00:25:13.610 --> 00:25:16.220
+asota is to make it not for everyone, but to
+
+00:25:16.220 --> 00:25:17.990
+make it for a very particular type of person.
+
+00:25:18.000 --> 00:25:21.000
+Um, Anasota is definitely not for everyone.
+
+00:25:21.000 --> 00:25:23.470
+Like, uh, there's lots of people that love what
+
+00:25:23.520 --> 00:25:26.390
+I'm doing and love, you know, the thing that
+
+00:25:26.400 --> 00:25:28.800
+I've made, but might not necessarily even use it themselves
+
+00:25:28.860 --> 00:25:28.990
+.
+
+00:25:29.000 --> 00:25:30.000
+Um, and that's fine.
+
+00:25:30.000 --> 00:25:32.250
+Like I, I know that's gonna be the case and
+
+00:25:32.250 --> 00:25:35.000
+I didn't, you know, design it for everyone and
+
+00:25:35.000 --> 00:25:35.000
+that's the case.
+
+00:25:35.000 --> 00:25:38.180
+Um, same could be true of, uh, if some
+
+00:25:38.180 --> 00:25:39.530
+of y'all heard Maria's talk, she was talking
+
+00:25:39.530 --> 00:25:42.490
+about Leah, which is the client that she and Eugene are
+
+00:25:42.490 --> 00:25:44.000
+making for researchers.
+
+00:25:44.000 --> 00:25:45.000
+And it's incredibly different.
+
+00:25:45.000 --> 00:25:46.000
+It's not a client that I would use every day,
+
+00:25:46.000 --> 00:25:49.870
+but it's specific to their community with features that they need
+
+00:25:49.870 --> 00:25:53.000
+and want that other major apps would not even do.
+
+00:25:53.000 --> 00:25:56.550
+Um, and this really, uh, leads sort of to
+
+00:25:56.550 --> 00:26:01.000
+like one of my final points, which is, uh,
+
+00:26:01.000 --> 00:26:03.610
+abandoning the idea of one size fits all, one size
+
+00:26:03.610 --> 00:26:08.000
+fits all software, especially in contrast to, you know,
+
+00:26:08.000 --> 00:26:10.000
+Elon Musk's vision of the everything app.
+
+00:26:10.000 --> 00:26:13.000
+One app that does everything for everyone.
+
+00:26:13.000 --> 00:26:16.270
+Um, I think it was several months ago, I,
+
+00:26:16.270 --> 00:26:19.440
+I posted on blue sky, something to the effect of like
+
+00:26:19.580 --> 00:26:23.330
+, uh, we don't need an everything app and the
+
+00:26:23.390 --> 00:26:26.000
+atmosphere can be an everything ecosystem.
+
+00:26:26.000 --> 00:26:27.980
+And so like, that's, that's kind of like
+
+00:26:27.980 --> 00:26:31.000
+the thing that is attracted me to the, to the ecosystem
+
+00:26:31.000 --> 00:26:31.000
+.
+
+00:26:31.000 --> 00:26:34.170
+And is my hope for like what this whole thing could become
+
+00:26:34.170 --> 00:26:36.000
+if we're able to make it work.
+
+00:26:36.000 --> 00:26:40.300
+Um, to close it off, uh, there's some
+
+00:26:40.300 --> 00:26:41.000
+interesting parallels.
+
+00:26:41.000 --> 00:26:44.600
+Um, one of which is just this idea that moss are
+
+00:26:44.600 --> 00:26:47.290
+attracted to light and we, people actually don't, aren
+
+00:26:47.290 --> 00:26:49.000
+'t really quite certain why that is.
+
+00:26:49.000 --> 00:26:52.000
+There are like theories about why moss are attracted to lights.
+
+00:26:52.000 --> 00:26:55.480
+Um, but it's, there's no strong conclusions necessarily
+
+00:26:55.480 --> 00:26:56.000
+about that.
+
+00:26:56.000 --> 00:27:00.340
+Um, and now humans somehow are also attracted to these weird
+
+00:27:00.410 --> 00:27:04.350
+screens and lights that are drawing us in and we spend hours
+
+00:27:04.530 --> 00:27:06.650
+in front of and, um, when we don't really
+
+00:27:06.890 --> 00:27:08.000
+know quite what they're doing to us.
+
+00:27:08.000 --> 00:27:09.420
+Like this is only, we've only been doing this for
+
+00:27:09.550 --> 00:27:11.960
+like 20 years, which is not very long whatsoever when you
+
+00:27:11.960 --> 00:27:14.000
+think about the grand scheme of things.
+
+00:27:14.000 --> 00:27:16.740
+Um, so we don't really know what's happening exactly
+
+00:27:17.000 --> 00:27:17.000
+.
+
+00:27:17.000 --> 00:27:21.000
+Um, but I think in that environment it's incredibly important
+
+00:27:21.000 --> 00:27:23.340
+that if we don't know exactly what's happening or where
+
+00:27:23.340 --> 00:27:25.680
+this is going, we want people I think to be able
+
+00:27:25.680 --> 00:27:29.480
+to, to control things themselves or at least adapt things to
+
+00:27:29.640 --> 00:27:33.000
+make them fit their own, um, their own needs,
+
+00:27:33.000 --> 00:27:34.990
+wants and desires and even styles.
+
+00:27:35.000 --> 00:27:38.030
+Um, and to close things out, I just, I
+
+00:27:38.030 --> 00:27:40.060
+'m going to show you one more picture of how amazing and
+
+00:27:40.060 --> 00:27:41.000
+diverse moss can be.
+
+00:27:41.000 --> 00:27:43.440
+These are all moss that I found in my backyard late at
+
+00:27:43.440 --> 00:27:44.000
+night.
+
+00:27:44.000 --> 00:27:45.990
+Um, yeah, so many different kinds.
+
+00:27:46.000 --> 00:27:47.990
+Um, they're incredible and beautiful.
+
+00:27:48.000 --> 00:27:50.570
+I know some folks might be scared of moss or think they
+
+00:27:50.570 --> 00:27:53.850
+'re weird and creepy or whatever, but some of them are
+
+00:27:53.860 --> 00:27:57.000
+, but they're also just incredibly beautiful ones.
+
+00:27:57.000 --> 00:27:58.000
+Um, yeah.
+
+00:27:58.000 --> 00:27:59.910
+So that's, uh, that's what I get out
+
+00:27:59.910 --> 00:28:03.000
+of that atmosphere and that's what I hope more folks get
+
+00:28:03.000 --> 00:28:03.000
+out of the atmosphere.
+
+00:28:03.000 --> 00:28:04.000
+Um, yeah.
+
+00:28:04.000 --> 00:28:05.000
+Um, yeah.
+
+00:28:05.000 --> 00:28:06.000
+Thank you so much, Dame.
+
+00:28:06.000 --> 00:28:07.000
+Uh, we've got time for maybe one question.
+
+00:28:07.000 --> 00:28:09.000
+Does anyone have a question?
+
+00:28:09.000 --> 00:28:10.000
+How many different types of moss have you seen?
+
+00:28:10.000 --> 00:28:10.000
+I think?
+
+00:28:10.000 --> 00:28:11.000
+Oh.
+
+00:28:11.000 --> 00:28:12.000
+I can't remember exactly.
+
+00:28:12.000 --> 00:28:14.470
+I think I've seen, I've only been doing it
+
+00:28:14.490 --> 00:28:16.000
+for now, I guess a year and a half.
+
+00:28:16.000 --> 00:28:17.000
+I think I'm up to around 100 different moths.
+
+00:28:17.000 --> 00:28:18.000
+But they're, I've heard mothers, uh,
+
+00:28:18.000 --> 00:28:18.000
+that you can see up to a thousand.
+
+00:28:18.000 --> 00:28:19.000
+And depending on your location.
+
+00:28:19.000 --> 00:28:20.530
+So, I'm going to be doing it from here on
+
+00:28:20.630 --> 00:28:22.000
+out and seeing how far we can go.
+
+00:28:22.000 --> 00:28:23.000
+Um, yeah.
+
+00:28:23.000 --> 00:28:24.000
+Um, yeah.
+
+00:28:24.000 --> 00:28:25.000
+Um, yeah.
+
+00:28:25.000 --> 00:28:26.000
+Um, yeah.
+
+00:28:26.000 --> 00:28:27.000
+Um, yeah.
+
+00:28:27.000 --> 00:28:28.000
+Yeah.
+
+00:28:28.000 --> 00:28:29.000
+Um, yeah.
+
+00:28:29.000 --> 00:28:30.000
+I can't remember exactly.
+
+00:28:30.000 --> 00:28:31.560
+I think I've seen, I've only been doing it
+
+00:28:31.640 --> 00:28:33.000
+for now, I guess a year and a half.
+
+00:28:33.000 --> 00:28:36.000
+I think I'm up to around 100 different moths.
+
+00:28:36.000 --> 00:28:40.060
+But there, I've heard mothers, uh, that
+
+00:28:40.060 --> 00:28:42.990
+you can see up to a thousand.
+
+00:28:43.000 --> 00:28:44.000
+And depending on your location.
+
+00:28:44.000 --> 00:28:46.130
+So, I'm going to be doing it from here on
+
+00:28:46.130 --> 00:28:48.000
+out and seeing how far we can go.
+
+00:28:48.000 --> 00:28:51.000
+Follow, follow up question.
+
+00:28:51.000 --> 00:28:52.990
+Did you see any moths here?
+
+00:28:53.000 --> 00:28:54.000
+In, in Vancouver?
+
+00:28:54.000 --> 00:28:55.000
+Not yet.
+
+00:28:55.000 --> 00:28:56.000
+Uh, not yet.
+
+00:28:56.000 --> 00:28:58.800
+But I, I was a very strong temptation to bring some
+
+00:28:58.940 --> 00:29:01.000
+of my portable gear and like go out at night.
+
+00:29:01.000 --> 00:29:02.990
+But I was like, I can't do that.
+
+00:29:03.000 --> 00:29:05.290
+I've got to be like focused on talks and things like
+
+00:29:05.490 --> 00:29:06.000
+that.
+
+00:29:06.000 --> 00:29:07.000
+But I really wanted to.
+
+00:29:07.000 --> 00:29:11.080
+I was like, oh my, there's so many cool
+
+00:29:11.080 --> 00:29:13.000
+moths out here.
+
+00:29:13.000 --> 00:29:14.000
+I was very jealous.
+
+00:29:14.000 --> 00:29:15.000
+And yeah.
+
+00:29:15.000 --> 00:29:16.000
+But that's, yeah.
+
+00:29:16.000 --> 00:29:19.000
+Thank you so much.
+
+00:29:19.000 --> 00:29:22.000
+Uh, one more round of applause for Dame, please.

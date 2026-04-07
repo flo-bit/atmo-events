@@ -1,0 +1,1756 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:03.280
+Okay, this is going to be an exciting one.
+
+00:00:03.290 --> 00:00:06.030
+We're going to be talking about product development with quite an
+
+00:00:06.140 --> 00:00:07.780
+auspicious crew here.
+
+00:00:07.790 --> 00:00:09.660
+We've got Elliot from Expo.
+
+00:00:09.670 --> 00:00:12.680
+We've got Reed from Skylight Social.
+
+00:00:12.690 --> 00:00:16.200
+We've got Eli from Stream Place.
+
+00:00:16.210 --> 00:00:19.590
+And then we've got Paul Frazee from Blue Sky
+
+00:00:19.590 --> 00:00:19.940
+.
+
+00:00:19.950 --> 00:00:23.000
+So I'm going to let him take it away.
+
+00:00:23.010 --> 00:00:26.320
+All right.
+
+00:00:26.330 --> 00:00:27.600
+Welcome.
+
+00:00:27.610 --> 00:00:29.750
+Oh, yeah, we do need the mic.
+
+00:00:30.010 --> 00:00:32.120
+All right.
+
+00:00:32.130 --> 00:00:32.860
+Welcome, everyone.
+
+00:00:32.870 --> 00:00:33.960
+Thank you so much for being here.
+
+00:00:33.970 --> 00:00:36.770
+Just to start, I would love to have you guys introduce
+
+00:00:36.770 --> 00:00:39.210
+yourselves, a little bit about yourself, what you're working
+
+00:00:39.250 --> 00:00:39.440
+on.
+
+00:00:39.450 --> 00:00:40.590
+Then we'll go from there.
+
+00:00:40.610 --> 00:00:41.380
+All right.
+
+00:00:41.390 --> 00:00:42.520
+Sounds good.
+
+00:00:42.530 --> 00:00:43.240
+Welcome, guys.
+
+00:00:43.250 --> 00:00:44.260
+Hey.
+
+00:00:44.270 --> 00:00:44.980
+There we go.
+
+00:00:44.990 --> 00:00:45.480
+There we go.
+
+00:00:45.490 --> 00:00:46.600
+Well, hi, everybody.
+
+00:00:46.610 --> 00:00:47.520
+I'm Paul Frazee.
+
+00:00:47.530 --> 00:00:49.040
+I'm the CTO at Blue Sky.
+
+00:00:49.050 --> 00:00:53.300
+I think the specific reason I'm on the panel is because
+
+00:00:53.300 --> 00:00:56.880
+back when Blue Sky was very small, I was the lead
+
+00:00:57.120 --> 00:00:59.340
+engineer on building the Blue Sky application.
+
+00:01:00.010 --> 00:01:03.020
+Which I did with Expo and React Native.
+
+00:01:03.030 --> 00:01:05.800
+And I'll just go ahead and spoiler alert.
+
+00:01:05.810 --> 00:01:08.790
+Wouldn't have been able to do it without the help of
+
+00:01:08.790 --> 00:01:09.780
+Expo and React Native.
+
+00:01:09.970 --> 00:01:12.180
+So I'm here to share that story.
+
+00:01:12.190 --> 00:01:14.960
+My name's Elim Allen.
+
+00:01:14.970 --> 00:01:18.440
+I'm the founder and CEO of StreamPlace.
+
+00:01:18.450 --> 00:01:21.570
+If you're watching this remotely right now, that's that
+
+00:01:21.570 --> 00:01:22.300
+thing.
+
+00:01:23.130 --> 00:01:29.160
+And I also, from the start, we have built Stream
+
+00:01:29.160 --> 00:01:33.140
+Place using Expo and React Native WebRTC and
+
+00:01:33.140 --> 00:01:37.000
+some other technologies that we will get into.
+
+00:01:39.510 --> 00:01:42.590
+And I'm Reid, the CTO of Skylight Social
+
+00:01:42.590 --> 00:01:42.940
+.
+
+00:01:42.950 --> 00:01:45.340
+And we built Skylight on Expo.
+
+00:01:45.350 --> 00:01:48.140
+I've been using React Native since, like, 2017.
+
+00:01:48.150 --> 00:01:53.580
+And when we thought about how to build this video app,
+
+00:01:53.590 --> 00:01:55.190
+we were like, okay, well, we're going to
+
+00:01:55.400 --> 00:01:56.280
+start with React Native.
+
+00:01:56.990 --> 00:02:00.690
+And then luckily for us, the video component itself was already
+
+00:02:00.690 --> 00:02:02.890
+a library that Expo was offering.
+
+00:02:02.910 --> 00:02:05.830
+So we were able to get, like, a working prototype
+
+00:02:05.840 --> 00:02:10.660
+in two days and kind of release it before TikTok had gotten
+
+00:02:10.660 --> 00:02:12.320
+banned last January.
+
+00:02:12.330 --> 00:02:13.240
+Cool.
+
+00:02:13.250 --> 00:02:15.810
+So, Paul, just to start with you, you mentioned
+
+00:02:15.810 --> 00:02:17.850
+, you know, Expo made a lot of stuff possible
+
+00:02:17.850 --> 00:02:18.080
+.
+
+00:02:18.090 --> 00:02:19.940
+And so I wanted to start, this is to the whole
+
+00:02:19.940 --> 00:02:22.080
+panel, but, like, what is Expo specifically made
+
+00:02:22.180 --> 00:02:22.660
+possible?
+
+00:02:22.670 --> 00:02:24.260
+What is AppRoto made possible?
+
+00:02:24.270 --> 00:02:25.380
+I guess those guys built on it.
+
+00:02:25.390 --> 00:02:27.330
+But, like, how have they kind of combined in building
+
+00:02:27.330 --> 00:02:29.320
+up Blue Sky, especially in the early days?
+
+00:02:29.330 --> 00:02:33.830
+Yeah, so should we assume that people know what Expo
+
+00:02:33.830 --> 00:02:34.080
+is?
+
+00:02:34.090 --> 00:02:34.440
+I can...
+
+00:02:34.450 --> 00:02:34.960
+Oh, yes.
+
+00:02:34.970 --> 00:02:35.500
+Okay.
+
+00:02:35.510 --> 00:02:38.420
+Maybe I'm kind of happy to give a very quick intro
+
+00:02:38.420 --> 00:02:38.720
+.
+
+00:02:38.730 --> 00:02:40.810
+Expo is a way to build cross-platform mobile
+
+00:02:40.810 --> 00:02:41.100
+apps.
+
+00:02:41.110 --> 00:02:44.180
+We're the main way of building mobile apps with JavaScript or
+
+00:02:44.320 --> 00:02:47.020
+TypeScript, and then they run on both iOS and Android
+
+00:02:47.110 --> 00:02:47.200
+.
+
+00:02:47.210 --> 00:02:47.680
+Yeah.
+
+00:02:47.690 --> 00:02:52.760
+Well, and so for us, kicking off, we had
+
+00:02:52.760 --> 00:02:56.230
+12 people, maybe, when we were first writing the Blue
+
+00:02:56.250 --> 00:02:57.010
+Sky...
+
+00:02:57.030 --> 00:02:57.840
+Actually, not even that.
+
+00:02:57.850 --> 00:02:59.700
+I think we were maybe at, like, 6 when we
+
+00:02:59.700 --> 00:03:01.020
+were first building the application.
+
+00:03:01.030 --> 00:03:05.880
+And the reality is that when you have a code base that
+
+00:03:05.880 --> 00:03:09.840
+is an application for every code base you have, it's
+
+00:03:09.840 --> 00:03:11.440
+a different product, more or less.
+
+00:03:11.450 --> 00:03:14.350
+So if you're trying to write for both, you know
+
+00:03:14.350 --> 00:03:17.560
+, free platforms, really, iOS, Android, and web
+
+00:03:17.560 --> 00:03:20.140
+, if you're building three different code bases, you basically
+
+00:03:20.140 --> 00:03:23.100
+have three different products with their own teams that are maintaining their
+
+00:03:23.100 --> 00:03:24.940
+own roadmaps, their own issue trackers, and
+
+00:03:24.940 --> 00:03:25.540
+things like that.
+
+00:03:25.550 --> 00:03:27.870
+And you're kind of just working with each other on the
+
+00:03:27.870 --> 00:03:30.180
+concepts that you're going to, you know, implement on
+
+00:03:30.180 --> 00:03:31.400
+each one of them.
+
+00:03:31.410 --> 00:03:34.820
+You see this sometimes, actually, when you switch between apps
+
+00:03:34.820 --> 00:03:35.000
+.
+
+00:03:35.010 --> 00:03:38.060
+Like, I think Twitter for a long time had a pretty
+
+00:03:38.060 --> 00:03:38.900
+different...
+
+00:03:38.910 --> 00:03:40.560
+Like, you would get into the Android one and be like
+
+00:03:40.560 --> 00:03:42.680
+, oh, it's kind of different, actually.
+
+00:03:42.690 --> 00:03:43.380
+That's interesting.
+
+00:03:43.550 --> 00:03:44.600
+Because it's a different product.
+
+00:03:44.610 --> 00:03:45.620
+It's a different team.
+
+00:03:45.630 --> 00:03:49.520
+So that was just not viable for us.
+
+00:03:49.530 --> 00:03:51.920
+It was just me doing front-end for a long time
+
+00:03:51.920 --> 00:03:52.100
+.
+
+00:03:52.110 --> 00:03:55.330
+And then as the complexity of the product continued to grow and
+
+00:03:55.330 --> 00:03:58.480
+more features came in, the challenge of the idea of having
+
+00:03:58.480 --> 00:04:01.110
+multiple code bases became even less viable, even though we were
+
+00:04:01.110 --> 00:04:01.720
+getting more help.
+
+00:04:01.730 --> 00:04:05.160
+So having one code base to target all three of the platforms
+
+00:04:05.370 --> 00:04:09.760
+using technologies that we were already familiar with has certainly helped as
+
+00:04:09.760 --> 00:04:10.060
+well.
+
+00:04:10.250 --> 00:04:14.140
+TypeScript and React and, you know, essentially CSS,
+
+00:04:14.320 --> 00:04:19.000
+kind of a CSS variant, really helped us hit the timelines
+
+00:04:19.000 --> 00:04:19.420
+that we needed.
+
+00:04:19.430 --> 00:04:21.060
+And it's no joke.
+
+00:04:21.070 --> 00:04:25.680
+You can't ship just iOS or just web or just Android
+
+00:04:25.680 --> 00:04:25.900
+.
+
+00:04:25.910 --> 00:04:28.880
+It's very, very limiting to do that.
+
+00:04:28.890 --> 00:04:31.560
+And people expect to have the platform be available in all three
+
+00:04:31.560 --> 00:04:31.820
+places.
+
+00:04:31.950 --> 00:04:35.090
+So I don't think we would have been able to accomplish
+
+00:04:35.200 --> 00:04:37.470
+the rollout that we needed to do and hit our business
+
+00:04:37.470 --> 00:04:39.440
+objectives if we weren't using Expo and React Native.
+
+00:04:40.250 --> 00:04:40.440
+Yeah.
+
+00:04:40.450 --> 00:04:42.570
+And so, Eli, same question to you, although I
+
+00:04:42.570 --> 00:04:45.040
+'m curious also for Streamplay Switches obviously dealing with video
+
+00:04:45.040 --> 00:04:47.410
+, like how is that working with Expo and kind of
+
+00:04:47.410 --> 00:04:48.930
+shipping to multiple platforms?
+
+00:04:48.970 --> 00:04:49.940
+Yeah, yeah.
+
+00:04:49.950 --> 00:04:51.670
+I mean, the first part of the answer is the same
+
+00:04:51.770 --> 00:04:52.180
+, right?
+
+00:04:52.190 --> 00:04:56.720
+Like, so building any kind of Twitch competitor, we very
+
+00:04:56.720 --> 00:04:59.520
+much needed an iOS, an Android app, and a website
+
+00:04:59.520 --> 00:05:00.880
+as quickly as humanly possible.
+
+00:05:00.890 --> 00:05:03.040
+And I just don't think there's...
+
+00:05:03.050 --> 00:05:06.160
+Maybe there's other frameworks that would argue with it, but
+
+00:05:06.160 --> 00:05:08.280
+I think Expo's the most credible way to try and
+
+00:05:08.280 --> 00:05:10.000
+do all of those things.
+
+00:05:10.010 --> 00:05:13.690
+The other piece for us, you know, part of Stream
+
+00:05:13.690 --> 00:05:18.020
+play's strategy as a company is that live video infrastructure and
+
+00:05:18.020 --> 00:05:21.060
+software is very, very difficult, one of the harder things
+
+00:05:21.120 --> 00:05:22.540
+you can do in technology.
+
+00:05:22.550 --> 00:05:26.010
+And a lot of the other teams in the atmosphere aren't
+
+00:05:26.010 --> 00:05:27.740
+very excited about taking that on.
+
+00:05:27.750 --> 00:05:30.700
+So from the beginning, we've really, really wanted to
+
+00:05:30.880 --> 00:05:31.420
+...
+
+00:05:31.430 --> 00:05:33.980
+As much of our code as possible needs to live in libraries
+
+00:05:34.010 --> 00:05:37.920
+that are accessible to other applications that they can access.
+
+00:05:37.930 --> 00:05:41.160
+And so that eventually means...
+
+00:05:41.170 --> 00:05:44.220
+Unfortunately, because Expo is not the only framework in the
+
+00:05:44.320 --> 00:05:46.480
+world, that does eventually mean we need to...
+
+00:05:46.490 --> 00:05:49.170
+And we have, in various stages of development, we have
+
+00:05:49.170 --> 00:05:51.940
+sort of like React Native slash web library.
+
+00:05:51.950 --> 00:05:52.820
+That's the main one.
+
+00:05:52.830 --> 00:05:54.680
+And then we've got like a Flutter library in development
+
+00:05:54.680 --> 00:05:54.790
+.
+
+00:05:54.810 --> 00:05:57.100
+We've got a native Swift OS library in development.
+
+00:05:57.110 --> 00:05:59.540
+We'll probably do something for Android at some point.
+
+00:05:59.550 --> 00:06:04.600
+But in terms of getting the biggest slice of the pie that
+
+00:06:04.600 --> 00:06:09.260
+we could as quickly as possible, building that with Expo
+
+00:06:09.260 --> 00:06:12.630
+and React Native and building that library made a lot of sense
+
+00:06:12.630 --> 00:06:12.800
+.
+
+00:06:12.810 --> 00:06:15.040
+Unique challenges of dealing with video.
+
+00:06:15.050 --> 00:06:20.380
+I would say that for us in particular, if you're
+
+00:06:20.430 --> 00:06:23.690
+watching the live stream now and it's working, which it
+
+00:06:23.690 --> 00:06:30.080
+seems to mostly be doing so, I attribute that mostly to
+
+00:06:30.080 --> 00:06:32.010
+WebRTC playback.
+
+00:06:32.030 --> 00:06:33.660
+That's the technology we're built on.
+
+00:06:33.790 --> 00:06:36.420
+It's the same technology that's used to power Google Meet
+
+00:06:36.420 --> 00:06:36.420
+.
+
+00:06:36.430 --> 00:06:40.340
+And if you've had a conversation in a web browser with
+
+00:06:40.340 --> 00:06:42.640
+somebody who is built on WebRTC, it's very
+
+00:06:42.670 --> 00:06:45.360
+good at, for example, if something goes wrong, reco
+
+00:06:45.360 --> 00:06:47.750
+vers because it's trying to play back the video as quickly
+
+00:06:47.750 --> 00:06:48.260
+as possible.
+
+00:06:48.270 --> 00:06:50.060
+That's been a pain.
+
+00:06:51.110 --> 00:06:54.620
+Even with as much help as we can get from the frameworks
+
+00:06:54.680 --> 00:06:58.870
+and stuff, we've had to get something like picture-
+
+00:06:58.870 --> 00:07:00.080
+in-picture playback working.
+
+00:07:00.090 --> 00:07:02.550
+So when you navigate out of the app, you still have
+
+00:07:02.550 --> 00:07:03.540
+it up there in the corner.
+
+00:07:03.550 --> 00:07:06.130
+We needed to use forked versions of different WebRTC
+
+00:07:06.440 --> 00:07:09.530
+libraries, do our own native builds, building all of this
+
+00:07:09.530 --> 00:07:12.850
+in an open source way that theoretically other people could build.
+
+00:07:13.060 --> 00:07:15.660
+So that means something we don't use from Expo is
+
+00:07:15.660 --> 00:07:17.150
+like the, I'm blanking on the name, the
+
+00:07:17.150 --> 00:07:18.000
+like cloud build.
+
+00:07:18.010 --> 00:07:19.460
+Yes, yeah.
+
+00:07:19.470 --> 00:07:21.910
+You know, because we need to be able to like build
+
+00:07:21.910 --> 00:07:23.960
+all of everything ourselves in a Docker container.
+
+00:07:23.970 --> 00:07:26.440
+So yeah, yeah.
+
+00:07:26.450 --> 00:07:28.080
+I would say like once we got it all wired up,
+
+00:07:28.090 --> 00:07:30.830
+it worked pretty well, but definitely like the build process was
+
+00:07:30.830 --> 00:07:31.440
+a big challenge.
+
+00:07:31.450 --> 00:07:32.040
+Yeah.
+
+00:07:32.050 --> 00:07:34.440
+And then Reid, you're also dealing with video in a
+
+00:07:34.440 --> 00:07:35.860
+kind of different format.
+
+00:07:35.860 --> 00:07:38.170
+So I'm curious how you've dealt with that in similar
+
+00:07:38.170 --> 00:07:39.060
+and different ways.
+
+00:07:39.060 --> 00:07:42.000
+Yeah, I'm lucky that, I think it wasn't
+
+00:07:42.000 --> 00:07:44.890
+that long before that you guys released a new Expo video
+
+00:07:44.970 --> 00:07:45.380
+package.
+
+00:07:45.390 --> 00:07:48.560
+And that helped me out a lot, obviously.
+
+00:07:48.570 --> 00:07:51.730
+Because it did allow me to start with like Expo Go
+
+00:07:51.730 --> 00:07:51.920
+.
+
+00:07:51.930 --> 00:07:56.210
+And like you're able to build these native modules in Ex
+
+00:07:56.210 --> 00:07:56.320
+po.
+
+00:07:56.470 --> 00:07:59.140
+It's kind of the most important part of it that you
+
+00:07:59.140 --> 00:08:03.440
+can go to the native side instead of the JavaScript side whenever
+
+00:08:03.440 --> 00:08:04.460
+you actually need it.
+
+00:08:04.470 --> 00:08:07.080
+So you're kind of never limited on what you can do
+
+00:08:07.080 --> 00:08:07.230
+.
+
+00:08:07.310 --> 00:08:10.960
+But Expo Go is kind of like the preset group of
+
+00:08:11.260 --> 00:08:11.660
+modules.
+
+00:08:11.670 --> 00:08:15.440
+And it just allowed us to focus on the things that like
+
+00:08:15.440 --> 00:08:16.620
+the users were caring about.
+
+00:08:16.630 --> 00:08:20.600
+Because we kind of immediately had a lot of people who were
+
+00:08:20.600 --> 00:08:23.440
+like interested in using our app or using our app.
+
+00:08:23.450 --> 00:08:27.160
+We had about 150,000 users in the first three months
+
+00:08:27.160 --> 00:08:27.320
+.
+
+00:08:27.330 --> 00:08:32.240
+And so there wasn't a lot of time to work on
+
+00:08:32.240 --> 00:08:36.170
+anything except for things that the users were actively like in our
+
+00:08:36.170 --> 00:08:37.060
+comments about.
+
+00:08:38.070 --> 00:08:41.460
+And because of Expo is basically like we just got to
+
+00:08:41.600 --> 00:08:43.360
+work on like those specific behaviors.
+
+00:08:43.370 --> 00:08:46.730
+Somebody would report a bug and because we could do over-
+
+00:08:46.730 --> 00:08:49.650
+the-air updates which are like JavaScript-only updates we
+
+00:08:49.650 --> 00:08:53.000
+could fix it like immediately and then comment back and then just
+
+00:08:53.000 --> 00:08:54.990
+move on to the next thing and just do that over and
+
+00:08:54.990 --> 00:08:56.040
+over and over again.
+
+00:08:56.050 --> 00:08:59.760
+Versus if it was a Swift app we would have had
+
+00:08:59.760 --> 00:09:03.460
+to go through a whole App Store deployment of several days before
+
+00:09:03.460 --> 00:09:04.480
+they ever got feedback.
+
+00:09:04.650 --> 00:09:07.350
+And they would have just given up on us basically in those
+
+00:09:07.350 --> 00:09:08.320
+three days.
+
+00:09:08.330 --> 00:09:11.140
+So yeah, that's been my experience.
+
+00:09:11.150 --> 00:09:11.780
+That makes sense.
+
+00:09:11.790 --> 00:09:14.440
+And then so Paul, I'm curious, you mentioned earlier
+
+00:09:14.450 --> 00:09:17.150
+like you have to build for a bunch of different platforms and
+
+00:09:17.150 --> 00:09:19.800
+like now in the kind of mobile space it's really easy
+
+00:09:19.800 --> 00:09:21.860
+to iterate on web and kind of before Expo there wasn
+
+00:09:21.860 --> 00:09:23.220
+'t an easy way to iterate on mobile.
+
+00:09:23.230 --> 00:09:25.600
+But I'm curious why you even target mobile in the first
+
+00:09:25.600 --> 00:09:25.900
+place?
+
+00:09:25.910 --> 00:09:28.270
+Like why is mobile kind of important to Blue Sky as a
+
+00:09:28.600 --> 00:09:29.090
+platform?
+
+00:09:29.110 --> 00:09:36.060
+Well, the web mobile experience in a web browser is you
+
+00:09:36.060 --> 00:09:40.220
+know, pretty good but there's a lot of interaction patterns
+
+00:09:40.230 --> 00:09:41.760
+that you just can't accomplish.
+
+00:09:41.770 --> 00:09:48.040
+One hopes that PWAs will someday yeah, yeah.
+
+00:09:48.050 --> 00:09:51.260
+It seems to get jammed up and it seems to be
+
+00:09:51.260 --> 00:09:54.000
+some kind of politics between Apple, I think, and Google
+
+00:09:54.000 --> 00:09:54.000
+.
+
+00:09:54.010 --> 00:09:56.140
+Like Google really wants it because they're sold on web tech
+
+00:09:56.220 --> 00:09:56.600
+, right?
+
+00:09:56.650 --> 00:09:58.380
+So I think it's Apple that's kind of jamming
+
+00:09:58.380 --> 00:09:58.640
+it up.
+
+00:09:58.650 --> 00:10:05.140
+But the gestural interfaces are very much the expectation with mobile
+
+00:10:05.150 --> 00:10:09.210
+and I'm doing a mobile web application right now and I
+
+00:10:09.210 --> 00:10:11.880
+had to stop and go I can only tap.
+
+00:10:11.890 --> 00:10:14.260
+How do I design this?
+
+00:10:14.270 --> 00:10:16.580
+This is very interesting.
+
+00:10:16.590 --> 00:10:18.270
+I found some stuff, you know, but it's a
+
+00:10:18.270 --> 00:10:18.760
+little weird.
+
+00:10:18.770 --> 00:10:20.950
+I also can't do vibrations so there's no haptic
+
+00:10:20.970 --> 00:10:23.840
+feedback which is the worst when you press on a button and
+
+00:10:23.840 --> 00:10:25.380
+it doesn't give you a little oh gosh.
+
+00:10:25.530 --> 00:10:28.070
+So like you get a little bit crippled whenever because the
+
+00:10:28.070 --> 00:10:30.760
+web is they've Apple has been pretty opinionated about like
+
+00:10:30.760 --> 00:10:32.740
+the web should be for web documents essentially it's just not
+
+00:10:32.740 --> 00:10:36.150
+their applications runtime and so you've got to go native for
+
+00:10:36.150 --> 00:10:38.810
+that reason that's reason number one is the usability of the
+
+00:10:38.920 --> 00:10:40.850
+application and reason number two is that people look inside of the
+
+00:10:40.850 --> 00:10:42.500
+app store to find the apps.
+
+00:10:42.510 --> 00:10:43.860
+That's just how it works.
+
+00:10:43.870 --> 00:10:47.210
+If you're not there then you don't exist and I
+
+00:10:47.630 --> 00:10:48.880
+think that's pretty much it.
+
+00:10:48.890 --> 00:10:51.560
+You want to have a good experience people aren't going to
+
+00:10:51.560 --> 00:10:52.260
+accept less.
+
+00:10:52.270 --> 00:10:54.260
+There are still some people I mean the only people that are
+
+00:10:54.260 --> 00:10:56.840
+really hardcore on the web are the big real big nerds
+
+00:10:56.850 --> 00:10:59.100
+so you kind of have to meet people where they're at
+
+00:10:59.110 --> 00:11:00.300
+and that's native.
+
+00:11:00.380 --> 00:11:04.180
+Yeah and so then same question for you like why is native
+
+00:11:04.190 --> 00:11:06.860
+kind of mobile apps why is that important for a stream place
+
+00:11:06.860 --> 00:11:07.000
+?
+
+00:11:07.430 --> 00:11:10.160
+Yeah I would say it's just sort of table stakes to
+
+00:11:10.160 --> 00:11:14.420
+be taken seriously in terms of releasing something and the other piece
+
+00:11:14.450 --> 00:11:18.860
+of course is we want to be able to stream from phones
+
+00:11:18.870 --> 00:11:24.380
+and I think that you wouldn't be taken seriously as a
+
+00:11:24.380 --> 00:11:27.540
+streaming platform if you didn't have that capability and so that
+
+00:11:27.540 --> 00:11:29.640
+was very very necessary to go to mobile.
+
+00:11:29.650 --> 00:11:35.460
+It hasn't always been the difficulty of building this in sort
+
+00:11:35.460 --> 00:11:38.780
+of a library fashion for other mobile apps has been a particular
+
+00:11:38.880 --> 00:11:39.380
+challenge.
+
+00:11:39.390 --> 00:11:42.640
+I don't know if there's a good there's a
+
+00:11:42.880 --> 00:11:45.800
+funny story on like the interaction between Skylight was one of
+
+00:11:45.800 --> 00:11:50.220
+the first apps to integrate Stream Place live streaming and we accidentally
+
+00:11:50.220 --> 00:11:53.240
+did a thing where when you log into Stream Place one of
+
+00:11:53.240 --> 00:11:55.800
+the first things we do is create a place.
+
+00:11:55.800 --> 00:11:56.560
+stream.
+
+00:11:56.860 --> 00:11:57.570
+actor a place.
+
+00:11:57.570 --> 00:11:58.120
+stream.
+
+00:11:58.260 --> 00:11:58.540
+chat.
+
+00:11:58.660 --> 00:12:02.080
+profile record because it shows what chat color that you have
+
+00:12:02.090 --> 00:12:05.130
+and of course that makes perfect sense when you logged into Stream
+
+00:12:05.130 --> 00:12:07.460
+Place then we integrated into Skylight and I didn't realize
+
+00:12:07.470 --> 00:12:09.170
+I had kind of put that in the library code instead of
+
+00:12:09.170 --> 00:12:11.080
+the app code so as soon as you booted Skylight
+
+00:12:11.090 --> 00:12:11.920
+you got a place.
+
+00:12:11.920 --> 00:12:12.430
+stream.
+
+00:12:12.430 --> 00:12:12.810
+chat.
+
+00:12:12.910 --> 00:12:15.140
+profile record even if you hadn't interacted with like the
+
+00:12:15.140 --> 00:12:20.060
+Stream Place features within Skylight which made us seem sort of
+
+00:12:20.060 --> 00:12:22.810
+aping off Skylight's popularity a little bit because all
+
+00:12:22.810 --> 00:12:25.130
+of a sudden we were like the second most popular we were
+
+00:12:25.130 --> 00:12:27.420
+like the most popular non-blue sky lexicon in
+
+00:12:27.420 --> 00:12:31.440
+the atmosphere because of that integration which I guess felt good but
+
+00:12:31.440 --> 00:12:36.500
+wasn't really legitimate so yeah in that context like figuring out
+
+00:12:36.510 --> 00:12:39.280
+but I think you know as much as like the atmosphere stuff
+
+00:12:39.290 --> 00:12:43.020
+has been built to be interoperable some of the norms
+
+00:12:43.030 --> 00:12:46.100
+around that kind like what what does make sense there right like
+
+00:12:46.100 --> 00:12:49.820
+probably if you're going to go tap into chat and participate
+
+00:12:49.820 --> 00:12:51.880
+in it then it would be appropriate for us to create that
+
+00:12:51.880 --> 00:12:54.070
+record and we just like don't really have community norms around
+
+00:12:54.070 --> 00:12:56.100
+that kind of thing yet so I don't know I think
+
+00:12:56.100 --> 00:12:57.820
+I went away for your question a little bit but that was
+
+00:12:57.830 --> 00:13:01.400
+that was a unique challenge interesting and that that was a really
+
+00:13:01.520 --> 00:13:03.140
+funny story I'm guessing you're asking me the same question
+
+00:13:03.150 --> 00:13:05.910
+yeah basically I want to add to Eli's story because what
+
+00:13:05.910 --> 00:13:10.270
+it initially started was he thought he was being attacked like by
+
+00:13:10.440 --> 00:13:13.200
+the like a DDoS attack it was like no I
+
+00:13:13.200 --> 00:13:20.520
+just added your library to our code base but it was really
+
+00:13:20.520 --> 00:13:23.310
+important for us probably even more so than these guys because the
+
+00:13:23.310 --> 00:13:27.980
+gesture of like swiping through TikTok is like so specific and
+
+00:13:27.980 --> 00:13:30.180
+it would have been impossible to do in the web I tried
+
+00:13:30.180 --> 00:13:33.370
+like on day three to like try to do it and it
+
+00:13:33.370 --> 00:13:36.220
+was like the way that Safari works is like you have to
+
+00:13:36.220 --> 00:13:38.760
+go click something to start playing a video they won't even
+
+00:13:38.760 --> 00:13:42.140
+let you kind of do this thing that TikTok does so we
+
+00:13:42.140 --> 00:13:46.300
+don't even really have like that much of a web app
+
+00:13:46.310 --> 00:13:49.140
+it's just all mobile for us I see and then just
+
+00:13:49.140 --> 00:13:51.780
+to follow up on that like what was scaling like for you
+
+00:13:51.780 --> 00:13:53.830
+with X because you mentioned I think Blue Sky also had this
+
+00:13:53.830 --> 00:13:57.360
+a bit just like going from kind of your user growth was
+
+00:13:57.360 --> 00:14:00.050
+so crazy and was Expo part of like enabling you to
+
+00:14:00.050 --> 00:14:03.650
+scale in that way yeah I think so because it was we
+
+00:14:03.650 --> 00:14:06.890
+just were able to be so client focused because they had kind
+
+00:14:06.890 --> 00:14:09.430
+of like built all this infrastructure in a way that we could
+
+00:14:09.500 --> 00:14:12.620
+use it we could really just focus on like the client and
+
+00:14:12.620 --> 00:14:16.260
+trying to reach parity on that side and client based solutions but
+
+00:14:16.260 --> 00:14:19.540
+then also when we did need like server code there was like
+
+00:14:19.540 --> 00:14:21.500
+EAS hosting and it was like we could just throw it
+
+00:14:21.510 --> 00:14:24.340
+in the same code base it wasn't a whole separate thing
+
+00:14:24.350 --> 00:14:28.160
+for us yeah and so then I'm also curious just as
+
+00:14:28.160 --> 00:14:30.500
+a kind of state of the ecosystem like if there's anything
+
+00:14:30.510 --> 00:14:33.140
+that you guys want to just think is really cool that you
+
+00:14:33.140 --> 00:14:35.200
+'ve seen in either that portal world or the Expo world
+
+00:14:35.210 --> 00:14:38.310
+that you want to shout out or just are kind of excited
+
+00:14:38.310 --> 00:14:42.430
+to build with oh well I mean my talk in what 15
+
+00:14:42.540 --> 00:14:45.140
+minutes is like non-stop shout out so you can't
+
+00:14:45.150 --> 00:14:47.120
+give away my talk I don't want to spoil your talk
+
+00:14:47.130 --> 00:14:52.620
+so I'm sorry so actually I am going to pass because
+
+00:14:52.620 --> 00:14:57.270
+I have a lot of it so this is becoming part of
+
+00:14:57.270 --> 00:15:00.480
+the at proto world but media over quick is the sort of
+
+00:15:00.490 --> 00:15:05.720
+next generation way that we are going to replace both sort of
+
+00:15:05.730 --> 00:15:10.560
+traditional HLS based video playback on the internet especially for live
+
+00:15:10.720 --> 00:15:14.720
+streams as well as WebRTC and yeah it's just
+
+00:15:14.720 --> 00:15:17.090
+like all of the different arrows that we used to use all
+
+00:15:17.090 --> 00:15:20.550
+of these different protocols for are moving toward media over quick as
+
+00:15:21.200 --> 00:15:24.730
+well as two Cisco engineers recently put out a paper explaining how
+
+00:15:24.730 --> 00:15:27.940
+you would do at proto relay data over media over quick which
+
+00:15:27.940 --> 00:15:30.940
+totally blew up StreamPlace's technical roadmap because I'm
+
+00:15:30.940 --> 00:15:34.200
+like oh I thought we would do mocks someday and it
+
+00:15:34.200 --> 00:15:36.160
+was like oh that'll be like a fun optimization but now
+
+00:15:36.160 --> 00:15:39.840
+it's like oh this is the only protocol we would ever
+
+00:15:39.840 --> 00:15:44.620
+need for everything at proto data media data we can just like
+
+00:15:44.630 --> 00:15:48.420
+speak one language across absolutely everything so yeah every time I talk
+
+00:15:48.420 --> 00:15:50.480
+to anyone from Expo I'm like please Expo media
+
+00:15:50.480 --> 00:15:54.300
+over quick like the existence of that library is going to make
+
+00:15:54.300 --> 00:15:56.500
+my life so much easier and also it'd be good for
+
+00:15:56.500 --> 00:15:59.240
+like people's battery life and everything but like mostly mostly me
+
+00:15:59.250 --> 00:16:03.130
+would be good we'll work on it yeah yeah I'll
+
+00:16:03.400 --> 00:16:06.720
+say on the Expo side the liquid glass stuff that you
+
+00:16:06.720 --> 00:16:09.330
+guys have to just be able to get that and not and
+
+00:16:09.330 --> 00:16:12.020
+it doesn't it's not like super hard to configure you
+
+00:16:12.020 --> 00:16:15.320
+can get the accessory view stuff that's really nice to be
+
+00:16:15.320 --> 00:16:19.150
+able to kind of provide the high fidelity experience for iOS apps
+
+00:16:19.170 --> 00:16:22.260
+and stuff like that so I'm curious also just to kind
+
+00:16:22.260 --> 00:16:25.110
+of for the whole panel like at proto conference is there a
+
+00:16:25.110 --> 00:16:28.280
+kind of weird or interesting way that you're using the protocol
+
+00:16:28.290 --> 00:16:31.680
+that maybe isn't exactly as it was designed but like works
+
+00:16:31.680 --> 00:16:34.030
+really well for your specific use case I have a feeling Eli
+
+00:16:34.030 --> 00:16:36.980
+might have some specific that was the question that I should have
+
+00:16:36.990 --> 00:16:40.890
+told that story in response to I have another one though which
+
+00:16:41.040 --> 00:16:45.820
+is so I found myself this is a little bit of a
+
+00:16:45.820 --> 00:16:48.440
+preview of my VOD talk in an hour or two but
+
+00:16:48.440 --> 00:16:52.990
+I found myself in a situation where so you know you've
+
+00:16:52.990 --> 00:16:55.800
+got one stream place architecture you've got one server that's
+
+00:16:55.800 --> 00:16:58.140
+ingesting the live stream and signing all of the segments that
+
+00:16:58.140 --> 00:17:02.210
+come in and then I needed to start archiving them and
+
+00:17:02.210 --> 00:17:06.560
+making it available across lots of different servers especially so you can
+
+00:17:06.570 --> 00:17:09.580
+provide what live stream engineers call DVR right so you can
+
+00:17:09.580 --> 00:17:12.070
+seek back from the live stream and go see what happened a
+
+00:17:12.070 --> 00:17:15.340
+couple minutes ago in order to make that happen I needed to
+
+00:17:15.350 --> 00:17:19.300
+sync that data from the origin server to a bunch of other
+
+00:17:19.300 --> 00:17:23.800
+servers and I realized what I had was like all of these
+
+00:17:23.800 --> 00:17:28.150
+little blobs and I needed to have a sync protocol that
+
+00:17:28.150 --> 00:17:31.740
+could go from one server to another and make sure that they
+
+00:17:31.740 --> 00:17:35.660
+both got an up to date state and I started coding something
+
+00:17:35.670 --> 00:17:37.180
+and I'm like wait a minute this is an app proto
+
+00:17:37.540 --> 00:17:41.540
+repository that's exactly what I'm doing so that'll be
+
+00:17:41.550 --> 00:17:43.220
+in the VOD talk that's kind of how we're
+
+00:17:43.220 --> 00:17:46.720
+doing that I have turned it off for relays because you
+
+00:17:46.940 --> 00:17:49.620
+get a new segment every second we would get throttled
+
+00:17:49.630 --> 00:17:52.820
+by the entire atmosphere if we released that out so currently that
+
+00:17:52.820 --> 00:17:54.900
+'s like a new peer to peer app proto thing that I
+
+00:17:54.900 --> 00:17:57.480
+'m going to be talking about in a little bit but yeah
+
+00:17:57.490 --> 00:18:00.950
+but it all because it's the same primitives it all
+
+00:18:00.950 --> 00:18:03.210
+does still work so if you're a third party app that
+
+00:18:03.210 --> 00:18:06.970
+wants to integrate with Streamplace you can subscribe to the Fire
+
+00:18:06.980 --> 00:18:10.940
+hose on the Streamplace stream and you use all the
+
+00:18:10.940 --> 00:18:13.520
+existing app proto libraries that you're already using for everything else
+
+00:18:13.530 --> 00:18:17.020
+so yeah yeah interesting fit I'm not sure how many things
+
+00:18:17.030 --> 00:18:19.590
+like that there are in the atmosphere right now but we're
+
+00:18:19.590 --> 00:18:22.400
+going to see what happens if we do at proto but really
+
+00:18:22.410 --> 00:18:27.050
+really fast cool I don't know if you have any so
+
+00:18:27.110 --> 00:18:33.220
+I think this is kind of I think related to Rudy's
+
+00:18:33.360 --> 00:18:37.900
+talk earlier that I believe these apps will kind of move somewhere
+
+00:18:37.900 --> 00:18:40.980
+between like a bespoke social app but also with like a
+
+00:18:40.980 --> 00:18:44.300
+bunch of extended secondary features to be kind of like a browser
+
+00:18:44.310 --> 00:18:48.680
+too that's what we kind of saw from Skylight's
+
+00:18:48.920 --> 00:18:51.510
+users that it was like there really wasn't any reason not
+
+00:18:51.510 --> 00:18:55.050
+to show all the other stuff that's going on and it
+
+00:18:55.050 --> 00:18:58.520
+was actually really powerful for getting for like kind of delivering a
+
+00:18:58.520 --> 00:19:01.500
+core user experience where it's like hey look like this might
+
+00:19:01.500 --> 00:19:04.700
+be a video first app but there's actually like these posts
+
+00:19:04.710 --> 00:19:06.980
+and they might be related to the stuff that you liked watching
+
+00:19:06.980 --> 00:19:11.700
+as a video and so I think and this kind of then
+
+00:19:11.700 --> 00:19:14.000
+relates to Expo that if we're all kind of doing
+
+00:19:14.000 --> 00:19:16.930
+the same things we can have these libraries and we all end
+
+00:19:17.020 --> 00:19:20.830
+up with like these slightly different versions of browsers and stuff that
+
+00:19:20.830 --> 00:19:23.640
+'s probably what the future looks like cool I don't know
+
+00:19:23.650 --> 00:19:27.780
+if you have anything weird ways using the protocol in unexpected ways
+
+00:19:27.790 --> 00:19:30.040
+you're kind of linked to the protocol yeah we had an
+
+00:19:30.050 --> 00:19:34.400
+unfair advantage on that we actually I mean I guess I can
+
+00:19:34.400 --> 00:19:38.390
+use the answer's not really but two things do come to
+
+00:19:38.390 --> 00:19:40.380
+mind one of them is that I didn't think bridging
+
+00:19:40.380 --> 00:19:42.540
+to ActivityPub would work I told Ryan like don
+
+00:19:42.540 --> 00:19:47.580
+'t even try it and he proved me wrong like big time
+
+00:19:47.590 --> 00:19:51.280
+that works shockingly well so I suppose that in a way
+
+00:19:51.290 --> 00:19:53.580
+is a bit of an abuse of it especially the you know
+
+00:19:53.590 --> 00:19:55.880
+like the automatic kind of mirroring of the accounts and the
+
+00:19:55.880 --> 00:20:02.520
+infrastructure I kind of still can't believe that worked yeah woo
+
+00:20:03.760 --> 00:20:06.480
+what was the other thing I was going to say I think
+
+00:20:06.480 --> 00:20:10.620
+I lost it that's how I said yeah and then kind
+
+00:20:10.620 --> 00:20:12.290
+of on that same note I'm curious for all of you
+
+00:20:12.290 --> 00:20:14.620
+guys if there's anything that you could like snap your fingers
+
+00:20:14.620 --> 00:20:18.610
+now and just ignore all of the technical complexity and implementation if
+
+00:20:18.610 --> 00:20:22.240
+there's something you'd like to be in that protocol oh
+
+00:20:22.260 --> 00:20:23.770
+that's easy I don't want to spoil your talk that
+
+00:20:23.770 --> 00:20:27.280
+one won't spoil my talk it's the permission data system
+
+00:20:27.290 --> 00:20:29.410
+yeah I think everybody's kind of on the same page with
+
+00:20:29.410 --> 00:20:32.270
+that I mean the good news is that like now it's
+
+00:20:32.270 --> 00:20:37.600
+a dedicated work stream right Daniel published his kind of informal version
+
+00:20:37.610 --> 00:20:39.460
+of the proposal that we're making there's a number of
+
+00:20:39.460 --> 00:20:42.260
+different proposals also from the community that have been getting shared so
+
+00:20:42.260 --> 00:20:43.820
+we're going to be able to come out of the conference
+
+00:20:43.830 --> 00:20:46.400
+and start to side by side all of them and drive towards
+
+00:20:46.410 --> 00:20:49.140
+actually having permission data and so I've been saying like okay
+
+00:20:49.140 --> 00:20:51.010
+by the middle of the year let's try to have this
+
+00:20:51.010 --> 00:20:54.510
+thing actually in production and getting to go and I guess we
+
+00:20:54.510 --> 00:20:57.260
+'ll get to look back on the video you know next year
+
+00:20:57.270 --> 00:20:59.900
+and see if I was right or not but that's roughly
+
+00:20:59.910 --> 00:21:02.710
+if I could snap my fingers now I would have it because
+
+00:21:02.710 --> 00:21:05.540
+I think that's the last kind of really big fundamental piece
+
+00:21:05.550 --> 00:21:07.740
+to the technology before we can just start to build any kind
+
+00:21:07.740 --> 00:21:10.860
+of application we want so I'm very excited for that I
+
+00:21:10.860 --> 00:21:16.170
+'m doing good at answering your questions one too early because I
+
+00:21:16.170 --> 00:21:18.760
+would say it's the expo media over quick thing something
+
+00:21:19.080 --> 00:21:22.720
+else I'll throw out there's obviously always I don't
+
+00:21:22.720 --> 00:21:26.020
+have the solution yet but there's obviously always tons of room
+
+00:21:26.030 --> 00:21:28.460
+in taming OAuth complexity that's one of the most
+
+00:21:28.470 --> 00:21:34.060
+you know difficult things for people to implement in particular for us
+
+00:21:34.070 --> 00:21:40.940
+there have been three stream place front ends created by third party
+
+00:21:40.940 --> 00:21:45.640
+developers since the beginning of this conference two days ago which I
+
+00:21:45.640 --> 00:21:47.350
+don't know if that's not like a good review of
+
+00:21:47.350 --> 00:21:50.040
+our front end people are like I gotta make my own but
+
+00:21:50.040 --> 00:21:55.280
+it's awesome that it's possible but it's a really
+
+00:21:55.290 --> 00:21:59.480
+weird interaction because when you log into stream place itself we do
+
+00:21:59.480 --> 00:22:04.020
+server side OAuth and have you know access to your key
+
+00:22:04.030 --> 00:22:07.170
+which is important for live streaming because we update stuff in your
+
+00:22:07.190 --> 00:22:11.120
+repository without you being there taking actions right like when you have
+
+00:22:11.130 --> 00:22:14.610
+a live stream going it updates the time stamps on it and
+
+00:22:14.610 --> 00:22:18.920
+all of that is automated I have no idea yet what the
+
+00:22:18.920 --> 00:22:22.940
+relationship between that and like these third party applications look like are
+
+00:22:22.940 --> 00:22:27.340
+they gonna OAuth to stream place and then to something else
+
+00:22:27.350 --> 00:22:29.560
+and then through this other front end and like add another layer
+
+00:22:29.560 --> 00:22:32.550
+in there is there some way to do these automated interactions when
+
+00:22:32.550 --> 00:22:35.580
+you log in with the other app and you're streaming in
+
+00:22:35.590 --> 00:22:38.220
+I don't know so like that's yeah lots of complexity
+
+00:22:38.230 --> 00:22:40.730
+there that like we just need to figure out stories around all
+
+00:22:40.730 --> 00:22:45.940
+that stuff yeah I'd say for my side the thing that
+
+00:22:45.940 --> 00:22:48.900
+I'd like to add to the protocol other than the permission
+
+00:22:48.900 --> 00:22:53.710
+data would be if we could basically bring like our AI with
+
+00:22:53.710 --> 00:22:57.850
+our data to these applications to have a kind of like an
+
+00:22:57.850 --> 00:23:01.910
+agent that you own so it's not meta's intelligence or
+
+00:23:01.910 --> 00:23:06.660
+personalization system recommending you videos it's your own like paid
+
+00:23:06.670 --> 00:23:12.260
+for Claude or whatever subscription and I think in particular for
+
+00:23:12.260 --> 00:23:15.130
+us we kind of figured out that one of the limitations we
+
+00:23:15.130 --> 00:23:18.400
+were gonna hit is how much personalization we could actually do
+
+00:23:18.410 --> 00:23:24.460
+for Skylight and if it would have made a pretty significant
+
+00:23:24.470 --> 00:23:28.040
+difference if we could have relied on the users themselves to kind
+
+00:23:28.040 --> 00:23:32.620
+of cause that personalization to happen to their app yeah cool
+
+00:23:32.630 --> 00:23:35.550
+and then one final question I guess I think there are a
+
+00:23:35.550 --> 00:23:39.150
+lot of people maybe watching who have seen the app proto but
+
+00:23:39.150 --> 00:23:42.020
+haven't really like experimented with it and I think there
+
+00:23:42.020 --> 00:23:44.080
+is a bunch of technologies like Expo that make it easier
+
+00:23:44.090 --> 00:23:46.620
+but do you guys have any pieces of advice for kind of
+
+00:23:46.630 --> 00:23:48.900
+developers who've looked at it but haven't yet played around
+
+00:23:48.900 --> 00:23:51.260
+with it or maybe just something that the app proto makes super
+
+00:23:51.260 --> 00:23:54.440
+easy that's exciting okay yeah well I've got a little
+
+00:23:54.450 --> 00:23:56.460
+bit of a canned line that I'll hit you with on
+
+00:23:56.460 --> 00:23:59.810
+that so like I would say that Expo and App Pr
+
+00:23:59.810 --> 00:24:02.860
+oto the similarity between them is that they're both web heads
+
+00:24:02.870 --> 00:24:06.860
+invading other things right so like Expo is taking web
+
+00:24:06.860 --> 00:24:10.450
+technology and invading native application development and making it so that
+
+00:24:10.450 --> 00:24:13.220
+you have one shared thing and I think that the app protocol
+
+00:24:13.230 --> 00:24:16.220
+is the same story it's the mentality and ethos of
+
+00:24:16.220 --> 00:24:19.460
+web application developers people that believe in the open web applying that
+
+00:24:19.470 --> 00:24:23.040
+to the server side of things the other commonality is that
+
+00:24:23.040 --> 00:24:26.090
+they both do a lot for you they kind of help you
+
+00:24:26.090 --> 00:24:29.360
+get to where you want to go faster and I think that
+
+00:24:29.360 --> 00:24:32.380
+as Expo has matured a little bit longer than App
+
+00:24:32.380 --> 00:24:34.160
+Proto has as App Proto gets even more mature it
+
+00:24:34.160 --> 00:24:36.680
+'s going to feel even more kind of like back into the
+
+00:24:36.680 --> 00:24:39.050
+service as a protocol in a way where you're getting accounts
+
+00:24:39.050 --> 00:24:44.200
+for free you're getting access to the network by default and
+
+00:24:44.200 --> 00:24:48.930
+increasingly hopefully helping with cold start you know being able to tap
+
+00:24:48.950 --> 00:24:53.680
+into existing activity networks and things like that so yeah I guess
+
+00:24:53.680 --> 00:24:58.370
+the tip would be check the docs and ask the agents because
+
+00:24:58.370 --> 00:25:01.800
+they are getting hooked in cool you want to ask some questions
+
+00:25:01.810 --> 00:25:05.280
+yeah something I think that App Proto is super good for
+
+00:25:05.290 --> 00:25:09.580
+that I think is underutilized right now is real time
+
+00:25:09.590 --> 00:25:14.940
+applications where you get immediately you get immediate you know the UI
+
+00:25:14.940 --> 00:25:17.410
+re-renders as soon as data comes in StreamP
+
+00:25:17.410 --> 00:25:20.470
+lace chat when I first wired it up I thought I was
+
+00:25:20.470 --> 00:25:22.340
+like let's do it this will be funny this will be
+
+00:25:22.340 --> 00:25:23.670
+like a little hacky way we'll do it what I
+
+00:25:23.670 --> 00:25:25.770
+'m going to do is just make a chat message and then
+
+00:25:25.770 --> 00:25:28.260
+push it to the user's PDS and then it goes
+
+00:25:28.270 --> 00:25:31.530
+all the way from that PDS to the relay to the
+
+00:25:31.530 --> 00:25:33.900
+StreamPlace app view and then there's another WebS
+
+00:25:33.900 --> 00:25:35.920
+ocket that goes all the way back to the browser and we
+
+00:25:35.920 --> 00:25:37.730
+'re going to see like oh it'll be funny it'll
+
+00:25:37.730 --> 00:25:39.440
+be like so slow but it'll be like kind of like
+
+00:25:39.440 --> 00:25:42.330
+chat that's working and it's just great it just kicks
+
+00:25:42.480 --> 00:25:46.520
+ass like it's so fast it's like the finality
+
+00:25:46.550 --> 00:25:51.220
+in that like you know we do the standard reactive rendering thing
+
+00:25:51.230 --> 00:25:54.570
+where you type in we like render it in the UI as
+
+00:25:54.570 --> 00:25:56.920
+soon as you type it in but even if I didn't
+
+00:25:56.930 --> 00:26:03.020
+do that the round trip from browser StreamPlace PDS
+
+00:26:03.030 --> 00:26:07.210
+relay StreamPlace browser is it's like a second it
+
+00:26:07.210 --> 00:26:10.300
+'s like so fast and it feels like a totally responsive application
+
+00:26:10.380 --> 00:26:15.760
+yeah and I don't think maybe the missing piece there is
+
+00:26:15.760 --> 00:26:19.480
+like there's not there's not necessarily like a way for
+
+00:26:19.490 --> 00:26:22.500
+a standardized way for an app view and a browser to communicate
+
+00:26:22.510 --> 00:26:25.580
+so maybe that's like a barrier to people to get started
+
+00:26:25.580 --> 00:26:28.590
+with it but like literally just like make the records JSON and
+
+00:26:28.590 --> 00:26:30.980
+send them down the WebSocket and it works super super
+
+00:26:30.980 --> 00:26:36.980
+well cool yeah and I'd say that as a React developer
+
+00:26:36.990 --> 00:26:40.110
+as like my background I got it I like learned about App
+
+00:26:40.110 --> 00:26:42.440
+Proto from Dan Abramov giving a talk and kind
+
+00:26:42.440 --> 00:26:46.260
+of recognizing the same principles that I loved about React were like
+
+00:26:46.260 --> 00:26:49.420
+kind of represented like the composition pattern of how you can have
+
+00:26:49.420 --> 00:26:52.380
+data from these different lexicons and they all come together
+
+00:26:52.390 --> 00:26:56.400
+and yeah I think it's just kind of like those same
+
+00:26:56.400 --> 00:27:00.300
+good concepts applied to the back end fantastic okay well I think
+
+00:27:00.310 --> 00:27:02.400
+we're out of time but thank you guys all so much
+
+00:27:02.410 --> 00:27:04.520
+for being here and thank you all for coming

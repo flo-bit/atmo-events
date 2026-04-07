@@ -1,0 +1,1594 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.940
+If the text is small on some of these slides and you
+
+00:00:05.940 --> 00:00:08.910
+want to follow along, or you want some spoilers, you
+
+00:00:08.910 --> 00:00:11.260
+can get the slides locally.
+
+00:00:11.260 --> 00:00:14.040
+I also just posted the link on my account.
+
+00:00:14.040 --> 00:00:16.940
+Yeah, thanks everybody for coming.
+
+00:00:16.940 --> 00:00:19.130
+I'm going to jump right in.
+
+00:00:19.140 --> 00:00:20.650
+I'm Fig or Phil.
+
+00:00:20.840 --> 00:00:23.750
+You might know me as a bad example.
+
+00:00:23.750 --> 00:00:27.910
+And last year when I was here, I had shipped Const
+
+00:00:27.910 --> 00:00:29.120
+ellation.
+
+00:00:29.130 --> 00:00:33.280
+And since then, I've done a few other things.
+
+00:00:33.280 --> 00:00:40.110
+This talk is about community infrastructure and specifically small scale community infrastructure
+
+00:00:40.110 --> 00:00:40.280
+.
+
+00:00:40.280 --> 00:00:42.800
+And I was trying to think about how to define that scope
+
+00:00:42.830 --> 00:00:43.160
+.
+
+00:00:43.270 --> 00:00:47.420
+And I couldn't, like there's some obvious things that
+
+00:00:47.420 --> 00:00:48.380
+I wanted to say.
+
+00:00:48.380 --> 00:00:51.070
+And like for the purpose of this talk, I ended up
+
+00:00:51.070 --> 00:00:54.230
+just settling on things that's kind of weird that you can
+
+00:00:54.230 --> 00:00:54.910
+just do.
+
+00:00:54.940 --> 00:00:58.000
+App Proto has a lot of this, but I'm
+
+00:00:58.000 --> 00:01:02.900
+just going to be talking about it in the context of small
+
+00:01:02.900 --> 00:01:04.040
+scale infra.
+
+00:01:04.040 --> 00:01:07.960
+You can relay the whole firehose yourself just as like
+
+00:01:07.960 --> 00:01:09.340
+a random person.
+
+00:01:09.340 --> 00:01:12.190
+And that's like kind of weird.
+
+00:01:12.190 --> 00:01:16.090
+I think Twitter had open access to a firehose early
+
+00:01:16.090 --> 00:01:16.550
+on.
+
+00:01:16.550 --> 00:01:18.910
+And that was like really wild.
+
+00:01:18.910 --> 00:01:21.640
+App Proto lets you run the firehose yourself in
+
+00:01:21.640 --> 00:01:23.720
+a much, much more powerful way.
+
+00:01:23.720 --> 00:01:28.460
+And on a full network scale, like Blue Sky, a
+
+00:01:28.530 --> 00:01:32.590
+major social media company could use my relay for the day if
+
+00:01:32.590 --> 00:01:33.470
+they wanted.
+
+00:01:33.470 --> 00:01:35.960
+And there's a lot of reason they wouldn't.
+
+00:01:35.960 --> 00:01:38.570
+But those reasons are not that it wouldn't work.
+
+00:01:38.570 --> 00:01:40.970
+It would actually like everything, you wouldn't notice a difference
+
+00:01:40.970 --> 00:01:41.170
+.
+
+00:01:44.140 --> 00:01:46.320
+You can also just index everything.
+
+00:01:46.320 --> 00:01:47.690
+So that's Constellation.
+
+00:01:47.730 --> 00:01:53.810
+Every single social interaction is a backlink in App Proto
+
+00:01:53.810 --> 00:01:54.090
+.
+
+00:01:54.390 --> 00:01:57.890
+And all of those go into my house, into my living
+
+00:01:57.950 --> 00:01:58.720
+room.
+
+00:01:58.990 --> 00:02:01.540
+And this googly-eyed Raspberry Pi takes note of them
+
+00:02:01.540 --> 00:02:01.740
+.
+
+00:02:04.600 --> 00:02:06.410
+I'm going to talk a little bit about Constellation
+
+00:02:06.410 --> 00:02:06.600
+.
+
+00:02:06.600 --> 00:02:09.320
+It's really simple.
+
+00:02:09.410 --> 00:02:12.260
+So I made this diagram that makes it look really complicated.
+
+00:02:12.260 --> 00:02:16.720
+The firehose comes in with all the posts and blocks
+
+00:02:16.720 --> 00:02:20.090
+and likes and everything that's happening on the network called records
+
+00:02:20.090 --> 00:02:20.250
+.
+
+00:02:20.250 --> 00:02:22.770
+Constellation opens each of those up and searches through for
+
+00:02:22.770 --> 00:02:24.060
+anything that looks like a link.
+
+00:02:24.200 --> 00:02:27.460
+And it doesn't matter what type it is.
+
+00:02:27.460 --> 00:02:30.710
+If something looks like a link, it will take note of
+
+00:02:30.710 --> 00:02:31.500
+where it came from.
+
+00:02:31.500 --> 00:02:34.890
+And then just sort of put those in buckets of backlinks
+
+00:02:34.890 --> 00:02:35.120
+.
+
+00:02:35.120 --> 00:02:37.440
+So you can say, what are all the replies to this
+
+00:02:37.780 --> 00:02:38.120
+post?
+
+00:02:38.120 --> 00:02:41.400
+And Constellation can tell you because it's indexed
+
+00:02:41.400 --> 00:02:44.700
+a bucket of replies to every single post that's ever happened
+
+00:02:44.700 --> 00:02:45.980
+that you can just ask about.
+
+00:02:49.980 --> 00:02:54.300
+So Rudy mentioned the follower counts that are really important to everybody
+
+00:02:54.300 --> 00:02:54.410
+.
+
+00:02:54.640 --> 00:02:57.200
+And this is an example of where you need that kind of
+
+00:02:57.200 --> 00:02:59.840
+aggregation across the network to be able to just show this
+
+00:02:59.880 --> 00:03:01.940
+number on someone's profile.
+
+00:03:01.940 --> 00:03:06.880
+So that's something that you can get from Blue Sky.
+
+00:03:07.070 --> 00:03:10.280
+Their sort of like server backend has an API that can get
+
+00:03:10.280 --> 00:03:14.940
+you lots of information about the profile, including doing this kind
+
+00:03:14.940 --> 00:03:20.460
+of network aggregation of everybody that follows Sharpie.
+
+00:03:20.460 --> 00:03:25.580
+You just give it their identity and you say get profile and
+
+00:03:25.580 --> 00:03:27.120
+you get an answer back.
+
+00:03:27.120 --> 00:03:28.990
+So the same thing with Constellation.
+
+00:03:29.050 --> 00:03:32.340
+You have to give it sort of one more thing, which
+
+00:03:32.340 --> 00:03:35.120
+is like, where are the links coming from?
+
+00:03:35.140 --> 00:03:38.080
+So in this case, we're asking about follows.
+
+00:03:38.080 --> 00:03:41.700
+And within a follow record, the link to define a follow
+
+00:03:41.700 --> 00:03:43.440
+is the subject of the follow.
+
+00:03:44.240 --> 00:03:46.660
+And then Constellation will kind of give you exactly the
+
+00:03:46.830 --> 00:03:49.920
+same kind of information, but in a generic general purpose way
+
+00:03:49.920 --> 00:03:53.230
+that's not specific to Blue Sky, works for every app
+
+00:03:53.290 --> 00:03:53.680
+, Proto app.
+
+00:03:53.680 --> 00:03:57.470
+People use it.
+
+00:03:57.570 --> 00:04:02.340
+And people use it a lot more recently as well, which
+
+00:04:02.340 --> 00:04:03.440
+I'll come back to in a second.
+
+00:04:08.240 --> 00:04:12.540
+This is all pretty low cost to run because it's running
+
+00:04:12.540 --> 00:04:15.680
+on Raspberry Pi at my house.
+
+00:04:15.680 --> 00:04:18.400
+So something like spores.
+
+00:04:18.400 --> 00:04:21.440
+garden, when you have it show you the series of
+
+00:04:21.570 --> 00:04:26.660
+steps that one of your mushroom spores has, or whatever
+
+00:04:26.660 --> 00:04:29.050
+it is, has like gotten to you, it will reach
+
+00:04:29.050 --> 00:04:31.680
+out to my living room, Cassiopeia up there
+
+00:04:31.680 --> 00:04:33.840
+, and it will tell them.
+
+00:04:33.840 --> 00:04:39.450
+There's a problem with this, which is my internet is
+
+00:04:39.560 --> 00:04:42.780
+from an internet service provider that gives me a dynamic IP address
+
+00:04:42.780 --> 00:04:42.970
+.
+
+00:04:42.970 --> 00:04:45.580
+And there's also just one Raspberry Pi.
+
+00:04:45.630 --> 00:04:49.110
+And if it crashes then a lot of apps have issues.
+
+00:04:50.720 --> 00:04:59.370
+So, I had a support to buy this little
+
+00:04:59.400 --> 00:05:03.440
+micro PC that runs a hot failover, also at my
+
+00:05:03.440 --> 00:05:03.670
+house.
+
+00:05:03.680 --> 00:05:10.030
+And if the Raspberry Pi has any issues, then we just
+
+00:05:10.030 --> 00:05:12.320
+failover to the secondary instance.
+
+00:05:12.320 --> 00:05:14.280
+So, we have like a little bit of redundancy fail
+
+00:05:14.280 --> 00:05:15.360
+over happening here.
+
+00:05:15.360 --> 00:05:19.420
+I also don't actually really want to put my even dynamic
+
+00:05:19.420 --> 00:05:21.840
+IP directly on the internet.
+
+00:05:21.840 --> 00:05:26.480
+So, I have this little $5 a month cloud server
+
+00:05:26.480 --> 00:05:30.010
+VPS that acts as a reverse proxy, gives me some
+
+00:05:30.190 --> 00:05:32.640
+nice things, like I do TLS termination there,
+
+00:05:32.640 --> 00:05:35.670
+caching and rate limiting, and then it's just the
+
+00:05:35.670 --> 00:05:39.220
+upstream configuration in NGINX over tail scale to get
+
+00:05:39.220 --> 00:05:41.680
+to my house and I don't have to worry about dynamic
+
+00:05:41.680 --> 00:05:42.040
+IPs.
+
+00:05:42.040 --> 00:05:43.800
+So, we're at $5 a month to do this
+
+00:05:43.840 --> 00:05:43.840
+.
+
+00:05:43.840 --> 00:05:47.550
+But we also have a new single point of failure, which
+
+00:05:47.590 --> 00:05:49.840
+is that $5 a month VPS that needs to be
+
+00:05:49.840 --> 00:05:52.340
+updated and restarted and stuff from time to time.
+
+00:05:52.440 --> 00:05:54.480
+So, we do the same thing.
+
+00:05:56.960 --> 00:05:59.570
+I put one on DigitalOcean and one on Vulture
+
+00:05:59.570 --> 00:06:04.960
+, so Constellation can survive an entire platform-wide
+
+00:06:04.960 --> 00:06:06.570
+outage on DigitalOcean if it goes down, as
+
+00:06:06.570 --> 00:06:08.640
+long as Vulture and DigitalOcean don't go down
+
+00:06:08.640 --> 00:06:09.200
+at the same time.
+
+00:06:09.200 --> 00:06:13.840
+How do you load balance in front of that?
+
+00:06:13.840 --> 00:06:17.900
+It's not a load balancer for reasons that if anybody
+
+00:06:18.000 --> 00:06:20.570
+wants to talk about, we can talk about after.
+
+00:06:20.600 --> 00:06:23.010
+But for the moment, it's just DNS-based load
+
+00:06:23.010 --> 00:06:27.200
+balancing, which in practice with two instances works really well.
+
+00:06:27.200 --> 00:06:31.410
+DNS is pretty reliable, but I guess I would get taken
+
+00:06:31.410 --> 00:06:32.670
+down by a DNS outage.
+
+00:06:32.670 --> 00:06:36.300
+And things just kind of like automatically fail over between them.
+
+00:06:37.280 --> 00:06:39.970
+So, this is up to $10 a month now for
+
+00:06:39.970 --> 00:06:41.360
+Constellation.
+
+00:06:41.360 --> 00:06:47.950
+Running at home still has challenges.
+
+00:06:48.000 --> 00:06:52.990
+Last summer, the fiber connection to my house was cut at
+
+00:06:53.030 --> 00:06:57.280
+the distribution box accidentally, presumably.
+
+00:06:57.280 --> 00:07:01.040
+And so, I was able at the time to like t
+
+00:07:01.170 --> 00:07:07.040
+ether over cellular for a couple days until a tech could come
+
+00:07:07.040 --> 00:07:07.820
+out to fix it.
+
+00:07:07.820 --> 00:07:10.340
+I don't think at the current scale of use that would
+
+00:07:10.530 --> 00:07:11.340
+actually work.
+
+00:07:11.850 --> 00:07:16.580
+But I'm looking at maybe getting a cable secondary internet connection
+
+00:07:16.930 --> 00:07:17.060
+.
+
+00:07:17.060 --> 00:07:21.520
+I had a power outage in January that was longer than
+
+00:07:21.520 --> 00:07:23.530
+my battery backup UPS runtime.
+
+00:07:23.530 --> 00:07:26.060
+So, we had a one-hour downtime of Constell
+
+00:07:26.260 --> 00:07:27.250
+ation for that.
+
+00:07:27.280 --> 00:07:32.290
+But it's very cheap to do all this, and it
+
+00:07:32.290 --> 00:07:33.600
+'s very low-tech.
+
+00:07:33.600 --> 00:07:36.290
+And the thing that I like about low-tech is that
+
+00:07:36.290 --> 00:07:38.800
+nothing really goes wrong generally.
+
+00:07:38.800 --> 00:07:42.880
+And when they do, they're usually really easy to figure
+
+00:07:42.880 --> 00:07:44.720
+out what's going on and debug.
+
+00:07:44.720 --> 00:07:46.870
+And I guess just in case anybody's still worried about this
+
+00:07:46.870 --> 00:07:50.860
+, like running at my house, there's also public backups
+
+00:07:50.860 --> 00:07:54.680
+of the Constellation database that are pushed every four hours
+
+00:07:54.680 --> 00:07:56.080
+to object storage.
+
+00:07:56.080 --> 00:07:59.550
+You can get it yourself and restore a full copy of Const
+
+00:07:59.550 --> 00:08:01.300
+ellation to run if you want.
+
+00:08:01.300 --> 00:08:05.460
+And it also means that if something catastrophic happens at my house
+
+00:08:05.460 --> 00:08:08.060
+, I can be back up in the cloud within some hours
+
+00:08:08.060 --> 00:08:08.310
+.
+
+00:08:08.610 --> 00:08:12.320
+But I don't have to pay for that in the meantime
+
+00:08:12.320 --> 00:08:13.760
+other than the object storage.
+
+00:08:13.760 --> 00:08:22.060
+We're going to get out of Microcosm specific
+
+00:08:22.130 --> 00:08:24.200
+in a second, but I did want to just kind of
+
+00:08:24.200 --> 00:08:27.630
+follow Constellation a little further than I did last year
+
+00:08:27.630 --> 00:08:30.260
+, which is that it's only storing the links.
+
+00:08:30.260 --> 00:08:33.990
+It's not storing any like record contents from Constellation
+
+00:08:33.990 --> 00:08:34.320
+.
+
+00:08:34.320 --> 00:08:36.830
+So, when you ask for all the replies to a post
+
+00:08:37.040 --> 00:08:40.920
+, you might get like this thread of many responses, but
+
+00:08:40.920 --> 00:08:44.280
+you have to go and fetch each of those individually to render
+
+00:08:44.310 --> 00:08:45.170
+a UI like this.
+
+00:08:45.360 --> 00:08:50.480
+And in the protocol, we have get record sync or repo
+
+00:08:50.480 --> 00:08:51.680
+versions.
+
+00:08:51.680 --> 00:08:54.960
+And if the PDS has that record is offline, then
+
+00:08:54.960 --> 00:08:59.360
+you might be in luck if you put your request through Sl
+
+00:08:59.360 --> 00:09:03.760
+ingshot, which is an edge record cache.
+
+00:09:03.760 --> 00:09:06.480
+It keeps a cache of the firehose and then a
+
+00:09:06.610 --> 00:09:10.720
+cache of requested identities and records from them so that you have
+
+00:09:10.720 --> 00:09:13.440
+much faster responses for get record.
+
+00:09:13.440 --> 00:09:16.060
+And if it's in the cache, then you don't
+
+00:09:16.080 --> 00:09:17.360
+need to worry about availability.
+
+00:09:17.360 --> 00:09:25.360
+And you can also proxy your request Constellation through
+
+00:09:25.360 --> 00:09:27.920
+Slingshot and have it hydrate everything on this way
+
+00:09:27.920 --> 00:09:28.240
+out.
+
+00:09:28.240 --> 00:09:31.900
+So, you can do one single request to get that thread
+
+00:09:31.980 --> 00:09:34.960
+UI fully hydrated on the way out.
+
+00:09:34.960 --> 00:09:38.780
+Rudy mentioned like record hydration is just that one above the water
+
+00:09:38.800 --> 00:09:40.050
+thing of building it up to you.
+
+00:09:40.050 --> 00:09:42.960
+And I don't want to pretend that I'm saying anything
+
+00:09:42.960 --> 00:09:47.520
+otherwise, but I think this can get you pretty far.
+
+00:09:47.870 --> 00:09:57.200
+I'm going to just show
+
+00:09:57.200 --> 00:10:01.150
+these two graphs from data that I pulled yesterday from another micro
+
+00:10:01.150 --> 00:10:04.360
+cosm service called UFOs, which tracks some statistics about
+
+00:10:04.410 --> 00:10:05.520
+every lexicon that comes through the firehose.
+
+00:10:05.520 --> 00:10:12.230
+I think this one might surprise some people given how much hype
+
+00:10:12.240 --> 00:10:14.260
+there is around the atmosphere.
+
+00:10:14.260 --> 00:10:17.680
+The top of that y-axis is 15,000 unique
+
+00:10:17.680 --> 00:10:18.000
+people.
+
+00:10:18.000 --> 00:10:22.640
+We've never broken 15,000 unique people using non-
+
+00:10:22.640 --> 00:10:24.310
+blue sky apps within a week.
+
+00:10:24.310 --> 00:10:26.400
+It's small.
+
+00:10:26.400 --> 00:10:28.720
+It's early.
+
+00:10:28.720 --> 00:10:34.890
+And like the trend from like after the conference last year for
+
+00:10:34.890 --> 00:10:37.360
+most of the year was not exciting.
+
+00:10:37.360 --> 00:10:41.340
+I don't actually, I didn't have time to figure
+
+00:10:41.340 --> 00:10:43.880
+out what this one spike was earlier, but I do want
+
+00:10:44.050 --> 00:10:46.830
+to just like point to that last kind of two or three
+
+00:10:46.830 --> 00:10:49.190
+months at the end there that kind of corresponded to the
+
+00:10:49.190 --> 00:10:53.120
+rise that I have in stuff using microcosm.
+
+00:10:53.120 --> 00:10:57.250
+The orange one with question marks is there because that's actually
+
+00:10:57.250 --> 00:10:59.730
+only one day of the weekly bucket.
+
+00:10:59.730 --> 00:11:01.750
+So this bucket is still rising up.
+
+00:11:01.750 --> 00:11:04.080
+And I, and I think, I think this kind of
+
+00:11:04.080 --> 00:11:04.950
+more recent thing.
+
+00:11:04.960 --> 00:11:05.200
+Yeah.
+
+00:11:05.200 --> 00:11:06.400
+Oh, nice.
+
+00:11:06.400 --> 00:11:08.000
+Nice.
+
+00:11:08.010 --> 00:11:09.260
+Awesome.
+
+00:11:09.260 --> 00:11:09.700
+Awesome.
+
+00:11:09.770 --> 00:11:11.120
+Yeah.
+
+00:11:11.120 --> 00:11:18.400
+These charts kind of show something interesting together, like these two
+
+00:11:18.400 --> 00:11:20.600
+, which are basically the same thing versus the one on the
+
+00:11:20.600 --> 00:11:24.700
+last slide, which is that even though uptake among users
+
+00:11:24.780 --> 00:11:30.240
+has been slow, uptake among developers has been steady.
+
+00:11:30.240 --> 00:11:33.730
+And I think that's why this like lag and now we
+
+00:11:33.730 --> 00:11:34.780
+'re seeing the growth.
+
+00:11:34.780 --> 00:11:36.250
+Like I, I think it's early.
+
+00:11:36.250 --> 00:11:39.120
+I don't think these are actually pessimistic slides.
+
+00:11:39.120 --> 00:11:44.030
+But yeah, so more than 10 weekly active users using a
+
+00:11:44.030 --> 00:11:46.900
+given lexicon or data type bucketed, we've
+
+00:11:47.000 --> 00:11:49.110
+got like, you know, almost 80 of them now,
+
+00:11:49.110 --> 00:11:52.540
+lexicon groups that have more than 10 people using them
+
+00:11:52.640 --> 00:11:53.600
+at least one time in a week.
+
+00:11:53.600 --> 00:11:57.920
+Okay.
+
+00:11:57.920 --> 00:11:59.910
+I'm doing okay on time.
+
+00:11:59.910 --> 00:12:02.240
+I think so I'm going to say this part.
+
+00:12:02.240 --> 00:12:06.480
+I said I would talk about economics.
+
+00:12:06.480 --> 00:12:09.310
+It's kind of boring, but end of 2025, I
+
+00:12:09.430 --> 00:12:13.540
+pulled some numbers and I was getting around $200 after fees
+
+00:12:13.570 --> 00:12:19.680
+from people sponsoring me on GitHub and Ko-Fi or coffee
+
+00:12:19.680 --> 00:12:22.680
+or however you say it, which with some of the more
+
+00:12:22.990 --> 00:12:26.240
+expensive cloud servers for Slingshot and stuff netted me
+
+00:12:26.240 --> 00:12:27.360
+about $33 a month.
+
+00:12:27.360 --> 00:12:29.280
+I'm getting rich.
+
+00:12:29.280 --> 00:12:35.440
+I've gotten some grants that have helped.
+
+00:12:35.440 --> 00:12:41.260
+Shout out Haifa, who gave me a really generous donation
+
+00:12:41.260 --> 00:12:42.220
+recently.
+
+00:12:42.220 --> 00:12:45.420
+And UpCloud sponsored a lot of the PLC stuff I
+
+00:12:45.420 --> 00:12:47.120
+was doing for hosting.
+
+00:12:47.120 --> 00:12:53.590
+I'm going to be building Hubble soon, which has come
+
+00:12:53.590 --> 00:12:57.640
+with a grant from Blue Sky and will come with operating expenses
+
+00:12:57.640 --> 00:12:58.880
+for the year I have to run it.
+
+00:12:58.880 --> 00:13:01.840
+I don't know how much it's going to cost yet
+
+00:13:01.840 --> 00:13:03.740
+, because I haven't built it.
+
+00:13:03.740 --> 00:13:08.720
+But in 2024, running the close comparable existing thing wasn't
+
+00:13:09.030 --> 00:13:09.280
+cheap.
+
+00:13:09.280 --> 00:13:15.560
+Since I mentioned relays, so we had that $15
+
+00:13:15.560 --> 00:13:18.220
+3 a month in 2024.
+
+00:13:18.310 --> 00:13:22.220
+Last year at the conference, there was somebody trying to run
+
+00:13:22.220 --> 00:13:23.830
+$2 million to run a relay.
+
+00:13:23.870 --> 00:13:25.760
+We can skip past that.
+
+00:13:27.040 --> 00:13:29.730
+Future ran it on a Raspberry Pi after that because non-
+
+00:13:29.730 --> 00:13:32.720
+archival relays, so not what I'm doing with
+
+00:13:32.720 --> 00:13:34.460
+Hubble, are cheap.
+
+00:13:34.460 --> 00:13:37.760
+I got one up in the cloud for $30 a month
+
+00:13:37.760 --> 00:13:39.760
+the month after that.
+
+00:13:39.910 --> 00:13:42.830
+Got it down to $18 on a different provider.
+
+00:13:42.830 --> 00:13:45.490
+Brian did it for $34 a month and wrote it up
+
+00:13:45.490 --> 00:13:46.560
+in a nice post.
+
+00:13:46.560 --> 00:13:51.140
+And last month, I got one working on a under $
+
+00:13:51.170 --> 00:13:52.820
+5 a month VPS.
+
+00:13:53.210 --> 00:14:01.370
+The network is growing, but it
+
+00:14:01.370 --> 00:14:08.000
+'s weird that you can just run infra pretty affordably.
+
+00:14:08.000 --> 00:14:12.310
+These are some other ways I think I might be able to
+
+00:14:12.310 --> 00:14:13.810
+make money and some ideas.
+
+00:14:13.810 --> 00:14:16.470
+But this is actually what I want to get to, which
+
+00:14:16.470 --> 00:14:20.110
+is, I don't know, why do people do weird
+
+00:14:20.240 --> 00:14:22.330
+things in AppProto?
+
+00:14:22.330 --> 00:14:28.000
+I didn't think my answers alone would be very interesting.
+
+00:14:28.000 --> 00:14:34.540
+I reached out to 10 people that are running relays or
+
+00:14:34.600 --> 00:14:38.000
+APIs or other things on a very small scale.
+
+00:14:38.000 --> 00:14:40.480
+And I got 10 responses back.
+
+00:14:40.480 --> 00:14:42.910
+Shout out to all those people, some in this room.
+
+00:14:42.910 --> 00:14:43.600
+Thank you.
+
+00:14:43.600 --> 00:14:47.890
+And yeah, I realized that I had never asked any of
+
+00:14:47.890 --> 00:14:50.350
+them why they do it, and I didn't really know
+
+00:14:50.390 --> 00:14:50.640
+.
+
+00:14:50.640 --> 00:14:56.800
+So I tried to consolidate some of those answers here.
+
+00:14:56.800 --> 00:15:01.110
+A lot of people do it for fun, to learn things
+
+00:15:01.110 --> 00:15:05.280
+, or they needed something for themselves and decided to open it
+
+00:15:05.280 --> 00:15:07.600
+up, or to show what's possible.
+
+00:15:07.600 --> 00:15:09.040
+These were like recurring themes.
+
+00:15:09.040 --> 00:15:18.320
+I think
+
+00:15:18.320 --> 00:15:21.350
+some of the real idealism came out in these.
+
+00:15:21.360 --> 00:15:23.870
+I think this is the best chance we've had in a
+
+00:15:23.870 --> 00:15:27.440
+long time to make this social internet more independent for the few
+
+00:15:27.570 --> 00:15:29.100
+mostly evil big tech companies.
+
+00:15:32.880 --> 00:15:34.240
+I asked people how they pay for it.
+
+00:15:34.240 --> 00:15:39.350
+Almost 100% out of pocket at this kind of like small
+
+00:15:39.350 --> 00:15:41.130
+scale, which I guess makes sense.
+
+00:15:41.130 --> 00:15:43.680
+But people do that by running things cheap.
+
+00:15:43.680 --> 00:15:48.390
+Some people, one person did it out of pocket because they
+
+00:15:48.390 --> 00:15:53.310
+can't accept money or grants due to work or other reasons
+
+00:15:53.310 --> 00:15:53.440
+.
+
+00:15:55.360 --> 00:16:00.110
+GitHub and CoFi support to do this kind of stuff is
+
+00:16:00.170 --> 00:16:04.270
+a huge recurring theme across everybody that answered this.
+
+00:16:04.270 --> 00:16:07.160
+Small grants and in some cases people are able to run things
+
+00:16:07.330 --> 00:16:10.640
+that fit within free offerings from services.
+
+00:16:21.600 --> 00:16:24.690
+So someone said they're blessed to have enough GitHub and Co
+
+00:16:24.690 --> 00:16:26.370
+Fi donations to cover costs.
+
+00:16:26.400 --> 00:16:31.840
+Yeah, small grants and then out of pocket and then supported
+
+00:16:31.840 --> 00:16:31.840
+.
+
+00:16:31.840 --> 00:16:36.020
+Again, if you want to read more of these, you
+
+00:16:36.020 --> 00:16:37.760
+can get the slides.
+
+00:16:37.760 --> 00:16:45.060
+I asked what people thought about sort of like small indie infrastructure
+
+00:16:45.060 --> 00:16:47.980
+in the long term, keeping it going or like what they
+
+00:16:47.980 --> 00:16:50.980
+think about when they think about winding it down when maybe people
+
+00:16:51.040 --> 00:16:51.680
+start using it.
+
+00:16:51.680 --> 00:16:56.720
+So it either has to become too expensive or I get bored
+
+00:16:56.720 --> 00:16:57.520
+of posting my infra.
+
+00:16:57.520 --> 00:16:59.200
+Neither are true at the moment.
+
+00:16:59.200 --> 00:17:03.040
+Or I think if things go well, people like you and
+
+00:17:03.070 --> 00:17:06.050
+Bailey and others will be able to make a living providing hosting
+
+00:17:06.050 --> 00:17:06.210
+.
+
+00:17:06.210 --> 00:17:06.960
+We can dream.
+
+00:17:09.200 --> 00:17:12.100
+Yeah, unless things get massively expensive, then people kind of
+
+00:17:12.100 --> 00:17:13.400
+just want to keep it online.
+
+00:17:13.440 --> 00:17:18.860
+Not everybody had optimistic takes here.
+
+00:17:18.880 --> 00:17:22.880
+Keep stuff running because I have to and it has become somewhat
+
+00:17:22.880 --> 00:17:25.120
+load-bearing for the ecosystem, was a response.
+
+00:17:25.120 --> 00:17:32.690
+But people also expressed a lot of thought in how they were
+
+00:17:32.730 --> 00:17:36.120
+thinking about how people might get off of their services if they
+
+00:17:36.120 --> 00:17:36.880
+had to wind it down.
+
+00:17:36.880 --> 00:17:41.030
+So providing like open source codes that people can run it themselves
+
+00:17:41.030 --> 00:17:43.160
+and it's cheap because it has to be cheap because these
+
+00:17:43.160 --> 00:17:46.730
+are small-scale operators and trying to make those migration paths
+
+00:17:46.730 --> 00:17:47.200
+exist.
+
+00:17:47.210 --> 00:17:54.690
+Yeah, I really don't see how developers ever break even
+
+00:17:54.740 --> 00:17:57.450
+or make money off projects like this and the company is too
+
+00:17:57.450 --> 00:18:01.040
+inconsistent with who it chooses to fund or how often it funds
+
+00:18:01.130 --> 00:18:01.280
+them.
+
+00:18:02.240 --> 00:18:03.200
+It was a thought.
+
+00:18:03.200 --> 00:18:10.480
+I asked what people thought the future of social infrastructure will look
+
+00:18:10.480 --> 00:18:10.690
+like.
+
+00:18:10.720 --> 00:18:16.980
+Medium and large-scale community PDSs like Black Sky
+
+00:18:16.980 --> 00:18:18.160
+, North Sky, Euro Sky.
+
+00:18:18.160 --> 00:18:21.860
+I would include Bridgie in here, but that came up
+
+00:18:21.860 --> 00:18:22.480
+a lot.
+
+00:18:22.480 --> 00:18:25.540
+I think people really do see that as the way it's
+
+00:18:25.540 --> 00:18:25.920
+going to go.
+
+00:18:25.920 --> 00:18:29.120
+Personally, I think we're also going to see like a
+
+00:18:29.120 --> 00:18:34.270
+lot more of people like these dozen or so like independent tiny
+
+00:18:34.310 --> 00:18:36.240
+small-scale operators as well.
+
+00:18:36.240 --> 00:18:41.920
+Maybe it'll be more centralized, more mindless.
+
+00:18:41.920 --> 00:18:42.640
+Maybe I'll be wrong.
+
+00:18:42.640 --> 00:18:42.880
+Yeah.
+
+00:18:42.880 --> 00:18:49.680
+How could communities or companies better support came up a little bit
+
+00:18:49.680 --> 00:18:49.840
+.
+
+00:18:49.840 --> 00:18:54.850
+Some of the coolest things to run that maybe is only at
+
+00:18:54.850 --> 00:18:58.560
+a prototype stage needs a lot of resources and more than you
+
+00:18:58.560 --> 00:19:00.870
+might be able to do at like a very small-scale
+
+00:19:00.870 --> 00:19:02.320
+IndieInfra operator.
+
+00:19:02.320 --> 00:19:04.480
+And so that came up a few times.
+
+00:19:04.480 --> 00:19:06.470
+Like, is there a way we can kind of pool community
+
+00:19:06.470 --> 00:19:11.040
+resources to provide that sort of like available infrastructure to try some
+
+00:19:11.170 --> 00:19:15.600
+experiments that would be driven on that sort of like smaller individual
+
+00:19:15.600 --> 00:19:15.920
+basis?
+
+00:19:19.200 --> 00:19:22.340
+When I was getting through these, I also realized that like
+
+00:19:22.340 --> 00:19:26.010
+I have a bunch of people supporting me on GitHub and Ko
+
+00:19:26.010 --> 00:19:29.760
+Fi and I've never really like directly asked any of them
+
+00:19:29.760 --> 00:19:33.150
+like, "Why do you support me?" So I got
+
+00:19:33.150 --> 00:19:38.560
+eight people to reply to some questions that I sent to people
+
+00:19:38.560 --> 00:19:42.570
+who are supporting folks running small-scale IndieInf
+
+00:19:42.570 --> 00:19:42.880
+ra.
+
+00:19:46.160 --> 00:19:47.360
+These are in the reverse order.
+
+00:19:47.360 --> 00:19:51.440
+So what those people, so supporters of small-scale Ind
+
+00:19:51.440 --> 00:19:54.690
+ieInfra think that the future of social infrastructure will
+
+00:19:54.690 --> 00:19:57.360
+look like more big companies involved in AppProto.
+
+00:19:57.360 --> 00:19:58.560
+This is all like AppProto.
+
+00:19:58.560 --> 00:20:02.860
+A mix of software as a service and public services.
+
+00:20:02.880 --> 00:20:06.150
+I'm pretty hopeful about that one and optimistic.
+
+00:20:06.370 --> 00:20:10.930
+We have some examples that people pointed to like Debian,
+
+00:20:10.930 --> 00:20:13.580
+Wikimedia, a couple others that I forgot to put
+
+00:20:13.580 --> 00:20:14.080
+on here.
+
+00:20:14.080 --> 00:20:20.140
+And yeah, people don't think there will be a future
+
+00:20:20.230 --> 00:20:22.440
+where social Infra isn't free for the public to use
+
+00:20:22.440 --> 00:20:22.580
+.
+
+00:20:22.580 --> 00:20:26.580
+I think that's not disproven so far by App
+
+00:20:26.730 --> 00:20:27.840
+Proto.
+
+00:20:27.840 --> 00:20:31.650
+And yeah, shout out to QuickSlice, where you
+
+00:20:31.650 --> 00:20:34.840
+can run your own backend, self-host, pull in
+
+00:20:34.850 --> 00:20:36.850
+just what you need from the big network, if that's
+
+00:20:36.850 --> 00:20:37.760
+what you're trying to do.
+
+00:20:37.760 --> 00:20:45.900
+Laptops with batteries, with swelling batteries
+
+00:20:45.900 --> 00:20:48.400
+, yet handle 1000+ concurrent users just fine.
+
+00:20:48.400 --> 00:20:51.350
+I think this came from like the theme of we can just
+
+00:20:51.350 --> 00:20:55.920
+make things more cheap by putting effort into making them efficient,
+
+00:20:55.920 --> 00:20:58.330
+as we've seen by small-scale operators in AppPr
+
+00:20:58.330 --> 00:20:58.740
+oto.
+
+00:21:06.560 --> 00:21:11.520
+So from the funders' perspective, supporting small-scale
+
+00:21:11.520 --> 00:21:14.150
+people, thinking about the future and winding it down, I
+
+00:21:14.150 --> 00:21:15.280
+really like this one.
+
+00:21:15.280 --> 00:21:16.900
+Not on my watch.
+
+00:21:17.010 --> 00:21:22.870
+As it expands, financial sustainability might become more challenging, but
+
+00:21:22.870 --> 00:21:25.590
+due to the immense benefits it provides, I'm optimistic that
+
+00:21:25.600 --> 00:21:26.720
+solutions can be found.
+
+00:21:26.720 --> 00:21:28.240
+I kind of feel this way too.
+
+00:21:28.240 --> 00:21:33.210
+I think as the whole network grows, the resources of everybody
+
+00:21:33.210 --> 00:21:35.900
+to support small-scale things also grows.
+
+00:21:35.920 --> 00:21:42.170
+Probably there will be some business models or some donation-based
+
+00:21:42.170 --> 00:21:44.560
+nonprofits that can support what's needed in the long term.
+
+00:21:44.560 --> 00:21:46.560
+But yeah.
+
+00:21:46.560 --> 00:21:51.250
+And some people feel comfortable donating right now, but don't
+
+00:21:51.250 --> 00:21:53.550
+know how long that will be the case for themselves or others
+
+00:21:53.550 --> 00:21:53.760
+.
+
+00:21:53.760 --> 00:21:57.710
+So again, mixed, it's not all like pure optimism
+
+00:21:57.710 --> 00:21:59.840
+around this, but I think everybody is like kind of,
+
+00:21:59.880 --> 00:22:02.980
+I would say, guarded optimism or cautious for the most part
+
+00:22:02.980 --> 00:22:03.200
+.
+
+00:22:03.310 --> 00:22:07.070
+Open-sourced.
+
+00:22:07.070 --> 00:22:11.370
+And I think like we talk about the permissionlessness of App
+
+00:22:11.370 --> 00:22:12.850
+Proto a lot as well.
+
+00:22:12.850 --> 00:22:16.550
+And yeah, what ends up critical will be replaced if needed
+
+00:22:16.550 --> 00:22:16.780
+.
+
+00:22:16.780 --> 00:22:20.530
+Um, because this is a really small-scale operations and
+
+00:22:20.820 --> 00:22:23.280
+you can just replace it.
+
+00:22:23.280 --> 00:22:26.920
+I'm trying really hard not to say you can just do
+
+00:22:26.930 --> 00:22:27.440
+things.
+
+00:22:27.560 --> 00:22:36.940
+Why do people support
+
+00:22:36.990 --> 00:22:37.670
+public infra?
+
+00:22:37.700 --> 00:22:41.470
+The biggest one was that they were in a position to be
+
+00:22:41.470 --> 00:22:42.250
+able to do it.
+
+00:22:42.370 --> 00:22:44.800
+Um, they want to see the atmosphere succeed, and they
+
+00:22:44.800 --> 00:22:47.450
+think that very small-scale operators are a part of that
+
+00:22:47.450 --> 00:22:47.680
+.
+
+00:22:47.890 --> 00:22:50.890
+Um, the option to self-host came up a lot
+
+00:22:50.890 --> 00:22:51.060
+.
+
+00:22:51.060 --> 00:22:53.280
+Um, just the fact that you can do that for these
+
+00:22:53.320 --> 00:22:56.770
+different components like PDS, of course, but not just
+
+00:22:56.770 --> 00:22:57.540
+the PDS.
+
+00:22:57.540 --> 00:23:02.000
+Um, it provides that kind of assurance that people want.
+
+00:23:02.000 --> 00:23:06.310
+Um, this one was cool.
+
+00:23:06.320 --> 00:23:08.910
+Like, I might not be using most of the services I
+
+00:23:08.920 --> 00:23:11.460
+sponsor for, but I know others are and may not be
+
+00:23:11.460 --> 00:23:12.880
+able to sponsor it themselves.
+
+00:23:12.880 --> 00:23:15.560
+Like, I would say even more than the people running,
+
+00:23:15.560 --> 00:23:19.370
+uh, infrastructure, the responses from people funding it were like
+
+00:23:19.630 --> 00:23:23.870
+really this kind of, uh, beautiful, um, community
+
+00:23:23.870 --> 00:23:27.760
+-oriented sentiments around just, like, supporting the ecosystem.
+
+00:23:28.030 --> 00:23:34.240
+Um, this came up a lot.
+
+00:23:34.240 --> 00:23:36.820
+It's important to support maintainers of projects I build on
+
+00:23:36.820 --> 00:23:41.120
+, especially when those projects aren't backed by huge companies.
+
+00:23:41.120 --> 00:23:45.190
+Uh, yeah, I would say more than that, more
+
+00:23:45.190 --> 00:23:45.980
+of that.
+
+00:23:46.040 --> 00:23:50.890
+Um, and I'm going to close it on this quote
+
+00:23:50.890 --> 00:23:54.130
+, which I liked, uh, more community-led than
+
+00:23:54.130 --> 00:23:55.580
+big business-led.
+
+00:23:55.580 --> 00:23:58.310
+I think this is like a high bar to aim for,
+
+00:23:58.310 --> 00:24:02.320
+but, um, I, I think we can try.
+
+00:24:17.440 --> 00:24:19.840
+Do you want to use "we can just try" as
+
+00:24:20.000 --> 00:24:21.040
+an alternate?
+
+00:24:21.040 --> 00:24:23.780
+Uh, we have a couple minutes before lunch.
+
+00:24:23.810 --> 00:24:26.720
+Does anyone have a question for fake?
+
+00:24:26.720 --> 00:24:32.700
+Um, with Constellation, what was the weirdest thing
+
+00:24:32.700 --> 00:24:36.000
+somebody did about it?
+
+00:24:36.000 --> 00:24:36.880
+Oh, gosh.
+
+00:24:36.880 --> 00:24:39.530
+I think I know the answer, but I'm not sure
+
+00:24:39.530 --> 00:24:39.600
+.
+
+00:24:39.600 --> 00:24:43.840
+So, the question was, what's the weirdest thing somebody
+
+00:24:43.840 --> 00:24:45.020
+has done with Constellation?
+
+00:24:45.040 --> 00:24:48.310
+Um, I should have prepared something for this, because people
+
+00:24:48.310 --> 00:24:51.140
+have done some really weird things with Constellation.
+
+00:24:51.140 --> 00:24:54.580
+Um, I really love the kind of experiments people do,
+
+00:24:54.580 --> 00:24:56.800
+like Spore's Garden was neat.
+
+00:24:56.800 --> 00:25:00.430
+Um, I think one of the just surprising ones that other
+
+00:25:00.430 --> 00:25:05.730
+people think of was Bailey's, uh, hooked up his
+
+00:25:05.730 --> 00:25:08.960
+, uh, badge with the e-ink screen on it
+
+00:25:08.960 --> 00:25:12.820
+to both show the QR code for meet me, you and
+
+00:25:12.820 --> 00:25:16.020
+me at, um, but then Bailey presses another button,
+
+00:25:16.020 --> 00:25:19.120
+and it shows all the people that Bailey's connected with,
+
+00:25:19.120 --> 00:25:21.940
+and it queries that through Constellation, uh, and
+
+00:25:21.940 --> 00:25:23.730
+like, yeah, wild.
+
+00:25:23.780 --> 00:25:25.570
+So, but I want to hear what you thought was the
+
+00:25:25.570 --> 00:25:25.920
+weirdest.
+
+00:25:25.920 --> 00:25:32.520
+I'm remembering when Aviva and I were doing Deck V
+
+00:25:32.520 --> 00:25:35.040
+ulture and figuring out, okay, no, we can do
+
+00:25:35.040 --> 00:25:36.000
+Scryful URIs.
+
+00:25:36.000 --> 00:25:37.640
+Yeah, yeah, yeah, yeah.
+
+00:25:37.810 --> 00:25:41.730
+People, people often say, hey, you should also index
+
+00:25:41.730 --> 00:25:43.580
+URLs, not just at URIs.
+
+00:25:43.580 --> 00:25:47.460
+And Constellation has, from day one, it index
+
+00:25:47.460 --> 00:25:49.960
+es anything that looks like a, a did, or an
+
+00:25:49.970 --> 00:25:52.640
+at URI, or any URI that parses like
+
+00:25:52.640 --> 00:25:53.280
+a URI.
+
+00:25:53.280 --> 00:25:56.060
+So, um, if you want to see all the posts
+
+00:25:56.060 --> 00:25:58.400
+to your leaflet that are shared on Blue Sky as,
+
+00:25:58.400 --> 00:26:00.400
+like, link embeds, you can do that.
+
+00:26:00.420 --> 00:26:03.490
+And it also means you can hack the system by, uh
+
+00:26:03.490 --> 00:26:06.700
+, putting, like, your own URI scheme, um
+
+00:26:06.700 --> 00:26:09.100
+, that you invent, and just, like, create links
+
+00:26:09.100 --> 00:26:11.530
+that aren't real links, but Constellation aggregates
+
+00:26:11.650 --> 00:26:12.890
+them for you, so then you can query it.
+
+00:26:12.890 --> 00:26:14.720
+You can do, kind of, like, arbitrary, uh
+
+00:26:14.720 --> 00:26:18.430
+, group, grouping and aggregation with Constellation that
+
+00:26:18.440 --> 00:26:18.920
+way.
+
+00:26:18.920 --> 00:26:20.880
+Yeah, that's a good one.
+
+00:26:20.880 --> 00:26:23.190
+Any more questions?
+
+00:26:23.420 --> 00:26:28.360
+I'm just going to add one more thing on the end
+
+00:26:28.370 --> 00:26:31.530
+of that, which is, sometimes, um, people use
+
+00:26:31.790 --> 00:26:36.690
+Constellation in ways that aren't scalable, uh,
+
+00:26:36.740 --> 00:26:40.610
+like, trying to use it as a leaderboard, um
+
+00:26:40.610 --> 00:26:45.630
+, by having every score link to a URL, and then
+
+00:26:45.990 --> 00:26:48.070
+doing a lot of client-side filtering, and I think
+
+00:26:48.070 --> 00:26:49.190
+that's awesome.
+
+00:26:49.190 --> 00:26:51.840
+It won't scale forever, but if you're ever wondering
+
+00:26:51.840 --> 00:26:53.900
+, like, is it okay if I can use Constell
+
+00:26:53.900 --> 00:26:56.860
+ation for this, um, it's indexing everything that
+
+00:26:56.990 --> 00:26:58.620
+happens on Blue Sky, so it can handle it.
+
+00:26:58.620 --> 00:27:01.460
+Like, whatever you're thinking about throwing at it, uh
+
+00:27:01.570 --> 00:27:02.640
+, yeah, just go for it.
+
+00:27:02.640 --> 00:27:05.480
+Amazing.
+
+00:27:05.480 --> 00:27:10.320
+Thank you so much.

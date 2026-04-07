@@ -1,0 +1,2086 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.080
+Hi everyone.
+
+00:00:01.080 --> 00:00:03.180
+I'd like to introduce the next speaker.
+
+00:00:03.640 --> 00:00:05.350
+Hi everybody.
+
+00:00:05.420 --> 00:00:08.040
+We're going to be talking about tiles and some Dazz
+
+00:00:08.040 --> 00:00:08.690
+le stuff.
+
+00:00:08.690 --> 00:00:11.800
+For the folks listening on the stream, Haley is unable
+
+00:00:11.800 --> 00:00:14.790
+to present, so we're going to do this instead.
+
+00:00:14.870 --> 00:00:17.660
+I've got mic'd up.
+
+00:00:17.660 --> 00:00:19.970
+So hi everyone.
+
+00:00:20.000 --> 00:00:24.560
+Welcome to the slightly impromptu tiles talk.
+
+00:00:24.560 --> 00:00:27.380
+I see people taking pictures.
+
+00:00:27.400 --> 00:00:27.890
+Hi everyone.
+
+00:00:27.890 --> 00:00:31.110
+So what you know, let's jump right in.
+
+00:00:31.110 --> 00:00:32.840
+The idea is that I'm going to give like a pretty
+
+00:00:32.850 --> 00:00:33.960
+short intro.
+
+00:00:34.030 --> 00:00:35.520
+I've seen the faces here.
+
+00:00:35.600 --> 00:00:38.450
+I think most of you already know what this is, but
+
+00:00:38.450 --> 00:00:40.840
+like you know, at least I'm going to run through
+
+00:00:40.840 --> 00:00:41.780
+it pretty quickly.
+
+00:00:41.840 --> 00:00:44.330
+And then Ted and Nick or Ted or Nick or I don
+
+00:00:44.330 --> 00:00:47.300
+'t know, is going to like, I'm going to
+
+00:00:47.300 --> 00:00:52.100
+show some really cool demos of stuff they've been building with
+
+00:00:52.100 --> 00:00:52.700
+tiles.
+
+00:00:52.700 --> 00:00:53.970
+So what are tiles?
+
+00:00:53.970 --> 00:00:57.050
+Well, they're really like, you know, they're
+
+00:00:57.050 --> 00:00:59.360
+confusing because they're so simple.
+
+00:00:59.360 --> 00:01:01.710
+It's, you know, what if you could have like
+
+00:01:02.020 --> 00:01:05.580
+a mini web app as like so many have tried before that
+
+00:01:05.580 --> 00:01:09.820
+could be embedded in anything safely because it can't touch the
+
+00:01:09.820 --> 00:01:10.460
+network.
+
+00:01:10.540 --> 00:01:12.840
+That's essentially the whole story.
+
+00:01:12.840 --> 00:01:15.610
+And the idea is that you remove a lot of power because
+
+00:01:15.610 --> 00:01:18.470
+you remove network and that's significant for people who do,
+
+00:01:18.470 --> 00:01:20.930
+you know, network things.
+
+00:01:20.930 --> 00:01:26.610
+But this reduction in power makes it possible to use this in
+
+00:01:26.610 --> 00:01:31.030
+many more contexts that are potentially security or privacy sensitive, such
+
+00:01:31.110 --> 00:01:32.230
+as social media.
+
+00:01:32.240 --> 00:01:36.440
+And so that is pretty cool, especially since the web is
+
+00:01:36.510 --> 00:01:37.480
+pretty powerful.
+
+00:01:37.480 --> 00:01:40.000
+So you can build like all kinds of stuff with these.
+
+00:01:40.060 --> 00:01:42.770
+These are, you know, examples of like widgets of all
+
+00:01:42.770 --> 00:01:44.620
+kinds that could easily be tiles.
+
+00:01:44.690 --> 00:01:48.100
+And the thing is like, what's new about this?
+
+00:01:48.100 --> 00:01:51.820
+Like many people have tried the web app thing before and well
+
+00:01:51.820 --> 00:01:54.940
+, we haven't heard back from them in 20 years.
+
+00:01:55.020 --> 00:01:57.350
+Like I remember like, if you're, if you're
+
+00:01:57.350 --> 00:01:58.850
+, if you're, if you're, if you're
+
+00:01:58.980 --> 00:02:03.130
+really old like me, you'll remember the XML packaging initiative
+
+00:02:03.130 --> 00:02:05.390
+that was trying to put like XHTML and SV
+
+00:02:05.390 --> 00:02:07.910
+G inside some kind of thing that you could run as an
+
+00:02:07.910 --> 00:02:10.340
+app and that, you know, all that.
+
+00:02:10.340 --> 00:02:13.480
+There have been every two to three years, the W3
+
+00:02:13.480 --> 00:02:16.290
+C has some kind of workshop about web apps and like,
+
+00:02:16.530 --> 00:02:18.720
+really, maybe guys, we could be solving this at some
+
+00:02:18.780 --> 00:02:19.780
+point, perhaps.
+
+00:02:19.780 --> 00:02:23.420
+And there's progress every time, but it's pretty slow
+
+00:02:23.420 --> 00:02:23.680
+.
+
+00:02:23.680 --> 00:02:26.500
+And of course, like, you know, you can always
+
+00:02:26.500 --> 00:02:28.620
+use iframes if you don't mind like exf
+
+00:02:28.620 --> 00:02:30.790
+iltrating a ton of information.
+
+00:02:30.810 --> 00:02:33.280
+So, you know, this is something that, that,
+
+00:02:33.440 --> 00:02:34.910
+that's been tried many times.
+
+00:02:34.920 --> 00:02:37.950
+The things that, the thing that hasn't been properly tried
+
+00:02:37.950 --> 00:02:41.000
+is just like cutting off the network.
+
+00:02:41.130 --> 00:02:43.280
+And that's where things can, can, I think,
+
+00:02:43.280 --> 00:02:44.590
+get quite interesting.
+
+00:02:44.600 --> 00:02:47.420
+And so the anatomy of a tile is basically, it's
+
+00:02:47.420 --> 00:02:49.440
+a small secluded web runtime.
+
+00:02:49.450 --> 00:02:54.580
+It can load things that are listed in its manifest.
+
+00:02:54.580 --> 00:02:57.570
+One of the values of tiles is that they don't have
+
+00:02:57.650 --> 00:02:58.950
+to be in a zip file.
+
+00:02:58.950 --> 00:03:01.350
+Like a lot of the time, like a lot of these
+
+00:03:01.580 --> 00:03:03.820
+things like widgets, I worked on W3C widgets and
+
+00:03:03.990 --> 00:03:06.020
+all that, they had to be in a zip, which
+
+00:03:06.020 --> 00:03:09.430
+means that you can only start showing something after you've loaded
+
+00:03:09.430 --> 00:03:12.080
+the whole zip, because you don't know where the index
+
+00:03:12.240 --> 00:03:14.210
+is, you don't know if you have all the resources
+
+00:03:14.210 --> 00:03:15.290
+you need, yada, yada.
+
+00:03:15.310 --> 00:03:18.070
+If you have a video, your zip might be gigabytes big
+
+00:03:18.110 --> 00:03:19.870
+, it's all, it's all problematic.
+
+00:03:19.880 --> 00:03:22.300
+So that some people have tried to do stuff around that,
+
+00:03:22.370 --> 00:03:24.040
+but it's usually not great.
+
+00:03:24.100 --> 00:03:27.370
+In this case, you know, you load the manifest over
+
+00:03:27.370 --> 00:03:29.690
+80, if they are stored on 80, or you could
+
+00:03:29.980 --> 00:03:32.560
+load it over HTTP, it's going to be pretty small
+
+00:03:32.560 --> 00:03:32.820
+.
+
+00:03:32.820 --> 00:03:37.200
+And then dynamically setting up a service worker or something like that
+
+00:03:37.270 --> 00:03:38.760
+, you see what you need to load.
+
+00:03:38.820 --> 00:03:40.940
+And if you don't need to load everything, maybe you
+
+00:03:40.940 --> 00:03:43.030
+'re not watching the video that's included in that thing,
+
+00:03:43.030 --> 00:03:44.060
+that's perfectly fine.
+
+00:03:44.170 --> 00:03:47.280
+You could have like an entire archive of many things in a
+
+00:03:47.280 --> 00:03:50.380
+tile without ever having to worry about it.
+
+00:03:50.380 --> 00:03:53.500
+If we look at like basically, you know, this is
+
+00:03:53.500 --> 00:03:55.200
+a pdsls of a tile that was published on
+
+00:03:55.360 --> 00:03:59.040
+80 proto, most of the fields are pretty straightforward.
+
+00:03:59.040 --> 00:04:01.000
+If you look, if you've seen web app manifest,
+
+00:04:01.000 --> 00:04:03.730
+straight out of web app manifest, there's like an icon
+
+00:04:03.750 --> 00:04:05.310
+, there's a name, there's a description.
+
+00:04:05.380 --> 00:04:11.190
+And one thing that's specific to tiles, and that really
+
+00:04:11.190 --> 00:04:14.250
+helps solve this idea of like content addressable apps that you
+
+00:04:14.250 --> 00:04:17.730
+can just like move around and publish in different contexts in a
+
+00:04:17.730 --> 00:04:21.080
+way that's completely reusable, is that it has this resources
+
+00:04:21.120 --> 00:04:23.400
+thing that maps proper web paths.
+
+00:04:23.400 --> 00:04:26.580
+So like slash is mapped to this like blob of HTML,
+
+00:04:26.580 --> 00:04:30.970
+and like slash image dot whatever is mapped to like a C
+
+00:04:31.000 --> 00:04:32.030
+ID of this.
+
+00:04:32.040 --> 00:04:37.130
+And these things get to have proper HTTP headers.
+
+00:04:37.740 --> 00:04:41.510
+In a lot of previous iterations of content addressed web things,
+
+00:04:41.510 --> 00:04:43.360
+the headers were not included.
+
+00:04:43.380 --> 00:04:46.080
+So you're getting the content, but without the HTTP headers
+
+00:04:46.250 --> 00:04:48.650
+, you don't have the proper context, they might interpret
+
+00:04:49.350 --> 00:04:51.500
+differently in different in different contexts.
+
+00:04:51.500 --> 00:04:53.340
+And then you're like in a crazy world.
+
+00:04:53.340 --> 00:04:55.430
+And so like, really, that's that's about it
+
+00:04:55.430 --> 00:04:55.630
+.
+
+00:04:55.700 --> 00:04:58.460
+One of the things that's great is that this example shows
+
+00:04:58.460 --> 00:04:59.540
+them stored on 80.
+
+00:04:59.540 --> 00:05:02.170
+But you could store this anywhere, it really doesn't matter
+
+00:05:02.170 --> 00:05:05.430
+, because everything's content addressed throughout the stack.
+
+00:05:05.430 --> 00:05:07.260
+So you can put them in the car file, you can
+
+00:05:07.260 --> 00:05:09.400
+put them over HTTP, you can load them with razz
+
+00:05:09.400 --> 00:05:11.020
+le, so you can razzle dazzle, all
+
+00:05:11.020 --> 00:05:12.300
+of that's pretty cool.
+
+00:05:12.300 --> 00:05:16.540
+And so essentially, you know, that's, that's
+
+00:05:16.540 --> 00:05:19.020
+it, you know, it's just like, it's
+
+00:05:19.020 --> 00:05:21.850
+this basically this small contained thing.
+
+00:05:21.850 --> 00:05:26.510
+And what makes it interesting is when you start integrating it in
+
+00:05:26.590 --> 00:05:28.840
+context and giving it extra power.
+
+00:05:28.880 --> 00:05:31.580
+So the idea is that the embedding context can say like
+
+00:05:31.580 --> 00:05:34.280
+, oh, hey, this tile actually, I know what
+
+00:05:34.280 --> 00:05:36.740
+'s safe for it, I can give it access to this
+
+00:05:36.740 --> 00:05:39.100
+specific thing that I've controlled, and you're going to
+
+00:05:39.100 --> 00:05:42.940
+see a number of demos of precisely that pattern in action.
+
+00:05:42.940 --> 00:05:45.040
+But that's it, like, because you've removed the
+
+00:05:45.040 --> 00:05:47.260
+power, then you can decide what you give to it.
+
+00:05:47.460 --> 00:05:49.380
+And so I'm just going to go through a list of
+
+00:05:49.380 --> 00:05:51.660
+like, and these are most of these are fakes,
+
+00:05:51.660 --> 00:05:55.440
+except for a couple ones, of like, how to put
+
+00:05:55.610 --> 00:05:58.770
+them in different contexts, like very simply, you could have
+
+00:05:59.060 --> 00:06:01.650
+a game in your social media stream, just like in your
+
+00:06:01.750 --> 00:06:03.440
+feed, you're scrolling by, and they're like,
+
+00:06:03.440 --> 00:06:05.340
+oh, yeah, look, Robin posted a game.
+
+00:06:05.340 --> 00:06:06.690
+And like, this is me playing like, you know,
+
+00:06:06.690 --> 00:06:09.900
+like Minesweeper in the middle of the thing
+
+00:06:09.900 --> 00:06:12.220
+, it can be embedded, it's completely safe.
+
+00:06:12.220 --> 00:06:14.030
+And now, you know, like, I hit the book
+
+00:06:14.180 --> 00:06:16.790
+mark button, and I've got a game installed, because
+
+00:06:16.790 --> 00:06:18.240
+they can just like, go find it.
+
+00:06:18.410 --> 00:06:21.820
+And then you could have like, some local curation of
+
+00:06:21.820 --> 00:06:22.260
+stuff.
+
+00:06:22.420 --> 00:06:24.330
+And of course, because it's loading off a PDS
+
+00:06:24.450 --> 00:06:25.420
+, you can paywall it.
+
+00:06:25.460 --> 00:06:28.560
+So like, there's a business model even potentially behind that
+
+00:06:28.560 --> 00:06:28.740
+.
+
+00:06:28.820 --> 00:06:32.100
+You can also do long form, I can give you the
+
+00:06:32.260 --> 00:06:34.300
+slides afterwards, don't have to take pictures.
+
+00:06:34.300 --> 00:06:36.140
+You can do long form.
+
+00:06:36.140 --> 00:06:39.330
+So this is one of, this is a blog post I
+
+00:06:39.380 --> 00:06:40.380
+wrote a while ago.
+
+00:06:40.380 --> 00:06:42.670
+And so you could imagine that in a in the leaflet
+
+00:06:42.740 --> 00:06:46.380
+kind of interface, instead of like, you know, create
+
+00:06:46.380 --> 00:06:49.080
+using the leaflet editor, you could embed your own long
+
+00:06:49.080 --> 00:06:51.850
+form source that has your own style and your own, you
+
+00:06:52.060 --> 00:06:55.430
+know, pictures, fonts, etc, just like as part
+
+00:06:55.480 --> 00:06:59.800
+of the normal of the normal leaflet publication format.
+
+00:06:59.980 --> 00:07:02.250
+And you click that and it opens and and you just get
+
+00:07:02.270 --> 00:07:03.170
+the blog posts.
+
+00:07:04.540 --> 00:07:09.360
+Another thing that's interesting is you can have something called wishes
+
+00:07:09.360 --> 00:07:09.660
+.
+
+00:07:09.660 --> 00:07:12.160
+So if any, if any of you are familiar with like
+
+00:07:12.160 --> 00:07:14.900
+Android intents, or web intents, or stuff like
+
+00:07:14.900 --> 00:07:17.280
+that, it's sort of a declarative way of saying
+
+00:07:17.280 --> 00:07:19.640
+like, hey, I'm a piece of functionality, I
+
+00:07:19.640 --> 00:07:23.060
+'m a tile, and I need someone to edit an image
+
+00:07:23.060 --> 00:07:23.800
+for me.
+
+00:07:23.810 --> 00:07:25.360
+But I don't, I don't want to call a
+
+00:07:25.430 --> 00:07:26.530
+specific program.
+
+00:07:26.540 --> 00:07:28.790
+And I definitely don't want to do the thing where you
+
+00:07:28.790 --> 00:07:30.700
+have to save the file to a file system.
+
+00:07:30.700 --> 00:07:32.830
+And then the user has to like figure out what app they
+
+00:07:32.830 --> 00:07:34.550
+want to use, and then give it back to me.
+
+00:07:34.660 --> 00:07:37.260
+And I know that dance that's like fucking insane.
+
+00:07:37.260 --> 00:07:39.450
+And so what you say is that is, is you say
+
+00:07:39.450 --> 00:07:41.430
+, hey, I wish to edit.
+
+00:07:41.430 --> 00:07:44.610
+So there's always a verb, this type of data,
+
+00:07:44.610 --> 00:07:46.240
+and here's the data.
+
+00:07:46.310 --> 00:07:49.550
+And it will find for you a tile that knows how to
+
+00:07:49.830 --> 00:07:51.220
+carry out that wish.
+
+00:07:51.300 --> 00:07:53.440
+And of course, maybe you have it installed, as we
+
+00:07:53.440 --> 00:07:55.810
+said earlier, like bookmarking is installing, so that
+
+00:07:55.810 --> 00:07:56.760
+that's sufficient.
+
+00:07:56.760 --> 00:07:59.430
+But maybe it's on the network, if it was published
+
+00:07:59.430 --> 00:08:01.740
+to AT, you can know that it's able to,
+
+00:08:01.890 --> 00:08:04.890
+you can find things that are able to handle specific requests.
+
+00:08:04.890 --> 00:08:06.830
+So you can use the AT data itself.
+
+00:08:06.840 --> 00:08:10.220
+And this is just an example of like, you clicked edit
+
+00:08:10.290 --> 00:08:14.840
+here, and it loaded the image inside a filter editor,
+
+00:08:14.910 --> 00:08:15.650
+you know, why not?
+
+00:08:15.660 --> 00:08:17.570
+And then when you hit save, it sends it back.
+
+00:08:17.580 --> 00:08:19.980
+And that's that is really simple, but you can integrate
+
+00:08:19.980 --> 00:08:22.800
+a lot of things in this way with loose coupling.
+
+00:08:22.960 --> 00:08:26.300
+This is an example of a tile in Rumi.
+
+00:08:27.030 --> 00:08:32.590
+The idea, and I really love this pattern, I would
+
+00:08:32.600 --> 00:08:35.460
+love to like, when you get to that part of like
+
+00:08:35.670 --> 00:08:37.440
+building stuff, I would love to work on that.
+
+00:08:37.610 --> 00:08:40.570
+The idea here is that you can give tiles, and Delta
+
+00:08:40.790 --> 00:08:44.040
+Chat does that, you can give them a way to just
+
+00:08:44.040 --> 00:08:46.620
+write to a data channel of the channel.
+
+00:08:46.620 --> 00:08:49.840
+And so it shares data, but only with other people who
+
+00:08:49.840 --> 00:08:51.180
+are on the channel.
+
+00:08:51.280 --> 00:08:54.580
+So you can install a tile to a chat.
+
+00:08:54.660 --> 00:08:57.180
+And what's cool about that, yeah, I know,
+
+00:08:57.180 --> 00:08:58.300
+it kind of breaks the brain.
+
+00:08:58.300 --> 00:09:00.630
+But like, if you think, if you think about it
+
+00:09:00.690 --> 00:09:03.450
+, like, a chat is a pair is a security perimeter
+
+00:09:03.450 --> 00:09:03.960
+, right?
+
+00:09:03.980 --> 00:09:06.010
+There are people who are inside the chat and can read stuff
+
+00:09:06.010 --> 00:09:07.980
+, and people who are on the outside who can't.
+
+00:09:07.980 --> 00:09:10.900
+And there's no reason that a chat would like only send
+
+00:09:10.900 --> 00:09:11.770
+text messages.
+
+00:09:11.770 --> 00:09:14.260
+Actually, they don't under the hood, they always send
+
+00:09:14.260 --> 00:09:15.820
+structured something, right?
+
+00:09:15.820 --> 00:09:18.640
+And so you send a different structured something that's just data
+
+00:09:18.720 --> 00:09:21.940
+that like, and so you, you know, user install
+
+00:09:21.940 --> 00:09:25.760
+s a tile to the chat room, every, everyone in
+
+00:09:26.020 --> 00:09:27.610
+the chat room gets to see that tile.
+
+00:09:27.610 --> 00:09:30.480
+And then the thing is, those things can post messages that
+
+00:09:30.550 --> 00:09:34.100
+are basically CRDT that sync state across every instance of
+
+00:09:34.320 --> 00:09:36.610
+the tile that people in the room see.
+
+00:09:36.630 --> 00:09:39.140
+And so you can do something instead of like having all these
+
+00:09:39.220 --> 00:09:42.060
+fucking doodle things that are always ugly, and like,
+
+00:09:42.060 --> 00:09:44.160
+you lose the link, and you never know which one,
+
+00:09:44.160 --> 00:09:46.980
+you just like in your chat, you just like drop a
+
+00:09:47.020 --> 00:09:50.140
+time picker thing where you've like configured some options.
+
+00:09:50.140 --> 00:09:52.460
+And anyone in the chat can answer, and it syncs
+
+00:09:52.550 --> 00:09:53.940
+the options for everyone.
+
+00:09:54.020 --> 00:09:56.380
+And you could do that with a document, you could have
+
+00:09:56.480 --> 00:09:58.890
+like a shared markdown editor, like let's edit a
+
+00:09:58.890 --> 00:10:00.460
+doc together in the chat.
+
+00:10:00.660 --> 00:10:03.180
+So that's, you know, another thing.
+
+00:10:03.180 --> 00:10:06.170
+Blento, you know, just like, this is like
+
+00:10:06.210 --> 00:10:10.780
+, almost like so obvious that they, oh, man,
+
+00:10:10.780 --> 00:10:12.680
+sorry, sorry, the thing is, I don't even
+
+00:10:12.680 --> 00:10:14.210
+know what these guys are going to say.
+
+00:10:14.330 --> 00:10:15.010
+So sorry about that.
+
+00:10:15.320 --> 00:10:17.100
+Let me go faster, that way.
+
+00:10:19.820 --> 00:10:21.830
+This, this thing, this is like, what if we
+
+00:10:21.880 --> 00:10:25.470
+could render arbitrary content by loading a tile that has a render
+
+00:10:25.670 --> 00:10:26.010
+wish.
+
+00:10:26.010 --> 00:10:29.470
+And so imagine that you have like, whatever, this is
+
+00:10:29.470 --> 00:10:31.020
+like a karaoke lexicon.
+
+00:10:31.020 --> 00:10:33.620
+And inside of it, it has a status sphere lex
+
+00:10:33.690 --> 00:10:37.200
+icon, and you just like want to arbitrarily render things
+
+00:10:37.200 --> 00:10:40.220
+, you could load a tile that knows how to render this
+
+00:10:40.220 --> 00:10:43.920
+to like so that you can do nested rendering of arbitrary
+
+00:10:43.920 --> 00:10:45.300
+embedded lexica.
+
+00:10:45.380 --> 00:10:49.340
+And this one is actually my favorite, it looks like,
+
+00:10:49.340 --> 00:10:51.240
+ass like, you know, most of the things I designed
+
+00:10:51.240 --> 00:10:52.140
+, but that's fine.
+
+00:10:52.140 --> 00:10:56.200
+But like the idea here, and actually, I'm going
+
+00:10:56.200 --> 00:10:58.450
+to use the real thing.
+
+00:10:58.450 --> 00:11:02.300
+If I can find where the cursor goes, yes.
+
+00:11:02.300 --> 00:11:05.430
+So the idea here is that they don't have to be
+
+00:11:05.430 --> 00:11:07.890
+on AT proto, right, they can be inside a car
+
+00:11:07.940 --> 00:11:08.460
+file.
+
+00:11:08.460 --> 00:11:11.100
+So you can have a local file that contains a tile that
+
+00:11:11.100 --> 00:11:13.660
+you can run in something that's like a PDF viewer.
+
+00:11:13.660 --> 00:11:16.680
+And so you could kill PDF, because like, you know
+
+00:11:16.720 --> 00:11:17.920
+, we should kill PDF.
+
+00:11:18.090 --> 00:11:20.530
+But like, we don't just kill PDF by reproducing
+
+00:11:20.530 --> 00:11:20.900
+PDF.
+
+00:11:21.060 --> 00:11:23.250
+This is like, you know, this is basically a,
+
+00:11:23.250 --> 00:11:25.980
+this is a presentation that I gave about tiles that was in
+
+00:11:26.060 --> 00:11:27.420
+the tile.
+
+00:11:27.420 --> 00:11:29.540
+And so you know, you can you can do this,
+
+00:11:29.660 --> 00:11:30.230
+of course.
+
+00:11:30.230 --> 00:11:32.970
+But the other thing that you can do is that you can
+
+00:11:32.970 --> 00:11:37.200
+have self editing documents, because you can make it so that
+
+00:11:37.200 --> 00:11:40.280
+the tile can write to a data segment in its own car
+
+00:11:40.280 --> 00:11:41.120
+container.
+
+00:11:41.120 --> 00:11:44.130
+And therefore, you know, this is a rich text thing
+
+00:11:44.130 --> 00:11:44.260
+.
+
+00:11:44.340 --> 00:11:47.500
+And I can say like, hi, folks, whatever.
+
+00:11:47.500 --> 00:11:51.080
+And you see the little safe things here, if I close
+
+00:11:51.150 --> 00:11:54.050
+this, and I email it to Ricardo, and he opens
+
+00:11:54.050 --> 00:11:56.510
+it in this, and he doesn't have a rich text
+
+00:11:56.510 --> 00:11:59.880
+editor, he just has the PDF replacement thing, then he
+
+00:11:59.880 --> 00:12:01.110
+can open it and edit it.
+
+00:12:01.160 --> 00:12:03.290
+And you can you can do this with, you know,
+
+00:12:03.300 --> 00:12:04.450
+arbitrary editors.
+
+00:12:04.460 --> 00:12:07.310
+So like, for instance, here, this MS paint,
+
+00:12:07.320 --> 00:12:10.380
+you know, and you do this, and whatever.
+
+00:12:10.380 --> 00:12:13.110
+And then you have an image editor that you know, I
+
+00:12:13.110 --> 00:12:14.940
+can send it over to Ted, and he can edit the
+
+00:12:14.940 --> 00:12:16.520
+image and, you know, yada, yada,
+
+00:12:16.540 --> 00:12:16.860
+yada.
+
+00:12:17.270 --> 00:12:22.910
+And so with that, we have websites, we have a
+
+00:12:22.990 --> 00:12:26.540
+fake demo shit browser on it.
+
+00:12:26.540 --> 00:12:28.620
+There's a it's a dazzle spec because everything's
+
+00:12:28.690 --> 00:12:29.500
+dazzle these days.
+
+00:12:29.500 --> 00:12:30.770
+That's how you dazzle people.
+
+00:12:30.900 --> 00:12:33.510
+And there's some some code that you can check out on
+
+00:12:33.510 --> 00:12:34.770
+the wonderful npmx.
+
+00:12:34.770 --> 00:12:37.660
+And you can come to our meetings, we share stuff.
+
+00:12:37.660 --> 00:12:38.920
+Fuck yeah tiles.
+
+00:12:38.960 --> 00:13:01.920
+And with this I
+
+00:13:02.390 --> 00:13:08.470
+'m going to go ahead and see what is on my screen
+
+00:13:08.470 --> 00:13:09.020
+.
+
+00:13:09.020 --> 00:13:10.700
+So let me just fix that.
+
+00:13:10.700 --> 00:13:12.520
+Oh, I'm giving away the thing.
+
+00:13:12.520 --> 00:13:13.710
+We're going to go fast.
+
+00:13:13.710 --> 00:13:16.290
+This also is extremely unstyled, because we've been
+
+00:13:16.290 --> 00:13:18.780
+doing this around organizing a conference.
+
+00:13:18.780 --> 00:13:21.650
+So this is more of a tech demo, especially since Robin
+
+00:13:21.650 --> 00:13:24.800
+has given you the dream in part, and shown a lot
+
+00:13:24.800 --> 00:13:28.610
+of like, what we thought was really kind of cool about
+
+00:13:28.660 --> 00:13:29.660
+web tiles.
+
+00:13:29.660 --> 00:13:31.300
+So I'm going to run through some of the stuff quickly
+
+00:13:31.300 --> 00:13:33.900
+, and just kind of give you a sense of where once
+
+00:13:33.900 --> 00:13:36.670
+we saw web tiles, what we immediately thought of, right
+
+00:13:36.680 --> 00:13:39.700
+, because the entire pitch that Robin's giving is around having
+
+00:13:39.760 --> 00:13:42.420
+these self-contained little tiles that you know that you
+
+00:13:42.420 --> 00:13:45.140
+can kind of pass around safely, which I think is really
+
+00:13:45.140 --> 00:13:46.190
+an exciting idea.
+
+00:13:46.260 --> 00:13:49.660
+And the notion of these things as pieces of context lists,
+
+00:13:49.670 --> 00:13:55.140
+content addressed, signed data is really useful, especially when you
+
+00:13:55.300 --> 00:13:58.390
+start thinking, well, okay, what if we reintrodu
+
+00:13:58.390 --> 00:13:59.830
+ced a little bit of context?
+
+00:13:59.830 --> 00:14:01.880
+What context would you want to introduce?
+
+00:14:01.910 --> 00:14:04.240
+And so we said, well, why not think about ways
+
+00:14:04.240 --> 00:14:07.040
+in which you could actually gain access to that protodata
+
+00:14:07.100 --> 00:14:07.980
+directly through this?
+
+00:14:07.980 --> 00:14:11.840
+So what we've built is a platform for being able to
+
+00:14:11.910 --> 00:14:16.250
+create and host web tiles.
+
+00:14:16.520 --> 00:14:20.370
+And these things are, you know, as simple as something
+
+00:14:20.660 --> 00:14:23.690
+really goofy, like an HTML page and some JavaScript, and
+
+00:14:23.880 --> 00:14:25.950
+they can be dragged and dropped.
+
+00:14:26.020 --> 00:14:28.850
+And there's a reason why I'm going with a super
+
+00:14:28.860 --> 00:14:35.300
+simple example here first, because I want to be able to
+
+00:14:35.310 --> 00:14:37.330
+show that these are things where if you want to handcraft
+
+00:14:37.330 --> 00:14:41.770
+something, and just upload it, and make something tiny,
+
+00:14:41.770 --> 00:14:46.890
+quick, let's see, hello, world clock, and
+
+00:14:47.600 --> 00:14:51.740
+we'll see you next time.
+
+00:14:51.740 --> 00:14:52.080
+You absolutely can.
+
+00:14:52.080 --> 00:14:52.800
+You can self-host, or you can upload these things
+
+00:14:52.800 --> 00:14:55.580
+, host them, share them with other people.
+
+00:14:55.910 --> 00:15:01.970
+These are embeddable, and our whole goal is to
+
+00:15:01.980 --> 00:15:06.290
+be able to build a runtime that can provide a way to
+
+00:15:06.470 --> 00:15:10.810
+load web tiles and connect with your app protocount simply
+
+00:15:10.840 --> 00:15:12.060
+and easily.
+
+00:15:12.790 --> 00:15:17.900
+So I'll switch between desktops here.
+
+00:15:17.900 --> 00:15:20.960
+So this includes things like being able to just take an U
+
+00:15:20.960 --> 00:15:23.540
+RI from, say, a desktop app, and also just
+
+00:15:23.780 --> 00:15:24.860
+load the tile.
+
+00:15:24.860 --> 00:15:29.180
+And we've been talking about all the different places in which
+
+00:15:29.180 --> 00:15:32.340
+we could stick and embed these, whether these are within web
+
+00:15:32.410 --> 00:15:36.470
+apps, as Robin was pointing out, social feeds embedded inside
+
+00:15:36.470 --> 00:15:40.010
+of leaflet posts or other sorts of data structures, where
+
+00:15:40.010 --> 00:15:43.520
+you can both be confident of the safety and security of the
+
+00:15:43.590 --> 00:15:46.720
+app that you're embedding, and still give users access
+
+00:15:46.730 --> 00:15:47.700
+to all of their data.
+
+00:15:47.780 --> 00:15:51.660
+From there, though, this gets a lot more exciting.
+
+00:15:51.660 --> 00:15:55.980
+We can do quite a lot of things with arbitrary access to
+
+00:15:55.980 --> 00:16:00.070
+data, including crazy things like, why don't we build
+
+00:16:00.070 --> 00:16:02.100
+embeddable media players?
+
+00:16:02.100 --> 00:16:05.340
+This is data that is up on the protocol.
+
+00:16:05.340 --> 00:16:10.080
+So part of the thing that we built is basically a R
+
+00:16:10.150 --> 00:16:16.410
+azzle CDN as tiles are created and propagate through the
+
+00:16:16.480 --> 00:16:17.080
+network.
+
+00:16:17.080 --> 00:16:19.400
+We look at the CIDs because CIDs are
+
+00:16:19.400 --> 00:16:23.660
+identifiers for both records and for blobs.
+
+00:16:24.380 --> 00:16:26.770
+And we can serve them geographically.
+
+00:16:26.770 --> 00:16:29.120
+We know that they are generally safe.
+
+00:16:29.190 --> 00:16:31.680
+When you label a CID or an ATURI,
+
+00:16:31.750 --> 00:16:34.230
+you know that it's not going to change, which means
+
+00:16:34.250 --> 00:16:38.080
+that you have a certain guarantee of trust in the future.
+
+00:16:38.080 --> 00:16:42.290
+And we can return that in chunked streaming forms in whatever
+
+00:16:42.340 --> 00:16:45.940
+mechanisms are necessary for, you know, streaming audio, video
+
+00:16:46.000 --> 00:16:46.370
+, etc.
+
+00:16:46.680 --> 00:16:52.750
+And so we can also define the security boundary here pretty easily
+
+00:16:52.750 --> 00:16:55.570
+and simply to align with the affordances of the protocol,
+
+00:16:55.570 --> 00:16:56.140
+right?
+
+00:16:56.140 --> 00:16:58.770
+Atproto has a capability model that allows you to define
+
+00:16:58.770 --> 00:17:00.540
+a premium article.
+
+00:17:00.600 --> 00:17:00.850
+Yeah.
+
+00:17:00.860 --> 00:17:02.380
+So, for example...
+
+00:17:02.380 --> 00:17:03.880
+And UCAN.
+
+00:17:03.880 --> 00:17:06.290
+Yep, with UCANs and other sorts of things.
+
+00:17:06.300 --> 00:17:10.640
+So this allows us to do some fun other things that build
+
+00:17:10.820 --> 00:17:12.580
+on the work that we've been talking about for the past
+
+00:17:12.580 --> 00:17:12.910
+year.
+
+00:17:12.980 --> 00:17:16.540
+For example, being able to do gated content.
+
+00:17:16.540 --> 00:17:20.620
+You could embed an article in, say, a social post
+
+00:17:20.620 --> 00:17:25.400
+that goes and checks whether or not you have proof of purchase
+
+00:17:25.400 --> 00:17:29.370
+or a subscription or a membership to a particular service.
+
+00:17:29.370 --> 00:17:32.260
+And that actually will immediately unlock for you.
+
+00:17:32.260 --> 00:17:34.240
+Or if you don't, right, you have a call
+
+00:17:34.240 --> 00:17:35.380
+to action there directly.
+
+00:17:35.420 --> 00:17:37.970
+And in this context, right, like maybe it's a
+
+00:17:38.090 --> 00:17:41.250
+call to action to pay for the article.
+
+00:17:41.250 --> 00:17:44.360
+And then you issue, you know, payment requests here,
+
+00:17:44.360 --> 00:17:46.160
+say, "Yes, I'd like to pay for this
+
+00:17:46.160 --> 00:17:48.200
+." And then it actually goes, makes an XRPC
+
+00:17:48.240 --> 00:17:51.030
+call, proves that you've got the signature, and then
+
+00:17:51.140 --> 00:17:54.300
+loads the rest of the content directly for that record.
+
+00:17:54.300 --> 00:17:55.740
+Over the past several months, we've, you know,
+
+00:17:55.740 --> 00:17:58.830
+I've published quite a bit on how and why Proto
+
+00:17:58.830 --> 00:18:01.370
+Fans works the way it works, attestations,
+
+00:18:01.540 --> 00:18:04.440
+and the whole concept that you can have proof of payment,
+
+00:18:04.440 --> 00:18:08.060
+not web payments, but proof of payment on record in structured
+
+00:18:08.060 --> 00:18:10.620
+ways.
+
+00:18:10.620 --> 00:18:14.230
+Which means that if you are a content provider, like with
+
+00:18:14.270 --> 00:18:18.160
+the better stack tile that we produced, your payment, your
+
+00:18:18.160 --> 00:18:22.300
+member base of people who have paid for the one-offs
+
+00:18:22.300 --> 00:18:25.140
+or the subscriptions, they follow you if you want to change
+
+00:18:25.140 --> 00:18:26.610
+payment providers or not.
+
+00:18:26.620 --> 00:18:28.920
+If you want to change your PDS, or they change
+
+00:18:28.920 --> 00:18:32.140
+their PDS, or any combinations of identity and data mobility
+
+00:18:32.140 --> 00:18:34.220
+, which is central to the AdProto ethos,
+
+00:18:34.220 --> 00:18:37.020
+like this, this allows and enables that.
+
+00:18:37.020 --> 00:18:37.500
+Yeah.
+
+00:18:37.690 --> 00:18:40.950
+And this isn't just about connections with your PDS either
+
+00:18:40.960 --> 00:18:41.260
+.
+
+00:18:41.260 --> 00:18:45.290
+You can build and launch other services that can talk through X
+
+00:18:45.290 --> 00:18:50.060
+RPC channels, and that can extend everything from like,
+
+00:18:50.060 --> 00:18:54.520
+little sessions and being able to do real-time-ish
+
+00:18:54.520 --> 00:18:58.240
+experiences like, why don't you give me a high five
+
+00:18:58.500 --> 00:18:58.620
+here?
+
+00:18:58.620 --> 00:18:59.340
+Yeah, yeah, there you go.
+
+00:18:59.340 --> 00:19:00.720
+High fives.
+
+00:19:00.780 --> 00:19:02.990
+Oh, I got to send the, yeah, send the
+
+00:19:02.990 --> 00:19:03.420
+permission.
+
+00:19:03.440 --> 00:19:06.560
+And so, you know, this provides the opportunity to do
+
+00:19:07.190 --> 00:19:11.450
+things like actually doing games directly in feeds and other sorts of
+
+00:19:11.450 --> 00:19:13.740
+mini multiplayer experiences.
+
+00:19:13.740 --> 00:19:16.030
+What's really important to note that this isn't magical.
+
+00:19:16.100 --> 00:19:18.300
+This tile is entirely sandboxed.
+
+00:19:18.300 --> 00:19:21.600
+The tile itself is not making external API calls.
+
+00:19:21.600 --> 00:19:24.630
+It's not, it's not breaking the boundary, right
+
+00:19:24.630 --> 00:19:26.670
+, that we set from our security profile.
+
+00:19:26.670 --> 00:19:29.100
+What it's doing is it's communicating with the runtime,
+
+00:19:29.300 --> 00:19:32.100
+whether that runtime is the browser making XRPC, X
+
+00:19:32.250 --> 00:19:36.140
+RPC requests that are authenticated and have the context of
+
+00:19:36.140 --> 00:19:39.220
+the user, allowing for a stateless tile that is determin
+
+00:19:39.230 --> 00:19:42.490
+istic in nature, thanks to content addressable storage.
+
+00:19:42.490 --> 00:19:45.590
+But we have this global context of your PDS and the
+
+00:19:45.590 --> 00:19:47.650
+XRPC calls that you can invoke.
+
+00:19:47.670 --> 00:19:51.200
+So we can provide some structure around making, you know,
+
+00:19:51.620 --> 00:19:55.740
+queries and procedures and WebSocket connections asynchronously to offer
+
+00:19:55.830 --> 00:19:56.880
+this experience.
+
+00:19:56.940 --> 00:19:57.900
+Yep.
+
+00:19:57.900 --> 00:20:01.340
+And so we have, um, a bunch of experimental runners
+
+00:20:01.340 --> 00:20:03.030
+, which we have been tinkering with, like for
+
+00:20:03.360 --> 00:20:04.990
+example, this Rust, uh, desktop based one.
+
+00:20:05.060 --> 00:20:09.270
+So now we have a, uh, well, okay.
+
+00:20:09.350 --> 00:20:10.300
+Don't have the permission for it.
+
+00:20:10.310 --> 00:20:10.620
+All right.
+
+00:20:10.620 --> 00:20:11.870
+Well, it's a little strict.
+
+00:20:11.940 --> 00:20:14.920
+Sometimes there's a query string parameter to allow for create and
+
+00:20:14.920 --> 00:20:15.850
+destruct methods.
+
+00:20:16.010 --> 00:20:19.020
+So we'll go back to using the web, web version
+
+00:20:19.020 --> 00:20:19.340
+of this.
+
+00:20:19.340 --> 00:20:23.120
+Um, uh, uh, uh, and let's see
+
+00:20:23.120 --> 00:20:24.140
+, hello.
+
+00:20:24.870 --> 00:20:33.000
+Uh,
+
+00:20:33.560 --> 00:20:37.050
+these are all, um, individual aircrafts.
+
+00:20:38.620 --> 00:20:41.110
+Hangar, uh, software is Han and Jared Ennis
+
+00:20:41.110 --> 00:20:41.170
+.
+
+00:20:41.180 --> 00:20:41.660
+Yeah.
+
+00:20:41.660 --> 00:20:42.300
+Just sort of fit.
+
+00:20:43.030 --> 00:20:46.940
+And so, right.
+
+00:20:46.950 --> 00:20:49.260
+Like these are a little full apps that can, you can
+
+00:20:49.260 --> 00:20:51.340
+, uh, post and do anything you want with.
+
+00:20:51.340 --> 00:20:54.480
+So, um, so, um, the, the two
+
+00:20:54.580 --> 00:20:56.160
+things, I mean, and Robin's kind of given the
+
+00:20:56.160 --> 00:20:57.840
+game away here, but one of the things that were no
+
+00:20:57.850 --> 00:20:58.700
+, no, it's perfect.
+
+00:20:58.700 --> 00:20:59.420
+Like that was great.
+
+00:20:59.420 --> 00:21:01.640
+Um, being able to talk about where we want to put
+
+00:21:01.680 --> 00:21:03.740
+all of these tiles and how can we share these?
+
+00:21:04.020 --> 00:21:07.180
+Um, my thesis around this is having good structures allow for
+
+00:21:07.180 --> 00:21:09.260
+people to be able to experiment more.
+
+00:21:09.260 --> 00:21:11.260
+And so, you know, I started out with like a
+
+00:21:11.330 --> 00:21:14.220
+little goofy, um, app that you can like hand code
+
+00:21:14.220 --> 00:21:16.530
+if you want, but also like, this is a great
+
+00:21:16.530 --> 00:21:20.090
+place to safely be able to experiment with apps and plug,
+
+00:21:20.090 --> 00:21:21.740
+clawed in and say, go for it.
+
+00:21:21.740 --> 00:21:23.990
+Um, Um, you can read lexicons out of
+
+00:21:24.040 --> 00:21:26.480
+the, um, lexicon garden MCP and give
+
+00:21:26.480 --> 00:21:29.980
+people capabilities to tinker with data, have front end,
+
+00:21:30.070 --> 00:21:33.180
+um, capabilities on top of the app proto stack and basically
+
+00:21:33.180 --> 00:21:35.870
+be able to, um, uh, grow the types of
+
+00:21:35.940 --> 00:21:39.340
+things and the, the, the access to other communities for
+
+00:21:39.340 --> 00:21:40.060
+building new apps.
+
+00:21:40.060 --> 00:21:43.050
+To, to check the little agentic AI checkbox that
+
+00:21:43.070 --> 00:21:44.220
+'s now required everywhere.
+
+00:21:44.220 --> 00:21:44.540
+Yeah.
+
+00:21:44.540 --> 00:21:47.710
+The difference between an MCP application and a web tile is
+
+00:21:47.710 --> 00:21:48.600
+the runtime.
+
+00:21:48.620 --> 00:21:51.780
+So we right now there's this service is actually an MC
+
+00:21:51.780 --> 00:21:52.140
+P.
+
+00:21:52.250 --> 00:21:54.740
+So if you authenticate in and say, load the hello
+
+00:21:54.740 --> 00:21:57.660
+world tile or load the create, the create post tile,
+
+00:21:57.660 --> 00:22:01.930
+it will use the same structure, the same, the exact
+
+00:22:01.930 --> 00:22:05.210
+same runtime structure to make XR authenticated XRPC
+
+00:22:05.210 --> 00:22:08.890
+calls from within your agent to do things like create posts,
+
+00:22:08.890 --> 00:22:10.450
+make XRPC calls, et cetera.
+
+00:22:10.740 --> 00:22:13.610
+And that means that we have broad, broad distribution.
+
+00:22:13.610 --> 00:22:15.600
+Anyone can say, Hey, I want to have an allow
+
+00:22:15.600 --> 00:22:18.160
+list of tiles that are going into Rumi, or Hey
+
+00:22:18.380 --> 00:22:21.200
+, I want to have a standalone website that displays some of
+
+00:22:21.300 --> 00:22:23.640
+this content and, and, uh, has a runner that
+
+00:22:23.760 --> 00:22:27.260
+supports this payment method specific to this content provider.
+
+00:22:27.260 --> 00:22:27.760
+Right.
+
+00:22:27.830 --> 00:22:30.600
+Uh, and that same tile can then work on a mobile
+
+00:22:30.620 --> 00:22:31.140
+device.
+
+00:22:31.220 --> 00:22:32.880
+It can work on a desktop app.
+
+00:22:32.880 --> 00:22:35.310
+You can have a local car file with a dual car,
+
+00:22:35.430 --> 00:22:38.210
+uh, you know, basically data payload that you can give
+
+00:22:38.330 --> 00:22:40.510
+to someone else to load that local data.
+
+00:22:40.510 --> 00:22:42.440
+It's truly distributed content.
+
+00:22:42.440 --> 00:22:44.300
+And we think that's pretty cool.
+
+00:22:44.380 --> 00:22:47.730
+Let's bring back mixtapes.
+
+00:22:48.020 --> 00:22:48.400
+Yes.
+
+00:22:48.400 --> 00:22:49.120
+Um, okay.
+
+00:22:49.190 --> 00:22:50.620
+We've got like a minute.
+
+00:22:50.620 --> 00:22:51.420
+Any questions?
+
+00:22:57.180 --> 00:22:57.530
+Okay.
+
+00:22:57.530 --> 00:22:58.330
+This is awesome.
+
+00:22:58.340 --> 00:23:00.450
+You guys, like I've wanted to do this 15 years
+
+00:23:00.460 --> 00:23:00.860
+ago.
+
+00:23:00.860 --> 00:23:06.020
+Uh, so, uh, um, um, the,
+
+00:23:06.020 --> 00:23:08.890
+um, uh, basically what I wanted to do is actually
+
+00:23:08.890 --> 00:23:11.900
+put charts, interactive charts or maps in a feed.
+
+00:23:11.900 --> 00:23:12.860
+Okay.
+
+00:23:13.060 --> 00:23:13.660
+Okay.
+
+00:23:13.660 --> 00:23:16.970
+Um, my question is, uh, with regards to security
+
+00:23:16.970 --> 00:23:18.360
+, uh, so you, uh, I'm, I
+
+00:23:18.360 --> 00:23:20.160
+'m, I'm, I'm guessing you can run a
+
+00:23:20.180 --> 00:23:22.780
+JavaScript here within, right?
+
+00:23:22.780 --> 00:23:25.270
+So how does it cross boundaries with like, if there's
+
+00:23:25.270 --> 00:23:27.020
+content security policy, how does that work?
+
+00:23:27.020 --> 00:23:27.580
+Oh, yeah.
+
+00:23:27.740 --> 00:23:30.780
+So basically, uh, when the tile runner, uh,
+
+00:23:30.780 --> 00:23:33.180
+gets a manifest, it takes that content.
+
+00:23:33.180 --> 00:23:37.090
+And because it's a CID that's recognized and listed
+
+00:23:37.090 --> 00:23:40.780
+in the blob, the, the, uh, runtime is
+
+00:23:40.780 --> 00:23:42.750
+varying it down and then it's loaded.
+
+00:23:42.750 --> 00:23:45.540
+And that's the same way any assets are, are referenced
+
+00:23:45.540 --> 00:23:46.220
+as well.
+
+00:23:46.220 --> 00:23:48.480
+So like the image gallery one, could you pop that up
+
+00:23:48.480 --> 00:23:48.660
+?
+
+00:23:48.740 --> 00:23:48.940
+Yep.
+
+00:23:48.940 --> 00:23:52.650
+Um, image gallery, whether it's JavaScript images, media
+
+00:23:52.990 --> 00:23:56.260
+, et cetera, the, the runtime is making these calls
+
+00:23:56.280 --> 00:24:00.180
+to determine what can be fed into the, the sandbox.
+
+00:24:00.390 --> 00:24:03.300
+The other thing about this is, um, each one of
+
+00:24:03.320 --> 00:24:05.570
+these tiles, um, uh, the way that we host
+
+00:24:05.620 --> 00:24:07.860
+them is actually giving them each a, um, their own
+
+00:24:07.940 --> 00:24:09.630
+subdomain, uh, based on the CID.
+
+00:24:09.640 --> 00:24:12.570
+So, um, they're actually sandbox based on origin.
+
+00:24:12.570 --> 00:24:12.990
+Yeah.
+
+00:24:13.060 --> 00:24:15.420
+Like a synthetic origin.
+
+00:24:15.420 --> 00:24:15.420
+Yes.
+
+00:24:15.420 --> 00:24:15.820
+Yes.
+
+00:24:16.150 --> 00:24:18.690
+A synthetic origin.
+
+00:24:18.700 --> 00:24:18.940
+Yeah.
+
+00:24:19.060 --> 00:24:19.660
+Yeah.
+
+00:24:19.660 --> 00:24:21.980
+Non-deterministic to make it more difficult to,
+
+00:24:21.980 --> 00:24:25.270
+you know, avoid two people somehow getting the rent, the
+
+00:24:25.620 --> 00:24:29.160
+same DNS and having the chance that there's contamination.
+
+00:24:29.160 --> 00:24:30.700
+You have a question.
+
+00:24:30.700 --> 00:24:33.740
+Are you, are you using wishes in your message channel here
+
+00:24:33.740 --> 00:24:35.680
+or a different type of messaging channel?
+
+00:24:35.680 --> 00:24:37.700
+Cause tiles, maybe you can use it.
+
+00:24:37.720 --> 00:24:39.290
+So it's, so wish wishes.
+
+00:24:39.290 --> 00:24:40.850
+And please do correct me if I'm wrong here.
+
+00:24:40.850 --> 00:24:43.900
+Wishes represent the intention of a user to take an action
+
+00:24:43.980 --> 00:24:45.910
+that may involve other tiles.
+
+00:24:45.910 --> 00:24:48.400
+This is, uh, this is adjacent to it and it
+
+00:24:48.400 --> 00:24:52.020
+'s specifically XRPC calls within the, the Ad Pr
+
+00:24:52.020 --> 00:24:52.930
+oto ecosystem.
+
+00:24:52.930 --> 00:24:55.010
+So it's, it's not, uh, conflicting and
+
+00:24:55.040 --> 00:24:56.130
+could support it.
+
+00:24:56.140 --> 00:24:58.490
+We could, we could look at what layering of tiles or
+
+00:24:58.490 --> 00:25:01.260
+navigation or any, or the wishes concepts look like.
+
+00:25:01.260 --> 00:25:05.340
+Uh, yeah.
+
+00:25:05.340 --> 00:25:08.260
+That wishes are much more for the use case of like arbitrary
+
+00:25:08.330 --> 00:25:09.180
+composition.
+
+00:25:09.180 --> 00:25:11.380
+It's, it's, the idea is really task-
+
+00:25:11.380 --> 00:25:12.230
+based computing.
+
+00:25:12.230 --> 00:25:14.030
+So you don't, you want your, your, your
+
+00:25:14.040 --> 00:25:15.360
+thing needs to carry out a task.
+
+00:25:15.460 --> 00:25:17.460
+It doesn't know who else can answer that task.
+
+00:25:17.470 --> 00:25:20.370
+And then that means you have like open-ended composition,
+
+00:25:20.370 --> 00:25:23.110
+uh, instead of having apps because apps suck.
+
+00:25:23.160 --> 00:25:25.580
+Um, oh, and one, one small thing I wanted
+
+00:25:25.580 --> 00:25:27.370
+to add, I didn't have time to add it to
+
+00:25:27.370 --> 00:25:28.280
+my presentation.
+
+00:25:28.410 --> 00:25:32.530
+Some person I'd never met or interacted with, uh,
+
+00:25:32.540 --> 00:25:34.410
+the other day on, on blue sky said, Oh,
+
+00:25:34.420 --> 00:25:35.720
+this seems interesting.
+
+00:25:35.720 --> 00:25:36.700
+I'll integrate it.
+
+00:25:36.700 --> 00:25:39.940
+And then the following day they shipped a server based browser that
+
+00:25:40.000 --> 00:25:41.020
+supports tile.
+
+00:25:41.020 --> 00:25:42.780
+So, you know, it's coming.
+
+00:25:42.780 --> 00:25:43.500
+That's awesome.
+
+00:25:43.520 --> 00:25:46.050
+For clarification, I was asking so that people would know you
+
+00:25:46.060 --> 00:25:46.780
+don't have to use wishes.
+
+00:25:46.780 --> 00:25:48.700
+You can use all kinds of things.
+
+00:25:48.700 --> 00:25:51.500
+Uh, is hanger open source?
+
+00:25:51.500 --> 00:25:54.860
+Uh, parts of it are, yeah.
+
+00:25:54.860 --> 00:25:56.820
+Uh, we, we intend on open sourcing parts of
+
+00:25:56.820 --> 00:25:57.050
+it.
+
+00:25:57.050 --> 00:25:58.680
+Um, but, uh, there's a bunch of different
+
+00:25:59.140 --> 00:26:01.510
+components that were, yeah, we, we think that there
+
+00:26:01.560 --> 00:26:04.850
+'s, um, potential value to the community ecosystem to,
+
+00:26:04.920 --> 00:26:07.940
+uh, open source, both the runtime and the CDN
+
+00:26:08.020 --> 00:26:11.580
+, uh, but then make some of the extra PC services
+
+00:26:11.580 --> 00:26:14.380
+specific to payment processing or other things, you know, the
+
+00:26:14.380 --> 00:26:16.700
+secret sauce of how this thing can like sustain itself.
+
+00:26:17.430 --> 00:26:19.590
+Okay.
+
+00:26:19.680 --> 00:26:20.460
+One last question.
+
+00:26:20.460 --> 00:26:21.340
+I think we got to wrap up.
+
+00:26:21.340 --> 00:26:21.900
+Yeah.
+
+00:26:22.080 --> 00:26:26.460
+Um, forgive my ignorance.
+
+00:26:26.460 --> 00:26:28.240
+This is the first time I've ever heard of web tiles
+
+00:26:28.240 --> 00:26:28.320
+.
+
+00:26:28.380 --> 00:26:30.030
+Is this a W3C?
+
+00:26:30.060 --> 00:26:31.960
+Is this supported in all browsers?
+
+00:26:31.960 --> 00:26:33.420
+Is this a wasm thing?
+
+00:26:33.420 --> 00:26:34.620
+What is the runtime, I guess?
+
+00:26:34.700 --> 00:26:36.220
+Uh, so I, I mean, it, it,
+
+00:26:36.220 --> 00:26:38.440
+this is not a W3C thing, but like the
+
+00:26:38.440 --> 00:26:40.050
+runtime is like a web runtime.
+
+00:26:40.060 --> 00:26:41.420
+So it's, it, it, it works in the
+
+00:26:41.490 --> 00:26:42.060
+browser.
+
+00:26:42.060 --> 00:26:46.250
+Um, the, the container itself is not a W3
+
+00:26:46.350 --> 00:26:47.520
+C standard.
+
+00:26:47.590 --> 00:26:48.620
+It's a dazzle standard.
+
+00:26:49.300 --> 00:26:50.990
+So, I mean, if you want to call dazzle
+
+00:26:50.990 --> 00:26:52.650
+standards, but like it's, it's along the same
+
+00:26:52.650 --> 00:26:54.620
+suite of stuff that powers the rest of 80.
+
+00:26:55.350 --> 00:26:57.900
+Yeah, no, this is, this works in the browser
+
+00:26:57.900 --> 00:26:58.300
+today.
+
+00:26:58.300 --> 00:26:58.700
+Yeah.
+
+00:26:58.700 --> 00:27:00.980
+And, uh, the, the key things here are web
+
+00:27:00.980 --> 00:27:02.140
+tiles are standard.
+
+00:27:02.140 --> 00:27:04.710
+Um, the runtime that we're talking about is a thing
+
+00:27:04.710 --> 00:27:07.500
+that loads web tiles and has the message channel for being able
+
+00:27:07.500 --> 00:27:09.180
+to connect to your app proto account.
+
+00:27:09.180 --> 00:27:11.840
+Um, or, uh, yeah, I, I think
+
+00:27:11.840 --> 00:27:14.400
+there's a lot of room to standardize and create more
+
+00:27:14.600 --> 00:27:16.780
+formality around what runtimes do and don't support.
+
+00:27:16.780 --> 00:27:19.880
+Um, and the Maslow documents is, is actually,
+
+00:27:19.980 --> 00:27:23.680
+it's, it's, it's simple and plain complimentary
+
+00:27:23.680 --> 00:27:24.290
+, right?
+
+00:27:24.290 --> 00:27:27.470
+It, it does exactly what you'd expect by defining what
+
+00:27:27.470 --> 00:27:30.140
+resources we're using CIDs, uh, content address
+
+00:27:30.240 --> 00:27:32.990
+able storage references or links, uh, to, to tell
+
+00:27:32.990 --> 00:27:35.720
+you what it needs to load and how, and then it
+
+00:27:35.720 --> 00:27:37.870
+'s up to the runtime to implement it.
+
+00:27:37.870 --> 00:27:40.140
+So think of it as like the PDS is a collection
+
+00:27:40.220 --> 00:27:41.400
+of XRPC services.
+
+00:27:41.430 --> 00:27:43.500
+It's not really a formal spec, but you do have
+
+00:27:43.500 --> 00:27:45.380
+a general shape of what it looks like.
+
+00:27:45.390 --> 00:27:46.380
+It's very similar.
+
+00:27:46.380 --> 00:27:48.930
+And, and also like generally, I mean, the way
+
+00:27:49.050 --> 00:27:51.730
+we do specs and dazzle, we do small specs that
+
+00:27:51.740 --> 00:27:53.060
+do one thing, do it well.
+
+00:27:53.060 --> 00:27:55.920
+And that way you implement what you need to implement for that
+
+00:27:55.920 --> 00:27:56.090
+.
+
+00:27:56.090 --> 00:27:58.710
+So like the tile spec is like tiny and it's just
+
+00:27:58.710 --> 00:28:01.660
+tiles, but like the wishes spec is going to be separate
+
+00:28:01.660 --> 00:28:02.350
+from that.
+
+00:28:02.440 --> 00:28:04.960
+And like it, it's only wishes you could do like
+
+00:28:05.130 --> 00:28:07.600
+task-based computing in other contexts.
+
+00:28:07.600 --> 00:28:11.860
+Um, but also, um, uh, you know,
+
+00:28:11.880 --> 00:28:12.830
+various environments.
+
+00:28:12.830 --> 00:28:14.500
+So for instance, I, I demoed, like I
+
+00:28:14.500 --> 00:28:17.730
+demoed, like I showed like roomie integration, you
+
+00:28:17.730 --> 00:28:20.530
+could have a, a chat context integration.
+
+00:28:20.580 --> 00:28:22.450
+And like, if roomie integrates it and say,
+
+00:28:22.460 --> 00:28:25.320
+I'm making this up matrix integrates it, you could
+
+00:28:25.350 --> 00:28:26.700
+use the same tiles in both.
+
+00:28:27.030 --> 00:28:27.420
+Yeah.
+
+00:28:27.420 --> 00:28:31.130
+We're like 10 minutes, 10 minutes into the one minute
+
+00:28:31.130 --> 00:28:31.420
+.
+
+00:28:31.420 --> 00:28:31.550
+Yeah.
+
+00:28:31.640 --> 00:28:33.080
+We're, we're now in the bonus round.
+
+00:28:33.080 --> 00:28:34.460
+Um, this is the coffee break.
+
+00:28:34.460 --> 00:28:36.660
+So please be free should you want to be.
+
+00:28:36.700 --> 00:28:39.620
+Um, otherwise, if you would like to talk about tiles
+
+00:28:39.680 --> 00:28:40.760
+more, let's go.

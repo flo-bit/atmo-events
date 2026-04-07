@@ -1,0 +1,1627 @@
+WEBVTT
+
+00:00:00.020 --> 00:00:03.620
+All right, let's do this.
+
+00:00:03.620 --> 00:00:04.520
+Hi, everyone.
+
+00:00:04.520 --> 00:00:06.840
+Thanks for being here.
+
+00:00:06.840 --> 00:00:07.560
+Who's here?
+
+00:00:07.560 --> 00:00:08.200
+My friends?
+
+00:00:08.230 --> 00:00:10.230
+My colleagues?
+
+00:00:10.230 --> 00:00:11.130
+Great.
+
+00:00:11.130 --> 00:00:11.890
+Okay.
+
+00:00:11.890 --> 00:00:13.080
+I am Tessa.
+
+00:00:13.080 --> 00:00:17.200
+I am the CEO and co-founder of Germ Network.
+
+00:00:17.520 --> 00:00:20.710
+I'm here with my founding engineer, Anna, who I
+
+00:00:20.710 --> 00:00:22.480
+hope many of you will get to meet.
+
+00:00:22.530 --> 00:00:25.140
+If you have technical questions, you should really ask her and
+
+00:00:25.140 --> 00:00:25.510
+not me.
+
+00:00:25.670 --> 00:00:29.820
+We build an end-to-end encrypted messenger that lets
+
+00:00:29.930 --> 00:00:33.560
+you log in with social handles instead of a phone number.
+
+00:00:33.580 --> 00:00:38.560
+Germ supports multiple identities, and at proto is our first and
+
+00:00:38.560 --> 00:00:40.430
+maybe most important stop.
+
+00:00:40.460 --> 00:00:48.500
+Germ now launches from your blue sky, black
+
+00:00:48.500 --> 00:00:53.270
+sky, and other at proto profiles.
+
+00:00:53.270 --> 00:00:58.310
+So thousands of you have used it since we integrate it into
+
+00:00:58.310 --> 00:00:59.840
+your blue sky profiles.
+
+00:00:59.840 --> 00:01:02.820
+Thank you for sharing your feedback in the last few weeks,
+
+00:01:02.820 --> 00:01:07.230
+and to the app proto developers who are already implementing the germ
+
+00:01:07.230 --> 00:01:10.080
+button in your app views for your users.
+
+00:01:10.410 --> 00:01:10.910
+Thank you.
+
+00:01:11.120 --> 00:01:12.950
+We have a lot of work to do, but we are
+
+00:01:12.950 --> 00:01:18.310
+ready to be your secure messaging app for the atmosphere and beyond
+
+00:01:18.310 --> 00:01:18.430
+.
+
+00:01:18.430 --> 00:01:21.660
+Come find Anna and I at 9:00 AM tomorrow morning
+
+00:01:21.660 --> 00:01:24.190
+in the lounge, the like round lounge upstairs.
+
+00:01:24.240 --> 00:01:26.080
+We're going to play with germ, and we would love
+
+00:01:26.120 --> 00:01:27.300
+to hear your feedback.
+
+00:01:27.430 --> 00:01:29.680
+And I have one green germ hat to give away.
+
+00:01:29.680 --> 00:01:34.260
+So my co-founder and CTO, Mark, is
+
+00:01:34.260 --> 00:01:35.740
+watching from home in LA.
+
+00:01:35.790 --> 00:01:37.430
+Hey, Mark, we miss you.
+
+00:01:38.380 --> 00:01:41.030
+Mark and I met on Twitter.
+
+00:01:41.100 --> 00:01:45.180
+I was a social media scholar with a theory about the centr
+
+00:01:45.180 --> 00:01:47.660
+ality of messaging to social.
+
+00:01:47.680 --> 00:01:51.260
+And Mark was the ex-Apple iMessage
+
+00:01:51.260 --> 00:01:55.800
+and FaceTime privacy engineer who left to replace the phone number
+
+00:01:55.800 --> 00:01:56.140
+.
+
+00:01:56.140 --> 00:01:59.440
+It's hard to believe that a year ago, he and
+
+00:01:59.440 --> 00:02:03.250
+I came to Seattle for AtConf as perfect strangers to everyone
+
+00:02:03.250 --> 00:02:07.100
+here because we had just started integrating AppProto into our
+
+00:02:07.100 --> 00:02:09.640
+messaging app.
+
+00:02:09.790 --> 00:02:14.060
+That weekend, we had some exciting conversations about privacy and private
+
+00:02:14.060 --> 00:02:17.580
+data that a year later are bearing so much fruit.
+
+00:02:17.710 --> 00:02:20.220
+And even at Germ, as we're focused on building end
+
+00:02:20.220 --> 00:02:23.010
+-to-end encrypted channels for your AppProto handles
+
+00:02:23.010 --> 00:02:27.260
+, we're also really interested in private data, both as
+
+00:02:27.360 --> 00:02:30.760
+developers who might use it and also as users and as citizens
+
+00:02:30.980 --> 00:02:34.700
+of this ecosystem who care about the future of social networking.
+
+00:02:34.720 --> 00:02:37.980
+But today, I don't want to talk about privacy.
+
+00:02:37.980 --> 00:02:39.900
+I want to talk about consent.
+
+00:02:43.420 --> 00:02:46.830
+In this community, we talk a lot about openness, self
+
+00:02:46.890 --> 00:02:50.060
+-determination, privacy, and choice.
+
+00:02:50.070 --> 00:02:54.000
+These are North Star values that orient us around what we're
+
+00:02:54.020 --> 00:02:54.700
+building.
+
+00:02:54.710 --> 00:03:00.380
+But these words fundamentally each describe a position of the self.
+
+00:03:00.380 --> 00:03:03.000
+I am open or private.
+
+00:03:03.000 --> 00:03:04.780
+I have choices.
+
+00:03:04.780 --> 00:03:07.980
+But as soon as I tell you what to do, these
+
+00:03:07.980 --> 00:03:09.000
+terms collapse.
+
+00:03:11.040 --> 00:03:14.610
+Consent is the missing principle here because consent is a principle
+
+00:03:14.610 --> 00:03:15.690
+of relationality.
+
+00:03:15.830 --> 00:03:20.300
+Relationality is hard because it's dynamic.
+
+00:03:20.300 --> 00:03:23.580
+It demands continual negotiation.
+
+00:03:23.590 --> 00:03:28.220
+But it's also strong because it produces consensus.
+
+00:03:28.330 --> 00:03:33.810
+Consent is scalable because it extends from a two-person
+
+00:03:33.940 --> 00:03:38.530
+relationship to the relationship of people to their government and to their
+
+00:03:38.530 --> 00:03:39.970
+social rules and norms.
+
+00:03:40.140 --> 00:03:46.870
+Caring about consent translates to movement coherence and political durability
+
+00:03:46.870 --> 00:03:47.020
+.
+
+00:03:47.130 --> 00:03:51.660
+Building consensual systems is building systems to last.
+
+00:03:51.660 --> 00:03:53.510
+And I think that's what we're all trying to do
+
+00:03:53.630 --> 00:03:53.740
+here.
+
+00:03:53.760 --> 00:03:58.140
+It's also simply the price of healthy relating.
+
+00:03:58.710 --> 00:04:02.700
+And I believe that every single person at this conference builds technology
+
+00:04:02.700 --> 00:04:06.470
+to serve human flourishing, choice, and community well-
+
+00:04:06.470 --> 00:04:06.780
+being.
+
+00:04:06.780 --> 00:04:09.440
+We're all building the future that we want to live in
+
+00:04:09.570 --> 00:04:09.720
+.
+
+00:04:09.760 --> 00:04:13.450
+So today, I want to offer us that consent is and
+
+00:04:13.700 --> 00:04:17.340
+should be one of the core guiding values that we unite around
+
+00:04:17.340 --> 00:04:18.370
+to reach our goals.
+
+00:04:20.460 --> 00:04:22.460
+I want to offer consent as a resource.
+
+00:04:22.470 --> 00:04:26.610
+Consent is a concept that you can return to when you
+
+00:04:26.610 --> 00:04:31.500
+'re setting goals, designing products, and engaging with users.
+
+00:04:31.510 --> 00:04:33.820
+Also known as other people.
+
+00:04:37.120 --> 00:04:39.250
+This talk is not graphic, but I do just want to
+
+00:04:39.250 --> 00:04:42.990
+give a trigger warning that I will mention interpersonal and sexual violence
+
+00:04:42.990 --> 00:04:43.170
+.
+
+00:04:43.180 --> 00:04:44.780
+So please take care of yourself.
+
+00:04:44.790 --> 00:04:48.880
+So the internet that most of the world lives in today is
+
+00:04:48.910 --> 00:04:52.700
+characterized by surveillance and control.
+
+00:04:52.720 --> 00:04:55.330
+That's why we're building the alternative, right?
+
+00:04:57.040 --> 00:05:00.670
+Modern social media is a gilded cage where people trade
+
+00:05:00.980 --> 00:05:06.060
+their information, relationships, attention, and ultimately freedom of thought
+
+00:05:06.060 --> 00:05:10.410
+for a steady drip of content that promises connection like a carrot
+
+00:05:10.410 --> 00:05:12.300
+that you can never quite reach.
+
+00:05:12.320 --> 00:05:17.870
+Over 6 billion people are on the internet and 4 billion human
+
+00:05:18.020 --> 00:05:22.610
+beings are using meta products every single month.
+
+00:05:23.760 --> 00:05:26.040
+These are the people that we're trying to recruit to the
+
+00:05:26.040 --> 00:05:26.680
+atmosphere.
+
+00:05:26.710 --> 00:05:31.260
+We've lived in meta social internet for 20 years, and
+
+00:05:31.260 --> 00:05:33.890
+I thought it would be fun to remind us how it started
+
+00:05:34.060 --> 00:05:34.220
+.
+
+00:05:34.220 --> 00:05:38.280
+A Facebook for the younger folks here used to be a kind
+
+00:05:38.280 --> 00:05:42.940
+of yearbook that colleges would distribute at the beginning of the
+
+00:05:42.940 --> 00:05:45.420
+school year to help undergrads make friends.
+
+00:05:45.440 --> 00:05:48.050
+Because it's always natural for us to look for each other
+
+00:05:48.210 --> 00:05:48.360
+.
+
+00:05:48.380 --> 00:05:52.100
+So in the early 2000s, Harvard made these digital.
+
+00:05:52.630 --> 00:05:56.710
+There are 12 residential houses on campus, like big dorm complexes
+
+00:05:56.770 --> 00:05:59.900
+, and they each had their own private online Facebook.
+
+00:05:59.900 --> 00:06:02.970
+So Mark Zuckerberg, when he was an undergrad, hacked
+
+00:06:03.010 --> 00:06:04.000
+into each one.
+
+00:06:04.020 --> 00:06:08.950
+He downloaded every single image of an undergraduate woman at Harvard and
+
+00:06:08.950 --> 00:06:11.790
+fed them into a hot or not style website that he then
+
+00:06:11.910 --> 00:06:12.840
+distributed.
+
+00:06:13.000 --> 00:06:17.140
+Luckily for him, the president of the school at the time
+
+00:06:17.140 --> 00:06:17.900
+was this guy.
+
+00:06:19.660 --> 00:06:24.330
+Zuck received zero discipline for hacking school IT systems and sexually
+
+00:06:24.330 --> 00:06:28.940
+harassing every single undergraduate woman on campus, which probably included
+
+00:06:28.940 --> 00:06:29.320
+minors.
+
+00:06:29.430 --> 00:06:34.080
+He was able to build and launch Facebook with campus resources,
+
+00:06:34.110 --> 00:06:37.190
+got to drop out of his own free will, and then
+
+00:06:37.310 --> 00:06:39.600
+this guy wired him $500,000.
+
+00:06:41.750 --> 00:06:45.380
+In the 20 years since, he's built so many beautiful
+
+00:06:45.700 --> 00:06:49.350
+businesses that all of us around the world get to enjoy today
+
+00:06:49.420 --> 00:06:49.740
+.
+
+00:06:53.860 --> 00:07:01.350
+Today, the way 70 to 80% of Americans feel about
+
+00:07:01.420 --> 00:07:08.700
+how companies and the government handle our data is distrust,
+
+00:07:08.700 --> 00:07:10.860
+lack of control, and confusion.
+
+00:07:10.880 --> 00:07:17.130
+This is a picture of authoritarianism that predates our current
+
+00:07:17.130 --> 00:07:19.180
+administration.
+
+00:07:19.190 --> 00:07:22.120
+Social media has connected the world, but it has also traumat
+
+00:07:22.220 --> 00:07:22.880
+ized the world.
+
+00:07:23.110 --> 00:07:25.940
+We want to talk to anyone, we don't want to
+
+00:07:25.950 --> 00:07:27.420
+talk to everyone.
+
+00:07:29.500 --> 00:07:32.470
+It's time for us to build new products with the love
+
+00:07:32.540 --> 00:07:35.570
+and tenderness that make it safe and easy for people to
+
+00:07:35.680 --> 00:07:38.780
+trust us and depend on us for the rest of their lives
+
+00:07:38.860 --> 00:07:39.040
+.
+
+00:07:39.320 --> 00:07:43.790
+Luckily for us, consent is a renewable resource that we produce
+
+00:07:43.790 --> 00:07:44.700
+ourselves.
+
+00:07:47.920 --> 00:07:52.560
+Defined simply, consent is agreement to what someone else proposed
+
+00:07:52.560 --> 00:07:55.090
+or is doing that involves you.
+
+00:07:55.110 --> 00:07:58.800
+In fact, it's a concept with a thousand-year
+
+00:07:59.060 --> 00:08:04.540
+history that bridges contract law, political theory, sexual health,
+
+00:08:04.540 --> 00:08:06.320
+human rights, and data policy.
+
+00:08:06.470 --> 00:08:10.460
+So whether you're talking about consenting to a contract,
+
+00:08:10.460 --> 00:08:14.180
+to being governed, to sex, to data collection, it
+
+00:08:14.180 --> 00:08:15.260
+'s all the same idea.
+
+00:08:15.260 --> 00:08:17.500
+So it's obviously a hugely important concept.
+
+00:08:17.510 --> 00:08:22.230
+In the 1990s, anti-rape activists on college
+
+00:08:22.800 --> 00:08:27.460
+campuses pushed the theory of consent into affirmative consent, which from
+
+00:08:27.460 --> 00:08:28.720
+there moved into law.
+
+00:08:28.870 --> 00:08:32.580
+Affirmative consent has five parameters.
+
+00:08:32.720 --> 00:08:37.100
+It's voluntary, so of course, it's freely given
+
+00:08:37.100 --> 00:08:41.080
+, it's informed, people need to understand what they're
+
+00:08:41.420 --> 00:08:41.980
+consenting to.
+
+00:08:44.540 --> 00:08:47.050
+It's revertible, it's reversible, which means
+
+00:08:47.150 --> 00:08:49.900
+it's continually given and you can withdraw it.
+
+00:08:49.910 --> 00:08:53.440
+It's specific, so consent is to a specific ask,
+
+00:08:53.440 --> 00:08:56.380
+it's not a blanket permissiveness.
+
+00:08:56.400 --> 00:08:58.640
+And finally, it's unburdensome, it
+
+00:08:58.640 --> 00:09:02.300
+'s easy to give, otherwise it's not really accessible.
+
+00:09:05.350 --> 00:09:08.750
+But in the context of software, consent has remained really shallow
+
+00:09:08.810 --> 00:09:09.000
+.
+
+00:09:09.030 --> 00:09:13.680
+Permission screens, cloud, are access to information and services
+
+00:09:13.680 --> 00:09:16.260
+, and we're coerced into consenting.
+
+00:09:16.280 --> 00:09:18.140
+That's not, that's not the deal.
+
+00:09:18.160 --> 00:09:25.700
+In 2021, human-computer interaction scholar Jane Im challenged
+
+00:09:25.700 --> 00:09:28.730
+us to apply the most current theories of consent to how we
+
+00:09:29.090 --> 00:09:30.340
+design social media features.
+
+00:09:31.840 --> 00:09:38.460
+She has this extraordinary table where she categorizes or generates social
+
+00:09:38.460 --> 00:09:42.300
+media features across the five categories of affirmative consent.
+
+00:09:42.310 --> 00:09:46.460
+This table is an actual laundry list of the best features that
+
+00:09:46.460 --> 00:09:50.220
+we've been begging platforms for for 20 years.
+
+00:09:50.220 --> 00:09:53.160
+It includes a lot of the stuff that we're working on
+
+00:09:53.160 --> 00:09:58.420
+here in the atmosphere, like algorithmic choice and account labels
+
+00:09:58.420 --> 00:10:01.900
+, the ability to disconnect posts from their engagement.
+
+00:10:03.020 --> 00:10:06.660
+It is also extremely generative, with new ideas for automation
+
+00:10:06.980 --> 00:10:09.580
+and organization and personalization.
+
+00:10:09.590 --> 00:10:13.280
+The first line of this chart is DMs.
+
+00:10:13.500 --> 00:10:16.670
+It has some really awesome feature ideas that we've talked about
+
+00:10:16.670 --> 00:10:19.570
+at Germ when we think towards group chats, automations,
+
+00:10:19.680 --> 00:10:21.100
+and productivity features.
+
+00:10:21.120 --> 00:10:25.540
+And Germ's agentive multi-identity technology is going
+
+00:10:25.540 --> 00:10:27.100
+to make some of this really easy.
+
+00:10:27.440 --> 00:10:30.360
+Like automations based on who you're talking to and who
+
+00:10:30.460 --> 00:10:31.500
+they know you as.
+
+00:10:31.510 --> 00:10:37.380
+But consent in messaging starts earlier than that, because a DM
+
+00:10:37.380 --> 00:10:41.420
+is the minimum viable product of a digital relationship.
+
+00:10:41.440 --> 00:10:45.810
+The same way a two-person connection is the smallest unit
+
+00:10:45.810 --> 00:10:47.260
+of a community.
+
+00:10:49.020 --> 00:10:50.270
+So let's talk about Germ.
+
+00:10:50.320 --> 00:10:53.940
+We've heard a lot about App Proto ethos.
+
+00:10:54.000 --> 00:10:56.460
+We also have a Germ ethos.
+
+00:10:56.460 --> 00:11:00.180
+I resonated so strongly last year to Paul Frazee's
+
+00:11:00.420 --> 00:11:03.180
+talk on Blue Sky's theory of change.
+
+00:11:03.190 --> 00:11:06.470
+Germ is similar to Blue Sky in that we are also a
+
+00:11:06.470 --> 00:11:09.660
+product built on top of an open protocol.
+
+00:11:09.680 --> 00:11:14.160
+Our protocol will always be interoperable, open source,
+
+00:11:14.160 --> 00:11:15.100
+and free.
+
+00:11:15.110 --> 00:11:18.700
+And we'll build our business through our product or products.
+
+00:11:19.660 --> 00:11:22.290
+We also believe that the way to grow how many people we
+
+00:11:22.290 --> 00:11:25.420
+serve is to compete as a consumer startup.
+
+00:11:25.420 --> 00:11:29.060
+So we're a public benefit corporation that's using growth capital
+
+00:11:29.060 --> 00:11:30.530
+to build our business.
+
+00:11:30.550 --> 00:11:35.320
+But if the AT protocol is locked open, Germ's protocol
+
+00:11:36.240 --> 00:11:38.700
+is locked consensual.
+
+00:11:38.720 --> 00:11:45.500
+Germ starts from the technological equivalent of a human rights posture.
+
+00:11:46.550 --> 00:11:48.920
+That you, each of you, are a self-so
+
+00:11:48.920 --> 00:11:53.080
+vereign individual with inalienable rights to your person
+
+00:11:53.080 --> 00:11:56.130
+hood, which in the digital realm is expressed as data.
+
+00:11:57.830 --> 00:12:02.460
+From that foundation, you have the power to identify yourself and
+
+00:12:02.460 --> 00:12:05.580
+to form relationships expressed as sharing data.
+
+00:12:05.600 --> 00:12:11.060
+Each relationship you form is unique, is double opt-in
+
+00:12:11.280 --> 00:12:12.510
+, and a single opt-out.
+
+00:12:13.360 --> 00:12:21.700
+Our protocol is an authentication layer on top of the messaging
+
+00:12:22.060 --> 00:12:26.860
+layer security protocol for end-to-end encrypted messaging.
+
+00:12:26.870 --> 00:12:31.270
+So the relationships that you opt into on Germ exist in a
+
+00:12:31.270 --> 00:12:35.270
+completely private session between you and the person you're talking to
+
+00:12:35.460 --> 00:12:35.490
+.
+
+00:12:36.640 --> 00:12:40.010
+You choose to talk to someone, also known as sharing data
+
+00:12:40.010 --> 00:12:43.270
+in real time with them, and you're only sharing it
+
+00:12:43.270 --> 00:12:44.220
+with them.
+
+00:12:44.230 --> 00:12:47.870
+So this is cryptography in the service of how we really
+
+00:12:48.180 --> 00:12:51.020
+form and dissolve human relationships.
+
+00:12:53.190 --> 00:12:56.120
+End-to-end encrypted messaging started off centralized.
+
+00:12:56.150 --> 00:12:59.860
+Both parties have to be on the same service, and you
+
+00:13:00.100 --> 00:13:04.330
+send encrypted messages addressed to and from the identities of the two
+
+00:13:04.330 --> 00:13:04.940
+parties.
+
+00:13:04.950 --> 00:13:08.080
+Historically, those have been phone numbers, but in recent
+
+00:13:08.080 --> 00:13:10.780
+years, those have been things like crypto wallets.
+
+00:13:10.800 --> 00:13:17.920
+Germ decentralizes authentication with our novel protocol, which is inspired
+
+00:13:17.920 --> 00:13:18.970
+by Double Ratchet.
+
+00:13:20.470 --> 00:13:22.630
+Double Ratchet is the gold standard of end-to-
+
+00:13:22.630 --> 00:13:27.380
+end encrypted messaging, and it updates encryption keys with each message
+
+00:13:27.420 --> 00:13:27.900
+sent.
+
+00:13:28.040 --> 00:13:34.420
+Similarly, our protocol updates identity and transport when you message people
+
+00:13:34.430 --> 00:13:34.780
+.
+
+00:13:34.800 --> 00:13:40.530
+This gives us a powerful primitive that breaks free of fixed identities
+
+00:13:40.530 --> 00:13:42.380
+and centralized services.
+
+00:13:42.490 --> 00:13:49.790
+Our protocol frees end-to-end encrypted communication from
+
+00:13:49.790 --> 00:13:50.380
+phone numbers.
+
+00:13:51.020 --> 00:13:54.380
+So that you can communicate as multiple agentive identities.
+
+00:13:54.380 --> 00:13:57.660
+So we're building secure messaging beyond phone numbers.
+
+00:13:57.680 --> 00:14:01.070
+There's a theory of relationship here.
+
+00:14:01.110 --> 00:14:05.280
+If a message is the MVP of a digital relationship, that
+
+00:14:05.280 --> 00:14:09.460
+means we're only connected if we're communicating.
+
+00:14:10.870 --> 00:14:13.260
+There aren't inactive follows on Germ.
+
+00:14:13.280 --> 00:14:16.960
+The connection starts only when I send you a message.
+
+00:14:17.200 --> 00:14:22.340
+Identification is part of communication, not separate from it.
+
+00:14:22.350 --> 00:14:25.720
+When I talk to you, I identify myself to you.
+
+00:14:25.720 --> 00:14:28.140
+It's the first thing that I share and not before.
+
+00:14:28.150 --> 00:14:32.210
+Like Krishnamurti said, I cannot exist in
+
+00:14:32.210 --> 00:14:33.020
+myself.
+
+00:14:33.020 --> 00:14:35.020
+I only exist in relationship.
+
+00:14:35.020 --> 00:14:38.610
+On Germ, you don't exist without your relationships.
+
+00:14:38.630 --> 00:14:43.790
+The coercive internet is based on a very dark view of
+
+00:14:44.320 --> 00:14:45.200
+humanity.
+
+00:14:45.210 --> 00:14:49.260
+That we can only be tricked into engaging with each other.
+
+00:14:50.630 --> 00:14:52.800
+The history of the world would beg to differ.
+
+00:14:52.810 --> 00:14:56.440
+At Germ, we're idealists, but we're also
+
+00:14:56.760 --> 00:14:57.470
+realists.
+
+00:14:57.710 --> 00:15:02.180
+So many of us lately at this conference and online beforehand have
+
+00:15:02.180 --> 00:15:05.760
+been talking about how we need to make our products effortless
+
+00:15:05.760 --> 00:15:06.550
+and inviting.
+
+00:15:07.160 --> 00:15:09.760
+Like I used to tell my students, you can't follow
+
+00:15:09.980 --> 00:15:13.060
+your paper around explaining what you meant to say.
+
+00:15:13.070 --> 00:15:18.140
+As Tony Cade Bambara says, the role of
+
+00:15:18.140 --> 00:15:21.060
+the artist is to make revolution irresistible.
+
+00:15:21.070 --> 00:15:25.720
+At Germ, our goal is to make exercising your autonomy feel
+
+00:15:25.720 --> 00:15:28.660
+effortless and fun, even viral.
+
+00:15:28.670 --> 00:15:33.300
+And so the core UX challenge of our app is making it
+
+00:15:33.300 --> 00:15:36.420
+easy and intuitive to talk to your friends with your handle.
+
+00:15:37.080 --> 00:15:40.360
+While placing authentic moments of friction in the right places.
+
+00:15:40.360 --> 00:15:44.460
+We tried not to reinvent the wheel where messaging works well,
+
+00:15:44.510 --> 00:15:49.210
+but innovate significantly in the context layer with our creation of cards
+
+00:15:49.260 --> 00:15:49.500
+.
+
+00:15:49.500 --> 00:15:56.960
+Cards are how we represent your cryptographic identities in Germ
+
+00:15:56.960 --> 00:15:57.420
+.
+
+00:15:57.430 --> 00:16:01.120
+You can use cards without app proto.
+
+00:16:01.280 --> 00:16:03.880
+You just build one and share a link or a QR code
+
+00:16:04.050 --> 00:16:05.820
+with someone else to chat.
+
+00:16:06.990 --> 00:16:11.200
+Under the hood, that is decentralized authentication, but most users
+
+00:16:11.200 --> 00:16:12.320
+don't care.
+
+00:16:12.340 --> 00:16:16.340
+You can build multiple cards and each version of every card you
+
+00:16:16.340 --> 00:16:20.680
+share is operating a separate cryptographic mailbox, all presented to
+
+00:16:20.680 --> 00:16:22.550
+you in one unified inbox.
+
+00:16:24.280 --> 00:16:27.840
+As we integrated app proto, we navigated new dimensions of
+
+00:16:27.840 --> 00:16:30.620
+how our users grant and withdraw consent.
+
+00:16:30.630 --> 00:16:34.260
+Germ's burner cards are totally local, but your app proto
+
+00:16:34.580 --> 00:16:37.420
+card is connected to this busy outside world.
+
+00:16:37.440 --> 00:16:41.120
+You pull your profile data in from app proto and you can
+
+00:16:41.380 --> 00:16:43.740
+push things back out like blocks.
+
+00:16:43.740 --> 00:16:44.290
+We already present your products.
+
+00:16:44.340 --> 00:16:48.050
+We already present your app proto card differently from your local cards
+
+00:16:48.300 --> 00:16:50.960
+, but I expect that as our app matures, our
+
+00:16:50.960 --> 00:16:54.950
+design system will highlight where your cards and relationships came from.
+
+00:16:57.860 --> 00:17:01.250
+All relationships on Germ are two-way, but app proto
+
+00:17:01.260 --> 00:17:04.760
+doesn't have friends, it has one-way followers.
+
+00:17:04.810 --> 00:17:08.430
+If Germ is invite-only messaging, when you link your
+
+00:17:08.430 --> 00:17:12.300
+app proto handle, you're opening up a wider invitation of
+
+00:17:12.300 --> 00:17:13.210
+who can talk to you.
+
+00:17:13.420 --> 00:17:15.700
+But even there, we don't assume.
+
+00:17:16.180 --> 00:17:19.210
+We use the logics of consent to reason about how to
+
+00:17:19.220 --> 00:17:21.880
+bring app proto connections into Germ.
+
+00:17:21.890 --> 00:17:26.070
+If you follow someone on app proto, you opted into connecting
+
+00:17:26.070 --> 00:17:27.030
+with them.
+
+00:17:27.040 --> 00:17:29.920
+So they can double opt-in back to you by messaging
+
+00:17:29.920 --> 00:17:30.760
+you on Germ.
+
+00:17:30.850 --> 00:17:34.130
+And all across the atmosphere, we're seeing the Germ button
+
+00:17:34.130 --> 00:17:36.380
+showing up on your friend's profile.
+
+00:17:36.400 --> 00:17:38.830
+Just click it and start chatting with them in an end-
+
+00:17:38.830 --> 00:17:40.360
+to-end encrypted channel.
+
+00:17:40.370 --> 00:17:43.560
+And we hear you asking for open DMs.
+
+00:17:43.660 --> 00:17:45.880
+You're ready to consent to that.
+
+00:17:45.880 --> 00:17:47.070
+And that's a future feature.
+
+00:17:47.100 --> 00:17:50.640
+Because consent is informed, we want to make sure that our
+
+00:17:50.640 --> 00:17:53.920
+users always know what they're sharing with who.
+
+00:17:53.940 --> 00:17:57.330
+Because it's specific, we want them to have granular control
+
+00:17:57.340 --> 00:17:59.420
+over how they can be contacted.
+
+00:17:59.420 --> 00:18:02.690
+So you decide whether you want the people that you follow on
+
+00:18:02.690 --> 00:18:05.230
+app proto to be able to message you at all, or
+
+00:18:05.230 --> 00:18:08.050
+whether you want to reserve the right to send the first message
+
+00:18:08.050 --> 00:18:10.960
+, and whether a button to Germ DM should display in app
+
+00:18:11.070 --> 00:18:11.540
+views.
+
+00:18:12.320 --> 00:18:13.840
+Because it's unburdensome.
+
+00:18:13.840 --> 00:18:16.180
+If you chat with someone, if you want to chat with
+
+00:18:16.180 --> 00:18:19.700
+someone, if you can chat with someone, excuse me,
+
+00:18:19.710 --> 00:18:22.140
+you see a button on their profile, and you simply click
+
+00:18:22.140 --> 00:18:23.280
+it to start chatting.
+
+00:18:23.290 --> 00:18:26.850
+And this is the fun part about consent.
+
+00:18:26.880 --> 00:18:30.500
+People get mad when they don't have access to your permission
+
+00:18:30.820 --> 00:18:32.420
+to hang out with them.
+
+00:18:32.770 --> 00:18:35.390
+But to the people that you consent to be in relationship with
+
+00:18:35.600 --> 00:18:37.260
+, it's the best party in the world.
+
+00:18:37.270 --> 00:18:41.920
+Germ relationships are separate from app proto relationships.
+
+00:18:41.940 --> 00:18:45.590
+So once you start messaging on Germ via your app proto cards
+
+00:18:45.900 --> 00:18:48.340
+, you can, for example, unfollow each other out
+
+00:18:48.340 --> 00:18:50.400
+there, and you'll still be connected in Germ.
+
+00:18:50.410 --> 00:18:53.630
+You can even disconnect your blue sky account, or your black
+
+00:18:53.660 --> 00:18:56.390
+sky account, and you still can keep talking on Germ.
+
+00:18:56.540 --> 00:19:02.010
+Right now, you add Germ friends one at a time from
+
+00:19:02.140 --> 00:19:03.300
+another app.
+
+00:19:03.320 --> 00:19:06.950
+But we're working to show your app proto social graph inside
+
+00:19:07.260 --> 00:19:09.810
+of Germ, so that you can have a more complete and
+
+00:19:09.920 --> 00:19:11.510
+easy messaging experience.
+
+00:19:12.300 --> 00:19:15.710
+In designing this new feature, we wanted to help people understand
+
+00:19:15.720 --> 00:19:19.150
+that your app proto connections aren't your Germ connections, until
+
+00:19:19.230 --> 00:19:20.490
+you send them a message.
+
+00:19:20.510 --> 00:19:22.960
+You can also dismiss seeing people in the app, like in
+
+00:19:22.960 --> 00:19:24.820
+other suggested friends features.
+
+00:19:24.830 --> 00:19:28.230
+So Germ is not just a messenger for app proto the way
+
+00:19:28.230 --> 00:19:31.720
+Signal is a messenger for your phone contacts.
+
+00:19:31.830 --> 00:19:36.290
+Instead, our protocol is an invite-only layer, with
+
+00:19:36.290 --> 00:19:38.960
+a doorway that you can open to app proto as wide as
+
+00:19:39.040 --> 00:19:39.670
+you want.
+
+00:19:40.360 --> 00:19:43.390
+You're always in charge of who gets the keys to talk
+
+00:19:43.390 --> 00:19:43.990
+to you.
+
+00:19:44.080 --> 00:19:48.220
+Messaging has become crowded and spammy.
+
+00:19:48.230 --> 00:19:52.880
+We're empowering you to rebuild the network of who you actually
+
+00:19:52.910 --> 00:19:56.220
+want to talk to, with the identities that you already know
+
+00:19:56.220 --> 00:19:56.830
+them as.
+
+00:19:56.860 --> 00:20:01.530
+I want to close with a postscript for a solar punk
+
+00:20:01.770 --> 00:20:02.950
+future.
+
+00:20:03.100 --> 00:20:08.860
+Double Ratchet is known as the Axolotl algorithm
+
+00:20:08.860 --> 00:20:12.120
+, because it is cryptographically self-healing,
+
+00:20:12.140 --> 00:20:14.980
+the way the Mexico City salamander, the Ajol
+
+00:20:14.980 --> 00:20:17.320
+ote, from Nahuatl, Ajolotl,
+
+00:20:17.320 --> 00:20:18.360
+is self-healing.
+
+00:20:18.480 --> 00:20:23.680
+When LDF was Tetnotichlan, it was a
+
+00:20:24.080 --> 00:20:28.550
+sustainable city on a lake in a volcanic mountain basin, and
+
+00:20:28.550 --> 00:20:30.950
+Ajolotes were extremely plentiful.
+
+00:20:32.500 --> 00:20:35.870
+Now, there are more Ajolotes in captivity for medical
+
+00:20:35.870 --> 00:20:38.180
+research than living in the wild.
+
+00:20:38.190 --> 00:20:42.680
+The legend goes that when there are no more Ajolotes
+
+00:20:42.680 --> 00:20:44.040
+, the world will end.
+
+00:20:44.050 --> 00:20:48.030
+There are currently estimated to be between 50 and 1,000
+
+00:20:48.030 --> 00:20:49.090
+wild Ajolotes.
+
+00:20:51.110 --> 00:20:54.510
+There are entities that we are in relation to on this earth
+
+00:20:54.540 --> 00:20:57.400
+that can't express their consent with language.
+
+00:20:57.420 --> 00:20:59.760
+They only register their distress.
+
+00:21:03.830 --> 00:21:06.350
+Protocols scale how we relate to each other.
+
+00:21:06.540 --> 00:21:10.490
+The GERM protocol scales the granting and withdrawal of consent
+
+00:21:10.490 --> 00:21:13.940
+in relationships with humans and with robots.
+
+00:21:14.940 --> 00:21:18.630
+As we continue to rebuild the world through technology, let's
+
+00:21:18.900 --> 00:21:22.130
+never skip the hard work of negotiating consent in all of our
+
+00:21:22.130 --> 00:21:23.290
+relationships.
+
+00:21:24.200 --> 00:21:27.090
+Because even if people can leave our apps, if they don
+
+00:21:27.090 --> 00:21:29.410
+'t like them, which we talk about a lot in At
+
+00:21:29.410 --> 00:21:32.490
+Proto, we want them to keep choosing At Proto
+
+00:21:32.520 --> 00:21:32.840
+.
+
+00:21:32.850 --> 00:21:37.130
+So let's use our interacting protocols to build a future that
+
+00:21:37.130 --> 00:21:40.330
+is truly free, because we are all exactly where we want
+
+00:21:40.330 --> 00:21:40.750
+to be.
+
+00:21:40.880 --> 00:21:41.780
+Thank you.
+
+00:21:41.900 --> 00:21:51.070
+And I did want to hold like
+
+00:21:51.110 --> 00:21:59.180
+a few minutes for Q&A,
+
+00:21:59.180 --> 00:22:01.080
+so if anybody has any, hit me up.
+
+00:22:01.100 --> 00:22:01.890
+Yeah, Gov.
+
+00:22:02.010 --> 00:22:04.520
+Hang on just a sec.
+
+00:22:04.740 --> 00:22:06.630
+We've got folks streaming in, so I'll bring you
+
+00:22:06.630 --> 00:22:07.080
+a mic.
+
+00:22:07.220 --> 00:22:09.080
+Thank you.
+
+00:22:10.080 --> 00:22:12.380
+So, well, thank you very much.
+
+00:22:12.380 --> 00:22:13.810
+And I also sent my first GERM DM, like
+
+00:22:13.810 --> 00:22:14.740
+, right now, so.
+
+00:22:14.760 --> 00:22:17.710
+As you all should, right now.
+
+00:22:17.740 --> 00:22:18.440
+As you all should.
+
+00:22:18.450 --> 00:22:22.150
+But, so with E2EE, and also in the
+
+00:22:22.400 --> 00:22:27.870
+context of consent, there's always a tension between privacy and
+
+00:22:27.870 --> 00:22:30.400
+safety, from a security perspective.
+
+00:22:30.410 --> 00:22:32.500
+And I'm curious what your approach, or GERM
+
+00:22:32.540 --> 00:22:35.520
+'s approach, is towards that, perhaps in the context of
+
+00:22:35.520 --> 00:22:36.400
+moderation.
+
+00:22:36.420 --> 00:22:38.600
+Yeah, pretty much that's my question.
+
+00:22:40.080 --> 00:22:42.460
+At GERM, we have a user-centric view
+
+00:22:42.460 --> 00:22:43.420
+of safety.
+
+00:22:43.430 --> 00:22:47.060
+So it's all about people being empowered to be in places
+
+00:22:47.380 --> 00:22:50.140
+that they want to be, and consent is really central to
+
+00:22:50.140 --> 00:22:50.540
+that.
+
+00:22:50.560 --> 00:22:53.950
+And on a kind of organizational level, we have a sense
+
+00:22:53.960 --> 00:22:57.780
+that we're going to build and ship safety features along with
+
+00:22:57.780 --> 00:23:00.490
+the connective features that we ship.
+
+00:23:01.020 --> 00:23:03.540
+So the GERM that many of you are using today
+
+00:23:03.630 --> 00:23:05.580
+is a one-on-one messenger.
+
+00:23:05.580 --> 00:23:08.990
+We haven't shipped photos yet, also for safety reasons,
+
+00:23:09.020 --> 00:23:11.120
+because there's tooling that we need to ship once we let
+
+00:23:11.280 --> 00:23:11.960
+people share photos.
+
+00:23:11.980 --> 00:23:14.120
+There's tooling that we need to ship also when we let
+
+00:23:14.120 --> 00:23:18.680
+you share link previews, which we all want link preview
+
+00:23:18.680 --> 00:23:18.970
+s.
+
+00:23:19.240 --> 00:23:20.960
+I've been thinking about that a lot this weekend.
+
+00:23:20.970 --> 00:23:23.990
+It's also why we haven't shipped open DMs yet
+
+00:23:24.000 --> 00:23:24.300
+.
+
+00:23:24.300 --> 00:23:26.420
+A lot of people have been asking for DMs.
+
+00:23:26.420 --> 00:23:28.020
+So we have a lot to build.
+
+00:23:28.020 --> 00:23:30.340
+We don't want to put the cart before the horse.
+
+00:23:30.340 --> 00:23:33.900
+We want to make sure that anywhere that people are, they
+
+00:23:33.900 --> 00:23:37.260
+are able to get help if they need it.
+
+00:23:37.680 --> 00:23:41.090
+We also think about scale when we think about safety.
+
+00:23:41.230 --> 00:23:45.880
+So we think that people have a right to community, but
+
+00:23:45.880 --> 00:23:49.690
+they don't have a right to reach and, like,
+
+00:23:49.940 --> 00:23:50.770
+extensive publishing.
+
+00:23:50.890 --> 00:23:55.140
+So when we envision GERM serving extra large groups,
+
+00:23:55.140 --> 00:23:58.890
+we imagine that perhaps, like, an automated moderation service that
+
+00:23:58.890 --> 00:24:01.570
+will be required to be an end in your group.
+
+00:24:01.590 --> 00:24:04.720
+But that's not something that will require in small-scale
+
+00:24:04.720 --> 00:24:06.980
+groups, like 20-person groups.
+
+00:24:07.580 --> 00:24:10.450
+And, you know, even though we're innovating a
+
+00:24:10.450 --> 00:24:13.770
+lot in terms of the protocol and the identity layer, we
+
+00:24:13.770 --> 00:24:16.580
+are building on top of 10, 15 years of end-
+
+00:24:16.660 --> 00:24:18.310
+to-end encrypted messaging.
+
+00:24:18.540 --> 00:24:21.070
+Billions of people are using end-to-end encrypted
+
+00:24:21.130 --> 00:24:24.000
+messaging every day around the world in iMessage and
+
+00:24:24.220 --> 00:24:24.380
+WhatsApp.
+
+00:24:24.380 --> 00:24:26.530
+And so there are a lot of best practices there for us
+
+00:24:26.530 --> 00:24:27.010
+to build on.
+
+00:24:27.340 --> 00:24:28.390
+Thanks.
+
+00:24:28.560 --> 00:24:31.740
+Here you go.
+
+00:24:31.880 --> 00:24:34.080
+Thank you.
+
+00:24:34.500 --> 00:24:37.000
+What are the requirements for implementing GERM DMs into
+
+00:24:37.090 --> 00:24:37.890
+your app view?
+
+00:24:37.940 --> 00:24:40.440
+We have them written up.
+
+00:24:40.470 --> 00:24:43.120
+There's links to them right on our blog, germnet
+
+00:24:43.300 --> 00:24:43.680
+work.
+
+00:24:43.680 --> 00:24:44.840
+com slash blog.
+
+00:24:44.850 --> 00:24:46.010
+You should ask Anna.
+
+00:24:46.020 --> 00:24:46.860
+Anna, can you raise your hand?
+
+00:24:46.860 --> 00:24:47.420
+Show the people.
+
+00:24:47.460 --> 00:24:49.620
+Ask Anna's my founding engineer.
+
+00:24:49.640 --> 00:24:52.240
+What are the requirements?
+
+00:24:52.460 --> 00:24:54.890
+Okay.
+
+00:24:55.020 --> 00:24:55.700
+It's complicated.
+
+00:24:55.700 --> 00:24:58.440
+I mean, from a user experience level today, we're
+
+00:24:58.540 --> 00:24:59.320
+just on iOS.
+
+00:24:59.330 --> 00:25:01.990
+So you're going to want to have an app or a
+
+00:25:02.110 --> 00:25:05.560
+web product that people are using, at least on their iPhone
+
+00:25:05.560 --> 00:25:06.230
+sometimes.
+
+00:25:06.250 --> 00:25:08.870
+And we have some splash pages and ways for you to direct
+
+00:25:09.090 --> 00:25:12.220
+folks to information if they're not using an iOS device when
+
+00:25:12.220 --> 00:25:13.160
+they access.
+
+00:25:13.180 --> 00:25:14.470
+But it should be pretty easy.
+
+00:25:14.490 --> 00:25:16.080
+Lots of people have done it, even in the last few
+
+00:25:16.080 --> 00:25:17.110
+weeks, without our help yet.
+
+00:25:17.320 --> 00:25:18.510
+So we'd love to help you do that.
+
+00:25:18.560 --> 00:25:18.990
+Great.
+
+00:25:19.010 --> 00:25:22.160
+And are there any pretenses on which you would prevent an
+
+00:25:22.160 --> 00:25:24.770
+app view from implementing GERM DMs, like if
+
+00:25:24.770 --> 00:25:27.130
+they became, you know, like an abuser of the
+
+00:25:27.130 --> 00:25:29.230
+technology or something like this?
+
+00:25:29.300 --> 00:25:31.810
+I think that would be difficult.
+
+00:25:31.850 --> 00:25:35.250
+That's an interesting trust and safety question.
+
+00:25:35.360 --> 00:25:37.990
+I think there are ways that we can...
+
+00:25:38.060 --> 00:25:39.780
+I'm not actually going to answer that.
+
+00:25:39.780 --> 00:25:40.810
+We should chat about that.
+
+00:25:40.860 --> 00:25:41.100
+Yeah.
+
+00:25:41.100 --> 00:25:41.440
+Thank you.
+
+00:25:41.440 --> 00:25:42.160
+I'll check out the docs.
+
+00:25:42.210 --> 00:25:42.820
+Thank you very much.
+
+00:25:42.820 --> 00:25:43.040
+Yeah, please do.
+
+00:25:45.170 --> 00:25:46.410
+Someone throw me an easy one.
+
+00:25:46.550 --> 00:25:50.080
+One more, maybe?
+
+00:25:50.390 --> 00:25:52.220
+What was your favorite part of building on Ad Proto?
+
+00:25:52.240 --> 00:25:53.980
+All of you.
+
+00:25:54.000 --> 00:25:54.540
+Excellent.
+
+00:25:54.560 --> 00:25:56.790
+No, but to say it, like, more actually,
+
+00:25:56.790 --> 00:26:00.660
+more directly, it's kind of ironic when you're building
+
+00:26:00.740 --> 00:26:03.840
+, like, a consumer product to build something that's designed
+
+00:26:03.920 --> 00:26:05.780
+to have a cold start problem on purpose.
+
+00:26:06.040 --> 00:26:08.340
+Because the whole point of GERM is that you can
+
+00:26:08.340 --> 00:26:10.690
+be alone if you want to, and you control the aperture
+
+00:26:10.690 --> 00:26:12.920
+of how available you want to be.
+
+00:26:13.260 --> 00:26:15.660
+So somebody might use GERM and only ever want to
+
+00:26:15.660 --> 00:26:18.480
+talk to three people in their entire lives, but one of
+
+00:26:18.480 --> 00:26:21.030
+the three people that they're talking to might want to talk
+
+00:26:21.140 --> 00:26:22.540
+to 50,000 people.
+
+00:26:22.610 --> 00:26:25.620
+And that's an affordance that we make possible that the
+
+00:26:25.640 --> 00:26:28.680
+meta products of the world make simply impossible.
+
+00:26:28.700 --> 00:26:31.190
+And I think the last six months for us, as we
+
+00:26:31.190 --> 00:26:34.500
+'ve integrated with Ad Proto, has been about giving you
+
+00:26:34.500 --> 00:26:37.440
+a new aperture and a new set of invitations that you
+
+00:26:37.440 --> 00:26:39.900
+can use to bring your friends into GERM.
+
+00:26:40.090 --> 00:26:42.710
+And just seeing those GERM buttons pop up all over
+
+00:26:42.920 --> 00:26:47.000
+your profiles and seeing people use this to have private conversations from
+
+00:26:47.210 --> 00:26:50.620
+their internet friends has been extremely thrilling.
+
+00:26:50.620 --> 00:26:51.760
+So thank you for that.
+
+00:26:51.770 --> 00:26:53.400
+Thank you so much, Tessa.
+
+00:26:53.400 --> 00:26:55.240
+I think we're going to wrap up questions now, and
+
+00:26:55.240 --> 00:26:57.640
+we've got a panel discussion, so everybody stick around.
+
+00:26:57.650 --> 00:27:00.530
+The team from Expo and Friends is going to be talking
+
+00:27:00.530 --> 00:27:03.120
+about building apps on Expo and at Proto.
+
+00:27:03.230 --> 00:27:04.300
+Thank you.
+
+00:27:04.430 --> 00:27:05.280
+Thank you so much, Tessa.
+
+00:27:05.300 --> 00:27:06.310
+Thank you.

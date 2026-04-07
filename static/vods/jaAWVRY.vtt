@@ -1,0 +1,1618 @@
+WEBVTT
+
+00:00:01.000 --> 00:00:02.720
+- So, does it work right now?
+
+00:00:02.720 --> 00:00:04.670
+Okay, hi everyone, my name's Paul, I'm
+
+00:00:04.670 --> 00:00:05.660
+from Vienna.
+
+00:00:05.720 --> 00:00:08.220
+Thanks for showing up to this very nerdy topic.
+
+00:00:08.340 --> 00:00:11.960
+I hope I can contribute something.
+
+00:00:11.960 --> 00:00:16.740
+So based in Vienna, normally I don't fly long haul
+
+00:00:16.740 --> 00:00:17.220
+at all.
+
+00:00:17.220 --> 00:00:20.020
+So this, I came here for this very specific reason to
+
+00:00:20.020 --> 00:00:22.840
+tell you about this because it's really close to my heart
+
+00:00:23.180 --> 00:00:23.440
+.
+
+00:00:23.450 --> 00:00:25.990
+I call myself a digital human rights activist.
+
+00:00:27.700 --> 00:00:32.580
+- Yeah, employed as a researcher at the university currently.
+
+00:00:32.580 --> 00:00:37.640
+I have a background in wireless mesh networking.
+
+00:00:37.640 --> 00:00:41.300
+The movement I'm involved with is called Battle Mesh.
+
+00:00:41.300 --> 00:00:45.220
+It's a weird title, has nothing to do with weapons
+
+00:00:45.220 --> 00:00:46.420
+or war or anything.
+
+00:00:46.420 --> 00:00:49.840
+It's a scientific competition.
+
+00:00:49.840 --> 00:00:51.870
+If you're interested, I can tell you about it later
+
+00:00:51.870 --> 00:00:52.080
+.
+
+00:00:52.100 --> 00:00:54.800
+It's a long tradition, 10 years right now.
+
+00:00:54.800 --> 00:00:58.240
+Yeah, and since roughly 10 years, I'm in the
+
+00:00:58.440 --> 00:01:04.080
+field of advocating for alternative media ecosystems like the Fediverse,
+
+00:01:04.080 --> 00:01:05.920
+like the atmosphere.
+
+00:01:05.920 --> 00:01:13.630
+And my perspective is from a person who has been lurking
+
+00:01:13.640 --> 00:01:18.960
+for 10 plus years in forums where people talk about internet identity
+
+00:01:18.960 --> 00:01:19.120
+.
+
+00:01:19.160 --> 00:01:23.620
+So the internet identity workshop, the rebooting web of trust
+
+00:01:23.880 --> 00:01:27.350
+community, and several groups at the W3C.
+
+00:01:27.520 --> 00:01:30.660
+So I have been reading and trying to understand.
+
+00:01:30.660 --> 00:01:32.580
+And the reason why I've been doing that for the last
+
+00:01:32.580 --> 00:01:36.520
+10 years is because before that, I met a person called
+
+00:01:36.520 --> 00:01:37.720
+Marcus Sabadello.
+
+00:01:37.720 --> 00:01:39.960
+Greetings from Marcus Sabadello from Vienna.
+
+00:01:40.020 --> 00:01:42.460
+He, we talked before I flew here.
+
+00:01:42.460 --> 00:01:46.610
+And Marcus Sabadello, so I met him in a
+
+00:01:46.610 --> 00:01:49.650
+very nice place in Vienna, which is the MetaLab
+
+00:01:49.650 --> 00:01:51.920
+, which has nothing to do with the corporation.
+
+00:01:51.920 --> 00:01:54.870
+It's a hack space with a very long tradition also.
+
+00:01:54.920 --> 00:02:00.170
+So Marcus was working there on something that sounded very esoter
+
+00:02:00.170 --> 00:02:01.620
+ic to me, and he called it self-sorrow
+
+00:02:01.640 --> 00:02:02.220
+ed identity.
+
+00:02:02.240 --> 00:02:04.060
+And I thought, hey, what is self-sorrow
+
+00:02:04.060 --> 00:02:04.790
+ed identity?
+
+00:02:04.800 --> 00:02:13.400
+And then he explained to me, it's a political
+
+00:02:13.580 --> 00:02:17.460
+program, actually.
+
+00:02:17.460 --> 00:02:20.600
+I will tell you about the details of this political program in
+
+00:02:20.600 --> 00:02:21.210
+a minute.
+
+00:02:21.220 --> 00:02:25.740
+So basically, he sort of, he put a spell on
+
+00:02:25.780 --> 00:02:26.360
+me.
+
+00:02:26.480 --> 00:02:29.400
+He showed me something that I couldn't really understand, couldn
+
+00:02:29.400 --> 00:02:32.220
+'t really make sense of, but I was kind of fascinated
+
+00:02:32.480 --> 00:02:32.940
+somehow.
+
+00:02:32.940 --> 00:02:36.300
+And I also valued him very much, and he's a
+
+00:02:36.300 --> 00:02:39.230
+very intelligent person, so I thought, this must be worth
+
+00:02:39.460 --> 00:02:40.220
+something.
+
+00:02:40.380 --> 00:02:45.590
+I call this terminology problems, this slide, because if you
+
+00:02:45.760 --> 00:02:50.810
+talk to people about sovereignty and identity, the chances are extremely
+
+00:02:51.060 --> 00:02:53.180
+high that you're being misunderstood there.
+
+00:02:53.180 --> 00:02:57.520
+Those two terms are loaded with stuff that has nothing to do
+
+00:02:57.700 --> 00:02:58.960
+with what we're talking about here.
+
+00:02:59.440 --> 00:03:02.240
+So this is just as a warning out there.
+
+00:03:02.240 --> 00:03:05.580
+If you're involved in discussions, be aware that this is
+
+00:03:05.580 --> 00:03:07.820
+really dangerous terrain.
+
+00:03:07.840 --> 00:03:12.360
+The discussion on better terms is ongoing.
+
+00:03:12.380 --> 00:03:17.900
+Okay, what does self-servant identity mean in
+
+00:03:17.900 --> 00:03:18.680
+a technical sense?
+
+00:03:18.680 --> 00:03:22.240
+As we understand it here in this AT-Proto context
+
+00:03:22.240 --> 00:03:28.390
+, it means that there is some public key infrastructure, which
+
+00:03:28.860 --> 00:03:34.130
+includes, which is the pointer, this common, some even
+
+00:03:34.460 --> 00:03:39.110
+call it source of truth, but I would advise against that
+
+00:03:39.110 --> 00:03:39.360
+.
+
+00:03:39.360 --> 00:03:41.600
+But it's a common reference point.
+
+00:03:41.720 --> 00:03:47.460
+You could even claim it's something like DNS, but there
+
+00:03:47.460 --> 00:03:53.290
+is just one domain, and it's not about renting human
+
+00:03:53.410 --> 00:04:01.800
+readable expressions, but being publicly available in a public database
+
+00:04:01.830 --> 00:04:02.230
+.
+
+00:04:02.240 --> 00:04:04.340
+So it's public keys.
+
+00:04:04.340 --> 00:04:07.220
+The public key infrastructure problem is very old.
+
+00:04:07.220 --> 00:04:09.860
+I think it's around 40 years old, I think,
+
+00:04:09.910 --> 00:04:10.170
+something like that.
+
+00:04:10.240 --> 00:04:13.590
+So maybe it's not really, you cannot really solve it
+
+00:04:13.590 --> 00:04:13.800
+.
+
+00:04:13.800 --> 00:04:19.920
+You can just make several evolutionary progress steps there.
+
+00:04:19.920 --> 00:04:24.720
+Yeah, so the idea is that you have an identifier,
+
+00:04:24.720 --> 00:04:30.290
+which there is a clear open-defined method, can be
+
+00:04:30.900 --> 00:04:34.740
+resolved to a document that includes all kinds of metadata about this
+
+00:04:34.740 --> 00:04:36.100
+DIT subject.
+
+00:04:36.100 --> 00:04:39.230
+And this all works only if we have, if you can
+
+00:04:39.230 --> 00:04:41.710
+maintain this common verifiable data registry.
+
+00:04:41.720 --> 00:04:46.850
+So I was hooked because I understood from Marko's descriptions
+
+00:04:46.860 --> 00:04:53.230
+that if systems start to use these kinds of identity systems underneath
+
+00:04:53.600 --> 00:05:00.960
+everything, in a wider sense, the role of the identity
+
+00:05:00.960 --> 00:05:03.400
+provider is irrelevant.
+
+00:05:03.440 --> 00:05:08.120
+There is no identity provider anymore that you need to beg,
+
+00:05:08.120 --> 00:05:09.600
+that needs to give you some permission.
+
+00:05:09.600 --> 00:05:15.410
+You can create your founding Genesis DAD document yourself on your
+
+00:05:15.410 --> 00:05:21.610
+machine, which also means you have to take care of the
+
+00:05:21.610 --> 00:05:22.860
+keys in that sense.
+
+00:05:22.900 --> 00:05:24.520
+So we'll talk about this later.
+
+00:05:25.260 --> 00:05:28.200
+And I was hooked back in 2016, I think was that
+
+00:05:28.360 --> 00:05:32.070
+, and 2019, I was fully emerged into the Fediverse
+
+00:05:32.100 --> 00:05:32.920
+Mastodon crowd.
+
+00:05:32.920 --> 00:05:36.550
+And I kind of, with Markus and other colleagues, we
+
+00:05:36.550 --> 00:05:41.270
+tried to convince the community to add DITs already in
+
+00:05:41.600 --> 00:05:43.200
+their actor profile.
+
+00:05:43.200 --> 00:05:46.210
+So this was kind of, let's just add these keys
+
+00:05:46.210 --> 00:05:46.860
+in there.
+
+00:05:46.860 --> 00:05:47.760
+Maybe they're useful.
+
+00:05:47.760 --> 00:05:48.420
+Maybe they're useful.
+
+00:05:48.420 --> 00:05:49.800
+This doesn't cost anything.
+
+00:05:49.800 --> 00:05:50.760
+Just add them in there.
+
+00:05:50.760 --> 00:05:55.430
+And because that offers, so this was the line back then
+
+00:05:55.470 --> 00:05:58.650
+that I used, it is a persistent way to identify and
+
+00:05:58.650 --> 00:05:59.440
+authenticate.
+
+00:06:00.060 --> 00:06:04.630
+So even if your currently chosen instance operator lets you down for
+
+00:06:04.630 --> 00:06:07.240
+some reason or anything else bad happens, you don't have
+
+00:06:07.240 --> 00:06:10.550
+to worry about the persistence of your social relationships.
+
+00:06:10.560 --> 00:06:12.420
+This is a big thing.
+
+00:06:13.000 --> 00:06:16.370
+And when I went to the first activity pub conference in 2019
+
+00:06:16.370 --> 00:06:20.500
+, there was this vibe in the room that still was like
+
+00:06:20.650 --> 00:06:22.850
+, if you really care so much about the persistence of your
+
+00:06:22.850 --> 00:06:25.320
+identity, just run your own instance.
+
+00:06:25.360 --> 00:06:30.190
+Which I think is a fine position to have, but it
+
+00:06:30.190 --> 00:06:31.400
+raises still the questions.
+
+00:06:31.540 --> 00:06:34.670
+But who does not really care about their identity?
+
+00:06:34.700 --> 00:06:37.500
+I think it's basically just the trolls.
+
+00:06:37.520 --> 00:06:41.080
+Maybe even they care about their identity.
+
+00:06:41.090 --> 00:06:41.600
+I don't know.
+
+00:06:41.600 --> 00:06:45.040
+So we had this irking in the room.
+
+00:06:45.040 --> 00:06:49.500
+So this was like a kind of a voting situation where somebody
+
+00:06:49.550 --> 00:06:50.130
+took a picture.
+
+00:06:50.160 --> 00:06:51.180
+So this is a public picture.
+
+00:06:51.400 --> 00:06:54.900
+And we were voting on the position that we want to be
+
+00:06:54.900 --> 00:06:58.330
+open about this DRD concepts, but we're still not
+
+00:06:58.330 --> 00:07:00.870
+seeing how we should integrate them.
+
+00:07:00.880 --> 00:07:02.540
+This was 2019.
+
+00:07:02.560 --> 00:07:04.990
+And I'm now standing here in front of you seven years
+
+00:07:05.250 --> 00:07:10.640
+later and cannot believe that this actually happened now.
+
+00:07:11.680 --> 00:07:16.940
+Because I think this is something big.
+
+00:07:17.060 --> 00:07:20.600
+First of all, I want to give credit to Jay.
+
+00:07:20.600 --> 00:07:22.800
+I think she is one of the key persons.
+
+00:07:22.800 --> 00:07:29.100
+Because in 2022, I saw a talk on this Open Tech
+
+00:07:29.230 --> 00:07:32.830
+with Selfers series by the Matrix guys.
+
+00:07:32.860 --> 00:07:35.360
+And she was, yeah, she was, what's up
+
+00:07:35.550 --> 00:07:36.260
+with DIDs?
+
+00:07:36.260 --> 00:07:38.080
+I read there the first time.
+
+00:07:38.090 --> 00:07:39.700
+I was like, okay, this is going somewhere.
+
+00:07:39.720 --> 00:07:41.660
+And okay, this is not Gandalf.
+
+00:07:41.660 --> 00:07:42.500
+This is Whitfield Diffie.
+
+00:07:42.500 --> 00:07:43.720
+But she knows history.
+
+00:07:43.760 --> 00:07:45.800
+She understands what's going on here.
+
+00:07:48.820 --> 00:07:50.640
+So a little bit technical again.
+
+00:07:50.640 --> 00:07:55.290
+Self-sovereign account creation means you sign a block
+
+00:07:55.290 --> 00:07:58.790
+of a string of elements.
+
+00:07:58.920 --> 00:08:00.220
+You sign it yourself.
+
+00:08:00.220 --> 00:08:01.740
+And then you hash it.
+
+00:08:01.880 --> 00:08:03.100
+And then you truncate it.
+
+00:08:03.120 --> 00:08:04.280
+And then this becomes your DID.
+
+00:08:04.520 --> 00:08:08.440
+And the message is you can do this on your own.
+
+00:08:08.440 --> 00:08:11.390
+And then you broadcast this more or less to the outside world
+
+00:08:11.540 --> 00:08:14.200
+and hope that the outside world remembers this in a coherent fashion
+
+00:08:14.200 --> 00:08:14.400
+.
+
+00:08:15.360 --> 00:08:17.380
+So this is really kind of radical.
+
+00:08:17.380 --> 00:08:21.640
+And I, back in 2016, I could not understand which
+
+00:08:21.640 --> 00:08:25.940
+company, I thought in company terms, which company would ever
+
+00:08:26.030 --> 00:08:28.320
+apply this because they're, in a sense, giving away
+
+00:08:28.330 --> 00:08:29.970
+the crown jewels right from the start.
+
+00:08:30.640 --> 00:08:33.380
+So what would be the business incentive to do that?
+
+00:08:33.390 --> 00:08:34.770
+Or something like, I could not make sense of it.
+
+00:08:34.780 --> 00:08:39.920
+And now I finally understand, okay, there is a way
+
+00:08:39.920 --> 00:08:43.950
+because actually now it's out there.
+
+00:08:43.960 --> 00:08:47.540
+Technical details about the DID document.
+
+00:08:47.660 --> 00:08:48.720
+So I will skip right now.
+
+00:08:48.720 --> 00:08:53.450
+What I will say is that this concept means that you,
+
+00:08:53.450 --> 00:08:58.500
+by signing and hashing these things, you are adding,
+
+00:08:58.510 --> 00:09:02.580
+it's like a meta-paradigmatic rationality
+
+00:09:02.580 --> 00:09:04.100
+in some sense.
+
+00:09:04.180 --> 00:09:08.450
+You say, it's the only thing we care, is
+
+00:09:08.450 --> 00:09:14.160
+the signature correct and is the hashing matching?
+
+00:09:14.180 --> 00:09:17.020
+So these are mathematical functions.
+
+00:09:17.120 --> 00:09:19.340
+There is no, I would suggest there is, it's
+
+00:09:19.340 --> 00:09:21.360
+hard to put some politics into them.
+
+00:09:21.360 --> 00:09:23.860
+It's kind of, yeah.
+
+00:09:23.880 --> 00:09:28.720
+It goes back to the formulation that I've heard is that
+
+00:09:28.720 --> 00:09:32.800
+the cypherpunks, a movement that I observed
+
+00:09:32.800 --> 00:09:35.190
+, like many of you, I guess.
+
+00:09:35.220 --> 00:09:38.710
+And one of the slogans was, no army or no
+
+00:09:38.710 --> 00:09:43.580
+nation state actor, even the biggest sort of, the one
+
+00:09:43.580 --> 00:09:47.100
+equipped with the biggest arsenal of nuclear weapons.
+
+00:09:47.120 --> 00:09:52.330
+So this is a big claim that you say, okay,
+
+00:09:52.840 --> 00:09:57.390
+really, if we add this coherence, if we add
+
+00:09:57.390 --> 00:10:01.010
+this mathematics to all our power structures, this has some consequences
+
+00:10:01.010 --> 00:10:01.200
+.
+
+00:10:01.360 --> 00:10:04.790
+And I think this is the original cypherpunks
+
+00:10:04.790 --> 00:10:05.600
+motto.
+
+00:10:05.600 --> 00:10:08.970
+And here in our project here, it means that if the
+
+00:10:08.970 --> 00:10:14.260
+PLC directory fundamentally changes its behavior in not doing that anymore
+
+00:10:14.260 --> 00:10:19.240
+, we all know that the project is dead in some sense
+
+00:10:19.240 --> 00:10:19.660
+.
+
+00:10:19.840 --> 00:10:24.780
+Because this is the core, in my understanding, this is
+
+00:10:24.880 --> 00:10:31.080
+one of the core elements that enables these locking open methods.
+
+00:10:31.080 --> 00:10:33.320
+This is the same as if the master.
+
+00:10:33.440 --> 00:10:37.580
+social admin, which is the supernova in the ecosystem still
+
+00:10:37.590 --> 00:10:41.660
+, if the supernova turns off the migration or federation
+
+00:10:41.690 --> 00:10:44.090
+APIs, you know that this project, or at least the
+
+00:10:44.120 --> 00:10:47.460
+group that runs this instance, is politically also dead in some
+
+00:10:47.460 --> 00:10:48.000
+sense.
+
+00:10:48.000 --> 00:10:49.760
+So it does not keep the core promise anymore.
+
+00:10:50.320 --> 00:10:54.070
+So I'm claiming that this is a political program that's
+
+00:10:54.070 --> 00:10:57.250
+now being sort of, or it's now emerging in some
+
+00:10:57.250 --> 00:10:58.010
+sense.
+
+00:10:58.020 --> 00:11:00.960
+And it says we don't need identity providers anymore.
+
+00:11:01.060 --> 00:11:06.200
+Very much in line with Article 1 of the Universal Declaration.
+
+00:11:06.920 --> 00:11:08.870
+So I'm claiming that the toothpaste is out.
+
+00:11:08.880 --> 00:11:11.730
+You cannot put it back in anymore because now a successful project
+
+00:11:11.730 --> 00:11:12.950
+is actually using this.
+
+00:11:12.960 --> 00:11:15.860
+Marcos Sabadello, who has an overview of all
+
+00:11:15.860 --> 00:11:18.970
+the SSI systems, says, to his knowledge also,
+
+00:11:18.970 --> 00:11:22.930
+this AT-Protor ecosystem is the biggest emerging phenomenon
+
+00:11:22.930 --> 00:11:25.050
+that adopts this principle.
+
+00:11:25.080 --> 00:11:28.030
+And it's even if the PLC crashes and burns in
+
+00:11:28.350 --> 00:11:32.350
+one hour from now, we all understand that this idea makes
+
+00:11:32.350 --> 00:11:35.620
+sense and that we will keep working on it.
+
+00:11:36.320 --> 00:11:42.070
+I could say a few things about the DRD method situation
+
+00:11:42.070 --> 00:11:42.520
+.
+
+00:11:42.520 --> 00:11:46.910
+So currently, PLC is the method being adopted and supported
+
+00:11:46.930 --> 00:11:47.260
+.
+
+00:11:47.260 --> 00:11:50.060
+There are, of course, this will never end, I
+
+00:11:50.090 --> 00:11:50.760
+think.
+
+00:11:50.760 --> 00:11:55.900
+This is something, this is an ongoing process where we debate
+
+00:11:55.940 --> 00:12:00.740
+about what are the best methods to achieve all what we want
+
+00:12:00.750 --> 00:12:01.140
+.
+
+00:12:01.280 --> 00:12:06.220
+For example, currently, there is something called SCID,
+
+00:12:06.250 --> 00:12:09.840
+which adds to the PLC concept a format, a pre
+
+00:12:09.920 --> 00:12:13.490
+-string, which is kind of neat, but doesn't
+
+00:12:13.510 --> 00:12:15.000
+really change things.
+
+00:12:15.000 --> 00:12:19.000
+But this means something that you can sort of optionally append
+
+00:12:19.130 --> 00:12:24.000
+the location parameter where your did document history can be found.
+
+00:12:24.120 --> 00:12:26.880
+Your verifiable did document history can be found.
+
+00:12:26.880 --> 00:12:29.820
+So the did methods will evolve.
+
+00:12:29.820 --> 00:12:31.930
+This is all fine and fine and good.
+
+00:12:31.940 --> 00:12:38.020
+What's still open is someone needs to run this box and
+
+00:12:38.020 --> 00:12:44.720
+that someone has a couple of things to decide.
+
+00:12:46.320 --> 00:12:50.580
+Currently, the public knowledge that was given by the Blue Sky
+
+00:12:50.580 --> 00:12:55.210
+Project is the claim that the Swiss Association is being founded or
+
+00:12:55.210 --> 00:12:57.020
+has been founded, I've heard.
+
+00:12:57.520 --> 00:13:01.590
+They will have the flexibility to turn themselves into all kinds of
+
+00:13:01.590 --> 00:13:03.140
+other institutions.
+
+00:13:03.140 --> 00:13:09.240
+And it's also a common understanding here that one entity running
+
+00:13:09.240 --> 00:13:13.980
+the, running this thing alone is not what we want in
+
+00:13:13.980 --> 00:13:15.110
+the end.
+
+00:13:15.120 --> 00:13:17.260
+It's a sort of starting point that we, that we
+
+00:13:17.260 --> 00:13:18.070
+can jump off from.
+
+00:13:18.740 --> 00:13:22.550
+And if this kind of works, this identity system can be
+
+00:13:22.550 --> 00:13:26.430
+used by all other projects, by many other projects.
+
+00:13:26.500 --> 00:13:35.270
+So I said the directory needs to do two things.
+
+00:13:35.280 --> 00:13:40.180
+It needs to, and I will concentrate on this for the
+
+00:13:40.180 --> 00:13:41.960
+rest of my time.
+
+00:13:42.020 --> 00:13:46.260
+It needs to decide whether an operation that's being submitted is
+
+00:13:46.260 --> 00:13:47.220
+a valid one.
+
+00:13:48.740 --> 00:13:53.690
+Valid in the sense of, does it match, does
+
+00:13:53.710 --> 00:14:00.220
+the signature match, does this all mathematically look okay?
+
+00:14:00.220 --> 00:14:02.060
+Yeah, that's one criteria.
+
+00:14:02.060 --> 00:14:07.260
+But if that stays the only criteria, I think we can
+
+00:14:07.780 --> 00:14:09.960
+imagine what happens.
+
+00:14:10.040 --> 00:14:16.720
+Anyone can upload anything that matches these criteria to this public database
+
+00:14:16.910 --> 00:14:17.180
+.
+
+00:14:17.260 --> 00:14:19.760
+And the public database doesn't know, hey, is this
+
+00:14:19.780 --> 00:14:20.200
+a DDoS?
+
+00:14:20.320 --> 00:14:21.240
+Is this a spammer?
+
+00:14:21.250 --> 00:14:21.860
+I don't know.
+
+00:14:21.860 --> 00:14:24.800
+So basically, we're back to this Bitcoin problem.
+
+00:14:24.800 --> 00:14:28.720
+And the common understanding is here that we want to avoid crypto
+
+00:14:28.720 --> 00:14:30.420
+economics as much as we can.
+
+00:14:30.420 --> 00:14:33.820
+Because we know right now, so by now we have learned
+
+00:14:33.820 --> 00:14:36.660
+a little bit what the consequences are.
+
+00:14:38.340 --> 00:14:43.290
+So we want to be able to devise robust ways to
+
+00:14:43.480 --> 00:14:50.390
+distinguish whether this is a legitimate, in-good-fa
+
+00:14:50.390 --> 00:14:53.560
+ith request or whether this is an attack to the system.
+
+00:14:57.560 --> 00:15:02.230
+And the second thing that's important is it needs to serve
+
+00:15:02.230 --> 00:15:04.070
+the right history.
+
+00:15:04.080 --> 00:15:08.680
+So sometimes, for some reasons, there may be not just
+
+00:15:08.680 --> 00:15:11.670
+appending to a DIT history, but a fork of
+
+00:15:11.670 --> 00:15:12.520
+a DIT history.
+
+00:15:12.620 --> 00:15:15.180
+For example, when something, when some keys get compromised,
+
+00:15:15.290 --> 00:15:21.950
+and the directory could, in some situations, maybe if it
+
+00:15:21.950 --> 00:15:26.180
+'s an adversary that runs the directory, could serve an older
+
+00:15:26.180 --> 00:15:30.380
+or a different branch of a DIT document history.
+
+00:15:31.420 --> 00:15:34.130
+And Edmund Edgar will talk about this problem, as far
+
+00:15:34.130 --> 00:15:35.880
+as I understand, today at 5 p.
+
+00:15:35.880 --> 00:15:36.240
+m.
+
+00:15:36.240 --> 00:15:37.760
+So check this out.
+
+00:15:37.900 --> 00:15:41.100
+I will only talk about this validity question here.
+
+00:15:41.100 --> 00:15:44.910
+One skeet that I want to quote here is from July
+
+00:15:44.910 --> 00:15:49.950
+last year, where people are already looking at what kind of
+
+00:15:49.950 --> 00:15:55.020
+operations are being stored in the current directory.
+
+00:15:55.020 --> 00:15:57.960
+And there was all kinds of nonsensical stuff being
+
+00:15:57.960 --> 00:15:59.090
+uploaded there.
+
+00:15:59.960 --> 00:16:05.380
+So it turns out that the people who run this box currently
+
+00:16:05.420 --> 00:16:11.480
+have to keep the situation under control and clean stuff up.
+
+00:16:11.500 --> 00:16:14.710
+And yeah, they, for good reason, want to get
+
+00:16:14.780 --> 00:16:18.600
+rid of this job responsibility as soon as possible.
+
+00:16:21.620 --> 00:16:27.920
+So, how can we design more robust systems?
+
+00:16:27.920 --> 00:16:30.320
+And one design methodology I'm very fond of, and I
+
+00:16:30.320 --> 00:16:33.320
+think it's also the design methodology of the Blue Sky Project
+
+00:16:33.320 --> 00:16:36.480
+, is called adversarial design.
+
+00:16:36.520 --> 00:16:40.680
+So you assume that you're embedded in an adversarial environment
+
+00:16:40.680 --> 00:16:43.940
+, and the question is how to survive, in some sense
+
+00:16:43.940 --> 00:16:44.210
+.
+
+00:16:44.620 --> 00:16:47.560
+So, the adversarial design means you're always asking the
+
+00:16:47.890 --> 00:16:50.820
+question, what is the most efficient method to make the system
+
+00:16:50.820 --> 00:16:52.490
+less useful for key actors?
+
+00:16:52.500 --> 00:16:56.400
+You try to find and identify what would a rational actor do
+
+00:16:56.400 --> 00:16:59.520
+to make this unusable for the key persons?
+
+00:17:00.380 --> 00:17:07.440
+And then use that input to develop defense mechanisms.
+
+00:17:07.440 --> 00:17:09.980
+And I think, currently, I'm trying to sort of
+
+00:17:10.120 --> 00:17:13.630
+finish this up and publish this a little bit better, because
+
+00:17:13.630 --> 00:17:14.680
+it's in the works.
+
+00:17:14.680 --> 00:17:19.900
+But currently, my main focus is, I believe that a
+
+00:17:20.400 --> 00:17:26.620
+rational actor that's interested in making the PLC less usable
+
+00:17:26.620 --> 00:17:30.490
+, and less lightweight, and less easy to mirror and monitor
+
+00:17:30.490 --> 00:17:30.720
+.
+
+00:17:30.720 --> 00:17:35.440
+So, like, an adversary would try to erode this
+
+00:17:35.440 --> 00:17:37.300
+transparency.
+
+00:17:37.300 --> 00:17:43.960
+And I think the one brute force method that always will work
+
+00:17:43.960 --> 00:17:49.750
+, is that the adversary creates a situation where it's almost
+
+00:17:49.750 --> 00:17:52.480
+impossible to distinguish valid from invalid requests.
+
+00:17:52.480 --> 00:17:55.430
+So, there is no way of, currently, any IP
+
+00:17:55.750 --> 00:17:59.500
+address from anywhere can submit these requests.
+
+00:17:59.500 --> 00:18:05.240
+There is no metadata signal available that says, okay, this
+
+00:18:05.240 --> 00:18:09.240
+may be a useful request, or this is maybe a spam
+
+00:18:09.260 --> 00:18:11.500
+attack, or a DDoS attack.
+
+00:18:11.500 --> 00:18:14.800
+Yeah, this is, the next graph is a little bit
+
+00:18:14.800 --> 00:18:17.620
+, like, fresh from my documents.
+
+00:18:17.620 --> 00:18:22.300
+It says that, if, for example, if you say
+
+00:18:22.300 --> 00:18:26.820
+, this is an ordered, so, like, this is
+
+00:18:26.860 --> 00:18:31.930
+the volume of requests, and the volume here means, at
+
+00:18:31.930 --> 00:18:35.420
+zero, it means that nothing indicates that they are inauth
+
+00:18:35.420 --> 00:18:36.020
+entic.
+
+00:18:36.020 --> 00:18:37.080
+Everything seems fine.
+
+00:18:37.080 --> 00:18:39.780
+This looks like normal signups from normal PDSs,
+
+00:18:39.780 --> 00:18:42.900
+and then maybe there are indicators in the system that say,
+
+00:18:43.000 --> 00:18:45.800
+okay, this is definitely something illegitimate, because it
+
+00:18:45.820 --> 00:18:46.700
+doesn't make sense.
+
+00:18:46.700 --> 00:18:49.240
+It's, we can rule it out as something, this
+
+00:18:49.390 --> 00:18:50.240
+is not valid.
+
+00:18:50.240 --> 00:18:52.250
+We know that, we know that this is not valid for
+
+00:18:52.250 --> 00:18:52.640
+sure.
+
+00:18:52.660 --> 00:18:54.900
+And if you, for example, order these cases, and
+
+00:18:55.010 --> 00:18:57.420
+you have this bottom in the middle, you can always say
+
+00:18:57.420 --> 00:18:59.340
+, oh, let's put the line of valid, invalid
+
+00:18:59.520 --> 00:19:00.020
+here.
+
+00:19:00.020 --> 00:19:02.960
+And then there is, there should be no fuss, no
+
+00:19:03.290 --> 00:19:03.720
+fight.
+
+00:19:03.720 --> 00:19:06.670
+All the mirrors, all the witnesses would have the same understanding
+
+00:19:06.990 --> 00:19:08.940
+of valid and invalid, and we say, yeah, sure
+
+00:19:08.960 --> 00:19:09.260
+.
+
+00:19:09.260 --> 00:19:12.200
+This stuff definitely does not need to be stored in a public
+
+00:19:12.540 --> 00:19:15.380
+database, and this stuff definitely should.
+
+00:19:15.500 --> 00:19:19.200
+And I think an adversary will create this situation here.
+
+00:19:19.200 --> 00:19:24.150
+This is a rough modeling of the expectation we have, that
+
+00:19:24.240 --> 00:19:28.370
+the adversary will, in some sense, this would be the
+
+00:19:28.370 --> 00:19:31.850
+worst case, yeah, when everything looks as valid or invalid
+
+00:19:31.850 --> 00:19:34.240
+as everything else, then you have no chance of deciding.
+
+00:19:35.040 --> 00:19:38.880
+And this would be something where there are two minimas,
+
+00:19:38.880 --> 00:19:42.730
+then if one group of mirrors or witnesses decides, okay,
+
+00:19:42.820 --> 00:19:46.490
+this is the one, and another group decides that this is
+
+00:19:46.490 --> 00:19:49.400
+the one, the system diverges, and it gets less
+
+00:19:49.400 --> 00:19:50.080
+coherent.
+
+00:19:50.580 --> 00:19:53.950
+And then you have many PLC directories that are claiming
+
+00:19:53.950 --> 00:19:57.060
+different things or having subsets of entries.
+
+00:19:57.060 --> 00:20:00.770
+And this is really bad because then you cannot really rate limit
+
+00:20:00.770 --> 00:20:03.540
+in the rest of the system anymore, I think.
+
+00:20:03.540 --> 00:20:04.820
+It's hard.
+
+00:20:04.820 --> 00:20:07.760
+It's very hard to rate limit at the relay ingestion
+
+00:20:08.100 --> 00:20:10.970
+, I think, if you don't have a clear overview
+
+00:20:10.970 --> 00:20:13.540
+of who is part of this and who is not.
+
+00:20:15.120 --> 00:20:18.070
+And then, I think I have, yeah, nine minutes
+
+00:20:18.390 --> 00:20:20.060
+left, which is plentiful.
+
+00:20:20.080 --> 00:20:22.850
+I want to keep some minutes for questions.
+
+00:20:22.860 --> 00:20:26.380
+Maybe the last few slides, I would like to talk about
+
+00:20:26.380 --> 00:20:30.550
+the role of academic institutions, because I am working now for
+
+00:20:30.640 --> 00:20:31.080
+one.
+
+00:20:31.540 --> 00:20:35.240
+And I have witnessed so many discussions about whether ActivityP
+
+00:20:35.240 --> 00:20:37.180
+ub or AT-Proto or NOSTER or anything
+
+00:20:37.260 --> 00:20:38.860
+else is now the way to go.
+
+00:20:38.860 --> 00:20:42.290
+I think this is a discussion that needs to happen as soon
+
+00:20:42.290 --> 00:20:44.540
+and as coherent as we can have it.
+
+00:20:44.560 --> 00:20:49.500
+I think institutions, science institutions need to come together and find
+
+00:20:49.590 --> 00:20:55.400
+a rough consensus, because I also think they have a role
+
+00:20:55.400 --> 00:21:00.760
+they need to embody here, because they are still kind of
+
+00:21:00.760 --> 00:21:01.620
+trusted.
+
+00:21:01.620 --> 00:21:05.530
+In most parts of Western society, academic institutions are not seen
+
+00:21:05.530 --> 00:21:09.520
+as kind of completely treacherous organizations or something like that
+
+00:21:09.700 --> 00:21:09.830
+.
+
+00:21:09.900 --> 00:21:13.390
+But they are still holding this public trust, in a sense
+
+00:21:13.390 --> 00:21:16.950
+, and I think it would be extremely cheap and extremely on
+
+00:21:16.950 --> 00:21:22.210
+-brand if they invest in monitoring and witnessing PLC infrastructure
+
+00:21:22.300 --> 00:21:22.660
+.
+
+00:21:22.660 --> 00:21:25.610
+I'm not so sure about who should do the proof of
+
+00:21:25.930 --> 00:21:28.820
+personal data station if we ever need one.
+
+00:21:29.520 --> 00:21:34.360
+That means you need some kind of indication that you're really
+
+00:21:34.360 --> 00:21:38.720
+a human conscious person that is not trying to sign up and
+
+00:21:38.720 --> 00:21:41.610
+not a malicious AI swarm network.
+
+00:21:41.700 --> 00:21:45.420
+So, I think this proof of personal should not be done
+
+00:21:45.420 --> 00:21:49.600
+by the university currently, but I think this should be done
+
+00:21:49.730 --> 00:21:51.340
+by the university.
+
+00:21:51.580 --> 00:21:54.530
+And for that reason, Torsten, who is in the
+
+00:21:54.860 --> 00:21:57.770
+room, I think, maybe, and me, we tried
+
+00:21:57.770 --> 00:22:03.550
+to start a discussion within academia about a strategic cooperation between AT
+
+00:22:03.560 --> 00:22:07.200
+-Proto and ActivityPub, which is aimed
+
+00:22:07.240 --> 00:22:11.930
+for convincing or just getting to a really, really broad consensus
+
+00:22:11.930 --> 00:22:18.070
+within the science community, which kind of protocol combination and identity
+
+00:22:18.070 --> 00:22:22.730
+, shared identity system we want to use in the academic world
+
+00:22:22.730 --> 00:22:23.010
+.
+
+00:22:23.020 --> 00:22:25.520
+So, if you want to, this is just the draft
+
+00:22:25.710 --> 00:22:28.100
+that was done in a couple of days here.
+
+00:22:28.900 --> 00:22:31.620
+This leads you to the editable page.
+
+00:22:31.620 --> 00:22:33.640
+If you want to contribute, please leave your comments.
+
+00:22:33.640 --> 00:22:39.320
+We should assume that science is always under threat.
+
+00:22:39.360 --> 00:22:40.840
+The current U.
+
+00:22:40.850 --> 00:22:41.320
+S.
+
+00:22:41.340 --> 00:22:45.160
+administration is on camera saying things like, we have to attack
+
+00:22:45.160 --> 00:22:46.040
+the universities.
+
+00:22:46.100 --> 00:22:48.920
+So, there the mission is clear.
+
+00:22:48.920 --> 00:22:52.690
+And a few citations on what I think is now important
+
+00:22:52.690 --> 00:22:57.070
+to remember in this situation is that there is no such thing
+
+00:22:57.210 --> 00:22:58.440
+as post-truth.
+
+00:22:59.720 --> 00:23:01.230
+I hope we can agree on that.
+
+00:23:01.440 --> 00:23:07.910
+A simple way to say why is there was never a situation
+
+00:23:07.910 --> 00:23:10.100
+of full truth.
+
+00:23:10.100 --> 00:23:11.540
+And there never will be.
+
+00:23:11.560 --> 00:23:13.180
+So, post-truth doesn't really make sense.
+
+00:23:13.180 --> 00:23:14.320
+It's an incoherent concept.
+
+00:23:14.320 --> 00:23:18.900
+There is just a lot of propaganda.
+
+00:23:18.900 --> 00:23:23.370
+Yeah, and I like Timothy Snyder's framing of this
+
+00:23:23.460 --> 00:23:23.740
+.
+
+00:23:23.740 --> 00:23:29.380
+And one other thing, which I'm kind of trying to
+
+00:23:29.460 --> 00:23:35.420
+get to the foreground again, is most of my work was
+
+00:23:35.420 --> 00:23:39.150
+, like the last 10 years, very inspired by Aaron Sw
+
+00:23:39.150 --> 00:23:40.830
+artz's comments.
+
+00:23:42.080 --> 00:23:43.930
+And I want to bring this also, again, to the
+
+00:23:43.930 --> 00:23:44.620
+foreground.
+
+00:23:44.680 --> 00:23:47.380
+I think he was really visionary.
+
+00:23:48.420 --> 00:23:54.510
+And the most important message in my understanding that he had for
+
+00:23:54.510 --> 00:23:58.260
+me was that he told me that this freedom of speech debate
+
+00:23:58.260 --> 00:24:01.460
+is actually not helping that much anymore.
+
+00:24:01.460 --> 00:24:06.880
+In an environment where ubiquitous networking is the norm.
+
+00:24:06.880 --> 00:24:09.020
+So, we have to talk about who gets heard all the
+
+00:24:09.020 --> 00:24:09.430
+time.
+
+00:24:09.460 --> 00:24:10.500
+It's not about freedoms.
+
+00:24:13.120 --> 00:24:17.580
+And, yeah, I think there are lots of reasons to
+
+00:24:17.680 --> 00:24:24.850
+be hopeful that the current situation, the current platform situation,
+
+00:24:24.860 --> 00:24:29.480
+is about to drastically change in the next few years.
+
+00:24:29.480 --> 00:24:33.330
+One data point I would like to show you at the end
+
+00:24:33.330 --> 00:24:35.300
+is not about ITProto.
+
+00:24:35.390 --> 00:24:35.860
+I'm sorry.
+
+00:24:35.860 --> 00:24:37.520
+It's about the ActivityPub network.
+
+00:24:39.120 --> 00:24:42.070
+So, this is a timeline.
+
+00:24:42.100 --> 00:24:45.050
+So, here you have time, several days.
+
+00:24:45.120 --> 00:24:47.790
+Here you have the frequency of one hashtag.
+
+00:24:47.800 --> 00:24:53.850
+And it's the hashtag of the Chaos Communication Congress in 2023
+
+00:24:53.850 --> 00:24:54.090
+.
+
+00:24:54.220 --> 00:24:58.790
+So, this graph shows you a blue curve that's out
+
+00:24:58.790 --> 00:25:01.260
+performing the black.
+
+00:25:01.260 --> 00:25:06.340
+Which, the black is the old world.
+
+00:25:06.940 --> 00:25:12.500
+People are communicating in channels that are centrally moderated.
+
+00:25:12.500 --> 00:25:15.700
+And the blue one is the communication that happens in those non
+
+00:25:15.780 --> 00:25:17.700
+-centrally moderated channels.
+
+00:25:17.700 --> 00:25:20.590
+And in the previous years at the conference, when you looked
+
+00:25:20.590 --> 00:25:23.340
+at the hashtag traffic, it was always the other way around
+
+00:25:23.420 --> 00:25:23.660
+.
+
+00:25:23.660 --> 00:25:24.820
+It was always the other way around.
+
+00:25:24.820 --> 00:25:29.290
+And I don't know when this flipped.
+
+00:25:29.500 --> 00:25:32.440
+It must be something 21, 22, 23, but now
+
+00:25:32.440 --> 00:25:33.480
+it has flipped.
+
+00:25:33.480 --> 00:25:39.120
+And those people that are in these new alternative systems, they
+
+00:25:39.200 --> 00:25:42.620
+have now understood that this works.
+
+00:25:42.620 --> 00:25:43.840
+They will never go back.
+
+00:25:43.840 --> 00:25:49.840
+I have always this fun experiment when I ask, can someone
+
+00:25:49.840 --> 00:25:54.380
+explain me a scenario where this will ever go back?
+
+00:25:54.380 --> 00:25:58.710
+So, we will go back to autocratic systems.
+
+00:25:58.720 --> 00:26:01.150
+And I don't think there is a coherent answer.
+
+00:26:01.160 --> 00:26:02.990
+So, we will never go really back to this kind of
+
+00:26:02.990 --> 00:26:03.400
+stuff.
+
+00:26:04.780 --> 00:26:06.290
+So, I'm a little bit over.
+
+00:26:06.320 --> 00:26:08.400
+I have three, four minutes.
+
+00:26:08.400 --> 00:26:09.790
+We have just a couple minutes.
+
+00:26:09.820 --> 00:26:11.020
+Well, first of all, thank you very much for the
+
+00:26:11.020 --> 00:26:11.260
+talk.
+
+00:26:11.280 --> 00:26:11.680
+Yeah.
+
+00:26:16.160 --> 00:26:19.480
+And we have time for maybe just one question.
+
+00:26:19.480 --> 00:26:21.300
+Ryan, you got your hand up first, I see.
+
+00:26:21.310 --> 00:26:22.480
+I'll pass it to you.
+
+00:26:23.520 --> 00:26:26.480
+This was great.
+
+00:26:26.520 --> 00:26:27.340
+Thank you so much.
+
+00:26:27.350 --> 00:26:30.100
+I have a ton of questions, but most importantly, I
+
+00:26:30.130 --> 00:26:32.710
+'m going to do something kind of unfair here.
+
+00:26:32.720 --> 00:26:33.810
+And I apologize in advance.
+
+00:26:33.820 --> 00:26:36.770
+But I'm more interested not in what I think or what
+
+00:26:37.080 --> 00:26:39.780
+I'm asking, but, Filippo, what do
+
+00:26:39.780 --> 00:26:40.800
+you think of all this?
+
+00:26:40.800 --> 00:26:45.940
+You called him up before I could.
+
+00:26:46.160 --> 00:26:51.110
+You'll pay for this.
+
+00:26:51.200 --> 00:26:52.340
+Okay.
+
+00:26:52.340 --> 00:26:52.660
+Hi.
+
+00:26:52.660 --> 00:26:53.980
+I'm Filippo.
+
+00:26:53.990 --> 00:26:55.490
+I work on transparency infrastructure.
+
+00:26:55.500 --> 00:26:58.170
+And I guess I'm scooping a little bit, but
+
+00:26:58.190 --> 00:26:59.960
+it's relevant context.
+
+00:26:59.960 --> 00:27:03.570
+Myself and Wendy here are two of the board members of
+
+00:27:03.570 --> 00:27:07.460
+the PLC organization that you mentioned was formed.
+
+00:27:07.540 --> 00:27:08.200
+So, hi.
+
+00:27:08.200 --> 00:27:09.000
+In that context.
+
+00:27:09.000 --> 00:27:12.640
+No, I think this makes sense and this is great.
+
+00:27:12.640 --> 00:27:15.980
+And I see a box with the name registry on it and
+
+00:27:15.980 --> 00:27:18.880
+my brain thinks transparency log.
+
+00:27:19.220 --> 00:27:21.760
+So, actually, I want to know what you think about
+
+00:27:21.910 --> 00:27:25.900
+using transparency logs, the technology officer to get transparency, the
+
+00:27:26.080 --> 00:27:30.000
+Go-Checks and database and so on for that registry
+
+00:27:30.000 --> 00:27:30.380
+.
+
+00:27:31.640 --> 00:27:34.070
+So, I can only say yes.
+
+00:27:34.110 --> 00:27:35.610
+I mean, it makes so much sense.
+
+00:27:35.620 --> 00:27:37.990
+This is the next logical step, of course.
+
+00:27:38.000 --> 00:27:40.230
+T-logs are necessary.
+
+00:27:40.240 --> 00:27:41.460
+I mean, yeah.
+
+00:27:42.400 --> 00:27:45.230
+Kind of obvious.
+
+00:27:45.240 --> 00:27:45.600
+Yes.
+
+00:27:45.600 --> 00:27:47.400
+Anybody else we can put on the spot?
+
+00:27:48.180 --> 00:27:51.660
+Anybody else want to announce any other board positions that they've
+
+00:27:51.660 --> 00:27:52.840
+recently accepted?
+
+00:27:52.840 --> 00:27:55.210
+We're good?
+
+00:27:55.240 --> 00:27:55.780
+Okay.
+
+00:27:55.780 --> 00:27:56.500
+All right.
+
+00:27:56.500 --> 00:27:57.890
+Well, then, let's clear up and get ready for
+
+00:27:57.900 --> 00:27:58.460
+our next talk.
+
+00:27:58.500 --> 00:27:59.460
+But thank you very much, Paul.
+
+00:27:59.460 --> 00:28:00.760
+And thank you very much, everyone, for coming in.
+
+00:28:00.760 --> 00:28:03.530
+Thanks for having me.

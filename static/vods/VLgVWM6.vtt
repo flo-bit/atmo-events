@@ -1,0 +1,2395 @@
+WEBVTT
+
+00:00:01.320 --> 00:00:03.160
+Hello, testing, testing.
+
+00:00:03.160 --> 00:00:04.130
+Okay, there we go.
+
+00:00:04.310 --> 00:00:05.990
+Hi, good morning.
+
+00:00:05.990 --> 00:00:09.920
+So, yeah, as Boris said, I'm a stand
+
+00:00:09.920 --> 00:00:12.700
+-in for Honeydroid, my boss at Tangled
+
+00:00:12.700 --> 00:00:12.960
+.
+
+00:00:12.960 --> 00:00:16.250
+Yeah, so what he was going to talk about was Tang
+
+00:00:16.250 --> 00:00:17.960
+led, the business end as a Mr.
+
+00:00:18.370 --> 00:00:21.790
+Business, on how they raise money and how one raises money
+
+00:00:21.790 --> 00:00:25.790
+in general using VC and using Ad Proto together.
+
+00:00:26.010 --> 00:00:28.520
+But first of all, he's not here, and I
+
+00:00:28.520 --> 00:00:31.210
+'m an engineer, so I'm going to talk about engineering
+
+00:00:31.230 --> 00:00:36.300
+things, and I hope you guys are all okay with that
+
+00:00:36.520 --> 00:00:36.900
+.
+
+00:00:36.900 --> 00:00:40.770
+I do know a modicum of what they went through
+
+00:00:40.770 --> 00:00:42.740
+because I'm a bit of a Nepo baby.
+
+00:00:42.760 --> 00:00:46.220
+I knew Honeydroid from our UpCloud days together,
+
+00:00:46.220 --> 00:00:49.080
+so maybe I can perhaps speak of my perspective.
+
+00:00:49.470 --> 00:00:52.900
+This is the Lewis end, so take every single thing you
+
+00:00:52.910 --> 00:00:57.800
+hear from me with a grain of salt.
+
+00:00:57.860 --> 00:00:59.900
+So, yeah, architecture diagrams, I think I'm going
+
+00:00:59.900 --> 00:01:01.620
+to have it a little more informal.
+
+00:01:01.640 --> 00:01:03.940
+I hope that you guys heckle me, actually.
+
+00:01:03.940 --> 00:01:06.430
+Like, at any moment, raise your hand if you like
+
+00:01:06.430 --> 00:01:10.820
+, and we can force Boris to pass around the mic.
+
+00:01:11.230 --> 00:01:15.310
+Yeah, so, also, online people on StreamPlace
+
+00:01:15.430 --> 00:01:15.550
+.
+
+00:01:15.560 --> 00:01:19.550
+I would actually like it if somebody, maybe Boris as well
+
+00:01:19.550 --> 00:01:21.780
+, or I don't know, somebody else, if we
+
+00:01:22.160 --> 00:01:25.110
+could have somebody reading the StreamPlace chat so that I
+
+00:01:25.110 --> 00:01:26.280
+can get messaged.
+
+00:01:26.280 --> 00:01:28.510
+I didn't have enough time to actually put up ArcUp
+
+00:01:28.690 --> 00:01:31.710
+OBS studio on this thing and overlay some sort of Stream
+
+00:01:31.710 --> 00:01:33.920
+Place chat over my computer here so that I could see
+
+00:01:34.000 --> 00:01:35.560
+the questions directly.
+
+00:01:35.650 --> 00:01:38.270
+But, anyway, I want you to know online that I
+
+00:01:38.310 --> 00:01:39.030
+care about you.
+
+00:01:39.050 --> 00:01:44.240
+So, yeah, about me.
+
+00:01:44.250 --> 00:01:46.400
+Question from the Stream.
+
+00:01:46.400 --> 00:01:48.440
+Who is this little guy?
+
+00:01:48.440 --> 00:01:48.460
+I'm about to get to that.
+
+00:01:48.460 --> 00:01:48.480
+All right, so, yeah.
+
+00:01:48.480 --> 00:01:48.500
+Well, @oyster.
+
+00:01:48.500 --> 00:01:48.580
+cafe, I thought that was a little more professional.
+
+00:01:48.580 --> 00:01:48.620
+I changed it recently.
+
+00:01:48.620 --> 00:01:48.630
+I was Lewis.
+
+00:01:48.630 --> 00:01:48.660
+moe, but there's a connotation to the .
+
+00:01:48.660 --> 00:01:49.000
+moe TLD, so...
+
+00:01:49.000 --> 00:01:50.360
+So, it's on oyster.
+
+00:01:50.360 --> 00:01:50.810
+cafe.
+
+00:01:50.860 --> 00:01:53.500
+You know, I like oysters and I like cafes, so
+
+00:01:53.710 --> 00:01:54.000
+.
+
+00:01:54.000 --> 00:01:56.000
+Oh, yeah, the arrow's a little misplaced
+
+00:01:56.000 --> 00:01:56.000
+with two screens.
+
+00:01:56.000 --> 00:01:56.000
+I couldn't get it right either way, right?
+
+00:01:56.000 --> 00:01:56.000
+I'd have to mirror it, but imagine me under both
+
+00:01:56.000 --> 00:01:56.000
+of them right now.
+
+00:01:56.000 --> 00:01:57.660
+I thought that was a little more professional.
+
+00:01:57.660 --> 00:01:58.590
+I changed it recently.
+
+00:01:58.590 --> 00:01:59.240
+I was lewis.
+
+00:01:59.240 --> 00:02:01.230
+moe, but there's a connotation to the .
+
+00:02:01.230 --> 00:02:03.000
+moe TLD.
+
+00:02:03.000 --> 00:02:04.030
+So it's on oyster.
+
+00:02:04.030 --> 00:02:04.450
+cafe.
+
+00:02:04.450 --> 00:02:06.800
+You know, I like oysters and I like cafes.
+
+00:02:06.800 --> 00:02:10.780
+Oh, yeah, the arrow's a little misplaced
+
+00:02:10.780 --> 00:02:12.740
+with two screens.
+
+00:02:12.740 --> 00:02:14.400
+I couldn't get it right either way, right?
+
+00:02:14.400 --> 00:02:16.910
+I'd have to mirror it, but imagine me under both
+
+00:02:16.910 --> 00:02:17.970
+of them right now.
+
+00:02:18.000 --> 00:02:19.150
+That is me.
+
+00:02:19.250 --> 00:02:23.740
+I actually have this little chick thing in my bag and F
+
+00:02:23.740 --> 00:02:27.840
+IG SCP contained it for me because they had a little box
+
+00:02:27.840 --> 00:02:28.000
+.
+
+00:02:28.000 --> 00:02:30.360
+But anyway, if you want to see it later, it
+
+00:02:30.360 --> 00:02:31.000
+'s real.
+
+00:02:31.000 --> 00:02:33.000
+Wow.
+
+00:02:33.000 --> 00:02:35.000
+I'm a software engineer.
+
+00:02:35.000 --> 00:02:37.690
+As I said, I've been working at UpCloud,
+
+00:02:37.690 --> 00:02:39.000
+which is a Finnish cloud company.
+
+00:02:39.000 --> 00:02:42.840
+But then a month ago, I got hired at Tangled
+
+00:02:42.840 --> 00:02:45.220
+because they raised 3.
+
+00:02:45.220 --> 00:02:48.000
+8 million euros and started paying me with it.
+
+00:02:48.000 --> 00:02:52.000
+No, not all of it, but yeah, wow.
+
+00:02:52.000 --> 00:02:53.990
+It all goes to the Lewis Fund.
+
+00:02:53.990 --> 00:02:56.000
+No, not really.
+
+00:02:56.000 --> 00:02:58.630
+I'm from Australia, but yeah, I'm living in
+
+00:02:58.630 --> 00:02:58.960
+Finland.
+
+00:02:59.000 --> 00:03:00.660
+We're Tangled, kind of.
+
+00:03:00.660 --> 00:03:03.160
+It's in a co-working space at the moment,
+
+00:03:03.310 --> 00:03:06.000
+and I'll talk about that in a sec, maybe.
+
+00:03:06.000 --> 00:03:10.000
+But yeah, I mean, that's kind of me.
+
+00:03:10.000 --> 00:03:11.990
+Just a little guy.
+
+00:03:11.990 --> 00:03:13.820
+Who is this little guy?
+
+00:03:13.820 --> 00:03:14.990
+I don't know.
+
+00:03:15.000 --> 00:03:17.000
+So yeah, here are the founders.
+
+00:03:17.000 --> 00:03:17.990
+Anirudh and his brother.
+
+00:03:18.040 --> 00:03:21.240
+I just kind of screenshotted this straight out of Tang
+
+00:03:21.240 --> 00:03:22.000
+led itself.
+
+00:03:22.010 --> 00:03:25.000
+These are the big boys.
+
+00:03:25.040 --> 00:03:29.080
+They've been working for a year to make Tangled what
+
+00:03:29.080 --> 00:03:30.990
+it is today, so far.
+
+00:03:31.000 --> 00:03:33.500
+Up until a month ago, they had, I think,
+
+00:03:33.570 --> 00:03:36.400
+very little runway to actually do it, so it's kind
+
+00:03:36.590 --> 00:03:38.000
+of like a make or break thing.
+
+00:03:38.000 --> 00:03:41.810
+And they've done super well, in my opinion, in
+
+00:03:41.810 --> 00:03:43.990
+the Lewis end of things.
+
+00:03:44.000 --> 00:03:48.150
+So they have recently hired me, and we have a part
+
+00:03:48.310 --> 00:03:52.990
+-time student dev, Boltless, from South Korea.
+
+00:03:53.000 --> 00:03:56.550
+So we're kind of like a remote-ish first company
+
+00:03:56.790 --> 00:03:59.000
+, and I'm breaking that rule with Anirudh
+
+00:03:59.000 --> 00:04:01.460
+by having this co-working space in Helsinki, where
+
+00:04:01.460 --> 00:04:05.080
+I can host all my mini PCs and freaky little Lewis
+
+00:04:05.090 --> 00:04:06.990
+Cloud applications.
+
+00:04:07.010 --> 00:04:08.000
+Yes.
+
+00:04:08.000 --> 00:04:10.400
+I'd like to talk a little bit about my take on
+
+00:04:10.400 --> 00:04:16.460
+Tangled before joining, like six months ago, nine months
+
+00:04:16.460 --> 00:04:18.960
+ago-ish, because, yeah, as I said,
+
+00:04:18.960 --> 00:04:21.520
+I knew Anirudh personally, and I was interested
+
+00:04:21.720 --> 00:04:25.320
+vaguely in what he's doing after he quit UpCloud
+
+00:04:25.320 --> 00:04:26.000
+to do Tangled.
+
+00:04:26.010 --> 00:04:30.500
+Actually, this was before Tangled had its own hosted PD
+
+00:04:30.710 --> 00:04:34.000
+S, so I had to make a Blue Sky account.
+
+00:04:34.000 --> 00:04:35.960
+Hmm, I was like, what the, why do I
+
+00:04:35.960 --> 00:04:37.000
+have to do this?
+
+00:04:37.000 --> 00:04:39.000
+Why can't I just sign up to Tangled itself?
+
+00:04:39.000 --> 00:04:46.000
+So that was an interesting little piece of friction before secondary apps
+
+00:04:46.000 --> 00:04:49.540
+with their own PDSs came into the, became more
+
+00:04:49.630 --> 00:04:51.000
+normal, should I say.
+
+00:04:51.000 --> 00:04:54.630
+And my take, once I logged in for the first time
+
+00:04:54.790 --> 00:04:57.660
+, that it was, I would, it was, it
+
+00:04:57.970 --> 00:04:59.000
+made sense.
+
+00:04:59.000 --> 00:05:01.690
+It's a utilitarian thing, I'm all about that
+
+00:05:01.910 --> 00:05:02.000
+.
+
+00:05:02.000 --> 00:05:05.000
+It just kind of shows you what you need to see.
+
+00:05:05.000 --> 00:05:07.640
+Oh, actually, I haven't even said what Tangled
+
+00:05:07.640 --> 00:05:07.990
+is.
+
+00:05:08.000 --> 00:05:11.000
+Hands up, who knows what Tangled already is?
+
+00:05:11.000 --> 00:05:13.060
+Okay, okay, I mean, that's most of you
+
+00:05:13.090 --> 00:05:14.000
+, but not all.
+
+00:05:14.000 --> 00:05:18.000
+So Tangled is a Git forge.
+
+00:05:18.000 --> 00:05:20.990
+I don't think I'm allowed to say GitHub competitor,
+
+00:05:21.040 --> 00:05:23.320
+but we're, you know, it's using @pr
+
+00:05:23.320 --> 00:05:23.990
+oto.
+
+00:05:24.000 --> 00:05:28.000
+The tagline is tightly knit social coding.
+
+00:05:28.000 --> 00:05:30.430
+So if you wanted to use Git yourself on a server,
+
+00:05:30.430 --> 00:05:32.820
+you can go ahead and do that, and it's all
+
+00:05:32.820 --> 00:05:33.990
+well and good.
+
+00:05:34.000 --> 00:05:35.450
+But if you want issues and PRs, and you want
+
+00:05:35.450 --> 00:05:37.620
+to collaborate with people more easily, then you're going to
+
+00:05:37.620 --> 00:05:39.000
+need, like, an actual social thingy.
+
+00:05:39.000 --> 00:05:40.510
+So Anirudh and his brother were, like,
+
+00:05:40.510 --> 00:05:43.930
+thinking, well, what's the best kind of social open
+
+00:05:43.960 --> 00:05:47.370
+infrastructure that we could choose to make that happen or, like
+
+00:05:47.370 --> 00:05:48.000
+, plug into?
+
+00:05:48.000 --> 00:05:50.000
+And what do you know?
+
+00:05:50.000 --> 00:05:52.000
+I wonder which one it ended up being.
+
+00:05:52.000 --> 00:05:53.000
+So, yeah.
+
+00:05:53.010 --> 00:05:54.000
+Alrighty.
+
+00:05:54.010 --> 00:05:58.520
+Yeah, so I mentioned that it's kind of like a
+
+00:05:58.720 --> 00:06:04.540
+GitHub competitor, but Tangled basically aims to go above and
+
+00:06:04.630 --> 00:06:04.960
+beyond.
+
+00:06:05.000 --> 00:06:09.000
+The baseline is having everything that everybody already knows and uses,
+
+00:06:09.000 --> 00:06:14.000
+but then beyond that, there are all sorts of nice features
+
+00:06:14.000 --> 00:06:16.870
+that we got either today already or coming down in the pipeline
+
+00:06:16.870 --> 00:06:17.000
+.
+
+00:06:17.000 --> 00:06:20.070
+Right now, this is a screenshot of a stacked PR that
+
+00:06:20.070 --> 00:06:21.000
+I have PR'd.
+
+00:06:21.000 --> 00:06:23.390
+It's actually not closed yet, so it's a very
+
+00:06:23.390 --> 00:06:24.000
+...
+
+00:06:24.000 --> 00:06:25.000
+Yeah, it's close to my heart.
+
+00:06:25.000 --> 00:06:27.000
+It needs to be merged soon, this one.
+
+00:06:27.000 --> 00:06:28.000
+But...
+
+00:06:28.000 --> 00:06:31.000
+Who has used Jiu-Jitsu before?
+
+00:06:31.000 --> 00:06:33.000
+The, like, Git superset.
+
+00:06:33.000 --> 00:06:34.000
+Oh my god.
+
+00:06:34.010 --> 00:06:35.000
+Okay.
+
+00:06:35.000 --> 00:06:36.000
+Less hands.
+
+00:06:36.000 --> 00:06:37.000
+Jiu-Jitsu.
+
+00:06:37.000 --> 00:06:38.000
+Who knows what Jiu-Jitsu is?
+
+00:06:38.010 --> 00:06:39.000
+Okay.
+
+00:06:39.010 --> 00:06:40.000
+Okay.
+
+00:06:40.000 --> 00:06:41.000
+I mean, kind of the same hands, I think.
+
+00:06:41.000 --> 00:06:43.520
+Jiu-Jitsu is like a superset on Git
+
+00:06:43.910 --> 00:06:44.000
+.
+
+00:06:44.000 --> 00:06:46.000
+It's nice.
+
+00:06:46.000 --> 00:06:48.000
+Was it made by Google originally?
+
+00:06:48.000 --> 00:06:49.000
+I don't know the history.
+
+00:06:49.000 --> 00:06:51.290
+But I was kind of not forced to use Jiu-
+
+00:06:51.290 --> 00:06:55.210
+Jitsu when starting Tangled, but they highly encouraged that
+
+00:06:55.210 --> 00:06:57.000
+I try it, you know, like a Brussels sprout.
+
+00:06:57.000 --> 00:06:58.210
+And I tried it, and I like it a lot,
+
+00:06:58.320 --> 00:06:59.000
+actually, now.
+
+00:06:59.000 --> 00:07:01.670
+So I'm submitting stacked PRs all the time, and
+
+00:07:01.910 --> 00:07:03.000
+this is one of them.
+
+00:07:03.000 --> 00:07:06.830
+Maybe you'll notice that usually when you have a PR in
+
+00:07:06.830 --> 00:07:11.710
+GitHub or anywhere else, the convention is that you want everything
+
+00:07:11.710 --> 00:07:14.100
+in one massive commit, so that your commit history isn't
+
+00:07:14.100 --> 00:07:15.000
+horrible after the fact.
+
+00:07:15.000 --> 00:07:18.140
+Which means that when you're trying to push big features,
+
+00:07:18.140 --> 00:07:20.990
+you have to make them entirely separate PRs, and then
+
+00:07:20.990 --> 00:07:23.000
+you kind of lose what's going on.
+
+00:07:23.000 --> 00:07:27.410
+You have to have issue trackers or actual full-on
+
+00:07:27.410 --> 00:07:31.990
+tracking apps separately from your Git forge.
+
+00:07:32.000 --> 00:07:35.120
+Or you have it in one massive PR, and that is
+
+00:07:35.120 --> 00:07:39.140
+also just like a monster PR that takes weeks or months to
+
+00:07:39.140 --> 00:07:40.990
+review all in one go.
+
+00:07:41.000 --> 00:07:43.790
+So what stacked PRs gives you is that you can kind
+
+00:07:43.910 --> 00:07:47.590
+of chunk things into each commit being its own like separate mini
+
+00:07:47.590 --> 00:07:49.990
+PR, and you can go through them one by one.
+
+00:07:50.000 --> 00:07:52.000
+You can merge a subset of them if you like.
+
+00:07:52.000 --> 00:07:57.140
+So if we said that we like everything up to 1137
+
+00:07:57.140 --> 00:07:59.330
+there, we could just merge all of those and then continue
+
+00:07:59.330 --> 00:08:01.130
+on the rest of them if we weren't so sure about
+
+00:08:01.130 --> 00:08:02.000
+the rest of them.
+
+00:08:02.000 --> 00:08:04.000
+We can clear them one by one.
+
+00:08:04.000 --> 00:08:07.550
+It kind of forces me, the submitter of the stacked
+
+00:08:07.790 --> 00:08:12.000
+PR, to also break up my commits into logical chunks.
+
+00:08:12.000 --> 00:08:15.260
+I think some people do it like chronologically speaking, but
+
+00:08:15.260 --> 00:08:19.590
+I think that the dimensionality personally for me, how I
+
+00:08:19.590 --> 00:08:22.850
+'ve been doing it, is that any one of them could
+
+00:08:22.850 --> 00:08:26.000
+be merged like semi-independently of one another.
+
+00:08:26.000 --> 00:08:28.750
+But currently stacked PRs can only be merged bottom to top
+
+00:08:28.910 --> 00:08:29.000
+.
+
+00:08:29.000 --> 00:08:34.990
+So yeah, that's one value add as an example.
+
+00:08:35.000 --> 00:08:41.500
+So that concludes the normal human slides, and now I'm
+
+00:08:41.500 --> 00:08:43.990
+going to go straight into architecture diagrams.
+
+00:08:44.000 --> 00:08:46.000
+I hope everybody's okay with that.
+
+00:08:46.000 --> 00:08:49.000
+Let's start easily and simply.
+
+00:08:49.000 --> 00:08:52.770
+This is an extremely, extremely simplified view of the blue sky
+
+00:08:52.800 --> 00:08:54.000
+infrastructure.
+
+00:08:54.000 --> 00:08:57.170
+Not necessarily at proto spec, because we have a relay in
+
+00:08:57.170 --> 00:08:59.990
+there, which is, I'll talk about that later.
+
+00:09:00.000 --> 00:09:04.460
+So in green, these little arrows with the hole in the
+
+00:09:04.460 --> 00:09:08.000
+arrowhead, those are read requests.
+
+00:09:08.000 --> 00:09:09.000
+This is how I see it.
+
+00:09:09.000 --> 00:09:10.000
+I don't think, this is not like a standard.
+
+00:09:10.000 --> 00:09:12.000
+I just kind of made this up.
+
+00:09:12.000 --> 00:09:13.810
+Because this is, hey, this is tangled the Lewis end
+
+00:09:13.810 --> 00:09:14.000
+.
+
+00:09:14.000 --> 00:09:16.000
+So this is how I think about things.
+
+00:09:16.000 --> 00:09:18.730
+Like a read request goes out, and that's in green
+
+00:09:18.910 --> 00:09:19.000
+.
+
+00:09:19.000 --> 00:09:20.690
+And then a write request goes out, and that's in
+
+00:09:20.690 --> 00:09:21.000
+red.
+
+00:09:21.000 --> 00:09:24.550
+I think the standard is to make them bidirectional arrows
+
+00:09:24.560 --> 00:09:26.000
+, but I don't know.
+
+00:09:26.000 --> 00:09:29.000
+It's kind of difficult for me to understand.
+
+00:09:29.010 --> 00:09:35.720
+This is missing some of the separate blue sky infra like feed
+
+00:09:35.960 --> 00:09:38.840
+gen and labelers and stuff that goes out to the side
+
+00:09:38.920 --> 00:09:39.000
+.
+
+00:09:39.000 --> 00:09:41.000
+I wonder if I can get my mouse over this.
+
+00:09:41.010 --> 00:09:42.000
+Yes.
+
+00:09:42.000 --> 00:09:45.400
+So you'd have more arrows coming out here for feed gen
+
+00:09:45.400 --> 00:09:47.600
+and labelers, yada, yada, yada
+
+00:09:47.600 --> 00:09:47.990
+.
+
+00:09:48.000 --> 00:09:51.000
+But what concerns me is the core here.
+
+00:09:51.000 --> 00:09:54.550
+So you only ever talk to your PDS, your personal
+
+00:09:54.710 --> 00:09:56.000
+data server.
+
+00:09:56.000 --> 00:09:57.000
+Is anybody...
+
+00:09:57.000 --> 00:09:59.960
+Put your hand up if there's something that you want me
+
+00:09:59.960 --> 00:10:02.680
+to explain beyond just saying PDS, and I assume that
+
+00:10:02.680 --> 00:10:04.000
+you know what I'm talking about.
+
+00:10:04.000 --> 00:10:07.000
+It's a weird question to phrase it.
+
+00:10:07.000 --> 00:10:08.000
+I mean, I don't know.
+
+00:10:08.000 --> 00:10:10.000
+I'll just explain everything anyway.
+
+00:10:10.000 --> 00:10:14.210
+So a PDS is where you store your data, and
+
+00:10:14.310 --> 00:10:17.090
+then that then goes on and makes a write-esque,
+
+00:10:17.090 --> 00:10:21.520
+in quotation marks, request to a relay, which then kind
+
+00:10:21.520 --> 00:10:26.010
+of caches in a time-based cache and forwards it
+
+00:10:26.010 --> 00:10:28.000
+onto an app view.
+
+00:10:28.000 --> 00:10:31.190
+You've got like stacked boxes for everything that can have,
+
+00:10:31.190 --> 00:10:33.000
+you know, one million of them.
+
+00:10:33.000 --> 00:10:36.010
+But in the blue sky infrastructure, you only have one app
+
+00:10:36.040 --> 00:10:38.000
+view, so there's no stack there.
+
+00:10:38.000 --> 00:10:41.710
+And then your PDS forwards on read requests to that app
+
+00:10:41.790 --> 00:10:45.400
+view that then has like a pool, like a full cache
+
+00:10:45.620 --> 00:10:46.000
+.
+
+00:10:46.000 --> 00:10:50.150
+And why I said app view like is that I wanted to
+
+00:10:50.310 --> 00:10:54.990
+include Red Dwarf from the get-go.
+
+00:10:55.000 --> 00:10:57.920
+So Red Dwarf is like an app view list,
+
+00:10:57.920 --> 00:11:02.480
+quote unquote, app view, and just kind of uses F
+
+00:11:02.480 --> 00:11:06.280
+IG's microcosm tools in lieu of an app view
+
+00:11:06.280 --> 00:11:07.000
+proper.
+
+00:11:07.000 --> 00:11:09.490
+So it's a lot easier to run, a lot cheaper
+
+00:11:09.910 --> 00:11:10.000
+.
+
+00:11:10.000 --> 00:11:12.490
+And that's something I think is very interesting, and I
+
+00:11:12.490 --> 00:11:15.030
+think it's kind of the future, but that's just
+
+00:11:15.030 --> 00:11:15.990
+my opinion.
+
+00:11:16.000 --> 00:11:17.000
+But yeah, Tango.
+
+00:11:17.000 --> 00:11:18.000
+Probably a great opportunity as well.
+
+00:11:18.000 --> 00:11:19.770
+How many people in the room have heard of Red Dwar
+
+00:11:19.770 --> 00:11:20.000
+f?
+
+00:11:20.010 --> 00:11:21.000
+Lots.
+
+00:11:21.000 --> 00:11:22.000
+Yeah, okay.
+
+00:11:22.010 --> 00:11:23.000
+Wow.
+
+00:11:23.000 --> 00:11:24.000
+Yeah, decent amount of hands.
+
+00:11:24.000 --> 00:11:26.110
+Red Dwarf dot app if you want to try it
+
+00:11:26.110 --> 00:11:27.000
+yourself.
+
+00:11:27.010 --> 00:11:28.000
+Yeah.
+
+00:11:28.000 --> 00:11:29.000
+I like it.
+
+00:11:29.000 --> 00:11:30.000
+I recommend it.
+
+00:11:30.000 --> 00:11:31.000
+Very good.
+
+00:11:31.000 --> 00:11:34.780
+So this is Blue Sky as introduction to now what I'm
+
+00:11:34.800 --> 00:11:38.850
+going to show is how I see the current architecture of Tang
+
+00:11:38.850 --> 00:11:41.000
+led in comparison to this.
+
+00:11:41.000 --> 00:11:43.000
+So yeah, we've got more arrows.
+
+00:11:43.000 --> 00:11:44.000
+We've got more stuff.
+
+00:11:44.000 --> 00:11:46.730
+So in Blue we've got the PDS-like,
+
+00:11:46.910 --> 00:11:51.000
+like the data storage, permanent storage layer.
+
+00:11:51.000 --> 00:11:53.220
+So those are in Blue, and then we have our relay
+
+00:11:53.220 --> 00:11:55.000
+, and then we have our app view.
+
+00:11:55.000 --> 00:11:58.550
+So does anyone want to give a shot of what I think
+
+00:11:58.570 --> 00:12:02.790
+is something that could be improved right from the get-go
+
+00:12:02.790 --> 00:12:03.000
+?
+
+00:12:03.000 --> 00:12:04.000
+One of the easiest wins.
+
+00:12:04.010 --> 00:12:05.000
+Anyone?
+
+00:12:05.010 --> 00:12:06.000
+Anyone?
+
+00:12:06.000 --> 00:12:07.000
+Bueller.
+
+00:12:07.000 --> 00:12:10.000
+We've got a hand in the back.
+
+00:12:10.000 --> 00:12:15.990
+I'll get to that.
+
+00:12:16.000 --> 00:12:17.000
+I'll get to that.
+
+00:12:17.000 --> 00:12:18.000
+I heard it.
+
+00:12:18.000 --> 00:12:19.560
+The last question was, "The repos live on the
+
+00:12:19.650 --> 00:12:21.000
+knot?" Yeah.
+
+00:12:21.000 --> 00:12:22.950
+The thing I've always been confused by, I was like
+
+00:12:22.950 --> 00:12:25.000
+, "Why don't I have a repo in my PD
+
+00:12:25.000 --> 00:12:26.000
+S?" Yeah.
+
+00:12:26.000 --> 00:12:29.000
+So, well, that's a controversial statement, son.
+
+00:12:29.000 --> 00:12:31.000
+I don't care.
+
+00:12:31.000 --> 00:12:32.000
+I agree.
+
+00:12:32.000 --> 00:12:37.100
+And we'll get to that because we have Louis the Tang
+
+00:12:37.100 --> 00:12:41.000
+led and Ideal Architecture coming up in a couple of slides
+
+00:12:41.000 --> 00:12:41.000
+.
+
+00:12:41.000 --> 00:12:42.000
+But yeah, no, I agree.
+
+00:12:42.000 --> 00:12:44.520
+I think that a knot is a kind of PDS,
+
+00:12:44.520 --> 00:12:47.400
+a bastard kind of PDS, and so is a spind
+
+00:12:47.590 --> 00:12:47.990
+le.
+
+00:12:48.000 --> 00:12:50.680
+So yeah, which begs the question, what the heck
+
+00:12:50.690 --> 00:12:53.000
+is a knot and what the heck is a spindle?
+
+00:12:53.000 --> 00:12:57.000
+So a knot stores your git repos.
+
+00:12:57.010 --> 00:12:59.430
+Remember, it's a git forge, so your git rep
+
+00:12:59.440 --> 00:13:01.000
+os have to go somewhere.
+
+00:13:01.000 --> 00:13:06.660
+And unless we were going to be really stupid and put your
+
+00:13:06.660 --> 00:13:10.110
+git repos as some weird layer on the MST in
+
+00:13:10.110 --> 00:13:12.560
+your actual PDS, yeah, there has to be a
+
+00:13:12.650 --> 00:13:16.990
+second server that is PDS-like because it stores data
+
+00:13:16.990 --> 00:13:18.000
+and it's personal.
+
+00:13:18.000 --> 00:13:22.000
+And that's called a knot entangled.
+
+00:13:22.000 --> 00:13:24.590
+And a spindle is the CI system, so that's
+
+00:13:24.590 --> 00:13:28.160
+a separate server right now that, I mean, all of
+
+00:13:28.160 --> 00:13:29.000
+these can be self-hosted.
+
+00:13:29.000 --> 00:13:33.410
+So you can have your own knot and spindle and eat
+
+00:13:33.410 --> 00:13:36.000
+it too, even right now.
+
+00:13:36.000 --> 00:13:38.000
+So that's how it goes.
+
+00:13:38.000 --> 00:13:42.510
+So they all kind of communicate to each other in a kind
+
+00:13:42.700 --> 00:13:46.000
+of crazy way, which is fine and good.
+
+00:13:46.010 --> 00:13:51.000
+Yeah, what was I going to say?
+
+00:13:51.000 --> 00:13:55.510
+Yeah, there's a recent introduction to this architecture literally last
+
+00:13:55.710 --> 00:13:59.000
+week that Boltless, our Korean developer, has added,
+
+00:13:59.000 --> 00:14:01.000
+which I think is really great.
+
+00:14:01.000 --> 00:14:03.000
+So now there's one more thing.
+
+00:14:03.000 --> 00:14:05.000
+This is like a spot the difference picture.
+
+00:14:05.010 --> 00:14:06.000
+What?
+
+00:14:06.010 --> 00:14:07.000
+What?
+
+00:14:07.010 --> 00:14:08.000
+What?
+
+00:14:08.000 --> 00:14:10.680
+So yeah, there's like a relay-ish thing there
+
+00:14:10.910 --> 00:14:11.000
+.
+
+00:14:11.000 --> 00:14:13.000
+So I've colored that in orange.
+
+00:14:13.000 --> 00:14:17.810
+So knot mirror saves all your Git repos on all of
+
+00:14:17.810 --> 00:14:21.390
+your knots in one sort of place and uses that like as
+
+00:14:21.390 --> 00:14:21.990
+a cache.
+
+00:14:22.000 --> 00:14:24.990
+So it's kind of half app view, half relay,
+
+00:14:25.040 --> 00:14:29.330
+but I think it's a nice little piece of architecture that
+
+00:14:29.330 --> 00:14:32.000
+I think takes design inspiration from Fig's work.
+
+00:14:32.000 --> 00:14:36.160
+I think I've mentioned Fig a million times already, but
+
+00:14:36.310 --> 00:14:40.000
+yeah, very inspirational person in this room.
+
+00:14:40.000 --> 00:14:42.000
+So yeah, I mean, it looks a little crazy,
+
+00:14:42.000 --> 00:14:45.800
+but remember that in the blue sky infrastructure one, I specifically
+
+00:14:45.800 --> 00:14:50.000
+said that I made it super simple and didn't include all
+
+00:14:50.000 --> 00:14:51.000
+the feed gen and labeler stuff.
+
+00:14:51.000 --> 00:14:54.170
+But like this is our equivalent, I mean, our knot
+
+00:14:54.170 --> 00:14:57.190
+mirror will do things, TM, to people's, well
+
+00:14:57.190 --> 00:14:59.000
+, not doing things to people's Git repos.
+
+00:14:59.000 --> 00:15:02.260
+But like, you know, we'll have better like search
+
+00:15:02.260 --> 00:15:06.300
+and stuff without slamming each knot with crazy requests and,
+
+00:15:06.300 --> 00:15:09.000
+you know, digesting the thing all damn day long.
+
+00:15:09.000 --> 00:15:12.710
+So yeah, you kind of talk to the app view at
+
+00:15:12.770 --> 00:15:17.470
+time of speaking instead of the PDS directly, but then
+
+00:15:17.470 --> 00:15:19.960
+we trust the app view to write to your PDS.
+
+00:15:20.000 --> 00:15:22.460
+So we've got improvements to make, and that's kind
+
+00:15:22.460 --> 00:15:25.130
+of actually why they hired me in the first place, is
+
+00:15:25.130 --> 00:15:27.000
+quote unquote "at protation".
+
+00:15:27.000 --> 00:15:31.110
+So here's the thing about kind of making a company versus
+
+00:15:31.110 --> 00:15:35.460
+just making something that's like a love project, is that
+
+00:15:35.460 --> 00:15:37.950
+you're kind of on a time constraint.
+
+00:15:38.000 --> 00:15:43.000
+So you've got to get something out, or somebody else
+
+00:15:43.000 --> 00:15:48.000
+is going to get something out maybe, before you.
+
+00:15:48.000 --> 00:15:52.470
+And so Tangled has released things into production that need a
+
+00:15:52.470 --> 00:15:56.990
+little like broom sweeping to make them fully at protated.
+
+00:15:57.000 --> 00:16:00.140
+So for example, when you edit your PDS records,
+
+00:16:00.140 --> 00:16:03.240
+usually that's supposed to then go to the, well,
+
+00:16:03.240 --> 00:16:05.310
+it does go to the relay and then gets up taken by
+
+00:16:05.310 --> 00:16:06.000
+the app view.
+
+00:16:06.000 --> 00:16:09.070
+But if your records aren't up taken by the app view
+
+00:16:09.070 --> 00:16:12.650
+, for whatever reason, then you can't edit your records
+
+00:16:12.960 --> 00:16:13.000
+.
+
+00:16:13.000 --> 00:16:16.080
+So, I mean, there are things that you can edit
+
+00:16:16.080 --> 00:16:18.990
+on Tangled and things that you can't yet.
+
+00:16:19.000 --> 00:16:22.340
+And my job is to make it all, make it all
+
+00:16:22.340 --> 00:16:24.000
+work properly.
+
+00:16:24.000 --> 00:16:28.090
+And with that, I would like to show you my ideal
+
+00:16:28.090 --> 00:16:29.000
+world.
+
+00:16:29.000 --> 00:16:34.370
+So yeah, I think this kind of gratuitously resembles the
+
+00:16:34.590 --> 00:16:36.000
+Blue Sky one.
+
+00:16:36.000 --> 00:16:38.520
+It's just with three PDS-like things instead of
+
+00:16:38.520 --> 00:16:38.990
+one.
+
+00:16:39.000 --> 00:16:43.420
+I would like to absorb the not mirror into an app view
+
+00:16:43.420 --> 00:16:44.000
+-like.
+
+00:16:44.000 --> 00:16:47.550
+So fully going microcosm style, like Red Dwar
+
+00:16:47.550 --> 00:16:48.000
+f.
+
+00:16:48.000 --> 00:16:49.560
+I mean, again, so take this with a grain of
+
+00:16:49.650 --> 00:16:50.000
+salt.
+
+00:16:50.000 --> 00:16:52.000
+This is not Tangled the company's vision.
+
+00:16:52.000 --> 00:16:55.570
+This is Lewis's mystical ideas that he's showing a room
+
+00:16:55.690 --> 00:16:57.000
+of other nerds.
+
+00:16:57.000 --> 00:17:00.000
+You talk to the PDS, that talks to the not
+
+00:17:00.040 --> 00:17:02.000
+, or like proxies it on with reads and writes
+
+00:17:02.000 --> 00:17:02.000
+.
+
+00:17:02.000 --> 00:17:04.300
+And that talks to the spindle, they all talk to
+
+00:17:04.300 --> 00:17:04.990
+the relay.
+
+00:17:05.000 --> 00:17:08.560
+Which means that each of the not and spindle have to
+
+00:17:08.560 --> 00:17:12.670
+act more like a PDS to be sending events to the
+
+00:17:12.670 --> 00:17:13.000
+relay.
+
+00:17:13.000 --> 00:17:15.790
+And not tricking it into thinking that they're PDS
+
+00:17:15.910 --> 00:17:17.000
+'s, because they are PDS's, right?
+
+00:17:17.000 --> 00:17:20.000
+You know, like wink, right?
+
+00:17:20.000 --> 00:17:27.860
+So actual Blue Sky team who are in charge of the protocol
+
+00:17:28.190 --> 00:17:32.000
+, stop me now if you don't like this idea.
+
+00:17:32.000 --> 00:17:33.000
+So yeah.
+
+00:17:33.000 --> 00:17:34.000
+Can I ask a question, Lewis?
+
+00:17:34.000 --> 00:17:35.000
+Yeah, you can.
+
+00:17:35.000 --> 00:17:36.000
+Yeah, go ahead.
+
+00:17:36.000 --> 00:17:38.000
+So this is super fascinating.
+
+00:17:38.000 --> 00:17:42.600
+So everything becomes PDS is kind of what you're saying
+
+00:17:42.710 --> 00:17:43.000
+.
+
+00:17:43.000 --> 00:17:44.000
+Well, not a spindle, yeah.
+
+00:17:44.000 --> 00:17:46.000
+If you want an architecture like this.
+
+00:17:46.000 --> 00:17:48.000
+I mean, even beyond Tangled.
+
+00:17:48.000 --> 00:17:52.900
+Are you going to have those nots have service endpoints
+
+00:17:52.900 --> 00:17:55.000
+in a user's diddock?
+
+00:17:55.000 --> 00:17:57.000
+We'll see.
+
+00:17:57.000 --> 00:17:58.000
+Remains to be seen.
+
+00:17:58.000 --> 00:18:00.420
+Yeah, it just depends how far we're willing to go
+
+00:18:00.420 --> 00:18:00.990
+with it.
+
+00:18:01.010 --> 00:18:03.000
+Because imagine this.
+
+00:18:03.000 --> 00:18:06.080
+This may be a feature or a bug, depending on how
+
+00:18:06.080 --> 00:18:07.000
+you see it.
+
+00:18:07.000 --> 00:18:11.160
+But the consequence of this kind of architecture, the further we
+
+00:18:11.310 --> 00:18:15.200
+take it, is that your Git repo and your not could
+
+00:18:15.320 --> 00:18:18.100
+actually kind of, if it has its own DID, it
+
+00:18:18.100 --> 00:18:19.000
+could post on Blue Sky.
+
+00:18:19.000 --> 00:18:20.000
+Your Git repo.
+
+00:18:20.000 --> 00:18:22.890
+Like if you have a new issue or something, there could
+
+00:18:22.910 --> 00:18:26.390
+be like a reference as a post on Blue Sky or like
+
+00:18:26.390 --> 00:18:28.990
+something was merged or something like that.
+
+00:18:29.000 --> 00:18:30.000
+I don't know, random updates.
+
+00:18:30.000 --> 00:18:31.560
+Like it could be self-labeled as a bot
+
+00:18:31.650 --> 00:18:33.820
+account because it's a Git repo, not a human being
+
+00:18:33.820 --> 00:18:34.000
+.
+
+00:18:34.000 --> 00:18:35.000
+I don't know.
+
+00:18:35.000 --> 00:18:37.000
+That seems kind of interesting.
+
+00:18:37.000 --> 00:18:40.070
+I'd like to show you one more even wackier,
+
+00:18:40.070 --> 00:18:43.440
+wilder idea that I've been kind of dreaming up at
+
+00:18:43.440 --> 00:18:44.860
+3am.
+
+00:18:45.000 --> 00:18:49.520
+Is that another spot the difference is that there's no relay
+
+00:18:49.710 --> 00:18:50.000
+.
+
+00:18:50.000 --> 00:18:51.000
+Mmm, imagine that.
+
+00:18:51.000 --> 00:18:55.200
+With more and more people making cheaper and cheaper like relays
+
+00:18:55.310 --> 00:18:56.000
+and things.
+
+00:18:56.000 --> 00:18:58.730
+And I've been talking with a lot of people on how
+
+00:18:58.870 --> 00:19:01.000
+to make a cheaper implementation.
+
+00:19:01.000 --> 00:19:06.000
+Not just running something cheaper, but like doing the spec.
+
+00:19:06.000 --> 00:19:09.000
+Like implementing the protocol more cheaply.
+
+00:19:09.000 --> 00:19:12.200
+You could just inline it into your app view or app
+
+00:19:12.200 --> 00:19:14.000
+view like thingamajig.
+
+00:19:14.000 --> 00:19:17.000
+So there's like less to have to manage.
+
+00:19:17.000 --> 00:19:18.000
+This remains to be seen.
+
+00:19:18.000 --> 00:19:19.000
+This is kind of far out.
+
+00:19:19.000 --> 00:19:21.790
+But I think that maybe you'll hear more from me later
+
+00:19:21.910 --> 00:19:24.000
+in the year about this sort of thing.
+
+00:19:24.000 --> 00:19:26.490
+Maybe not even necessarily for Tangled, but maybe I'll
+
+00:19:26.910 --> 00:19:29.900
+contribute some random stuff to other projects and talk to some other
+
+00:19:29.900 --> 00:19:33.990
+people who are also thinking relayless, relayless behavior.
+
+00:19:34.000 --> 00:19:35.000
+So yeah.
+
+00:19:35.010 --> 00:19:36.000
+Alright.
+
+00:19:36.000 --> 00:19:40.510
+Concretely speaking, I want to talk about this thing
+
+00:19:40.710 --> 00:19:41.990
+y back here.
+
+00:19:42.010 --> 00:19:44.000
+Because I mentioned it earlier.
+
+00:19:44.000 --> 00:19:48.000
+So maybe if you're curious about what this first major PR
+
+00:19:48.000 --> 00:19:50.670
+that I've been cooking up for Tangled has been in
+
+00:19:50.670 --> 00:19:53.000
+the past month that I've been here.
+
+00:19:53.000 --> 00:19:55.000
+So I haven't got anything else to do.
+
+00:19:55.000 --> 00:19:57.000
+So I'll show you what I'm doing.
+
+00:19:57.000 --> 00:20:01.820
+So this is how a NOT stores its data about a Git
+
+00:20:01.820 --> 00:20:04.000
+repo currently.
+
+00:20:04.010 --> 00:20:10.390
+Does anybody see something that's not so good about this hand
+
+00:20:10.550 --> 00:20:11.000
+?
+
+00:20:11.010 --> 00:20:12.000
+Roscoe.
+
+00:20:12.010 --> 00:20:17.000
+The repo is owned by one did.
+
+00:20:17.010 --> 00:20:18.000
+Yeah.
+
+00:20:18.000 --> 00:20:19.000
+That's one.
+
+00:20:19.000 --> 00:20:20.000
+That's one.
+
+00:20:20.010 --> 00:20:21.000
+Okay.
+
+00:20:21.000 --> 00:20:23.000
+Roscoe said the repo is owned by one did.
+
+00:20:23.010 --> 00:20:24.000
+Yeah.
+
+00:20:24.010 --> 00:20:25.000
+Sure.
+
+00:20:25.010 --> 00:20:28.000
+The ID is a handle.
+
+00:20:28.000 --> 00:20:29.000
+I mean that's the one I was looking for.
+
+00:20:29.000 --> 00:20:31.000
+The ID is a handle.
+
+00:20:31.010 --> 00:20:32.000
+Hmm.
+
+00:20:32.000 --> 00:20:33.000
+So yeah.
+
+00:20:33.000 --> 00:20:36.290
+I mean on the AT protocol your ID is kind of like
+
+00:20:36.290 --> 00:20:38.000
+supposed to be a did.
+
+00:20:38.000 --> 00:20:39.000
+A decentralized ID.
+
+00:20:39.000 --> 00:20:41.430
+So the ID right now of a Git repo is literally the
+
+00:20:41.430 --> 00:20:44.000
+string, the owner handle slash the repo name.
+
+00:20:44.000 --> 00:20:49.990
+So there's like multiple things that are needing some love.
+
+00:20:50.000 --> 00:20:52.430
+You can't really change the repo name if it's in
+
+00:20:52.430 --> 00:20:53.000
+the ID.
+
+00:20:53.010 --> 00:20:54.000
+Right?
+
+00:20:54.000 --> 00:20:57.000
+If it's the primary key.
+
+00:20:57.000 --> 00:21:01.060
+And then I mean I actually have kind of not bork
+
+00:21:01.090 --> 00:21:03.000
+ed one of my Git repos.
+
+00:21:03.000 --> 00:21:05.480
+But I mean as I said at the start of the slides
+
+00:21:05.530 --> 00:21:07.500
+I changed my username to Oyster.
+
+00:21:07.720 --> 00:21:08.000
+cafe.
+
+00:21:08.000 --> 00:21:11.430
+So my Git remotes were like looking for Lewis.
+
+00:21:11.430 --> 00:21:12.000
+moy.
+
+00:21:12.000 --> 00:21:14.000
+And I'm like what's going wrong?
+
+00:21:14.000 --> 00:21:15.000
+What's going wrong?
+
+00:21:15.000 --> 00:21:18.550
+So it turns out that the Git remote was my handle that
+
+00:21:18.550 --> 00:21:20.000
+has now changed.
+
+00:21:20.010 --> 00:21:21.000
+Hmm.
+
+00:21:21.000 --> 00:21:24.440
+And so I've got this yin yang symbol because we
+
+00:21:24.440 --> 00:21:28.000
+do actually have a very nice architecture.
+
+00:21:28.000 --> 00:21:30.680
+I'm not here to slam the existing state of Tangle
+
+00:21:30.910 --> 00:21:31.000
+.
+
+00:21:31.000 --> 00:21:32.000
+It's very nice as is.
+
+00:21:32.000 --> 00:21:36.120
+Like you have one corresponding record on your PDS that says
+
+00:21:36.120 --> 00:21:38.000
+that you do in fact own this.
+
+00:21:38.000 --> 00:21:39.000
+So that I can't...
+
+00:21:39.000 --> 00:21:41.000
+Let's say I have a not.
+
+00:21:41.000 --> 00:21:42.000
+Which has a Git repo on it.
+
+00:21:42.000 --> 00:21:44.990
+And I go into the database and I say that the ID
+
+00:21:45.040 --> 00:21:47.990
+or the owner ID is Obama.
+
+00:21:47.990 --> 00:21:48.610
+BlueSky.
+
+00:21:48.610 --> 00:21:49.000
+Social.
+
+00:21:49.000 --> 00:21:52.000
+And then I have something naughty on that Git repo.
+
+00:21:52.000 --> 00:21:57.780
+And then if there wasn't this corresponding record on the PD
+
+00:21:57.780 --> 00:22:00.000
+S of Obama, it wouldn't validate.
+
+00:22:00.010 --> 00:22:03.570
+Because that would be pretty weird to just say that people own
+
+00:22:03.620 --> 00:22:05.000
+certain Git repos.
+
+00:22:05.000 --> 00:22:06.000
+So that's the current state.
+
+00:22:06.000 --> 00:22:09.890
+So what my PR does is just mint dids for Git
+
+00:22:09.890 --> 00:22:11.990
+repos on each node.
+
+00:22:12.000 --> 00:22:16.510
+So when you're not upgrades, when this thing merges
+
+00:22:16.600 --> 00:22:21.170
+and you're not upgrades, it will basically literally just for
+
+00:22:21.170 --> 00:22:23.510
+loop through all your Git repos and mint a did for
+
+00:22:23.700 --> 00:22:24.000
+them.
+
+00:22:24.000 --> 00:22:27.430
+So I'm sorry to the blue sky people for all the
+
+00:22:27.430 --> 00:22:31.000
+testing I was doing of like 10,000 at a time
+
+00:22:31.000 --> 00:22:31.000
+.
+
+00:22:31.000 --> 00:22:34.350
+Minting dids just to see whether this would work very
+
+00:22:34.390 --> 00:22:35.000
+well.
+
+00:22:35.000 --> 00:22:38.000
+Yeah, we can talk about that later.
+
+00:22:38.000 --> 00:22:41.000
+But yeah, I'm sorry about that.
+
+00:22:41.000 --> 00:22:45.000
+So yeah, this brings a lot of benefits actually.
+
+00:22:45.000 --> 00:22:47.000
+So you can transfer ownership of Git repos.
+
+00:22:47.000 --> 00:22:49.000
+I mean, I haven't got that in the PR,
+
+00:22:49.000 --> 00:22:51.000
+but that would be coming next, right?
+
+00:22:51.000 --> 00:22:54.500
+If a Git repo has its own did, then you can
+
+00:22:54.500 --> 00:22:56.000
+move it around however you like.
+
+00:22:56.000 --> 00:22:57.000
+You can transfer ownership.
+
+00:22:57.000 --> 00:22:59.000
+You can transfer it between knots even.
+
+00:22:59.000 --> 00:23:01.000
+You can do all sorts of things.
+
+00:23:01.000 --> 00:23:03.490
+You can do anything that you can't do with a regular
+
+00:23:03.910 --> 00:23:06.000
+actor on the AT proto.
+
+00:23:06.000 --> 00:23:14.630
+So there are some other ways that I could have gone about
+
+00:23:14.630 --> 00:23:16.000
+this.
+
+00:23:16.000 --> 00:23:18.000
+I could have just not done a did.
+
+00:23:18.000 --> 00:23:24.770
+And I could have also specified that a knot is specifically in
+
+00:23:24.980 --> 00:23:28.000
+the did doc that when you're minting a did.
+
+00:23:28.000 --> 00:23:31.940
+I could say that it's a hashtag tangled knot and not
+
+00:23:31.940 --> 00:23:33.990
+a hashtag AT proto PDS.
+
+00:23:34.000 --> 00:23:37.000
+But I think that this comes to the Lewis end again.
+
+00:23:37.000 --> 00:23:40.550
+I think that a knot is a kind of PDS because
+
+00:23:40.620 --> 00:23:42.000
+it stores data.
+
+00:23:42.000 --> 00:23:43.000
+I mean, maybe it's not personal.
+
+00:23:43.000 --> 00:23:46.960
+But yeah, another thing that this unlocks when a Git
+
+00:23:46.990 --> 00:23:50.860
+repo has a did is that we can probably do collaboration better
+
+00:23:50.860 --> 00:23:51.000
+.
+
+00:23:51.000 --> 00:23:54.140
+We already have collaborators as a list that you can add other
+
+00:23:54.140 --> 00:23:58.120
+collaborators who are like co-owners of a Git repo,
+
+00:23:58.120 --> 00:23:59.990
+but there's still like one owner.
+
+00:24:00.000 --> 00:24:04.000
+I mean, yeah.
+
+00:24:04.000 --> 00:24:06.000
+Any questions at this point?
+
+00:24:06.010 --> 00:24:08.870
+Because I'm going to start yapping even more yapp
+
+00:24:08.910 --> 00:24:10.000
+ily after this.
+
+00:24:10.010 --> 00:24:12.000
+All right.
+
+00:24:12.000 --> 00:24:16.520
+So if there's random time, then there's random topics
+
+00:24:16.710 --> 00:24:17.000
+.
+
+00:24:17.000 --> 00:24:20.000
+So we got seven minutes for me to yap.
+
+00:24:20.000 --> 00:24:23.480
+I think I'll start with psyops actually in general and
+
+00:24:23.480 --> 00:24:25.990
+how that relates at all to Tangled.
+
+00:24:26.000 --> 00:24:30.000
+When I was working at UpCloud for the past year,
+
+00:24:30.000 --> 00:24:34.000
+I was also doing marketing as well as software engineering.
+
+00:24:34.000 --> 00:24:36.230
+I was kind of like dev railing as a guerilla
+
+00:24:36.230 --> 00:24:36.990
+marketer.
+
+00:24:37.000 --> 00:24:40.290
+And maybe you know of UpCloud because UpCloud was on
+
+00:24:40.290 --> 00:24:42.000
+blue sky shitposting.
+
+00:24:42.000 --> 00:24:46.200
+And I'm here to say right now why Tangled isn
+
+00:24:46.310 --> 00:24:50.000
+'t shitposting the same way since I got hired.
+
+00:24:50.010 --> 00:24:52.990
+Because I can do that and it has been proven to,
+
+00:24:53.040 --> 00:24:55.360
+I don't know, get some people at least giving it
+
+00:24:55.360 --> 00:24:55.990
+a thumbs up.
+
+00:24:56.000 --> 00:24:59.000
+And the reason is that it's a psyop.
+
+00:24:59.000 --> 00:25:02.000
+UpCloud is in the business of making money.
+
+00:25:02.010 --> 00:25:05.930
+And yeah, it's just that there are a lot of
+
+00:25:05.930 --> 00:25:09.000
+civics, ethics and like philosophical people here.
+
+00:25:09.000 --> 00:25:11.520
+And I wanted to throw my hat into the ring just a
+
+00:25:11.910 --> 00:25:14.400
+little because I do know a little, like a thing or
+
+00:25:14.420 --> 00:25:14.990
+two about that.
+
+00:25:15.000 --> 00:25:18.060
+I tried to go about the psyop at UpCloud as
+
+00:25:18.060 --> 00:25:20.990
+ethically as possible, but it's what it is.
+
+00:25:21.000 --> 00:25:25.170
+You know, like UpCloud is trying to get your money
+
+00:25:25.310 --> 00:25:26.990
+, unlike Tangled.
+
+00:25:27.000 --> 00:25:31.000
+So that's, it's as simple as that basically.
+
+00:25:31.000 --> 00:25:34.160
+Of course the Tangled account will like reply to people and
+
+00:25:34.160 --> 00:25:37.000
+I don't know, try to be helpful and show updates
+
+00:25:37.000 --> 00:25:37.000
+.
+
+00:25:37.000 --> 00:25:40.540
+And you know, do the like the basics to make people
+
+00:25:40.540 --> 00:25:45.300
+happy and show, like give announcements to let people know what
+
+00:25:45.300 --> 00:25:46.000
+'s going on under the hood.
+
+00:25:46.000 --> 00:25:48.730
+But I don't think the Tangled should, I don
+
+00:25:48.890 --> 00:25:51.990
+'t think it's its place to be posting like a person
+
+00:25:51.990 --> 00:25:53.750
+in the same way that UpCloud and some other companies were
+
+00:25:53.750 --> 00:25:54.000
+doing.
+
+00:25:54.000 --> 00:25:57.420
+Like it's just the same vibe as when, you know
+
+00:25:57.420 --> 00:26:00.800
+, like Arby's and KFC are arguing in Instagram
+
+00:26:00.970 --> 00:26:02.000
+comments.
+
+00:26:02.000 --> 00:26:04.000
+Like it's, it was funny for a little bit,
+
+00:26:04.000 --> 00:26:06.930
+but then you realize that they're still only doing this to
+
+00:26:06.980 --> 00:26:09.000
+like get you to go to Arby's, right?
+
+00:26:09.000 --> 00:26:11.000
+They don't actually give a shit at all.
+
+00:26:11.010 --> 00:26:16.000
+Like whoever's the face is also pretty funny.
+
+00:26:16.000 --> 00:26:19.180
+Well, me at UpCloud, but you know, but
+
+00:26:19.180 --> 00:26:21.990
+again, it's just like when people ask real questions,
+
+00:26:21.990 --> 00:26:24.230
+especially on the Fediverse, they're like asking, when
+
+00:26:24.230 --> 00:26:26.000
+are you going to do BGP as UpCloud?
+
+00:26:26.000 --> 00:26:28.790
+Because you know, it's a cloud company and they don
+
+00:26:28.910 --> 00:26:30.980
+'t have like managed BGP or you can't just
+
+00:26:30.980 --> 00:26:34.000
+like send arbitrary BGP things like other clouds.
+
+00:26:34.000 --> 00:26:36.980
+And I personally am a nerd and I want that also,
+
+00:26:36.980 --> 00:26:39.950
+and I pass on every request and you know, it all
+
+00:26:39.950 --> 00:26:42.000
+, I do my part sort of thing.
+
+00:26:42.000 --> 00:26:45.520
+But then you are the face of this like big black entity
+
+00:26:45.520 --> 00:26:48.030
+that's just like, you know, Kao Noshi
+
+00:26:48.030 --> 00:26:50.000
+from that Ghibli film.
+
+00:26:50.000 --> 00:26:52.100
+That's how I feel like, or just the mask part
+
+00:26:52.100 --> 00:26:53.000
+of it, I guess.
+
+00:26:53.000 --> 00:26:55.060
+And then managers are just like, yeah, yeah, keep
+
+00:26:55.090 --> 00:26:57.000
+up the good work, whatever you're doing.
+
+00:26:57.000 --> 00:26:58.350
+Like it doesn't matter because we're not going to like
+
+00:26:58.350 --> 00:27:00.350
+do anything about it, but just like, you know,
+
+00:27:00.360 --> 00:27:02.720
+say whatever it, say whatever it is to say that gets
+
+00:27:02.720 --> 00:27:05.000
+people to buy more UpCloud.
+
+00:27:05.000 --> 00:27:07.000
+So yeah, Tangle doesn't have that incentive, that
+
+00:27:07.000 --> 00:27:07.990
+perverse incentive.
+
+00:27:08.000 --> 00:27:11.570
+Yeah, that's all I had to say about psyops
+
+00:27:11.650 --> 00:27:12.000
+.
+
+00:27:12.000 --> 00:27:13.000
+How much time we got?
+
+00:27:13.010 --> 00:27:17.000
+Oh yeah, we got one question in the audience.
+
+00:27:17.010 --> 00:27:22.360
+Okay, so this gets into the money question a little bit
+
+00:27:22.590 --> 00:27:22.990
+.
+
+00:27:23.000 --> 00:27:25.000
+You just said that Tangle doesn't want your money,
+
+00:27:25.000 --> 00:27:28.000
+but Tangle just took on a bunch of investment.
+
+00:27:28.010 --> 00:27:29.000
+Right.
+
+00:27:29.000 --> 00:27:32.630
+Ostensibly, because those investors believe that Tangle will
+
+00:27:32.660 --> 00:27:34.990
+be able to pay back that investment.
+
+00:27:35.010 --> 00:27:36.000
+Yeah.
+
+00:27:36.000 --> 00:27:39.000
+Which means Tangle will want your money at some point.
+
+00:27:39.000 --> 00:27:40.000
+Yeah, yeah.
+
+00:27:40.000 --> 00:27:43.000
+The way that Tangle is going to try and go about
+
+00:27:43.010 --> 00:27:47.000
+getting money is going to be hopefully fundamentally different.
+
+00:27:47.000 --> 00:27:49.650
+To like something like a SaaS like, or IaaS or
+
+00:27:49.650 --> 00:27:52.990
+, you know, UpCloud is infrastructure as a service.
+
+00:27:53.000 --> 00:27:56.000
+So there's no like free tier at all.
+
+00:27:56.000 --> 00:27:58.180
+This is the Lewis end, so I can't speak to
+
+00:27:58.180 --> 00:28:01.000
+the company itself on how it wants to make money.
+
+00:28:01.000 --> 00:28:04.350
+But I hope, I hope that the direction that we go
+
+00:28:04.380 --> 00:28:09.110
+in is that we do the enterprise pays for the masses to
+
+00:28:09.200 --> 00:28:09.990
+have it for free.
+
+00:28:10.000 --> 00:28:11.000
+You know what I mean?
+
+00:28:11.010 --> 00:28:14.000
+Because I want free things also.
+
+00:28:14.000 --> 00:28:16.000
+And I want Tangle to be free for people.
+
+00:28:16.000 --> 00:28:18.990
+We got another question over there in the audience.
+
+00:28:19.000 --> 00:28:20.000
+Run, Boris, run.
+
+00:28:20.000 --> 00:28:21.000
+No, you don't have to.
+
+00:28:21.000 --> 00:28:22.000
+I didn't have a question.
+
+00:28:22.000 --> 00:28:23.000
+I just wanted Boris to do some cardio.
+
+00:28:23.000 --> 00:28:24.000
+I'm totally kidding.
+
+00:28:24.000 --> 00:28:32.290
+So my question is actually going back to some of
+
+00:28:32.290 --> 00:28:39.000
+the technical stuff you were talking about.
+
+00:28:39.010 --> 00:28:43.600
+Because you were talking about generating dids for the nots
+
+00:28:43.710 --> 00:28:44.000
+.
+
+00:28:44.000 --> 00:28:46.000
+Or dids for the repositories.
+
+00:28:46.010 --> 00:28:47.000
+Right.
+
+00:28:47.000 --> 00:28:52.120
+So yesterday we saw Brittany Ellish talking about the need to
+
+00:28:52.120 --> 00:28:55.000
+create a did for like a group.
+
+00:28:55.010 --> 00:28:56.000
+Right.
+
+00:28:56.000 --> 00:28:58.730
+And so I guess my question is if we're talking about
+
+00:28:58.910 --> 00:29:02.350
+the repositories needing dids and the not sort of acting
+
+00:29:02.350 --> 00:29:05.000
+as a PDS for a non-person.
+
+00:29:05.000 --> 00:29:08.290
+And then we've got other people with these other needs to
+
+00:29:08.290 --> 00:29:10.000
+create like non-person.
+
+00:29:10.000 --> 00:29:13.890
+Is there anything that's fundamentally different about a repo needing a
+
+00:29:13.890 --> 00:29:17.000
+did other than just kind of any non-human entity?
+
+00:29:17.000 --> 00:29:19.990
+Or is this kind of pointing to the need for like we
+
+00:29:20.040 --> 00:29:22.990
+need to be able to assign a did to an object?
+
+00:29:23.000 --> 00:29:26.000
+I think it's the former of the two.
+
+00:29:26.000 --> 00:29:29.920
+I think that it'll play quite well into also the permission
+
+00:29:29.990 --> 00:29:31.000
+data stuff.
+
+00:29:31.000 --> 00:29:33.460
+Like there's going to be a did for like a space
+
+00:29:33.460 --> 00:29:34.000
+also.
+
+00:29:34.000 --> 00:29:37.440
+So then hopefully this will all plug in quite nicely when that
+
+00:29:37.440 --> 00:29:38.000
+'s a spec.
+
+00:29:38.000 --> 00:29:42.130
+And we can just say that you can also make private rep
+
+00:29:42.310 --> 00:29:43.990
+os that way also.
+
+00:29:44.000 --> 00:29:47.570
+That the did that was minted for a git repo can
+
+00:29:47.650 --> 00:29:49.990
+now be a space did as well.
+
+00:29:50.000 --> 00:29:51.000
+It's like a private.
+
+00:29:51.000 --> 00:29:52.000
+It is an object.
+
+00:29:52.000 --> 00:29:53.000
+It's a space.
+
+00:29:53.000 --> 00:29:54.660
+You know at the end of the day it's just an
+
+00:29:54.680 --> 00:29:55.000
+ID.
+
+00:29:55.000 --> 00:29:58.210
+From my perspective I just call an API and I get an
+
+00:29:58.210 --> 00:29:59.000
+ID back.
+
+00:29:59.000 --> 00:30:02.000
+Or 10,000 of them.
+
+00:30:02.000 --> 00:30:05.000
+Did that answer your question?
+
+00:30:05.000 --> 00:30:09.330
+I think this is the kind of stuff that's emerging from
+
+00:30:09.330 --> 00:30:11.000
+multiple different corners.
+
+00:30:11.000 --> 00:30:13.000
+But you can start to see patterns.
+
+00:30:13.000 --> 00:30:16.430
+There's this actor model that we see that can put all
+
+00:30:16.430 --> 00:30:20.080
+sorts of graphs and links and edges that end up on F
+
+00:30:20.260 --> 00:30:22.000
+IG's infrastructure.
+
+00:30:22.010 --> 00:30:24.000
+Yeah exactly.
+
+00:30:24.010 --> 00:30:26.000
+Yeah it's funny.
+
+00:30:26.000 --> 00:30:27.000
+Hang on a second.
+
+00:30:27.000 --> 00:30:30.210
+We have one minute that I want to yap about FIG
+
+00:30:30.210 --> 00:30:31.000
+stuff.
+
+00:30:31.000 --> 00:30:36.990
+So at UpCloud I was very cloud native pilled.
+
+00:30:37.000 --> 00:30:39.000
+So it's like fast food.
+
+00:30:39.000 --> 00:30:42.150
+It's like oh you want to host objects so use object
+
+00:30:42.150 --> 00:30:43.000
+storage.
+
+00:30:43.000 --> 00:30:44.000
+Just spin it up.
+
+00:30:44.000 --> 00:30:46.000
+Just spin up a managed object storage.
+
+00:30:46.000 --> 00:30:47.000
+Just so easy.
+
+00:30:47.000 --> 00:30:48.000
+And then you're kind of locked into that.
+
+00:30:48.000 --> 00:30:50.000
+But then you're like oh I need a database.
+
+00:30:50.000 --> 00:30:52.490
+Well it's so easy to have a managed Postgres instance
+
+00:30:52.910 --> 00:30:53.000
+.
+
+00:30:53.000 --> 00:30:56.000
+And I was like very wrapped up in that obviously.
+
+00:30:56.000 --> 00:30:58.460
+Because I mean I just get nerd sniped like the rest
+
+00:30:58.460 --> 00:30:59.000
+of us.
+
+00:30:59.000 --> 00:31:01.000
+And these are all very interesting technologies.
+
+00:31:01.000 --> 00:31:05.130
+But in the month that I have been at Tangled and
+
+00:31:05.310 --> 00:31:08.000
+no longer have free cloud credits.
+
+00:31:08.000 --> 00:31:11.000
+All of a sudden I have to run things on.
+
+00:31:11.000 --> 00:31:13.730
+I mean for Tranquil PDS that I do in
+
+00:31:13.910 --> 00:31:15.000
+my spare time.
+
+00:31:15.000 --> 00:31:17.870
+The goal is kind of to run it on a vape
+
+00:31:17.910 --> 00:31:19.000
+natively.
+
+00:31:19.000 --> 00:31:21.000
+And so this relates to FIG stuff.
+
+00:31:21.000 --> 00:31:23.000
+Because we're trying to get things as cheap and as small
+
+00:31:23.000 --> 00:31:23.000
+.
+
+00:31:23.000 --> 00:31:25.000
+And as you know like I don't know.
+
+00:31:25.000 --> 00:31:27.000
+They're like permacomputing principles.
+
+00:31:27.000 --> 00:31:30.000
+Like what is the smallest that I can make this.
+
+00:31:30.000 --> 00:31:32.000
+That still works and works perfectly.
+
+00:31:32.000 --> 00:31:33.000
+You know what I mean?
+
+00:31:33.000 --> 00:31:35.000
+I don't know where I was going with that.
+
+00:31:35.000 --> 00:31:37.000
+But I just wanted to stop with that.
+
+00:31:37.000 --> 00:31:39.000
+Because I guess that's time basically.
+
+00:31:39.010 --> 00:31:40.000
+Right?
+
+00:31:40.000 --> 00:31:41.000
+Thank you very much Lewis.
+
+00:31:42.320 --> 00:31:51.000
+Thank you
+
+00:31:51.000 --> 00:31:51.000
+.

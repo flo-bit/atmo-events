@@ -1,0 +1,1246 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:03.680
+Amazing, all right, hello everyone.
+
+00:00:03.700 --> 00:00:06.880
+My name is Sophie, and today I'm gonna be presenting
+
+00:00:06.900 --> 00:00:10.220
+my research with my advisor, Nikhil Garg, studying
+
+00:00:10.250 --> 00:00:13.990
+social media through the atmosphere, and I'm so excited to
+
+00:00:13.990 --> 00:00:19.200
+be here today and meet everyone whose presences I'm recognized
+
+00:00:19.220 --> 00:00:21.430
+from online, cool to see you all in person.
+
+00:00:21.450 --> 00:00:25.880
+Yeah, so just a brief kind of background, Nikhil
+
+00:00:25.880 --> 00:00:29.220
+and I are researchers at Cornell Tech, and our research area
+
+00:00:29.270 --> 00:00:33.550
+is studying algorithms and society, so kind of the social aspects
+
+00:00:33.620 --> 00:00:39.850
+of recommendation systems and feeds, understanding dynamics and how to improve
+
+00:00:39.850 --> 00:00:46.000
+systems along social axes, understanding social media as attention markets,
+
+00:00:46.020 --> 00:00:48.540
+and studying human AI collaboration.
+
+00:00:48.560 --> 00:00:53.560
+Today in our talk, I'm going to be talking first
+
+00:00:53.570 --> 00:00:57.980
+about our work aiding and studying scientific communication on Academic Blue
+
+00:00:57.980 --> 00:00:58.560
+Sky.
+
+00:00:58.580 --> 00:01:01.610
+Next I'll talk about, we believe is the potential for
+
+00:01:01.610 --> 00:01:06.050
+studying novel feed experiments through the custom feed ecosystem, as well
+
+00:01:06.090 --> 00:01:08.680
+as novel interfaces through the app protocol.
+
+00:01:08.700 --> 00:01:12.880
+So I'll start with Academic BlueSky.
+
+00:01:12.900 --> 00:01:15.480
+So the backstory for this project is really that Nikhil and
+
+00:01:15.480 --> 00:01:18.680
+I had been doing a project researching fairness and recommendation.
+
+00:01:18.700 --> 00:01:20.830
+It was a theory project, which is my kind of original
+
+00:01:20.850 --> 00:01:24.080
+research area, and we had worked with a master student who
+
+00:01:24.080 --> 00:01:26.380
+built a recommender for archive preprints.
+
+00:01:26.400 --> 00:01:29.830
+And we used this to simulate kind of market outcomes in this
+
+00:01:29.830 --> 00:01:31.960
+like recommendation system.
+
+00:01:31.980 --> 00:01:34.460
+And we were curious, what happens in real data?
+
+00:01:34.480 --> 00:01:38.420
+How can we study the fairness outcomes in attention markets on a
+
+00:01:38.420 --> 00:01:39.720
+real deployed system?
+
+00:01:39.740 --> 00:01:40.480
+How do we experiment?
+
+00:01:40.500 --> 00:01:44.440
+And what this really looks like in the literature is either you
+
+00:01:44.440 --> 00:01:48.130
+run a lab experiment, you build some sort of simulated recommend
+
+00:01:48.130 --> 00:01:51.730
+er, you get people to interact with it and see their
+
+00:01:51.730 --> 00:01:52.360
+behavior.
+
+00:01:52.370 --> 00:01:56.850
+Another option is to deploy browser extensions.
+
+00:01:56.880 --> 00:02:00.220
+So on Twitter, you get someone to download your extension and
+
+00:02:00.310 --> 00:02:04.280
+engage with Twitter and you will like manually or you will academically
+
+00:02:04.280 --> 00:02:07.030
+re-rank the post that Twitter is returning.
+
+00:02:07.080 --> 00:02:09.050
+And this is, you know, also friction-full because
+
+00:02:09.120 --> 00:02:12.460
+you have to recruit participants and get them to download the extension
+
+00:02:12.670 --> 00:02:15.040
+and engage with it.
+
+00:02:15.060 --> 00:02:19.380
+And then the final option is to collaborate with a platform.
+
+00:02:19.400 --> 00:02:22.470
+But these are kind of few, these opportunities are few and
+
+00:02:22.470 --> 00:02:24.520
+far between.
+
+00:02:24.540 --> 00:02:29.340
+So suddenly, November, 2024, many academics were using blue
+
+00:02:29.370 --> 00:02:34.800
+sky and in particular, looking for a personalized academic experience,
+
+00:02:34.820 --> 00:02:37.040
+which is something that we were really excited about building.
+
+00:02:37.050 --> 00:02:41.530
+And so Nikila had this idea, let's build a
+
+00:02:41.530 --> 00:02:43.580
+custom feed for academics on blue sky.
+
+00:02:43.600 --> 00:02:47.360
+And so we had a little hackathon and built paper sky
+
+00:02:47.360 --> 00:02:50.970
+just which is a custom feed for academics showing posts about papers
+
+00:02:50.970 --> 00:02:52.520
+from accounts you're following.
+
+00:02:52.600 --> 00:02:57.040
+So it's a very simple algorithm and our objective here is
+
+00:02:57.040 --> 00:03:00.770
+to both support academic research discovery, support academics on blue sky
+
+00:03:00.780 --> 00:03:03.590
+, but also, you know, in terms of our research
+
+00:03:03.590 --> 00:03:07.310
+, enable novel experiments to study open research questions.
+
+00:03:07.330 --> 00:03:13.250
+So, yeah, we launched last March a year ago and
+
+00:03:13.250 --> 00:03:17.490
+we've seen like kind of sustained usage over that time and
+
+00:03:17.490 --> 00:03:23.170
+also kind of very positive testimonials from people saying that this
+
+00:03:23.170 --> 00:03:27.170
+has really improved their experience using blue sky as academics and being
+
+00:03:27.170 --> 00:03:31.890
+able to see, you know, filtered academic content in one
+
+00:03:31.890 --> 00:03:33.250
+place that's personalized to them.
+
+00:03:33.280 --> 00:03:38.180
+And we, with the data that we've collected from paper
+
+00:03:38.180 --> 00:03:40.590
+sky just, we can look at interesting questions here.
+
+00:03:40.620 --> 00:03:44.960
+So one, you know, plot from our paper is looking
+
+00:03:44.960 --> 00:03:51.200
+at the histogram of archive categories across archive posts on blue sky
+
+00:03:51.200 --> 00:03:54.780
+that aren't associated with a bot account which we've labeled
+
+00:03:54.780 --> 00:03:55.400
+.
+
+00:03:55.420 --> 00:04:00.300
+And so this is sort of the distribution across all posts,
+
+00:04:00.300 --> 00:04:04.290
+but then you can ask what is the distribution of posts that
+
+00:04:04.290 --> 00:04:07.910
+we sent to users on paper sky just when they requested the
+
+00:04:07.910 --> 00:04:08.320
+feed.
+
+00:04:08.800 --> 00:04:12.360
+And you can see that it's a bit like higher on
+
+00:04:12.360 --> 00:04:18.760
+the AI and LG is like machine learning as well as like
+
+00:04:18.760 --> 00:04:20.860
+computer vision and linguistics.
+
+00:04:20.880 --> 00:04:24.880
+And then similarly, the posts that people interact with, you
+
+00:04:24.980 --> 00:04:29.870
+can also look at like what are people interacting with in this
+
+00:04:29.950 --> 00:04:32.180
+content on sky just that we've returned.
+
+00:04:32.220 --> 00:04:34.480
+So that's just an example of like one of the figures
+
+00:04:34.560 --> 00:04:36.820
+we have in our paper and these kind of questions that we
+
+00:04:36.820 --> 00:04:39.510
+can now look at with this data of people using our feed
+
+00:04:39.600 --> 00:04:39.680
+.
+
+00:04:39.760 --> 00:04:42.920
+And there's like a variety of kind of spin off projects
+
+00:04:42.920 --> 00:04:46.490
+that we're working on here, one being kind of like
+
+00:04:46.490 --> 00:04:51.280
+looking at doing social science analyses of what people are talking about
+
+00:04:51.320 --> 00:04:55.980
+and working on a blue sky and leveraging emerging NLP tools
+
+00:04:55.980 --> 00:04:58.870
+like sparse auto encoders to do sort of topic
+
+00:04:58.890 --> 00:04:59.500
+analyses.
+
+00:04:59.520 --> 00:05:04.540
+We're trying to extend paper sky just to include trending content
+
+00:05:04.540 --> 00:05:10.540
+and more sophisticated recommendations to a discovery and discourse and also running
+
+00:05:10.540 --> 00:05:15.040
+experiments on paper sky just to, you know, AB test
+
+00:05:15.040 --> 00:05:18.860
+different, different algorithms and also answer interesting science of science questions
+
+00:05:18.860 --> 00:05:19.020
+.
+
+00:05:19.040 --> 00:05:24.070
+And this leads to kind of the novel feed experiments section of
+
+00:05:24.070 --> 00:05:25.100
+the talk.
+
+00:05:25.120 --> 00:05:27.890
+So we've been piloting, um, experiments on blue
+
+00:05:27.930 --> 00:05:30.810
+, uh, on paper sky just particularly, um, you
+
+00:05:30.810 --> 00:05:33.070
+know, including reposts versus not including reposts
+
+00:05:33.070 --> 00:05:33.280
+.
+
+00:05:33.300 --> 00:05:36.260
+Um, but one thing that I'm really excited to talk
+
+00:05:36.260 --> 00:05:39.380
+about today is, um, some research that we've been
+
+00:05:39.380 --> 00:05:41.950
+doing, um, Oh, this is out of order,
+
+00:05:42.000 --> 00:05:45.120
+but yes, we did have the pilot experiment, um,
+
+00:05:45.120 --> 00:05:47.780
+which kind of shows some weak results.
+
+00:05:47.800 --> 00:05:51.800
+Um, but excited to talk about this project we're doing
+
+00:05:51.800 --> 00:05:55.000
+in collaboration with Andra, uh, who runs the trend
+
+00:05:55.000 --> 00:05:55.060
+.
+
+00:05:55.120 --> 00:05:57.090
+The trending news feed, um, and grays who hosts
+
+00:05:57.160 --> 00:05:58.280
+the trending news feed.
+
+00:05:58.300 --> 00:06:00.960
+Um, so this is a really cool feed, um,
+
+00:06:00.960 --> 00:06:04.220
+uh, that, uh, includes posts sourced from,
+
+00:06:04.220 --> 00:06:09.160
+uh, around 300 verified news organizations and has around kind of
+
+00:06:09.190 --> 00:06:10.580
+10,000 daily users.
+
+00:06:10.600 --> 00:06:16.120
+Um, and we're excited to answer some interesting research questions
+
+00:06:16.120 --> 00:06:16.450
+.
+
+00:06:16.480 --> 00:06:19.910
+So there's this exciting paper from 2006, um, commonly
+
+00:06:19.940 --> 00:06:23.710
+known as like the music lab experiment, which studies things about
+
+00:06:23.710 --> 00:06:26.360
+, um, rich get richer effects, which I think got
+
+00:06:26.360 --> 00:06:28.160
+mentioned on the panel earlier today.
+
+00:06:28.180 --> 00:06:32.390
+Um, which basically shows that kind of like little random disturb
+
+00:06:32.440 --> 00:06:36.430
+ances in what content gets exposure early on in the process can
+
+00:06:36.430 --> 00:06:41.050
+kind of, um, uh, result in these drastically different
+
+00:06:41.050 --> 00:06:42.380
+long-term outcomes.
+
+00:06:42.400 --> 00:06:45.440
+Um, and, and change like whether, uh, posts
+
+00:06:45.440 --> 00:06:48.800
+get exposed, um, uh, according really in terms of
+
+00:06:48.820 --> 00:06:52.220
+like are the highest quality posts being shown.
+
+00:06:52.240 --> 00:06:55.450
+Um, so we want to understand yet to what extent does
+
+00:06:55.450 --> 00:06:59.760
+initial randomness and account size produce these rich get richer effects
+
+00:06:59.760 --> 00:07:00.890
+in a real social setting.
+
+00:07:00.940 --> 00:07:02.360
+Cause this is like a lab experiment.
+
+00:07:02.380 --> 00:07:04.780
+Um, and also how can we solve this?
+
+00:07:04.800 --> 00:07:07.180
+Like how can we mitigate these effects and try to get posts
+
+00:07:07.180 --> 00:07:09.550
+being shown that are, um, you know, truly the
+
+00:07:09.590 --> 00:07:11.480
+, the quality content that people want to see.
+
+00:07:11.500 --> 00:07:14.350
+Um, and kind of smooth out this randomness and kind
+
+00:07:14.350 --> 00:07:17.690
+of the bigger picture here that we're excited about, like
+
+00:07:17.690 --> 00:07:20.470
+custom feed experiments on blue sky is that, yeah, there
+
+00:07:20.470 --> 00:07:23.240
+'s kind of a bunch of new directions for feed experiments.
+
+00:07:23.260 --> 00:07:26.480
+There's new stakeholders, feed creators who are community members who
+
+00:07:26.480 --> 00:07:29.830
+are passionate about showing their community, the content that they want
+
+00:07:29.830 --> 00:07:30.380
+to see.
+
+00:07:30.400 --> 00:07:34.810
+And potentially those algorithms that are good for different communities are,
+
+00:07:34.810 --> 00:07:37.000
+you know, yeah, heterogeneous and, and, and
+
+00:07:37.000 --> 00:07:39.140
+, and different communities want to see different things.
+
+00:07:39.160 --> 00:07:41.660
+Um, as kind of like with this music lab, uh
+
+00:07:41.660 --> 00:07:45.430
+, extension that we're thinking about, it's an opportunity
+
+00:07:45.430 --> 00:07:49.380
+to ask like these age old social media questions in new settings
+
+00:07:49.380 --> 00:07:51.120
+and, um, in deployment.
+
+00:07:51.160 --> 00:07:53.930
+Um, and yeah, um, as I was saying,
+
+00:07:53.980 --> 00:07:58.610
+new, new questions about how this is heterogeneous across,
+
+00:07:58.610 --> 00:08:00.340
+um, communities.
+
+00:08:00.360 --> 00:08:02.270
+And finally, I want to talk about, um, novel
+
+00:08:02.300 --> 00:08:04.100
+interfaces through the app protocol.
+
+00:08:04.120 --> 00:08:06.690
+Um, so there's a couple of things that we've
+
+00:08:06.690 --> 00:08:08.100
+been working on here.
+
+00:08:08.120 --> 00:08:11.360
+Uh, in particular, we've been thinking about how can
+
+00:08:11.360 --> 00:08:14.880
+we kind of, um, allow people customization experiment, uh
+
+00:08:14.880 --> 00:08:17.480
+, experience on their paper sky, just, um, as
+
+00:08:17.480 --> 00:08:20.330
+well as this project led by Kenny Pung from my lab
+
+00:08:20.330 --> 00:08:23.760
+, um, on, um, kind of, uh,
+
+00:08:23.760 --> 00:08:28.340
+extending outside of the linear feed structure, um, to trails
+
+00:08:28.340 --> 00:08:29.900
+and, and these post linear feeds.
+
+00:08:29.920 --> 00:08:33.860
+Um, so the customization interface here, um, so custom
+
+00:08:33.860 --> 00:08:37.380
+feeds gives user algorithmic choice and there's kind of been
+
+00:08:37.380 --> 00:08:39.900
+a lot of interest, I think, in academia and industry
+
+00:08:39.900 --> 00:08:42.940
+in, um, sort of giving users more agency over their
+
+00:08:42.960 --> 00:08:44.900
+, their algorithms and their online experiences.
+
+00:08:44.920 --> 00:08:47.270
+Um, but this leads to a lot of research questions such
+
+00:08:47.290 --> 00:08:49.660
+as like, what, how much granularity do users want
+
+00:08:49.710 --> 00:08:49.820
+?
+
+00:08:49.840 --> 00:08:51.800
+Um, you know, are they, is the feed,
+
+00:08:51.800 --> 00:08:55.200
+um, you know, choosing between different feeds that are created
+
+00:08:55.220 --> 00:08:57.860
+by other people, is that kind of the sweet spot?
+
+00:08:57.880 --> 00:09:00.710
+Or do people want like more fine grain control, um,
+
+00:09:00.710 --> 00:09:02.820
+what types of controls do they like?
+
+00:09:02.840 --> 00:09:05.320
+Do they like to control like who they're looking at or
+
+00:09:05.320 --> 00:09:07.510
+do they want to see kind of, um, different mi
+
+00:09:07.530 --> 00:09:07.940
+xtures?
+
+00:09:07.960 --> 00:09:10.780
+Um, and is there some sort of consensus about what's
+
+00:09:10.780 --> 00:09:14.090
+good for people or are there different kind of types of users
+
+00:09:14.090 --> 00:09:14.300
+?
+
+00:09:14.320 --> 00:09:16.590
+Um, and so to that end, we built this,
+
+00:09:16.690 --> 00:09:20.150
+uh, customization interface, which for the sake of smoothness
+
+00:09:20.150 --> 00:09:22.770
+, I will probably just show the screenshots instead of the actual
+
+00:09:22.830 --> 00:09:23.180
+demo.
+
+00:09:23.200 --> 00:09:25.940
+Um, but find me after I'll show, show the
+
+00:09:25.950 --> 00:09:26.540
+demo.
+
+00:09:26.560 --> 00:09:31.820
+Um, but basically this like configuration editor, um, which
+
+00:09:31.870 --> 00:09:33.790
+is similar to, um, I think, uh, tools
+
+00:09:33.790 --> 00:09:34.690
+that others have developed.
+
+00:09:34.720 --> 00:09:37.490
+Um, uh, but basically, um, on the one
+
+00:09:37.540 --> 00:09:41.580
+hand, you can kind of tune your, your Skype experience
+
+00:09:41.580 --> 00:09:44.040
+and it'll like responsibly show you a preview of what
+
+00:09:44.150 --> 00:09:45.500
+your Skype just will look like.
+
+00:09:45.520 --> 00:09:49.010
+Um, so one thing we're really excited about here is
+
+00:09:49.030 --> 00:09:52.460
+building good kind of defaults for people to use.
+
+00:09:52.480 --> 00:09:55.820
+And then seeing which defaults people, um, people grav
+
+00:09:55.820 --> 00:09:59.460
+itate toward, especially kind of like what, what do people
+
+00:09:59.460 --> 00:10:02.060
+want and what do people end up using here?
+
+00:10:02.080 --> 00:10:03.710
+Um, but then we hope to give, um, sort
+
+00:10:03.710 --> 00:10:06.620
+of more flexibility, um, including like these follow weights.
+
+00:10:06.640 --> 00:10:08.810
+So like, can you talk, uh, can you kind
+
+00:10:08.810 --> 00:10:11.900
+of, um, put different weights or like inclusion on your
+
+00:10:11.950 --> 00:10:12.860
+followers?
+
+00:10:12.880 --> 00:10:15.750
+So for example, if I'm following a bunch of academics
+
+00:10:15.750 --> 00:10:18.270
+, but I want my papers guide just to mostly be,
+
+00:10:18.270 --> 00:10:21.530
+uh, specifically the like econ CS academics.
+
+00:10:21.560 --> 00:10:23.880
+Then I could like filter down to that, um, and
+
+00:10:23.930 --> 00:10:27.040
+then different weights, both on in terms of like global likes
+
+00:10:27.040 --> 00:10:29.370
+, as well as, uh, interactions from people I'm
+
+00:10:29.370 --> 00:10:30.100
+following.
+
+00:10:30.120 --> 00:10:32.770
+Um, and then, oh yeah, this is just showing
+
+00:10:32.770 --> 00:10:35.100
+the time decay, uh, does things.
+
+00:10:35.120 --> 00:10:37.110
+Um, and then, uh, and then also, uh
+
+00:10:37.150 --> 00:10:40.260
+, filtering down to specific categories of content.
+
+00:10:40.280 --> 00:10:43.380
+So I've here filtered the AI category and, um,
+
+00:10:43.380 --> 00:10:45.930
+uh, these are like trending things, uh, in the
+
+00:10:45.930 --> 00:10:48.460
+last, uh, you know, 72 hours in, in
+
+00:10:48.460 --> 00:10:50.340
+, uh, in AI.
+
+00:10:50.400 --> 00:10:53.570
+Um, uh, archive posts and, um, yeah,
+
+00:10:53.570 --> 00:10:57.690
+you can imagine swapping these out for like sparse auto
+
+00:10:57.770 --> 00:11:00.590
+encoders or other, um, other, uh,
+
+00:11:00.590 --> 00:11:01.420
+topics.
+
+00:11:01.440 --> 00:11:03.620
+Like I think, um, I think the child talk had
+
+00:11:03.630 --> 00:11:06.700
+a bunch of like topics and stuff that we could maybe integrate
+
+00:11:06.700 --> 00:11:07.140
+with.
+
+00:11:07.160 --> 00:11:09.970
+Um, and then how am I doing for time?
+
+00:11:10.000 --> 00:11:10.340
+Sorry.
+
+00:11:10.350 --> 00:11:13.020
+Two minutes.
+
+00:11:13.040 --> 00:11:13.300
+Okay.
+
+00:11:13.320 --> 00:11:13.740
+Amazing.
+
+00:11:13.760 --> 00:11:14.540
+I have time for this.
+
+00:11:14.560 --> 00:11:16.470
+So, yeah, so this, um, last thing is
+
+00:11:16.500 --> 00:11:19.180
+, is a project I'm really excited about that is led
+
+00:11:19.240 --> 00:11:20.220
+by Kenny Pung.
+
+00:11:20.240 --> 00:11:23.470
+Uh, at Cornell tech, um, and this is,
+
+00:11:23.470 --> 00:11:26.800
+uh, yeah, um, yeah, just a really cool
+
+00:11:26.800 --> 00:11:27.890
+project.
+
+00:11:27.920 --> 00:11:30.840
+Uh, so we all know that algorithmic feeds are flawed
+
+00:11:30.840 --> 00:11:31.780
+in many ways.
+
+00:11:31.800 --> 00:11:34.380
+So, um, there are filter bubbles, there's doom
+
+00:11:34.380 --> 00:11:35.140
+scrolling.
+
+00:11:35.240 --> 00:11:38.730
+Um, people feel trapped, uh, often in their,
+
+00:11:38.750 --> 00:11:42.200
+in their, uh, um, by their algorithms and there
+
+00:11:42.200 --> 00:11:45.370
+'s kind of extensive research on improving feed algorithms and understanding the
+
+00:11:45.370 --> 00:11:46.540
+ways in which they fail.
+
+00:11:46.560 --> 00:11:51.400
+Um, and you're improving fairness, improving diversity, um
+
+00:11:51.400 --> 00:11:53.850
+, uh, but Kenny's idea is why do we have
+
+00:11:53.930 --> 00:11:56.870
+to be, you know, restricting ourselves to this linear
+
+00:11:56.870 --> 00:11:57.220
+feed interface.
+
+00:11:57.240 --> 00:11:59.560
+Um, so the original vert, uh, vision of the
+
+00:11:59.610 --> 00:12:02.320
+web was to browse hypertext, like that's where HTTP
+
+00:12:02.320 --> 00:12:03.220
+comes from.
+
+00:12:03.240 --> 00:12:06.910
+And this goes all the way back to like the 1950s
+
+00:12:06.920 --> 00:12:09.710
+, the vision of Vannevar Bush of like, um
+
+00:12:09.750 --> 00:12:13.930
+, uh, uh, you know, navigating trails of information
+
+00:12:13.930 --> 00:12:16.440
+and how can we, um, you know, switch between
+
+00:12:16.440 --> 00:12:18.900
+, um, different topics and make connections.
+
+00:12:18.920 --> 00:12:21.690
+Um, and there's a connection here to the work that
+
+00:12:21.730 --> 00:12:24.540
+Semble's doing, um, also building trails.
+
+00:12:24.560 --> 00:12:27.040
+Um, and so, uh, well, Semble like
+
+00:12:27.040 --> 00:12:30.370
+, uh, assembles trails, um, using like human
+
+00:12:30.370 --> 00:12:34.270
+curation, Kenny's idea, um, uh, is
+
+00:12:34.320 --> 00:12:39.460
+, is, is building trails for interacting with social media through
+
+00:12:39.460 --> 00:12:42.900
+, uh, through new, um, LLM technology
+
+00:12:42.900 --> 00:12:45.890
+to basically, um, generate these trails algorithmically.
+
+00:12:45.920 --> 00:12:48.020
+Um, so he uses sparse autoencoders,
+
+00:12:48.020 --> 00:12:52.660
+which basically generate interpretable labels for different, um, pieces
+
+00:12:52.660 --> 00:12:57.060
+of content, um, and excitingly, he implemented this
+
+00:12:57.060 --> 00:12:58.740
+on like a week's worth of blue sky data.
+
+00:12:58.760 --> 00:13:00.730
+Um, so you should all check this out.
+
+00:13:00.840 --> 00:13:02.810
+I'll show a demo in a second, but if you
+
+00:13:02.890 --> 00:13:05.190
+want to pull it up, um, this is called sky
+
+00:13:05.190 --> 00:13:09.480
+trails and this is, um, his, uh, basically
+
+00:13:09.540 --> 00:13:12.060
+, uh, blue sky browser.
+
+00:13:12.080 --> 00:13:15.560
+Um, so if you open sky trails, you can see
+
+00:13:15.560 --> 00:13:15.900
+.
+
+00:13:15.920 --> 00:13:18.090
+You can see a, uh, selection, a random selection
+
+00:13:18.260 --> 00:13:20.580
+of the trails that are available, um, and I'm
+
+00:13:20.610 --> 00:13:23.400
+just gonna click into the PG, Woodhouse, and J
+
+00:13:23.400 --> 00:13:26.780
+eeves, and here are a bunch of posts related to
+
+00:13:26.810 --> 00:13:29.900
+this topic, and as I'm scrolling, I see,
+
+00:13:29.900 --> 00:13:32.720
+okay, now I'm interested in discussions about ChatGP
+
+00:13:32.720 --> 00:13:35.030
+T, so I click on this trail, and I'm
+
+00:13:35.050 --> 00:13:36.760
+led to the trail about ChatGPT.
+
+00:13:36.780 --> 00:13:39.010
+And I can scroll down here, and then, oh,
+
+00:13:39.010 --> 00:13:42.000
+this is really interesting and esoteric, is seeking or
+
+00:13:42.000 --> 00:13:43.760
+suggesting alternatives.
+
+00:13:43.780 --> 00:13:45.860
+I'm now on this trail, I can scroll down,
+
+00:13:45.860 --> 00:13:49.760
+oh, stylish and fashionable aesthetics, so I scroll here,
+
+00:13:49.760 --> 00:13:52.340
+and so now you can see how I've really navigated
+
+00:13:52.340 --> 00:13:53.720
+the space of content.
+
+00:13:53.740 --> 00:13:56.470
+I've found things that are kind of cross-cutting
+
+00:13:56.490 --> 00:14:00.040
+these concepts that you maybe wouldn't have, like, expected
+
+00:14:00.040 --> 00:14:03.040
+even are being discussed, or, like, certainly there's
+
+00:14:03.050 --> 00:14:05.490
+not gonna be a custom feed for, like, you know
+
+00:14:05.490 --> 00:14:07.840
+, what was the last one, like, seeking or suggesting
+
+00:14:07.840 --> 00:14:08.720
+alternatives.
+
+00:14:08.740 --> 00:14:11.340
+Um, but maybe it's something I'm interested in,
+
+00:14:11.340 --> 00:14:13.280
+and so there's this, uh, this, um,
+
+00:14:13.340 --> 00:14:16.720
+ability to, like, quickly navigate the world of content,
+
+00:14:16.720 --> 00:14:19.720
+find new interests, find new discussions that people are having,
+
+00:14:19.720 --> 00:14:23.000
+um, and so that's the, the idea of post
+
+00:14:23.000 --> 00:14:23.720
+-linear feeds.
+
+00:14:23.740 --> 00:14:26.090
+Um, so yeah, with that, um, thank you
+
+00:14:26.110 --> 00:14:29.870
+to our wonderful set of collaborators, um, including folks in
+
+00:14:29.870 --> 00:14:33.260
+this room, um, like Andra, and, um
+
+00:14:33.260 --> 00:14:35.700
+, yeah, uh, thank you for listening.
+
+00:14:35.740 --> 00:14:37.730
+And I also want to shout out the F-Tech Lab
+
+00:14:37.770 --> 00:14:40.470
+eler, um, from the Social Technologies Lab, um,
+
+00:14:40.470 --> 00:14:43.580
+which is the Account Activity Labeler, which I think
+
+00:14:43.580 --> 00:14:46.370
+is quite popular and very effective, and I'm a big
+
+00:14:46.370 --> 00:14:48.720
+fan, so that's from another group at Cornell Tech.
+
+00:14:48.740 --> 00:14:50.710
+Um, so thank you, everyone.
+
+00:14:50.740 --> 00:14:56.720
+Amazing.
+
+00:14:56.740 --> 00:14:57.720
+Thank you, Sophie.
+
+00:14:57.740 --> 00:14:59.710
+Uh, questions, anyone?
+
+00:15:05.740 --> 00:15:09.220
+Um, it's not really a question, sorry, uh
+
+00:15:09.220 --> 00:15:10.700
+, but, uh, seek, seek, seek, seek
+
+00:15:10.700 --> 00:15:12.290
+, seek, seek, seek, seek, seek, like
+
+00:15:12.290 --> 00:15:13.930
+, the, um, I, I like the, the
+
+00:15:13.930 --> 00:15:14.710
+Skytrails.
+
+00:15:14.740 --> 00:15:18.020
+Um, I like, I like the, the lateral movement
+
+00:15:18.020 --> 00:15:21.210
+through topic space, uh, the memex-like,
+
+00:15:21.250 --> 00:15:22.720
+um, interface.
+
+00:15:22.730 --> 00:15:23.720
+Yeah.
+
+00:15:23.730 --> 00:15:24.720
+Yeah.
+
+00:15:24.740 --> 00:15:30.080
+You mentioned earlier the, um, possibility of doing Science of
+
+00:15:30.090 --> 00:15:34.270
+Science, using the data, uh, from your Sky Chest
+
+00:15:34.270 --> 00:15:35.720
+, uh, tool.
+
+00:15:35.740 --> 00:15:38.000
+I'm curious, are you, are you actively working in
+
+00:15:38.110 --> 00:15:38.720
+that area?
+
+00:15:38.740 --> 00:15:39.720
+What do you have planned?
+
+00:15:39.730 --> 00:15:42.550
+Because, as someone who's just dipping his toes into scient
+
+00:15:42.560 --> 00:15:45.030
+ometrics, you know, this is very exciting, and
+
+00:15:45.050 --> 00:15:47.720
+I'm, I'm wondering what you're thinking of.
+
+00:15:47.740 --> 00:15:48.720
+Yeah, thank you.
+
+00:15:48.740 --> 00:15:51.850
+I think our interest is, like, um, kind of
+
+00:15:51.850 --> 00:15:55.720
+science of academic communication specifically.
+
+00:15:55.740 --> 00:15:59.210
+So, understanding, I think our angle will be, like
+
+00:15:59.210 --> 00:16:02.050
+, looking at the, um, these, like, feed
+
+00:16:02.050 --> 00:16:04.040
+, uh, like, the, the trending algorithm, or
+
+00:16:04.040 --> 00:16:07.050
+, like, the different algorithm choices we make on Paper Sky
+
+00:16:07.050 --> 00:16:09.720
+Chest, and how those choices, especially, kind of,
+
+00:16:09.720 --> 00:16:13.910
+interpretable, um, uh, design decisions, impact,
+
+00:16:13.910 --> 00:16:16.720
+kind of, discourse, and engagement, and, you know
+
+00:16:16.720 --> 00:16:16.720
+, who's coming out.
+
+00:16:16.740 --> 00:16:18.230
+And, you know, who's following who, and stuff
+
+00:16:18.230 --> 00:16:18.710
+like that.
+
+00:16:18.740 --> 00:16:20.420
+Um, so that's, I think, the angle that
+
+00:16:20.420 --> 00:16:22.720
+we're interested in, uh, especially as well as these
+
+00:16:22.720 --> 00:16:25.020
+, kind of, like, more observational questions of,
+
+00:16:25.020 --> 00:16:27.160
+like, across blue sky, like, as we're adjusting
+
+00:16:27.170 --> 00:16:30.920
+the fires, what are we seeing about, like, what
+
+00:16:30.920 --> 00:16:35.710
+people are talking about, and, um, engaging with.
+
+00:16:35.730 --> 00:16:38.720
+Great talk, thanks.
+
+00:16:38.730 --> 00:16:39.720
+Thanks.
+
+00:16:39.740 --> 00:16:42.660
+Um, one thing I think a lot about with custom feeds
+
+00:16:42.660 --> 00:16:45.720
+in the network, and, kind of, and incentives,
+
+00:16:45.720 --> 00:16:47.830
+so you can do these studies where, like, how does
+
+00:16:47.830 --> 00:16:50.720
+it impact individuals' behaviors through what feeds they see?
+
+00:16:50.740 --> 00:16:52.550
+But a lot of what feeds are doing is they're setting
+
+00:16:52.590 --> 00:16:54.100
+, they're, kind of, like, the rules of
+
+00:16:54.130 --> 00:16:55.860
+the game, and they end up, you know, certain
+
+00:16:55.860 --> 00:16:58.550
+kinds of content, if they're getting a lot of traction
+
+00:16:58.550 --> 00:17:00.020
+, or visibility, or people are interacting, even, like
+
+00:17:00.020 --> 00:17:03.600
+, liking, or following, or getting these social interactions more
+
+00:17:03.600 --> 00:17:06.720
+than just, like, uh, social media interactions, that
+
+00:17:06.720 --> 00:17:09.520
+will incentivize people to create different kinds of content, and
+
+00:17:09.560 --> 00:17:10.720
+get, get this big loop going.
+
+00:17:10.730 --> 00:17:11.720
+Yeah.
+
+00:17:11.740 --> 00:17:14.970
+And so you change what kinds of content is available through that
+
+00:17:14.970 --> 00:17:16.950
+, but that's hard to do with, like, an
+
+00:17:16.950 --> 00:17:19.540
+exciting thing with, with blue sky, the app, and
+
+00:17:19.540 --> 00:17:22.380
+the protocol, is that we can do these, people can
+
+00:17:22.380 --> 00:17:25.840
+create new things and do experiments pretty easily for individuals, but
+
+00:17:25.840 --> 00:17:26.720
+it's harder for groups.
+
+00:17:26.740 --> 00:17:28.730
+Have you, do you have any ideas on how to s
+
+00:17:28.780 --> 00:17:30.680
+uss that out, or try to get, kind of,
+
+00:17:30.680 --> 00:17:33.510
+like, signal through, like, especially if it's only
+
+00:17:33.510 --> 00:17:36.720
+impacting a smaller part of the overall graph or network?
+
+00:17:36.740 --> 00:17:39.720
+Yeah, that's a really interesting question.
+
+00:17:39.720 --> 00:17:43.060
+I guess there's two aspects to my answer, though.
+
+00:17:43.060 --> 00:17:44.420
+The first is that, like, this is sort of one
+
+00:17:44.420 --> 00:17:46.450
+of the things we're excited about, like, with the
+
+00:17:46.450 --> 00:17:49.900
+trending news feed, um, is looking at, so we
+
+00:17:49.900 --> 00:17:52.370
+did a pilot experiment, like, um, basically putting a
+
+00:17:52.370 --> 00:17:54.780
+lot of the, uh, the weight, um, on
+
+00:17:54.780 --> 00:17:56.560
+the gray, these gray multipliers on the reposts
+
+00:17:56.560 --> 00:18:00.520
+, and seeing how that changed, like, what content was
+
+00:18:00.520 --> 00:18:02.490
+, so we ended up seeing a lot more, like,
+
+00:18:02.490 --> 00:18:05.380
+um, smaller news organizations were, um, right in the
+
+00:18:05.380 --> 00:18:07.160
+top, and you ended up seeing, like, sort of
+
+00:18:07.160 --> 00:18:08.710
+, like, sort of an amplification of, like,
+
+00:18:08.720 --> 00:18:11.510
+you, you created, uh, higher weight on repost
+
+00:18:11.530 --> 00:18:13.540
+s, and then you saw a lot more reposts
+
+00:18:13.560 --> 00:18:15.710
+, um, relative to that, other feed.
+
+00:18:15.740 --> 00:18:17.710
+But I think maybe your question is more just, like,
+
+00:18:17.720 --> 00:18:18.840
+okay, the trending news feed is, sort of, an
+
+00:18:18.840 --> 00:18:20.990
+outlier in terms of, like, feed size, and
+
+00:18:20.990 --> 00:18:25.220
+so how can we actually study, um, like, uh
+
+00:18:25.220 --> 00:18:28.720
+, how these feeds are, are impacting, sort of,
+
+00:18:28.720 --> 00:18:30.720
+things on a bigger scale when they're small?
+
+00:18:30.740 --> 00:18:32.660
+And I haven't actually thought of that question, and I
+
+00:18:32.680 --> 00:18:33.720
+'ll think more about it.
+
+00:18:33.740 --> 00:18:35.710
+Thank you.
+
+00:18:35.740 --> 00:18:36.720
+Uh, hi.
+
+00:18:36.740 --> 00:18:39.240
+So, apologies in advance if my question's just, like
+
+00:18:39.240 --> 00:18:41.760
+, completely out of nowhere, because I'm really sorry I
+
+00:18:41.760 --> 00:18:42.720
+joined your talk late.
+
+00:18:42.740 --> 00:18:44.600
+Um, but I'm wondering, like, especially looking at
+
+00:18:44.600 --> 00:18:46.720
+the, kind of, like, trails of conversations and topics
+
+00:18:46.720 --> 00:18:49.110
+that, you know, users and people are, kind of
+
+00:18:49.110 --> 00:18:51.000
+, posting about, I'm wondering if you've done a
+
+00:18:51.000 --> 00:18:51.000
+lot of

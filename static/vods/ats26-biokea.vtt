@@ -1,0 +1,637 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+Thank you, everyone, for the opportunity to present here today
+
+00:00:04.000 --> 00:00:04.080
+.
+
+00:00:04.080 --> 00:00:05.720
+I'm very happy to be at the Atmosphere Conference
+
+00:00:05.720 --> 00:00:08.180
+and at the first AtProto Science Conference and tell you
+
+00:00:08.180 --> 00:00:09.120
+about my work.
+
+00:00:09.120 --> 00:00:10.420
+So I'm Sean Youngbluth.
+
+00:00:10.420 --> 00:00:14.160
+I'm a researcher at the San Francisco State Estuary Marine
+
+00:00:14.160 --> 00:00:14.840
+Science Center.
+
+00:00:14.840 --> 00:00:16.870
+I'm an adjunct professor there, and I'm
+
+00:00:16.870 --> 00:00:18.920
+a former Berkeley lab transplant.
+
+00:00:18.920 --> 00:00:21.670
+I'm a biologist, oceanographer, and computational person
+
+00:00:21.670 --> 00:00:21.890
+.
+
+00:00:21.900 --> 00:00:24.530
+And I'm telling you about BioKia, this company
+
+00:00:24.530 --> 00:00:27.230
+that I founded and this first product that we're trying to
+
+00:00:27.230 --> 00:00:28.520
+build called Agentis.
+
+00:00:29.100 --> 00:00:30.300
+So what do we do?
+
+00:00:30.300 --> 00:00:33.690
+I'm working with a lot of insect enthusiasts, and we
+
+00:00:33.700 --> 00:00:37.900
+are running around California, and we are sampling all the different
+
+00:00:37.900 --> 00:00:40.460
+parts, and we are taking it back into the laboratory.
+
+00:00:40.480 --> 00:00:43.750
+And my group, we have robotics there where we're looking
+
+00:00:43.750 --> 00:00:46.600
+at these things in very, very high throughput, cataloging
+
+00:00:46.600 --> 00:00:49.490
+all the diversity of life that's in California.
+
+00:00:49.500 --> 00:00:54.620
+And then I'm leveraging the power of scientific storytelling through L
+
+00:00:54.620 --> 00:00:58.290
+LMs and trying to bring all this information to the light
+
+00:00:58.410 --> 00:00:58.610
+.
+
+00:00:58.920 --> 00:01:01.420
+And so BioKia, the company, is the engine
+
+00:01:01.420 --> 00:01:03.660
+, and the product, Agentis, is the output
+
+00:01:03.660 --> 00:01:03.920
+.
+
+00:01:03.920 --> 00:01:07.310
+So what does a user journey look like here in the context
+
+00:01:07.420 --> 00:01:08.940
+of an at-proto connection?
+
+00:01:08.940 --> 00:01:12.830
+So the use case is imagining that you have researchers that are
+
+00:01:12.830 --> 00:01:16.290
+traveling to the Santa Monica Mountains to sample some dirt and then
+
+00:01:16.290 --> 00:01:19.680
+try to understand the scientific life that's inside of it.
+
+00:01:19.680 --> 00:01:23.120
+And so first, the folks will ingest the data into
+
+00:01:23.190 --> 00:01:24.220
+our system.
+
+00:01:24.380 --> 00:01:26.680
+We'll analyze the data using canonical tools.
+
+00:01:26.680 --> 00:01:29.940
+We'll draft a manuscript, a very bare-bone sort
+
+00:01:29.940 --> 00:01:32.640
+of data descriptor manuscript, and then we have also a
+
+00:01:32.640 --> 00:01:35.580
+reviewer engine built into this as well.
+
+00:01:35.580 --> 00:01:38.960
+And then the final piece is to broadcast this information to the
+
+00:01:39.090 --> 00:01:40.280
+masses.
+
+00:01:40.940 --> 00:01:43.660
+And so this is just a quick mock-up of what
+
+00:01:43.660 --> 00:01:46.100
+the portal looks like right now.
+
+00:01:46.100 --> 00:01:47.760
+We're going to sign in with our at-proto
+
+00:01:47.760 --> 00:01:51.760
+account, giving everybody universal access to these decentralized identities.
+
+00:01:51.780 --> 00:01:55.380
+The first portal that you might get into is this, like
+
+00:01:55.380 --> 00:01:59.000
+, upload data type of portal where you're uploading your sequence
+
+00:01:59.050 --> 00:02:02.240
+data or images of plants or insects, anything that is kind
+
+00:02:02.240 --> 00:02:05.820
+of collected from the scientists doing this sort of work.
+
+00:02:05.820 --> 00:02:09.710
+And then once you've uploaded your data, which it could
+
+00:02:09.780 --> 00:02:12.520
+be, you know, plants, DNA sequence data and the
+
+00:02:12.550 --> 00:02:16.720
+like, metadata that helps, we grind that through our analysis
+
+00:02:16.760 --> 00:02:21.270
+workflows and essentially give you a readout of the diversity information
+
+00:02:21.340 --> 00:02:22.400
+inside of your samples.
+
+00:02:24.400 --> 00:02:27.350
+From there, because this is not ultra-complex science
+
+00:02:27.350 --> 00:02:32.070
+, I feel confident in taking the use of AI to create
+
+00:02:32.070 --> 00:02:34.300
+some draft narratives from these things.
+
+00:02:34.300 --> 00:02:40.360
+And so you can imagine this rapid dissemination of work through
+
+00:02:40.360 --> 00:02:42.920
+LLMs, where instead of having data products that are
+
+00:02:42.920 --> 00:02:46.780
+essentially waiting for analysis, we have a rapid ability to essentially
+
+00:02:46.780 --> 00:02:50.390
+communicate this in language that humans tend to agree upon.
+
+00:02:52.580 --> 00:02:55.970
+All right, so once the papers are published, what does
+
+00:02:56.080 --> 00:02:56.980
+this look like?
+
+00:02:56.980 --> 00:03:00.740
+This is just kind of a glimpse into our current imaginative
+
+00:03:00.740 --> 00:03:01.900
+process here.
+
+00:03:01.900 --> 00:03:05.280
+But we think that AI reviewers and human reviewers are both going
+
+00:03:05.280 --> 00:03:06.280
+to be required.
+
+00:03:06.280 --> 00:03:09.200
+We know AI is going to become, you know, it
+
+00:03:09.200 --> 00:03:11.480
+'s already a commodity, and so we can review papers with
+
+00:03:11.480 --> 00:03:13.160
+the push of a button, essentially.
+
+00:03:13.160 --> 00:03:16.050
+But I do truly think we will always need humans in the
+
+00:03:16.050 --> 00:03:18.440
+loop who know what these things are and know what they're
+
+00:03:18.440 --> 00:03:18.930
+doing.
+
+00:03:18.940 --> 00:03:22.000
+And the different categories here, for example, you know,
+
+00:03:22.000 --> 00:03:24.700
+novelty, we probably want that scored by a human more so
+
+00:03:24.700 --> 00:03:25.540
+than a robot.
+
+00:03:25.540 --> 00:03:29.520
+So just kind of a glimpse into how we're approaching this
+
+00:03:29.520 --> 00:03:29.810
+.
+
+00:03:29.820 --> 00:03:35.480
+And so what do you do with all this information?
+
+00:03:35.480 --> 00:03:37.660
+So I'm an editor at two scientific journals, and it
+
+00:03:37.660 --> 00:03:40.020
+'s totally broken, and we can drink beers and pour one
+
+00:03:40.020 --> 00:03:41.500
+out for that broken system.
+
+00:03:42.040 --> 00:03:45.340
+And so the next system is this more public one I think
+
+00:03:45.340 --> 00:03:49.120
+that could be built on at protocol and one that shows reviews
+
+00:03:49.130 --> 00:03:51.490
+in a transparent format.
+
+00:03:51.500 --> 00:03:52.940
+You know, we can share these things.
+
+00:03:52.940 --> 00:03:55.000
+They're immutable, they're reproducible, and they
+
+00:03:55.000 --> 00:03:56.020
+can be cited themselves.
+
+00:03:56.020 --> 00:04:00.130
+And then further, researchers, they can start to take credit
+
+00:04:00.130 --> 00:04:01.540
+for these things.
+
+00:04:01.540 --> 00:04:04.860
+And this is a missing part of the scientific discourse that has
+
+00:04:04.860 --> 00:04:07.180
+basically completely been missed.
+
+00:04:07.180 --> 00:04:12.760
+And so the science that I do, the folks that collect
+
+00:04:12.760 --> 00:04:16.000
+these samples, they tend to do these, like, fun
+
+00:04:16.000 --> 00:04:18.130
+excursions where they go to, like, the California
+
+00:04:18.130 --> 00:04:18.960
+coast, for example.
+
+00:04:18.960 --> 00:04:22.780
+And so what I'm imagining for something akin to, like
+
+00:04:22.780 --> 00:04:26.030
+, the chive eprints or my version of that are
+
+00:04:26.140 --> 00:04:31.010
+these interactive story maps that can be automatically generated from these data
+
+00:04:31.010 --> 00:04:31.580
+sets.
+
+00:04:31.580 --> 00:04:35.360
+And these are these nice digital artifacts that folks can explore,
+
+00:04:35.360 --> 00:04:37.990
+and they're interactive, and they're meant to help tell
+
+00:04:37.990 --> 00:04:39.440
+the story of this science.
+
+00:04:39.440 --> 00:04:44.840
+And then from there, what can we do?
+
+00:04:44.860 --> 00:04:48.300
+Well, we can hopefully amplify this stuff through platforms like Blue
+
+00:04:48.360 --> 00:04:48.720
+Sky.
+
+00:04:48.720 --> 00:04:51.680
+And there's a bunch of different kind of teasers here
+
+00:04:51.680 --> 00:04:55.200
+for how this can all be connected, some, including getting
+
+00:04:55.200 --> 00:04:56.660
+ahead of the point here.
+
+00:04:56.660 --> 00:05:00.100
+But you can advertise your review that you completed it on Blue
+
+00:05:00.160 --> 00:05:00.550
+Sky.
+
+00:05:00.560 --> 00:05:03.020
+You can highlight through HypeGen, which we haven't
+
+00:05:03.020 --> 00:05:06.340
+talked about here, but Joel Chan was talking about that in
+
+00:05:06.340 --> 00:05:08.900
+a previous meeting that I had with him.
+
+00:05:08.900 --> 00:05:12.910
+And we have automatic hypothesis generation that can be captured.
+
+00:05:12.920 --> 00:05:15.210
+And then also a hat-tipped assemble, which I
+
+00:05:15.210 --> 00:05:15.680
+love.
+
+00:05:15.680 --> 00:05:19.790
+I'm imagining this could be a way that folks can build
+
+00:05:19.790 --> 00:05:24.190
+communities and try to gather trails of evidence that folks can then
+
+00:05:24.190 --> 00:05:26.360
+pursue with downstream work.
+
+00:05:26.360 --> 00:05:32.410
+Further, Matt, so it's very clear that the discourse
+
+00:05:32.410 --> 00:05:34.810
+graphs can play a huge role here, right?
+
+00:05:34.820 --> 00:05:38.070
+We all do science, and we all appreciate how science is
+
+00:05:38.070 --> 00:05:38.980
+conducted.
+
+00:05:39.320 --> 00:05:43.460
+And this is the framework that I think can be very useful
+
+00:05:43.460 --> 00:05:46.950
+for naturalists because, for example, there's a whole
+
+00:05:47.060 --> 00:05:50.360
+lot of ancestral knowledge and, like, local knowledge that doesn
+
+00:05:50.360 --> 00:05:51.320
+'t exist online.
+
+00:05:51.320 --> 00:05:55.380
+And I think that a combination of discourse graphs and symbol and
+
+00:05:55.380 --> 00:05:58.260
+the rails that Proto represents can really capture this.
+
+00:06:00.160 --> 00:06:04.540
+And so we're leaving the era of traditional publishing.
+
+00:06:04.540 --> 00:06:06.880
+We're no longer going to be looking at static PDFs
+
+00:06:06.880 --> 00:06:07.820
+and Word docs.
+
+00:06:07.820 --> 00:06:09.670
+Everything's going to be more universal.
+
+00:06:09.680 --> 00:06:14.220
+We're going to have submissions that accept raw data itself instead
+
+00:06:14.220 --> 00:06:16.500
+of your written Publix projects.
+
+00:06:16.500 --> 00:06:19.420
+The AI process is going to be faster.
+
+00:06:19.420 --> 00:06:21.200
+It's painfully slow right now.
+
+00:06:21.280 --> 00:06:24.660
+It's also going to continue to leverage human experts.
+
+00:06:24.780 --> 00:06:29.170
+The output format, you know, dead paywalled text
+
+00:06:29.170 --> 00:06:30.960
+is old out with it.
+
+00:06:30.980 --> 00:06:34.570
+We are more excited about interactive story maps, knowledge graphs that
+
+00:06:34.570 --> 00:06:37.620
+are amenable to large-scale ML applications, certainly the
+
+00:06:37.630 --> 00:06:38.360
+future.
+
+00:06:38.780 --> 00:06:42.030
+And then in terms of data provenance, clearly we have
+
+00:06:42.030 --> 00:06:47.100
+a much more connected system here where the decentralized app protocol can
+
+00:06:47.100 --> 00:06:48.740
+help link all these things together.
+
+00:06:48.740 --> 00:06:51.530
+And folks can get credit for your reviews, your data production
+
+00:06:51.530 --> 00:06:54.010
+, your, you know, everything that we agree is required
+
+00:06:54.010 --> 00:06:54.840
+for science.
+
+00:06:54.840 --> 00:06:57.320
+All right.
+
+00:06:57.320 --> 00:06:58.160
+So last slide.
+
+00:06:58.160 --> 00:06:59.260
+So the future ahead.
+
+00:06:59.260 --> 00:07:01.070
+And I don't know where we jump in this loop,
+
+00:07:01.070 --> 00:07:03.400
+but let's pretend we're starting at the top here.
+
+00:07:04.420 --> 00:07:05.810
+So we're, you know, a bunch of bug nerd
+
+00:07:05.810 --> 00:07:08.310
+s, we're running around California, we're collecting butterflies
+
+00:07:08.380 --> 00:07:09.400
+and all these things.
+
+00:07:09.400 --> 00:07:12.310
+And let's say we take those back into the laboratory and
+
+00:07:12.310 --> 00:07:15.110
+we look at the DNA and we take pictures of these things
+
+00:07:15.110 --> 00:07:15.440
+.
+
+00:07:15.440 --> 00:07:18.340
+And then we get to the bottom part here where we publish
+
+00:07:18.340 --> 00:07:21.520
+them with these sort of little interactive story maps.
+
+00:07:21.520 --> 00:07:24.620
+And then from there, we can have these automated hooks to
+
+00:07:24.620 --> 00:07:30.440
+produce hypotheses from these data sets that folks online and through connections
+
+00:07:30.440 --> 00:07:33.030
+with Semble, we can eventually get to a point at
+
+00:07:33.030 --> 00:07:35.740
+which you would say, aha, time for a field campaign
+
+00:07:35.740 --> 00:07:36.060
+2.
+
+00:07:36.060 --> 00:07:36.420
+0.
+
+00:07:36.420 --> 00:07:38.880
+We're going to pursue this next set of hypotheses.
+
+00:07:38.880 --> 00:07:42.740
+And in total, I guess I feel that this is the
+
+00:07:42.740 --> 00:07:46.010
+scientific loop that is possible if we build this and with the
+
+00:07:46.010 --> 00:07:48.040
+community that we're hoping to see.
+
+00:07:48.040 --> 00:07:56.590
+Any questions for Sean
+
+00:07:56.590 --> 00:07:57.960
+?
+
+00:07:57.960 --> 00:07:58.720
+Thank you, Sean.
+
+00:08:01.430 --> 00:08:05.420
+Random question.
+
+00:08:05.420 --> 00:08:07.890
+Are you using the IGSNs at all for the
+
+00:08:07.890 --> 00:08:11.420
+inner, the geosample numbers identifiers in what
+
+00:08:11.420 --> 00:08:12.280
+you're doing?
+
+00:08:12.280 --> 00:08:12.860
+Just curious.
+
+00:08:12.860 --> 00:08:13.180
+Yeah.
+
+00:08:13.180 --> 00:08:13.550
+Yes.
+
+00:08:13.560 --> 00:08:13.920
+Cool.
+
+00:08:13.920 --> 00:08:14.580
+Awesome.
+
+00:08:14.580 --> 00:08:14.980
+Yep.
+
+00:08:14.980 --> 00:08:17.880
+Trying to connect in all of the relevant, you know,
+
+00:08:17.880 --> 00:08:20.000
+keys from everybody's databases.
+
+00:08:20.000 --> 00:08:20.540
+Nice.
+
+00:08:20.540 --> 00:08:20.940
+Okay.
+
+00:08:20.960 --> 00:08:23.400
+More questions?
+
+00:08:27.600 --> 00:08:29.240
+Thank you for shouting out discourse graphs.
+
+00:08:29.240 --> 00:08:31.960
+So what kind of schema do you think helps?
+
+00:08:31.960 --> 00:08:35.670
+What kind of schema do you think helps put guardrails
+
+00:08:35.670 --> 00:08:40.060
+on the generation of the initial manuscript from the data?
+
+00:08:40.060 --> 00:08:42.130
+Hmm.
+
+00:08:45.060 --> 00:08:47.950
+I guess I want to understand, do you feel like there
+
+00:08:47.950 --> 00:08:51.080
+will be too many folks that are able to contribute?
+
+00:08:51.080 --> 00:08:53.610
+Or I guess I'm just trying to understand your...
+
+00:08:53.620 --> 00:08:56.420
+Yeah, like going from the data analysis to the scientific story
+
+00:08:56.420 --> 00:08:58.900
+, like maybe that's where you can plug in discourse graphs
+
+00:08:58.900 --> 00:09:03.160
+as well and do this claim-based review the same way
+
+00:09:03.160 --> 00:09:09.820
+that like QED, this other AI review program does.
+
+00:09:09.820 --> 00:09:13.470
+If you keep the claim structure and each line of evidence as
+
+00:09:13.470 --> 00:09:17.580
+something that people can look back to that gets regenerated into
+
+00:09:17.580 --> 00:09:21.680
+these different narratives, then maybe it'll be more auditable
+
+00:09:21.680 --> 00:09:22.000
+.
+
+00:09:22.000 --> 00:09:22.660
+Perfect.
+
+00:09:22.660 --> 00:09:25.840
+Yeah, I think integration at multiple points with the tools that
+
+00:09:25.840 --> 00:09:27.780
+you're building up is the way to go.
+
+00:09:35.460 --> 00:09:37.100
+All right, let's thank Sean again.
+
+00:09:37.100 --> 00:09:39.760
+And yeah, Alex, feel free to come up.

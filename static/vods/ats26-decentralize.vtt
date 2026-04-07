@@ -1,0 +1,1228 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:00.820
+How are folks doing?
+
+00:00:00.880 --> 00:00:05.940
+This is going to be, this is going to start,
+
+00:00:05.940 --> 00:00:07.340
+I just want to preface something.
+
+00:00:07.350 --> 00:00:08.800
+This is going to start as a little bit of a tur
+
+00:00:08.810 --> 00:00:10.370
+d in the punch bowl kind of presentation.
+
+00:00:10.400 --> 00:00:13.130
+I want to promise you it's not going to end there
+
+00:00:13.150 --> 00:00:13.360
+.
+
+00:00:13.420 --> 00:00:16.960
+This sub-conference is called At Science, and so
+
+00:00:16.960 --> 00:00:20.510
+I'm doing a little bit of At Social Science today because
+
+00:00:20.510 --> 00:00:21.840
+I'm a social scientist.
+
+00:00:21.840 --> 00:00:24.820
+I'm a PhD student in communications at the University of Pennsylvania
+
+00:00:24.820 --> 00:00:25.010
+.
+
+00:00:26.870 --> 00:00:29.800
+At protocol is really good for a couple of things for social
+
+00:00:29.800 --> 00:00:30.660
+scientists.
+
+00:00:30.670 --> 00:00:33.080
+First off, there's everything that Sophie just talked about,
+
+00:00:33.080 --> 00:00:35.320
+which is fantastic, and I forgot to actually mention here,
+
+00:00:35.320 --> 00:00:37.900
+but in terms of the experiments that enables you to run,
+
+00:00:37.910 --> 00:00:41.810
+if you have spoken to any social scientist who is studying media
+
+00:00:41.810 --> 00:00:45.020
+effects on social media, they will talk about that exact same
+
+00:00:45.020 --> 00:00:48.010
+complaint, which is we have absolutely no control over what is
+
+00:00:48.010 --> 00:00:50.830
+going on, and so we are just left to go through
+
+00:00:50.990 --> 00:00:52.260
+behavioral data.
+
+00:00:52.270 --> 00:00:54.500
+But even within that, it's gotten a lot harder recently
+
+00:00:54.560 --> 00:00:58.210
+because we're living in what some folks call the post-
+
+00:00:58.210 --> 00:01:00.670
+API age, where following a bunch of stuff in the
+
+00:01:00.670 --> 00:01:03.900
+last five to ten years, a bunch of APIs on most
+
+00:01:03.930 --> 00:01:08.350
+big social media platforms were either made private, or if you
+
+00:01:08.350 --> 00:01:10.820
+are allowed to access them, in the case of X,
+
+00:01:10.820 --> 00:01:13.060
+the rates are really exorbitant, or you have
+
+00:01:13.060 --> 00:01:16.300
+to get your, I think in the case of TikTok,
+
+00:01:16.310 --> 00:01:19.660
+you have to get every specific part of your project approved by
+
+00:01:19.660 --> 00:01:22.180
+TikTok, which does have a sort of chilling effect, right
+
+00:01:22.180 --> 00:01:24.340
+, if you want to ask these really kind of critical questions
+
+00:01:24.340 --> 00:01:26.340
+, and you have to go to TikTok and say, hey
+
+00:01:26.370 --> 00:01:28.440
+, I want to ask really critical questions about you, will
+
+00:01:28.500 --> 00:01:29.290
+you give me permission?
+
+00:01:29.310 --> 00:01:31.760
+It's kind of an awkward process, or you have to
+
+00:01:31.760 --> 00:01:34.400
+use something like Meta's content library, which is the
+
+00:01:34.400 --> 00:01:37.740
+official way you can look at like Facebook and Instagram information,
+
+00:01:37.750 --> 00:01:40.560
+and the problem with the platform like that is that it does
+
+00:01:40.560 --> 00:01:43.290
+, you have to do everything through a custom browser that they
+
+00:01:43.470 --> 00:01:45.510
+have, because they're really worried in the wake of Cambridge
+
+00:01:45.510 --> 00:01:48.060
+Analytica about how folks use their data, and that is
+
+00:01:48.060 --> 00:01:51.350
+a good concern to have, but the way their solution ends
+
+00:01:51.350 --> 00:01:54.970
+up working really limits the amount of data analysis you're able
+
+00:01:55.040 --> 00:01:57.150
+to do, so it's not great, and one of
+
+00:01:57.150 --> 00:02:00.480
+the really nice benefits of ad protocol, permission spaces notwith
+
+00:02:00.480 --> 00:02:03.370
+standing, is that because everything is public, you kind of
+
+00:02:03.370 --> 00:02:06.110
+avoid all of those concerns about pricey, hard-to
+
+00:02:06.110 --> 00:02:07.560
+-use, or hard-to-access data.
+
+00:02:08.310 --> 00:02:10.030
+But the second thing, and this is what I think is
+
+00:02:10.030 --> 00:02:13.330
+more interesting, is that it qualitatively changes the type of
+
+00:02:13.390 --> 00:02:15.140
+question you're able to ask.
+
+00:02:15.150 --> 00:02:18.300
+So I'm coming from the political economy of communications, where
+
+00:02:18.300 --> 00:02:22.000
+we ask questions about how does the ownership of different media systems
+
+00:02:22.060 --> 00:02:24.550
+affect the type of media that is produced.
+
+00:02:24.570 --> 00:02:27.360
+They've asked a lot of really interesting questions in the past
+
+00:02:27.360 --> 00:02:27.580
+.
+
+00:02:27.590 --> 00:02:30.160
+There's a lot of stuff, there's a whole literature
+
+00:02:30.310 --> 00:02:32.740
+that I won't go into here, looking into like how
+
+00:02:32.740 --> 00:02:37.320
+does commercial media funding affect the nature of journalism, what sort
+
+00:02:37.320 --> 00:02:40.220
+of effects does it have on a democratic society, all these
+
+00:02:40.220 --> 00:02:43.740
+really important questions, and folks have done really good thinking about
+
+00:02:43.740 --> 00:02:46.470
+what that means for social media, but there's kind of
+
+00:02:46.480 --> 00:02:48.970
+never been an A-B comparison you can make, right
+
+00:02:48.970 --> 00:02:49.140
+?
+
+00:02:49.150 --> 00:02:52.390
+If you look at journalism, you can say, look,
+
+00:02:52.390 --> 00:02:55.280
+there are some newspapers that are funded by advertisers, there are
+
+00:02:55.280 --> 00:02:59.170
+some that are more publicly funded, but on social media,
+
+00:02:59.170 --> 00:03:02.180
+in the last 20 years, it's mostly been the same
+
+00:03:02.180 --> 00:03:05.310
+handful of dominant players, all of whom are operating as privately
+
+00:03:05.310 --> 00:03:08.180
+owned corporations, where they have the same incentive set, and
+
+00:03:08.180 --> 00:03:10.520
+there's very little you can do.
+
+00:03:10.580 --> 00:03:14.380
+With Blue Sky existing, though, you can start to ask
+
+00:03:14.380 --> 00:03:16.720
+these questions about like what would a different model look like,
+
+00:03:16.730 --> 00:03:19.790
+and so a great example of this is some work looking at
+
+00:03:19.800 --> 00:03:24.720
+the different third-party services offered on Blue Sky, and
+
+00:03:24.720 --> 00:03:28.220
+it's kind of a digital ethnography and a little bit
+
+00:03:28.230 --> 00:03:31.770
+of a qualitative project, but their main finding is that if
+
+00:03:31.790 --> 00:03:34.650
+you look at feeds, starter packs, moderation lists, and
+
+00:03:34.650 --> 00:03:38.030
+labels, there is not a lot of financial modernization.
+
+00:03:38.120 --> 00:03:40.490
+I don't think this will be a huge surprise to most
+
+00:03:40.490 --> 00:03:43.030
+of the folks in this room, but most of these things
+
+00:03:43.050 --> 00:03:44.690
+are built because, hey, I'm part of a community
+
+00:03:44.690 --> 00:03:46.470
+, I care about this community, I want to go build
+
+00:03:46.470 --> 00:03:47.340
+this tool for them.
+
+00:03:47.400 --> 00:03:49.840
+I think many of the presentations that we've heard today,
+
+00:03:49.850 --> 00:03:52.040
+that's how they start is I wanted this thing to exist
+
+00:03:52.040 --> 00:03:53.780
+and I went and built it, and that is great and
+
+00:03:53.780 --> 00:03:56.030
+that is not necessarily a bad thing, but it does change
+
+00:03:56.030 --> 00:03:58.560
+kind of qualitatively the type of network that we're working
+
+00:03:58.560 --> 00:03:59.000
+within.
+
+00:03:59.060 --> 00:04:02.030
+There's also this point about supply often outstripping
+
+00:04:02.170 --> 00:04:02.580
+demand.
+
+00:04:02.580 --> 00:04:04.800
+A lot of folks will go and build a specific tool for
+
+00:04:04.800 --> 00:04:05.380
+themselves.
+
+00:04:05.380 --> 00:04:09.180
+I know many folks here have went and built a feed because
+
+00:04:09.190 --> 00:04:10.620
+they wanted to see one thing specific.
+
+00:04:11.830 --> 00:04:13.560
+The side effect of that, though, is that most,
+
+00:04:13.560 --> 00:04:15.760
+if you look at where users are actually spending their time,
+
+00:04:15.760 --> 00:04:18.720
+a lot of them are just using whatever defaults are promoted
+
+00:04:18.720 --> 00:04:21.280
+to them through Blue Sky or using a handful of larger actors
+
+00:04:21.290 --> 00:04:21.510
+.
+
+00:04:21.580 --> 00:04:24.700
+Which brings me to my question, which is how decentralized is
+
+00:04:24.700 --> 00:04:25.540
+Blue Sky, really?
+
+00:04:25.550 --> 00:04:27.660
+Like, we're a decentralized network, right?
+
+00:04:27.670 --> 00:04:28.580
+That's what we're here for.
+
+00:04:28.580 --> 00:04:29.380
+We're decentralized.
+
+00:04:29.390 --> 00:04:30.180
+That's what we talk about.
+
+00:04:30.190 --> 00:04:33.840
+Now, I want to say I'm building this work.
+
+00:04:33.850 --> 00:04:35.910
+Balduf et al., who wrote one of the first
+
+00:04:35.920 --> 00:04:38.490
+academic papers I could find on Blue Sky, did a similar
+
+00:04:38.490 --> 00:04:43.530
+measurement of handles in 2024 and then a guy named Kuba
+
+00:04:43.530 --> 00:04:46.480
+Suter, who I have not met, I do not
+
+00:04:46.480 --> 00:04:49.280
+know, but I learned that he did a lot of this
+
+00:04:49.280 --> 00:04:51.570
+data analysis similarly, literally yesterday.
+
+00:04:51.590 --> 00:04:53.340
+So a shout out to him.
+
+00:04:53.350 --> 00:04:55.400
+He has a live feed of a similar version of this data
+
+00:04:55.460 --> 00:04:57.900
+because I'm always, this presentation is going to be a
+
+00:04:57.900 --> 00:04:59.270
+lot of me getting nerd sniped.
+
+00:04:59.340 --> 00:05:03.580
+Okay, there are a couple ways you can measure decentralization
+
+00:05:03.630 --> 00:05:05.460
+and this is where I leave a little asterisk there
+
+00:05:05.470 --> 00:05:06.300
+because this is out of date.
+
+00:05:06.300 --> 00:05:08.560
+I would like a more rigorous way to go through this and
+
+00:05:08.580 --> 00:05:11.230
+so since there are out proto developers here, I thought if
+
+00:05:11.260 --> 00:05:13.340
+anyone would know how to do this in a better way,
+
+00:05:13.340 --> 00:05:13.980
+it would be you guys.
+
+00:05:14.030 --> 00:05:16.850
+The first is you go to the relay, you say,
+
+00:05:16.850 --> 00:05:18.420
+hey, can you give me your list of hosts?
+
+00:05:18.430 --> 00:05:20.020
+We go to the hosts, we say, hey, can
+
+00:05:20.020 --> 00:05:22.710
+you give us a list of repos you're storing and
+
+00:05:22.710 --> 00:05:23.900
+you measure that.
+
+00:05:23.910 --> 00:05:26.710
+Now, the problem is not every personal data server is going
+
+00:05:26.710 --> 00:05:28.690
+to give you a list of repos.
+
+00:05:28.700 --> 00:05:30.430
+It's not always going to be accurate and it's not
+
+00:05:30.460 --> 00:05:32.580
+always going to tell you if that user is active and so
+
+00:05:32.580 --> 00:05:34.320
+the second way you do it is you go to PLC
+
+00:05:34.320 --> 00:05:36.450
+, you say, hey, can I scrape every action that
+
+00:05:36.480 --> 00:05:38.700
+has ever been taken and then from those actions, you say
+
+00:05:38.700 --> 00:05:41.430
+, hey, when is the last time each user updated where
+
+00:05:41.430 --> 00:05:44.610
+their data is stored and you combine that and the number you
+
+00:05:44.610 --> 00:05:46.910
+get is something like 99.
+
+00:05:46.930 --> 00:05:49.500
+7% of all accounts are owned by Blue Sky.
+
+00:05:49.560 --> 00:05:53.070
+That seems pretty centralized but okay, I know what you're
+
+00:05:53.070 --> 00:05:53.420
+saying.
+
+00:05:53.420 --> 00:05:56.120
+I know what every single one of you is saying but Billy
+
+00:05:56.120 --> 00:05:57.460
+, my name is Billy, by the way, hi.
+
+00:05:57.470 --> 00:06:01.080
+But Billy, it might be centralized but in practice, the
+
+00:06:01.100 --> 00:06:03.600
+people who are really spending time on the network, the folks
+
+00:06:03.610 --> 00:06:05.570
+who are posting every day, who are liking stuff, who
+
+00:06:05.620 --> 00:06:07.790
+are getting followed, those are us.
+
+00:06:07.830 --> 00:06:10.370
+We're the cool people and we go and we host our
+
+00:06:10.370 --> 00:06:10.980
+own data.
+
+00:06:10.990 --> 00:06:12.780
+So clearly, if you look in practice, it's not
+
+00:06:12.800 --> 00:06:13.280
+going to be the same.
+
+00:06:13.290 --> 00:06:14.200
+That's a great point.
+
+00:06:14.210 --> 00:06:16.040
+And so another way you can do it is you can look
+
+00:06:16.110 --> 00:06:16.560
+at the fire hose.
+
+00:06:16.570 --> 00:06:18.440
+You say, okay, let's look at the fire hose
+
+00:06:18.440 --> 00:06:18.630
+.
+
+00:06:18.650 --> 00:06:21.020
+Let's look at sample over the course of an hour or
+
+00:06:21.080 --> 00:06:23.500
+a day or a week and let's see how much activity
+
+00:06:23.500 --> 00:06:26.290
+is coming in and let's see for that activity who is
+
+00:06:26.300 --> 00:06:29.950
+being followed, who is being liked, and who is posting
+
+00:06:29.960 --> 00:06:29.960
+.
+
+00:06:29.970 --> 00:06:32.050
+And does that activity, is that more decentralized?
+
+00:06:32.070 --> 00:06:34.730
+So you do that, you resolve the ID, you look
+
+00:06:34.730 --> 00:06:35.170
+at the follows.
+
+00:06:35.190 --> 00:06:36.220
+It's not great.
+
+00:06:36.300 --> 00:06:37.180
+99.
+
+00:06:37.200 --> 00:06:40.830
+9% of follows are going to accounts hosted on Blue Sk
+
+00:06:40.830 --> 00:06:41.300
+ies PDS.
+
+00:06:41.310 --> 00:06:42.270
+Same with likes.
+
+00:06:42.290 --> 00:06:45.790
+The promising one is that if you look at posts, just
+
+00:06:45.790 --> 00:06:49.110
+over 1% of posts are made by folks who are self
+
+00:06:49.120 --> 00:06:51.250
+-hosting or using another place to host their data.
+
+00:06:52.570 --> 00:06:54.470
+This is the turd and the punch bowl part of the
+
+00:06:54.480 --> 00:06:55.000
+presentation.
+
+00:06:55.060 --> 00:06:57.680
+Now, I want to talk about a few other things,
+
+00:06:57.740 --> 00:07:00.940
+which is in talking about the atmosphere and talking about Blue Sky
+
+00:07:00.940 --> 00:07:03.050
+, we often talk about a credible exit or, as I
+
+00:07:03.050 --> 00:07:05.940
+like to think about it, like what would happen if 2022
+
+00:07:05.940 --> 00:07:07.400
+Twitter happened tomorrow?
+
+00:07:07.410 --> 00:07:09.900
+And there are a couple other concerns.
+
+00:07:09.910 --> 00:07:11.260
+This is the continuation of the turd.
+
+00:07:11.270 --> 00:07:14.090
+The first one is a lack of adoption and a challenge with
+
+00:07:14.090 --> 00:07:14.500
+funding.
+
+00:07:15.440 --> 00:07:17.410
+I think we are all aware of this.
+
+00:07:17.430 --> 00:07:20.680
+Paul Frazee, in his recent February, 2026
+
+00:07:20.680 --> 00:07:22.570
+, he wrote a little bit about this, how I think
+
+00:07:22.570 --> 00:07:25.800
+it is well understood that most of this stuff is still being
+
+00:07:25.830 --> 00:07:28.520
+owned and hosted by Blue Sky and that does present a certain
+
+00:07:28.530 --> 00:07:29.220
+level of problem.
+
+00:07:29.230 --> 00:07:31.580
+And that gets back to the paper I was referencing earlier,
+
+00:07:31.640 --> 00:07:34.680
+where oftentimes we are really, we are building these economies,
+
+00:07:34.690 --> 00:07:37.780
+but these economies are based off of subcultural capital.
+
+00:07:37.790 --> 00:07:38.680
+They're based on gifts.
+
+00:07:39.130 --> 00:07:42.670
+And although I think there are really promising moves in projects like
+
+00:07:42.710 --> 00:07:45.560
+Graze, the funding of these systems is not clear.
+
+00:07:45.570 --> 00:07:48.750
+It's also not clear for a user what benefit they get
+
+00:07:48.790 --> 00:07:51.360
+out of going out of their way to host their data somewhere
+
+00:07:51.390 --> 00:07:51.740
+else.
+
+00:07:51.800 --> 00:07:53.960
+That's not an easy solution.
+
+00:07:53.970 --> 00:07:57.580
+And I think it also reminds us that the folks in this
+
+00:07:57.580 --> 00:08:00.210
+room are going to be amongst the most technical users of Blue
+
+00:08:00.240 --> 00:08:00.430
+Sky.
+
+00:08:00.450 --> 00:08:02.500
+By way of example, a week ago I was visiting my
+
+00:08:02.500 --> 00:08:03.000
+grandparents.
+
+00:08:03.060 --> 00:08:06.440
+Boy, I tried explaining what I was presenting this weekend to
+
+00:08:06.480 --> 00:08:06.780
+them.
+
+00:08:06.780 --> 00:08:08.660
+I don't think a single part of it computed.
+
+00:08:09.120 --> 00:08:11.140
+I love them dearly, but if we want to have
+
+00:08:11.140 --> 00:08:14.020
+this as a protocol that serves everybody, we have to think
+
+00:08:14.020 --> 00:08:17.080
+about what incentives folks have to be actually decentralized.
+
+00:08:17.140 --> 00:08:22.490
+And this gets to the broader point of what the limits of
+
+00:08:22.550 --> 00:08:23.500
+what a protocol can do.
+
+00:08:23.520 --> 00:08:26.990
+A protocol is only as powerful as our willingness to follow what
+
+00:08:26.990 --> 00:08:27.880
+the protocol says.
+
+00:08:27.890 --> 00:08:31.370
+So if you think about it, if tomorrow Blue Sky Social
+
+00:08:31.370 --> 00:08:33.460
+, let's say it went worse of the worst, Elon
+
+00:08:33.460 --> 00:08:35.950
+Musk took it over tomorrow, and they said, we're
+
+00:08:35.980 --> 00:08:37.020
+actually not going to interface.
+
+00:08:37.030 --> 00:08:39.520
+You can tell us that you want to migrate your data tough
+
+00:08:39.520 --> 00:08:41.280
+nuggets, we're not going to let you do it.
+
+00:08:41.340 --> 00:08:43.580
+There's nothing really we could do.
+
+00:08:43.590 --> 00:08:45.210
+They could choose to hold on to your data.
+
+00:08:45.230 --> 00:08:47.950
+They could choose to make the platform no longer interoperable
+
+00:08:47.990 --> 00:08:50.700
+with anyone who's not hosted on Blue Sky Social directly.
+
+00:08:50.710 --> 00:08:53.350
+It wouldn't be easy for them, but if they choose
+
+00:08:53.370 --> 00:08:56.200
+to not follow the protocol, they don't have to.
+
+00:08:56.210 --> 00:08:58.690
+And this brings me, if anyone here is a lawyer,
+
+00:08:58.730 --> 00:09:03.860
+I know what the zero lawyers in this room are saying,
+
+00:09:03.870 --> 00:09:06.740
+but Billy, Blue Sky is a public benefit corporation.
+
+00:09:06.740 --> 00:09:07.500
+It's a great word.
+
+00:09:07.510 --> 00:09:09.350
+It means that you are legally in the U.
+
+00:09:09.390 --> 00:09:09.600
+S.
+
+00:09:09.660 --> 00:09:12.700
+allowed to have a responsibility that is not purely financial.
+
+00:09:12.760 --> 00:09:15.080
+First off, it is crazy that that needs to be specified
+
+00:09:15.080 --> 00:09:15.200
+.
+
+00:09:15.230 --> 00:09:17.660
+But second of all, it is a really nice thing.
+
+00:09:17.670 --> 00:09:19.140
+It's about a decade and a half old.
+
+00:09:19.140 --> 00:09:24.170
+I think 2013, Delaware is the state where most American corporations
+
+00:09:24.170 --> 00:09:27.530
+, most American businesses are incorporated, is in Delaware.
+
+00:09:27.570 --> 00:09:29.300
+They started allowing it.
+
+00:09:29.310 --> 00:09:31.670
+The challenge is, in 2019, there was a change in
+
+00:09:31.670 --> 00:09:34.040
+the law, stick with me, that changed it from,
+
+00:09:34.050 --> 00:09:36.660
+if you want to go from being a public benefit corporation,
+
+00:09:36.740 --> 00:09:39.840
+meaning you have some mission, to not one of those anymore
+
+00:09:39.850 --> 00:09:45.680
+, it only requires 50% of your shareholders to vote against
+
+00:09:45.690 --> 00:09:46.160
+that.
+
+00:09:46.170 --> 00:09:49.580
+The consequence of that is we are now in a place where
+
+00:09:49.580 --> 00:09:52.630
+if 50% of the folks who own Blue Sky decided to
+
+00:09:52.630 --> 00:09:55.690
+no longer have a decentralized mission, they could do that tomorrow
+
+00:09:55.760 --> 00:09:57.780
+, and there would be nothing you could do to stop them
+
+00:09:57.780 --> 00:09:57.930
+.
+
+00:09:57.950 --> 00:09:59.620
+Which brings me to another point, I'm going to say
+
+00:09:59.670 --> 00:10:01.740
+this really quietly because of the sponsors on the wall, we
+
+00:10:01.760 --> 00:10:03.420
+don't know who owns Blue Sky.
+
+00:10:03.430 --> 00:10:04.550
+That information is not public.
+
+00:10:04.560 --> 00:10:06.250
+We know the list of people, but we do not know
+
+00:10:06.270 --> 00:10:08.540
+how that is distributed amongst those different owners.
+
+00:10:08.550 --> 00:10:12.100
+So it's a concern because if they wanted to tomorrow,
+
+00:10:12.110 --> 00:10:15.340
+the entire protocol for everything valuable that's built, there is
+
+00:10:15.340 --> 00:10:18.100
+nothing keeping that Blue Sky information from being re-silo
+
+00:10:18.100 --> 00:10:18.380
+ed.
+
+00:10:18.410 --> 00:10:21.220
+Okay, we're going to take a breath.
+
+00:10:21.230 --> 00:10:23.220
+Let's talk about some good stuff.
+
+00:10:23.300 --> 00:10:27.650
+First off, the move towards independently spinning off the PLC
+
+00:10:27.650 --> 00:10:29.270
+directory is a really good one.
+
+00:10:29.650 --> 00:10:32.150
+That will at least allow so that your identity can be shared
+
+00:10:32.150 --> 00:10:32.670
+elsewhere.
+
+00:10:32.680 --> 00:10:34.700
+I think that is a really promising first step.
+
+00:10:34.710 --> 00:10:36.910
+The second thing is these data backups.
+
+00:10:37.000 --> 00:10:41.160
+I met Fig briefly earlier in the elevator today.
+
+00:10:41.220 --> 00:10:42.520
+Very nice person.
+
+00:10:42.580 --> 00:10:45.120
+Like Hubble, are really valuable, right?
+
+00:10:45.180 --> 00:10:46.820
+Because we want to be able to say, listen, not
+
+00:10:46.840 --> 00:10:48.850
+only can I move my identity over, but I can also
+
+00:10:48.880 --> 00:10:50.000
+move the data with that over.
+
+00:10:50.000 --> 00:10:52.590
+So having these public backups is a really useful way of doing
+
+00:10:52.590 --> 00:10:55.200
+that, especially for users who a priori might not think
+
+00:10:55.210 --> 00:10:57.240
+to go out and make a copy of their data.
+
+00:10:57.860 --> 00:10:59.960
+I also want to give a shout out to the folks in
+
+00:10:59.960 --> 00:11:03.240
+this room who are working on building other forms of PDS
+
+00:11:03.240 --> 00:11:03.780
+s.
+
+00:11:03.820 --> 00:11:04.860
+I'm thinking of Black Sky.
+
+00:11:04.900 --> 00:11:05.870
+I'm thinking of Euro Sky.
+
+00:11:05.940 --> 00:11:06.850
+North Sky.
+
+00:11:06.870 --> 00:11:09.860
+There are any number of these, but people really think,
+
+00:11:09.870 --> 00:11:12.130
+doing the hard work of thinking about how do we build these
+
+00:11:12.160 --> 00:11:12.620
+other communities.
+
+00:11:12.630 --> 00:11:15.690
+That is incredibly valuable and God willing, we can reach a
+
+00:11:15.720 --> 00:11:18.820
+decentralization through those efforts where this whole presentation is a mo
+
+00:11:18.820 --> 00:11:19.340
+ot point.
+
+00:11:19.890 --> 00:11:21.370
+And finally, all of you wonderful folks.
+
+00:11:21.380 --> 00:11:23.360
+I want to be clear when I'm saying all this.
+
+00:11:23.360 --> 00:11:25.650
+I'm just trying to be honest about the situation that we
+
+00:11:25.650 --> 00:11:26.390
+find ourselves in.
+
+00:11:26.420 --> 00:11:28.840
+I do not think this is a foregone conclusion, nor
+
+00:11:28.840 --> 00:11:30.900
+do I think these are unsolvable problems.
+
+00:11:30.910 --> 00:11:33.190
+And so I'm really, I've been really motivated over
+
+00:11:33.220 --> 00:11:36.470
+the last couple days speaking to everybody and seeing how much everyone
+
+00:11:36.470 --> 00:11:36.860
+cares.
+
+00:11:36.920 --> 00:11:39.990
+Of course, I said I got nerd sniped and nine
+
+00:11:39.990 --> 00:11:42.690
+days before this presentation, Lawrence Hoff wrote a blog post about
+
+00:11:42.690 --> 00:11:43.340
+exactly this.
+
+00:11:43.350 --> 00:11:46.480
+So thanks for sitting with me while I repeated stuff that he
+
+00:11:46.500 --> 00:11:46.900
+mentioned.
+
+00:11:47.320 --> 00:11:49.210
+I really like this quote of him and I'm going to
+
+00:11:49.210 --> 00:11:51.700
+abuse Scott, your metaphor about the party.
+
+00:11:51.760 --> 00:11:53.990
+Not only do we have a good party set up, I
+
+00:11:53.990 --> 00:11:55.180
+think we have a great party going.
+
+00:11:55.190 --> 00:11:57.100
+The problem is everyone's stuck in the kitchen.
+
+00:11:57.120 --> 00:11:58.810
+It's getting a little cramped in here and we really
+
+00:11:58.810 --> 00:12:00.580
+love it if some people moved to the living room, some
+
+00:12:00.580 --> 00:12:01.860
+people moved to the balconies.
+
+00:12:01.860 --> 00:12:03.250
+You've actually got a little bit more spaced out.
+
+00:12:03.290 --> 00:12:04.520
+That's my presentation.
+
+00:12:04.580 --> 00:12:05.510
+Thanks, guys.
+
+00:12:05.530 --> 00:12:12.080
+Thanks, Billy.
+
+00:12:12.090 --> 00:12:13.120
+Any questions?
+
+00:12:17.330 --> 00:12:23.540
+Hey, I'm Daniel.
+
+00:12:23.540 --> 00:12:24.970
+I do protocol stuff at Blue Sky.
+
+00:12:24.990 --> 00:12:27.300
+Don't worry, you're not offending any of us
+
+00:12:27.300 --> 00:12:27.940
+by saying this.
+
+00:12:27.950 --> 00:12:29.120
+We basically agree with you.
+
+00:12:29.300 --> 00:12:32.560
+And I'm talking about very similar stuff in my talk on
+
+00:12:32.560 --> 00:12:33.030
+Sunday.
+
+00:12:33.050 --> 00:12:36.060
+One of my questions is, like, there's sort of
+
+00:12:36.070 --> 00:12:37.220
+this logical impossibility.
+
+00:12:37.230 --> 00:12:39.580
+Like, we want the network to decentralize more.
+
+00:12:39.590 --> 00:12:42.390
+There's sort of this logical impossibility for Blue Sky decentral
+
+00:12:42.390 --> 00:12:42.910
+izing it.
+
+00:12:43.150 --> 00:12:46.530
+Like, you almost need other parties to step in and take
+
+00:12:46.530 --> 00:12:48.670
+power and authority and control in the network.
+
+00:12:48.760 --> 00:12:52.450
+So, what do you think can encourage people to do that
+
+00:12:52.450 --> 00:12:52.840
+more?
+
+00:12:52.900 --> 00:12:55.280
+First off, it's really nice to meet you.
+
+00:12:55.280 --> 00:12:56.080
+I've read your stuff.
+
+00:12:56.080 --> 00:12:57.530
+I've read a lot of people's stuff in this room
+
+00:12:57.530 --> 00:12:57.660
+.
+
+00:12:57.690 --> 00:12:58.000
+Absolutely.
+
+00:12:58.030 --> 00:13:01.800
+I really was hoping I would end this presentation with a slide
+
+00:13:01.830 --> 00:13:03.320
+of here's all the things we can do.
+
+00:13:03.330 --> 00:13:06.680
+I think part of, but what I've thought about it
+
+00:13:06.700 --> 00:13:08.560
+more, again, I'm coming from a social science background
+
+00:13:08.560 --> 00:13:08.680
+.
+
+00:13:08.690 --> 00:13:11.480
+One of the things I want to push us towards thinking about
+
+00:13:11.490 --> 00:13:13.930
+just as a community is all of the, you know,
+
+00:13:13.960 --> 00:13:15.740
+we're talking about so-so technical systems, all the
+
+00:13:15.740 --> 00:13:17.860
+social ways that these networks are built up.
+
+00:13:17.870 --> 00:13:20.420
+And so I think my point here is not that there's
+
+00:13:20.440 --> 00:13:22.200
+an easy solution and I really wish there was.
+
+00:13:22.210 --> 00:13:24.520
+I can kind of spitball ideas against the wall.
+
+00:13:24.530 --> 00:13:27.740
+My point is more so to say that I think there is
+
+00:13:27.740 --> 00:13:29.410
+, just to make the point that there's a limit to
+
+00:13:29.470 --> 00:13:31.950
+what we can do with the protocol is really valuable and there
+
+00:13:31.950 --> 00:13:33.330
+'s a lot of stuff that can be done, but that
+
+00:13:33.330 --> 00:13:34.940
+is insufficient to do it on its own.
+
+00:13:34.970 --> 00:13:36.920
+Now, I could start daydreaming with you.
+
+00:13:36.930 --> 00:13:41.120
+There's really good proposals with folks I've worked with and
+
+00:13:41.140 --> 00:13:41.960
+folks I've seen.
+
+00:13:42.460 --> 00:13:45.680
+Looking at like local acre institutions, so could we have,
+
+00:13:45.690 --> 00:13:49.340
+you know, public funding towards like local hosting of this?
+
+00:13:49.340 --> 00:13:51.630
+I mean, this is an ideal world where the government landscape
+
+00:13:51.630 --> 00:13:53.810
+looks different than it currently is and the funding landscape is different
+
+00:13:53.810 --> 00:13:53.910
+.
+
+00:13:54.100 --> 00:13:56.880
+There are questions about kind of, it's that kind of
+
+00:13:56.890 --> 00:14:00.580
+civil society question of can we rethink models and funding of social
+
+00:14:00.590 --> 00:14:04.050
+media and that goes again in this long history of debates about
+
+00:14:04.130 --> 00:14:06.210
+like public funding of journalism, for example.
+
+00:14:06.300 --> 00:14:10.220
+Those are some of my more optimistic takes and I would love
+
+00:14:10.260 --> 00:14:11.200
+to talk more after this.
+
+00:14:11.790 --> 00:14:13.520
+But generally, I do think we run into this issue where
+
+00:14:13.580 --> 00:14:15.020
+there's just a limit to what we can do technically.
+
+00:14:15.200 --> 00:14:21.200
+Anyone else?
+
+00:14:21.260 --> 00:14:25.020
+That was awesome.
+
+00:14:25.030 --> 00:14:25.500
+Thank you.
+
+00:14:26.600 --> 00:14:27.980
+I am Jeremy Miller.
+
+00:14:27.980 --> 00:14:31.450
+I'm actually the original board member on Blue Sky and I
+
+00:14:31.450 --> 00:14:35.400
+can tell you just in words, right?
+
+00:14:35.410 --> 00:14:38.220
+I can't promise it, but I would put my reputation
+
+00:14:38.280 --> 00:14:42.360
+behind everybody on the board, everybody involved is fully behind this
+
+00:14:42.360 --> 00:14:43.970
+decentralized distributed mission.
+
+00:14:44.700 --> 00:14:47.110
+So, as much as all the things you said are true
+
+00:14:47.150 --> 00:14:51.000
+, we are fully behind this and we believe in it.
+
+00:14:51.000 --> 00:14:52.820
+I want to be, thank you so much.
+
+00:14:52.820 --> 00:14:55.470
+I want to be very clear, none of this is attacking
+
+00:14:55.470 --> 00:14:55.800
+anyone.
+
+00:14:55.800 --> 00:14:58.440
+I'm just trying to think through what is the worst case
+
+00:14:58.480 --> 00:15:04.330
+scenario if like, you know, asteroid came, asteroid came
+
+00:15:04.350 --> 00:15:07.420
+crashing into Earth tomorrow or Elon Musk came in and said,
+
+00:15:07.430 --> 00:15:09.440
+hey, how much money to have Blue Sky 2?
+
+00:15:09.890 --> 00:15:10.870
+Just thinking through that stuff.
+
+00:15:10.960 --> 00:15:11.390
+Absolutely.
+
+00:15:11.410 --> 00:15:11.820
+Yep.
+
+00:15:11.880 --> 00:15:15.760
+Last questions?
+
+00:15:15.820 --> 00:15:19.680
+All right, let's thank Billy again.
+
+00:15:19.690 --> 00:15:27.960
+These are also great things to think about
+
+00:15:27.970 --> 00:15:30.500
+in the unconference, which we'll be starting in about
+
+00:15:30.520 --> 00:15:32.130
+10 minutes, I guess.
+
+00:15:32.170 --> 00:15:36.100
+So, if you have, yeah, ideas, you can
+
+00:15:36.100 --> 00:15:38.140
+put post-it notes on the boards in the back and
+
+00:15:38.140 --> 00:15:40.600
+when we meet in about 10 minutes, we'll come and
+
+00:15:40.600 --> 00:15:44.060
+cluster around topics that we're interested in and probably in this
+
+00:15:44.060 --> 00:15:46.890
+room, maybe like six groups or so.
+
+00:15:46.910 --> 00:15:48.490
+So, yeah, feel free to take a break, be
+
+00:15:48.540 --> 00:15:52.180
+back in 10 minutes and, yeah, last session of AT
+
+00:15:52.180 --> 00:15:52.540
+&T.

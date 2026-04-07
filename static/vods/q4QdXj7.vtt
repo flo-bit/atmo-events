@@ -1,0 +1,541 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:03.340
+Hi, pleasure to be here.
+
+00:00:03.340 --> 00:00:11.590
+So yeah, this talk is going to be about
+
+00:00:11.770 --> 00:00:13.970
+the design philosophy behind BookHive.
+
+00:00:14.000 --> 00:00:16.600
+So it's not actually like design in terms of like UI
+
+00:00:16.600 --> 00:00:20.260
+design, although I did do a redesign last week, released
+
+00:00:20.260 --> 00:00:21.510
+it, all that.
+
+00:00:21.520 --> 00:00:24.600
+So you can enjoy the website now.
+
+00:00:24.610 --> 00:00:29.800
+But this is going to be more about the philosophical aspects of
+
+00:00:29.800 --> 00:00:30.520
+this.
+
+00:00:30.520 --> 00:00:34.680
+So I think that what we have here with AT protocol is
+
+00:00:34.680 --> 00:00:37.480
+really a trend reversal.
+
+00:00:37.630 --> 00:00:44.690
+We have a trend reversal in terms of the web started as
+
+00:00:44.710 --> 00:00:50.090
+being open and then we slowly saw this being clawed back
+
+00:00:50.100 --> 00:00:54.340
+by these systems, these large social networks.
+
+00:00:54.660 --> 00:00:59.580
+There was things like Twitter used to have an open API,
+
+00:00:59.580 --> 00:01:01.560
+Reddit used to have an open API.
+
+00:01:01.560 --> 00:01:04.360
+They slowly crawled that back from us.
+
+00:01:04.360 --> 00:01:07.990
+And I think that what we have with AT protocol is we
+
+00:01:07.990 --> 00:01:14.540
+'re right now running into user agency at an all time low
+
+00:01:14.550 --> 00:01:15.060
+.
+
+00:01:15.140 --> 00:01:20.770
+So what this means is that like we're constantly being forced
+
+00:01:20.770 --> 00:01:23.080
+to do these Windows updates.
+
+00:01:23.080 --> 00:01:26.640
+We've all been sunsetted by by some sort of
+
+00:01:27.370 --> 00:01:32.660
+application and just essentially screwed over.
+
+00:01:32.720 --> 00:01:32.720
+And we have no other recourse.
+
+00:01:32.730 --> 00:01:37.500
+These APIs are closing down and we increasingly, with AI now
+
+00:01:37.510 --> 00:01:39.140
+, data is seen as a moat.
+
+00:01:39.140 --> 00:01:42.980
+So there's only more incentive and pressure to close down these
+
+00:01:43.070 --> 00:01:43.720
+APIs.
+
+00:01:44.260 --> 00:01:49.140
+Whereas AT protocol, as we all know, is meant to
+
+00:01:49.390 --> 00:01:50.280
+be open.
+
+00:01:50.290 --> 00:01:54.480
+So when the web first came out, there was this idea
+
+00:01:54.490 --> 00:01:57.920
+of a user agent that I think that we just kind of
+
+00:01:57.920 --> 00:01:58.940
+forgot about.
+
+00:01:58.940 --> 00:02:03.160
+Like, it used to be that the idea of a user
+
+00:02:03.290 --> 00:02:07.560
+agent was meant to be that when you're looking at a
+
+00:02:07.560 --> 00:02:10.560
+document or something, you might have some preferences.
+
+00:02:10.560 --> 00:02:11.560
+We're all different people.
+
+00:02:11.560 --> 00:02:13.530
+We all have different preferences.
+
+00:02:13.600 --> 00:02:16.560
+Why are we all looking at the exact same interface?
+
+00:02:16.570 --> 00:02:20.190
+It doesn't make sense.
+
+00:02:20.190 --> 00:02:23.800
+You know, something as simple as the font size or your
+
+00:02:23.800 --> 00:02:24.200
+font family.
+
+00:02:24.220 --> 00:02:30.870
+So the idea of this user agent largely just didn't pan
+
+00:02:30.870 --> 00:02:36.510
+out, but we're all trying to do something better.
+
+00:02:36.510 --> 00:02:39.100
+And I think that's what AT protocol is all about.
+
+00:02:39.210 --> 00:02:44.820
+So my little slice of this is working on something called Book
+
+00:02:45.020 --> 00:02:45.840
+Hive.
+
+00:02:45.840 --> 00:02:47.840
+It's an alternative to Goodreads.
+
+00:02:47.850 --> 00:02:52.540
+So you can track your books, organize shelves, and all
+
+00:02:52.630 --> 00:02:58.480
+of that data is stored in the user's PDFs.
+
+00:02:58.490 --> 00:03:03.520
+So when I was designing what to store for BookHive
+
+00:03:03.520 --> 00:03:06.240
+, when you could imagine this sort of system, all that
+
+00:03:06.240 --> 00:03:11.680
+it really needs is some identifier for a book, whether the
+
+00:03:11.680 --> 00:03:14.320
+person has actually read the book or not, when did they
+
+00:03:14.330 --> 00:03:14.830
+do it.
+
+00:03:14.980 --> 00:03:17.120
+That's all that you really need to store to the user
+
+00:03:17.260 --> 00:03:17.480
+system.
+
+00:03:17.490 --> 00:03:20.870
+So you could literally just store this, and that would be
+
+00:03:20.890 --> 00:03:23.100
+enough to render the BookHive UI.
+
+00:03:23.300 --> 00:03:27.100
+But what does this give the user?
+
+00:03:27.130 --> 00:03:29.070
+It's just some random identifier.
+
+00:03:29.130 --> 00:03:30.680
+It's absolutely useless to them.
+
+00:03:30.680 --> 00:03:32.710
+They can't do anything with this data.
+
+00:03:32.710 --> 00:03:36.320
+So this is what I actually store.
+
+00:03:36.320 --> 00:03:39.120
+I give the people their book.
+
+00:03:39.120 --> 00:03:42.000
+They want to know the book's title, the author,
+
+00:03:42.130 --> 00:03:44.010
+the actual cover art.
+
+00:03:44.170 --> 00:03:47.120
+I actually upload it to your PDF as a blog.
+
+00:03:47.130 --> 00:03:48.680
+And all these other data.
+
+00:03:48.740 --> 00:03:53.060
+There's also, particularly with books, there's no real
+
+00:03:53.060 --> 00:03:55.760
+standard identifier for a book.
+
+00:03:55.760 --> 00:03:57.860
+It's an open problem.
+
+00:03:57.910 --> 00:04:01.730
+Everybody, every dataset has this different identifier for a book.
+
+00:04:03.370 --> 00:04:06.260
+So I give you everything that I know about the book,
+
+00:04:06.260 --> 00:04:08.600
+anything that I have, I try to give it to the
+
+00:04:08.750 --> 00:04:09.320
+user.
+
+00:04:09.390 --> 00:04:14.190
+It's all about giving the user what's maximally useful
+
+00:04:14.190 --> 00:04:14.950
+to them.
+
+00:04:15.010 --> 00:04:20.250
+So we have an opportunity to build social software where data actually
+
+00:04:20.380 --> 00:04:22.000
+belongs to people.
+
+00:04:22.000 --> 00:04:26.880
+Let's not waste it by giving people just these random ident
+
+00:04:26.880 --> 00:04:28.640
+ifiers that they can't do anything with.
+
+00:04:28.650 --> 00:04:33.280
+The PDF is not just a database.
+
+00:04:33.420 --> 00:04:37.690
+So you normally think of a database as trying to store like
+
+00:04:37.690 --> 00:04:40.230
+the minimal representation.
+
+00:04:40.410 --> 00:04:43.250
+It's not about efficiency.
+
+00:04:43.280 --> 00:04:44.890
+It's about agency.
+
+00:04:44.930 --> 00:04:49.160
+So there's a little bit of a thought experiment that you
+
+00:04:49.160 --> 00:04:51.920
+can take with this sort of thing.
+
+00:04:51.920 --> 00:04:56.220
+If BookHive went down, which it does all the
+
+00:04:56.220 --> 00:04:57.520
+time, it runs in my living room.
+
+00:04:57.570 --> 00:05:02.200
+Is the data on your PDS actually useful to you?
+
+00:05:02.350 --> 00:05:06.570
+And I'll get back to that as well, because I
+
+00:05:06.570 --> 00:05:10.160
+forgot to reorder these slides.
+
+00:05:10.210 --> 00:05:15.020
+So one way that I handle this is with a central data
+
+00:05:15.020 --> 00:05:16.030
+store.
+
+00:05:16.030 --> 00:05:18.680
+So what this means that's on protocol.
+
+00:05:18.680 --> 00:05:21.790
+So normally centralization is a bad thing.
+
+00:05:21.850 --> 00:05:24.840
+But in this case, what I'm doing is I,
+
+00:05:24.840 --> 00:05:27.800
+I did, as I said before, and I give each
+
+00:05:27.800 --> 00:05:31.960
+user their data in their PDS, but I also have
+
+00:05:31.960 --> 00:05:35.720
+this one little URI that it uploads.
+
+00:05:35.730 --> 00:05:39.210
+It makes a link to the BookHive Buzz account as
+
+00:05:39.220 --> 00:05:41.340
+like a service account.
+
+00:05:41.430 --> 00:05:48.160
+And this makes a central point of knowing all of the data
+
+00:05:48.160 --> 00:05:52.080
+, not everything that you need to, to, to store
+
+00:05:52.220 --> 00:05:54.030
+into the user's PDS.
+
+00:05:54.090 --> 00:05:56.920
+They might not care about a book description, or I can
+
+00:05:56.920 --> 00:05:59.280
+'t make an update to a book if there's ever some
+
+00:05:59.280 --> 00:06:01.080
+, some sort of a amendment.
+
+00:06:01.090 --> 00:06:05.420
+But we can, everybody can reference this and we can all
+
+00:06:05.440 --> 00:06:09.080
+talk about the same book using these URIs.
+
+00:06:09.090 --> 00:06:12.330
+And there's an interesting opportunity here for, for doing things
+
+00:06:12.330 --> 00:06:13.320
+like backlinks.
+
+00:06:13.860 --> 00:06:16.320
+Honestly, I haven't really explored this that much.
+
+00:06:16.320 --> 00:06:19.080
+It's only been out for a week now.
+
+00:06:19.090 --> 00:06:25.040
+So here's some proof that this user agency and that the
+
+00:06:25.110 --> 00:06:28.080
+data is actually useful.
+
+00:06:28.090 --> 00:06:29.990
+PopFeed.
+
+00:06:30.320 --> 00:06:33.320
+PopFeed actually is able to interoperate with Book
+
+00:06:33.470 --> 00:06:34.050
+Hive.
+
+00:06:34.110 --> 00:06:37.210
+They're able to display all of the book data because they
+
+00:06:37.210 --> 00:06:38.080
+have all of the book data.
+
+00:06:38.090 --> 00:06:44.610
+Another example is Book Explorer, which was made by Tice
+
+00:06:44.610 --> 00:06:45.080
+.
+
+00:06:45.080 --> 00:06:49.380
+Tice actually, he wanted to be able to manage his
+
+00:06:49.450 --> 00:06:52.970
+books in a different application.
+
+00:06:53.200 --> 00:06:58.580
+So he, he made this table view and you can completely
+
+00:06:58.830 --> 00:07:00.080
+use a different front end.
+
+00:07:00.220 --> 00:07:02.080
+It doesn't have to be BookHive.
+
+00:07:02.080 --> 00:07:02.080
+This is real interop.
+
+00:07:02.090 --> 00:07:09.370
+The only reason that all of this works is about is because
+
+00:07:09.370 --> 00:07:15.120
+BookHive stores the maximally useful data in service of
+
+00:07:15.120 --> 00:07:16.070
+the user.
+
+00:07:16.090 --> 00:07:23.490
+So there's some takeaways here for builders since everybody here is
+
+00:07:23.490 --> 00:07:27.080
+related on the building side.
+
+00:07:27.090 --> 00:07:30.460
+Store what's useful to the user, not just what's
+
+00:07:30.520 --> 00:07:32.080
+useful to you.
+
+00:07:32.080 --> 00:07:35.200
+You may only need those identifiers, but give the people
+
+00:07:35.200 --> 00:07:36.080
+their data.
+
+00:07:36.080 --> 00:07:37.080
+It's theirs.
+
+00:07:37.090 --> 00:07:44.080
+Wherever possible, try to use standard identifiers.
+
+00:07:44.080 --> 00:07:49.970
+And I'm actually out of data, out of time.
+
+00:07:50.090 --> 00:07:51.790
+All right.
+
+00:07:52.350 --> 00:07:53.080
+All right.
+
+00:07:53.090 --> 00:07:57.840
+Empower users, be their agents, open data, open
+
+00:07:57.870 --> 00:07:59.040
+source.
+
+00:07:59.110 --> 00:08:00.080
+Thank you very much.
+
+00:08:00.090 --> 00:08:06.040
+Thank you so much, Nick.
+
+00:08:06.120 --> 00:08:09.700
+Unfortunately, we do not have time for another for any questions
+
+00:08:09.700 --> 00:08:12.080
+, but oh, sorry.
+
+00:08:12.080 --> 00:08:14.070
+Yes, actually, we have time for one question.
+
+00:08:14.090 --> 00:08:14.760
+You're right.
+
+00:08:14.760 --> 00:08:15.030
+Yes.
+
+00:08:15.070 --> 00:08:16.080
+In total is 10 minutes.
+
+00:08:16.360 --> 00:08:18.080
+Does anybody have a question?
+
+00:08:18.120 --> 00:08:20.040
+Yes.
+
+00:08:20.120 --> 00:08:21.080
+Let me bring this to you.
+
+00:08:21.090 --> 00:08:25.130
+I don't know if it's much of a question,
+
+00:08:25.130 --> 00:08:30.080
+but my comment, and I said this to you before,
+
+00:08:30.080 --> 00:08:32.670
+I like that this is a good low hanging fruit for people
+
+00:08:32.850 --> 00:08:35.070
+to migrate from Goodreads away.
+
+00:08:35.090 --> 00:08:37.620
+That's what I tell my friends is like, this is
+
+00:08:37.620 --> 00:08:41.050
+one of these apps that you can already use, whereas with
+
+00:08:41.050 --> 00:08:42.080
+social media, it's a little more difficult.
+
+00:08:42.090 --> 00:08:44.330
+People like, oh, private groups and stuff is like,
+
+00:08:44.370 --> 00:08:46.240
+well, it's not working with AppRoto, but
+
+00:08:46.240 --> 00:08:49.140
+for Goodreads, I think as an alternative, it
+
+00:08:49.210 --> 00:08:50.080
+'s really great.
+
+00:08:50.090 --> 00:08:54.420
+With the data structures that you have, like as the whole
+
+00:08:54.440 --> 00:08:57.140
+on your PDS, like, I guess we could just
+
+00:08:57.210 --> 00:08:58.080
+clone it down.
+
+00:08:58.080 --> 00:08:59.080
+Right.
+
+00:08:59.090 --> 00:09:02.730
+Do you offer, like, the database itself, too,
+
+00:09:02.740 --> 00:09:04.080
+for download?
+
+00:09:04.080 --> 00:09:07.080
+Amazing.
+
+00:09:07.080 --> 00:09:11.940
+Thank you.
+
+00:09:12.090 --> 00:09:12.940
+Great.
+
+00:09:12.940 --> 00:09:15.430
+Thank you so much, Nick.

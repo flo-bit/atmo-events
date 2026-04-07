@@ -1,0 +1,499 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.080
+Hello everyone.
+
+00:00:07.080 --> 00:00:09.870
+I want to talk about why I built Sky for a Bridge
+
+00:00:10.000 --> 00:00:14.200
+and some of the technical challenges behind it.
+
+00:00:14.310 --> 00:00:15.150
+My name is Ryo.
+
+00:00:15.190 --> 00:00:16.240
+I'm from Japan.
+
+00:00:16.240 --> 00:00:22.020
+This is my first time speaking at an international conference, so
+
+00:00:22.020 --> 00:00:23.910
+I'm a bit nervous.
+
+00:00:23.940 --> 00:00:28.980
+But I'm very happy to be here and very grateful to
+
+00:00:28.980 --> 00:00:30.860
+Blue Sky for the support.
+
+00:00:30.860 --> 00:00:36.940
+So I work very hard to memorize the first part.
+
+00:00:37.000 --> 00:00:40.980
+But after this, I'll leave from my home.
+
+00:00:40.980 --> 00:00:49.730
+Please give me a - let me start.
+
+00:00:49.920 --> 00:00:53.430
+I learned this tool because of my personal experience.
+
+00:00:53.430 --> 00:00:57.720
+When Blue Sky first appeared, I was really excited.
+
+00:00:57.720 --> 00:01:01.830
+A new social network was starting and it was open.
+
+00:01:01.870 --> 00:01:04.860
+I thought that was very interesting, so I made an account
+
+00:01:04.860 --> 00:01:04.860
+early.
+
+00:01:04.860 --> 00:01:04.860
+But when I started using it, it felt a little lonely
+
+00:01:04.860 --> 00:01:04.860
+.
+
+00:01:04.860 --> 00:01:04.860
+Why?
+
+00:01:04.860 --> 00:01:04.860
+Because I did not know many people there.
+
+00:01:04.860 --> 00:01:13.930
+Making account was easy.
+
+00:01:14.000 --> 00:01:14.000
+But when I looked at my timeline, the people I usually
+
+00:01:14.000 --> 00:01:14.000
+follow were not there.
+
+00:01:14.000 --> 00:01:22.020
+My friends, my co-workers and people like to
+
+00:01:22.020 --> 00:01:23.140
+leave where are missing.
+
+00:01:23.140 --> 00:01:32.270
+Without
+
+00:01:32.280 --> 00:01:32.280
+familiar people, a social network can feel very bright.
+
+00:01:32.280 --> 00:01:34.720
+So I started doing this by hand.
+
+00:01:34.740 --> 00:01:35.280
+I think many people do the same.
+
+00:01:35.280 --> 00:01:43.600
+I open the blue sky search
+
+00:01:43.600 --> 00:01:44.420
+, type the name or username or someone I knew from X
+
+00:01:44.420 --> 00:01:44.420
+, and if I found them, I follow them.
+
+00:01:44.420 --> 00:01:47.420
+Then I searched for the next person and the next person.
+
+00:01:47.420 --> 00:01:48.810
+But if it was hard, it took a lot of time
+
+00:01:48.810 --> 00:01:48.880
+.
+
+00:01:48.880 --> 00:01:51.420
+It was trying, tiring.
+
+00:01:51.420 --> 00:01:56.550
+And some time, I still could not find the right person
+
+00:01:56.730 --> 00:02:00.560
+because the name was a little different or they use a different
+
+00:02:00.560 --> 00:02:00.560
+account.
+
+00:02:00.560 --> 00:02:05.700
+Then I thought, this is not just my problem.
+
+00:02:05.700 --> 00:02:10.430
+A lot of people moving to blue sky, we are doing
+
+00:02:10.450 --> 00:02:12.680
+the same thing.
+
+00:02:12.700 --> 00:02:16.690
+So I thought, it should be easier.
+
+00:02:16.700 --> 00:02:20.620
+But I thought, this is not just my problem.
+
+00:02:20.620 --> 00:02:22.420
+A lot of people moving to blue sky, we are doing
+
+00:02:22.420 --> 00:02:23.220
+the same thing.
+
+00:02:23.220 --> 00:02:28.350
+So I thought, it should be easier.
+
+00:02:28.530 --> 00:02:32.300
+That is why I build Sky for a bridge.
+
+00:02:32.360 --> 00:02:38.410
+This tool reads the people you follow on platform like X,
+
+00:02:38.420 --> 00:02:45.100
+looks for matching blue sky account and helps you follow them more
+
+00:02:45.150 --> 00:02:46.180
+easily.
+
+00:02:46.180 --> 00:02:51.100
+It helps with task people we are doing one by one by
+
+00:02:51.100 --> 00:02:51.960
+hand.
+
+00:02:51.980 --> 00:02:56.120
+First, I think it is easy to understand with the demo
+
+00:02:56.170 --> 00:02:56.510
+.
+
+00:02:56.510 --> 00:02:59.120
+So let me show you one.
+
+00:02:59.120 --> 00:03:08.420
+Open your profile
+
+00:03:09.130 --> 00:03:11.040
+on X.
+
+00:03:11.040 --> 00:03:15.540
+Click the Sky for a bridge extension.
+
+00:03:15.540 --> 00:03:21.870
+Enter your handle and log in.
+
+00:03:21.880 --> 00:03:27.170
+Open your following list.
+
+00:03:27.180 --> 00:03:32.510
+Click the extension again.
+
+00:03:32.520 --> 00:03:35.220
+Let's find Blue Sky users.
+
+00:03:35.220 --> 00:03:39.240
+Scanning your following list.
+
+00:03:39.240 --> 00:03:46.180
+Detecting Blue Sky users.
+
+00:03:46.180 --> 00:03:51.470
+OK, let's check results.
+
+00:03:51.480 --> 00:03:55.220
+About 500 users spawned.
+
+00:03:55.220 --> 00:03:59.520
+On the left, X users.
+
+00:03:59.520 --> 00:04:03.440
+On the right, much Blue Sky users.
+
+00:04:03.440 --> 00:04:04.700
+Oh, thank you.
+
+00:04:04.700 --> 00:04:06.580
+Let's follow one.
+
+00:04:06.580 --> 00:04:10.570
+Check it on Blue Sky.
+
+00:04:10.580 --> 00:04:13.960
+Follows successfully.
+
+00:04:14.080 --> 00:04:14.550
+Unfollowed.
+
+00:04:14.580 --> 00:04:15.570
+Unfollowed.
+
+00:04:15.580 --> 00:04:16.770
+Unfollowed.
+
+00:04:16.780 --> 00:04:17.580
+Unfollowed.
+
+00:04:17.580 --> 00:04:22.710
+Unfollowed successfully.
+
+00:04:22.720 --> 00:04:27.220
+Unfollowed successfully.
+
+00:04:27.220 --> 00:04:34.940
+And so that's how easy it is to follow users.
+
+00:04:34.940 --> 00:04:35.930
+Thank you.
+
+00:04:35.940 --> 00:04:44.310
+That's the end of the term
+
+00:04:44.330 --> 00:04:45.450
+.
+
+00:04:45.580 --> 00:04:48.280
+There was a useful future, too.
+
+00:04:48.280 --> 00:04:52.170
+So please try, if you're interested, you can use
+
+00:04:52.170 --> 00:04:54.580
+it on Chrome and Firefox.
+
+00:04:54.580 --> 00:04:58.920
+Next, I want to talk about two technical challenges.
+
+00:04:58.920 --> 00:05:04.110
+The first challenge was how to get the list of people of
+
+00:05:04.140 --> 00:05:07.750
+user followers.
+
+00:05:07.760 --> 00:05:12.040
+How do we get the list of people of user followers?
+
+00:05:12.060 --> 00:05:18.610
+At first, I thought I would use the API, but
+
+00:05:18.720 --> 00:05:21.690
+then X changed that a lot.
+
+00:05:21.760 --> 00:05:28.930
+As many of you remember, API access became very expensive for
+
+00:05:28.990 --> 00:05:31.210
+an individual developer like me.
+
+00:05:31.220 --> 00:05:33.520
+That was not realistic.
+
+00:05:33.520 --> 00:05:36.220
+So I changed my approach.
+
+00:05:36.220 --> 00:05:41.250
+Instead of using the API, I use the browser page.
+
+00:05:41.260 --> 00:05:43.290
+The user was looking at.
+
+00:05:43.300 --> 00:05:47.200
+The user was already logged in, and the falling list was
+
+00:05:47.200 --> 00:05:48.900
+already on the screen.
+
+00:05:48.900 --> 00:05:51.200
+So I viewed our browser extension.
+
+00:05:51.200 --> 00:05:54.800
+It reads the information directly from the DOM.
+
+00:05:54.800 --> 00:05:58.320
+That becomes a starting point, this tool.
+
+00:05:58.320 --> 00:06:01.520
+So it also gives me a clear structure.
+
+00:06:01.520 --> 00:06:04.620
+Only the first part depends on each platform.
+
+00:06:04.620 --> 00:06:06.410
+That part is reading the page.
+
+00:06:06.420 --> 00:06:09.620
+After that, the rest can be shared.
+
+00:06:09.620 --> 00:06:12.860
+Searching for blue sky accounts, showing the result, following
+
+00:06:12.920 --> 00:06:15.500
+account, and running search.
+
+00:06:15.520 --> 00:06:21.150
+And because of that, it became much easier to support my
+
+00:06:21.150 --> 00:06:22.360
+platform.
+
+00:06:22.360 --> 00:06:27.960
+Right now, X, Facebook, TikTok, Instagram, and
+
+00:06:27.960 --> 00:06:29.280
+threads.
+
+00:06:29.280 --> 00:06:33.780
+Of course, every platform has different DOM, so it is
+
+00:06:33.780 --> 00:06:36.920
+not easy.
+
+00:06:36.920 --> 00:06:43.440
+But this design made it much easier to add support for more
+
+00:06:43.580 --> 00:06:45.020
+platform.
+
+00:06:45.020 --> 00:06:51.350
+The second challenge was matching accuracy.
+
+00:06:51.360 --> 00:06:54.100
+How do you find the right person?
+
+00:06:54.100 --> 00:06:55.570
+This part was very important.
+
+00:06:55.580 --> 00:07:01.460
+People do not always use the same name across platforms.
+
+00:07:01.480 --> 00:07:04.860
+Some things the name is similar, and some time is complex
+
+00:07:04.980 --> 00:07:06.020
+difference.
+
+00:07:06.020 --> 00:07:10.310
+So find the right blue sky account is not easy.
+
+00:07:10.320 --> 00:07:12.680
+I use a few methods together.
+
+00:07:12.680 --> 00:07:16.920
+The basic one are the display name and account name.
+
+00:07:16.930 --> 00:07:20.410
+I also use the profile text to become some people put their
+
+00:07:20.410 --> 00:07:23.660
+blue sky account in the X profile.
+
+00:07:23.660 --> 00:07:26.800
+Recently, I added the avatar image matching.
+
+00:07:26.800 --> 00:07:29.980
+Many people use some profile image across platforms.
+
+00:07:29.980 --> 00:07:32.400
+So I use that as a hint.
+
+00:07:32.400 --> 00:07:37.300
+This works better than I expected.
+
+00:07:37.300 --> 00:07:42.760
+Over time, the project also became much bigger than I expected
+
+00:07:42.760 --> 00:07:43.040
+.
+
+00:07:43.040 --> 00:07:46.280
+Now, people from many countries use it, and it has
+
+00:07:46.310 --> 00:07:50.660
+been downloaded more than 520,000.
+
+00:07:50.660 --> 00:07:52.150
+Thank you.
+
+00:07:52.160 --> 00:07:54.580
+Thank you.
+
+00:07:54.580 --> 00:07:58.380
+When I started this project, I never thought so many people
+
+00:07:58.420 --> 00:07:59.260
+would use it.
+
+00:07:59.260 --> 00:08:01.960
+That is still surprising to me.
+
+00:08:01.960 --> 00:08:05.950
+And I was very happy when the official blue sky account shared
+
+00:08:05.960 --> 00:08:10.800
+it, and when users told me it helps them.
+
+00:08:10.800 --> 00:08:13.700
+What I learned is simple.
+
+00:08:13.700 --> 00:08:17.760
+When people move to new social network, making an account is
+
+00:08:17.760 --> 00:08:18.280
+easy.
+
+00:08:18.280 --> 00:08:21.380
+Finding people again is a hard part.
+
+00:08:21.380 --> 00:08:25.510
+And when we have to help with that, moving become much
+
+00:08:25.510 --> 00:08:26.220
+easier.
+
+00:08:26.220 --> 00:08:29.600
+So I want to leave you with one message.
+
+00:08:29.660 --> 00:08:33.040
+Open protocol needs migration, too.
+
+00:08:33.040 --> 00:08:34.500
+Open technology is important.
+
+00:08:34.500 --> 00:08:42.140
+But if we want people to really move, we also need
+
+00:08:42.140 --> 00:08:43.580
+bridges.
+
+00:08:43.640 --> 00:08:47.160
+Skyflower Bridge is one of those bridges, and I hope
+
+00:08:47.180 --> 00:08:51.000
+we will see many more in the future.
+
+00:08:51.040 --> 00:08:57.880
+Oh, thank you.
+
+00:08:57.880 --> 00:08:58.880
+Appendix.
+
+00:08:58.880 --> 00:09:03.860
+And once more appendix, there are also more attendees from
+
+00:09:03.960 --> 00:09:04.760
+Japan.
+
+00:09:04.760 --> 00:09:11.250
+Masaya is exploring the AT protocol ecosystem, and Nori
+
+00:09:11.420 --> 00:09:14.370
+aki Watanabe is the author of Swift AdProt
+
+00:09:14.370 --> 00:09:14.700
+.
+
+00:09:14.700 --> 00:09:18.600
+So please say hi if you see them at the conference.
+
+00:09:18.600 --> 00:09:21.500
+Thank you.

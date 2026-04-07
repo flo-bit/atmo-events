@@ -18,6 +18,10 @@ Thumbs.db
 !.env.example
 !.env.test
 
+# VOD processing data (audio, transcripts)
+scripts/vod-processing/data
+scripts/vod-processing/model
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*

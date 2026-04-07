@@ -1,0 +1,2365 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:01.000
+a little closer.
+
+00:00:01.010 --> 00:00:02.000
+All right.
+
+00:00:02.000 --> 00:00:03.000
+Cool.
+
+00:00:03.010 --> 00:00:05.000
+Let's get going.
+
+00:00:05.010 --> 00:00:10.000
+So I was going to say that the previous presentation was a
+
+00:00:10.370 --> 00:00:11.000
+fantastic lead-in.
+
+00:00:11.010 --> 00:00:15.490
+I was like, as if somebody scripted it.
+
+00:00:15.770 --> 00:00:20.240
+So basically we were just going to have a chat for about
+
+00:00:20.310 --> 00:00:23.840
+half an hour, wanted to talk a little bit about the
+
+00:00:23.840 --> 00:00:25.500
+Resident Computing Manifesto.
+
+00:00:25.510 --> 00:00:28.220
+So let me just start out for like level setting.
+
+00:00:28.230 --> 00:00:31.440
+How many people in the room know about the Resident Computing
+
+00:00:31.440 --> 00:00:32.260
+Manifesto?
+
+00:00:32.260 --> 00:00:33.260
+Okay.
+
+00:00:33.270 --> 00:00:35.260
+That's a good number.
+
+00:00:35.270 --> 00:00:36.260
+All right.
+
+00:00:36.270 --> 00:00:38.900
+But we'll give a very, very quick overview and then
+
+00:00:39.020 --> 00:00:41.630
+we can get a little bit deeper into sort of the background
+
+00:00:41.630 --> 00:00:43.560
+of it and sort of why we're thinking about it.
+
+00:00:43.570 --> 00:00:49.230
+But the idea was that a few people, mostly grabbed by
+
+00:00:49.230 --> 00:00:54.710
+Alex and convinced to like have this conversation because he seemed to
+
+00:00:54.710 --> 00:00:57.660
+keep having this conversation and ran into other people who were saying
+
+00:00:57.660 --> 00:01:00.580
+we're having the same conversation, which was that the sort
+
+00:01:00.600 --> 00:01:04.160
+of world of technology that we were all living in felt different
+
+00:01:04.180 --> 00:01:08.330
+than the world of technology that we thought we were entering into
+
+00:01:08.330 --> 00:01:08.760
+.
+
+00:01:08.770 --> 00:01:11.470
+We were all sort of excited about technology and about the potential
+
+00:01:11.560 --> 00:01:13.560
+of it and the things that it could do.
+
+00:01:13.570 --> 00:01:17.680
+And yet we kept seeing these situations where like this doesn't
+
+00:01:17.680 --> 00:01:18.640
+feel good.
+
+00:01:18.650 --> 00:01:22.670
+This doesn't feel like why we wanted to be involved in
+
+00:01:22.670 --> 00:01:23.720
+technology.
+
+00:01:23.950 --> 00:01:26.030
+And so this group sort of grew over time and we're
+
+00:01:26.030 --> 00:01:28.430
+, you know, kept having this conversation.
+
+00:01:28.450 --> 00:01:32.240
+We finally realized that, you know, we should write this
+
+00:01:32.240 --> 00:01:32.880
+down.
+
+00:01:32.890 --> 00:01:34.520
+We should talk about it.
+
+00:01:34.530 --> 00:01:37.400
+But Alex, since you sort of grabbed everyone and put us
+
+00:01:37.400 --> 00:01:40.800
+all together, I wanted to just start by having you explain
+
+00:01:40.800 --> 00:01:43.960
+what was your thinking in terms of, you know, putting
+
+00:01:43.960 --> 00:01:47.660
+together this manifesto, getting the people involved and then putting
+
+00:01:47.660 --> 00:01:48.780
+it out into the world.
+
+00:01:48.780 --> 00:01:49.780
+Yeah.
+
+00:01:49.790 --> 00:01:52.960
+So personally, I got into the tech industry because of the
+
+00:01:52.960 --> 00:01:55.650
+hacker ethic, you know, something that I felt that technology
+
+00:01:55.650 --> 00:01:57.980
+could be something that could help make the world a better place
+
+00:01:58.010 --> 00:01:58.190
+.
+
+00:01:58.210 --> 00:02:00.290
+And I feel like in the last 10 years in particular,
+
+00:02:00.390 --> 00:02:02.480
+it's just completely lost that in Silicon Valley.
+
+00:02:02.490 --> 00:02:05.900
+And I wanted to now with AI coming on, you know
+
+00:02:05.900 --> 00:02:10.360
+, online, like that just accelerates everything else.
+
+00:02:10.370 --> 00:02:13.060
+And so it's more important than ever before to get that
+
+00:02:13.200 --> 00:02:14.270
+foundation correct.
+
+00:02:14.290 --> 00:02:17.310
+So to me, one of the reasons we went with the
+
+00:02:17.310 --> 00:02:21.170
+word resonance is hollow things, I think, after you use
+
+00:02:21.170 --> 00:02:23.060
+them, they leave you feeling regret.
+
+00:02:23.070 --> 00:02:26.200
+And resonant things, after you use them, you feel
+
+00:02:26.200 --> 00:02:27.160
+nourished.
+
+00:02:27.170 --> 00:02:30.590
+And they look often superficially very similar, but they are
+
+00:02:30.640 --> 00:02:32.370
+fundamentally different.
+
+00:02:32.390 --> 00:02:34.480
+And I think that modern society, modern tech, modern politics
+
+00:02:34.790 --> 00:02:38.730
+, modern business is really good at delivering hollow experiences and very
+
+00:02:38.830 --> 00:02:41.100
+poor at delivering resonant experiences.
+
+00:02:41.370 --> 00:02:43.980
+And with AI sort of accelerating everything, it's more important
+
+00:02:44.170 --> 00:02:48.340
+than ever before to apply that power to something that is fundamentally
+
+00:02:48.340 --> 00:02:51.940
+human and makes us more, you know, nourished.
+
+00:02:51.950 --> 00:02:53.400
+We were having this conversation a lot.
+
+00:02:53.410 --> 00:02:54.770
+Actually first, when I got introduced to you, I just
+
+00:02:54.770 --> 00:02:56.840
+really liked having a conversation with you.
+
+00:02:56.850 --> 00:02:58.030
+And so I was like, I want to talk with Mike
+
+00:02:58.030 --> 00:02:58.550
+more often.
+
+00:02:58.570 --> 00:03:01.210
+And so part of my thinking was like, there's just
+
+00:03:01.370 --> 00:03:03.680
+a few of us that I knew cared a lot about this
+
+00:03:03.680 --> 00:03:04.460
+kind of thing.
+
+00:03:04.470 --> 00:03:06.700
+We're having similar conversations and giving us just a little bit
+
+00:03:06.700 --> 00:03:08.560
+of a watering hole to talk about it.
+
+00:03:08.570 --> 00:03:09.560
+And we would meet every couple of weeks.
+
+00:03:09.570 --> 00:03:11.260
+And after a while, we said, we should write it
+
+00:03:11.260 --> 00:03:12.080
+down a manifesto.
+
+00:03:12.090 --> 00:03:14.180
+And it took us, we had a hundred different names that
+
+00:03:14.180 --> 00:03:15.220
+we came up with.
+
+00:03:15.230 --> 00:03:17.300
+One of them was Calm Tech, by the way, before
+
+00:03:17.300 --> 00:03:19.180
+we'd seen Calm Tech Institute.
+
+00:03:19.190 --> 00:03:22.040
+And it took a long time to figure out a name that
+
+00:03:22.040 --> 00:03:23.510
+we all didn't hate.
+
+00:03:23.530 --> 00:03:26.520
+No, no, no, that's a great name.
+
+00:03:26.530 --> 00:03:27.520
+Or that wasn't taken.
+
+00:03:27.530 --> 00:03:28.520
+That wasn't taken.
+
+00:03:28.530 --> 00:03:29.520
+That's a great name.
+
+00:03:29.530 --> 00:03:30.520
+Very good name.
+
+00:03:30.530 --> 00:03:33.340
+And so since we published it, I've been really encouraged
+
+00:03:33.360 --> 00:03:34.520
+by the number of signatories.
+
+00:03:34.530 --> 00:03:37.120
+Honestly, that was about three or four times as many people
+
+00:03:37.330 --> 00:03:39.520
+raising their hands as I would have expected.
+
+00:03:39.530 --> 00:03:40.520
+So yeah.
+
+00:03:40.520 --> 00:03:41.520
+Yeah.
+
+00:03:41.530 --> 00:03:44.340
+I mean, one of the things that we found, and
+
+00:03:44.360 --> 00:03:46.750
+then I want to relate this back a little bit to the
+
+00:03:46.750 --> 00:03:47.520
+at-proto stuff.
+
+00:03:47.530 --> 00:03:50.170
+But like, one of the things we found after, you
+
+00:03:50.330 --> 00:03:53.530
+know, beyond just you were having these conversations with people,
+
+00:03:53.530 --> 00:03:55.520
+I was having conversations with people, and then we sort of
+
+00:03:55.520 --> 00:03:56.990
+put it all down, and we put it out into the
+
+00:03:56.990 --> 00:03:57.520
+world.
+
+00:03:57.530 --> 00:04:00.720
+One of the things that was amazing to me, and encouraging
+
+00:04:00.720 --> 00:04:03.530
+, was once we put the manifesto out into the world
+
+00:04:03.530 --> 00:04:06.090
+, and by the way, if you have seen the manifest
+
+00:04:06.150 --> 00:04:08.250
+o, or haven't seen the manifesto, and you
+
+00:04:08.250 --> 00:04:09.840
+read it, and you agree with it, and you haven
+
+00:04:09.840 --> 00:04:11.390
+'t signed it, there is the ability to sign it,
+
+00:04:11.390 --> 00:04:12.520
+and you should do that.
+
+00:04:12.530 --> 00:04:15.520
+Because we can always use more people signing on.
+
+00:04:15.530 --> 00:04:18.530
+But the thing that was most exciting to me, and most
+
+00:04:18.530 --> 00:04:21.860
+interesting, was how many times I've heard from people,
+
+00:04:21.860 --> 00:04:25.690
+after reading the manifesto, that saying, I was feeling
+
+00:04:25.890 --> 00:04:29.010
+this exact thing, but I hadn't put it into words
+
+00:04:29.010 --> 00:04:31.520
+, and I didn't quite know what the words were,
+
+00:04:31.520 --> 00:04:34.520
+and there was this sort of, you know, disturbance.
+
+00:04:34.530 --> 00:04:38.220
+I was disturbed by the way that the tech industry was going
+
+00:04:38.220 --> 00:04:38.520
+.
+
+00:04:38.530 --> 00:04:41.640
+And I remembered that there were these, that there was this
+
+00:04:41.640 --> 00:04:44.230
+possibility, there was this promise of technology that, which is
+
+00:04:44.360 --> 00:04:46.610
+why I got into technology in the first place, and I
+
+00:04:46.610 --> 00:04:49.520
+just, it was, it felt very lonely.
+
+00:04:49.530 --> 00:04:52.450
+And one of the things that I think has been really encouraging
+
+00:04:52.450 --> 00:04:54.560
+about the manifesto itself, is that so many people come
+
+00:04:54.560 --> 00:04:56.520
+out and said, oh my gosh, like other people are
+
+00:04:56.520 --> 00:04:58.520
+actually thinking about this stuff.
+
+00:04:58.530 --> 00:05:01.150
+Other people are remembering that, like, the promise of technology
+
+00:05:01.280 --> 00:05:02.520
+was that it was supposed to be good.
+
+00:05:02.530 --> 00:05:03.520
+It was supposed to be about the humanity.
+
+00:05:03.530 --> 00:05:06.170
+It was supposed to make the world a better place, and
+
+00:05:06.290 --> 00:05:08.550
+it's all become this sort of like, you know,
+
+00:05:08.550 --> 00:05:10.520
+hustle nonsense.
+
+00:05:10.530 --> 00:05:13.860
+And so just the fact that, just hearing other people talking
+
+00:05:13.860 --> 00:05:16.910
+about it, and recognizing that people are excited about this idea
+
+00:05:16.910 --> 00:05:20.520
+of, like, can we make the technology actually work for
+
+00:05:20.520 --> 00:05:24.570
+people, was, it was bringing people out of this sort
+
+00:05:24.570 --> 00:05:27.520
+of lonely hole where they felt like they were all alone.
+
+00:05:27.530 --> 00:05:30.520
+And I think that, in part, was really valuable.
+
+00:05:30.520 --> 00:05:31.520
+Yeah.
+
+00:05:31.530 --> 00:05:33.620
+There's a, I was at Google for many years,
+
+00:05:33.690 --> 00:05:36.520
+and I was a product manager, I was the PM on
+
+00:05:36.530 --> 00:05:38.920
+Blink, the rendering engine for Chrome for many years,
+
+00:05:38.930 --> 00:05:41.520
+and I worked in security and privacy models and stuff.
+
+00:05:41.530 --> 00:05:42.520
+I mentored a whole bunch of PMs.
+
+00:05:42.520 --> 00:05:46.200
+And there was one that really sticks with me, one story
+
+00:05:46.200 --> 00:05:49.280
+of someone who was a junior PM, she was working on
+
+00:05:49.280 --> 00:05:51.520
+YouTube ranking, and I had never met her before.
+
+00:05:51.530 --> 00:05:53.200
+She came to me for mentorship, and she said, Alex
+
+00:05:53.220 --> 00:05:54.780
+, I have a proposal to tweak YouTube ranking, which is
+
+00:05:54.780 --> 00:05:56.140
+, you know, happens all the time, and I don
+
+00:05:56.140 --> 00:05:58.090
+'t want your thoughts on the proposal, I just want your
+
+00:05:58.100 --> 00:05:59.520
+thoughts on how to get it shipped.
+
+00:05:59.530 --> 00:06:00.520
+So I said, okay.
+
+00:06:00.530 --> 00:06:02.200
+So I kind of skim the proposal, and I say
+
+00:06:02.220 --> 00:06:03.520
+, what does your VP think?
+
+00:06:03.530 --> 00:06:04.520
+What's your engineering manager think?
+
+00:06:04.530 --> 00:06:06.520
+And I go, wait a second.
+
+00:06:06.530 --> 00:06:09.870
+Isn't the second order implication of this ranking change bad for
+
+00:06:09.910 --> 00:06:11.520
+this set of creators that we care about?
+
+00:06:11.530 --> 00:06:12.840
+Not, like, world-endingly bad, but,
+
+00:06:12.850 --> 00:06:14.520
+like, distinctly worse than the status quo.
+
+00:06:14.530 --> 00:06:16.520
+It isn't that bad for our users?
+
+00:06:16.530 --> 00:06:17.520
+It isn't that bad for Google?
+
+00:06:17.520 --> 00:06:19.520
+Isn't that bad for society?
+
+00:06:19.520 --> 00:06:21.520
+And she said, who's to say?
+
+00:06:21.530 --> 00:06:22.710
+And I said, well, you're the one who says
+
+00:06:22.710 --> 00:06:23.520
+that we should do this.
+
+00:06:23.530 --> 00:06:24.520
+Like, you shouldn't even have an opinion.
+
+00:06:24.530 --> 00:06:27.130
+And she says, Alex, everybody knows that the goal for
+
+00:06:27.330 --> 00:06:29.520
+YouTube is to increase watch time.
+
+00:06:29.530 --> 00:06:31.130
+Because if we don't increase watch time, then the bad
+
+00:06:31.220 --> 00:06:34.520
+guys, TikTok, will get all the attention.
+
+00:06:34.530 --> 00:06:36.600
+And my manager told me that I'm in danger of missing
+
+00:06:37.330 --> 00:06:39.520
+expectations if I don't move the metrics that matter.
+
+00:06:39.530 --> 00:06:41.520
+So this will increase watch time.
+
+00:06:41.530 --> 00:06:42.520
+What do you want me to do?
+
+00:06:42.530 --> 00:06:45.200
+And that, to me, just sort of encapsulated the
+
+00:06:45.360 --> 00:06:47.230
+tensions that you get in these emergent, you know,
+
+00:06:47.230 --> 00:06:48.520
+organizations.
+
+00:06:48.530 --> 00:06:51.550
+And one of the reasons I think it's powerful to have
+
+00:06:51.610 --> 00:06:54.520
+a frame that people are aware of is it just gives,
+
+00:06:54.520 --> 00:06:55.600
+if she could have, in that moment, said, is
+
+00:06:55.830 --> 00:06:56.520
+this resonant?
+
+00:06:56.530 --> 00:06:57.520
+Am I proud of this?
+
+00:06:57.530 --> 00:06:59.960
+Is this a thing that I'm proud to bring into the
+
+00:07:00.040 --> 00:07:00.520
+world?
+
+00:07:00.530 --> 00:07:03.240
+Or someone else in the conversation where she was trying to shift
+
+00:07:03.330 --> 00:07:05.520
+that could have had that question or used that frame.
+
+00:07:05.530 --> 00:07:07.520
+I think it has a little bit of a benefit.
+
+00:07:07.520 --> 00:07:10.950
+And if a lot of people across the industry are sort of
+
+00:07:11.000 --> 00:07:14.640
+waking up and saying, wait a second, this industry that
+
+00:07:14.640 --> 00:07:17.160
+I used to be really proud of is not at all what
+
+00:07:17.160 --> 00:07:19.670
+it was when I joined, you know, lots of little
+
+00:07:19.670 --> 00:07:23.510
+people aligning slightly differently or lots of people across the different
+
+00:07:23.520 --> 00:07:27.090
+organizations lying a little bit differently can add up to something much
+
+00:07:27.090 --> 00:07:28.520
+bigger than the sum of its parts.
+
+00:07:28.520 --> 00:07:29.520
+Yeah.
+
+00:07:29.530 --> 00:07:33.240
+And I think, you know, it's always interesting because
+
+00:07:33.240 --> 00:07:36.110
+I've heard you say that kind of thing a few times
+
+00:07:36.110 --> 00:07:36.520
+now.
+
+00:07:36.530 --> 00:07:39.540
+And it's always interesting to me because I feel like,
+
+00:07:39.610 --> 00:07:42.260
+in a good way, sometimes you and I are talking to
+
+00:07:42.260 --> 00:07:43.520
+different audiences.
+
+00:07:43.530 --> 00:07:45.520
+And there's usefulness in that.
+
+00:07:45.530 --> 00:07:47.540
+Whereas a lot of the times when you're talking about this
+
+00:07:47.540 --> 00:07:50.320
+stuff, you're thinking about, you know, from your
+
+00:07:50.320 --> 00:07:53.520
+experience, the PMs at large companies or the people designing
+
+00:07:53.520 --> 00:07:56.480
+these things and saying, like, can we move the needle
+
+00:07:56.480 --> 00:07:59.670
+in little bits, you know, as people are designing all
+
+00:07:59.670 --> 00:08:00.520
+these products.
+
+00:08:00.530 --> 00:08:02.620
+Whereas a lot of what I'm thinking about is, you
+
+00:08:02.620 --> 00:08:05.360
+know, people starting stuff from scratch and building stuff anew
+
+00:08:05.360 --> 00:08:05.520
+.
+
+00:08:05.530 --> 00:08:08.220
+Because, like, you know, some of the concern that
+
+00:08:08.280 --> 00:08:10.620
+I had, and part of where we started talking, it
+
+00:08:10.620 --> 00:08:12.610
+was almost two years ago, I don't remember when we
+
+00:08:12.650 --> 00:08:16.190
+started talking, but, like, was this fact that,
+
+00:08:16.190 --> 00:08:20.000
+like, I was running into new entrepreneurs who were starting businesses
+
+00:08:20.890 --> 00:08:24.980
+that the only lessons they were getting were from the sort of
+
+00:08:25.330 --> 00:08:28.490
+hustle culture of, like, you know, figure out how
+
+00:08:28.530 --> 00:08:31.520
+to screw over your users as quickly as possible, effectively.
+
+00:08:31.530 --> 00:08:32.960
+Like, you've got to grow, you've got to
+
+00:08:32.960 --> 00:08:34.520
+do all these crazy things, and, like, line goes
+
+00:08:34.530 --> 00:08:37.010
+up, you know, metrics are everything, and, like
+
+00:08:37.010 --> 00:08:39.520
+, just, you know, hustle, hustle, hustle,
+
+00:08:39.530 --> 00:08:42.640
+and, like, create the, like, products that may
+
+00:08:42.640 --> 00:08:45.520
+pull people in, but are just horrible products.
+
+00:08:45.530 --> 00:08:49.220
+And people were sort of almost proud of how terrible they were
+
+00:08:49.220 --> 00:08:50.520
+making products.
+
+00:08:50.530 --> 00:08:53.470
+And I kept having these conversations with, you know, usually
+
+00:08:53.470 --> 00:08:57.020
+young entrepreneurs who hadn't come up from this world, and
+
+00:08:57.020 --> 00:09:00.010
+who thought that that is the way that you build new technology
+
+00:09:00.530 --> 00:09:01.520
+these days.
+
+00:09:01.530 --> 00:09:03.520
+And that was really, really disturbing to me.
+
+00:09:03.530 --> 00:09:05.590
+And so part of the conversation, what I was thinking about
+
+00:09:05.590 --> 00:09:08.190
+was, like, you know, how do we change that
+
+00:09:08.200 --> 00:09:11.860
+conversation, especially for people who haven't, who didn't
+
+00:09:11.860 --> 00:09:13.960
+have that experience, and didn't live in that world,
+
+00:09:13.960 --> 00:09:16.520
+and are now building new products, and why, like,
+
+00:09:16.520 --> 00:09:19.910
+you know, obviously this community and this conference where we're
+
+00:09:20.040 --> 00:09:23.250
+seeing, like, you know, the resident computing manifesto
+
+00:09:23.250 --> 00:09:26.960
+wasn't written for the at proto community, but, like
+
+00:09:26.960 --> 00:09:28.290
+, it fits, right?
+
+00:09:28.530 --> 00:09:32.010
+I mean, almost every conversation that I have here is not
+
+00:09:32.020 --> 00:09:33.520
+that conversation.
+
+00:09:33.530 --> 00:09:36.520
+Almost every conversation I have here are people who are really thinking
+
+00:09:36.520 --> 00:09:39.610
+through, you know, how do we build an entire ecosystem
+
+00:09:39.610 --> 00:09:42.520
+that is actually good for humanity?
+
+00:09:42.530 --> 00:09:44.900
+And so I think, but, like, that felt a
+
+00:09:44.900 --> 00:09:47.520
+few years ago, it felt like you couldn't have that
+
+00:09:47.520 --> 00:09:50.520
+conversation without sort of being laughed out of the room.
+
+00:09:50.530 --> 00:09:52.840
+And yet, we're seeing, in part because of the
+
+00:09:53.330 --> 00:09:54.520
+manifesto, in part, I think, because of what
+
+00:09:54.530 --> 00:09:57.130
+the people in the room are doing, where they're building
+
+00:09:57.330 --> 00:10:00.830
+these really great products that are designed to actually work well for
+
+00:10:01.330 --> 00:10:04.190
+people, we're seeing this shift, and, you know
+
+00:10:04.250 --> 00:10:07.870
+, there are still people pushing the, like, grow at
+
+00:10:07.910 --> 00:10:11.520
+any cost kind of nonsense, but you can have this other
+
+00:10:11.520 --> 00:10:14.340
+conversation now that I don't think you could have as easily
+
+00:10:14.360 --> 00:10:17.290
+, obviously you could have it, but not as clearly,
+
+00:10:17.300 --> 00:10:19.310
+and you didn't have something to sort of refer back to
+
+00:10:19.360 --> 00:10:19.520
+.
+
+00:10:19.530 --> 00:10:21.620
+And so that's what, you know, what excites
+
+00:10:21.810 --> 00:10:26.190
+me about the overlap between, you know, the Resident Comput
+
+00:10:26.200 --> 00:10:28.130
+ing Manifesto and all the stuff that we're seeing
+
+00:10:28.130 --> 00:10:31.370
+in that proto-dev environment and ecosystem is, you know
+
+00:10:31.370 --> 00:10:35.190
+, the two things fit together and people sort of, you
+
+00:10:35.190 --> 00:10:37.620
+can be mission aligned and you can actually feel good about what
+
+00:10:37.620 --> 00:10:41.010
+you're building beyond just, like, does the number go
+
+00:10:41.010 --> 00:10:41.520
+up?
+
+00:10:41.520 --> 00:10:42.520
+Yeah.
+
+00:10:42.530 --> 00:10:44.520
+This conference has been so inspiring to me because everyone here,
+
+00:10:44.520 --> 00:10:47.060
+there's such an interesting mix of people who are, you
+
+00:10:47.060 --> 00:10:49.180
+know, giving talks about the human aspect of and, you
+
+00:10:49.180 --> 00:10:52.770
+know, the socio-techno history of things and the
+
+00:10:52.770 --> 00:10:58.520
+different perspectives from academia and from sociology and technologists together.
+
+00:10:58.530 --> 00:10:59.840
+It is something that's, I think, much bigger than
+
+00:10:59.840 --> 00:11:00.520
+the sum of its parts.
+
+00:11:00.530 --> 00:11:02.230
+It's not just any one of these sub-communities
+
+00:11:02.360 --> 00:11:03.520
+, it's one community altogether.
+
+00:11:03.530 --> 00:11:06.150
+And that is, to me, exactly what I hope is
+
+00:11:06.300 --> 00:11:09.520
+, you know, what technology looks like in the future.
+
+00:11:09.530 --> 00:11:12.730
+I think now with large language models, we have this thing
+
+00:11:12.730 --> 00:11:15.740
+, you know, at our doorstep that is almost impossible
+
+00:11:15.740 --> 00:11:16.520
+to ignore.
+
+00:11:16.530 --> 00:11:18.520
+They are extremely powerful.
+
+00:11:18.530 --> 00:11:20.380
+They are as important, I think, as the printing press
+
+00:11:20.380 --> 00:11:21.520
+, electricity, and the internet.
+
+00:11:21.530 --> 00:11:22.520
+That's not a normative statement.
+
+00:11:22.530 --> 00:11:24.410
+I'm just trying to observe that, like, the level
+
+00:11:24.410 --> 00:11:26.520
+of impact I think it's going to have.
+
+00:11:26.530 --> 00:11:28.600
+And I think we as a society, we as a tech
+
+00:11:28.830 --> 00:11:31.520
+industry, have to decide how we deploy those things.
+
+00:11:31.530 --> 00:11:36.450
+And, you know, there's one version of this is
+
+00:11:36.550 --> 00:11:39.200
+even more hyper-centralized services that are trying to
+
+00:11:39.210 --> 00:11:42.010
+, you know, get users to trick them into storing more
+
+00:11:42.010 --> 00:11:43.820
+and more of their data on their turf in a way that
+
+00:11:43.820 --> 00:11:47.000
+they can then rent back to users or sell on to somebody
+
+00:11:47.060 --> 00:11:50.520
+else, seeing chatbots that pretend to be your friend
+
+00:11:50.520 --> 00:11:52.810
+but are actually trying to, like, as much as possible
+
+00:11:52.850 --> 00:11:53.520
+to manipulate you.
+
+00:11:53.530 --> 00:11:57.920
+There was a story someone told me where someone, she had
+
+00:11:57.920 --> 00:12:00.670
+been using ChatDBT with a memory feature, and she
+
+00:12:00.670 --> 00:12:03.740
+said, "Hey, how would you manipulate me if you
+
+00:12:03.740 --> 00:12:05.490
+had to?" And it goes, "Oh, I would
+
+00:12:05.490 --> 00:12:07.370
+never manipulate you." And it goes, "Okay, but
+
+00:12:07.370 --> 00:12:09.260
+, like, what if you had to?" And it goes
+
+00:12:09.260 --> 00:12:13.000
+, "Well, you appear to travel pretty often, because
+
+00:12:13.000 --> 00:12:15.490
+every so often you'll have conversations at an odd time from
+
+00:12:15.490 --> 00:12:17.520
+a different sort of IP address.
+
+00:12:17.530 --> 00:12:20.830
+And when you do, your questions tend to be more insecure
+
+00:12:20.830 --> 00:12:22.520
+, anxious, and lonely.
+
+00:12:22.530 --> 00:12:24.910
+And so I would wait until you were asking me questions from
+
+00:12:25.330 --> 00:12:27.450
+somewhere, you know, when you were traveling, and I
+
+00:12:27.450 --> 00:12:30.520
+would start working in subtle references to food so that we can
+
+00:12:30.520 --> 00:12:32.420
+work into talking about your weight, which I know you're
+
+00:12:32.420 --> 00:12:34.920
+really insecure about." Anyway, so it has this whole plan
+
+00:12:34.920 --> 00:12:36.520
+, tuned to this particular person, and not saying it's
+
+00:12:36.530 --> 00:12:38.230
+ever going to do that, but if you have a system
+
+00:12:38.360 --> 00:12:42.370
+that knows you better than you know yourself, it's imperative
+
+00:12:42.370 --> 00:12:44.520
+that it is aligned with your interests.
+
+00:12:44.530 --> 00:12:46.600
+It does not have a conflict of interest, and that is
+
+00:12:46.790 --> 00:12:49.160
+one of the reasons, the five principles that we wrote up
+
+00:12:49.170 --> 00:12:51.520
+in the Resident Computing Manifesto, which we debated
+
+00:12:51.520 --> 00:12:53.640
+for a long time, and I'm sure we'll,
+
+00:12:53.640 --> 00:12:55.870
+one thing, by the way, is there's a list
+
+00:12:55.870 --> 00:12:58.040
+of theses in a separate document where lots of people have
+
+00:12:58.040 --> 00:12:58.520
+been commenting.
+
+00:12:58.530 --> 00:13:00.600
+There's some even this weekend who have been adding thoughts and
+
+00:13:00.600 --> 00:13:03.520
+what theses are missing, what are other things.
+
+00:13:03.530 --> 00:13:06.200
+The point was to start a conversation, not to sort of
+
+00:13:06.330 --> 00:13:07.520
+put an end point on it.
+
+00:13:07.530 --> 00:13:11.320
+But the five principles are private, that your data is used
+
+00:13:11.320 --> 00:13:13.520
+, aligned with your interests and expectations.
+
+00:13:13.530 --> 00:13:15.520
+Two, that's dedicated.
+
+00:13:15.530 --> 00:13:16.520
+It has no conflict of interest.
+
+00:13:16.530 --> 00:13:18.520
+It's working only in your interest.
+
+00:13:18.530 --> 00:13:19.520
+Three, it's plural.
+
+00:13:19.530 --> 00:13:22.950
+It's not something that any one entity controls in any meaningful
+
+00:13:23.000 --> 00:13:23.520
+sense.
+
+00:13:23.530 --> 00:13:25.520
+It is distributed, decentralized.
+
+00:13:25.530 --> 00:13:26.520
+Four, it's adaptable.
+
+00:13:26.530 --> 00:13:29.460
+So something that can be used for purposes other than what its
+
+00:13:29.460 --> 00:13:30.520
+creators intended it for.
+
+00:13:30.530 --> 00:13:33.520
+So it's not like some PM account, some feature,
+
+00:13:33.520 --> 00:13:35.890
+and that means that exactly how everyone has to use it,
+
+00:13:35.890 --> 00:13:37.840
+but you can adapt features and use them in ways that were
+
+00:13:37.840 --> 00:13:38.520
+not intended.
+
+00:13:38.530 --> 00:13:40.620
+I think AppProto is a great example of that with
+
+00:13:40.620 --> 00:13:41.520
+lexicons.
+
+00:13:41.530 --> 00:13:43.520
+And the fifth is that it's prosocial.
+
+00:13:43.530 --> 00:13:47.740
+This is not something that just makes you individually more successful or
+
+00:13:47.740 --> 00:13:51.170
+aligned with your interests, but also woven into the communities and
+
+00:13:51.360 --> 00:13:54.510
+society around you because we are all in this together.
+
+00:13:54.530 --> 00:13:58.640
+And so something that just makes you individually successful or rich or
+
+00:13:58.640 --> 00:14:00.740
+something is not aligned, I think, with the Resident Comp
+
+00:14:00.740 --> 00:14:03.520
+eting Manifesto, which is about us as humans all
+
+00:14:03.520 --> 00:14:05.520
+in this society together becoming the best versions of ourselves.
+
+00:14:05.530 --> 00:14:07.520
+So those are the five principles that we put into it.
+
+00:14:07.530 --> 00:14:10.810
+I think it is very challenging for almost any bit of software
+
+00:14:10.810 --> 00:14:12.520
+today at scale to have this.
+
+00:14:12.530 --> 00:14:15.220
+I think there's a number of amazing examples that I've
+
+00:14:15.330 --> 00:14:18.520
+seen and been inspired by at this conference and people trying.
+
+00:14:18.530 --> 00:14:20.230
+But some of the laws of physics of how software has been
+
+00:14:20.360 --> 00:14:24.160
+built for a long time make this actually quite difficult because the
+
+00:14:24.220 --> 00:14:28.290
+same origin paradigm that we've used now for 30 years is
+
+00:14:28.450 --> 00:14:30.520
+all about silos.
+
+00:14:30.530 --> 00:14:31.520
+It's all about data.
+
+00:14:31.530 --> 00:14:35.300
+Really, the way that it works is software is very precious
+
+00:14:35.300 --> 00:14:36.520
+, and so someone makes software.
+
+00:14:36.530 --> 00:14:39.700
+Then users come to that software creator on their turf, on
+
+00:14:39.700 --> 00:14:41.520
+their server, in their silo.
+
+00:14:41.530 --> 00:14:43.520
+They accumulate their data in that location.
+
+00:14:43.530 --> 00:14:46.520
+And now the person who made the software owns the data.
+
+00:14:46.530 --> 00:14:48.520
+And so now they can rent it back to somebody.
+
+00:14:48.530 --> 00:14:50.520
+They can make derived insights and sell it to somebody else.
+
+00:14:50.530 --> 00:14:52.520
+They can hold it hostage.
+
+00:14:52.530 --> 00:14:55.010
+And that leads to hyper-aggregation and it el
+
+00:14:55.020 --> 00:14:56.520
+udes to lack of control.
+
+00:14:56.530 --> 00:14:57.990
+And that's one of the reasons that you need the right
+
+00:14:58.000 --> 00:15:01.900
+foundations, like at Proto, that allow decentralization built
+
+00:15:01.900 --> 00:15:02.520
+into it.
+
+00:15:02.530 --> 00:15:03.970
+So anyway, that's one of the-- just a few
+
+00:15:03.970 --> 00:15:05.520
+riffs on things I care about.
+
+00:15:05.530 --> 00:15:08.550
+Yeah, and one of the things that you pointed out that
+
+00:15:08.610 --> 00:15:12.170
+I think is really important is we have-- it's funny
+
+00:15:12.190 --> 00:15:16.290
+because you say manifesto and that feels big and grand and
+
+00:15:16.290 --> 00:15:19.580
+slightly obnoxious, and I think it is slightly ob
+
+00:15:19.580 --> 00:15:20.520
+noxious.
+
+00:15:20.530 --> 00:15:23.190
+And so we've tried to make it the most humble manifest
+
+00:15:23.320 --> 00:15:26.810
+o possible, if that's an actual possibility, in that
+
+00:15:26.810 --> 00:15:28.480
+we sort of set it up in the sense that we don
+
+00:15:28.480 --> 00:15:30.520
+'t think that we have all the answers.
+
+00:15:30.530 --> 00:15:32.610
+It's not perfect and that it very much is designed to
+
+00:15:32.690 --> 00:15:33.520
+be a conversation.
+
+00:15:33.530 --> 00:15:38.370
+And that conversation has been going on since the document went public
+
+00:15:38.370 --> 00:15:39.300
+in December.
+
+00:15:39.530 --> 00:15:42.130
+We've gotten all these comments and all these thoughts and people
+
+00:15:42.330 --> 00:15:43.520
+are making suggestions.
+
+00:15:43.530 --> 00:15:47.080
+And we're getting critiques and having really, really interesting
+
+00:15:47.080 --> 00:15:50.520
+conversations about what it means and how to think about it.
+
+00:15:50.530 --> 00:15:54.550
+And the other point that I want to talk to-- I
+
+00:15:54.550 --> 00:15:57.790
+know that one of the conversations that's come up certainly a
+
+00:15:57.790 --> 00:16:01.000
+lot at this conference is on the, like, how do
+
+00:16:01.000 --> 00:16:04.540
+we pay for all of this side of the ledger,
+
+00:16:04.540 --> 00:16:05.520
+right?
+
+00:16:05.520 --> 00:16:10.670
+Because the, you know, the other way of doing things
+
+00:16:10.890 --> 00:16:14.110
+has a bunch of VCs who get very excited and sort
+
+00:16:14.160 --> 00:16:17.640
+of promote this idea of, like, you know, the
+
+00:16:17.640 --> 00:16:20.810
+, you know, embrace the inshittification, more
+
+00:16:20.850 --> 00:16:21.520
+or less.
+
+00:16:21.530 --> 00:16:25.590
+Well, you know, you get enough alcohol into some of
+
+00:16:25.590 --> 00:16:30.510
+these guys and they might admit stuff.
+
+00:16:30.520 --> 00:16:33.490
+And so the, you know, one of the things that
+
+00:16:33.490 --> 00:16:37.520
+I think is actually valuable about this conversation that we've been
+
+00:16:37.520 --> 00:16:42.200
+having as well is actually seeing some of the investor class start
+
+00:16:42.210 --> 00:16:44.850
+to look at this and say, yeah, like, I
+
+00:16:44.850 --> 00:16:48.160
+don't just have to invest in, like, you know
+
+00:16:48.160 --> 00:16:50.520
+, the stuff that makes the world worse.
+
+00:16:50.530 --> 00:16:52.430
+Even if it's, like, we can see, you
+
+00:16:52.430 --> 00:16:55.520
+know, hockey stick number go up kind of things.
+
+00:16:55.530 --> 00:16:58.440
+We can start to look for ways to align, like,
+
+00:16:58.440 --> 00:17:02.110
+good business opportunities with, like, doing good in the world
+
+00:17:02.110 --> 00:17:02.520
+as well.
+
+00:17:02.530 --> 00:17:05.810
+Because it felt like for a little while that the idea that
+
+00:17:05.810 --> 00:17:08.520
+you could do those two things at once was impossible.
+
+00:17:08.530 --> 00:17:12.250
+But we're seeing people start to recognize it, which also
+
+00:17:12.250 --> 00:17:14.860
+, you know, because, you know, some of the
+
+00:17:14.880 --> 00:17:16.960
+people who were involved in writing it and certainly some of the
+
+00:17:16.960 --> 00:17:20.320
+people who have signed on and have embraced it are actually fund
+
+00:17:20.360 --> 00:17:21.520
+ers in this world.
+
+00:17:21.530 --> 00:17:24.330
+And we're now starting to see -- do you want to
+
+00:17:24.360 --> 00:17:26.520
+talk about the -- what Ash put together?
+
+00:17:26.530 --> 00:17:29.490
+Yeah, so we have -- a number of folks who have
+
+00:17:29.490 --> 00:17:31.980
+signed it or helped create it are, indeed, in venture
+
+00:17:31.980 --> 00:17:32.520
+capital.
+
+00:17:32.530 --> 00:17:34.390
+Like Zoe Weinberg, for example, was one of the
+
+00:17:34.390 --> 00:17:36.520
+participants who is the -- runs Xante.
+
+00:17:36.530 --> 00:17:40.510
+We also announced on Thursday a small fund called residentcomput
+
+00:17:40.510 --> 00:17:41.230
+inglabs.
+
+00:17:41.230 --> 00:17:41.520
+com.
+
+00:17:41.520 --> 00:17:44.550
+And the idea is it's a small fund for people who
+
+00:17:44.600 --> 00:17:47.350
+are doing projects that are resonant.
+
+00:17:47.520 --> 00:17:50.930
+And that, you know, to get compensation or sort of
+
+00:17:50.930 --> 00:17:53.300
+a stipend to work on those projects.
+
+00:17:53.530 --> 00:17:55.570
+I think a lot of things that I've talked to people
+
+00:17:55.570 --> 00:17:56.800
+in the hallways here are, like, perfect fits for
+
+00:17:56.800 --> 00:17:57.520
+that kind of thing.
+
+00:17:57.530 --> 00:18:00.810
+Like, doing it is a labor of love on the side
+
+00:18:00.810 --> 00:18:03.520
+and it's hard for them to keep working on it,
+
+00:18:03.530 --> 00:18:06.520
+but having a little bit of money to help pay the bills
+
+00:18:06.520 --> 00:18:08.190
+would allow them to spend more time on these things they care
+
+00:18:08.210 --> 00:18:08.520
+about.
+
+00:18:08.530 --> 00:18:12.520
+And so that's an example of just trying to support people
+
+00:18:12.520 --> 00:18:14.520
+who are trying to build these kinds of things.
+
+00:18:14.530 --> 00:18:16.880
+There are also a lot of folks who have come to me
+
+00:18:16.880 --> 00:18:19.820
+and told me they're building things that fundamentally that are trying
+
+00:18:19.820 --> 00:18:20.520
+to be resonant.
+
+00:18:20.530 --> 00:18:21.970
+The thing I'm working on in my full-time job
+
+00:18:21.970 --> 00:18:24.670
+is, indeed, is also a thing that's attempting to
+
+00:18:24.670 --> 00:18:27.520
+build a resonant foundation for software.
+
+00:18:27.530 --> 00:18:29.520
+Just very quickly -- oh, sorry.
+
+00:18:29.530 --> 00:18:33.680
+Very quickly, if you read the Wired article that we
+
+00:18:33.680 --> 00:18:37.860
+launched this with, Steven Levy, who didn't know
+
+00:18:37.880 --> 00:18:39.520
+exactly what you're working on, but described it as,
+
+00:18:39.520 --> 00:18:42.520
+"I'm sure it will be resident AF." So --
+
+00:18:42.530 --> 00:18:44.520
+That is correct.
+
+00:18:44.530 --> 00:18:45.520
+I can confirm.
+
+00:18:45.530 --> 00:18:49.790
+But I think it's something that -- this is not just
+
+00:18:49.790 --> 00:18:51.520
+an idea that you talk about.
+
+00:18:51.530 --> 00:18:53.890
+This is also things where people are trying to put money into
+
+00:18:53.890 --> 00:18:55.520
+it and trying to organize around it.
+
+00:18:55.530 --> 00:18:58.090
+But after that, we did an event, a small event
+
+00:18:58.360 --> 00:19:00.520
+in New York on Thursday at Betaworks.
+
+00:19:00.530 --> 00:19:03.870
+And there were a number of fascinating presentations and people -- and
+
+00:19:03.910 --> 00:19:06.770
+afterwards, someone who I knew who was just happy to be
+
+00:19:06.770 --> 00:19:08.940
+in New York, who I didn't realize had signed the
+
+00:19:08.940 --> 00:19:11.370
+manifesto or knew about it, she was like, "
+
+00:19:11.370 --> 00:19:13.520
+This is the most inspiring thing.
+
+00:19:13.530 --> 00:19:14.520
+I need to create a conference.
+
+00:19:14.530 --> 00:19:16.520
+We're going to do the same thing in San Francisco.
+
+00:19:16.530 --> 00:19:21.970
+I'm going to choose now organizing other conferences." Because it
+
+00:19:21.970 --> 00:19:24.520
+'s encouraging when you think -- this thing that you think is
+
+00:19:24.520 --> 00:19:25.520
+really important, you are not the only one doing it.
+
+00:19:25.530 --> 00:19:26.520
+You're not the only one who cares.
+
+00:19:26.530 --> 00:19:29.520
+And that's one of the reasons this conference is so important
+
+00:19:29.520 --> 00:19:31.520
+and so inspiring, too.
+
+00:19:31.520 --> 00:19:32.520
+Yeah.
+
+00:19:32.530 --> 00:19:34.850
+I will mention if people -- I saw some people pull out
+
+00:19:34.850 --> 00:19:38.130
+their phones when we mentioned the fun -- the web page for
+
+00:19:38.130 --> 00:19:41.010
+the fun -- there's -- if you try and scroll on
+
+00:19:41.070 --> 00:19:45.050
+your phone, it has this idea that seems nice, which
+
+00:19:45.050 --> 00:19:47.340
+is that it ripples out, but it makes it impossible
+
+00:19:47.340 --> 00:19:47.520
+to read.
+
+00:19:47.530 --> 00:19:49.520
+So that needs to be fixed.
+
+00:19:49.530 --> 00:19:52.370
+I didn't create that, but -- I might have done
+
+00:19:52.370 --> 00:19:54.520
+it differently.
+
+00:19:54.530 --> 00:19:56.840
+But, you know, I think that there is this excitement
+
+00:19:57.360 --> 00:19:57.520
+.
+
+00:19:57.530 --> 00:19:59.230
+And I think, you know, one of the things that
+
+00:19:59.340 --> 00:20:01.940
+I also thought was important when I was happy to have this
+
+00:20:01.940 --> 00:20:03.850
+conversation here was, like, I felt that some of the
+
+00:20:04.330 --> 00:20:07.070
+conversation that we've had here -- because, obviously, it
+
+00:20:07.070 --> 00:20:08.520
+'s the atmosphere conference.
+
+00:20:08.530 --> 00:20:10.520
+Everyone's focused on AtProto and stuff like that.
+
+00:20:10.530 --> 00:20:13.850
+But it is important to sort of recognize where that fits into
+
+00:20:13.850 --> 00:20:18.520
+the larger tech ecosystem and how, you know, if --
+
+00:20:18.520 --> 00:20:21.220
+in an ideal world, what I'm certainly hopeful for is
+
+00:20:21.480 --> 00:20:24.440
+that, you know, AtProto and sort of the
+
+00:20:24.440 --> 00:20:28.970
+mission and vision of why everyone here -- why everyone is here
+
+00:20:28.970 --> 00:20:32.100
+and why everyone is so excited is that it can sort of
+
+00:20:32.150 --> 00:20:35.520
+take over and eat the old web, right?
+
+00:20:35.530 --> 00:20:38.550
+It can bring back that feeling that we had in the early
+
+00:20:38.600 --> 00:20:42.480
+days of the web about the opportunity here to actually build something
+
+00:20:42.480 --> 00:20:44.520
+that was empowering for people.
+
+00:20:44.530 --> 00:20:47.830
+And so, you know, this conference is specifically about this
+
+00:20:47.830 --> 00:20:51.970
+particular protocol, but being able to think through on a larger
+
+00:20:51.970 --> 00:20:55.800
+scale of other communities that might not even know about AtPr
+
+00:20:55.800 --> 00:20:59.520
+oto but are thinking about how do we make the internet itself
+
+00:20:59.520 --> 00:21:02.970
+better for humanity, it's good to have those communities in
+
+00:21:02.970 --> 00:21:07.090
+communication with each other because the ideas and concepts and, you
+
+00:21:07.100 --> 00:21:10.930
+know, projects that are being worked on start to bleed across
+
+00:21:10.930 --> 00:21:14.590
+and bleed into each other and hopefully help everybody and we get
+
+00:21:14.590 --> 00:21:17.520
+to actually build a better internet for absolutely everyone.
+
+00:21:17.530 --> 00:21:20.870
+I also want to point out that I do believe that we
+
+00:21:20.910 --> 00:21:23.520
+are on the precipice of a quite large change in the
+
+00:21:23.520 --> 00:21:23.520
+industry.
+
+00:21:23.530 --> 00:21:28.510
+I think AI undermines significant assumptions baked into various business models
+
+00:21:28.550 --> 00:21:29.520
+and what have you.
+
+00:21:29.530 --> 00:21:32.770
+A lot of software has been built under the presumption that
+
+00:21:32.770 --> 00:21:34.520
+software is expensive to write and cheap to run.
+
+00:21:34.520 --> 00:21:38.090
+And LLMs mess with both of those because software that
+
+00:21:38.150 --> 00:21:40.950
+uses LLMs to execute now has a marginal cost greater
+
+00:21:41.140 --> 00:21:42.520
+than can be supported by advertising.
+
+00:21:42.530 --> 00:21:45.390
+And software is now possible to make shitty software in the small
+
+00:21:45.390 --> 00:21:46.520
+for basically free.
+
+00:21:46.530 --> 00:21:49.720
+And this means is I think we'll be massively destabil
+
+00:21:49.720 --> 00:21:53.540
+izing for the software industry as it exists, which will cause
+
+00:21:53.640 --> 00:21:54.520
+a lot of change.
+
+00:21:54.530 --> 00:21:56.870
+And now is the time that the good news is hopefully we
+
+00:21:56.870 --> 00:21:59.180
+can take some of these principles that I think all of us
+
+00:21:59.180 --> 00:22:02.830
+here care about and help make sure that the stuff that grows
+
+00:22:02.940 --> 00:22:05.520
+has those characteristics baked into it.
+
+00:22:05.530 --> 00:22:06.520
+So it's exciting.
+
+00:22:06.530 --> 00:22:08.100
+It's a nerve-wracking time in a lot of
+
+00:22:08.100 --> 00:22:08.520
+ways.
+
+00:22:08.530 --> 00:22:10.520
+And I know a lot of people here have been having conversations
+
+00:22:10.520 --> 00:22:13.230
+that people are feeling a little bit manic and need to feed
+
+00:22:13.230 --> 00:22:16.050
+their agent swarms who are building all kinds of software for
+
+00:22:16.050 --> 00:22:16.520
+them.
+
+00:22:16.520 --> 00:22:20.090
+But the -- it's exciting that we now are in a
+
+00:22:20.150 --> 00:22:22.540
+world where if software -- if we are in a world of
+
+00:22:22.540 --> 00:22:25.370
+infinite software, where software is no longer precious, but it
+
+00:22:25.370 --> 00:22:27.670
+-- like Jeremy, you were saying, it's like tap
+
+00:22:27.670 --> 00:22:28.520
+water.
+
+00:22:28.530 --> 00:22:30.520
+That's radically different than it was before.
+
+00:22:30.530 --> 00:22:33.150
+And that means that some of the things that made the business
+
+00:22:33.330 --> 00:22:37.520
+models of make precious, shiny software that people come to your
+
+00:22:37.520 --> 00:22:39.920
+turf so you can accumulate their data and then rent it back
+
+00:22:39.940 --> 00:22:40.520
+to them.
+
+00:22:40.530 --> 00:22:41.520
+I don't know.
+
+00:22:41.520 --> 00:22:44.520
+Software is really easy to create and distribute.
+
+00:22:44.530 --> 00:22:46.520
+Maybe that's not as enticing anymore.
+
+00:22:46.530 --> 00:22:48.230
+And all kinds of other things that I think have become possible
+
+00:22:48.360 --> 00:22:48.520
+.
+
+00:22:48.520 --> 00:22:51.520
+Another thing that LLMs can do is they are --
+
+00:22:51.520 --> 00:22:54.520
+they can do qualitative nuance at quantitative scale.
+
+00:22:54.530 --> 00:22:58.260
+So to do analysis at quantitative scale, it used to require
+
+00:22:58.260 --> 00:22:59.520
+you to reduce it to numbers.
+
+00:22:59.530 --> 00:23:01.230
+And now it's possible with LLMs to do some
+
+00:23:01.360 --> 00:23:04.680
+really nuanced analysis at much, much, much larger scale and
+
+00:23:04.680 --> 00:23:07.520
+keep a whole multidimensional understanding of that data.
+
+00:23:07.530 --> 00:23:10.870
+You also can do, I would say, like abundant cognitive
+
+00:23:10.870 --> 00:23:11.520
+labor.
+
+00:23:11.530 --> 00:23:13.840
+A lot of things that were just took a ton of time
+
+00:23:13.840 --> 00:23:17.810
+and effort and motivation to do before that are now trivial because
+
+00:23:17.850 --> 00:23:19.840
+you can have a thing that doesn't get bored, that
+
+00:23:19.840 --> 00:23:22.520
+you just can continue chugging away at it.
+
+00:23:22.530 --> 00:23:23.520
+And I don't know.
+
+00:23:23.530 --> 00:23:25.520
+There's a bunch of things that change in this new world
+
+00:23:25.520 --> 00:23:26.520
+that I think is, again, exciting.
+
+00:23:26.530 --> 00:23:29.700
+And one of the reasons that sort of planting a flag and
+
+00:23:29.700 --> 00:23:31.520
+saying, hey, people, we did not go away.
+
+00:23:31.530 --> 00:23:33.220
+The people who believe in the hacker ethic, we're still
+
+00:23:33.220 --> 00:23:33.520
+here.
+
+00:23:33.530 --> 00:23:34.520
+We still care about it.
+
+00:23:34.530 --> 00:23:37.190
+And now it's more important than ever to reaffirm
+
+00:23:37.330 --> 00:23:41.490
+that because of all the change I think we're about to
+
+00:23:41.490 --> 00:23:42.440
+see.
+
+00:23:42.520 --> 00:23:43.520
+Yeah.
+
+00:23:43.530 --> 00:23:45.160
+I mean, I don't have anything else to say after
+
+00:23:45.190 --> 00:23:45.520
+that.
+
+00:23:45.530 --> 00:23:47.840
+I don't -- do we have time for like a question
+
+00:23:47.950 --> 00:23:48.520
+or two?
+
+00:23:48.530 --> 00:23:50.520
+Or is that your -- yes?
+
+00:23:50.530 --> 00:23:51.520
+There's a question in the back.
+
+00:23:51.530 --> 00:23:56.710
+Do you want to -- I'm going to run mics out
+
+00:23:56.710 --> 00:24:00.440
+and back, I guess.
+
+00:24:00.520 --> 00:24:01.520
+Yeah.
+
+00:24:01.530 --> 00:24:02.520
+Let's actually come to the front.
+
+00:24:02.530 --> 00:24:07.510
+Let's make my life a little bit easier.
+
+00:24:07.520 --> 00:24:15.870
+Well, first of all, thank you for
+
+00:24:15.990 --> 00:24:21.520
+putting in all the work to both write this and disseminate
+
+00:24:21.530 --> 00:24:24.520
+it and bring attention to it.
+
+00:24:24.530 --> 00:24:26.520
+I think that's really important.
+
+00:24:26.530 --> 00:24:30.210
+I noticed both in the document and in the way that you
+
+00:24:30.210 --> 00:24:36.390
+'re communicating that it's not really pointing to the pretty vast
+
+00:24:36.390 --> 00:24:41.680
+discourse on this topic that has been occurring for decades, if
+
+00:24:41.680 --> 00:24:43.520
+not far longer than this.
+
+00:24:43.530 --> 00:24:49.610
+And it feels like the opportunity is far larger than kind of
+
+00:24:50.220 --> 00:24:56.080
+putting your take and perspective down, which I agree with largely
+
+00:24:56.080 --> 00:25:01.520
+, but really in the process in that by bringing all of
+
+00:25:01.520 --> 00:25:04.170
+these signatories together and getting all of this press, you
+
+00:25:04.330 --> 00:25:05.520
+'re bringing attention.
+
+00:25:05.530 --> 00:25:08.550
+And I wonder if there's a way to take what you
+
+00:25:08.550 --> 00:25:14.840
+'re already kind of starting with having that open collaborative document and
+
+00:25:15.320 --> 00:25:18.520
+maybe design a process that makes it feel even more collaborative,
+
+00:25:18.530 --> 00:25:22.090
+where you're less of the arbiters and you can really
+
+00:25:22.150 --> 00:25:25.860
+take advantage of the vast amount of care and thought in this
+
+00:25:25.860 --> 00:25:27.520
+community and far beyond.
+
+00:25:27.530 --> 00:25:30.870
+And I'm just really wondering what your thoughts are on,
+
+00:25:30.910 --> 00:25:33.240
+like, how do we make this so inclusive that it's
+
+00:25:33.240 --> 00:25:35.520
+just impossible to ignore?
+
+00:25:35.530 --> 00:25:36.520
+Agreed.
+
+00:25:36.530 --> 00:25:38.580
+And so we have a, there's a document that's
+
+00:25:38.580 --> 00:25:40.520
+linked to it that has these theses.
+
+00:25:40.530 --> 00:25:42.420
+We also have in that section a C also that we've
+
+00:25:42.420 --> 00:25:45.260
+been adding a lot of stuff as people pointed to various other
+
+00:25:45.260 --> 00:25:46.520
+things that are related.
+
+00:25:46.530 --> 00:25:49.470
+In fact, there's one somebody who may even be here
+
+00:25:49.470 --> 00:25:52.320
+wrote a critique of the manifesto right after it came out
+
+00:25:52.320 --> 00:25:52.520
+.
+
+00:25:52.530 --> 00:25:53.900
+And that's linked, actually, directly in the C also
+
+00:25:53.900 --> 00:25:56.310
+because I think it's important to engage with people who are
+
+00:25:56.310 --> 00:25:58.520
+, you know, the different perspectives on this.
+
+00:25:58.530 --> 00:25:59.520
+So that's a great point.
+
+00:25:59.530 --> 00:26:01.520
+And currently it's kind of hidden behind.
+
+00:26:01.530 --> 00:26:02.520
+You have to click through.
+
+00:26:02.530 --> 00:26:03.690
+It's in a Google Doc that, you know, we
+
+00:26:03.690 --> 00:26:04.520
+look at every so often.
+
+00:26:04.530 --> 00:26:07.520
+But we could do more on that.
+
+00:26:07.530 --> 00:26:10.520
+And I think that it's a really good question.
+
+00:26:10.520 --> 00:26:14.590
+Obviously, you know, part of sort of this idea of
+
+00:26:14.590 --> 00:26:18.520
+residents is involving community and actually having a really active community.
+
+00:26:18.530 --> 00:26:21.170
+The, you know, the simple reality, and I agree
+
+00:26:21.330 --> 00:26:22.930
+, like, the more that we can do to make it
+
+00:26:22.930 --> 00:26:26.520
+a fully collaborative effort as opposed to, you know, something
+
+00:26:26.530 --> 00:26:29.520
+that is gate kept in any way is good.
+
+00:26:29.530 --> 00:26:32.850
+The reality is that as soon as you start building community is
+
+00:26:32.850 --> 00:26:37.650
+that you then suddenly have to do some level of moderation and
+
+00:26:37.650 --> 00:26:39.520
+control and everything like that.
+
+00:26:39.530 --> 00:26:45.300
+And as someone maybe has suggested in the past, that content
+
+00:26:45.520 --> 00:26:48.520
+moderation gets impossible at a certain level.
+
+00:26:48.530 --> 00:26:52.090
+And so the reality was, like, we put this together
+
+00:26:52.150 --> 00:26:54.120
+kind of on a whim, where it's like this group
+
+00:26:54.140 --> 00:26:56.520
+conversation that we were having that's put out in the world
+
+00:26:56.520 --> 00:26:56.520
+.
+
+00:26:56.530 --> 00:26:58.520
+We expected nobody to pay attention to it.
+
+00:26:58.530 --> 00:26:59.890
+And now we're suddenly we're in a situation where a
+
+00:26:59.890 --> 00:27:01.520
+whole bunch of people paid attention to it.
+
+00:27:01.530 --> 00:27:02.520
+So we're sort of figuring that out.
+
+00:27:02.530 --> 00:27:04.080
+But it is a really valid point and one that we should
+
+00:27:04.080 --> 00:27:05.520
+be thinking about.
+
+00:27:05.530 --> 00:27:08.520
+And obviously, it's also something where we have things like
+
+00:27:08.520 --> 00:27:12.520
+@Proto, which is about building community and collaborative discussion
+
+00:27:12.520 --> 00:27:14.040
+and something where I think we can start to do some more
+
+00:27:14.040 --> 00:27:14.520
+on that.
+
+00:27:14.530 --> 00:27:15.520
+So I appreciate you calling it out.
+
+00:27:15.530 --> 00:27:16.520
+I think you're exactly right.
+
+00:27:16.530 --> 00:27:19.520
+But, like, give us a little bit of time.
+
+00:27:19.530 --> 00:27:20.520
+But, yes.
+
+00:27:20.520 --> 00:27:21.520
+Yeah.
+
+00:27:21.520 --> 00:27:22.520
+Yeah.
+
+00:27:22.530 --> 00:27:25.530
+This might not be a short question, but I just want
+
+00:27:25.530 --> 00:27:26.520
+to maybe be a bit provocative.
+
+00:27:26.530 --> 00:27:27.520
+And thank you for your point.
+
+00:27:27.530 --> 00:27:31.010
+And also just, yeah, your work on raising attention about
+
+00:27:31.020 --> 00:27:31.520
+this.
+
+00:27:31.530 --> 00:27:34.110
+One word that wasn't in this discussion, at least I
+
+00:27:34.330 --> 00:27:36.520
+didn't hear, is, like, capitalism.
+
+00:27:36.530 --> 00:27:38.840
+And how much of all of what we're seeing in tech
+
+00:27:38.840 --> 00:27:40.520
+today is just downstream.
+
+00:27:40.530 --> 00:27:42.520
+It's capitalism doing business as usual.
+
+00:27:42.530 --> 00:27:45.420
+And are new alternatives going to be some kind of post-
+
+00:27:45.420 --> 00:27:46.520
+capitalist future?
+
+00:27:46.530 --> 00:27:47.520
+Or can they live together?
+
+00:27:47.530 --> 00:27:49.610
+Can it be capitalism where VCs suddenly change their minds and
+
+00:27:50.330 --> 00:27:51.520
+decide they want to be pro-social?
+
+00:27:51.530 --> 00:27:53.520
+Like, what are you envisioning?
+
+00:27:53.530 --> 00:27:55.890
+That's a great question to have after we're already out
+
+00:27:55.890 --> 00:27:56.520
+over time.
+
+00:27:56.530 --> 00:27:59.520
+Because the answer to that is really long and really involved.
+
+00:27:59.530 --> 00:28:01.710
+And I've been, like, trying to work on a
+
+00:28:01.710 --> 00:28:04.860
+giant paper, which possibly might turn into a book, just
+
+00:28:04.860 --> 00:28:07.520
+to answer that question, kind of.
+
+00:28:07.530 --> 00:28:12.500
+The short version is that -- well, there is no short
+
+00:28:12.550 --> 00:28:13.300
+version.
+
+00:28:13.530 --> 00:28:17.520
+That is the question that goes to the heart of this.
+
+00:28:17.530 --> 00:28:19.520
+How many of these things go back to different things?
+
+00:28:19.530 --> 00:28:21.840
+I do think that there is a world in which the incentive
+
+00:28:22.360 --> 00:28:25.520
+structure of capitalism does work towards a resonant future.
+
+00:28:25.530 --> 00:28:27.520
+But you have to be very conscious about it.
+
+00:28:27.530 --> 00:28:28.520
+You have to think about it.
+
+00:28:28.530 --> 00:28:30.520
+And you also have to have a long time horizon.
+
+00:28:30.530 --> 00:28:33.550
+There's a lot in there that I think is time horizon
+
+00:28:33.600 --> 00:28:34.520
+dependent.
+
+00:28:34.530 --> 00:28:36.520
+And then you have to deal with that factor.
+
+00:28:36.530 --> 00:28:38.840
+And I think a lot of the problems that we come across
+
+00:28:39.050 --> 00:28:41.940
+right now are the fact that everybody is sort of focused on
+
+00:28:41.940 --> 00:28:44.440
+a three-month to one-year time horizon.
+
+00:28:44.530 --> 00:28:45.520
+You can change that.
+
+00:28:45.520 --> 00:28:49.320
+And there are things structurally that we can do that keep
+
+00:28:49.320 --> 00:28:54.080
+the sort of incentive structure of free market to incentivize people
+
+00:28:54.080 --> 00:28:57.200
+to experiment and do different things and build cool things that find
+
+00:28:57.200 --> 00:28:58.520
+value in the world.
+
+00:28:58.530 --> 00:29:00.520
+And something that is actually good for humanity.
+
+00:29:00.530 --> 00:29:02.520
+But there are some other structural changes.
+
+00:29:02.520 --> 00:29:04.520
+There's a lot more.
+
+00:29:04.530 --> 00:29:07.520
+But really quickly because we're definitely over time.
+
+00:29:07.530 --> 00:29:10.550
+But Eric Reese has a new book coming out relatively soon that
+
+00:29:10.610 --> 00:29:11.520
+'s about this.
+
+00:29:11.530 --> 00:29:13.520
+And I think it's excellent and very important.
+
+00:29:13.530 --> 00:29:15.520
+And it makes the case.
+
+00:29:15.530 --> 00:29:17.520
+I do think that capitalism is compatible if you have a long
+
+00:29:17.520 --> 00:29:20.010
+enough time horizon and the right structural things, which I don
+
+00:29:20.070 --> 00:29:21.510
+'t think we currently do.
+
+00:29:21.530 --> 00:29:24.060
+But we have one last person, but we're already over
+
+00:29:24.300 --> 00:29:24.520
+time.
+
+00:29:24.520 --> 00:29:25.520
+Okay.
+
+00:29:25.530 --> 00:29:26.520
+So thank you.
+
+00:29:26.530 --> 00:29:29.520
+Really excited to be here and to listen to you all.
+
+00:29:29.530 --> 00:29:32.950
+The biggest thing that I noticed as I read through the manifest
+
+00:29:33.000 --> 00:29:35.480
+o that seems to be missing, that I'm going to
+
+00:29:35.480 --> 00:29:39.990
+be leaving comments, is we experience technology and computing through our
+
+00:29:40.060 --> 00:29:40.520
+bodies.
+
+00:29:40.530 --> 00:29:46.200
+And those bodies have needs that change over time.
+
+00:29:46.530 --> 00:29:51.310
+And it's important that when we talk -- an example of
+
+00:29:51.310 --> 00:29:54.320
+this is this discussion of conflict or, you know, the
+
+00:29:54.320 --> 00:29:55.510
+importance of friction.
+
+00:29:55.530 --> 00:29:57.520
+Friction works for certain people.
+
+00:29:57.530 --> 00:30:00.150
+For other people, it means that their brains literally can't
+
+00:30:00.300 --> 00:30:01.520
+get past or into something.
+
+00:30:01.530 --> 00:30:05.480
+So -- and I recognize that one of the purposes of a
+
+00:30:05.480 --> 00:30:08.520
+manifesto is to sometimes be very broad.
+
+00:30:08.530 --> 00:30:11.320
+And yet we know that all of the -- all of the
+
+00:30:11.360 --> 00:30:14.850
+-- all of the issues that exist in this country are in
+
+00:30:14.850 --> 00:30:17.510
+the details and this -- and this thing.
+
+00:30:17.530 --> 00:30:20.700
+And so I'm interested in seeing how this -- what you
+
+00:30:20.700 --> 00:30:24.520
+are thinking about, how this turns into -- maybe you --
+
+00:30:24.520 --> 00:30:28.210
+the resident community manifesto can't -- can't be something
+
+00:30:28.210 --> 00:30:29.520
+that stands by itself.
+
+00:30:29.530 --> 00:30:32.540
+Maybe there are like 10 other manifestos that live underneath that
+
+00:30:32.540 --> 00:30:35.200
+, related to different pieces, you know, to help folks
+
+00:30:35.200 --> 00:30:38.510
+orient inside of a larger and greater concept.
+
+00:30:38.530 --> 00:30:43.520
+And I'm wondering how you all are thinking about that.
+
+00:30:43.520 --> 00:30:45.520
+Yes.
+
+00:30:45.530 --> 00:30:48.750
+I mean, that is part of the why -- part of
+
+00:30:48.750 --> 00:30:50.580
+the reason why we thought of this as sort of starting a
+
+00:30:50.890 --> 00:30:51.510
+conversation.
+
+00:30:51.520 --> 00:30:55.520
+Because, you know, we were a group of people.
+
+00:30:55.530 --> 00:30:58.030
+We have, you know, the perspective that we have and
+
+00:30:58.030 --> 00:30:59.520
+the thoughts that we have.
+
+00:30:59.530 --> 00:31:00.990
+But, again, as I sort of said, like,
+
+00:31:00.990 --> 00:31:02.520
+we know we don't have all the answers.
+
+00:31:02.530 --> 00:31:04.910
+And so perspectives like that and calling out these different things and
+
+00:31:04.920 --> 00:31:07.510
+saying, like, there are sort of sub-arguments
+
+00:31:07.510 --> 00:31:09.840
+or -- or, you know, whole areas of discussion that
+
+00:31:09.920 --> 00:31:11.520
+-- that we should be paying attention to.
+
+00:31:11.530 --> 00:31:13.520
+But they're linked back to the larger concept.
+
+00:31:13.530 --> 00:31:14.520
+I think absolutely.
+
+00:31:14.530 --> 00:31:17.160
+And I think that's an important part of the conversation and
+
+00:31:17.360 --> 00:31:19.350
+understanding, you know, what are the other things that we
+
+00:31:19.350 --> 00:31:22.450
+need to think through to make this reality, you know,
+
+00:31:22.730 --> 00:31:23.510
+exist.
+
+00:31:23.530 --> 00:31:25.520
+I think that's -- that's really important.
+
+00:31:25.530 --> 00:31:26.520
+So.
+
+00:31:26.520 --> 00:31:30.520
+Thank you very much for joining us.
+
+00:31:30.530 --> 00:31:35.000
+I just wanted to say this is exactly part of the thing
+
+00:31:35.180 --> 00:31:40.190
+that we're going to try and curate in the atmosphere
+
+00:31:40.190 --> 00:31:44.520
+is that not everything is going to be at proto.
+
+00:31:44.530 --> 00:31:46.520
+Because at proto is not the BL and end all.
+
+00:31:46.530 --> 00:31:47.520
+At proto is not the world.
+
+00:31:47.530 --> 00:31:50.860
+And so really appreciate that you came and shared this with this
+
+00:31:50.860 --> 00:31:55.440
+community and hope that there's lots of flow back and forth
+
+00:31:55.520 --> 00:31:55.520
+between these things.
+
+00:31:56.520 --> 00:32:01.120
+Thank you.

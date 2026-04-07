@@ -1,0 +1,592 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.900
+RANGA KRISHNAN: I'm Ranga Kr
+
+00:00:05.010 --> 00:00:07.710
+ishnan with Solidarity Social.
+
+00:00:07.760 --> 00:00:10.300
+So I'm not going to talk too much about the why
+
+00:00:10.300 --> 00:00:10.500
+.
+
+00:00:10.500 --> 00:00:12.480
+I'll leave it to the questions.
+
+00:00:12.480 --> 00:00:14.600
+I'm going to mostly go into what.
+
+00:00:14.600 --> 00:00:16.400
+But if you want to look at some of the why,
+
+00:00:16.400 --> 00:00:18.820
+Solidarity Social is the website.
+
+00:00:18.820 --> 00:00:21.020
+It'll probably answer a lot of questions.
+
+00:00:21.020 --> 00:00:23.800
+So with that, I want to get into what has been
+
+00:00:23.800 --> 00:00:25.760
+built and what it is.
+
+00:00:25.760 --> 00:00:28.260
+Too little time to do a live demo, so I recorded
+
+00:00:28.260 --> 00:00:28.720
+it.
+
+00:00:28.720 --> 00:00:30.800
+I'm going to start it here.
+
+00:00:30.800 --> 00:00:35.270
+And so the cast of characters, this is the Solidarity
+
+00:00:35.270 --> 00:00:36.860
+Social account.
+
+00:00:36.860 --> 00:00:42.950
+This is a user that is on bSkySocial
+
+00:00:42.950 --> 00:00:44.880
+, the regular network.
+
+00:00:44.880 --> 00:00:52.530
+And the first part is that-- keep an eye on this
+
+00:00:52.530 --> 00:00:53.800
+list.
+
+00:00:53.800 --> 00:00:56.120
+These are the six parts I'm going to go through.
+
+00:00:56.120 --> 00:00:57.440
+The first part is the pre-boarding.
+
+00:00:57.440 --> 00:01:00.240
+How does somebody get an invite code?
+
+00:01:00.240 --> 00:01:01.920
+So I'm going to start with that.
+
+00:01:01.920 --> 00:01:05.540
+KnowKings is going to get an invite code here.
+
+00:01:05.540 --> 00:01:10.820
+And the way it works is basically through a request.
+
+00:01:10.820 --> 00:01:16.760
+And what you saw here is that the first message from the
+
+00:01:16.800 --> 00:01:22.020
+Solidarity Social, which goes through the regular BlueSky
+
+00:01:22.110 --> 00:01:25.620
+DMs, there's a little message that is automatically app
+
+00:01:25.620 --> 00:01:30.340
+ended asking that user to request an invite code.
+
+00:01:30.340 --> 00:01:35.380
+And so this person requests an invite code, and Solidarity
+
+00:01:35.380 --> 00:01:41.820
+Social then will go to the request code generator section and generates
+
+00:01:41.820 --> 00:01:46.780
+an invite code, which they can then DM over to the
+
+00:01:46.780 --> 00:01:48.740
+other user.
+
+00:01:48.740 --> 00:01:53.650
+And that user is now going to go to the Solidarity
+
+00:01:53.750 --> 00:01:57.420
+app and start the process of migrating their account.
+
+00:01:57.420 --> 00:02:00.680
+And so I'll just give a shout-out here to
+
+00:02:00.680 --> 00:02:06.140
+Eurosky's tool EU hall, which we modified and are
+
+00:02:06.140 --> 00:02:07.180
+using over here.
+
+00:02:07.180 --> 00:02:11.230
+And they basically log in to their existing B-Sky
+
+00:02:11.740 --> 00:02:15.780
+Social account, start the process of migration, they put in
+
+00:02:15.780 --> 00:02:18.600
+their invite code when it's asked over here.
+
+00:02:18.600 --> 00:02:23.340
+They first select the destination server, Solidar, put in
+
+00:02:23.340 --> 00:02:28.540
+their invite code, and select the new handle.
+
+00:02:28.540 --> 00:02:30.610
+In this case, we kept the handle the same at Solid
+
+00:02:30.610 --> 00:02:33.980
+arity Social, and they're at this step, and they
+
+00:02:34.170 --> 00:02:35.460
+'re going to kick off the process.
+
+00:02:35.480 --> 00:02:38.430
+There's a couple of email codes that they will receive that
+
+00:02:38.430 --> 00:02:40.100
+they're going to enter here.
+
+00:02:40.100 --> 00:02:48.190
+And as they go through-- you're going to see that
+
+00:02:48.190 --> 00:02:50.720
+, that's the second one for the PLC directory update
+
+00:02:50.720 --> 00:02:50.980
+.
+
+00:02:50.980 --> 00:02:55.700
+And then they are going to-- that's success.
+
+00:02:55.700 --> 00:02:57.020
+So they have now moved.
+
+00:02:57.020 --> 00:03:03.960
+And so now the NoKings is going to log in
+
+00:03:04.600 --> 00:03:07.580
+into the Solidar app using these new credentials.
+
+00:03:10.100 --> 00:03:18.060
+And so they select the migrating account option.
+
+00:03:18.060 --> 00:03:22.290
+And just over here, let me pause to say that we
+
+00:03:22.630 --> 00:03:27.180
+need to set up a Matrix account for them.
+
+00:03:27.180 --> 00:03:29.210
+So they don't know it's a Matrix account, except
+
+00:03:29.210 --> 00:03:30.860
+, you know, we tell them, "Do you want
+
+00:03:30.860 --> 00:03:33.750
+to do the default option?" So this is a Matrix server
+
+00:03:33.750 --> 00:03:36.860
+that is run by the Matrix Foundation based in the EU.
+
+00:03:36.860 --> 00:03:40.230
+Or they can actually bring in their own Matrix home server if
+
+00:03:40.230 --> 00:03:41.180
+they prefer.
+
+00:03:41.180 --> 00:03:44.820
+We expect most people will just use the default option.
+
+00:03:49.380 --> 00:03:56.400
+And so there's some stuff called recovery keys and so on
+
+00:03:56.520 --> 00:03:57.940
+for Matrix, which they don't need to worry about.
+
+00:03:57.940 --> 00:03:59.140
+We manage all of that.
+
+00:03:59.140 --> 00:04:03.900
+They select-- this is just the onboarding process and they
+
+00:04:03.900 --> 00:04:07.660
+are going to have their account.
+
+00:04:07.660 --> 00:04:11.100
+And so what I want to show you here is that--
+
+00:04:11.100 --> 00:04:19.320
+just going back here-- that what they saw
+
+00:04:19.360 --> 00:04:23.040
+in their chat, I think it's not showing it clearly
+
+00:04:23.110 --> 00:04:25.110
+here, but there's two sections in their chat, the
+
+00:04:25.110 --> 00:04:26.350
+secure and the insecure.
+
+00:04:26.460 --> 00:04:29.770
+And so now they are actually going to send a message using
+
+00:04:29.770 --> 00:04:38.040
+the secure chat to the user that sent
+
+00:04:38.040 --> 00:04:40.680
+them the invite code.
+
+00:04:40.780 --> 00:04:41.780
+So that's what you're seeing.
+
+00:04:41.780 --> 00:04:45.500
+So these messages are the secure chat going to the other user
+
+00:04:45.500 --> 00:04:45.780
+.
+
+00:04:45.780 --> 00:04:49.280
+And one of the things they can do is actually access this
+
+00:04:49.280 --> 00:04:52.260
+secure chat through other Matrix clients.
+
+00:04:52.260 --> 00:04:53.660
+So that's what I'm going to show.
+
+00:04:53.660 --> 00:04:55.640
+They can bring up a QR code, log in, you
+
+00:04:55.640 --> 00:05:00.100
+know, through their phone-- you don't see that part
+
+00:05:00.100 --> 00:05:01.850
+here, but that's what's going on.
+
+00:05:02.100 --> 00:05:10.020
+And-- oh, it's not moving.
+
+00:05:10.020 --> 00:05:11.220
+I'm sorry, yeah.
+
+00:05:11.220 --> 00:05:14.930
+And see, that's the phone that's logging in over
+
+00:05:14.930 --> 00:05:15.740
+there.
+
+00:05:15.740 --> 00:05:19.140
+So they're logging in into the element client on the phone
+
+00:05:19.140 --> 00:05:19.420
+.
+
+00:05:19.420 --> 00:05:21.660
+And so this is one of the advantages of doing this.
+
+00:05:21.660 --> 00:05:25.210
+They can access their DMs through other tools, which actually
+
+00:05:25.210 --> 00:05:26.100
+can be quite useful.
+
+00:05:26.100 --> 00:05:28.580
+So I can answer some questions about that.
+
+00:05:28.580 --> 00:05:31.520
+And the second part is they can actually log in on the
+
+00:05:31.520 --> 00:05:33.620
+desktop element client as well.
+
+00:05:33.620 --> 00:05:37.940
+They verify again with their phone, which is now verified.
+
+00:05:37.940 --> 00:05:44.100
+And now you'll see that, you know, there's
+
+00:05:44.100 --> 00:05:46.100
+a message sent from that other client.
+
+00:05:46.100 --> 00:05:49.090
+And it's now visible that that last message I can reply
+
+00:05:49.090 --> 00:05:51.540
+from there is from the element client.
+
+00:05:51.620 --> 00:05:54.500
+So now the last part is just I want to show you
+
+00:05:54.500 --> 00:06:00.420
+that it's as easy for the user to actually move back
+
+00:06:00.420 --> 00:06:01.450
+to BeskySocial.
+
+00:06:01.460 --> 00:06:03.680
+We want to make that easy so that people are, you
+
+00:06:03.680 --> 00:06:06.880
+know, confident in experimenting with this, and coming to our
+
+00:06:06.880 --> 00:06:08.260
+server, and then going back.
+
+00:06:08.260 --> 00:06:09.860
+So that's what this is showing.
+
+00:06:09.860 --> 00:06:12.820
+It's actually going to take their account, you know,
+
+00:06:12.820 --> 00:06:13.940
+back to BeskySocial.
+
+00:06:13.940 --> 00:06:19.730
+So that's the what.
+
+00:06:19.780 --> 00:06:22.980
+And I'm happy to take some questions.
+
+00:06:22.980 --> 00:06:26.310
+But overall, you know, our goal is that, you
+
+00:06:26.310 --> 00:06:31.640
+know, there are people here specifically, for example, the
+
+00:06:31.640 --> 00:06:33.700
+people organizing the No Kings protest, etc.
+
+00:06:33.700 --> 00:06:35.620
+Today, a lot of them are on Blue Sky.
+
+00:06:35.620 --> 00:06:39.140
+They don't have private DMs that, you know,
+
+00:06:39.140 --> 00:06:42.180
+they might be interested in that because they want to secure their
+
+00:06:42.180 --> 00:06:43.220
+communications.
+
+00:06:43.220 --> 00:06:46.820
+But in addition, because they need to actually migrate the account
+
+00:06:46.820 --> 00:06:48.020
+and we host it for them.
+
+00:06:49.460 --> 00:06:52.420
+It means that, you know, we can also offer them
+
+00:06:52.420 --> 00:06:54.360
+more censorship resilience.
+
+00:06:54.420 --> 00:06:57.380
+One of the ways we do that is to make it very
+
+00:06:57.380 --> 00:07:00.260
+easy for them to migrate their account to another hoster,
+
+00:07:00.260 --> 00:07:03.160
+perhaps in a different jurisdiction that can help them, you know
+
+00:07:03.160 --> 00:07:04.100
+, have better protection.
+
+00:07:04.660 --> 00:07:06.660
+So happy to take a few questions.
+
+00:07:11.220 --> 00:07:20.740
+No,
+
+00:07:20.740 --> 00:07:21.440
+no, it's the same.
+
+00:07:21.460 --> 00:07:24.060
+Yeah, I mean, later you can change it if you
+
+00:07:24.060 --> 00:07:24.340
+want.
+
+00:07:24.340 --> 00:07:26.870
+But when it goes initially, you go back to your old
+
+00:07:26.870 --> 00:07:27.300
+handle.
+
+00:07:27.300 --> 00:07:28.310
+Because blue, bsky.
+
+00:07:28.310 --> 00:07:29.380
+social reserves it.
+
+00:07:29.380 --> 00:07:30.340
+We do the same for them.
+
+00:07:30.340 --> 00:07:32.210
+They can actually do another trip back to us and we'll
+
+00:07:32.210 --> 00:07:33.140
+keep their handle for them.
+
+00:07:33.140 --> 00:07:33.700
+Yeah.
+
+00:07:33.700 --> 00:07:35.220
+Yes.
+
+00:07:35.220 --> 00:07:42.840
+Okay, so we have some experience with Matrix because, you
+
+00:07:42.840 --> 00:07:45.440
+know, I have a software company where we're building real
+
+00:07:45.440 --> 00:07:49.380
+estate related apps using the Matrix SDK, etc.
+
+00:07:49.380 --> 00:07:51.860
+So we had some many years of experience with that.
+
+00:07:51.860 --> 00:07:54.450
+So that's kind of the blue sky part was the new
+
+00:07:54.450 --> 00:07:55.300
+part for us.
+
+00:07:55.300 --> 00:07:58.130
+But even there, I think we pretty much we have React
+
+00:07:58.130 --> 00:08:00.900
+developers and, you know, that's all we really needed
+
+00:08:00.900 --> 00:08:01.380
+to know.
+
+00:08:01.380 --> 00:08:02.180
+We don't know.
+
+00:08:02.180 --> 00:08:03.810
+We didn't have to get too deep into AT Proto
+
+00:08:03.810 --> 00:08:04.020
+.
+
+00:08:04.020 --> 00:08:06.660
+Yes.
+
+00:08:06.660 --> 00:08:14.730
+There's no connection between the blue sky server and the Matrix
+
+00:08:14.730 --> 00:08:15.060
+server.
+
+00:08:15.060 --> 00:08:16.260
+They're just two different servers.
+
+00:08:17.220 --> 00:08:21.220
+They're coming together in this React social app.
+
+00:08:21.220 --> 00:08:24.290
+So, you know, what you see is they don't
+
+00:08:24.290 --> 00:08:25.700
+know about each other.
+
+00:08:25.700 --> 00:08:26.900
+Yeah.
+
+00:08:26.900 --> 00:08:31.210
+So that really helps with, you know, being able to
+
+00:08:31.210 --> 00:08:33.300
+use all the other Matrix stuff because there's no change.
+
+00:08:33.300 --> 00:08:35.140
+They can log in with other clients.
+
+00:08:35.140 --> 00:08:35.780
+Yes, go ahead.
+
+00:08:35.780 --> 00:08:42.100
+Yeah, yeah, yeah.
+
+00:08:42.100 --> 00:08:44.180
+So, but they'll have only one credential.
+
+00:08:44.180 --> 00:08:47.220
+We generate the Matrix account for them in the background.
+
+00:08:47.220 --> 00:08:50.180
+You know, what is the name, managing the credentials.
+
+00:08:50.180 --> 00:08:51.800
+Even, you know, in Matrix, there's a second
+
+00:08:51.800 --> 00:08:52.660
+more than a password.
+
+00:08:52.660 --> 00:08:54.500
+There's even a recovery key.
+
+00:08:54.500 --> 00:08:56.240
+We do all of that in the background so they don't
+
+00:08:56.240 --> 00:08:57.060
+know anything about it.
+
+00:08:57.060 --> 00:08:58.580
+They just remember username, password.
+
+00:08:58.580 --> 00:08:58.980
+That's it.
+
+00:08:58.980 --> 00:09:00.820
+As they do with blue sky.
+
+00:09:00.820 --> 00:09:08.280
+So the way we do it, you know, the secure
+
+00:09:08.400 --> 00:09:09.860
+way to do it is what I showed over there.
+
+00:09:10.500 --> 00:09:13.680
+Show the QR code, and that logs you in into your
+
+00:09:13.680 --> 00:09:14.740
+mobile app.
+
+00:09:14.740 --> 00:09:16.900
+And then after that, if you want to go into the
+
+00:09:16.900 --> 00:09:20.700
+desktop app, you know, you actually, again, you
+
+00:09:20.700 --> 00:09:21.540
+'re already logged in.
+
+00:09:21.540 --> 00:09:24.650
+So if you open another browser tab, you will actually go
+
+00:09:24.650 --> 00:09:27.700
+directly into the app, but you still need to verify,
+
+00:09:27.700 --> 00:09:30.420
+and you do the verification against the phone.
+
+00:09:30.420 --> 00:09:32.580
+So, yeah, the idea is we don't show them
+
+00:09:32.580 --> 00:09:35.110
+the key, but we allow them to basically do what's
+
+00:09:35.110 --> 00:09:35.780
+needed.
+
+00:09:35.780 --> 00:09:41.220
+Thank you very much.
+
+00:09:41.220 --> 00:09:41.620
+Okay.
+
+00:09:41.620 --> 00:09:42.580
+Thank you.

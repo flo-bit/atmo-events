@@ -20,7 +20,13 @@
 		"env:generate-secret": "npx tsx src/lib/atproto/scripts/generate-secret.ts",
 		"env:setup-dev": "npx tsx src/lib/atproto/scripts/setup-dev.ts",
 		"tunnel": "npx tsx src/lib/atproto/scripts/tunnel.ts",
-		"lexicons": "lex-cli pull && lex-cli generate"
+		"lexicons": "lex-cli pull && lex-cli generate",
+		"vods": "tsx scripts/vod-processing/pipeline.ts",
+		"vods:fetch": "tsx scripts/vod-processing/fetch-events.ts",
+		"vods:download": "tsx scripts/vod-processing/download-audio.ts",
+		"vods:transcribe": "tsx scripts/vod-processing/transcribe.ts",
+		"vods:summarize": "tsx scripts/vod-processing/summarize.ts",
+		"vods:vtt": "tsx scripts/vod-processing/generate-vtt.ts"
 	},
 	"devDependencies": {
 		"@atcute/atproto": "^3.1.10",

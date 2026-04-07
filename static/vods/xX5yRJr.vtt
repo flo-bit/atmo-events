@@ -1,0 +1,742 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.750
+...
+
+00:00:01.750 --> 00:00:06.040
+in a moment, but it's about a project called Sky
+
+00:00:06.040 --> 00:00:06.380
+Limit.
+
+00:00:06.380 --> 00:00:09.040
+I started in December, and you can try it live,
+
+00:00:09.120 --> 00:00:10.670
+if you like, at skylimit.
+
+00:00:10.940 --> 00:00:12.320
+dev, and there's my handle.
+
+00:00:12.320 --> 00:00:16.580
+There's an article that appeared in New York Times just like
+
+00:00:16.890 --> 00:00:19.620
+three days ago, "The Terrible Cost of Infinite Scroll
+
+00:00:19.620 --> 00:00:23.180
+." It was in response to the meta and YouTube judgment,
+
+00:00:23.180 --> 00:00:25.660
+and I'm a scientist, and I don't like the
+
+00:00:25.660 --> 00:00:28.420
+infinite scroll, and I interact with people who are not very
+
+00:00:28.450 --> 00:00:31.080
+popular by likes, but I don't see their posts,
+
+00:00:31.080 --> 00:00:31.600
+okay?
+
+00:00:31.600 --> 00:00:37.160
+So I have a subtype post that describes it.
+
+00:00:37.160 --> 00:00:39.260
+The subtitle there is, "What if your social media
+
+00:00:39.260 --> 00:00:41.940
+feed work like a newspaper instead of a slot machine, where
+
+00:00:41.940 --> 00:00:44.700
+occasionally you get good posts, but you don't know when
+
+00:00:44.820 --> 00:00:45.900
+you're going to get it?
+
+00:00:45.900 --> 00:00:48.030
+A newspaper, I like the newspaper, I'm an old
+
+00:00:48.030 --> 00:00:51.160
+-fashioned guy, I like sections, I read comics,
+
+00:00:51.160 --> 00:00:54.240
+and can I reproduce that in Blue Sky?" And actually,
+
+00:00:54.240 --> 00:00:56.960
+you can, so that's the point of the talk.
+
+00:00:56.960 --> 00:01:00.270
+So in the post, I wrote that if more social apps
+
+00:01:00.270 --> 00:01:03.800
+are built around infinite scrolling, Skylimit, as the
+
+00:01:03.800 --> 00:01:05.720
+name suggests, is built around finite scrolling.
+
+00:01:05.720 --> 00:01:08.540
+I wrote this on March 25th, and the newspaper article
+
+00:01:08.570 --> 00:01:11.730
+came on 26th, so I felt very good about that
+
+00:01:11.730 --> 00:01:12.160
+.
+
+00:01:12.160 --> 00:01:15.620
+But finite scrolling can get you a long way.
+
+00:01:15.620 --> 00:01:17.560
+This is what the app looked like.
+
+00:01:17.560 --> 00:01:21.400
+It's basically a clone of Blue Sky, and the various
+
+00:01:21.520 --> 00:01:23.860
+things that look similar.
+
+00:01:23.860 --> 00:01:26.620
+But I'll show you the things that look different.
+
+00:01:26.620 --> 00:01:29.620
+The first thing you'll notice is that it says how many
+
+00:01:29.760 --> 00:01:32.960
+posts I received per day, and how many it shows.
+
+00:01:32.960 --> 00:01:36.140
+So I received about 1,300, it shows 600,
+
+00:01:36.140 --> 00:01:37.380
+and 19 edited.
+
+00:01:37.380 --> 00:01:40.480
+We'll come to the edited in a moment.
+
+00:01:40.520 --> 00:01:41.380
+So that's new.
+
+00:01:41.380 --> 00:01:44.380
+The other thing that's new is that it shows a number
+
+00:01:44.520 --> 00:01:45.220
+and a time.
+
+00:01:45.260 --> 00:01:49.020
+So every post is numbered starting from one, at midnight.
+
+00:01:49.020 --> 00:01:50.700
+So you know how much you're eating.
+
+00:01:50.700 --> 00:01:51.900
+It's like a calorie counter.
+
+00:01:51.900 --> 00:01:53.300
+My calorie count is 600.
+
+00:01:53.300 --> 00:01:54.900
+I know how much I'm eating.
+
+00:01:54.900 --> 00:01:55.900
+Okay?
+
+00:01:55.900 --> 00:01:58.450
+So every day I know how many posts I'm reading,
+
+00:01:58.650 --> 00:02:01.300
+how many I left, roughly, statistical.
+
+00:02:01.300 --> 00:02:02.780
+On weekends, it's actually less.
+
+00:02:02.780 --> 00:02:04.100
+On weekdays, it's more.
+
+00:02:04.100 --> 00:02:06.460
+It's a probabilistic curation.
+
+00:02:06.460 --> 00:02:10.200
+So I know exactly what I'm reading, and the other
+
+00:02:10.200 --> 00:02:13.260
+thing you can see is -- now I'm going to introduce
+
+00:02:13.260 --> 00:02:13.760
+myself.
+
+00:02:13.760 --> 00:02:17.330
+So if you go to my profile on Sky Limit,
+
+00:02:17.330 --> 00:02:23.130
+so I'm a climate scientist, and I have 600 followers
+
+00:02:23.130 --> 00:02:23.360
+.
+
+00:02:23.480 --> 00:02:26.300
+How do I limit the number of posts I see?
+
+00:02:26.300 --> 00:02:30.560
+If I'm going to see 600 posts a day, how
+
+00:02:30.800 --> 00:02:33.040
+do I limit that, okay?
+
+00:02:33.040 --> 00:02:34.040
+So this is also from the app.
+
+00:02:34.040 --> 00:02:37.040
+The app has a live graph, which shows for each follow
+
+00:02:37.180 --> 00:02:39.310
+ee, there are 600 of them.
+
+00:02:39.360 --> 00:02:40.700
+Only the active ones are shown.
+
+00:02:40.700 --> 00:02:42.660
+That's why it doesn't go up to 600.
+
+00:02:42.660 --> 00:02:44.890
+How many of their posts is a logarithmic scale,
+
+00:02:44.890 --> 00:02:47.920
+and this updates every two hours in your app.
+
+00:02:47.980 --> 00:02:50.360
+And I was very surprised when I saw this, because I
+
+00:02:50.360 --> 00:02:51.820
+had no idea what I was seeing.
+
+00:02:51.960 --> 00:02:56.530
+The yellow is how many people are posting, and the green
+
+00:02:56.530 --> 00:02:58.850
+is how much the app shows.
+
+00:02:58.860 --> 00:03:00.920
+And the red is a cap it posts.
+
+00:03:00.920 --> 00:03:02.240
+I call it the Sky Limit number.
+
+00:03:02.240 --> 00:03:03.240
+It's about 3.
+
+00:03:03.240 --> 00:03:04.100
+It's 2.
+
+00:03:04.100 --> 00:03:04.640
+7.
+
+00:03:04.640 --> 00:03:08.210
+It basically takes the area here and caps it and makes that
+
+00:03:08.210 --> 00:03:09.570
+600, okay?
+
+00:03:09.620 --> 00:03:11.480
+So if you're a quiet poster, and I'm a
+
+00:03:11.480 --> 00:03:13.860
+quiet poster, all your posts will be shown.
+
+00:03:13.860 --> 00:03:16.740
+So I wrote the app for quiet posters.
+
+00:03:16.740 --> 00:03:19.240
+But if you're a prolific poster, you'll only
+
+00:03:19.500 --> 00:03:20.300
+pick this many.
+
+00:03:20.300 --> 00:03:22.700
+And beyond that, it's probabilistic, right?
+
+00:03:22.700 --> 00:03:25.840
+And it automatically adjusts every two hours.
+
+00:03:25.860 --> 00:03:27.520
+Everything is done in the browser in IndexedDB.
+
+00:03:27.520 --> 00:03:28.520
+There's no server.
+
+00:03:28.520 --> 00:03:30.740
+This runs on GitHub pages.
+
+00:03:30.740 --> 00:03:33.600
+So 100 million people could use it tomorrow and still run if
+
+00:03:33.610 --> 00:03:35.420
+GitHub serves it or CloudFest serves it.
+
+00:03:35.420 --> 00:03:37.640
+So it's completely scalable.
+
+00:03:37.640 --> 00:03:42.400
+And so this number can vary depending on your situation.
+
+00:03:42.400 --> 00:03:44.660
+Let's see who those folks are.
+
+00:03:44.660 --> 00:03:46.420
+So this is the Sky Limit number.
+
+00:03:46.420 --> 00:03:50.140
+The other thing that it shows you in the same page as
+
+00:03:50.140 --> 00:03:52.050
+that, it has a sortable table.
+
+00:03:52.140 --> 00:03:54.300
+You can sort it by each column.
+
+00:03:54.300 --> 00:03:58.110
+How many posts my followers post, how many it allows,
+
+00:03:58.110 --> 00:04:00.640
+what the fraction that's shown.
+
+00:04:00.640 --> 00:04:02.760
+I initialized this in three days.
+
+00:04:02.760 --> 00:04:06.500
+So 80 protocol posting 54 posts per day.
+
+00:04:06.500 --> 00:04:10.020
+I'm seeing 6% out there because of the cap.
+
+00:04:10.020 --> 00:04:12.610
+So you can go down and you can check every two hours
+
+00:04:12.860 --> 00:04:14.380
+this gets updated in your app.
+
+00:04:14.380 --> 00:04:17.640
+So you get a complete view of who's posting what.
+
+00:04:17.640 --> 00:04:20.340
+And you can sort it by various columns, like it tracks
+
+00:04:20.490 --> 00:04:21.160
+engagement.
+
+00:04:21.160 --> 00:04:23.520
+You can see who's the most engaged with.
+
+00:04:23.520 --> 00:04:24.520
+All of that.
+
+00:04:24.520 --> 00:04:27.980
+And these are the amplification factors.
+
+00:04:27.980 --> 00:04:30.820
+So the normal, it gives you a three limit, but
+
+00:04:30.830 --> 00:04:33.890
+you can make it six or you can amplify it if you
+
+00:04:33.890 --> 00:04:34.680
+wish.
+
+00:04:34.680 --> 00:04:36.600
+And if you click on the number you saw, you can
+
+00:04:36.600 --> 00:04:37.340
+click on it.
+
+00:04:37.340 --> 00:04:38.980
+You can amplify the factors.
+
+00:04:38.980 --> 00:04:42.520
+So you have complete control over how many posts are shown.
+
+00:04:42.520 --> 00:04:48.030
+So that, back here, the other thing that you can
+
+00:04:48.030 --> 00:04:51.500
+see here, the sky limit number.
+
+00:04:51.500 --> 00:04:54.150
+I put it in my profile, and I'm hoping everybody
+
+00:04:54.340 --> 00:04:55.780
+puts it in their profile.
+
+00:04:55.780 --> 00:04:58.560
+And there's some really cool things that come out of this
+
+00:04:58.630 --> 00:04:58.780
+.
+
+00:04:58.780 --> 00:04:59.780
+Okay.
+
+00:04:59.780 --> 00:05:02.780
+So one of the advantages of being a last talk here is
+
+00:05:02.920 --> 00:05:05.580
+that you know what other people are talking about.
+
+00:05:05.580 --> 00:05:09.420
+And one of the things journalists pointed out that opaque AI algorithms
+
+00:05:09.620 --> 00:05:12.560
+, they don't know who they're going to reach.
+
+00:05:12.560 --> 00:05:14.560
+I don't post very much.
+
+00:05:14.560 --> 00:05:17.040
+Post something, I have no idea who will see it.
+
+00:05:17.040 --> 00:05:20.780
+But if my followers are using sky limit, I can make
+
+00:05:20.780 --> 00:05:22.440
+these assertions.
+
+00:05:22.440 --> 00:05:25.770
+If your daily posting average is less than my 2.
+
+00:05:25.770 --> 00:05:28.680
+7 number, I will always see your post.
+
+00:05:28.680 --> 00:05:30.960
+That's guaranteed.
+
+00:05:30.960 --> 00:05:32.400
+And there's a priority mechanism.
+
+00:05:32.400 --> 00:05:34.540
+So it can divide posts into priority and regular.
+
+00:05:34.540 --> 00:05:38.800
+And by default, anything with the hashtag is considered priority.
+
+00:05:38.800 --> 00:05:42.020
+But the user can actually configure it.
+
+00:05:42.020 --> 00:05:43.520
+But it's not a convention in place.
+
+00:05:43.520 --> 00:05:46.410
+So right now, it just takes any hash post as priority
+
+00:05:46.410 --> 00:05:46.660
+.
+
+00:05:46.680 --> 00:05:49.680
+If your priority posting posts are less than average than my sky
+
+00:05:49.820 --> 00:05:53.340
+limit number, it will always be shown.
+
+00:05:53.340 --> 00:05:55.520
+And posts matching addition criteria are always shown.
+
+00:05:55.520 --> 00:05:56.520
+I'll talk about additions in a moment.
+
+00:05:56.520 --> 00:05:58.420
+But this gives guarantees.
+
+00:05:58.420 --> 00:06:01.380
+If my followers use sky limit, I can tell exactly how
+
+00:06:01.380 --> 00:06:03.270
+many people will see my post.
+
+00:06:03.280 --> 00:06:04.620
+And they see a limited number.
+
+00:06:04.620 --> 00:06:06.180
+And it will actually tell them if they haven't read my
+
+00:06:06.180 --> 00:06:06.520
+post.
+
+00:06:06.520 --> 00:06:08.520
+It counts the posts that haven't been read.
+
+00:06:08.520 --> 00:06:10.800
+It says you haven't read this many posts.
+
+00:06:10.800 --> 00:06:12.320
+And I'm okay with that number because it's a fixed
+
+00:06:12.320 --> 00:06:13.020
+number per day.
+
+00:06:13.020 --> 00:06:16.860
+If it's too much, I'll cut it down.
+
+00:06:17.120 --> 00:06:20.800
+So the infinite linear feed is just a UI construct.
+
+00:06:20.800 --> 00:06:23.060
+There's so much talk about custom feeds.
+
+00:06:23.060 --> 00:06:24.840
+But you can do more than custom feeds.
+
+00:06:24.840 --> 00:06:26.620
+You have to think outside the line of the feed, and
+
+00:06:26.620 --> 00:06:31.040
+I'll talk about additions, which is two-dimensional.
+
+00:06:31.040 --> 00:06:33.520
+So I love newspapers, as I said.
+
+00:06:33.520 --> 00:06:37.940
+So what you can do here is another tab called Periodic
+
+00:06:38.090 --> 00:06:39.140
+Editions.
+
+00:06:39.140 --> 00:06:40.500
+You can configure the additions.
+
+00:06:40.500 --> 00:06:42.540
+So you can have many additions a day.
+
+00:06:42.540 --> 00:06:45.140
+You can decide who your columnists are and what their sections
+
+00:06:45.290 --> 00:06:45.500
+are.
+
+00:06:45.500 --> 00:06:48.000
+It's basically a markdown file.
+
+00:06:48.000 --> 00:06:51.100
+You can see all their posts or posts which match their Subst
+
+00:06:51.140 --> 00:06:51.790
+ack URL.
+
+00:06:51.800 --> 00:06:54.500
+There are people I follow on Substack and they post about
+
+00:06:54.610 --> 00:06:54.800
+it.
+
+00:06:54.860 --> 00:06:55.860
+I want to see it.
+
+00:06:55.860 --> 00:06:56.860
+I don't want to miss it.
+
+00:06:56.860 --> 00:07:00.320
+It will automatically create that fixed times of the day.
+
+00:07:00.320 --> 00:07:01.480
+And this is what an addition looks like.
+
+00:07:01.480 --> 00:07:03.480
+So I like comics.
+
+00:07:03.480 --> 00:07:05.720
+So I follow XKCD, and it will only appear
+
+00:07:05.720 --> 00:07:06.420
+at noon.
+
+00:07:06.420 --> 00:07:09.070
+It could have been posted yesterday, but I'll see it
+
+00:07:09.190 --> 00:07:09.680
+at noon.
+
+00:07:09.680 --> 00:07:11.600
+And I don't need to see it immediately.
+
+00:07:11.600 --> 00:07:12.600
+Okay.
+
+00:07:12.600 --> 00:07:16.440
+It doesn't clutter up my post.
+
+00:07:16.540 --> 00:07:19.290
+So you can collapse it so I have blue sky, and
+
+00:07:19.390 --> 00:07:21.640
+you can see blue sky as you want it.
+
+00:07:21.640 --> 00:07:23.310
+And the other thing it tells you here, I don't
+
+00:07:23.310 --> 00:07:25.260
+think you can see it, it says how many posts are
+
+00:07:25.260 --> 00:07:26.180
+unread.
+
+00:07:26.180 --> 00:07:29.990
+So you know if you read it, you don't have
+
+00:07:29.990 --> 00:07:31.800
+to go back to it.
+
+00:07:31.800 --> 00:07:34.260
+So just parting thoughts.
+
+00:07:34.260 --> 00:07:35.520
+Don't think of a linear feed.
+
+00:07:35.520 --> 00:07:36.880
+Think of multiple options.
+
+00:07:36.880 --> 00:07:40.270
+We had some talks earlier today at the Anisoda.
+
+00:07:40.280 --> 00:07:42.940
+You can have newspapers in blue sky.
+
+00:07:42.940 --> 00:07:45.140
+It's already working.
+
+00:07:45.140 --> 00:07:46.400
+And it's a very simple format.
+
+00:07:46.400 --> 00:07:48.620
+You can do that.
+
+00:07:48.620 --> 00:07:51.600
+And don't let your social media diet became an opaque AI
+
+00:07:51.600 --> 00:07:52.460
+construct.
+
+00:07:52.460 --> 00:07:53.460
+I like AI.
+
+00:07:53.460 --> 00:07:54.460
+I used AI to make this.
+
+00:07:54.460 --> 00:07:57.020
+But I like to verify the answers.
+
+00:07:57.020 --> 00:07:59.690
+So if you're using Addy to generate things, I
+
+00:07:59.860 --> 00:08:01.600
+would want to know what it is.
+
+00:08:01.600 --> 00:08:04.600
+I would want it to generate my digital layout, and look
+
+00:08:04.740 --> 00:08:05.920
+at it, then use it.
+
+00:08:05.920 --> 00:08:08.580
+So I think AI is helpful, but you want to check
+
+00:08:08.720 --> 00:08:10.850
+, and you want it to be transparent.
+
+00:08:10.920 --> 00:08:14.210
+But the nice thing about SkyLimit, it can
+
+00:08:14.210 --> 00:08:18.670
+limit your views, and transparently rely on human followers
+
+00:08:18.670 --> 00:08:20.220
+to do a curation for you.
+
+00:08:20.220 --> 00:08:23.160
+I follow people because I want to see their posts.
+
+00:08:23.160 --> 00:08:25.720
+And this ensures that if you don't post too much,
+
+00:08:25.720 --> 00:08:27.660
+I will definitely see your posts.
+
+00:08:27.660 --> 00:08:31.500
+And actually the one special hashtag which you'd recognize is called
+
+00:08:31.620 --> 00:08:32.380
+#weekly.
+
+00:08:32.380 --> 00:08:35.380
+Any post that has #weekly will always be shown,
+
+00:08:35.520 --> 00:08:39.030
+but it will only be done once a week because it tracks
+
+00:08:39.030 --> 00:08:39.720
+that.
+
+00:08:39.720 --> 00:08:43.050
+That way I can guarantee that if you post something, everybody
+
+00:08:43.050 --> 00:08:45.560
+who uses SkyLimit will see it.
+
+00:08:45.680 --> 00:08:49.490
+So if you're someone who posts a weekly column, you
+
+00:08:49.490 --> 00:08:52.340
+can guarantee that it will be seen.
+
+00:08:52.340 --> 00:08:54.630
+I did manage good times, so I'm going to show
+
+00:08:54.630 --> 00:08:55.960
+a few other features.
+
+00:08:55.960 --> 00:08:59.260
+Oh, you can't see it here.
+
+00:08:59.260 --> 00:09:01.260
+The colors are washed out.
+
+00:09:01.260 --> 00:09:06.740
+But when a post is read, the paper will actually age
+
+00:09:06.740 --> 00:09:07.100
+.
+
+00:09:07.220 --> 00:09:09.180
+I put it on my computer.
+
+00:09:09.180 --> 00:09:11.180
+So the paper looks old after 15 minutes.
+
+00:09:11.180 --> 00:09:12.180
+It tracks views.
+
+00:09:12.180 --> 00:09:14.620
+So if you're scrolling down and you want to have read
+
+00:09:14.620 --> 00:09:16.780
+the support, you'll see it immediately.
+
+00:09:16.780 --> 00:09:23.080
+And finally, why I'm writing this, because I don
+
+00:09:23.080 --> 00:09:27.160
+'t know if you've seen Wall-E.
+
+00:09:27.160 --> 00:09:29.240
+This is what I'm afraid of, that you're sitting
+
+00:09:29.240 --> 00:09:33.380
+and watching your infinite doom scroll created by AI, and I
+
+00:09:33.380 --> 00:09:35.480
+don't want that feature.
+
+00:09:35.480 --> 00:09:37.480
+I want to control my views.
+
+00:09:37.480 --> 00:09:38.480
+So I'll leave you with those thoughts.
+
+00:09:38.480 --> 00:09:40.440
+We have 15 seconds.

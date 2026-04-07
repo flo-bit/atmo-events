@@ -1,0 +1,2335 @@
+WEBVTT
+
+00:00:00.920 --> 00:00:02.090
+OK.
+
+00:00:02.120 --> 00:00:03.610
+So welcome to our talk.
+
+00:00:03.660 --> 00:00:06.160
+We are going to talk about NPMX, a fast
+
+00:00:06.160 --> 00:00:08.850
+modern browser for the NPMX registry.
+
+00:00:08.880 --> 00:00:11.470
+Sewo is going to join later and do more of the
+
+00:00:11.570 --> 00:00:15.050
+atmospheric part of the talk that you're going to be maybe
+
+00:00:15.320 --> 00:00:16.840
+more interested about.
+
+00:00:16.840 --> 00:00:18.160
+And yeah.
+
+00:00:18.300 --> 00:00:23.160
+So Sewo is a software engineer and like an unofficial
+
+00:00:23.160 --> 00:00:24.560
+DevRel for AdProto.
+
+00:00:24.560 --> 00:00:27.690
+And I'm amazed that I'm able to do this talk
+
+00:00:27.760 --> 00:00:28.720
+with her.
+
+00:00:28.720 --> 00:00:32.260
+It is a kind of example that these young people are doing
+
+00:00:32.260 --> 00:00:34.870
+open source in a way that I would have loved to do
+
+00:00:34.880 --> 00:00:36.260
+when I was young.
+
+00:00:36.260 --> 00:00:40.240
+So yeah, really, thank you Sewo.
+
+00:00:40.240 --> 00:00:44.440
+And I'm an open source adventurer lately.
+
+00:00:44.440 --> 00:00:46.680
+I'm a project steward of NPMX together with
+
+00:00:46.680 --> 00:00:47.200
+Daniel.
+
+00:00:47.200 --> 00:00:49.980
+And I'm part of the team of other open source projects
+
+00:00:49.980 --> 00:00:52.280
+that you may have used, like VIT, VT
+
+00:00:52.280 --> 00:00:52.780
+EST.
+
+00:00:52.780 --> 00:00:54.580
+I'm part of the E18E community.
+
+00:00:54.580 --> 00:00:56.210
+We did ELK, a Mastodon client,
+
+00:00:56.210 --> 00:00:57.440
+when we tried to move there.
+
+00:00:57.670 --> 00:01:04.060
+There is a lot of people from our core team here,
+
+00:01:04.060 --> 00:01:05.780
+like Bailey is here.
+
+00:01:05.780 --> 00:01:08.880
+I think Bailey is part of every team in the atmosphere.
+
+00:01:08.880 --> 00:01:12.890
+So thanks, Bailey, for taking care of our data for
+
+00:01:12.890 --> 00:01:15.860
+us and moving it around everywhere.
+
+00:01:15.860 --> 00:01:18.700
+And Willow, I don't know if she's here
+
+00:01:18.700 --> 00:01:18.880
+.
+
+00:01:18.880 --> 00:01:21.550
+But yeah, Willow is very interesting, because when we
+
+00:01:21.750 --> 00:01:25.200
+started NPMX, we saw that other three projects were
+
+00:01:25.200 --> 00:01:26.360
+doing similar things.
+
+00:01:26.360 --> 00:01:30.000
+This happened a lot when you have an idea that is ready
+
+00:01:30.000 --> 00:01:30.240
+.
+
+00:01:30.240 --> 00:01:31.940
+We all share a lot of context.
+
+00:01:31.940 --> 00:01:34.460
+And people start to work in the same thing.
+
+00:01:34.460 --> 00:01:37.220
+And the good thing is that we know each other.
+
+00:01:37.220 --> 00:01:37.770
+We went.
+
+00:01:37.780 --> 00:01:38.760
+We took it.
+
+00:01:38.760 --> 00:01:40.180
+And we decided to work together.
+
+00:01:40.180 --> 00:01:43.450
+And NPMX is here today, because we didn't
+
+00:01:43.450 --> 00:01:47.690
+do four different alternatives to the browser for the npmx
+
+00:01:47.690 --> 00:01:48.030
+.
+
+00:01:48.030 --> 00:01:49.560
+com browser.
+
+00:01:49.560 --> 00:01:51.480
+But we all work together.
+
+00:01:51.480 --> 00:01:53.260
+So thank you, Willow.
+
+00:01:53.260 --> 00:01:56.500
+And James is also here, part also of the core team
+
+00:01:56.500 --> 00:01:56.660
+.
+
+00:01:56.760 --> 00:02:00.150
+And he is leading E18E that I think you may
+
+00:02:00.170 --> 00:02:04.290
+have seen him working on improving the performance of every package in
+
+00:02:04.290 --> 00:02:05.760
+the ecosystem.
+
+00:02:05.760 --> 00:02:09.070
+And the relationship between E18E and the NPMX
+
+00:02:09.140 --> 00:02:12.580
+community is a great example of how we work, not only
+
+00:02:12.580 --> 00:02:14.720
+internally, but also with other communities.
+
+00:02:14.740 --> 00:02:16.910
+And later on, we are going to see a little bit
+
+00:02:16.910 --> 00:02:17.620
+about that.
+
+00:02:17.640 --> 00:02:19.130
+And Daniel say hi.
+
+00:02:19.220 --> 00:02:21.620
+He will have love to be here.
+
+00:02:21.620 --> 00:02:24.110
+And yeah, we wanted to include him, because he has
+
+00:02:24.110 --> 00:02:25.700
+started the project.
+
+00:02:25.700 --> 00:02:29.310
+So for people that are not programmers, when we talk about
+
+00:02:29.310 --> 00:02:32.090
+packages, imagine if we would like to, for the ad
+
+00:02:32.660 --> 00:02:37.840
+protocol, we would like to see the display name.
+
+00:02:37.840 --> 00:02:40.860
+Blue Sky app has a nice public API for it.
+
+00:02:40.860 --> 00:02:43.220
+But we normally don't start from scratch.
+
+00:02:43.220 --> 00:02:46.530
+We use libraries that are distributed as packages.
+
+00:02:46.600 --> 00:02:49.800
+So in JavaScript, we will import it.
+
+00:02:49.800 --> 00:02:52.760
+A client, for example, from adq, from Marie
+
+00:02:52.760 --> 00:02:53.060
+.
+
+00:02:53.060 --> 00:02:57.760
+And we can create a client for that service.
+
+00:02:57.760 --> 00:03:01.860
+And this let us do very comfortable with type it, like
+
+00:03:01.860 --> 00:03:06.810
+functions, and get the display name in an easy way.
+
+00:03:06.860 --> 00:03:10.630
+So packages let us build software collaboratively, and depending on
+
+00:03:10.670 --> 00:03:12.880
+the work of amazing other people.
+
+00:03:12.880 --> 00:03:15.340
+And don't start from scratch.
+
+00:03:15.340 --> 00:03:19.360
+The package registry from the web, like the JavaScript, is
+
+00:03:19.360 --> 00:03:20.140
+NPM.
+
+00:03:20.140 --> 00:03:23.140
+You will do NPM install a client to get this one
+
+00:03:23.140 --> 00:03:25.020
+in your project.
+
+00:03:25.020 --> 00:03:27.900
+And in NPMX, we actually have a dependency on
+
+00:03:27.960 --> 00:03:28.580
+Marie.
+
+00:03:28.640 --> 00:03:30.640
+Like, we are using her libraries.
+
+00:03:30.640 --> 00:03:31.960
+So thanks, Marie.
+
+00:03:32.020 --> 00:03:35.900
+Not only on Marie, but on a lot of really wonderful
+
+00:03:35.900 --> 00:03:37.320
+open source projects.
+
+00:03:37.320 --> 00:03:39.580
+All the beta stack, NACs, Vue,
+
+00:03:39.580 --> 00:03:41.480
+and JS org.
+
+00:03:41.480 --> 00:03:43.640
+Like, there is so many people.
+
+00:03:43.640 --> 00:03:47.350
+We couldn't have built NPMX without this in two
+
+00:03:47.350 --> 00:03:48.280
+months.
+
+00:03:48.280 --> 00:03:51.510
+We are relying on all this, the work of a lot
+
+00:03:51.510 --> 00:03:52.520
+of people.
+
+00:03:52.520 --> 00:03:55.540
+And in the case of NPM, so this is the
+
+00:03:55.540 --> 00:03:57.310
+world largest software registry.
+
+00:03:57.320 --> 00:03:59.460
+This is a graph from, like, Github released
+
+00:03:59.460 --> 00:04:00.630
+it not long ago.
+
+00:04:00.700 --> 00:04:03.390
+If you take into account JavaScript and TypeScript together, it
+
+00:04:03.390 --> 00:04:05.080
+'s like almost double of Python.
+
+00:04:05.080 --> 00:04:11.140
+It is an amazing registry of the work of so many people
+
+00:04:11.260 --> 00:04:11.640
+.
+
+00:04:11.640 --> 00:04:14.820
+And it's a little bit hard to understand, because it
+
+00:04:15.030 --> 00:04:16.640
+consists of three parts.
+
+00:04:16.640 --> 00:04:19.320
+The registry is called NPM and has that logo.
+
+00:04:19.320 --> 00:04:21.640
+The CLI is called NPM and has that logo.
+
+00:04:21.640 --> 00:04:23.840
+And the website is called npmjs.
+
+00:04:23.840 --> 00:04:25.480
+com and has the same logo.
+
+00:04:25.480 --> 00:04:28.000
+So people, when they think about NPM, they think
+
+00:04:28.060 --> 00:04:29.720
+about all the things together.
+
+00:04:29.720 --> 00:04:31.210
+But there are three different parts.
+
+00:04:31.260 --> 00:04:34.300
+Like, the registry where all the tarballs are stored,
+
+00:04:34.300 --> 00:04:36.640
+and they have, like, a public API that you can
+
+00:04:36.640 --> 00:04:37.180
+fetch.
+
+00:04:37.180 --> 00:04:39.450
+The CLI is something, the command line interface that we
+
+00:04:39.450 --> 00:04:42.220
+use to interact with that registry.
+
+00:04:42.220 --> 00:04:46.670
+And the website allow us to browse, search, like,
+
+00:04:46.680 --> 00:04:48.060
+do admin stuff.
+
+00:04:48.060 --> 00:04:50.940
+So NPM, right now, it is on the hands
+
+00:04:51.000 --> 00:04:52.330
+of Microsoft.
+
+00:04:52.340 --> 00:04:57.730
+And yeah, they have not been adding a lot of features
+
+00:04:57.860 --> 00:04:59.290
+lately to it.
+
+00:04:59.420 --> 00:05:03.450
+So other open source people and, like, projects have been
+
+00:05:03.650 --> 00:05:06.740
+trying to say, maybe we should innovate a little bit.
+
+00:05:06.740 --> 00:05:10.290
+And so on the registry side, you have JSR from
+
+00:05:10.290 --> 00:05:11.880
+the Deno Fox.
+
+00:05:11.880 --> 00:05:15.860
+You have Vault that also were ex-NPM Fox,
+
+00:05:15.860 --> 00:05:18.380
+trying to see, like, what they could improve.
+
+00:05:18.400 --> 00:05:23.060
+Like, we could have, like, twice maybe as fast
+
+00:05:23.060 --> 00:05:25.720
+if we are able to modify the server and, like,
+
+00:05:25.860 --> 00:05:28.860
+make the CLI and the server together communicate in a little
+
+00:05:28.910 --> 00:05:30.320
+bit better way.
+
+00:05:30.360 --> 00:05:33.140
+On the CLI, this has been for a long time
+
+00:05:33.140 --> 00:05:33.440
+.
+
+00:05:33.440 --> 00:05:36.320
+YARN first showed a lot of innovation.
+
+00:05:36.320 --> 00:05:40.580
+Then PMPM in the ecosystem.
+
+00:05:40.580 --> 00:05:42.940
+And from then, now PMPM is huge.
+
+00:05:42.940 --> 00:05:45.400
+We are all using PMPM.
+
+00:05:45.400 --> 00:05:50.780
+And on the website side, we have nothing.
+
+00:05:50.960 --> 00:05:53.460
+Actually, there are some things, for example, for the
+
+00:05:53.460 --> 00:05:56.600
+graph, there is a lot of mini websites to do graph
+
+00:05:56.600 --> 00:05:58.030
+, for the little graphs.
+
+00:05:58.040 --> 00:05:59.840
+And they are, like, all YARN, JS
+
+00:05:59.840 --> 00:06:03.120
+R, Bolt, all have their own little browsers.
+
+00:06:03.180 --> 00:06:06.130
+But there's nothing that is, like, we can put
+
+00:06:06.130 --> 00:06:07.020
+here.
+
+00:06:07.020 --> 00:06:09.760
+And we actually need something there.
+
+00:06:09.770 --> 00:06:12.420
+Because I don't know if you see how the light in
+
+00:06:12.420 --> 00:06:13.100
+the room changed it.
+
+00:06:13.100 --> 00:06:16.880
+But it only has light mode.
+
+00:06:16.880 --> 00:06:20.910
+So for some of us, that is why we don't
+
+00:06:20.910 --> 00:06:22.000
+use it.
+
+00:06:22.000 --> 00:06:25.720
+And also, like, if you see the little weekly downloads
+
+00:06:25.720 --> 00:06:28.360
+graph there, you can only see the last week.
+
+00:06:28.360 --> 00:06:30.840
+You cannot, like, explore the graph.
+
+00:06:30.840 --> 00:06:33.010
+There is so much more that we could do here.
+
+00:06:33.020 --> 00:06:36.850
+And, like, the packages and all the relationships, it
+
+00:06:36.850 --> 00:06:38.150
+is a social endeavor.
+
+00:06:38.180 --> 00:06:41.490
+Like, we could see where are the maintainers?
+
+00:06:41.560 --> 00:06:43.400
+Where are the-- I don't know where there are the
+
+00:06:43.670 --> 00:06:44.400
+maintainers here.
+
+00:06:44.400 --> 00:06:46.680
+Like, where are the relationship between the different packages?
+
+00:06:46.680 --> 00:06:49.380
+All the graph of the different dependencies?
+
+00:06:49.420 --> 00:06:52.240
+All these things are extremely important.
+
+00:06:52.240 --> 00:06:58.340
+So Daniel sent to BlueSky these posts on January 23
+
+00:06:58.420 --> 00:07:01.040
+, saying that for reasons, he would have to know what
+
+00:07:01.040 --> 00:07:04.400
+are the frustrations with the package registry.
+
+00:07:04.400 --> 00:07:06.160
+And a lot of people responded.
+
+00:07:06.160 --> 00:07:08.140
+It's like 50 replies.
+
+00:07:08.140 --> 00:07:10.600
+Nine hours later, he had a working prototype.
+
+00:07:10.600 --> 00:07:14.460
+And he is starting to invite people to work with him.
+
+00:07:14.460 --> 00:07:17.770
+He didn't take it for himself only.
+
+00:07:17.800 --> 00:07:21.640
+And in the first week, that resulted in 50 PRs
+
+00:07:21.640 --> 00:07:23.520
+in the first day.
+
+00:07:23.520 --> 00:07:27.290
+So a lot of people were frustrated and wanted to actually change
+
+00:07:27.450 --> 00:07:28.460
+things.
+
+00:07:28.460 --> 00:07:33.160
+We created community chat.
+
+00:07:33.160 --> 00:07:36.400
+And it's starting to invite people through DMs and through
+
+00:07:36.400 --> 00:07:38.450
+BlueSky, like a big posting in BlueSky
+
+00:07:38.450 --> 00:07:39.300
+a little bit.
+
+00:07:39.310 --> 00:07:43.560
+Because we wanted to start intentionally growing the community.
+
+00:07:43.560 --> 00:07:46.040
+One of that invite was to Zeo.
+
+00:07:46.040 --> 00:07:50.390
+Because at the beginning, the first time that Daniel asked me
+
+00:07:50.440 --> 00:07:53.020
+if I would like to work with him, I say,
+
+00:07:53.020 --> 00:07:55.360
+like, we should do something with Ad Proto.
+
+00:07:55.370 --> 00:07:57.260
+Because Ad Proto is awesome.
+
+00:07:57.260 --> 00:08:00.570
+And so like this, I'm inviting Zeo, they
+
+00:08:00.640 --> 00:08:01.820
+will say, yes.
+
+00:08:01.820 --> 00:08:04.700
+And we started working together.
+
+00:08:04.700 --> 00:08:08.620
+And the second week, at the end, we had 1
+
+00:08:08.620 --> 00:08:10.100
+K issues and PRs.
+
+00:08:10.220 --> 00:08:13.460
+It is like 1 every 20 minutes around the clock.
+
+00:08:13.460 --> 00:08:15.280
+That is kind of impressive.
+
+00:08:15.280 --> 00:08:19.320
+And we ended up with 100 contributors that were invited through these
+
+00:08:19.320 --> 00:08:20.750
+, like, open networking.
+
+00:08:20.760 --> 00:08:21.430
+The 1.
+
+00:08:21.670 --> 00:08:25.760
+5 car starts without, like, real promotion.
+
+00:08:25.760 --> 00:08:28.880
+It was like we didn't even want to mention the name
+
+00:08:28.880 --> 00:08:29.720
+at the beginning.
+
+00:08:29.720 --> 00:08:32.080
+People were saying, like, where is the link?
+
+00:08:32.080 --> 00:08:33.230
+And yeah, you could find it.
+
+00:08:33.320 --> 00:08:36.420
+If you really care, you could find it.
+
+00:08:36.420 --> 00:08:39.660
+So we are back to the light thing.
+
+00:08:39.660 --> 00:08:45.470
+And this resulted that if you go to any web page and
+
+00:08:45.470 --> 00:08:48.300
+you put an X at the beginning, we are recovering the
+
+00:08:48.300 --> 00:08:49.980
+X for something more important.
+
+00:08:50.000 --> 00:08:55.050
+And you're going to get to dark mode.
+
+00:08:55.060 --> 00:08:58.340
+So this is our browser for the MpMetor
+
+00:08:58.340 --> 00:08:59.260
+Registry.
+
+00:08:59.260 --> 00:09:01.640
+And we are seeing, like, Ad Qt client here
+
+00:09:01.640 --> 00:09:01.900
+.
+
+00:09:01.900 --> 00:09:05.710
+And, like, actually, we can-- I don't
+
+00:09:05.910 --> 00:09:09.070
+know, like, we can go to Ad Qt.
+
+00:09:09.100 --> 00:09:10.900
+So, yeah, you can see a package.
+
+00:09:10.900 --> 00:09:12.700
+And you'll see that there is a graph.
+
+00:09:12.700 --> 00:09:16.190
+And you can see that-- So, yeah, you can
+
+00:09:16.250 --> 00:09:18.600
+see that there is a graph.
+
+00:09:18.600 --> 00:09:20.300
+And you can see that there is a graph.
+
+00:09:20.300 --> 00:09:24.300
+And this works, actually.
+
+00:09:24.300 --> 00:09:26.300
+And this works, actually.
+
+00:09:26.300 --> 00:09:27.290
+OK.
+
+00:09:27.300 --> 00:09:28.290
+OK.
+
+00:09:28.300 --> 00:09:29.290
+OK.
+
+00:09:29.300 --> 00:09:31.300
+That's very interesting.
+
+00:09:31.300 --> 00:09:33.300
+It will be a little bit more difficult.
+
+00:09:33.300 --> 00:09:33.790
+So, yeah.
+
+00:09:33.800 --> 00:09:35.230
+So we can go here.
+
+00:09:35.300 --> 00:09:38.100
+And, yeah, now in the graph, we can see
+
+00:09:38.100 --> 00:09:38.890
+a beautiful graph.
+
+00:09:38.900 --> 00:09:39.880
+So, yeah.
+
+00:09:39.900 --> 00:09:42.900
+And you can see, like, everything.
+
+00:09:43.130 --> 00:09:44.320
+Yeah.
+
+00:09:45.350 --> 00:09:52.650
+So, this thing that we're building is not only a
+
+00:09:52.650 --> 00:09:53.500
+product.
+
+00:09:53.500 --> 00:09:58.900
+We are also working together and constructing a massive team that is
+
+00:09:59.100 --> 00:10:02.030
+going to be-- keep working on this project and in other
+
+00:10:02.260 --> 00:10:04.740
+things that maybe we want to change.
+
+00:10:04.740 --> 00:10:10.040
+And we are also already organized it a little bit from row
+
+00:10:10.040 --> 00:10:15.210
+that you see there are all the maintainers of our project
+
+00:10:15.210 --> 00:10:15.540
+.
+
+00:10:15.540 --> 00:10:18.540
+These are the core team of our project.
+
+00:10:18.540 --> 00:10:22.680
+And actually, these are just roles because there is resources that
+
+00:10:22.680 --> 00:10:24.740
+we need to, like, keep together.
+
+00:10:24.740 --> 00:10:28.040
+But we are all peers and work together.
+
+00:10:28.040 --> 00:10:30.560
+And I think that why this work it, there is a
+
+00:10:30.560 --> 00:10:31.440
+lot of things.
+
+00:10:31.560 --> 00:10:33.700
+Each of these things will be a talk, but, like
+
+00:10:33.700 --> 00:10:35.400
+, I will go very fast through it.
+
+00:10:35.400 --> 00:10:39.160
+But there is a coherent consensual product vision, but
+
+00:10:39.160 --> 00:10:42.900
+we try to iterate fast knowing that the code is my level
+
+00:10:42.900 --> 00:10:44.560
+and we can keep changing it.
+
+00:10:44.580 --> 00:10:47.060
+And we use versions so, like, we can iterate in
+
+00:10:47.060 --> 00:10:49.640
+main and then, like, when it's ready we release
+
+00:10:49.640 --> 00:10:50.630
+it.
+
+00:10:50.650 --> 00:10:53.770
+Daniel is extremely good in doing that.
+
+00:10:53.840 --> 00:10:56.540
+We lean in conventions, in libraries, like NACs
+
+00:10:56.590 --> 00:10:59.600
+, that allow us to go extremely fast and don't discuss
+
+00:10:59.770 --> 00:11:01.560
+absolutely every little detail.
+
+00:11:01.580 --> 00:11:05.240
+We empower people that care about accessibility, performance, tests.
+
+00:11:05.240 --> 00:11:08.620
+If you care about any of these things, come to work
+
+00:11:08.770 --> 00:11:09.480
+with us.
+
+00:11:09.480 --> 00:11:12.490
+We have a pragmatic path to a more open future, like
+
+00:11:12.490 --> 00:11:14.580
+, we protect our trust network.
+
+00:11:14.580 --> 00:11:16.510
+We don't open everything directly.
+
+00:11:16.640 --> 00:11:21.090
+Like, we are very intentional because we care about other people
+
+00:11:21.120 --> 00:11:21.350
+.
+
+00:11:21.420 --> 00:11:22.740
+And we optimize for adoption.
+
+00:11:22.740 --> 00:11:26.440
+And this may-- people would not like it a little bit
+
+00:11:26.440 --> 00:11:29.700
+, but we actually meet users and contributors where they are.
+
+00:11:29.720 --> 00:11:32.240
+And this means that we are using GitHub and Discord at this
+
+00:11:32.300 --> 00:11:32.820
+moment.
+
+00:11:32.820 --> 00:11:35.430
+And, yeah, people are not that happy, but we
+
+00:11:35.430 --> 00:11:37.740
+will love long-term to change that.
+
+00:11:37.740 --> 00:11:39.270
+We are rooting for Tangle.
+
+00:11:39.340 --> 00:11:40.770
+We are rooting for Rumi.
+
+00:11:40.800 --> 00:11:42.730
+We are rooting for everything that you are building.
+
+00:11:42.860 --> 00:11:46.260
+And when things are ready, we are going to be mig
+
+00:11:46.390 --> 00:11:47.570
+rating there.
+
+00:11:47.640 --> 00:11:52.080
+And when we work in community, we are by humans and
+
+00:11:52.090 --> 00:11:53.420
+for humans.
+
+00:11:53.420 --> 00:11:57.140
+We-- our collaboration tools are community infrastructure.
+
+00:11:57.140 --> 00:11:59.050
+We, like, try to mix the-- and go to
+
+00:11:59.200 --> 00:12:00.800
+our Discord, you will see, like, it's full
+
+00:12:00.800 --> 00:12:03.500
+with blue sky links.
+
+00:12:03.500 --> 00:12:05.380
+Everyone that shares our values is welcome.
+
+00:12:05.380 --> 00:12:07.120
+This is very important.
+
+00:12:07.120 --> 00:12:09.960
+If you don't share our values, you can go build
+
+00:12:09.960 --> 00:12:11.190
+something else.
+
+00:12:11.200 --> 00:12:13.820
+New contributors are peers to us.
+
+00:12:13.820 --> 00:12:16.640
+So as soon as you join and start contributing to the project
+
+00:12:16.640 --> 00:12:19.420
+, you're going to feel that you're one of us
+
+00:12:19.630 --> 00:12:19.700
+.
+
+00:12:19.720 --> 00:12:20.860
+And you can-- you have a voice.
+
+00:12:20.940 --> 00:12:22.600
+And you can change things.
+
+00:12:22.600 --> 00:12:25.480
+And if you want to work, you're going to--
+
+00:12:25.540 --> 00:12:27.220
+yeah, please, go.
+
+00:12:27.230 --> 00:12:29.060
+Improve things.
+
+00:12:29.060 --> 00:12:31.860
+We do governance roles and know hierarchy.
+
+00:12:31.860 --> 00:12:34.980
+Ideas are discussed in the open, but we have a
+
+00:12:34.990 --> 00:12:37.980
+lot of spaces of trust where we've hushed them
+
+00:12:37.980 --> 00:12:38.560
+out.
+
+00:12:38.580 --> 00:12:40.040
+And this is like mapping real life.
+
+00:12:40.060 --> 00:12:44.090
+You first discuss with your friends, with your colleagues, and
+
+00:12:44.090 --> 00:12:45.860
+then you go to the public.
+
+00:12:45.860 --> 00:12:46.840
+This is important.
+
+00:12:46.860 --> 00:12:49.380
+When you have, like, these private spaces, you're
+
+00:12:49.440 --> 00:12:52.420
+not taking things from the public and putting them there.
+
+00:12:52.440 --> 00:12:55.840
+You're taking things from DMs and putting them up.
+
+00:12:55.960 --> 00:12:57.780
+And we shape our line of space together.
+
+00:12:57.780 --> 00:13:00.480
+We decide what tools we use together.
+
+00:13:00.520 --> 00:13:03.040
+And this team is kind of like an ever-growing
+
+00:13:03.100 --> 00:13:06.830
+, healthy network of trust that we have been building things,
+
+00:13:06.830 --> 00:13:09.040
+like, forever, like, from VIT, VIT
+
+00:13:09.040 --> 00:13:11.840
+ES, people from the AdProtto community have been
+
+00:13:11.840 --> 00:13:15.420
+doing a lot of things that now we're doing together.
+
+00:13:15.420 --> 00:13:17.940
+And this is very thrilling and very exciting.
+
+00:13:17.960 --> 00:13:20.330
+So after all this, in the second week, in the
+
+00:13:20.330 --> 00:13:22.410
+third week, we were not sleeping.
+
+00:13:22.420 --> 00:13:25.120
+People were sleeping, like, three hours a day, and
+
+00:13:25.120 --> 00:13:26.490
+it was not healthy at all.
+
+00:13:26.520 --> 00:13:31.420
+So we ended up deciding that we needed to change that.
+
+00:13:31.420 --> 00:13:34.220
+And we decided to take a vacation.
+
+00:13:34.220 --> 00:13:38.160
+When the project was going exponential, we just stopped working for
+
+00:13:38.160 --> 00:13:38.800
+a week.
+
+00:13:38.800 --> 00:13:40.720
+And this, we locked this court.
+
+00:13:40.720 --> 00:13:43.520
+We stopped emerging PRs for a week.
+
+00:13:43.520 --> 00:13:47.080
+Some of us went to this mountain with the family and snow
+
+00:13:47.080 --> 00:13:51.180
+board, and some other people stayed touching grass in ways they
+
+00:13:51.180 --> 00:13:52.000
+like it to do.
+
+00:13:52.000 --> 00:13:55.020
+For example, programming other things, because they cannot stop.
+
+00:13:55.030 --> 00:14:00.730
+Luke, for example, did a nice browser extension that mod
+
+00:14:00.730 --> 00:14:04.780
+ifies the GitHub graph to have grass instead.
+
+00:14:04.800 --> 00:14:05.950
+And when he did it, actually, he did it differently
+
+00:14:06.000 --> 00:14:06.170
+.
+
+00:14:06.180 --> 00:14:09.870
+And our community told him, you know what, when you
+
+00:14:09.870 --> 00:14:12.970
+contribute a lot, it should have less grass.
+
+00:14:12.980 --> 00:14:14.760
+And actually, he did that.
+
+00:14:14.760 --> 00:14:17.640
+So like, the more you work, the tighter the grass
+
+00:14:17.700 --> 00:14:18.070
+is.
+
+00:14:18.120 --> 00:14:20.390
+And if you work too much, they will be like brown
+
+00:14:20.390 --> 00:14:21.000
+patches.
+
+00:14:21.000 --> 00:14:27.980
+So this is, when we add this feature to MPM
+
+00:14:27.980 --> 00:14:33.370
+X, it's going to be this.
+
+00:14:33.520 --> 00:14:36.640
+So yeah, the fourth week went out, the vacation is
+
+00:14:36.640 --> 00:14:39.520
+out, and we have been working, Salma is working
+
+00:14:39.520 --> 00:14:42.400
+with us, and she's an amazing outreacher.
+
+00:14:42.420 --> 00:14:46.440
+And she prepared me this idea of like having a lot of
+
+00:14:46.440 --> 00:14:49.980
+lunch in the sixth week with a lot of blog posts.
+
+00:14:49.980 --> 00:14:52.580
+So like, from this one, we did a web ring
+
+00:14:52.580 --> 00:14:55.640
+that we linked it to 26 other blog posts.
+
+00:14:55.640 --> 00:14:58.240
+He did one about how to make your first contribution to open
+
+00:14:58.240 --> 00:15:00.570
+source, so go read that if you want to do it
+
+00:15:00.790 --> 00:15:00.940
+.
+
+00:15:00.940 --> 00:15:03.920
+Daniel talked about how it's a lot better to have a
+
+00:15:03.920 --> 00:15:08.240
+team, the next team instead of the next developer.
+
+00:15:08.240 --> 00:15:11.500
+I wrote about conversion communities because, again, like, this
+
+00:15:11.500 --> 00:15:14.790
+work it, because at the beginning there was already a network
+
+00:15:14.790 --> 00:15:17.040
+of trust between a lot of people.
+
+00:15:17.040 --> 00:15:19.840
+Alex wrote a book about this month, so like, if
+
+00:15:19.840 --> 00:15:22.920
+you want to really know what is going on, like,
+
+00:15:23.130 --> 00:15:25.320
+you go check that one.
+
+00:15:25.320 --> 00:15:27.250
+Grafieros, like, is the one doing the
+
+00:15:27.450 --> 00:15:29.960
+graphic magic, there is a library from Vue, and
+
+00:15:29.960 --> 00:15:32.790
+he talked about how you can improve, like, how much
+
+00:15:32.790 --> 00:15:36.270
+the library improves, and this was also something that we saw
+
+00:15:36.270 --> 00:15:38.660
+with Elk, like, all the stack improved because the
+
+00:15:38.720 --> 00:15:43.620
+people doing the libraries are now users and can improve things.
+
+00:15:43.620 --> 00:15:46.680
+Thank you for all the, yeah, for inviting us here
+
+00:15:46.680 --> 00:15:49.610
+, and actually, like, the Elk product community have
+
+00:15:49.610 --> 00:15:53.290
+been so good from 2MPMX to the beginning.
+
+00:15:53.340 --> 00:15:55.730
+The BlueSky team also was our first sponsor, that
+
+00:15:55.730 --> 00:15:58.340
+is a nice piece of lore, and we have already other
+
+00:15:58.420 --> 00:16:02.260
+sponsors like Vercel, Voice Zero, NetdeFi
+
+00:16:02.260 --> 00:16:05.160
+, and Vault also, and, yeah, and we are
+
+00:16:05.160 --> 00:16:08.300
+talking with other companies that want to help us.
+
+00:16:08.360 --> 00:16:11.650
+If you are a company and want to help us, please
+
+00:16:11.650 --> 00:16:12.980
+, talk with us.
+
+00:16:12.980 --> 00:16:16.790
+James wrote about the collaborating with NPMX, Philippe
+
+00:16:16.790 --> 00:16:19.680
+, that worked in NetdeFi, like, talked about
+
+00:16:19.680 --> 00:16:22.890
+, yeah, how working, like, he's a senior
+
+00:16:22.890 --> 00:16:27.280
+developer, has so much knowledge, but still these months,
+
+00:16:27.330 --> 00:16:29.440
+these two months really helped him.
+
+00:16:29.440 --> 00:16:32.040
+Paula, actually, I love this blog post, like,
+
+00:16:32.040 --> 00:16:35.060
+you should go read it, like, she wrote about,
+
+00:16:35.060 --> 00:16:38.370
+her first contribution to open source, and how she overcome the
+
+00:16:38.370 --> 00:16:40.480
+Hilary Poster syndrome, and now she's a very
+
+00:16:40.730 --> 00:16:43.210
+important part of our community, she did that, so many
+
+00:16:43.350 --> 00:16:46.700
+features, we are talking about doing a talk together, maybe
+
+00:16:46.760 --> 00:16:50.000
+, in another conference later in the year.
+
+00:16:50.000 --> 00:16:53.320
+Storybook also, like, another good relationship that we,
+
+00:16:53.380 --> 00:16:56.650
+like, they are already, like, putting some little things
+
+00:16:56.650 --> 00:16:58.570
+there, I don't know if JSON is here, but
+
+00:16:58.570 --> 00:17:02.600
+, like, we also launched it with a Code TV blog
+
+00:17:02.610 --> 00:17:06.980
+post, a stream that was really nice, and so,
+
+00:17:06.980 --> 00:17:10.830
+yes, now we have an answer for that.
+
+00:17:10.850 --> 00:17:12.330
+There is NPMX.
+
+00:17:12.480 --> 00:17:17.420
+And, yeah, so, one of the things about,
+
+00:17:17.420 --> 00:17:22.850
+like, this collaboration that I was mentioning between other communities,
+
+00:17:22.850 --> 00:17:24.440
+if you go to FastGlobe, for example,
+
+00:17:24.500 --> 00:17:27.060
+this was a library that everybody uses, you can see that
+
+00:17:27.060 --> 00:17:29.520
+it has 94 million downloads, so, like, a lot
+
+00:17:29.520 --> 00:17:33.160
+of people will actually go and check the downloads and install it
+
+00:17:33.360 --> 00:17:34.320
+without syncing.
+
+00:17:34.320 --> 00:17:37.880
+But if you see now, in our UI, we have
+
+00:17:37.950 --> 00:17:42.640
+a notation from the people, the A18E, they
+
+00:17:42.820 --> 00:17:46.120
+curate this module replacement annotation, and it says that you
+
+00:17:46.120 --> 00:17:48.690
+may not need this dependency, and if you click the link
+
+00:17:48.830 --> 00:17:51.630
+, you are going to see that it talks about replacement,
+
+00:17:51.630 --> 00:17:53.720
+like TinyGlobe, that is half the size,
+
+00:17:53.720 --> 00:17:56.550
+and actually, like, it shows you how you have to
+
+00:17:56.550 --> 00:17:59.530
+replace it, and this is very good because they were doing
+
+00:17:59.600 --> 00:18:02.060
+this work, and now they can rest a little bit,
+
+00:18:02.060 --> 00:18:05.480
+and other people can do it directly.
+
+00:18:05.520 --> 00:18:08.520
+And yes, and we keep working on features, like,
+
+00:18:08.520 --> 00:18:11.750
+for example, James had this idea, it's still not
+
+00:18:11.750 --> 00:18:15.200
+on the main, but the idea of, like, we
+
+00:18:15.200 --> 00:18:18.130
+can show so much information.
+
+00:18:18.140 --> 00:18:20.250
+I seen in the conference there was this idea of, like
+
+00:18:20.270 --> 00:18:22.780
+, surfacing all this information in a good way, and
+
+00:18:22.780 --> 00:18:26.450
+, for example, James had this idea that between versions we
+
+00:18:26.450 --> 00:18:28.900
+can show how they install size, or if there is a
+
+00:18:29.270 --> 00:18:31.510
+license change, and we can show, like, the good
+
+00:18:31.560 --> 00:18:33.670
+things, the warnings, the red things, if, like
+
+00:18:33.670 --> 00:18:35.820
+, for example, like, a license would change to be
+
+00:18:35.820 --> 00:18:39.680
+not, not be open source anymore.
+
+00:18:39.680 --> 00:18:44.030
+And so, yeah, this is very important to us,
+
+00:18:44.080 --> 00:18:46.930
+and I want to say that I didn't talk about at
+
+00:18:46.930 --> 00:18:49.990
+Proto specifically so far, because we are first doing a
+
+00:18:50.000 --> 00:18:53.180
+website that is very useful for a lot of people, and
+
+00:18:53.180 --> 00:18:57.570
+this website has a lot of opportunities to actually be a social
+
+00:18:57.710 --> 00:19:01.660
+website, because doing open source and all the packages is a
+
+00:19:01.660 --> 00:19:04.630
+social endeavor, again, and mph.
+
+00:19:04.630 --> 00:19:08.000
+com will do so much more in that regard.
+
+00:19:08.230 --> 00:19:12.540
+So, we are going to Zeo.
+
+00:19:12.990 --> 00:19:22.260
+Thank you so much
+
+00:19:22.260 --> 00:19:24.360
+.
+
+00:19:24.360 --> 00:19:26.820
+Do you want to be called Patak or Matias?
+
+00:19:26.820 --> 00:19:28.140
+Both are fine.
+
+00:19:28.240 --> 00:19:29.220
+Both are fine.
+
+00:19:29.250 --> 00:19:30.230
+Great.
+
+00:19:30.240 --> 00:19:36.060
+Another round of applause for Matias for that wonderful presentation.
+
+00:19:36.330 --> 00:19:41.430
+Seriously, MPMX is such an amazing project, and
+
+00:19:41.430 --> 00:19:44.950
+I'm so happy for Matias to invite me to work
+
+00:19:44.950 --> 00:19:51.230
+on it with him alongside a great number of community members.
+
+00:19:51.240 --> 00:19:55.300
+So, one of the big pillars of MPMX is
+
+00:19:55.310 --> 00:20:01.470
+really, really showcasing the community, right?
+
+00:20:01.480 --> 00:20:05.270
+Open source is not just about code, it is about the
+
+00:20:05.270 --> 00:20:09.100
+people who make the code work, who make it happen,
+
+00:20:09.100 --> 00:20:12.640
+to make it usable for anyone, right?
+
+00:20:12.640 --> 00:20:16.780
+Tools not only for developers, but for users, right?
+
+00:20:16.780 --> 00:20:19.260
+And so, when I got asked to be a part of
+
+00:20:19.260 --> 00:20:23.440
+this project, my main goal is to add social features,
+
+00:20:23.450 --> 00:20:24.430
+right?
+
+00:20:24.440 --> 00:20:27.270
+And of course, we're here at Atmosphere Conf
+
+00:20:27.270 --> 00:20:31.480
+, and so the protocol we use is App Protocol.
+
+00:20:31.480 --> 00:20:35.020
+And there are multiple reasons as to why we use the App
+
+00:20:35.030 --> 00:20:39.180
+Protocol, and the main one for me is how developer-
+
+00:20:39.180 --> 00:20:41.410
+friendly it is.
+
+00:20:41.420 --> 00:20:45.770
+So, sorry, I'm just taking a look-see
+
+00:20:45.820 --> 00:20:46.790
+here.
+
+00:20:46.800 --> 00:20:51.430
+So one of the core pillars of App Protocol is data sovereignty
+
+00:20:51.430 --> 00:20:54.490
+, being able to own your data, being able to say
+
+00:20:54.570 --> 00:20:57.000
+that I made that data, that that data is mine,
+
+00:20:57.000 --> 00:21:00.580
+and being able to show that to other people.
+
+00:21:00.580 --> 00:21:04.740
+The main way that App Protocol does this is with the PD
+
+00:21:04.740 --> 00:21:07.350
+S, the personal data server.
+
+00:21:07.380 --> 00:21:10.770
+And there are multiple ways of doing this.
+
+00:21:10.860 --> 00:21:13.740
+First up is doing it self-hosted.
+
+00:21:13.800 --> 00:21:16.480
+We're developers, we like to, you know, have
+
+00:21:16.480 --> 00:21:20.170
+servers on our own, whether they be tiny raspberry pies in
+
+00:21:20.410 --> 00:21:23.530
+the corner of our room, or $5 VPSs
+
+00:21:23.530 --> 00:21:26.120
+in the cloud somewhere.
+
+00:21:26.120 --> 00:21:28.740
+Or even like beefy racks, you know?
+
+00:21:28.740 --> 00:21:30.730
+I wish in the future I have a server rack in my
+
+00:21:30.860 --> 00:21:33.290
+home, if I have the money for it, you know
+
+00:21:33.290 --> 00:21:33.840
+?
+
+00:21:33.840 --> 00:21:38.910
+Like, having your own PDS doesn't need something that
+
+00:21:38.910 --> 00:21:40.610
+beefy, right?
+
+00:21:40.640 --> 00:21:43.770
+Right now, mine is currently at self-hosted.
+
+00:21:43.850 --> 00:21:48.580
+social, but you as developers, woo, self-host
+
+00:21:48.590 --> 00:21:49.260
+ed!
+
+00:21:49.260 --> 00:21:54.120
+Yeah, big ups, big ups, woo!
+
+00:21:54.120 --> 00:21:58.460
+So, you as developers can easily spin one up using N
+
+00:21:58.470 --> 00:22:01.780
+PM Create PDS, shout out to mk.
+
+00:22:01.830 --> 00:22:05.220
+gg, I saw your, that's their handle, I
+
+00:22:05.220 --> 00:22:10.970
+saw their presentation yesterday about this wonderful CLI they made that
+
+00:22:11.660 --> 00:22:17.910
+allows you to spin up Cirrus, the very lightweight PD
+
+00:22:18.040 --> 00:22:21.750
+S that you could just spin up on a Cloudflare
+
+00:22:22.160 --> 00:22:23.160
+worker, right?
+
+00:22:23.220 --> 00:22:25.090
+Yeah, yeah, I'm getting a nod, I'm
+
+00:22:25.340 --> 00:22:26.610
+getting a thumbs up there.
+
+00:22:26.640 --> 00:22:30.460
+But you don't have to self-host it yourself.
+
+00:22:30.460 --> 00:22:34.240
+You can instead, as a user, be a part of
+
+00:22:34.240 --> 00:22:35.800
+a community.
+
+00:22:35.800 --> 00:22:38.320
+So NPMX does have a community-hosted server
+
+00:22:38.380 --> 00:22:41.920
+, kind of like Blue Sky with its mushroom servers, N
+
+00:22:41.930 --> 00:22:45.910
+PMX has the same thing where users can host their data
+
+00:22:45.960 --> 00:22:46.840
+with us.
+
+00:22:46.840 --> 00:22:48.940
+That way you don't have to spin up your own server
+
+00:22:48.970 --> 00:22:51.640
+, that's fine, you can migrate into NPMX
+
+00:22:51.640 --> 00:22:52.630
+as well.
+
+00:22:52.640 --> 00:22:57.150
+You can see here that Daniel Rowe and Patak already
+
+00:22:57.150 --> 00:22:59.760
+have their data on there.
+
+00:22:59.760 --> 00:23:04.460
+And this PDS is not just anywhere, it is actually
+
+00:23:04.540 --> 00:23:08.600
+only three hours away by train to Euroskies
+
+00:23:08.830 --> 00:23:11.060
+servers in Germany.
+
+00:23:11.060 --> 00:23:12.720
+It is really close.
+
+00:23:12.720 --> 00:23:15.420
+So it is in Europe, so if you're worried about
+
+00:23:15.470 --> 00:23:18.460
+your data being hosted in the US, don't worry.
+
+00:23:18.460 --> 00:23:21.590
+If you're on NPMX, it is in,
+
+00:23:21.670 --> 00:23:25.340
+double-checking, Germany.
+
+00:23:25.340 --> 00:23:30.510
+So any regulations, GDPR, data compliance stuff, it
+
+00:23:30.510 --> 00:23:33.180
+is, you know, all there.
+
+00:23:33.180 --> 00:23:36.310
+Once again, I want to give a big ups to the
+
+00:23:36.380 --> 00:23:39.500
+PDS czar of the project, Bailey Townsev
+
+00:23:39.500 --> 00:23:39.920
+.
+
+00:23:39.920 --> 00:23:41.910
+He is here.
+
+00:23:42.150 --> 00:23:46.190
+Thank, seriously.
+
+00:23:46.220 --> 00:23:49.340
+We were literally talking, like when I got into the project
+
+00:23:49.350 --> 00:23:52.070
+, we were like, okay, we're going to implement
+
+00:23:52.070 --> 00:23:52.920
+ad protocol.
+
+00:23:52.920 --> 00:23:53.900
+All right.
+
+00:23:53.920 --> 00:23:56.620
+But with that in mind, some people, some users,
+
+00:23:56.670 --> 00:23:59.080
+they won't, you know, they aren't in the
+
+00:23:59.080 --> 00:24:00.650
+atmosphere yet.
+
+00:24:00.660 --> 00:24:02.850
+They got to have, you know, a way to get
+
+00:24:02.850 --> 00:24:06.250
+into the atmosphere without, you know, going through blue sky
+
+00:24:06.250 --> 00:24:08.460
+if they have any big hangups there.
+
+00:24:08.480 --> 00:24:10.650
+So I literally DM Bailey once.
+
+00:24:10.660 --> 00:24:14.200
+Like, literally, like maybe a day or two later,
+
+00:24:14.210 --> 00:24:15.360
+the PDS is up.
+
+00:24:15.360 --> 00:24:17.370
+So it's amazing.
+
+00:24:17.380 --> 00:24:19.840
+And if you're here in person, that's what he
+
+00:24:19.840 --> 00:24:20.690
+looks like.
+
+00:24:20.720 --> 00:24:23.490
+If you're online or even here, and you're like
+
+00:24:23.490 --> 00:24:26.110
+, I don't know who Bailey is, you do promise
+
+00:24:26.260 --> 00:24:27.250
+me.
+
+00:24:27.260 --> 00:24:33.360
+Like, the pumpkin is great branding, shout out Bailey.
+
+00:24:33.390 --> 00:24:36.260
+Seriously, like I keep telling him, he needs like a
+
+00:24:36.320 --> 00:24:39.020
+pumpkin mask to wear in person so that you know it's
+
+00:24:39.020 --> 00:24:39.400
+him.
+
+00:24:39.400 --> 00:24:42.430
+So once again, thank you so much, Bailey, for
+
+00:24:42.430 --> 00:24:43.040
+that.
+
+00:24:43.040 --> 00:24:45.040
+Another big round of applause for him.
+
+00:24:45.040 --> 00:24:51.940
+And to show how successful the PDS is in getting new
+
+00:24:51.940 --> 00:24:56.720
+users onto it, just a little bit here.
+
+00:24:56.720 --> 00:25:00.990
+We have a little over 300, probably even more now,
+
+00:25:00.990 --> 00:25:05.000
+350 accounts on the server calling npmx.
+
+00:25:05.230 --> 00:25:07.310
+social their PDS home.
+
+00:25:07.400 --> 00:25:10.070
+Like seriously, like take a look at the avatars
+
+00:25:10.070 --> 00:25:11.120
+on the screen.
+
+00:25:11.120 --> 00:25:14.900
+There are so many, and that's just some of them
+
+00:25:14.900 --> 00:25:15.190
+.
+
+00:25:15.240 --> 00:25:17.510
+And a lot of these people, if you actually take a
+
+00:25:17.510 --> 00:25:20.110
+look at their PDSs, they haven't done anything
+
+00:25:20.110 --> 00:25:20.560
+else.
+
+00:25:20.580 --> 00:25:23.200
+Their first entry into the atmosphere is npmx.
+
+00:25:23.200 --> 00:25:25.420
+And that's one of the ways that I'm really proud
+
+00:25:25.420 --> 00:25:29.010
+of this project, is we're getting developers into the atmosphere
+
+00:25:29.080 --> 00:25:36.350
+, slowly getting them acquainted with how wonderful this community is.
+
+00:25:36.360 --> 00:25:39.360
+And with that in mind, you know, getting new developers
+
+00:25:39.360 --> 00:25:42.410
+in, right, npmx is a developer platform.
+
+00:25:42.540 --> 00:25:46.580
+We want to get new contributors up and running, right?
+
+00:25:46.580 --> 00:25:48.730
+Like not only in the front end or the back end of
+
+00:25:48.730 --> 00:25:52.120
+the code, but getting them to make social features very easily
+
+00:25:52.120 --> 00:25:52.480
+.
+
+00:25:52.480 --> 00:25:56.210
+And App Protocol makes that, yeah, I got it,
+
+00:25:56.210 --> 00:25:57.540
+don't worry.
+
+00:25:57.540 --> 00:26:02.720
+I'll press the next button soon.
+
+00:26:02.720 --> 00:26:03.700
+No worries.
+
+00:26:03.720 --> 00:26:07.580
+So, new contributors, you know, sometimes when you want
+
+00:26:07.580 --> 00:26:11.930
+to add social features, it could be like proprietary data in
+
+00:26:11.970 --> 00:26:16.080
+databases, then you'd need to have like secret keys to
+
+00:26:16.080 --> 00:26:19.950
+work with production data, live data.
+
+00:26:20.020 --> 00:26:22.780
+And it could be like very wonky, but you know
+
+00:26:22.780 --> 00:26:26.800
+, as we all know, data is just JSON, right
+
+00:26:26.890 --> 00:26:27.800
+?
+
+00:26:27.800 --> 00:26:33.170
+Data like likes and packages and all that, they are shaped
+
+00:26:33.170 --> 00:26:37.350
+in a standardized lexicon so that anyone can just read
+
+00:26:37.350 --> 00:26:39.720
+it, you know, it's very straightforward.
+
+00:26:39.780 --> 00:26:43.160
+And to work with said data, to manipulate it, you
+
+00:26:43.160 --> 00:26:47.170
+use XRPC calls, which are basically just API fetch
+
+00:26:47.390 --> 00:26:50.190
+calls, like if you know how to do curl or if
+
+00:26:50.190 --> 00:26:54.270
+you know how to do await fetch on JavaScript, you can
+
+00:26:54.650 --> 00:26:56.100
+work with live data.
+
+00:26:56.120 --> 00:27:00.990
+And because the data is public and manipulating data is, or
+
+00:27:00.990 --> 00:27:04.760
+querying data is just one fetch call away, a lot
+
+00:27:04.760 --> 00:27:09.450
+of services and infrastructure has already popped up that makes it much
+
+00:27:09.590 --> 00:27:14.250
+simpler to use, especially for new contributors and big projects like
+
+00:27:14.250 --> 00:27:14.880
+ours.
+
+00:27:14.880 --> 00:27:20.270
+So another big shout out to Fig, Phil for microcos
+
+00:27:20.490 --> 00:27:27.250
+m, big ups, big ups.
+
+00:27:27.420 --> 00:27:30.480
+Really one of the big pillars of the atmosphere so far,
+
+00:27:30.480 --> 00:27:34.380
+if you want to get records without going straight to the PD
+
+00:27:34.380 --> 00:27:37.890
+S's, you can use their services.
+
+00:27:37.900 --> 00:27:41.850
+We use two mainly, Slingshot, we use to
+
+00:27:41.850 --> 00:27:47.210
+resolve data, sorry, looking at the time, resolving data
+
+00:27:47.220 --> 00:27:50.120
+, getting the mini-doc, so that'll just be
+
+00:27:50.120 --> 00:27:52.680
+like the PDS, the DID, the handle, and
+
+00:27:52.700 --> 00:27:56.630
+as well as getting specific records very, very easily.
+
+00:27:56.720 --> 00:27:59.420
+These are the two, sorry, I can't see.
+
+00:27:59.490 --> 00:28:05.560
+These are the two API routes that we use.
+
+00:28:05.620 --> 00:28:08.320
+Not only do we use Slingshot, we also use
+
+00:28:08.370 --> 00:28:12.000
+Constellation, a very useful tool and service that allows
+
+00:28:12.000 --> 00:28:15.940
+us to go through backlinks, so we can go and
+
+00:28:15.940 --> 00:28:19.740
+, you know, query a package and to figure out how
+
+00:28:19.740 --> 00:28:23.860
+many people have liked it, like, specifically like individual data
+
+00:28:23.870 --> 00:28:26.530
+, sometimes you have multiple like records, right?
+
+00:28:26.540 --> 00:28:29.840
+We just want to get, to make sure that you only
+
+00:28:29.840 --> 00:28:33.900
+have the one person per record, as well as getting the
+
+00:28:33.900 --> 00:28:35.380
+backlinks.
+
+00:28:35.380 --> 00:28:37.660
+We use Constellation for that.
+
+00:28:37.660 --> 00:28:40.180
+And because of everything I've said so far, we've
+
+00:28:40.240 --> 00:28:45.590
+managed to implement our very first social feature, which are likes
+
+00:28:45.660 --> 00:28:46.020
+.
+
+00:28:46.080 --> 00:28:50.650
+So you can see here, this is just a live demo
+
+00:28:50.650 --> 00:28:56.130
+of my profile page, I only have 10 likes, but
+
+00:28:56.140 --> 00:29:00.410
+you can see here we have a little profile with my name
+
+00:29:00.440 --> 00:29:02.820
+, a little description.
+
+00:29:02.820 --> 00:29:08.020
+I also added a website that you could go into.
+
+00:29:08.040 --> 00:29:12.090
+And of course you could see all of the packages that I
+
+00:29:12.090 --> 00:29:13.800
+have liked so far.
+
+00:29:13.800 --> 00:29:17.310
+And of course if you as a developer want to take a
+
+00:29:17.330 --> 00:29:20.520
+look at MPMX and do all these likes and stuff
+
+00:29:20.520 --> 00:29:24.750
+, going to the connect corner here, going down to the
+
+00:29:24.820 --> 00:29:29.150
+connect to atmosphere bit here, you can log in very quickly
+
+00:29:29.150 --> 00:29:29.440
+.
+
+00:29:29.440 --> 00:29:31.960
+There's also like a small description, I'm pretty proud
+
+00:29:32.020 --> 00:29:33.180
+of that description.
+
+00:29:33.180 --> 00:29:37.880
+You could create a new account again on our community hosted PD
+
+00:29:37.960 --> 00:29:38.320
+S.
+
+00:29:38.320 --> 00:29:41.320
+And there's also a connected blue sky if you want to
+
+00:29:41.320 --> 00:29:42.540
+use that as well.
+
+00:29:42.770 --> 00:29:47.930
+So there's actually a lot of activity when it comes to
+
+00:29:48.150 --> 00:29:51.380
+likes when we release this feature.
+
+00:29:51.380 --> 00:29:55.870
+So much so that since we started, MPMX is
+
+00:29:55.870 --> 00:30:00.920
+one of, if not the biggest users of the microcos
+
+00:30:00.950 --> 00:30:02.340
+m ecosystem.
+
+00:30:02.440 --> 00:30:04.580
+So once again I want to say thank you so much Fig
+
+00:30:04.580 --> 00:30:08.520
+, Phil, bad example, which is a really bad handle
+
+00:30:08.770 --> 00:30:08.850
+.
+
+00:30:08.860 --> 00:30:13.890
+You're a great example in the community for having these services
+
+00:30:13.890 --> 00:30:15.360
+up for us to use.
+
+00:30:15.360 --> 00:30:19.030
+And of course because the data is public, anybody can use
+
+00:30:19.030 --> 00:30:21.160
+them on any website they want.
+
+00:30:21.160 --> 00:30:26.410
+A great example here is Blento, where you can connect
+
+00:30:26.410 --> 00:30:28.980
+any atmospheric data.
+
+00:30:28.980 --> 00:30:31.310
+And if we scroll, oh, sorry, let me go
+
+00:30:31.310 --> 00:30:32.540
+all the way here.
+
+00:30:32.540 --> 00:30:35.010
+And if we scroll all the way down on our Blento
+
+00:30:35.010 --> 00:30:37.930
+here, you can see there's so many contributors.
+
+00:30:38.110 --> 00:30:43.490
+And we also have a leaderboard here.
+
+00:30:43.520 --> 00:30:47.080
+So right now Svelte is at the top with almost
+
+00:30:47.150 --> 00:30:48.910
+200 likes.
+
+00:30:48.960 --> 00:30:53.220
+So shout out Team Orange, you're doing great.
+
+00:30:53.220 --> 00:30:55.030
+Followed up by Nuxt, Veet, and V
+
+00:30:55.030 --> 00:30:55.380
+ue.
+
+00:30:55.380 --> 00:30:56.810
+I think they're all green.
+
+00:30:56.820 --> 00:30:59.480
+So Team Green also catching up.
+
+00:30:59.480 --> 00:31:02.470
+So if you have a package, if you have a community
+
+00:31:02.470 --> 00:31:04.730
+, you know, show your support.
+
+00:31:04.740 --> 00:31:08.050
+Tell people to like things on NPMX, right?
+
+00:31:08.090 --> 00:31:14.360
+Let me scroll, let me go this way, yeah.
+
+00:31:14.360 --> 00:31:18.590
+And now coding and, you know, virtue signaling with likes
+
+00:31:18.590 --> 00:31:21.600
+, that's not the only way you can be a part
+
+00:31:21.600 --> 00:31:25.520
+of an open source developer community, right?
+
+00:31:25.520 --> 00:31:31.240
+You can be just talking about your favorite feature in a library
+
+00:31:31.240 --> 00:31:31.570
+.
+
+00:31:31.660 --> 00:31:39.220
+You can congregate, coalesce, collect different libraries
+
+00:31:39.220 --> 00:31:43.220
+and implementations of your protocol.
+
+00:31:43.280 --> 00:31:45.800
+In this case, there's a bunch of PDF stuff.
+
+00:31:45.820 --> 00:31:49.640
+Or not even coding related, you can be a designer.
+
+00:31:49.640 --> 00:31:52.430
+Dame over here changed the blue sky thing to better ingredients,
+
+00:31:52.430 --> 00:31:53.990
+better piece of Papa John's.
+
+00:31:54.030 --> 00:31:57.020
+That's great.
+
+00:31:57.030 --> 00:32:02.100
+Design is also a part of being in the open source community
+
+00:32:02.100 --> 00:32:02.410
+.
+
+00:32:02.480 --> 00:32:07.190
+And so no matter where you are in the web, being
+
+00:32:07.190 --> 00:32:12.120
+a part of the open source community, whether you're on
+
+00:32:12.120 --> 00:32:16.000
+code base, code bases, right?
+
+00:32:16.000 --> 00:32:19.560
+Like entangled and GitHub contributing code.
+
+00:32:19.560 --> 00:32:23.780
+Whether you're talking on blue sky or Twitter.
+
+00:32:23.780 --> 00:32:30.320
+Or if you have the money contributing with, through open collective
+
+00:32:30.320 --> 00:32:35.140
+and Patreon, we want to surface your contributions as well.
+
+00:32:35.140 --> 00:32:37.940
+Because it's not just coders, it's everyone.
+
+00:32:37.940 --> 00:32:40.360
+And that's the goal with NPMX.
+
+00:32:40.360 --> 00:32:46.460
+And so for the next slide here is a concept that community
+
+00:32:46.540 --> 00:32:52.050
+member Alex whipped up on Figma for a future of N
+
+00:32:52.050 --> 00:32:56.340
+PMX where you can scour the full network for what
+
+00:32:56.340 --> 00:32:59.630
+the project is doing and its community.
+
+00:32:59.700 --> 00:33:03.410
+So you could see here, it could be blue sky posts
+
+00:33:03.410 --> 00:33:06.770
+, it could be GitHub patch notes, it could even be
+
+00:33:06.770 --> 00:33:10.820
+the maintainers themselves just surfacing specific people.
+
+00:33:10.820 --> 00:33:13.800
+So no matter if you're a maintainer, you're
+
+00:33:13.800 --> 00:33:17.770
+a contributor, or you're just someone that we need to
+
+00:33:17.820 --> 00:33:21.780
+give special thanks to, we want to shout you out.
+
+00:33:21.780 --> 00:33:26.050
+And one of the ways that we're looking into implementing this
+
+00:33:26.080 --> 00:33:27.820
+feature is Keytrace.
+
+00:33:27.820 --> 00:33:32.860
+It's a very promising product where you can connect many different
+
+00:33:32.860 --> 00:33:36.060
+accounts to your atmosphere account.
+
+00:33:36.080 --> 00:33:38.410
+In this case, I have here mine where it's my
+
+00:33:38.410 --> 00:33:40.220
+atmosphere account, right?
+
+00:33:40.220 --> 00:33:43.870
+My app proto account connected to my Tangled, to my
+
+00:33:43.870 --> 00:33:47.560
+GitHub, as well as just my website in general.
+
+00:33:47.580 --> 00:33:49.780
+So you know that if you go to zayu.
+
+00:33:49.780 --> 00:33:51.900
+dev, that is definitely me.
+
+00:33:51.900 --> 00:33:55.590
+And so once again, I want to really, really stress
+
+00:33:55.590 --> 00:33:58.730
+that no matter who you are, you can be a part
+
+00:33:58.730 --> 00:34:01.000
+of the open source community.
+
+00:34:01.000 --> 00:34:08.940
+So if you code, come and contribute code, right?
+
+00:34:09.010 --> 00:34:10.310
+Engineer with us.
+
+00:34:10.320 --> 00:34:15.420
+If you are a designer, make things pretty with everyone.
+
+00:34:15.420 --> 00:34:18.470
+If you know any other languages, I only like, you
+
+00:34:18.470 --> 00:34:21.620
+know, I really only know one, but some people can
+
+00:34:21.620 --> 00:34:22.680
+do like 10.
+
+00:34:22.680 --> 00:34:23.660
+Amazing.
+
+00:34:23.680 --> 00:34:24.660
+Translate.
+
+00:34:24.680 --> 00:34:27.990
+That's very, very important, right?
+
+00:34:28.060 --> 00:34:32.600
+If you are really into accessibility, making sure everyone has access
+
+00:34:32.600 --> 00:34:35.250
+, and everyone can use the tools that we build, you
+
+00:34:35.330 --> 00:34:36.620
+are also important as well.
+
+00:34:36.680 --> 00:34:39.510
+And of course, if you have the money to keep the
+
+00:34:39.510 --> 00:34:41.880
+lights up, you are important too.
+
+00:34:41.900 --> 00:34:44.700
+So if you are any one of these, and NPM
+
+00:34:44.700 --> 00:34:49.230
+X has resonated with you, please come build with us.
+
+00:34:49.400 --> 00:34:51.400
+We are at NPMX.
+
+00:34:51.530 --> 00:34:52.280
+dev.
+
+00:34:52.300 --> 00:34:54.760
+If you want to take a look at the code, we
+
+00:34:54.760 --> 00:34:55.610
+are at repo.
+
+00:34:55.680 --> 00:34:56.160
+npmx.
+
+00:34:56.160 --> 00:34:56.720
+dev.
+
+00:34:56.720 --> 00:35:00.370
+If you want to chat along, talk about anything and everything
+
+00:35:00.370 --> 00:35:01.560
+NPMX, go to chat.
+
+00:35:01.560 --> 00:35:02.050
+npmx.
+
+00:35:02.050 --> 00:35:02.540
+dev.
+
+00:35:02.560 --> 00:35:05.160
+That'll go to the Discord.
+
+00:35:05.160 --> 00:35:08.430
+And of course, if you want to tag us on Blue
+
+00:35:08.430 --> 00:35:11.780
+Sky and just, you know, talk online, we are
+
+00:35:11.780 --> 00:35:13.500
+at social.
+
+00:35:13.500 --> 00:35:14.640
+npmx.
+
+00:35:14.640 --> 00:35:18.500
+With that in mind, I just want to say thank you
+
+00:35:18.500 --> 00:35:22.880
+once again to the Atmosphere Conference, Boris, Ted
+
+00:35:23.090 --> 00:35:25.300
+, Nick, for organizing this.
+
+00:35:25.310 --> 00:35:29.550
+Everyone in this room who is so passionate about the atmosphere and
+
+00:35:29.550 --> 00:35:32.600
+the future that it brings, that they're here in person
+
+00:35:32.820 --> 00:35:32.820
+.
+
+00:35:32.820 --> 00:35:35.900
+And of course, people who are online, watching remotely,
+
+00:35:35.900 --> 00:35:38.940
+no matter where you are, it is very wonderful.
+
+00:35:38.960 --> 00:35:40.450
+So once again, I want to say thank you.
+
+00:35:40.460 --> 00:35:42.850
+And before we wrap up, I want to bring on Mat
+
+00:35:42.850 --> 00:35:44.340
+ias for final remarks.
+
+00:35:44.340 --> 00:35:46.560
+Matias for final remarks.
+
+00:35:46.790 --> 00:35:51.560
+That was amazing.
+
+00:35:51.560 --> 00:35:52.540
+That was great.
+
+00:35:52.570 --> 00:35:53.550
+Yeah.
+
+00:35:53.560 --> 00:35:55.170
+I wanted to say thank you, but you did it so
+
+00:35:55.170 --> 00:35:55.560
+well.
+
+00:35:55.560 --> 00:35:58.560
+So I shall say again, thank you so much.
+
+00:35:58.560 --> 00:36:02.820
+And actually, these past days have shown us, like,
+
+00:36:02.820 --> 00:36:04.780
+make us very hopeful.
+
+00:36:04.790 --> 00:36:08.640
+Because you are not only building the technology that we need,
+
+00:36:08.640 --> 00:36:09.960
+you are living it.
+
+00:36:09.960 --> 00:36:11.640
+And this is also what we need.
+
+00:36:11.640 --> 00:36:15.560
+Like, you are living in using the principles that you want
+
+00:36:15.560 --> 00:36:17.640
+to put into the technology.
+
+00:36:17.640 --> 00:36:20.740
+So, yeah, you make us very hopeful.
+
+00:36:20.740 --> 00:36:23.070
+And I want to say that not only if you want to
+
+00:36:23.070 --> 00:36:26.190
+build with us in the sense of building, like, MP
+
+00:36:26.200 --> 00:36:29.260
+MX, but if you are building anything else, it
+
+00:36:29.260 --> 00:36:30.750
+'s still the stock.
+
+00:36:30.760 --> 00:36:33.240
+Because there is always thing that we can collaborate.
+
+00:36:33.240 --> 00:36:35.760
+We can abstract libraries and use them together.
+
+00:36:35.820 --> 00:36:39.840
+We can help Fig, like, and give him the money
+
+00:36:39.840 --> 00:36:42.570
+to actually, like, yeah.
+
+00:36:42.580 --> 00:36:45.100
+We can do, really, a lot together.
+
+00:36:45.170 --> 00:36:48.470
+So that's it.
+
+00:36:48.500 --> 00:36:48.940
+Thanks a lot.

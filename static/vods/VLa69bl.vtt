@@ -1,0 +1,2272 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.970
+Another thing about me is that I have worked in the journalism
+
+00:00:05.030 --> 00:00:08.860
+tech industry for the better part of a decade before moving on
+
+00:00:08.860 --> 00:00:12.400
+to working on open social protocols, and part of my journey
+
+00:00:12.400 --> 00:00:16.500
+there was actually seeing the things that reporters and news organizations were
+
+00:00:16.580 --> 00:00:19.710
+going through and realizing that some of the change that I wanted
+
+00:00:19.710 --> 00:00:23.360
+to affect could not be done solely by working with journalism institutions
+
+00:00:23.360 --> 00:00:23.560
+.
+
+00:00:23.560 --> 00:00:27.440
+And so I ended up moving upstream into working in tech companies
+
+00:00:27.440 --> 00:00:32.120
+and social media because that sort of fundamental substrate ended up being
+
+00:00:32.190 --> 00:00:38.100
+so important for the foundation for where the publishing industry and journalists
+
+00:00:38.450 --> 00:00:39.320
+have gone.
+
+00:00:39.320 --> 00:00:41.780
+And in that span of time have linked up and met with
+
+00:00:41.780 --> 00:00:45.520
+some fascinating folks who are thinking about what this next era of
+
+00:00:45.590 --> 00:00:50.900
+journalism creation looks like and how people are connecting with communities.
+
+00:00:50.900 --> 00:00:55.210
+So I'm very happy to have with us today Justin Bank
+
+00:00:55.210 --> 00:00:56.960
+and Lauren Sack.
+
+00:00:56.960 --> 00:00:59.390
+Justin is the co-founder of Journalism Atlas and if
+
+00:00:59.390 --> 00:01:02.460
+you saw his talk earlier this morning it was awesome.
+
+00:01:02.460 --> 00:01:04.460
+Also iterates very quickly.
+
+00:01:04.460 --> 00:01:07.140
+It was great to see a slide of Aaron who had given
+
+00:01:07.250 --> 00:01:10.700
+a talk immediately beforehand in there too.
+
+00:01:10.700 --> 00:01:11.700
+We can just do things.
+
+00:01:11.700 --> 00:01:13.260
+It's great.
+
+00:01:13.260 --> 00:01:16.090
+And Journalism Atlas is a wayfinder for the future of
+
+00:01:16.090 --> 00:01:20.800
+news media designed to connect audiences with independent creators who are telling
+
+00:01:20.800 --> 00:01:24.150
+the stories they choose with purpose for the communities they cultivate and
+
+00:01:24.150 --> 00:01:24.460
+serve.
+
+00:01:24.460 --> 00:01:26.990
+Which sounds very well aligned with the things that we talk about
+
+00:01:26.990 --> 00:01:29.880
+here at this conference and in this community.
+
+00:01:29.880 --> 00:01:33.020
+And he's also previously led digital initiatives at the Washington Post
+
+00:01:33.020 --> 00:01:34.900
+, NPR, and the New York Times.
+
+00:01:34.900 --> 00:01:38.330
+So it's been fun chatting with you about where the industry
+
+00:01:38.330 --> 00:01:41.470
+has come from and where it could potentially go.
+
+00:01:41.480 --> 00:01:44.070
+And Lauren is one of the co-founders of Local
+
+00:01:44.070 --> 00:01:48.860
+News International, which you can find on YouTube, Tikt
+
+00:01:48.860 --> 00:01:52.960
+ok, and Instagram, many fun places.
+
+00:01:52.960 --> 00:01:55.900
+And was also deputy head of video at the Washington Post and
+
+00:01:55.900 --> 00:01:58.880
+oversaw the posts of Tiktok and YouTube in an
+
+00:01:58.880 --> 00:02:06.500
+early phase of news organizations really grappling with these media.
+
+00:02:06.500 --> 00:02:10.020
+So, and you also have a background at PBS and looking
+
+00:02:10.070 --> 00:02:12.480
+at digital things there as well.
+
+00:02:12.480 --> 00:02:14.300
+So very excited to have you both here.
+
+00:02:14.300 --> 00:02:17.460
+Are there any things that you all want to open with?
+
+00:02:17.460 --> 00:02:18.600
+I'm going to actually toss it to you really quickly.
+
+00:02:18.600 --> 00:02:21.240
+Yeah, thanks, Ted.
+
+00:02:21.240 --> 00:02:23.870
+I guess I'll just quickly say, I think I see
+
+00:02:23.870 --> 00:02:27.140
+some faces from when I was here earlier this morning, but
+
+00:02:27.140 --> 00:02:29.060
+just to kind of reorient anybody who wasn't here.
+
+00:02:29.060 --> 00:02:30.460
+Hi, my name is Justin.
+
+00:02:30.460 --> 00:02:32.100
+I'm very, very happy to be here.
+
+00:02:32.100 --> 00:02:35.070
+I am a journalist by training, worked in newsrooms for
+
+00:02:35.070 --> 00:02:38.130
+20 years, actually, more than 20 years now, kind
+
+00:02:38.130 --> 00:02:39.100
+of creeps up on you.
+
+00:02:39.100 --> 00:02:42.490
+It's been amazing to be working on these newer initiatives,
+
+00:02:42.490 --> 00:02:45.960
+thinking about independent journalism at this moment in time when there are
+
+00:02:45.960 --> 00:02:48.560
+so many institutions which have shrunk or under distress.
+
+00:02:48.560 --> 00:02:50.730
+That was a lot of the theme of my talk this morning
+
+00:02:50.730 --> 00:02:50.940
+.
+
+00:02:50.940 --> 00:02:52.780
+A thing that I'm really excited to talk about next to
+
+00:02:52.780 --> 00:02:55.440
+my friend Lauren is what it means for all the journalists who
+
+00:02:55.440 --> 00:02:58.410
+are making journalism, as well as anyone who does not identify
+
+00:02:58.480 --> 00:03:01.230
+as a journalist but is creating journalism or high-fidelity
+
+00:03:01.230 --> 00:03:02.020
+information.
+
+00:03:02.020 --> 00:03:04.560
+And Aaron's talk this morning wonderfully sets this up.
+
+00:03:04.560 --> 00:03:07.320
+How do you support people who are trying to create high-
+
+00:03:07.350 --> 00:03:09.100
+quality news in the modern era?
+
+00:03:09.100 --> 00:03:11.470
+I have found myself in the last few months and years grav
+
+00:03:11.470 --> 00:03:13.320
+itating towards protocol-based thinking.
+
+00:03:13.320 --> 00:03:16.220
+Really excited to be here and connect with other creators, builders
+
+00:03:16.220 --> 00:03:18.660
+, doers, operators, thinkers who want to create that
+
+00:03:18.660 --> 00:03:19.120
+world.
+
+00:03:19.180 --> 00:03:21.080
+And I'm so glad Lauren's here because of her crazy
+
+00:03:21.130 --> 00:03:24.000
+journey that is six, seven months in of making an independent
+
+00:03:24.000 --> 00:03:26.370
+media business out of a legacy place and all the stuff she
+
+00:03:26.370 --> 00:03:28.900
+is learning in real time every day, every week, right
+
+00:03:28.900 --> 00:03:29.140
+?
+
+00:03:29.140 --> 00:03:29.540
+Yeah.
+
+00:03:29.540 --> 00:03:30.460
+Yeah.
+
+00:03:30.460 --> 00:03:31.720
+Thank you all for having me.
+
+00:03:31.720 --> 00:03:32.620
+Delighted to be here.
+
+00:03:32.620 --> 00:03:33.680
+And thank you for the introduction.
+
+00:03:33.680 --> 00:03:37.440
+We've been at it at Local News International since August when
+
+00:03:37.550 --> 00:03:41.690
+we took buyouts from the Washington Post after creating quite a
+
+00:03:41.690 --> 00:03:45.780
+large audience on TikTok and YouTube around a creator named Dave J
+
+00:03:45.780 --> 00:03:46.460
+orgensen.
+
+00:03:46.460 --> 00:03:49.500
+If you're familiar with him, he's the more familiar
+
+00:03:49.570 --> 00:03:51.600
+face of Local News International than I am.
+
+00:03:51.600 --> 00:03:56.410
+My career has been spent at traditional organizations, PBS and The
+
+00:03:56.410 --> 00:04:00.290
+Post and the Smithsonian before that, begging them to think about
+
+00:04:00.350 --> 00:04:05.700
+new audiences and developing content for them around audiences that probably aren
+
+00:04:05.700 --> 00:04:07.800
+'t interacting with them in any other way.
+
+00:04:07.800 --> 00:04:12.480
+And we decided to go independent just because of a frustration and
+
+00:04:12.480 --> 00:04:16.850
+a sadness that these organizations are not ready to support these new
+
+00:04:16.850 --> 00:04:17.880
+endeavors.
+
+00:04:17.880 --> 00:04:19.880
+Yeah.
+
+00:04:19.880 --> 00:04:22.420
+And I think that that's an amazing segue because what I
+
+00:04:22.420 --> 00:04:26.100
+really am interested in hearing about is really the mindset of journalism
+
+00:04:26.100 --> 00:04:29.930
+creators who are thinking about this particular moment in an era where
+
+00:04:29.930 --> 00:04:34.050
+, you know, publishing has certainly changed with the internet and
+
+00:04:34.110 --> 00:04:38.380
+successive generations of technology and where audiences are, that has really
+
+00:04:38.380 --> 00:04:43.030
+shifted the landscape of what publishing is and also how that serves
+
+00:04:43.070 --> 00:04:48.910
+journalism creators and people who are doing out both reporting news but
+
+00:04:48.910 --> 00:04:50.340
+also bringing it to audiences.
+
+00:04:50.340 --> 00:04:52.920
+And that business dynamic, I think, is one of the
+
+00:04:52.920 --> 00:04:54.760
+most rapidly changing things.
+
+00:04:54.760 --> 00:04:57.880
+And as people are talking about products, new products could be
+
+00:04:57.880 --> 00:05:03.420
+built, ways that creators and audiences connect, thinking about that
+
+00:05:03.530 --> 00:05:08.380
+reality of where these businesses are now and the needs and incentives
+
+00:05:08.380 --> 00:05:10.880
+that they've got as we think about other types of futures
+
+00:05:10.880 --> 00:05:12.240
+, I think is really critical.
+
+00:05:12.240 --> 00:05:15.080
+And so I'm super curious, actually, about the story
+
+00:05:15.080 --> 00:05:16.970
+of how y'all launch and the way that you're
+
+00:05:16.970 --> 00:05:19.230
+thinking about both the content that you create and the way that
+
+00:05:19.330 --> 00:05:21.320
+you want to connect with the audiences that you're serving.
+
+00:05:22.880 --> 00:05:26.400
+Yeah, we launched knowing that we would have to put together
+
+00:05:26.750 --> 00:05:29.680
+sort of a multifaceted business and that has proven true
+
+00:05:29.930 --> 00:05:31.920
+even though we're still quite new at this.
+
+00:05:31.920 --> 00:05:35.950
+But the opportunity really comes from the way that The Post wasn
+
+00:05:35.950 --> 00:05:38.450
+'t able to support us in this way and that we can
+
+00:05:38.450 --> 00:05:39.380
+be multifaceted.
+
+00:05:39.380 --> 00:05:41.240
+We can bring in sponsorships.
+
+00:05:41.240 --> 00:05:43.120
+We can monetize our audience directly.
+
+00:05:43.120 --> 00:05:45.800
+We can sell merchandise to them directly.
+
+00:05:45.800 --> 00:05:48.720
+We can seek philanthropic support.
+
+00:05:49.620 --> 00:05:52.160
+We have a consulting piece of our business as well.
+
+00:05:52.160 --> 00:05:55.680
+So it really is sort of thinking broadly about how we can
+
+00:05:56.030 --> 00:05:59.440
+ignite this audience that we have built that has this kind of
+
+00:05:59.440 --> 00:06:01.980
+parasocial relationship with our journalist.
+
+00:06:01.980 --> 00:06:04.880
+And they want to support him and his work.
+
+00:06:04.880 --> 00:06:06.980
+And we're able to do that in a much more meaningful
+
+00:06:07.020 --> 00:06:08.540
+way now that we're independent.
+
+00:06:10.660 --> 00:06:13.170
+And Justin, have you seen that as a pattern with other
+
+00:06:13.170 --> 00:06:16.650
+creators as well as you speak with people about the Journalism
+
+00:06:16.650 --> 00:06:18.000
+Atlas and the way that they're kind of going out in
+
+00:06:18.000 --> 00:06:18.420
+the world?
+
+00:06:19.920 --> 00:06:21.580
+Yeah, wildly so.
+
+00:06:21.580 --> 00:06:23.720
+One of the reasons I'm here.
+
+00:06:23.720 --> 00:06:26.760
+You know, this morning I told the anecdote of being at
+
+00:06:26.830 --> 00:06:30.860
+The Washington Post in 2011 when the Edward Snowden story breaks
+
+00:06:30.860 --> 00:06:32.560
+and all of the interesting parts about the air-gapped
+
+00:06:32.910 --> 00:06:34.920
+computer, about Bart Gellman coming to the post,
+
+00:06:34.920 --> 00:06:37.560
+of Marty Baron making sense of how we would, you know
+
+00:06:37.560 --> 00:06:39.670
+, get the story out there of us having to self-
+
+00:06:39.670 --> 00:06:42.360
+aggregate to win audiences back from Google as the aggreg
+
+00:06:42.360 --> 00:06:42.930
+ators beat us.
+
+00:06:43.240 --> 00:06:45.080
+And then I told the story about Marisa Kavis
+
+00:06:45.080 --> 00:06:47.310
+in the last 18 months breaking scoops like crazy on
+
+00:06:47.310 --> 00:06:48.950
+Blue Sky and creating this new version of a funnel, right
+
+00:06:49.100 --> 00:06:49.100
+?
+
+00:06:49.100 --> 00:06:52.620
+Those are two very clean examples of an individual creator-jour
+
+00:06:52.630 --> 00:06:55.010
+nalist from a bygone era at this point 15 years
+
+00:06:55.010 --> 00:06:57.560
+ago having a brand to protect them and yet still fighting to
+
+00:06:57.560 --> 00:07:00.000
+figure out the fidelity information in relation to the audience.
+
+00:07:00.000 --> 00:07:01.360
+And then Marisa's more recent example.
+
+00:07:01.360 --> 00:07:03.390
+As we can't, as I said before, if I
+
+00:07:03.390 --> 00:07:05.580
+speak about this, what I find even more is I'm
+
+00:07:05.580 --> 00:07:06.980
+listening to this like crazy.
+
+00:07:06.980 --> 00:07:09.360
+I mean, Lauren launched six, seven months ago, and
+
+00:07:09.360 --> 00:07:12.100
+I still can't stop asking you questions about how you build
+
+00:07:12.100 --> 00:07:12.840
+your business.
+
+00:07:13.240 --> 00:07:14.860
+If you go to journalismatlas.
+
+00:07:14.860 --> 00:07:17.260
+com, we have a certain taxonomy of here's these
+
+00:07:17.260 --> 00:07:19.390
+creators, here's the platforms they're on, here's
+
+00:07:19.530 --> 00:07:21.400
+their geographies, here's their topics, here's their
+
+00:07:21.400 --> 00:07:22.030
+subtopics.
+
+00:07:22.040 --> 00:07:24.670
+We have other kind of prototypes we're putting in front of
+
+00:07:24.670 --> 00:07:26.820
+funders, putting in front of philanthropists, putting in
+
+00:07:26.820 --> 00:07:29.240
+front of publishers to say, look at these patterns.
+
+00:07:29.240 --> 00:07:30.920
+You know, actually, we're going to be in Chicago
+
+00:07:30.920 --> 00:07:33.920
+at ONA, the Online News Association Conference, tomorrow,
+
+00:07:33.920 --> 00:07:34.640
+yes?
+
+00:07:34.680 --> 00:07:35.320
+Yeah, yeah, yeah.
+
+00:07:35.320 --> 00:07:37.170
+And I think we're going to release this thing if we
+
+00:07:37.170 --> 00:07:38.280
+get the final, go ahead.
+
+00:07:38.540 --> 00:07:41.480
+Where we went in Chicago, working on behalf of the philanthrop
+
+00:07:41.480 --> 00:07:44.410
+ist, the philanthropic group press forward to say, let
+
+00:07:44.410 --> 00:07:45.500
+'s map your ecosystem.
+
+00:07:45.500 --> 00:07:48.660
+The amount of, like, ethnic groups, of, like
+
+00:07:48.660 --> 00:07:53.400
+, immigration communities who have these creators on TikTok, who then
+
+00:07:53.400 --> 00:07:56.080
+have private WhatsApp groups, was a thing we found there.
+
+00:07:56.100 --> 00:07:57.100
+We're still doing research.
+
+00:07:57.100 --> 00:07:58.600
+I don't know if we're going to have it all
+
+00:07:58.720 --> 00:08:00.140
+wrapped up in time for Monday or not.
+
+00:08:00.240 --> 00:08:02.920
+But all the ways in which there's different models that are
+
+00:08:02.930 --> 00:08:05.630
+based on different platforms that, like what Lawrence said, of
+
+00:08:05.630 --> 00:08:06.820
+, like, we know we're going to be here to
+
+00:08:07.000 --> 00:08:07.380
+reach people.
+
+00:08:07.380 --> 00:08:09.780
+We know we can be here to monetize people.
+
+00:08:09.780 --> 00:08:11.730
+We know we can be here to do a version of R
+
+00:08:11.730 --> 00:08:13.740
+&D, of trying to, you know, rough out
+
+00:08:13.740 --> 00:08:16.100
+where else we'll kind of reach people at.
+
+00:08:16.120 --> 00:08:19.540
+It's an incredible series of portfolios of what news creators
+
+00:08:19.540 --> 00:08:22.110
+are doing to build, to reach, and to monetize
+
+00:08:22.110 --> 00:08:22.420
+.
+
+00:08:24.060 --> 00:08:27.530
+I think that that's such an interesting segue to a sort
+
+00:08:27.530 --> 00:08:32.230
+of broader topic about when you talk often about software platforms and
+
+00:08:32.320 --> 00:08:34.430
+protocols and things like that, there's a lot of,
+
+00:08:34.430 --> 00:08:36.430
+like, discussion about, oh, well, we just need
+
+00:08:36.530 --> 00:08:39.850
+people to exclusively use our platform to switch from some other platform
+
+00:08:39.850 --> 00:08:40.740
+to our platform.
+
+00:08:40.780 --> 00:08:43.370
+And once you go up a strata from that and you
+
+00:08:43.370 --> 00:08:48.410
+'re thinking about people who are community organizers or community leaders,
+
+00:08:48.900 --> 00:08:51.860
+their strategies around how they're connecting with audiences, the afford
+
+00:08:51.860 --> 00:08:54.740
+ances different tools give them, I think is a really important
+
+00:08:54.740 --> 00:08:56.120
+thing for people to think about.
+
+00:08:56.120 --> 00:08:59.450
+And I'm really curious about how, say, local news
+
+00:08:59.450 --> 00:09:02.760
+international is thinking about their presence and where you feel you need
+
+00:09:02.880 --> 00:09:04.800
+to be and where you would like to be.
+
+00:09:04.960 --> 00:09:06.560
+Yeah.
+
+00:09:06.560 --> 00:09:09.250
+The notion of exclusivity, I think, makes a lot
+
+00:09:09.350 --> 00:09:12.420
+of sense for most industries, but maybe not for the news
+
+00:09:12.420 --> 00:09:13.380
+, for a couple of reasons.
+
+00:09:13.380 --> 00:09:16.900
+First of all, philosophically, we believe we want everyone
+
+00:09:16.940 --> 00:09:18.350
+to see our content.
+
+00:09:18.520 --> 00:09:21.650
+So we want to put it in the broadest possible places
+
+00:09:21.650 --> 00:09:24.840
+we can because we want to be sort of democratic in that
+
+00:09:24.960 --> 00:09:25.440
+way.
+
+00:09:25.440 --> 00:09:28.720
+We know, though, that we can monetize people in
+
+00:09:28.720 --> 00:09:31.120
+different ways because of that.
+
+00:09:31.120 --> 00:09:33.380
+We sort of want to reach the broadest audience, but
+
+00:09:33.410 --> 00:09:35.560
+ultimately we want to build fans over time.
+
+00:09:35.560 --> 00:09:37.240
+That's kind of been the goal Dave and I had in
+
+00:09:37.240 --> 00:09:39.770
+mind since we launched in 2019 is, like, do the
+
+00:09:39.770 --> 00:09:42.530
+news, build fans, and then you can do something with
+
+00:09:42.730 --> 00:09:43.200
+those fans.
+
+00:09:44.420 --> 00:09:47.640
+So you can monetize those fans, but ultimately we want
+
+00:09:47.640 --> 00:09:50.740
+to deliver the news in any way, in any place where
+
+00:09:50.860 --> 00:09:52.050
+the audience is.
+
+00:09:52.140 --> 00:09:54.550
+It doesn't mean we need to be everywhere, but we
+
+00:09:54.550 --> 00:09:57.370
+need to be sort of in the broadest possible audience grab
+
+00:09:57.370 --> 00:09:57.630
+.
+
+00:09:58.820 --> 00:10:01.510
+It's classic top of funnel, I guess, traditionally speaking
+
+00:10:01.610 --> 00:10:01.780
+.
+
+00:10:01.780 --> 00:10:04.470
+Yeah, I think the only thing I'll, I mean
+
+00:10:04.570 --> 00:10:08.300
+, again, I could listen to Lauren talk about this forever
+
+00:10:08.300 --> 00:10:08.720
+.
+
+00:10:08.720 --> 00:10:11.610
+It is endlessly fascinating with me to think about people who every
+
+00:10:11.610 --> 00:10:13.630
+day wake up and say, I'm going to think about
+
+00:10:13.640 --> 00:10:14.240
+the news.
+
+00:10:14.240 --> 00:10:15.640
+What stories are in our pocket?
+
+00:10:15.640 --> 00:10:16.760
+What have we been looking for?
+
+00:10:16.760 --> 00:10:18.800
+What are the longer term stories?
+
+00:10:19.740 --> 00:10:22.420
+I think especially this community, especially, again, just reflecting
+
+00:10:22.420 --> 00:10:24.420
+on Aaron's amazing, you know, speech this morning,
+
+00:10:24.420 --> 00:10:26.790
+you know, hearing the conversations that kind of have been going
+
+00:10:26.790 --> 00:10:30.370
+on in this room, talking about everything from micropay
+
+00:10:30.370 --> 00:10:34.570
+ments to extraction to what is the purpose of a platform.
+
+00:10:34.600 --> 00:10:36.860
+You know, in this time and space, you know,
+
+00:10:36.890 --> 00:10:39.540
+in March of 2026, we're at proto is,
+
+00:10:39.540 --> 00:10:41.120
+and what I've been hearing these last couple of days,
+
+00:10:41.160 --> 00:10:43.730
+stuff like the leaflet crew, thinking through, like,
+
+00:10:43.730 --> 00:10:45.970
+how do we kind of, like, graph onto something here
+
+00:10:45.970 --> 00:10:47.410
+to torture a word, I guess.
+
+00:10:48.920 --> 00:10:51.080
+News flows all day, every day.
+
+00:10:51.080 --> 00:10:52.970
+It just, you know, Lauren wakes up every day and
+
+00:10:53.030 --> 00:10:53.960
+has a million ideas.
+
+00:10:53.960 --> 00:10:55.260
+She's so good with Dave.
+
+00:10:55.260 --> 00:10:56.290
+You guys figure out, we'll do this, we'll
+
+00:10:56.290 --> 00:10:57.000
+do this, we'll do this.
+
+00:10:57.000 --> 00:10:58.350
+And if we want to get to this, that's actually
+
+00:10:58.350 --> 00:10:59.020
+a four-day thing.
+
+00:10:59.020 --> 00:11:00.040
+We'll kind of get there.
+
+00:11:00.040 --> 00:11:02.180
+That's in the guts of a news person.
+
+00:11:02.180 --> 00:11:04.150
+As I think about the builders, as I think about the
+
+00:11:04.150 --> 00:11:07.040
+community organizers, I think about people who are thinking about paid
+
+00:11:07.040 --> 00:11:08.580
+feeds or the other ideas we kind of heard around here.
+
+00:11:08.580 --> 00:11:12.350
+The opportunity to work with news creators who are independently trying to
+
+00:11:12.450 --> 00:11:15.740
+do anything and to grab the daily conversation and port them over
+
+00:11:15.850 --> 00:11:18.250
+, like Lauren's saying, to a community that you can
+
+00:11:18.250 --> 00:11:20.130
+turn to fans to do something, I mean, it's
+
+00:11:20.130 --> 00:11:21.240
+wildly exciting.
+
+00:11:22.520 --> 00:11:24.960
+I'm so curious, actually, on that note.
+
+00:11:24.960 --> 00:11:28.440
+Are there things that you feel unconstrained about or approaches
+
+00:11:28.440 --> 00:11:32.270
+that you can take now that you feel like you couldn't
+
+00:11:32.370 --> 00:11:33.100
+take?
+
+00:11:33.100 --> 00:11:35.790
+And we don't necessarily have to personalize it that much
+
+00:11:35.890 --> 00:11:36.100
+.
+
+00:11:36.100 --> 00:11:38.940
+But I think about the difference between being supported by a publisher
+
+00:11:38.940 --> 00:11:41.750
+and being within a publisher versus other strategies that you can take
+
+00:11:41.750 --> 00:11:43.480
+once you're independent as a creator.
+
+00:11:43.680 --> 00:11:46.340
+Because some of this is like being able to take novel approaches
+
+00:11:46.340 --> 00:11:49.060
+and connect with audiences in ways that, you know, aren
+
+00:11:49.060 --> 00:11:52.060
+'t like read the front page of a newspaper or even the
+
+00:11:52.060 --> 00:11:52.950
+concept of a newspaper.
+
+00:11:53.020 --> 00:11:55.660
+For sure.
+
+00:11:55.660 --> 00:11:57.680
+And it's mostly format-driven at this point.
+
+00:11:57.680 --> 00:11:59.700
+Again, we've only been at this for eight months.
+
+00:11:59.700 --> 00:12:03.070
+But I think we were very boxed into the format we
+
+00:12:03.070 --> 00:12:06.160
+could perform in at The Post for various reasons.
+
+00:12:06.160 --> 00:12:08.250
+Everyone's worked for a big company and you're on your
+
+00:12:08.300 --> 00:12:09.480
+team and you do what you do.
+
+00:12:09.480 --> 00:12:13.240
+Now we can make anything for any platform in any format,
+
+00:12:13.350 --> 00:12:15.430
+any length, any tone we want.
+
+00:12:15.440 --> 00:12:17.250
+And if it doesn't work, then tomorrow we'll change
+
+00:12:17.250 --> 00:12:18.960
+course and we'll try something different.
+
+00:12:19.160 --> 00:12:20.460
+So that's why we're really excited.
+
+00:12:20.460 --> 00:12:22.260
+We'll have long form right now.
+
+00:12:22.260 --> 00:12:24.140
+We operate strictly in short form.
+
+00:12:24.140 --> 00:12:25.460
+We publish five days a week.
+
+00:12:25.460 --> 00:12:29.500
+Long form is coming soon, which was something that, like
+
+00:12:29.500 --> 00:12:32.920
+, to do that at The Post would have taken probably three
+
+00:12:32.920 --> 00:12:35.330
+years and 15 different teams and, you know, a lot
+
+00:12:35.380 --> 00:12:37.260
+of hemming and hawing and disagreeing.
+
+00:12:37.260 --> 00:12:38.240
+So we're just going to do it.
+
+00:12:38.240 --> 00:12:40.140
+And if people in three months don't like it, then
+
+00:12:40.190 --> 00:12:41.700
+we'll pivot something different.
+
+00:12:41.700 --> 00:12:43.790
+We have a newsletter, which, again, was something,
+
+00:12:43.840 --> 00:12:45.560
+like, we could not have done at The Post.
+
+00:12:45.560 --> 00:12:47.980
+And we just, heck, why not start a newsletter?
+
+00:12:48.180 --> 00:12:52.480
+So I think flexibility is the main difference.
+
+00:12:52.540 --> 00:12:57.680
+I'm so curious about if you have a particular framework that
+
+00:12:57.730 --> 00:13:01.520
+you use to think about experimentation.
+
+00:13:01.520 --> 00:13:04.470
+One of the reasons why I've been really excited about the
+
+00:13:04.470 --> 00:13:07.550
+AppRoto community is the speed of iteration and being able
+
+00:13:07.550 --> 00:13:10.180
+to try new things that opens up new opportunities.
+
+00:13:10.180 --> 00:13:12.200
+But then the question is, I kind of have always j
+
+00:13:12.200 --> 00:13:14.770
+oked that journalists are actually kind of like many VCs,
+
+00:13:14.820 --> 00:13:16.320
+but they invest with their time, right?
+
+00:13:16.360 --> 00:13:19.860
+And so journalists are very willing to go very deep on something
+
+00:13:19.860 --> 00:13:21.960
+they have strong confidence in.
+
+00:13:21.960 --> 00:13:24.320
+But otherwise, catching their attention is very difficult.
+
+00:13:24.320 --> 00:13:27.000
+And so, like, you know, you can say that
+
+00:13:27.000 --> 00:13:32.340
+you have investments in current platforms, but with the opportunities afford
+
+00:13:32.370 --> 00:13:37.920
+ed you, are you guys looking for particular types of connections
+
+00:13:37.920 --> 00:13:40.320
+with audience or a certain size of audience and things like that
+
+00:13:40.370 --> 00:13:40.530
+?
+
+00:13:40.540 --> 00:13:42.680
+Size, no.
+
+00:13:42.680 --> 00:13:44.180
+I would say connection, absolutely.
+
+00:13:44.180 --> 00:13:46.690
+We're looking to build this sort of loyal fan, as
+
+00:13:46.690 --> 00:13:47.940
+I mentioned before.
+
+00:13:48.140 --> 00:13:49.700
+So that takes time, right?
+
+00:13:49.700 --> 00:13:50.900
+That's not going to happen overnight.
+
+00:13:50.900 --> 00:13:53.940
+That's not going to happen if, hey, everyone loves
+
+00:13:54.010 --> 00:13:54.900
+a viral hit.
+
+00:13:54.900 --> 00:13:57.870
+We love something that goes viral, but ultimately we want to
+
+00:13:57.870 --> 00:14:00.520
+build a fan that's going to subscribe and then buy a
+
+00:14:00.520 --> 00:14:03.280
+T-shirt and then leave a comment and then maybe monet
+
+00:14:03.280 --> 00:14:04.790
+ize in some other kind of way.
+
+00:14:05.660 --> 00:14:08.180
+And that, you know, gosh, I'll pick a
+
+00:14:08.180 --> 00:14:11.350
+random time, not random, but six months, let's
+
+00:14:11.470 --> 00:14:11.980
+say.
+
+00:14:12.040 --> 00:14:14.150
+I think that's a fair time, maybe even longer,
+
+00:14:14.180 --> 00:14:16.830
+maybe a year to try something to really sort of see if
+
+00:14:16.830 --> 00:14:20.050
+you can get traction and build fans that will come back week
+
+00:14:20.050 --> 00:14:22.650
+to week, day to day, and sort of stick with
+
+00:14:22.650 --> 00:14:23.120
+you.
+
+00:14:23.200 --> 00:14:24.020
+I think it takes a while.
+
+00:14:24.900 --> 00:14:27.900
+Actually, would you talk about, you know, hearing Ted
+
+00:14:27.930 --> 00:14:30.730
+'s question, you know, I'm obviously a fan of
+
+00:14:30.730 --> 00:14:32.650
+L&I and a long-time consumer from before we
+
+00:14:32.740 --> 00:14:35.180
+worked together to when we worked together to whatever we are now
+
+00:14:35.180 --> 00:14:35.400
+.
+
+00:14:35.400 --> 00:14:40.140
+Can you talk a little bit about Dave's coverage of young
+
+00:14:40.140 --> 00:14:43.360
+men in the United States and just kind of the success he
+
+00:14:43.360 --> 00:14:43.760
+'s had?
+
+00:14:43.760 --> 00:14:45.580
+Yeah.
+
+00:14:45.580 --> 00:14:48.960
+So our audience is predominantly young men across every platform.
+
+00:14:49.160 --> 00:14:52.480
+We publish right now on YouTube, TikTok, Beehive
+
+00:14:52.480 --> 00:14:56.540
+, Instagram, LinkedIn, and Facebook, and Snapchat.
+
+00:14:56.540 --> 00:14:59.580
+And across the big three, let's call it YouTube,
+
+00:14:59.650 --> 00:15:04.130
+TikTok, Instagram, the audience is entirely male and not entirely
+
+00:15:04.140 --> 00:15:07.940
+, I'm sorry, mostly male and largely under the age
+
+00:15:07.940 --> 00:15:11.190
+of 35, which is an audience that is attracted to a
+
+00:15:11.230 --> 00:15:14.160
+lot of folk right now for a lot of different reasons.
+
+00:15:14.160 --> 00:15:16.850
+And what we have found about them really is that they are
+
+00:15:16.950 --> 00:15:20.180
+deeply, deeply engaged with the news, which is something that
+
+00:15:20.180 --> 00:15:22.020
+a lot of research has proven otherwise.
+
+00:15:22.020 --> 00:15:25.340
+And that's because we use comedy, for the most part
+
+00:15:25.340 --> 00:15:28.220
+, when appropriate, to tell the news.
+
+00:15:28.220 --> 00:15:30.550
+It's a lot like when I grew up with The Daily
+
+00:15:30.550 --> 00:15:34.240
+Show that folks said they wanted to interact with The Daily Show
+
+00:15:34.240 --> 00:15:36.080
+, but they weren't interested in getting their news from any
+
+00:15:36.080 --> 00:15:37.120
+other traditional method.
+
+00:15:37.120 --> 00:15:39.460
+We're seeing that quite a lot now with Dave's fans
+
+00:15:39.460 --> 00:15:39.700
+.
+
+00:15:40.500 --> 00:15:43.880
+And the way that they interact with him and engage with his
+
+00:15:43.880 --> 00:15:47.450
+content is so thoughtful and so deep that it's pretty surprising
+
+00:15:47.460 --> 00:15:47.660
+.
+
+00:15:47.660 --> 00:15:51.710
+We use our newsletter a lot to get email response to topics
+
+00:15:51.710 --> 00:15:54.730
+in the news to do deeper analysis than we're able to
+
+00:15:54.730 --> 00:15:55.700
+do in short form video.
+
+00:15:56.440 --> 00:15:59.960
+And we saw this in a particularly meaningful way after the murder
+
+00:16:00.000 --> 00:16:01.280
+of Charlie Kirk.
+
+00:16:01.280 --> 00:16:05.680
+We've seen it again around topics around this word patriotism
+
+00:16:05.680 --> 00:16:05.980
+.
+
+00:16:05.980 --> 00:16:08.670
+We've seen it again recently around Louis Theroux's
+
+00:16:08.770 --> 00:16:12.180
+documentary on the Manosphere, where we've engaged our audience
+
+00:16:12.180 --> 00:16:15.980
+in this, and they have written these lengthy, thoughtful,
+
+00:16:15.980 --> 00:16:20.090
+surprising emails back to Dave about the way that they think about
+
+00:16:20.130 --> 00:16:22.560
+politics, about how they think about their worldview.
+
+00:16:22.560 --> 00:16:25.920
+And we've really seen that as sort of the foundation of
+
+00:16:25.920 --> 00:16:29.220
+kind of our philosophy of how we deliver the news.
+
+00:16:29.220 --> 00:16:34.310
+If I can pitch in this room, because it's been
+
+00:16:34.310 --> 00:16:37.400
+so inspiring to be here, and I love the goose in
+
+00:16:37.670 --> 00:16:38.840
+that we can do things.
+
+00:16:38.840 --> 00:16:40.400
+God, I want to believe that.
+
+00:16:40.400 --> 00:16:41.600
+Like, now's the time.
+
+00:16:41.600 --> 00:16:46.100
+You know, I'm still protocol-pilling myself,
+
+00:16:46.100 --> 00:16:48.140
+understanding where I am in the world, understanding who I'm
+
+00:16:48.140 --> 00:16:48.600
+talking to.
+
+00:16:48.600 --> 00:16:50.760
+You know, I've tried to read histories and read in
+
+00:16:50.760 --> 00:16:52.100
+, and Ted, you've been amazing.
+
+00:16:52.480 --> 00:16:53.100
+Chad's been amazing.
+
+00:16:53.100 --> 00:16:54.540
+He kind of helped me understand a lot more about this world
+
+00:16:54.680 --> 00:16:54.680
+.
+
+00:16:54.680 --> 00:16:57.560
+As I've seen some of the early-stage development of
+
+00:16:57.560 --> 00:17:01.690
+applications about use cases, about people building things, stuff like
+
+00:17:01.690 --> 00:17:04.600
+Gray, stuff like SIL that tries to aggregate, that
+
+00:17:04.600 --> 00:17:07.300
+tries to kind of have that human algorithmic thinking.
+
+00:17:07.300 --> 00:17:12.840
+Studying independent creator journalists, studying Lauren's team's work
+
+00:17:12.840 --> 00:17:14.610
+and all the people in journalism atlas, talking to people
+
+00:17:14.610 --> 00:17:16.560
+, just asking questions, trying to report it out with my
+
+00:17:16.560 --> 00:17:19.120
+, you know, repertoireal instincts, I screenshot things like
+
+00:17:19.120 --> 00:17:19.560
+crazy.
+
+00:17:19.560 --> 00:17:20.520
+Like, I'm like, oh, this is interesting.
+
+00:17:20.620 --> 00:17:23.750
+And I think that certain things, like especially creators talking to
+
+00:17:23.750 --> 00:17:26.330
+their audiences, like Lauren's describing with the email, I
+
+00:17:26.330 --> 00:17:27.720
+don't see that, but I didn't talk to you
+
+00:17:27.790 --> 00:17:27.860
+guys.
+
+00:17:27.860 --> 00:17:28.600
+I have a sense of that.
+
+00:17:28.600 --> 00:17:29.420
+That's why I prompted you.
+
+00:17:29.420 --> 00:17:30.940
+But I do see what you guys do publicly.
+
+00:17:30.940 --> 00:17:34.440
+And what Dave does publicly to engage with his fan bases in
+
+00:17:34.440 --> 00:17:37.740
+YouTube, Instagram, and TikTok is fidelity.
+
+00:17:37.740 --> 00:17:39.260
+It is community building.
+
+00:17:39.260 --> 00:17:40.100
+It is extraordinary.
+
+00:17:40.800 --> 00:17:44.140
+And he's swimming upstream on those algorithmic spaces because he
+
+00:17:44.140 --> 00:17:45.280
+knows there's value there.
+
+00:17:45.280 --> 00:17:48.580
+If there are spaces that would build for the people like Dave
+
+00:17:48.580 --> 00:17:50.820
+'s of the world, if you can imagine some of the
+
+00:17:51.080 --> 00:17:53.770
+early stage applications being built, whether it is at Proto
+
+00:17:53.770 --> 00:17:56.660
+far away from Blue Sky or closer to the daily news stream
+
+00:17:56.660 --> 00:17:59.420
+, to have creators like Dave who are willing to do the
+
+00:17:59.420 --> 00:18:01.600
+work, who see the value of the thousand true fans and
+
+00:18:01.600 --> 00:18:03.900
+more, and want to go somewhere, that's the innovation
+
+00:18:03.900 --> 00:18:06.040
+I would love to see is like what do technologists want
+
+00:18:06.070 --> 00:18:09.130
+to build that will help do that middle substrate level that we
+
+00:18:09.230 --> 00:18:11.250
+'ve kind of been all missing, you know, kind of
+
+00:18:11.250 --> 00:18:12.220
+like leaning towards today?
+
+00:18:12.220 --> 00:18:14.720
+What does it mean to find people with a genuine audience,
+
+00:18:14.720 --> 00:18:16.220
+the Dave's, the Marisa Cabas's, to
+
+00:18:16.330 --> 00:18:17.990
+say, you've got a breaking news story, Marisa
+
+00:18:18.090 --> 00:18:18.820
+, you have an investigation.
+
+00:18:18.820 --> 00:18:21.390
+Let's figure out what your leaflet looks like, what
+
+00:18:21.390 --> 00:18:23.780
+your playbook looks like for a story you just broke that
+
+00:18:23.780 --> 00:18:24.720
+you know you're owning for a week.
+
+00:18:24.740 --> 00:18:26.830
+Dave, you know, you are on, you know,
+
+00:18:26.880 --> 00:18:27.780
+the male loneliness epidemic.
+
+00:18:27.800 --> 00:18:29.020
+You've been doing this in your email or whatever.
+
+00:18:29.020 --> 00:18:30.620
+You're going to launch an enterprise project.
+
+00:18:30.620 --> 00:18:32.260
+You are leading the conversation.
+
+00:18:32.800 --> 00:18:34.520
+Where's the tooling where you're going to help bring people
+
+00:18:34.520 --> 00:18:36.640
+into a place where there's greater engagement and value?
+
+00:18:36.640 --> 00:18:41.200
+You want to say anything?
+
+00:18:41.200 --> 00:18:41.800
+No, please.
+
+00:18:41.800 --> 00:18:45.320
+Yeah, there's so many threads to follow within that,
+
+00:18:45.340 --> 00:18:46.820
+which is excellent.
+
+00:18:46.820 --> 00:18:50.860
+And I want to touch on two in the following order.
+
+00:18:50.860 --> 00:18:56.240
+I think that when it comes to building an audience, and
+
+00:18:56.240 --> 00:19:00.310
+even when you're talking about the sort of strategy for experimentation
+
+00:19:00.380 --> 00:19:03.000
+and things like that, right, when you talk about creator
+
+00:19:03.330 --> 00:19:06.390
+landscapes, people typically break things down into what's your top
+
+00:19:06.390 --> 00:19:06.880
+of funnel?
+
+00:19:06.880 --> 00:19:07.820
+How do you do discovery?
+
+00:19:07.820 --> 00:19:10.400
+And then, like, what's your monetization strategy and
+
+00:19:10.400 --> 00:19:11.800
+retention and things like that?
+
+00:19:11.800 --> 00:19:16.020
+And I think that there are interesting examples within just the creator
+
+00:19:16.020 --> 00:19:17.420
+space, like dropout.
+
+00:19:17.420 --> 00:19:20.400
+tv, which I find super fascinating in terms of their strategies
+
+00:19:20.400 --> 00:19:23.900
+, in terms of having a really, really effective clipping strategy
+
+00:19:23.900 --> 00:19:26.710
+and being everywhere but being able to pull everybody back to their
+
+00:19:26.710 --> 00:19:29.540
+platform and engage people deeply there.
+
+00:19:29.540 --> 00:19:31.910
+There are folks like Hank Green who have talked about, like
+
+00:19:31.910 --> 00:19:35.750
+, creating businesses that generate more value than they capture.
+
+00:19:36.520 --> 00:19:39.840
+And one of my questions around all these things is, how
+
+00:19:39.840 --> 00:19:42.700
+replicable do we think that these models actually are?
+
+00:19:42.740 --> 00:19:46.930
+And is it possible for journalists to succeed in the current landscape
+
+00:19:46.930 --> 00:19:50.180
+, or is this a temporary position that we're trying to
+
+00:19:50.180 --> 00:19:53.760
+figure out to get to the next thing?
+
+00:19:56.080 --> 00:19:58.400
+Yeah, I'll just, the strong, strong answer,
+
+00:19:58.400 --> 00:20:00.530
+which Lauren will give so much voice to, is this better
+
+00:20:00.530 --> 00:20:03.900
+be temporary because it's not sustainable, like 500%.
+
+00:20:03.900 --> 00:20:07.060
+We've done mapping, like, local communities.
+
+00:20:07.060 --> 00:20:11.880
+The very clear signal we get back is for every creator,
+
+00:20:11.880 --> 00:20:14.830
+journalist, for every, you know, full-time creator
+
+00:20:14.830 --> 00:20:16.520
+, whether they identify as a journalist or not, but they
+
+00:20:16.520 --> 00:20:19.060
+'re creating that kind of valuable information, who can go it
+
+00:20:19.060 --> 00:20:19.920
+full-time.
+
+00:20:19.920 --> 00:20:21.060
+There are 80 who don't.
+
+00:20:21.060 --> 00:20:23.960
+So this is a number of people who are doing fractional
+
+00:20:23.960 --> 00:20:25.120
+work, who are doing side hustles.
+
+00:20:25.320 --> 00:20:26.720
+Now, in a certain way, it's beautiful.
+
+00:20:26.720 --> 00:20:29.260
+You know, there are people in the community who are experts
+
+00:20:29.260 --> 00:20:32.060
+in a certain subject or have a professional tradecraft.
+
+00:20:32.060 --> 00:20:32.500
+In D.
+
+00:20:32.500 --> 00:20:37.280
+C., we have this wonderful creator who is a realtor
+
+00:20:37.280 --> 00:20:39.270
+who does the historical tours of the D.
+
+00:20:39.330 --> 00:20:39.430
+C.
+
+00:20:39.430 --> 00:20:41.410
+area, Joe Himiley, who is D.
+
+00:20:41.410 --> 00:20:41.740
+C.
+
+00:20:41.740 --> 00:20:43.900
+famous, and it works for his business, and it all
+
+00:20:43.900 --> 00:20:45.680
+, you know, market, it all kind of works.
+
+00:20:45.680 --> 00:20:46.360
+Great.
+
+00:20:46.360 --> 00:20:49.360
+There's too many people like Marisa and Dave and Lauren
+
+00:20:49.360 --> 00:20:53.330
+who need to see other things being built and are surviving with
+
+00:20:53.650 --> 00:20:55.690
+their wits and their brilliance and their pre-natural
+
+00:20:55.690 --> 00:20:59.320
+talent, but we are in a scary place if there's
+
+00:20:59.320 --> 00:21:00.360
+not more support coming their way.
+
+00:21:00.360 --> 00:21:02.280
+Yeah, ditto.
+
+00:21:03.890 --> 00:21:05.320
+Amazing.
+
+00:21:05.320 --> 00:21:10.640
+And this is certainly something top of mind in the atmosphere as
+
+00:21:10.640 --> 00:21:13.430
+well in terms of which things can we create, what's
+
+00:21:13.430 --> 00:21:16.040
+their sort of collective power, I think, is another way
+
+00:21:16.040 --> 00:21:18.560
+to put it, and then also how does this grow and
+
+00:21:18.560 --> 00:21:20.550
+connect with other audiences in other places.
+
+00:21:20.560 --> 00:21:23.660
+And speaking of which, I mean, you mentioned comedy,
+
+00:21:23.660 --> 00:21:26.560
+and I think that this is a really interesting topic too on
+
+00:21:26.560 --> 00:21:30.500
+a couple of fronts, both how does comedy succeed within the
+
+00:21:30.570 --> 00:21:33.260
+sort of social landscape, and then also I think the application
+
+00:21:33.380 --> 00:21:34.740
+to news is a really interesting topic.
+
+00:21:35.220 --> 00:21:37.410
+And, you know, we've reached a point where,
+
+00:21:37.410 --> 00:21:40.070
+like, the SF standard has a comedy correspondent, which I
+
+00:21:40.070 --> 00:21:43.070
+think is amazing and blew my mind when I first saw it
+
+00:21:43.070 --> 00:21:43.340
+.
+
+00:21:43.340 --> 00:21:45.900
+But the use of other tools or other ways to connect to
+
+00:21:45.900 --> 00:21:50.310
+people seem like a really interesting and effective way to get out
+
+00:21:50.310 --> 00:21:52.880
+of, like, oh, news is broccoli, right,
+
+00:21:52.880 --> 00:21:55.860
+which I think is one of the contexts and analogies that
+
+00:21:55.860 --> 00:21:57.700
+people think about when they think about the news.
+
+00:21:58.260 --> 00:22:01.080
+Is that something that you guys build into your scripts?
+
+00:22:01.080 --> 00:22:03.640
+Are you thinking about other strategies and ways to connect with audiences
+
+00:22:03.640 --> 00:22:04.000
+as well?
+
+00:22:04.000 --> 00:22:07.520
+That's the way that Dave communicates.
+
+00:22:07.660 --> 00:22:10.200
+Hopefully, L&I becomes, you know, a network
+
+00:22:10.200 --> 00:22:13.220
+of other Daves, and every other Dave would not necessarily
+
+00:22:13.220 --> 00:22:17.460
+need to use comedy as their sort of mode of communication.
+
+00:22:17.460 --> 00:22:19.700
+But the reason that it works for him, we think,
+
+00:22:19.700 --> 00:22:22.260
+actually goes back, again, to who his audience is.
+
+00:22:22.260 --> 00:22:26.020
+Like, this audience of young men has built their lives around
+
+00:22:26.020 --> 00:22:29.220
+very dark humor and sort of using it as a coping mechanism
+
+00:22:29.240 --> 00:22:29.460
+.
+
+00:22:29.460 --> 00:22:31.540
+I mean, we see this broadly online, right?
+
+00:22:31.540 --> 00:22:34.480
+So he has found this way to sort of do it in
+
+00:22:34.480 --> 00:22:38.370
+a way that captures their attention, even if the news is
+
+00:22:38.370 --> 00:22:40.990
+often so bleak that they don't want to look at
+
+00:22:40.990 --> 00:22:41.990
+it in any other way.
+
+00:22:42.000 --> 00:22:46.200
+His particular type of humor is not very dark.
+
+00:22:46.200 --> 00:22:49.750
+It's actually quite joyful, and he often says he likes
+
+00:22:49.750 --> 00:22:54.540
+to sort of be the character that asks the dumb thing or
+
+00:22:54.540 --> 00:22:57.580
+sort of suggests he doesn't explain it so the other characters
+
+00:22:57.580 --> 00:22:59.280
+around him can explain it to him.
+
+00:22:59.280 --> 00:23:01.990
+So that's quite joyful compared to a lot of other dark
+
+00:23:01.990 --> 00:23:03.140
+comedy in this moment.
+
+00:23:03.140 --> 00:23:08.360
+But we have found that it has allowed people that say,
+
+00:23:08.360 --> 00:23:11.100
+I just can't handle the news right now to really be
+
+00:23:11.100 --> 00:23:13.840
+welcomed into our space and then to stick with us.
+
+00:23:13.840 --> 00:23:17.040
+I'll just, you know, to borrow from Aaron earlier
+
+00:23:17.040 --> 00:23:20.320
+, Dave has an amazing register and series of registers.
+
+00:23:20.320 --> 00:23:22.820
+He's, you know, just an absolute genius in applying
+
+00:23:22.820 --> 00:23:23.020
+it.
+
+00:23:24.980 --> 00:23:25.380
+Amazing.
+
+00:23:25.380 --> 00:23:28.900
+I'm interested in whether anybody has questions as well.
+
+00:23:28.960 --> 00:23:30.480
+We have about six minutes left.
+
+00:23:30.480 --> 00:23:33.920
+Would anyone like to throw the questions?
+
+00:23:33.920 --> 00:23:34.900
+Do we have?
+
+00:23:36.520 --> 00:23:39.870
+Thanks.
+
+00:23:39.920 --> 00:23:43.060
+Yeah, I had a question.
+
+00:23:43.060 --> 00:23:47.680
+You mentioned earlier when you were talking about your start separating from
+
+00:23:47.680 --> 00:23:49.960
+the post and the kind of freedoms that that gave you.
+
+00:23:49.960 --> 00:23:52.690
+And I hear a lot, like, we're, I
+
+00:23:52.690 --> 00:23:54.820
+think there's a lot of developers here and we're building
+
+00:23:54.820 --> 00:23:59.150
+infrastructure and the protocol around a lot of the exciting stuff of
+
+00:23:59.150 --> 00:24:02.740
+, like, individual content creators and media.
+
+00:24:03.440 --> 00:24:07.500
+And then we go back to, like, the support side
+
+00:24:07.700 --> 00:24:11.880
+of things and kind of bringing people more together.
+
+00:24:11.880 --> 00:24:15.090
+And I was wondering what thoughts you had on, like,
+
+00:24:15.090 --> 00:24:18.120
+the transition from, you know, the, like, the
+
+00:24:18.390 --> 00:24:24.430
+post and organizations that we have today towards the, kind of
+
+00:24:24.450 --> 00:24:26.580
+what your ideal future would look like.
+
+00:24:27.000 --> 00:24:30.780
+And how do we build for that on an application or protocol
+
+00:24:30.780 --> 00:24:31.720
+or infrastructure level?
+
+00:24:31.720 --> 00:24:33.220
+Yeah, thank you for the question.
+
+00:24:33.220 --> 00:24:37.180
+I think y'all are primed for that opportunity in
+
+00:24:37.180 --> 00:24:41.290
+the way that a lot of traditional organizations are not because we
+
+00:24:41.840 --> 00:24:44.880
+weren't able to see the business of the post in many
+
+00:24:44.880 --> 00:24:48.520
+aspects sort of reckon with this idea that we had an audience
+
+00:24:48.520 --> 00:24:52.560
+that was not interested in the website or the text product.
+
+00:24:52.560 --> 00:24:56.670
+And we saw that from a subscription side, from a merchand
+
+00:24:56.670 --> 00:24:59.660
+ising side, certainly from an ad and sponsorship side.
+
+00:24:59.660 --> 00:25:03.170
+So thinking about the ways that these audiences actually want to support
+
+00:25:03.170 --> 00:25:07.060
+the kind of content that independent creators are putting out there is
+
+00:25:07.350 --> 00:25:07.640
+essential.
+
+00:25:07.660 --> 00:25:11.180
+Like, it's no longer can you sell a subscription to
+
+00:25:11.180 --> 00:25:14.740
+the website that will get you around a paywall if you
+
+00:25:14.740 --> 00:25:16.480
+are a fan of this TikToker.
+
+00:25:16.480 --> 00:25:19.040
+Like, those two things do not reckon with one another anymore
+
+00:25:19.040 --> 00:25:19.200
+.
+
+00:25:19.200 --> 00:25:21.780
+And I think that's the opportunity of you all is to
+
+00:25:21.780 --> 00:25:27.900
+think about what kinds of business support actually honor these audiences where
+
+00:25:27.900 --> 00:25:28.740
+they already are.
+
+00:25:28.740 --> 00:25:33.100
+And I would just nudge the word parasocial,
+
+00:25:33.100 --> 00:25:35.660
+which Lauren said earlier, which is a lot of people's
+
+00:25:35.660 --> 00:25:36.300
+relationship with Dave.
+
+00:25:36.300 --> 00:25:38.740
+And I heard it in the previous panel talking about music and
+
+00:25:38.740 --> 00:25:39.140
+artists.
+
+00:25:39.140 --> 00:25:42.300
+But the idea of fandom and parasocial is, I
+
+00:25:42.300 --> 00:25:45.060
+think, a wonderful thin layer that connects the concept of any
+
+00:25:45.060 --> 00:25:48.790
+type of creation and community that news is moving towards because of
+
+00:25:48.790 --> 00:25:50.540
+the destruction of these institutions.
+
+00:25:51.100 --> 00:25:54.040
+talented creators like Dave would thrive in that ecosystem, whether it
+
+00:25:54.040 --> 00:25:55.900
+'s comedy or the next Dave who's not as funny.
+
+00:26:00.320 --> 00:26:01.380
+I have a question.
+
+00:26:01.380 --> 00:26:02.740
+Hi, Ted.
+
+00:26:02.740 --> 00:26:07.700
+So you had talked earlier about how the current state of things
+
+00:26:07.700 --> 00:26:09.000
+is not super sustainable.
+
+00:26:09.000 --> 00:26:11.260
+Not a big surprise.
+
+00:26:11.260 --> 00:26:14.160
+And I just wanted to get from your folks' vantage point
+
+00:26:14.160 --> 00:26:18.000
+or from your viewpoint, AI, friend or foe,
+
+00:26:18.000 --> 00:26:21.060
+or kind of what are some of the opportunities and scary things
+
+00:26:21.160 --> 00:26:21.760
+in this area?
+
+00:26:22.280 --> 00:26:25.680
+I'll go for, I mean, inevitability.
+
+00:26:25.680 --> 00:26:27.940
+You know, software moves forward.
+
+00:26:27.960 --> 00:26:29.320
+Technology moves forward.
+
+00:26:29.320 --> 00:26:31.080
+So just to ground it in that.
+
+00:26:31.080 --> 00:26:34.260
+I think there are so many conversations to have.
+
+00:26:34.260 --> 00:26:35.480
+There's a movement out there.
+
+00:26:35.480 --> 00:26:36.840
+I have not been in touch with these folks, but I
+
+00:26:36.840 --> 00:26:37.720
+admire their work.
+
+00:26:37.720 --> 00:26:40.640
+They identify as RSL, real simple licensing.
+
+00:26:40.640 --> 00:26:44.640
+And their construct is just like RSS, having some level
+
+00:26:44.790 --> 00:26:47.720
+of mechanism of the, you know, here's the metadata
+
+00:26:47.720 --> 00:26:49.000
+that travels with the content.
+
+00:26:49.000 --> 00:26:51.240
+I question where that ends up in the long run.
+
+00:26:52.000 --> 00:26:54.010
+I think at this moment in time, actually, this is
+
+00:26:54.010 --> 00:26:55.560
+the best answer to your question I can give you.
+
+00:26:55.560 --> 00:26:58.050
+There is a pretty prominent sub stacker, Lenny Rich
+
+00:26:58.050 --> 00:26:59.500
+etsky, if I'm not butchering his last
+
+00:26:59.500 --> 00:26:59.800
+name.
+
+00:26:59.800 --> 00:27:00.960
+Yeah, Lenny's letter.
+
+00:27:00.960 --> 00:27:04.900
+He is a fabulous writer, thinker.
+
+00:27:04.900 --> 00:27:07.520
+I forget what his affiliations were professional, which big tech
+
+00:27:07.520 --> 00:27:08.260
+companies he worked at.
+
+00:27:08.260 --> 00:27:10.360
+But he's been writing for five years or so.
+
+00:27:10.360 --> 00:27:12.820
+Just a week or two ago, he published on his sub
+
+00:27:12.990 --> 00:27:17.000
+stack his 350 corpus of all previously written stuff and all
+
+00:27:17.000 --> 00:27:20.750
+the transcripts of his podcast are being released and licensed to
+
+00:27:21.280 --> 00:27:23.820
+anybody with a subscription and a lighter version of it to people
+
+00:27:23.820 --> 00:27:26.420
+who are not in markdown form and having a contest to
+
+00:27:26.420 --> 00:27:29.260
+see who can create the best stuff off of his IP.
+
+00:27:29.260 --> 00:27:33.000
+That, you know, to imagine the Washington Post doing that
+
+00:27:33.000 --> 00:27:35.360
+, they think, you know, they are struggling to figure
+
+00:27:35.360 --> 00:27:37.320
+out what the open AI will negotiate.
+
+00:27:37.320 --> 00:27:39.580
+I've heard in a few of the earlier panels about Reddit
+
+00:27:39.580 --> 00:27:41.330
+and the New York Times and their relationship with AI in a
+
+00:27:41.330 --> 00:27:41.740
+certain place.
+
+00:27:41.740 --> 00:27:44.560
+You know, that's Lenny and he is a product
+
+00:27:44.560 --> 00:27:46.970
+person with a certain community doing a certain thing that doesn't
+
+00:27:46.970 --> 00:27:48.140
+work for every publisher.
+
+00:27:48.600 --> 00:27:51.720
+But the idea of being eyes wide open about the soft horse
+
+00:27:51.720 --> 00:27:53.860
+coming with the other, the idea of being eyes wide open
+
+00:27:53.860 --> 00:27:57.820
+of what will be the first player multiplayer experience of what could
+
+00:27:58.200 --> 00:28:01.000
+happen at a monetization level between machines and even humans,
+
+00:28:01.000 --> 00:28:04.140
+I hope that more creator journalists are thinking about that.
+
+00:28:04.140 --> 00:28:05.940
+I hope that technologists are thinking about that.
+
+00:28:05.940 --> 00:28:08.300
+I think, you know, you guys haven't thought about
+
+00:28:08.300 --> 00:28:09.460
+Davebot by chance, have you?
+
+00:28:09.460 --> 00:28:12.400
+Or like whatever levels of like, how would you mechanize
+
+00:28:12.400 --> 00:28:15.920
+Dave's personality and or use mechanizations to feed more people
+
+00:28:15.920 --> 00:28:17.100
+to the real human data?
+
+00:28:17.100 --> 00:28:20.320
+We haven't thought about that yet.
+
+00:28:20.320 --> 00:28:25.120
+We don't, you know, in our news making,
+
+00:28:25.120 --> 00:28:26.980
+we don't really use AI right now.
+
+00:28:26.980 --> 00:28:29.900
+Our audience is actually very deeply skeptical of it, at least
+
+00:28:29.900 --> 00:28:31.140
+in the video space.
+
+00:28:31.140 --> 00:28:33.840
+So we've made a pledge to them that we will not
+
+00:28:33.840 --> 00:28:36.770
+use AI in our script writing and in our video production in
+
+00:28:36.770 --> 00:28:37.700
+our news gathering.
+
+00:28:37.700 --> 00:28:40.600
+And that's part of our kind of like ethics and transparency
+
+00:28:40.600 --> 00:28:41.900
+promise to our audience.
+
+00:28:42.220 --> 00:28:43.420
+We talk about that a lot.
+
+00:28:43.420 --> 00:28:47.260
+We report on AI weekly, sometimes daily.
+
+00:28:47.260 --> 00:28:50.830
+But right now, we're not really using it in our
+
+00:28:50.830 --> 00:28:51.600
+reporting.
+
+00:28:51.600 --> 00:28:54.400
+You know, I think what the future holds is an open
+
+00:28:54.400 --> 00:28:55.060
+question.
+
+00:28:55.060 --> 00:28:57.760
+But as long as our audience right now is reacting to it
+
+00:28:57.760 --> 00:29:00.960
+in the way that they are, especially what they're seeing
+
+00:29:00.960 --> 00:29:03.780
+on YouTube, TikTok, Instagram, and sort of like their
+
+00:29:03.780 --> 00:29:07.250
+very guttural reaction to it, I think we will
+
+00:29:07.610 --> 00:29:09.340
+sort of try to be the antithesis of it.
+
+00:29:09.340 --> 00:29:12.400
+I've seen, and you all tell me, comedy is
+
+00:29:12.400 --> 00:29:15.300
+one of the things that AI cannot do.
+
+00:29:15.300 --> 00:29:18.200
+So as long as Dave can do it and AI doesn't
+
+00:29:18.200 --> 00:29:21.330
+do it well, maybe we'll sort of keep it separate
+
+00:29:21.330 --> 00:29:21.580
+.
+
+00:29:21.580 --> 00:29:29.750
+And if you haven't seen it, Dave
+
+00:29:29.750 --> 00:29:32.430
+actually has a character who is the AI character, which we
+
+00:29:32.430 --> 00:29:34.580
+kind of regularly kind of, you know.
+
+00:29:34.580 --> 00:29:35.020
+Or something.
+
+00:29:35.020 --> 00:29:35.700
+Yeah, exactly.
+
+00:29:36.760 --> 00:29:37.020
+Hi.
+
+00:29:37.020 --> 00:29:38.910
+So in the last five years, I feel like we've
+
+00:29:38.910 --> 00:29:43.450
+seen a small resurgence by necessity of like independent media organizations
+
+00:29:43.450 --> 00:29:43.640
+.
+
+00:29:43.640 --> 00:29:47.270
+I'm thinking of like the 404 defector Flaming
+
+00:29:47.270 --> 00:29:48.420
+Hydra aftermath.
+
+00:29:50.200 --> 00:29:54.080
+they are notably not on protocol.
+
+00:29:54.080 --> 00:29:56.930
+They're, you know, Ghost has been amazing as like
+
+00:29:56.930 --> 00:30:00.200
+a democratization platform for them, but it's not connected
+
+00:30:00.200 --> 00:30:00.800
+to protocol.
+
+00:30:00.800 --> 00:30:03.030
+So I guess my question would be, what would, what
+
+00:30:03.030 --> 00:30:07.550
+would be your pitch to them as to, that might ent
+
+00:30:07.550 --> 00:30:10.580
+ice them to come over and start publishing on protocol?
+
+00:30:10.580 --> 00:30:13.140
+Like what would be the benefit for organizations like that?
+
+00:30:15.720 --> 00:30:17.910
+You know, I gave a talk at the beginning of the
+
+00:30:17.910 --> 00:30:19.240
+day where I kind of said, hey, I'm here
+
+00:30:19.240 --> 00:30:20.680
+as a journalist and here's kind of what I know and
+
+00:30:20.680 --> 00:30:22.230
+here's what I'm building a journalism atlas, making
+
+00:30:22.230 --> 00:30:24.000
+lists of great journalists and I'm excited to talk to Lauren
+
+00:30:24.000 --> 00:30:25.640
+about her business and kind of stand up here.
+
+00:30:25.640 --> 00:30:27.530
+We're not on protocol necessarily.
+
+00:30:27.580 --> 00:30:29.820
+We're very much coming here with a stance of like,
+
+00:30:29.820 --> 00:30:32.210
+we're so curious and interested and that's why the last
+
+00:30:32.210 --> 00:30:34.120
+few days have been very inspiring to find some of the folks
+
+00:30:34.120 --> 00:30:37.280
+asking, like figuring out what we build with the application layer
+
+00:30:37.280 --> 00:30:39.000
+that allow Lauren to, all the things she just talked about
+
+00:30:39.000 --> 00:30:40.950
+, doing that on protocol, I think you would do in
+
+00:30:40.950 --> 00:30:43.100
+a minute if you thought like, hey, here it is
+
+00:30:43.100 --> 00:30:43.100
+.
+
+00:30:43.100 --> 00:30:45.400
+But let's find that stuff I think I'd say.
+
+00:30:45.400 --> 00:30:47.120
+You want to, anything you would add or?
+
+00:30:47.120 --> 00:30:48.780
+No, that's good.
+
+00:30:48.780 --> 00:30:49.380
+Yeah.
+
+00:30:49.380 --> 00:30:54.940
+I think one of the other things here really is ultimately thinking
+
+00:30:54.940 --> 00:30:58.980
+about both what the incentives are for each of these businesses and
+
+00:30:58.980 --> 00:31:03.460
+what sorts of affordances do apps give them that either they
+
+00:31:03.460 --> 00:31:06.240
+can't get anywhere else or are adequate substitutes for the
+
+00:31:06.240 --> 00:31:07.280
+things that they're currently doing.
+
+00:31:07.280 --> 00:31:11.300
+And so as we think about these things, like for example
+
+00:31:11.300 --> 00:31:14.730
+, exclusivity on any particular platform is probably a non-
+
+00:31:14.730 --> 00:31:15.260
+starter.
+
+00:31:15.260 --> 00:31:18.030
+And so if you're thinking about that, then the question
+
+00:31:18.030 --> 00:31:20.000
+really is how do you grow a particular audience?
+
+00:31:20.000 --> 00:31:24.360
+What portion of time do you expect any particular journalist to spend
+
+00:31:24.360 --> 00:31:25.440
+with a particular app?
+
+00:31:25.440 --> 00:31:26.780
+What do they get out of that?
+
+00:31:26.780 --> 00:31:29.400
+So all of those sorts of ROI questions I think are really
+
+00:31:29.400 --> 00:31:33.580
+important and thinking about the fact that like essentially all publishing businesses
+
+00:31:33.580 --> 00:31:37.470
+are kind of portfolio businesses now and where are they actually der
+
+00:31:37.470 --> 00:31:39.900
+iving the revenue and how are they trying to think about their
+
+00:31:39.900 --> 00:31:40.060
+time.
+
+00:31:40.780 --> 00:31:41.340
+Great answer.
+
+00:31:41.340 --> 00:31:43.300
+I think we are at time.
+
+00:31:43.300 --> 00:31:44.440
+So thank you so much.
+
+00:31:44.440 --> 00:31:45.920
+I really appreciated this conversation.
+
+00:31:45.920 --> 00:31:46.440
+It's been great.
+
+00:31:48.010 --> 00:31:49.080
+Thank you.

@@ -1,0 +1,1594 @@
+WEBVTT
+
+00:00:00.480 --> 00:00:02.980
+how are you um i feel like i'm watching or waiting
+
+00:00:02.980 --> 00:00:05.940
+for popcorn like you know there's like the last few kern
+
+00:00:05.940 --> 00:00:08.440
+els that might pop or might not but like do i open
+
+00:00:08.440 --> 00:00:11.690
+the microwave or not um but anyway it looks like we have
+
+00:00:11.780 --> 00:00:14.950
+some critical mass so i'm very excited to be here with
+
+00:00:14.960 --> 00:00:18.450
+everyone here in this room today um because i think we are
+
+00:00:18.450 --> 00:00:22.870
+building the future of community and collective software and that is pretty
+
+00:00:22.870 --> 00:00:26.060
+awesome my name is mosh lee i'm currently the director
+
+00:00:26.140 --> 00:00:29.910
+of the ipfs foundation um and today i want to talk
+
+00:00:29.910 --> 00:00:36.410
+about feature product business the framework for building and enduring at proto
+
+00:00:36.500 --> 00:00:41.920
+ecosystem so uh who here has heard of ipfs all right
+
+00:00:42.070 --> 00:00:47.040
+cool um we make a constellation of tools and protocols for content
+
+00:00:47.040 --> 00:00:50.100
+addressing some of them like ipld and dazzle are building
+
+00:00:50.100 --> 00:00:53.140
+blocks for at proto so if you're building on at proto
+
+00:00:53.250 --> 00:00:56.680
+you might be using this already but we've also been evolving
+
+00:00:56.760 --> 00:01:00.840
+the protocol to be more modular more web friendly um in projects
+
+00:01:00.840 --> 00:01:04.380
+like dazzle which is a simple and more adoptable subset
+
+00:01:04.580 --> 00:01:06.430
+of ipfs i think robin is in the room who
+
+00:01:06.430 --> 00:01:11.320
+kind of masterminded that web tiles which are safe composable
+
+00:01:11.320 --> 00:01:16.020
+modules for web apps meta disco which is a system for science
+
+00:01:16.800 --> 00:01:20.790
+metadata publishing there was a short talk about that tomorrow afternoon at
+
+00:01:20.790 --> 00:01:24.530
+4 40 and then um the cid congress is our monthly
+
+00:01:24.530 --> 00:01:27.380
+virtual series where we get together a lot of the um nerd
+
+00:01:27.490 --> 00:01:32.160
+s and friends uh evolving protocols for content addressing so come join
+
+00:01:32.160 --> 00:01:34.690
+us that's on luma i'll make sure that link
+
+00:01:34.690 --> 00:01:37.030
+is out in the world for you to find but we we
+
+00:01:37.030 --> 00:01:40.290
+love to um meet new friends and learn about your projects and
+
+00:01:40.290 --> 00:01:44.030
+evolve these protocols together so uh zooming out a bit uh my
+
+00:01:44.030 --> 00:01:48.000
+talk today is not really about my work at the ipfs
+
+00:01:48.000 --> 00:01:51.780
+foundation quite so directly um i'm here because it i've
+
+00:01:51.780 --> 00:01:56.160
+been on many sides of the table um i built google forms
+
+00:01:56.160 --> 00:01:59.460
+i founded a gov tech company i sold it i watched
+
+00:01:59.460 --> 00:02:03.200
+it get sold again to private equity uh i ran dev teams
+
+00:02:03.760 --> 00:02:06.430
+developer programs and grants at protocol labs and ipfs um i
+
+00:02:06.430 --> 00:02:10.190
+think totaling 25 million dollars in grant programs um i'm
+
+00:02:10.280 --> 00:02:14.650
+also a a small time angel investor so this talk is really
+
+00:02:14.770 --> 00:02:18.260
+what i wish someone had told me and the conversations i wish
+
+00:02:18.260 --> 00:02:20.640
+i'd had there are no prescriptions here there are no
+
+00:02:20.850 --> 00:02:23.050
+right answers but i think there's a lot of information we
+
+00:02:23.050 --> 00:02:25.760
+don't talk about when we're busy talking about building software
+
+00:02:25.910 --> 00:02:28.830
+um and i'm happy to make this interactive so i'll
+
+00:02:28.830 --> 00:02:32.420
+pause every once in a while for questions or hands up or
+
+00:02:32.420 --> 00:02:34.920
+just shout out if you're nice and i'll make sure
+
+00:02:34.920 --> 00:02:38.000
+we have time at the end as well all right this talk
+
+00:02:38.000 --> 00:02:41.920
+is going to be in three parts the framework our at proto
+
+00:02:42.090 --> 00:02:46.800
+landscape and some talk about funding models the first thing is the
+
+00:02:46.800 --> 00:02:50.940
+title of the talk feature product business and uh so in in
+
+00:02:50.940 --> 00:02:57.280
+a short phrase a feature is something that solves one problem often
+
+00:02:57.280 --> 00:03:00.380
+delightfully well i'll give some examples soon a product is
+
+00:03:00.380 --> 00:03:03.260
+a bundle of features solving a clear job it might help you
+
+00:03:03.480 --> 00:03:05.040
+solve what you're sitting down at your desk to do this
+
+00:03:05.140 --> 00:03:07.480
+morning or what you're setting out in the world to do
+
+00:03:07.570 --> 00:03:11.680
+and a business is an organism sometimes one product sometimes a collection
+
+00:03:11.770 --> 00:03:17.720
+of products or features that can outlive itself has competitive advantages
+
+00:03:17.720 --> 00:03:22.460
+has a team that can be resilient to shocks exogenous shocks
+
+00:03:22.460 --> 00:03:27.220
+and the reason i chose this analogy rock paper scissors is that
+
+00:03:27.300 --> 00:03:29.790
+there's no one winner right all all of these can succeed
+
+00:03:29.790 --> 00:03:32.870
+depending on the context the game you're playing you know the
+
+00:03:32.870 --> 00:03:36.310
+the um what what other players are putting out there um but
+
+00:03:36.310 --> 00:03:39.170
+they are very different and when you mistake one for the other
+
+00:03:39.170 --> 00:03:41.360
+i think that's when you enter a world of pain so
+
+00:03:41.370 --> 00:03:46.310
+um a feature like i said it solves one problem and i
+
+00:03:46.310 --> 00:03:50.280
+think one big test of a feature is can you plausibly
+
+00:03:50.330 --> 00:03:52.580
+think it'll become a pain in someone else's app or
+
+00:03:52.660 --> 00:03:56.540
+someone else's project right if this is something portable um there
+
+00:03:56.540 --> 00:03:59.360
+'s a very low barrier to entry there's no onboarding
+
+00:03:59.570 --> 00:04:03.050
+often no account required no logins no subscription it just does
+
+00:04:03.140 --> 00:04:06.160
+one thing well and stops and it's beautiful and thank you
+
+00:04:06.160 --> 00:04:10.100
+very much you've solved my problem um the downside it's
+
+00:04:10.100 --> 00:04:14.000
+really easy to copy or absorb um and if people really love
+
+00:04:14.000 --> 00:04:17.340
+a feature you might get confused into thinking there's a business
+
+00:04:17.340 --> 00:04:19.850
+i made that mistake i'll talk about that more later um
+
+00:04:19.850 --> 00:04:22.930
+and i think really the worst case is building a feature and
+
+00:04:22.930 --> 00:04:26.090
+having a lot of people love it um but everyone assumes that
+
+00:04:26.090 --> 00:04:29.190
+love is your business model and that'll keep keep the ship
+
+00:04:29.190 --> 00:04:33.080
+afloat um okay so some features we love just some
+
+00:04:33.080 --> 00:04:39.200
+examples clippy right clippy is a feature easily identifiable
+
+00:04:39.200 --> 00:04:41.610
+it tries so hard to do its job um you know we
+
+00:04:41.610 --> 00:04:45.040
+we actually sort of replay i think clippy was onto something
+
+00:04:45.040 --> 00:04:48.300
+uh because now we have autocomplete which is kind of
+
+00:04:48.500 --> 00:04:51.240
+you know the same thing but uh less um less less of
+
+00:04:51.240 --> 00:04:54.490
+a guilt trip i think when you ignore it um view source
+
+00:04:54.490 --> 00:04:57.470
+is maybe my favorite feature of the whole web i'm a
+
+00:04:57.470 --> 00:05:00.060
+millennial this is how i learned to code um it is
+
+00:05:00.230 --> 00:05:03.600
+in every single browser it's really easy to copy across browsers
+
+00:05:03.600 --> 00:05:06.420
+but it's an incredibly powerful feature so i'm not talking
+
+00:05:06.420 --> 00:05:09.170
+about a hobby project when i talk about features but i'm
+
+00:05:09.290 --> 00:05:11.810
+saying that um this is you know it it uh it's
+
+00:05:11.810 --> 00:05:16.060
+more powerful when it's integrated into something bigger um curl is
+
+00:05:16.060 --> 00:05:20.740
+another example and quite different um it powers so much of the
+
+00:05:20.740 --> 00:05:24.320
+internet's data transfer but it's been maintained by one person
+
+00:05:24.320 --> 00:05:27.020
+for decades um it's not a business it doesn't need
+
+00:05:27.030 --> 00:05:29.780
+to be and the boundaries are very very clearly defined um a
+
+00:05:29.780 --> 00:05:34.600
+lot of developer tools like here's one example just a um
+
+00:05:34.600 --> 00:05:37.000
+a cid lookup um it you paste the cid
+
+00:05:37.000 --> 00:05:40.640
+you get it decoded you get you know version codec
+
+00:05:40.640 --> 00:05:43.630
+multi-hash um a lot of developer tools are like
+
+00:05:43.630 --> 00:05:47.170
+this they're their features um they do one job they do
+
+00:05:47.170 --> 00:05:49.690
+it really fast you get in get out um and the last
+
+00:05:49.700 --> 00:05:53.590
+one which i'll talk about because i have some personal experience
+
+00:05:53.590 --> 00:05:57.390
+with is is google forms um uh that is something i created
+
+00:05:57.390 --> 00:06:00.480
+a long time ago now in internet years and it's still
+
+00:06:00.480 --> 00:06:02.970
+around and i'll talk a little bit about why it's
+
+00:06:02.970 --> 00:06:06.770
+still around but there are also features that didn't make it
+
+00:06:06.770 --> 00:06:10.620
+that were really fun but um didn't really survive does anyone
+
+00:06:10.730 --> 00:06:15.020
+remember vine like short form looping videos like the next successor
+
+00:06:15.100 --> 00:06:18.340
+to i don't know social media and everyone else just copied
+
+00:06:18.340 --> 00:06:21.170
+it because it turns out that that's just a format they
+
+00:06:21.170 --> 00:06:24.800
+didn't really have anything else unique around it um to make
+
+00:06:24.800 --> 00:06:29.050
+it more powerful or more sticky or or build deeper relationships um
+
+00:06:29.440 --> 00:06:32.980
+another one i think and it's still around in some forms
+
+00:06:32.980 --> 00:06:37.970
+but rss right rss was an incredibly capable powerful capability
+
+00:06:37.970 --> 00:06:41.600
+still is um podcasts use it but but uh for a long
+
+00:06:41.770 --> 00:06:45.620
+time this really transformed how people consume the internet you could build
+
+00:06:45.620 --> 00:06:49.360
+your own rss feeds you know subscribe to subscribe to um
+
+00:06:49.920 --> 00:06:52.970
+publishers or individuals or channels um and google reader was the product
+
+00:06:53.090 --> 00:06:55.900
+alongside it google reader didn't have a business model and so
+
+00:06:55.900 --> 00:06:57.720
+we i think we lost a lot of what we could do
+
+00:06:57.790 --> 00:07:01.770
+with rss um let's talk about products a little bit
+
+00:07:01.770 --> 00:07:05.560
+and then we'll come back to some examples that are blurry
+
+00:07:05.600 --> 00:07:09.170
+and straddle the lines um products are bundles of
+
+00:07:09.170 --> 00:07:13.250
+features that solve a clear use case the big test is would
+
+00:07:13.440 --> 00:07:16.720
+people be upset if it shut down tomorrow a lot of atmosphere
+
+00:07:16.870 --> 00:07:20.870
+apps are products including our favorite blue sky um and uh there
+
+00:07:20.870 --> 00:07:24.640
+are a lot of other builders in this room building some incredible
+
+00:07:24.640 --> 00:07:27.790
+apps on top of this uh this ecosystem so it solves a
+
+00:07:27.790 --> 00:07:31.250
+bigger problem not just a piece of one right it solves a
+
+00:07:31.370 --> 00:07:34.360
+problem end to end uh peter yesterday was using the phrase
+
+00:07:34.360 --> 00:07:37.040
+jobs to be done so it really solves like a big job
+
+00:07:37.040 --> 00:07:40.460
+to be done um and they really build loyalty not just usage
+
+00:07:40.460 --> 00:07:44.730
+because they can they can get integrated more deeply into your workflows
+
+00:07:44.730 --> 00:07:48.330
+um products are pretty expensive to build once you launch a product
+
+00:07:48.480 --> 00:07:51.510
+every user wants a different feature they hassle you about it they
+
+00:07:51.510 --> 00:07:54.560
+email you they skeet you and you really and uh you
+
+00:07:54.560 --> 00:07:58.240
+can't just stop and maintain what you have you have to
+
+00:07:58.410 --> 00:08:01.680
+keep growing and evolving it to um to to feed that hungry
+
+00:08:01.680 --> 00:08:04.880
+beast so um you know it's quite a bit of software
+
+00:08:04.880 --> 00:08:07.400
+to build and and you want to make sure that it's
+
+00:08:07.400 --> 00:08:10.400
+worth it if you do that um here are some products we
+
+00:08:10.400 --> 00:08:14.660
+love that use very different models for sustainability wikipedia is
+
+00:08:14.660 --> 00:08:18.400
+a free encyclopedia anyone can edit it's maintained entirely
+
+00:08:18.480 --> 00:08:21.910
+by volunteers but the hard costs are funded by donations um this
+
+00:08:21.970 --> 00:08:25.210
+is maybe the most successful public good on the internet and it
+
+00:08:25.210 --> 00:08:28.590
+has survived quite a lot of assault um homebrew is
+
+00:08:28.590 --> 00:08:33.050
+another example um homebrew is a package manager for mac
+
+00:08:33.050 --> 00:08:38.100
+it's um maintained by volunteers used by millions uh but actually
+
+00:08:38.240 --> 00:08:40.200
+just a few years ago one of the lead maintainers of
+
+00:08:40.200 --> 00:08:42.740
+homebrew um started a company called workbrew because
+
+00:08:42.740 --> 00:08:45.680
+people kept trying to make feature requests of homebrew that
+
+00:08:45.830 --> 00:08:48.700
+that weren't appropriate for an open source project they were more
+
+00:08:48.900 --> 00:08:51.920
+about tying into an enterprise environment and they said all right well
+
+00:08:52.000 --> 00:08:54.550
+we'll just give you a different universe that can layer on
+
+00:08:54.550 --> 00:08:57.360
+top of homebrew that'll be the business model and
+
+00:08:57.360 --> 00:09:00.510
+it'll also fund our our work on homebrew so
+
+00:09:00.510 --> 00:09:04.550
+um that's a very popular product i think and pinboard
+
+00:09:04.550 --> 00:09:10.640
+is another example um this is another single developer project and product
+
+00:09:10.640 --> 00:09:14.250
+um they've had a paid model from day one um but
+
+00:09:14.250 --> 00:09:17.270
+pinboard is a very fast no-nonsense bookmark
+
+00:09:17.350 --> 00:09:20.700
+ing website it has survived it has outlived a lot of
+
+00:09:20.900 --> 00:09:25.950
+other ideas and projects for bookmarking and saving information and
+
+00:09:25.960 --> 00:09:28.960
+uh part of it is that being a single developer single um
+
+00:09:28.960 --> 00:09:31.700
+single maintainer you can be really nimble so you can
+
+00:09:31.700 --> 00:09:34.780
+make opinionated choices you kind of live in as a user
+
+00:09:34.780 --> 00:09:37.680
+you live inside that person's brain and uh and that can
+
+00:09:37.680 --> 00:09:40.790
+build really strong relationships it you know it's a it's
+
+00:09:40.790 --> 00:09:43.690
+a way to create software that that really makes sense holistically
+
+00:09:43.700 --> 00:09:46.900
+you don't have a committee like arguing or disagreeing with
+
+00:09:46.900 --> 00:09:50.260
+each other about um certain feature choices right and and so that
+
+00:09:50.260 --> 00:09:53.350
+'s kind of the magic of of uh single founder or very
+
+00:09:53.350 --> 00:09:58.700
+small team software um and so these are very very different models
+
+00:09:58.700 --> 00:10:03.900
+for products um but they are all products right um but products
+
+00:10:03.900 --> 00:10:08.070
+are also uh precarious because uh we can lose them
+
+00:10:08.070 --> 00:10:12.320
+so dark sky was a weather did anyone use dark sky yeah
+
+00:10:12.320 --> 00:10:18.220
+amazing weather app the most beautiful visualizations like wonderful interface languages
+
+00:10:18.300 --> 00:10:22.700
+um really accurate data um but it was acquired by apple shut
+
+00:10:22.900 --> 00:10:24.440
+it down so uh by dark sky r.
+
+00:10:24.510 --> 00:10:24.800
+i.
+
+00:10:24.960 --> 00:10:29.530
+p um uh google reader is another one um with a ton
+
+00:10:29.700 --> 00:10:32.820
+of devoted users and for a very long time um it was
+
+00:10:32.930 --> 00:10:37.550
+funded because of google's overarching thesis that more internet time is
+
+00:10:37.550 --> 00:10:40.330
+more better for them right and we know how that's turning
+
+00:10:40.330 --> 00:10:45.290
+out um but eventually they uh began to zoom magnify fine
+
+00:10:45.410 --> 00:10:50.970
+glass in on um specific projects and google reader uh sadly didn
+
+00:10:50.970 --> 00:10:53.670
+'t make the cut and so they lost interest and killed it
+
+00:10:53.670 --> 00:10:56.390
+and along with it i think a lot of the um a
+
+00:10:56.390 --> 00:10:59.120
+lot of the usage and uh power behind rss and i
+
+00:10:59.120 --> 00:11:03.450
+think that's kind of what would happen right the the relationship
+
+00:11:03.450 --> 00:11:06.870
+of blue sky right now is still pretty dominant in the atmosphere
+
+00:11:06.870 --> 00:11:09.440
+so if we lost blue sky the app it would have uh
+
+00:11:09.440 --> 00:11:13.890
+pretty negative effects on the atmosphere um and the sooner we can
+
+00:11:13.890 --> 00:11:18.480
+build against that a build a more resilient ecosystem the better um
+
+00:11:18.480 --> 00:11:22.210
+odio is a fascinating one and i think a really interesting
+
+00:11:22.210 --> 00:11:25.820
+story for this particular audience um odio was a podcasting
+
+00:11:25.900 --> 00:11:31.940
+startup in 2004 so in 2004 there weren'tiphones like
+
+00:11:31.940 --> 00:11:35.520
+people weren't walking around with computers and audio and video files
+
+00:11:35.520 --> 00:11:38.770
+in their pocket very much um and so they just got there
+
+00:11:38.770 --> 00:11:42.470
+a little too soon and they quit when itunes also launched
+
+00:11:42.470 --> 00:11:46.170
+podcasting it turns out that podcasting is actually um a
+
+00:11:46.170 --> 00:11:50.240
+you know big enough to support multiple startups multiple players there but
+
+00:11:50.240 --> 00:11:53.710
+they they quit too soon they weren't really focused on creator
+
+00:11:53.710 --> 00:11:57.920
+or um or publisher experiences or or any help with um quality
+
+00:11:57.920 --> 00:12:01.880
+production monetization anything around the ecosystem i think they just saw
+
+00:12:01.880 --> 00:12:04.240
+that all right apple made a player i guess we're done
+
+00:12:04.240 --> 00:12:06.740
+here they started running hackathons and out of that hack
+
+00:12:06.740 --> 00:12:09.560
+athon some one of those hackathons came twitter so um
+
+00:12:09.610 --> 00:12:14.400
+yeah that is that is odio for uh for anyone who
+
+00:12:14.570 --> 00:12:21.370
+doesn't remember um and there are also products that we really
+
+00:12:21.370 --> 00:12:25.120
+love um in extremely obscure niches and i think uh many
+
+00:12:25.290 --> 00:12:28.670
+of us in this room are extremely online we use social media
+
+00:12:28.760 --> 00:12:32.380
+we connect to others we meet strangers online and then we get
+
+00:12:32.460 --> 00:12:35.050
+together with them in person sometimes we even start companies with them
+
+00:12:35.050 --> 00:12:38.270
+without having met in person um this is a weird way to
+
+00:12:38.270 --> 00:12:42.740
+live most people don't live like that and many businesses industries
+
+00:12:42.740 --> 00:12:46.080
+sectors um operate in these um uh very specific niches and
+
+00:12:46.180 --> 00:12:49.840
+if you can deeply understand that niche if you either come from
+
+00:12:49.840 --> 00:12:53.070
+it or partner with one or you spend many years maybe providing
+
+00:12:53.070 --> 00:12:57.160
+services to to these industries um that is an an incredible unfair
+
+00:12:57.160 --> 00:13:00.550
+advantage that you can build and i think we underestimate these nich
+
+00:13:00.620 --> 00:13:03.010
+es so here's just some examples um zotero i
+
+00:13:03.010 --> 00:13:05.830
+haven't used it myself but uh this is a freem
+
+00:13:05.900 --> 00:13:09.850
+ium reference manager for researchers and academics um it's a 19
+
+00:13:09.940 --> 00:13:14.250
+year old project funded by individual and institutional subscriptions um so to
+
+00:13:14.250 --> 00:13:16.990
+use it basic uh the basic mode is free but if you
+
+00:13:16.990 --> 00:13:20.370
+want to actually store all the documents that you're collecting and
+
+00:13:20.370 --> 00:13:22.880
+referencing you pay and you can pay by individual you or you
+
+00:13:22.880 --> 00:13:25.690
+can have you know the whole chemistry department at your university or
+
+00:13:25.700 --> 00:13:29.580
+research institution subscribe so five million dollars a year revenue has been
+
+00:13:29.780 --> 00:13:32.310
+enough to keep it going for almost 20 years arc gis
+
+00:13:32.310 --> 00:13:37.480
+is another one a kind of an elephant in the room this
+
+00:13:37.480 --> 00:13:43.300
+is a 50 year old company like that is pretty incredible they
+
+00:13:43.300 --> 00:13:45.980
+'ve built such a mode they're not cooperative at all but
+
+00:13:45.980 --> 00:13:48.480
+they've done a lot to advance the state of gis
+
+00:13:48.480 --> 00:13:49.720
+and this is a 5.
+
+00:13:49.720 --> 00:13:53.340
+5 billion dollar valuation company um some more obscure ones that i
+
+00:13:53.460 --> 00:13:57.280
+think are fascinating because they're much bigger than you think um
+
+00:13:57.280 --> 00:14:00.580
+i don't know if anyone has little kids here but um
+
+00:14:00.580 --> 00:14:03.520
+in the past few years all the daycares and preschool
+
+00:14:03.580 --> 00:14:06.350
+s started using apps to communicate with parents that's kind of
+
+00:14:06.350 --> 00:14:09.850
+a baseline expectation now um and most of them are really sloppy
+
+00:14:09.940 --> 00:14:12.790
+with privacy there's only one that gets a lot of the
+
+00:14:12.870 --> 00:14:16.500
+user experience and the privacy um the data security right that's
+
+00:14:16.500 --> 00:14:19.510
+bright wheel i don't think users are choosing it or the
+
+00:14:19.680 --> 00:14:22.600
+like business owners are choosing it for privacy but it's really
+
+00:14:22.670 --> 00:14:27.010
+nice that it's bundled along with the nicest customer experience
+
+00:14:27.010 --> 00:14:32.320
+um because they started with a 600 000 investment from shark tank
+
+00:14:32.320 --> 00:14:35.800
+um and are currently at a 600 million dollar valuation preschools
+
+00:14:35.870 --> 00:14:38.440
+and daycares right so uh this is a niche i
+
+00:14:38.520 --> 00:14:42.040
+don't think many vcs are really talking about but uh
+
+00:14:42.040 --> 00:14:44.970
+it's very real to our economy it's really real to
+
+00:14:44.970 --> 00:14:48.370
+parents um and another one is viva i had never heard
+
+00:14:48.370 --> 00:14:51.290
+of it before i was doing research for this presentation um it
+
+00:14:51.290 --> 00:14:54.930
+'s software for managing pharmaceutical sales and clinical trials so you can
+
+00:14:55.050 --> 00:14:59.680
+imagine like the data burden the compliance burden is tremendous um the
+
+00:14:59.680 --> 00:15:03.310
+the used to be that the consequences for bucking up were
+
+00:15:03.370 --> 00:15:06.720
+huge um and so it's important enough and useful enough that
+
+00:15:06.720 --> 00:15:09.560
+people are going to pay a lot um to have the problem
+
+00:15:09.560 --> 00:15:13.040
+solved for them and the team that that was able to understand
+
+00:15:13.040 --> 00:15:17.900
+this vertical well enough um uh uh you know is is doing
+
+00:15:17.900 --> 00:15:22.320
+extremely well so um it's not just data there but they
+
+00:15:22.480 --> 00:15:26.620
+'re also managing communications and participant recruitment so there's some element
+
+00:15:26.660 --> 00:15:31.030
+of community there um and there are also big communities of patients
+
+00:15:31.030 --> 00:15:36.370
+actually sharing um their experiences especially in rare disease so um these
+
+00:15:36.370 --> 00:15:40.320
+are prod and i say these are products but they're actually
+
+00:15:40.400 --> 00:15:44.650
+all businesses um because they have a deep deep relationship um and
+
+00:15:44.650 --> 00:15:48.100
+very resilient relationship with their customer base or user base they've
+
+00:15:48.100 --> 00:15:50.800
+built big enough teams they've figured out some kind of revenue
+
+00:15:50.800 --> 00:15:53.320
+model whether it's you know a spectrum of freemium
+
+00:15:53.320 --> 00:15:57.260
+to expensive selling to individuals selling to organizations um but you know
+
+00:15:57.460 --> 00:16:01.520
+they're they're actually all businesses and features can also become
+
+00:16:02.080 --> 00:16:05.600
+businesses so this is not a linear path um calendly and
+
+00:16:05.600 --> 00:16:09.170
+stripe i think are exactly you know calendly all the calend
+
+00:16:09.170 --> 00:16:12.760
+ly does is schedule your freaking meetings um and yet people pay
+
+00:16:12.760 --> 00:16:15.810
+for it because they do this one thing extremely well and they
+
+00:16:15.810 --> 00:16:19.510
+integrate with everything else in your workflow right so you can build
+
+00:16:19.590 --> 00:16:22.270
+a business on a feature if you exploit a small wedge and
+
+00:16:22.330 --> 00:16:27.120
+and you just really crush that wedge um there uh there's
+
+00:16:27.120 --> 00:16:30.920
+another pattern for features going into businesses zapier is just six
+
+00:16:30.920 --> 00:16:34.800
+thousand integrations on a marketplace right um none of that is
+
+00:16:34.800 --> 00:16:38.800
+cutting edge they've just reduced all of the friction of comp
+
+00:16:38.970 --> 00:16:42.160
+osing your different services and apps and data sources um mailch
+
+00:16:42.160 --> 00:16:44.780
+imp is the same thing they've got a lot of templates
+
+00:16:44.860 --> 00:16:47.450
+and and over the value is is accruing over time
+
+00:16:47.450 --> 00:16:51.040
+so the first template is just a product the hundredth becomes
+
+00:16:51.040 --> 00:16:54.520
+a moat you know the the 60 millionth template you
+
+00:16:54.590 --> 00:16:58.540
+start to build some advantages um by making this very very long
+
+00:16:58.570 --> 00:17:02.560
+tail usable um and another really common one is just packaging internal
+
+00:17:02.560 --> 00:17:05.660
+infrastructure you you build some dev tools to solve your own problem
+
+00:17:05.860 --> 00:17:08.540
+you realize everyone else needs it and so you upgrade it um
+
+00:17:08.550 --> 00:17:11.620
+and expand it so so others can use it too so um
+
+00:17:11.620 --> 00:17:18.000
+yeah i kept throwing the word around uh business business business can
+
+00:17:18.000 --> 00:17:20.400
+also mean a non-profit business right at the end of
+
+00:17:20.400 --> 00:17:24.890
+the day it's something that that um that sustained itself over
+
+00:17:24.980 --> 00:17:28.160
+the long term um uh i talk about the team a lot
+
+00:17:28.330 --> 00:17:32.030
+because um it needs to be able to survive exogenous shocks
+
+00:17:32.030 --> 00:17:34.830
+um it has to have a moat and i think this
+
+00:17:34.830 --> 00:17:39.340
+is possibly controversial here right it's an uncomfortable thing to grapp
+
+00:17:39.540 --> 00:17:42.400
+le with like there are many ways to build moats there
+
+00:17:42.400 --> 00:17:45.590
+you know you can um have some extremely anti-compet
+
+00:17:45.590 --> 00:17:51.570
+itive practices use proprietary data formats um extremely aggressive contracts those are
+
+00:17:51.570 --> 00:17:54.000
+all ways to build moats other ways to build moats
+
+00:17:54.000 --> 00:17:57.010
+if you think about it um are you know instagram took the
+
+00:17:57.010 --> 00:18:00.150
+route of we're just going to make this a happy beautiful
+
+00:18:00.170 --> 00:18:02.830
+place for everyone and so their moat was really in the
+
+00:18:02.830 --> 00:18:07.150
+accretion of small content moderation decisions over time they built
+
+00:18:07.210 --> 00:18:11.920
+a reputation for creators as a place where harassment would be slightly
+
+00:18:12.000 --> 00:18:14.800
+less than other places in the wild i think this is evolving
+
+00:18:14.800 --> 00:18:18.960
+for sure right but but um their moat was their community
+
+00:18:18.960 --> 00:18:22.820
+and i think um uh reddit uh has been doing surprisingly
+
+00:18:22.900 --> 00:18:25.850
+well as well and i think that's also because they give
+
+00:18:25.940 --> 00:18:30.080
+each community the tools to manage their own communities create their own
+
+00:18:30.080 --> 00:18:33.360
+third spaces um set their own rules um and so the mo
+
+00:18:33.360 --> 00:18:36.470
+at can be the friction of getting a lot of people to
+
+00:18:36.470 --> 00:18:40.100
+move it doesn't have to be um strictly something that's
+
+00:18:40.100 --> 00:18:43.490
+aggressive and and and and anti you know um anti-tr
+
+00:18:43.490 --> 00:18:49.600
+ust right um i think the the biggest challenge with a business
+
+00:18:49.600 --> 00:18:53.620
+is it requires developers to get good at things that many of
+
+00:18:53.620 --> 00:18:58.650
+us are bad at or just really not interested in distribution pricing
+
+00:18:58.650 --> 00:19:02.200
+support sales um i joked yesterday that like we're we
+
+00:19:02.200 --> 00:19:05.740
+'re gonna have to learn to pick up the phone probably half
+
+00:19:05.740 --> 00:19:09.600
+us and answer unknown numbers i'm really sorry but but some
+
+00:19:09.600 --> 00:19:12.530
+people are gonna have to do that um and it's really
+
+00:19:12.530 --> 00:19:16.070
+easy to make a mistake where a product and some revenue can
+
+00:19:16.150 --> 00:19:18.620
+start to look like a business and it it does fine for
+
+00:19:18.810 --> 00:19:21.450
+a while you get some base hits um but it doesn't
+
+00:19:21.450 --> 00:19:24.940
+have that enduring value so i want to talk about some examples
+
+00:19:25.140 --> 00:19:28.410
+um this is the time i built a feature um that got
+
+00:19:28.410 --> 00:19:34.240
+confused for products really a feature um so uh i uh invented
+
+00:19:34.240 --> 00:19:39.040
+google forms um when i was a designer on the dry you
+
+00:19:39.040 --> 00:19:42.250
+know google docs team and we kept hearing that people were struggling
+
+00:19:42.250 --> 00:19:45.000
+with permissions on sheets like who gets to be an editor who
+
+00:19:45.000 --> 00:19:47.730
+gets to be a commenter people were overwriting each other
+
+00:19:47.730 --> 00:19:50.310
+in the cells when you had too many people using it and
+
+00:19:50.310 --> 00:19:52.810
+at the end of the day it turns out most people don
+
+00:19:52.810 --> 00:19:55.480
+'t need to edit cells they just need to submit their one
+
+00:19:55.480 --> 00:19:57.920
+row of information and then you've got your you know two
+
+00:19:58.130 --> 00:20:01.360
+or five or ten information managers that actually need to control the
+
+00:20:01.360 --> 00:20:05.520
+structure behind it and so dumping data directly into sheets was the
+
+00:20:05.520 --> 00:20:08.560
+superpower right we obviously made it as beautiful as we could in
+
+00:20:08.560 --> 00:20:11.500
+2001 i don't even remember what year this is a very
+
+00:20:11.700 --> 00:20:14.400
+long time ago air table is a lot more beautiful now but
+
+00:20:14.400 --> 00:20:17.480
+i think the enduring value here is that we dump the data
+
+00:20:17.480 --> 00:20:21.860
+directly into sheets and anyone who manages data is going to probably
+
+00:20:21.860 --> 00:20:27.040
+say like i want the easiest interface for data manipulation and and
+
+00:20:27.040 --> 00:20:30.810
+um an organization afterward so that's the product the forms plus
+
+00:20:30.900 --> 00:20:34.320
+sheets is the product and then g suite where you wrap in
+
+00:20:34.320 --> 00:20:37.340
+calendar mail and then you you know sell that entire subscription to
+
+00:20:37.340 --> 00:20:41.460
+an organization that's the business right so you can build something
+
+00:20:41.460 --> 00:20:45.850
+that everyone knows and loves and uses a ton um but it
+
+00:20:45.850 --> 00:20:50.100
+might still be a feature so be careful about that um and
+
+00:20:50.100 --> 00:20:54.480
+then another time i built a product and i built the beginning
+
+00:20:54.480 --> 00:20:57.430
+of a business but we sold it to a much stronger business
+
+00:20:57.430 --> 00:21:00.760
+and you could really feel the difference in the end of the
+
+00:21:00.760 --> 00:21:04.150
+year um and so this was uh 2012 like obama was
+
+00:21:04.150 --> 00:21:08.170
+in office i think we all thought technology could fix government um
+
+00:21:08.170 --> 00:21:12.000
+but governments were also holding public meetings that no one was going
+
+00:21:12.000 --> 00:21:14.830
+to and so we built a two-way text message chat
+
+00:21:14.830 --> 00:21:18.550
+bot you could program it um uh with you know different interactive
+
+00:21:18.550 --> 00:21:21.980
+workflows um when we launched it because of the very strong code
+
+00:21:21.980 --> 00:21:24.900
+for america network we got 240 inbounds in a
+
+00:21:24.900 --> 00:21:27.750
+week you know they said we need this we need this and
+
+00:21:27.750 --> 00:21:30.740
+so we thought that was our business right and and it really
+
+00:21:30.740 --> 00:21:33.660
+it was it was the beginning of a business night invested half
+
+00:21:33.740 --> 00:21:36.290
+of our team switched to sales i started picking up every unknown
+
+00:21:36.290 --> 00:21:40.820
+number that called my phone um i you know learned about uh
+
+00:21:40.820 --> 00:21:44.390
+pnls talked to lawyers contracts all this stuff um and
+
+00:21:44.470 --> 00:21:49.240
+we did get pretty good at local government sales so city and
+
+00:21:49.240 --> 00:21:54.000
+county and state level sales we were not qualified to sell to
+
+00:21:54.000 --> 00:21:57.040
+government into federal which is where the majority of the customer bases
+
+00:21:57.040 --> 00:22:02.030
+um and so we um i think this started with some rese
+
+00:22:02.030 --> 00:22:05.230
+ller licenses so they a bigger company which had been around for
+
+00:22:05.230 --> 00:22:08.130
+14 years they were the send grid of government email it's
+
+00:22:08.130 --> 00:22:11.020
+called gov delivery at the time um and they were the
+
+00:22:11.100 --> 00:22:13.490
+ones sending out hey you have 48 hours left to register for
+
+00:22:13.490 --> 00:22:18.390
+health insurance um uh to uh most of americans um they
+
+00:22:18.410 --> 00:22:23.610
+had 97 of the state and federal agencies as their customers they
+
+00:22:23.610 --> 00:22:27.080
+bundled that into um bundled our product into an add
+
+00:22:27.160 --> 00:22:30.280
+-on they immediately started selling it for a lot more than
+
+00:22:30.280 --> 00:22:33.020
+we were especially at the high end um and then we were
+
+00:22:33.020 --> 00:22:36.480
+kind of the expert consultants that came in and helped them figure
+
+00:22:36.480 --> 00:22:39.460
+out their integrations so um i think you know we got
+
+00:22:39.460 --> 00:22:44.000
+to close to a million dollar run rate um uh for the
+
+00:22:44.000 --> 00:22:47.070
+year but it was really palpable when we went on these
+
+00:22:47.070 --> 00:22:49.920
+ride-alongs like how much of a head start this
+
+00:22:49.920 --> 00:22:54.940
+other company had in in building their business and i think the
+
+00:22:55.020 --> 00:22:59.820
+takeaway here is that we you know to survive and really thrive
+
+00:22:59.820 --> 00:23:03.710
+as a standalone business we probably needed to um one more deeply
+
+00:23:03.710 --> 00:23:08.110
+integrate into like 311 salesforce all those existing workflows so
+
+00:23:08.110 --> 00:23:11.180
+we could become part of their system and also go multi-
+
+00:23:11.310 --> 00:23:14.030
+channel so we were text messaging we were like the the
+
+00:23:14.030 --> 00:23:18.140
+hot new kids you know um who understood text messaging but we
+
+00:23:18.140 --> 00:23:22.900
+needed to go come alongside handling 311 calls emails other constitu
+
+00:23:22.980 --> 00:23:25.500
+ent services to really become like an all-in-one
+
+00:23:25.700 --> 00:23:28.560
+suite so if we'd wanted to stay independent and continue to
+
+00:23:28.560 --> 00:23:33.610
+grow that you know we needed um multiple products to bundle into
+
+00:23:33.610 --> 00:23:39.040
+into a solution okay we're going to start part two any
+
+00:23:39.040 --> 00:23:58.710
+comments or questions or um stories yes i
+
+00:23:58.940 --> 00:24:02.120
+always think of these revolutions as a spectrum if we if
+
+00:24:02.190 --> 00:24:05.580
+we pay attention you know things like air table and zapier
+
+00:24:05.580 --> 00:24:08.730
+already took the place of a lot of sas software um
+
+00:24:08.730 --> 00:24:11.160
+i think it's going to be a little bit slower for
+
+00:24:11.160 --> 00:24:13.680
+these enterprises to adopt right now they're still all stuck on
+
+00:24:13.680 --> 00:24:17.910
+chat bots and um and mit studies show showed that 95 of
+
+00:24:17.910 --> 00:24:22.230
+enterprise ai deployments are a waste of money the five that
+
+00:24:22.230 --> 00:24:27.360
+succeed the five percent that succeed are deeply integrated into workflows and
+
+00:24:27.360 --> 00:24:30.760
+done by domain experts so if you have the right people um
+
+00:24:30.760 --> 00:24:34.180
+telling the ais what to do i think there's huge potential
+
+00:24:34.240 --> 00:24:37.230
+there especially in really constrained environments you know one of my passions
+
+00:24:37.230 --> 00:24:40.450
+is public sector software and so if you can imagine a crack
+
+00:24:40.450 --> 00:24:44.240
+team instead of paying like 115 million to mckinsey
+
+00:24:44.240 --> 00:24:48.730
+being able to manage a much smaller contractor software project on their
+
+00:24:48.730 --> 00:24:52.830
+own with the help of of coding agents that's really powerful
+
+00:24:52.830 --> 00:24:57.040
+and i think yes the sas market will really collapse but
+
+00:24:57.040 --> 00:24:59.820
+there will always be innovators on the edges that understand how
+
+00:24:59.820 --> 00:25:02.720
+to connect components in a way that the ais don't see
+
+00:25:02.720 --> 00:25:10.950
+or the big incumbents don't see okay um i think
+
+00:25:10.950 --> 00:25:15.350
+our at proto landscape in a completely unscientific review it
+
+00:25:15.420 --> 00:25:18.090
+looks a lot like this right we have a lot of amazing
+
+00:25:18.090 --> 00:25:21.680
+features we have a lot of fantastic products we have a handful
+
+00:25:21.680 --> 00:25:26.230
+of businesses solutions that that have real customers it's really fantastic
+
+00:25:26.230 --> 00:25:29.310
+to see that we have all of these um but this is
+
+00:25:29.310 --> 00:25:33.370
+lopsided and we've got like a little too heavy
+
+00:25:33.370 --> 00:25:37.440
+in the first two categories and a little light in the third
+
+00:25:37.440 --> 00:25:42.060
+um let's see uh jim barksdale from nets
+
+00:25:42.060 --> 00:25:45.190
+cape has said there's only two ways to make money bund
+
+00:25:45.190 --> 00:25:47.970
+ling and unbundling um and what he's talking
+
+00:25:47.970 --> 00:25:52.850
+about is like you know um uh making something easier to access
+
+00:25:53.060 --> 00:25:57.020
+or or grow by putting pieces together or uh once that gets
+
+00:25:57.020 --> 00:25:59.760
+too bloated you can unbundle and innovate in
+
+00:25:59.760 --> 00:26:03.440
+a very specific slice to do something novel and exciting and really
+
+00:26:03.610 --> 00:26:06.900
+meaningful and powerful and so you know his thesis is that um
+
+00:26:06.900 --> 00:26:10.790
+our technologies go and our markets go in waves so there's
+
+00:26:10.790 --> 00:26:14.120
+like great unbundlings and and the great re-
+
+00:26:14.150 --> 00:26:16.960
+bundlings um uh and and uh ravi metter
+
+00:26:16.960 --> 00:26:19.440
+wrote an essay that highlighted like the unbundling is
+
+00:26:19.440 --> 00:26:22.580
+appropriate when you want to disrupt and you want to bundle to
+
+00:26:22.580 --> 00:26:25.520
+grow i don't know if we're fully on one end
+
+00:26:25.670 --> 00:26:29.530
+of the spectrum uh the pendulum swing or or other i think
+
+00:26:29.530 --> 00:26:32.040
+we're somewhere in the middle but just think about it as
+
+00:26:32.040 --> 00:26:34.790
+as you know ways to evolve what you do um if you
+
+00:26:34.790 --> 00:26:39.120
+want to do more disruption or more growth right so think about
+
+00:26:39.230 --> 00:26:43.180
+a customer like nba um we've always said that like
+
+00:26:43.180 --> 00:26:47.680
+brands are are so hungry to take control of their own customers
+
+00:26:47.680 --> 00:26:51.600
+and relationships and and and communities right um and what they need
+
+00:26:51.810 --> 00:26:55.650
+is a managed community experience with moderation at scale they need um
+
+00:26:55.700 --> 00:27:00.600
+brand safe content controls they need analytics they need video infrastructure they
+
+00:27:00.680 --> 00:27:04.370
+need um some boring enterprise checklist of like compliance compliance and sl
+
+00:27:04.370 --> 00:27:07.010
+as and they need a single person to call when something breaks
+
+00:27:07.010 --> 00:27:09.340
+at halftime we actually have a lot of this in
+
+00:27:09.540 --> 00:27:14.080
+the atmosphere right we have um community moderation i hear it's
+
+00:27:14.320 --> 00:27:17.570
+coming um content controls we've got a fetica in the
+
+00:27:17.570 --> 00:27:22.430
+house we've got some amazing video infrastructure thank you stream place
+
+00:27:22.490 --> 00:27:26.400
+um so a lot of these parts are here but a brand
+
+00:27:26.400 --> 00:27:31.520
+or a customer like nba doesn't know how to navigate
+
+00:27:31.620 --> 00:27:36.230
+this like kelp forest of magical you know um symbiot
+
+00:27:36.230 --> 00:27:38.980
+ic experiences they they need a help they need it they need
+
+00:27:38.980 --> 00:27:41.680
+either a tour guide or they need like a um like a
+
+00:27:41.680 --> 00:27:45.790
+um a blue apron meal kit they just they need some help
+
+00:27:45.850 --> 00:27:48.980
+right let's get them some help um and uh that help
+
+00:27:48.980 --> 00:27:52.190
+doesn't have to come from outsiders that can come from cooper
+
+00:27:52.250 --> 00:27:56.900
+atives or revenue share opportunities or integrations from within the community
+
+00:27:56.900 --> 00:28:00.300
+um but let's think more about how to uh work together
+
+00:28:00.380 --> 00:28:05.750
+to bring this this shared streamlined benefit right because today we have
+
+00:28:05.750 --> 00:28:09.180
+a lot of technical options for folks i think we have a
+
+00:28:09.180 --> 00:28:12.070
+lot of building blocks um but they're like i said they
+
+00:28:12.070 --> 00:28:15.070
+'re they're um they're kind of like meal kits you
+
+00:28:15.070 --> 00:28:17.780
+have to cook yourself and not every user is ready to do
+
+00:28:17.810 --> 00:28:20.810
+that or capable to do that or wants to do that um
+
+00:28:20.810 --> 00:28:24.400
+but a more interesting one because like the nba is a
+
+00:28:24.400 --> 00:28:29.220
+little bit aspirational and they are probably incredibly picky and difficult
+
+00:28:29.220 --> 00:28:32.240
+to land right let's talk about something super boring like i
+
+00:28:32.240 --> 00:28:35.700
+said i'm kind of obsessed with these niche niche markets right
+
+00:28:35.700 --> 00:28:39.710
+of experts um the american society of anesthesiologists is
+
+00:28:39.710 --> 00:28:43.440
+53 000 members in a professional membership org um and they uh
+
+00:28:43.650 --> 00:28:47.500
+make about 52 million a year in revenue half of that is
+
+00:28:47.500 --> 00:28:50.930
+membership fees from um from their members the other half is in
+
+00:28:50.930 --> 00:28:56.720
+educational products and they have a private verified community for credential professionals
+
+00:28:56.720 --> 00:28:59.980
+you can imagine their education involves a lot of video or interactive
+
+00:28:59.980 --> 00:29:03.640
+discussions or community building or or knowledge sharing right they have a
+
+00:29:03.730 --> 00:29:06.720
+ton of compliance they probably have a terrible forum or a lifts
+
+00:29:06.720 --> 00:29:10.630
+listserv or like really bad conference uh conference websites that we
+
+00:29:10.630 --> 00:29:14.470
+can do better in the atmosphere and so if we think about
+
+00:29:14.470 --> 00:29:17.980
+these mid-size customers and what they need it's similar
+
+00:29:18.060 --> 00:29:22.350
+you know combinations of these building blocks um but but you know
+
+00:29:22.350 --> 00:29:26.080
+possibly more attainable by us in in the next year before
+
+00:29:26.080 --> 00:29:29.400
+the next at at comp so we are um at part three
+
+00:29:29.400 --> 00:29:32.980
+i want to talk a little bit about the model and like
+
+00:29:33.080 --> 00:29:35.680
+i said there is there is no one winner right we just
+
+00:29:35.680 --> 00:29:38.640
+want to match our model and align incentives if you have a
+
+00:29:38.640 --> 00:29:40.980
+feature you can gift it to the world you can charge a
+
+00:29:41.050 --> 00:29:43.910
+small subscription you can use it to get hired you can fold
+
+00:29:43.910 --> 00:29:46.690
+it into a product with a product you can sell the thing
+
+00:29:46.690 --> 00:29:50.060
+using a few different models and with a business you can chase
+
+00:29:50.260 --> 00:29:55.050
+you know revenue equity strategic investment and i i want to highlight
+
+00:29:55.050 --> 00:30:04.520
+here yeah oh okay okay are we back on audio streaming
+
+00:30:04.590 --> 00:30:07.120
+thank you i'll just try to project in the room um
+
+00:30:07.120 --> 00:30:09.630
+when it comes to funding i hear grants i hear vc
+
+00:30:09.630 --> 00:30:12.800
+i hear a lot of builders and founders saying i need to
+
+00:30:12.800 --> 00:30:14.750
+pick a path right i need it's a fork in the
+
+00:30:14.750 --> 00:30:16.490
+road i need to pick a path and i'm here to
+
+00:30:16.490 --> 00:30:20.300
+say that there are a lot more models especially outside of tech
+
+00:30:20.300 --> 00:30:25.440
+inside philanthropic models you have mission locked for-profit models
+
+00:30:26.000 --> 00:30:29.130
+you have a lot of cooperatives um uh some folks from
+
+00:30:29.130 --> 00:30:32.600
+the hypha worker cooperative are here some folks from agalia
+
+00:30:32.600 --> 00:30:36.300
+are partnering with blue sky there are huge properties or billion dollar
+
+00:30:36.300 --> 00:30:39.520
+cooperatives um look in spain especially this is what d
+
+00:30:39.540 --> 00:30:42.160
+allas wanted to be but like actually they got beaten to the
+
+00:30:42.160 --> 00:30:47.400
+punch 50 years ago in spain um uh um there are
+
+00:30:47.400 --> 00:30:53.580
+concessionary um uh loans and financing available the real estate
+
+00:30:53.690 --> 00:30:56.720
+sector has done a lot of this um so look into those
+
+00:30:56.720 --> 00:31:00.120
+uh um in the community and oss there's there's a
+
+00:31:00.160 --> 00:31:04.270
+few different kinds of models um and then under the capitalist um
+
+00:31:04.270 --> 00:31:07.400
+box uh there's also you know bootstrap and venture
+
+00:31:07.480 --> 00:31:10.480
+capital is what we talk about the most strategic investment can be
+
+00:31:10.480 --> 00:31:13.800
+really interesting um especially as you get started because it's a
+
+00:31:13.800 --> 00:31:17.090
+smaller player a larger player funding you because you make their business
+
+00:31:17.300 --> 00:31:21.590
+stronger it can be a gateway to acquisition partnerships revenue sharing models
+
+00:31:21.590 --> 00:31:25.020
+so i just encourage everyone in this room to think a little
+
+00:31:25.100 --> 00:31:27.850
+bit bigger you don't have to reinvent your model i'm
+
+00:31:27.850 --> 00:31:31.100
+especially calling out to the funders in the room to consider
+
+00:31:31.180 --> 00:31:35.940
+some of these alternative models because um what we're building i
+
+00:31:35.940 --> 00:31:39.680
+think is more generative than some of the extractive models
+
+00:31:39.680 --> 00:31:42.860
+we've been talking about but also maybe more creative than just
+
+00:31:42.860 --> 00:31:47.320
+straight grants um that is it from me i hope everyone in
+
+00:31:47.320 --> 00:31:51.860
+the room got one thing out of it or laughed one time
+
+00:31:52.120 --> 00:31:54.520
+um my name is mosh i'm mosh.
+
+00:31:54.600 --> 00:31:55.100
+bluesky.
+
+00:31:55.300 --> 00:31:58.390
+social um i would love to you know meet or connect or
+
+00:31:58.470 --> 00:32:02.500
+talk with anyone else in the room um either at this conference
+
+00:32:02.510 --> 00:32:06.030
+or online or um on the live stream so thank you very
+
+00:32:06.030 --> 00:32:09.680
+much and i'm gonna um hand it over to emma
+
+00:32:09.680 --> 00:32:09.680
+right next time

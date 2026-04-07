@@ -1,0 +1,1258 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:04.550
+okay thank you everyone for being here and thanks everyone for helping
+
+00:00:04.550 --> 00:00:08.210
+to organize this event my name is jonathan warden i
+
+00:00:08.210 --> 00:00:12.800
+'m an independent researcher i am an engineer co-founder of
+
+00:00:12.800 --> 00:00:16.190
+a small research organization called social protocols.
+
+00:00:16.190 --> 00:00:19.750
+org my focus is on the the problem of how the design
+
+00:00:19.770 --> 00:00:25.680
+of platforms social platforms and algorithms has positive or negative social outcomes
+
+00:00:25.750 --> 00:00:32.360
+and my big thesis is that if platforms can inadvertently create
+
+00:00:32.360 --> 00:00:37.020
+all these negative social outcomes couldn't they be intentionally designed to
+
+00:00:37.020 --> 00:00:42.270
+produce positive social outcomes so instead of misinformation and toxicity and division
+
+00:00:42.270 --> 00:00:47.120
+couldn't they promote intelligent conversation and finding common ground i've
+
+00:00:47.120 --> 00:00:51.590
+been approaching this problem from the point of view of game theory
+
+00:00:51.630 --> 00:00:58.030
+information theory argumentation theory collective intelligence a whole lot of theory
+
+00:00:58.140 --> 00:01:01.300
+and the reason i'm working on community notes now is it
+
+00:01:01.300 --> 00:01:06.880
+'s one of the only examples i know of where the theory
+
+00:01:06.880 --> 00:01:12.600
+has been put into practice successfully and at scale community notes on
+
+00:01:12.600 --> 00:01:17.220
+twitter has actually helped to decrease the the spread of misinformation on
+
+00:01:17.280 --> 00:01:23.500
+twitter so i'm going to talk to you briefly about why
+
+00:01:23.500 --> 00:01:28.170
+i think community notes is great both for fighting misinformation and as
+
+00:01:28.170 --> 00:01:32.490
+a unique and powerful scalable tool for peer moderation i'll give
+
+00:01:32.490 --> 00:01:35.930
+you a brief demonstration of blue notes and then i'll talk
+
+00:01:35.930 --> 00:01:41.280
+mainly about the architecture some of the architectural challenges with bringing community
+
+00:01:41.280 --> 00:01:46.120
+notes to at protocol and making it decentralized and composable some
+
+00:01:46.120 --> 00:01:52.910
+of the challenges include making annotations work via labeler infrastructure
+
+00:01:52.910 --> 00:01:58.540
+privacy and anonymity and of course bots and manipulation so 300
+
+00:01:58.650 --> 00:02:03.420
+years ago jonathan swift said falsehood flies and truth comes
+
+00:02:03.430 --> 00:02:07.280
+limping after it so that when men come to be unde
+
+00:02:07.280 --> 00:02:10.240
+ceived it is too late and he hadn't even heard
+
+00:02:10.240 --> 00:02:16.730
+of twitter he um rumors have always in misinformation or falsehood
+
+00:02:16.940 --> 00:02:21.790
+has always spread and it spreads largely because people think that it
+
+00:02:21.800 --> 00:02:25.730
+'s true some people are spreading misinformation maliciously but it spreads
+
+00:02:25.730 --> 00:02:30.350
+faster because people don't know the truth so what what community
+
+00:02:30.360 --> 00:02:34.960
+notes does is it helps increase the velocity of truth in social
+
+00:02:34.960 --> 00:02:38.620
+networks it helps the truth sometimes catch up to people and so
+
+00:02:38.640 --> 00:02:43.010
+people you know where normally they just share something because they believe
+
+00:02:43.010 --> 00:02:45.360
+that it's true it looks plausible they kind of want to
+
+00:02:45.360 --> 00:02:48.250
+believe it's true somebody just tells them hey this is actually
+
+00:02:48.250 --> 00:02:51.400
+not true this is just a rumor this image is fake well
+
+00:02:51.400 --> 00:02:58.070
+then maybe they wouldn't share it now besides being a great
+
+00:02:58.070 --> 00:03:04.280
+tool for for combating misinformation community notes also is a very
+
+00:03:04.290 --> 00:03:09.520
+unique and powerful peer moderation protocol it is decentralized in the sense
+
+00:03:09.520 --> 00:03:13.820
+that there are no privileged roles there are no administrators there are
+
+00:03:13.820 --> 00:03:18.260
+no editors there's just the community and so it is moderation
+
+00:03:18.260 --> 00:03:24.210
+without moderators and and that means that instead of trusting fact
+
+00:03:24.210 --> 00:03:30.960
+checkers or editors instead of trusting people or in or organizations
+
+00:03:30.970 --> 00:03:34.750
+you place your trust in the community and in the protocol that
+
+00:03:34.760 --> 00:03:40.390
+that community uses to make decisions and there are some benefits in
+
+00:03:40.390 --> 00:03:44.560
+placing trust in the community one is that people trust the results
+
+00:03:44.560 --> 00:03:48.430
+of moderation decisions more that way people have a lot of trust
+
+00:03:48.430 --> 00:03:52.740
+in community notes a plot across the political spectrum and one of
+
+00:03:52.740 --> 00:03:57.200
+the reasons for that is that it's perceived as being fairly
+
+00:03:57.200 --> 00:04:02.140
+neutral community notes was developed before Elon Musk took over and it
+
+00:04:02.140 --> 00:04:06.080
+'s still the algorithm is open source all the data is open
+
+00:04:06.090 --> 00:04:08.940
+and it's still running using that same the same algorithm and
+
+00:04:08.940 --> 00:04:12.220
+for the most part people still trust community notes even though they
+
+00:04:12.220 --> 00:04:15.440
+don't trust necessarily the person that's running it and people
+
+00:04:15.450 --> 00:04:18.800
+perceive it as neutral because in a sense it really is neutral
+
+00:04:18.800 --> 00:04:24.660
+it is not just a naive majority voting based crowd-s
+
+00:04:24.660 --> 00:04:28.410
+ourced fact-checking system it uses a very innovative
+
+00:04:28.420 --> 00:04:31.790
+bridging algorithm what this algorithm tries to do it's not
+
+00:04:31.790 --> 00:04:34.660
+just trying to find what's people think or what's most
+
+00:04:34.720 --> 00:04:38.740
+popular it tries to find common ground and so one way of
+
+00:04:38.770 --> 00:04:43.600
+looking at that is you can think of the algorithm as looking
+
+00:04:43.600 --> 00:04:46.710
+at people's votes and saying okay well these votes this person
+
+00:04:46.710 --> 00:04:49.270
+'s upvoted this because they have a left-wing
+
+00:04:49.290 --> 00:04:51.560
+bias and this person all these upvotes because this person
+
+00:04:51.560 --> 00:04:54.230
+has a right-wing bias and maybe this person just up
+
+00:04:54.230 --> 00:04:56.800
+votes everything or just downvotes everything so they just
+
+00:04:56.830 --> 00:05:00.510
+have this this upvote bias but these votes there are
+
+00:05:00.520 --> 00:05:05.080
+some votes can that cannot be explained away by bias and so
+
+00:05:05.080 --> 00:05:09.850
+this this model uses discovers these latent factors that influence people's
+
+00:05:09.860 --> 00:05:13.710
+votes and it says look this latent factor represents an area of
+
+00:05:13.710 --> 00:05:18.160
+common ground and when a post or a community note has this
+
+00:05:18.250 --> 00:05:22.040
+factor people are more likely to upvote that post or
+
+00:05:22.050 --> 00:05:26.870
+that community note across the political spectrum across the spectrum of opinion
+
+00:05:26.890 --> 00:05:32.310
+so in a sense it extracts signal from noise if you
+
+00:05:32.370 --> 00:05:39.570
+have for example a group where the majority of people voting on
+
+00:05:39.570 --> 00:05:44.000
+community notes is right-wing which is actually what happened with
+
+00:05:44.010 --> 00:05:47.780
+what exists in x right now if a community note gets a
+
+00:05:47.780 --> 00:05:52.270
+lot of helpful ratings what does that mean does it mean that
+
+00:05:52.290 --> 00:05:54.670
+it's helpful or does it mean that it supports a right
+
+00:05:54.680 --> 00:05:58.250
+-wing worldview well it could be either we don't know
+
+00:05:58.280 --> 00:06:00.670
+just by the fact that it's popular we don't know
+
+00:06:00.670 --> 00:06:04.860
+why people upvoted it but the community notes algorithm breaks
+
+00:06:04.860 --> 00:06:07.600
+that down into components and it says maybe most of these up
+
+00:06:07.600 --> 00:06:09.870
+votes are just because it supports a right-wing worldview
+
+00:06:09.870 --> 00:06:12.080
+but there's also a bunch of upvotes that can
+
+00:06:12.090 --> 00:06:15.580
+'t be explained away so easily so in some what it does
+
+00:06:15.590 --> 00:06:19.250
+is it it's a protocol that scales peer moderation in a
+
+00:06:19.270 --> 00:06:23.160
+way that it is robust to factual capture and i've written
+
+00:06:23.160 --> 00:06:26.220
+more about that on a blog post jonathanwarden.
+
+00:06:26.220 --> 00:06:30.460
+com understanding community notes if you're interested in that so my
+
+00:06:30.490 --> 00:06:35.060
+goal is to bring at proto to bring community notes to at
+
+00:06:35.060 --> 00:06:39.930
+proto and to make it decentralized i say pretty decentralized because i
+
+00:06:39.940 --> 00:06:42.320
+don't i don't know what the word decentralized means anymore
+
+00:06:42.320 --> 00:06:45.370
+after talking to all of you i am but what i mean
+
+00:06:45.370 --> 00:06:48.800
+is that i want a system where the power of one any
+
+00:06:48.840 --> 00:06:54.840
+one individual is limited so that no one can accumulate the power
+
+00:06:54.840 --> 00:07:00.800
+to censor the results a system that is transparent so all
+
+00:07:00.830 --> 00:07:04.070
+the data is open anyone can inspect look at the data and
+
+00:07:04.080 --> 00:07:06.380
+run the algorithm and verify that it's doing what it says
+
+00:07:06.380 --> 00:07:09.650
+it's supposed to be doing and then the at proto eth
+
+00:07:09.680 --> 00:07:13.530
+os of algorithmic freedom and composability the system i'm
+
+00:07:13.530 --> 00:07:18.070
+proposing allows you to mix and match your moderation apps your algorithms
+
+00:07:18.070 --> 00:07:22.370
+your labelers and so on i've designed this to be
+
+00:07:22.370 --> 00:07:28.000
+a decision a generalized peer moderation protocol not just for community notes
+
+00:07:28.010 --> 00:07:32.630
+but for labels or any sort of moderation decision and i've
+
+00:07:32.680 --> 00:07:35.690
+designed this so they can work with other social networks you can
+
+00:07:35.690 --> 00:07:38.580
+place labels or community notes on a mastodon post for
+
+00:07:38.590 --> 00:07:45.750
+example so the the blue sky team and a lot of people
+
+00:07:45.750 --> 00:07:50.960
+i've talked to here that are have their own social apps
+
+00:07:50.970 --> 00:07:54.560
+have indicated that they want to integrate some sort of community notes
+
+00:07:54.560 --> 00:07:59.280
+like feature but nobody knows exactly how they want that to work
+
+00:07:59.280 --> 00:08:01.750
+how exactly do annotations work in at proto how do you
+
+00:08:01.750 --> 00:08:04.390
+make this decentralized a lot of open questions but i've gone
+
+00:08:04.390 --> 00:08:07.540
+ahead and just proposed some answers to those questions i have an
+
+00:08:07.600 --> 00:08:11.910
+informal uh proposal called open community notes that i've um published
+
+00:08:11.910 --> 00:08:13.650
+at that url or this url and then i've
+
+00:08:13.650 --> 00:08:17.820
+gone ahead and i've created an implementation that i um called
+
+00:08:17.830 --> 00:08:20.900
+blue notes blue notes is a based on a fork of the
+
+00:08:20.900 --> 00:08:24.320
+blue sky social app i did this as a fork just to
+
+00:08:24.320 --> 00:08:28.180
+demonstrate how community notes could be integrated into a social app i
+
+00:08:28.180 --> 00:08:31.180
+don't necessarily want people to use this except for as beta
+
+00:08:31.240 --> 00:08:34.990
+testers because community notes is not useful unless there's some
+
+00:08:34.990 --> 00:08:39.560
+critical mass of users there needs to be enough people submitting and
+
+00:08:39.560 --> 00:08:43.360
+rating notes for the algorithm to actually produce any output at all
+
+00:08:43.420 --> 00:08:46.890
+and um so and then of course people are not going to
+
+00:08:46.890 --> 00:08:50.850
+bother doing that unless the notes are actually going to be shown
+
+00:08:50.850 --> 00:08:53.410
+on post because that's the only way they do any good
+
+00:08:53.410 --> 00:08:57.930
+in fighting misinformation and so my goal my plan is to work
+
+00:08:57.930 --> 00:09:03.140
+with blue sky and other skies other social apps to um to
+
+00:09:03.140 --> 00:09:07.600
+refine this spec into something that that they think is acceptable that
+
+00:09:07.610 --> 00:09:11.460
+they could integrate um into their social app um and um and
+
+00:09:11.520 --> 00:09:14.480
+then have a launch um where there's a little bit of
+
+00:09:14.480 --> 00:09:17.860
+um publicity so that we can build this initial con uh community
+
+00:09:17.860 --> 00:09:21.840
+of contributors and actually start producing some useful community notes however in
+
+00:09:21.870 --> 00:09:24.810
+the meantime anyone can integrate with this um and it's fairly
+
+00:09:24.810 --> 00:09:27.690
+easy to integrate if you want your app to just show community
+
+00:09:27.690 --> 00:09:30.620
+notes when they start to show up so i'm going to
+
+00:09:30.620 --> 00:09:40.160
+do a quick demo if i can make it work okay okay
+
+00:09:40.160 --> 00:09:47.890
+so all right so the fork of the blue sky app here
+
+00:09:47.890 --> 00:09:51.370
+we have a section uh community note section where you can browse
+
+00:09:51.370 --> 00:09:55.610
+existing community notes so here i'll look at some community notes
+
+00:09:55.660 --> 00:09:58.020
+that have been rated helpful these have been rated helpful because i
+
+00:09:58.020 --> 00:10:01.410
+manually went in and rated them helpful again the algorithm doesn't
+
+00:10:01.410 --> 00:10:07.820
+produce any useful results yet so if a post has a helpful
+
+00:10:07.820 --> 00:10:11.590
+community note you'll see that community note displayed underneath it this
+
+00:10:11.590 --> 00:10:15.410
+looks just like it looks on x um you can then rate
+
+00:10:15.410 --> 00:10:19.150
+the note i've already rated this one but i'm going
+
+00:10:19.150 --> 00:10:22.680
+to delete my rating and resubmit i'll say yes
+
+00:10:22.680 --> 00:10:26.250
+this is helpful i'll say why it's helpful um right
+
+00:10:26.270 --> 00:10:30.140
+now these checkboxes this data is not actually used by
+
+00:10:30.140 --> 00:10:32.490
+the algorithm where it is used a little bit but it's
+
+00:10:32.490 --> 00:10:36.060
+not very important but i think it could be important in the
+
+00:10:36.060 --> 00:10:40.240
+future so i've rated a note um finally i can write
+
+00:10:40.240 --> 00:10:44.330
+a note actually i'm going to pull up a post that
+
+00:10:44.330 --> 00:10:49.220
+'s fairly recent i'm going to add a note to this
+
+00:10:49.220 --> 00:10:53.710
+post here's a video of cash patel dancing i'm
+
+00:10:53.710 --> 00:10:57.490
+sure you all wanted to see that but it's not actually
+
+00:10:57.600 --> 00:11:03.240
+him it's uh was posted it's misinformation so i've
+
+00:11:03.290 --> 00:11:10.220
+actually copied this community note from the community note that was posted
+
+00:11:10.220 --> 00:11:13.100
+on x on the same post you often see the same misinformation
+
+00:11:13.130 --> 00:11:17.570
+um being repeated in both platforms um factual error this is not
+
+00:11:17.570 --> 00:11:22.540
+actually cash patel community notes require at least one source you
+
+00:11:22.540 --> 00:11:25.040
+need to put in a url it's actually just plain
+
+00:11:25.040 --> 00:11:28.840
+text but the ui checks that you've actually got a
+
+00:11:28.840 --> 00:11:32.320
+url you need to say yes i think this is a
+
+00:11:33.850 --> 00:11:39.160
+source that people would find trustworthy and now i submit and now
+
+00:11:39.160 --> 00:11:43.340
+here's a here's a note you'll see that this
+
+00:11:43.370 --> 00:11:45.250
+is a proposal so it's just a proposed note and i
+
+00:11:45.250 --> 00:11:47.680
+'ll talk a little bit more about the lexicon in
+
+00:11:47.700 --> 00:11:51.470
+a moment so that's it for the ui it's
+
+00:11:51.470 --> 00:11:56.320
+um really quite a simple ui and what's i think
+
+00:11:56.320 --> 00:11:59.660
+a little bit more interesting about community notes is the protocol is
+
+00:11:59.660 --> 00:12:03.270
+that the process for deciding how these notes or which notes are
+
+00:12:03.300 --> 00:12:08.370
+found helpful which notes on which posts so first i'll talk
+
+00:12:08.490 --> 00:12:13.660
+about annotations um actually i'm gonna go back and show
+
+00:12:13.700 --> 00:12:15.970
+you one thing that i think is will be help you kind
+
+00:12:15.970 --> 00:12:20.000
+of see under the hood what's going on here if you
+
+00:12:20.000 --> 00:12:24.780
+look at the same post on the blue sky app what you
+
+00:12:24.780 --> 00:12:28.640
+'ll see is it has a tag i've subscribed to the
+
+00:12:28.640 --> 00:12:31.850
+blue notes labeler uh the yeah it's got a label
+
+00:12:31.850 --> 00:12:34.710
+um i've subscribed to the blue notes labeler and when
+
+00:12:34.710 --> 00:12:38.560
+someone first submits the community notes to blue notes this label
+
+00:12:38.560 --> 00:12:41.940
+is emitted now blue sky doesn't know how to show community
+
+00:12:41.950 --> 00:12:44.070
+notes it knows there's a label it doesn't know how
+
+00:12:44.070 --> 00:12:47.520
+to show a community note so what happens the blue note social
+
+00:12:47.520 --> 00:12:52.150
+app the only difference is that it recognizes this tag it recognizes
+
+00:12:52.150 --> 00:12:54.670
+the did of the community notes labeler and it says oh
+
+00:12:54.670 --> 00:12:57.280
+okay this is a community note let me go fetch the content
+
+00:12:57.290 --> 00:12:59.980
+of that community note and it makes an additional call you can
+
+00:12:59.980 --> 00:13:03.180
+actually see that in the network tab for the nerds here
+
+00:13:03.180 --> 00:13:12.480
+to get proposals well yeah proposals um
+
+00:13:12.480 --> 00:13:15.600
+well let's see that didn't work so oh that's
+
+00:13:15.600 --> 00:13:18.690
+right because it's not rated helpful so um but that's
+
+00:13:18.730 --> 00:13:22.190
+what you could see um if there's an action there's
+
+00:13:22.190 --> 00:13:25.750
+um if a note has been submitted but has not been rated
+
+00:13:25.770 --> 00:13:28.350
+helpful you'll just see this prompt um to to go to
+
+00:13:28.350 --> 00:13:34.140
+go rate the note um okay so uh that's how things
+
+00:13:34.140 --> 00:13:36.740
+work now so it's a bit of a hack um to
+
+00:13:36.750 --> 00:13:41.710
+put annotations on posts using the labeler infrastructure the way
+
+00:13:41.710 --> 00:13:45.990
+it should work and i think this is kind of obvious is
+
+00:13:45.990 --> 00:13:50.410
+that you should be able to add generalized labels so labels at
+
+00:13:50.480 --> 00:13:56.570
+proto labels are actually a type of annotation annotation is just information
+
+00:13:56.620 --> 00:13:59.550
+that one person adds to somebody else's post and at proto
+
+00:13:59.550 --> 00:14:03.880
+labels actually map really well to the w3c annotations
+
+00:14:03.880 --> 00:14:09.220
+data model an annotation in that data model is a target identified
+
+00:14:09.220 --> 00:14:12.500
+with a uri and then a body and that body can
+
+00:14:12.500 --> 00:14:16.790
+just be a semantic tag which is what natural proto label is
+
+00:14:16.800 --> 00:14:20.920
+or it can be text or it can be some other things
+
+00:14:20.950 --> 00:14:25.760
+and so it makes sense to generalize labels and to allow
+
+00:14:25.760 --> 00:14:30.660
+them to the label infrastructure to support other types of annotations
+
+00:14:30.660 --> 00:14:33.270
+an obvious way to do that is to add a field a
+
+00:14:33.270 --> 00:14:36.820
+ref field is what i'm proposing here that points to the
+
+00:14:36.820 --> 00:14:38.870
+uri of an app proto record with the content of the
+
+00:14:38.870 --> 00:14:46.560
+annotation and then what seems to make sense is that app views
+
+00:14:46.570 --> 00:14:50.110
+when they are hydrating posts right now as many of you
+
+00:14:50.110 --> 00:14:53.450
+know the the app view will return a hydrated post that has
+
+00:14:53.450 --> 00:14:55.780
+all the labels for that post or at least labels for the
+
+00:14:55.790 --> 00:14:58.680
+labelers that you've subscribed to what would make sense if
+
+00:14:58.680 --> 00:15:01.990
+the hydrated post also included the actual content of the annotation this
+
+00:15:01.990 --> 00:15:05.720
+would look like a lot like an embedded record where if you
+
+00:15:05.720 --> 00:15:08.970
+if you quote tweet a post you also get the the content
+
+00:15:09.000 --> 00:15:12.990
+of the the quoted post in the hydrated record and then of
+
+00:15:12.990 --> 00:15:15.820
+course that means that the social apps need to know how to
+
+00:15:15.850 --> 00:15:20.590
+display these annotations and if there's there might be there
+
+00:15:20.590 --> 00:15:23.090
+might not be a lot of different types of annotations some
+
+00:15:23.090 --> 00:15:28.400
+that i can think of are highlights alt text and then this
+
+00:15:28.410 --> 00:15:33.500
+context annotation is another type and so there's some interesting discussions
+
+00:15:33.520 --> 00:15:35.670
+to be had about how do social apps know how to display
+
+00:15:35.670 --> 00:15:39.020
+your annotation especially if you're using custom lexicons there
+
+00:15:39.020 --> 00:15:42.690
+'s some interesting discussions in the app proto discourse about lex
+
+00:15:42.710 --> 00:15:47.050
+icon embed embedding records from arbitrary custom lexicons in
+
+00:15:47.050 --> 00:15:52.480
+your posts so but i won't say more about that now
+
+00:15:52.480 --> 00:15:58.130
+so the overall architecture i've actually based open community notes on
+
+00:15:58.130 --> 00:16:02.560
+an existing project this year last year at this conference drew mac
+
+00:16:02.590 --> 00:16:06.180
+arthur who was a student at uc boulder did
+
+00:16:06.180 --> 00:16:09.000
+a talk about pimsky pimsky.
+
+00:16:09.040 --> 00:16:14.320
+social pm is peer moderation and he created this the system in
+
+00:16:14.320 --> 00:16:17.920
+this lexicon for peer moderation that was exactly what i
+
+00:16:17.920 --> 00:16:21.930
+was envisioning for open community notes so i've actually adopted
+
+00:16:21.940 --> 00:16:24.160
+his lexicon he had he extended it a little bit
+
+00:16:24.160 --> 00:16:27.860
+for me so there this lexicon has just two record
+
+00:16:27.890 --> 00:16:31.930
+types there's a proposal and that's for a proposed moderation
+
+00:16:31.930 --> 00:16:35.700
+action it looks a lot like a label record um and so
+
+00:16:35.700 --> 00:16:39.380
+but it can be it doesn't have to be necessarily a
+
+00:16:39.380 --> 00:16:43.170
+label it could be a proposed annotation or some other proposed action
+
+00:16:43.230 --> 00:16:45.500
+such as i don't know deleting a user or something like
+
+00:16:45.500 --> 00:16:48.500
+that um and then there's a vote people can vote on
+
+00:16:48.520 --> 00:16:52.600
+these proposals they can agree or disagree out vote or down vote
+
+00:16:52.600 --> 00:16:55.720
+and that's it for the lexicon so the overall
+
+00:16:55.720 --> 00:16:59.920
+architecture looks like this you have social apps that are able to
+
+00:16:59.980 --> 00:17:04.910
+display annotations they receive annotations as labelers so individuals
+
+00:17:04.970 --> 00:17:08.090
+can subscribe to annotators so you can subscribe to the blue
+
+00:17:08.090 --> 00:17:11.420
+notes community notes annotator or some other or it can be
+
+00:17:11.450 --> 00:17:14.180
+an app labeler or a built-in app annotator
+
+00:17:14.240 --> 00:17:19.340
+default app annotator and then currently for community notes you need
+
+00:17:19.340 --> 00:17:22.960
+to make this additional call to the notes api to fetch
+
+00:17:22.960 --> 00:17:27.180
+the content of the annotation so integrating with your apps this with
+
+00:17:27.180 --> 00:17:30.830
+your apps is really quite easy and then i'd like to
+
+00:17:30.830 --> 00:17:34.110
+talk to people that are interested in integrating with their apps on
+
+00:17:34.110 --> 00:17:36.850
+how i could make it easier like for example creating i don
+
+00:17:36.860 --> 00:17:39.610
+'t know a react component for for these notes or something like
+
+00:17:39.610 --> 00:17:44.240
+that all right so the other piece moderation apps their job is
+
+00:17:44.240 --> 00:17:47.070
+to just do those things that i showed you in the demo
+
+00:17:48.410 --> 00:17:51.650
+you can browse notes you can submit community notes and you can
+
+00:17:51.670 --> 00:17:55.150
+rate notes and of course moderation ops can also be used to
+
+00:17:55.150 --> 00:17:59.820
+to submit and rate proposed labels or other moderation actions there's
+
+00:17:59.820 --> 00:18:03.970
+a submission service which is an important piece of the architecture all
+
+00:18:04.000 --> 00:18:09.120
+the proposal and vote records are submitted through the submission service and
+
+00:18:09.120 --> 00:18:13.220
+it has the responsibility of anonymizing these records and this is
+
+00:18:13.220 --> 00:18:16.140
+an important part of the architecture that i'll talk about in
+
+00:18:16.140 --> 00:18:20.450
+just a moment and and then there are scoring services and you
+
+00:18:20.450 --> 00:18:23.930
+can there there's the community note scoring service but of course
+
+00:18:23.930 --> 00:18:27.810
+people can create their own algorithms for aggregating these votes and
+
+00:18:27.810 --> 00:18:32.000
+making decisions and when the scoring service when a when a proposal
+
+00:18:32.010 --> 00:18:36.400
+reaches a certain threshold when the score reaches a certain threshold that
+
+00:18:36.410 --> 00:18:42.190
+proposal becomes a label or an annotation now privacy and anonymity
+
+00:18:42.200 --> 00:18:49.840
+or pseudonymity is a very important component of community
+
+00:18:49.840 --> 00:18:56.760
+notes anonymity is a dangerous thing in social networks if people
+
+00:18:56.760 --> 00:19:00.190
+can create a bunch of fake accounts and post a lot of
+
+00:19:00.190 --> 00:19:04.940
+anonymous crap you can really destroy a social social and online community
+
+00:19:04.970 --> 00:19:09.660
+but in some instances anonymity can be a good thing and
+
+00:19:09.660 --> 00:19:14.260
+when it comes anonymous voting for example is a good thing if
+
+00:19:14.260 --> 00:19:17.150
+everybody knows how you're going to vote that may influence how
+
+00:19:17.170 --> 00:19:18.960
+you vote and may make it harder for you to vote your
+
+00:19:18.960 --> 00:19:23.840
+conscience and that's actually very important to the community notes algorithm
+
+00:19:23.870 --> 00:19:29.510
+it kind of depends on people saying like uh this time i
+
+00:19:29.510 --> 00:19:32.220
+this time i kind of agree with those people right like you
+
+00:19:32.220 --> 00:19:35.300
+know i i don't like it but this looks like it
+
+00:19:35.310 --> 00:19:37.720
+really does look like it's misinformation so i'm going to
+
+00:19:37.750 --> 00:19:41.220
+honestly say yeah i think this is a helpful community note um
+
+00:19:41.270 --> 00:19:47.210
+and so um so anonymity is important but the algorithm needs
+
+00:19:47.230 --> 00:19:50.670
+some concept of identity it needs to know you know these posts
+
+00:19:50.670 --> 00:19:54.020
+were made by this user um and so the solution is um
+
+00:19:54.020 --> 00:20:00.400
+these anonymousids or my proposed solution these anonymousids so all
+
+00:20:00.400 --> 00:20:03.900
+these records are created by the submission service the vote and proposal
+
+00:20:03.920 --> 00:20:09.060
+records they're created using that submission services id um and then
+
+00:20:09.060 --> 00:20:13.680
+the records contain an additional field an a id field or an
+
+00:20:13.680 --> 00:20:18.560
+anonymous id field that corresponds to the user now this field is
+
+00:20:18.560 --> 00:20:22.660
+generated as a hash of the user's actual did which the
+
+00:20:22.660 --> 00:20:26.000
+submission service knows and a secret salt and that secret salt is
+
+00:20:26.010 --> 00:20:29.990
+critical because it makes it so that you cannot easily map figure
+
+00:20:30.220 --> 00:20:37.410
+out somebody's actual user did based on their anonymous id so
+
+00:20:37.430 --> 00:20:44.480
+another challenge is of course bots the community notes algorithm is naturally
+
+00:20:44.480 --> 00:20:47.640
+robust to bots it is not as easy as you might think
+
+00:20:47.650 --> 00:20:50.910
+to manipulate the algorithm just by creating a bunch of fake accounts
+
+00:20:50.930 --> 00:20:54.170
+and you know voting voting in one way the algorithm kind of
+
+00:20:54.170 --> 00:20:59.900
+filters that out but with enough bots you can manipulate the algorithm
+
+00:20:59.900 --> 00:21:04.140
+and so for community notes to work what you need is a
+
+00:21:04.170 --> 00:21:09.400
+contributor contributor base that is mostly real people mostly acting in good
+
+00:21:09.400 --> 00:21:13.720
+faith if you have too many bots or if you have too
+
+00:21:13.720 --> 00:21:16.960
+many people that really are not trying to rate things as helpful
+
+00:21:16.960 --> 00:21:19.620
+it won't work but you can have a lot of bias
+
+00:21:19.620 --> 00:21:22.180
+right you don't have to have a group of perfect people
+
+00:21:22.250 --> 00:21:24.510
+you just need to have mostly real people mostly acting in good
+
+00:21:24.510 --> 00:21:32.910
+faith and so some possible solutions are proof of personhood minimum
+
+00:21:32.910 --> 00:21:36.720
+account age requirements for example just general bot filtering tools there's
+
+00:21:36.720 --> 00:21:39.830
+a lot of solutions that people have been talking about in this
+
+00:21:39.830 --> 00:21:43.600
+in this conference that we could apply something called a rating impact
+
+00:21:43.660 --> 00:21:46.400
+score which is what twitter does which requires you to have a
+
+00:21:46.410 --> 00:21:49.520
+certain reputation based on your ratings before you can actually write notes
+
+00:21:49.530 --> 00:21:56.880
+okay so finally one of the reasons i'm excited about community
+
+00:21:56.880 --> 00:22:01.110
+notes is it is so there's so much unrealized potential
+
+00:22:01.320 --> 00:22:06.720
+twitter under utilizes that so much because it is i was
+
+00:22:06.720 --> 00:22:10.820
+inspired by edith's opening remarks yesterday one of the things
+
+00:22:10.820 --> 00:22:16.740
+that she said is that social platforms should treat people as subjects
+
+00:22:16.740 --> 00:22:22.000
+with agency and not as objects to be manipulated and i think
+
+00:22:23.370 --> 00:22:27.080
+one thing that people with agency want is to use these platforms
+
+00:22:27.080 --> 00:22:31.030
+to help discover truth they want to share truth right now so
+
+00:22:31.060 --> 00:22:34.080
+many social algorithms will show you what you want to see show
+
+00:22:34.100 --> 00:22:37.090
+you what they think you will believe but that's not what
+
+00:22:37.090 --> 00:22:40.080
+i want a social platform i don't want a social platform
+
+00:22:40.080 --> 00:22:42.820
+to show me what it thinks i will believe especially if the
+
+00:22:42.820 --> 00:22:45.780
+platform knows or if there's a way to know that i
+
+00:22:45.780 --> 00:22:49.190
+wouldn't believe this if i knew the truth if i had
+
+00:22:49.190 --> 00:22:54.600
+more information and so i think there are so many ways if
+
+00:22:54.610 --> 00:22:58.350
+you think about how can we design that you can use community
+
+00:22:58.360 --> 00:23:02.530
+notes as a base for a social platform that has a lot
+
+00:23:02.530 --> 00:23:06.830
+of affordances for helping people share and find accurate information i
+
+00:23:06.960 --> 00:23:12.010
+the there's a product called roundabout that a new public
+
+00:23:12.040 --> 00:23:16.190
+has created and they have for example a feature where when you
+
+00:23:16.240 --> 00:23:19.510
+submit a post before you submit it it says hey um do
+
+00:23:19.520 --> 00:23:22.780
+you really want to submit this this this violates some of
+
+00:23:22.810 --> 00:23:25.610
+our community norms and it's just a prompt well the same
+
+00:23:25.610 --> 00:23:29.210
+thing could happen for community notes you could write something and the
+
+00:23:29.210 --> 00:23:32.180
+system could say hey look someone else has posted a similar claim
+
+00:23:32.200 --> 00:23:35.000
+and and and there is a community note saying that this might
+
+00:23:35.020 --> 00:23:37.230
+not be true are you sure you want to post this um
+
+00:23:37.230 --> 00:23:41.100
+i think the algorithm could be faster it could cause it could
+
+00:23:41.100 --> 00:23:46.040
+um notes could achieve a helpful or unhelpful um status
+
+00:23:46.040 --> 00:23:50.960
+much much faster which could help increase the velocity of truth and
+
+00:23:50.960 --> 00:23:54.560
+help misinformation not spread as fast um it can be more integrated
+
+00:23:54.560 --> 00:23:57.190
+with the ranking algorithms if the algorithm knows that this post is
+
+00:23:57.190 --> 00:24:00.490
+likely misinformation or that this post tends to this poster tends to
+
+00:24:00.570 --> 00:24:04.840
+spread a lot of misinformation could downright that content a lot
+
+00:24:04.890 --> 00:24:08.210
+of possibility with correction and retraction if you've shared misinformation
+
+00:24:08.210 --> 00:24:10.750
+the system might prompt you hey look you shared this but now
+
+00:24:10.750 --> 00:24:13.200
+there's this community note to help undo some of the damage
+
+00:24:13.200 --> 00:24:17.620
+that happens when misinformation has already spread and then a lot of
+
+00:24:17.680 --> 00:24:22.240
+other possibilities when for example a community note may itself be inaccurate
+
+00:24:22.300 --> 00:24:24.620
+and what is the process for like putting a note on a
+
+00:24:24.620 --> 00:24:28.740
+note which i think is opens up some really interesting possibilities for
+
+00:24:28.810 --> 00:24:32.290
+like almost a deliberative argumentation type process for making these
+
+00:24:32.290 --> 00:24:35.480
+decisions okay i took more time than i thought and we've
+
+00:24:35.530 --> 00:24:39.120
+only got four minutes and 30 seconds left for questions um so
+
+00:24:39.120 --> 00:24:47.250
+any questions anyone thank
+
+00:24:47.250 --> 00:24:51.120
+you very much for really super detailed uh and very thoughtful i
+
+00:24:51.140 --> 00:24:54.010
+i just want to recognize the the amount of thought that you
+
+00:24:54.040 --> 00:24:56.240
+put into this all right any questions from the crowd here oh
+
+00:24:56.240 --> 00:25:00.340
+we got thank you uh yeah super interesting i'm curious if
+
+00:25:00.410 --> 00:25:04.700
+with the anonymity you could also integrate like reputation because it
+
+00:25:04.760 --> 00:25:10.150
+seems like that also becomes important over time yes so the algorithm
+
+00:25:10.170 --> 00:25:15.000
+itself has a reputation score kind of built into it um every
+
+00:25:15.070 --> 00:25:19.280
+the way it works is every user is assigned um two two
+
+00:25:19.280 --> 00:25:23.740
+uh parameters and these are two factors that kind of represents that
+
+00:25:23.770 --> 00:25:29.230
+person's bias um and then this um this rating impact score
+
+00:25:29.230 --> 00:25:33.570
+is also a sort of reputation system and there's some other
+
+00:25:33.650 --> 00:25:36.800
+things but i in summary yes i think um reputation could really
+
+00:25:36.840 --> 00:25:40.350
+improve the quality of their system right especially if you know like
+
+00:25:40.350 --> 00:25:43.760
+this person when they rate a note as helpful it always ends
+
+00:25:43.760 --> 00:25:46.930
+up being rated as helpful by the community and so you could
+
+00:25:46.930 --> 00:25:48.980
+you could say look provisionally we're just going to go
+
+00:25:48.980 --> 00:25:51.470
+ahead and display this community note as a helpful community note just
+
+00:25:51.480 --> 00:25:53.920
+based on you know one or two people's ratings that have
+
+00:25:53.950 --> 00:26:00.030
+a you know a high amount of trust thanks really cool presentation
+
+00:26:00.040 --> 00:26:04.560
+and uh great work uh it strikes me that some of the
+
+00:26:04.560 --> 00:26:09.520
+uh stuff that is worth building here uh that you've alluded
+
+00:26:09.520 --> 00:26:17.420
+to like the anonymization service or you know reputation tracking algorithms
+
+00:26:17.440 --> 00:26:21.060
+or maybe like ai for deduplicating proposals this kind
+
+00:26:21.060 --> 00:26:25.420
+of thing is a centralizing vector um which is susceptible to
+
+00:26:25.420 --> 00:26:31.520
+potential like corruption right you could have uh censorship of proposals during
+
+00:26:31.520 --> 00:26:35.160
+the anonymization phase or this kind of thing so do you
+
+00:26:35.160 --> 00:26:40.060
+have any thoughts on how to build resistance to that kind of
+
+00:26:40.060 --> 00:26:46.000
+potential corruption yes i actually had a slide about that issue and
+
+00:26:46.000 --> 00:26:50.550
+i skipped because i thought nobody would notice but um and so
+
+00:26:50.550 --> 00:26:53.760
+the the weakest you you've zoomed in right on the
+
+00:26:53.780 --> 00:26:56.680
+weakest piece of the system the system the piece that requires the
+
+00:26:56.680 --> 00:27:00.220
+most trust it's the submission service so the submission service you
+
+00:27:00.220 --> 00:27:02.500
+have to trust first of all not to de-anonym
+
+00:27:02.510 --> 00:27:05.320
+ize you um and you have to trust that it's going
+
+00:27:05.320 --> 00:27:07.840
+to submit what you say that it's going to submit now
+
+00:27:07.840 --> 00:27:10.490
+some of that is verifiable you can go and submit something
+
+00:27:10.490 --> 00:27:12.000
+and then if you don't see it show up in the
+
+00:27:12.000 --> 00:27:14.260
+data you can say hey look these people are not doing what
+
+00:27:14.270 --> 00:27:16.320
+they say they're going to be doing but that is the
+
+00:27:16.320 --> 00:27:19.840
+weakest point of the system um and it does require trust so
+
+00:27:19.840 --> 00:27:24.310
+for example if anyone were to um implement this in like in
+
+00:27:24.310 --> 00:27:27.580
+your own social app um i would say run your own anonym
+
+00:27:27.580 --> 00:27:31.430
+izer service um and that allows you also to control who can
+
+00:27:31.450 --> 00:27:35.180
+contribute and help you can help control for for bots and just
+
+00:27:35.180 --> 00:27:38.930
+you know general good faith contribution in that way in the long
+
+00:27:38.930 --> 00:27:43.000
+run i think that weakness could be could be possibly addressed by
+
+00:27:43.020 --> 00:27:47.300
+with cryptographic solutions with zero knowledge proofs um but i
+
+00:27:47.300 --> 00:27:50.140
+don't think it's not necessarily it's not for now
+
+00:27:50.140 --> 00:27:53.270
+i think it's important to recognize um that weakness even though
+
+00:27:53.320 --> 00:27:55.140
+i was kind of trying to gloss over it but it's
+
+00:27:55.200 --> 00:27:58.080
+important to recognize that and deal with it maybe in the future
+
+00:27:58.090 --> 00:28:00.790
+and deal with it maybe in the future excellent all right well
+
+00:28:00.790 --> 00:28:06.260
+thank you once again jonathan for an excellent presentation

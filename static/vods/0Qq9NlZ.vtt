@@ -1,0 +1,2320 @@
+WEBVTT
+
+00:00:01.480 --> 00:00:06.580
+Hello, everybody.
+
+00:00:06.580 --> 00:00:07.200
+Welcome.
+
+00:00:07.200 --> 00:00:08.040
+I think this is on.
+
+00:00:08.040 --> 00:00:08.720
+Yeah, we're good?
+
+00:00:08.720 --> 00:00:09.480
+The mic?
+
+00:00:09.480 --> 00:00:10.500
+Okay.
+
+00:00:11.410 --> 00:00:14.200
+Welcome to Coop, Open Source Trust and Safety Infrastructure
+
+00:00:14.200 --> 00:00:14.720
+for All.
+
+00:00:14.720 --> 00:00:18.930
+Real quick, if you happen to have, I guess I
+
+00:00:18.930 --> 00:00:20.450
+don't know how you're going to scan this on a
+
+00:00:20.460 --> 00:00:20.920
+laptop.
+
+00:00:20.920 --> 00:00:22.940
+Yeah, not the easiest setup.
+
+00:00:22.940 --> 00:00:26.220
+I've also been posting about this all day, but to
+
+00:00:26.220 --> 00:00:30.010
+get ready for this talk, we've actually created a temporarily
+
+00:00:30.010 --> 00:00:31.500
+hosted Coop instance.
+
+00:00:31.500 --> 00:00:33.940
+Important notice that you hear us talk a lot.
+
+00:00:33.940 --> 00:00:35.560
+Roost does not host our tools.
+
+00:00:35.560 --> 00:00:36.880
+We do not want your data.
+
+00:00:36.880 --> 00:00:38.600
+You cannot send your data to us.
+
+00:00:38.600 --> 00:00:41.360
+But for today, we have some sample data from posts from
+
+00:00:41.360 --> 00:00:43.630
+all the folks in this room ingested via tap.
+
+00:00:43.630 --> 00:00:45.740
+So if you do want to follow along, we have this
+
+00:00:45.740 --> 00:00:47.060
+interactive Coop demo.
+
+00:00:47.060 --> 00:00:49.320
+You can go in, you can create policies, you can
+
+00:00:49.320 --> 00:00:50.110
+review tasks.
+
+00:00:50.110 --> 00:00:51.790
+It's not hooked up to anything.
+
+00:00:51.790 --> 00:00:54.410
+They will have no actions and no repercussions, but you
+
+00:00:54.410 --> 00:00:56.120
+can see how the interface works.
+
+00:00:56.120 --> 00:00:57.900
+Be a nice little hands on for you.
+
+00:00:57.900 --> 00:01:01.540
+So yeah, also want to give a quick content warning.
+
+00:01:01.540 --> 00:01:04.020
+We're going to be talking abstractly about some of the
+
+00:01:04.020 --> 00:01:06.600
+sorts of harms that we encounter in trust and safety.
+
+00:01:06.600 --> 00:01:09.150
+We're not going to like go into detail or show examples
+
+00:01:09.150 --> 00:01:12.100
+, but we will be talking about things like child abuse,
+
+00:01:12.220 --> 00:01:14.980
+violent content, self-harm, unwanted content.
+
+00:01:15.020 --> 00:01:16.790
+Also, we will be doing, I guess we won't
+
+00:01:16.790 --> 00:01:17.600
+be doing a live demo.
+
+00:01:17.710 --> 00:01:20.030
+You gave the content warning for that live demo, but that
+
+00:01:20.030 --> 00:01:22.890
+live demo is ingesting live data from at proto.
+
+00:01:22.900 --> 00:01:25.780
+So it was, but unless some of you have been fre
+
+00:01:25.780 --> 00:01:29.080
+aks, the content should be fine because it's only looking
+
+00:01:29.090 --> 00:01:32.660
+at content posted by accounts that are actively posting on the atmosphere
+
+00:01:32.690 --> 00:01:33.310
+comp hashtag.
+
+00:01:33.310 --> 00:01:34.460
+All right.
+
+00:01:34.460 --> 00:01:37.360
+And with that, who are we?
+
+00:01:37.360 --> 00:01:40.380
+So a lot of you probably know us, we're Ro
+
+00:01:40.450 --> 00:01:40.740
+ost.
+
+00:01:40.740 --> 00:01:43.520
+Roost stands for robust, open online safety tools.
+
+00:01:43.520 --> 00:01:46.960
+And what that actually means in practice is we're a nonprofit
+
+00:01:46.960 --> 00:01:48.600
+in service of the public good.
+
+00:01:48.600 --> 00:01:53.130
+We believe that safety tools are critical digital infrastructure.
+
+00:01:53.130 --> 00:01:57.080
+We develop, distribute, maintain open source software for trust and
+
+00:01:57.080 --> 00:01:57.770
+safety.
+
+00:01:57.770 --> 00:02:02.550
+And we make existing safety technology integrated and interoperable.
+
+00:02:02.550 --> 00:02:04.210
+Important thing.
+
+00:02:04.210 --> 00:02:07.480
+We do not, or we are not training a classifier
+
+00:02:07.480 --> 00:02:08.250
+in CSAM.
+
+00:02:08.250 --> 00:02:12.240
+We're not providing a hosted trust and safety platform.
+
+00:02:12.240 --> 00:02:13.480
+We're not hosting this for you.
+
+00:02:13.480 --> 00:02:14.860
+It's open, open source platform.
+
+00:02:14.870 --> 00:02:17.790
+You can host yourself and we're not doing your moderation for
+
+00:02:17.790 --> 00:02:18.150
+you.
+
+00:02:18.150 --> 00:02:21.140
+We're not a moderation service just to get that out of
+
+00:02:21.140 --> 00:02:22.180
+the way.
+
+00:02:22.180 --> 00:02:23.650
+And who are we specifically?
+
+00:02:23.650 --> 00:02:24.370
+I'm Cassidy.
+
+00:02:24.370 --> 00:02:26.100
+I'm the community manager at Roost.
+
+00:02:26.100 --> 00:02:27.230
+My name is Julia.
+
+00:02:27.230 --> 00:02:29.360
+I'm the head of product at Roost.
+
+00:02:29.360 --> 00:02:30.120
+Quick background.
+
+00:02:30.120 --> 00:02:32.080
+I've been in trust and safety for 10 years.
+
+00:02:32.080 --> 00:02:34.600
+Cassidy comes from a long esteemed time and career in
+
+00:02:34.610 --> 00:02:35.820
+the open source world.
+
+00:02:35.820 --> 00:02:38.640
+So together we're kind of Voltroning, Frankenste
+
+00:02:38.640 --> 00:02:42.270
+ining a team that both deeply understands the values and practices of
+
+00:02:42.270 --> 00:02:44.360
+open source software and trust and safety.
+
+00:02:44.360 --> 00:02:47.310
+You may recognize some of my work from the user reporting flow
+
+00:02:47.310 --> 00:02:50.340
+and internal systems at Snapchat and Grindr and Google spam and
+
+00:02:50.350 --> 00:02:50.890
+abuse.
+
+00:02:50.900 --> 00:02:52.920
+I'm sorry if you got a spam email.
+
+00:02:52.920 --> 00:02:54.420
+That is my former team.
+
+00:02:56.980 --> 00:02:59.990
+So Juliette is going to give us a quick trust and
+
+00:02:59.990 --> 00:03:03.380
+safety crash course in case I guess, yeah do we want
+
+00:03:03.380 --> 00:03:04.410
+to do a...
+
+00:03:04.410 --> 00:03:07.080
+So by show of hands, raise your hand if you are
+
+00:03:07.080 --> 00:03:09.140
+building something on AppProto.
+
+00:03:10.120 --> 00:03:11.220
+Great.
+
+00:03:11.220 --> 00:03:13.880
+Now raise your hand if you have a trust and safety plan
+
+00:03:13.880 --> 00:03:16.100
+for what you're building on AppProto.
+
+00:03:16.570 --> 00:03:17.100
+Okay.
+
+00:03:17.100 --> 00:03:18.340
+Okay.
+
+00:03:18.340 --> 00:03:20.860
+Not the worst.
+
+00:03:20.900 --> 00:03:22.850
+So let's start with basics.
+
+00:03:22.890 --> 00:03:24.260
+Another show of hands.
+
+00:03:24.260 --> 00:03:27.250
+Who has a rough idea of what trust and safety is?
+
+00:03:27.250 --> 00:03:27.720
+Nice.
+
+00:03:27.720 --> 00:03:28.190
+Okay.
+
+00:03:28.190 --> 00:03:29.270
+That's awesome.
+
+00:03:29.270 --> 00:03:30.010
+All right.
+
+00:03:30.010 --> 00:03:32.510
+Well, we're probably going to be a little bit repetitive
+
+00:03:32.510 --> 00:03:32.650
+.
+
+00:03:32.650 --> 00:03:34.340
+Cassidy, will you kick us off please?
+
+00:03:34.340 --> 00:03:35.340
+Sure.
+
+00:03:35.340 --> 00:03:38.180
+So a trust and safety crash course I always say it's
+
+00:03:38.180 --> 00:03:40.850
+all the bad stuff that can happen on the internet.
+
+00:03:40.850 --> 00:03:44.490
+But with a caveat that online and offline are no longer completely
+
+00:03:44.500 --> 00:03:45.260
+separate worlds.
+
+00:03:45.260 --> 00:03:48.260
+The harms you experience online translate into offline harms.
+
+00:03:48.260 --> 00:03:50.880
+With things like ride sharing, with things like rentals,
+
+00:03:50.880 --> 00:03:54.580
+anything that happens online can also mean something that happens in the
+
+00:03:54.580 --> 00:03:56.120
+physical, tangible world.
+
+00:03:56.140 --> 00:04:01.250
+But trust and safety really refers to teams, technologies, and
+
+00:04:01.250 --> 00:04:05.780
+just the general field of studying online harms, responding to them
+
+00:04:05.780 --> 00:04:06.380
+as well.
+
+00:04:06.380 --> 00:04:09.740
+Fun fact, this term actually was originated by eBay a number
+
+00:04:09.740 --> 00:04:10.420
+of years ago.
+
+00:04:10.420 --> 00:04:12.550
+If you look at the Wikipedia page on trust and safety,
+
+00:04:12.550 --> 00:04:13.180
+I wrote it.
+
+00:04:13.180 --> 00:04:16.430
+So it has a nice little history about how this field really
+
+00:04:16.490 --> 00:04:18.220
+came to be and where it's going today.
+
+00:04:18.220 --> 00:04:21.500
+It can include things, like I said earlier, user abuse
+
+00:04:21.750 --> 00:04:24.560
+reporting, any kind of flagging, any kind of customer
+
+00:04:24.560 --> 00:04:27.850
+support flow, saying something happened to me on this platform or
+
+00:04:27.850 --> 00:04:29.800
+in this experience that I do not like.
+
+00:04:29.820 --> 00:04:33.680
+It can also include things around online child safety and abuse and
+
+00:04:33.680 --> 00:04:36.200
+exploitation, things around CSAM.
+
+00:04:36.210 --> 00:04:39.540
+A lot of people on the internet used to say CP.
+
+00:04:39.590 --> 00:04:43.340
+We as an industry are moving away from that because pornography involves
+
+00:04:43.340 --> 00:04:44.820
+consent sensing adults.
+
+00:04:45.030 --> 00:04:46.370
+Children cannot consent.
+
+00:04:46.370 --> 00:04:48.840
+So we refer to it as CSAM, child sexual abuse
+
+00:04:48.860 --> 00:04:49.820
+materials.
+
+00:04:49.820 --> 00:04:51.830
+It also includes things like radicalization.
+
+00:04:51.830 --> 00:04:54.540
+This can be things around glorifying mass casualty events,
+
+00:04:54.540 --> 00:04:58.380
+things school shootings, things mass shootings, things around kind of
+
+00:04:58.380 --> 00:05:02.040
+like really harmful narratives that can lead to potential mass casualty
+
+00:05:02.040 --> 00:05:02.780
+events.
+
+00:05:02.780 --> 00:05:05.670
+Things around harassment, things around non-consensual intimate
+
+00:05:05.670 --> 00:05:06.300
+imagery.
+
+00:05:06.300 --> 00:05:10.970
+Like I mentioned, anything bad that can happen on the internet
+
+00:05:11.210 --> 00:05:11.500
+.
+
+00:05:11.500 --> 00:05:14.380
+And a lot of the former speakers throughout the atmosphere conference have
+
+00:05:14.380 --> 00:05:17.580
+said, it also includes things around information influence campaigns.
+
+00:05:17.580 --> 00:05:20.890
+And some of the labelers that Julia talked about earlier also
+
+00:05:21.220 --> 00:05:25.260
+cover topics around things like zoophilia amongst certain communities that
+
+00:05:25.260 --> 00:05:27.580
+are very prominent and active on atmosphere.
+
+00:05:27.580 --> 00:05:29.340
+Zoophilia is still not allowed.
+
+00:05:29.340 --> 00:05:32.700
+So with that fun slide, we're going to move into
+
+00:05:32.700 --> 00:05:36.030
+more formally what trust and safety really means.
+
+00:05:36.030 --> 00:05:38.460
+And I do like the call out here of trust and safety
+
+00:05:38.460 --> 00:05:40.930
+is not just about punishing or negative effects.
+
+00:05:40.930 --> 00:05:43.160
+It is also about encouraging pro-social behavior.
+
+00:05:43.200 --> 00:05:45.100
+So there's a lot of different aspects.
+
+00:05:45.100 --> 00:05:47.260
+And I want to give a shout out to both Dr.
+
+00:05:47.260 --> 00:05:49.740
+K and Julie, who talked about kind of like all kind
+
+00:05:49.740 --> 00:05:51.990
+of trust and safety work, moderation work, labeling work is
+
+00:05:52.160 --> 00:05:53.180
+inherently political.
+
+00:05:53.180 --> 00:05:56.300
+The values will change based on the demographics of those teams.
+
+00:05:56.300 --> 00:06:00.200
+Ideally, you have a team with very mixed demographics and backgrounds
+
+00:06:00.200 --> 00:06:00.360
+.
+
+00:06:00.380 --> 00:06:02.220
+What we've seen in a lot of companies, a lot
+
+00:06:02.350 --> 00:06:05.110
+of teams, is those teams becoming very, very white and
+
+00:06:05.110 --> 00:06:06.780
+very, very former cops.
+
+00:06:06.780 --> 00:06:10.270
+That's going to influence how trust and safety is done on
+
+00:06:10.270 --> 00:06:11.400
+those platforms.
+
+00:06:11.600 --> 00:06:13.520
+But it should not be about policing.
+
+00:06:13.530 --> 00:06:15.640
+It should not be about what comes down.
+
+00:06:15.650 --> 00:06:17.330
+It should also be about what is going up.
+
+00:06:17.540 --> 00:06:19.960
+What are you putting in front of people to encourage that pro
+
+00:06:19.960 --> 00:06:22.140
+-social behavior?
+
+00:06:22.160 --> 00:06:25.740
+And now into the academic stuff.
+
+00:06:25.740 --> 00:06:28.380
+While we were first incubating Roost, we did so
+
+00:06:28.380 --> 00:06:31.970
+doing research at Columbia University's Institute of Global Politics.
+
+00:06:31.970 --> 00:06:34.480
+We found that in academic studies, there was pretty much no
+
+00:06:34.480 --> 00:06:37.530
+mention of the tools that platforms actually use to do this kind
+
+00:06:37.540 --> 00:06:39.100
+of trust and safety work.
+
+00:06:39.100 --> 00:06:41.440
+A lot of stuff about the sociology, the policy, maybe
+
+00:06:41.440 --> 00:06:44.450
+the operations, and of course, the trauma and wellness that
+
+00:06:44.460 --> 00:06:47.160
+it takes on the working class people that do this work.
+
+00:06:47.160 --> 00:06:48.940
+But nothing on the technology.
+
+00:06:48.940 --> 00:06:49.980
+So we wrote a paper.
+
+00:06:49.980 --> 00:06:52.400
+We talked to over 50 different trust and safety, anti-
+
+00:06:52.400 --> 00:06:55.150
+abuse, and risk teams across startups, non-profit
+
+00:06:55.960 --> 00:06:57.380
+organizations, major tech companies.
+
+00:06:57.380 --> 00:06:59.260
+And these people were very open.
+
+00:06:59.260 --> 00:07:02.420
+And what we found is that everyone's tools look the same
+
+00:07:02.490 --> 00:07:02.620
+.
+
+00:07:02.620 --> 00:07:04.060
+Doesn't matter if you're a marketplace.
+
+00:07:04.060 --> 00:07:05.260
+Doesn't matter if you're a cruising app.
+
+00:07:05.260 --> 00:07:07.710
+It doesn't matter if you're a traditional social media app
+
+00:07:07.710 --> 00:07:07.900
+.
+
+00:07:07.900 --> 00:07:09.500
+All of your tools are the same.
+
+00:07:09.500 --> 00:07:13.140
+So we came up with a framework called dire because the situation
+
+00:07:13.140 --> 00:07:13.660
+is dire.
+
+00:07:13.660 --> 00:07:15.420
+D, detection.
+
+00:07:15.420 --> 00:07:16.380
+This could be a user report.
+
+00:07:16.380 --> 00:07:17.420
+It could be a classifier.
+
+00:07:17.420 --> 00:07:18.460
+It could be hash matching.
+
+00:07:18.460 --> 00:07:20.140
+How do you know that something's up?
+
+00:07:20.700 --> 00:07:23.330
+Once you find something is up, how do you investigate it
+
+00:07:23.330 --> 00:07:23.480
+?
+
+00:07:23.480 --> 00:07:25.740
+How do you know is this the only thing that is up
+
+00:07:25.740 --> 00:07:25.980
+?
+
+00:07:25.980 --> 00:07:29.020
+Are there other things that are going on with this particular signal
+
+00:07:29.020 --> 00:07:29.260
+?
+
+00:07:29.260 --> 00:07:33.080
+So let's say maybe there's a signal sharing group.
+
+00:07:33.200 --> 00:07:35.250
+Maybe it's literally on signal.
+
+00:07:35.250 --> 00:07:38.560
+And someone says this IP address is associated with a Russian propaganda
+
+00:07:38.890 --> 00:07:39.260
+campaign.
+
+00:07:39.260 --> 00:07:41.970
+You want to know is this happening on my project?
+
+00:07:41.980 --> 00:07:43.690
+Is this happening on my platform?
+
+00:07:43.690 --> 00:07:45.400
+That's where investigation takes place.
+
+00:07:45.400 --> 00:07:47.020
+It's supposed to be more open-ended.
+
+00:07:47.020 --> 00:07:49.600
+You need to understand what is the scale and scope of some
+
+00:07:49.600 --> 00:07:51.420
+of the things that are happening.
+
+00:07:51.420 --> 00:07:54.020
+Once you find all that stuff, you have to review it
+
+00:07:54.020 --> 00:07:54.200
+.
+
+00:07:54.200 --> 00:07:57.420
+Special shout out to Acorn, the moderation tool built and
+
+00:07:57.420 --> 00:07:59.800
+designed by Black Sky, Ozone, by the Blue Sky
+
+00:07:59.800 --> 00:08:00.220
+team.
+
+00:08:00.220 --> 00:08:02.780
+We're going to talk about Coop, our review tool
+
+00:08:02.780 --> 00:08:03.080
+.
+
+00:08:03.080 --> 00:08:05.270
+It's designed for scaled, flexible review.
+
+00:08:05.370 --> 00:08:08.380
+How do you have the right context to take into consideration whether
+
+00:08:08.380 --> 00:08:10.540
+something's actually violating or not?
+
+00:08:10.540 --> 00:08:11.650
+Finally, enforcement.
+
+00:08:11.650 --> 00:08:13.020
+What are the actions available?
+
+00:08:13.020 --> 00:08:14.650
+Maybe an action is taking content down.
+
+00:08:14.650 --> 00:08:15.950
+Maybe it's sending them a warning.
+
+00:08:15.950 --> 00:08:18.940
+Maybe it's sending them a kind of like, what is
+
+00:08:18.940 --> 00:08:19.740
+it called?
+
+00:08:19.740 --> 00:08:22.630
+A de-radicalizing kind of like resource of here
+
+00:08:22.630 --> 00:08:26.470
+'s some stuff to read because you're searching something that might
+
+00:08:26.470 --> 00:08:27.630
+mean something else.
+
+00:08:27.630 --> 00:08:30.540
+And this also includes reporting to different authorities.
+
+00:08:30.540 --> 00:08:34.170
+Authorities here does not always mean police or law enforcement.
+
+00:08:34.170 --> 00:08:36.940
+It can mean organizations like NECMEC, the National
+
+00:08:36.940 --> 00:08:38.700
+Center for Missing and Exploited Children.
+
+00:08:38.700 --> 00:08:41.660
+In the US, there are a subset of laws that say
+
+00:08:41.660 --> 00:08:44.140
+, "If you become aware of things like CSAM,
+
+00:08:44.140 --> 00:08:47.930
+you are legally required to report it to organizations like NEC
+
+00:08:47.930 --> 00:08:50.540
+MEC." And if that tiny QR code is too hard
+
+00:08:50.540 --> 00:08:53.020
+to scan, there's a big QR code for the paper
+
+00:08:53.020 --> 00:08:53.020
+.
+
+00:08:53.020 --> 00:08:54.850
+If you want to read our paper, it is right here
+
+00:08:54.850 --> 00:08:55.020
+.
+
+00:08:55.020 --> 00:08:58.220
+You can also just look for the Dyer framework and you
+
+00:08:58.220 --> 00:08:59.100
+should find it.
+
+00:09:00.860 --> 00:09:02.140
+Kind of talked about this a bit.
+
+00:09:02.260 --> 00:09:05.740
+So yeah, we found that platforms are constantly reinventing these
+
+00:09:05.740 --> 00:09:06.140
+tools.
+
+00:09:06.140 --> 00:09:08.180
+And a lot of times they're, you know, it
+
+00:09:08.180 --> 00:09:09.980
+'s internal tools at different organizations.
+
+00:09:09.980 --> 00:09:12.140
+So that's part of the part of the thing we're
+
+00:09:12.140 --> 00:09:12.940
+trying to solve.
+
+00:09:12.940 --> 00:09:19.290
+I have personally built or worked on review tools at three different
+
+00:09:19.360 --> 00:09:19.690
+places.
+
+00:09:19.900 --> 00:09:22.540
+They all look and act the same and they all have the
+
+00:09:22.770 --> 00:09:23.410
+same features.
+
+00:09:23.410 --> 00:09:25.260
+It's a waste of engineering time.
+
+00:09:25.260 --> 00:09:26.860
+It's a waste of resources.
+
+00:09:26.860 --> 00:09:29.500
+And we all have the same feature requests and bugs.
+
+00:09:31.740 --> 00:09:33.100
+This is helpful as well.
+
+00:09:33.220 --> 00:09:35.520
+These are some of the terms that we've, you've
+
+00:09:35.520 --> 00:09:38.020
+probably been hearing us say, and you may hear us continue
+
+00:09:38.020 --> 00:09:38.460
+to say.
+
+00:09:38.560 --> 00:09:39.980
+Yeah.
+
+00:09:39.980 --> 00:09:42.620
+I kind of covered this one already as well.
+
+00:09:42.620 --> 00:09:44.140
+Yeah.
+
+00:09:44.140 --> 00:09:44.220
+And...
+
+00:09:44.220 --> 00:09:45.900
+Oh, yes.
+
+00:09:45.910 --> 00:09:48.770
+So a phrase that we often say is, "Roost
+
+00:09:48.770 --> 00:09:51.720
+is tools, not rules." Or better, tools for your
+
+00:09:51.780 --> 00:09:54.780
+rules, because we're not in charge of creating policy.
+
+00:09:54.780 --> 00:09:56.860
+We got this, we got a lot of people asking us
+
+00:09:56.860 --> 00:09:58.180
+like, "Can you write our policies for us?" It
+
+00:09:58.180 --> 00:10:00.140
+'s like, "No, we cannot." We are not
+
+00:10:00.140 --> 00:10:03.230
+only, we are, a lot of us have worked in
+
+00:10:03.560 --> 00:10:06.060
+policy roles, but every single community is different.
+
+00:10:06.060 --> 00:10:08.990
+We're probably not members of your specific community.
+
+00:10:08.990 --> 00:10:11.650
+So we don't know what are the norms and the,
+
+00:10:11.650 --> 00:10:14.920
+what's acceptable behavior within your own community.
+
+00:10:14.920 --> 00:10:18.170
+Our, and some of this can really change based on jurisdiction
+
+00:10:18.180 --> 00:10:18.300
+.
+
+00:10:18.300 --> 00:10:20.790
+The example we have here is that in the US, there
+
+00:10:20.790 --> 00:10:25.280
+'s no mandatory requirement to go voluntarily look for CSAM.
+
+00:10:25.280 --> 00:10:27.530
+But if you do find it, you do have to report
+
+00:10:27.530 --> 00:10:29.630
+it to NECMEC and then preserve data for up
+
+00:10:29.630 --> 00:10:30.370
+to a year.
+
+00:10:30.670 --> 00:10:33.350
+Versus if you're in the UK, platforms just have
+
+00:10:33.360 --> 00:10:35.660
+to remove and report it immediately.
+
+00:10:35.660 --> 00:10:39.040
+And it's enforced by regulator that has teeth in that they
+
+00:10:39.050 --> 00:10:40.140
+will find you.
+
+00:10:40.140 --> 00:10:43.230
+So the big difference there is that data retention.
+
+00:10:43.230 --> 00:10:46.290
+I've talked to, you know, regulators or organizations of
+
+00:10:46.290 --> 00:10:47.720
+the UK who are like, "Hey, like, isn
+
+00:10:47.720 --> 00:10:49.750
+'t that illegal if you're holding on to that data for
+
+00:10:49.750 --> 00:10:52.080
+more than a year?" I'm like, "Actually
+
+00:10:52.080 --> 00:10:53.530
+, we legally have to.
+
+00:10:53.530 --> 00:10:56.730
+We abstractly, not we as Roost." So once
+
+00:10:56.730 --> 00:10:59.060
+again, you know, I think what we're trying to
+
+00:10:59.060 --> 00:11:01.120
+do with Roost is build a community for people to share
+
+00:11:01.120 --> 00:11:05.130
+policy ideas with each other, and then use those policies in
+
+00:11:05.130 --> 00:11:05.980
+our tools.
+
+00:11:05.980 --> 00:11:05.980
+Yeah.
+
+00:11:07.460 --> 00:11:09.980
+And here's some resources as well.
+
+00:11:09.980 --> 00:11:12.610
+Julia, I know you've collected these, so I'll
+
+00:11:12.610 --> 00:11:13.480
+let you continue.
+
+00:11:13.500 --> 00:11:13.980
+Yeah.
+
+00:11:13.980 --> 00:11:17.970
+So somewhere on my symbol, I have made a collection of
+
+00:11:17.970 --> 00:11:21.980
+all the various trust and safety resources I often yap about.
+
+00:11:21.980 --> 00:11:23.100
+They include many of these.
+
+00:11:23.100 --> 00:11:24.950
+So these are my go-to resources.
+
+00:11:24.950 --> 00:11:27.100
+If you're looking to learn more about the trust and safety
+
+00:11:27.100 --> 00:11:28.860
+field, just generally understand it.
+
+00:11:28.860 --> 00:11:30.950
+But then also, if you want to get really into the
+
+00:11:31.110 --> 00:11:33.580
+details of the operations, of the tooling, of the different
+
+00:11:33.580 --> 00:11:35.580
+types of technologies that are often used.
+
+00:11:35.580 --> 00:11:39.020
+Trust and Safety Professional Association is what it is.
+
+00:11:39.020 --> 00:11:42.680
+It's a professional association for those who do trust and safety
+
+00:11:42.680 --> 00:11:43.500
+work full-time.
+
+00:11:43.500 --> 00:11:45.770
+And that includes community mods.
+
+00:11:45.770 --> 00:11:49.980
+So they have put together this amazing curriculum written by practitioners.
+
+00:11:49.980 --> 00:11:51.440
+I contributed to the tooling part.
+
+00:11:51.440 --> 00:11:53.170
+There's a lot of stuff in there about how to,
+
+00:11:53.170 --> 00:11:57.390
+for example, if like a product design runbook, where
+
+00:11:57.390 --> 00:12:00.160
+if you have something like live streaming, where are the things
+
+00:12:00.160 --> 00:12:02.310
+that you need to put in friction or what are the different
+
+00:12:02.410 --> 00:12:04.540
+types of safety tools you need to have in place before you
+
+00:12:04.540 --> 00:12:05.520
+launch something.
+
+00:12:05.520 --> 00:12:08.590
+There's guides like that for maturity models of teams of different
+
+00:12:08.590 --> 00:12:10.810
+sizes as well as different products that you're building.
+
+00:12:10.810 --> 00:12:13.520
+They also have a library of different types of resources, academic
+
+00:12:13.520 --> 00:12:15.980
+papers, all dealing with trust and safety.
+
+00:12:15.980 --> 00:12:20.470
+And then finally, a lot of professors are now teaching trust
+
+00:12:20.470 --> 00:12:21.920
+and safety in universities.
+
+00:12:21.920 --> 00:12:25.860
+They have open sourced their materials through this teaching consortium
+
+00:12:25.860 --> 00:12:26.060
+.
+
+00:12:26.060 --> 00:12:28.740
+So if you want to teach a class on trust and safety
+
+00:12:28.740 --> 00:12:32.140
+or virtually go through a class taught by experts in trust and
+
+00:12:32.510 --> 00:12:35.050
+safety, you can also do that by visiting this GitHub page
+
+00:12:35.050 --> 00:12:35.340
+.
+
+00:12:35.340 --> 00:12:37.800
+We'll share all the links in this presentation on our blue
+
+00:12:37.800 --> 00:12:40.170
+sky immediately following this as well because I know there's a
+
+00:12:40.170 --> 00:12:40.700
+lot of links.
+
+00:12:40.700 --> 00:12:43.970
+All right, now we're going to talk, that was
+
+00:12:43.970 --> 00:12:45.100
+trust and safety crash course.
+
+00:12:45.100 --> 00:12:47.560
+We're going to talk about Roost specifically and our non
+
+00:12:47.560 --> 00:12:49.340
+-profit and open source approach.
+
+00:12:49.340 --> 00:12:54.540
+The status quo that we found is really that trust and safety
+
+00:12:54.540 --> 00:12:57.500
+, like the larger industry, is kind of broken.
+
+00:12:58.540 --> 00:13:04.000
+As we've said, smaller platforms and newer protocols, a
+
+00:13:04.020 --> 00:13:08.200
+lot of indie small apps being built on AppProto especially
+
+00:13:08.200 --> 00:13:10.960
+, you might not know that you need these tools or they
+
+00:13:10.970 --> 00:13:13.540
+might be unaffordable or inaccessible, like the
+
+00:13:13.540 --> 00:13:15.260
+traditional industry tools that are standard.
+
+00:13:15.260 --> 00:13:18.480
+And even if you can get access to them, a lot
+
+00:13:18.480 --> 00:13:22.640
+of times those application processes are lengthy and complicated and ask a
+
+00:13:22.640 --> 00:13:26.230
+lot of questions that an app of your scale doesn't really
+
+00:13:26.330 --> 00:13:27.100
+have an answer to.
+
+00:13:27.100 --> 00:13:32.220
+And platforms are reinventing these basic functionalities then instead of
+
+00:13:32.220 --> 00:13:34.100
+they can either use this third-party vendor or they can
+
+00:13:34.100 --> 00:13:35.230
+build it themselves.
+
+00:13:35.230 --> 00:13:36.980
+And that's a waste of efforts.
+
+00:13:36.980 --> 00:13:41.420
+It also takes away, it means that your app can't
+
+00:13:41.420 --> 00:13:43.740
+, or your app and your team can't focus on the
+
+00:13:43.740 --> 00:13:47.080
+harms that are specific to your community if you're focusing all
+
+00:13:47.080 --> 00:13:49.270
+of your time on building the same thing over and over again
+
+00:13:49.270 --> 00:13:49.500
+.
+
+00:13:49.500 --> 00:13:51.980
+We're also seeing that generative AI and LLMs
+
+00:13:51.980 --> 00:13:55.260
+are accelerating the production of and the spread of harms.
+
+00:13:55.260 --> 00:14:00.690
+So there's more and more things that are happening that need
+
+00:14:00.690 --> 00:14:01.900
+to be addressed.
+
+00:14:01.900 --> 00:14:05.420
+And we've also found that openness is kind of taboo
+
+00:14:05.420 --> 00:14:07.760
+in the larger trust and safety community.
+
+00:14:07.760 --> 00:14:10.700
+It's been really cool seeing so many trust and safety related
+
+00:14:10.700 --> 00:14:13.450
+talks here because that has been kind of pushing back against that
+
+00:14:13.450 --> 00:14:13.820
+idea.
+
+00:14:13.820 --> 00:14:17.680
+But still within the larger industry people think that if you talk
+
+00:14:17.690 --> 00:14:21.020
+about it then it means that bad actors will figure out ways
+
+00:14:21.020 --> 00:14:22.150
+to get around your stuff.
+
+00:14:22.150 --> 00:14:24.420
+You know it's very security through obscurity which as we
+
+00:14:24.420 --> 00:14:27.100
+know from the security world is not really a valid approach.
+
+00:14:27.100 --> 00:14:32.700
+And so what we believe is that the missing piece is actual
+
+00:14:32.700 --> 00:14:33.510
+tools.
+
+00:14:34.130 --> 00:14:38.420
+Things that developers can take and use and build, build on
+
+00:14:38.460 --> 00:14:40.300
+and plug into their own platforms.
+
+00:14:41.260 --> 00:14:45.130
+And importantly more importantly we believe that these tools must be open
+
+00:14:45.130 --> 00:14:48.130
+source so that they're accessible, they're modifiable,
+
+00:14:48.130 --> 00:14:52.220
+auditable and part of this trust and safety public commons
+
+00:14:52.220 --> 00:14:52.860
+that we're building.
+
+00:14:52.860 --> 00:14:57.660
+And as a result Roost is very very open source.
+
+00:14:57.680 --> 00:15:01.830
+Everything from not just like technically on a licensing level but also
+
+00:15:01.830 --> 00:15:04.910
+the development model and community model that we're building is open
+
+00:15:04.910 --> 00:15:05.600
+source.
+
+00:15:05.600 --> 00:15:08.930
+So here's a number of open source projects that we and
+
+00:15:08.930 --> 00:15:10.930
+communities that we sort of develop.
+
+00:15:10.930 --> 00:15:14.280
+Hasher matcher action is actually from meta but we run
+
+00:15:14.300 --> 00:15:16.560
+the community in office hours.
+
+00:15:16.560 --> 00:15:19.580
+So every couple weeks we get people together who are using H
+
+00:15:19.580 --> 00:15:22.280
+MA for hash matching and we talk about things we you know
+
+00:15:22.280 --> 00:15:25.900
+share information and knowledge and help develop it and make it better
+
+00:15:25.900 --> 00:15:26.610
+.
+
+00:15:26.610 --> 00:15:30.840
+The Roost model community is this community that we've built
+
+00:15:30.840 --> 00:15:35.250
+where people who are using open weight models can come together and
+
+00:15:35.250 --> 00:15:38.060
+learn how to use them better in a trust and safety context
+
+00:15:38.060 --> 00:15:38.060
+.
+
+00:15:38.060 --> 00:15:42.060
+They can learn about new models or or different policies and how
+
+00:15:42.060 --> 00:15:44.930
+to how to plug in policies to open weight models which is
+
+00:15:44.930 --> 00:15:46.070
+really powerful.
+
+00:15:46.070 --> 00:15:49.100
+Roost itself, our roadmap is up on GitHub.
+
+00:15:49.100 --> 00:15:52.300
+Our community documentation is all up on GitHub.
+
+00:15:52.300 --> 00:15:53.190
+It's all open source.
+
+00:15:53.200 --> 00:15:53.890
+It's in Markdown.
+
+00:15:53.890 --> 00:15:55.640
+You can go click a button and edit it and open a
+
+00:15:55.640 --> 00:15:57.340
+pull request against any of it as well.
+
+00:15:57.340 --> 00:16:00.580
+We really want to embody this open source idea and our governance
+
+00:16:00.970 --> 00:16:01.820
+documents as well.
+
+00:16:01.820 --> 00:16:05.000
+And then there's two actual code projects.
+
+00:16:05.020 --> 00:16:06.140
+We're talking about tools.
+
+00:16:06.140 --> 00:16:08.740
+There's Osprey which is an automated rules engine which
+
+00:16:08.740 --> 00:16:12.070
+originated from Discord and we helped them open source it and now
+
+00:16:12.070 --> 00:16:14.780
+is actually being used by Blue Sky and Matrix and a number
+
+00:16:14.780 --> 00:16:15.880
+of other platforms.
+
+00:16:15.880 --> 00:16:18.340
+And Coop which we're going to talk a little bit
+
+00:16:18.340 --> 00:16:21.480
+more about today which is the review console that we acquired and
+
+00:16:21.480 --> 00:16:24.060
+open sourced and have been building upon and simplifying to
+
+00:16:24.060 --> 00:16:25.800
+make it easier to self-host as well.
+
+00:16:25.800 --> 00:16:28.110
+All of that stuff can be found on our GitHub, g
+
+00:16:28.120 --> 00:16:28.710
+ithub.
+
+00:16:28.710 --> 00:16:29.660
+com/roostorg.
+
+00:16:29.660 --> 00:16:33.960
+And now we're going to talk about Coop.
+
+00:16:34.000 --> 00:16:36.220
+Some of you may have known all this already and you're
+
+00:16:36.220 --> 00:16:38.460
+saying finally we're actually going to see the project.
+
+00:16:38.460 --> 00:16:40.520
+So Coop, this is the review tool.
+
+00:16:40.520 --> 00:16:42.300
+What we did as Roost and again we're a non
+
+00:16:42.300 --> 00:16:42.860
+-profit.
+
+00:16:42.860 --> 00:16:45.500
+We wanted to bootstrap some of our software projects so
+
+00:16:45.500 --> 00:16:49.540
+we acquired the IP from a startup that was selling trust and
+
+00:16:49.540 --> 00:16:52.370
+safety tools as a service and we bought it.
+
+00:16:52.370 --> 00:16:55.270
+And then we worked over the past six to eight months to
+
+00:16:55.270 --> 00:16:57.740
+refactor that code to make it open sourceable.
+
+00:16:57.740 --> 00:16:58.510
+We're not done.
+
+00:16:58.510 --> 00:17:00.970
+There's still a lot of really messy legacy tech that that
+
+00:17:00.970 --> 00:17:02.930
+'s in this code base but that's the fun part of
+
+00:17:02.930 --> 00:17:03.940
+working in the open.
+
+00:17:04.040 --> 00:17:05.940
+We wanted the v0 out there to be like hey like
+
+00:17:05.940 --> 00:17:09.300
+what's we know we need to prioritize certain migrations,
+
+00:17:09.360 --> 00:17:11.640
+database cleanup, simplifications overall.
+
+00:17:11.640 --> 00:17:14.130
+What else is needed from the community?
+
+00:17:14.130 --> 00:17:15.500
+So again we want your opinions.
+
+00:17:15.500 --> 00:17:19.980
+So Coop, it is built for manual review.
+
+00:17:19.980 --> 00:17:22.770
+It also has like an auto bot directly built in.
+
+00:17:22.770 --> 00:17:25.890
+This is self-hosted on your own infrastructure.
+
+00:17:25.890 --> 00:17:29.490
+It comes with reviewer wellness features such as blurring,
+
+00:17:29.490 --> 00:17:32.060
+grayscale, and auto muting of videos.
+
+00:17:32.060 --> 00:17:34.280
+I'm going to go into a more comprehensive demo as well
+
+00:17:34.280 --> 00:17:34.460
+.
+
+00:17:34.610 --> 00:17:36.660
+And like I said there's automation rules built in.
+
+00:17:36.660 --> 00:17:38.790
+There's two types of rules within Coop.
+
+00:17:38.790 --> 00:17:41.310
+One is the proactive kind of auto moderation.
+
+00:17:41.320 --> 00:17:45.010
+Like you know something is bad or you know how to action
+
+00:17:45.010 --> 00:17:45.270
+it.
+
+00:17:45.270 --> 00:17:47.090
+Your team doesn't need to keep doing it.
+
+00:17:47.090 --> 00:17:48.520
+You can set that up as a rule.
+
+00:17:48.560 --> 00:17:51.280
+The second rule, the second type of rule is the routing
+
+00:17:51.280 --> 00:17:51.700
+rule.
+
+00:17:51.700 --> 00:17:53.580
+So as things are coming in, let's say you're
+
+00:17:53.580 --> 00:17:56.230
+ingesting a million reports to your label of service or to
+
+00:17:56.230 --> 00:17:58.460
+your moderation service, you need to sort them.
+
+00:17:58.460 --> 00:18:01.660
+Because from a wellness perspective, if you put all those reports
+
+00:18:01.660 --> 00:18:04.220
+and tasks into a certain queue, into a single queue,
+
+00:18:04.220 --> 00:18:06.220
+you don't know what's coming up next.
+
+00:18:06.220 --> 00:18:10.510
+And context switching between something like harassment or hate to something like
+
+00:18:10.510 --> 00:18:13.020
+NSFW, cartoons, that's a lot for your
+
+00:18:13.020 --> 00:18:14.100
+brain to do.
+
+00:18:14.100 --> 00:18:15.750
+That's going to impact you a lot more.
+
+00:18:15.750 --> 00:18:18.250
+So assigning it to specific queues, and you can also
+
+00:18:18.250 --> 00:18:19.650
+do that based on language.
+
+00:18:19.650 --> 00:18:22.260
+If you're providing services for a global set of user base
+
+00:18:22.270 --> 00:18:24.460
+, you want to have someone who's fluent in that language
+
+00:18:24.460 --> 00:18:26.190
+, who has that cultural context, to then go in and
+
+00:18:26.190 --> 00:18:26.700
+review.
+
+00:18:26.700 --> 00:18:29.960
+Some of the main features.
+
+00:18:29.960 --> 00:18:33.930
+Coop is the very first free, open source, end
+
+00:18:33.930 --> 00:18:36.420
+-to-end child safety tool, which means it provides
+
+00:18:36.650 --> 00:18:37.970
+hash matching for known CSAM.
+
+00:18:37.970 --> 00:18:40.680
+You still have to go get your own credentials from NEC
+
+00:18:40.680 --> 00:18:43.010
+MEC, but once you have that, you can just
+
+00:18:43.010 --> 00:18:46.510
+plug it in and start matching against databases of known CSAM
+
+00:18:46.510 --> 00:18:50.360
+that have already been validated and verified by experts like NEC
+
+00:18:50.360 --> 00:18:50.860
+MEC.
+
+00:18:50.860 --> 00:18:53.660
+We also integrated it with Google's content safety API.
+
+00:18:53.660 --> 00:18:55.320
+This is not free like open source.
+
+00:18:55.320 --> 00:18:56.850
+It's free like free beer.
+
+00:18:56.860 --> 00:18:57.690
+It's a free API.
+
+00:18:57.690 --> 00:19:00.430
+You, again, need to get your own credentials from Google
+
+00:19:00.430 --> 00:19:00.700
+.
+
+00:19:00.700 --> 00:19:03.220
+This is a novel CSAM detector.
+
+00:19:03.220 --> 00:19:06.400
+This classifier can find CSAM that has not yet been
+
+00:19:06.400 --> 00:19:09.260
+hashed, which is an increasing area of harm in the
+
+00:19:09.260 --> 00:19:11.010
+child safety landscape today.
+
+00:19:11.010 --> 00:19:13.000
+And we have it built in to support NECMEC
+
+00:19:13.040 --> 00:19:13.900
+reporting.
+
+00:19:13.900 --> 00:19:16.070
+We've integrated it with NECMEC's CyberT
+
+00:19:16.070 --> 00:19:19.040
+ip reporting API as well as their hash sharing API, so
+
+00:19:19.040 --> 00:19:21.590
+that way as you find CSAM, you can report it
+
+00:19:21.720 --> 00:19:25.180
+to the authorities with the right amount of detail that makes it
+
+00:19:25.180 --> 00:19:27.340
+actually actionable.
+
+00:19:27.340 --> 00:19:28.680
+It's scalable for your org.
+
+00:19:28.680 --> 00:19:31.170
+Like I mentioned earlier, you can have multiple queues for
+
+00:19:31.170 --> 00:19:34.030
+different types of workflows, different types of categories.
+
+00:19:34.030 --> 00:19:36.110
+It's also a multi-tenant code base, because
+
+00:19:36.110 --> 00:19:38.220
+, again, it was originally a SaaS startup.
+
+00:19:38.220 --> 00:19:41.900
+So if you have maybe like a, so let's say
+
+00:19:41.900 --> 00:19:45.560
+like you want to have multiple completely separate instances of coop with
+
+00:19:45.560 --> 00:19:48.710
+totally separate people working in those workflows, you can also set
+
+00:19:48.710 --> 00:19:49.500
+it up like that.
+
+00:19:49.500 --> 00:19:52.140
+And I talked a little bit about the routing rules and proactive
+
+00:19:52.140 --> 00:19:52.700
+rules.
+
+00:19:52.700 --> 00:19:55.350
+There's also a unique kind of like architecture that we built
+
+00:19:55.350 --> 00:19:55.660
+in.
+
+00:19:55.660 --> 00:19:58.940
+We plugified everything, so that way any kind of signal
+
+00:19:58.940 --> 00:20:01.820
+, model, detection service that you're using, you can
+
+00:20:01.820 --> 00:20:03.660
+actually integrate it directly into coop.
+
+00:20:03.660 --> 00:20:06.620
+Coop comes with three pre-built API integrations.
+
+00:20:06.620 --> 00:20:09.510
+Google's content safety API, like I mentioned already.
+
+00:20:09.510 --> 00:20:13.080
+OpenAI's moderation API, just because realistically we know a
+
+00:20:13.170 --> 00:20:14.270
+lot of people depend on it.
+
+00:20:14.270 --> 00:20:15.010
+It is free.
+
+00:20:15.070 --> 00:20:16.700
+You have to get your API token from OpenAI.
+
+00:20:16.700 --> 00:20:19.340
+And it supports image and text.
+
+00:20:19.340 --> 00:20:21.100
+And third one is Zentropy.
+
+00:20:21.100 --> 00:20:23.750
+You may have heard some folks at Atmosphere talking about
+
+00:20:23.780 --> 00:20:24.410
+Zentropy.
+
+00:20:24.410 --> 00:20:27.660
+They have open weight models, but for coop, we integrated
+
+00:20:27.660 --> 00:20:30.040
+with the API, which again, is backed by that open
+
+00:20:30.080 --> 00:20:32.060
+weight model for text classification.
+
+00:20:32.060 --> 00:20:35.340
+This is essentially, you can design your own text classifier
+
+00:20:35.360 --> 00:20:35.580
+.
+
+00:20:35.580 --> 00:20:39.050
+You write a policy prompt in Zentropy, it creates a
+
+00:20:39.050 --> 00:20:40.300
+model for you.
+
+00:20:40.300 --> 00:20:43.720
+It is completely tunable, completely customizable, and it's
+
+00:20:43.720 --> 00:20:46.060
+a small model that runs really well with latency.
+
+00:20:46.060 --> 00:20:48.900
+So if you need something that's happening near real time,
+
+00:20:48.900 --> 00:20:50.920
+Zentropy might be a good option for you.
+
+00:20:50.940 --> 00:20:56.300
+So, for the different types of people that are building on
+
+00:20:56.300 --> 00:20:58.620
+AppProto, here's where you might use coop.
+
+00:20:58.620 --> 00:21:01.230
+As a PDS hoster, your users, your liability
+
+00:21:01.230 --> 00:21:01.500
+.
+
+00:21:01.500 --> 00:21:05.090
+You might want to review reports against your community standards.
+
+00:21:05.090 --> 00:21:06.060
+You might want to, oh yeah.
+
+00:21:06.060 --> 00:21:07.500
+Oh wow.
+
+00:21:07.500 --> 00:21:09.970
+Without the helper text, the elf thing, the elf thing
+
+00:21:09.970 --> 00:21:10.620
+makes much less sense.
+
+00:21:10.620 --> 00:21:13.020
+So there's supposed to be a line here that says,
+
+00:21:13.020 --> 00:21:15.750
+"In a world where sexual "alphs are illegal
+
+00:21:15.960 --> 00:21:18.920
+and not allowed on online platforms, these are your obligations."
+
+00:21:18.940 --> 00:21:23.170
+You might want to detect known images of elf from third-
+
+00:21:23.170 --> 00:21:27.760
+party databases of elf hashes and report them to the right
+
+00:21:28.260 --> 00:21:28.740
+authorities.
+
+00:21:28.740 --> 00:21:31.190
+As a labeler, you might want to use coop as
+
+00:21:31.190 --> 00:21:34.460
+a review interface instead of ozone, or in addition to ozone
+
+00:21:34.460 --> 00:21:37.820
+, you can use automation or human review for reports on al
+
+00:21:37.820 --> 00:21:42.360
+phs submitted by your users.
+
+00:21:42.400 --> 00:21:42.650
+You can mix automated and human decisions.
+
+00:21:42.660 --> 00:21:44.140
+And finally, as an app creator, you're like,
+
+00:21:44.140 --> 00:21:45.880
+I just don't want any of, I don't want
+
+00:21:45.880 --> 00:21:47.260
+to deal with any of this.
+
+00:21:47.260 --> 00:21:49.700
+You can ship safety without a full trust and safety team.
+
+00:21:49.750 --> 00:21:52.220
+We know many of you are single person teams, two person
+
+00:21:52.220 --> 00:21:55.100
+teams, but you also want to do right by your users
+
+00:21:55.100 --> 00:21:55.340
+.
+
+00:21:55.340 --> 00:21:58.140
+So you could use coop to set up some simple automation.
+
+00:21:58.140 --> 00:21:59.860
+If you want to do some manual review, you could do
+
+00:21:59.870 --> 00:22:00.780
+labeling of any kind.
+
+00:22:00.780 --> 00:22:02.620
+It doesn't even have to be for trust and safety.
+
+00:22:02.620 --> 00:22:06.200
+We were going to do a whole alpha analogy and we decided
+
+00:22:06.240 --> 00:22:08.070
+last minute not to, and then we didn't take it
+
+00:22:08.070 --> 00:22:08.980
+out of everywhere.
+
+00:22:08.980 --> 00:22:10.860
+So, a little peek behind the scenes there.
+
+00:22:12.700 --> 00:22:13.820
+We're going to switch it, yeah.
+
+00:22:14.170 --> 00:22:14.540
+Okay.
+
+00:22:14.540 --> 00:22:23.100
+Hope we didn't totally just mess up
+
+00:22:23.100 --> 00:22:24.460
+the live stream, you know.
+
+00:22:24.460 --> 00:22:30.940
+It's on the screen here.
+
+00:22:30.940 --> 00:22:31.810
+All right.
+
+00:22:31.810 --> 00:22:33.420
+So, this is what coop looks like.
+
+00:22:33.420 --> 00:22:37.810
+For the data, I have it collecting content from the dudes
+
+00:22:37.810 --> 00:22:39.770
+of people in this room.
+
+00:22:39.840 --> 00:22:42.500
+So, when you first go into coop, you see some
+
+00:22:42.570 --> 00:22:43.410
+key metrics.
+
+00:22:43.410 --> 00:22:46.140
+You get a breakdown of all the actions I've got to
+
+00:22:46.140 --> 00:22:47.490
+set to the last seven days.
+
+00:22:47.490 --> 00:22:48.840
+What percent were automated?
+
+00:22:48.840 --> 00:22:50.060
+What percent were manual?
+
+00:22:50.060 --> 00:22:51.750
+What were the top policy violations?
+
+00:22:51.750 --> 00:22:53.050
+How many actions were taken?
+
+00:22:53.050 --> 00:22:54.940
+How many things still need to be reviewed?
+
+00:22:54.940 --> 00:22:57.420
+And you got some fun graphs because everyone loves a visual.
+
+00:22:57.420 --> 00:23:01.210
+I'm going to go into the manual review first.
+
+00:23:01.250 --> 00:23:03.490
+So, here you can see I've got a few que
+
+00:23:03.610 --> 00:23:04.350
+ues set up.
+
+00:23:04.350 --> 00:23:07.170
+I can create a new queue at any given time.
+
+00:23:07.170 --> 00:23:09.760
+And if you're doing kind of like phased review or
+
+00:23:09.760 --> 00:23:12.240
+maybe the first round reviews or maybe certain types of queues
+
+00:23:12.240 --> 00:23:14.500
+, you don't want certain actions to be taken.
+
+00:23:14.570 --> 00:23:16.620
+Maybe they're very sensitive actions.
+
+00:23:16.620 --> 00:23:19.270
+You can actually hide them from the queue.
+
+00:23:19.500 --> 00:23:21.980
+And we use role-based access controls.
+
+00:23:21.980 --> 00:23:25.940
+So, whoever should have access to a queue has access to
+
+00:23:25.940 --> 00:23:26.210
+it.
+
+00:23:26.210 --> 00:23:28.840
+Anyone who does not have that role will not be given access
+
+00:23:28.840 --> 00:23:29.100
+.
+
+00:23:29.100 --> 00:23:32.540
+A lot of trust and safety and moderation work involves very sensitive
+
+00:23:32.540 --> 00:23:33.200
+user data.
+
+00:23:33.200 --> 00:23:35.440
+So, this is a great way of kind of partitioning
+
+00:23:35.440 --> 00:23:37.020
+things where they need to be partitioned.
+
+00:23:37.020 --> 00:23:40.650
+So, I'm going to go into both the atmosphere posts
+
+00:23:40.700 --> 00:23:42.400
+and the default queue.
+
+00:23:42.400 --> 00:23:45.800
+I posted this, but there's really no better way to
+
+00:23:45.800 --> 00:23:49.090
+realize what a prolific poster fane is than by running
+
+00:23:49.090 --> 00:23:53.660
+something like this and realizing all 1,183 posts essentially
+
+00:23:53.660 --> 00:23:54.780
+come from their account.
+
+00:23:54.780 --> 00:23:56.300
+So, this is a post.
+
+00:23:56.300 --> 00:23:59.930
+This is essentially completely customizable.
+
+00:24:00.020 --> 00:24:02.780
+Whatever information you want to show, you can.
+
+00:24:02.780 --> 00:24:06.070
+I've just got it populated with the post that fane
+
+00:24:06.070 --> 00:24:09.450
+has written as long as well as their profile photo there did
+
+00:24:09.630 --> 00:24:09.630
+.
+
+00:24:09.690 --> 00:24:12.440
+If I go down, I can see information about their account
+
+00:24:12.440 --> 00:24:12.700
+.
+
+00:24:12.700 --> 00:24:13.960
+This is their header image.
+
+00:24:13.960 --> 00:24:16.010
+You can see it's got that auto blur there.
+
+00:24:16.010 --> 00:24:17.800
+When I mouse over it, it unblurs.
+
+00:24:17.830 --> 00:24:19.580
+They are active.
+
+00:24:19.580 --> 00:24:21.020
+This is their description.
+
+00:24:21.050 --> 00:24:24.360
+You can go down and see what other actions have been taken
+
+00:24:24.360 --> 00:24:26.720
+on this account, maybe for other posts, and I can
+
+00:24:26.870 --> 00:24:29.660
+actually preview those separate jobs directly in the UI.
+
+00:24:29.660 --> 00:24:32.200
+Finally, we're cleaning up this UI.
+
+00:24:32.200 --> 00:24:34.540
+It looks a little messy right now, but you can see
+
+00:24:34.540 --> 00:24:37.820
+additional items to give you more context to see is this account
+
+00:24:37.820 --> 00:24:41.920
+dedicated to posting something that maybe needs a label or is it
+
+00:24:42.020 --> 00:24:45.820
+just like out of context and it's like one post and
+
+00:24:45.820 --> 00:24:48.150
+in the middle of the replies or in the middle of conversations
+
+00:24:48.220 --> 00:24:49.340
+, there's other things going on.
+
+00:24:49.340 --> 00:24:51.580
+So, I can apply a random label.
+
+00:24:52.380 --> 00:24:54.610
+One thing to note is like as you're doing this work
+
+00:24:54.610 --> 00:24:56.680
+, I believe Acorn does this too, you can actually
+
+00:24:56.700 --> 00:24:59.480
+check the policy to see what is a goose label mean.
+
+00:24:59.480 --> 00:25:01.430
+I'm going to say, oh, it contains profan
+
+00:25:01.430 --> 00:25:03.520
+ity or excessive exclamation points.
+
+00:25:03.520 --> 00:25:04.760
+This is a demo policy.
+
+00:25:04.760 --> 00:25:07.370
+There's no exclamation points here, so I'm actually
+
+00:25:07.370 --> 00:25:08.700
+going to just ignore this task.
+
+00:25:08.700 --> 00:25:11.980
+Oh, yep, sounds good.
+
+00:25:11.980 --> 00:25:14.460
+So, you can skip tasks as well really quickly.
+
+00:25:14.500 --> 00:25:18.690
+You can also download all of the tasks that your team has
+
+00:25:18.860 --> 00:25:19.420
+skipped.
+
+00:25:19.420 --> 00:25:21.640
+This is a really helpful way to figure out where are policies
+
+00:25:21.680 --> 00:25:22.500
+that are unclear.
+
+00:25:22.500 --> 00:25:24.180
+Where are people getting confused?
+
+00:25:24.180 --> 00:25:27.900
+Also good for generating transparency reports for Digital Services Act compliance.
+
+00:25:28.070 --> 00:25:31.660
+Under automated enforcement, I've got a few matching banks set
+
+00:25:31.660 --> 00:25:31.820
+up.
+
+00:25:31.820 --> 00:25:34.360
+I've got hash banks with cans of spam, we know
+
+00:25:34.360 --> 00:25:36.690
+it's spam, as well as photos from atmosphere, mostly
+
+00:25:36.690 --> 00:25:38.620
+taken from the dinners I've been hosting.
+
+00:25:38.620 --> 00:25:40.680
+From text banks, let's say you've got a bunch
+
+00:25:40.720 --> 00:25:42.570
+of posts related to the atmosphere, you don't want to
+
+00:25:42.650 --> 00:25:44.140
+keep typing them every time you create a rule.
+
+00:25:44.140 --> 00:25:45.720
+So, I've got them in the text bank.
+
+00:25:45.770 --> 00:25:47.900
+And in the rules here, you can actually see some of
+
+00:25:47.900 --> 00:25:48.540
+them have fired.
+
+00:25:49.340 --> 00:25:52.770
+For labeling atmosphere content, I'm saying if there's any
+
+00:25:52.770 --> 00:25:56.090
+text in any item from the app proto post that matches anything
+
+00:25:56.090 --> 00:25:59.320
+in that text bank, send a human review using the policy
+
+00:25:59.360 --> 00:26:00.620
+, just do things.
+
+00:26:00.620 --> 00:26:03.440
+There's other rules in here too, where I created some
+
+00:26:03.440 --> 00:26:06.650
+synthetic posts matching cans of spam.
+
+00:26:06.740 --> 00:26:09.940
+And you can actually see here how many things were actioned
+
+00:26:09.990 --> 00:26:10.670
+by this rule.
+
+00:26:10.670 --> 00:26:11.890
+What percentage were it?
+
+00:26:11.890 --> 00:26:15.240
+And it'll actually give you that example feed of what's
+
+00:26:15.240 --> 00:26:17.420
+been triggering by this rule.
+
+00:26:17.420 --> 00:26:19.980
+You can put your policies in here.
+
+00:26:19.980 --> 00:26:22.170
+This is a really nice way to just make sure everything is
+
+00:26:22.170 --> 00:26:22.860
+in one spot.
+
+00:26:22.860 --> 00:26:25.980
+So, for example, sexually explicit, I put five sub
+
+00:26:25.980 --> 00:26:26.700
+categories.
+
+00:26:26.700 --> 00:26:29.100
+You can keep branching this out and make a very,
+
+00:26:29.100 --> 00:26:32.780
+very comprehensive tree of nuanced policies for your team to use.
+
+00:26:32.780 --> 00:26:35.100
+Let's go here.
+
+00:26:35.100 --> 00:26:37.250
+So, for routing rules, like I said, this is
+
+00:26:37.250 --> 00:26:39.820
+really looking at kind of like the incoming stuff and routing it
+
+00:26:39.820 --> 00:26:40.530
+to the right place.
+
+00:26:41.020 --> 00:26:43.240
+For this one, I'm actually using something from our signal
+
+00:26:43.240 --> 00:26:43.740
+library.
+
+00:26:43.740 --> 00:26:46.480
+I've got hooked up the Zentropy with a sexual content
+
+00:26:46.480 --> 00:26:49.060
+labeler, and I set a threshold of higher than 0
+
+00:26:49.060 --> 00:26:49.250
+.
+
+00:26:49.250 --> 00:26:49.740
+2.
+
+00:26:49.740 --> 00:26:51.260
+Nothing has triggered, thankfully.
+
+00:26:51.380 --> 00:26:51.820
+Thank you all.
+
+00:26:51.820 --> 00:26:52.380
+Thank you, everybody.
+
+00:26:52.380 --> 00:26:57.100
+And it looks like someone added a rule.
+
+00:26:57.100 --> 00:26:59.660
+Like I said, this is a public interactive demo.
+
+00:26:59.660 --> 00:27:01.800
+Someone has put in a rule for goose art.
+
+00:27:01.800 --> 00:27:04.860
+So, if there's any text that matches goose art,
+
+00:27:04.860 --> 00:27:07.580
+it will send it to the queue atmosphere posts.
+
+00:27:07.740 --> 00:27:10.600
+So, let's see what's in atmosphere posts.
+
+00:27:10.630 --> 00:27:14.240
+This is a picture from a dinner where I dragged 30 people
+
+00:27:14.240 --> 00:27:15.120
+to Richmond.
+
+00:27:15.120 --> 00:27:17.980
+And this is a synthetic post that I've created.
+
+00:27:17.980 --> 00:27:20.300
+You can see here that kind of, you know, wellness
+
+00:27:20.410 --> 00:27:21.320
+feature kicking in.
+
+00:27:21.320 --> 00:27:23.860
+Because this is a hash match, this actually tells you what
+
+00:27:23.860 --> 00:27:24.950
+hash bank it came from.
+
+00:27:24.970 --> 00:27:27.500
+I've already created an issue saying it's not super clear
+
+00:27:27.500 --> 00:27:29.510
+this task originally was created as a hash match.
+
+00:27:29.510 --> 00:27:31.340
+So, we're going to make that UI a little bit
+
+00:27:31.340 --> 00:27:31.580
+clearer.
+
+00:27:31.580 --> 00:27:34.670
+And just to demonstrate this, I'm going to show you
+
+00:27:34.670 --> 00:27:37.300
+what that looks like to escalate something to NECM
+
+00:27:37.300 --> 00:27:37.550
+EC.
+
+00:27:37.550 --> 00:27:40.340
+This is where the content safety warning comes in because a lot
+
+00:27:40.340 --> 00:27:42.610
+of the labels that NECMEC uses can be a
+
+00:27:42.610 --> 00:27:43.870
+little bit graphic.
+
+00:27:43.910 --> 00:27:47.240
+The UI for submitting something to NECMEC looks completely
+
+00:27:47.240 --> 00:27:50.650
+different because it's aggregating everything Coop knows about a
+
+00:27:50.650 --> 00:27:53.070
+given user to create a more comprehensive report.
+
+00:27:53.070 --> 00:27:54.470
+NECMEC is not going to be able to do
+
+00:27:54.470 --> 00:27:57.410
+much if you just submit one report for one content, especially
+
+00:27:57.410 --> 00:27:59.660
+if you're submitting 10 reports on the same user.
+
+00:27:59.660 --> 00:28:01.100
+It's better aggregated altogether.
+
+00:28:01.100 --> 00:28:03.920
+So, the NECMEC reporting, these fields come
+
+00:28:03.920 --> 00:28:06.130
+from NECMEC CyberTip API.
+
+00:28:06.130 --> 00:28:09.440
+These are the fields that their team uses to triage incoming
+
+00:28:09.440 --> 00:28:11.260
+reports to their team.
+
+00:28:11.260 --> 00:28:17.650
+The categories come from the Tech Coalition's Industry Classification.
+
+00:28:17.650 --> 00:28:21.260
+It essentially describes the age range of the victim as well as
+
+00:28:21.260 --> 00:28:23.820
+the type of abuse that is happening to the victim.
+
+00:28:23.820 --> 00:28:26.770
+It tells you what kind of image matched where it came from
+
+00:28:26.770 --> 00:28:28.690
+as well as more information.
+
+00:28:28.690 --> 00:28:31.740
+You can categorize it and then send this report.
+
+00:28:31.740 --> 00:28:34.610
+It tells you what this report will look like.
+
+00:28:34.810 --> 00:28:37.990
+And as long as you have your credentials for NECM
+
+00:28:37.990 --> 00:28:41.100
+EC put in there, that report will go through.
+
+00:28:41.100 --> 00:28:43.460
+Okay, I know we're at time slash overtime.
+
+00:28:43.460 --> 00:28:46.390
+Like I said, pre-built integrations, content safety
+
+00:28:46.390 --> 00:28:47.990
+API, OpenAI, Zentropy.
+
+00:28:47.990 --> 00:28:49.900
+I've got two labelers in here.
+
+00:28:49.900 --> 00:28:51.190
+One of the things that we're trying to do with Ro
+
+00:28:51.190 --> 00:28:53.230
+ost is for everyone who's trying to integrate a model with
+
+00:28:53.230 --> 00:28:55.750
+Coop, we are pushing them to add model cards because
+
+00:28:55.840 --> 00:28:58.970
+everyone deserves to know what is going on inside of that model
+
+00:28:58.970 --> 00:28:59.260
+.
+
+00:28:59.260 --> 00:29:00.680
+How is this algorithm developed?
+
+00:29:00.730 --> 00:29:01.900
+How is this model trained?
+
+00:29:01.900 --> 00:29:02.700
+What was it trained on?
+
+00:29:02.700 --> 00:29:03.560
+What are the biases?
+
+00:29:03.560 --> 00:29:05.240
+So we've got three open issues.
+
+00:29:05.240 --> 00:29:08.040
+We work directly with those model creators as part of the Ro
+
+00:29:08.040 --> 00:29:10.980
+ost model community to get those model cards filled out.
+
+00:29:10.980 --> 00:29:12.860
+So it's not in there yet, but it's coming
+
+00:29:12.860 --> 00:29:13.500
+very soon.
+
+00:29:13.600 --> 00:29:17.170
+I know we're at time, so please take a chance
+
+00:29:17.170 --> 00:29:18.430
+to play around with our demo.
+
+00:29:18.430 --> 00:29:20.430
+I'm going to keep it running all day and find me
+
+00:29:20.430 --> 00:29:22.690
+or Cassidy if you have any questions about Roost or
+
+00:29:22.690 --> 00:29:23.260
+Coop.
+
+00:29:23.500 --> 00:29:30.780
+Thank you.

@@ -1,0 +1,709 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:02.340
+- Here with Jennifer Mitchell from Gander Social.
+
+00:00:02.350 --> 00:00:03.250
+- Thank you.
+
+00:00:03.290 --> 00:00:04.840
+It was a good reminder to introduce myself.
+
+00:00:04.850 --> 00:00:06.840
+I am Jennifer Mitchell from Gander Social.
+
+00:00:06.850 --> 00:00:07.680
+Thank you.
+
+00:00:07.690 --> 00:00:11.720
+So, Gander Social, why do we even exist?
+
+00:00:11.730 --> 00:00:14.900
+Because who wants another social media network?
+
+00:00:14.910 --> 00:00:17.470
+So, hey, we've got one person does, so
+
+00:00:17.470 --> 00:00:18.470
+that's good for us.
+
+00:00:18.490 --> 00:00:20.710
+Nice.
+
+00:00:20.730 --> 00:00:24.460
+So over the last few years, Canadians have started noticing something
+
+00:00:24.490 --> 00:00:26.520
+like a little fishy.
+
+00:00:27.630 --> 00:00:33.940
+And almost every place where we talk online is owned somewhere else
+
+00:00:33.940 --> 00:00:33.940
+.
+
+00:00:33.950 --> 00:00:37.760
+And that somewhere else is the United States, mostly.
+
+00:00:37.770 --> 00:00:40.890
+Which worked fine, or at least we pretended it worked fine
+
+00:00:40.890 --> 00:00:41.960
+for a while.
+
+00:00:41.970 --> 00:00:46.080
+But when that country starts talking about annexation and turning us
+
+00:00:46.130 --> 00:00:48.990
+into the 51st state, it suddenly feels a little bit
+
+00:00:48.990 --> 00:00:53.760
+strange that all of our national conversations happen on their infrastructure and
+
+00:00:53.800 --> 00:00:57.110
+what a risk that would be to us if they did suddenly
+
+00:00:57.230 --> 00:01:00.430
+, you know, take their own threats seriously, which we
+
+00:01:00.510 --> 00:01:01.290
+certainly do.
+
+00:01:01.310 --> 00:01:04.400
+So that realization led our founder, Ben Wallman, he
+
+00:01:04.400 --> 00:01:05.140
+'s over there.
+
+00:01:05.150 --> 00:01:06.300
+You can talk to him here.
+
+00:01:06.310 --> 00:01:10.270
+To ask a simple question, what would it look like if
+
+00:01:10.270 --> 00:01:14.280
+Canadians had a social network that was truly ours?
+
+00:01:14.290 --> 00:01:19.880
+So not isolationist, but just digital sovereignty and choice.
+
+00:01:19.890 --> 00:01:23.640
+And that idea became Gander Social.
+
+00:01:23.650 --> 00:01:27.410
+So when we started researching how to build this kind of sovereign
+
+00:01:27.410 --> 00:01:30.680
+social space, we realized something very quickly.
+
+00:01:30.690 --> 00:01:33.810
+If we were going to build a closed platform, we would
+
+00:01:33.810 --> 00:01:37.380
+recreate the exact problems that we were trying to solve.
+
+00:01:37.390 --> 00:01:41.100
+And so then Ben discovered the app protocol.
+
+00:01:41.110 --> 00:01:44.270
+So an interesting thing is that for us, the problem came
+
+00:01:44.270 --> 00:01:47.770
+first and app protocol came second, which is kind of a
+
+00:01:47.770 --> 00:01:49.610
+different story, I think, to a lot of the other
+
+00:01:49.620 --> 00:01:51.810
+companies building on the protocol today.
+
+00:01:51.850 --> 00:01:54.340
+But what really excited us about the protocol was three things.
+
+00:01:54.350 --> 00:01:56.670
+So one was user portability.
+
+00:01:56.690 --> 00:02:01.090
+So we very firmly wanted the users to have control over their
+
+00:02:01.100 --> 00:02:01.780
+own data.
+
+00:02:01.790 --> 00:02:02.760
+We don't want their data.
+
+00:02:02.770 --> 00:02:04.560
+If we could know nothing about them, that would be the
+
+00:02:04.620 --> 00:02:07.620
+preference because then now we're a low risk target and now
+
+00:02:07.620 --> 00:02:09.170
+there's no risk that we're ever going to sell it
+
+00:02:09.220 --> 00:02:12.380
+on to any person or company in the future.
+
+00:02:12.410 --> 00:02:15.620
+So user portability was a massive one for us.
+
+00:02:15.630 --> 00:02:18.720
+The second one was, of course, the interoperability
+
+00:02:18.730 --> 00:02:18.820
+.
+
+00:02:18.830 --> 00:02:22.010
+You know, if you're building any kind of new social
+
+00:02:22.010 --> 00:02:24.020
+network, the empty room is a big issue.
+
+00:02:24.030 --> 00:02:27.450
+And so having that interoperability into an existing data layer
+
+00:02:27.470 --> 00:02:32.260
+would be incredibly helpful, but also recognizing what the future potential
+
+00:02:32.270 --> 00:02:34.360
+of that was going to be for us.
+
+00:02:34.370 --> 00:02:38.320
+And then third, which is even more interesting for us because
+
+00:02:38.410 --> 00:02:41.380
+we have equal amount of supporters and attractors for how we
+
+00:02:41.380 --> 00:02:44.300
+'re doing this, is permissionless innovation.
+
+00:02:44.330 --> 00:02:47.460
+So the fact that we can build what we want on the
+
+00:02:47.470 --> 00:02:51.500
+protocol without having to go and ask for permission is actually quite
+
+00:02:51.500 --> 00:02:52.360
+a big deal.
+
+00:02:52.370 --> 00:02:55.180
+And it really kind of pushes forward what we could potentially do
+
+00:02:55.180 --> 00:02:55.360
+.
+
+00:02:55.370 --> 00:02:57.820
+So we didn't really see the protocol as just infrastructure.
+
+00:02:57.830 --> 00:03:00.860
+We saw it as alignment with our values.
+
+00:03:00.870 --> 00:03:03.700
+So we solved that.
+
+00:03:03.710 --> 00:03:06.270
+And then we have to figure out what our users actually want
+
+00:03:06.310 --> 00:03:06.480
+.
+
+00:03:06.490 --> 00:03:09.430
+And the thing is, it's like the people using G
+
+00:03:09.430 --> 00:03:10.740
+ander today fall into two groups.
+
+00:03:10.750 --> 00:03:13.070
+So right now we're in a closed beta.
+
+00:03:13.090 --> 00:03:15.670
+We ideally would have been out of that beta by this conference
+
+00:03:15.720 --> 00:03:18.380
+, but Apple liked to wait to give, you know,
+
+00:03:18.390 --> 00:03:21.350
+approval on your production app, and so we wait.
+
+00:03:21.370 --> 00:03:25.230
+But we've got about 9,000 people in a closed
+
+00:03:25.230 --> 00:03:29.360
+beta and about 30,000 people knocking down the doors to
+
+00:03:29.410 --> 00:03:30.870
+try and get in.
+
+00:03:30.910 --> 00:03:32.580
+And they fall into two groups.
+
+00:03:32.590 --> 00:03:34.960
+So we have one group who have heard of Blue Sky,
+
+00:03:34.970 --> 00:03:38.500
+maybe they're on Blue Sky, and they understand the atmosphere
+
+00:03:38.520 --> 00:03:39.360
+ecosystem.
+
+00:03:39.370 --> 00:03:42.670
+And then the other group haven't heard of either, nor
+
+00:03:42.670 --> 00:03:43.850
+do they care.
+
+00:03:43.870 --> 00:03:47.830
+And the majority of the people on there are in that second
+
+00:03:47.830 --> 00:03:48.560
+group.
+
+00:03:48.570 --> 00:03:54.020
+And so what they want is actually deceptively simple,
+
+00:03:54.030 --> 00:03:55.500
+deceptively simple.
+
+00:03:55.510 --> 00:03:58.950
+They want to meaningfully connect with other humans.
+
+00:03:58.970 --> 00:04:03.360
+They want accessible, familiar features that are easy to use.
+
+00:04:03.370 --> 00:04:06.140
+And they want to reach their audiences, whether they're creators
+
+00:04:06.140 --> 00:04:08.510
+or businesses or whoever that is.
+
+00:04:08.530 --> 00:04:12.410
+And they want somewhere that they can trust again and somewhere that
+
+00:04:12.410 --> 00:04:14.120
+feels safe and civil.
+
+00:04:14.130 --> 00:04:19.350
+So our focus at Gander is actually delivering those familiar features
+
+00:04:19.450 --> 00:04:22.060
+, hopefully with a pro-social twist that we continue to
+
+00:04:22.060 --> 00:04:28.340
+experiment with on actual sovereign infrastructure, but we still benefit from
+
+00:04:28.340 --> 00:04:31.200
+the interoperability of the protocol underneath that.
+
+00:04:31.230 --> 00:04:37.530
+And so, no, we're not going anywhere.
+
+00:04:37.570 --> 00:04:41.560
+No, we went too far.
+
+00:04:41.570 --> 00:04:42.400
+Great.
+
+00:04:42.410 --> 00:04:49.360
+So the promise of the protocol is interoperability.
+
+00:04:49.370 --> 00:04:53.050
+But when we were discussing this user choice, this user agency
+
+00:04:53.100 --> 00:04:54.930
+, all of these things we wanted to give people, we
+
+00:04:54.930 --> 00:04:58.710
+realized that we can't force interoperability onto people as
+
+00:04:58.710 --> 00:04:59.900
+individuals.
+
+00:04:59.910 --> 00:05:02.980
+And so who decides how interoperable you are as an
+
+00:05:03.070 --> 00:05:04.240
+individual?
+
+00:05:04.250 --> 00:05:07.380
+And our answer always comes back to the user has to decide
+
+00:05:07.390 --> 00:05:07.580
+.
+
+00:05:07.590 --> 00:05:11.460
+And so on Gander, users will be able to choose
+
+00:05:11.460 --> 00:05:14.190
+their level of participation in the wider atmosphere.
+
+00:05:14.230 --> 00:05:18.560
+And so for example, if a user wants to post only
+
+00:05:18.560 --> 00:05:21.850
+a small group, what we're currently calling nests.
+
+00:05:21.870 --> 00:05:24.350
+Because, you know, Gander, geese, the
+
+00:05:24.400 --> 00:05:27.860
+puns are endless.
+
+00:05:27.870 --> 00:05:29.850
+Or they want to post just inside Gander, or they
+
+00:05:29.850 --> 00:05:32.470
+want to post to the entire atmosphere, they can choose to
+
+00:05:32.470 --> 00:05:33.170
+do that.
+
+00:05:33.210 --> 00:05:35.660
+And the same applies to what they see.
+
+00:05:35.670 --> 00:05:38.260
+So if they want to view a private social circle, they
+
+00:05:38.310 --> 00:05:40.580
+want to view Gander-only content, or they want
+
+00:05:40.580 --> 00:05:43.820
+to, again, view and have access to the entire atmosphere
+
+00:05:43.820 --> 00:05:45.540
+, they choose that.
+
+00:05:45.550 --> 00:05:48.640
+So on-screen is just an example of someone's settings
+
+00:05:48.650 --> 00:05:51.530
+where they're choosing to view Gander in their feeds and
+
+00:05:51.530 --> 00:05:52.860
+also Blue Sky in their feeds.
+
+00:05:52.870 --> 00:05:56.060
+And the intention is to open that up to everybody who's
+
+00:05:56.100 --> 00:05:59.190
+participating in the atmosphere, so the users can toggle on and
+
+00:05:59.190 --> 00:06:03.000
+off what content they want to receive.
+
+00:06:03.010 --> 00:06:05.480
+Because some of our users really, really, really love the
+
+00:06:05.480 --> 00:06:06.800
+open atmosphere.
+
+00:06:06.810 --> 00:06:10.230
+And other users want a quieter space where they're just focused
+
+00:06:10.230 --> 00:06:11.200
+on friends and family.
+
+00:06:11.210 --> 00:06:14.240
+And both of those choices are valid.
+
+00:06:14.250 --> 00:06:16.210
+And we're not going to make that choice for them.
+
+00:06:16.230 --> 00:06:19.890
+So our philosophy is very, very simple, which is inter
+
+00:06:19.890 --> 00:06:21.780
+operability by choice.
+
+00:06:21.790 --> 00:06:27.620
+So one of the biggest challenges social media faces is that today
+
+00:06:27.620 --> 00:06:28.620
+is a collapse of trust.
+
+00:06:28.630 --> 00:06:30.180
+So of course, we were like, well, let's
+
+00:06:30.180 --> 00:06:33.560
+make it sovereign, but let's also make it better.
+
+00:06:33.570 --> 00:06:36.500
+What an opportunity to take.
+
+00:06:36.510 --> 00:06:38.250
+And so at the moment, we've got bots, we
+
+00:06:38.250 --> 00:06:40.950
+'ve got coordinated manipulation, we've got disinformation, we
+
+00:06:40.990 --> 00:06:44.450
+'ve got harassment, and many networks try to fix these problems
+
+00:06:44.480 --> 00:06:46.640
+after the fact.
+
+00:06:46.650 --> 00:06:48.820
+And we wanted to design systems that help prevent them in the
+
+00:06:48.870 --> 00:06:49.480
+first place.
+
+00:06:49.490 --> 00:06:52.580
+So we think about Gander as an experiment in pro-
+
+00:06:52.640 --> 00:06:55.620
+social design, several systems working together.
+
+00:06:55.630 --> 00:06:59.300
+So first, we have our human verification, which we are
+
+00:06:59.360 --> 00:07:02.420
+planning to do through Canada Post's Identity Verification Service
+
+00:07:02.420 --> 00:07:02.420
+.
+
+00:07:02.430 --> 00:07:07.180
+And in a nutshell, the verification happens entirely on device with
+
+00:07:07.180 --> 00:07:09.730
+Canada Post's verification system, including being able to walk into
+
+00:07:09.730 --> 00:07:12.700
+your local post office and verify that you are a human being
+
+00:07:12.700 --> 00:07:12.930
+.
+
+00:07:12.950 --> 00:07:16.040
+We never receive identity documents, nor do we want them,
+
+00:07:16.040 --> 00:07:17.040
+quite frankly.
+
+00:07:17.050 --> 00:07:20.440
+We just receive a signal confirming someone is human and someone is
+
+00:07:20.440 --> 00:07:21.570
+over 18.
+
+00:07:21.590 --> 00:07:23.870
+And so someone is already on the beta.
+
+00:07:23.890 --> 00:07:25.220
+It's not like that now.
+
+00:07:25.230 --> 00:07:30.060
+But very shortly, if you want to engage on Gander
+
+00:07:30.060 --> 00:07:31.840
+, so you want to post, comment, et cetera,
+
+00:07:31.870 --> 00:07:33.730
+you are going to have to verify that you're a human
+
+00:07:33.730 --> 00:07:34.800
+being in over 18.
+
+00:07:34.810 --> 00:07:37.770
+Otherwise, you get a view only access to it.
+
+00:07:37.810 --> 00:07:41.920
+And that small amount of friction that we are deliberately introducing is
+
+00:07:41.920 --> 00:07:45.940
+going to help us discourage bots and coordinated abuse.
+
+00:07:45.950 --> 00:07:48.580
+So our second then is moderation infrastructure.
+
+00:07:48.590 --> 00:07:51.020
+We're running our own instance of ozone and we have our
+
+00:07:51.080 --> 00:07:54.800
+own moderation policies that are in line with Canadian law and the
+
+00:07:54.840 --> 00:07:56.390
+Charter of Human Rights and Freedoms, which is
+
+00:07:56.470 --> 00:07:57.960
+incredibly important here.
+
+00:07:57.970 --> 00:07:59.150
+We have freedom of expression.
+
+00:07:59.170 --> 00:08:00.480
+We don't have free speech.
+
+00:08:00.490 --> 00:08:04.200
+That distinction is important and it makes it a safer space to
+
+00:08:04.200 --> 00:08:04.420
+be.
+
+00:08:04.430 --> 00:08:05.800
+And also information integrity.
+
+00:08:05.810 --> 00:08:09.940
+So we integrate media bias indicators and source factuality signals,
+
+00:08:09.950 --> 00:08:13.400
+giving users more context when they encounter information.
+
+00:08:15.050 --> 00:08:18.340
+So what have we built so far?
+
+00:08:18.350 --> 00:08:19.840
+Little snapshots all over.
+
+00:08:19.850 --> 00:08:20.720
+I'll give you a list.
+
+00:08:20.730 --> 00:08:21.340
+I'll read it out.
+
+00:08:21.350 --> 00:08:22.250
+We have text posts.
+
+00:08:22.290 --> 00:08:23.190
+We have images.
+
+00:08:23.250 --> 00:08:25.320
+We have vertical video scrolling.
+
+00:08:25.330 --> 00:08:27.560
+Like on TikTok, we have boards like Pinterest.
+
+00:08:27.570 --> 00:08:28.420
+We have feeds.
+
+00:08:28.430 --> 00:08:30.180
+We have direct messages.
+
+00:08:30.190 --> 00:08:34.690
+We also support multiple feeds, allowing different ways to experience content
+
+00:08:34.690 --> 00:08:34.960
+.
+
+00:08:34.970 --> 00:08:37.690
+Like I said, we've already deployed our own ozone moderation
+
+00:08:37.730 --> 00:08:40.410
+instance, the media bias and fact checking integrations, and
+
+00:08:40.410 --> 00:08:45.040
+we're preparing to test the human verification very shortly.
+
+00:08:45.050 --> 00:08:48.160
+We have 8,000, almost 9,000 beta test
+
+00:08:48.160 --> 00:08:48.340
+ers.
+
+00:08:48.350 --> 00:08:50.040
+Now 30,000 people waiting to get in.
+
+00:08:50.050 --> 00:08:52.610
+And once all of those folks are in, everybody gets invite
+
+00:08:52.610 --> 00:08:54.280
+codes to invite their friends and family.
+
+00:08:54.290 --> 00:08:57.130
+We are deliberately not doing a big splashy launch because we
+
+00:08:57.130 --> 00:09:00.780
+want this to come out sustainably and thoughtfully.
+
+00:09:00.790 --> 00:09:03.380
+So what does it feel like on Gander right now?
+
+00:09:03.390 --> 00:09:07.080
+It's an example of a few little bits.
+
+00:09:07.090 --> 00:09:09.940
+This has been a big one for us.
+
+00:09:09.970 --> 00:09:12.710
+So it turns out when you change the structure of a social
+
+00:09:12.710 --> 00:09:16.700
+network, you can actually fundamentally change the culture of the conversation
+
+00:09:16.700 --> 00:09:16.700
+.
+
+00:09:16.710 --> 00:09:20.100
+And people are really noticing that Gander is different.
+
+00:09:20.110 --> 00:09:21.460
+It's a little slower.
+
+00:09:21.470 --> 00:09:22.500
+It's a little more human.
+
+00:09:22.550 --> 00:09:24.830
+All our feeds are chronological.
+
+00:09:24.850 --> 00:09:27.210
+And it feels a little bit more like the early days of
+
+00:09:27.210 --> 00:09:28.120
+social media.
+
+00:09:28.150 --> 00:09:31.220
+And that is something that we are going to try to continue
+
+00:09:31.230 --> 00:09:34.530
+to, you know, hopefully it will persist as we get
+
+00:09:34.530 --> 00:09:36.020
+bigger.
+
+00:09:36.030 --> 00:09:38.300
+So while we've built the features and the infrastructure, we
+
+00:09:38.300 --> 00:09:40.960
+'re also starting to see something else emerge.
+
+00:09:40.970 --> 00:09:47.700
+So a community culture that is more civil and more intentional.
+
+00:09:47.710 --> 00:09:50.560
+I'm running out of time, so I might skip the
+
+00:09:50.570 --> 00:09:51.440
+next bit.
+
+00:09:51.450 --> 00:09:53.650
+Basically, for a long time, social media has been something
+
+00:09:53.650 --> 00:09:54.300
+we were given.
+
+00:09:54.310 --> 00:09:55.840
+So platforms told us what it would be.
+
+00:09:55.850 --> 00:09:57.540
+Algorithms told us what we would see.
+
+00:09:57.550 --> 00:10:00.580
+And we think the next phase should look very different.
+
+00:10:00.590 --> 00:10:05.490
+And networks where users have real choice, where we can build
+
+00:10:05.540 --> 00:10:09.440
+communities, ecosystems where developers build together, and Gander is
+
+00:10:09.460 --> 00:10:12.750
+just one experiment in that future, and hopefully one that will
+
+00:10:12.750 --> 00:10:13.400
+persist.
+
+00:10:13.410 --> 00:10:16.840
+And we're excited to build it in the atmosphere.
+
+00:10:16.850 --> 00:10:19.630
+Thank you.

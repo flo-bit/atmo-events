@@ -1,0 +1,1807 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.120
+Tyler Fisher: Hello, all right, start over for the
+
+00:00:05.120 --> 00:00:06.240
+stream.
+
+00:00:06.250 --> 00:00:07.400
+Hello, I'm Tyler Fisher.
+
+00:00:07.460 --> 00:00:10.160
+I make a project called SIL, which is a client
+
+00:00:10.160 --> 00:00:12.200
+on top of the blue sky post lexicon that aggreg
+
+00:00:12.580 --> 00:00:15.050
+ates the top links in your network.
+
+00:00:15.220 --> 00:00:18.530
+It's a unique client experience that nothing else in the atmosphere
+
+00:00:18.530 --> 00:00:20.240
+offers right now.
+
+00:00:20.240 --> 00:00:22.560
+And I think we need more unique types of clients.
+
+00:00:22.560 --> 00:00:25.610
+So I'm going to talk about how we can achieve that
+
+00:00:26.060 --> 00:00:26.640
+today.
+
+00:00:26.660 --> 00:00:29.180
+Last year, I moved to Harlem, a small city in
+
+00:00:29.180 --> 00:00:30.700
+the Netherlands.
+
+00:00:30.780 --> 00:00:32.100
+At the center of the city, we have the Hr
+
+00:00:32.100 --> 00:00:35.810
+ultenmarkt, a large public plaza that is overlooked
+
+00:00:35.810 --> 00:00:38.340
+by the Sint Babelkerk, the giant church
+
+00:00:38.740 --> 00:00:38.900
+.
+
+00:00:38.900 --> 00:00:42.310
+It's a grand plaza that on the weekends turns into
+
+00:00:42.310 --> 00:00:45.230
+a public square for local vendors.
+
+00:00:45.230 --> 00:00:48.840
+But at any time during the week, it's a lovely
+
+00:00:48.840 --> 00:00:49.800
+place to be.
+
+00:00:49.800 --> 00:00:52.200
+It's quiet, safe, comfortable.
+
+00:00:52.320 --> 00:00:55.190
+You'll also notice in this photo, it's car free
+
+00:00:55.640 --> 00:00:55.700
+.
+
+00:00:55.780 --> 00:00:58.760
+The Netherlands is famous for its pedestrian and bicycle infrastructure.
+
+00:00:58.760 --> 00:01:00.660
+But it wasn't always this way.
+
+00:01:00.760 --> 00:01:03.480
+The Hrultenmarkt in the 1960s was more
+
+00:01:03.480 --> 00:01:06.490
+of a parking lot and a road and a traffic circle going
+
+00:01:06.580 --> 00:01:07.040
+through it.
+
+00:01:07.080 --> 00:01:11.000
+When visitors visit the Hrultenmarkt today, they
+
+00:01:11.300 --> 00:01:14.180
+tend to think of it as it's always been this way
+
+00:01:14.180 --> 00:01:14.480
+.
+
+00:01:14.480 --> 00:01:16.960
+This is an ancient public square that's been this way since
+
+00:01:17.060 --> 00:01:17.760
+the 1300s.
+
+00:01:18.020 --> 00:01:19.480
+But it's not true.
+
+00:01:19.610 --> 00:01:23.040
+The Hrultenmarkt was transformed as a result of
+
+00:01:23.480 --> 00:01:28.000
+sustained protest and community engagement in Harlem during the 1960s and
+
+00:01:28.000 --> 00:01:30.300
+70s to rip out the roads, rip out the parking
+
+00:01:30.300 --> 00:01:32.270
+, and make it a pedestrianized plaza.
+
+00:01:32.300 --> 00:01:36.530
+This got me thinking about how cities transform to places that are
+
+00:01:36.940 --> 00:01:40.160
+designed more for people and what we can learn from walkable
+
+00:01:40.160 --> 00:01:42.680
+cities about transforming digital spaces.
+
+00:01:43.050 --> 00:01:48.270
+Ultimately, walkable cities are about getting people to walk or
+
+00:01:48.270 --> 00:01:52.130
+take some other form of mobility to their destination instead of driving
+
+00:01:52.230 --> 00:01:53.000
+a car.
+
+00:01:53.000 --> 00:01:56.370
+The American city planner, Jeff Speck, gave a talk
+
+00:01:56.380 --> 00:01:59.820
+in 2013 about building walkable cities.
+
+00:01:59.820 --> 00:02:03.800
+He says that a walk has to offer four things for somebody
+
+00:02:04.150 --> 00:02:07.350
+to walk or take some other form of mobility instead of drive
+
+00:02:07.350 --> 00:02:07.520
+.
+
+00:02:07.520 --> 00:02:09.870
+And I saw for these four things simultaneously.
+
+00:02:10.240 --> 00:02:12.420
+There needs to be a proper reason to walk.
+
+00:02:12.420 --> 00:02:14.550
+The walk has to be safe and feel safe.
+
+00:02:14.760 --> 00:02:16.440
+The walk has to be comfortable.
+
+00:02:16.590 --> 00:02:18.300
+And the walk has to be interesting.
+
+00:02:18.300 --> 00:02:21.740
+I, like many of you, have been thinking about how
+
+00:02:21.750 --> 00:02:23.820
+do we grow the atmosphere.
+
+00:02:24.070 --> 00:02:27.910
+Building the atmosphere is an infrastructural change to the internet
+
+00:02:28.360 --> 00:02:31.810
+on the level of transforming a city from one that is car
+
+00:02:31.810 --> 00:02:34.560
+-centric to one that is person-centric.
+
+00:02:34.710 --> 00:02:38.290
+So in thinking about this problem, I found myself revisiting
+
+00:02:38.300 --> 00:02:40.550
+Speck's theory, but for the atmosphere.
+
+00:02:40.550 --> 00:02:43.660
+There needs to be a proper reason to join the atmosphere.
+
+00:02:43.660 --> 00:02:46.090
+The atmosphere has to be safe and feel safe.
+
+00:02:46.350 --> 00:02:48.620
+The atmosphere has to be comfortable.
+
+00:02:48.620 --> 00:02:50.860
+And the atmosphere has to be interesting.
+
+00:02:50.860 --> 00:02:53.620
+We can break this theory into four parts.
+
+00:02:53.620 --> 00:02:56.440
+Purpose, a proper reason to join the atmosphere.
+
+00:02:57.340 --> 00:03:00.290
+Safety, the atmosphere has to be safe and feel safe.
+
+00:03:00.480 --> 00:03:02.620
+Comfort, the atmosphere has to be comfortable.
+
+00:03:02.620 --> 00:03:05.660
+And interest, the atmosphere has to be interesting.
+
+00:03:05.760 --> 00:03:09.000
+I'd like to propose this four-component framing as
+
+00:03:09.000 --> 00:03:13.110
+a structure for how we think about building atmospheric clients.
+
+00:03:13.240 --> 00:03:15.600
+In this talk, I'm going to walk through each of
+
+00:03:15.600 --> 00:03:18.250
+these four components and what they mean for client design.
+
+00:03:18.250 --> 00:03:20.330
+I'll talk about how I think about them in my own
+
+00:03:20.330 --> 00:03:23.730
+projects and offer some inspiration from elsewhere in the atmosphere that I
+
+00:03:23.730 --> 00:03:28.340
+think do some of these things particularly well and discuss what opportunities
+
+00:03:28.340 --> 00:03:32.820
+I see for us to further atmospheric clients in these four directions
+
+00:03:32.820 --> 00:03:33.020
+.
+
+00:03:33.020 --> 00:03:35.180
+Let's start with purpose.
+
+00:03:35.190 --> 00:03:38.950
+Speck's original theory describes us as having a proper reason
+
+00:03:38.950 --> 00:03:39.550
+to walk.
+
+00:03:39.550 --> 00:03:42.450
+For this, he means having a destination in mind.
+
+00:03:42.450 --> 00:03:45.610
+For a walkable city, you have to have schools and
+
+00:03:45.880 --> 00:03:50.060
+doctors, restaurants, bars, grocery stores, everything you need
+
+00:03:50.060 --> 00:03:51.950
+within walking distance.
+
+00:03:51.950 --> 00:03:55.410
+We're all here building new apps, new experiences, trying
+
+00:03:55.530 --> 00:03:58.180
+to entice people to join the open social web.
+
+00:03:58.180 --> 00:03:59.370
+But why would they?
+
+00:03:59.630 --> 00:04:04.060
+Often we lead with pitches about dated sovereignty, privacy, openness
+
+00:04:04.060 --> 00:04:06.040
+, and while these are critical features, it's why we
+
+00:04:06.180 --> 00:04:06.700
+'re all here.
+
+00:04:06.700 --> 00:04:09.950
+They should be a given for atmospheric applications.
+
+00:04:09.950 --> 00:04:11.750
+People need more purpose than that.
+
+00:04:11.930 --> 00:04:14.700
+It's not enough to build the pedestrianized streets of the
+
+00:04:14.700 --> 00:04:15.560
+internet.
+
+00:04:15.560 --> 00:04:17.430
+They have to go somewhere.
+
+00:04:17.700 --> 00:04:21.720
+The inability to convince people to join new social networks is a
+
+00:04:21.720 --> 00:04:22.990
+long study problem.
+
+00:04:22.990 --> 00:04:24.390
+Switching costs are real.
+
+00:04:24.840 --> 00:04:28.060
+People won't move unless their network has already moved.
+
+00:04:28.060 --> 00:04:29.900
+We can't solve this problem overnight.
+
+00:04:30.280 --> 00:04:34.530
+What's exciting about AT Proto is the opportunities offered by
+
+00:04:34.530 --> 00:04:35.090
+the PDS.
+
+00:04:35.090 --> 00:04:38.260
+There have been over 40 million signups for Blue Sky so
+
+00:04:38.400 --> 00:04:40.130
+far, each with their own PDS.
+
+00:04:40.950 --> 00:04:43.320
+Each of those already have an account with your app too.
+
+00:04:43.320 --> 00:04:45.600
+But if you're offering your own experience and your own le
+
+00:04:45.600 --> 00:04:48.230
+xicon separate from the Blue Sky experience, this is somewhat
+
+00:04:48.450 --> 00:04:48.830
+cold comfort.
+
+00:04:49.200 --> 00:04:53.150
+40 million people can sign into your app, but if there
+
+00:04:53.320 --> 00:04:56.840
+is no real content and their people aren't on your le
+
+00:04:56.840 --> 00:04:58.860
+xicons yet, there's not going to be much for
+
+00:04:58.860 --> 00:04:59.660
+them to engage with.
+
+00:04:59.660 --> 00:05:04.260
+So how can we leverage the Blue Sky existing network, but
+
+00:05:04.260 --> 00:05:08.780
+offer new experiences that offer new motivations to join the atmosphere?
+
+00:05:08.780 --> 00:05:12.640
+One option is to build clients on top of the existing le
+
+00:05:12.640 --> 00:05:14.270
+xicons, but offer new experiences.
+
+00:05:14.440 --> 00:05:16.040
+And that's what I've done with Sill, my
+
+00:05:16.040 --> 00:05:18.670
+link aggregation client that is built on top of Blue Sky
+
+00:05:18.760 --> 00:05:19.570
+and Mastodon.
+
+00:05:19.970 --> 00:05:24.470
+Sill reads your following timeline, finds the most popular links
+
+00:05:24.680 --> 00:05:27.710
+in your network, and offers you a different picture of your
+
+00:05:27.710 --> 00:05:31.650
+feed by rank ordering the most popular links in your network.
+
+00:05:31.650 --> 00:05:36.050
+It's most common use case for people is as a news
+
+00:05:36.050 --> 00:05:36.610
+reader.
+
+00:05:36.610 --> 00:05:39.820
+Typically, the most commonly shared URLs are news stories.
+
+00:05:40.270 --> 00:05:44.270
+Many people use social media for news, and Sill offers
+
+00:05:44.440 --> 00:05:46.320
+them an optimized way to do so.
+
+00:05:46.320 --> 00:05:49.450
+This is a new experience built on top of an existing le
+
+00:05:49.450 --> 00:05:49.980
+xicon.
+
+00:05:49.980 --> 00:05:51.370
+But Sill's read-only.
+
+00:05:51.370 --> 00:05:54.980
+What if you wanted to offer a whole new social experience without
+
+00:05:54.980 --> 00:05:57.260
+having to bootstrap a whole new lexicon?
+
+00:05:57.260 --> 00:06:01.630
+Sebastian Vogelsang's Flashes offers a really compelling concept
+
+00:06:01.630 --> 00:06:02.010
+here.
+
+00:06:02.010 --> 00:06:04.620
+It's a photo sharing app akin to Instagram, but it
+
+00:06:04.620 --> 00:06:07.980
+uses the Blue Sky Post lexicon as its root.
+
+00:06:07.980 --> 00:06:12.050
+But rather than limit itself to the limitations of the Post le
+
+00:06:12.050 --> 00:06:15.130
+xicon in terms of photo sharing, it adds sidecar
+
+00:06:15.380 --> 00:06:19.570
+records on top of the Blue Sky Post so that in the
+
+00:06:19.580 --> 00:06:22.810
+Flashes app you get a more full photo sharing experience.
+
+00:06:23.060 --> 00:06:26.460
+But Blue Sky users can still see and interact with those posts
+
+00:06:26.460 --> 00:06:30.180
+, so you're immediately getting the benefit of being on the
+
+00:06:30.220 --> 00:06:33.580
+atmosphere while still offering a new experience.
+
+00:06:33.580 --> 00:06:37.830
+So now the atmosphere as a whole has two separate experiences to
+
+00:06:37.830 --> 00:06:40.560
+offer people, microblogging, and photo sharing, and
+
+00:06:40.560 --> 00:06:44.210
+they're seamlessly connected, letting everyone take advantage of the increasingly
+
+00:06:44.210 --> 00:06:45.180
+growing social graph.
+
+00:06:45.180 --> 00:06:49.090
+As the atmosphere grows, more lexicons will get adopted
+
+00:06:49.190 --> 00:06:52.670
+, offering more opportunities for extension, remixing, and combination
+
+00:06:53.040 --> 00:06:54.770
+from the client experience.
+
+00:06:55.020 --> 00:06:57.710
+The community developing around standard outside is bearing a ton of fruit
+
+00:06:57.710 --> 00:06:58.040
+here.
+
+00:06:58.060 --> 00:07:01.390
+In the long form space, I would love to see more
+
+00:07:01.500 --> 00:07:04.860
+work around premium news reading experiences.
+
+00:07:05.500 --> 00:07:08.520
+There's both a supply and demand problem here of getting news
+
+00:07:08.680 --> 00:07:11.350
+onto protocol and getting readers to understand that there is news on
+
+00:07:11.350 --> 00:07:11.980
+the protocol.
+
+00:07:11.980 --> 00:07:14.940
+I'm going to talk more about news on ATProto
+
+00:07:14.940 --> 00:07:16.210
+at a panel tomorrow at 10 a.
+
+00:07:16.210 --> 00:07:16.370
+m.
+
+00:07:16.370 --> 00:07:18.460
+if you want to hear me talk more about that specifically.
+
+00:07:18.460 --> 00:07:23.040
+But back to Speck's theory, he says that Walk
+
+00:07:23.230 --> 00:07:24.940
+must be safe and feel safe.
+
+00:07:25.080 --> 00:07:26.940
+This phrasing is specific.
+
+00:07:26.940 --> 00:07:29.210
+There are, in fact, two related things here: being
+
+00:07:29.470 --> 00:07:31.580
+safe and feeling safe.
+
+00:07:31.710 --> 00:07:34.230
+It's an important distinction and one we have to think about
+
+00:07:34.230 --> 00:07:35.360
+as we design digital spaces.
+
+00:07:35.630 --> 00:07:39.580
+When you first talk about safety in digital spaces, the first
+
+00:07:39.580 --> 00:07:41.500
+thing you're going to think of is content moderation.
+
+00:07:41.500 --> 00:07:45.530
+I have no personal experience with content moderation.
+
+00:07:45.530 --> 00:07:48.350
+It's not something I do instill beyond allowing people to
+
+00:07:48.690 --> 00:07:50.610
+mute words and domains and accounts.
+
+00:07:50.610 --> 00:07:52.920
+I'm just not an expert, so I'm not going
+
+00:07:53.020 --> 00:07:56.650
+to say much about content moderation today, and I'd rather
+
+00:07:56.650 --> 00:07:58.140
+point you to the experts in the space.
+
+00:07:58.360 --> 00:08:02.160
+Black Sky just released Acorn, which is a community moderation
+
+00:08:02.160 --> 00:08:05.550
+tool that they built with prioritizing the health of the moder
+
+00:08:05.550 --> 00:08:06.140
+ators.
+
+00:08:06.270 --> 00:08:09.250
+And I think that's a really awesome approach.
+
+00:08:09.250 --> 00:08:11.740
+The team at Roost has released Osprey, which
+
+00:08:11.740 --> 00:08:15.990
+is a more automated approach to dealing with abuse on social media
+
+00:08:16.440 --> 00:08:19.900
+and automating that moderation burden.
+
+00:08:19.900 --> 00:08:23.500
+And then research by Aaron Kassane and Darius Kaz
+
+00:08:23.500 --> 00:08:24.900
+emi from a few years ago.
+
+00:08:24.900 --> 00:08:28.320
+They did research on moderation in the Fediverse and composable
+
+00:08:28.320 --> 00:08:28.970
+moderation.
+
+00:08:28.970 --> 00:08:30.970
+It is about the Fediverse, but I think it offers
+
+00:08:31.000 --> 00:08:33.440
+a ton of lessons as we think about this in the atmosphere
+
+00:08:33.440 --> 00:08:33.980
+as well.
+
+00:08:33.980 --> 00:08:37.980
+I want to tackle safety from a different angle, which is
+
+00:08:37.980 --> 00:08:41.940
+how can our social media clients encourage healthier social media habits?
+
+00:08:42.080 --> 00:08:44.310
+After all, even in a well-moderated network
+
+00:08:44.310 --> 00:08:45.690
+, we can become addicted.
+
+00:08:45.690 --> 00:08:47.780
+When the news is bad, we can fall prey to doom
+
+00:08:47.810 --> 00:08:48.550
+scrolling.
+
+00:08:48.670 --> 00:08:52.510
+Even with reverse chronological timelines or algorithmic timelines, the
+
+00:08:52.680 --> 00:08:57.640
+context collapse of different topics matched together can overwhelm and confuse
+
+00:08:57.640 --> 00:08:58.140
+us.
+
+00:08:58.160 --> 00:09:01.500
+With Sill, I want to find solutions to these problems
+
+00:09:01.500 --> 00:09:01.500
+.
+
+00:09:01.500 --> 00:09:04.520
+By default, Sill aggregates to the top links in
+
+00:09:04.680 --> 00:09:06.860
+your network over 24 hours.
+
+00:09:06.860 --> 00:09:08.810
+So if you leave it at that default, Sill doesn
+
+00:09:08.810 --> 00:09:10.710
+'t actually change very much throughout the day.
+
+00:09:10.940 --> 00:09:13.850
+And this is actually a good thing if your primary use case
+
+00:09:13.850 --> 00:09:16.090
+for social media is reading news.
+
+00:09:16.090 --> 00:09:18.970
+Your network will surface the news that matters.
+
+00:09:18.970 --> 00:09:21.470
+And once it reaches you, there's going to be a
+
+00:09:21.480 --> 00:09:25.040
+ton of context from your network helping you process it, helping
+
+00:09:25.040 --> 00:09:26.090
+you understand it.
+
+00:09:26.350 --> 00:09:29.900
+As the story develops, you don't need to continue scrolling
+
+00:09:30.060 --> 00:09:32.660
+your timeline where only every tenth post is actually the thing you
+
+00:09:32.660 --> 00:09:34.290
+'re trying to learn about right now.
+
+00:09:35.740 --> 00:09:39.050
+Sill groups it all together, keeping your mind focused and
+
+00:09:39.050 --> 00:09:43.010
+allowing you to read the story and grapple with its ram
+
+00:09:43.010 --> 00:09:47.250
+ifications without jumping to another topic and switching contexts.
+
+00:09:47.340 --> 00:09:50.670
+Sill's -- these tactics are working with Sill's
+
+00:09:51.040 --> 00:09:55.510
+users who regularly report that it's helping them use social media
+
+00:09:55.510 --> 00:09:57.790
+less while still staying engaged.
+
+00:09:58.160 --> 00:10:02.750
+David Crespo says he stays logged out of Blue Sky
+
+00:10:02.810 --> 00:10:04.540
+on his phone and only uses Sill on his phone.
+
+00:10:05.240 --> 00:10:09.060
+Robinson Meyer says he can dip in and out throughout the day
+
+00:10:09.080 --> 00:10:09.080
+.
+
+00:10:09.180 --> 00:10:12.300
+David Ziff says if you want to use Blue Sky to
+
+00:10:12.360 --> 00:10:15.780
+follow the news but you find feeds overwhelming, Sill is
+
+00:10:15.780 --> 00:10:17.340
+a good alternative to that.
+
+00:10:17.640 --> 00:10:23.580
+This is giving users a lever of control over their experience,
+
+00:10:23.580 --> 00:10:26.780
+and this contributes to them feeling safe in the atmosphere.
+
+00:10:29.180 --> 00:10:32.510
+What other modalities can we offer in the atmosphere that offer
+
+00:10:32.590 --> 00:10:36.330
+a more controlled experience over social media?
+
+00:10:36.330 --> 00:10:40.740
+I really love Anasota, which turns Blue Sky into
+
+00:10:40.740 --> 00:10:45.220
+a card swipe-based experience and layers on like a m
+
+00:10:45.220 --> 00:10:49.340
+oth collecting game and all kinds of really neat artistic approaches to
+
+00:10:49.340 --> 00:10:49.970
+social media.
+
+00:10:49.980 --> 00:10:53.320
+It also has similar motivations to Sill of calm and focus
+
+00:10:53.680 --> 00:10:57.080
+rather than the real-time drip feed of social media,
+
+00:10:57.080 --> 00:10:58.770
+traditional social media design.
+
+00:10:58.880 --> 00:11:00.850
+It has a stamina meter, so if you swipe too much
+
+00:11:00.860 --> 00:11:02.970
+, it tells you you got to stop, you're out
+
+00:11:03.080 --> 00:11:03.590
+of stamina.
+
+00:11:03.820 --> 00:11:06.420
+I think it's really brilliant and offers a ton of things
+
+00:11:06.420 --> 00:11:06.780
+to learn.
+
+00:11:06.780 --> 00:11:12.700
+Overall, how else can we help users to leverage the collective
+
+00:11:12.700 --> 00:11:16.750
+intelligence of their networks without forcing them into the same tired designs
+
+00:11:16.750 --> 00:11:19.690
+that we've been using for social media for the last two
+
+00:11:19.690 --> 00:11:20.140
+decades?
+
+00:11:20.140 --> 00:11:23.470
+We've spent enough time with both chronological timelines and algorithm
+
+00:11:23.470 --> 00:11:26.170
+ic timelines to know the problems well, so it's time
+
+00:11:26.170 --> 00:11:29.530
+to move beyond these and offer new experiences for people that give
+
+00:11:29.530 --> 00:11:32.610
+them control and help them feel safe in the atmosphere.
+
+00:11:32.620 --> 00:11:35.580
+Back to our walkable cities analogy, Speck says the
+
+00:11:35.800 --> 00:11:37.420
+walk has to be comfortable.
+
+00:11:37.420 --> 00:11:41.130
+In the physical space, that can mean quiet roads, accessible
+
+00:11:41.200 --> 00:11:43.420
+crosswalks, well-paid paths.
+
+00:11:43.420 --> 00:11:45.690
+In the digital space, I think about comfort as meeting people
+
+00:11:45.950 --> 00:11:49.600
+where they are, as joining the atmosphere should not require a
+
+00:11:49.790 --> 00:11:52.450
+downgrade to their user experience, and this is a really
+
+00:11:52.450 --> 00:11:53.180
+tall task.
+
+00:11:53.180 --> 00:11:55.570
+We're going to have to stretch ourselves.
+
+00:11:55.570 --> 00:11:58.890
+Many of us, myself included, are believers in the web
+
+00:11:59.150 --> 00:12:02.050
+over native apps, but it's undeniable that users
+
+00:12:02.050 --> 00:12:05.110
+prefer and expect native apps, especially on their phones.
+
+00:12:05.560 --> 00:12:10.130
+With sale, the number one question I get when I tell
+
+00:12:10.140 --> 00:12:12.870
+people less online than me about it is, how do I
+
+00:12:12.870 --> 00:12:14.370
+get it in the app store?
+
+00:12:14.370 --> 00:12:16.620
+It's a website.
+
+00:12:16.620 --> 00:12:18.630
+I say, just put it in your web browser, sale
+
+00:12:18.630 --> 00:12:18.800
+.
+
+00:12:19.080 --> 00:12:19.420
+social.
+
+00:12:19.420 --> 00:12:21.510
+At that point, I lose a lot of people.
+
+00:12:21.630 --> 00:12:23.660
+They might try it once while I'm there in the room
+
+00:12:23.660 --> 00:12:24.270
+with them.
+
+00:12:24.380 --> 00:12:26.090
+If I see them a week later, I ask them how
+
+00:12:26.090 --> 00:12:27.950
+it's going, and they haven't gone back.
+
+00:12:27.950 --> 00:12:29.050
+They don't think about it.
+
+00:12:29.250 --> 00:12:30.780
+They're not in the web browser that way.
+
+00:12:30.780 --> 00:12:33.930
+I'd show them how you can add it to your home
+
+00:12:33.960 --> 00:12:34.780
+screen.
+
+00:12:34.780 --> 00:12:37.460
+SIL is a progressive web app, but after walking through
+
+00:12:37.460 --> 00:12:41.340
+that menu diving and explaining the differences between progressive web apps and
+
+00:12:41.340 --> 00:12:43.340
+native apps, I've already lost them.
+
+00:12:43.340 --> 00:12:45.690
+They just want to be able to install it from the app
+
+00:12:45.690 --> 00:12:46.350
+store.
+
+00:12:46.350 --> 00:12:48.890
+So I built an iOS app for SIL that's now
+
+00:12:48.890 --> 00:12:50.980
+in testing, and if you want to get on the test
+
+00:12:50.980 --> 00:12:52.600
+flight, here's the QR code.
+
+00:12:52.660 --> 00:12:54.890
+I hope to build an Android app after I get through the
+
+00:12:54.890 --> 00:12:56.800
+launch process at the iOS app.
+
+00:12:56.800 --> 00:13:00.040
+Over half of SIL's web traffic comes from iOS users
+
+00:13:00.040 --> 00:13:01.650
+, so that's why I started with iOS.
+
+00:13:01.650 --> 00:13:03.960
+And begrudgingly, I actually do now see how
+
+00:13:03.960 --> 00:13:06.810
+a fully native app for SIL offers some real benefits for
+
+00:13:06.810 --> 00:13:07.610
+those users.
+
+00:13:07.610 --> 00:13:10.790
+With deep OS integration, I can offer push notifications.
+
+00:13:10.910 --> 00:13:15.330
+This takes SIL's notification feature that already existed to its
+
+00:13:15.400 --> 00:13:16.620
+natural conclusion, right?
+
+00:13:16.870 --> 00:13:19.940
+Now SIL can tell you, based on parameters you define
+
+00:13:20.090 --> 00:13:23.150
+, SIL can send you a push notification when news is
+
+00:13:23.180 --> 00:13:26.710
+emerging in your network, and it can find you when it
+
+00:13:27.160 --> 00:13:27.900
+happens.
+
+00:13:27.900 --> 00:13:31.660
+Sorry, I lost myself.
+
+00:13:31.660 --> 00:13:35.020
+It can offer widgets, giving you a quick at-a
+
+00:13:35.020 --> 00:13:39.260
+-glance view of the top link in your network without
+
+00:13:39.270 --> 00:13:41.380
+ever having to really even open the app.
+
+00:13:41.380 --> 00:13:43.500
+I can offer a native share target.
+
+00:13:43.590 --> 00:13:45.400
+SIL also does bookmarking.
+
+00:13:45.450 --> 00:13:48.790
+So with the native share target, you can bookmark a
+
+00:13:48.790 --> 00:13:51.830
+link from anywhere you experience it within the operating system.
+
+00:13:53.820 --> 00:13:55.980
+It is currently in beta, and you can, yeah,
+
+00:13:56.040 --> 00:13:58.080
+join the Tesla if you would like, and let me know
+
+00:13:58.130 --> 00:13:59.030
+how it goes.
+
+00:13:59.030 --> 00:14:00.830
+I'd love your feedback.
+
+00:14:00.990 --> 00:14:05.290
+For all of big tech's faults and misalignments
+
+00:14:05.290 --> 00:14:08.530
+, they offer a comfortable experience to users.
+
+00:14:08.680 --> 00:14:11.910
+They employ legions of people to focus exclusively on user experience
+
+00:14:12.370 --> 00:14:13.740
+, and they do it on every platform.
+
+00:14:13.740 --> 00:14:16.630
+Web, iOS, Android, and more.
+
+00:14:16.660 --> 00:14:20.000
+Many of us in the atmosphere, myself included, our founders
+
+00:14:20.150 --> 00:14:22.620
+, our solo founders, or small teams.
+
+00:14:22.750 --> 00:14:26.870
+Somehow we have to deliver on better user experiences for people with
+
+00:14:26.870 --> 00:14:28.180
+far fewer resources.
+
+00:14:28.200 --> 00:14:29.820
+But here's our advantage.
+
+00:14:29.820 --> 00:14:33.470
+For all big tech's resources, to throw at user experience
+
+00:14:33.590 --> 00:14:36.200
+, they often throw them at misaligned ends, mis
+
+00:14:36.200 --> 00:14:38.620
+aligned with the interest of the everyday user.
+
+00:14:38.620 --> 00:14:42.670
+If we as a community can stay aligned on centering user
+
+00:14:42.670 --> 00:14:47.090
+needs and furthering the vision that we all have of a
+
+00:14:47.090 --> 00:14:50.840
+better internet, we can collectively offer a better experience than our
+
+00:14:51.000 --> 00:14:51.900
+competition.
+
+00:14:51.900 --> 00:14:55.640
+I'm inspired by the interoperability story offered by Sem
+
+00:14:55.640 --> 00:14:56.810
+ble and Margin.
+
+00:14:56.830 --> 00:15:01.700
+Semble is a sense-making tool letting you collect collections
+
+00:15:01.760 --> 00:15:04.910
+of bookmarks and blue sky posts and other things around the
+
+00:15:05.000 --> 00:15:05.150
+web.
+
+00:15:05.300 --> 00:15:07.660
+And you can organize them into various collections.
+
+00:15:07.660 --> 00:15:09.130
+You can do that individually.
+
+00:15:09.130 --> 00:15:12.460
+You can do that in a public collection together with people in
+
+00:15:12.460 --> 00:15:13.090
+the atmosphere.
+
+00:15:13.100 --> 00:15:16.600
+Margin is an annotation layer for the web where you add
+
+00:15:16.800 --> 00:15:20.570
+comments and annotations to any web page and save that annotation
+
+00:15:20.570 --> 00:15:21.350
+to your PDS.
+
+00:15:21.350 --> 00:15:25.330
+They're working together so that you can -- your bookmarks
+
+00:15:25.630 --> 00:15:28.690
+from either Margin or Semble both work within both tools
+
+00:15:28.690 --> 00:15:29.980
+as you're using them.
+
+00:15:29.980 --> 00:15:35.000
+So that allows Semble to focus on where its innovation is
+
+00:15:35.000 --> 00:15:38.200
+in the shared collections and organizational tools.
+
+00:15:38.560 --> 00:15:42.030
+And Margin can focus on its innovation of being able to
+
+00:15:42.030 --> 00:15:43.500
+annotate anything on the web.
+
+00:15:43.640 --> 00:15:46.300
+But they all work together and they make each other better.
+
+00:15:46.300 --> 00:15:47.950
+And it's not a competitive experience.
+
+00:15:47.950 --> 00:15:49.500
+It's a collaborative experience.
+
+00:15:49.500 --> 00:15:54.670
+We need more shared infrastructure in order to pull things off like
+
+00:15:54.700 --> 00:15:55.180
+this.
+
+00:15:55.180 --> 00:15:57.190
+Depending on your use case, it could be really hard to
+
+00:15:57.190 --> 00:15:59.340
+mix and match lexicons in the atmosphere right now,
+
+00:15:59.400 --> 00:16:01.620
+especially if one of the lexons you want to use
+
+00:16:01.620 --> 00:16:02.580
+is a blue sky one.
+
+00:16:02.590 --> 00:16:05.350
+Now you're talking about indexing terabytes of data if
+
+00:16:05.350 --> 00:16:07.020
+you want a full network backfill.
+
+00:16:07.160 --> 00:16:11.420
+So I love things like the microcosm set of tools
+
+00:16:11.500 --> 00:16:14.470
+offer a ton of really easy ways for people to jump in
+
+00:16:14.680 --> 00:16:18.410
+and pull different records from throughout the atmosphere.
+
+00:16:18.410 --> 00:16:20.910
+I'd like to see more tools that offer more use cases
+
+00:16:21.110 --> 00:16:21.290
+.
+
+00:16:21.290 --> 00:16:24.780
+Something I'd really love to see is a network-wide
+
+00:16:24.780 --> 00:16:29.040
+app view that's designed for aggregative workloads, by which
+
+00:16:29.040 --> 00:16:32.550
+I mean, you know, group by the types of fundamentally
+
+00:16:33.000 --> 00:16:34.860
+database queries that SIL is doing, right?
+
+00:16:34.860 --> 00:16:37.760
+Grouping by link, grouping by tangled star.
+
+00:16:37.760 --> 00:16:42.310
+You can find links within leaflet docs, standard site docs
+
+00:16:42.370 --> 00:16:42.700
+.
+
+00:16:42.700 --> 00:16:46.350
+I think it opens up a ton of interesting opportunities for experiences
+
+00:16:46.460 --> 00:16:49.470
+that collect the whole atmosphere and not just focus on one app
+
+00:16:49.470 --> 00:16:50.140
+experience.
+
+00:16:50.830 --> 00:16:57.800
+Our last component, interest, is maybe the most surprising when
+
+00:16:57.810 --> 00:17:00.120
+you think about walkable cities for specs components.
+
+00:17:00.270 --> 00:17:02.140
+But for the atmosphere, I think it's probably the most
+
+00:17:02.140 --> 00:17:03.210
+obvious one, right?
+
+00:17:03.210 --> 00:17:05.170
+We have to build into interesting things.
+
+00:17:05.270 --> 00:17:08.250
+We're competing with the whole internet for everybody's time and
+
+00:17:08.250 --> 00:17:09.150
+we have to win.
+
+00:17:09.320 --> 00:17:12.530
+What sticks out to me when I think about making interesting things
+
+00:17:12.940 --> 00:17:15.310
+around the atmosphere is they have to be interesting immediately.
+
+00:17:15.460 --> 00:17:19.170
+This is a place where I think the client experience can do
+
+00:17:19.170 --> 00:17:21.790
+a lot of work, even if you're not interested in
+
+00:17:21.790 --> 00:17:23.580
+developing new lexicons.
+
+00:17:23.580 --> 00:17:25.840
+But to do it right is going to take some coordinated effort
+
+00:17:26.110 --> 00:17:26.300
+.
+
+00:17:26.300 --> 00:17:29.010
+Let's use SIL as an example of what I mean
+
+00:17:29.110 --> 00:17:29.420
+.
+
+00:17:29.420 --> 00:17:31.610
+With SIL, I've been thinking about how to onboard
+
+00:17:31.640 --> 00:17:35.360
+people into the atmosphere if they don't already have a PD
+
+00:17:35.360 --> 00:17:35.810
+S.
+
+00:17:35.810 --> 00:17:41.500
+And I want to point them in the direction of trustworthy news
+
+00:17:41.640 --> 00:17:43.950
+that matches their needs and interests.
+
+00:17:43.950 --> 00:17:46.070
+Today's SIL only really works if you've invested time
+
+00:17:46.210 --> 00:17:49.460
+in building your own network and your following graph so that it
+
+00:17:49.460 --> 00:17:52.140
+is a trusted network of information that you'd like.
+
+00:17:52.140 --> 00:17:55.810
+For people in this room, that's probably pretty easy to
+
+00:17:55.810 --> 00:17:56.060
+do.
+
+00:17:56.060 --> 00:17:58.240
+But for new users, that's a really tough hurdle to
+
+00:17:58.240 --> 00:17:58.690
+climb.
+
+00:18:00.060 --> 00:18:01.800
+People need help finding people.
+
+00:18:01.800 --> 00:18:04.310
+And while it had some flaws, one of, I think
+
+00:18:04.370 --> 00:18:09.110
+, the key parts of growth of Blue Sky's 2024 post
+
+00:18:09.250 --> 00:18:12.300
+-election growth was the starter pack.
+
+00:18:12.560 --> 00:18:15.810
+And it was received well enough that the competition copied it.
+
+00:18:15.810 --> 00:18:17.830
+Meta has starter packs and threads.
+
+00:18:17.830 --> 00:18:21.530
+Blue Sky's other competitive edge is custom fees and algorithmic
+
+00:18:21.530 --> 00:18:22.100
+choice.
+
+00:18:22.120 --> 00:18:24.700
+Combining these two things, we can bootstrap a
+
+00:18:24.700 --> 00:18:28.090
+user's network based on their interests rather quickly.
+
+00:18:28.350 --> 00:18:29.630
+This is not live in SIL yet.
+
+00:18:29.630 --> 00:18:30.860
+I haven't started building.
+
+00:18:30.860 --> 00:18:33.000
+But here's how I see a SIL possible onboarding
+
+00:18:33.080 --> 00:18:34.190
+experience working.
+
+00:18:34.560 --> 00:18:37.760
+Users without an atmosphere account can register with a PDS.
+
+00:18:37.760 --> 00:18:39.390
+SIL doesn't need to run that PDS.
+
+00:18:39.510 --> 00:18:40.860
+I don't want to run a PDS.
+
+00:18:40.860 --> 00:18:44.470
+But I'm open to partnering with anybody who is operating a
+
+00:18:44.620 --> 00:18:48.080
+PDS and thinks something like this would be interesting to host
+
+00:18:48.080 --> 00:18:48.860
+new users.
+
+00:18:48.860 --> 00:18:51.610
+And I'd especially love if it wasn't Blue Sky so
+
+00:18:51.610 --> 00:18:55.100
+that we can further the decentralization story of the atmosphere at
+
+00:18:55.260 --> 00:18:55.830
+the same time.
+
+00:18:56.280 --> 00:18:59.950
+After they register with the PDS, they can come back
+
+00:18:59.950 --> 00:19:02.280
+to SIL and tell SIL a bit about what publications
+
+00:19:02.650 --> 00:19:04.920
+they read, what topics they're interested in.
+
+00:19:04.920 --> 00:19:07.550
+And through a combination of starter packs lists and custom feeds,
+
+00:19:07.660 --> 00:19:10.040
+they can immediately bootstrap their graph.
+
+00:19:10.040 --> 00:19:12.060
+And then SIL is ready and useful on day one as
+
+00:19:12.080 --> 00:19:14.420
+soon as they finish that process.
+
+00:19:14.420 --> 00:19:16.980
+And they can go over to the Blue Sky app or whatever
+
+00:19:16.980 --> 00:19:17.770
+other client.
+
+00:19:17.770 --> 00:19:20.050
+And it's already set up and ready to go.
+
+00:19:20.050 --> 00:19:23.580
+But maybe you see the problem with this idea.
+
+00:19:23.580 --> 00:19:27.210
+It requires maintaining a complex set of feeds, lists, and
+
+00:19:27.210 --> 00:19:28.160
+starter packs.
+
+00:19:28.420 --> 00:19:32.610
+Keeping all those maintained over time as people leave and join the
+
+00:19:32.620 --> 00:19:34.770
+network, it would become my full-time job if I
+
+00:19:34.840 --> 00:19:35.950
+was going to do that alone.
+
+00:19:36.030 --> 00:19:37.780
+I wouldn't be able to work on the app.
+
+00:19:37.780 --> 00:19:39.260
+I would just work on maintaining feeds.
+
+00:19:39.260 --> 00:19:44.200
+So making sense of the Blue Sky Social Graph has many uses
+
+00:19:44.200 --> 00:19:45.400
+for many applications.
+
+00:19:45.400 --> 00:19:48.110
+So this is something I think we could maybe take a collective
+
+00:19:48.110 --> 00:19:52.190
+approach to and trying to find the bubbles that exist already.
+
+00:19:52.270 --> 00:19:55.580
+I know there's been some mapping projects that people have done
+
+00:19:55.580 --> 00:19:57.380
+, and I wonder if we can build on top of those
+
+00:19:57.400 --> 00:20:00.260
+to automate some starter packs and some feeds and point people in
+
+00:20:00.260 --> 00:20:02.670
+the right direction as soon as they get started.
+
+00:20:03.040 --> 00:20:07.300
+Sports, I think, offer a really unique opportunity here.
+
+00:20:07.300 --> 00:20:09.750
+A lot of Blue Sky, my understanding is a lot of
+
+00:20:09.750 --> 00:20:13.240
+Blue Sky's post-2024 growth has come from sports
+
+00:20:13.240 --> 00:20:13.420
+.
+
+00:20:13.420 --> 00:20:16.760
+Usage tends to peak around major American sporting events like the
+
+00:20:16.820 --> 00:20:18.360
+World Series and Super Bowl.
+
+00:20:18.360 --> 00:20:22.370
+But sports are also a place where X and other social networks
+
+00:20:23.190 --> 00:20:24.720
+maintain a strong foothold.
+
+00:20:24.720 --> 00:20:27.730
+So how can we use community-driven feeds and starter packs
+
+00:20:27.750 --> 00:20:32.970
+to easily onboard people with the already vibrant sports network that Blue
+
+00:20:33.230 --> 00:20:33.660
+Sky has?
+
+00:20:33.860 --> 00:20:37.630
+And how might we use those networks to encourage activity and the
+
+00:20:37.630 --> 00:20:39.190
+atmosphere overall?
+
+00:20:39.390 --> 00:20:42.700
+I can imagine onboarding clients that ask you what's your
+
+00:20:42.710 --> 00:20:45.880
+favorite team and then just setting up your graph immediately based on
+
+00:20:46.110 --> 00:20:48.110
+your favorite teams and favorite leagues.
+
+00:20:48.140 --> 00:20:52.390
+Transforming the internet from the walled gardens of Web 2
+
+00:20:52.450 --> 00:20:52.650
+.
+
+00:20:52.770 --> 00:20:55.900
+0 to the openness of the atmosphere promises is no smaller an
+
+00:20:55.900 --> 00:20:59.250
+effort than transforming a city from one centered around the car to
+
+00:20:59.250 --> 00:21:01.080
+one centered around the person.
+
+00:21:01.160 --> 00:21:04.300
+Just last week, Paris elected a new mayor after 12 years
+
+00:21:04.300 --> 00:21:06.130
+of socialist mayor and Hidalgo.
+
+00:21:06.130 --> 00:21:08.000
+Mayor Hidalgo's reign ushered in a sle
+
+00:21:08.150 --> 00:21:08.780
+w of changes.
+
+00:21:09.100 --> 00:21:12.470
+Paris now has a bigger bike network than Amsterdam, thousands of
+
+00:21:12.510 --> 00:21:15.900
+new pedestrianized streets, and a whole new public transit line
+
+00:21:15.900 --> 00:21:17.610
+that came about around the Olympics.
+
+00:21:17.610 --> 00:21:20.710
+While politically controversial at the time, Hidalgo spent 12
+
+00:21:20.830 --> 00:21:23.550
+years in office making changes that made Paris more walkable.
+
+00:21:23.710 --> 00:21:25.430
+This year, she chose not to run for a third term
+
+00:21:25.460 --> 00:21:25.660
+.
+
+00:21:25.660 --> 00:21:28.170
+So Paris had the opportunity to maybe reset if they didn't
+
+00:21:28.190 --> 00:21:29.260
+like these changes.
+
+00:21:29.370 --> 00:21:32.660
+They elected Emmanuel Gregoire, who was her deputy mayor
+
+00:21:32.660 --> 00:21:35.510
+for six years and fellow member of the socialist party.
+
+00:21:35.630 --> 00:21:38.870
+The city was given an opportunity to vote for a similar party
+
+00:21:39.000 --> 00:21:40.080
+program and they took it.
+
+00:21:40.080 --> 00:21:42.930
+I believe that once people experience the atmosphere and everything it can
+
+00:21:42.930 --> 00:21:45.180
+offer, they're going to choose it again and again and
+
+00:21:45.180 --> 00:21:47.440
+again, but only if we nail the client experience.
+
+00:21:47.710 --> 00:21:50.740
+When you're designing a client experience, you can use just
+
+00:21:50.740 --> 00:21:55.890
+four principles to round out the implementation: purpose, safety,
+
+00:21:55.990 --> 00:21:57.100
+comfort, and interest.
+
+00:21:57.100 --> 00:22:05.660
+Thank you.
+
+00:22:05.660 --> 00:22:14.590
+Which of the four do you think is the most
+
+00:22:14.590 --> 00:22:19.320
+important to you for sale?
+
+00:22:19.340 --> 00:22:19.660
+Yeah.
+
+00:22:19.660 --> 00:22:25.260
+For me, the most important is safety and the feel safe
+
+00:22:25.260 --> 00:22:25.500
+thing.
+
+00:22:25.590 --> 00:22:27.850
+I think people get a lot of value out of having a
+
+00:22:27.850 --> 00:22:31.900
+different, calmer, controlled experience and not have to feel
+
+00:22:31.900 --> 00:22:37.180
+like they have to do and scroll to keep up with the
+
+00:22:37.310 --> 00:22:37.990
+news.
+
+00:22:38.540 --> 00:22:41.870
+Yeah, so I was interested in your comment about we need
+
+00:22:41.980 --> 00:22:43.980
+to go beyond the theme.
+
+00:22:43.980 --> 00:22:46.710
+I feel like a lot of the talks today have really been
+
+00:22:47.160 --> 00:22:53.020
+focused around the humanistic elements of the technology and understanding the
+
+00:22:53.020 --> 00:22:55.470
+users and meeting them where they are and not saying just for
+
+00:22:55.470 --> 00:22:57.020
+granted about that experience.
+
+00:22:57.020 --> 00:23:01.330
+I wonder how do you think about balancing trying to push new
+
+00:23:01.330 --> 00:23:05.160
+paradigms onto users with kind of leaving them where they
+
+00:23:05.180 --> 00:23:08.410
+are, understanding their ideas, like, always that were very
+
+00:23:08.660 --> 00:23:09.260
+popular.
+
+00:23:09.320 --> 00:23:13.020
+And what do you mean, you're paternalistic about
+
+00:23:13.020 --> 00:23:14.790
+, like, no, I know a better way to do
+
+00:23:14.790 --> 00:23:15.740
+this or whatever.
+
+00:23:15.740 --> 00:23:16.700
+Yeah.
+
+00:23:16.700 --> 00:23:17.100
+Yeah.
+
+00:23:17.100 --> 00:23:18.220
+No, that's a really good point.
+
+00:23:18.270 --> 00:23:21.170
+I loved the -- and to rephrase for the stream
+
+00:23:21.270 --> 00:23:26.590
+, to summarize your question, how do we design new experience
+
+00:23:26.620 --> 00:23:29.410
+while not being paternalistic about it and just saying,
+
+00:23:29.410 --> 00:23:29.990
+"We know better.
+
+00:23:29.990 --> 00:23:33.080
+Here's a new design." There was a great session on
+
+00:23:33.080 --> 00:23:36.020
+Thursday about user research that -- I don't know if anybody
+
+00:23:36.020 --> 00:23:37.930
+in this -- I don't know if any people in this
+
+00:23:38.000 --> 00:23:39.860
+room were the group that ran it.
+
+00:23:39.860 --> 00:23:41.100
+I don't think so.
+
+00:23:41.100 --> 00:23:43.810
+But it was really excellent and was a reminder to me that
+
+00:23:43.900 --> 00:23:46.570
+we should be basing a lot of our work in user
+
+00:23:46.570 --> 00:23:50.140
+research and understanding user needs directly by talking to them.
+
+00:23:50.140 --> 00:23:53.610
+It was a great opportunity to do it in the room there
+
+00:23:53.610 --> 00:23:53.750
+.
+
+00:23:53.850 --> 00:23:56.790
+As a solo founder, I sometimes find it hard to find
+
+00:23:56.790 --> 00:23:58.430
+the time for that kind of thing.
+
+00:23:58.590 --> 00:24:01.400
+But again, maybe it's another thing we can do collectively
+
+00:24:01.400 --> 00:24:05.230
+to figure out what users really want and need from social experiences
+
+00:24:05.230 --> 00:24:05.500
+.
+
+00:24:05.500 --> 00:24:11.630
+Yeah, I'm building an app called Flux.
+
+00:24:11.750 --> 00:24:12.860
+It's, like, a client app.
+
+00:24:12.860 --> 00:24:16.440
+And I've similarly been thinking about the sports thing since we
+
+00:24:16.440 --> 00:24:17.640
+'ve seen that take off.
+
+00:24:17.640 --> 00:24:20.300
+I'm kind of curious how -- like, how do you
+
+00:24:20.300 --> 00:24:23.560
+see that happening with labelers or is there something else?
+
+00:24:23.720 --> 00:24:24.540
+Yeah.
+
+00:24:24.540 --> 00:24:31.820
+He asked about my idea about like a sports onboarding client
+
+00:24:31.820 --> 00:24:32.070
+.
+
+00:24:32.070 --> 00:24:35.110
+My full pitch is basically three phases.
+
+00:24:35.230 --> 00:24:37.920
+One is just sort of a sign-up onboarding service
+
+00:24:37.920 --> 00:24:40.050
+that asks you, "What are your favorite teams?" And
+
+00:24:40.110 --> 00:24:43.060
+then this project I thought about building would run some feeds maybe
+
+00:24:43.060 --> 00:24:44.380
+on Graze for every team.
+
+00:24:44.380 --> 00:24:47.100
+And I maintain, like, a set of Wikipedia scrapers
+
+00:24:47.100 --> 00:24:49.700
+or something to get roster data and build the feeds off of
+
+00:24:49.790 --> 00:24:50.590
+those keywords.
+
+00:24:50.960 --> 00:24:54.180
+And so it would set up your feeds and set up your
+
+00:24:54.180 --> 00:24:57.410
+, you know, starter packs based on the league that you
+
+00:24:57.410 --> 00:24:58.770
+'re interested in.
+
+00:24:59.590 --> 00:25:03.390
+Step two would be to then build actually a full client experience
+
+00:25:03.550 --> 00:25:05.670
+on top of that specific for sports, right?
+
+00:25:05.790 --> 00:25:07.570
+You could layer in live sports data.
+
+00:25:07.570 --> 00:25:09.840
+You could layer in, like, highlights.
+
+00:25:09.840 --> 00:25:12.780
+You know, do some, you know, fancy algorithm stuff
+
+00:25:12.780 --> 00:25:14.490
+to find, like, the big highlight from the game you
+
+00:25:14.740 --> 00:25:15.550
+missed or something like that.
+
+00:25:16.780 --> 00:25:19.050
+And then step three is, you know, going past the
+
+00:25:19.310 --> 00:25:22.360
+live experience, something like fantasy sports on AT Proto or
+
+00:25:22.360 --> 00:25:23.460
+something like that.
+
+00:25:23.460 --> 00:25:26.860
+Like, what sort of community building things can we do with
+
+00:25:26.860 --> 00:25:31.120
+a specific niche like sports while still staying within the blue sky
+
+00:25:31.280 --> 00:25:31.900
+universe?
+
+00:25:32.350 --> 00:25:34.860
+Yep.
+
+00:25:34.860 --> 00:25:38.140
+The comment that, uh, I mean, I understand scientists
+
+00:25:38.140 --> 00:25:40.030
+as a realist.
+
+00:25:40.060 --> 00:25:42.770
+Most of my colleagues are moving to the uh, I'm
+
+00:25:43.190 --> 00:25:45.370
+studying climate and most of my scientists on blue sky.
+
+00:25:45.400 --> 00:25:45.660
+Yeah.
+
+00:25:45.660 --> 00:25:48.990
+So I think for the general public sports, for the whole
+
+00:25:49.360 --> 00:25:53.820
+subject of scientists, the network is like, one particular group
+
+00:25:53.820 --> 00:25:54.790
+, blue sky.
+
+00:25:55.240 --> 00:25:55.390
+Yeah.
+
+00:25:55.750 --> 00:25:55.900
+Yeah.
+
+00:25:55.900 --> 00:25:58.540
+Science, um, the comment was that, uh, the
+
+00:25:58.680 --> 00:26:00.790
+scientific community really has moved to blue sky.
+
+00:26:00.790 --> 00:26:02.780
+Uh, and I think that, that's an excellent example
+
+00:26:02.780 --> 00:26:05.020
+of like, yeah.
+
+00:26:05.240 --> 00:26:06.040
+Yeah, totally.
+
+00:26:06.200 --> 00:26:06.560
+Right.
+
+00:26:06.710 --> 00:26:07.130
+Uh, yeah.
+
+00:26:07.130 --> 00:26:08.300
+Different groups have a different reason.
+
+00:26:08.300 --> 00:26:10.640
+Um, should I, uh, move on?
+
+00:26:10.640 --> 00:26:11.340
+How are we on time?
+
+00:26:11.340 --> 00:26:13.340
+We have three more minutes.
+
+00:26:13.480 --> 00:26:14.220
+Three minutes.
+
+00:26:14.230 --> 00:26:14.940
+Any more questions?
+
+00:26:15.020 --> 00:26:22.220
+If not, thank you.

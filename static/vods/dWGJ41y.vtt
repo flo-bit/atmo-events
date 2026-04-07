@@ -1,0 +1,520 @@
+WEBVTT
+
+00:00:00.020 --> 00:00:00.640
+Hello?
+
+00:00:01.130 --> 00:00:01.460
+Okay.
+
+00:00:01.460 --> 00:00:03.440
+My name is Chad Miller.
+
+00:00:03.440 --> 00:00:07.500
+You can find me on blue sky, chadcmiller
+
+00:00:07.550 --> 00:00:07.710
+.
+
+00:00:07.710 --> 00:00:07.940
+com.
+
+00:00:07.950 --> 00:00:12.220
+I've been doing a lot of different experimentation with app views
+
+00:00:12.290 --> 00:00:12.580
+.
+
+00:00:12.770 --> 00:00:17.450
+So a lot of experiments with apps that aren't blue sky
+
+00:00:17.450 --> 00:00:20.580
+clients or anything related to blue sky at all.
+
+00:00:20.580 --> 00:00:23.310
+Just kind of like you have some custom lexicons and
+
+00:00:23.320 --> 00:00:24.940
+you want to build an app.
+
+00:00:24.940 --> 00:00:29.680
+So I've been doing a lot of experiments with that.
+
+00:00:29.680 --> 00:00:30.760
+What is an app view?
+
+00:00:30.760 --> 00:00:34.480
+If you don't know, it kind of sits in between
+
+00:00:34.490 --> 00:00:38.760
+the relay and the sort of client that you're using.
+
+00:00:38.870 --> 00:00:43.570
+So you have all this information flowing from all of your records
+
+00:00:43.800 --> 00:00:47.410
+flowing from the PDS through the relay.
+
+00:00:47.460 --> 00:00:50.910
+The app view sort of is the place that stores all of
+
+00:00:50.910 --> 00:00:54.470
+your records and brings them all together from all the different PD
+
+00:00:54.470 --> 00:01:01.800
+Ss across the network and then sort of hydrate,
+
+00:01:01.800 --> 00:01:03.700
+brings all that data together, hydrates it.
+
+00:01:03.710 --> 00:01:08.390
+So you're like counts and your common counts and all that
+
+00:01:08.600 --> 00:01:12.200
+stuff and provides it to, you know, your web app
+
+00:01:12.410 --> 00:01:16.660
+or your mobile application to render it on the screen.
+
+00:01:16.660 --> 00:01:22.060
+If we look closer at the app view itself, there's
+
+00:01:22.060 --> 00:01:24.080
+a bunch of things going on.
+
+00:01:24.260 --> 00:01:29.180
+So we have a firehose connection, but we also
+
+00:01:29.180 --> 00:01:32.520
+need to take into account pretty much all the data that we
+
+00:01:32.520 --> 00:01:33.180
+care about.
+
+00:01:33.180 --> 00:01:35.260
+So the backfill, that's the backfill portion.
+
+00:01:35.270 --> 00:01:39.530
+So we have some kind of indexer that's going to
+
+00:01:39.530 --> 00:01:42.900
+take in all of these events from the network.
+
+00:01:42.900 --> 00:01:45.210
+You have like commit, commits.
+
+00:01:45.410 --> 00:01:47.360
+They're called commit events.
+
+00:01:47.360 --> 00:01:50.020
+So you have creates, updates, deletes.
+
+00:01:50.020 --> 00:01:53.850
+Those then, you know, you filter those down to what
+
+00:01:53.990 --> 00:01:54.670
+you care about.
+
+00:01:54.670 --> 00:01:59.480
+So you might only care about a, what is the connection
+
+00:01:59.480 --> 00:02:06.520
+lexicon from the connection app that everybody's been using
+
+00:02:06.520 --> 00:02:06.870
+.
+
+00:02:07.080 --> 00:02:09.250
+You might only care about that.
+
+00:02:09.250 --> 00:02:11.940
+So that filters through the database and then you sort of have
+
+00:02:11.940 --> 00:02:17.870
+a hydration layer that's going to request all those and return
+
+00:02:17.870 --> 00:02:22.190
+them via what in at protoland is called XRPC
+
+00:02:22.190 --> 00:02:23.380
+endpoints.
+
+00:02:23.390 --> 00:02:26.380
+Really, it's just an HTTP endpoint that's typed against
+
+00:02:26.450 --> 00:02:27.460
+your lexicons.
+
+00:02:27.460 --> 00:02:30.690
+So you can define what the responses are in your lex
+
+00:02:30.690 --> 00:02:31.930
+icon definitions.
+
+00:02:32.030 --> 00:02:35.170
+And then if we look a little bit closer at the sort
+
+00:02:35.170 --> 00:02:40.570
+of request pipeline, you'll, if you look closer at
+
+00:02:40.670 --> 00:02:43.850
+the app proto repo, you'll sort of see this pattern
+
+00:02:43.850 --> 00:02:44.270
+a lot.
+
+00:02:44.530 --> 00:02:47.860
+And you sort of fetch all of the, you know,
+
+00:02:47.870 --> 00:02:51.480
+you batch fetch all these records from the database, apply some
+
+00:02:51.730 --> 00:02:52.730
+rules to them.
+
+00:02:52.760 --> 00:02:58.710
+This might be some labels that you have for moderation.
+
+00:02:59.020 --> 00:03:02.100
+And, you know, bringing all that together, all of
+
+00:03:02.100 --> 00:03:06.160
+the, the like counts and the common counts together to return
+
+00:03:06.160 --> 00:03:07.780
+the JSON response.
+
+00:03:07.790 --> 00:03:13.190
+So where can you get started if you want to build your
+
+00:03:13.190 --> 00:03:14.810
+own app view?
+
+00:03:14.930 --> 00:03:19.820
+You know, the main reference repo is the app proto repo
+
+00:03:19.820 --> 00:03:23.620
+that is essentially the backend for blue sky.
+
+00:03:23.620 --> 00:03:27.290
+How many people have spent a lot of time digging through that
+
+00:03:27.480 --> 00:03:27.620
+code?
+
+00:03:27.620 --> 00:03:29.140
+Yeah.
+
+00:03:29.140 --> 00:03:34.630
+There's status sphere, but it's pretty basic.
+
+00:03:34.760 --> 00:03:36.750
+It just has like a single crud, it's just
+
+00:03:36.760 --> 00:03:38.150
+like a create operation.
+
+00:03:38.150 --> 00:03:41.570
+So it's not really like that much going on.
+
+00:03:41.590 --> 00:03:44.300
+And obviously you want your app to be a lot more,
+
+00:03:44.300 --> 00:03:47.380
+you know, a lot richer than status sphere.
+
+00:03:47.390 --> 00:03:50.890
+And then we have all the community app views.
+
+00:03:50.890 --> 00:03:53.460
+So we have like leaflet, tangled.
+
+00:03:53.480 --> 00:03:56.080
+What else is there?
+
+00:03:56.260 --> 00:03:58.660
+Margin.
+
+00:03:58.660 --> 00:04:00.660
+There's off print.
+
+00:04:00.660 --> 00:04:02.740
+There's all these app views out there now.
+
+00:04:02.750 --> 00:04:07.110
+So there's a lot of good reference places, like depending
+
+00:04:07.400 --> 00:04:09.540
+on which programming language you're into.
+
+00:04:11.230 --> 00:04:13.050
+And right now it's kind of like, you know,
+
+00:04:13.050 --> 00:04:13.840
+an art project.
+
+00:04:13.860 --> 00:04:17.780
+So everybody has their own implementation of what, you know,
+
+00:04:17.780 --> 00:04:18.890
+it says on app proto.
+
+00:04:18.890 --> 00:04:21.740
+com and the specs and what they've sort of gathered from
+
+00:04:21.780 --> 00:04:22.740
+the app proto repo.
+
+00:04:22.750 --> 00:04:29.930
+I have spent some time sort of putting patterns together into a
+
+00:04:29.930 --> 00:04:33.450
+service that you can just deploy called quick slice.
+
+00:04:33.460 --> 00:04:37.280
+And it sort of maps your lexicons to a Graph
+
+00:04:37.280 --> 00:04:41.390
+QL API that you can just query without having to do a
+
+00:04:41.640 --> 00:04:43.380
+whole lot.
+
+00:04:43.390 --> 00:04:45.780
+And then there's also constellation.
+
+00:04:45.780 --> 00:04:48.020
+There's sometimes you might not need an app view.
+
+00:04:48.020 --> 00:04:53.220
+So figs APIs provide a way to just get like,
+
+00:04:53.220 --> 00:04:55.820
+like, for example, npmx just wants to show
+
+00:04:55.870 --> 00:05:00.130
+the like count on their packages.
+
+00:05:00.250 --> 00:05:02.330
+So they can just use constellation for that.
+
+00:05:02.400 --> 00:05:03.460
+So they don't even need nep view.
+
+00:05:03.460 --> 00:05:06.440
+So what are all the things that you need?
+
+00:05:06.440 --> 00:05:10.020
+You need a way to backfill all the data on the
+
+00:05:10.130 --> 00:05:10.420
+network.
+
+00:05:10.430 --> 00:05:15.060
+So that is going to be probably heard a lot about tap
+
+00:05:15.060 --> 00:05:15.060
+.
+
+00:05:15.080 --> 00:05:20.680
+Tap provides a way to to filter those collections that you want
+
+00:05:20.680 --> 00:05:20.890
+.
+
+00:05:23.390 --> 00:05:26.630
+There's also other ways you can parse the card files manually
+
+00:05:26.630 --> 00:05:28.580
+and have your own process for backfilling.
+
+00:05:28.590 --> 00:05:31.460
+Indexing.
+
+00:05:31.460 --> 00:05:35.400
+So you need some sort of layer to translate the lex
+
+00:05:35.480 --> 00:05:39.540
+icon records into your database.
+
+00:05:39.550 --> 00:05:45.650
+And then there's some kind of code gen aspect, which
+
+00:05:45.650 --> 00:05:47.780
+works with the lexicon definitions.
+
+00:05:49.150 --> 00:05:50.950
+Again, with the XRPC endpoints.
+
+00:05:50.960 --> 00:05:53.620
+So usually when you're working with lexicons, you
+
+00:05:53.640 --> 00:05:56.910
+want a way to have, you know, type safe end
+
+00:05:56.910 --> 00:05:58.900
+points against those.
+
+00:05:58.910 --> 00:06:01.000
+OAuth.
+
+00:06:01.120 --> 00:06:06.010
+Generally be nice to have this all figured out for you and
+
+00:06:06.020 --> 00:06:06.900
+you don't have to worry about it.
+
+00:06:06.910 --> 00:06:14.700
+And not really necessary for every application, but there is this
+
+00:06:14.700 --> 00:06:17.870
+concept of the feed generator in blue sky, which is a
+
+00:06:17.870 --> 00:06:23.550
+separate server that you can run that pretty much just returns the
+
+00:06:23.810 --> 00:06:27.600
+URIs of records that can be picked up by blue
+
+00:06:27.600 --> 00:06:28.740
+sky to render a feed.
+
+00:06:28.760 --> 00:06:34.500
+That same pattern can be used in any app proto application.
+
+00:06:34.500 --> 00:06:36.670
+And I'm actually going to show you really in a second
+
+00:06:36.670 --> 00:06:38.830
+what that looks like.
+
+00:06:38.830 --> 00:06:40.820
+Labels.
+
+00:06:40.820 --> 00:06:42.880
+Obviously, if you want to do some kind of moderation,
+
+00:06:42.910 --> 00:06:45.360
+you're going to need to have some sort of support for
+
+00:06:45.360 --> 00:06:46.100
+labeling.
+
+00:06:46.100 --> 00:06:49.260
+This can be a simple, just a simple table in your
+
+00:06:49.260 --> 00:06:52.370
+database to make it quick.
+
+00:06:52.460 --> 00:06:56.260
+And then preferences.
+
+00:06:56.270 --> 00:07:01.680
+Sometimes you want to have data that's stored privately to the
+
+00:07:01.680 --> 00:07:03.050
+app view.
+
+00:07:03.050 --> 00:07:06.880
+And you can sort of just have a preferences table for that
+
+00:07:07.040 --> 00:07:07.140
+.
+
+00:07:07.140 --> 00:07:10.340
+And then open graph.
+
+00:07:10.340 --> 00:07:14.370
+So generally you want to have a way to like share images
+
+00:07:14.370 --> 00:07:19.770
+, image previews back to blue sky for for rendering like
+
+00:07:19.770 --> 00:07:21.460
+a social post.
+
+00:07:23.150 --> 00:07:26.030
+So I've been sort of playing around with the newer ideas
+
+00:07:26.030 --> 00:07:28.610
+in this framework I call hack.
+
+00:07:28.610 --> 00:07:32.330
+It's sort of like a conventional, like a convention over
+
+00:07:32.560 --> 00:07:37.910
+configuration, although there's still some configuration framework for building an
+
+00:07:37.910 --> 00:07:39.050
+app view.
+
+00:07:39.050 --> 00:07:44.470
+You can sort of attach this app view server to a S
+
+00:07:44.480 --> 00:07:44.980
+velte app.
+
+00:07:46.750 --> 00:07:48.150
+You can check it out at hack.
+
+00:07:48.150 --> 00:07:48.490
+dev.
+
+00:07:48.490 --> 00:07:49.860
+It's pretty early alpha.
+
+00:07:49.860 --> 00:07:51.860
+Just sort of playing around with some ideas.
+
+00:07:51.870 --> 00:07:56.870
+I just recently rewrote grain social to use -- this
+
+00:07:56.940 --> 00:08:01.220
+is the -- rewrote grain social to use all these
+
+00:08:01.340 --> 00:08:02.160
+patterns.
+
+00:08:02.160 --> 00:08:04.660
+It's all open source untangled.
+
+00:08:04.660 --> 00:08:06.660
+There's a bunch of feeds here.
+
+00:08:06.680 --> 00:08:13.100
+People upload photos and it shows the data as a feed and
+
+00:08:13.430 --> 00:08:14.740
+locations as a feed.
+
+00:08:14.740 --> 00:08:20.130
+And then there's actually one thing I wanted to point out
+
+00:08:20.130 --> 00:08:23.820
+is there's a great pattern for running your app view locally
+
+00:08:23.860 --> 00:08:24.080
+.
+
+00:08:24.090 --> 00:08:27.160
+A lot of times it's hard to reproduce stuff because there
+
+00:08:27.160 --> 00:08:28.360
+'s a lot, you know, there's a lot of
+
+00:08:28.360 --> 00:08:31.410
+stuff that you have to do to bring an app view together
+
+00:08:31.410 --> 00:08:31.610
+.
+
+00:08:31.610 --> 00:08:34.630
+But there's a pattern in there for running your app locally
+
+00:08:34.920 --> 00:08:39.730
+and having reproducible data that you can use to help build
+
+00:08:39.730 --> 00:08:40.860
+your app.
+
+00:08:41.480 --> 00:08:49.380
+And yeah, that's all I got.

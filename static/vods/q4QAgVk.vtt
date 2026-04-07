@@ -1,0 +1,1900 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:02.000
+Hi, everyone.
+
+00:00:02.000 --> 00:00:03.560
+My name is Maxine.
+
+00:00:03.560 --> 00:00:07.770
+I am the co-founder and CTO of Forecast
+
+00:00:07.910 --> 00:00:08.640
+Bio.
+
+00:00:08.640 --> 00:00:14.720
+And thank you for the opportunity to speak here.
+
+00:00:14.720 --> 00:00:17.180
+It's really exciting for me to be a part of this
+
+00:00:17.180 --> 00:00:20.660
+overall community over the last little bit more than a year.
+
+00:00:20.670 --> 00:00:25.540
+And I'm really excited about the possibilities that AtProto
+
+00:00:25.700 --> 00:00:31.050
+has for providing us agency over our social experience, over the
+
+00:00:31.050 --> 00:00:34.970
+way that we are able to shape our own science, our
+
+00:00:35.100 --> 00:00:40.530
+own investigation, and our own collective sensemaking, as I
+
+00:00:40.590 --> 00:00:43.780
+'m sure was talked about a lot at the AtScience
+
+00:00:43.780 --> 00:00:47.040
+meeting before the main meeting for this.
+
+00:00:47.050 --> 00:00:50.700
+So I'm going to talk about what we're building at
+
+00:00:50.700 --> 00:00:55.060
+Forecast to facilitate this vision of a future of AI built
+
+00:00:55.140 --> 00:00:59.310
+on AtProto using the tools that are available built into
+
+00:00:59.550 --> 00:01:05.640
+the infrastructure for the protocol to be able to facilitate collective sharing
+
+00:01:05.640 --> 00:01:10.230
+and understanding of data sets, large data sets, and also
+
+00:01:10.230 --> 00:01:12.140
+of model weights.
+
+00:01:13.410 --> 00:01:18.540
+So first, an introduction to Forecast, because it's
+
+00:01:18.540 --> 00:01:23.250
+probably a little bit out of left field to have a .
+
+00:01:23.250 --> 00:01:27.310
+bio domain show up at this setting, and not in
+
+00:01:27.310 --> 00:01:30.290
+the context of biographic, but actually biology.
+
+00:01:30.370 --> 00:01:36.720
+So Forecast is a drug discovery and development company, actually
+
+00:01:36.720 --> 00:01:37.120
+.
+
+00:01:37.130 --> 00:01:41.820
+And so our vision is really focused around providing people with cognitive
+
+00:01:41.820 --> 00:01:45.970
+agency and recognizing that historically we've done a very bad job
+
+00:01:46.080 --> 00:01:51.420
+of developing central nervous system therapeutics in the pharmaceutical space.
+
+00:01:51.830 --> 00:01:54.940
+So what we want to do is to say, look,
+
+00:01:54.960 --> 00:01:59.440
+there is this vast space of where your mind could be at
+
+00:01:59.440 --> 00:02:03.440
+any given moment, and a vast way in which your mind
+
+00:02:03.440 --> 00:02:07.370
+can evolve in its instantaneous state across this space of all the
+
+00:02:07.370 --> 00:02:09.640
+different things that a mind can be.
+
+00:02:09.910 --> 00:02:12.560
+So you're somewhere in this vast sea of all the potential
+
+00:02:12.560 --> 00:02:14.240
+mental states that are possible.
+
+00:02:14.350 --> 00:02:17.640
+And what we want to do is to be able to produce
+
+00:02:17.640 --> 00:02:20.240
+therapeutic interventions.
+
+00:02:20.250 --> 00:02:23.420
+We're starting with drugs, with small molecule drugs, but
+
+00:02:23.450 --> 00:02:26.110
+we'd really like to see this expand into all types of
+
+00:02:26.110 --> 00:02:30.420
+different interventions that allow you to say, okay, no matter
+
+00:02:30.420 --> 00:02:33.290
+which spot that you're at in this space, I want
+
+00:02:33.290 --> 00:02:36.560
+to be able to move to any other spot in this space
+
+00:02:36.810 --> 00:02:40.880
+to give you control of the way that your mind operates over
+
+00:02:40.880 --> 00:02:41.660
+time.
+
+00:02:41.670 --> 00:02:47.170
+And so we think that this overall vision provides a really different
+
+00:02:47.320 --> 00:02:52.290
+way of thinking about how drugs are developed in neurology and
+
+00:02:52.360 --> 00:02:55.730
+psychiatry, where historically we've had a really difficult time
+
+00:02:55.730 --> 00:02:57.000
+bringing new tools to market.
+
+00:02:58.010 --> 00:03:01.700
+And so we are using artificial intelligence models, both on the
+
+00:03:01.950 --> 00:03:04.930
+language side, on the image side, on the multimod
+
+00:03:04.930 --> 00:03:07.980
+al side, all of these different techniques that have really been
+
+00:03:08.100 --> 00:03:13.890
+radically transformative in every field of science and computation over the last
+
+00:03:13.950 --> 00:03:16.290
+few years, to be able to build out this map of
+
+00:03:16.290 --> 00:03:19.380
+every cognitive state that a person can be in over time,
+
+00:03:19.690 --> 00:03:23.690
+and then to understand the biology by growing many brains in the
+
+00:03:23.690 --> 00:03:28.980
+lab and then watching the videos of their brain activity over time
+
+00:03:29.200 --> 00:03:32.960
+to be able to map out how pharmaceutical interventions impact these things
+
+00:03:32.970 --> 00:03:33.160
+.
+
+00:03:34.950 --> 00:03:38.570
+So the difficulty that we run into with this is that right
+
+00:03:38.570 --> 00:03:43.430
+now in the ecosystem for AI, these models are really largely
+
+00:03:43.430 --> 00:03:47.220
+produced from a small subset of orgs, as I'm
+
+00:03:47.220 --> 00:03:50.100
+sure a lot of people in the audience are familiar with from
+
+00:03:50.100 --> 00:03:50.500
+this.
+
+00:03:50.550 --> 00:03:54.240
+And this provides really a number of practical and, I think
+
+00:03:54.490 --> 00:03:57.840
+, for the field, for science as a whole, existential
+
+00:03:57.840 --> 00:04:00.580
+problems that come from, like, what are the long-
+
+00:04:00.600 --> 00:04:05.000
+term impacts of having, like, the incentive structures that are
+
+00:04:05.010 --> 00:04:08.080
+present for individual large orgs producing these models, the way
+
+00:04:08.080 --> 00:04:11.380
+that even just having any concentration of only a small, sp
+
+00:04:11.630 --> 00:04:15.300
+arse subset of models makes people anchor their understanding.
+
+00:04:15.310 --> 00:04:17.160
+So even, you know, like, if you have a
+
+00:04:17.160 --> 00:04:20.160
+large number of individual startups that are sort of, like,
+
+00:04:20.160 --> 00:04:22.880
+building things based off of these, like, say, in
+
+00:04:22.890 --> 00:04:25.180
+the biotech space, if you have image models that
+
+00:04:25.260 --> 00:04:27.980
+show you biological imaging, that they're all based off of
+
+00:04:28.080 --> 00:04:30.000
+the same sort of, like, underlying base.
+
+00:04:30.010 --> 00:04:32.460
+And, like, the knowledge that you're seeing, actually
+
+00:04:32.460 --> 00:04:35.580
+, when you're doing scientific investigation, is really, really
+
+00:04:35.970 --> 00:04:38.930
+concentrated around whatever was the semantics that was put into the
+
+00:04:38.930 --> 00:04:41.260
+specific training regime of that, right?
+
+00:04:41.270 --> 00:04:44.270
+So there's this outsized power that comes in being able
+
+00:04:44.270 --> 00:04:46.770
+to, like, be the one that controls that.
+
+00:04:46.850 --> 00:04:49.100
+And there's also, like, an outsized effect of
+
+00:04:49.200 --> 00:04:52.030
+, like, sort of quashing the variability in the entire
+
+00:04:52.030 --> 00:04:54.200
+ecosystem of the way investigation works.
+
+00:04:54.210 --> 00:04:56.130
+And this is something that, actually, a lot of people
+
+00:04:56.130 --> 00:04:58.840
+, like, Anthropic has even published on the overall effect
+
+00:04:58.840 --> 00:05:02.100
+of this for language models and the way that we interact with
+
+00:05:02.100 --> 00:05:04.180
+text and the language that we produce.
+
+00:05:04.230 --> 00:05:07.180
+So this really, this concentration of, like, the training
+
+00:05:07.180 --> 00:05:10.420
+, the infrastructure into only a handful of players is really,
+
+00:05:10.420 --> 00:05:13.440
+really deleterious for the field overall long-term.
+
+00:05:15.090 --> 00:05:21.060
+But AppRoto is this incredible ecosystem that provides this infrastructure
+
+00:05:21.060 --> 00:05:24.670
+for solving, really, this exact problem of being able to
+
+00:05:24.840 --> 00:05:28.950
+have, like, data that is distributed, that people have
+
+00:05:28.950 --> 00:05:31.440
+ownership, real, genuine ownership.
+
+00:05:31.450 --> 00:05:34.920
+It's not locked into, like, a particular monolithic
+
+00:05:34.920 --> 00:05:38.900
+, like, space that is, like, schematized
+
+00:05:38.910 --> 00:05:41.920
+in order to be, like, mutually understandable and exchangeable
+
+00:05:42.000 --> 00:05:45.080
+, which is something that, for scientific data, is something
+
+00:05:45.080 --> 00:05:46.500
+that's incredibly important.
+
+00:05:46.510 --> 00:05:49.520
+Like, an image is not the same as any other image
+
+00:05:49.600 --> 00:05:49.840
+.
+
+00:05:49.850 --> 00:05:52.360
+Like, the actual experimental detail really matter.
+
+00:05:52.370 --> 00:05:54.520
+And so being able to, like, bookkeep on that
+
+00:05:54.520 --> 00:05:56.040
+is incredibly important.
+
+00:05:56.050 --> 00:05:58.760
+Identity is incredibly important in this context.
+
+00:05:58.770 --> 00:06:01.520
+Like, being able to understand where data is coming from in
+
+00:06:01.520 --> 00:06:03.510
+such a way that, like, doesn't lead to the
+
+00:06:03.510 --> 00:06:06.760
+same concentrating effects, but allows people to, like, like
+
+00:06:06.760 --> 00:06:08.990
+, contribute, but in a way that is, like,
+
+00:06:08.990 --> 00:06:10.140
+trust is built out.
+
+00:06:10.150 --> 00:06:12.630
+Like, it's currently done in the Blue Sky ecosystem with
+
+00:06:12.630 --> 00:06:15.060
+, like, verifications, and the verification graph kind of
+
+00:06:15.060 --> 00:06:16.480
+architecture that's there.
+
+00:06:16.570 --> 00:06:19.670
+And then, like, building out in a way that's
+
+00:06:19.680 --> 00:06:22.840
+composable, that actually has, like, open protocols that
+
+00:06:22.840 --> 00:06:24.440
+allow applications to interchange.
+
+00:06:25.190 --> 00:06:28.210
+And so, like, this has already been really started to
+
+00:06:28.280 --> 00:06:33.320
+flourish amazingly on the side for social, but for scientific data
+
+00:06:33.320 --> 00:06:35.340
+, I think that people were talking about on sort of,
+
+00:06:35.370 --> 00:06:38.720
+like, the knowledge side at the at science meeting, like
+
+00:06:38.720 --> 00:06:40.340
+, is really starting to blossom.
+
+00:06:40.430 --> 00:06:43.450
+And I think that there is an incredible opportunity even outside of
+
+00:06:43.520 --> 00:06:46.450
+, like, the social and sort of, like, direct
+
+00:06:46.450 --> 00:06:50.060
+text knowledge side to actually how we share interoperable,
+
+00:06:50.170 --> 00:06:51.500
+just full-on data sets.
+
+00:06:51.590 --> 00:06:54.840
+So, what we're building is based off of this model
+
+00:06:54.840 --> 00:06:58.540
+, that, like, positive sum is really important for providing
+
+00:06:58.650 --> 00:07:01.720
+a meaningful way for small orgs like our startup, like
+
+00:07:01.720 --> 00:07:04.480
+other biotech startups, to, like, meaningfully
+
+00:07:04.660 --> 00:07:07.710
+be able to produce AI models that compete with the large labs
+
+00:07:07.710 --> 00:07:07.900
+.
+
+00:07:07.910 --> 00:07:11.390
+Like, this happens because of coordination between everybody in the field
+
+00:07:11.390 --> 00:07:14.640
+, us sharing data, others sharing data, us sharing weights
+
+00:07:14.640 --> 00:07:16.730
+, others sharing weights that's done in a way that's
+
+00:07:16.730 --> 00:07:18.920
+, like, interoperable, so that the sum total
+
+00:07:19.050 --> 00:07:22.290
+of all of our small startups in the ecosystem is something that
+
+00:07:22.290 --> 00:07:24.210
+'s greater than the sum of its parts.
+
+00:07:24.230 --> 00:07:25.820
+And so, this is, like, what we see is
+
+00:07:25.820 --> 00:07:28.720
+really, like, a path forward built off of the infrastructure
+
+00:07:28.900 --> 00:07:30.980
+for AppRoto for, like, a small 10-
+
+00:07:31.270 --> 00:07:33.200
+person team, say, to be able to, like,
+
+00:07:33.200 --> 00:07:35.430
+out-compete massive organizations.
+
+00:07:35.450 --> 00:07:40.310
+And that's because the network, the infrastructure, is the
+
+00:07:40.310 --> 00:07:44.400
+force multiplier for our efforts in training, like, building robust
+
+00:07:44.580 --> 00:07:45.260
+AI systems.
+
+00:07:46.450 --> 00:07:48.890
+And so, what we've built at Forecast over the
+
+00:07:48.890 --> 00:07:54.540
+last bit is our own paths that really, like, treating
+
+00:07:54.540 --> 00:07:55.660
+this for data sets.
+
+00:07:55.690 --> 00:07:57.440
+We found this to be something that's, like, really
+
+00:07:57.440 --> 00:08:00.360
+important for our own infrastructure, for how we're building our
+
+00:08:00.360 --> 00:08:03.370
+, like, image models, video models, like, multim
+
+00:08:03.560 --> 00:08:08.460
+odal models that we're using internally for our own discovery
+
+00:08:08.460 --> 00:08:09.540
+and development programs.
+
+00:08:10.230 --> 00:08:12.850
+And so, what we're, like, we decided to
+
+00:08:12.850 --> 00:08:15.780
+really try and put some work into making that generalizable so
+
+00:08:15.780 --> 00:08:18.160
+that we can share it with the community and have this larger
+
+00:08:18.340 --> 00:08:19.780
+buy-in around sharing data.
+
+00:08:19.790 --> 00:08:23.480
+So, what AppData is really based on is the
+
+00:08:23.730 --> 00:08:27.110
+fundamental technology called the web data set, which is a way
+
+00:08:27.110 --> 00:08:30.760
+that, like, individual large data sets can be, like
+
+00:08:30.760 --> 00:08:31.780
+, sharded up.
+
+00:08:31.790 --> 00:08:32.380
+It's very simple.
+
+00:08:32.390 --> 00:08:33.770
+It's just, like, tar files, essentially.
+
+00:08:34.070 --> 00:08:35.970
+They could, like, put into, like, shards
+
+00:08:35.970 --> 00:08:36.200
+.
+
+00:08:36.210 --> 00:08:39.760
+But because of the wrapper that you can sort of do on
+
+00:08:39.760 --> 00:08:42.170
+top of that, it provides a really good, like,
+
+00:08:42.360 --> 00:08:46.030
+you can schematize things very easily by having a standardized
+
+00:08:46.030 --> 00:08:48.340
+way that those files are stored, and you can stream things
+
+00:08:48.630 --> 00:08:51.650
+really easily and have, like, sidecar manifest files that
+
+00:08:51.650 --> 00:08:53.450
+let you do, like, querying and other operations really
+
+00:08:53.450 --> 00:08:53.920
+quickly.
+
+00:08:54.250 --> 00:08:55.640
+So, we're trying to, like, build out,
+
+00:08:55.820 --> 00:08:59.760
+essentially, an ecosystem in which there is storage infrastructure for the
+
+00:08:59.760 --> 00:09:02.360
+actual large data sets itself that's off-protocol.
+
+00:09:02.370 --> 00:09:04.870
+As, like, a funny thing, I kind of built
+
+00:09:04.870 --> 00:09:06.800
+, like, a version of it that does work for PD
+
+00:09:06.800 --> 00:09:07.380
+S blobs.
+
+00:09:07.390 --> 00:09:08.770
+But, like, so, like, I think I have
+
+00:09:08.960 --> 00:09:10.960
+, like, a few versions of, like, MN
+
+00:09:10.960 --> 00:09:12.900
+IST tested as, like, PDS blobs on my
+
+00:09:12.900 --> 00:09:14.050
+own, like, maxine.
+
+00:09:14.050 --> 00:09:14.580
+science.
+
+00:09:14.590 --> 00:09:19.370
+And then we use AppProto PDS records to actually
+
+00:09:19.370 --> 00:09:23.140
+be, like, the index, the metadata, the schem
+
+00:09:23.250 --> 00:09:25.900
+as that give, like, the interpretation of what each individual
+
+00:09:25.900 --> 00:09:30.240
+sample is in a given data set, and then lens transformations
+
+00:09:30.250 --> 00:09:33.390
+that allow you to actually move back and forth between schemat
+
+00:09:33.860 --> 00:09:35.200
+izations of individual samples.
+
+00:09:35.210 --> 00:09:38.040
+So, you can aggregate across data sets that are actually made
+
+00:09:38.050 --> 00:09:40.660
+with, like, different sample schemas, but that are
+
+00:09:40.660 --> 00:09:41.540
+interconvertible.
+
+00:09:42.190 --> 00:09:45.710
+And so, we're, like, still, we have
+
+00:09:45.710 --> 00:09:48.360
+a version of this that's up on PyPI.
+
+00:09:48.370 --> 00:09:51.310
+I'm pushing the REST SDK for this right now today
+
+00:09:51.310 --> 00:09:51.620
+.
+
+00:09:51.630 --> 00:09:53.010
+Thank you, Claude.
+
+00:09:53.170 --> 00:09:56.100
+But we're really, really excited to get, like,
+
+00:09:56.100 --> 00:09:58.080
+community feedback and sort of, like, iterate on the way
+
+00:09:58.100 --> 00:09:59.060
+that we've designed this.
+
+00:09:59.070 --> 00:10:02.450
+So, as I was mentioning, like, the design of
+
+00:10:02.450 --> 00:10:06.320
+this overall is that, like, really is centrally done
+
+00:10:06.320 --> 00:10:07.480
+through code.
+
+00:10:07.490 --> 00:10:09.970
+Like, it's, I think, different than a lot
+
+00:10:09.970 --> 00:10:11.820
+of things that we see in, like, the app proto
+
+00:10:11.930 --> 00:10:13.950
+ecosystem and that there's really no, like, I mean
+
+00:10:13.950 --> 00:10:16.910
+, I think over time, it'll be nice to have
+
+00:10:16.910 --> 00:10:19.380
+, like, a web front end to allow people to browse
+
+00:10:19.380 --> 00:10:20.640
+data sets and things like that.
+
+00:10:20.650 --> 00:10:22.400
+But really, this is something that, like, we've
+
+00:10:22.400 --> 00:10:25.610
+envisioned as being something that you reference and, like, your
+
+00:10:25.610 --> 00:10:27.740
+own Jupyter Notebooks are doing data science and something
+
+00:10:27.920 --> 00:10:31.420
+that you have your autonomous, like, agents on cloud code
+
+00:10:31.430 --> 00:10:33.530
+or whatever, on codex or what have you, actually
+
+00:10:33.530 --> 00:10:36.740
+be able to just, like, build things that, like
+
+00:10:36.920 --> 00:10:40.360
+, query out to our, like, app view that's
+
+00:10:40.360 --> 00:10:42.860
+aggregating all of the data sets that are posted in all
+
+00:10:42.860 --> 00:10:43.860
+the different fields.
+
+00:10:43.870 --> 00:10:47.560
+Genomics, like, neural recordings of, you know,
+
+00:10:47.570 --> 00:10:51.010
+voltage dynamics and neurons, like, imaging data sets for medical
+
+00:10:51.010 --> 00:10:54.340
+imaging, for biological imaging, all these different things that can
+
+00:10:54.340 --> 00:10:59.040
+be posted, have entries as, like, PDS records
+
+00:10:59.040 --> 00:11:01.790
+that give, like, the metadata of the data set and
+
+00:11:01.790 --> 00:11:03.040
+what schema it's using.
+
+00:11:03.210 --> 00:11:06.380
+All of that be, like, aggregated and filtered in
+
+00:11:06.380 --> 00:11:09.220
+real time in order to provide, like, people who are
+
+00:11:09.220 --> 00:11:12.030
+working on different data, like, fields with, like,
+
+00:11:12.070 --> 00:11:15.100
+real-time streams of when new data gets posted out.
+
+00:11:15.110 --> 00:11:18.140
+And then specifically, like, having, like, we're
+
+00:11:18.140 --> 00:11:23.240
+building out a very similar, like, trust network architecture that
+
+00:11:23.240 --> 00:11:25.580
+was inspired, really, by the Blue Sky Verification System
+
+00:11:25.590 --> 00:11:27.550
+to have it so that there can be, like, in
+
+00:11:27.550 --> 00:11:31.130
+a given field, like, trust labels that are given to
+
+00:11:31.650 --> 00:11:34.240
+individual data providers that allow people to, like, actually hone
+
+00:11:34.240 --> 00:11:36.600
+in on that data that's being provided by really, really
+
+00:11:36.930 --> 00:11:38.780
+reliable sources for particular fields.
+
+00:11:38.790 --> 00:11:44.210
+And then when individual clients look out to what's present in
+
+00:11:44.210 --> 00:11:46.710
+the atmosphere as far as the records, like, give the
+
+00:11:46.710 --> 00:11:48.960
+index on, like, all the data that's present out
+
+00:11:48.960 --> 00:11:51.750
+in the world, then the client has all the information that
+
+00:11:51.750 --> 00:11:54.490
+it needs to actually then go out to the storage mechanism and
+
+00:11:54.490 --> 00:11:57.720
+actually, like, pull the streaming samples for that data.
+
+00:11:57.930 --> 00:11:59.890
+And we also, the arrow's not depicted here, but
+
+00:11:59.890 --> 00:12:02.520
+we can, like, proxy that connection through the app view
+
+00:12:02.520 --> 00:12:02.860
+also.
+
+00:12:02.870 --> 00:12:04.270
+There's, like, a lot of different ways that we
+
+00:12:04.270 --> 00:12:05.460
+can plug all of these things together.
+
+00:12:05.530 --> 00:12:08.210
+But this is the overall vision, is, like, the
+
+00:12:08.210 --> 00:12:10.940
+client is able to look out into the entire atmosphere and say
+
+00:12:11.120 --> 00:12:18.980
+, what has science done in, like, mouse brain MRI
+
+00:12:18.980 --> 00:12:19.920
+or something?
+
+00:12:20.190 --> 00:12:21.260
+Like, whatever it is.
+
+00:12:21.270 --> 00:12:25.030
+And, like, any data set that has a lens that
+
+00:12:25.030 --> 00:12:28.600
+lets you convert it to something that I can interpret as mouse
+
+00:12:28.600 --> 00:12:34.120
+brain MRI, I see index records from the atmosphere that tell
+
+00:12:34.120 --> 00:12:36.040
+me where to look for all of those data sets.
+
+00:12:36.050 --> 00:12:39.180
+And that let me code gen, like, transformations from my
+
+00:12:39.360 --> 00:12:41.790
+own data science pipeline that let me ingest all of it
+
+00:12:41.980 --> 00:12:44.480
+streaming from out in the larger, like, web.
+
+00:12:45.770 --> 00:12:47.830
+So we've built all of this off of, as I
+
+00:12:47.830 --> 00:12:50.250
+mentioned, sort of, like, not, like, Lex
+
+00:12:50.350 --> 00:12:53.340
+icon is really specific for the, like, the way that
+
+00:12:53.380 --> 00:12:55.110
+Atproto is set up, but we wanted to have
+
+00:12:55.110 --> 00:12:56.100
+our own schema system.
+
+00:12:56.110 --> 00:12:58.780
+So we have, like, a lightweight way of, like
+
+00:12:58.780 --> 00:13:00.520
+, doing this across platform.
+
+00:13:00.630 --> 00:13:02.410
+Right now it's sort of is, like, using JSON
+
+00:13:02.410 --> 00:13:05.100
+schema as an intermediary, but we want to support other
+
+00:13:05.280 --> 00:13:06.380
+things for that also.
+
+00:13:06.390 --> 00:13:08.510
+But essentially, like, when you have a data set that
+
+00:13:08.580 --> 00:13:10.500
+you're loading out from the world, you want to be
+
+00:13:10.500 --> 00:13:13.210
+able to interpret as each sample comes in, like, what
+
+00:13:13.210 --> 00:13:15.260
+do the fields in this actually mean?
+
+00:13:15.630 --> 00:13:18.350
+And so it was very important for us to actually publish as
+
+00:13:18.520 --> 00:13:22.660
+records, like, abstractions of individual sample schemas in
+
+00:13:22.660 --> 00:13:25.300
+the same way that individual lexicons are also published,
+
+00:13:25.300 --> 00:13:27.660
+like, on protocol so that everybody can have, like,
+
+00:13:27.670 --> 00:13:31.230
+a consensus understanding of, like, what this data actually means
+
+00:13:31.230 --> 00:13:32.500
+semantically.
+
+00:13:32.510 --> 00:13:38.480
+So we just wrapped that really thin on the existing platform infrastructure
+
+00:13:38.490 --> 00:13:40.300
+for whatever language it's in.
+
+00:13:40.310 --> 00:13:43.630
+And then we've used, we built out, like,
+
+00:13:43.650 --> 00:13:47.320
+just a really simple interface for how, like, actual,
+
+00:13:47.320 --> 00:13:50.190
+like, when you're developing with this, it works that
+
+00:13:50.190 --> 00:13:53.420
+'s based off of the Hugging Face data sets API.
+
+00:13:53.430 --> 00:13:58.260
+So essentially, like, there's some magic underneath that allows
+
+00:13:58.260 --> 00:14:00.890
+you to resolve very similar to, like, the way that
+
+00:14:00.890 --> 00:14:04.540
+Hugging Face, like, labels on individual data sets would
+
+00:14:04.540 --> 00:14:06.460
+be set up, but just based off of, like,
+
+00:14:06.470 --> 00:14:09.740
+the proto handle that's associated with where the index entries are
+
+00:14:09.900 --> 00:14:09.900
+.
+
+00:14:10.150 --> 00:14:12.840
+And then automatically it just does all the things under the hood
+
+00:14:12.850 --> 00:14:15.840
+to build out, like, like a PyTorch
+
+00:14:15.840 --> 00:14:18.640
+data loader that actually does all of the streaming under the
+
+00:14:18.640 --> 00:14:20.570
+hood that lets you, like, actually build out, like
+
+00:14:20.570 --> 00:14:25.120
+, batched, like, tensors in real time or
+
+00:14:25.120 --> 00:14:28.800
+, like, whatever data form that you want to see it
+
+00:14:28.800 --> 00:14:29.080
+from.
+
+00:14:29.090 --> 00:14:32.520
+So we're very excited about, like, just making it
+
+00:14:32.520 --> 00:14:34.590
+as simple as possible to be able to go out and load
+
+00:14:34.590 --> 00:14:35.600
+an individual data set.
+
+00:14:35.810 --> 00:14:39.450
+And then also we have similarly, like, interfaces for doing
+
+00:14:39.700 --> 00:14:42.470
+queries based off of, like, type conversion using our L
+
+00:14:42.470 --> 00:14:43.240
+ens system.
+
+00:14:43.250 --> 00:14:46.300
+Like, I want to find all the things of a particular
+
+00:14:46.300 --> 00:14:46.720
+schema.
+
+00:14:46.730 --> 00:14:48.860
+I want to find all the things that are convertible to
+
+00:14:48.860 --> 00:14:50.160
+a particular schema, etc.
+
+00:14:50.190 --> 00:14:54.500
+So under the hood, like I mentioned, like, the
+
+00:14:54.700 --> 00:14:57.120
+way that this has been built is, like, foundationally
+
+00:14:57.130 --> 00:14:59.490
+on web data set, which is very, very simple.
+
+00:14:59.650 --> 00:15:03.440
+It's just, like, files, like, it's
+
+00:15:03.590 --> 00:15:06.830
+like message pack in a tar file, essentially.
+
+00:15:06.850 --> 00:15:08.000
+Like, it's very, very simple.
+
+00:15:08.010 --> 00:15:12.500
+But it's very powerful in being able to provide, like
+
+00:15:12.500 --> 00:15:15.980
+, the streaming and, like, well, you can build
+
+00:15:15.980 --> 00:15:19.010
+a lot on top of it pretty easily with really a little
+
+00:15:19.010 --> 00:15:19.800
+overhead.
+
+00:15:19.810 --> 00:15:23.900
+Like, that we use, like, really simple decorators
+
+00:15:23.910 --> 00:15:26.930
+or macros to be able to make it so that the
+
+00:15:26.930 --> 00:15:31.350
+developer experience is pretty simple on setting up schema types for whatever
+
+00:15:31.350 --> 00:15:33.560
+data you're working with in order to be able to publish
+
+00:15:33.560 --> 00:15:37.920
+it with, like, one function call to your to your
+
+00:15:37.970 --> 00:15:40.690
+PDS for the index entry and then either, like,
+
+00:15:40.790 --> 00:15:42.610
+you know, publish to, like, FTP, S
+
+00:15:42.610 --> 00:15:45.540
+3, compatible storage, like, whatever you're using on
+
+00:15:45.540 --> 00:15:48.620
+your particular backend for the actual large file storage.
+
+00:15:48.630 --> 00:15:51.260
+PDS blobs, if you're nuts like me.
+
+00:15:51.270 --> 00:15:55.700
+Like, the, like, try and make that interoper
+
+00:15:55.700 --> 00:15:56.720
+able as much as possible.
+
+00:15:57.730 --> 00:16:00.520
+and then also to support, like, a number of,
+
+00:16:00.520 --> 00:16:03.710
+like, binary serialization formats to make things really convenient on
+
+00:16:03.710 --> 00:16:04.300
+that end.
+
+00:16:04.310 --> 00:16:06.200
+Like, right now we're using, I'm using,
+
+00:16:06.200 --> 00:16:08.880
+like, NumPy, like, a byte serialization
+
+00:16:08.990 --> 00:16:11.470
+because it kind of works on the backend, but we're
+
+00:16:11.470 --> 00:16:14.100
+building that out to be, like, really, really general
+
+00:16:14.240 --> 00:16:16.690
+izable to, like, support the interop for the overall
+
+00:16:16.700 --> 00:16:17.160
+community.
+
+00:16:17.970 --> 00:16:20.680
+And I kind of hinted at this earlier, but I
+
+00:16:20.680 --> 00:16:22.620
+really wanted to dig into this because I think it's a
+
+00:16:22.620 --> 00:16:26.010
+larger point that fit, it was really apparent to me at
+
+00:16:26.010 --> 00:16:27.780
+last year's conference, I think, and I, like
+
+00:16:27.780 --> 00:16:31.320
+, got ADHD distracted on, like, doing other stuff and
+
+00:16:31.320 --> 00:16:33.380
+, like, the stuff we're building in forecasts.
+
+00:16:33.390 --> 00:16:36.290
+But I do think that this is overall, like, a
+
+00:16:36.290 --> 00:16:39.660
+very important point for the larger community and particularly for, like
+
+00:16:39.660 --> 00:16:40.590
+, the lexicon.
+
+00:16:40.990 --> 00:16:43.710
+community efforts of, like, building out standards.
+
+00:16:43.730 --> 00:16:48.410
+Like, what's really powerful about data that is schemat
+
+00:16:48.630 --> 00:16:52.040
+ized is not just that you can look at everything that's
+
+00:16:52.040 --> 00:16:55.320
+in your particular schema, but if you actually book key,
+
+00:16:55.330 --> 00:16:56.980
+and part of this is, like, for those nerds
+
+00:16:56.990 --> 00:16:58.730
+in the audience, I'm, like, really deep into
+
+00:16:58.730 --> 00:17:00.590
+, like, applied category theory, so there's, like
+
+00:17:00.590 --> 00:17:02.620
+, a lot of abstract nonsense of why this is, like
+
+00:17:02.620 --> 00:17:03.300
+, hella cool.
+
+00:17:03.310 --> 00:17:06.840
+But essentially, like, the thing that really matters more than
+
+00:17:06.840 --> 00:17:10.500
+the schema is the interconversions between schemas.
+
+00:17:10.510 --> 00:17:12.920
+And so if you can really keep track of, like,
+
+00:17:12.930 --> 00:17:19.310
+like, update and, like, view operations between two different
+
+00:17:19.490 --> 00:17:24.820
+types, you actually can do even more than just understanding data
+
+00:17:24.830 --> 00:17:26.700
+that's provided to you in a given lexicon,
+
+00:17:26.710 --> 00:17:27.600
+say, for AppRoto.
+
+00:17:27.610 --> 00:17:31.700
+Like, you can actually query out and build tooling that automatically
+
+00:17:31.710 --> 00:17:35.100
+is able to ingest, like, things from any le
+
+00:17:35.120 --> 00:17:39.360
+xicon that has coherent, like, view and update operations
+
+00:17:39.370 --> 00:17:42.340
+to a specified lexicon that you care about.
+
+00:17:42.350 --> 00:17:45.220
+So in AppData, we're really building this explicitly
+
+00:17:45.220 --> 00:17:45.360
+.
+
+00:17:45.370 --> 00:17:49.500
+Like, we have PDS records in our lexicon
+
+00:17:49.510 --> 00:17:53.180
+that are, like, about, like, lens code that
+
+00:17:53.180 --> 00:17:57.490
+actually does interconversions between our AppData schem
+
+00:17:57.660 --> 00:17:57.660
+as.
+
+00:17:57.670 --> 00:18:00.800
+And these are also, like, subject to the verification system
+
+00:18:00.800 --> 00:18:02.750
+so that we can have, like, trusted lenses that are
+
+00:18:02.750 --> 00:18:05.020
+not, like, doing arbitrary code injection and, like,
+
+00:18:05.030 --> 00:18:08.150
+all the crazy nonsense that you probably have people do if you
+
+00:18:08.150 --> 00:18:10.890
+just, like, have them reference arbitrary code that they're
+
+00:18:10.910 --> 00:18:12.990
+clawed agent pulls or they're open claw pulls or whatever
+
+00:18:12.990 --> 00:18:13.060
+.
+
+00:18:13.070 --> 00:18:16.580
+So, but I think that, like, in addition to
+
+00:18:16.580 --> 00:18:19.030
+the application for AppData, which is really, really
+
+00:18:19.030 --> 00:18:20.800
+cool, being able to be, like, oh, yeah
+
+00:18:20.800 --> 00:18:23.140
+, my lab published this schema and it's, like,
+
+00:18:23.150 --> 00:18:25.580
+totally insane because it's got this weird, like, metadata
+
+00:18:25.580 --> 00:18:27.950
+about, like, whether the lab technician wore Axe body
+
+00:18:27.960 --> 00:18:31.100
+spray that day because, like, that influences the mouse behavior
+
+00:18:31.110 --> 00:18:33.340
+in crazy ways that, like, only our lab cares about
+
+00:18:33.340 --> 00:18:33.480
+.
+
+00:18:33.490 --> 00:18:35.640
+Like, you can actually just say, okay, it's
+
+00:18:35.640 --> 00:18:37.200
+neural recordings, I don't care.
+
+00:18:37.210 --> 00:18:44.120
+And you can, similarly for the larger AppProto ecosystem
+
+00:18:44.120 --> 00:18:46.700
+, this is really important because, like, we've seen
+
+00:18:46.700 --> 00:18:48.620
+a lot of things of, like, what's the right
+
+00:18:48.630 --> 00:18:48.940
+move?
+
+00:18:48.950 --> 00:18:52.160
+Is it to, like, have everybody for different applications,
+
+00:18:52.170 --> 00:18:56.110
+like, make their own lexicon namespace so that
+
+00:18:56.110 --> 00:18:57.770
+you have, like, app-to-app separation or
+
+00:18:57.770 --> 00:18:59.340
+do we want to come together and have, like, a
+
+00:18:59.340 --> 00:18:59.970
+lexicon.
+
+00:18:59.970 --> 00:19:02.700
+community thing where, like, everything of a specific type
+
+00:19:02.710 --> 00:19:04.880
+sort of centralizes around an individual lexicon and you
+
+00:19:04.880 --> 00:19:07.510
+have some other way to specify what apps are putting into it
+
+00:19:07.510 --> 00:19:07.660
+?
+
+00:19:07.670 --> 00:19:09.660
+And I think it's, like, a why not both
+
+00:19:09.670 --> 00:19:10.620
+kind of a situation.
+
+00:19:10.630 --> 00:19:15.280
+Like, individual apps can actually make their own lexicons
+
+00:19:15.290 --> 00:19:18.340
+for the types that they're working with, but if there
+
+00:19:18.340 --> 00:19:22.070
+is a centralized, like, lens lexicon that is
+
+00:19:22.070 --> 00:19:25.600
+, like, just the abstraction around, like, what it
+
+00:19:25.600 --> 00:19:28.180
+is to interconvert between two AppProto lexic
+
+00:19:28.180 --> 00:19:33.880
+ons, then that enables, like, developers building out tooling
+
+00:19:33.890 --> 00:19:36.120
+that's like, okay, I want to make a blog
+
+00:19:36.120 --> 00:19:39.630
+app and I want it to have this particular data type for
+
+00:19:39.630 --> 00:19:42.380
+posts that has this content that's specific to me, but
+
+00:19:42.380 --> 00:19:45.100
+I also want to be able to reason about leaflet and
+
+00:19:45.100 --> 00:19:47.570
+I also want to be able to reason about white wind and
+
+00:19:47.570 --> 00:19:49.940
+I, like, like, if you have the ability to
+
+00:19:49.940 --> 00:19:53.990
+just define what are the lens transformations to each of those individual
+
+00:19:53.990 --> 00:19:57.200
+ones, you can automatically pull in and aggregate all of that
+
+00:19:57.200 --> 00:20:00.950
+data across many different, like, even sometimes kind of diver
+
+00:20:00.950 --> 00:20:04.460
+gent lexicons, as long as the lenses that,
+
+00:20:04.460 --> 00:20:07.680
+like, give you the view operations and the update operations to
+
+00:20:07.680 --> 00:20:10.520
+each one of those are, like, coherent enough for what
+
+00:20:10.520 --> 00:20:11.100
+you want to do.
+
+00:20:11.110 --> 00:20:13.350
+So I think we're trying to, like, build our
+
+00:20:13.350 --> 00:20:16.420
+own demo version of this for the way that app data works
+
+00:20:16.420 --> 00:20:19.260
+with its own internal schematized sample types, but I
+
+00:20:19.260 --> 00:20:21.440
+think that this is, like, a larger, like,
+
+00:20:21.450 --> 00:20:24.040
+community point that could be really, really cool that I want
+
+00:20:24.050 --> 00:20:25.750
+to spend a little bit of time to hammer home because I
+
+00:20:25.750 --> 00:20:27.900
+'m, like, a big lens evangelist.
+
+00:20:29.190 --> 00:20:32.470
+And so all of this put together, we're, like
+
+00:20:32.470 --> 00:20:34.240
+, deploying, we're in the process of, like,
+
+00:20:34.250 --> 00:20:36.570
+deploying out our own app view that sort of is, like
+
+00:20:36.570 --> 00:20:41.410
+, the canonical app view implementation for the app data ecosystem and
+
+00:20:41.410 --> 00:20:45.350
+for handling all of the, like, like, we're
+
+00:20:45.350 --> 00:20:48.360
+, we're publishing all of our lexicons on science
+
+00:20:48.360 --> 00:20:48.670
+.
+
+00:20:48.930 --> 00:20:49.280
+alt.
+
+00:20:49.280 --> 00:20:51.900
+dataset as sort of, like, the reverse DNS
+
+00:20:51.900 --> 00:20:52.470
+NSID.
+
+00:20:53.770 --> 00:20:57.730
+So that was a cool move four years ago to me to
+
+00:20:57.730 --> 00:20:58.720
+register alt.
+
+00:20:58.720 --> 00:20:59.360
+science.
+
+00:21:00.650 --> 00:21:04.370
+So the, like, the overall vision of this is that
+
+00:21:04.370 --> 00:21:07.940
+, like, we want to have something that allows, like
+
+00:21:07.940 --> 00:21:12.420
+, people to have control over filtering feeds of data sets that
+
+00:21:12.420 --> 00:21:14.520
+they care about but can, like, weakly cohere
+
+00:21:14.530 --> 00:21:18.840
+enough to be able to, like, facilitate interchange and collective
+
+00:21:18.850 --> 00:21:21.980
+sense making for, large scientific data sets.
+
+00:21:23.290 --> 00:21:27.050
+And the next step, once we built that app data that
+
+00:21:27.050 --> 00:21:29.060
+we have, that we're, that we're prototyping
+
+00:21:29.070 --> 00:21:31.920
+right now in-house at Forecast is actually to move
+
+00:21:31.930 --> 00:21:37.160
+from the, like, social data for being able to stream
+
+00:21:37.160 --> 00:21:41.150
+in across the entire atmosphere different, like, data sets from
+
+00:21:41.150 --> 00:21:44.300
+all over the world but to also then move that into social
+
+00:21:44.310 --> 00:21:47.060
+training to actually go to the other side of the Hugging
+
+00:21:47.060 --> 00:21:49.040
+Face API around model weights.
+
+00:21:49.770 --> 00:21:53.920
+And so we're very excited about the possibilities there of having
+
+00:21:53.930 --> 00:21:58.890
+lexicons defining, like, the actual training phy
+
+00:21:58.890 --> 00:22:01.440
+logeny of model weights.
+
+00:22:01.450 --> 00:22:03.740
+So you can say, ah, I want this to be
+
+00:22:03.740 --> 00:22:06.950
+associated with the hyperparameters that it was trained with
+
+00:22:06.950 --> 00:22:09.810
+, the data sets that it uses input, the weights that
+
+00:22:09.810 --> 00:22:12.070
+it started with when I was doing this fine-tune
+
+00:22:12.070 --> 00:22:14.660
+, the code that I actually used for doing that, the
+
+00:22:14.660 --> 00:22:15.940
+evaluation metrics.
+
+00:22:16.390 --> 00:22:20.000
+And when lots of people are doing that and publishing the metadata
+
+00:22:20.010 --> 00:22:22.830
+and then also in a sidecar service, like, the
+
+00:22:22.830 --> 00:22:26.500
+weights themselves, then we start building a situation where we can
+
+00:22:26.510 --> 00:22:31.740
+actually, like, autonomously build out, like, collectively
+
+00:22:31.750 --> 00:22:35.680
+the space of all different training trajectories that we can do
+
+00:22:35.690 --> 00:22:36.800
+for AI models, right?
+
+00:22:36.850 --> 00:22:40.730
+it allows this sort of weak cohesion of all of the
+
+00:22:40.730 --> 00:22:43.560
+different, like, biotech startups, language model startups
+
+00:22:43.560 --> 00:22:46.420
+, people that are working on small teams, like, it
+
+00:22:46.420 --> 00:22:49.480
+allows that weak coherence between those to really, like,
+
+00:22:49.490 --> 00:22:53.360
+amplify how much that we can do the search space that are
+
+00:22:53.360 --> 00:22:57.230
+sometimes astronomical for these things as a collective and I think really
+
+00:22:57.230 --> 00:22:59.440
+have, like, a transformative impact on the way that,
+
+00:22:59.450 --> 00:23:05.020
+like, distributed AI work in smaller independent teams is able to
+
+00:23:05.020 --> 00:23:08.260
+, like, catch up, compete with, and even,
+
+00:23:08.270 --> 00:23:10.720
+like, outpace some of what's possible in larger labs
+
+00:23:10.730 --> 00:23:11.300
+through this.
+
+00:23:11.310 --> 00:23:17.780
+So, like, I, like, like, the summary
+
+00:23:17.780 --> 00:23:20.640
+on that is just, like, like, the vision,
+
+00:23:20.650 --> 00:23:23.190
+I think, that's very important, especially with this,
+
+00:23:23.210 --> 00:23:27.150
+like, semantic concentration that's present in the AI field with
+
+00:23:27.150 --> 00:23:30.440
+, like, the power consolidation that is happening instead of the
+
+00:23:30.440 --> 00:23:33.970
+AI field with this large, with the large labs is there
+
+00:23:33.970 --> 00:23:37.170
+is, like, a, an alternative thesis of what the
+
+00:23:37.170 --> 00:23:41.660
+future of AI model training looks like that's not one lab
+
+00:23:41.670 --> 00:23:43.980
+with a giant cluster, but it's instead, like,
+
+00:23:43.990 --> 00:23:47.640
+the community with their own independent hardware, with their own independent
+
+00:23:47.640 --> 00:23:52.790
+resources, and enough coherence because of the infrastructure, because
+
+00:23:52.790 --> 00:23:55.700
+of the protocol, to be able to actually, like,
+
+00:23:55.710 --> 00:23:58.030
+build synergistically off of each other's work.
+
+00:23:58.050 --> 00:24:00.080
+So, this is the next phase of what we're building
+
+00:24:00.090 --> 00:24:01.620
+after at data at forecasts.
+
+00:24:01.630 --> 00:24:03.120
+So, stay tuned.
+
+00:24:04.090 --> 00:24:06.560
+And that gives, like, a full picture of this,
+
+00:24:06.570 --> 00:24:10.020
+of, like, an ecosystem that's built on, like
+
+00:24:10.020 --> 00:24:13.660
+, at every level from the data sets, the, like
+
+00:24:13.660 --> 00:24:15.770
+, way that those data sets are able to interoperate
+
+00:24:15.770 --> 00:24:19.220
+, the training of the models, the actual publication of the
+
+00:24:19.220 --> 00:24:21.910
+weights, that, like, builds out a larger ecosystem where
+
+00:24:21.910 --> 00:24:25.160
+we can trace where things originated from, what code was used
+
+00:24:25.170 --> 00:24:27.760
+to generate them, and actually share all of those details to
+
+00:24:27.760 --> 00:24:28.740
+build off of one another.
+
+00:24:29.810 --> 00:24:33.180
+So, oh no, the AI from my slides made a
+
+00:24:33.180 --> 00:24:33.660
+goof.
+
+00:24:33.670 --> 00:24:36.120
+Oh well, that's how it goes sometimes.
+
+00:24:37.420 --> 00:24:41.460
+Just to wrap up on the final thing, like, well
+
+00:24:41.460 --> 00:24:44.480
+, as I mentioned at the very beginning, Forecast is
+
+00:24:44.480 --> 00:24:48.920
+centrally built around our vision of providing people with cognitive agency
+
+00:24:48.920 --> 00:24:48.920
+.
+
+00:24:48.930 --> 00:24:53.210
+And for what we are working on, we are focused in
+
+00:24:53.210 --> 00:24:58.760
+our business around drug development and discovery as a means to provide
+
+00:24:58.760 --> 00:25:03.020
+that because of our research experience.
+
+00:25:03.030 --> 00:25:04.860
+I'm a neuroscience by training.
+
+00:25:04.870 --> 00:25:07.650
+I did my PhD down the street from here at UCS
+
+00:25:07.800 --> 00:25:12.060
+F in neuroscience and I did also some medical training there about
+
+00:25:12.060 --> 00:25:14.860
+it and I clear deeply about neurology and psychiatry and
+
+00:25:14.860 --> 00:25:16.040
+this is our focus.
+
+00:25:16.110 --> 00:25:20.310
+But I think that that overall thesis has a direct, like
+
+00:25:20.310 --> 00:25:23.350
+, link with some of the trends that we're seeing in
+
+00:25:23.350 --> 00:25:29.120
+how AI models, how the overall shape of the AI ecosystem
+
+00:25:29.130 --> 00:25:34.250
+is really moving us toward, like, a possibility of a
+
+00:25:34.250 --> 00:25:37.080
+future with a lot of, like, homogenization that
+
+00:25:37.080 --> 00:25:42.460
+'s very unhealthy for individuals' mental health or the health of
+
+00:25:42.460 --> 00:25:46.930
+our scientific discourse that really benefits enormously from the noise, from
+
+00:25:46.930 --> 00:25:50.960
+the divergence of opinions that come from people not just seeing the
+
+00:25:50.960 --> 00:25:53.760
+same semantics that comes through from the model but actually their
+
+00:25:53.760 --> 00:25:57.660
+own situated individual versions of that that come in a distributed form
+
+00:25:57.670 --> 00:26:01.510
+from individuals' experiences and the particular things that they bring to
+
+00:26:01.510 --> 00:26:01.920
+the table.
+
+00:26:01.930 --> 00:26:07.130
+And so, like, all of this is really shaped fundamentally
+
+00:26:07.150 --> 00:26:12.620
+from the tools that we have, the infrastructure that we have
+
+00:26:12.630 --> 00:26:17.100
+for how these systems that we're building are created and how
+
+00:26:17.100 --> 00:26:17.880
+they interoperate.
+
+00:26:18.290 --> 00:26:23.120
+And I think that AppProto overall has an incredible possibility
+
+00:26:23.130 --> 00:26:26.760
+not just on the side of, like, creating a,
+
+00:26:26.770 --> 00:26:31.520
+like, decentralized approach to our social media data but also a
+
+00:26:31.520 --> 00:26:36.560
+decentralized approach that in a similar way is incredibly empowering to,
+
+00:26:36.570 --> 00:26:40.760
+like, groups that are producing artificial intelligence and that I think
+
+00:26:40.770 --> 00:26:44.980
+this has outsized potential to really transform the future of the
+
+00:26:44.980 --> 00:26:45.980
+way that that industry looks.
+
+00:26:45.990 --> 00:26:53.620
+So, I think, like, I believe fully in the
+
+00:26:53.800 --> 00:26:57.620
+promise of what is provided by the protocol work that's here
+
+00:26:57.620 --> 00:27:00.720
+and believe in, like, protocols, not labs, for
+
+00:27:00.720 --> 00:27:02.800
+, like, the future of AI development.
+
+00:27:02.810 --> 00:27:07.750
+So, that wraps up everything that I have about AppD
+
+00:27:07.760 --> 00:27:10.020
+ata and what we're working on distributed AI forecast.
+
+00:27:10.030 --> 00:27:12.740
+And also, we're higher end, so if you like
+
+00:27:12.740 --> 00:27:14.260
+solving problems, let me know.
+
+00:27:14.270 --> 00:27:16.520
+Thank you so much, Maxine.
+
+00:27:16.530 --> 00:27:18.480
+Can we get a round of applause for Maxine?
+
+00:27:19.800 --> 00:27:24.750
+Thank you so much.
+
+00:27:24.770 --> 00:27:27.000
+I've got two mics on right now, one for the
+
+00:27:27.000 --> 00:27:27.900
+stream, one for Maxine.
+
+00:27:27.910 --> 00:27:28.880
+Maxine, can you hear me all right?
+
+00:27:28.890 --> 00:27:30.180
+Yeah, perfectly.
+
+00:27:30.190 --> 00:27:30.800
+Okay, fantastic.
+
+00:27:30.810 --> 00:27:32.940
+We've got about five minutes for questions, and I'm
+
+00:27:32.940 --> 00:27:34.520
+going to take the prerogative as the moderator to
+
+00:27:34.520 --> 00:27:36.600
+first say, Maxine, you should check out what Nick
+
+00:27:36.610 --> 00:27:39.250
+Gerakinis is working on right now, along with Bl
+
+00:27:39.250 --> 00:27:43.540
+aine Cook, because Nick has actually just implemented lensing into
+
+00:27:43.540 --> 00:27:48.000
+Lexicon Garden, so you can lens between literally any arbitrary
+
+00:27:48.000 --> 00:27:51.170
+lexicon, so you guys can just skip right to
+
+00:27:51.170 --> 00:27:52.280
+the next step if you'd like.
+
+00:27:52.290 --> 00:27:54.800
+Blaine Cook also, they talked about this yesterday in an
+
+00:27:54.800 --> 00:27:59.200
+unconference session around this, and Blaine and Aaron,
+
+00:27:59.210 --> 00:28:03.950
+Stephen White have a much crazier arbitrary data lensing system
+
+00:28:03.950 --> 00:28:06.110
+that they're also building, so I'll show you things
+
+00:28:06.110 --> 00:28:06.140
+about that.
+
+00:28:06.150 --> 00:28:06.800
+Oh, I'm so excited.
+
+00:28:06.810 --> 00:28:09.160
+We talked about that last year.
+
+00:28:09.170 --> 00:28:10.480
+That's so cool that that's happening.
+
+00:28:10.490 --> 00:28:11.220
+Amazing.
+
+00:28:11.230 --> 00:28:13.000
+Yeah, so it's very cool.
+
+00:28:13.010 --> 00:28:15.160
+So, yes, any other questions that folks have?
+
+00:28:16.480 --> 00:28:20.780
+Everybody's minds are blown.
+
+00:28:20.790 --> 00:28:22.180
+Okay.
+
+00:28:22.310 --> 00:28:24.880
+Yeah, come on over.
+
+00:28:27.410 --> 00:28:32.740
+I'm interested to hear how you've progressed as far as
+
+00:28:32.750 --> 00:28:36.370
+documentation for how the public could get involved with the things you
+
+00:28:36.370 --> 00:28:36.900
+'re working on.
+
+00:28:38.190 --> 00:28:40.310
+Oh, yeah.
+
+00:28:40.330 --> 00:28:43.670
+I mean, we have so many things.
+
+00:28:43.690 --> 00:28:44.940
+We're a very early-stage startup.
+
+00:28:44.950 --> 00:28:47.420
+We're sort of running around, and there's a fair
+
+00:28:47.420 --> 00:28:50.380
+few of us to do a ton of tasks, so I
+
+00:28:50.380 --> 00:28:53.990
+think that I'm very, very excited about the stuff that
+
+00:28:53.990 --> 00:28:56.390
+has happened with Claude over the last few months as far
+
+00:28:56.410 --> 00:28:59.380
+as providing ways to get documentation out there for things.
+
+00:28:59.390 --> 00:29:03.660
+So, definitely right now, actually, I've been doing
+
+00:29:03.660 --> 00:29:05.540
+a lot of build out on our AI tooling, which is
+
+00:29:05.540 --> 00:29:07.960
+called Crosslink, which some people might have seen in the
+
+00:29:07.970 --> 00:29:08.300
+community.
+
+00:29:08.310 --> 00:29:10.800
+And so, that's been a little bit of the focus
+
+00:29:10.810 --> 00:29:13.560
+there, but definitely I'm trying to move back over to
+
+00:29:13.570 --> 00:29:17.620
+build out some of the documentation on how to get started with
+
+00:29:17.630 --> 00:29:18.460
+at data.
+
+00:29:18.470 --> 00:29:22.760
+And particularly for people who are using AI agents for doing coding
+
+00:29:22.760 --> 00:29:26.320
+, one of the cool things that we've tried to do
+
+00:29:26.320 --> 00:29:29.620
+in Crosslink is actually make it so there's a knowledge
+
+00:29:29.770 --> 00:29:35.570
+repository per Git repository specifically for coding agents that it can pull
+
+00:29:35.570 --> 00:29:37.160
+up repo to repo.
+
+00:29:37.170 --> 00:29:39.950
+So, it's something to check out for that of our
+
+00:29:39.950 --> 00:29:43.120
+Crosslink knowledge tool, but my hope is that I can
+
+00:29:43.120 --> 00:29:46.370
+build out some of the knowledge that's specific to at data
+
+00:29:46.370 --> 00:29:52.140
+in itself in its own separate orphan branch on Git, and
+
+00:29:52.140 --> 00:29:55.050
+then that your agent can pull from that in order to know
+
+00:29:55.050 --> 00:29:56.860
+how to do all the things basically.
+
+00:29:56.870 --> 00:29:59.980
+But, no, it's a very good point that the
+
+00:29:59.980 --> 00:30:00.940
+docs are extremely important.
+
+00:30:00.950 --> 00:30:02.560
+Cool.
+
+00:30:02.570 --> 00:30:04.060
+Any other questions?
+
+00:30:05.370 --> 00:30:07.750
+Okay.
+
+00:30:07.870 --> 00:30:09.600
+Well, then we'll just say thank you again, Max
+
+00:30:09.600 --> 00:30:09.860
+ine.
+
+00:30:09.870 --> 00:30:12.060
+Really appreciate you being here remotely with us.
+
+00:30:12.070 --> 00:30:13.320
+Amazing.
+
+00:30:13.330 --> 00:30:14.600
+Thank you so much for having me.
+
+00:30:14.610 --> 00:30:16.180
+We have a fantastic conference.
+
+00:30:16.190 --> 00:30:16.360
+Thank you.
+
+00:30:16.360 --> 00:30:16.360
+Thank you.
+
+00:30:16.360 --> 00:30:16.360
+Thank you.

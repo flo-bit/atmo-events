@@ -1,0 +1,589 @@
+WEBVTT
+
+00:00:00.030 --> 00:00:02.180
+Spoilers.
+
+00:00:02.180 --> 00:00:02.870
+All right.
+
+00:00:02.870 --> 00:00:03.900
+Hello, everybody.
+
+00:00:03.900 --> 00:00:07.210
+Let's talk some design affordances, all right?
+
+00:00:07.260 --> 00:00:09.550
+If you haven't met me, I'm Tynan
+
+00:00:09.650 --> 00:00:09.810
+.
+
+00:00:09.810 --> 00:00:13.730
+I am a founding contributor at Ecosystem Action.
+
+00:00:13.750 --> 00:00:16.550
+I also run AppRoto Boston, and if you've
+
+00:00:16.550 --> 00:00:20.340
+seen the lobster or heard me talk about my lobster children,
+
+00:00:20.340 --> 00:00:21.140
+that is them.
+
+00:00:21.140 --> 00:00:23.590
+They are a bunch of high schoolers who I mentor to
+
+00:00:23.590 --> 00:00:29.170
+build robots, and they're competing this weekend, so I
+
+00:00:29.210 --> 00:00:31.500
+had to represent.
+
+00:00:31.500 --> 00:00:31.600
+Yeah.
+
+00:00:31.600 --> 00:00:33.940
+I came into design through Georgia Tech's industrial design program.
+
+00:00:33.940 --> 00:00:36.060
+That's sort of how I got involved in this space and
+
+00:00:36.060 --> 00:00:38.320
+research, and I want to bring some more of that here
+
+00:00:38.380 --> 00:00:39.360
+to the atmosphere.
+
+00:00:39.360 --> 00:00:43.410
+So affordances, big weird word that maybe we don't
+
+00:00:43.410 --> 00:00:47.220
+talk much about outside of design, but basically what it means
+
+00:00:47.220 --> 00:00:50.850
+is the possible actions that an actor or person can perceive readily
+
+00:00:50.850 --> 00:00:52.250
+within the environment.
+
+00:00:53.700 --> 00:00:57.210
+So, for instance, stairs afford sitting, climbing to an
+
+00:00:57.210 --> 00:01:00.840
+able-bodied person, but to a wheelchair user,
+
+00:01:00.860 --> 00:01:02.260
+they do not afford climbing.
+
+00:01:02.260 --> 00:01:07.550
+That's because an affordance represents specifically a relationship between the
+
+00:01:07.550 --> 00:01:09.160
+individual and the environment.
+
+00:01:09.160 --> 00:01:12.400
+You don't just have a capability, but in a relationship
+
+00:01:12.440 --> 00:01:14.960
+with the person in that space, you have an affordance
+
+00:01:14.960 --> 00:01:15.180
+.
+
+00:01:15.180 --> 00:01:20.340
+So a capability without a signifier or without being self-
+
+00:01:20.340 --> 00:01:24.160
+evident of the environment itself is not actionable by the user
+
+00:01:24.160 --> 00:01:27.490
+and therefore not a real affordance that results in actions to
+
+00:01:27.490 --> 00:01:28.680
+be able to be taken.
+
+00:01:28.890 --> 00:01:33.310
+Now, we in AppProto are familiar with lots of
+
+00:01:33.490 --> 00:01:36.660
+really great capabilities that we have in the atmosphere.
+
+00:01:36.680 --> 00:01:38.600
+You've got decoupling of data and apps.
+
+00:01:38.600 --> 00:01:41.640
+You can reuse that data across lots of different places.
+
+00:01:41.660 --> 00:01:45.020
+You sort of have this headless website that anyone can build
+
+00:01:45.020 --> 00:01:46.300
+an interface for.
+
+00:01:46.350 --> 00:01:49.300
+There's no real first-party claim to data.
+
+00:01:49.320 --> 00:01:52.830
+You can delete stuff, maybe, because you're also really
+
+00:01:52.830 --> 00:01:55.880
+publishing to the web, but we as users now have a
+
+00:01:55.880 --> 00:01:58.800
+lot more agency than we used to have on centralized platforms,
+
+00:01:58.800 --> 00:02:01.290
+and we can exert market forces in a way that we couldn
+
+00:02:01.290 --> 00:02:04.100
+'t before, and we can move around without losing anything in
+
+00:02:04.190 --> 00:02:04.920
+the process.
+
+00:02:04.950 --> 00:02:10.020
+These are really cool capabilities, but if you don't manifest
+
+00:02:10.020 --> 00:02:13.840
+those into perceivable actions, there are not affordances.
+
+00:02:13.840 --> 00:02:17.220
+The user, the person, cannot do those things.
+
+00:02:17.240 --> 00:02:21.620
+The agency that we're trying to provide won't be executed
+
+00:02:21.660 --> 00:02:24.450
+, so we need to make those executable.
+
+00:02:24.700 --> 00:02:30.530
+We can elevate capabilities into affordances, and help people establish
+
+00:02:30.530 --> 00:02:35.210
+new mental models around all these affordances by doing good product
+
+00:02:35.220 --> 00:02:36.040
+design.
+
+00:02:36.060 --> 00:02:39.100
+So let's see some examples, because people are doing a
+
+00:02:39.120 --> 00:02:41.240
+great job here in the atmosphere.
+
+00:02:41.250 --> 00:02:43.310
+I, as an AppProto user, can use my
+
+00:02:43.310 --> 00:02:46.780
+account in lots of different places, not just blue skies.
+
+00:02:46.800 --> 00:02:49.180
+So this is the login screen for Pocket.
+
+00:02:49.180 --> 00:02:52.840
+We've got a couple signifiers, like the little butterfly
+
+00:02:52.840 --> 00:02:57.430
+, and user handle to indicate that my blue sky identity is
+
+00:02:57.470 --> 00:02:59.520
+usable in this place.
+
+00:02:59.550 --> 00:03:03.070
+Shout out to Amelia and FedCM for working on making
+
+00:03:03.070 --> 00:03:06.750
+this user experience even better in the future.
+
+00:03:06.970 --> 00:03:09.640
+I can use my AppProto account for all different kinds
+
+00:03:09.640 --> 00:03:12.470
+of activity, not just skeeting.
+
+00:03:12.500 --> 00:03:15.450
+So this is SkyReader, which is an atmospheric R
+
+00:03:15.450 --> 00:03:19.260
+SS reader, and they added the ability to save articles to
+
+00:03:19.260 --> 00:03:21.670
+Semble, or Margin, which is a bookmark
+
+00:03:21.670 --> 00:03:23.800
+ing service on the atmosphere.
+
+00:03:23.820 --> 00:03:26.480
+And what's cool about that, we all know that the
+
+00:03:26.480 --> 00:03:30.680
+permissionless open access of the network means that you can kind
+
+00:03:30.680 --> 00:03:31.800
+of just build stuff.
+
+00:03:31.820 --> 00:03:34.440
+So Ronan here, the CEO of Semble and Cos
+
+00:03:34.440 --> 00:03:37.180
+mic Network, had no idea they were building this and required
+
+00:03:37.180 --> 00:03:37.800
+no intervention.
+
+00:03:37.820 --> 00:03:40.140
+So he found out alongside the rest of us, and is
+
+00:03:40.200 --> 00:03:41.800
+like, "Cool, I'm excited to try it."
+
+00:03:41.820 --> 00:03:47.480
+I can interact with people on different services.
+
+00:03:47.500 --> 00:03:50.000
+So this is a clip from the Witch Sky Client,
+
+00:03:50.010 --> 00:03:52.480
+which is a blue sky client fork of Social App.
+
+00:03:52.500 --> 00:03:56.460
+They add these helpful little badges next to people's names of
+
+00:03:56.460 --> 00:03:58.480
+what PDS service they're using.
+
+00:03:58.500 --> 00:03:59.660
+So I can see Dr.
+
+00:03:59.670 --> 00:04:02.050
+K's post, and I can see also that she is
+
+00:04:02.130 --> 00:04:03.480
+on the Black Sky PDS.
+
+00:04:03.500 --> 00:04:06.300
+And even though we're on different services, we can still
+
+00:04:06.300 --> 00:04:11.900
+engage and follow and interact with each other totally normally.
+
+00:04:12.080 --> 00:04:14.480
+I can even interact with people across different protocols.
+
+00:04:14.500 --> 00:04:17.060
+We just heard from Anuj all the great things Bridgie
+
+00:04:17.060 --> 00:04:17.720
+is doing.
+
+00:04:17.740 --> 00:04:21.170
+So I can see everything on his Macedon account get brid
+
+00:04:21.170 --> 00:04:26.480
+ged all the way across and interact in a perfectly native way
+
+00:04:26.570 --> 00:04:27.040
+.
+
+00:04:27.050 --> 00:04:30.130
+I can engage with the same activity in different places.
+
+00:04:30.260 --> 00:04:33.810
+You might have been assembling your conference schedule today using SmokeS
+
+00:04:33.870 --> 00:04:35.460
+ignal or Atmo.
+
+00:04:35.530 --> 00:04:38.160
+rsvp or on the official conference website.
+
+00:04:38.180 --> 00:04:41.500
+All of that is pulling from the same activity, the same
+
+00:04:41.500 --> 00:04:43.920
+data on the atmosphere, and that's why we're able
+
+00:04:43.920 --> 00:04:48.520
+to get multiple different experiences that might work better for different people
+
+00:04:48.520 --> 00:04:49.320
+.
+
+00:04:49.330 --> 00:04:52.560
+I can even move my account without losing anything in the process
+
+00:04:52.560 --> 00:04:52.800
+.
+
+00:04:52.820 --> 00:04:55.680
+So we've had a lot of successful migrations to Euros
+
+00:04:55.680 --> 00:04:57.560
+ky, which is very exciting.
+
+00:04:57.580 --> 00:05:01.140
+The EU haul tool is really usable, and we have totally
+
+00:05:01.210 --> 00:05:06.440
+normal users happy and satisfied with their moving process, and again
+
+00:05:06.440 --> 00:05:10.480
+, you can interact with them all just the same.
+
+00:05:10.500 --> 00:05:14.470
+This one I like a lot too, because obviously some projects
+
+00:05:14.470 --> 00:05:15.160
+end.
+
+00:05:15.180 --> 00:05:17.600
+Every product doesn't last forever.
+
+00:05:17.620 --> 00:05:21.170
+Some people might remember the original Skylight, not Tori
+
+00:05:21.250 --> 00:05:22.520
+, but Skylights.
+
+00:05:22.540 --> 00:05:25.520
+Which was a film reviewing app on the atmosphere, which the
+
+00:05:25.520 --> 00:05:28.540
+maintainer decided was, you know, they were not done
+
+00:05:28.540 --> 00:05:31.380
+, or they were done with that project, which is okay
+
+00:05:31.400 --> 00:05:31.580
+.
+
+00:05:31.720 --> 00:05:35.480
+They could build a tool to allow people to migrate their data
+
+00:05:35.480 --> 00:05:37.800
+out of Skylights and into PopFeed, which is
+
+00:05:37.800 --> 00:05:41.080
+another film reviewing app on the atmosphere, and so all that
+
+00:05:41.080 --> 00:05:43.740
+data gets to live on.
+
+00:05:43.760 --> 00:05:45.540
+Skylights is able to go to rest, but all the
+
+00:05:45.540 --> 00:05:49.310
+people and the users and their reviews and data get to continue
+
+00:05:49.360 --> 00:05:52.500
+to be useful in the atmosphere.
+
+00:05:52.520 --> 00:05:53.960
+This is a weird one.
+
+00:05:53.980 --> 00:05:57.050
+My social activity doesn't necessarily need an app.
+
+00:05:57.120 --> 00:05:59.100
+So, some of you might be familiar with Teal,
+
+00:05:59.100 --> 00:06:03.260
+but if you're not, it is an atmospheric alternative to
+
+00:06:03.260 --> 00:06:06.190
+LastFM, which is a music scrabbling service
+
+00:06:06.310 --> 00:06:11.340
+where you can log your listening activity across Spotify, Apple Music
+
+00:06:11.340 --> 00:06:14.550
+, Tidal, you know, whatever you use so that
+
+00:06:14.660 --> 00:06:19.640
+we can have social music discovery features outside of an individual streaming
+
+00:06:19.640 --> 00:06:20.320
+service.
+
+00:06:20.380 --> 00:06:23.160
+Teal is like that for the atmosphere, so you can
+
+00:06:23.160 --> 00:06:25.580
+scrabble all of your listens to your PDS,
+
+00:06:25.710 --> 00:06:29.290
+and then we get all the atmospheric advantages where people can build
+
+00:06:29.290 --> 00:06:34.030
+visualizations and wraps and all those things, but Teal
+
+00:06:34.110 --> 00:06:35.490
+doesn't exist.
+
+00:06:35.520 --> 00:06:36.800
+It's not a product.
+
+00:06:36.850 --> 00:06:38.840
+This is the website.
+
+00:06:38.860 --> 00:06:42.400
+It just says coming soon eventually.
+
+00:06:42.420 --> 00:06:44.450
+Bailey and Zeyu and all of them are busy with
+
+00:06:44.450 --> 00:06:47.280
+other things, so keep working on it, but maybe we
+
+00:06:47.290 --> 00:06:50.190
+'ll get Teal eventually, but not yet, but it
+
+00:06:50.190 --> 00:06:51.640
+'s the atmosphere.
+
+00:06:51.660 --> 00:06:52.740
+You can just do things.
+
+00:06:52.770 --> 00:06:53.800
+Somebody made Teal.
+
+00:06:53.830 --> 00:06:54.800
+There it is.
+
+00:06:54.820 --> 00:06:55.800
+It's not at Teal.
+
+00:06:55.800 --> 00:06:58.380
+fm, but this is a full Teal experience where
+
+00:06:58.460 --> 00:07:02.460
+you can see genres and activity and trending and I can see
+
+00:07:02.610 --> 00:07:05.530
+what people are listening to.
+
+00:07:05.580 --> 00:07:09.580
+So we've really barely started to manifest all the possible afford
+
+00:07:09.770 --> 00:07:13.860
+ances with these great capabilities that we have.
+
+00:07:13.880 --> 00:07:18.260
+How might we, as a community, overcome the hurdles preventing
+
+00:07:18.470 --> 00:07:22.500
+the mass adoption and, importantly, the execution of agency made
+
+00:07:22.540 --> 00:07:25.740
+possible by liberatory network technology?
+
+00:07:25.840 --> 00:07:31.930
+I think we need more designers, more researchers, ethnographers
+
+00:07:31.930 --> 00:07:35.820
+, system thinkers, humanities experts to help make all these afford
+
+00:07:35.820 --> 00:07:39.940
+ances legible, to help people establish new mental models around
+
+00:07:39.960 --> 00:07:44.800
+all these affordances, and really to make the agency afford
+
+00:07:44.860 --> 00:07:49.010
+ed by all this decentralized technology accessible to people so they can
+
+00:07:49.010 --> 00:07:50.240
+exercise that agency.
+
+00:07:50.270 --> 00:07:51.240
+Whoo!
+
+00:07:51.270 --> 00:07:52.240
+Whoo!
+
+00:07:52.270 --> 00:07:53.240
+Whoo!
+
+00:07:53.270 --> 00:07:54.240
+Whoo!
+
+00:07:54.270 --> 00:07:55.240
+Whoo!
+
+00:07:55.270 --> 00:08:00.240
+So that's what we're doing.
+
+00:08:00.240 --> 00:08:02.550
+Ecosystem Action Research, you might have heard of us
+
+00:08:02.550 --> 00:08:05.110
+in the last month or so, is a little band of
+
+00:08:05.110 --> 00:08:08.620
+volunteers, I think we're at 13 now, of those
+
+00:08:08.800 --> 00:08:12.510
+types of people, we're going to try to bring more
+
+00:08:12.510 --> 00:08:17.250
+research and design activity to this space and facilitate these discovery processes
+
+00:08:17.290 --> 00:08:20.840
+alongside the community with the community to answer some of these big
+
+00:08:20.890 --> 00:08:23.950
+ecosystem-wide questions.
+
+00:08:23.990 --> 00:08:29.110
+What we envision in the long term is that the atmosphere network
+
+00:08:29.110 --> 00:08:35.790
+ecosystem contributors and participants are empowered to exercise the agency afforded
+
+00:08:35.840 --> 00:08:39.330
+by a public interest internet, and that includes all sorts of
+
+00:08:39.330 --> 00:08:43.440
+people like moderators and knowledge workers and organizers and artists,
+
+00:08:43.440 --> 00:08:48.530
+journalists, builders like you, and just everyday end-us
+
+00:08:48.650 --> 00:08:49.180
+ers.
+
+00:08:49.200 --> 00:08:52.270
+So our mission at EAR is to equip and support the
+
+00:08:52.390 --> 00:08:56.810
+people and organizations who build with and on top of the app
+
+00:08:56.810 --> 00:09:02.160
+network technology to empower people who create on and organize with and
+
+00:09:02.160 --> 00:09:05.800
+steward trust and safety for internet communities.
+
+00:09:05.820 --> 00:09:10.610
+I want to thank Dan for encouraging me to make this talk
+
+00:09:10.720 --> 00:09:13.700
+, and Christian, you might know help to sort of get
+
+00:09:13.710 --> 00:09:17.450
+started all of the EAR activities, and I have a
+
+00:09:17.450 --> 00:09:22.770
+list of all the resources and concepts and examples in a symbol
+
+00:09:22.770 --> 00:09:25.140
+list right here for all of you.
+
+00:09:25.170 --> 00:09:26.140
+Thanks.
+
+00:09:26.170 --> 00:09:29.720
+Thank you very much, let's all give a round of
+
+00:09:29.770 --> 00:09:33.370
+applause for Simon.

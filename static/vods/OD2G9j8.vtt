@@ -1,0 +1,2290 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.960
+Thank you.
+
+00:00:01.960 --> 00:00:02.440
+Thank you.
+
+00:00:02.440 --> 00:00:02.760
+Hello.
+
+00:00:02.760 --> 00:00:08.220
+This will be at protocol related, just so you know.
+
+00:00:08.220 --> 00:00:11.270
+The description does not make it sound that way, but I
+
+00:00:11.270 --> 00:00:12.210
+promise it will.
+
+00:00:12.220 --> 00:00:14.460
+For one thing, there's a leaflet link.
+
+00:00:14.460 --> 00:00:18.320
+As Boris said, I have been writing about this for a
+
+00:00:18.320 --> 00:00:19.120
+while.
+
+00:00:19.120 --> 00:00:23.030
+I've also been thinking about this topic and speaking and writing
+
+00:00:23.030 --> 00:00:27.750
+and practicing things around this for almost 20 years.
+
+00:00:27.760 --> 00:00:32.570
+That sounds probably pretty crazy because we haven't had generative
+
+00:00:32.640 --> 00:00:35.050
+software that long, but I'm going to talk to you
+
+00:00:35.140 --> 00:00:37.310
+about architectural patterns today.
+
+00:00:37.320 --> 00:00:41.240
+I want to set it up and tell you about what I
+
+00:00:41.360 --> 00:00:42.960
+was thinking.
+
+00:00:43.440 --> 00:00:45.960
+Probably a lot of us started thinking about Vibe Coding
+
+00:00:45.960 --> 00:00:48.720
+, before it was called Vibe Coding, three more
+
+00:00:48.720 --> 00:00:49.430
+years ago.
+
+00:00:49.500 --> 00:00:52.760
+The first thought I thought, you know, back in 2023
+
+00:00:52.760 --> 00:00:56.980
+was like, you know, someday people will actually like allow
+
+00:00:56.980 --> 00:00:59.290
+agents to write code and they won't even review the code
+
+00:00:59.290 --> 00:00:59.440
+.
+
+00:00:59.440 --> 00:01:00.670
+That sounded crazy, you know.
+
+00:01:00.680 --> 00:01:02.840
+And then it's like, oh, next year, okay
+
+00:01:02.840 --> 00:01:05.080
+, a lot of people are going to do this.
+
+00:01:05.080 --> 00:01:07.020
+And now I'm thinking, of course, everyone's going
+
+00:01:07.020 --> 00:01:07.500
+to do it.
+
+00:01:07.500 --> 00:01:08.960
+Why is everyone going to do it?
+
+00:01:08.970 --> 00:01:10.380
+Because people are lazy.
+
+00:01:11.020 --> 00:01:12.160
+Right?
+
+00:01:12.160 --> 00:01:12.990
+They are.
+
+00:01:12.990 --> 00:01:14.150
+They are lazy.
+
+00:01:14.150 --> 00:01:15.760
+Agents are not lazy.
+
+00:01:15.790 --> 00:01:18.400
+And all of us with the best intentions, when we are
+
+00:01:18.500 --> 00:01:21.200
+stressed, we will do the easiest possible thing.
+
+00:01:21.200 --> 00:01:25.350
+So I started thinking about if we know they're going to
+
+00:01:25.360 --> 00:01:27.400
+do it, how can we make it okay?
+
+00:01:27.400 --> 00:01:29.140
+And I should say it this way so it doesn't sound
+
+00:01:29.250 --> 00:01:30.380
+like I'm judging anyone.
+
+00:01:30.380 --> 00:01:32.140
+If I know I'm going to do it, how can
+
+00:01:32.140 --> 00:01:32.930
+we make it okay?
+
+00:01:32.940 --> 00:01:35.390
+And not just for trivial Vibe Coded one shot apps
+
+00:01:35.390 --> 00:01:35.570
+.
+
+00:01:35.740 --> 00:01:36.520
+That's a demo.
+
+00:01:36.520 --> 00:01:37.400
+That's a magic trick.
+
+00:01:37.430 --> 00:01:38.860
+That doesn't matter in real life.
+
+00:01:38.860 --> 00:01:41.790
+It's fun, but it doesn't matter.
+
+00:01:41.860 --> 00:01:44.820
+So the thing that occurred to me is, and I was
+
+00:01:44.820 --> 00:01:48.520
+talking to a bunch of nerd friends, you know, old
+
+00:01:48.560 --> 00:01:52.250
+people like me, about if I'm looking at something like
+
+00:01:52.250 --> 00:01:54.640
+a pure function written in Haskell.
+
+00:01:54.640 --> 00:01:55.920
+This isn't Haskell because I didn't want you to
+
+00:01:55.920 --> 00:01:57.950
+have to try to read that.
+
+00:01:57.960 --> 00:01:59.720
+Pure function written in Haskell.
+
+00:01:59.720 --> 00:02:01.840
+So no side effects, great type system.
+
+00:02:01.840 --> 00:02:04.430
+The language can ensure there are no side effects.
+
+00:02:04.480 --> 00:02:06.880
+You know what the input and the output types are.
+
+00:02:06.880 --> 00:02:08.640
+The names are great, et cetera.
+
+00:02:08.650 --> 00:02:12.840
+I pretty much thought even three years ago, I can tell
+
+00:02:13.120 --> 00:02:15.040
+ChatGPT in the little ChatGPT program
+
+00:02:15.040 --> 00:02:15.820
+to create that.
+
+00:02:15.820 --> 00:02:17.990
+I can just copy and paste it in, probably trust it
+
+00:02:18.060 --> 00:02:19.490
+, never have to verify it.
+
+00:02:19.500 --> 00:02:23.650
+We've all sort of had that intuition that small focused things
+
+00:02:23.730 --> 00:02:26.200
+are probably okay, and it's probably going to do a
+
+00:02:26.240 --> 00:02:27.190
+good job, right?
+
+00:02:27.200 --> 00:02:29.810
+And so I started thinking about this like, well, what
+
+00:02:29.890 --> 00:02:32.430
+'s the difference between that and a whole system?
+
+00:02:32.430 --> 00:02:35.370
+And really the whole system, it's about shapes.
+
+00:02:35.370 --> 00:02:38.230
+So I just described a bunch of things that were about shapes
+
+00:02:38.240 --> 00:02:40.650
+, it was about size, it was about like the boundaries
+
+00:02:40.810 --> 00:02:42.760
+of the function, the type system, the names, all
+
+00:02:42.760 --> 00:02:43.520
+these things.
+
+00:02:43.520 --> 00:02:47.360
+It's easy to replace something that is that small.
+
+00:02:47.430 --> 00:02:49.920
+It's also easy to generate something correct that small.
+
+00:02:49.920 --> 00:02:52.680
+So this led me on a whole adventure, but I'm
+
+00:02:52.680 --> 00:02:55.430
+going to go back in time a little bit to 2014.
+
+00:02:55.500 --> 00:02:57.940
+Did any of you live through Heartbleed?
+
+00:02:57.940 --> 00:02:59.060
+Yeah.
+
+00:02:59.060 --> 00:03:02.910
+So if you were working at a company that had any production
+
+00:03:02.910 --> 00:03:05.800
+systems when Heartbleed happened, I was at Wunder
+
+00:03:05.800 --> 00:03:07.760
+list in Berlin at the time I was CTO.
+
+00:03:07.770 --> 00:03:11.370
+I woke up one morning and my colleague, James Duncan Davidson
+
+00:03:11.370 --> 00:03:14.180
+, who was the creator of Tomcat and Ant, another
+
+00:03:14.180 --> 00:03:16.960
+old school guy, had sent me a message saying, we
+
+00:03:16.960 --> 00:03:19.020
+have to turn off the entire service.
+
+00:03:19.030 --> 00:03:20.630
+That's how I woke up that morning.
+
+00:03:20.630 --> 00:03:22.360
+I was like, oh my God, what did we do
+
+00:03:22.360 --> 00:03:22.660
+wrong?
+
+00:03:22.660 --> 00:03:24.960
+We didn't do anything wrong.
+
+00:03:24.970 --> 00:03:27.690
+So Heartbleed was a bug in OpenSSL that
+
+00:03:27.690 --> 00:03:32.400
+it was just a mistake that allowed leakage of private data just
+
+00:03:32.520 --> 00:03:36.310
+to anyone on the internet that could access the service.
+
+00:03:36.310 --> 00:03:37.900
+And it was a disaster.
+
+00:03:37.920 --> 00:03:39.180
+It was such a disaster.
+
+00:03:39.180 --> 00:03:42.190
+So we had a microservices architecture and we've been doing
+
+00:03:42.190 --> 00:03:45.720
+something called immutable infrastructure long before that was a thing that
+
+00:03:45.730 --> 00:03:46.410
+everyone did.
+
+00:03:46.420 --> 00:03:49.650
+It was before Docker was like in major circulation and usage.
+
+00:03:49.740 --> 00:03:51.260
+It was still pretty early.
+
+00:03:51.260 --> 00:03:55.310
+And so we had hundreds of services, which means we had
+
+00:03:55.730 --> 00:03:59.060
+hundreds of computers that had a bad version of OpenSSL
+
+00:03:59.060 --> 00:04:03.110
+that were running in production with millions of active users.
+
+00:04:03.110 --> 00:04:04.170
+So what did we do?
+
+00:04:04.170 --> 00:04:06.360
+I mean, that's a panic situation.
+
+00:04:06.360 --> 00:04:09.150
+I remember looking at the Amazon, AWS dashboard at all the
+
+00:04:09.150 --> 00:04:11.470
+things and just thinking, what are we going to do?
+
+00:04:11.480 --> 00:04:12.790
+We were waiting for Amazon.
+
+00:04:12.790 --> 00:04:14.050
+They were not responding.
+
+00:04:14.050 --> 00:04:16.510
+They were very busy, as you might guess, that day
+
+00:04:16.560 --> 00:04:16.780
+.
+
+00:04:16.780 --> 00:04:19.420
+And so we said, well, as soon as we have
+
+00:04:19.420 --> 00:04:21.740
+a good OpenSSL image, we're just going to
+
+00:04:21.740 --> 00:04:26.570
+replace literally every server, hundreds of servers, 300-ish
+
+00:04:26.570 --> 00:04:28.320
+instances at the time.
+
+00:04:28.320 --> 00:04:29.980
+How did we do it?
+
+00:04:29.980 --> 00:04:31.400
+I went to a computer.
+
+00:04:31.400 --> 00:04:32.360
+I was afraid.
+
+00:04:32.360 --> 00:04:33.630
+I typed a command.
+
+00:04:33.630 --> 00:04:36.450
+And over the course of a couple of hours, they all
+
+00:04:36.450 --> 00:04:37.100
+got replaced.
+
+00:04:37.100 --> 00:04:38.250
+Nothing ever went down.
+
+00:04:38.250 --> 00:04:39.200
+And it just worked.
+
+00:04:39.200 --> 00:04:40.520
+Why?
+
+00:04:40.520 --> 00:04:45.960
+Because the system was built to be a massive system of small
+
+00:04:45.960 --> 00:04:47.600
+components.
+
+00:04:47.600 --> 00:04:51.920
+And it was always built with the idea that these components would
+
+00:04:51.920 --> 00:04:52.680
+be destroyed.
+
+00:04:52.720 --> 00:04:55.140
+That's the idea behind immutable infrastructure.
+
+00:04:55.140 --> 00:04:56.650
+You never change a server.
+
+00:04:56.650 --> 00:04:57.600
+You only modify it.
+
+00:04:57.650 --> 00:04:59.860
+Or the only way you modify a server is by replacing it
+
+00:04:59.860 --> 00:04:59.990
+.
+
+00:05:00.040 --> 00:05:02.180
+So if you need to upgrade something, you throw away the
+
+00:05:02.180 --> 00:05:03.930
+old thing, you replace it with a new thing.
+
+00:05:04.000 --> 00:05:06.130
+Kind of old hat infrastructure now.
+
+00:05:06.130 --> 00:05:07.550
+If you're a DevOps-y kind of person, that
+
+00:05:07.630 --> 00:05:08.720
+'s how you do it, probably.
+
+00:05:08.720 --> 00:05:10.430
+If not, apologies to you.
+
+00:05:10.430 --> 00:05:11.540
+You should get a new job.
+
+00:05:11.540 --> 00:05:13.690
+So it took us a day.
+
+00:05:13.690 --> 00:05:17.220
+It took most teams weeks or a week.
+
+00:05:17.220 --> 00:05:20.440
+There are still 250,000-ish servers on the internet
+
+00:05:20.440 --> 00:05:24.090
+that are suffering from this problem, which means 250,000
+
+00:05:24.090 --> 00:05:27.340
+compromised servers that you can get private data out of for whatever
+
+00:05:27.410 --> 00:05:27.800
+reason.
+
+00:05:28.840 --> 00:05:30.610
+But this problem is sort of solved, right?
+
+00:05:30.620 --> 00:05:32.110
+This is more than 10 years ago.
+
+00:05:32.120 --> 00:05:34.140
+Here's an imaginary scenario.
+
+00:05:34.180 --> 00:05:38.220
+Later on this year, the Lazarus group in North Korea
+
+00:05:38.350 --> 00:05:43.140
+infects some packages in NPM, or whatever package manager
+
+00:05:43.140 --> 00:05:43.230
+.
+
+00:05:43.380 --> 00:05:47.120
+And the infection goes like a virus through the network, and
+
+00:05:47.120 --> 00:05:49.980
+it starts infecting all the other packages.
+
+00:05:49.980 --> 00:05:52.530
+And at the end of the day, you wake up to
+
+00:05:52.660 --> 00:05:57.060
+the news that the entire JavaScript ecosystem is compromised.
+
+00:05:57.060 --> 00:05:58.840
+What do you do?
+
+00:05:58.870 --> 00:06:02.040
+You can't delete all the servers and restart them because N
+
+00:06:02.040 --> 00:06:03.290
+PM itself is compromised.
+
+00:06:03.290 --> 00:06:04.640
+Everything is compromised.
+
+00:06:04.790 --> 00:06:07.030
+You can't trust anything in the ecosystem.
+
+00:06:07.030 --> 00:06:09.980
+You have to actually move to a new language and a new
+
+00:06:09.980 --> 00:06:10.810
+ecosystem.
+
+00:06:10.900 --> 00:06:13.460
+So let's do that in a day, yeah?
+
+00:06:13.490 --> 00:06:15.540
+On a complicated application.
+
+00:06:15.540 --> 00:06:17.040
+Probably not, right?
+
+00:06:17.040 --> 00:06:18.520
+But that's the idea.
+
+00:06:18.520 --> 00:06:22.040
+You would need to delete everything and regenerate it.
+
+00:06:22.070 --> 00:06:24.490
+It would be an absolute disaster.
+
+00:06:24.640 --> 00:06:29.210
+So this is the goal of the architecture that I'm putting
+
+00:06:29.210 --> 00:06:30.300
+forward here.
+
+00:06:30.300 --> 00:06:33.580
+And you probably can't read it because it's too small
+
+00:06:33.580 --> 00:06:33.690
+.
+
+00:06:33.740 --> 00:06:36.850
+These are command lines that say like Phoenix generate and regenerate
+
+00:06:36.850 --> 00:06:39.650
+, and the idea is just like replace all the implementations
+
+00:06:39.650 --> 00:06:41.030
+of everything that we have.
+
+00:06:41.050 --> 00:06:43.040
+Say like from NPM, we're going to go ahead
+
+00:06:43.040 --> 00:06:46.780
+and finally move to Rust like everybody else.
+
+00:06:46.780 --> 00:06:48.670
+So one last story.
+
+00:06:48.800 --> 00:06:52.380
+Early in my career, this is over 20 years ago,
+
+00:06:52.420 --> 00:06:55.390
+I was going, I was like moving up the career ladder
+
+00:06:55.390 --> 00:06:55.570
+.
+
+00:06:55.620 --> 00:06:57.140
+I was at a big public company.
+
+00:06:57.180 --> 00:06:59.600
+I was moving toward a CIO position in one of the
+
+00:06:59.600 --> 00:07:02.320
+sub, you know, the divisions of the company.
+
+00:07:02.380 --> 00:07:05.050
+And I was asked to do a new job.
+
+00:07:05.050 --> 00:07:08.600
+The new job was pretty surprising given my career path.
+
+00:07:08.710 --> 00:07:12.540
+It was to be the lone developer developer that took over another
+
+00:07:12.580 --> 00:07:15.490
+system from a guy who was trolling the company.
+
+00:07:15.530 --> 00:07:19.150
+So this guy had written this really complex system in C that
+
+00:07:19.220 --> 00:07:22.820
+was talking to the Moby Tech's radio frequency network.
+
+00:07:22.890 --> 00:07:26.420
+It was managing laptops in the field for service technicians.
+
+00:07:26.420 --> 00:07:29.440
+It was basically like a bespoke message queuing system.
+
+00:07:29.440 --> 00:07:30.940
+Like you'd do RabbitMQ today.
+
+00:07:30.940 --> 00:07:32.570
+He had built his own thing then.
+
+00:07:32.610 --> 00:07:35.460
+No one knew how this thing worked.
+
+00:07:35.460 --> 00:07:35.880
+Why?
+
+00:07:35.880 --> 00:07:39.420
+Because the only real artifact of the system was the code.
+
+00:07:39.600 --> 00:07:42.800
+It was a bunch of conversations that had happened in ugly conference
+
+00:07:42.800 --> 00:07:44.790
+rooms in this company over the years.
+
+00:07:44.790 --> 00:07:46.390
+It was all in production.
+
+00:07:46.390 --> 00:07:49.080
+This guy was the only person who knew how any of it
+
+00:07:49.080 --> 00:07:49.670
+worked.
+
+00:07:49.740 --> 00:07:51.400
+Really knew how it worked.
+
+00:07:51.400 --> 00:07:55.550
+But he was basically holding us hostage as a company.
+
+00:07:55.630 --> 00:07:59.420
+So I went from move towards CIO to go sit up
+
+00:07:59.420 --> 00:08:03.030
+all night in an office in the dark like doing s-
+
+00:08:03.030 --> 00:08:06.820
+trace on server processes trying to figure out what this thing
+
+00:08:06.960 --> 00:08:07.820
+does.
+
+00:08:07.880 --> 00:08:10.730
+So this can happen today and it could happen 20 years ago
+
+00:08:10.730 --> 00:08:10.820
+.
+
+00:08:10.930 --> 00:08:13.010
+You can be held hostage by your code base.
+
+00:08:13.010 --> 00:08:17.110
+So I learned something very early around that time in my career
+
+00:08:17.620 --> 00:08:19.980
+from a guy named Kent Beck who is the creator of extreme
+
+00:08:20.020 --> 00:08:21.820
+programming and a bunch of other stuff.
+
+00:08:21.820 --> 00:08:24.380
+And if you're my age in software development, he's
+
+00:08:24.380 --> 00:08:26.690
+probably one of your software development heroes.
+
+00:08:26.760 --> 00:08:29.820
+If something hurts, do it more frequently.
+
+00:08:29.820 --> 00:08:32.460
+So with extreme programming, which was the precursor to agile
+
+00:08:32.560 --> 00:08:35.490
+, which ruined everything and they never should have done the agile
+
+00:08:35.500 --> 00:08:35.830
+thing.
+
+00:08:35.920 --> 00:08:38.830
+But extreme programming, it was like merging is hard.
+
+00:08:38.920 --> 00:08:40.340
+You need to do continuous integration.
+
+00:08:40.370 --> 00:08:41.050
+Deployment is hard.
+
+00:08:41.050 --> 00:08:42.520
+You know, we learned all these things.
+
+00:08:42.520 --> 00:08:43.540
+Testing is hard.
+
+00:08:43.540 --> 00:08:45.780
+You should do it up front so no code is written without
+
+00:08:45.780 --> 00:08:46.170
+a test.
+
+00:08:46.260 --> 00:08:47.250
+Code review is hard.
+
+00:08:47.250 --> 00:08:48.600
+Just do pair programming.
+
+00:08:48.600 --> 00:08:49.260
+Constant, right?
+
+00:08:49.940 --> 00:08:53.460
+So if updating code is hard and making changes to code is
+
+00:08:53.460 --> 00:08:56.240
+hard, the Kent Beck version of that would be just do
+
+00:08:56.240 --> 00:08:58.780
+it constantly, like all day maybe.
+
+00:08:58.780 --> 00:09:00.660
+So how do you do that?
+
+00:09:00.660 --> 00:09:05.540
+That means that the code itself is not that important sort of
+
+00:09:05.540 --> 00:09:06.120
+, right?
+
+00:09:06.120 --> 00:09:07.330
+If you're going to be replacing it all the time,
+
+00:09:07.330 --> 00:09:09.050
+if you're going to be throwing it away and replacing it
+
+00:09:09.050 --> 00:09:10.500
+, how do you do it?
+
+00:09:10.500 --> 00:09:13.260
+And then another person who's not as smart as Kent once
+
+00:09:13.260 --> 00:09:16.250
+said the mutability of a system is enhanced by the imm
+
+00:09:16.250 --> 00:09:17.580
+utability of its components.
+
+00:09:17.580 --> 00:09:20.300
+I said that, but you know, I like to quote
+
+00:09:20.300 --> 00:09:21.860
+myself because I think it's a pretty good one.
+
+00:09:21.890 --> 00:09:24.500
+So maybe in 20 years or so, someone will say,
+
+00:09:24.500 --> 00:09:26.540
+if it was me, you heard Chad say this and it
+
+00:09:26.540 --> 00:09:27.640
+was meaningful to you.
+
+00:09:27.640 --> 00:09:32.240
+So the weird thing about this is, you know, we
+
+00:09:32.290 --> 00:09:33.620
+'re in this weird era.
+
+00:09:33.660 --> 00:09:36.950
+How many of you are actually software developers, by the way
+
+00:09:36.950 --> 00:09:37.240
+?
+
+00:09:37.240 --> 00:09:38.000
+Okay, good.
+
+00:09:38.130 --> 00:09:41.010
+Enough of you that that some of you will feel sad about
+
+00:09:41.080 --> 00:09:43.980
+this sort of, you know, is the craft going away
+
+00:09:44.240 --> 00:09:44.300
+?
+
+00:09:44.300 --> 00:09:46.470
+I've been posting a bunch of stuff on that leaflet
+
+00:09:46.480 --> 00:09:47.270
+and people get mad.
+
+00:09:47.270 --> 00:09:49.610
+Every time I post something, there's at least someone who
+
+00:09:49.620 --> 00:09:51.890
+is angry and like, you know, you're wrong,
+
+00:09:51.890 --> 00:09:52.350
+idiot.
+
+00:09:52.420 --> 00:09:54.270
+You were influenced by marketing.
+
+00:09:54.500 --> 00:09:56.490
+That was yesterday's post actually.
+
+00:09:56.580 --> 00:09:58.670
+But the craft doesn't disappear.
+
+00:09:58.760 --> 00:09:59.560
+It just moves.
+
+00:09:59.580 --> 00:10:02.530
+So, you know, from like doing test driven development,
+
+00:10:02.530 --> 00:10:05.240
+you need to be thinking about how you evaluate the code from
+
+00:10:05.240 --> 00:10:09.160
+a business perspective and from a like architectural perspective in terms of
+
+00:10:09.160 --> 00:10:11.620
+what the technical requirements are of the code.
+
+00:10:11.660 --> 00:10:15.010
+You know, you'll be thinking about things like what are
+
+00:10:15.010 --> 00:10:18.460
+the boundaries and what is the actual architecture that can work in
+
+00:10:18.470 --> 00:10:21.020
+a system that's constantly replacing itself?
+
+00:10:21.030 --> 00:10:22.370
+How can that possibly work?
+
+00:10:22.370 --> 00:10:24.010
+And so I'm going to dig into that kind of stuff
+
+00:10:24.010 --> 00:10:24.220
+.
+
+00:10:24.220 --> 00:10:29.410
+One note here, though, is there is still very much
+
+00:10:29.420 --> 00:10:32.890
+a craft or an engineering discipline or whatever sort of metaphor you
+
+00:10:32.900 --> 00:10:33.630
+want to use.
+
+00:10:33.630 --> 00:10:33.880
+Art.
+
+00:10:33.880 --> 00:10:35.080
+You know, I'm a musician.
+
+00:10:35.150 --> 00:10:37.050
+So maybe there's a craft or there's an art to
+
+00:10:37.050 --> 00:10:37.310
+it.
+
+00:10:37.460 --> 00:10:41.140
+And what I'm seeing now and the fear that a lot
+
+00:10:41.220 --> 00:10:46.060
+of people have in the software industry is that the senior people
+
+00:10:46.060 --> 00:10:48.510
+and senior doesn't have to mean old or even experienced,
+
+00:10:48.600 --> 00:10:52.990
+but somehow the people who have gained wisdom in this field somehow
+
+00:10:53.000 --> 00:10:58.780
+, they are moving farther and farther away from the newbies
+
+00:10:58.780 --> 00:11:04.480
+because everything moves so quickly and the mistakes you make have such
+
+00:11:04.480 --> 00:11:08.740
+great and instant ramifications and the good choices you make have
+
+00:11:08.780 --> 00:11:13.690
+such major ramifications that this AI thing amplifies the effect
+
+00:11:13.820 --> 00:11:15.340
+of this experience.
+
+00:11:15.340 --> 00:11:20.140
+So Phoenix Architecture, what is it?
+
+00:11:20.140 --> 00:11:24.290
+It's a name that I let the AI choose, honestly
+
+00:11:24.360 --> 00:11:24.540
+.
+
+00:11:24.540 --> 00:11:27.280
+This is the thing I do because naming is one of the
+
+00:11:27.380 --> 00:11:28.580
+hardest things, right?
+
+00:11:28.580 --> 00:11:29.900
+So that's why we have LLMs.
+
+00:11:29.900 --> 00:11:31.780
+You never have to name anything again.
+
+00:11:31.780 --> 00:11:34.180
+Just make sure it's not offensive in any language if you
+
+00:11:34.190 --> 00:11:36.080
+can, but you can ask the LLM that too
+
+00:11:36.130 --> 00:11:36.330
+.
+
+00:11:36.330 --> 00:11:40.380
+It's an architectural idea, a bunch of architectural principles.
+
+00:11:40.380 --> 00:11:45.260
+As I said, they are extracted from my decades of thinking
+
+00:11:45.260 --> 00:11:48.380
+about this problem and trying to figure out how we can create
+
+00:11:48.620 --> 00:11:50.460
+systems that can survive.
+
+00:11:50.480 --> 00:11:53.820
+So if you Google for me, if anyone uses Google anymore
+
+00:11:54.090 --> 00:11:56.580
+and put the word legacy, you will find me talking about
+
+00:11:56.610 --> 00:11:57.680
+this back in 2009.
+
+00:11:57.680 --> 00:11:59.360
+And some of the things I'm going to say are the
+
+00:11:59.450 --> 00:12:02.990
+same today because I realized that making systems that can survive,
+
+00:12:03.060 --> 00:12:05.860
+the principles have been the same for a long time.
+
+00:12:05.910 --> 00:12:10.290
+It's also a reference implementation of this architecture.
+
+00:12:10.410 --> 00:12:12.710
+And I'm going to show you two things very briefly on
+
+00:12:12.710 --> 00:12:16.330
+the reference implementation and you can find it on Tangled or
+
+00:12:16.330 --> 00:12:18.690
+you can find it on the copy on GitHub, but obviously
+
+00:12:18.700 --> 00:12:20.620
+you're all going to use Tangled, right?
+
+00:12:20.620 --> 00:12:26.610
+So I'm starting to think about software not as a thing
+
+00:12:26.660 --> 00:12:29.170
+where you go into an editor, you know, that's
+
+00:12:29.240 --> 00:12:32.760
+always been like a short version of what the AI thing would
+
+00:12:32.760 --> 00:12:34.650
+be, these co-pilot things in an IDE that
+
+00:12:34.650 --> 00:12:38.510
+'s gone already, but rather a pipeline.
+
+00:12:38.510 --> 00:12:43.490
+So we go from specifications to something else, to something else
+
+00:12:43.490 --> 00:12:46.080
+, to something else that ends up generating code.
+
+00:12:46.120 --> 00:12:47.930
+And the something else is here.
+
+00:12:47.970 --> 00:12:49.840
+You won't be able to read this, but you can
+
+00:12:49.890 --> 00:12:51.270
+just kind of see columns here.
+
+00:12:51.280 --> 00:12:53.820
+Imagine you've got a bunch of markdown specifications.
+
+00:12:53.820 --> 00:12:56.170
+Those are just things where you just type stuff.
+
+00:12:56.170 --> 00:12:59.290
+Maybe you're also in a chat program like Freq.
+
+00:12:59.300 --> 00:13:01.460
+Ask me about Freq, F-R-E-
+
+00:13:01.460 --> 00:13:02.110
+E-Q.
+
+00:13:02.120 --> 00:13:05.900
+From that will be extracted clauses.
+
+00:13:05.900 --> 00:13:08.380
+So you can use LLMs for this.
+
+00:13:08.380 --> 00:13:10.490
+It's not quite, you know, perfect, but my
+
+00:13:10.490 --> 00:13:12.750
+reference implementation does some hacks.
+
+00:13:12.750 --> 00:13:15.700
+You extract clauses, which are like different ways of saying the
+
+00:13:15.700 --> 00:13:16.300
+same thing.
+
+00:13:16.300 --> 00:13:18.630
+You can kind of deduplicate them into those text
+
+00:13:18.630 --> 00:13:19.300
+chunks.
+
+00:13:19.300 --> 00:13:22.720
+From that, you can canonicalize and deduplicate
+
+00:13:22.760 --> 00:13:24.620
+actual requirements.
+
+00:13:24.620 --> 00:13:27.360
+From that, you can expand them into various things that you
+
+00:13:27.360 --> 00:13:28.290
+want to evaluate.
+
+00:13:28.290 --> 00:13:29.610
+They could be invariants.
+
+00:13:29.710 --> 00:13:32.050
+They could be various other constraints.
+
+00:13:32.050 --> 00:13:35.820
+They might even be things like this component must be fast,
+
+00:13:35.820 --> 00:13:39.260
+which turns into this component must respond within 50 milliseconds.
+
+00:13:39.260 --> 00:13:40.620
+So that becomes a constraint.
+
+00:13:40.620 --> 00:13:43.990
+And from there, you go into the implementation, which I
+
+00:13:44.020 --> 00:13:46.590
+'m going to talk about in a second, has two phases
+
+00:13:46.590 --> 00:13:48.210
+, sort of, necessarily.
+
+00:13:48.210 --> 00:13:55.250
+The cool thing about this is if you create a system like
+
+00:13:55.290 --> 00:13:57.890
+this, where you're actually thinking of that end piece,
+
+00:13:57.900 --> 00:13:59.820
+the code, as a compiled artifact.
+
+00:13:59.820 --> 00:14:01.930
+Think of it as a binary, like TypeScript or whatever
+
+00:14:01.990 --> 00:14:02.820
+you're generating.
+
+00:14:02.820 --> 00:14:03.770
+It's like binary code.
+
+00:14:03.860 --> 00:14:04.780
+You wouldn't edit it.
+
+00:14:04.780 --> 00:14:09.140
+It also means that you can trace the provenance from the
+
+00:14:09.140 --> 00:14:11.800
+markdown file, from a piece of text in the mark
+
+00:14:11.800 --> 00:14:14.600
+down file, through this graph of requirements, all the way
+
+00:14:14.600 --> 00:14:16.800
+through to the generated thing at the end.
+
+00:14:16.800 --> 00:14:19.280
+So just like you were doing a C program or something,
+
+00:14:19.280 --> 00:14:21.940
+where you're compiling from C to an object file to
+
+00:14:21.940 --> 00:14:24.670
+blah, blah, blah, the TypeScript is just in
+
+00:14:24.670 --> 00:14:26.070
+that dependent path.
+
+00:14:26.130 --> 00:14:28.940
+And so when you set up a system like this, you
+
+00:14:28.970 --> 00:14:30.020
+can do two things.
+
+00:14:30.020 --> 00:14:32.610
+One is you can regenerate just the path down to the
+
+00:14:33.060 --> 00:14:35.310
+component at the end that you want to generate.
+
+00:14:35.400 --> 00:14:38.210
+The other is, if someone does do the wrong thing,
+
+00:14:38.210 --> 00:14:41.500
+so I say, and edit the code themselves as a human
+
+00:14:41.500 --> 00:14:43.420
+, you can see where it drifts.
+
+00:14:43.430 --> 00:14:45.540
+And you can see, well, the drift is here,
+
+00:14:45.540 --> 00:14:47.170
+and it actually affects this spec.
+
+00:14:47.180 --> 00:14:50.630
+And I could even, like, automatically analyze the code and
+
+00:14:50.710 --> 00:14:53.970
+see it's changed the spec in a certain way.
+
+00:14:53.980 --> 00:14:55.180
+Is that actually the spec now?
+
+00:14:55.180 --> 00:14:56.290
+Is that what you meant?
+
+00:14:56.330 --> 00:14:58.590
+And commit it as the real intent of the code.
+
+00:14:58.630 --> 00:15:01.620
+Because intent is what matters more than anything else now.
+
+00:15:01.650 --> 00:15:03.180
+Intent plus architecture.
+
+00:15:03.180 --> 00:15:07.020
+Let me put this back in full screen.
+
+00:15:07.020 --> 00:15:07.850
+Or not.
+
+00:15:07.850 --> 00:15:13.340
+This is the fun of creating your own presentation software.
+
+00:15:13.340 --> 00:15:19.370
+So when I was implementing this, I realized when I got
+
+00:15:19.370 --> 00:15:21.500
+to a certain point, you know, I'm going to
+
+00:15:21.500 --> 00:15:22.780
+generate some code.
+
+00:15:22.780 --> 00:15:24.920
+What the hell am I going to generate?
+
+00:15:24.920 --> 00:15:27.020
+Like, is it a React application?
+
+00:15:27.020 --> 00:15:28.060
+Is it a Next.
+
+00:15:28.070 --> 00:15:29.200
+js application?
+
+00:15:29.200 --> 00:15:30.390
+Is it a Rust thing?
+
+00:15:30.390 --> 00:15:32.300
+The answer is, I don't know.
+
+00:15:32.300 --> 00:15:34.880
+And not only do I not know, I don't want
+
+00:15:34.880 --> 00:15:38.560
+to have to, for a given application, decide those things
+
+00:15:38.560 --> 00:15:38.860
+.
+
+00:15:38.860 --> 00:15:41.770
+Because I want to be able to move from, let's
+
+00:15:41.770 --> 00:15:45.550
+say, JavaScript to Rust when the Lazarus group takes over
+
+00:15:45.550 --> 00:15:46.140
+NPM.
+
+00:15:46.140 --> 00:15:48.610
+They're not going to, but if they did, I
+
+00:15:48.610 --> 00:15:50.130
+want that flexibility.
+
+00:15:50.140 --> 00:15:52.660
+And the real-life story behind that is, at W
+
+00:15:52.660 --> 00:15:54.970
+underlist, again, we launched Wunderlist 3,
+
+00:15:54.970 --> 00:15:58.040
+which was our huge rewrite that finally made the sync work and
+
+00:15:58.060 --> 00:15:59.920
+everyone was happy with it.
+
+00:15:59.920 --> 00:16:03.030
+We launched it with Ruby on Rails as the backend.
+
+00:16:03.540 --> 00:16:08.030
+Lovely for humans, not great for compute, very expensive to
+
+00:16:08.030 --> 00:16:08.500
+run.
+
+00:16:08.660 --> 00:16:12.300
+But the way we had architected this back in 2013-
+
+00:16:12.300 --> 00:16:15.290
+14, allowed us, for the same reasons that we could
+
+00:16:15.290 --> 00:16:18.780
+fix the Heartbleed problem, allowed us to rewrite each
+
+00:16:18.780 --> 00:16:22.220
+service in another language within three months.
+
+00:16:22.220 --> 00:16:26.640
+And we went from, I'll just say we saved 70
+
+00:16:26.640 --> 00:16:30.730
+% of our compute costs by rewriting services without affecting the
+
+00:16:30.730 --> 00:16:31.390
+system.
+
+00:16:31.390 --> 00:16:34.120
+Because we were just replacing the components.
+
+00:16:34.120 --> 00:16:36.510
+So in a system like this, if we're building this
+
+00:16:36.520 --> 00:16:40.120
+for agents, if we're building this for a constantly regener
+
+00:16:40.500 --> 00:16:44.100
+ating world, we need to compile not to an implementation,
+
+00:16:44.210 --> 00:16:47.710
+but we need to compile to an architecture that has these properties
+
+00:16:47.710 --> 00:16:51.140
+of components with boundaries that are just like that Haskell thing
+
+00:16:51.170 --> 00:16:54.380
+I was talking about earlier that can be replaced at will because
+
+00:16:54.380 --> 00:16:55.930
+the boundaries are clear enough.
+
+00:16:55.980 --> 00:17:00.780
+So the idea is you have some intent.
+
+00:17:00.780 --> 00:17:02.440
+Maybe it comes from a conversation.
+
+00:17:02.480 --> 00:17:04.100
+Usually they come from conversation.
+
+00:17:04.100 --> 00:17:06.060
+Maybe documents, lots of conversations.
+
+00:17:06.060 --> 00:17:11.230
+The intent is then compiled into some decisions, not into code
+
+00:17:11.230 --> 00:17:12.220
+necessarily.
+
+00:17:12.240 --> 00:17:14.460
+The decisions then generate code.
+
+00:17:14.460 --> 00:17:17.670
+And then they go through an evaluation loop where you see,
+
+00:17:17.670 --> 00:17:19.920
+well, is this code actually doing the thing that it's
+
+00:17:19.920 --> 00:17:22.580
+required to do based on the specs, including all those invari
+
+00:17:22.590 --> 00:17:25.020
+ants and constraints and stuff I was talking about earlier.
+
+00:17:25.020 --> 00:17:28.630
+That could even be stuff that's coming from observability systems
+
+00:17:28.630 --> 00:17:28.800
+.
+
+00:17:28.890 --> 00:17:33.430
+So I think software development in the near future is a closed
+
+00:17:33.500 --> 00:17:36.780
+loop from production, where you're actually pulling in what's
+
+00:17:36.780 --> 00:17:38.060
+happening in production.
+
+00:17:38.060 --> 00:17:40.820
+It's informing and saying, well, this thing has now
+
+00:17:40.820 --> 00:17:42.300
+drifted from the requirements.
+
+00:17:42.380 --> 00:17:45.420
+I think we should regenerate these two components because they're
+
+00:17:45.420 --> 00:17:47.900
+not doing the thing that the business says they need to do
+
+00:17:47.900 --> 00:17:48.060
+.
+
+00:17:48.100 --> 00:17:48.690
+Right?
+
+00:17:48.760 --> 00:17:52.620
+So then you record the provenance, which means the chain
+
+00:17:52.690 --> 00:17:56.540
+of the human or the human and human's agents, and
+
+00:17:56.540 --> 00:18:00.040
+all of the different specs and everything else that led to the
+
+00:18:00.040 --> 00:18:03.600
+generation, capture it forever cryptographically.
+
+00:18:03.690 --> 00:18:05.900
+Then you deploy it within the boundaries.
+
+00:18:05.900 --> 00:18:07.660
+Same way I talked about with Wunderlist.
+
+00:18:07.670 --> 00:18:11.100
+So you're deploying these nice, tight, controlled components.
+
+00:18:11.100 --> 00:18:14.070
+And then, I won't talk about this now, but
+
+00:18:14.080 --> 00:18:17.470
+if you read the blog, you will compact because we are
+
+00:18:18.020 --> 00:18:19.710
+creating tons and tons of garbage.
+
+00:18:19.710 --> 00:18:22.020
+Those of us who are making stuff with LLMs now
+
+00:18:22.020 --> 00:18:26.270
+, I accidentally created two web interfaces for my IRC network
+
+00:18:26.270 --> 00:18:26.420
+.
+
+00:18:26.420 --> 00:18:28.640
+And it took me a while to delete them because I couldn
+
+00:18:28.640 --> 00:18:30.530
+'t remember which one was the right one.
+
+00:18:30.530 --> 00:18:31.420
+So there you go.
+
+00:18:31.540 --> 00:18:37.470
+So I should mention what is an evaluation because this is an
+
+00:18:37.490 --> 00:18:38.570
+overloaded term now.
+
+00:18:38.570 --> 00:18:39.700
+I kind of got into it.
+
+00:18:39.700 --> 00:18:42.130
+It's all of these different things, you know, the
+
+00:18:42.200 --> 00:18:45.160
+requirements that could be just like, it must act like this
+
+00:18:45.160 --> 00:18:47.450
+, you know, what we're used to with specs and
+
+00:18:47.450 --> 00:18:48.390
+user stories.
+
+00:18:48.450 --> 00:18:50.800
+But it's also, it shouldn't use this much memory
+
+00:18:50.810 --> 00:18:52.340
+or it has to be this fast or it has to be
+
+00:18:52.340 --> 00:18:55.700
+, you know, deployable on this thing or whatever.
+
+00:18:55.700 --> 00:18:59.490
+So evaluations are the thing that are about the system and not
+
+00:18:59.550 --> 00:19:00.620
+about the code.
+
+00:19:00.620 --> 00:19:03.410
+It's not unit tests because unit tests are tied to actual
+
+00:19:03.410 --> 00:19:04.400
+implementation.
+
+00:19:04.530 --> 00:19:06.520
+So that's not the thing that you want to rely on
+
+00:19:06.520 --> 00:19:06.700
+.
+
+00:19:06.740 --> 00:19:09.650
+That's also a thing that they can generate better than we
+
+00:19:09.650 --> 00:19:11.050
+can and we should let them.
+
+00:19:11.060 --> 00:19:13.690
+So it might be, has to have 100% test coverage
+
+00:19:13.860 --> 00:19:16.580
+and they always have to pass, that sort of stuff.
+
+00:19:16.580 --> 00:19:18.780
+That could be one.
+
+00:19:18.780 --> 00:19:20.870
+And then here's the sort of secret.
+
+00:19:21.140 --> 00:19:25.010
+In the flow I showed you earlier where you have specs going
+
+00:19:25.010 --> 00:19:28.940
+to canonical requirements, et cetera, et cetera, there are
+
+00:19:28.940 --> 00:19:32.570
+two things in the, there are two like columns and implementation
+
+00:19:32.740 --> 00:19:32.880
+.
+
+00:19:32.880 --> 00:19:36.480
+Before you get to the actual implementation, I'm calling this
+
+00:19:36.480 --> 00:19:41.360
+implementation units because this is actually the decisions about what components should
+
+00:19:41.500 --> 00:19:45.220
+exist and what their behaviors and boundaries and interfaces need to be
+
+00:19:45.250 --> 00:19:45.260
+.
+
+00:19:46.620 --> 00:19:49.780
+This should not be language or runtime dependent.
+
+00:19:49.780 --> 00:19:54.260
+This is the promise of a thing that will be implemented in
+
+00:19:54.260 --> 00:19:58.880
+some language and deployed in some runtime that meets the requirements of
+
+00:19:58.880 --> 00:20:00.330
+the specifications.
+
+00:20:00.330 --> 00:20:03.800
+And this is a really powerful thing because it means you can
+
+00:20:03.800 --> 00:20:06.110
+do things like say, well, let's just do a
+
+00:20:06.110 --> 00:20:09.140
+pass this afternoon and see if we can make this thing 50
+
+00:20:09.140 --> 00:20:09.750
+% faster.
+
+00:20:09.750 --> 00:20:11.290
+Okay, good Friday, deploy it.
+
+00:20:11.320 --> 00:20:13.240
+You know, that's where we want to get with this
+
+00:20:13.240 --> 00:20:13.660
+stuff.
+
+00:20:13.660 --> 00:20:17.160
+So implementation units are sort of like the semi abstract version of
+
+00:20:17.160 --> 00:20:19.660
+the thing that you want to test and they're what the
+
+00:20:19.660 --> 00:20:21.070
+actual evaluations tie to.
+
+00:20:21.070 --> 00:20:23.630
+And the implementations can have unit tests and all the other
+
+00:20:23.640 --> 00:20:24.820
+stuff that you're used to in your language.
+
+00:20:24.820 --> 00:20:28.620
+But we are actually past a point now of, I think
+
+00:20:28.620 --> 00:20:30.460
+, sorry, language advocacy.
+
+00:20:30.490 --> 00:20:33.100
+And I say that as someone who like, you know,
+
+00:20:33.100 --> 00:20:35.780
+I was like, I started the Ruby nonprofit and the Rails
+
+00:20:35.860 --> 00:20:38.200
+Conf and RubyConf and wrote the RubyGems thing and
+
+00:20:38.200 --> 00:20:40.330
+spoke at Ruby conferences and wrote books about Ruby.
+
+00:20:40.350 --> 00:20:42.410
+And I was all Ruby, Ruby, Ruby 20 something years
+
+00:20:42.410 --> 00:20:42.780
+ago.
+
+00:20:42.780 --> 00:20:46.490
+And I'm going to RubyConf to receive an award this
+
+00:20:46.510 --> 00:20:49.270
+year and tell them you probably ought to not use Ruby anymore
+
+00:20:49.270 --> 00:20:49.360
+.
+
+00:20:49.470 --> 00:20:50.380
+It's not a good idea.
+
+00:20:50.380 --> 00:20:52.380
+Because who's Ruby for?
+
+00:20:52.380 --> 00:20:53.660
+People.
+
+00:20:53.660 --> 00:20:55.180
+Ruby is for people.
+
+00:20:55.180 --> 00:20:58.620
+These programs are for machines.
+
+00:20:58.620 --> 00:21:00.800
+And what matters now is that they're fast, correct.
+
+00:21:00.800 --> 00:21:03.660
+You can generate them with LLMs or whatever the technology
+
+00:21:03.670 --> 00:21:04.290
+is going to be.
+
+00:21:04.300 --> 00:21:05.260
+They're cheap to run.
+
+00:21:05.260 --> 00:21:06.210
+That's what matters.
+
+00:21:06.210 --> 00:21:08.210
+It doesn't matter what language it is anymore.
+
+00:21:08.210 --> 00:21:10.480
+So let go of that, except for your hobby time.
+
+00:21:10.480 --> 00:21:12.620
+Write in your hobby time, fine, fun.
+
+00:21:12.620 --> 00:21:14.790
+Otherwise, it's irresponsible.
+
+00:21:14.790 --> 00:21:17.400
+And that was a, yeah, just throwing some bombs at
+
+00:21:17.400 --> 00:21:17.970
+you here.
+
+00:21:17.980 --> 00:21:18.980
+All right.
+
+00:21:19.010 --> 00:21:21.960
+And so, you know, the code doesn't matter anymore
+
+00:21:21.960 --> 00:21:22.060
+.
+
+00:21:22.060 --> 00:21:23.030
+We have to let go of that.
+
+00:21:23.090 --> 00:21:24.020
+We have a code fetish.
+
+00:21:24.060 --> 00:21:26.790
+I've been saying that for decades, literally, to developers
+
+00:21:26.790 --> 00:21:27.740
+at conferences.
+
+00:21:27.740 --> 00:21:28.980
+We have a code fetish.
+
+00:21:28.980 --> 00:21:30.530
+It's not about the code.
+
+00:21:30.540 --> 00:21:33.580
+Now it's about these evaluations, really, and the fact
+
+00:21:33.580 --> 00:21:35.140
+that things need to exist.
+
+00:21:35.140 --> 00:21:39.620
+So, sort of backing up a little bit, think about
+
+00:21:39.620 --> 00:21:42.880
+, like, I went through the whole microservices movement,
+
+00:21:42.930 --> 00:21:44.430
+if you can call it that, craze, hype,
+
+00:21:44.520 --> 00:21:44.970
+whatever.
+
+00:21:44.980 --> 00:21:46.460
+And I was definitely one of them.
+
+00:21:46.460 --> 00:21:49.740
+And I'm friends with Fred George, who created that term
+
+00:21:49.860 --> 00:21:51.810
+, and probably regrets it now.
+
+00:21:51.820 --> 00:21:54.460
+People hate microservices.
+
+00:21:54.460 --> 00:21:56.820
+Now, there's been a movement to move back to mon
+
+00:21:56.840 --> 00:21:57.420
+oliths.
+
+00:21:57.420 --> 00:21:59.630
+That's also really stupid and misguided.
+
+00:21:59.630 --> 00:22:03.020
+The reason they hate microservices is, like, imagine you
+
+00:22:03.020 --> 00:22:06.190
+spent six months, like, breaking apart this monolith into
+
+00:22:06.200 --> 00:22:08.610
+a bunch of microservices, because your manager said, we
+
+00:22:08.690 --> 00:22:10.280
+'re doing microservices now.
+
+00:22:10.280 --> 00:22:12.960
+And then you finally remove the thing, and you realize,
+
+00:22:13.070 --> 00:22:15.320
+oh, crap, there are all these dependencies we didn't
+
+00:22:15.360 --> 00:22:17.660
+really understand that are, like, maybe they're temporal,
+
+00:22:17.660 --> 00:22:19.020
+or they're data-related, or whatever.
+
+00:22:19.050 --> 00:22:21.980
+You didn't accomplish anything by doing this.
+
+00:22:21.980 --> 00:22:25.860
+Maybe some sort of, like, production runtime improvement of not
+
+00:22:25.860 --> 00:22:28.220
+having, you know, services get on each other's CPU
+
+00:22:28.220 --> 00:22:31.980
+cycles and slow the whole system down, or whatever.
+
+00:22:31.980 --> 00:22:33.180
+Not good.
+
+00:22:33.470 --> 00:22:37.540
+So, this is sort of a necessary thing to think about
+
+00:22:37.590 --> 00:22:37.770
+.
+
+00:22:37.770 --> 00:22:39.800
+Like, it's not just small, but it's about
+
+00:22:39.830 --> 00:22:41.590
+boundaries and replaceability.
+
+00:22:41.730 --> 00:22:42.900
+That's what matters.
+
+00:22:42.920 --> 00:22:45.400
+And I say this as a person who did a talk called
+
+00:22:45.400 --> 00:22:48.390
+Tiny 10 years ago at a conference, thinking, I think
+
+00:22:48.390 --> 00:22:50.360
+it's just about making things small, guys, but it
+
+00:22:50.360 --> 00:22:50.840
+was not.
+
+00:22:50.860 --> 00:22:55.280
+Now what I'm realizing, and this is me also sh
+
+00:22:55.320 --> 00:22:59.490
+illing my project, I must admit, but really, it
+
+00:22:59.560 --> 00:23:00.940
+'s about the conversation.
+
+00:23:00.960 --> 00:23:02.940
+So, you know, I was thinking about, like,
+
+00:23:02.940 --> 00:23:04.980
+how do you apply all this generative AI stuff?
+
+00:23:04.990 --> 00:23:06.710
+It's fine for one-shotting apps, and,
+
+00:23:06.710 --> 00:23:09.200
+you know, like, I made this presentation with a --
+
+00:23:09.200 --> 00:23:10.860
+I don't have a slide deck.
+
+00:23:10.860 --> 00:23:13.100
+I just have -- talking to an LLM, having
+
+00:23:13.100 --> 00:23:13.970
+it generate things.
+
+00:23:13.980 --> 00:23:20.710
+What really matters, though, on big systems, is context
+
+00:23:20.710 --> 00:23:20.980
+.
+
+00:23:20.980 --> 00:23:22.540
+Like, how do you get the intent?
+
+00:23:22.550 --> 00:23:24.520
+How do you go to a 20-year-old system
+
+00:23:24.520 --> 00:23:26.930
+and find out what the intent is behind the code?
+
+00:23:27.020 --> 00:23:29.060
+You probably do not, actually, right?
+
+00:23:29.060 --> 00:23:30.190
+Because no one captures it.
+
+00:23:30.280 --> 00:23:31.550
+There's just no system for that.
+
+00:23:31.620 --> 00:23:32.940
+There never has been.
+
+00:23:32.940 --> 00:23:35.520
+Except in, like, really, really bureaucratic places,
+
+00:23:35.520 --> 00:23:39.280
+but then it was malicious compliance, and you're going to
+
+00:23:39.280 --> 00:23:40.140
+end up crap anyway.
+
+00:23:40.140 --> 00:23:43.920
+So, what if we could create an environment where the conversation
+
+00:23:43.920 --> 00:23:48.370
+is always captured around how the requirements were created and specified,
+
+00:23:48.380 --> 00:23:51.010
+tied to a human in a way that is archived and
+
+00:23:51.010 --> 00:23:55.070
+will never be lost when you move from Slack to Teams or
+
+00:23:55.070 --> 00:23:55.970
+something?
+
+00:23:56.070 --> 00:23:59.410
+And every commit and every piece of code is tied to that
+
+00:23:59.420 --> 00:24:01.310
+conversation and the people that did it, so you get a
+
+00:24:01.310 --> 00:24:01.900
+sense of why.
+
+00:24:01.920 --> 00:24:05.420
+I think this is the only responsible way to do software development
+
+00:24:05.420 --> 00:24:05.900
+next year.
+
+00:24:05.900 --> 00:24:09.490
+And to do that, it means you may not touch code
+
+00:24:09.490 --> 00:24:10.620
+as a human.
+
+00:24:10.620 --> 00:24:12.610
+You can view it, like, you shouldn't even be
+
+00:24:12.630 --> 00:24:13.650
+able to -- you can use VI.
+
+00:24:13.650 --> 00:24:14.160
+It's okay.
+
+00:24:14.160 --> 00:24:15.580
+If you use VI, you can change it, but,
+
+00:24:15.580 --> 00:24:17.380
+you know, like, don't use VS code and edit
+
+00:24:17.380 --> 00:24:17.930
+your code.
+
+00:24:17.930 --> 00:24:18.620
+It's wrong.
+
+00:24:18.620 --> 00:24:21.360
+Because if you as a human do it, you can't
+
+00:24:21.410 --> 00:24:22.770
+guarantee all this stuff.
+
+00:24:22.800 --> 00:24:25.660
+You won't guarantee being able to capture all this provenance
+
+00:24:25.660 --> 00:24:25.660
+.
+
+00:24:25.660 --> 00:24:28.700
+And bots are way better at discipline than we are.
+
+00:24:28.700 --> 00:24:33.260
+So, I'm going to go kind of fast now.
+
+00:24:34.780 --> 00:24:36.750
+So, I talk about regenerating code.
+
+00:24:36.840 --> 00:24:39.210
+And I talk about, like, systems -- like, in
+
+00:24:39.310 --> 00:24:42.720
+my perfect world, a system in production maybe doesn't have
+
+00:24:42.730 --> 00:24:45.150
+any of the same code it had last month.
+
+00:24:45.150 --> 00:24:46.860
+And that's always true.
+
+00:24:46.860 --> 00:24:48.230
+It's just always rolling.
+
+00:24:48.240 --> 00:24:50.540
+And probably I will think that's quaint in a year
+
+00:24:50.550 --> 00:24:52.290
+and say, really, I meant five minutes.
+
+00:24:52.290 --> 00:24:53.260
+Sorry, guys, you know.
+
+00:24:53.260 --> 00:24:56.960
+That's sort of insane, though, because just because we
+
+00:24:57.010 --> 00:24:58.650
+can change it doesn't mean we should.
+
+00:24:58.650 --> 00:24:59.720
+And there are layers.
+
+00:24:59.750 --> 00:25:03.540
+So, Stuart Brand has this concept of pace layers, which
+
+00:25:03.560 --> 00:25:06.540
+is really just about, like, layers of the ability to
+
+00:25:06.550 --> 00:25:09.250
+change and where things need to move more slowly and where they
+
+00:25:09.260 --> 00:25:10.220
+can move more quickly.
+
+00:25:10.220 --> 00:25:13.370
+An example of a pace layer that should move slowly is like
+
+00:25:13.370 --> 00:25:15.000
+a protocol, you know, HTTP.
+
+00:25:15.000 --> 00:25:16.620
+Let's not change that daily.
+
+00:25:16.620 --> 00:25:18.030
+But also a user interface.
+
+00:25:18.080 --> 00:25:20.940
+You can't just have the user interface change constantly because your
+
+00:25:20.940 --> 00:25:22.470
+users will be confused.
+
+00:25:22.540 --> 00:25:24.180
+And I think, you know, Paul might have mentioned that
+
+00:25:24.180 --> 00:25:25.340
+earlier in their presentation.
+
+00:25:25.340 --> 00:25:29.680
+The other thing that we need to worry about is hidden state
+
+00:25:29.680 --> 00:25:29.980
+.
+
+00:25:29.980 --> 00:25:34.090
+And I sort of got to that with the with the del
+
+00:25:34.090 --> 00:25:36.450
+etion test idea of, you know, doing this big
+
+00:25:36.450 --> 00:25:37.660
+microservices thing.
+
+00:25:37.660 --> 00:25:41.410
+And then you replace the monolith with the microservices and
+
+00:25:41.620 --> 00:25:42.080
+nothing works.
+
+00:25:42.130 --> 00:25:45.100
+There's a bunch of that in the world.
+
+00:25:45.120 --> 00:25:48.660
+And so to do an architecture like this, and this is
+
+00:25:48.740 --> 00:25:50.980
+going to be different for every application, this is a very
+
+00:25:51.120 --> 00:25:51.730
+serious thing.
+
+00:25:51.750 --> 00:25:55.010
+You need to be thinking hard about service boundaries, data boundaries
+
+00:25:55.010 --> 00:25:57.260
+, et cetera, even temporal coupling.
+
+00:25:57.260 --> 00:26:02.300
+The end sort of goal here, and really something that's
+
+00:26:02.300 --> 00:26:05.760
+always been true, is if we're on a team together
+
+00:26:05.760 --> 00:26:08.300
+, what we are building is not the code.
+
+00:26:08.300 --> 00:26:09.620
+We're building a system.
+
+00:26:09.620 --> 00:26:12.350
+And the code is not only not the asset, it is
+
+00:26:12.350 --> 00:26:13.420
+a liability.
+
+00:26:13.420 --> 00:26:14.490
+It always is.
+
+00:26:14.620 --> 00:26:17.990
+Because every line of code you ever wrote is legacy code the
+
+00:26:18.000 --> 00:26:19.500
+moment you wrote it.
+
+00:26:19.500 --> 00:26:20.140
+Right?
+
+00:26:20.140 --> 00:26:21.500
+Legacy code is bad.
+
+00:26:21.500 --> 00:26:22.850
+We all know that, right?
+
+00:26:22.890 --> 00:26:24.450
+So the system is the asset.
+
+00:26:24.460 --> 00:26:25.980
+The code is a liability.
+
+00:26:25.980 --> 00:26:29.780
+So if you think about all this stuff I was just saying
+
+00:26:29.780 --> 00:26:33.990
+, you think about anything in your current systems, like pick
+
+00:26:34.260 --> 00:26:35.500
+one component.
+
+00:26:35.500 --> 00:26:36.840
+Could you replace it tomorrow?
+
+00:26:36.920 --> 00:26:38.690
+Could you just have Claude redo it?
+
+00:26:38.690 --> 00:26:42.280
+If not, you probably have a refactoring job,
+
+00:26:42.300 --> 00:26:45.170
+a system-wide refactoring job ahead of you.
+
+00:26:45.170 --> 00:26:47.930
+And I will assert you already have that refactoring job
+
+00:26:47.980 --> 00:26:48.590
+ahead of you.
+
+00:26:48.590 --> 00:26:50.730
+You just didn't know it yet because things are moving a
+
+00:26:50.730 --> 00:26:52.630
+thousand times faster than they used to.
+
+00:26:52.630 --> 00:26:53.730
+Or maybe faster than that.
+
+00:26:53.740 --> 00:26:55.400
+I don't know what the right number it is.
+
+00:26:55.430 --> 00:27:00.330
+So the point is AI didn't actually create this problem.
+
+00:27:00.330 --> 00:27:02.170
+And I think that's true of a lot of stuff we
+
+00:27:02.170 --> 00:27:04.560
+'re seeing now, both in terms of the problems we see
+
+00:27:04.580 --> 00:27:05.980
+from AI and the solutions.
+
+00:27:05.980 --> 00:27:08.570
+It's like a real pattern I'm seeing.
+
+00:27:08.620 --> 00:27:09.620
+I'm also a VC.
+
+00:27:09.620 --> 00:27:10.350
+Sorry.
+
+00:27:10.350 --> 00:27:13.320
+I heard some shade to VCs on the last talk.
+
+00:27:13.320 --> 00:27:15.580
+And I agree with it, honestly.
+
+00:27:15.580 --> 00:27:17.200
+I'm a VC who is also a programmer.
+
+00:27:17.200 --> 00:27:18.430
+I talk to a lot of people.
+
+00:27:18.430 --> 00:27:21.180
+And a lot of things happening now that I think are really
+
+00:27:21.180 --> 00:27:24.160
+powerful are like, AI is creating a problem because things move
+
+00:27:24.290 --> 00:27:26.850
+so fast, so much content is getting created, et cetera
+
+00:27:26.850 --> 00:27:27.550
+, et cetera.
+
+00:27:27.560 --> 00:27:29.660
+So we're going to use AI to fix the problem.
+
+00:27:29.660 --> 00:27:31.410
+And that's kind of where I am right now.
+
+00:27:31.510 --> 00:27:33.280
+But it's the same thing we always had.
+
+00:27:33.380 --> 00:27:35.870
+It's just going a thousand miles per hour.
+
+00:27:35.870 --> 00:27:39.250
+So all this stuff I was talking about, how do we
+
+00:27:39.250 --> 00:27:41.180
+make it more concrete?
+
+00:27:41.180 --> 00:27:45.650
+Well, I told you I have a reference implementation of the
+
+00:27:45.650 --> 00:27:47.030
+Phoenix architecture.
+
+00:27:47.030 --> 00:27:48.210
+I linked it earlier.
+
+00:27:48.210 --> 00:27:50.550
+But I also told you the conversation is the commit.
+
+00:27:50.550 --> 00:27:52.960
+And the things I was saying, I hope they were registering
+
+00:27:52.960 --> 00:27:55.100
+like, well, I can't use Slack as my system
+
+00:27:55.120 --> 00:27:57.420
+of record, or I can't use Teams or whatever,
+
+00:27:57.420 --> 00:27:58.860
+or Discord, right?
+
+00:27:58.860 --> 00:28:01.830
+I need something with, like, durability that I can host
+
+00:28:01.830 --> 00:28:04.210
+myself, that I can trust that no one else can read
+
+00:28:04.210 --> 00:28:05.750
+unless I want them to.
+
+00:28:05.750 --> 00:28:08.220
+I want cryptographic identities.
+
+00:28:08.220 --> 00:28:10.280
+I want provenance that way.
+
+00:28:10.310 --> 00:28:12.470
+I want my agents to be spawned by me and my
+
+00:28:12.480 --> 00:28:12.850
+key.
+
+00:28:12.870 --> 00:28:14.530
+And I want them to have keys.
+
+00:28:14.540 --> 00:28:17.990
+And I want us to maybe even have reputation and durability.
+
+00:28:18.060 --> 00:28:21.540
+And so I decided I would just build something that does this
+
+00:28:21.540 --> 00:28:21.820
+.
+
+00:28:21.820 --> 00:28:23.180
+It started as a hack one day.
+
+00:28:23.180 --> 00:28:25.420
+And here's where it's an app protocol thing.
+
+00:28:25.420 --> 00:28:28.900
+I was like, what if we could sign into IRC
+
+00:28:28.900 --> 00:28:31.250
+, if you know what that is, internet relay chat for
+
+00:28:31.380 --> 00:28:32.360
+the young people?
+
+00:28:32.380 --> 00:28:35.020
+What if we could sign up with your blue sky handle?
+
+00:28:35.020 --> 00:28:37.980
+And it just kind of got out of control.
+
+00:28:37.980 --> 00:28:42.670
+So now what I'm building is a substrate with all of
+
+00:28:42.670 --> 00:28:46.180
+these properties, agent provenance, etc., etc.
+
+00:28:46.180 --> 00:28:47.420
+There's a lot to it.
+
+00:28:47.420 --> 00:28:53.470
+But the end goal is the substrate for agent-driven development
+
+00:28:53.780 --> 00:28:55.060
+with Phoenix.
+
+00:28:55.100 --> 00:28:57.860
+And so please join freak.
+
+00:28:57.860 --> 00:28:58.530
+at.
+
+00:28:58.600 --> 00:29:00.380
+Please contribute stuff.
+
+00:29:00.380 --> 00:29:02.470
+Tell me what's stupid, what's not great.
+
+00:29:02.470 --> 00:29:05.670
+It kind of looks like there's iOS, Android, Windows
+
+00:29:05.670 --> 00:29:09.420
+, Web, TUI, Rust SDK, bot SDK,
+
+00:29:09.420 --> 00:29:10.340
+great docs.
+
+00:29:10.350 --> 00:29:11.820
+It's ready for you.
+
+00:29:11.820 --> 00:29:13.740
+But I have not launched it.
+
+00:29:13.740 --> 00:29:16.140
+And don't tell anyone about it.
+
+00:29:16.140 --> 00:29:18.790
+But please join because it's just for nerds right now
+
+00:29:18.790 --> 00:29:18.960
+.
+
+00:29:18.960 --> 00:29:20.940
+But I think this is how things are going to work in
+
+00:29:20.940 --> 00:29:21.740
+the future.
+
+00:29:21.740 --> 00:29:23.320
+And I guess I'm out of time.
+
+00:29:23.320 --> 00:29:25.870
+So thank you very much for your attention.
+
+00:29:25.900 --> 00:29:31.500
+Thank you very much, Chad.
+
+00:29:31.500 --> 00:29:37.580
+Accidentally an encrypted IRC client with app portal accounts.
+
+00:29:37.580 --> 00:29:38.140
+Amazing.
+
+00:29:38.140 --> 00:29:40.700
+Thank you very much.

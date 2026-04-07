@@ -1,0 +1,1441 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.410
+Here is good.
+
+00:00:03.430 --> 00:00:07.500
+Thank you.
+
+00:00:07.500 --> 00:00:09.500
+Good morning, everyone.
+
+00:00:09.500 --> 00:00:11.500
+Good morning.
+
+00:00:11.500 --> 00:00:15.260
+Well, let's start this.
+
+00:00:15.260 --> 00:00:17.990
+I will speak about how to have more non-English
+
+00:00:17.990 --> 00:00:22.120
+speakers users in general, not only for blue sky and stuff
+
+00:00:22.130 --> 00:00:22.560
+.
+
+00:00:22.560 --> 00:00:25.960
+I will explain a bit how this is going to work.
+
+00:00:25.960 --> 00:00:30.700
+I have a little bit of presentation where I will introduce you
+
+00:00:30.700 --> 00:00:35.080
+to the topic, talk a bit about stuff, and by
+
+00:00:35.080 --> 00:00:39.820
+the end, I will have a few minutes so we can
+
+00:00:39.860 --> 00:00:48.340
+discuss things, including people watching from home on streaming
+
+00:00:48.340 --> 00:00:49.620
+plays.
+
+00:00:49.620 --> 00:00:55.840
+I will read the screenshots if you have any contributions, especially
+
+00:00:55.880 --> 00:01:00.750
+non-speakers participants will be very welcome to join the
+
+00:01:00.750 --> 00:01:03.080
+discussion at the end.
+
+00:01:03.080 --> 00:01:04.080
+Okay.
+
+00:01:04.080 --> 00:01:05.080
+Okay.
+
+00:01:05.080 --> 00:01:06.080
+Okay.
+
+00:01:06.080 --> 00:01:07.080
+Okay.
+
+00:01:07.080 --> 00:01:08.080
+Okay.
+
+00:01:08.080 --> 00:01:09.080
+I figured.
+
+00:01:09.080 --> 00:01:10.080
+Okay.
+
+00:01:10.080 --> 00:01:16.080
+Let me present, introduce myself a little bit.
+
+00:01:16.080 --> 00:01:17.080
+Oh, sorry.
+
+00:01:17.080 --> 00:01:19.080
+I forgot the mic.
+
+00:01:19.080 --> 00:01:21.080
+It's here.
+
+00:01:21.080 --> 00:01:29.280
+I will introduce myself a
+
+00:01:29.550 --> 00:01:34.060
+little bit.
+
+00:01:34.080 --> 00:01:36.080
+I am Victoria.
+
+00:01:36.080 --> 00:01:38.080
+I'm from Brazil.
+
+00:01:38.080 --> 00:01:43.140
+My pronouns are Daishi in English.
+
+00:01:43.140 --> 00:01:47.420
+My handle is vickwalker.
+
+00:01:47.420 --> 00:01:48.540
+dev.
+
+00:01:48.540 --> 00:01:51.220
+br on blue sky.
+
+00:01:51.220 --> 00:01:58.940
+My real occupation is I'm a QA architect for eight
+
+00:01:58.940 --> 00:02:01.730
+years already.
+
+00:02:01.840 --> 00:02:09.940
+I also do community moderation job for Brazilian creators for
+
+00:02:09.940 --> 00:02:14.820
+more around 12 years already.
+
+00:02:14.840 --> 00:02:22.080
+Also, a little of my background too, I am graduated
+
+00:02:22.270 --> 00:02:27.610
+as game developer and IT technician.
+
+00:02:27.620 --> 00:02:31.800
+And I also did, I do a little bit of help
+
+00:02:31.810 --> 00:02:37.840
+translating some apps even before the AT protocol.
+
+00:02:37.840 --> 00:02:42.840
+I helped some apps like Twitter.
+
+00:02:42.840 --> 00:02:45.120
+I don't know if anyone will know this old app for
+
+00:02:45.140 --> 00:02:45.840
+Twitter.
+
+00:02:45.840 --> 00:02:48.840
+It was really cool.
+
+00:02:48.840 --> 00:02:56.150
+And I helped translate a bit for Tokimeki, the
+
+00:02:56.340 --> 00:03:02.840
+blue sky client from Jap to Portuguese.
+
+00:03:02.840 --> 00:03:07.620
+So, I use it to be a streamer back in
+
+00:03:07.620 --> 00:03:11.840
+more than 10 years ago.
+
+00:03:11.840 --> 00:03:15.840
+But today, I just stream as a hobby.
+
+00:03:15.840 --> 00:03:23.900
+I also founded AT Brazil that you can find by the
+
+00:03:23.900 --> 00:03:26.340
+handle atproto.
+
+00:03:26.420 --> 00:03:27.430
+com.
+
+00:03:27.430 --> 00:03:27.840
+br.
+
+00:03:27.840 --> 00:03:34.820
+And I'm based in Sao Paulo, Brazil.
+
+00:03:34.840 --> 00:03:39.860
+Also, you might see my, might find me using this
+
+00:03:39.860 --> 00:03:43.840
+icon a lot, but everywhere.
+
+00:03:43.840 --> 00:03:46.840
+But this is then my format.
+
+00:03:46.840 --> 00:03:48.840
+So, just to know.
+
+00:03:48.840 --> 00:03:52.310
+Okay, let's go to the main topics I will be
+
+00:03:52.310 --> 00:03:53.840
+talking about.
+
+00:03:53.840 --> 00:04:02.040
+So, there's three big topics I want to talk of
+
+00:04:02.120 --> 00:04:02.840
+.
+
+00:04:02.840 --> 00:04:08.840
+A bit of a problem, a barrier to keep your users
+
+00:04:09.100 --> 00:04:13.840
+that they don't speak English as a first language.
+
+00:04:13.840 --> 00:04:17.840
+So, first off, the onboarding.
+
+00:04:17.840 --> 00:04:23.400
+I want to provoke a little bit of questions for you all
+
+00:04:23.400 --> 00:04:23.840
+.
+
+00:04:23.840 --> 00:04:26.840
+The first expression is always important.
+
+00:04:26.840 --> 00:04:31.720
+So, if you, you need to ask, is your
+
+00:04:31.720 --> 00:04:38.270
+onboarding generic enough for people from multiple countries to understand how
+
+00:04:38.270 --> 00:04:40.840
+to get around your app or not?
+
+00:04:40.840 --> 00:04:47.470
+If you are not sure, you can just ask some other
+
+00:04:47.470 --> 00:04:53.460
+, search for some people that are open to give your feedback
+
+00:04:53.460 --> 00:04:53.680
+.
+
+00:04:53.840 --> 00:04:55.840
+It's always good.
+
+00:04:55.840 --> 00:04:57.840
+Also, communication.
+
+00:04:57.840 --> 00:05:02.040
+After they are using your app, you can't just take
+
+00:05:02.040 --> 00:05:03.840
+that for granted.
+
+00:05:03.840 --> 00:05:09.110
+Having a good and healthy communication with your user base is really
+
+00:05:09.110 --> 00:05:09.840
+good.
+
+00:05:09.840 --> 00:05:17.120
+And communities will always be very happy to be acknowledged and be
+
+00:05:17.270 --> 00:05:18.840
+listened to.
+
+00:05:18.840 --> 00:05:25.120
+So, please, also, be very careful because since people
+
+00:05:25.120 --> 00:05:31.830
+speak different languages and not the English is not their first language
+
+00:05:31.890 --> 00:05:35.840
+, words can be understood in different ways.
+
+00:05:35.840 --> 00:05:40.840
+So, please be very mindful about your wording and stuff.
+
+00:05:40.840 --> 00:05:47.820
+It can be very impactful of your success of your app.
+
+00:05:47.840 --> 00:05:51.840
+You can scare away many users.
+
+00:05:51.840 --> 00:05:53.840
+Also, translation.
+
+00:05:53.840 --> 00:05:57.850
+I won't go too deep because right after me, my
+
+00:05:57.850 --> 00:06:03.130
+little friend here, we will have a full talk about the
+
+00:06:03.130 --> 00:06:06.840
+challenges of translating blue sky to French.
+
+00:06:06.840 --> 00:06:12.090
+And it's going to go very deeply in this topic,
+
+00:06:12.090 --> 00:06:17.730
+but I will give a little bit of tips and resources to
+
+00:06:18.220 --> 00:06:19.820
+help with that.
+
+00:06:19.840 --> 00:06:23.840
+Like, a little fact check.
+
+00:06:23.840 --> 00:06:29.840
+Less than 20% of the global population actually speaks English.
+
+00:06:29.840 --> 00:06:37.060
+So, you can't count if having English is enough for
+
+00:06:37.270 --> 00:06:38.840
+your app.
+
+00:06:38.840 --> 00:06:47.050
+Also, be very careful because machine translations doesn't solve everything
+
+00:06:47.330 --> 00:06:47.840
+.
+
+00:06:47.840 --> 00:06:53.040
+Even with the advanced AI models, you need to be very
+
+00:06:53.040 --> 00:06:53.840
+careful.
+
+00:06:53.840 --> 00:06:58.550
+I will enter into this topic now a little in a few
+
+00:06:58.550 --> 00:06:59.840
+minutes.
+
+00:06:59.840 --> 00:07:02.840
+Okay, let's talk about the onboarding.
+
+00:07:02.840 --> 00:07:11.050
+Users are having a lot of problems to find what matters
+
+00:07:11.170 --> 00:07:12.840
+to them.
+
+00:07:13.840 --> 00:07:17.840
+People that speak their same language.
+
+00:07:17.840 --> 00:07:19.840
+They are talking about the same topics.
+
+00:07:19.840 --> 00:07:23.820
+It's relevant.
+
+00:07:23.840 --> 00:07:27.840
+It's meaningful in the region.
+
+00:07:27.840 --> 00:07:32.050
+And so, I know it's not easy to solve this
+
+00:07:32.050 --> 00:07:34.840
+problem, to have a good algorithm.
+
+00:07:34.840 --> 00:07:41.880
+But you can also have, though, we have a big
+
+00:07:42.270 --> 00:07:46.790
+community of developers here and builders and stuff.
+
+00:07:46.840 --> 00:07:49.840
+You can always try to solve this problem together.
+
+00:07:51.840 --> 00:07:58.640
+Also, the creators also need to understand if it's worth
+
+00:07:58.640 --> 00:08:00.840
+to use your app.
+
+00:08:01.840 --> 00:08:07.840
+I'm speaking of content creators in this topic.
+
+00:08:07.840 --> 00:08:15.040
+There's a lot of creators that are spreading their presence in
+
+00:08:15.340 --> 00:08:16.840
+multiple platforms.
+
+00:08:16.840 --> 00:08:19.840
+And it takes effort to do this.
+
+00:08:20.840 --> 00:08:26.840
+So, if they don't see this effort being off,
+
+00:08:27.100 --> 00:08:33.820
+they might not try to keep their presence in your app.
+
+00:08:39.840 --> 00:08:41.880
+So, about the onboarding and stuff, there's a
+
+00:08:41.880 --> 00:08:42.840
+lot of questions.
+
+00:08:42.840 --> 00:08:47.840
+How to do the best UX to that in many languages.
+
+00:08:47.840 --> 00:08:56.010
+Or how to explain the protocol to users that they don't
+
+00:08:56.010 --> 00:09:00.540
+need multiple accounts if they don't want to use multiple apps
+
+00:09:00.550 --> 00:09:00.680
+.
+
+00:09:01.840 --> 00:09:05.250
+So, there's always open questions that we don't have
+
+00:09:05.250 --> 00:09:06.840
+the solid answer yet.
+
+00:09:06.840 --> 00:09:14.840
+But this group of research will be taking these researches.
+
+00:09:14.840 --> 00:09:21.030
+So, I recommend you scan this QR code and keep them
+
+00:09:21.100 --> 00:09:23.840
+in your notes.
+
+00:09:23.840 --> 00:09:27.630
+Also, I forgot to warn you that I'm going to
+
+00:09:27.630 --> 00:09:29.840
+show a lot of QR codes.
+
+00:09:30.840 --> 00:09:35.440
+So, be ready to take the pictures or scan this stuff
+
+00:09:35.440 --> 00:09:35.840
+.
+
+00:09:35.840 --> 00:09:37.840
+I will wait a little bit.
+
+00:09:37.850 --> 00:09:42.840
+Ready?
+
+00:09:42.840 --> 00:09:48.460
+You can always ask me for the links and the presentation after
+
+00:09:48.460 --> 00:09:49.840
+on blue sky.
+
+00:09:49.840 --> 00:09:51.840
+I can share those two.
+
+00:09:55.840 --> 00:10:00.850
+So, also, this wasn't planned originally because when I
+
+00:10:00.850 --> 00:10:05.430
+was here in the Science Day for the conference, I saw
+
+00:10:05.430 --> 00:10:12.760
+this very interesting presentation about the style of migration to blue sky
+
+00:10:12.780 --> 00:10:14.790
+for a scientific community.
+
+00:10:15.840 --> 00:10:19.840
+And they have a really insightful research in data.
+
+00:10:19.840 --> 00:10:23.840
+So, if you missed it, that it's okay.
+
+00:10:23.840 --> 00:10:28.840
+The AT Protoscience will post the recording later.
+
+00:10:29.840 --> 00:10:36.430
+So, follow AT Protoscience to check this data because
+
+00:10:36.430 --> 00:10:42.320
+it's not exactly the topic I'm talking about, but
+
+00:10:42.330 --> 00:10:45.840
+this data is kind of related and useful.
+
+00:10:50.840 --> 00:10:52.840
+Okay, let's go to communication now.
+
+00:10:52.840 --> 00:11:01.050
+If you really want to attract a certain audience
+
+00:11:01.330 --> 00:11:05.960
+, you need to communicate with them, otherwise they might not
+
+00:11:06.100 --> 00:11:11.980
+know about your app and that your app can be useful to
+
+00:11:12.020 --> 00:11:12.840
+them.
+
+00:11:13.840 --> 00:11:19.270
+So, they really appreciate the effort to be included in listening
+
+00:11:19.270 --> 00:11:19.840
+to.
+
+00:11:19.840 --> 00:11:25.410
+You can start doing simple steps like announcing your new features,
+
+00:11:25.410 --> 00:11:28.840
+your features in different languages.
+
+00:11:29.840 --> 00:11:35.840
+So, simple text can be handled by machine translators,
+
+00:11:36.100 --> 00:11:44.280
+but I still be careful about translating more complex text
+
+00:11:44.280 --> 00:11:44.620
+.
+
+00:11:49.840 --> 00:11:53.160
+I will have a little good example, Leaflet did a
+
+00:11:53.160 --> 00:11:56.840
+really cool job in the beginning.
+
+00:11:56.840 --> 00:12:02.560
+They post like, they ask for feedback and requests for different
+
+00:12:02.560 --> 00:12:06.840
+groups like artists, scientists, fandom people.
+
+00:12:07.840 --> 00:12:13.620
+And even though they did it in English, they managed to
+
+00:12:13.620 --> 00:12:18.840
+push new features, very cool features that everyone is benefiting.
+
+00:12:18.840 --> 00:12:23.050
+I can see some non-English speakers using Leaflet
+
+00:12:23.050 --> 00:12:25.840
+and enjoying those features.
+
+00:12:25.840 --> 00:12:30.840
+So, you can do this kind of thing too.
+
+00:12:30.840 --> 00:12:33.970
+This QR code will take you to this list of posts if
+
+00:12:33.980 --> 00:12:34.840
+you want.
+
+00:12:35.840 --> 00:12:44.000
+Also, let's talk about AT Brazil, the work
+
+00:12:44.000 --> 00:12:45.840
+I'm doing.
+
+00:12:45.840 --> 00:12:49.120
+AT Brazil, I'm trying to bridge this also, this
+
+00:12:49.120 --> 00:12:50.840
+gap in communication.
+
+00:12:50.840 --> 00:12:56.840
+I try to translate in simple ways, in quick ways.
+
+00:12:57.840 --> 00:13:02.600
+The biggest updates are around the atmosphere, the blue sky stuff
+
+00:13:02.600 --> 00:13:05.840
+, things I see Brazilians being confused about.
+
+00:13:05.840 --> 00:13:11.840
+I try to explain in a simple way to everyone to get
+
+00:13:12.100 --> 00:13:18.290
+and also to provide the technical Brazilian developers the resources to dig
+
+00:13:18.300 --> 00:13:23.810
+deeper in the information that not always is getting out of the
+
+00:13:23.870 --> 00:13:26.840
+English bubble inside blue sky and stuff.
+
+00:13:27.840 --> 00:13:33.170
+That's a thing that I think that more people can do
+
+00:13:33.170 --> 00:13:37.840
+and will be very helpful to spread the word.
+
+00:13:38.840 --> 00:13:41.840
+A little bit of reality check.
+
+00:13:41.840 --> 00:13:44.840
+A little bit of reality check.
+
+00:13:44.840 --> 00:13:51.140
+That QR code in the top right is a graphic to the
+
+00:13:51.140 --> 00:13:55.150
+most used language in blue sky by day, by week,
+
+00:13:55.150 --> 00:13:56.760
+month and years.
+
+00:13:57.840 --> 00:14:03.310
+You can check out and I will just highlight some examples of
+
+00:14:03.310 --> 00:14:05.840
+the most used language.
+
+00:14:05.850 --> 00:14:10.840
+Japanese, Portuguese and Spanish.
+
+00:14:11.840 --> 00:14:19.170
+In Japan, I found that around 28% of the population
+
+00:14:19.270 --> 00:14:21.840
+speaks English.
+
+00:14:21.840 --> 00:14:25.840
+In Brazil, it's just 5% of people that is
+
+00:14:25.840 --> 00:14:28.840
+comfortable speaking English.
+
+00:14:28.840 --> 00:14:32.820
+In Mexico, around 13%.
+
+00:14:33.840 --> 00:14:34.840
+And in Spain, 22%.
+
+00:14:34.840 --> 00:14:39.840
+So, you can see the percentage is not that high,
+
+00:14:39.840 --> 00:14:45.720
+even though you might think about it was higher.
+
+00:14:45.840 --> 00:14:50.840
+So, you need to think about it.
+
+00:14:51.840 --> 00:14:52.840
+Okay.
+
+00:14:52.840 --> 00:14:53.840
+Okay.
+
+00:14:53.840 --> 00:14:54.840
+Translations.
+
+00:14:54.840 --> 00:14:56.840
+It's not as simple.
+
+00:14:56.840 --> 00:14:59.580
+I recognize it's not a simple task to have good translations
+
+00:14:59.580 --> 00:14:59.840
+.
+
+00:14:59.840 --> 00:15:06.830
+Machine translations can't be up to date with new popular ways
+
+00:15:06.830 --> 00:15:08.840
+to in terms across the internet.
+
+00:15:08.840 --> 00:15:12.840
+The language is moving really fast around the internet.
+
+00:15:13.840 --> 00:15:16.840
+So, the translation won't always keep up with that.
+
+00:15:16.840 --> 00:15:20.840
+I will give a little example in the next slide.
+
+00:15:20.840 --> 00:15:26.200
+Be cautious of relying on AI because you don't know if
+
+00:15:26.200 --> 00:15:31.340
+that model is well-trained in that language you want
+
+00:15:31.420 --> 00:15:31.830
+.
+
+00:15:31.840 --> 00:15:39.840
+There's multiple models that have different training and you
+
+00:15:39.840 --> 00:15:46.840
+can maybe have more problems relying on that than not.
+
+00:15:46.840 --> 00:15:51.170
+Localizing your app will make a huge difference, not just
+
+00:15:51.170 --> 00:15:51.840
+translating.
+
+00:15:51.840 --> 00:15:56.840
+I will give a little bit of examples, but again,
+
+00:15:56.840 --> 00:15:59.840
+the next talk will go even deeper about this.
+
+00:15:59.840 --> 00:16:06.820
+My little example is from Twitter.
+
+00:16:07.840 --> 00:16:14.530
+So, in Brazil, tweets became tweets, right like that
+
+00:16:14.530 --> 00:16:20.790
+, and the users became known as twitteiros.
+
+00:16:20.840 --> 00:16:25.470
+Like, this kind of thing, a machine translator won't
+
+00:16:25.470 --> 00:16:28.840
+get for a long time.
+
+00:16:28.840 --> 00:16:34.610
+They might know now because Twitter is around for a couple of
+
+00:16:34.700 --> 00:16:39.470
+years now, but for new apps, you won't know
+
+00:16:39.470 --> 00:16:41.840
+by relying on machine translations.
+
+00:16:41.840 --> 00:16:47.010
+A little tips that I see a lot of people struggling around
+
+00:16:47.010 --> 00:16:48.840
+the atmosphere.
+
+00:16:49.840 --> 00:16:50.840
+Time zones.
+
+00:16:50.840 --> 00:16:55.840
+Please avoid using regional names for time zones.
+
+00:16:55.840 --> 00:16:56.330
+U.
+
+00:16:56.330 --> 00:16:56.840
+S.
+
+00:16:56.840 --> 00:16:58.840
+Central doesn't mean anything in Brazil.
+
+00:16:58.840 --> 00:16:59.840
+Please.
+
+00:17:00.840 --> 00:17:09.040
+A good way to be safe is using U
+
+00:17:09.070 --> 00:17:10.840
+TC.
+
+00:17:10.840 --> 00:17:13.840
+UTC is the universal time for a reason.
+
+00:17:13.840 --> 00:17:17.840
+UTC is more easy to be understood around the globe.
+
+00:17:17.840 --> 00:17:21.840
+So, I give you this tip, it's easier.
+
+00:17:21.840 --> 00:17:26.660
+Because if you also want to list big cities, you will
+
+00:17:26.660 --> 00:17:30.840
+need a really, really huge list to maintain.
+
+00:17:30.840 --> 00:17:36.920
+And you might not be familiar with cities from different countries you
+
+00:17:37.100 --> 00:17:38.840
+never heard about.
+
+00:17:39.840 --> 00:17:44.220
+So, I think the good old UTC is a safe
+
+00:17:44.220 --> 00:17:46.820
+bet to go for that.
+
+00:17:46.840 --> 00:17:54.840
+Now, let's talk about tools to help you translate.
+
+00:17:54.840 --> 00:18:00.830
+Because I know not everyone has a lot of money and multiple
+
+00:18:01.100 --> 00:18:03.840
+people inside their teams to help.
+
+00:18:04.840 --> 00:18:08.910
+So, you can use some tools to have the community to
+
+00:18:08.910 --> 00:18:10.840
+help you translate.
+
+00:18:10.840 --> 00:18:14.900
+This one NPM X is using, it's called Lun
+
+00:18:14.900 --> 00:18:15.840
+aria.
+
+00:18:15.840 --> 00:18:22.190
+You can see in this screenshot, you can see the translation
+
+00:18:22.190 --> 00:18:23.840
+from Portuguese.
+
+00:18:24.840 --> 00:18:27.840
+And there's 89 of the strings translated.
+
+00:18:27.840 --> 00:18:33.520
+So, there's need some updates and it lists how much
+
+00:18:33.520 --> 00:18:35.840
+, what you need to translate.
+
+00:18:35.840 --> 00:18:38.840
+Unfortunately, it's a little bit technical.
+
+00:18:38.840 --> 00:18:44.680
+You need to know how the people translating need to know how
+
+00:18:44.680 --> 00:18:49.840
+to commit and push code and find those strings.
+
+00:18:50.840 --> 00:18:52.840
+It's not that simple to use.
+
+00:18:52.840 --> 00:19:00.840
+There's this tool that is used by Tokimeki.
+
+00:19:00.840 --> 00:19:04.840
+It's a little bit easier to use.
+
+00:19:04.840 --> 00:19:13.490
+You can use this interface to see different strings from different languages
+
+00:19:13.830 --> 00:19:14.840
+to translate.
+
+00:19:15.840 --> 00:19:19.840
+But it requires a connection with GitHub.
+
+00:19:19.840 --> 00:19:24.420
+So, having a GitHub account, it's not something that
+
+00:19:24.420 --> 00:19:26.840
+non-devs are very familiar with.
+
+00:19:26.840 --> 00:19:32.580
+But when you have the GitHub account, you can do everything
+
+00:19:32.600 --> 00:19:34.840
+through this interface.
+
+00:19:35.840 --> 00:19:40.410
+But that is a point to note that might be a problem
+
+00:19:40.410 --> 00:19:44.840
+to gather help from non-technical people.
+
+00:19:44.840 --> 00:19:50.840
+And that is crowding that Blue Sky is using.
+
+00:19:50.840 --> 00:19:53.840
+It's really less technical.
+
+00:19:53.840 --> 00:19:57.840
+You don't need to touch code at all.
+
+00:19:58.840 --> 00:20:02.840
+You just see the text and translate in the app.
+
+00:20:02.840 --> 00:20:04.840
+They have even mobile app.
+
+00:20:04.840 --> 00:20:07.840
+So, it's really, really easy to use.
+
+00:20:07.840 --> 00:20:14.820
+But also, they have some requirements to use this.
+
+00:20:14.840 --> 00:20:18.840
+So, check if your project can use this first.
+
+00:20:19.840 --> 00:20:20.840
+Okay.
+
+00:20:20.840 --> 00:20:25.840
+Now, it's time for the discussion.
+
+00:20:25.840 --> 00:20:30.840
+I will check the screenshot.
+
+00:20:30.840 --> 00:20:37.020
+And please, I ask for non-English speakers to
+
+00:20:37.100 --> 00:20:41.130
+bring your point of view if you are comfortable about some of
+
+00:20:41.130 --> 00:20:41.840
+the topics I said.
+
+00:20:42.840 --> 00:20:47.840
+And English speakers, you are welcome to bring questions.
+
+00:20:47.840 --> 00:20:50.840
+And listen.
+
+00:20:50.840 --> 00:20:52.840
+And listen.
+
+00:20:52.840 --> 00:20:57.840
+So, we have about eight minutes to do this.
+
+00:20:57.840 --> 00:21:02.840
+Let me see the chat.
+
+00:21:02.840 --> 00:21:04.840
+Anyone?
+
+00:21:04.840 --> 00:21:06.840
+There's a microphone.
+
+00:21:06.840 --> 00:21:08.840
+Thank you.
+
+00:21:09.840 --> 00:21:11.720
+So, if people can raise hands, I'll bring the
+
+00:21:11.720 --> 00:21:13.840
+mic so the people on the live stream can hear us.
+
+00:21:13.840 --> 00:21:14.840
+Yeah.
+
+00:21:14.840 --> 00:21:23.050
+So, when localizing an app user
+
+00:21:23.350 --> 00:21:29.840
+interface, is it enough to just translate the words?
+
+00:21:30.840 --> 00:21:34.450
+Or are there certain different, like, paradigms of
+
+00:21:34.450 --> 00:21:39.200
+control and layout that you need to be thinking about based on
+
+00:21:39.200 --> 00:21:41.840
+different expectations from different communities?
+
+00:21:42.840 --> 00:21:48.590
+Yes, I can give you some examples that will be more
+
+00:21:48.590 --> 00:21:53.340
+in-depth with the next talk, too, with real
+
+00:21:53.370 --> 00:21:54.820
+examples from French.
+
+00:21:54.840 --> 00:21:57.840
+But I will give you some examples in Portuguese, too.
+
+00:21:58.840 --> 00:22:01.340
+So, when translating from English to Portuguese, as an example
+
+00:22:01.350 --> 00:22:06.550
+, there is a big difference, like, Portuguese, French
+
+00:22:06.550 --> 00:22:13.440
+, Spanish, Italian, it's all very gendered language
+
+00:22:13.520 --> 00:22:13.770
+.
+
+00:22:14.840 --> 00:22:19.330
+So, like, imagine if you are translating a word in
+
+00:22:19.330 --> 00:22:22.840
+your interface, like, followers.
+
+00:22:22.840 --> 00:22:25.840
+It's a small word.
+
+00:22:25.840 --> 00:22:28.840
+But in different languages, it can be really big.
+
+00:22:28.840 --> 00:22:33.420
+And if you want to accommodate different genders, you might
+
+00:22:33.430 --> 00:22:35.840
+need a bigger space for that.
+
+00:22:36.840 --> 00:22:40.610
+So, that's a really good problem, a real problem
+
+00:22:40.610 --> 00:22:43.840
+to accommodate this in your interface.
+
+00:22:43.840 --> 00:22:51.840
+How you adapt your user interface to bigger translations, words?
+
+00:22:51.840 --> 00:22:55.840
+How do you make these words short or not?
+
+00:22:55.840 --> 00:22:58.840
+How do you accommodate the needs?
+
+00:23:04.840 --> 00:23:06.840
+Yeah, thanks, Victoria, for that.
+
+00:23:06.840 --> 00:23:10.320
+I will add to that, because, besides French, because
+
+00:23:10.320 --> 00:23:13.850
+I will talk about French for 30 minutes, and including about
+
+00:23:13.850 --> 00:23:15.840
+gendered language, and you are not ready for that.
+
+00:23:15.840 --> 00:23:19.850
+But, also, for other languages, I'm not that
+
+00:23:19.850 --> 00:23:23.510
+familiar about that, but please keep in mind that there is
+
+00:23:23.510 --> 00:23:27.130
+right-to-left languages, and this is a big
+
+00:23:27.230 --> 00:23:29.840
+thing about layout and stuff.
+
+00:23:30.840 --> 00:23:33.510
+So, but one of the main things that I will also
+
+00:23:33.510 --> 00:23:36.110
+say, but you don't have to do it perfectly at
+
+00:23:36.110 --> 00:23:36.840
+first.
+
+00:23:36.840 --> 00:23:38.840
+You just have to care.
+
+00:23:38.840 --> 00:23:40.840
+If you care, it's cool.
+
+00:23:40.840 --> 00:23:45.840
+Translators will come to you and ask for stuff,
+
+00:23:45.840 --> 00:23:48.840
+and you will have to understand that their demands make sense.
+
+00:23:48.840 --> 00:23:53.050
+We don't come to you if we don't think that
+
+00:23:53.050 --> 00:23:54.840
+it is important for us.
+
+00:23:55.840 --> 00:24:02.620
+And you just talked about the string length, because the classical
+
+00:24:02.790 --> 00:24:04.840
+example is German.
+
+00:24:04.840 --> 00:24:08.840
+German love to agglomerate words into big words,
+
+00:24:08.840 --> 00:24:11.420
+and you may not have that in mind when you are designing
+
+00:24:11.420 --> 00:24:12.840
+your beautiful markup.
+
+00:24:13.840 --> 00:24:16.780
+Of course, you can't simply cut a word anywhere of
+
+00:24:16.780 --> 00:24:19.580
+what you can do, but you have to think about that
+
+00:24:19.580 --> 00:24:19.840
+.
+
+00:24:19.840 --> 00:24:23.840
+And if you don't, your buttons will explode, in
+
+00:24:23.840 --> 00:24:25.840
+a way, in your UI.
+
+00:24:25.840 --> 00:24:29.050
+So, you may have to think about that, but don
+
+00:24:29.070 --> 00:24:30.840
+'t freeze about that.
+
+00:24:30.840 --> 00:24:33.920
+Don't say, oh, I won't do internationalization
+
+00:24:33.920 --> 00:24:36.840
+until I have, you know, X thousand users.
+
+00:24:36.840 --> 00:24:42.870
+You can try simple things first, and I will actually tell
+
+00:24:43.100 --> 00:24:45.710
+you a very useful thing in, sorry, I'm teasing
+
+00:24:45.710 --> 00:24:49.660
+, but about how you can organize your keys, for example
+
+00:24:49.660 --> 00:24:49.830
+.
+
+00:24:49.840 --> 00:25:01.490
+Hi, thanks for sharing
+
+00:25:01.610 --> 00:25:04.440
+, and I'm just here, I'd like to share
+
+00:25:04.520 --> 00:25:07.120
+more experience, like I had a tiny library, just to
+
+00:25:07.120 --> 00:25:10.420
+format numbers, like usually in English, people use comas
+
+00:25:10.420 --> 00:25:12.840
+for thousands, and a period for decimals.
+
+00:25:13.840 --> 00:25:14.840
+Yes.
+
+00:25:14.840 --> 00:25:15.950
+I'm Brazilian as well, in Brazil, we do the
+
+00:25:15.990 --> 00:25:17.360
+opposite for whatever reason, and I said, oh, that
+
+00:25:17.360 --> 00:25:17.840
+'s simple.
+
+00:25:17.840 --> 00:25:21.330
+And then I started a library to do that, and it
+
+00:25:21.330 --> 00:25:24.990
+became a massive rabbit hole, because like, the way people
+
+00:25:25.270 --> 00:25:26.840
+represent negative numbers, it changed.
+
+00:25:26.840 --> 00:25:32.630
+People group numbers by three, usually like, in English,
+
+00:25:32.630 --> 00:25:35.990
+in Brazil, but then I found other countries that group by
+
+00:25:36.020 --> 00:25:37.840
+two numbers, two digits by digit.
+
+00:25:38.840 --> 00:25:42.790
+It is massive, like, you cannot imagine how difficult it
+
+00:25:42.790 --> 00:25:46.080
+is, only for numbers, and then you think about a
+
+00:25:46.270 --> 00:25:49.830
+whole atmosphere, a whole community, so, yeah.
+
+00:25:49.840 --> 00:25:51.840
+Anyway, just adding to your question.
+
+00:26:01.840 --> 00:26:04.520
+Hi, I'm from Japan, and I resonated so much
+
+00:26:04.520 --> 00:26:06.840
+from the talk, thank you so much.
+
+00:26:06.840 --> 00:26:09.280
+And my, I have a question, and I get to
+
+00:26:09.280 --> 00:26:11.840
+send an opinion, so I will do that.
+
+00:26:11.840 --> 00:26:15.140
+My question is, so, this is great, we're
+
+00:26:15.140 --> 00:26:17.840
+all here, interested in internationalization.
+
+00:26:17.840 --> 00:26:22.520
+Where can we go, you know, after we go home
+
+00:26:22.520 --> 00:26:25.130
+, is there a place to ask these questions, or who
+
+00:26:25.250 --> 00:26:25.840
+do we go to?
+
+00:26:26.840 --> 00:26:28.840
+Should we make one?
+
+00:26:28.850 --> 00:26:32.840
+Home.
+
+00:26:32.840 --> 00:26:34.840
+And then, let me say one more thing.
+
+00:26:34.840 --> 00:26:39.290
+So, Japanese people are very excited about new, you know
+
+00:26:39.290 --> 00:26:42.810
+, tools and apps, and love to see it in Japanese
+
+00:26:42.810 --> 00:26:43.840
+, for sure.
+
+00:26:43.840 --> 00:26:47.250
+So, if you localize it, or make it available
+
+00:26:47.260 --> 00:26:50.840
+for localization, they'll be happy to, you know
+
+00:26:50.840 --> 00:26:51.840
+, contribute.
+
+00:26:51.840 --> 00:26:52.840
+Yeah.
+
+00:26:52.840 --> 00:26:59.850
+Okay, to organize the, well, we can always create
+
+00:27:00.270 --> 00:27:05.830
+some space to help organize stuff, people interested in that.
+
+00:27:05.840 --> 00:27:10.840
+We can figure out together where we can do stuff.
+
+00:27:11.840 --> 00:27:16.210
+We can start by organizing a blue sky, how to,
+
+00:27:16.210 --> 00:27:21.140
+who is interested in help, and who needs help, and
+
+00:27:21.140 --> 00:27:22.840
+stuff, and then we can evolve.
+
+00:27:22.840 --> 00:27:25.420
+I don't know, like a roomie chat, or
+
+00:27:25.420 --> 00:27:26.840
+something else.
+
+00:27:26.840 --> 00:27:31.380
+We can always figure out, or if someone else has a
+
+00:27:31.390 --> 00:27:33.840
+good solution to that.
+
+00:27:34.840 --> 00:27:35.840
+It's, it's going to be very cool.
+
+00:27:35.840 --> 00:27:37.820
+Let me check, now, the, the, the,
+
+00:27:37.820 --> 00:27:40.840
+the, the screen, the screen chat, really quickly.
+
+00:27:40.840 --> 00:27:45.840
+Yeah, they are, they were talking about, like,
+
+00:27:45.840 --> 00:27:50.220
+if a word is a metaphor for something technical, a little
+
+00:27:50.220 --> 00:27:52.820
+translation probably won't work well.
+
+00:27:52.840 --> 00:27:54.840
+That's a good point.
+
+00:27:55.840 --> 00:27:58.360
+Yeah, a lot of people are talking, like, caring
+
+00:27:58.360 --> 00:28:00.840
+is the, the, the, the most important part.
+
+00:28:00.840 --> 00:28:05.770
+Oh, there is, roomies want to help with organizing
+
+00:28:05.770 --> 00:28:09.840
+, but it's still very work in progress.
+
+00:28:09.840 --> 00:28:10.840
+Okay.
+
+00:28:10.840 --> 00:28:11.840
+Okay.
+
+00:28:12.840 --> 00:28:16.840
+Maybe just to add a little thing about that.
+
+00:28:16.840 --> 00:28:20.520
+First of all, about a space to, to talk with
+
+00:28:20.540 --> 00:28:21.840
+each other.
+
+00:28:21.840 --> 00:28:24.640
+I think that a roomie chat or something could be cool
+
+00:28:24.640 --> 00:28:27.840
+, but just so you know, we already have a discord
+
+00:28:28.100 --> 00:28:33.060
+for the translators of the blue sky open source project,
+
+00:28:33.220 --> 00:28:35.840
+because we have some time to, you know, to coordinate
+
+00:28:35.840 --> 00:28:40.250
+or to ask Samuel for what, what is this new feature
+
+00:28:40.250 --> 00:28:40.790
+that you are shipping.
+
+00:28:41.840 --> 00:28:43.890
+Um, but also, um, um, about, you
+
+00:28:43.890 --> 00:28:47.550
+know, the numbers, because you talked about numbers and dates
+
+00:28:47.550 --> 00:28:48.990
+, just, I just, I, I, I won
+
+00:28:49.010 --> 00:28:51.840
+'t be able to talk about that in the talk, but
+
+00:28:51.880 --> 00:28:53.820
+please rely on the browser.
+
+00:28:53.840 --> 00:28:59.110
+Chrome, Firefox, Safari, they all, uh, took
+
+00:28:59.110 --> 00:29:01.620
+a lot of time to do it correctly using what, uh
+
+00:29:01.620 --> 00:29:04.340
+, Unicode standard, uh, provide, and it
+
+00:29:04.380 --> 00:29:10.160
+will really simply handle everything that you will, uh, throw
+
+00:29:10.330 --> 00:29:10.840
+at them.
+
+00:29:10.840 --> 00:29:12.880
+Uh, those, uh, I would say weird, but
+
+00:29:12.880 --> 00:29:14.840
+no, no, no, no offense intended.
+
+00:29:14.840 --> 00:29:19.660
+Those strange way of organizing numbers are actually very well, um
+
+00:29:19.660 --> 00:29:22.290
+, uh, supported by, um, uh, by,
+
+00:29:22.340 --> 00:29:23.840
+uh, the browser.
+
+00:29:23.840 --> 00:29:25.820
+It's the same for dates, you know, writing dates
+
+00:29:25.820 --> 00:29:26.840
+in the right format.
+
+00:29:26.840 --> 00:29:29.730
+EE, not with month, starting with the month, you
+
+00:29:29.730 --> 00:29:32.810
+know, um, and everything like that are actually, uh
+
+00:29:32.820 --> 00:29:34.840
+, supported by this browser.
+
+00:29:35.840 --> 00:29:36.840
+Yeah.
+
+00:29:36.840 --> 00:29:37.840
+Okay.
+
+00:29:37.840 --> 00:29:40.840
+I have just one last slides to thank you.
+
+00:29:40.840 --> 00:29:41.840
+Obrigada.
+
+00:29:41.840 --> 00:29:42.840
+Everyone.
+
+00:29:42.850 --> 00:29:51.040
+This car code, this car code will
+
+00:29:51.170 --> 00:29:54.510
+, uh, take you to my Blento with my information
+
+00:29:54.510 --> 00:29:54.800
+.
+
+00:29:54.840 --> 00:29:57.570
+I have, uh, a link to shadow, uh,
+
+00:29:57.570 --> 00:30:01.050
+uh, meeting with, uh, online with me if you
+
+00:30:01.100 --> 00:30:01.840
+want.
+
+00:30:01.840 --> 00:30:04.230
+Uh, I will be available after the conference, uh,
+
+00:30:04.230 --> 00:30:04.840
+for that.
+
+00:30:04.840 --> 00:30:08.570
+Or if you are in person, you can scan my you
+
+00:30:08.570 --> 00:30:11.840
+and me, uh, my you and me in person.
+
+00:30:11.840 --> 00:30:16.820
+But I also have a little Brazilian gift to give it to
+
+00:30:16.820 --> 00:30:17.840
+today.
+
+00:30:17.840 --> 00:30:19.840
+So that's it.
+
+00:30:19.840 --> 00:30:20.840
+Thank you.
+
+00:30:20.840 --> 00:30:20.840
+Obrigada.

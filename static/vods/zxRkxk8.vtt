@@ -1,0 +1,1921 @@
+WEBVTT
+
+00:00:02.660 --> 00:00:04.240
+Okay.
+
+00:00:04.240 --> 00:00:09.900
+Thank you, everyone, for being here.
+
+00:00:10.000 --> 00:00:11.880
+Hi, everyone.
+
+00:00:11.880 --> 00:00:16.000
+Thanks for joining me today.
+
+00:00:16.000 --> 00:00:17.280
+My name is Stan.
+
+00:00:17.280 --> 00:00:20.000
+He's less signu, but call me Stan.
+
+00:00:20.000 --> 00:00:24.200
+I'm also called signer on the internet.
+
+00:00:24.200 --> 00:00:27.170
+So it's pronounced like this, but of course, nobody
+
+00:00:27.170 --> 00:00:30.640
+besides language nerd know how to pronounce those letters.
+
+00:00:30.640 --> 00:00:34.790
+So you can simply remember, see me, hey, and
+
+00:00:34.790 --> 00:00:37.520
+you correctly pronounce it.
+
+00:00:37.520 --> 00:00:38.520
+But call me Stan.
+
+00:00:38.520 --> 00:00:41.060
+It's easier and nobody cares.
+
+00:00:41.060 --> 00:00:45.290
+My internet handle or my AT protocol, a nickname is sign
+
+00:00:45.290 --> 00:00:45.800
+er.
+
+00:00:45.800 --> 00:00:49.060
+fr and I'm signer everywhere else.
+
+00:00:49.060 --> 00:00:51.200
+And there are a lot of, you know, key facts
+
+00:00:51.200 --> 00:00:54.560
+about me, but honestly, everything that you will see on
+
+00:00:54.560 --> 00:00:58.030
+this slide doesn't matter because I'm French and this is
+
+00:00:58.030 --> 00:01:01.750
+the main thing that you will have to remember about me here
+
+00:01:01.750 --> 00:01:02.120
+.
+
+00:01:02.120 --> 00:01:04.750
+And that is also why I won't do so many,
+
+00:01:04.800 --> 00:01:08.940
+that much of eye contact because I will have to follow my
+
+00:01:08.940 --> 00:01:11.880
+notes because it's a very dense presentation.
+
+00:01:11.880 --> 00:01:15.840
+I will try to, you know, respect the timing.
+
+00:01:15.840 --> 00:01:18.570
+And also I have a weird accent that you, you may
+
+00:01:18.570 --> 00:01:19.920
+have noticed that.
+
+00:01:19.920 --> 00:01:24.180
+And I will be talking a lot about French from France,
+
+00:01:24.640 --> 00:01:26.690
+which is FRFR for real, for real.
+
+00:01:26.950 --> 00:01:30.930
+And that is, that is key because I'm sorry for
+
+00:01:30.930 --> 00:01:34.150
+all the Quebecois and also the Belgium and Switzerland
+
+00:01:34.150 --> 00:01:37.740
+guys, and also all the people from Africa that speak French
+
+00:01:37.740 --> 00:01:37.930
+.
+
+00:01:37.930 --> 00:01:39.930
+There are a lot of people over there.
+
+00:01:39.930 --> 00:01:42.800
+I will not focus about that because I had to crunch it
+
+00:01:42.800 --> 00:01:47.040
+down to only 25, 30, 35 minutes.
+
+00:01:47.040 --> 00:01:48.960
+So let's go on.
+
+00:01:48.960 --> 00:01:52.480
+I'm here because I'm the main volunteer translators of
+
+00:01:52.480 --> 00:01:53.990
+Blue Skies UI in French.
+
+00:01:54.000 --> 00:01:58.080
+Everything on the website, besides user generated content, of course
+
+00:01:58.080 --> 00:02:00.230
+, is translated in French.
+
+00:02:00.230 --> 00:02:02.670
+And that's partly because of my volunteer job that I do
+
+00:02:02.670 --> 00:02:07.350
+early in the morning before taking my croissant with a,
+
+00:02:07.350 --> 00:02:09.910
+yeah, breakfast and my favorite Boulanger.
+
+00:02:09.910 --> 00:02:10.800
+And that is not a joke.
+
+00:02:10.800 --> 00:02:11.840
+I actually do that.
+
+00:02:11.840 --> 00:02:14.960
+So maybe you are thinking right now that what I do is
+
+00:02:14.960 --> 00:02:16.160
+practically this.
+
+00:02:16.160 --> 00:02:20.760
+Taking Blue Skies source code, translating things, and ta
+
+00:02:20.830 --> 00:02:22.800
+-da, Blue Skies is available in French.
+
+00:02:22.800 --> 00:02:25.360
+Surprise, that's not that simple.
+
+00:02:25.460 --> 00:02:29.380
+I encountered a lot of little problems, a bunch of anecd
+
+00:02:29.380 --> 00:02:33.840
+otes that can actually help you design better products, I think
+
+00:02:33.840 --> 00:02:34.150
+.
+
+00:02:34.310 --> 00:02:37.260
+And simply, if you are just curious about it, learn
+
+00:02:37.260 --> 00:02:41.330
+a little bit of, you know, behind the curtain things
+
+00:02:41.360 --> 00:02:45.430
+about how to actually internationalize, localize such a complex
+
+00:02:45.430 --> 00:02:46.080
+app.
+
+00:02:47.260 --> 00:02:50.320
+So here is our roadmap for today.
+
+00:02:50.320 --> 00:02:54.470
+And as you can see, I've used some examples of
+
+00:02:54.470 --> 00:02:59.180
+real cases that I've faced besides the joke of the beginning
+
+00:02:59.180 --> 00:02:59.520
+.
+
+00:02:59.520 --> 00:03:02.380
+And each time we'll get back to this roadmap, you
+
+00:03:02.380 --> 00:03:06.070
+will learn something that will replace those cases.
+
+00:03:06.070 --> 00:03:08.400
+So let's start with the first one.
+
+00:03:08.400 --> 00:03:10.560
+It's not poster.
+
+00:03:10.950 --> 00:03:13.010
+It's poster.
+
+00:03:13.110 --> 00:03:13.200
+It's poster.
+
+00:03:13.200 --> 00:03:15.020
+The verb.
+
+00:03:17.120 --> 00:03:20.910
+So here is the UI of Blue Sky with an equivalent of
+
+00:03:20.970 --> 00:03:22.140
+the example.
+
+00:03:22.140 --> 00:03:24.160
+com situation, a JerryPost.
+
+00:03:24.160 --> 00:03:27.890
+And as you may notice on the top of the screen,
+
+00:03:28.170 --> 00:03:31.130
+there is a header that says, "Post," because
+
+00:03:31.130 --> 00:03:33.760
+what just us have seen is a post.
+
+00:03:33.760 --> 00:03:37.110
+Signage is not really, it's sometimes redundant, but
+
+00:03:37.110 --> 00:03:38.560
+it's useful to know.
+
+00:03:39.760 --> 00:03:43.040
+And let's say that this very funny post inspired me to
+
+00:03:43.040 --> 00:03:44.870
+write another funny post.
+
+00:03:44.880 --> 00:03:49.460
+So I boot up the, open up the post composer and
+
+00:03:49.840 --> 00:03:54.480
+look here on the top right corner, a post button.
+
+00:03:54.480 --> 00:03:58.160
+Of course, in this context, you know that it's
+
+00:03:58.400 --> 00:03:59.430
+not some header.
+
+00:03:59.440 --> 00:04:00.870
+It's just a button.
+
+00:04:00.880 --> 00:04:05.870
+And post is written here because we write infinitive form of
+
+00:04:05.870 --> 00:04:07.810
+verbs on top of buttons.
+
+00:04:07.810 --> 00:04:10.390
+Or maybe it's imperative form.
+
+00:04:10.390 --> 00:04:11.760
+Yeah, you said post.
+
+00:04:11.760 --> 00:04:13.530
+Yeah, make it obvious.
+
+00:04:13.530 --> 00:04:14.480
+Whatever.
+
+00:04:14.530 --> 00:04:20.000
+So to recap, in English, US, you have those
+
+00:04:20.000 --> 00:04:24.240
+two posts, but it doesn't actually mean the same.
+
+00:04:24.240 --> 00:04:26.890
+They are broadly the same, but they are not the same
+
+00:04:26.890 --> 00:04:27.040
+.
+
+00:04:27.040 --> 00:04:29.140
+One is a verb, one is a noun.
+
+00:04:29.140 --> 00:04:33.270
+Let's say that I want to translate that in French.
+
+00:04:33.280 --> 00:04:36.920
+Now, I think that you are coming to what I'm
+
+00:04:36.920 --> 00:04:38.030
+going to.
+
+00:04:38.030 --> 00:04:42.050
+So I want to change this to "poster," which
+
+00:04:42.050 --> 00:04:45.250
+is the French for "to post." So I'll open
+
+00:04:45.250 --> 00:04:48.340
+up "crowding," and I can see this.
+
+00:04:48.450 --> 00:04:50.790
+Of course, it's a very simplified version.
+
+00:04:51.600 --> 00:04:54.220
+Oh, there is "post." So I will change it
+
+00:04:54.260 --> 00:04:57.600
+to "poste." When I get back, oh,
+
+00:04:57.600 --> 00:05:01.490
+perfect, "poste." But you may have did this
+
+00:05:01.490 --> 00:05:02.330
+yourself.
+
+00:05:02.330 --> 00:05:05.040
+Here is "poste," and that doesn't make any
+
+00:05:05.040 --> 00:05:05.570
+sense.
+
+00:05:05.570 --> 00:05:11.550
+So something is broken, and to explain why this is happening
+
+00:05:11.550 --> 00:05:15.110
+, I have to talk about internationalization.
+
+00:05:15.120 --> 00:05:18.450
+By the way, did you ever notice that there were 18
+
+00:05:18.450 --> 00:05:19.120
+characters?
+
+00:05:19.120 --> 00:05:24.640
+That's why we write it like that everywhere.
+
+00:05:24.640 --> 00:05:27.720
+Actually, a lot of people don't know that, and
+
+00:05:27.720 --> 00:05:30.610
+it's a weird way of doing an acronym, but yeah
+
+00:05:30.610 --> 00:05:30.720
+.
+
+00:05:30.720 --> 00:05:37.840
+There are two main ways of organizing strings, translations.
+
+00:05:37.840 --> 00:05:42.290
+In a project, you can either decide a reference language.
+
+00:05:42.290 --> 00:05:45.400
+Not surprisingly, most of the time it's English.
+
+00:05:45.430 --> 00:05:51.110
+And every word that is shown to the users is directly written
+
+00:05:51.110 --> 00:05:53.520
+in that reference language in the source code.
+
+00:05:53.580 --> 00:05:57.860
+And then internationalization libraries, and check out if there are
+
+00:05:57.860 --> 00:06:01.120
+any translations for those words in a translation file, and swap
+
+00:06:01.120 --> 00:06:01.360
+those.
+
+00:06:02.640 --> 00:06:07.260
+But you have also another strategy that is the hierarchical ident
+
+00:06:07.260 --> 00:06:09.520
+ifiers.
+
+00:06:09.520 --> 00:06:10.080
+You got it.
+
+00:06:10.080 --> 00:06:15.030
+And basically, you treat all the words shown on the screen
+
+00:06:15.330 --> 00:06:20.640
+as external data that you reference using symbolic keys like those.
+
+00:06:20.640 --> 00:06:26.560
+The benefit of this approach is that those identifiers are clear
+
+00:06:26.560 --> 00:06:29.840
+for translators, because we have context.
+
+00:06:30.140 --> 00:06:34.060
+And you can edit the text shown to users even in your
+
+00:06:34.060 --> 00:06:35.600
+own language.
+
+00:06:35.600 --> 00:06:40.930
+So if you want to change what we also call microcop
+
+00:06:40.930 --> 00:06:44.230
+y, the word that you use for the users, even
+
+00:06:44.230 --> 00:06:47.050
+in English, you can do so without changing the source code
+
+00:06:47.050 --> 00:06:49.350
+, which is something kind of nice.
+
+00:06:52.400 --> 00:06:55.780
+And it's also cool because in a thinking way, English
+
+00:06:55.780 --> 00:06:57.680
+is just another language.
+
+00:06:57.680 --> 00:06:59.310
+It's not the reference language.
+
+00:06:59.310 --> 00:07:01.520
+So that's a cool way to do that.
+
+00:07:01.520 --> 00:07:03.840
+But blue sky shows the former.
+
+00:07:03.840 --> 00:07:06.050
+And honestly, I do understand that.
+
+00:07:06.050 --> 00:07:10.960
+Because let's be honest, most English speaking developers just want
+
+00:07:10.960 --> 00:07:12.710
+to iterate very quickly.
+
+00:07:12.710 --> 00:07:16.790
+And they just slap the translation after the fact.
+
+00:07:16.800 --> 00:07:19.440
+And so yeah, this shows the first strategy.
+
+00:07:20.640 --> 00:07:21.650
+And it's very common.
+
+00:07:21.650 --> 00:07:22.880
+And honestly, it works.
+
+00:07:22.880 --> 00:07:28.080
+So and this is one of the two slides with code on
+
+00:07:28.080 --> 00:07:28.880
+it.
+
+00:07:28.880 --> 00:07:35.040
+We just slap the trends tag into that.
+
+00:07:35.040 --> 00:07:39.520
+And like lives, these trends tags matters a lot.
+
+00:07:39.520 --> 00:07:43.380
+It's a way for the international library to do its job
+
+00:07:43.600 --> 00:07:47.510
+and go fetch your actual translation for that string here post.
+
+00:07:49.600 --> 00:07:52.720
+So now that you know a little bit more about internationalization
+
+00:07:52.720 --> 00:07:54.000
+, how can we fix this problem?
+
+00:07:54.000 --> 00:07:56.400
+Well, actually, it's quite simple.
+
+00:07:56.660 --> 00:08:02.210
+And even if we have to do something on the source code
+
+00:08:02.210 --> 00:08:05.740
+, of course, we just have to add context tags,
+
+00:08:05.740 --> 00:08:10.800
+basically attaching some context to each of these strings.
+
+00:08:11.840 --> 00:08:15.430
+The first one is basically, you know, standard unknown.
+
+00:08:15.430 --> 00:08:17.280
+The second one, an action verb.
+
+00:08:17.280 --> 00:08:21.860
+And in the code, the second side, we simply have
+
+00:08:21.860 --> 00:08:25.790
+to add context equal description, because post is a description of
+
+00:08:25.790 --> 00:08:27.040
+the thing, not an action.
+
+00:08:27.040 --> 00:08:32.320
+As soon as we do that, the localization catalog updates
+
+00:08:32.320 --> 00:08:33.910
+, and we have two separate entries.
+
+00:08:33.910 --> 00:08:36.420
+And I can simply translate the second one and not the first
+
+00:08:36.490 --> 00:08:36.880
+one.
+
+00:08:36.880 --> 00:08:41.490
+And ta-da, everything is translated correctly.
+
+00:08:41.750 --> 00:08:43.200
+Success.
+
+00:08:43.200 --> 00:08:46.110
+So the thing that I want you to remember for this first
+
+00:08:46.110 --> 00:08:48.080
+example is context is everything.
+
+00:08:48.080 --> 00:08:51.390
+Something that we know, but it's important to, you
+
+00:08:51.390 --> 00:08:53.120
+know, to say again.
+
+00:08:53.120 --> 00:08:57.200
+And you have to be ready to hear the demands of your
+
+00:08:57.200 --> 00:09:00.240
+translators to add context tags if you use the first strategy
+
+00:09:00.240 --> 00:09:00.400
+.
+
+00:09:00.400 --> 00:09:03.040
+If you use the second, normally, you shouldn't have
+
+00:09:03.040 --> 00:09:06.000
+to do that, because it's already in the identifier.
+
+00:09:06.000 --> 00:09:10.560
+And to their credits, the Blue Sky team always accepted our
+
+00:09:10.560 --> 00:09:14.060
+pull request very quickly to add context tags.
+
+00:09:14.060 --> 00:09:15.590
+So that's awesome.
+
+00:09:15.590 --> 00:09:17.680
+And I thank them for that.
+
+00:09:17.680 --> 00:09:21.520
+So context is everything.
+
+00:09:21.580 --> 00:09:26.630
+Let's get to the next one, "abonner"
+
+00:09:26.740 --> 00:09:28.080
+with those weird points.
+
+00:09:28.720 --> 00:09:32.320
+And you will understand why they are there.
+
+00:09:32.330 --> 00:09:35.190
+They are weird dots.
+
+00:09:35.190 --> 00:09:39.890
+But first, let me tell you a story that starts with
+
+00:09:39.890 --> 00:09:41.440
+a GitHub issue.
+
+00:09:41.440 --> 00:09:45.970
+This GitHub issue created by Fenarin Arsat is quite
+
+00:09:45.970 --> 00:09:46.560
+simple.
+
+00:09:46.560 --> 00:09:49.680
+Make the French translation gender neutral.
+
+00:09:49.680 --> 00:09:55.120
+And as I said, the current French translation does not follow
+
+00:09:55.120 --> 00:09:59.080
+the current recommendation for non-sexist and more inclusive French
+
+00:09:59.080 --> 00:09:59.680
+forms.
+
+00:09:59.680 --> 00:10:02.820
+To explain what he's talking about, I have to explain
+
+00:10:02.820 --> 00:10:04.160
+a few things about French.
+
+00:10:04.160 --> 00:10:08.590
+So please bear with me while I will try to offer you
+
+00:10:08.590 --> 00:10:10.120
+some French 101 lesson.
+
+00:10:10.120 --> 00:10:12.480
+I know you understand why it may take a long time.
+
+00:10:12.480 --> 00:10:16.720
+This is a hat.
+
+00:10:18.400 --> 00:10:20.650
+In French, we would translate it as "un chape
+
+00:10:20.650 --> 00:10:20.880
+au".
+
+00:10:21.060 --> 00:10:23.010
+This is a tulip.
+
+00:10:23.280 --> 00:10:27.630
+In French, "une tulip", "une tulip
+
+00:10:27.630 --> 00:10:28.080
+".
+
+00:10:28.080 --> 00:10:29.200
+Yeah.
+
+00:10:29.200 --> 00:10:31.240
+Did you notice, "une tulip", it's a
+
+00:10:31.240 --> 00:10:32.320
+feminine word.
+
+00:10:32.320 --> 00:10:35.600
+In French, everything is gendered.
+
+00:10:35.600 --> 00:10:38.080
+We chose a gender for everything.
+
+00:10:38.200 --> 00:10:41.440
+And there is an aesthetics here, but honestly, nearly everything
+
+00:10:42.080 --> 00:10:43.840
+has gendered has gendered in French, even for brand
+
+00:10:43.840 --> 00:10:44.320
+new words.
+
+00:10:44.720 --> 00:10:49.100
+So some examples of gendered things, so you understand the
+
+00:10:49.100 --> 00:10:50.800
+mess that it can become.
+
+00:10:50.800 --> 00:10:52.370
+This is a chair.
+
+00:10:52.630 --> 00:10:56.480
+It's feminine, "une chaise".
+
+00:10:56.480 --> 00:10:58.320
+This is a seat.
+
+00:10:59.280 --> 00:11:02.290
+It's masculine, "un siège".
+
+00:11:02.290 --> 00:11:03.800
+This is a shoe.
+
+00:11:03.800 --> 00:11:06.960
+It's feminine, "une chaise".
+
+00:11:07.280 --> 00:11:08.640
+This is a finger.
+
+00:11:08.640 --> 00:11:11.260
+It's masculine, it's a finger.
+
+00:11:11.300 --> 00:11:14.720
+But it gets even weirder because here is Canada.
+
+00:11:14.720 --> 00:11:17.760
+It's masculine for some reason.
+
+00:11:17.760 --> 00:11:19.670
+But here is Poland.
+
+00:11:19.670 --> 00:11:22.640
+It's feminine for some reason.
+
+00:11:22.640 --> 00:11:24.960
+Strength is feminine.
+
+00:11:24.960 --> 00:11:26.480
+La force.
+
+00:11:26.480 --> 00:11:29.520
+Love is masculine.
+
+00:11:29.520 --> 00:11:30.480
+Un amour.
+
+00:11:30.480 --> 00:11:31.040
+Oh la la.
+
+00:11:31.040 --> 00:11:35.360
+When I say nearly everything, really I mean it.
+
+00:11:35.360 --> 00:11:37.800
+So, gendering is not optional.
+
+00:11:38.020 --> 00:11:41.200
+This is a key thing that you have to remember.
+
+00:11:41.840 --> 00:11:44.400
+If you say "un tulip" inside a sentence and
+
+00:11:44.500 --> 00:11:47.280
+you are not a beginner or a tourist, that means that
+
+00:11:47.280 --> 00:11:50.290
+we have not switched to in the quirks mode, that
+
+00:11:50.340 --> 00:11:54.240
+we will do some extra mile or, you know, extra
+
+00:11:54.240 --> 00:11:57.600
+kilometers, as we say, we will offer to correct you
+
+00:11:57.600 --> 00:12:01.680
+, even verbally, because we will assume that you made an
+
+00:12:01.680 --> 00:12:03.810
+error or we didn't understand you.
+
+00:12:03.810 --> 00:12:05.600
+It's like a checksum or CRC.
+
+00:12:05.600 --> 00:12:09.910
+So that's not the end of it.
+
+00:12:11.120 --> 00:12:12.160
+Here is a big hat.
+
+00:12:12.160 --> 00:12:14.640
+Un grand chapeau.
+
+00:12:15.020 --> 00:12:17.670
+Here is a big tulip.
+
+00:12:17.670 --> 00:12:20.880
+Une grande tulipe.
+
+00:12:20.880 --> 00:12:25.200
+In French, we do an accord.
+
+00:12:25.200 --> 00:12:26.320
+This.
+
+00:12:26.320 --> 00:12:30.000
+That means that we do change the form of the adjectives
+
+00:12:30.000 --> 00:12:31.700
+that comes with the noun.
+
+00:12:31.700 --> 00:12:34.610
+By the way, I learned that it was called a co
+
+00:12:34.610 --> 00:12:36.720
+-chord in English, but nobody says that, so
+
+00:12:36.720 --> 00:12:37.840
+we don't care.
+
+00:12:37.840 --> 00:12:39.360
+Here are two tulips.
+
+00:12:39.360 --> 00:12:42.390
+Actually, you do a code in English, but only for
+
+00:12:42.390 --> 00:12:42.880
+the noun.
+
+00:12:42.880 --> 00:12:45.600
+And we do it, of course, in French.
+
+00:12:45.600 --> 00:12:49.040
+Here is two big tulip.
+
+00:12:49.040 --> 00:12:49.680
+Tulips.
+
+00:12:49.680 --> 00:12:54.160
+So, of course, both gender and number are used in
+
+00:12:54.160 --> 00:12:55.920
+the circle.
+
+00:12:55.920 --> 00:13:01.350
+And it also works with people.
+
+00:13:01.350 --> 00:13:03.040
+And so, we talked a lot about gender of stuff.
+
+00:13:03.040 --> 00:13:05.960
+Because, of course, gender of people also affects the language
+
+00:13:05.960 --> 00:13:06.240
+.
+
+00:13:06.240 --> 00:13:09.800
+Here, an old man, un vieil homme, two
+
+00:13:09.800 --> 00:13:10.400
+old men.
+
+00:13:10.400 --> 00:13:11.680
+Oh, did you notice?
+
+00:13:11.680 --> 00:13:13.680
+You also do an accord with a weird thing.
+
+00:13:13.680 --> 00:13:15.920
+It's not only about other languages.
+
+00:13:15.920 --> 00:13:17.440
+Deux vieux hommes.
+
+00:13:17.580 --> 00:13:20.560
+Two old women.
+
+00:13:20.560 --> 00:13:22.240
+Deux vieilles femmes.
+
+00:13:22.240 --> 00:13:26.850
+Now, that you have all of that in mind, let
+
+00:13:26.910 --> 00:13:32.330
+'s take a more complex example so you understand the problem that
+
+00:13:32.330 --> 00:13:33.460
+is coming.
+
+00:13:33.460 --> 00:13:35.410
+Here is a detective.
+
+00:13:35.410 --> 00:13:39.940
+In French, we can translate that to "un inspecteur
+
+00:13:39.940 --> 00:13:40.080
+".
+
+00:13:40.080 --> 00:13:43.470
+And the gender is visible because it's "un inspecteur
+
+00:13:43.690 --> 00:13:43.720
+".
+
+00:13:43.720 --> 00:13:47.510
+Because if it was a female detective, it would be "
+
+00:13:47.510 --> 00:13:48.860
+une inspectrice".
+
+00:13:48.860 --> 00:13:51.380
+As you can see, "une" changed, but also
+
+00:13:51.380 --> 00:13:52.720
+"inspectrice".
+
+00:13:52.720 --> 00:13:54.800
+And that means...
+
+00:13:54.800 --> 00:13:57.260
+Oh, by the way, we don't know the gender
+
+00:13:57.260 --> 00:13:58.110
+of the user.
+
+00:13:58.110 --> 00:14:01.280
+So, maybe you can deduce the problem that we can
+
+00:14:01.280 --> 00:14:02.480
+have at some point.
+
+00:14:02.480 --> 00:14:05.060
+But actually, it's not the actual problem that I'm
+
+00:14:05.060 --> 00:14:06.440
+talking about right now.
+
+00:14:06.440 --> 00:14:09.040
+But, of course, it also happens.
+
+00:14:09.040 --> 00:14:13.520
+When you have two detectives, a duo of detectives
+
+00:14:13.520 --> 00:14:16.720
+, one male detective and a female detective.
+
+00:14:16.720 --> 00:14:19.340
+Together, we call them two detectives.
+
+00:14:19.380 --> 00:14:22.400
+Which gender should we use in French for this group?
+
+00:14:22.400 --> 00:14:26.740
+Well, you will have to use the masculine form.
+
+00:14:26.740 --> 00:14:27.600
+Deux inspecteur.
+
+00:14:27.600 --> 00:14:28.640
+I know.
+
+00:14:28.640 --> 00:14:32.230
+But here's a team with five detectives and four of
+
+00:14:32.230 --> 00:14:34.000
+them are female detectives.
+
+00:14:34.000 --> 00:14:37.360
+How should we translate five detectives in that case?
+
+00:14:37.360 --> 00:14:39.760
+Masculine again.
+
+00:14:39.760 --> 00:14:41.750
+Cinq inspecteur.
+
+00:14:41.760 --> 00:14:45.440
+This comes from an old rule we even learned in school,
+
+00:14:45.840 --> 00:14:46.600
+masculine.
+
+00:14:46.600 --> 00:14:47.970
+Le masculin l'emporte.
+
+00:14:47.970 --> 00:14:49.550
+The masculine takes it all.
+
+00:14:49.670 --> 00:14:52.560
+As soon as there is one noun subject or part of a
+
+00:14:52.560 --> 00:14:55.440
+group that is masculine, we should use the masculine group for
+
+00:14:55.440 --> 00:14:56.400
+the whole group.
+
+00:14:56.400 --> 00:14:59.100
+And let's be honest, this rule sucks.
+
+00:14:59.100 --> 00:15:02.600
+People try to reason about it, saying that in French,
+
+00:15:02.600 --> 00:15:04.570
+masculine is a neutral form.
+
+00:15:04.570 --> 00:15:05.620
+It's a cop-out.
+
+00:15:05.620 --> 00:15:08.180
+Always gendering in masculine...
+
+00:15:08.240 --> 00:15:10.160
+in the masculine form, sorry.
+
+00:15:10.160 --> 00:15:14.310
+The masculine form blocks some young women from projecting themselves to wall
+
+00:15:14.530 --> 00:15:17.390
+domains, can make them feel non-represented.
+
+00:15:17.390 --> 00:15:20.060
+And moreover, that's just unfair in a lot of
+
+00:15:20.060 --> 00:15:20.640
+ways.
+
+00:15:20.640 --> 00:15:24.770
+So, at some point in the 21st century, some
+
+00:15:24.770 --> 00:15:27.800
+people got fed up with that and tried to change things by
+
+00:15:27.820 --> 00:15:31.730
+using something that they called écriture inclusive writing.
+
+00:15:32.180 --> 00:15:35.280
+Basically, it's just voluntary using some word, piece of
+
+00:15:35.280 --> 00:15:38.200
+sentences, and tricks to make sure that we stop excluding women
+
+00:15:38.410 --> 00:15:39.280
+from the language.
+
+00:15:39.660 --> 00:15:44.550
+So, here are two main strategies that we can use to
+
+00:15:44.740 --> 00:15:46.680
+implement écriture inclusive.
+
+00:15:46.710 --> 00:15:52.620
+Either write both masculine and feminine forms every time, in whatever
+
+00:15:52.620 --> 00:15:56.640
+order, by the way, or merge both forms into a
+
+00:15:56.640 --> 00:15:58.140
+same word like this.
+
+00:15:58.240 --> 00:16:03.200
+And to do that, you use some points médians,
+
+00:16:03.200 --> 00:16:06.620
+which are basically interpreted, but nobody say that even in English
+
+00:16:06.620 --> 00:16:09.250
+, which are basically dots that you place in the middle of
+
+00:16:09.370 --> 00:16:11.090
+the vertical height of the line.
+
+00:16:11.090 --> 00:16:14.590
+Of course, we could use parenthesis, but then you
+
+00:16:14.590 --> 00:16:17.780
+put 50% of the population inside parenthesis.
+
+00:16:17.780 --> 00:16:19.670
+And so, yeah, that's weird.
+
+00:16:19.670 --> 00:16:21.200
+So, we tend not to do that.
+
+00:16:21.200 --> 00:16:27.290
+Equiture inclusive as a linguistic innovation was fringed
+
+00:16:27.290 --> 00:16:30.560
+at first, but as time goes by, it became more
+
+00:16:30.560 --> 00:16:33.710
+and more common news, especially from companies and agencies, because
+
+00:16:33.710 --> 00:16:36.660
+it was easy and efficient way to making clear that you wanted
+
+00:16:36.660 --> 00:16:39.760
+the situation improving, showing that you cared about the subject of
+
+00:16:39.760 --> 00:16:41.360
+gender inclusivity.
+
+00:16:41.360 --> 00:16:46.860
+But then, after a few years, I'd say five
+
+00:16:46.860 --> 00:16:50.450
+or six years of widespread usage, some right-wing people
+
+00:16:50.450 --> 00:16:53.310
+started to ask themselves, you know, this world-rec
+
+00:16:53.310 --> 00:16:56.550
+riture inclusive thing, isn't this work?
+
+00:16:56.560 --> 00:17:02.180
+I mean, they focused a lot about those points médians
+
+00:17:02.180 --> 00:17:04.900
+form, they call it something ugly, weird, decad
+
+00:17:04.900 --> 00:17:08.270
+ent, or whatever, and basically created an equal sign between
+
+00:17:08.370 --> 00:17:11.040
+using the point médian and being woke.
+
+00:17:11.040 --> 00:17:14.550
+It was bullshit, you know, but it's like that
+
+00:17:14.550 --> 00:17:15.840
+kind of stuff.
+
+00:17:15.840 --> 00:17:18.100
+It's not like this kind of stuff would stop them.
+
+00:17:18.100 --> 00:17:19.760
+It's perfect scapegoat for them.
+
+00:17:19.760 --> 00:17:24.240
+So, of course, they started coming to the Blue Sky
+
+00:17:24.240 --> 00:17:28.910
+repository, complaining about using politically-sided language, just because
+
+00:17:28.910 --> 00:17:32.920
+we followed a somewhat common new practice of caring about inclusivity
+
+00:17:32.920 --> 00:17:33.120
+.
+
+00:17:33.120 --> 00:17:36.310
+So, from there, what should we do?
+
+00:17:36.320 --> 00:17:41.430
+Well, actually, I thought about that before they even complained
+
+00:17:41.430 --> 00:17:45.030
+, and I trained myself to mainly use a long way of
+
+00:17:45.030 --> 00:17:51.420
+doing écriture inclusive by both writing the feminine and masculine forms
+
+00:17:51.420 --> 00:17:52.080
+.
+
+00:17:52.080 --> 00:17:57.490
+And then, if and only if we have very little room
+
+00:17:57.490 --> 00:18:00.390
+for the translated version, then at the last resort, using
+
+00:18:00.610 --> 00:18:03.190
+point médian short form, and it's what we did
+
+00:18:03.190 --> 00:18:05.950
+for Abonnez, by the way, the title example
+
+00:18:05.950 --> 00:18:06.950
+that I used.
+
+00:18:06.950 --> 00:18:11.090
+But we have some trick up our sleeves to make it better
+
+00:18:11.090 --> 00:18:11.360
+.
+
+00:18:11.360 --> 00:18:13.520
+And to be fair, I lied to you.
+
+00:18:13.520 --> 00:18:14.240
+I'm sorry.
+
+00:18:14.240 --> 00:18:14.960
+By omission.
+
+00:18:15.280 --> 00:18:15.920
+I'd say.
+
+00:18:15.920 --> 00:18:21.280
+What if there were words that shared the same form in both
+
+00:18:21.280 --> 00:18:21.680
+tenders?
+
+00:18:21.680 --> 00:18:25.520
+That's why I use detective as an example.
+
+00:18:25.570 --> 00:18:30.830
+A detective can also be translated in French as "un detective
+
+00:18:30.830 --> 00:18:35.380
+" and a female detective as "un detective".
+
+00:18:35.380 --> 00:18:36.080
+Perfect!
+
+00:18:36.770 --> 00:18:40.370
+Those words that can be written the same in both masculine and
+
+00:18:40.370 --> 00:18:43.600
+feminine form are called "épicenne" words, and
+
+00:18:43.600 --> 00:18:46.580
+they're awesome for us, because they basically solve the problem
+
+00:18:46.580 --> 00:18:47.360
+in a very nice way.
+
+00:18:47.700 --> 00:18:49.910
+However, they don't always exist.
+
+00:18:49.920 --> 00:18:53.340
+There are not always synonyms that have this property of
+
+00:18:53.380 --> 00:18:57.120
+being "épicenne", including "abonnez",
+
+00:18:57.120 --> 00:18:57.740
+by the way.
+
+00:18:57.740 --> 00:18:59.280
+That's why I have to use that.
+
+00:18:59.280 --> 00:19:02.800
+So to recap, going forward when I face this kind of
+
+00:19:02.800 --> 00:19:05.940
+puzzle in my translation work, my policy is to try to
+
+00:19:05.940 --> 00:19:07.890
+find an "épicenne" word, and if I
+
+00:19:07.930 --> 00:19:10.040
+can't find one, then to use the expanded version with
+
+00:19:10.040 --> 00:19:13.330
+both masculine and feminine form, and then, and only when
+
+00:19:13.360 --> 00:19:17.430
+space is missing as a last resort using the point médian
+
+00:19:17.430 --> 00:19:17.760
+.
+
+00:19:17.810 --> 00:19:18.530
+And here we have it.
+
+00:19:18.530 --> 00:19:22.000
+And by the way, and this, as a conclusion for
+
+00:19:22.000 --> 00:19:24.620
+this part, here is what Dan Abramoff, that
+
+00:19:24.620 --> 00:19:28.560
+at that time, part of the Blue Sky team posted before
+
+00:19:28.560 --> 00:19:31.060
+closing that pull request that wanted to revert the work that
+
+00:19:31.060 --> 00:19:32.800
+we did on gender-neutral language.
+
+00:19:32.800 --> 00:19:36.880
+It was very validating to see part of the Blue Sky
+
+00:19:36.880 --> 00:19:41.190
+team officially recognizing the work we did, the balance we tried
+
+00:19:41.190 --> 00:19:45.760
+to find by not using the somewhat controversial to the far right
+
+00:19:45.760 --> 00:19:49.110
+, new forms where we could, and more of the pragmatic
+
+00:19:49.120 --> 00:19:50.880
+approach I tried to follow.
+
+00:19:50.880 --> 00:19:53.160
+So thank you again, Dan and the Blue Sky team for
+
+00:19:53.160 --> 00:19:54.000
+our support.
+
+00:19:54.000 --> 00:20:00.150
+Builders, please support your translators if you are working
+
+00:20:00.420 --> 00:20:06.320
+with your choices.
+
+00:20:06.320 --> 00:20:08.050
+Okay, let's get to the fourth point, and we
+
+00:20:08.050 --> 00:20:10.540
+have some short time to go on.
+
+00:20:10.680 --> 00:20:13.280
+So it's going way easier now.
+
+00:20:13.280 --> 00:20:17.840
+But not easier, but quicker to understand.
+
+00:20:17.840 --> 00:20:21.840
+So this traduis l'angle d'origine anglais
+
+00:20:21.840 --> 00:20:21.840
+.
+
+00:20:21.840 --> 00:20:26.450
+So a very quick, only one size, a short French
+
+00:20:26.450 --> 00:20:28.960
+102 session.
+
+00:20:28.960 --> 00:20:32.400
+I reassure you, it's very, very quick.
+
+00:20:32.400 --> 00:20:33.840
+This is the cat.
+
+00:20:33.840 --> 00:20:35.010
+It's the cat.
+
+00:20:35.060 --> 00:20:37.010
+You would agree, I think.
+
+00:20:37.270 --> 00:20:38.000
+It's beautiful.
+
+00:20:38.000 --> 00:20:40.800
+And in French, we would say le chat.
+
+00:20:40.800 --> 00:20:41.720
+And this is a tree.
+
+00:20:41.720 --> 00:20:43.120
+It's such a beautiful tree.
+
+00:20:43.120 --> 00:20:44.400
+It's the tree.
+
+00:20:44.650 --> 00:20:49.030
+And we would say l'arbre, not le ar
+
+00:20:49.190 --> 00:20:49.990
+bre.
+
+00:20:50.000 --> 00:20:56.280
+Because le arbre would sound weird, we get rid of
+
+00:20:56.280 --> 00:20:58.950
+the e and we replace it with a little apostrophe.
+
+00:20:59.040 --> 00:21:02.240
+Elysion is not optional.
+
+00:21:02.240 --> 00:21:04.430
+If you don't do it, we will get back to
+
+00:21:04.430 --> 00:21:07.690
+the same, we'll crash in a way, and we
+
+00:21:07.690 --> 00:21:09.740
+'ll ask you, what did you just say?
+
+00:21:10.020 --> 00:21:12.710
+Because we will assume that something went wrong.
+
+00:21:12.720 --> 00:21:14.960
+It's like a checksum again.
+
+00:21:14.960 --> 00:21:19.120
+So when we get back to translating software, for example,
+
+00:21:19.120 --> 00:21:23.170
+if you have a message like "new message from Alexandre
+
+00:21:23.370 --> 00:21:25.780
+", in English, it would be translated as "nouve
+
+00:21:25.780 --> 00:21:28.720
+au message d'Alexandre" in French, and
+
+00:21:28.720 --> 00:21:30.560
+not "nouveau message d'Alexandre".
+
+00:21:30.560 --> 00:21:31.840
+That wouldn't work.
+
+00:21:34.560 --> 00:21:37.340
+We are used to software not doing the Elysion stuff
+
+00:21:37.340 --> 00:21:37.600
+.
+
+00:21:38.450 --> 00:21:43.510
+Because it's hard to do it properly.
+
+00:21:43.600 --> 00:21:45.800
+There are some letters that only triggers the Elysion in
+
+00:21:45.800 --> 00:21:46.590
+some cases.
+
+00:21:46.590 --> 00:21:48.450
+The Haspiré, if you know French.
+
+00:21:48.470 --> 00:21:52.280
+And there are a lot of hard-coded exceptions in
+
+00:21:52.280 --> 00:21:53.600
+the language too.
+
+00:21:53.600 --> 00:21:57.600
+So yeah, we love exceptions in French.
+
+00:21:57.600 --> 00:22:02.090
+So because of that, the internationalization library just don't
+
+00:22:02.180 --> 00:22:02.550
+care.
+
+00:22:02.550 --> 00:22:07.750
+And there's no standard way of doing it, like we
+
+00:22:07.760 --> 00:22:08.560
+pull over genders.
+
+00:22:08.560 --> 00:22:12.360
+So yeah, it's perceived as too hard and standard.
+
+00:22:12.400 --> 00:22:14.720
+So what can we do?
+
+00:22:14.720 --> 00:22:17.680
+Well, if I take this actual example from the BlueS
+
+00:22:17.680 --> 00:22:22.240
+ky app to translate a string like translated from English, ideally
+
+00:22:22.240 --> 00:22:24.710
+, we would write "traduit depuis l'anglais
+
+00:22:24.710 --> 00:22:27.450
+", but we can't because it's hard to encode
+
+00:22:27.450 --> 00:22:29.440
+that in a translation system.
+
+00:22:29.440 --> 00:22:32.260
+So we can't do "traduit depuis l'ang
+
+00:22:32.260 --> 00:22:34.550
+lais" because it will sound like that.
+
+00:22:34.690 --> 00:22:36.700
+And we can't do "traduit depuis l'ang
+
+00:22:36.710 --> 00:22:37.200
+lais" either.
+
+00:22:38.000 --> 00:22:42.400
+So we have to do workarounds like "traduit
+
+00:22:42.400 --> 00:22:46.000
+originelle en anglais", literally translated originally in English
+
+00:22:46.000 --> 00:22:46.000
+.
+
+00:22:46.000 --> 00:22:49.500
+Or because "en" doesn't have this Elysion
+
+00:22:49.570 --> 00:22:50.300
+stuff.
+
+00:22:50.300 --> 00:22:51.920
+So we don't care.
+
+00:22:51.920 --> 00:22:52.320
+It works.
+
+00:22:52.320 --> 00:22:56.510
+Actually, I didn't use that one, but an even
+
+00:22:56.530 --> 00:22:59.520
+clearer one, because in that context, it could be a
+
+00:22:59.520 --> 00:23:01.130
+little bit, you know, complex.
+
+00:23:01.130 --> 00:23:04.290
+So I used "traduit langue originelle anglais
+
+00:23:04.320 --> 00:23:06.400
+", translated source language English.
+
+00:23:07.120 --> 00:23:08.680
+Fun fact from this morning.
+
+00:23:08.680 --> 00:23:09.840
+It's an exclusive.
+
+00:23:09.840 --> 00:23:13.730
+I wanted to make sure that I quoted my translation correctly.
+
+00:23:13.730 --> 00:23:15.490
+And this morning, I tried to find it and quote it
+
+00:23:15.490 --> 00:23:15.680
+.
+
+00:23:15.860 --> 00:23:20.540
+And no, there weren't any translation about that.
+
+00:23:20.540 --> 00:23:23.020
+So I took my phone, got my one of my English
+
+00:23:23.020 --> 00:23:24.790
+shitposts from a day ago.
+
+00:23:24.800 --> 00:23:26.880
+It translates.
+
+00:23:26.880 --> 00:23:29.570
+And yeah, in the meantime, Eric, the designer,
+
+00:23:29.570 --> 00:23:32.400
+one of the designers of BlueSky changed actually all the
+
+00:23:32.400 --> 00:23:35.320
+whole design and this string doesn't exist anymore.
+
+00:23:35.320 --> 00:23:38.900
+There is a nice arrow that conveys the message even easier
+
+00:23:38.900 --> 00:23:39.860
+over there.
+
+00:23:39.860 --> 00:23:42.240
+So yeah, better.
+
+00:23:42.240 --> 00:23:44.580
+Sometimes, you know, design can solve this kind of thing
+
+00:23:44.580 --> 00:23:44.760
+.
+
+00:23:44.760 --> 00:23:46.770
+But honestly, I prefer this anyway.
+
+00:23:46.770 --> 00:23:48.630
+So it's a good ending in my books.
+
+00:23:48.640 --> 00:23:52.560
+Sometimes there are no perfect selection, only workaround.
+
+00:23:52.560 --> 00:23:54.650
+This is the key thing that I want you to remember.
+
+00:23:54.650 --> 00:23:57.190
+We try to do our best, but sometime, yeah,
+
+00:23:57.420 --> 00:24:01.120
+you know, we can do what we can do.
+
+00:24:01.120 --> 00:24:09.350
+Okay, my last point is about following, discover
+
+00:24:09.500 --> 00:24:10.560
+, and for you, et cetera.
+
+00:24:10.560 --> 00:24:16.480
+As you may, here is the UI in French.
+
+00:24:16.480 --> 00:24:18.560
+So I will deem out all the user-generated
+
+00:24:18.560 --> 00:24:19.290
+content.
+
+00:24:19.290 --> 00:24:21.950
+So you can think, you can see that nearly everything is
+
+00:24:22.260 --> 00:24:23.270
+translated in French.
+
+00:24:23.500 --> 00:24:27.360
+Nearly everything is translated in French.
+
+00:24:28.320 --> 00:24:29.310
+Not those.
+
+00:24:29.310 --> 00:24:30.370
+Why?
+
+00:24:30.970 --> 00:24:36.800
+Well, because feed names are not part of our language catalog
+
+00:24:36.980 --> 00:24:37.050
+.
+
+00:24:37.050 --> 00:24:40.260
+And you could say, oh, but feed names are user
+
+00:24:40.260 --> 00:24:41.440
+-generated.
+
+00:24:41.440 --> 00:24:44.340
+Yeah, but you may have noticed that I said before,
+
+00:24:44.340 --> 00:24:48.680
+maybe not if I wasn't following my notes, but it
+
+00:24:48.680 --> 00:24:51.520
+'s not always perceived as user-generated.
+
+00:24:51.520 --> 00:24:56.150
+Because users don't always perceive those words as provided by users
+
+00:24:56.150 --> 00:24:58.310
+, but part of the product.
+
+00:24:58.310 --> 00:25:01.760
+So it's weird that they are not translated.
+
+00:25:01.760 --> 00:25:05.470
+We can't translate those made ahead of time.
+
+00:25:05.610 --> 00:25:09.760
+And we could use some acts to find and replace the most
+
+00:25:09.760 --> 00:25:10.660
+popular one.
+
+00:25:10.660 --> 00:25:14.370
+That's something that actually there is an open pull request from
+
+00:25:14.370 --> 00:25:16.940
+server-dude 29 to do exactly that.
+
+00:25:16.940 --> 00:25:19.040
+But it's not a very photoproof way of
+
+00:25:19.040 --> 00:25:21.350
+fixing this problem, in my opinion.
+
+00:25:21.360 --> 00:25:23.520
+So how should we proceed?
+
+00:25:24.020 --> 00:25:25.970
+Well, I don't know.
+
+00:25:26.230 --> 00:25:28.320
+No, honestly, I don't know.
+
+00:25:28.320 --> 00:25:31.410
+Please, dear AT Protonerds, this is a
+
+00:25:31.410 --> 00:25:33.650
+mission I give you, your homework.
+
+00:25:33.650 --> 00:25:35.280
+Please figure this out.
+
+00:25:35.280 --> 00:25:38.860
+We have to figure out a solution to do that.
+
+00:25:38.860 --> 00:25:42.640
+Actually, we were able to do that with labels, moderation
+
+00:25:42.640 --> 00:25:43.440
+labels.
+
+00:25:43.440 --> 00:25:47.200
+I've just learned that from Travis from Cartridge that explained
+
+00:25:47.200 --> 00:25:48.600
+that to me yesterday.
+
+00:25:48.640 --> 00:25:50.720
+But it wasn't good for a feed name.
+
+00:25:50.720 --> 00:25:54.300
+It's so frustrating because they are the very prominent part of
+
+00:25:54.310 --> 00:25:55.800
+the UI for good reasons.
+
+00:25:55.800 --> 00:25:57.180
+It's a very good feature.
+
+00:25:57.180 --> 00:25:59.800
+And yeah, it's very frustrated that it's not transl
+
+00:25:59.800 --> 00:26:00.880
+atable right now.
+
+00:26:02.720 --> 00:26:03.990
+So here we have it.
+
+00:26:03.990 --> 00:26:05.640
+Context is everything.
+
+00:26:05.640 --> 00:26:08.070
+Support genders and translators.
+
+00:26:08.080 --> 00:26:09.680
+Workarounds may be required.
+
+00:26:09.680 --> 00:26:12.170
+User content should be translatable as soon as they are not
+
+00:26:12.340 --> 00:26:13.520
+perceived as user content.
+
+00:26:13.520 --> 00:26:15.120
+Is that it?
+
+00:26:15.120 --> 00:26:18.080
+No, of course not.
+
+00:26:18.080 --> 00:26:19.040
+It's not the end of it.
+
+00:26:19.040 --> 00:26:22.130
+Translating stuff is only a small part of the equation
+
+00:26:22.130 --> 00:26:22.330
+.
+
+00:26:22.330 --> 00:26:25.440
+You should think about localization holistically.
+
+00:26:25.490 --> 00:26:32.910
+Because as an integrated experience, language and region-specific stuff
+
+00:26:32.980 --> 00:26:34.250
+are everywhere.
+
+00:26:34.250 --> 00:26:37.360
+And again, we don't expect you to figure it out
+
+00:26:37.360 --> 00:26:40.570
+from day one or to figure it out by yourself.
+
+00:26:40.570 --> 00:26:42.800
+You can't know everything.
+
+00:26:42.800 --> 00:26:48.570
+But I would say that every given will provide tremendous value to
+
+00:26:48.960 --> 00:26:50.080
+users around the world.
+
+00:26:50.080 --> 00:26:57.230
+We talked a lot about what could also be translated in the
+
+00:26:57.230 --> 00:26:58.300
+previous panel.
+
+00:26:58.470 --> 00:27:02.070
+But just to recap, terms and conditions are not translated right
+
+00:27:02.070 --> 00:27:03.280
+now for Blue Sky.
+
+00:27:03.280 --> 00:27:07.540
+Community guidelines are not translated right now for Blue Sky.
+
+00:27:07.540 --> 00:27:09.630
+It's kind of weird in a way that we expect users
+
+00:27:09.730 --> 00:27:11.920
+to respect rules they can't even read.
+
+00:27:11.920 --> 00:27:14.510
+Training topics are not localized.
+
+00:27:14.530 --> 00:27:17.680
+And one key message that I want to give you is we
+
+00:27:17.680 --> 00:27:19.360
+don't care about the NFL.
+
+00:27:19.360 --> 00:27:21.690
+Stop trying to tell us about the NFL.
+
+00:27:21.690 --> 00:27:22.790
+We don't care.
+
+00:27:22.800 --> 00:27:24.050
+It's just a weird thing.
+
+00:27:24.050 --> 00:27:25.670
+You don't even use football correctly.
+
+00:27:25.670 --> 00:27:26.080
+Weird.
+
+00:27:26.340 --> 00:27:31.380
+And also blog posts and help pages are not translated right now
+
+00:27:31.380 --> 00:27:31.520
+.
+
+00:27:31.520 --> 00:27:33.660
+Discover feed algorithms.
+
+00:27:33.700 --> 00:27:36.960
+Nighthaven did a great leaflet about that.
+
+00:27:38.080 --> 00:27:39.470
+Are not localized.
+
+00:27:39.470 --> 00:27:43.190
+So you will encounter a lot of content that is not in
+
+00:27:43.200 --> 00:27:43.910
+your language.
+
+00:27:43.910 --> 00:27:44.400
+And you can.
+
+00:27:44.400 --> 00:27:49.010
+There are some analyst systems that are in place that are not
+
+00:27:49.010 --> 00:27:52.650
+very, that's a hack, not a proper localization
+
+00:27:52.650 --> 00:27:52.870
+.
+
+00:27:52.870 --> 00:27:55.600
+And of course, announcements right now.
+
+00:27:55.660 --> 00:27:59.310
+Blue Sky do not do announcements in any other language that's
+
+00:27:59.310 --> 00:28:00.800
+Japanese and English.
+
+00:28:00.970 --> 00:28:01.780
+And that's it.
+
+00:28:01.780 --> 00:28:02.880
+That's weird.
+
+00:28:02.880 --> 00:28:06.560
+But we talk a little bit about that in the previous panel
+
+00:28:06.560 --> 00:28:06.720
+.
+
+00:28:06.720 --> 00:28:09.360
+And here we are.
+
+00:28:09.360 --> 00:28:10.360
+Thank you for listening.
+
+00:28:10.400 --> 00:28:14.800
+To see my work in action.
+
+00:28:14.800 --> 00:28:15.680
+Thanks.
+
+00:28:15.680 --> 00:28:22.300
+As a guy said at some point, please clap.
+
+00:28:22.310 --> 00:28:24.240
+Do see my work in action.
+
+00:28:24.240 --> 00:28:27.430
+You can just go to the settings and change the language to
+
+00:28:27.430 --> 00:28:27.840
+French.
+
+00:28:27.840 --> 00:28:32.080
+I also want to thank surfdude29 because this guy
+
+00:28:32.080 --> 00:28:37.220
+simply is an informal translation manager for the blue sky open source
+
+00:28:37.220 --> 00:28:38.060
+project.
+
+00:28:38.060 --> 00:28:40.080
+He do it in his spare time.
+
+00:28:40.080 --> 00:28:41.940
+And that's awesome that he do that.
+
+00:28:41.940 --> 00:28:45.060
+And also thanks to people that helped me figure it out some
+
+00:28:45.060 --> 00:28:46.560
+stuff on those slides.
+
+00:28:46.660 --> 00:28:49.350
+And of course, a big shout out to all the other
+
+00:28:49.360 --> 00:28:50.920
+fellow translators.
+
+00:28:50.920 --> 00:28:53.840
+I hope that I didn't, you know, say anything
+
+00:28:53.840 --> 00:28:55.830
+weird about your work too.
+
+00:28:55.840 --> 00:29:00.450
+And as Stan Epperl said, the end is never
+
+00:29:01.070 --> 00:29:04.790
+the end about all the things related to translation.
+
+00:29:04.880 --> 00:29:07.680
+Do you have any questions?
+
+00:29:07.680 --> 00:29:08.800
+Do we have time for questions?
+
+00:29:08.800 --> 00:29:10.080
+Oh, there are no times.
+
+00:29:10.080 --> 00:29:10.800
+Ah, sorry.
+
+00:29:10.800 --> 00:29:11.520
+So yeah.
+
+00:29:11.520 --> 00:29:12.800
+Yeah.
+
+00:29:13.060 --> 00:29:16.720
+And feel free to follow me to know more about that.
+
+00:29:16.720 --> 00:29:17.920
+Thanks.
+
+00:29:17.920 --> 00:29:22.160
+Thank you so much, Stan.

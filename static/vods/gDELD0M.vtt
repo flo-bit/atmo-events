@@ -1,0 +1,2191 @@
+WEBVTT
+
+00:00:00.020 --> 00:00:05.480
+I'm just gonna say that because this is the kind of
+
+00:00:05.530 --> 00:00:12.840
+conference that it is with many streams of information and in some
+
+00:00:13.060 --> 00:00:16.690
+cases multiple sources of truth you may have seen that the title
+
+00:00:16.690 --> 00:00:19.310
+of my talk is landslide you may also have seen the
+
+00:00:19.310 --> 00:00:22.140
+title of my talk is hold fast both things are true at
+
+00:00:22.140 --> 00:00:25.260
+the same time because I gave Ted the information at different times
+
+00:00:25.260 --> 00:00:31.240
+so we're doing landslide hold fast one more glitch so
+
+00:00:31.240 --> 00:00:39.250
+hi I'm Erin I alternate between trying to
+
+00:00:39.250 --> 00:00:44.150
+figure out what the social internet is doing to us and trying
+
+00:00:44.200 --> 00:00:47.520
+to use it to get better information to more people in more
+
+00:00:47.520 --> 00:00:52.030
+places so right now I'm doing network thinking and projects at
+
+00:00:52.080 --> 00:00:55.930
+my mini studio wreckage salvage and also co-running
+
+00:00:55.930 --> 00:01:00.580
+a networked volunteer and mutual aid information project at unbreaking
+
+00:01:00.580 --> 00:01:04.730
+also a project of the raft foundation raft foundation and we work
+
+00:01:04.730 --> 00:01:08.260
+to nail down knowledge about what our government is doing to us
+
+00:01:08.260 --> 00:01:11.970
+in the United States before that I co-founded the COVID
+
+00:01:11.980 --> 00:01:20.600
+tracking project that was to help people understand what was happening
+
+00:01:20.670 --> 00:01:27.020
+in 2020 through public data and before that I was at a
+
+00:01:27.020 --> 00:01:30.930
+journalist journalism tech community that came out of the Moz foundation and
+
+00:01:31.010 --> 00:01:34.080
+before that it was all over the early web so that's
+
+00:01:34.080 --> 00:01:36.970
+the nature of my work I use the tools and I try
+
+00:01:36.970 --> 00:01:40.420
+to improve the tools and then I repeat and what I learned
+
+00:01:40.490 --> 00:01:44.540
+from yesterday's amazing pre-conference experience is that many
+
+00:01:44.540 --> 00:01:47.600
+of you are in much the same position which I love it
+
+00:01:47.600 --> 00:01:50.970
+'s like a whole room of corner cases favorite so I want
+
+00:01:50.970 --> 00:01:56.240
+to know what the networks are doing to us and what resources
+
+00:01:56.240 --> 00:02:01.330
+that people like us have to draw from to shape our networks
+
+00:02:01.360 --> 00:02:06.100
+in ways that ground and reorient our communities in useful knowledge
+
+00:02:06.100 --> 00:02:09.800
+and you know to maybe someday live together in peace and mutual
+
+00:02:09.800 --> 00:02:14.430
+respect so right before the end of last year I posted I
+
+00:02:14.430 --> 00:02:19.190
+posted another extremely long blog post which is my jam called lands
+
+00:02:19.210 --> 00:02:21.590
+lide a ghost story in which I tried to get closer to
+
+00:02:21.590 --> 00:02:25.240
+the core of our network's role in disorienting and
+
+00:02:25.240 --> 00:02:28.680
+disintegrating us and I'll talk about that one a little
+
+00:02:28.680 --> 00:02:31.430
+bit here because the new work I'm bringing builds on it
+
+00:02:31.480 --> 00:02:35.420
+but this talk I think and I hope is kind of a
+
+00:02:35.420 --> 00:02:38.230
+turning point for my work and what I can bring to you
+
+00:02:38.230 --> 00:02:40.930
+because I think I finally have a good enough handle on at
+
+00:02:40.930 --> 00:02:43.950
+least parts of this to be able to offer some paths forward
+
+00:02:43.960 --> 00:02:47.950
+that aren't either unattainable or just like disproportionately p
+
+00:02:48.060 --> 00:02:51.150
+altry and I'm going to make a side note I
+
+00:02:51.150 --> 00:02:55.860
+take it as a given that one major underlying problem that prevents
+
+00:02:55.860 --> 00:02:59.040
+us from dealing with many other problems is centralization and lock
+
+00:02:59.040 --> 00:03:01.330
+-in which decentralized networks are here to deal with and I
+
+00:03:01.380 --> 00:03:03.560
+just want to say I think that Jay and the rest of
+
+00:03:03.560 --> 00:03:08.090
+blue skies founding team have done us all a tremendous service by
+
+00:03:08.090 --> 00:03:12.020
+yes making blue sky the app but especially in using all of
+
+00:03:12.020 --> 00:03:16.500
+that available momentum to get this protocol ecosystem off the ground and
+
+00:03:16.500 --> 00:03:19.850
+stable enough to support the kind of independent development that I saw
+
+00:03:19.940 --> 00:03:22.750
+happening yesterday and we'll be talking about here so I assume
+
+00:03:22.750 --> 00:03:25.520
+basically universal concordance about this I'm not going to
+
+00:03:25.520 --> 00:03:27.600
+spend a lot of time talking about it but I am so
+
+00:03:27.860 --> 00:03:30.600
+grateful for the work that the team has accomplished I just want
+
+00:03:30.600 --> 00:03:33.950
+to say that so there's so much good stuff happening around
+
+00:03:33.980 --> 00:03:37.160
+the protocol and I'm super psyched to see the next
+
+00:03:37.180 --> 00:03:41.710
+batch of it today yesterday was incredible the work I have been
+
+00:03:41.710 --> 00:03:45.850
+doing is for you and I brought a lot of things so
+
+00:03:45.850 --> 00:03:52.280
+let's get to it 62 years ago yesterday on Good Friday
+
+00:03:52.350 --> 00:03:56.360
+in 1964 a tectonic plate up under Alaska slid
+
+00:03:56.380 --> 00:04:00.540
+under another tectonic plate and produced an extraordinarily strong and
+
+00:04:00.540 --> 00:04:04.550
+sustained earthquake that we now know to be the second highest magnitude
+
+00:04:04.550 --> 00:04:08.260
+magnitude quake in recorded history it actually reshaped the
+
+00:04:08.260 --> 00:04:11.850
+field of seismology but more immediately it caused parts of the
+
+00:04:11.850 --> 00:04:14.900
+Alaskan coast to drop by nearly 40 feet rise by
+
+00:04:14.900 --> 00:04:19.470
+nearly 40 feet dropped others down below sea level triggered enormous tsun
+
+00:04:19.470 --> 00:04:22.790
+amis and according to geologists it was so big that it
+
+00:04:22.790 --> 00:04:28.280
+rang the planet like a bell Alaska is not densely populated
+
+00:04:28.280 --> 00:04:32.220
+but this is what the earthquake looked like in this is an
+
+00:04:32.220 --> 00:04:36.720
+anchorage in cities and towns you see the kind of damage
+
+00:04:36.720 --> 00:04:39.980
+you'd expect it tore up streets and knocked down buildings and
+
+00:04:39.980 --> 00:04:46.770
+in Alaska 139 people died it also also did something exceptionally
+
+00:04:46.770 --> 00:04:51.360
+weird and horrific in the port town of Valdez Val
+
+00:04:51.360 --> 00:04:55.620
+dez is the northernmost year-round ice-free
+
+00:04:55.620 --> 00:05:00.670
+deep water port in North America and the southern end of the
+
+00:05:00.690 --> 00:05:04.260
+Trans-Alaska oil pipeline my partner grew up in
+
+00:05:04.260 --> 00:05:08.140
+Valdez so I heard about the earthquake and how weird
+
+00:05:08.140 --> 00:05:11.130
+it had been from him and my father-in-law
+
+00:05:11.130 --> 00:05:14.140
+worked at the Valdez museum and had produced a video
+
+00:05:14.140 --> 00:05:17.750
+from some of this really wild grainy contemporary footage of the
+
+00:05:17.750 --> 00:05:19.500
+quake so when we went up to visit I got to
+
+00:05:19.500 --> 00:05:22.730
+see that and then much later my family moved to the C
+
+00:05:22.730 --> 00:05:29.240
+ascadia subduction zone and I became an earthquake nerd as
+
+00:05:29.240 --> 00:05:32.020
+one does and like I sort of just poked at this
+
+00:05:32.020 --> 00:05:35.380
+story and the records out of Valdez as part of
+
+00:05:35.380 --> 00:05:38.520
+my like insomnia rounds of upsetting things to look at in
+
+00:05:38.650 --> 00:05:41.460
+the middle of the night but it kind of stayed in the
+
+00:05:41.460 --> 00:05:42.420
+background until the end of last year when I discovered that the
+
+00:05:42.420 --> 00:05:42.420
+U.
+
+00:05:42.420 --> 00:05:42.420
+S.
+
+00:05:42.420 --> 00:05:42.420
+Geological Survey had produced a new cut of that weird film
+
+00:05:42.420 --> 00:05:44.970
+footage from the Valdez harbor um and I'm not
+
+00:05:45.060 --> 00:05:52.460
+going to show it to you but it is in the uh
+
+00:05:52.600 --> 00:06:00.920
+the landslide post on my site um the footage only existed
+
+00:06:00.920 --> 00:06:04.180
+because a supply ship the SS China had come into the harbor
+
+00:06:04.180 --> 00:06:06.660
+right before the quake and someone on the ship happened to
+
+00:06:06.660 --> 00:06:09.530
+have an eight millimeter camera and happened to be filming the crew
+
+00:06:09.530 --> 00:06:11.960
+just like dorking around on deck and throwing oranges and
+
+00:06:11.960 --> 00:06:14.700
+candy to the kids who'd come down to the dock to
+
+00:06:14.700 --> 00:06:18.730
+meet the ship um but I'd only ever seen the footage
+
+00:06:18.790 --> 00:06:22.260
+in a form that turned out to be highly manipulated and the
+
+00:06:22.260 --> 00:06:27.460
+reconstructed cut from USGS revealed that the shots we always
+
+00:06:27.460 --> 00:06:31.220
+thought were of the water of the the local tsunami produced by
+
+00:06:31.220 --> 00:06:37.220
+the quake were actually of the land um which had just
+
+00:06:37.220 --> 00:06:41.280
+turned to liquid and flowed and flowed out from under
+
+00:06:41.760 --> 00:06:45.380
+everything it was supporting and that's what used to be the
+
+00:06:45.380 --> 00:06:50.650
+harbor and it all just fell in the sea and the footage
+
+00:06:50.670 --> 00:06:54.360
+actually shows it just like pouring out from under these buildings that
+
+00:06:54.360 --> 00:06:58.740
+resequenced footage remains the single most upsetting piece of film
+
+00:06:58.740 --> 00:07:02.510
+I have ever seen because the destabilization it depicts is
+
+00:07:02.510 --> 00:07:07.040
+happening at the level of basic physics which is gross and weird
+
+00:07:07.060 --> 00:07:10.170
+um so here's what happened in Valdez based on
+
+00:07:10.200 --> 00:07:14.340
+everything we know now the town was built on glacial mor
+
+00:07:14.410 --> 00:07:17.480
+aine which is this disorganized debris piled up by
+
+00:07:17.480 --> 00:07:21.490
+glacier and down near the shoreline that jumble of like
+
+00:07:21.520 --> 00:07:24.800
+unconsolidated rock and sand went down 600 feet
+
+00:07:24.800 --> 00:07:27.790
+before you hit bedrock and building on the moraine was
+
+00:07:27.790 --> 00:07:31.350
+not like an obviously bad idea because it was still solid ground
+
+00:07:31.350 --> 00:07:33.040
+you could step on it or drive on it and it's
+
+00:07:33.040 --> 00:07:33.040
+fine because the contact forces between the particles would distribute the load
+
+00:07:33.060 --> 00:07:40.900
+but Valdez is also extremely wet uh in the winter
+
+00:07:40.900 --> 00:07:43.780
+it snows so much people have to shovel their roofs to
+
+00:07:43.870 --> 00:07:48.120
+keep them from collapsing and the water table down there by the
+
+00:07:48.120 --> 00:07:48.840
+shoreline is just a few feet from the surface of the
+
+00:07:48.840 --> 00:07:51.040
+town so in late March of 1964 between that just like barely
+
+00:07:51.040 --> 00:07:51.040
+subterranean water and the melt from these exceptionally heavy sn
+
+00:07:51.040 --> 00:07:58.040
+ows that loose jumbled substrate was flooded was completely saturated and
+
+00:07:58.040 --> 00:07:58.040
+it turns out that when series of extraordinarily heavy and repeated shocks
+
+00:07:58.040 --> 00:08:02.800
+like this particular earthquake hit a loose substrate that's also completely
+
+00:08:02.870 --> 00:08:05.040
+saturated with water the compression hits the water and pushes all those
+
+00:08:05.040 --> 00:08:05.040
+particles apart and the solids just turn into liquid almost instantly and
+
+00:08:05.040 --> 00:08:06.590
+flow away from these exceptionally heavy snows from these exceptionally heavy
+
+00:08:06.780 --> 00:08:10.720
+snows that loose jumbled substrate was flooded was completely saturated
+
+00:08:10.720 --> 00:08:12.760
+and it turns out that when series of extraordinarily heavy and repeated
+
+00:08:12.830 --> 00:08:15.040
+shocks like this particular earthquake hit a loose substrate that's also
+
+00:08:15.080 --> 00:08:21.210
+completely saturated with water the compression hits the water and pushes all
+
+00:08:21.210 --> 00:08:27.000
+those particles apart and the solids just turn into liquid almost instantly
+
+00:08:27.000 --> 00:08:30.650
+and flow away and everything falls in and in Valdez
+
+00:08:30.650 --> 00:08:34.830
+the whole harbor float away and took out everything and everyone on
+
+00:08:34.860 --> 00:08:40.280
+it so this is the the three-part model of how
+
+00:08:40.290 --> 00:08:44.780
+this particularly horrific thing works we've seen this elsewhere now but
+
+00:08:44.780 --> 00:08:49.040
+we never had especially we never had footage of anything like this
+
+00:08:49.060 --> 00:08:53.050
+there were like some very loose records of what's called soil
+
+00:08:53.050 --> 00:08:56.680
+liquefaction don't recommend that you go look for
+
+00:08:56.680 --> 00:09:00.800
+videos of soil liquefaction I was down this rabbit
+
+00:09:00.800 --> 00:09:03.310
+hole in December the same time I was trying to take stock
+
+00:09:03.310 --> 00:09:05.600
+of almost a year of work at unbreaking where we're
+
+00:09:05.600 --> 00:09:08.440
+just kind of down slogging through the mud of our information
+
+00:09:08.440 --> 00:09:12.200
+landscape and I was trying to understand like the networks piece and
+
+00:09:12.210 --> 00:09:16.040
+also the underlying like journalism shaped stuff that's supposed to produce
+
+00:09:16.040 --> 00:09:21.300
+distributable knowledge and how our collective understanding was fairing against
+
+00:09:21.300 --> 00:09:25.480
+repeated and violent shocks so I wrote a lot of words about
+
+00:09:25.480 --> 00:09:29.700
+the information substrate and the saturation and flooding of network based overload
+
+00:09:29.700 --> 00:09:33.470
+and how those two things together produce a colossal vulnerability to
+
+00:09:33.540 --> 00:09:36.860
+shocks and I'm going to lay those out super quickly here
+
+00:09:36.860 --> 00:09:38.700
+just to get them on the table so we can move on
+
+00:09:38.700 --> 00:09:44.580
+to the good stuff so starting with the substrate in the US
+
+00:09:44.600 --> 00:09:48.280
+where I'm from and in many other parts of the world
+
+00:09:48.280 --> 00:09:52.020
+our underlying foundational knowledge systems have taken a lot of damage like
+
+00:09:52.020 --> 00:09:57.410
+the business model underlying our media continues down this decades long death
+
+00:09:57.410 --> 00:10:01.440
+spiral and media consolidation which preceded the damage wrought by
+
+00:10:01.440 --> 00:10:05.750
+the internet by many decades continues to degrade and squeeze and
+
+00:10:05.770 --> 00:10:09.010
+hollow out a lot of our most well former most trustworthy sources
+
+00:10:09.060 --> 00:10:14.910
+of current information basic analysis but it's not just journalism extract
+
+00:10:14.930 --> 00:10:19.610
+ive practices that every part of the knowledge production chain has dealt
+
+00:10:19.610 --> 00:10:24.440
+tremendous damage to our whole ecosystem I have on my hard drive
+
+00:10:24.440 --> 00:10:26.350
+enough for like a dozen talks about what's happened to basic
+
+00:10:26.350 --> 00:10:30.570
+research and peer review and academic presses and general presses and even
+
+00:10:30.570 --> 00:10:35.040
+like web search the niches that used to support independent writers
+
+00:10:35.040 --> 00:10:40.040
+and artists and some of our most recent knowledge consolidating institutions
+
+00:10:40.040 --> 00:10:44.630
+like stack overflow and Wikipedia are beginning to suffer and all of
+
+00:10:44.630 --> 00:10:48.040
+this hollowing out has been accompanied by an upwelling of
+
+00:10:48.040 --> 00:10:53.410
+things that we wouldn't traditionally call news that range from genuinely
+
+00:10:53.410 --> 00:10:58.040
+vital eyewitness videos through outright and well funded propaganda farms
+
+00:10:58.040 --> 00:11:03.040
+to purely fact-free slop and all of this is en
+
+00:11:03.040 --> 00:11:08.650
+meshed the news organizations primarily devoted to discrediting real
+
+00:11:08.650 --> 00:11:15.240
+reporting and presented through social platforms that in many cases deliberately shape
+
+00:11:15.240 --> 00:11:20.000
+the subset of available information to evade responsibility for misinformation and
+
+00:11:20.000 --> 00:11:25.480
+also to suit sort of our own worst selves desires so this
+
+00:11:25.480 --> 00:11:31.040
+is not great and then we also have just the massive prol
+
+00:11:31.040 --> 00:11:33.850
+iferation of information the proliferation of information that I feel like
+
+00:11:33.850 --> 00:11:36.940
+we've just about lost a way to talk about maybe because
+
+00:11:37.050 --> 00:11:39.760
+we're so buried in it the science folks bring it up
+
+00:11:39.820 --> 00:11:41.770
+and that was extremely heartening to hear them acknowledging that's
+
+00:11:41.860 --> 00:11:48.480
+what they do that the knowledge crafting but this phenomenon of exponential
+
+00:11:48.480 --> 00:11:53.040
+hyper proliferation and information overload is a real one with a
+
+00:11:53.040 --> 00:11:57.290
+large and solid body of evidence about its genuinely damaging psychological and
+
+00:11:57.290 --> 00:12:01.040
+emotional and physical effects and and we've been making filters and
+
+00:12:01.040 --> 00:12:01.040
+developing practices to cope with this with too much information since we
+
+00:12:01.040 --> 00:12:01.040
+invented writing and complaining about it the whole time the history of
+
+00:12:01.040 --> 00:12:01.040
+information overload is is amazing but our latest filters including web search
+
+00:12:01.040 --> 00:12:01.040
+and social media algorithms and now the LLMs are not
+
+00:12:01.040 --> 00:12:27.850
+necessarily filtering our flood in ways that actually serve us well and
+
+00:12:27.880 --> 00:12:31.560
+many of us to have lost faith and many of us to
+
+00:12:31.560 --> 00:12:33.180
+have lost faith in some of the sort of stolid older
+
+00:12:33.180 --> 00:12:36.850
+filters because we can see that they're not representing the reality
+
+00:12:37.010 --> 00:12:40.400
+that we find in eyewitness videos and first person accounts
+
+00:12:40.400 --> 00:12:43.300
+so maybe we decide to let go of those filters too and
+
+00:12:43.370 --> 00:12:47.040
+the more filters we opt out of the more we expose ourselves
+
+00:12:47.040 --> 00:12:49.720
+to the flood but at least when we do that we're
+
+00:12:49.720 --> 00:12:56.550
+getting access to more knowledge right we're getting access to more
+
+00:12:56.740 --> 00:12:59.830
+and more and more and more and more and more and more
+
+00:12:59.830 --> 00:13:01.210
+and more and more and more and more and more and more
+
+00:13:01.210 --> 00:13:02.350
+social scientists have spent a lot of time and funding trying to
+
+00:13:02.350 --> 00:13:03.480
+figure out and the emerging consensus is that for most people most
+
+00:13:03.480 --> 00:13:07.820
+of the time keeping up with current events via our social feeds
+
+00:13:07.830 --> 00:13:11.700
+produces something very near to near to zero gains in our knowledge
+
+00:13:11.780 --> 00:13:16.770
+about civics and politics we see a lot of things go
+
+00:13:16.790 --> 00:13:19.420
+by and we feel a lot of feelings about them but by
+
+00:13:19.420 --> 00:13:23.280
+and large we are not actually building much knowledge in our human
+
+00:13:23.280 --> 00:13:26.760
+brains but I feel kind of cautious about this research because it
+
+00:13:26.760 --> 00:13:29.250
+blends together a lot of different ways to use social media and
+
+00:13:29.250 --> 00:13:33.400
+I think those of us in this room are probably outliers
+
+00:13:33.400 --> 00:13:38.160
+in how we use it and in most cases like news you
+
+00:13:38.160 --> 00:13:40.880
+know the researchers are just talking about a specific thing which is
+
+00:13:40.880 --> 00:13:44.600
+news to link story links to news stories being passed around and
+
+00:13:44.620 --> 00:13:49.340
+not you know like mega threads of analysis or videos by particularly
+
+00:13:49.340 --> 00:13:53.070
+gifted explainers but even with those caveats the numbers are
+
+00:13:53.070 --> 00:13:56.820
+not good there's a very recent and thorough meta meta-
+
+00:13:56.910 --> 00:14:01.460
+analysis on whether we gain political or civic knowledge from social
+
+00:14:01.580 --> 00:14:06.110
+media exposure that has persuasive results that on the whole we
+
+00:14:06.110 --> 00:14:10.470
+really just don't which doesn't mean that outliers don
+
+00:14:10.470 --> 00:14:13.810
+'t exist but it does mean unless we're only building for
+
+00:14:13.810 --> 00:14:17.830
+outliers we should recognize that the combination of social media and
+
+00:14:17.830 --> 00:14:22.440
+human brains does not on average produce workable knowledge about what
+
+00:14:22.440 --> 00:14:27.760
+'s happening so that's bad but there's worse we also
+
+00:14:27.780 --> 00:14:33.660
+have pretty solid although somewhat less evidenced research that on the
+
+00:14:33.770 --> 00:14:37.240
+whole we don't just fail to learn things from our social
+
+00:14:37.240 --> 00:14:41.950
+feeds we also come away from them feeling more confident in our
+
+00:14:41.950 --> 00:14:47.140
+knowledge that we don't have which is also closely connected to
+
+00:14:47.140 --> 00:14:51.300
+my all-time least favorite research on cognition which is on
+
+00:14:51.320 --> 00:14:56.170
+the illusion of explanatory depth who who knows about the illusion
+
+00:14:56.170 --> 00:15:00.560
+of explanatory depth oh great okay we'll get to that
+
+00:15:00.620 --> 00:15:05.050
+later for now I want to underline that not knowing things
+
+00:15:05.050 --> 00:15:09.370
+we might need to know is bad but lacking the epist
+
+00:15:09.370 --> 00:15:13.610
+emic humility to know that we might need to go learn them
+
+00:15:13.610 --> 00:15:20.220
+is probably worse and then there's the emotional dimension of the
+
+00:15:20.220 --> 00:15:26.400
+flood which I want to talk about in strictly human terms terms
+
+00:15:26.400 --> 00:15:30.280
+and without laundering it through social science which is not to
+
+00:15:30.280 --> 00:15:34.110
+pick on the highbrow moral panic about the internet folks
+
+00:15:34.110 --> 00:15:39.670
+although it is but I think many of our dominant critical lenses
+
+00:15:39.670 --> 00:15:43.840
+on our networks and what they do to society are essentially laund
+
+00:15:44.100 --> 00:15:49.580
+ering genuine affective feelings trouble through selective and often irresponsibly
+
+00:15:49.580 --> 00:15:54.260
+represented social science and neurological research to present themselves as unshak
+
+00:15:54.260 --> 00:15:59.480
+ably authoritative policy prescriptions and I took the anxious generation
+
+00:15:59.500 --> 00:16:02.920
+slide out of this talk but please note that it was there
+
+00:16:03.160 --> 00:16:07.210
+there are responsible ways to work with the science and I try
+
+00:16:07.210 --> 00:16:09.920
+to be really cautious when I an epistemic trespasser
+
+00:16:09.920 --> 00:16:14.480
+do it but we don't even need it for conversations among
+
+00:16:14.660 --> 00:16:19.920
+ourselves because the affective stuff is real and we experience countless
+
+00:16:19.920 --> 00:16:22.320
+ephemeral sort of news-shaped bids for our
+
+00:16:22.660 --> 00:16:26.040
+attention every day and most of us who hang out online experience
+
+00:16:26.090 --> 00:16:30.390
+them through highly emotive feeds that lean toward volume and speed
+
+00:16:30.440 --> 00:16:33.760
+and never-ending context collapse so for a lot of us
+
+00:16:33.760 --> 00:16:38.700
+it just feels bad and this is the saturating flood and
+
+00:16:38.700 --> 00:16:42.920
+then we get the shocks and and in the landslide essay
+
+00:16:42.920 --> 00:16:46.910
+I focused pretty narrowly on the Trump regimes attack on the
+
+00:16:46.940 --> 00:16:52.220
+idea of truth and on every viable model of building knowledge but
+
+00:16:52.220 --> 00:16:55.920
+the more important attack from the administration is that they are just
+
+00:16:55.920 --> 00:17:04.330
+doing deranged nonsensical bullshit all
+
+00:17:04.600 --> 00:17:11.010
+the time thank you and and what that does to our ability
+
+00:17:11.010 --> 00:17:14.500
+to understand the world is still not as bad as what they
+
+00:17:14.500 --> 00:17:18.560
+are actually doing to people and to economies and to countries and
+
+00:17:18.560 --> 00:17:22.530
+to sovereignties but it's still very bad because
+
+00:17:22.530 --> 00:17:26.890
+the only way out of this barring international intervention is for
+
+00:17:26.890 --> 00:17:31.930
+Americans to pull our brains together and act and I don't
+
+00:17:31.980 --> 00:17:34.660
+know what your personal networks look like but a lot of people
+
+00:17:34.660 --> 00:17:38.220
+in almost every part of mine and all my overlapping circles spent
+
+00:17:38.220 --> 00:17:40.590
+a lot of the last year in a state of real dis
+
+00:17:40.590 --> 00:17:45.510
+orientation about things like how is this not breaking the law
+
+00:17:45.800 --> 00:17:49.800
+and what is the law even and this was true for almost
+
+00:17:49.850 --> 00:17:53.650
+everyone except for the folks who knew in advance that they would
+
+00:17:53.650 --> 00:17:58.240
+be targeted and were paying a different kind of attention but also
+
+00:17:58.240 --> 00:18:02.450
+unfortunately one bad regime is not the only kind of shock that
+
+00:18:02.460 --> 00:18:07.150
+we're experiencing or will experience so I've spent the last
+
+00:18:07.150 --> 00:18:11.410
+few months reading more deeply in the research and also continuing to
+
+00:18:11.410 --> 00:18:14.690
+plug away in the info mines that unbreaking and bashing
+
+00:18:14.800 --> 00:18:19.510
+on some possibilities for building ourselves out of this mess which is
+
+00:18:19.510 --> 00:18:23.400
+what I want to talk about next but first I want to
+
+00:18:23.470 --> 00:18:26.840
+briefly say why I think this work belongs here at this protocol
+
+00:18:26.910 --> 00:18:32.120
+conference more than just about anywhere else when I write about the
+
+00:18:32.120 --> 00:18:35.980
+fallout of our global networks some of the points I come
+
+00:18:35.980 --> 00:18:40.770
+to echo ones that many much fancier critics have covered but
+
+00:18:40.790 --> 00:18:44.280
+I tend to reach different conclusions than they do because I am
+
+00:18:44.280 --> 00:18:49.260
+focused on builders and they are mostly writing toward individualistic remedies
+
+00:18:49.260 --> 00:18:52.870
+or toward regulation and I have been alive for a lot of
+
+00:18:52.870 --> 00:18:56.740
+the internet so far and I have absolutely no faith in either
+
+00:18:56.740 --> 00:19:01.020
+of those pathways at this time we are not going to disconnect
+
+00:19:01.020 --> 00:19:03.960
+from each other it's just not going to happen and our
+
+00:19:04.520 --> 00:19:11.480
+regulators are mostly speaking for my own country working from cartoon understand
+
+00:19:11.480 --> 00:19:14.860
+ings of network mechanisms and skating to where the puck was like
+
+00:19:14.860 --> 00:19:18.700
+between 2 and 12 years ago which leaves us the people in
+
+00:19:18.700 --> 00:19:23.150
+this room and people like us who hold the technological means of
+
+00:19:23.200 --> 00:19:26.360
+production and would like to use it to do something different and
+
+00:19:26.360 --> 00:19:29.500
+I will be honest like saying this kind of thing which I
+
+00:19:29.500 --> 00:19:31.900
+have been saying in a lot of places for a long time
+
+00:19:31.900 --> 00:19:35.800
+has felt like kicking people who were already down because they're
+
+00:19:36.040 --> 00:19:38.560
+under resourced and overtaxed open source developers
+
+00:19:38.560 --> 00:19:42.640
+or they're stuck inside corporations with their own perverse incentives
+
+00:19:42.640 --> 00:19:45.540
+or they're people who have a lot of really good ideas
+
+00:19:45.540 --> 00:19:49.360
+but haven't had the technical means to turn those into something
+
+00:19:49.370 --> 00:19:53.780
+they can show other people but there are two things happening right
+
+00:19:53.780 --> 00:19:57.700
+now that maybe make this moment different for some of us and
+
+00:19:57.700 --> 00:20:01.590
+the first is that decentralized protocols are a live force now with
+
+00:20:01.670 --> 00:20:04.540
+a bigger user base and more attention than we have ever seen
+
+00:20:04.840 --> 00:20:10.610
+the atmosphere is a dev friendly pro experimentation zone with so much
+
+00:20:10.640 --> 00:20:14.940
+room for trying things the second factor is that writing code has
+
+00:20:15.000 --> 00:20:19.970
+always been difficult and time consuming and therefore quite expensive along one
+
+00:20:19.970 --> 00:20:25.440
+axis or another and that appears to be changing quite quickly which
+
+00:20:25.720 --> 00:20:30.160
+can go several ways and will but the the models and the
+
+00:20:30.160 --> 00:20:34.800
+generators seem to be making a lot of previously high learning curve
+
+00:20:34.800 --> 00:20:40.060
+high time commitment prototyping and experimentation vastly easier to get into
+
+00:20:40.080 --> 00:20:43.500
+and when I wrote this I felt like that was still sort
+
+00:20:43.500 --> 00:20:46.570
+of speculative and then we moved closer to the conference and I
+
+00:20:46.570 --> 00:20:48.670
+was like oh it's really happening I got here and I
+
+00:20:48.680 --> 00:20:54.780
+was like oh okay and this gives people who have been thinking
+
+00:20:54.780 --> 00:20:58.250
+hard about the effects our networks of the effects of our networks
+
+00:20:58.250 --> 00:21:01.710
+a chance to kind of rotate in and start prototyping and
+
+00:21:01.710 --> 00:21:05.810
+building and it also I think gives long-time developers more
+
+00:21:05.810 --> 00:21:09.760
+time and freedom to put into stuff that's actually good for
+
+00:21:09.800 --> 00:21:16.030
+us as organisms and communities of organisms therefore I want to bring
+
+00:21:16.030 --> 00:21:23.020
+you some research threads and hopes and provocations which we will
+
+00:21:23.020 --> 00:21:28.470
+mostly adapt from the wonderful world of kelp I need to
+
+00:21:29.080 --> 00:21:34.110
+turn your attention to macroalgae or macroalgae for
+
+00:21:34.110 --> 00:21:39.250
+the Brits in the audience specifically to kelp and specifically
+
+00:21:39.250 --> 00:21:42.680
+to the subtlest and least showy parts of kelp
+
+00:21:42.700 --> 00:21:53.680
+which are its holdfasts holdfasts are the structural
+
+00:21:53.680 --> 00:22:01.690
+support systems that kel
+
+00:22:01.690 --> 00:22:05.660
+p and other microalgae and also a bunch of little
+
+00:22:05.660 --> 00:22:08.760
+sessile which is a beautiful word for non-m
+
+00:22:08.760 --> 00:22:12.850
+obile sea creatures evolved to cling on to the sea floor or
+
+00:22:12.860 --> 00:22:16.680
+even to like bigger shellfish with such strength that they can
+
+00:22:16.680 --> 00:22:19.690
+hold on and flourish in deep water and in the roughest
+
+00:22:19.760 --> 00:22:23.450
+most turbulent intertidal zones and the reason by the way
+
+00:22:23.450 --> 00:22:26.710
+that I tend to pull so heavily from the natural world and
+
+00:22:26.710 --> 00:22:29.470
+our interactions with it is that the world has kind of figured
+
+00:22:29.480 --> 00:22:31.740
+a lot of shit out in a lot of ways and I
+
+00:22:31.740 --> 00:22:35.980
+think leaving all of those models of complexity on the table is
+
+00:22:35.980 --> 00:22:39.450
+goofy and also kelp is awesome so kelp and and
+
+00:22:39.450 --> 00:22:44.390
+it's holdfast do three things that I think could be
+
+00:22:44.390 --> 00:22:49.970
+very useful for us to think about they anchor entire communities into
+
+00:22:49.970 --> 00:22:55.370
+stability and they create permeable respite and sturdy shelter for
+
+00:22:55.370 --> 00:22:58.780
+all kinds of weirdos both first up in their fronds
+
+00:22:58.800 --> 00:23:01.980
+and down at the interface between the bedrock and the sea
+
+00:23:01.980 --> 00:23:05.650
+so the first thing I want to bring is the idea of
+
+00:23:05.680 --> 00:23:10.650
+anchoring networks and humans I think we could work toward reciprocal
+
+00:23:10.650 --> 00:23:15.440
+integration of rich sources of human knowledge you know we know that
+
+00:23:15.440 --> 00:23:20.980
+news organizations have tried to adapt to the distribution changes that our
+
+00:23:20.980 --> 00:23:24.840
+networks have forced on them but the networks needs and affordances
+
+00:23:24.850 --> 00:23:27.750
+keep shifting so like getting good at seo worked for a
+
+00:23:27.750 --> 00:23:31.000
+while with constant recalibration and then ai summaries
+
+00:23:31.000 --> 00:23:35.110
+have just cratered that experience for news orgs which is
+
+00:23:35.110 --> 00:23:40.090
+going to shut down newsrooms and already is getting integrated into
+
+00:23:40.130 --> 00:23:44.750
+social platforms worked pretty well until meta's properties started depriorit
+
+00:23:44.750 --> 00:23:48.290
+izing news and twitter turned into x and started hiding links and
+
+00:23:48.290 --> 00:23:51.980
+i know that folks here today are psyched about getting journalists
+
+00:23:52.000 --> 00:23:54.530
+and news orgs onto the protocol but we're going to
+
+00:23:54.620 --> 00:23:57.970
+have to make it worth their while and demonstrate that there's
+
+00:23:57.970 --> 00:24:00.700
+a long game here that's going to be beneficial to them
+
+00:24:00.720 --> 00:24:04.880
+rather than a short period of reciprocity followed by a shift
+
+00:24:04.880 --> 00:24:08.900
+to either extraction or exclusion and part of that is going to
+
+00:24:08.900 --> 00:24:11.980
+be based on whether or not people in the protocol are actually
+
+00:24:11.980 --> 00:24:16.430
+engaging with news and knowledge as i suspect although i have no
+
+00:24:16.460 --> 00:24:20.670
+data for this is higher on blue sky and various other skies
+
+00:24:20.670 --> 00:24:27.100
+than uh on other platforms um and also we need to tell
+
+00:24:27.100 --> 00:24:32.000
+whether people in the protocol or encourage people in the protocol are
+
+00:24:32.200 --> 00:24:36.860
+engaging with that rather than treating links and headlines like trading cards
+
+00:24:36.860 --> 00:24:41.260
+to signal membership or confirm the truth of our already stated positions
+
+00:24:41.280 --> 00:24:45.120
+so this is a long way to say we should try to
+
+00:24:45.120 --> 00:24:50.340
+get people to actually read what they're sharing and the the
+
+00:24:50.760 --> 00:24:57.280
+current state there is not great uh nature analysis of 35 billion
+
+00:24:57.310 --> 00:25:00.910
+facebook posts i know it's facebook but uh that had links
+
+00:25:00.910 --> 00:25:05.190
+showed that three quarters of the time people shared links they hadn
+
+00:25:05.190 --> 00:25:08.920
+'t clicked through let alone read the article they were sharing um
+
+00:25:08.920 --> 00:25:14.470
+and the presence of sharing cues just the existence of a queue
+
+00:25:14.600 --> 00:25:18.340
+might you want to share this also makes people measurably
+
+00:25:18.390 --> 00:25:22.020
+worse at discerning true things from false things uh or
+
+00:25:22.020 --> 00:25:27.100
+as the researchers put it the social media context interferes with
+
+00:25:27.100 --> 00:25:31.540
+truth discernment um so social media encounters as we see them
+
+00:25:31.540 --> 00:25:36.890
+on the big centralized platforms seem to push interactions with news not
+
+00:25:36.890 --> 00:25:41.770
+just from knowing things to knowing kind of about things but from
+
+00:25:41.770 --> 00:25:45.790
+knowing about things to signaling that we might know about them uh
+
+00:25:45.790 --> 00:25:49.140
+which is getting really far away from the knowledge itself which i
+
+00:25:49.150 --> 00:25:52.300
+mean i've been on the internet that tracks but um if
+
+00:25:52.300 --> 00:25:57.260
+we wanted to move toward better integration and more reciprocity with
+
+00:25:57.260 --> 00:26:01.300
+knowledge collecting institutions because if no one's clicking it's not
+
+00:26:01.300 --> 00:26:05.140
+helping them uh what would we do so for blue sky and
+
+00:26:05.140 --> 00:26:11.190
+black sky and north sky and probably various other skies um y
+
+00:26:11.190 --> 00:26:15.820
+'all are already ahead by not doing things that are actively
+
+00:26:15.830 --> 00:26:20.110
+hostile to knowledge like hiding links and de-prioritizing
+
+00:26:20.110 --> 00:26:24.590
+news and analysis there's probably also room to think about some
+
+00:26:24.650 --> 00:26:29.720
+remediation um i will start here with my least favorite intervention
+
+00:26:29.830 --> 00:26:33.480
+which is the nudge the nudge to read before sharing
+
+00:26:33.550 --> 00:26:37.980
+i find this highly annoying um but i think it's interesting
+
+00:26:37.980 --> 00:26:41.010
+that it does seem to change behavior at least in the short
+
+00:26:41.100 --> 00:26:44.620
+term uh twitter's comms team claimed in 2020 that when
+
+00:26:44.620 --> 00:26:48.020
+they did a little want to read this before retweeting
+
+00:26:48.020 --> 00:26:51.420
+it nudge they got a 40 boost in article opening we
+
+00:26:51.420 --> 00:26:53.160
+don't know what went into people's brains but we know
+
+00:26:53.160 --> 00:26:56.700
+that happened that's not nothing and as skeptical as i am
+
+00:26:56.700 --> 00:27:00.320
+about nudges all friction is perhaps not terrible there's a
+
+00:27:00.320 --> 00:27:06.040
+study from just this past winter that looked quite carefully at friction
+
+00:27:06.040 --> 00:27:09.930
+the nudge and found that a very very light touch of
+
+00:27:09.930 --> 00:27:15.660
+friction so just a very occasional intervention plus a tiny quiz really
+
+00:27:15.660 --> 00:27:20.770
+improved information quality by like a third just doing the friction made
+
+00:27:20.860 --> 00:27:25.340
+people stop sharing things as much it didn't improve the quality
+
+00:27:25.340 --> 00:27:28.790
+of the the knowledge on the network but the share friction plus
+
+00:27:28.790 --> 00:27:33.800
+a little bit of engaging analytical thought actually increased the quality according
+
+00:27:33.870 --> 00:27:37.040
+to the studies measures by about a third which is so much
+
+00:27:37.120 --> 00:27:41.170
+but i should say the caveat is that this study was done
+
+00:27:41.190 --> 00:27:44.580
+using a simulation so it's kind of like reading you know
+
+00:27:44.580 --> 00:27:49.480
+the headline that's like scientists cure cancer in mice but even
+
+00:27:49.480 --> 00:27:53.720
+as with the mouse effect right like they're interesting mice so
+
+00:27:53.720 --> 00:27:59.240
+you know like adding friction is never going to fully reverse the
+
+00:27:59.290 --> 00:28:03.030
+directional movement of a system that leans toward virality and
+
+00:28:03.030 --> 00:28:08.290
+towards toward first mover advantage and towards signaling versus understanding so what
+
+00:28:08.290 --> 00:28:11.010
+would it like to what would it look like to move that
+
+00:28:11.010 --> 00:28:16.050
+problem upstream what would a system look like that actually centrally
+
+00:28:16.050 --> 00:28:20.660
+attended to community knowledge and reciprocity what would it do when
+
+00:28:20.660 --> 00:28:24.050
+a user in such a system encountered something that appears to be
+
+00:28:24.050 --> 00:28:28.900
+for instance news or analysis maybe it would open an article or
+
+00:28:28.900 --> 00:28:33.280
+the video or whatever and suggest finding a good clip or a
+
+00:28:33.280 --> 00:28:36.940
+quote to share which could improve the quality of shared information and
+
+00:28:36.940 --> 00:28:40.270
+perhaps get more of it into the sharers brains maybe it
+
+00:28:40.270 --> 00:28:44.760
+would automatically add sources mentioned in posts that people bookmark or
+
+00:28:44.760 --> 00:28:47.500
+a fave to a reading or watch list that they can
+
+00:28:47.500 --> 00:28:50.770
+return to to help fight the anxiety producing ephemerality
+
+00:28:50.770 --> 00:28:55.730
+that keeps information seekers doom scrolling maybe it could offer a tiny
+
+00:28:55.760 --> 00:29:00.240
+even machine generated summary and some context cues about the source that
+
+00:29:00.240 --> 00:29:04.700
+provide enough trust signal from people with broadly strong reputations
+
+00:29:04.700 --> 00:29:09.180
+for a given local cluster to pull attention away from worthless content
+
+00:29:09.180 --> 00:29:12.460
+farms and miss info peddlers and toward journalists and creators
+
+00:29:12.460 --> 00:29:16.630
+with integrity like or maybe god help us it would ask us
+
+00:29:16.630 --> 00:29:20.200
+to answer a question about the material in the article which i
+
+00:29:20.200 --> 00:29:22.880
+actually i've flipped like i'd love that i'm fully
+
+00:29:22.880 --> 00:29:27.650
+ready to leaderboard knowledge as a countermeasure to the
+
+00:29:27.650 --> 00:29:30.940
+current mode of leaderboarding the lowest common denominator like let's
+
+00:29:30.940 --> 00:29:35.410
+go but the right move obviously depends on a specific project's
+
+00:29:35.420 --> 00:29:38.980
+values and goals but i think this is the right level to
+
+00:29:38.980 --> 00:29:43.260
+consider it back in the architecture of a social internet system rather
+
+00:29:43.260 --> 00:29:47.570
+than as like aftermarket fixes and having seen yesterday's science
+
+00:29:47.570 --> 00:29:52.450
+track like those folks are way ahead of everyone else on this
+
+00:29:57.760 --> 00:30:05.460
+so next cool kelp fact kelp makes slower calmer
+
+00:30:05.530 --> 00:30:12.940
+zones for us i think we could make slower calmer zones
+
+00:30:12.940 --> 00:30:17.650
+that help our people keep them from being overwhelmed by network t
+
+00:30:17.650 --> 00:30:21.060
+ides and there are two ways to look at this um first
+
+00:30:21.060 --> 00:30:25.250
+i want to say like kelp forests are super biodiverse
+
+00:30:25.250 --> 00:30:28.770
+they're a very rich community they're up there with coral
+
+00:30:28.770 --> 00:30:34.310
+reefs on um the the biodiversity and what we call productivity um
+
+00:30:34.310 --> 00:30:39.840
+as a system and they do two things roughly that help them
+
+00:30:39.840 --> 00:30:44.610
+be such an important sheltering force the first is up in
+
+00:30:44.620 --> 00:30:48.280
+the water column uh where the kelp fronds and blades
+
+00:30:48.300 --> 00:30:53.040
+calm and slow and deflect the very strong currents that surround kel
+
+00:30:53.040 --> 00:30:57.290
+p forests creating calmer and less turbulent spaces where other organisms
+
+00:30:57.290 --> 00:31:01.340
+can thrive the second is down in the hold fasts themselves
+
+00:31:01.340 --> 00:31:05.100
+the structures that wrap around and latch onto the sturdiest
+
+00:31:05.100 --> 00:31:09.250
+anchor they can are actually the most thriving part of the community
+
+00:31:10.240 --> 00:31:14.020
+they shelter hundreds of mobile and sessile invertebr
+
+00:31:14.020 --> 00:31:18.080
+ate species so they're like the critical infrastructure for kelp
+
+00:31:18.120 --> 00:31:21.210
+busy town i want to take these one at a time first
+
+00:31:21.230 --> 00:31:24.640
+up in the water column where the the tides are moving
+
+00:31:24.640 --> 00:31:28.320
+fast but perhaps our network's affordances could provide a little
+
+00:31:28.400 --> 00:31:33.770
+bit of cognitive and emotional traffic calming so something i've been
+
+00:31:33.770 --> 00:31:38.010
+watching for a long time and especially this year is that every
+
+00:31:38.200 --> 00:31:41.760
+time something happens you know whether it's someone dropping an album
+
+00:31:41.760 --> 00:31:45.730
+or a natural disaster happening or ice shooting someone in my country
+
+00:31:45.740 --> 00:31:50.520
+um there is an instant hyper proliferation of chatter about it
+
+00:31:50.520 --> 00:31:54.280
+on the networks that comes online around the same time as live
+
+00:31:54.280 --> 00:31:57.840
+posting an eyewitness video or spot analysis and then you
+
+00:31:57.900 --> 00:32:01.460
+get the local and specialist coverage and then you get the national
+
+00:32:01.460 --> 00:32:04.700
+and international coverage and the next morning the think tanks wake up
+
+00:32:05.360 --> 00:32:08.430
+and and get moving on it and this is always expanding but
+
+00:32:08.460 --> 00:32:13.170
+we don't really have a corresponding moment of synthesis or contraction
+
+00:32:13.170 --> 00:32:17.210
+of all of that stuff into something that is intelligible to
+
+00:32:17.210 --> 00:32:21.290
+a reasonable person like this is wild to me but you still
+
+00:32:21.290 --> 00:32:25.420
+like we can't just go to our networks or really anywhere
+
+00:32:25.440 --> 00:32:29.460
+speaking in general knowledge terms i understand the scientists may have this
+
+00:32:29.460 --> 00:32:33.760
+better um and find just like uh an event node that connects
+
+00:32:33.760 --> 00:32:38.830
+all the sources of relevant information and the the opinions of people
+
+00:32:38.830 --> 00:32:42.190
+we care about in one place like we have reporters who can
+
+00:32:42.190 --> 00:32:45.040
+sort of do this high-speed gallop through the relevant
+
+00:32:45.040 --> 00:32:47.770
+context at the beginning of every article they write and then the
+
+00:32:47.770 --> 00:32:50.620
+next day they wake up and they write another article it's
+
+00:32:50.620 --> 00:32:54.540
+all super atomized there's nothing to bring it together um
+
+00:32:54.540 --> 00:32:58.210
+if you want to build a knowledge molecule you have to do
+
+00:32:58.210 --> 00:33:01.340
+it with your own brain or you can glom on to
+
+00:33:01.360 --> 00:33:05.410
+someone in the creator or interpreter class some of whom are genuinely
+
+00:33:05.510 --> 00:33:09.550
+like genuinely world-class super gifted analysts and some of whom
+
+00:33:09.550 --> 00:33:14.380
+are basically semi-deranged street preachers and not everyone
+
+00:33:14.380 --> 00:33:18.830
+can tell the difference all the time so uplifting and recipro
+
+00:33:18.830 --> 00:33:22.920
+cating our gifted interpreters is necessary and i hope we
+
+00:33:22.920 --> 00:33:26.170
+'re going to hear more about that this weekend but it also
+
+00:33:26.170 --> 00:33:30.330
+seems to me that we really could get the machines involved in
+
+00:33:30.350 --> 00:33:33.920
+bundling up all of this noise into intelligible collections of
+
+00:33:33.970 --> 00:33:37.610
+material that we could actually learn through and refer to so it
+
+00:33:37.610 --> 00:33:41.110
+'s not so insistently ephemeral and scattered and if
+
+00:33:41.110 --> 00:33:44.580
+this sounds like resuscitating the dream of structured data it
+
+00:33:44.580 --> 00:33:50.010
+kind of is um but i want to put it in service
+
+00:33:50.040 --> 00:33:56.620
+of ordinary people uh using tech we didn't have before and
+
+00:33:56.640 --> 00:34:00.220
+signals from social that can make this stuff more than like a
+
+00:34:00.260 --> 00:34:04.580
+terrible index um and it's odd to me that we have
+
+00:34:04.580 --> 00:34:08.770
+all of these recommendation algorithms working in variously pro and anti
+
+00:34:08.770 --> 00:34:11.480
+-social ways but as far as i can tell we haven
+
+00:34:11.480 --> 00:34:16.620
+'t effectively brought our social tech to the work of orientation or
+
+00:34:16.620 --> 00:34:21.230
+reorientation in any structured way as again the science cluster
+
+00:34:21.260 --> 00:34:26.260
+is ably demonstrating we can develop features that cluster and amplify
+
+00:34:26.260 --> 00:34:30.130
+the knowledge people assemble we can do it with machine learning and
+
+00:34:30.130 --> 00:34:34.450
+human curation probably both of them we could give our communities
+
+00:34:34.450 --> 00:34:37.980
+the tools to do this for their areas of interest or their
+
+00:34:37.980 --> 00:34:42.750
+physical localities or their specializations and we could exist we
+
+00:34:42.750 --> 00:34:48.940
+could extend existing work on community moderation to rule certain knowledge associations
+
+00:34:48.940 --> 00:34:52.290
+in or out but if we only do this work for highly
+
+00:34:52.320 --> 00:34:56.160
+motivated specialists we're missing the chance to bring that fire to
+
+00:34:56.220 --> 00:35:00.980
+everyone else and i will now embarrass my old journalism world friend
+
+00:35:01.160 --> 00:35:03.820
+tyler fisher and say that i think his work with sill
+
+00:35:03.820 --> 00:35:06.860
+is admirable and a really good start toward this um and
+
+00:35:06.860 --> 00:35:09.750
+some things about the the next area i want to talk about
+
+00:35:09.750 --> 00:35:14.540
+which is mitigating the cognitive and emotional effects of processing so
+
+00:35:14.540 --> 00:35:22.060
+many different emotional registers in one place um i think we could
+
+00:35:22.060 --> 00:35:27.410
+give our embodied human cells a break if we were to find
+
+00:35:27.410 --> 00:35:30.750
+a way to split rhetorical registers at the point of
+
+00:35:30.750 --> 00:35:35.100
+reader viewer contact this is what i mean we go online because
+
+00:35:35.100 --> 00:35:37.580
+we're bored or we're lonely or we want to see
+
+00:35:37.580 --> 00:35:40.470
+what people are talking about um either in a professional or a
+
+00:35:40.470 --> 00:35:44.540
+very unprofessional way but what most of us get when
+
+00:35:44.540 --> 00:35:48.430
+we come online is this amazing puree of like jokes and inf
+
+00:35:48.540 --> 00:35:53.200
+ighting and scary news and hustling and entertaining nonsense and
+
+00:35:53.280 --> 00:35:59.740
+dumb memes and video evidence of war crimes and i think this
+
+00:35:59.740 --> 00:36:03.610
+is genuinely not good for us uh there's a lot of
+
+00:36:03.610 --> 00:36:07.960
+evidence about this but honestly it's kind of weird i wanted
+
+00:36:07.960 --> 00:36:11.180
+it to be stronger um there is a study about how rough
+
+00:36:11.180 --> 00:36:14.280
+context switching is for our ability to understand things but it's
+
+00:36:14.350 --> 00:36:16.850
+mostly focused on format so it's like hard to go from
+
+00:36:16.880 --> 00:36:20.140
+video to text uh which is fine but uh not not the
+
+00:36:20.140 --> 00:36:24.590
+same thing there's this really fun paper about three with three
+
+00:36:24.590 --> 00:36:28.830
+studies from a couple of professors of advertising um that found that
+
+00:36:28.830 --> 00:36:33.810
+scrolling instagram for 30 seconds uh essentially makes us weak to ads
+
+00:36:33.820 --> 00:36:39.230
+um but especially to ads that uh have high social signals so
+
+00:36:39.230 --> 00:36:42.450
+we're switching from a more analytical mode to heuristic
+
+00:36:42.450 --> 00:36:45.890
+processing and if a lot of people appear to have liked the
+
+00:36:46.040 --> 00:36:49.160
+thing uh we're more likely to just buy whatever nonsense it
+
+00:36:49.180 --> 00:36:54.950
+is the same paper also includes uh another experiment showing the people
+
+00:36:55.030 --> 00:36:58.720
+who scroll their social feed for a very brief period also immediately
+
+00:36:58.720 --> 00:37:01.980
+got worse at math and sentence diagramming so that's fun
+
+00:37:02.000 --> 00:37:04.820
+um but that's just one paper uh and there are a
+
+00:37:04.820 --> 00:37:08.920
+few others but they're not necessarily generalizable so i want
+
+00:37:08.920 --> 00:37:12.050
+to be careful i think we do have two really helpful bodies
+
+00:37:12.100 --> 00:37:15.500
+here of indirect evidence one is the quite beefy body of
+
+00:37:15.500 --> 00:37:20.870
+work on transportive communication stuff that transports us which is
+
+00:37:20.870 --> 00:37:25.770
+behind a bunch of the like power of storytelling stuff um but
+
+00:37:25.770 --> 00:37:30.540
+essentially things that feel transportive including a lot of first person
+
+00:37:30.540 --> 00:37:35.830
+testimony really reduce skepticism and analytical thought and there's a
+
+00:37:35.830 --> 00:37:38.870
+solid pool of evidence and theory they're kind of just waiting
+
+00:37:38.950 --> 00:37:41.550
+for someone to step in and work on the effects of trying
+
+00:37:41.600 --> 00:37:45.350
+to move between the transportive and just like quotidian news
+
+00:37:45.350 --> 00:37:49.290
+y stuff registers in rapid succession over and over again in the
+
+00:37:49.290 --> 00:37:53.980
+same place but the second thing we have is again like the
+
+00:37:54.010 --> 00:37:59.420
+evidence of our senses i think there are a few people having
+
+00:37:59.420 --> 00:38:04.300
+a good time in the political news zone on the social internet
+
+00:38:04.320 --> 00:38:08.260
+i think there are journalism and policy people who mostly treat the
+
+00:38:08.260 --> 00:38:13.270
+networks like a brief mean linkedin which works out well for
+
+00:38:13.350 --> 00:38:17.300
+them and then there are a lot of people including people in
+
+00:38:17.300 --> 00:38:22.360
+positions of extraordinary power who treat the experience of modern life and
+
+00:38:22.420 --> 00:38:25.470
+the suffering of others as a spectator blood sport and i
+
+00:38:25.470 --> 00:38:30.460
+do not think that that mode in particular is good or even
+
+00:38:30.460 --> 00:38:33.650
+neutral i think it will we will not fix the problems with
+
+00:38:33.740 --> 00:38:36.620
+our governance if we continue to allow it to metastas
+
+00:38:36.620 --> 00:38:40.640
+ize through our civic life but for the rest of us this
+
+00:38:40.640 --> 00:38:44.640
+stuff is just exhausting and alienating and it does things to
+
+00:38:44.680 --> 00:38:47.200
+our brains that we don't like and i want to briefly
+
+00:38:47.210 --> 00:38:51.030
+bring in joshua myrowitz do we have other
+
+00:38:51.030 --> 00:38:53.240
+myrowitz heads in the crowd he wrote no sense of
+
+00:38:53.240 --> 00:38:55.770
+place in 1986 oh my god i'm gonna write so many
+
+00:38:55.770 --> 00:38:57.750
+blog posts about joshua myrowitz for you so
+
+00:38:57.750 --> 00:39:02.010
+he's this media scholar whose ideas informed dana boyd
+
+00:39:02.040 --> 00:39:05.910
+and alice marwick's work on context collapse but he
+
+00:39:05.910 --> 00:39:12.290
+was writing in the mid 80s which makes this a little
+
+00:39:12.380 --> 00:39:18.460
+unsettling to me he wrote the current merging of situations by
+
+00:39:18.460 --> 00:39:22.180
+which he means places doesn't give us a sum of what
+
+00:39:22.180 --> 00:39:27.510
+we had before but rather new synthesized behaviors that are qualitative
+
+00:39:27.510 --> 00:39:31.380
+ly different if we celebrate our child's wedding in an isolated
+
+00:39:31.390 --> 00:39:35.100
+situation where it is the sole experience of the day then our
+
+00:39:35.100 --> 00:39:37.880
+joy may be unbounded but when on our way to
+
+00:39:37.920 --> 00:39:41.710
+the wedding we hear over the car radio of a devastating earthquake
+
+00:39:41.710 --> 00:39:45.370
+or the death of a popular entertainer or the assassination of
+
+00:39:45.370 --> 00:39:49.580
+a political figure we not only lose our ability to rejoice fully
+
+00:39:49.580 --> 00:39:53.270
+but also our ability to mourn deeply unbounded joy
+
+00:39:53.270 --> 00:39:58.090
+and unmitigated misery cannot coexist in the same place
+
+00:39:58.140 --> 00:40:02.760
+in time the situations merge the hot flush and the icy stare
+
+00:40:02.760 --> 00:40:07.170
+blend into a middle region cool and for myrowitz's
+
+00:40:07.200 --> 00:40:14.020
+cool i would substitute numb now some communities in the decentralized space
+
+00:40:14.020 --> 00:40:18.460
+have tried to deal with this by asking people to either content
+
+00:40:18.460 --> 00:40:21.660
+warn their posts based on the whole panoply of their
+
+00:40:21.660 --> 00:40:26.460
+readers potential sensitivities or to divide their expression into separate accounts
+
+00:40:26.460 --> 00:40:29.710
+and i think these people are working from good instincts but from
+
+00:40:29.760 --> 00:40:33.020
+the wrong end of the problem given how alienating and anti
+
+00:40:33.020 --> 00:40:35.020
+-convivial it is to be instructed to pre-
+
+00:40:35.320 --> 00:40:38.300
+process your emotional utterances for people you may not even be
+
+00:40:38.300 --> 00:40:41.730
+speaking to but i think we could make this work on the
+
+00:40:41.730 --> 00:40:44.250
+other end and i i want to say if we do it
+
+00:40:44.250 --> 00:40:49.170
+successfully it will be because we recognize that we cannot rely on
+
+00:40:49.180 --> 00:40:54.190
+like civility forward sentiment analysis that for instance reads black amer
+
+00:40:54.190 --> 00:40:59.430
+icans speaking in a neutral register as aggressive doing it well would
+
+00:40:59.450 --> 00:41:03.100
+involve grounding in community and doing a lot of training work which
+
+00:41:03.100 --> 00:41:07.060
+would have to be shared across a willing group i don't
+
+00:41:07.060 --> 00:41:11.790
+want to undersell the difficulty but being able to come online
+
+00:41:11.790 --> 00:41:15.780
+and see a morning experience that starts with like hi friends it
+
+00:41:15.780 --> 00:41:19.020
+'s puppy pictures and selfies and not have the hard news come
+
+00:41:19.020 --> 00:41:23.270
+online until like after the caffeine kicks in i think this would
+
+00:41:23.270 --> 00:41:26.940
+be transformative and like for me when i'm working i would
+
+00:41:26.940 --> 00:41:30.110
+love to be able to filter in posts that match the register
+
+00:41:30.110 --> 00:41:34.200
+i'm working in and hold the puppies and beefs for
+
+00:41:34.200 --> 00:41:39.010
+later i would like to think about this less as feed switching
+
+00:41:39.140 --> 00:41:43.530
+and more like a radio dial always the people that we like
+
+00:41:43.530 --> 00:41:48.060
+but with the option to filter different registers in and out to
+
+00:41:48.060 --> 00:41:53.760
+suit different emotional capacities and allow for some separation so those are
+
+00:41:53.760 --> 00:41:57.070
+some thoughts about working on this stuff uh in kind of lateral
+
+00:41:57.240 --> 00:41:59.870
+ways up in the big open world of the water column and
+
+00:41:59.880 --> 00:42:03.660
+now i want to talk about the other thing the most vibrant
+
+00:42:03.660 --> 00:42:06.810
+part of the kelp forest is in the hold fasts
+
+00:42:06.810 --> 00:42:10.580
+which act like roots but kind of in reverse instead of pulling
+
+00:42:10.580 --> 00:42:14.370
+resources out of the soil they push benefits out to every living
+
+00:42:14.370 --> 00:42:19.090
+thing around them by providing a firmly anchored structure that offers
+
+00:42:19.120 --> 00:42:23.550
+complex and variegated shelter for both the charismatic inverte
+
+00:42:23.610 --> 00:42:26.760
+brates with all the little flowy parts and also the
+
+00:42:26.800 --> 00:42:30.680
+tiny snails and worms and all the other beloved lobies
+
+00:42:30.750 --> 00:42:33.420
+of the kelp forest so um one more joshua
+
+00:42:33.420 --> 00:42:38.060
+myrowitz quote um from 1986 for every moment of our
+
+00:42:38.200 --> 00:42:42.700
+lives there are things happening someplace that would upset us that would
+
+00:42:42.720 --> 00:42:46.490
+involve us that would drain our energies and engage our feelings there
+
+00:42:46.500 --> 00:42:49.800
+are more things that if present and interview we would feel compelled
+
+00:42:49.910 --> 00:42:52.940
+to respond to or do something about than could possibly fit into
+
+00:42:52.940 --> 00:42:58.970
+the sane experience of a single lifetime situation segregation however acts as
+
+00:42:58.970 --> 00:43:03.650
+a psychosocial shock absorber by selectively exposing ourselves
+
+00:43:03.650 --> 00:43:07.100
+to events and other people we control the flow of our actions
+
+00:43:07.100 --> 00:43:12.510
+and emotions compassion empathy and even ethics may be more situationally
+
+00:43:12.510 --> 00:43:17.070
+bound than we often care to think i love this guy um
+
+00:43:17.070 --> 00:43:21.760
+i feel this in the way that i participate in the online
+
+00:43:21.760 --> 00:43:25.480
+world um i think we need space to think and feel together
+
+00:43:25.550 --> 00:43:28.910
+that isn't always fully in the current and i feel like
+
+00:43:28.970 --> 00:43:34.120
+probably everybody here gets this um it also produces the benefit also
+
+00:43:34.120 --> 00:43:38.270
+i think we understand the benefit of not having to send people
+
+00:43:38.270 --> 00:43:42.480
+off protocol into discords and group chats um whenever they need
+
+00:43:42.480 --> 00:43:45.560
+to do that work uh the spaces work that the blue sky
+
+00:43:45.630 --> 00:43:49.730
+team has been um publishing about is going to unlock so many
+
+00:43:49.760 --> 00:43:52.650
+affordances for pro-social things that go well beyond private
+
+00:43:52.650 --> 00:43:55.670
+accounts i cannot tell you how excited i am about this um
+
+00:43:55.670 --> 00:43:59.050
+but i also want to make a note i think letting people
+
+00:43:59.080 --> 00:44:03.150
+huddle up inside an anchoring structure also undercuts
+
+00:44:03.400 --> 00:44:07.880
+both the need for and the value of mobbing as territorial
+
+00:44:07.880 --> 00:44:11.680
+defense and i think that's something very real on the networks
+
+00:44:11.690 --> 00:44:15.100
+right now and that also came up in the science track yesterday
+
+00:44:15.120 --> 00:44:18.830
+if you and your community have a cave or a building or
+
+00:44:18.830 --> 00:44:22.500
+a little sheltering trees to step into to get out of
+
+00:44:22.500 --> 00:44:26.030
+the broad featureless plane with everyone in it filled with many
+
+00:44:26.040 --> 00:44:29.610
+other communities some of whom will always hate you uh you're
+
+00:44:29.800 --> 00:44:33.380
+not going to have to constantly make up for your lack of
+
+00:44:33.380 --> 00:44:38.880
+shelter by continuously contesting every millimeter of cultural boundary you can
+
+00:44:38.940 --> 00:44:41.650
+just sidestep it this is so low level that i
+
+00:44:41.680 --> 00:44:44.660
+think it's honestly hard to find ways to talk about but
+
+00:44:44.660 --> 00:44:48.250
+i think we have to to solve these problems i would like
+
+00:44:48.250 --> 00:44:53.890
+to suggest as a completely unqualified non-anthropologist
+
+00:44:53.920 --> 00:44:58.160
+that the entire known history of humans coming together in groups larger
+
+00:44:58.160 --> 00:45:01.850
+than a few families has involved making buildings of one kind or
+
+00:45:01.920 --> 00:45:06.390
+another and then elaborating those buildings fairly quickly with rooms and
+
+00:45:06.390 --> 00:45:10.090
+divisions because our structures out in the physical world don't just
+
+00:45:10.090 --> 00:45:14.050
+shield us from the environment they also give us necessary shelter from
+
+00:45:14.050 --> 00:45:18.180
+each other which probably brings the murder rate down among other things
+
+00:45:20.720 --> 00:45:23.650
+so i said earlier that i would revisit the illusion of explan
+
+00:45:23.650 --> 00:45:29.010
+atory depth which is essentially a pervasive cognitive con that all
+
+00:45:29.010 --> 00:45:32.440
+our brains are running all the time by leading us to believe
+
+00:45:32.440 --> 00:45:36.790
+that we understand things about the world that we actually do not
+
+00:45:36.790 --> 00:45:39.820
+and we don't know that we don't know until we
+
+00:45:39.820 --> 00:45:44.400
+have to explain something or fix something and then it's not
+
+00:45:44.400 --> 00:45:48.500
+there um if i had an extra 10 minutes i would absolutely
+
+00:45:48.500 --> 00:45:50.840
+ask you each to turn to the person next to you and
+
+00:45:50.840 --> 00:45:55.730
+explain how a flush toilet works i've worked on flush toilets
+
+00:45:55.730 --> 00:46:03.920
+i was so wrong it was very upsetting this is usually okay
+
+00:46:03.980 --> 00:46:07.640
+as long as we have reliable sources to refer back to but
+
+00:46:07.660 --> 00:46:10.040
+it's extremely bad when we don't i read a lot
+
+00:46:10.040 --> 00:46:12.300
+about this in the landslide essay and i'll link the
+
+00:46:12.300 --> 00:46:16.350
+relevant research but the upshot is that for people who care
+
+00:46:16.400 --> 00:46:20.120
+about knowledge we need to know that we we don't know
+
+00:46:20.160 --> 00:46:24.610
+very much in our brains actually and that our knowledge is not
+
+00:46:24.610 --> 00:46:29.550
+just embodied but also genuinely social and networked which means that
+
+00:46:29.600 --> 00:46:34.700
+the quality of knowledge in our networks when it goes down we
+
+00:46:34.720 --> 00:46:38.000
+all get less knowledgeable and we all get less capable and i
+
+00:46:38.000 --> 00:46:41.900
+would argue that we all get less free and this is why
+
+00:46:41.900 --> 00:46:46.780
+everything i'm suggesting today centers on treating ordinary people as subjects
+
+00:46:46.780 --> 00:46:51.330
+with agency who deserve workable access to good information in reasonable
+
+00:46:51.340 --> 00:46:55.600
+environments rather than treating them as consumers whose purpose is to be
+
+00:46:55.600 --> 00:47:00.460
+a manipulable object the science folks from yesterday are already
+
+00:47:00.460 --> 00:47:04.500
+demonstrating the protocol can be used to do knowledge consolidating and
+
+00:47:04.500 --> 00:47:07.840
+brain preserving work but if we don't bring those goods to
+
+00:47:07.840 --> 00:47:11.100
+everyone at all levels we're going to lose our democracies
+
+00:47:11.120 --> 00:47:15.100
+all of which are predicated on the existence of at least
+
+00:47:15.100 --> 00:47:19.440
+minimally informed civic community who are subjects with agency so i
+
+00:47:19.440 --> 00:47:24.340
+'ve got i've got one more cool kelp fact for
+
+00:47:24.340 --> 00:47:26.620
+you at least you'll have the kelp facts even if
+
+00:47:26.620 --> 00:47:30.000
+nothing else carries forward kelp are way older than we thought
+
+00:47:30.020 --> 00:47:32.960
+until a few years ago they thought we thought they were only
+
+00:47:32.960 --> 00:47:36.050
+14 million years ago because we found a kelp fossil and
+
+00:47:36.100 --> 00:47:40.060
+it was 14 million years old but then this amateur fossil collector
+
+00:47:40.060 --> 00:47:43.720
+um down in washington state cracked open so rocks he found
+
+00:47:43.750 --> 00:47:46.650
+on the beach and found something that looked a lot like a
+
+00:47:46.650 --> 00:47:50.170
+fossilized holdfast so he sent it down to the ancient
+
+00:47:50.170 --> 00:47:53.820
+kelp dating nerds at uc berkeley and the
+
+00:47:53.820 --> 00:47:59.390
+new fossils were around 32 million years old and this is important
+
+00:47:59.390 --> 00:48:03.350
+because it means that the kelp evolved way before all the
+
+00:48:03.350 --> 00:48:07.730
+species that now shelter in their fronds and their hold fast
+
+00:48:07.730 --> 00:48:11.220
+s and became a foundation species without which all that other life
+
+00:48:11.220 --> 00:48:16.120
+would have been impossible put another way their presence and the afford
+
+00:48:16.150 --> 00:48:19.520
+ances they offered bent the future around them in ways that we
+
+00:48:19.520 --> 00:48:24.240
+now find beautiful and valuable and good to me the point of
+
+00:48:24.240 --> 00:48:29.130
+working toward knowledge anchoring and against continuous turbulence and trouble is
+
+00:48:29.150 --> 00:48:32.060
+not just short term as a respite or a little pocket
+
+00:48:32.060 --> 00:48:36.120
+oasis for us and our friends but toward a genuinely more
+
+00:48:36.120 --> 00:48:40.170
+workable way to think and know together where together is going
+
+00:48:40.360 --> 00:48:45.020
+to include billions of humans and also many forms of machine assistance
+
+00:48:45.920 --> 00:48:50.810
+and this moment is our window for bending the future around our
+
+00:48:50.810 --> 00:48:55.520
+hopes and values that cherish knowledge and communal knowing and that orient
+
+00:48:55.530 --> 00:49:00.230
+us toward real remedies for some of our most ancient information and
+
+00:49:00.230 --> 00:49:05.890
+troubles and pains uh in service of living together in peace and
+
+00:49:05.890 --> 00:49:17.390
+mutual respect thank you
+
+00:49:27.000 --> 00:49:41.690
+truly
+
+00:49:41.760 --> 00:49:45.910
+truly uh leaning toward the wrong mic um if you're working
+
+00:49:45.920 --> 00:49:48.480
+on this stuff if you care about working on this stuff let
+
+00:49:48.480 --> 00:49:50.230
+'s talk like that's why i'm here i gave this
+
+00:49:50.230 --> 00:49:55.950
+talk so they'd let me in the door um but i
+
+00:49:55.950 --> 00:49:56.510
+i want to talk to people who are actually trying to fix
+
+00:49:56.510 --> 00:50:08.060
+this thank you thank you thank you

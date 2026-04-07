@@ -1,0 +1,1954 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.460
+Yeah, all right, so that's how Streamplace
+
+00:00:08.460 --> 00:00:11.140
+VOD works, I hope you all enjoyed the presentation.
+
+00:00:11.240 --> 00:00:13.740
+My name is Eli Mallon, I'm the CEO and
+
+00:00:14.310 --> 00:00:16.980
+founder of Streamplace, I don't care about my Car
+
+00:00:16.980 --> 00:00:21.620
+abiner update version.
+
+00:00:21.620 --> 00:00:25.170
+So the crux of this talk was if you are going
+
+00:00:25.390 --> 00:00:29.120
+to make a system that has both VOD and live,
+
+00:00:29.120 --> 00:00:32.300
+can that be muted at all?
+
+00:00:32.300 --> 00:00:35.660
+You should probably start with live, live video is more difficult
+
+00:00:35.660 --> 00:00:38.450
+than VOD, it is much easier to generalize live
+
+00:00:38.450 --> 00:00:41.700
+video to VOD than it is to go the opposite direction
+
+00:00:41.700 --> 00:00:42.060
+.
+
+00:00:42.060 --> 00:00:45.290
+So we started out with live, we're pretty happy with
+
+00:00:45.290 --> 00:00:47.920
+that, and knock on wood, of course as soon as
+
+00:00:47.920 --> 00:00:50.170
+I walked out of the other room people started reporting playback issues
+
+00:00:50.170 --> 00:00:54.380
+over there, but overall everything's been going really well at
+
+00:00:54.530 --> 00:00:55.600
+all of this.
+
+00:00:55.600 --> 00:00:58.420
+So I'll start by sort of explaining how Streamplace,
+
+00:00:58.420 --> 00:01:01.490
+a quick explanation of how Streamplace live works, because I
+
+00:01:01.490 --> 00:01:03.290
+'ve talked about this a lot before, and then we'll
+
+00:01:03.290 --> 00:01:07.470
+talk about how we're adapting that for a decentralized VOD
+
+00:01:07.470 --> 00:01:08.780
+primitive.
+
+00:01:08.780 --> 00:01:12.430
+What does it mean to have something like, you know,
+
+00:01:12.550 --> 00:01:15.760
+what would a decentralized YouTube look like?
+
+00:01:15.760 --> 00:01:17.960
+What things do you need in order to make that happen?
+
+00:01:17.960 --> 00:01:22.300
+So yeah, this is just about Streamplace.
+
+00:01:22.300 --> 00:01:27.260
+There's been three Streamplace third-party clients created since
+
+00:01:27.260 --> 00:01:29.350
+the beginning of this conference.
+
+00:01:30.500 --> 00:01:33.720
+So I don't know if that reflects poorly on our front
+
+00:01:33.720 --> 00:01:35.980
+end, or if it just represents, you know, the
+
+00:01:35.980 --> 00:01:38.840
+entrepreneurial spirit of the at-proto community, but this
+
+00:01:38.950 --> 00:01:41.090
+one's from jack.
+
+00:01:41.090 --> 00:01:43.440
+xyz, and it shows all of the streams at once
+
+00:01:43.440 --> 00:01:47.040
+, really given the Streamplace servers the maximum workout to give
+
+00:01:47.040 --> 00:01:49.680
+everybody what they're looking for there.
+
+00:01:49.680 --> 00:01:52.840
+Before we do anything else, hey, I found this MP
+
+00:01:52.840 --> 00:01:54.580
+4 file on the ground.
+
+00:01:54.980 --> 00:01:55.860
+Let's see what it is.
+
+00:01:55.860 --> 00:02:02.530
+You can all imagine the great noises Trabio is making
+
+00:02:02.660 --> 00:02:03.740
+here.
+
+00:02:03.740 --> 00:02:07.080
+What's going to happen?
+
+00:02:07.080 --> 00:02:07.880
+What's going to happen?
+
+00:02:07.880 --> 00:02:14.960
+And wait for it.
+
+00:02:14.960 --> 00:02:17.640
+Yeah, we got him!
+
+00:02:17.640 --> 00:02:18.120
+Yeah!
+
+00:02:18.120 --> 00:02:21.500
+So that MP4 file I found on the ground turned out
+
+00:02:21.500 --> 00:02:24.100
+to be my glorious victory over Trabio.
+
+00:02:24.980 --> 00:02:26.720
+So how do I know that?
+
+00:02:26.720 --> 00:02:29.260
+How do I know it's Eli's livestream that happened there
+
+00:02:29.260 --> 00:02:29.480
+?
+
+00:02:29.480 --> 00:02:35.160
+And that has to do with Streamplace's signing format.
+
+00:02:35.160 --> 00:02:38.680
+So we needed to...
+
+00:02:38.680 --> 00:02:41.190
+So decentralized VOD is something that's kind of existed before
+
+00:02:41.190 --> 00:02:41.720
+, right?
+
+00:02:41.720 --> 00:02:42.840
+You could argue...
+
+00:02:42.840 --> 00:02:43.780
+This will be a popular opinion.
+
+00:02:43.780 --> 00:02:46.720
+You could argue video NFTs are kind of like a decentralized
+
+00:02:46.780 --> 00:02:47.400
+VOD, right?
+
+00:02:47.520 --> 00:02:49.930
+Where you've got an IPFS reference to something that's
+
+00:02:49.930 --> 00:02:52.260
+, like, out there and not controlled by any one party
+
+00:02:52.260 --> 00:02:54.300
+, lots of other, like, IPFS-based,
+
+00:02:54.550 --> 00:02:56.490
+like, there's, like, DAT-based live
+
+00:02:56.490 --> 00:02:59.500
+streaming that maybe falls into that.
+
+00:02:59.500 --> 00:03:01.100
+But for the most part, we needed to invent what a
+
+00:03:01.100 --> 00:03:02.260
+decentralized live stream is.
+
+00:03:02.260 --> 00:03:05.840
+So what we did was we took the first thing that happens
+
+00:03:06.220 --> 00:03:09.760
+is you generate a signing key, same as the kind that
+
+00:03:09.760 --> 00:03:12.250
+'s used to secure your app proto repository.
+
+00:03:13.300 --> 00:03:15.980
+We then take that signing key.
+
+00:03:15.980 --> 00:03:19.500
+You then configure your OBS instance, just like we're
+
+00:03:19.500 --> 00:03:22.440
+doing here, to stream in to Streamplace.
+
+00:03:22.440 --> 00:03:25.310
+You actually provide it with that signing key, so it has
+
+00:03:25.440 --> 00:03:26.980
+the capability of signing on your behalf.
+
+00:03:26.980 --> 00:03:29.510
+If you really care about your key custody, you should run
+
+00:03:29.510 --> 00:03:31.970
+Streamplace locally and then syndicate it out to a server
+
+00:03:31.970 --> 00:03:32.120
+.
+
+00:03:34.320 --> 00:03:36.810
+Then this is basically every live stream you've ever watched,
+
+00:03:36.810 --> 00:03:40.170
+if you haven't messed with video infrastructure before, is just
+
+00:03:40.170 --> 00:03:43.860
+a bunch of short video files that are thrown into your face
+
+00:03:43.860 --> 00:03:46.150
+in sequence, and it provides the illusion of a live stream
+
+00:03:46.150 --> 00:03:46.360
+.
+
+00:03:46.360 --> 00:03:47.720
+So that's how we do it.
+
+00:03:47.720 --> 00:03:50.280
+Each MP4 file comes in.
+
+00:03:50.280 --> 00:03:54.690
+We give each one of them an embedded signature using technology from
+
+00:03:54.690 --> 00:03:57.200
+the C2PA, the Coalition for Content Provenance
+
+00:03:57.200 --> 00:03:58.080
+and Authenticity.
+
+00:03:58.980 --> 00:03:59.880
+Cool format.
+
+00:03:59.880 --> 00:04:03.400
+It provides a mechanism for giving you an MP4 file that
+
+00:04:03.400 --> 00:04:07.950
+contains an embedded signature over a hash of all of that MP
+
+00:04:07.950 --> 00:04:11.060
+4 file except for that part of the signature.
+
+00:04:11.060 --> 00:04:12.880
+That's really tricky to get right, and that's one
+
+00:04:12.880 --> 00:04:14.940
+of the things I really like about the C2PA's
+
+00:04:14.940 --> 00:04:19.800
+tooling is you've got this, a lot of decentralized media
+
+00:04:19.800 --> 00:04:24.860
+projects have external signatures, so you might have, this actually
+
+00:04:24.860 --> 00:04:26.640
+included like blue sky videos, right?
+
+00:04:26.640 --> 00:04:28.200
+How do you know it's my blue sky video?
+
+00:04:28.200 --> 00:04:31.780
+It's because there's a blob out there that is referenced
+
+00:04:32.020 --> 00:04:35.830
+by a record in my repository, and my repository has a
+
+00:04:35.830 --> 00:04:37.470
+signature on the root commit, so that's how you know
+
+00:04:37.470 --> 00:04:38.280
+it's mine, right?
+
+00:04:38.280 --> 00:04:41.380
+What I like about this format is I can have, this
+
+00:04:41.390 --> 00:04:44.500
+is the MP4 file on the ground example I just gave
+
+00:04:44.500 --> 00:04:44.780
+, right?
+
+00:04:44.780 --> 00:04:47.270
+You can have arbitrary MP4 file on your computer, and
+
+00:04:47.270 --> 00:04:50.030
+all of that signing and provenance data is intact and embedded
+
+00:04:50.030 --> 00:04:50.980
+in the MP4 file.
+
+00:04:50.980 --> 00:04:52.480
+So I like that a lot.
+
+00:04:52.480 --> 00:04:56.820
+It's something we really wanted to preserve as we moved from
+
+00:04:56.820 --> 00:05:00.020
+live to VOD, and lots of very cool metadata in
+
+00:05:00.020 --> 00:05:00.460
+here.
+
+00:05:00.460 --> 00:05:02.520
+We're not doing too much with this mechanism yet.
+
+00:05:02.520 --> 00:05:05.900
+I spent a long time talking to Trezzy yesterday about
+
+00:05:05.930 --> 00:05:07.280
+embedding this.
+
+00:05:07.280 --> 00:05:09.570
+Part of the embedded metadata here should be that I'm playing
+
+00:05:09.570 --> 00:05:10.460
+Silksong, right?
+
+00:05:10.460 --> 00:05:12.560
+And then if you care about Silksong, you can
+
+00:05:12.560 --> 00:05:15.740
+watch that livestream and get that data from from, like,
+
+00:05:15.740 --> 00:05:17.420
+pretty much any direction, right?
+
+00:05:17.420 --> 00:05:20.530
+Like, you can download it from sketchiest website in the
+
+00:05:20.530 --> 00:05:21.000
+world.
+
+00:05:21.030 --> 00:05:23.270
+ru and still be confident that you're looking at the right
+
+00:05:23.270 --> 00:05:23.880
+thing, right?
+
+00:05:23.880 --> 00:05:26.040
+And then I'm playing Silksong.
+
+00:05:26.040 --> 00:05:29.970
+Those, yeah, that's this example.
+
+00:05:29.980 --> 00:05:32.380
+I have, yeah, we've made StreamPlace as
+
+00:05:32.380 --> 00:05:34.920
+easy to run as possible, so you can run your own
+
+00:05:34.920 --> 00:05:37.680
+StreamPlace node, syndicate my streams, they get
+
+00:05:38.020 --> 00:05:40.440
+copied over in this sort of trustless, unauthent
+
+00:05:40.440 --> 00:05:42.460
+icated way, and then you see it over there.
+
+00:05:42.460 --> 00:05:46.760
+So the thinking here is we probably won't beat Twitch by
+
+00:05:46.760 --> 00:05:51.000
+making a bigger data center or buying more bandwidth than Amazon,
+
+00:05:51.000 --> 00:05:53.670
+but we might be able to beat them by following the example
+
+00:05:53.850 --> 00:05:54.780
+of BitTorrent, right?
+
+00:05:54.780 --> 00:05:58.290
+That you can have lots of decentralized infrastructure that's replicating
+
+00:05:58.290 --> 00:06:00.740
+all of this, but through the magic of digital signatures,
+
+00:06:00.740 --> 00:06:02.560
+you know that the video is authentic.
+
+00:06:02.560 --> 00:06:04.900
+So what's the problem?
+
+00:06:04.900 --> 00:06:07.920
+This isn't very convenient.
+
+00:06:08.860 --> 00:06:11.050
+So when I say slice the video up into one-second
+
+00:06:11.050 --> 00:06:13.420
+MP4 files, I'm being very literal about that.
+
+00:06:13.420 --> 00:06:15.650
+If you run StreamPlace on your computer, you can
+
+00:06:15.650 --> 00:06:18.290
+navigate to this and see lots and lots and lots of one
+
+00:06:18.290 --> 00:06:19.800
+-second MP4 files.
+
+00:06:19.800 --> 00:06:21.750
+And when the computer is processing them all and feeding to you
+
+00:06:21.750 --> 00:06:22.920
+as a live stream, that's okay.
+
+00:06:22.920 --> 00:06:25.130
+Afterward, when you want to work with this as a
+
+00:06:25.130 --> 00:06:26.500
+VOD, it's a pain in the ass.
+
+00:06:26.620 --> 00:06:30.860
+So we wanted, this was one of the design goals of
+
+00:06:30.870 --> 00:06:34.330
+VOD for us, is how do we handle that?
+
+00:06:34.400 --> 00:06:37.720
+And unfortunately, because we used regular MP4 files, they
+
+00:06:37.720 --> 00:06:39.280
+'re non-concatenatable.
+
+00:06:39.280 --> 00:06:42.040
+You can't take two MP4 files, squish all the
+
+00:06:42.380 --> 00:06:45.180
+bytes together, and get valid output, right?
+
+00:06:45.180 --> 00:06:47.320
+That's just not, now MP4 works.
+
+00:06:47.320 --> 00:06:48.900
+It's not valid data there.
+
+00:06:48.900 --> 00:06:51.760
+So you'd have to mux it, and the signature
+
+00:06:52.000 --> 00:06:55.280
+that you get there wouldn't match the input, and all
+
+00:06:55.280 --> 00:06:57.330
+of a sudden you've broken this entire cool BitTor
+
+00:06:57.330 --> 00:06:59.580
+rent-y provenance mechanism that I was just describing.
+
+00:06:59.580 --> 00:07:06.430
+So this is the other reason we were already looking at for
+
+00:07:06.430 --> 00:07:08.400
+king C2PA.
+
+00:07:08.400 --> 00:07:12.620
+So here we have a list of signing algorithms.
+
+00:07:12.620 --> 00:07:19.160
+As you can see here, we have the good and virtuous
+
+00:07:19.280 --> 00:07:24.930
+EC-DSA signature over a SHA-256 hash
+
+00:07:24.930 --> 00:07:29.930
+, over the P-256 curve, but not over
+
+00:07:29.930 --> 00:07:34.360
+the SCCP-256-K1 curve, the
+
+00:07:34.360 --> 00:07:38.350
+evil, shady curve that's used inside BitTorrent
+
+00:07:38.350 --> 00:07:40.000
+and Ethereum and AppRoto, right?
+
+00:07:40.000 --> 00:07:44.860
+So I think my theory here is that somebody in Adobe had
+
+00:07:44.860 --> 00:07:49.120
+to sell their, some exec that they weren't making blockchain
+
+00:07:49.120 --> 00:07:49.760
+software here.
+
+00:07:49.760 --> 00:07:51.660
+So we didn't do that kind of signing.
+
+00:07:51.660 --> 00:07:52.780
+We only did this kind of signing.
+
+00:07:52.780 --> 00:07:55.410
+So technically, for as long as StreamPlace has existed
+
+00:07:55.410 --> 00:07:57.520
+, it hasn't been C2PA compatible, and I
+
+00:07:57.520 --> 00:07:59.860
+had been looking for a while to formalize that.
+
+00:07:59.860 --> 00:08:03.140
+So, oh yeah, this is the other.
+
+00:08:03.140 --> 00:08:06.720
+So this is the other.
+
+00:08:07.060 --> 00:08:12.390
+So Adobe's out there right now lobbying, especially European governments
+
+00:08:12.510 --> 00:08:17.490
+and the state of California to require provenance data on everything
+
+00:08:17.490 --> 00:08:20.040
+that you post on social media.
+
+00:08:20.280 --> 00:08:22.160
+This is the reason for the C2PA's existence,
+
+00:08:22.160 --> 00:08:24.340
+getting us ready for a world filled with deep fakes.
+
+00:08:24.340 --> 00:08:26.520
+This is not inherently a bad idea.
+
+00:08:26.520 --> 00:08:29.860
+You know, once anybody can deep fake anything, how do
+
+00:08:29.860 --> 00:08:32.400
+you ever trust what you're looking at?
+
+00:08:32.400 --> 00:08:34.920
+No one technical mechanism can solve that problem.
+
+00:08:34.920 --> 00:08:37.870
+But one way you could be more confident is if there was
+
+00:08:38.020 --> 00:08:40.680
+provenance data embedded in the live stream, right?
+
+00:08:40.680 --> 00:08:42.580
+Where it says, oh, this video was taken from Eli
+
+00:08:42.580 --> 00:08:45.490
+'s camera and then edited using this software and makes its way
+
+00:08:45.490 --> 00:08:47.020
+everywhere, right?
+
+00:08:47.020 --> 00:08:49.830
+But the reason Adobe's doing this lobbying is because they want
+
+00:08:49.830 --> 00:08:51.920
+to try and do some regulatory capture, right?
+
+00:08:51.920 --> 00:08:56.120
+So they want to sell governments these expensive Creative Cloud subscriptions and
+
+00:08:56.170 --> 00:08:59.570
+be like the only software that you could possibly use in order
+
+00:08:59.570 --> 00:09:00.740
+to do all of that stuff.
+
+00:09:01.540 --> 00:09:04.780
+Also, the part I think is really funny is they want
+
+00:09:04.780 --> 00:09:07.300
+you to go pay like a CA, like $107
+
+00:09:07.300 --> 00:09:08.780
+a month for a signing certificate.
+
+00:09:08.780 --> 00:09:11.980
+Like, let's encrypt and everything never happened.
+
+00:09:11.980 --> 00:09:14.840
+And, of course, like the App Proto and decentralized
+
+00:09:15.030 --> 00:09:17.600
+web communities, we have, you know, dids and
+
+00:09:17.600 --> 00:09:20.750
+totally other stacks of how we would handle some of this stuff
+
+00:09:20.750 --> 00:09:21.250
+, right?
+
+00:09:23.120 --> 00:09:25.990
+How we would handle key custody, how we would handle authenticity
+
+00:09:25.990 --> 00:09:27.080
+, that kind of thing.
+
+00:09:27.080 --> 00:09:29.230
+PLC directories got its own, got its own sort
+
+00:09:29.230 --> 00:09:30.460
+of take on everything.
+
+00:09:30.500 --> 00:09:35.180
+So, yeah, some good ideas needs to be modernized
+
+00:09:35.180 --> 00:09:39.340
+and not try and pay these vendors a bunch of money for
+
+00:09:39.340 --> 00:09:39.940
+certificates.
+
+00:09:39.940 --> 00:09:43.590
+So, I said all of these things out loud a lot
+
+00:09:43.810 --> 00:09:48.090
+and the folks, the good folks at the IPFS Foundation
+
+00:09:48.090 --> 00:09:50.300
+and the Dazzle Project were very, very receptive to
+
+00:09:50.300 --> 00:09:50.600
+it.
+
+00:09:50.860 --> 00:09:53.710
+So, they've given us a grant, everything you see
+
+00:09:53.850 --> 00:09:57.090
+so far, everything you see past this point in the presentation
+
+00:09:57.090 --> 00:09:59.510
+is a result of the grant that we got from the IP
+
+00:09:59.510 --> 00:10:00.580
+FS Foundation.
+
+00:10:00.580 --> 00:10:04.180
+So, we're working on two specs with them, St
+
+00:10:04.380 --> 00:10:05.690
+upa and Muxle.
+
+00:10:05.700 --> 00:10:10.600
+Stupa is the simple standard for provenance and authenticity.
+
+00:10:10.600 --> 00:10:12.440
+This is the simpler of the two standards.
+
+00:10:12.440 --> 00:10:14.200
+It's very much, thank you, Ted.
+
+00:10:14.200 --> 00:10:15.480
+Look at that.
+
+00:10:15.480 --> 00:10:16.620
+Ted got me a glass of water.
+
+00:10:16.620 --> 00:10:17.420
+Everybody thank Ted.
+
+00:10:17.420 --> 00:10:18.320
+That was awesome.
+
+00:10:20.860 --> 00:10:24.460
+Stupa is our, I don't know what makes a
+
+00:10:24.460 --> 00:10:29.440
+fork a hostile fork, but it's definitely a fork of
+
+00:10:29.440 --> 00:10:32.520
+the C2PA that takes out all the things.
+
+00:10:32.520 --> 00:10:34.080
+It actually doesn't take out anything.
+
+00:10:34.080 --> 00:10:35.570
+Like, if you want to pay DigiCert 200
+
+00:10:35.570 --> 00:10:36.860
+bucks a month, you totally can.
+
+00:10:36.860 --> 00:10:39.820
+But we have some different opinions about that.
+
+00:10:39.820 --> 00:10:40.700
+We have dids, right?
+
+00:10:40.800 --> 00:10:44.420
+So, instead of signing it with some cert that you're
+
+00:10:44.680 --> 00:10:47.350
+given by a CA, you sign it with a signing key
+
+00:10:47.350 --> 00:10:50.700
+that has a provenance chain back to your at proto identity
+
+00:10:51.350 --> 00:10:52.200
+, right?
+
+00:10:52.760 --> 00:10:55.560
+And then we also, like, make it consistent with D
+
+00:10:55.760 --> 00:10:56.140
+azzle.
+
+00:10:56.140 --> 00:10:59.500
+The C2PA signatures, C2PA manifests, rather
+
+00:10:59.500 --> 00:11:01.200
+, already use C-Bore.
+
+00:11:01.200 --> 00:11:03.880
+So, we're just upgrading it to use Drizzle.
+
+00:11:03.880 --> 00:11:06.480
+Drizzle, Dazzle's, a very strict subset
+
+00:11:06.480 --> 00:11:08.880
+of C-Bore used in at proto, right?
+
+00:11:08.880 --> 00:11:10.680
+That's Stupa.
+
+00:11:10.680 --> 00:11:11.320
+That's all of Stupa.
+
+00:11:11.320 --> 00:11:12.710
+The rest of the presentation is about Muxle because it
+
+00:11:12.710 --> 00:11:13.520
+'s way more complicated.
+
+00:11:13.520 --> 00:11:16.280
+This is just a little change that we're making here.
+
+00:11:16.720 --> 00:11:17.940
+Would love if they upstreamed it.
+
+00:11:17.940 --> 00:11:22.850
+Would love if there were dids and K256 signing
+
+00:11:22.850 --> 00:11:24.160
+in C2PA.
+
+00:11:24.160 --> 00:11:27.760
+So, let's talk about the design goals for Mux
+
+00:11:27.960 --> 00:11:28.400
+le.
+
+00:11:28.400 --> 00:11:32.440
+This is basically, what changes do we need to make to
+
+00:11:32.650 --> 00:11:35.540
+those MP4 files that I described before in order to make
+
+00:11:35.540 --> 00:11:37.560
+them appropriate for VOD?
+
+00:11:37.560 --> 00:11:39.640
+So, you don't have thousands and thousands of MP4
+
+00:11:39.640 --> 00:11:42.280
+files on your computer after a long live stream.
+
+00:11:42.280 --> 00:11:45.420
+So, we want to keep the property that they're self
+
+00:11:45.420 --> 00:11:46.320
+-certifying.
+
+00:11:46.720 --> 00:11:49.320
+It's awesome that you can just find one of these files
+
+00:11:49.320 --> 00:11:51.300
+and then go verify its provenance chain.
+
+00:11:51.300 --> 00:11:54.300
+You shouldn't require external data, right?
+
+00:11:54.300 --> 00:11:57.660
+As a design goal, we want to support live stream to
+
+00:11:57.670 --> 00:12:00.660
+VOD, what video engineers call DVR.
+
+00:12:00.660 --> 00:12:03.080
+Basically, if you're watching a live stream, that you
+
+00:12:03.080 --> 00:12:05.290
+can seek back and see what happened one minute ago, two
+
+00:12:05.290 --> 00:12:07.160
+minutes ago, three minutes ago, that kind of thing.
+
+00:12:07.160 --> 00:12:09.680
+It would be nice if it's a useful format.
+
+00:12:09.680 --> 00:12:11.560
+I don't want to give you some opaque C-B
+
+00:12:11.560 --> 00:12:12.860
+ore blob or something.
+
+00:12:13.360 --> 00:12:15.330
+A design goal of this is that at the end of it
+
+00:12:15.330 --> 00:12:17.010
+, you have, at the end of a 24-hour
+
+00:12:17.230 --> 00:12:19.530
+live stream, you should have a 24-hour MP4
+
+00:12:19.530 --> 00:12:20.760
+file on your computer.
+
+00:12:20.760 --> 00:12:23.840
+Easiest to work with, maximally compatible, preserves
+
+00:12:23.870 --> 00:12:26.300
+all of the provenance information I was describing.
+
+00:12:26.300 --> 00:12:29.840
+And it should be streamable with minimal overhead.
+
+00:12:29.880 --> 00:12:32.600
+I'm not going to get too deep into media over quick
+
+00:12:32.600 --> 00:12:36.590
+in this presentation, though I would love to, but we
+
+00:12:36.590 --> 00:12:41.490
+don't want to do a bunch of extra effort to go
+
+00:12:41.620 --> 00:12:47.040
+from the canonical format that we're going to use for all
+
+00:12:47.040 --> 00:12:49.480
+of this to actually streaming it to users, right?
+
+00:12:49.620 --> 00:12:50.900
+We shouldn't need to re-encode or anything like
+
+00:12:50.900 --> 00:12:51.220
+that.
+
+00:12:51.220 --> 00:12:57.340
+Unfortunately, that is an impossible series of constraints.
+
+00:12:58.180 --> 00:13:00.940
+Fundamentally, the reason being that if the output is
+
+00:13:01.240 --> 00:13:03.230
+going to be just an MP4 file on your computer,
+
+00:13:03.230 --> 00:13:06.330
+that is completely different than the format that media over quick uses
+
+00:13:06.460 --> 00:13:08.990
+that's going to be useful for sending things to users,
+
+00:13:08.990 --> 00:13:11.600
+in particular with things like multiple tracks, right?
+
+00:13:11.600 --> 00:13:14.760
+We really want to do multi-track video, multi-
+
+00:13:14.760 --> 00:13:18.650
+track audio, 720p, a bunch of other 1080p
+
+00:13:18.730 --> 00:13:21.840
+, different audio formats, AAC and Opus for different
+
+00:13:21.840 --> 00:13:22.380
+things.
+
+00:13:22.620 --> 00:13:24.820
+All of that complexity, we would like to be able to
+
+00:13:24.820 --> 00:13:28.400
+package in this one file and that skyrockets the bandwidth
+
+00:13:28.400 --> 00:13:30.650
+that you would use to send it out to people, right
+
+00:13:30.840 --> 00:13:30.900
+?
+
+00:13:30.900 --> 00:13:32.240
+You don't want to send them every rendition, you
+
+00:13:32.240 --> 00:13:33.140
+want to send them just one.
+
+00:13:33.140 --> 00:13:36.520
+So, how do we get around that?
+
+00:13:36.540 --> 00:13:38.620
+And the answer is we mux.
+
+00:13:38.620 --> 00:13:41.200
+This is why it's called muxle.
+
+00:13:41.200 --> 00:13:48.460
+So, the key insight here is that the archival format
+
+00:13:48.460 --> 00:13:51.360
+, so this is to say the MP4 file on your
+
+00:13:51.360 --> 00:13:55.700
+computer, the streaming format, which is the format the video
+
+00:13:55.700 --> 00:13:59.550
+is in when it goes over media over quick and streams to
+
+00:13:59.550 --> 00:14:03.240
+a user, and the self-certifying format that has
+
+00:14:03.240 --> 00:14:06.930
+this intact signature that you use to validate that the media is
+
+00:14:06.930 --> 00:14:09.930
+who it says it is and get all the nice metadata,
+
+00:14:09.930 --> 00:14:13.340
+they don't all have to be the same format.
+
+00:14:15.480 --> 00:14:20.660
+As long as we can deterministically mux between them.
+
+00:14:20.660 --> 00:14:22.840
+As long as if you have one of these formats, there
+
+00:14:22.840 --> 00:14:25.300
+is a deterministic algorithm you can use to turn it into
+
+00:14:25.300 --> 00:14:27.080
+any one of these other formats.
+
+00:14:27.080 --> 00:14:31.080
+So, we've accomplished this with WASM, primarily.
+
+00:14:31.080 --> 00:14:32.930
+WASM, especially the latest version of WASM, has
+
+00:14:32.930 --> 00:14:34.280
+a fully deterministic profile.
+
+00:14:35.060 --> 00:14:38.640
+Even short of that, you know, Rust compiled to WAS
+
+00:14:38.820 --> 00:14:41.160
+M, and then you pipe some bytes through it, you
+
+00:14:41.160 --> 00:14:43.180
+'re very, very likely to get the same bytes out through
+
+00:14:43.180 --> 00:14:44.100
+the output, right?
+
+00:14:44.100 --> 00:14:47.440
+So, this is, yeah.
+
+00:14:47.440 --> 00:14:49.070
+So, let's get into the different formats that we're
+
+00:14:49.070 --> 00:14:49.920
+using inside of here.
+
+00:14:51.020 --> 00:14:53.800
+I'm going to get deep into MP4 file specifics.
+
+00:14:53.800 --> 00:14:56.640
+I don't, I wouldn't wish this upon anyone,
+
+00:14:56.900 --> 00:14:59.660
+having to dive this deep into the MP4 specs.
+
+00:14:59.660 --> 00:15:03.160
+I had to pay $300 for a PDF file.
+
+00:15:03.160 --> 00:15:08.190
+So, yes, this is the whole point of Stream Pl
+
+00:15:08.190 --> 00:15:09.200
+aces.
+
+00:15:09.200 --> 00:15:12.020
+These are the hard work we do, the hard problems we
+
+00:15:12.300 --> 00:15:12.680
+solve.
+
+00:15:12.680 --> 00:15:13.900
+So, none of you have to, right?
+
+00:15:13.900 --> 00:15:19.230
+So, we, the base primitives here that are part
+
+00:15:19.270 --> 00:15:20.420
+of Muxle.
+
+00:15:21.780 --> 00:15:25.020
+First, we have video metadata.
+
+00:15:25.020 --> 00:15:29.330
+I borrow a lot of this terminology from a spec called Hang
+
+00:15:29.330 --> 00:15:29.660
+.
+
+00:15:29.660 --> 00:15:32.620
+That's from Luke Curley, who created the Media over
+
+00:15:32.770 --> 00:15:33.550
+Quick spec.
+
+00:15:33.560 --> 00:15:38.120
+So, this is, catalog is his term for this.
+
+00:15:38.120 --> 00:15:41.020
+But this is all of the metadata that you need to understand
+
+00:15:41.200 --> 00:15:41.700
+the video.
+
+00:15:41.740 --> 00:15:43.650
+I can't just, video decoders won't just
+
+00:15:43.650 --> 00:15:45.320
+accept some random video bytes.
+
+00:15:45.680 --> 00:15:47.520
+You have to say, no, this, these, these
+
+00:15:47.520 --> 00:15:50.780
+video bytes are, for example, 1920 by 1080 at 60
+
+00:15:50.780 --> 00:15:51.100
+FPS.
+
+00:15:51.100 --> 00:15:54.120
+You've got the, the time scale and then a canonical
+
+00:15:54.210 --> 00:15:57.050
+track ID for, for everything that goes into this, right
+
+00:15:57.070 --> 00:15:57.160
+?
+
+00:15:57.160 --> 00:15:59.160
+How many channels is the audio?
+
+00:15:59.160 --> 00:16:00.360
+I don't know if it's listed in here, but
+
+00:16:00.360 --> 00:16:02.360
+this would have stuff like, what language is the audio?
+
+00:16:02.360 --> 00:16:04.560
+If we've got the audio translated into several different languages,
+
+00:16:04.560 --> 00:16:06.740
+that would be included in this metadata.
+
+00:16:07.320 --> 00:16:11.660
+This is nice to separate out because from a low latency transmission
+
+00:16:11.660 --> 00:16:15.310
+perspective, you don't want to repeat this stuff, right
+
+00:16:15.420 --> 00:16:15.760
+?
+
+00:16:15.760 --> 00:16:17.290
+You don't want to say, hey, 1080p video
+
+00:16:17.290 --> 00:16:19.150
+, 1080p video, like, you know it's 1080
+
+00:16:19.180 --> 00:16:21.400
+p video because the last 500 segments were 1080p video,
+
+00:16:21.400 --> 00:16:21.860
+right?
+
+00:16:22.260 --> 00:16:24.640
+So, we send, we can send this once at the
+
+00:16:24.640 --> 00:16:26.700
+start and not have to repeat it.
+
+00:16:26.700 --> 00:16:29.550
+I'm not quite getting into the at proto stuff here,
+
+00:16:29.750 --> 00:16:32.500
+but just at the bottom there, a little, a little
+
+00:16:32.680 --> 00:16:34.930
+teaser of, of what this might look like if you wanted
+
+00:16:34.930 --> 00:16:37.010
+to put it in that proto repository, that this could be
+
+00:16:37.100 --> 00:16:37.560
+a place.
+
+00:16:37.570 --> 00:16:38.090
+stream.
+
+00:16:38.090 --> 00:16:38.530
+muxle.
+
+00:16:38.580 --> 00:16:39.560
+catalog record.
+
+00:16:39.560 --> 00:16:41.640
+We'll get to how it actually works in a minute.
+
+00:16:41.640 --> 00:16:45.220
+This lets us make init segments.
+
+00:16:45.400 --> 00:16:47.000
+Now we're talking about mp4 atoms.
+
+00:16:47.000 --> 00:16:47.620
+This is fun.
+
+00:16:50.120 --> 00:16:54.520
+So, this data represented as like JSON or Cbor or
+
+00:16:54.520 --> 00:17:00.560
+whatever and stored in your at proto repository is enough to create
+
+00:17:00.560 --> 00:17:03.800
+, actually deterministically create the start of the mp4
+
+00:17:03.800 --> 00:17:05.960
+file, which is called the init segment.
+
+00:17:05.960 --> 00:17:08.950
+The very beginning of the mp4 file that contains the
+
+00:17:09.070 --> 00:17:11.550
+file type atom telling you this is an mp4 file
+
+00:17:11.550 --> 00:17:14.970
+and the move atom that describes, for example, the duration
+
+00:17:15.050 --> 00:17:17.410
+of the video, what all the tracks are.
+
+00:17:17.720 --> 00:17:19.320
+There's a bunch of, this is like the mp
+
+00:17:19.320 --> 00:17:21.860
+4 encoding of all that metadata that I just described.
+
+00:17:21.860 --> 00:17:24.250
+This is the beginning of the mxle file, init
+
+00:17:24.250 --> 00:17:24.960
+segment.
+
+00:17:24.960 --> 00:17:32.600
+We then split up the video into mxle segments.
+
+00:17:32.600 --> 00:17:35.310
+This, again, is borrowed, this is pretty much verb
+
+00:17:35.310 --> 00:17:37.110
+atim hang CMAF, which is part of the
+
+00:17:37.110 --> 00:17:40.310
+media over quick spec, which is awesome, because that means
+
+00:17:40.430 --> 00:17:42.900
+it's going to stream very efficiently to users eventually.
+
+00:17:42.900 --> 00:17:47.240
+And so, this is just repeated every frame gets its own
+
+00:17:47.240 --> 00:17:49.950
+, what's called a MOF and an MDAT,
+
+00:17:50.030 --> 00:17:53.630
+so little segments, little slivers of the mp4
+
+00:17:53.630 --> 00:17:57.420
+file that represent each frame, each video or audio frame,
+
+00:17:57.420 --> 00:17:58.320
+essentially.
+
+00:17:58.320 --> 00:18:01.300
+Easy enough, but we're going to do a lot with
+
+00:18:01.430 --> 00:18:02.760
+these in a minute.
+
+00:18:04.760 --> 00:18:08.220
+And then we go back to that stupa specification I was
+
+00:18:08.220 --> 00:18:11.620
+talking about a second ago, the C2PA stuff.
+
+00:18:11.620 --> 00:18:15.160
+So, this is, we can take, this is the
+
+00:18:15.860 --> 00:18:17.960
+canonical signed format.
+
+00:18:17.960 --> 00:18:20.230
+This is the thing that you, when you get this format
+
+00:18:20.230 --> 00:18:23.220
+, you can validate the signature, validate the provenance claim
+
+00:18:23.220 --> 00:18:23.520
+.
+
+00:18:23.740 --> 00:18:27.320
+No, this is actually definitely Eli's C2PA signed
+
+00:18:27.970 --> 00:18:31.060
+video file, this is actually me beating Trabio or
+
+00:18:31.140 --> 00:18:32.100
+whatever.
+
+00:18:32.100 --> 00:18:37.430
+And this is, this is great, this is not necessarily
+
+00:18:37.820 --> 00:18:43.730
+the best format for archival and playback, right?
+
+00:18:43.800 --> 00:18:46.780
+So, one key insight and like the eureka moment I
+
+00:18:46.910 --> 00:18:49.710
+had when making this is like, okay, so this is
+
+00:18:49.780 --> 00:18:53.120
+like the canonical thing, but you wouldn't ever write this
+
+00:18:53.120 --> 00:18:54.280
+to your hard drive.
+
+00:18:54.280 --> 00:18:57.160
+Or if you did, because you're repeating the beginning of
+
+00:18:57.340 --> 00:18:59.440
+the file, the file type stuff, this is how,
+
+00:18:59.440 --> 00:19:01.840
+this would get you right back to one second mp4
+
+00:19:01.840 --> 00:19:04.700
+files on your computer over and over and over, right?
+
+00:19:05.100 --> 00:19:07.490
+So, while this is like, you consider this like the
+
+00:19:07.490 --> 00:19:09.650
+base unit of Streamplay streaming or of, or a V
+
+00:19:09.650 --> 00:19:11.530
+OD or what have you, this, yeah, you'd
+
+00:19:11.530 --> 00:19:14.390
+never actually write one of these to the hard drive unless you
+
+00:19:14.390 --> 00:19:17.230
+were like debugging or something like that, right?
+
+00:19:17.240 --> 00:19:19.880
+What would you write to the hard drive, you ask?
+
+00:19:19.880 --> 00:19:22.160
+You would write a Moxel Archive.
+
+00:19:22.160 --> 00:19:25.040
+Blake 3, I know, hang out with that proto people
+
+00:19:25.170 --> 00:19:27.840
+, I know a lot of protocol engineers, every one of
+
+00:19:27.840 --> 00:19:30.780
+them has had a moment where they take me aside and they
+
+00:19:30.790 --> 00:19:33.200
+'re like, Eli, you should really be using Blake 3
+
+00:19:33.200 --> 00:19:33.790
+for this stuff.
+
+00:19:35.100 --> 00:19:38.020
+And I agree with them, eventually.
+
+00:19:38.020 --> 00:19:40.620
+So, this is what you would write to your hard drive
+
+00:19:40.620 --> 00:19:41.320
+, right?
+
+00:19:41.320 --> 00:19:44.050
+So, this is the init segment, this is the part
+
+00:19:44.400 --> 00:19:47.250
+where you say it's 1080p video, then you have
+
+00:19:47.300 --> 00:19:49.930
+all of these, each of these is what's called a
+
+00:19:49.930 --> 00:19:52.330
+gop segment, so a keyframe of video followed by
+
+00:19:52.330 --> 00:19:54.520
+a bunch of other frames and then a keyframe and then
+
+00:19:54.530 --> 00:19:55.820
+a bunch of other frames.
+
+00:19:55.820 --> 00:20:00.650
+And the cool thing about this is we've totally messed up
+
+00:20:00.650 --> 00:20:03.380
+the signature now, right?
+
+00:20:03.380 --> 00:20:07.520
+Because the signature is over this file with an init segment and
+
+00:20:07.600 --> 00:20:09.850
+a video gop and an audio gop and then a
+
+00:20:09.850 --> 00:20:11.370
+manifest, right?
+
+00:20:11.440 --> 00:20:13.020
+This is the thing that we signed.
+
+00:20:13.020 --> 00:20:15.300
+This doesn't look like that at all.
+
+00:20:15.300 --> 00:20:17.300
+I've even just kind of put the manifest at the end
+
+00:20:17.300 --> 00:20:17.740
+there.
+
+00:20:17.740 --> 00:20:20.700
+But because we have deterministic muxing tools, we
+
+00:20:20.840 --> 00:20:21.960
+can recover this.
+
+00:20:21.960 --> 00:20:26.000
+We can recover the signed canonical thing, right?
+
+00:20:27.240 --> 00:20:31.610
+This format, however, is really, really useful for V
+
+00:20:31.610 --> 00:20:35.120
+OD because if you are, I'll show you why.
+
+00:20:35.120 --> 00:20:36.960
+See?
+
+00:20:36.960 --> 00:20:38.760
+It's like this.
+
+00:20:39.540 --> 00:20:42.340
+So this is a HLS playlist.
+
+00:20:42.340 --> 00:20:44.870
+This is how you don't know it, but most of
+
+00:20:44.870 --> 00:20:48.000
+the time you've played video on the internet.
+
+00:20:48.000 --> 00:20:49.840
+You've had one of these happening in the background.
+
+00:20:49.840 --> 00:20:53.140
+And what this does is takes all of those, this is
+
+00:20:53.140 --> 00:20:55.170
+just the video playlist.
+
+00:20:55.180 --> 00:20:56.420
+This just tells you how to do the video.
+
+00:20:56.420 --> 00:21:00.360
+The audio is referenced in a different manifest.
+
+00:21:01.180 --> 00:21:05.820
+And basically what this gives you is a byte range, an
+
+00:21:05.820 --> 00:21:08.000
+index into that file.
+
+00:21:08.000 --> 00:21:10.410
+So you can say this here says this is one second of
+
+00:21:10.410 --> 00:21:10.980
+video.
+
+00:21:10.980 --> 00:21:12.540
+You can find it at this index of this file.
+
+00:21:12.540 --> 00:21:13.600
+This is one second of video.
+
+00:21:13.600 --> 00:21:15.280
+You can find it at this index of this file.
+
+00:21:15.280 --> 00:21:18.620
+And this is all you need for efficient VOD playback.
+
+00:21:18.620 --> 00:21:21.550
+If you're doing it live, there's disadvantages to doing
+
+00:21:21.670 --> 00:21:22.220
+it this way.
+
+00:21:22.360 --> 00:21:24.080
+You probably want to use media over quick and some of the
+
+00:21:24.080 --> 00:21:25.340
+other formats that we talked about.
+
+00:21:25.340 --> 00:21:27.000
+But for VOD, this is really, really good.
+
+00:21:28.140 --> 00:21:31.720
+And we've achieved one of our design goals because all of
+
+00:21:31.720 --> 00:21:34.910
+these, it's just referencing different byte ranges in archive.
+
+00:21:34.910 --> 00:21:35.420
+muxle.
+
+00:21:35.420 --> 00:21:36.460
+mp4, right?
+
+00:21:36.460 --> 00:21:39.170
+So the thing that is, I've been saying on your
+
+00:21:39.560 --> 00:21:42.570
+computer, but the thing for video, the thing that's
+
+00:21:42.570 --> 00:21:47.180
+in your app repository is just one big mp4 file
+
+00:21:47.180 --> 00:21:47.620
+.
+
+00:21:47.620 --> 00:21:48.980
+That's really easy to understand.
+
+00:21:52.100 --> 00:21:57.660
+The other thing we get from this is the Blake3 sid
+
+00:21:57.660 --> 00:22:02.390
+, the magic of Blake3, why was it that all
+
+00:22:02.390 --> 00:22:04.790
+those video engineers were telling me that I needed to use Blake
+
+00:22:04.790 --> 00:22:05.140
+3?
+
+00:22:05.140 --> 00:22:10.340
+It's because this Blake3 hash is a Merkle tree
+
+00:22:10.340 --> 00:22:14.900
+over this file that you see here, which means you can
+
+00:22:14.900 --> 00:22:18.000
+request just that part that says track one, got one there
+
+00:22:18.000 --> 00:22:18.120
+.
+
+00:22:18.280 --> 00:22:24.040
+And through cryptographic verification, you can be 100% confident
+
+00:22:24.040 --> 00:22:26.900
+that that is the correct data that you've pulled out of
+
+00:22:26.900 --> 00:22:27.520
+there, right?
+
+00:22:27.520 --> 00:22:29.740
+You can verify, yes, this is in fact part of
+
+00:22:29.740 --> 00:22:32.610
+this Blake3 sid, which is really, really useful when
+
+00:22:32.610 --> 00:22:34.000
+you're doing something like a CDN.
+
+00:22:34.760 --> 00:22:38.290
+Because then you can make all these, you can be backing
+
+00:22:38.290 --> 00:22:41.270
+it with just one big file, you can make these byte
+
+00:22:41.270 --> 00:22:44.200
+range requests, you still get the cryptographic integrity that like
+
+00:22:44.240 --> 00:22:47.630
+, oh yes, that hash matches what I saw in Eli
+
+00:22:47.630 --> 00:22:49.840
+'s at proto-repository.
+
+00:22:49.840 --> 00:22:52.160
+So this is a really, really good format for this.
+
+00:22:52.160 --> 00:22:54.340
+Cool.
+
+00:22:54.340 --> 00:23:02.330
+So, yes, three different formats that we have here.
+
+00:23:02.400 --> 00:23:05.060
+So, the archival format, which is the big MP
+
+00:23:05.060 --> 00:23:07.740
+4 file that goes in your at proto-repository
+
+00:23:07.770 --> 00:23:08.040
+.
+
+00:23:08.040 --> 00:23:11.000
+The self-certifying format, which is the part that
+
+00:23:11.140 --> 00:23:13.280
+has the C2PA signature attached.
+
+00:23:13.280 --> 00:23:15.590
+And the streaming format, which is just when you're actually
+
+00:23:15.590 --> 00:23:18.980
+sending it out, you just send this part, right?
+
+00:23:18.980 --> 00:23:23.420
+You stream this stuff, each frame of video and audio directly
+
+00:23:23.420 --> 00:23:24.320
+to users.
+
+00:23:24.340 --> 00:23:27.020
+So, for all the at proto-people that didn't
+
+00:23:27.020 --> 00:23:30.670
+care about all the different structures of the MP4 file,
+
+00:23:30.670 --> 00:23:32.340
+how do you use all of this?
+
+00:23:32.340 --> 00:23:34.740
+We're not quite ready for it, but the very first
+
+00:23:34.740 --> 00:23:37.000
+VODs available on Stream Plays are going to follow
+
+00:23:37.000 --> 00:23:38.800
+this format, and it's going to be all of the
+
+00:23:38.800 --> 00:23:40.150
+talks from this conference.
+
+00:23:40.200 --> 00:23:43.740
+They will be published to at proto-repository.
+
+00:23:43.780 --> 00:23:45.720
+And you'll be able to work with them.
+
+00:23:45.720 --> 00:23:47.540
+This is a little preview of what this looks like.
+
+00:23:51.140 --> 00:23:54.440
+So, we have a, yeah.
+
+00:23:54.440 --> 00:23:56.560
+So, the man, as you might expect, the le
+
+00:23:56.560 --> 00:23:58.060
+xicon type for this is a place.
+
+00:23:58.210 --> 00:23:58.740
+stream.
+
+00:23:58.740 --> 00:23:59.340
+video.
+
+00:23:59.340 --> 00:24:01.480
+It's got things like creator.
+
+00:24:01.480 --> 00:24:04.180
+Some of this metadata in here.
+
+00:24:04.180 --> 00:24:06.050
+This is like, I'm pretending this is the one for
+
+00:24:06.050 --> 00:24:06.680
+this talk.
+
+00:24:06.680 --> 00:24:08.070
+I don't have a VOD for this talk because I
+
+00:24:08.070 --> 00:24:09.850
+'m still doing this talk, so you don't know what
+
+00:24:09.850 --> 00:24:10.420
+the hash is yet.
+
+00:24:11.920 --> 00:24:13.480
+It's got, it's just, as I said,
+
+00:24:13.480 --> 00:24:14.460
+it's just a blob.
+
+00:24:14.460 --> 00:24:17.180
+It's a video MP4 file, but it is very
+
+00:24:17.180 --> 00:24:19.320
+, very easily cacheable.
+
+00:24:19.320 --> 00:24:22.140
+You've got a nanosecond duration in there.
+
+00:24:22.140 --> 00:24:25.640
+We, the design constraints for this, I've been targeting
+
+00:24:25.640 --> 00:24:28.880
+that the maximum length of one of these is going to be
+
+00:24:28.880 --> 00:24:32.570
+24 hours because at a certain point, it gets sort of
+
+00:24:32.570 --> 00:24:33.700
+ridiculous.
+
+00:24:33.700 --> 00:24:34.620
+Yeah, yeah, yeah.
+
+00:24:34.620 --> 00:24:36.680
+And I don't want to, like, overflow the nan
+
+00:24:36.680 --> 00:24:38.550
+osecond duration, but if you've got a 24-
+
+00:24:38.550 --> 00:24:40.630
+7 live stream, that seems like a reasonable primitive that,
+
+00:24:40.630 --> 00:24:43.480
+like, each day of streaming that you would stream into would
+
+00:24:43.480 --> 00:24:45.820
+become its own VOD with a 24-hour duration,
+
+00:24:46.110 --> 00:24:46.420
+right?
+
+00:24:46.420 --> 00:24:48.440
+And then it's got a live stream reference.
+
+00:24:48.440 --> 00:24:51.240
+So, yeah.
+
+00:24:51.240 --> 00:24:53.140
+So, all of this will be available.
+
+00:24:53.140 --> 00:24:54.750
+Yeah, I was hoping to have all of this available,
+
+00:24:54.750 --> 00:24:55.940
+and I was like, oh, we're going to announce
+
+00:24:55.940 --> 00:24:56.900
+it in this talk, and it's going to be big
+
+00:24:56.900 --> 00:24:58.100
+, and we're, like, really, really close,
+
+00:24:58.100 --> 00:25:00.250
+but I didn't want to push a bunch of changes to
+
+00:25:00.250 --> 00:25:02.850
+StreamPlace right before we did all the live streaming and
+
+00:25:02.850 --> 00:25:04.040
+screw everything else up, right?
+
+00:25:04.040 --> 00:25:07.620
+So, I did try to do that.
+
+00:25:07.920 --> 00:25:10.380
+We did that.
+
+00:25:10.380 --> 00:25:11.850
+I did at about 7.
+
+00:25:11.850 --> 00:25:13.640
+10 this morning.
+
+00:25:13.640 --> 00:25:14.950
+I'm like, all right, let's push the m
+
+00:25:14.950 --> 00:25:15.600
+uxle changes.
+
+00:25:15.600 --> 00:25:16.220
+Let's see.
+
+00:25:16.220 --> 00:25:19.510
+And then immediately that laptop couldn't stream into StreamPlace
+
+00:25:19.510 --> 00:25:20.960
+anymore for whatever reason.
+
+00:25:20.960 --> 00:25:22.720
+So, I was like, nope, nope, back,
+
+00:25:22.720 --> 00:25:24.420
+revert, we're going to, we'll do it
+
+00:25:24.420 --> 00:25:25.360
+, we'll do it after.
+
+00:25:25.360 --> 00:25:28.360
+So, that's all by way of saying this is all
+
+00:25:28.470 --> 00:25:31.570
+very, very close, and we're hoping to give it
+
+00:25:31.570 --> 00:25:33.580
+to the community very, very soon.
+
+00:25:33.580 --> 00:25:36.830
+And, yeah, and then build it with everybody, right
+
+00:25:36.830 --> 00:25:37.100
+?
+
+00:25:37.120 --> 00:25:38.280
+So, we don't have a front end for it.
+
+00:25:38.280 --> 00:25:40.140
+I'm going to challenge, we're going to do a
+
+00:25:40.140 --> 00:25:41.860
+little VOD jam and say, hey, at Proto
+
+00:25:42.090 --> 00:25:43.880
+Community, here's the videos, build me a front end
+
+00:25:43.880 --> 00:25:44.340
+for it.
+
+00:25:44.340 --> 00:25:47.500
+Given that without me asking, we got three front ends for
+
+00:25:47.500 --> 00:25:50.060
+StreamPlace in the last three days, I feel like
+
+00:25:50.060 --> 00:25:52.240
+in the vibe coding era, we're going to get some
+
+00:25:52.340 --> 00:25:53.140
+submissions.
+
+00:25:53.140 --> 00:25:56.110
+If you submit one of these, you're going to earn
+
+00:25:56.180 --> 00:25:59.210
+a badge next to your chat name in StreamPlace from
+
+00:25:59.210 --> 00:26:02.080
+now until the end of time.
+
+00:26:02.080 --> 00:26:05.660
+So, yeah, that's it.
+
+00:26:06.060 --> 00:26:07.560
+That's how StreamPlace works, VOD.
+
+00:26:07.640 --> 00:26:17.690
+We have a few online questions
+
+00:26:17.690 --> 00:26:18.760
+.
+
+00:26:18.920 --> 00:26:19.400
+Great.
+
+00:26:19.400 --> 00:26:21.060
+Most of which I don't really understand.
+
+00:26:21.060 --> 00:26:21.720
+Awesome.
+
+00:26:21.980 --> 00:26:35.320
+The big alternative
+
+00:26:35.320 --> 00:26:38.400
+, YMP4, there's a couple of reasons.
+
+00:26:38.400 --> 00:26:42.360
+One, because it's the most ubiquitous media format,
+
+00:26:42.570 --> 00:26:47.570
+and that's the most highly compatible across everything, the second
+
+00:26:47.700 --> 00:26:51.640
+is, it gives us the media overquick stuff,
+
+00:26:51.640 --> 00:26:53.800
+tends to support it a lot already.
+
+00:26:53.800 --> 00:26:56.830
+Also, the FM, so this is like CMAF
+
+00:26:56.910 --> 00:27:00.280
+, back to this thing, this is like CMAF
+
+00:27:00.280 --> 00:27:04.170
+MP4 playback, and the advantage here is it lets you
+
+00:27:04.170 --> 00:27:07.720
+separate out, it gives you that lack of redundancy that
+
+00:27:07.720 --> 00:27:10.120
+I was describing where the init segment isn't, there are
+
+00:27:10.120 --> 00:27:12.480
+other formats that embed all of that init data in every segment
+
+00:27:12.480 --> 00:27:14.500
+, but we don't actually want that because it's redundant
+
+00:27:14.700 --> 00:27:17.760
+for a long video, so, yeah, those reasons.
+
+00:27:17.760 --> 00:27:22.030
+The question was, why H.
+
+00:27:22.030 --> 00:27:28.890
+264 instead of, like, VP9 or AV1
+
+00:27:29.640 --> 00:27:29.700
+?
+
+00:27:29.700 --> 00:27:32.640
+No reason other than maximum compatibility right now.
+
+00:27:32.640 --> 00:27:36.230
+We really, really want AV1 in StreamPlace.
+
+00:27:36.400 --> 00:27:39.130
+We fully intend to support AV1 as much as we do
+
+00:27:39.130 --> 00:27:39.410
+H.
+
+00:27:39.510 --> 00:27:42.490
+264, especially when we do stuff like, I want
+
+00:27:42.490 --> 00:27:44.850
+StreamPlace to do a lot of things that no other
+
+00:27:45.280 --> 00:27:48.460
+streaming platforms do, like, for example, like, 4
+
+00:27:48.460 --> 00:27:52.180
+K, 120 FPS AV1 video would be so sick.
+
+00:27:52.180 --> 00:27:53.720
+Can't even do it, I've tried to do it
+
+00:27:53.720 --> 00:27:54.140
+with H.
+
+00:27:54.140 --> 00:27:56.440
+264, it just, like, doesn't, no
+
+00:27:56.440 --> 00:27:59.870
+encoder can even come close to handling that, so,
+
+00:27:59.870 --> 00:28:01.910
+yeah, yeah, in terms of codec support, we
+
+00:28:01.910 --> 00:28:03.500
+want to support, like, every codec that it makes
+
+00:28:03.500 --> 00:28:03.920
+sense to.
+
+00:28:03.920 --> 00:28:06.010
+We just started with this because we're not quite in a
+
+00:28:06.010 --> 00:28:08.750
+world where I could probably get away with AV1 only,
+
+00:28:08.750 --> 00:28:10.480
+and we would have needed an H.
+
+00:28:10.590 --> 00:28:13.540
+264 backup anyway, in that context, that's why
+
+00:28:13.540 --> 00:28:14.230
+we started with H.
+
+00:28:14.230 --> 00:28:16.300
+264, but, yeah, definitely want to support lots
+
+00:28:16.300 --> 00:28:16.580
+of codec.
+
+00:28:16.600 --> 00:28:17.600
+Thanks.
+
+00:28:20.700 --> 00:28:25.590
+Thank you.

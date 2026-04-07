@@ -1,0 +1,1078 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:02.400
+- Let's welcome Arushi, everybody.
+
+00:00:02.410 --> 00:00:03.700
+- Thanks, everyone.
+
+00:00:03.710 --> 00:00:09.840
+I feel like I can't see over my computer.
+
+00:00:09.850 --> 00:00:13.670
+Yeah, my name is Arushi, and I'm a
+
+00:00:13.670 --> 00:00:17.090
+founder and CEO of Habitat, and today I'm gonna
+
+00:00:17.090 --> 00:00:19.320
+be talking about why we're building Habitat.
+
+00:00:19.330 --> 00:00:22.260
+Is everything okay?
+
+00:00:22.270 --> 00:00:24.940
+Okay, cool.
+
+00:00:24.950 --> 00:00:28.390
+I believe that App Protocol gives us a chance to fundamentally reim
+
+00:00:28.390 --> 00:00:32.210
+agine what connecting with each other online means, and through that
+
+00:00:32.210 --> 00:00:34.460
+process, rewilding the internet.
+
+00:00:34.470 --> 00:00:37.820
+So, I'm gonna try to get this right.
+
+00:00:37.830 --> 00:00:39.310
+Okay.
+
+00:00:39.510 --> 00:00:41.000
+It's a loose agenda.
+
+00:00:41.130 --> 00:00:44.050
+In this talk, I start with some questions, talk about
+
+00:00:44.050 --> 00:00:47.020
+my dreams for the web, and use some quotes from writers
+
+00:00:47.180 --> 00:00:49.160
+I appreciate to guide my thinking.
+
+00:00:49.170 --> 00:00:54.540
+Okay, cool.
+
+00:00:54.550 --> 00:00:57.570
+So, if you go to approto.
+
+00:00:57.570 --> 00:01:00.180
+com, this is what the website looks like.
+
+00:01:00.190 --> 00:01:02.800
+The first time I read this, I kind of had the
+
+00:01:02.800 --> 00:01:05.040
+question, what actually is the social internet?
+
+00:01:05.050 --> 00:01:09.080
+The term, the social internet, came around before my time
+
+00:01:09.080 --> 00:01:10.920
+, and even though I've heard it many times, I
+
+00:01:10.920 --> 00:01:14.810
+never reflected deeply on what it meant, or what it referred
+
+00:01:14.810 --> 00:01:15.170
+to.
+
+00:01:15.190 --> 00:01:23.550
+So, this is what the internet does, right
+
+00:01:23.550 --> 00:01:24.260
+?
+
+00:01:24.290 --> 00:01:26.320
+It connects two computers together.
+
+00:01:26.330 --> 00:01:29.420
+So, my question was, how can the internet not be
+
+00:01:29.420 --> 00:01:30.320
+inherently social?
+
+00:01:30.330 --> 00:01:33.880
+Why is the social internet separate from the internet itself?
+
+00:01:33.890 --> 00:01:39.320
+Of course, this is not exactly how the internet works.
+
+00:01:39.330 --> 00:01:42.040
+It connects in order for two computers to share data with each
+
+00:01:42.040 --> 00:01:42.520
+other.
+
+00:01:42.530 --> 00:01:44.460
+Typically, they connect to a shared server.
+
+00:01:44.470 --> 00:01:52.540
+Which could be across the ocean, and that is how you
+
+00:01:52.600 --> 00:01:54.600
+get a platform.
+
+00:01:54.610 --> 00:01:55.600
+Boo.
+
+00:01:55.610 --> 00:01:59.600
+Sorry about this.
+
+00:01:59.610 --> 00:02:03.240
+So, as I started to read more about this time before
+
+00:02:03.240 --> 00:02:08.160
+myself, when the internet transitioned from unsocial to social,
+
+00:02:08.170 --> 00:02:10.740
+what I realized is that when people use the term the social
+
+00:02:10.740 --> 00:02:14.840
+internet, what they actually mean is the platform internet.
+
+00:02:14.850 --> 00:02:16.850
+When the web transitioned from web 1.
+
+00:02:16.850 --> 00:02:17.900
+0 to web 2.
+
+00:02:17.900 --> 00:02:21.010
+0, it allowed users to publish pieces of data, including
+
+00:02:21.010 --> 00:02:24.550
+social data, and platforms were the primary way to do so
+
+00:02:24.550 --> 00:02:24.860
+.
+
+00:02:24.870 --> 00:02:27.440
+And to be fair, several of the articles I read were
+
+00:02:27.440 --> 00:02:28.300
+by Kyle Chayka.
+
+00:02:28.310 --> 00:02:31.020
+So, maybe it is Kyle pushing this agenda.
+
+00:02:31.030 --> 00:02:33.800
+But I think, generally speaking, what people imagine when you
+
+00:02:33.800 --> 00:02:38.810
+use the term the social internet is platforms like earlier MySpace
+
+00:02:38.810 --> 00:02:41.230
+AOL in the first era, and now we have like
+
+00:02:41.230 --> 00:02:45.760
+X, Facebook, Instagram, even Blue Sky and Black Sky
+
+00:02:45.760 --> 00:02:46.260
+.
+
+00:02:46.270 --> 00:02:50.360
+When people use the term social internet, what they typically mean
+
+00:02:50.370 --> 00:02:55.600
+are billion user social media platforms.
+
+00:02:55.610 --> 00:02:58.500
+But I don't think that's what the social internet is
+
+00:02:58.500 --> 00:03:00.160
+or what it can be.
+
+00:03:00.170 --> 00:03:04.460
+And I think app protocol gives us the chance to imagine beyond
+
+00:03:04.460 --> 00:03:05.100
+that.
+
+00:03:05.110 --> 00:03:07.900
+Okay, sorry.
+
+00:03:07.910 --> 00:03:08.770
+So, Ursula M.
+
+00:03:08.770 --> 00:03:12.540
+Franklin is a Canadian scientist who, in 1989, gave a
+
+00:03:12.540 --> 00:03:15.960
+series of lectures titled The Real World of Technology.
+
+00:03:15.970 --> 00:03:18.120
+In it, she talks about how technology is not just the
+
+00:03:18.120 --> 00:03:21.070
+technological artifact that we put out into the world, but also
+
+00:03:21.070 --> 00:03:24.120
+how it affects the world, which in turn affects new technologies
+
+00:03:24.120 --> 00:03:24.360
+.
+
+00:03:24.370 --> 00:03:26.740
+This is kind of like the feedback loop that Rudy from Black
+
+00:03:26.740 --> 00:03:29.260
+Sky was talking about yesterday in his talk.
+
+00:03:29.270 --> 00:03:32.120
+So, Ursula says, "As I see it,
+
+00:03:32.120 --> 00:03:35.060
+technology has built the house in which we all live.
+
+00:03:35.070 --> 00:03:38.120
+The house is continually being extended and remodeled.
+
+00:03:38.130 --> 00:03:41.220
+More and more of human life takes place within its walls,
+
+00:03:41.220 --> 00:03:44.260
+so that today there is hardly any human activity that does not
+
+00:03:44.260 --> 00:03:45.960
+occur within this house.
+
+00:03:45.970 --> 00:03:48.100
+We all are affected by the design of the house, the
+
+00:03:48.100 --> 00:03:53.010
+division of its space, and the location of its doors and
+
+00:03:53.010 --> 00:03:57.370
+walls." That was written in 1989, but I think it
+
+00:03:57.370 --> 00:04:00.200
+'s clear where I'm going with this metaphor.
+
+00:04:00.210 --> 00:04:02.720
+The internet is the house we live in.
+
+00:04:02.730 --> 00:04:05.500
+We are all affected by the, hopefully it's playing,
+
+00:04:05.500 --> 00:04:08.200
+the division of its space, the location of its doors and
+
+00:04:08.200 --> 00:04:11.180
+walls, and how it is continually remodeled.
+
+00:04:11.190 --> 00:04:13.370
+And I think that's why the artist Spencer Chang's work
+
+00:04:13.370 --> 00:04:16.520
+resonates with a lot of people because it makes the movement through
+
+00:04:16.650 --> 00:04:21.150
+this internet house visible when it is so often invisible or goes
+
+00:04:21.150 --> 00:04:26.860
+completely unnoticed by us.
+
+00:04:26.870 --> 00:04:29.450
+So if that is the case, if the internet is now
+
+00:04:29.450 --> 00:04:31.890
+the house we all live in, then what is the role
+
+00:04:31.890 --> 00:04:33.540
+of technologists?
+
+00:04:33.550 --> 00:04:35.580
+The way I see it, we build not only the house
+
+00:04:35.580 --> 00:04:38.420
+, but we also dictate how the house gets built, and
+
+00:04:38.420 --> 00:04:42.000
+by whom, through things like standards and protocols.
+
+00:04:42.010 --> 00:04:44.830
+And the decisions we make not only affect the internet itself,
+
+00:04:44.830 --> 00:04:47.780
+but also reshape our physical reality, as in the case
+
+00:04:47.880 --> 00:04:50.920
+of airspace, a term that's also coined by our
+
+00:04:50.920 --> 00:04:54.810
+friend Kyle Cheka, to refer to how the platform Instagram
+
+00:04:54.810 --> 00:04:58.970
+caused cafes and restaurants to all merge into a homogenous aesthetic
+
+00:04:58.970 --> 00:04:59.220
+.
+
+00:04:59.230 --> 00:05:04.680
+Okay, so there's this thing I say, which is
+
+00:05:04.680 --> 00:05:09.980
+I want to make app protocol the default way to build on
+
+00:05:09.980 --> 00:05:10.980
+the web.
+
+00:05:10.990 --> 00:05:12.900
+And when I say that, I don't necessarily mean app
+
+00:05:12.910 --> 00:05:13.840
+protocol of today.
+
+00:05:13.850 --> 00:05:16.960
+I mean whatever future iteration of app protocol it is that actually
+
+00:05:16.960 --> 00:05:19.940
+enables this to be the case.
+
+00:05:19.950 --> 00:05:22.160
+And many of you in this room might be agreeing with me
+
+00:05:22.160 --> 00:05:30.950
+, but the question we should really be asking
+
+00:05:30.950 --> 00:05:38.100
+is why.
+
+00:05:38.110 --> 00:05:41.110
+What real world conditions am I trying to create by making this
+
+00:05:41.110 --> 00:05:45.500
+statement, or rather, what is the house that I'm
+
+00:05:45.510 --> 00:05:47.440
+trying to build?
+
+00:05:47.450 --> 00:05:50.160
+And these are questions that we must answer.
+
+00:05:50.170 --> 00:05:53.390
+So Lawrence Hoff, who I think is here, wrote in
+
+00:05:53.390 --> 00:05:57.000
+a recent essay that in the older protocols of the web,
+
+00:05:57.000 --> 00:06:00.420
+the silence about purpose was a politics of non-interference
+
+00:06:00.420 --> 00:06:00.680
+.
+
+00:06:00.690 --> 00:06:05.210
+And this led to governance being controlled by whichever actor had the
+
+00:06:05.210 --> 00:06:06.520
+most resources.
+
+00:06:06.530 --> 00:06:08.070
+So I think it's great that as an ecosystem we are
+
+00:06:08.150 --> 00:06:11.360
+already asking some of these hard questions.
+
+00:06:11.370 --> 00:06:15.060
+Yeah, so I was trying to find the article by Lang
+
+00:06:15.060 --> 00:06:17.640
+don Winner, do artifacts have politics?
+
+00:06:17.650 --> 00:06:21.360
+And I just thought this was funny.
+
+00:06:21.370 --> 00:06:24.840
+It's 2026.
+
+00:06:24.850 --> 00:06:27.990
+We know that artifacts do have politics, and not just because
+
+00:06:27.990 --> 00:06:30.800
+the AI overview is telling us.
+
+00:06:30.810 --> 00:06:33.600
+Rather than shy away from dealing with the realities of our jobs
+
+00:06:33.600 --> 00:06:36.180
+, I think we should get really clear on what we are
+
+00:06:36.220 --> 00:06:37.840
+trying to build and why.
+
+00:06:37.850 --> 00:06:40.820
+On the power dynamics encoded in what we build, and
+
+00:06:40.820 --> 00:06:45.540
+on the types of conditions that those give rise to.
+
+00:06:45.550 --> 00:06:49.170
+Okay, so in this talk, I'm going to pitch
+
+00:06:49.170 --> 00:06:52.180
+a possible vision for the internet.
+
+00:06:52.190 --> 00:06:55.050
+Ruha Benjamin in her recent book said, "Those who
+
+00:06:55.050 --> 00:06:59.090
+monopolize resources also monopolize imagination." So I think it
+
+00:06:59.090 --> 00:07:02.260
+'s important for us to recognize that the current internet constrains
+
+00:07:02.260 --> 00:07:07.430
+what we imagine and collectively resist that in order to imagine alternative
+
+00:07:07.430 --> 00:07:08.300
+futures.
+
+00:07:08.310 --> 00:07:16.380
+So in my internet, we are not followed wherever we
+
+00:07:16.440 --> 00:07:17.030
+go.
+
+00:07:17.050 --> 00:07:20.280
+Platform dynamics make tracking possible because the two computers must use an
+
+00:07:20.280 --> 00:07:22.080
+intermediary server.
+
+00:07:22.090 --> 00:07:29.740
+Hence the whole field of peer-to-peer.
+
+00:07:29.750 --> 00:07:33.680
+We can be highly contextual in our interactions.
+
+00:07:33.690 --> 00:07:36.170
+For example, I might not use Slack for both my workplace
+
+00:07:36.170 --> 00:07:41.840
+messaging app and my organizing work and talking with friends the way
+
+00:07:41.840 --> 00:07:45.940
+I do today in a flattened context.
+
+00:07:45.970 --> 00:07:48.460
+The things we do are also human-sized and human shapes
+
+00:07:48.460 --> 00:07:48.680
+.
+
+00:07:48.690 --> 00:07:51.470
+So here, I'm thinking a lot about Aaron Kass
+
+00:07:51.470 --> 00:07:55.060
+ane's idea of oversaturation and how the bodily experience
+
+00:07:55.070 --> 00:07:58.720
+or affect of using the social internet today is not really conduc
+
+00:07:58.720 --> 00:08:00.620
+ive to a living human being.
+
+00:08:00.630 --> 00:08:06.560
+Oh, let's get the slide.
+
+00:08:06.570 --> 00:08:10.750
+And these conditions that I described are radically different than what we
+
+00:08:10.760 --> 00:08:12.560
+experience today.
+
+00:08:12.570 --> 00:08:15.020
+So we don't know what it feels like to have that
+
+00:08:15.020 --> 00:08:16.560
+internet or to live in that internet house.
+
+00:08:16.570 --> 00:08:24.230
+And I think changing those conditions is what fundamentally gets us past
+
+00:08:24.230 --> 00:08:26.230
+skeuomorphism.
+
+00:08:26.330 --> 00:08:29.340
+So we can't just throw new products into being that are
+
+00:08:29.340 --> 00:08:32.220
+non-skeuomorphic without first changing the conditions
+
+00:08:32.220 --> 00:08:35.650
+that cause people to actually make them useful and needed in the
+
+00:08:35.650 --> 00:08:36.560
+first place.
+
+00:08:36.570 --> 00:08:45.030
+So that's kind of like the hard
+
+00:08:45.070 --> 00:08:53.560
+part is the direction setting
+
+00:08:53.560 --> 00:08:54.440
+.
+
+00:08:54.470 --> 00:08:56.600
+And that's why the older protocol has had a politics of
+
+00:08:56.600 --> 00:08:59.400
+non-interference because it's hard to do this.
+
+00:08:59.410 --> 00:09:01.700
+It's easier to step back and say this is just a
+
+00:09:01.700 --> 00:09:02.500
+protocol.
+
+00:09:02.510 --> 00:09:04.470
+But once we do that, we can articulate what we need
+
+00:09:04.470 --> 00:09:08.600
+to build and therefore what the protocol needs to provide.
+
+00:09:08.610 --> 00:09:12.680
+So the internet of my dreams can only exist if there is
+
+00:09:12.680 --> 00:09:15.220
+no data hoarding by default.
+
+00:09:15.230 --> 00:09:18.110
+So like the easiest way to build on the web is privacy
+
+00:09:18.110 --> 00:09:19.080
+preserving.
+
+00:09:19.090 --> 00:09:20.540
+This is not the case today.
+
+00:09:20.550 --> 00:09:25.720
+In order to serve a social experience, you need to store
+
+00:09:25.720 --> 00:09:27.020
+user data.
+
+00:09:27.030 --> 00:09:30.330
+I believe the types of software and user experiences that are delivered
+
+00:09:30.330 --> 00:09:34.380
+on the social internet today are limited because it's software engineers
+
+00:09:34.380 --> 00:09:36.240
+and tech companies building them.
+
+00:09:36.250 --> 00:09:38.480
+When people talk about web 1.
+
+00:09:38.480 --> 00:09:41.600
+0 and what feels like to me the glory era of the
+
+00:09:41.600 --> 00:09:44.560
+internet, they talk about how what drew people to the web
+
+00:09:44.560 --> 00:09:47.690
+was the fact that so many different types of people, technical
+
+00:09:47.690 --> 00:09:50.440
+and non-technical, were creating websites.
+
+00:09:50.450 --> 00:09:55.990
+I think we need to do the same thing for web 2
+
+00:09:55.990 --> 00:09:56.440
+.
+
+00:09:56.440 --> 00:09:56.960
+0.
+
+00:09:56.970 --> 00:10:00.370
+And then reflecting on the idea of what it means for the
+
+00:10:00.370 --> 00:10:02.970
+web to be human shaped, I think a big part of
+
+00:10:03.050 --> 00:10:06.430
+what is missing on the internet is this idea of communities or
+
+00:10:06.430 --> 00:10:10.570
+groups as a first principle rather than using platforms to then build
+
+00:10:10.570 --> 00:10:12.920
+relationships or communities on top.
+
+00:10:12.930 --> 00:10:20.720
+Okay, so what does this mean for the protocol?
+
+00:10:20.730 --> 00:10:25.320
+I think an iteration of the protocol that enables this should support
+
+00:10:25.320 --> 00:10:26.920
+privacy by design and default.
+
+00:10:26.930 --> 00:10:35.390
+should be usable
+
+00:10:35.440 --> 00:10:39.790
+, maintainable, extendable beyond protocol people and should be
+
+00:10:39.800 --> 00:10:43.440
+flexible enough to support group self-management.
+
+00:10:43.450 --> 00:10:46.400
+So I really believe in this idea of leveling up people rather
+
+00:10:46.400 --> 00:10:48.440
+than dumbing down technology.
+
+00:10:48.450 --> 00:10:54.100
+Okay, so all of this stuff is what I think about
+
+00:10:54.100 --> 00:10:58.800
+every day, what my collaborators and I at Habitat think
+
+00:10:58.800 --> 00:10:59.960
+about every day.
+
+00:10:59.970 --> 00:11:03.320
+And it's funny because even though I think about it,
+
+00:11:03.320 --> 00:11:06.840
+writing this talk really clarified to me what Habitat's mission
+
+00:11:06.840 --> 00:11:09.840
+is as reimagining the social internet.
+
+00:11:09.850 --> 00:11:18.100
+Okay, so
+
+00:11:18.130 --> 00:11:20.770
+at Habitat, we are trying to lower the barrier of
+
+00:11:20.770 --> 00:11:23.000
+who can build on the social internet.
+
+00:11:23.010 --> 00:11:28.600
+Sorry, I can never find that.
+
+00:11:28.610 --> 00:11:36.600
+One, no.
+
+00:11:36.610 --> 00:11:40.750
+In the traditional web, people who build platforms create the social
+
+00:11:40.750 --> 00:11:41.600
+internet.
+
+00:11:41.610 --> 00:11:44.350
+App Proto changes this with PDS's, custom feeds
+
+00:11:44.350 --> 00:11:47.640
+, and other levers to tweak experiences on platforms.
+
+00:11:47.650 --> 00:11:50.600
+But to build a new type of social experience or modality
+
+00:11:50.600 --> 00:11:53.680
+, often times you still need to build an app view.
+
+00:11:53.690 --> 00:11:56.300
+Habitat wants to see if we can go even further.
+
+00:11:56.310 --> 00:11:59.540
+What kinds of protocol level or shared infrastructure do we need to
+
+00:11:59.540 --> 00:12:02.120
+make it as easy to build a social experience as it is
+
+00:12:02.120 --> 00:12:03.300
+to build a website?
+
+00:12:06.610 --> 00:12:15.170
+We believe building the social internet should not require sacrificing user privacy
+
+00:12:15.170 --> 00:12:15.600
+.
+
+00:12:15.610 --> 00:12:19.170
+So one step we are taking in this direction is trying to
+
+00:12:19.170 --> 00:12:21.600
+give users agency over this data.
+
+00:12:21.610 --> 00:12:24.570
+So in Habitat, you can see and say who as
+
+00:12:24.570 --> 00:12:28.670
+people or both apps have access to parts of your data,
+
+00:12:28.670 --> 00:12:30.350
+and we are trying to give people a way to search over
+
+00:12:30.350 --> 00:12:31.600
+all their data in one place.
+
+00:12:31.610 --> 00:12:35.860
+Which is something you should be able to do today on the
+
+00:12:35.860 --> 00:12:38.600
+web but is pretty much impossible.
+
+00:12:38.610 --> 00:12:45.460
+Okay, and then third, we are thinking about this community
+
+00:12:45.460 --> 00:12:46.600
+piece.
+
+00:12:46.610 --> 00:12:48.700
+So, I quit my job at Figma a month ago
+
+00:12:48.700 --> 00:12:50.600
+to work full time on Habitat.
+
+00:12:50.610 --> 00:12:56.310
+And one thing I think about is how at Figma,
+
+00:12:56.310 --> 00:13:03.600
+the tools I primarily used were Slack, Google Suite, and
+
+00:13:03.600 --> 00:13:03.600
+Zoom.
+
+00:13:03.610 --> 00:13:07.180
+I'm a part of this wonderful organization called Collective Action
+
+00:13:07.180 --> 00:13:11.060
+School, and it's an experimental school for tech workers to
+
+00:13:11.060 --> 00:13:12.600
+reshape the industry from inside of it.
+
+00:13:12.610 --> 00:13:16.930
+So there, the primary tools we used to communicate are also
+
+00:13:16.930 --> 00:13:19.600
+Slack, Google Suite, and Zoom.
+
+00:13:19.610 --> 00:13:22.360
+And when building Habitat, the easiest tools to reach for
+
+00:13:22.360 --> 00:13:24.600
+were also Slack, Google Suite, and Zoom.
+
+00:13:24.610 --> 00:13:27.790
+So when I think about data agency and self-determination
+
+00:13:27.790 --> 00:13:31.430
+for groups, but specifically Collective Action School as a community
+
+00:13:31.430 --> 00:13:34.220
+, my goal and what we're really trying to build at
+
+00:13:34.220 --> 00:13:38.030
+Habitat is that communities can create their own spaces for their
+
+00:13:38.030 --> 00:13:42.170
+own context, rather than have to use a particular platform for
+
+00:13:42.170 --> 00:13:44.600
+a particular tool or use case.
+
+00:13:44.610 --> 00:13:49.110
+So I imagine possibly building something like this for Collective Action
+
+00:13:49.110 --> 00:13:51.780
+School, where we have our public-facing website, but
+
+00:13:51.780 --> 00:13:54.120
+when you log in, there's a space that's members
+
+00:13:54.120 --> 00:13:54.600
+only.
+
+00:13:54.610 --> 00:13:58.840
+And it doesn't look like any other chat or syllabus or
+
+00:13:58.840 --> 00:14:03.180
+schedule like any other space on the internet, because it's
+
+00:14:03.180 --> 00:14:05.600
+made specifically for Collective Action School.
+
+00:14:05.610 --> 00:14:08.600
+Okay, cool.
+
+00:14:08.610 --> 00:14:12.300
+I wouldn't be a good CEO without a little shameless plug
+
+00:14:12.300 --> 00:14:12.600
+.
+
+00:14:12.610 --> 00:14:16.760
+So we do have a version of permission data that actually looks
+
+00:14:16.760 --> 00:14:19.600
+quite similar to what the Blue Sky team put out, I
+
+00:14:19.600 --> 00:14:22.600
+think, and will be forwards compatible with what they do.
+
+00:14:22.610 --> 00:14:25.590
+So if you have use cases for permission data, we'd
+
+00:14:25.590 --> 00:14:26.600
+love to chat.
+
+00:14:26.610 --> 00:14:29.310
+And we've been building out products on top of our permission
+
+00:14:29.310 --> 00:14:32.600
+data and other tools and services to show what you can do
+
+00:14:32.600 --> 00:14:33.600
+with Habitat.
+
+00:14:33.610 --> 00:14:36.120
+Our first toy app is Docs, if people want to
+
+00:14:36.120 --> 00:14:37.600
+play around with that.
+
+00:14:37.610 --> 00:14:40.910
+But we're also building out a control plane to actually see
+
+00:14:40.910 --> 00:14:46.080
+what it looks like for users to have agency and transparency into
+
+00:14:46.160 --> 00:14:47.600
+their data.
+
+00:14:47.610 --> 00:14:52.600
+Thanks.
+
+00:14:52.610 --> 00:14:58.600
+Okay, but back to the title of the talk.
+
+00:14:58.610 --> 00:15:02.010
+In ecology, rewilding is a process where humans
+
+00:15:02.010 --> 00:15:06.040
+do an initial intervention in a given place or land in order
+
+00:15:06.040 --> 00:15:07.600
+to restore the ecosystem.
+
+00:15:07.610 --> 00:15:11.830
+And the hope is that these seeds of intervention will seed natural
+
+00:15:11.830 --> 00:15:14.600
+processes and increase biodiversity.
+
+00:15:14.610 --> 00:15:17.240
+So I think in a lot of ways that our work as
+
+00:15:17.240 --> 00:15:21.660
+developers in and of this protocol is to make these little seeds
+
+00:15:21.660 --> 00:15:24.420
+of intervention on the web in order to enable others to use
+
+00:15:24.420 --> 00:15:27.330
+and build on the web as a sort of natural and organic
+
+00:15:27.330 --> 00:15:28.600
+process on its own.
+
+00:15:28.610 --> 00:15:34.250
+So I care about all of these things, but I really
+
+00:15:34.250 --> 00:15:40.780
+care about the second point that builders on a protocol and on
+
+00:15:40.780 --> 00:15:44.970
+the web for social experiences shouldn't just be software engineers and
+
+00:15:44.970 --> 00:15:49.580
+companies.
+
+00:15:49.610 --> 00:15:55.480
+This idea of biodiversity or diversity in general comes up not just
+
+00:15:55.480 --> 00:15:58.600
+in ecology but across disciplines.
+
+00:15:58.610 --> 00:16:01.620
+In the dawn of everything, David Graber and David Wen
+
+00:16:01.620 --> 00:16:04.600
+grau reconsider the narrative of human history.
+
+00:16:04.610 --> 00:16:07.660
+So this history is usually discussed as a straight line from hunter
+
+00:16:07.660 --> 00:16:12.180
+-gatherer society to agricultural revolution to industrial revolution to
+
+00:16:12.180 --> 00:16:12.600
+now.
+
+00:16:12.610 --> 00:16:16.050
+The Davids challenge this notion and point out how during the
+
+00:16:16.050 --> 00:16:19.220
+long time where humans were thought to be hunter-gather
+
+00:16:19.220 --> 00:16:21.240
+ers, there's not too much evidence of what they were
+
+00:16:21.240 --> 00:16:24.380
+doing, so it's easy to spin a bunch of narratives
+
+00:16:24.380 --> 00:16:25.600
+on top of that.
+
+00:16:25.610 --> 00:16:28.470
+But if you do look at the evidence, there seems to
+
+00:16:28.470 --> 00:16:30.600
+be a plurality of societal forms.
+
+00:16:30.610 --> 00:16:33.710
+So there are hunter-gatherer societies, but also
+
+00:16:33.710 --> 00:16:37.600
+nomadic farmers or chiefdoms or different combinations of this
+
+00:16:37.600 --> 00:16:40.600
+depending on seasonality.
+
+00:16:40.610 --> 00:16:43.580
+So they say, maybe the real question is, how did
+
+00:16:43.580 --> 00:16:44.600
+we get stuck?
+
+00:16:44.610 --> 00:16:47.600
+How did we end up in one single mode?
+
+00:16:47.610 --> 00:16:54.930
+Wendell Berry is another one of my favorite writers and
+
+00:16:54.930 --> 00:16:56.600
+a lifelong farmer.
+
+00:16:56.610 --> 00:17:00.220
+And he talks about the importance of diversity to farming, both
+
+00:17:00.220 --> 00:17:03.900
+at a local level where a diversity of crops is needed to
+
+00:17:03.900 --> 00:17:07.600
+sustain soil, but also at a global level where each farm
+
+00:17:07.600 --> 00:17:10.970
+being in harmony with the land lends to a diversity of
+
+00:17:10.970 --> 00:17:13.100
+ways of doing farming, as opposed to a cash crop or
+
+00:17:13.330 --> 00:17:18.030
+industrialized farming that treats all land as the same and therefore
+
+00:17:18.030 --> 00:17:19.600
+depletes it.
+
+00:17:23.610 --> 00:17:26.990
+And in this essay, Maria and Robin, who I think
+
+00:17:26.990 --> 00:17:31.680
+is here today, write that ecologists know that diversity is
+
+00:17:31.740 --> 00:17:32.600
+resilient.
+
+00:17:32.610 --> 00:17:35.600
+I think this concept goes beyond ecology.
+
+00:17:35.610 --> 00:17:38.600
+I think this is true of the internet as well.
+
+00:17:38.610 --> 00:17:41.510
+An internet where one data center going down means the web goes
+
+00:17:41.510 --> 00:17:46.400
+down is not resilient, and where one platform insidifying
+
+00:17:46.400 --> 00:17:53.580
+means everyone's experiences are insidified is not resilient.
+
+00:17:53.610 --> 00:17:56.230
+So I think the key for app protocol to survive as a
+
+00:17:56.230 --> 00:18:00.600
+protocol and ecosystem is for us to be resilient by supporting the
+
+00:18:00.600 --> 00:18:03.900
+necessary diversity of infrastructures, technologies, social networks, and
+
+00:18:03.940 --> 00:18:05.600
+communities that human life demands.
+
+00:18:05.610 --> 00:18:11.060
+Right now, this lack of diversity online is a really strongly
+
+00:18:11.060 --> 00:18:12.600
+felt experience.
+
+00:18:12.610 --> 00:18:15.430
+In the physical world, your library doesn't look or feel
+
+00:18:15.430 --> 00:18:18.980
+like your kitchen, your bedroom, your school, your patio
+
+00:18:18.980 --> 00:18:19.600
+, etc.
+
+00:18:19.610 --> 00:18:22.600
+But online, this is absolutely the case.
+
+00:18:22.610 --> 00:18:25.510
+My hope is that with app protocol, we can shape our
+
+00:18:25.510 --> 00:18:29.320
+digital habitats with as much agency as we can our physical ones
+
+00:18:29.320 --> 00:18:29.600
+.
+
+00:18:29.610 --> 00:18:37.600
+So in the real world of technology, Ursula M.
+
+00:18:37.600 --> 00:18:40.050
+Franklin talks about how hard it is to define technology as a
+
+00:18:40.050 --> 00:18:40.590
+concept.
+
+00:18:40.610 --> 00:18:44.010
+However, one definition we might be able to agree upon is
+
+00:18:44.010 --> 00:18:46.600
+technology as a way of doing something.
+
+00:18:46.610 --> 00:18:49.470
+So, if the current state of the web is just one
+
+00:18:49.470 --> 00:18:53.180
+way of doing the social internet, then let's build the
+
+00:18:53.180 --> 00:18:55.600
+social internet differently.
+
+00:18:55.610 --> 00:18:57.600
+Thank you.
+
+00:18:57.610 --> 00:19:03.040
+Let's give a round of applause.

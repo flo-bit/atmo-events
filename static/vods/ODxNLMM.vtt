@@ -1,0 +1,1207 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.600
+- I'm Laurence Hoff, I write Connected Pl
+
+00:00:04.600 --> 00:00:05.010
+aces.
+
+00:00:05.040 --> 00:00:08.400
+It's a newsletter about the atmosphere, at Proto,
+
+00:00:08.400 --> 00:00:10.760
+BlueSky, Fediverse, and the ecosystems, the
+
+00:00:10.760 --> 00:00:12.460
+open social ecosystems.
+
+00:00:12.460 --> 00:00:15.380
+I'm very interested in like figuring out like what are these
+
+00:00:15.380 --> 00:00:16.500
+systems actually?
+
+00:00:16.500 --> 00:00:19.490
+Like there's a lot of cool narratives about what these systems
+
+00:00:19.490 --> 00:00:22.660
+can create, but I want to understand what are they?
+
+00:00:22.660 --> 00:00:27.600
+And recently Paul Fugy wrote an interesting article, Pract
+
+00:00:27.600 --> 00:00:30.660
+ical Decentralization, where he made two specific points
+
+00:00:30.830 --> 00:00:30.920
+.
+
+00:00:30.920 --> 00:00:33.410
+The point of decentralization, he wrote, is to guarantee
+
+00:00:33.410 --> 00:00:36.760
+the rights of individuals and communities on the internet.
+
+00:00:36.760 --> 00:00:40.170
+And secondly, he wrote, we use protocols to structure who
+
+00:00:40.440 --> 00:00:42.640
+can do what.
+
+00:00:42.640 --> 00:00:46.040
+Protocol designs are often about the how, but the consequence of
+
+00:00:46.040 --> 00:00:48.180
+the how is an authority model.
+
+00:00:48.400 --> 00:00:51.300
+And I think that's super powerful because that really sells what
+
+00:00:51.300 --> 00:00:52.660
+'s actually at stake here.
+
+00:00:52.660 --> 00:00:56.580
+Like building protocols is cool, but what we're actually building
+
+00:00:57.200 --> 00:01:01.980
+is authority models of like how social interaction happens on the internet
+
+00:01:01.980 --> 00:01:02.140
+.
+
+00:01:02.140 --> 00:01:06.460
+Like it's easy, like many people have been getting interested
+
+00:01:06.460 --> 00:01:09.320
+in open protocols as a sort of response to big tech bad
+
+00:01:09.320 --> 00:01:11.300
+, and well, obviously big tech bad.
+
+00:01:11.300 --> 00:01:14.880
+But the reason big tech bad is because of the governance of
+
+00:01:14.880 --> 00:01:16.080
+the big tech platforms.
+
+00:01:16.080 --> 00:01:18.660
+So that means very much like if we want to build different
+
+00:01:18.660 --> 00:01:22.140
+platforms, new ecosystems, systems, this is very much about
+
+00:01:22.460 --> 00:01:27.500
+what sort of governance and authority models do these new ecosystems actually
+
+00:01:27.500 --> 00:01:29.260
+allow.
+
+00:01:29.260 --> 00:01:31.880
+And for that, I'm always very drawn to the statement
+
+00:01:31.880 --> 00:01:34.930
+by the cybernetician, Stafford Beer, with
+
+00:01:34.930 --> 00:01:36.180
+this great one liner.
+
+00:01:36.180 --> 00:01:38.900
+The purpose of a system is what it does.
+
+00:01:38.900 --> 00:01:42.190
+And I think that's both simple and powerful because it lets
+
+00:01:42.190 --> 00:01:45.600
+you cut through like all these normative statements and intentional language
+
+00:01:45.600 --> 00:01:47.810
+about what you want to be happening.
+
+00:01:47.880 --> 00:01:50.720
+But instead, you can look at what is the system,
+
+00:01:50.720 --> 00:01:52.240
+what should be happening.
+
+00:01:52.240 --> 00:01:55.190
+Like what, not what should be happening, sorry, but
+
+00:01:55.190 --> 00:01:57.160
+what does it actually produce?
+
+00:01:57.160 --> 00:02:00.280
+And for that, it's also worthwhile to look at a
+
+00:02:00.280 --> 00:02:01.900
+little bit of the history of the internet.
+
+00:02:01.900 --> 00:02:06.000
+Like internet runs on email, the internet runs on open protocols
+
+00:02:06.000 --> 00:02:08.450
+, and the most famous one for emails is the SMTP
+
+00:02:08.580 --> 00:02:09.360
+protocol.
+
+00:02:09.360 --> 00:02:14.000
+And that protocol just said very little about purpose or governance or
+
+00:02:14.000 --> 00:02:14.800
+anything at all.
+
+00:02:14.800 --> 00:02:18.370
+It just says the goal of this protocol is to transfer mail
+
+00:02:18.370 --> 00:02:20.290
+reliably and efficiently.
+
+00:02:20.420 --> 00:02:24.160
+And it turns out we've been getting extremely good at transferring
+
+00:02:24.160 --> 00:02:26.160
+email reliably and efficiently.
+
+00:02:26.160 --> 00:02:31.380
+And it also turns out that spam loves to be transferred reliably
+
+00:02:31.380 --> 00:02:32.800
+and efficiently.
+
+00:02:32.800 --> 00:02:35.730
+So once you build an open protocol and like you have this
+
+00:02:35.730 --> 00:02:38.290
+statement of like, hey, we want to do this thing
+
+00:02:38.290 --> 00:02:38.520
+.
+
+00:02:38.520 --> 00:02:41.440
+And then otherwise, like you have a technical statement, but
+
+00:02:41.440 --> 00:02:44.380
+you don't say anything about the governance or the power that
+
+00:02:44.380 --> 00:02:46.360
+you create with this new system.
+
+00:02:46.360 --> 00:02:50.270
+You can have a decentralized open protocol all you want, but
+
+00:02:50.270 --> 00:02:54.760
+these gaps for power, they get filled by economic models.
+
+00:02:54.760 --> 00:02:57.520
+And that's exactly what we have seen with email.
+
+00:02:57.520 --> 00:03:00.720
+Like spam filtering turns out to be a huge problem.
+
+00:03:00.760 --> 00:03:02.540
+Google got very good at that.
+
+00:03:02.540 --> 00:03:06.350
+And now email is basically duopoly with Google and Microsoft.
+
+00:03:06.460 --> 00:03:11.480
+So open protocols, still duopoly, still centralized power because
+
+00:03:11.480 --> 00:03:15.880
+the protocol itself did not account for how it generates power.
+
+00:03:15.880 --> 00:03:20.470
+In general, that means power and value accumulates in the
+
+00:03:20.470 --> 00:03:22.920
+layer of a protocol that doesn't govern.
+
+00:03:22.920 --> 00:03:24.940
+We've seen the same with HTTP.
+
+00:03:24.940 --> 00:03:28.440
+Like HTTP also, the spec of the protocol has like,
+
+00:03:28.500 --> 00:03:30.470
+says nothing about power.
+
+00:03:30.480 --> 00:03:33.690
+Like Tim Berners-Lee made lots of blog posts around
+
+00:03:34.040 --> 00:03:36.930
+it about like great ideas of what you want the power to
+
+00:03:36.930 --> 00:03:37.300
+be.
+
+00:03:37.360 --> 00:03:41.580
+But because that wasn't defined in the spec anywhere, then
+
+00:03:41.580 --> 00:03:46.790
+that allowed that value and the power to be accumulated in the
+
+00:03:46.850 --> 00:03:47.710
+layers around it.
+
+00:03:47.820 --> 00:03:49.880
+And that's how we got in this system of like,
+
+00:03:50.040 --> 00:03:54.710
+well, big tech bad, because these companies could accumulate this
+
+00:03:54.760 --> 00:03:57.400
+power in the layers around HTTPS.
+
+00:03:57.400 --> 00:04:02.320
+And we've seen like, we've been doing open protocols
+
+00:04:02.320 --> 00:04:04.970
+for a long time, like since the early '80s
+
+00:04:05.240 --> 00:04:05.240
+.
+
+00:04:05.240 --> 00:04:09.440
+And now we've seen that in the last decade or so
+
+00:04:09.440 --> 00:04:11.080
+, we've seen new protocols arise.
+
+00:04:11.080 --> 00:04:12.710
+We've seen ActivityPub, we've seen N
+
+00:04:12.710 --> 00:04:14.890
+ostra, we've seen Matrix and now at Proto
+
+00:04:15.040 --> 00:04:15.580
+as well.
+
+00:04:15.580 --> 00:04:19.160
+And these protocols start to incorporate normative language in the protocol
+
+00:04:19.160 --> 00:04:20.270
+documentation.
+
+00:04:20.280 --> 00:04:22.160
+They say stuff about governance.
+
+00:04:22.160 --> 00:04:26.470
+They say stuff about what should this be doing, what should
+
+00:04:26.600 --> 00:04:27.840
+this system create?
+
+00:04:27.840 --> 00:04:32.150
+And I got three quotes from the Proto documentation here.
+
+00:04:32.280 --> 00:04:34.710
+And I do think it's very interesting to see the norm
+
+00:04:34.860 --> 00:04:36.090
+ative statements pop up here.
+
+00:04:36.280 --> 00:04:38.660
+Speech and reads should be two separate layers.
+
+00:04:38.660 --> 00:04:41.590
+Also the very normative, everybody should have, everybody has
+
+00:04:41.590 --> 00:04:41.980
+a voice.
+
+00:04:41.980 --> 00:04:45.120
+And users are free to select their aggregators.
+
+00:04:45.120 --> 00:04:50.620
+The protocol design sort of tradition sort of assumes a sequence.
+
+00:04:50.620 --> 00:04:54.930
+First, you build an architecture, the design specification.
+
+00:04:54.980 --> 00:04:59.290
+Then you grow an ecosystem, and then you add governance to
+
+00:04:59.420 --> 00:05:00.550
+that ecosystem.
+
+00:05:00.600 --> 00:05:04.320
+But, it turns out, like, growing that ecosystem is
+
+00:05:04.320 --> 00:05:07.360
+the same as adding governance to this ecosystem.
+
+00:05:07.360 --> 00:05:13.050
+Because, like, if you do not actually specifically specify,
+
+00:05:13.050 --> 00:05:16.110
+like, the governance of the ecosystem, once you grow it
+
+00:05:16.110 --> 00:05:22.080
+, like, the implicit forms of governance, which are often
+
+00:05:22.360 --> 00:05:24.760
+, like, if it's not specified, it's just
+
+00:05:24.760 --> 00:05:28.090
+the most powerful economic actor who is there first, turns out
+
+00:05:28.280 --> 00:05:30.200
+to be, become the governance layer.
+
+00:05:30.200 --> 00:05:33.270
+And the reason for that is that because if you grow an
+
+00:05:33.270 --> 00:05:37.020
+ecosystem or open protocol, you create shared resources.
+
+00:05:37.120 --> 00:05:42.840
+And these shared resources are themselves governance structures because they compete,
+
+00:05:42.840 --> 00:05:44.660
+they involve competing interest.
+
+00:05:44.660 --> 00:05:47.340
+For example, here on Proto, like, if you
+
+00:05:47.340 --> 00:05:50.100
+build, if you run a relay, you immediately need to
+
+00:05:50.100 --> 00:05:51.440
+make governance decisions.
+
+00:05:51.440 --> 00:05:53.890
+You need to decide, am I going to -- which spam
+
+00:05:53.970 --> 00:05:55.250
+am I going to filter out?
+
+00:05:55.360 --> 00:05:57.360
+Am I going to filter the abuse out?
+
+00:05:57.360 --> 00:05:59.360
+Am I going to filter copyright material out?
+
+00:05:59.360 --> 00:06:02.170
+Or am I going to transfer these -- like, am I
+
+00:06:02.170 --> 00:06:06.180
+just going to say I'm a neutral -- neutral -- layer
+
+00:06:06.460 --> 00:06:08.270
+that just transfers all of this?
+
+00:06:08.360 --> 00:06:12.670
+And, like, there is not a neutral way to transfer
+
+00:06:12.800 --> 00:06:17.270
+spam or a neutral way to transfer abuse in your relay.
+
+00:06:17.280 --> 00:06:21.150
+As soon as you operate a relay, you have made governance
+
+00:06:21.150 --> 00:06:24.170
+decisions because these are the shared resources.
+
+00:06:24.280 --> 00:06:28.870
+like, there's an article I wrote recently about the purpose
+
+00:06:28.870 --> 00:06:30.200
+of protocols.
+
+00:06:30.200 --> 00:06:33.410
+And I got two responses from Paul on that, that I
+
+00:06:33.760 --> 00:06:36.170
+think both are worth highlighting.
+
+00:06:36.200 --> 00:06:38.240
+First, he said, like, my belief and hope is
+
+00:06:38.430 --> 00:06:41.200
+that we've opened the opportunities for other forms of communal resource
+
+00:06:41.200 --> 00:06:42.200
+governance to be implemented.
+
+00:06:42.200 --> 00:06:45.120
+And, like, I very strongly agree with that.
+
+00:06:45.120 --> 00:06:48.090
+Like, this is why I care about these open ecosystems.
+
+00:06:48.120 --> 00:06:50.760
+And this is why I care about, like, this conference
+
+00:06:50.760 --> 00:06:53.790
+because, like, there's so many people around here that
+
+00:06:53.790 --> 00:06:56.120
+, like, that can -- we can build these systems now
+
+00:06:56.120 --> 00:06:56.120
+.
+
+00:06:56.120 --> 00:07:01.220
+We have created this infrastructure, we can create this communal resource
+
+00:07:01.290 --> 00:07:04.850
+government, like, we have this open -- open relays
+
+00:07:04.860 --> 00:07:08.040
+, we can build the governance structures for it.
+
+00:07:08.040 --> 00:07:10.730
+But Paul also says, I'm almost ready to say that
+
+00:07:10.730 --> 00:07:14.020
+the economics are determinative of the governance.
+
+00:07:14.040 --> 00:07:17.710
+Well, I am actually ready to say that the economics are
+
+00:07:17.740 --> 00:07:21.260
+determinative, but if they are determinative, what do
+
+00:07:21.260 --> 00:07:21.950
+they actually determine?
+
+00:07:26.120 --> 00:07:29.190
+For that, let's look a little bit more in detail
+
+00:07:29.210 --> 00:07:31.560
+on what AppProto actually does.
+
+00:07:31.560 --> 00:07:34.490
+And, basically, it creates two layers, a speech layer
+
+00:07:34.490 --> 00:07:36.550
+, a speech is just, like, it's cheap,
+
+00:07:36.550 --> 00:07:39.240
+it's permissive, everybody can publish, it's
+
+00:07:39.240 --> 00:07:41.040
+very easy to set up your own PDS.
+
+00:07:41.040 --> 00:07:43.040
+And then there's the reach layer.
+
+00:07:43.040 --> 00:07:44.890
+The reach is, like, that's where you get the
+
+00:07:44.890 --> 00:07:47.240
+feed algorithms, that's where you get the app views,
+
+00:07:47.270 --> 00:07:49.530
+that's where you get the indexes, that's where
+
+00:07:49.530 --> 00:07:51.950
+the people actually interact with your app.
+
+00:07:52.040 --> 00:07:55.060
+And the reach layer, that's actually the expensive part of
+
+00:07:55.060 --> 00:07:58.860
+operating infrastructure, and thus, that's where the economics are
+
+00:07:59.140 --> 00:08:00.400
+actually determinative.
+
+00:08:00.480 --> 00:08:03.160
+And that's actually what you now see in the atmosphere in
+
+00:08:03.160 --> 00:08:05.580
+practice, like, Blue Sky, the company, is,
+
+00:08:05.650 --> 00:08:08.840
+like, three orders of magnitude larger than any of the other
+
+00:08:08.950 --> 00:08:13.780
+operators, because the economics are determinative, and they operate
+
+00:08:13.780 --> 00:08:16.310
+the expensive layers of the stack.
+
+00:08:16.360 --> 00:08:18.720
+I want to zoom in even more, I'm going to
+
+00:08:18.950 --> 00:08:22.420
+specifically zoom in on, like, the algorithmic choice here
+
+00:08:22.480 --> 00:08:22.680
+.
+
+00:08:22.800 --> 00:08:25.410
+We do, like, AppProto allows for algorithmic
+
+00:08:25.410 --> 00:08:28.950
+choice, allows for everybody to run their own feed operators,
+
+00:08:28.950 --> 00:08:29.620
+et cetera.
+
+00:08:29.800 --> 00:08:35.020
+But feed providers need users, users want engaging content, and
+
+00:08:35.020 --> 00:08:39.080
+the thing is, what counts as engaging content is what everybody
+
+00:08:39.090 --> 00:08:40.760
+else is engaging with.
+
+00:08:40.760 --> 00:08:46.250
+Like, our preferences for what we want to see, what
+
+00:08:46.250 --> 00:08:51.510
+we think is engaging is not neutral, it's not defined
+
+00:08:51.580 --> 00:08:54.860
+by the individual, it's defined by the people around us
+
+00:08:54.920 --> 00:08:55.200
+.
+
+00:08:55.200 --> 00:08:59.010
+Because we are, like, our preferences are shaped by other
+
+00:08:59.200 --> 00:09:03.720
+preferences, and our preferences are intrinsically mimetic.
+
+00:09:03.720 --> 00:09:05.880
+And for that, I want to zoom in on the for
+
+00:09:05.970 --> 00:09:09.000
+you feed by the independent developer SpaceCowboy.
+
+00:09:09.000 --> 00:09:11.900
+SpaceCowboy, it's an amazing feed, and
+
+00:09:11.900 --> 00:09:15.820
+it has actually a fairly straightforward mechanism.
+
+00:09:16.040 --> 00:09:18.910
+It looks at the post you liked, like, then it
+
+00:09:18.910 --> 00:09:22.800
+looks at what other people also liked that post, and what
+
+00:09:22.800 --> 00:09:26.430
+other POs they like, and they suggest then that post
+
+00:09:26.440 --> 00:09:27.030
+to you.
+
+00:09:27.040 --> 00:09:30.110
+There's even, like, this very explicit sense of,
+
+00:09:30.120 --> 00:09:32.710
+like, how we made it visible of, like, how
+
+00:09:32.710 --> 00:09:35.940
+our preferences mimic other people's preferences.
+
+00:09:35.960 --> 00:09:40.090
+That is exactly, in its most pure form, what the
+
+00:09:40.150 --> 00:09:42.000
+for you feed does.
+
+00:09:42.000 --> 00:09:44.430
+And actually, if you spend any time here in the ecosystem
+
+00:09:44.530 --> 00:09:47.180
+, the AppRoto developer ecosystem, you know that people
+
+00:09:47.180 --> 00:09:49.240
+actually really like the for you feed.
+
+00:09:49.240 --> 00:09:51.930
+It is a very great feed, and people recommend it all
+
+00:09:51.930 --> 00:09:52.450
+the time.
+
+00:09:52.640 --> 00:09:55.840
+It's almost kind of a meme, especially if you compare
+
+00:09:56.150 --> 00:10:00.220
+it to the other popular algorithmic feed, the Discover feed
+
+00:10:00.220 --> 00:10:02.000
+by Blue Sky itself.
+
+00:10:02.000 --> 00:10:04.550
+And that's also a bit of a meme to almost hate
+
+00:10:04.590 --> 00:10:06.680
+on, like, the Discover feed.
+
+00:10:06.680 --> 00:10:08.400
+Shout out to Dan for that.
+
+00:10:08.400 --> 00:10:14.130
+Like, the reason for that is that, sorry, what
+
+00:10:14.130 --> 00:10:17.310
+'s actually interesting about the Discover feed, Blue Sky's Discover
+
+00:10:17.400 --> 00:10:19.880
+feed, is that it's an algorithmic feed, but
+
+00:10:19.880 --> 00:10:22.400
+it's not purely engagement based.
+
+00:10:22.400 --> 00:10:26.210
+Because Blue Sky's also trying to solve for other problems than
+
+00:10:26.360 --> 00:10:29.000
+just pure engagement recommendation.
+
+00:10:29.000 --> 00:10:32.610
+They also solve for a problem of, hey, there's
+
+00:10:32.610 --> 00:10:34.680
+a new person signing up.
+
+00:10:34.680 --> 00:10:37.740
+We don't know anything about that new person, but we
+
+00:10:37.740 --> 00:10:40.080
+don't want to show them an empty feed.
+
+00:10:40.080 --> 00:10:43.890
+So how are we going to show them some interesting content via
+
+00:10:44.080 --> 00:10:45.560
+the Discover feed?
+
+00:10:45.560 --> 00:10:47.280
+And the Discover feed is very good at that.
+
+00:10:47.280 --> 00:10:51.050
+It has multiple purposes, and it's good at those purposes
+
+00:10:51.050 --> 00:10:51.360
+.
+
+00:10:51.360 --> 00:10:53.800
+But what it reveals, and what you can see in how
+
+00:10:53.940 --> 00:10:56.940
+the AdPro, the developer community engages with both feeds,
+
+00:10:56.980 --> 00:11:03.070
+is that the reveal preference is that people strongly prefer pure engagement
+
+00:11:03.070 --> 00:11:08.740
+-driven feeds over generically algorithmic feeds that also provide
+
+00:11:08.740 --> 00:11:09.960
+other features.
+
+00:11:09.960 --> 00:11:12.560
+So now we start to see.
+
+00:11:12.560 --> 00:11:15.770
+So now we start to see that there becomes a loop.
+
+00:11:16.000 --> 00:11:20.240
+And users engage with what other people engage with.
+
+00:11:20.240 --> 00:11:24.060
+And what a prototype does, it creates this single shared data
+
+00:11:24.200 --> 00:11:25.000
+space.
+
+00:11:25.000 --> 00:11:29.020
+Like, this is the nature of this open protocol that everybody
+
+00:11:29.020 --> 00:11:31.580
+has, like, and the relays, all the rel
+
+00:11:31.580 --> 00:11:33.900
+ays, all the app views connect to all that single data
+
+00:11:34.000 --> 00:11:35.120
+, that data space.
+
+00:11:35.120 --> 00:11:38.320
+Like, this means there's this singular shared data space.
+
+00:11:38.360 --> 00:11:42.490
+So users engage with what other people engage with, and that
+
+00:11:42.550 --> 00:11:45.560
+gets captured by that shared data space.
+
+00:11:45.560 --> 00:11:47.660
+Like, that gets captured by the likes on the lexic
+
+00:11:47.790 --> 00:11:49.040
+ons, et cetera, et cetera.
+
+00:11:49.040 --> 00:11:54.000
+And these feed providers then look at this entire data space,
+
+00:11:54.000 --> 00:11:59.240
+pick out the most engaging content from that data space, because
+
+00:11:59.320 --> 00:12:02.620
+that's what the feed providers want, because that's what
+
+00:12:02.620 --> 00:12:03.300
+the users want.
+
+00:12:03.640 --> 00:12:05.830
+And then you see, again, get back to the top
+
+00:12:05.870 --> 00:12:08.980
+, users engage with what other people's most engaged with.
+
+00:12:08.980 --> 00:12:14.770
+So here we get this very interesting dynamic, what it means
+
+00:12:14.770 --> 00:12:18.460
+that if you have algorithmic choice in a single shared data
+
+00:12:18.490 --> 00:12:21.540
+space, that produces convergence.
+
+00:12:22.400 --> 00:12:25.500
+And that means, like, you have, what I mean
+
+00:12:25.500 --> 00:12:28.720
+with that is that because of this loop, we get,
+
+00:12:28.780 --> 00:12:32.860
+like, we converge on this single centralizing point of the
+
+00:12:32.860 --> 00:12:34.840
+most engaging content.
+
+00:12:34.840 --> 00:12:37.700
+And, like, this doesn't mean there's room for
+
+00:12:37.700 --> 00:12:40.380
+, like, niche content and niche feeds.
+
+00:12:40.380 --> 00:12:43.590
+You can still always create the Moz feed all you want,
+
+00:12:43.860 --> 00:12:46.100
+but this is, by definition, niche.
+
+00:12:46.100 --> 00:12:48.500
+And there's, like, what you get is, like
+
+00:12:48.630 --> 00:12:51.180
+, this main set of feed that are, like, highly
+
+00:12:51.180 --> 00:12:54.980
+engagement-driven because the underlying data space is, like,
+
+00:12:54.980 --> 00:12:58.360
+reflects this engagement-driven optimization.
+
+00:12:58.360 --> 00:13:01.250
+And you have a very long tail of a whole lot of
+
+00:13:01.250 --> 00:13:03.720
+niches of algorithmic choices.
+
+00:13:03.720 --> 00:13:07.470
+You can actually already see this in Blue Sky's culture where
+
+00:13:07.470 --> 00:13:09.560
+, like, all the data is open.
+
+00:13:09.560 --> 00:13:12.520
+You can look at what content is the most liked on any
+
+00:13:12.520 --> 00:13:16.060
+day, and that consistently converges on American left-li
+
+00:13:16.060 --> 00:13:17.380
+beral politics.
+
+00:13:17.380 --> 00:13:22.350
+And that's exactly what we would expect in this virtuous feedback
+
+00:13:22.350 --> 00:13:27.040
+loop of, like, that this diversity of feed providers select
+
+00:13:27.040 --> 00:13:29.820
+s for the most engaging content.
+
+00:13:29.820 --> 00:13:33.470
+So the open system is competing on engagement, and that's
+
+00:13:33.480 --> 00:13:35.260
+how you get convergence.
+
+00:13:35.840 --> 00:13:39.650
+So you have an architecture that says pluralism, but the
+
+00:13:39.840 --> 00:13:43.920
+economics of it says, no, you actually have convergence.
+
+00:13:43.920 --> 00:13:47.950
+So we have a protocol, like the protocols, that focuses
+
+00:13:47.950 --> 00:13:53.400
+very much on individual rights, but these rights only matter as
+
+00:13:53.400 --> 00:13:58.870
+much as your choices to actually also are meaningful.
+
+00:13:59.160 --> 00:14:05.390
+And that's how this openness produces convergence, because this governance
+
+00:14:05.390 --> 00:14:08.960
+is entirely absent in the protocol layer.
+
+00:14:08.960 --> 00:14:12.460
+And that's exactly what we've seen in earlier dynamics for
+
+00:14:12.520 --> 00:14:15.770
+open protocols, for SMTP that also produce Gmail.
+
+00:14:15.800 --> 00:14:18.350
+Like, the mechanism is different.
+
+00:14:18.360 --> 00:14:19.800
+Like, that was spam filtering.
+
+00:14:20.160 --> 00:14:22.760
+And here, it's instead of, like, engagement optimization
+
+00:14:22.760 --> 00:14:22.940
+.
+
+00:14:22.940 --> 00:14:26.560
+Like, a protocol, the mechanism is that a protocol creates
+
+00:14:26.560 --> 00:14:30.180
+an open space, but because the governance of this open space
+
+00:14:30.180 --> 00:14:33.660
+is undefined, you get pushed towards economics.
+
+00:14:33.720 --> 00:14:39.160
+And the economics pushes towards concentration and not towards diversification.
+
+00:14:40.840 --> 00:14:43.480
+And now, we finally get to the point where, obviously
+
+00:14:43.480 --> 00:14:45.840
+, you all wanted to, waiting for, we can finally
+
+00:14:45.880 --> 00:14:47.120
+talk about K-pop.
+
+00:14:47.120 --> 00:14:49.340
+Because, like, K-pop are, like, the
+
+00:14:49.650 --> 00:14:52.170
+fandoms are some of the most largest fandoms and the
+
+00:14:52.170 --> 00:14:56.600
+most coordinated, engagement, optimized, driven, optimization, driven
+
+00:14:56.750 --> 00:14:57.760
+communities.
+
+00:14:57.760 --> 00:15:00.280
+And that actually works in both directions.
+
+00:15:00.280 --> 00:15:03.380
+Like, you have the companies who produce the music, who
+
+00:15:03.380 --> 00:15:08.450
+are strongly commercially driven and deliberately optimized for impact and for engagement
+
+00:15:08.450 --> 00:15:08.770
+.
+
+00:15:08.780 --> 00:15:10.220
+Because, well, they're companies.
+
+00:15:10.220 --> 00:15:11.100
+They want to make money.
+
+00:15:11.100 --> 00:15:14.670
+And it's much more important to them than the artistic impression
+
+00:15:14.670 --> 00:15:15.300
+itself.
+
+00:15:15.300 --> 00:15:17.080
+Like, not shitting on K-pop here.
+
+00:15:17.080 --> 00:15:17.840
+I love K-pop.
+
+00:15:17.840 --> 00:15:19.500
+Like, I fucking love Jenny.
+
+00:15:19.500 --> 00:15:21.560
+Like, we should all be more, well, like Jenny
+
+00:15:21.730 --> 00:15:21.760
+.
+
+00:15:21.760 --> 00:15:24.970
+But, like, the companies maximize engagement.
+
+00:15:25.040 --> 00:15:27.790
+And the same, actually, is also true for the fandom
+
+00:15:27.790 --> 00:15:28.710
+s themselves.
+
+00:15:28.720 --> 00:15:31.520
+And I think it's actually interesting to look at one YouTube
+
+00:15:31.520 --> 00:15:33.410
+comment section on a new K-pop song.
+
+00:15:33.420 --> 00:15:36.440
+Like, to see what are the fans actually talking about.
+
+00:15:36.440 --> 00:15:39.970
+And you see that they're very explicitly talking about listening to
+
+00:15:40.000 --> 00:15:42.760
+the song on repeat to make sure that, on multiple voices
+
+00:15:42.880 --> 00:15:46.270
+often, to make sure that the songs dominate the new charts
+
+00:15:46.270 --> 00:15:46.520
+.
+
+00:15:46.520 --> 00:15:52.080
+Because, like, they're deliberately participating in engagement hacking because
+
+00:15:52.080 --> 00:15:56.000
+the engagement is a validation of their fandom and of their idol
+
+00:15:56.150 --> 00:15:56.460
+.
+
+00:15:58.720 --> 00:16:02.850
+Like, I'm guessing you understand that this isn't actually
+
+00:16:02.950 --> 00:16:04.290
+all about K-pop.
+
+00:16:04.320 --> 00:16:06.730
+Like, this is really what happens when you have, like
+
+00:16:06.830 --> 00:16:09.140
+, an ungoverned reach layer on an open protocol.
+
+00:16:09.140 --> 00:16:11.000
+And, like, well, when there's, well,
+
+00:16:11.000 --> 00:16:13.620
+the governance is there, but the governance turns out to be
+
+00:16:13.620 --> 00:16:14.380
+economics.
+
+00:16:15.080 --> 00:16:16.780
+And the economics then...
+
+00:16:16.780 --> 00:16:19.780
+Sorry, how do you say...
+
+00:16:19.780 --> 00:16:25.760
+And the economics means that the community doesn't match the...
+
+00:16:25.780 --> 00:16:33.920
+There is governance on an open
+
+00:16:33.920 --> 00:16:37.500
+protocol.
+
+00:16:37.540 --> 00:16:40.420
+But it turns out that because the governance is not defined,
+
+00:16:40.420 --> 00:16:42.000
+the governance is economics.
+
+00:16:42.000 --> 00:16:44.480
+And the economics determines the outcome.
+
+00:16:44.480 --> 00:16:48.490
+And that means that communities whose pattern doesn't match the dominant
+
+00:16:48.490 --> 00:16:54.410
+engagement pattern get structurally disadvantaged over the communities that do participate
+
+00:16:54.410 --> 00:16:57.700
+in, like, this engagement optimization.
+
+00:16:57.700 --> 00:16:59.620
+Regardless of...
+
+00:16:59.620 --> 00:17:02.170
+Irregardless of that, the protocol guarantees your rights
+
+00:17:02.210 --> 00:17:02.420
+.
+
+00:17:02.980 --> 00:17:05.260
+And the rights to choose is, of your, to choose
+
+00:17:05.400 --> 00:17:08.080
+your own algorithm, and it's only meaningful, is,
+
+00:17:08.150 --> 00:17:12.040
+like, if the algorithms can actually, if there's worth
+
+00:17:12.050 --> 00:17:14.160
+choosing in between them.
+
+00:17:14.160 --> 00:17:17.190
+But because they all point to the single data space, like
+
+00:17:17.190 --> 00:17:19.260
+, they all converge on each other.
+
+00:17:19.280 --> 00:17:22.420
+And there is still...
+
+00:17:22.420 --> 00:17:25.430
+That doesn't mean, like, there's still space,
+
+00:17:25.430 --> 00:17:27.990
+space for institutional governance.
+
+00:17:28.000 --> 00:17:31.210
+And Black Sky actually gives a very good illustration of what that
+
+00:17:31.500 --> 00:17:32.240
+can look like.
+
+00:17:32.360 --> 00:17:34.260
+These are two recent posts by Rudy.
+
+00:17:34.260 --> 00:17:37.060
+Like, he showed trending on...
+
+00:17:37.060 --> 00:17:40.870
+What was trending on the Black Sky feeds, the Black Sky
+
+00:17:41.030 --> 00:17:45.580
+trending topics versus what's trending on Blue Sky on the wider
+
+00:17:45.580 --> 00:17:46.540
+network.
+
+00:17:46.580 --> 00:17:49.520
+And I think that gives a very good insight of, like
+
+00:17:49.520 --> 00:17:52.550
+, okay, what does it actually mean to do create this
+
+00:17:52.610 --> 00:17:55.800
+sort of divergence in topics and conversations?
+
+00:17:56.140 --> 00:17:59.350
+Because that means setting very clear boundaries in very clear, clearly
+
+00:17:59.700 --> 00:18:04.960
+defined communities, and those communities can have their own governance and
+
+00:18:04.960 --> 00:18:07.740
+their own cultures that create it.
+
+00:18:07.840 --> 00:18:12.930
+But what we see is that when you have the implicit governance
+
+00:18:12.930 --> 00:18:17.690
+choices, like all the spaces that do not get governed by
+
+00:18:17.730 --> 00:18:21.900
+a specific culture, that do not have this clearly defined boundaries
+
+00:18:21.900 --> 00:18:25.220
+, that's where you get economics determine the outcome.
+
+00:18:25.660 --> 00:18:29.970
+And when economics determine the outcome, culture that is optimized for
+
+00:18:30.100 --> 00:18:32.480
+engagement, like K-pop, dominates.
+
+00:18:32.660 --> 00:18:33.660
+Thank you.
+
+00:18:33.660 --> 00:18:35.660
+Thank you.
+
+00:18:35.660 --> 00:18:37.660
+Thank you.
+
+00:18:37.660 --> 00:18:41.650
+Do you want to take a few questions?
+
+00:18:41.660 --> 00:18:42.660
+Sure.
+
+00:18:42.660 --> 00:18:43.660
+Questions.
+
+00:18:43.660 --> 00:18:44.560
+So what do we do next?
+
+00:18:44.560 --> 00:18:45.560
+Listen to K-pop.
+
+00:18:45.560 --> 00:18:46.560
+Okay.
+
+00:18:46.560 --> 00:18:47.560
+Like, it's very easy.
+
+00:18:47.560 --> 00:18:48.560
+Thank you.
+
+00:18:48.560 --> 00:18:49.560
+Great.
+
+00:18:49.560 --> 00:18:50.560
+We're done now.
+
+00:18:50.560 --> 00:18:58.680
+You've written a great
+
+00:18:58.680 --> 00:19:05.510
+post about this.
+
+00:19:05.560 --> 00:19:10.980
+I think a lot more about governance going forward generally, and
+
+00:19:10.980 --> 00:19:15.340
+as you said, collecting funds for other entities in the network
+
+00:19:15.340 --> 00:19:15.560
+.
+
+00:19:15.560 --> 00:19:16.560
+Absolutely.
+
+00:19:16.560 --> 00:19:17.560
+Yeah.
+
+00:19:17.560 --> 00:19:18.560
+Thank you very much.
+
+00:19:18.560 --> 00:19:19.560
+Thank you.
+
+00:19:19.560 --> 00:19:22.560
+Thank you.

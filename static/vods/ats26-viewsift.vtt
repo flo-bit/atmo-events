@@ -1,0 +1,679 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:03.240
+So, hello everyone.
+
+00:00:03.240 --> 00:00:06.400
+My name is Alex, and my talk today is going to
+
+00:00:06.400 --> 00:00:09.000
+be Building Collective Intelligence to Reduce Hostility.
+
+00:00:09.010 --> 00:00:15.190
+Several weeks ago, when I applied for this talk, the
+
+00:00:15.260 --> 00:00:19.000
+topic wasn't reducing hostility, but rather reducing division.
+
+00:00:19.010 --> 00:00:22.570
+I've since pivoted on that idea a little bit because
+
+00:00:22.570 --> 00:00:25.500
+I've realized that it isn't division that we're actually
+
+00:00:25.630 --> 00:00:25.990
+out to solve.
+
+00:00:26.010 --> 00:00:29.740
+See, I grew up in the Southeastern United States
+
+00:00:29.740 --> 00:00:34.400
+, and in recent years, I've been inspired to create
+
+00:00:34.400 --> 00:00:39.740
+this project because I've seen how divided my friends and family
+
+00:00:39.740 --> 00:00:42.990
+have become on lots of different topics.
+
+00:00:43.010 --> 00:00:46.000
+But the division isn't exactly the problem.
+
+00:00:46.000 --> 00:00:52.000
+See, it's our differences in cultures and backgrounds and experiences
+
+00:00:52.010 --> 00:00:56.700
+that makes the world really interesting and leads to a lot of
+
+00:00:56.710 --> 00:00:58.000
+innovation.
+
+00:00:58.010 --> 00:01:01.820
+It's when the discussion around those differences leads to hostility
+
+00:01:01.820 --> 00:01:05.990
+, broken or damaged relationships, or in worst case, destruction
+
+00:01:06.070 --> 00:01:10.190
+of the world, do we start to have a lot of
+
+00:01:10.260 --> 00:01:12.000
+problems.
+
+00:01:12.010 --> 00:01:16.660
+Today, a lot of the conversation around those differences takes place
+
+00:01:16.660 --> 00:01:18.000
+on social media.
+
+00:01:18.010 --> 00:01:22.070
+But it's important to realize that social media was never designed
+
+00:01:22.090 --> 00:01:24.000
+for this type of discourse.
+
+00:01:24.010 --> 00:01:28.070
+It was made to connect you with your friends, share updates
+
+00:01:28.110 --> 00:01:30.000
+, and build community.
+
+00:01:30.010 --> 00:01:31.990
+Take this post for example.
+
+00:01:32.130 --> 00:01:35.230
+Someone says, "The moon is made of cheese." Now
+
+00:01:35.230 --> 00:01:39.190
+, because they posted this to any of the popular social media
+
+00:01:39.190 --> 00:01:44.980
+platforms, and they all share this same fundamental structure where your
+
+00:01:45.020 --> 00:01:49.070
+social media profile is meant to represent you and how you see
+
+00:01:49.120 --> 00:01:53.910
+the world, there's the assumption that this person actually believes
+
+00:01:54.010 --> 00:01:56.000
+the moon is made of cheese.
+
+00:01:56.010 --> 00:01:59.060
+Now, because they've posted this, they've also opened
+
+00:01:59.100 --> 00:02:05.060
+themselves up to personal attack from other users who believe differently than
+
+00:02:05.210 --> 00:02:07.540
+they do, saying things like you're wrong, you're
+
+00:02:07.540 --> 00:02:11.490
+crazy, or in worst case, leave the platform altogether and
+
+00:02:11.490 --> 00:02:14.990
+divide because they don't want to be affiliated with the cheese
+
+00:02:14.990 --> 00:02:16.000
+moon people.
+
+00:02:16.010 --> 00:02:19.910
+Now, maybe someone else comes in and tries to remedi
+
+00:02:19.980 --> 00:02:23.070
+ate the conversation, saying, "You're a little bit
+
+00:02:23.070 --> 00:02:23.990
+off base here.
+
+00:02:24.110 --> 00:02:26.440
+Here's a link to go and learn more, and maybe
+
+00:02:26.440 --> 00:02:29.310
+it'll help change your perspective." But there's problems with
+
+00:02:29.330 --> 00:02:29.990
+this also.
+
+00:02:30.010 --> 00:02:33.620
+Where's this person going to be the next time somebody thinks
+
+00:02:33.620 --> 00:02:34.980
+the moon is cheese?
+
+00:02:35.010 --> 00:02:40.250
+And for our most polarized topics, it takes lots of different
+
+00:02:40.250 --> 00:02:46.000
+sources to really get a consensus of the various issues.
+
+00:02:46.010 --> 00:02:49.410
+And if we can't discuss confidently if the moon is cheese
+
+00:02:49.410 --> 00:02:52.640
+or not, how are we possibly going to be able to
+
+00:02:52.640 --> 00:02:56.990
+discuss more pressing issues in the world productively?
+
+00:02:57.010 --> 00:03:01.350
+It's for all these reasons that we're building ViewS
+
+00:03:01.350 --> 00:03:01.980
+ift.
+
+00:03:02.010 --> 00:03:06.980
+ViewSift is this fundamentally new type of social environment.
+
+00:03:07.010 --> 00:03:11.830
+It's an evidence-based social research platform as opposed to
+
+00:03:11.850 --> 00:03:15.000
+the traditional belief-based social media.
+
+00:03:15.010 --> 00:03:18.540
+And we're building it with features in mind to help with
+
+00:03:18.550 --> 00:03:21.990
+discussing polarized content without so much hostility.
+
+00:03:22.010 --> 00:03:27.570
+It starts when you create your first post on ViewSift
+
+00:03:27.570 --> 00:03:28.000
+.
+
+00:03:28.010 --> 00:03:31.050
+So if you think of traditional social media, there's a
+
+00:03:31.050 --> 00:03:32.000
+text box.
+
+00:03:32.010 --> 00:03:34.920
+And at the top of the text box is a prompt saying
+
+00:03:34.920 --> 00:03:37.000
+something like, "What are you thinking?
+
+00:03:37.000 --> 00:03:40.230
+What's up in your world?" or "What's your
+
+00:03:40.230 --> 00:03:44.060
+post?" Different variations to say, "This is open discourse
+
+00:03:44.210 --> 00:03:47.000
+for you to share your mind and opinions on the world."
+
+00:03:47.010 --> 00:03:49.700
+But as we've learned, that's a problem because now
+
+00:03:49.700 --> 00:03:53.000
+you've opened yourself up to attacks on your beliefs.
+
+00:03:53.010 --> 00:03:54.990
+ViewSift works a little bit different.
+
+00:03:55.010 --> 00:03:58.000
+There's still the same text box when you create your post
+
+00:03:58.000 --> 00:04:00.730
+, but the prompt at the top is a little bit different
+
+00:04:00.730 --> 00:04:01.000
+.
+
+00:04:01.010 --> 00:04:04.000
+You see, it's as finished a sentence.
+
+00:04:04.010 --> 00:04:07.470
+"I may or may not believe," and then you put
+
+00:04:07.470 --> 00:04:07.910
+in your claim.
+
+00:04:08.010 --> 00:04:11.440
+So for example, some of the posts that I always feel
+
+00:04:11.440 --> 00:04:14.990
+comfortable creating is, "The moon is made of cheese."
+
+00:04:15.010 --> 00:04:18.280
+"Aliens are real." "At proto isn't
+
+00:04:18.340 --> 00:04:23.000
+decentralized." Or, "Relays are expensive to run."
+
+00:04:23.010 --> 00:04:25.640
+And I've put a little tag on the word "rel
+
+00:04:25.640 --> 00:04:28.390
+ays" to let us all know that we're talking about
+
+00:04:28.390 --> 00:04:32.000
+"At proto relays." So I create the post,
+
+00:04:32.000 --> 00:04:34.860
+"The moon is made of cheese." And you'll notice
+
+00:04:34.860 --> 00:04:38.230
+on the ViewSift site, there's a few differences
+
+00:04:38.230 --> 00:04:40.990
+to traditional social media.
+
+00:04:41.010 --> 00:04:44.600
+At the top, there's a link that centralizes the
+
+00:04:44.600 --> 00:04:48.600
+discourse around this claim, "The moon is made of cheese
+
+00:04:48.690 --> 00:04:52.050
+." And there's one button where you can add support for
+
+00:04:52.050 --> 00:04:52.990
+this claim.
+
+00:04:53.010 --> 00:04:56.900
+And it's important to realize that on this page, you
+
+00:04:56.900 --> 00:05:04.000
+only see supporting points to support the claim above.
+
+00:05:04.010 --> 00:05:07.910
+Now, I don't have any evidence supporting the moon being
+
+00:05:07.970 --> 00:05:09.000
+made of cheese.
+
+00:05:09.010 --> 00:05:11.150
+And you might be thinking, obviously it isn't, so
+
+00:05:11.150 --> 00:05:13.980
+we need to take account that perspective.
+
+00:05:14.010 --> 00:05:17.990
+So that's where we've introduced the sifter.
+
+00:05:18.010 --> 00:05:21.050
+When you click on the sifter, it goes to the
+
+00:05:21.050 --> 00:05:22.980
+opposite perspective.
+
+00:05:23.010 --> 00:05:26.000
+In this case, the moon is not made of cheese.
+
+00:05:26.010 --> 00:05:29.880
+And on this page, you can see the supporting claims that
+
+00:05:29.880 --> 00:05:30.980
+have come in.
+
+00:05:31.010 --> 00:05:35.390
+And it's important to note that all the supporting points are
+
+00:05:35.390 --> 00:05:38.600
+claims themselves, meaning that you can click on them and jump
+
+00:05:38.690 --> 00:05:42.710
+to that claim, see all the supporting reasons, and then
+
+00:05:42.730 --> 00:05:48.000
+click on the sifter to explore other viewpoints.
+
+00:05:48.010 --> 00:05:51.660
+And this gives you the great ability to stay high level and
+
+00:05:51.680 --> 00:05:57.870
+really explore different ideas and perspectives about the world without really having
+
+00:05:57.870 --> 00:06:02.600
+to dive into all the nitty gritty complex research papers
+
+00:06:02.650 --> 00:06:02.930
+.
+
+00:06:03.010 --> 00:06:06.310
+But it's at this point that we're really building on
+
+00:06:06.310 --> 00:06:09.990
+the at proto research, social research ecosystem.
+
+00:06:10.010 --> 00:06:15.530
+And today, this is kind of where we're stopping with
+
+00:06:15.530 --> 00:06:16.990
+view sift.
+
+00:06:17.010 --> 00:06:20.000
+But I guess I'd say this is our checkpoint.
+
+00:06:20.010 --> 00:06:23.350
+You can sift through different views and see the reasons that
+
+00:06:23.350 --> 00:06:26.990
+people support those views to help you break out of echo chambers
+
+00:06:27.040 --> 00:06:31.000
+and thought silos and explore ideas.
+
+00:06:31.010 --> 00:06:36.300
+But pretty soon, we'll be integrating with other social research
+
+00:06:36.300 --> 00:06:41.000
+apps in the app proto ecosystem, apps like margin and symbol
+
+00:06:41.000 --> 00:06:46.310
+, to help you identify the various quotes from sources online that
+
+00:06:46.310 --> 00:06:48.990
+support ideas and link them together.
+
+00:06:49.010 --> 00:06:53.400
+And for the links themselves, you can share them with your
+
+00:06:53.400 --> 00:06:58.260
+symbol social graph and add them to collections to share with the
+
+00:06:58.260 --> 00:07:00.000
+other researchers.
+
+00:07:00.010 --> 00:07:03.610
+Then, in the future, we can build on all of
+
+00:07:03.610 --> 00:07:08.640
+these pieces to really build community-backed ways to know
+
+00:07:08.640 --> 00:07:11.000
+when to trust information.
+
+00:07:11.010 --> 00:07:15.610
+And for all of the great ideas that rise from this noise
+
+00:07:15.610 --> 00:07:19.730
+that we're in, we can build features to help prioritize
+
+00:07:19.730 --> 00:07:19.990
+.
+
+00:07:20.010 --> 00:07:23.000
+If all of this sounds exciting, we're going to have
+
+00:07:23.000 --> 00:07:26.190
+a table upstairs in the lounge a little bit later, so
+
+00:07:26.260 --> 00:07:30.250
+we'll have a little bit of demos you can try out
+
+00:07:30.250 --> 00:07:33.000
+and ask us questions there.
+
+00:07:33.010 --> 00:07:35.660
+Thank you so much for @Science for having me to
+
+00:07:35.660 --> 00:07:38.790
+talk with you today, and I appreciate you guys for listening
+
+00:07:38.860 --> 00:07:39.000
+.
+
+00:07:39.030 --> 00:07:49.000
+Thanks, Alex.
+
+00:07:49.010 --> 00:07:50.000
+Any questions?
+
+00:07:50.010 --> 00:07:51.000
+Thank you.
+
+00:07:51.010 --> 00:07:52.000
+Yeah, thanks.
+
+00:07:52.010 --> 00:07:55.000
+It sounds like a really interesting platform, and I think that
+
+00:07:55.010 --> 00:07:57.340
+there's a lot of cases where this is a useful thing
+
+00:07:57.340 --> 00:07:58.000
+to have.
+
+00:07:58.010 --> 00:08:01.000
+I wanted to ask about what plans you have for moderation,
+
+00:08:01.000 --> 00:08:04.360
+because as a platform, I feel like you have to also
+
+00:08:04.360 --> 00:08:08.000
+make decisions on what is an acceptable viewpoint, because there's
+
+00:08:08.000 --> 00:08:11.580
+people who give crackpot science along, say, the lines
+
+00:08:11.580 --> 00:08:13.760
+of eugenics or trying to push racist things or trans
+
+00:08:13.760 --> 00:08:15.000
+phobic things and stuff.
+
+00:08:15.010 --> 00:08:18.630
+And I was wondering if you thought about moderation and how you
+
+00:08:18.640 --> 00:08:21.990
+might decide, because I feel like you have to decide what
+
+00:08:22.040 --> 00:08:24.000
+'s an acceptable thing to discuss.
+
+00:08:24.010 --> 00:08:26.920
+First, it's important to realize that with all of these
+
+00:08:26.920 --> 00:08:30.000
+technologies, we're in the very ground stages of it.
+
+00:08:30.010 --> 00:08:33.910
+So it's important that we introduce the community to each of
+
+00:08:33.980 --> 00:08:38.450
+these steps to make sure that everything makes sense before we build
+
+00:08:38.450 --> 00:08:40.000
+in other features.
+
+00:08:40.010 --> 00:08:43.000
+Moderation is absolutely very important.
+
+00:08:43.010 --> 00:08:47.700
+And by leveraging this app proto type of world, we're
+
+00:08:47.700 --> 00:08:52.810
+going to focus on making this claim section of the app proto
+
+00:08:52.810 --> 00:08:57.000
+ecosystem as robust as possible, because there are a lot of
+
+00:08:57.000 --> 00:09:01.850
+nuanced details to think about that we need to do for moderation
+
+00:09:01.850 --> 00:09:02.000
+.
+
+00:09:02.010 --> 00:09:08.860
+But then we can leverage other tools to really build this community
+
+00:09:08.860 --> 00:09:12.000
+based moderation atmosphere.
+
+00:09:12.010 --> 00:09:15.000
+Yeah, wonderful idea and great presentation.
+
+00:09:15.010 --> 00:09:17.180
+I'm curious how you think one of the big effects of
+
+00:09:17.180 --> 00:09:19.980
+polarization, right, is a resistance to new information.
+
+00:09:20.010 --> 00:09:24.610
+And even with new information, you'll have different interpretations of
+
+00:09:24.610 --> 00:09:26.990
+the same kind of piece of evidence.
+
+00:09:27.010 --> 00:09:29.790
+I'm curious how you all are thinking about attracting users and
+
+00:09:29.790 --> 00:09:32.580
+how you imagine folks who are already polarized are going to choose
+
+00:09:32.670 --> 00:09:35.000
+to engage with ideas with which they differ.
+
+00:09:35.030 --> 00:09:42.170
+So one of the things that really hinders people from being
+
+00:09:42.170 --> 00:09:46.320
+able to open up freely and share their ideas is when they
+
+00:09:46.320 --> 00:09:52.000
+'re in an atmosphere where they know the second that somebody has
+
+00:09:52.000 --> 00:09:54.430
+a disagreement with them, that it's going to be this
+
+00:09:54.430 --> 00:09:58.190
+escalation and they're going to start attacking each other over
+
+00:09:58.190 --> 00:10:00.000
+their beliefs, all the things we talked about.
+
+00:10:00.010 --> 00:10:02.940
+So the first step we think is just creating that space where
+
+00:10:02.940 --> 00:10:05.700
+you don't just have to share the things that you believe
+
+00:10:05.700 --> 00:10:08.710
+in, but just generally the things that you've heard are
+
+00:10:08.710 --> 00:10:10.000
+true about the world.
+
+00:10:10.010 --> 00:10:15.150
+And then we can have open discourse on that and absolutely working
+
+00:10:15.150 --> 00:10:20.590
+with the community to develop ways to improve that type of atmosphere
+
+00:10:20.590 --> 00:10:21.000
+.
+
+00:10:21.010 --> 00:10:25.670
+But then it kind of gets this foundation where we can start
+
+00:10:25.670 --> 00:10:32.200
+having more in-person collaboration experiences with people because they know
+
+00:10:32.200 --> 00:10:35.930
+it's a safe space to share a brainstorm to move away
+
+00:10:36.030 --> 00:10:41.670
+from this hostility environment and more just a general curiosity environment
+
+00:10:41.770 --> 00:10:42.000
+.
+
+00:10:42.010 --> 00:10:48.990
+So, yeah, one more question.
+
+00:10:49.010 --> 00:10:50.990
+This is exciting.
+
+00:10:51.010 --> 00:10:55.510
+I'm curious about the formulation of putting in a claim rather
+
+00:10:55.510 --> 00:10:57.000
+than a question.
+
+00:10:57.020 --> 00:11:02.700
+And I wonder also what it might be like to have the
+
+00:11:02.700 --> 00:11:06.050
+ability to ask questions that are beyond true, true or false
+
+00:11:06.070 --> 00:11:07.000
+or yes or no.
+
+00:11:07.020 --> 00:11:08.000
+Yeah.
+
+00:11:08.010 --> 00:11:16.520
+So this is the knowledge graph or discourse graph
+
+00:11:16.520 --> 00:11:20.000
+, as you guys are calling it.
+
+00:11:20.010 --> 00:11:21.990
+There's multiple layers to it.
+
+00:11:22.010 --> 00:11:24.480
+And it's important to realize that at each one of those
+
+00:11:24.480 --> 00:11:27.790
+layers, there's a lot of things to consider with like
+
+00:11:27.830 --> 00:11:33.800
+duplicate information, moderation, and helping like the signal come from
+
+00:11:33.800 --> 00:11:35.000
+the noise.
+
+00:11:35.020 --> 00:11:41.480
+And so if you think of like, you know, most
+
+00:11:41.630 --> 00:11:46.360
+things you could say, like, should we X and you
+
+00:11:46.360 --> 00:11:48.000
+could say that as a question.
+
+00:11:48.010 --> 00:11:51.070
+But then I could also say just we should X and just
+
+00:11:51.080 --> 00:11:52.980
+put it out as a statement.
+
+00:11:53.010 --> 00:11:57.380
+So there's what we're doing with this claim section is
+
+00:11:57.380 --> 00:12:01.990
+focusing on the statements and getting those right.
+
+00:12:02.010 --> 00:12:05.990
+And then once we know that the community is good with that
+
+00:12:06.020 --> 00:12:10.990
+part of the social graph, then we can start building questions
+
+00:12:10.990 --> 00:12:14.090
+into the mix and start to like have those questions linked to
+
+00:12:14.090 --> 00:12:15.000
+all the other claims.
+
+00:12:15.010 --> 00:12:18.240
+It's really kind of multiple levels that we're building out
+
+00:12:18.240 --> 00:12:21.350
+, not that we're trying to exclude questions from the mix
+
+00:12:21.350 --> 00:12:22.000
+entirely.
+
+00:12:22.010 --> 00:12:23.000
+Thank you very much.
+
+00:12:23.010 --> 00:12:24.000
+Thanks, Alex.
+
+00:12:24.010 --> 00:12:25.990
+.

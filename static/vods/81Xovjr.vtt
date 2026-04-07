@@ -1,0 +1,1009 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.140
+Oh, it's so awesome to see you guys.
+
+00:00:05.140 --> 00:00:08.800
+I am loving this conference.
+
+00:00:08.800 --> 00:00:13.980
+So many amazing people building so many incredible things.
+
+00:00:13.980 --> 00:00:18.380
+My background is I've been building browsers since the early 90
+
+00:00:18.380 --> 00:00:19.940
+s, if you can believe that.
+
+00:00:19.940 --> 00:00:24.620
+I've built voice browsers, I've built 3D browsers
+
+00:00:24.620 --> 00:00:29.420
+, I've worked on browsers that are really about giving access
+
+00:00:29.420 --> 00:00:33.400
+and discovery to people who are on an open protocol or on
+
+00:00:33.400 --> 00:00:36.080
+an open network.
+
+00:00:36.080 --> 00:00:37.820
+This was a browser I worked on.
+
+00:00:37.820 --> 00:00:41.570
+I'm very proud to have been one of the team members
+
+00:00:41.570 --> 00:00:44.780
+of Netscape Navigator back in the day.
+
+00:00:44.780 --> 00:00:47.140
+It was an incredible time.
+
+00:00:47.140 --> 00:00:50.890
+At that time, when I joined Netscape, people
+
+00:00:50.890 --> 00:00:55.290
+told me I was crazy because AOL was how everyone was
+
+00:00:55.290 --> 00:00:56.750
+online.
+
+00:00:56.760 --> 00:00:58.580
+AOL was super easy to use.
+
+00:00:58.580 --> 00:01:01.460
+You put a CD-ROM in your computer.
+
+00:01:01.460 --> 00:01:02.460
+Crazy.
+
+00:01:02.460 --> 00:01:03.460
+But I know.
+
+00:01:03.460 --> 00:01:04.460
+But that's what you did.
+
+00:01:04.460 --> 00:01:06.420
+And everyone thought that was awesome.
+
+00:01:06.420 --> 00:01:09.060
+And when you would talk about the web, they were like
+
+00:01:09.060 --> 00:01:12.000
+, hold on a second, I have to download something?
+
+00:01:12.000 --> 00:01:13.000
+What does that even mean?
+
+00:01:13.000 --> 00:01:15.740
+I have to put in HTTPS?
+
+00:01:15.740 --> 00:01:16.930
+I'm not doing that.
+
+00:01:16.940 --> 00:01:18.880
+That's going nowhere.
+
+00:01:18.880 --> 00:01:23.180
+And the web really was kind of sort of moving along,
+
+00:01:23.180 --> 00:01:25.640
+but at a sort of a slow pace.
+
+00:01:25.640 --> 00:01:27.960
+What happened was two things.
+
+00:01:27.960 --> 00:01:32.870
+First of all, people started building amazing websites, completely awesome
+
+00:01:32.900 --> 00:01:33.800
+websites.
+
+00:01:33.800 --> 00:01:38.580
+And those websites ultimately started to attract people to the web.
+
+00:01:38.580 --> 00:01:42.130
+And what Netscape did and what the browser did is
+
+00:01:42.130 --> 00:01:46.270
+it acted as a gateway of discovery to find those websites in
+
+00:01:46.270 --> 00:01:47.280
+the first place.
+
+00:01:47.280 --> 00:01:50.950
+And then allow you to easily surf those websites across the web
+
+00:01:50.950 --> 00:01:51.240
+.
+
+00:01:51.240 --> 00:01:55.880
+And this was basically the beginning of a virtuous cycle, because
+
+00:01:55.880 --> 00:02:00.200
+as more people discovered more websites and could see what it could
+
+00:02:00.250 --> 00:02:04.000
+do way beyond AOL, they ultimately made more websites and
+
+00:02:04.000 --> 00:02:05.160
+more people joined.
+
+00:02:05.160 --> 00:02:06.740
+And this virtuous cycle happened.
+
+00:02:06.740 --> 00:02:10.700
+And ultimately, AOL was dethroned as the primary
+
+00:02:10.700 --> 00:02:16.260
+walled garden and the main way that we spent time online
+
+00:02:16.410 --> 00:02:16.840
+.
+
+00:02:16.840 --> 00:02:20.380
+So fast forward to today, we have a new set of
+
+00:02:20.380 --> 00:02:21.980
+walled gardens.
+
+00:02:22.000 --> 00:02:25.250
+And these walled gardens are more insidious, because
+
+00:02:25.250 --> 00:02:29.400
+they actually own all of our connections to each other.
+
+00:02:29.400 --> 00:02:30.540
+Think about that.
+
+00:02:30.540 --> 00:02:34.500
+All of the connections between humans online are owned by just a
+
+00:02:34.500 --> 00:02:35.680
+few companies.
+
+00:02:35.700 --> 00:02:37.460
+You guys all know this.
+
+00:02:37.460 --> 00:02:39.960
+But this is a huge problem.
+
+00:02:39.960 --> 00:02:43.070
+And these companies need to be dethroned.
+
+00:02:43.080 --> 00:02:44.880
+So how do we do that?
+
+00:02:44.880 --> 00:02:48.030
+Well, let's get another virtuous cycle going.
+
+00:02:48.040 --> 00:02:52.130
+There's already some amazing things that are happening on the social
+
+00:02:52.150 --> 00:02:52.640
+web.
+
+00:02:52.640 --> 00:02:56.000
+And when I say the social web, I mean atmosphere,
+
+00:02:56.000 --> 00:02:57.140
+activity pub.
+
+00:02:57.140 --> 00:03:02.900
+These are two open protocols that have allowed us to standardize
+
+00:03:02.900 --> 00:03:05.520
+human connection online.
+
+00:03:05.520 --> 00:03:08.250
+That is very, very fundamental.
+
+00:03:08.340 --> 00:03:11.420
+And so, of course, what I've been working on
+
+00:03:11.420 --> 00:03:14.040
+, again, is yet another browser.
+
+00:03:14.040 --> 00:03:15.840
+This is a new kind of browser.
+
+00:03:15.840 --> 00:03:17.980
+This is a browser for a new kind of web.
+
+00:03:18.060 --> 00:03:20.010
+The open social web.
+
+00:03:20.020 --> 00:03:21.720
+This browser is called Surf.
+
+00:03:21.720 --> 00:03:24.380
+It's available as a private beta right now.
+
+00:03:24.380 --> 00:03:26.180
+You can actually download it.
+
+00:03:26.180 --> 00:03:28.100
+Actually, if you go to surf.
+
+00:03:28.100 --> 00:03:31.400
+social, you can sign up for the beta.
+
+00:03:31.400 --> 00:03:34.130
+And anyone who signs up today or tomorrow will make sure you
+
+00:03:34.240 --> 00:03:34.780
+get in.
+
+00:03:34.780 --> 00:03:38.960
+So operators are standing by.
+
+00:03:38.960 --> 00:03:42.860
+And what Surf does is it allows you to not so much
+
+00:03:42.860 --> 00:03:46.190
+browse websites, but browse feeds.
+
+00:03:46.200 --> 00:03:49.560
+We think of feeds as the new website, as a new
+
+00:03:49.560 --> 00:03:54.430
+destination that people can go to on the social web.
+
+00:03:54.440 --> 00:03:58.750
+Custom feeds are one of the most important things that Blue Sky
+
+00:03:58.750 --> 00:03:59.960
+innovated on.
+
+00:03:59.960 --> 00:04:02.530
+And there's a whole ecosystem of people who have already made
+
+00:04:02.540 --> 00:04:04.820
+amazing feeds on things like Graze.
+
+00:04:04.820 --> 00:04:07.100
+Is Devon here?
+
+00:04:07.100 --> 00:04:11.900
+On all sorts of other really fantastic tools.
+
+00:04:11.900 --> 00:04:14.900
+And what we want to do is help people discover all those
+
+00:04:14.900 --> 00:04:15.980
+amazing feeds.
+
+00:04:15.980 --> 00:04:18.590
+And not just, by the way, on @Proto
+
+00:04:18.590 --> 00:04:20.880
+, but also on ActivityPub.
+
+00:04:20.920 --> 00:04:24.750
+And there's a whole other dimension of the web, which
+
+00:04:24.750 --> 00:04:28.460
+is built on RSS, another kind of feed model.
+
+00:04:28.460 --> 00:04:32.610
+So what Surf lets you do is it lets you basically browse
+
+00:04:32.620 --> 00:04:36.600
+and discover and surf any feed on the social web, @
+
+00:04:36.600 --> 00:04:39.140
+Proto, ActivityPub, RSS, and
+
+00:04:39.140 --> 00:04:44.720
+even more interestingly, bring them all together into totally new kinds
+
+00:04:44.720 --> 00:04:45.540
+of feeds.
+
+00:04:45.540 --> 00:04:48.920
+So I'll show you a little bit about how you do
+
+00:04:48.920 --> 00:04:49.660
+that.
+
+00:04:49.660 --> 00:04:53.550
+So what you're seeing here is Surf on the desktop web
+
+00:04:53.550 --> 00:04:53.880
+.
+
+00:04:53.880 --> 00:04:55.360
+This is actually a preview.
+
+00:04:55.360 --> 00:04:58.090
+We're going to be launching this in, knock on wood
+
+00:04:58.200 --> 00:05:02.680
+, hopefully a few days later this coming week.
+
+00:05:02.760 --> 00:05:05.960
+And up at the top you can see you can search all
+
+00:05:05.960 --> 00:05:09.220
+posts across the social web on ActivityPub, App
+
+00:05:09.220 --> 00:05:11.450
+Proto, or RSS.
+
+00:05:11.460 --> 00:05:14.420
+And they're organized into lots and lots of different feeds.
+
+00:05:14.420 --> 00:05:16.500
+And then, of course, we can also feature different feeds
+
+00:05:16.500 --> 00:05:16.710
+.
+
+00:05:16.720 --> 00:05:20.610
+So we're featuring some fantastically awesome feeds that are on
+
+00:05:20.610 --> 00:05:21.770
+the social web.
+
+00:05:21.780 --> 00:05:23.520
+Shout out to Rudy with Black Sky.
+
+00:05:23.520 --> 00:05:25.650
+This is one of the, you know, Black Sky is
+
+00:05:25.650 --> 00:05:27.670
+more than just a feed, to be clear.
+
+00:05:27.680 --> 00:05:30.320
+But people can experience it as a feed.
+
+00:05:30.320 --> 00:05:32.360
+It's a highly moderated experience.
+
+00:05:32.360 --> 00:05:33.740
+It's a destination.
+
+00:05:33.740 --> 00:05:36.350
+It's not just one of many things that you see and
+
+00:05:36.440 --> 00:05:39.580
+follow in blue sky and shows up in your timeline.
+
+00:05:39.580 --> 00:05:40.580
+It's a destination.
+
+00:05:40.580 --> 00:05:41.580
+It's a place to go.
+
+00:05:41.580 --> 00:05:42.580
+It's highly moderated.
+
+00:05:42.580 --> 00:05:43.580
+It's amazing.
+
+00:05:43.580 --> 00:05:45.840
+Also, you can see here film feed.
+
+00:05:45.840 --> 00:05:47.160
+Is David Amell in the audience?
+
+00:05:47.160 --> 00:05:48.160
+Shout out to David Amell.
+
+00:05:48.160 --> 00:05:49.160
+He made this.
+
+00:05:49.160 --> 00:05:51.890
+He's a film photographer.
+
+00:05:51.960 --> 00:05:57.100
+And he's effectively created Instagram for film photographers here.
+
+00:05:57.100 --> 00:05:59.740
+You see posts that are federated via threads that come from
+
+00:05:59.800 --> 00:06:03.350
+Instagram and make their way through threads in an activity pub and
+
+00:06:03.370 --> 00:06:04.640
+end up in this feed.
+
+00:06:04.640 --> 00:06:05.830
+You see podcasts.
+
+00:06:05.840 --> 00:06:07.950
+You see YouTube channels.
+
+00:06:07.980 --> 00:06:09.980
+I'll show it to you in a second.
+
+00:06:09.980 --> 00:06:13.370
+We also have Andra's news feed here made on Gra
+
+00:06:13.410 --> 00:06:13.860
+ze.
+
+00:06:13.860 --> 00:06:14.860
+There's Devin.
+
+00:06:14.860 --> 00:06:16.720
+Shout out to Devin.
+
+00:06:16.720 --> 00:06:19.300
+Andra, is she here?
+
+00:06:19.300 --> 00:06:20.380
+She's amazing as well.
+
+00:06:20.380 --> 00:06:22.100
+She's made some incredible feeds.
+
+00:06:22.100 --> 00:06:23.100
+Andra.
+
+00:06:23.100 --> 00:06:24.100
+Just incredible.
+
+00:06:24.100 --> 00:06:27.490
+And so, what we want to try to do with Surf
+
+00:06:27.530 --> 00:06:30.790
+is bring the social web to the masses.
+
+00:06:30.840 --> 00:06:31.840
+To my mom.
+
+00:06:31.840 --> 00:06:32.840
+To my teenage daughters.
+
+00:06:32.840 --> 00:06:37.320
+And have them discover all these incredible feeds that people have been
+
+00:06:37.320 --> 00:06:38.020
+making.
+
+00:06:38.020 --> 00:06:40.750
+We also want to make it easy for people to make feeds
+
+00:06:40.860 --> 00:06:41.570
+as well.
+
+00:06:41.580 --> 00:06:44.950
+Kind of a little bit more of like a fun way to
+
+00:06:44.950 --> 00:06:46.560
+make some feeds.
+
+00:06:46.560 --> 00:06:50.380
+And ways that bring those multiple protocols together.
+
+00:06:50.380 --> 00:06:52.530
+Like RSS, ActivityPub, and AppPr
+
+00:06:52.570 --> 00:06:53.050
+oto.
+
+00:06:53.060 --> 00:06:56.730
+And then publish those feeds to BlueSky and ultimately to
+
+00:06:56.730 --> 00:06:57.500
+the web.
+
+00:06:57.500 --> 00:06:59.870
+So let me show you how that works.
+
+00:06:59.880 --> 00:07:02.020
+So I'm just going to scroll down here.
+
+00:07:02.060 --> 00:07:03.880
+And I'm going to make a feed.
+
+00:07:03.880 --> 00:07:06.220
+And I'm going to make a feed about backpacking.
+
+00:07:06.220 --> 00:07:08.160
+So let's go ahead.
+
+00:07:08.160 --> 00:07:12.670
+And I'm just going to type in backpacking here.
+
+00:07:12.680 --> 00:07:14.970
+And here are some sources right away that we're going to
+
+00:07:15.010 --> 00:07:15.870
+recommend to you.
+
+00:07:15.880 --> 00:07:18.050
+And because we use @Proto and ActivityPub
+
+00:07:18.070 --> 00:07:21.520
+and RSS, these are coming from all these different places
+
+00:07:21.560 --> 00:07:21.860
+.
+
+00:07:21.860 --> 00:07:24.510
+So I'm going to start with just adding in a hashtag
+
+00:07:24.560 --> 00:07:25.480
+backpacking.
+
+00:07:25.480 --> 00:07:28.170
+Now what's cool about this hashtag is it's multi-
+
+00:07:28.180 --> 00:07:28.980
+protocol.
+
+00:07:28.980 --> 00:07:32.940
+So if someone posts on threads with hashtag backpacking.
+
+00:07:32.940 --> 00:07:34.500
+Or they post on BlueSky.
+
+00:07:34.500 --> 00:07:35.760
+Or on BlackSky.
+
+00:07:35.760 --> 00:07:37.000
+Or on PixelFed.
+
+00:07:37.000 --> 00:07:38.000
+Or on Skylight.
+
+00:07:38.000 --> 00:07:39.000
+Or on YouTube.
+
+00:07:39.000 --> 00:07:40.000
+Or on Flipboard.
+
+00:07:40.000 --> 00:07:43.470
+With that hashtag, that post will show up in this feed
+
+00:07:43.470 --> 00:07:44.740
+that I'm making.
+
+00:07:44.740 --> 00:07:47.660
+I'm going to go ahead and add some YouTube channels here
+
+00:07:47.660 --> 00:07:47.910
+.
+
+00:07:47.920 --> 00:07:48.920
+Backpacking TV.
+
+00:07:48.920 --> 00:07:49.920
+Backpacking.
+
+00:07:49.920 --> 00:07:50.920
+There's a ton of these great YouTube channels.
+
+00:07:50.920 --> 00:07:54.550
+I can always go just search for specific YouTube channels if I
+
+00:07:54.550 --> 00:07:55.780
+want to add them.
+
+00:07:55.780 --> 00:07:57.140
+Also we've got podcasts.
+
+00:07:57.140 --> 00:07:59.730
+Because we support RSS that gives us access to the world
+
+00:07:59.730 --> 00:08:00.530
+of podcasts.
+
+00:08:00.560 --> 00:08:04.650
+So every podcast on earth you can put into a feed.
+
+00:08:04.660 --> 00:08:07.030
+So I'm going to go ahead and pick some of these
+
+00:08:07.040 --> 00:08:07.300
+.
+
+00:08:07.300 --> 00:08:08.720
+This is really fun to do too.
+
+00:08:08.720 --> 00:08:11.220
+Because a lot of times you don't even know these podcasts
+
+00:08:11.220 --> 00:08:11.830
+existed.
+
+00:08:11.840 --> 00:08:13.600
+And so you can just pull them all together.
+
+00:08:13.600 --> 00:08:18.620
+And then also what's really neat is that feeds, we
+
+00:08:18.620 --> 00:08:20.540
+think of feeds as like building blocks.
+
+00:08:20.540 --> 00:08:23.210
+So you can put feeds inside of feeds.
+
+00:08:23.220 --> 00:08:25.920
+It's sort of like iframing a website.
+
+00:08:25.920 --> 00:08:27.050
+It's actually kind of cool.
+
+00:08:27.060 --> 00:08:30.210
+So I actually made a feed called The Backpacker where
+
+00:08:30.210 --> 00:08:33.580
+I went and found all my best YouTube channels, my favorite
+
+00:08:33.620 --> 00:08:36.940
+podcasts, my favorite newsletters, my favorite people on
+
+00:08:36.940 --> 00:08:38.600
+BlueSky, on Mastodon.
+
+00:08:38.600 --> 00:08:43.040
+And I pulled them together into one awesome backpacking feed.
+
+00:08:43.040 --> 00:08:45.540
+So I'm just going to make that a source.
+
+00:08:45.540 --> 00:08:50.440
+And then I'm going to add a few more feeds in
+
+00:08:50.440 --> 00:08:51.470
+here.
+
+00:08:51.480 --> 00:08:55.260
+These are from Flipboard magazines, which have been federated
+
+00:08:55.260 --> 00:08:57.100
+by Flipboard on activity pubs.
+
+00:08:57.100 --> 00:08:58.420
+So these are publishers.
+
+00:08:58.420 --> 00:09:01.880
+These are users curating their favorite backpacking articles.
+
+00:09:01.880 --> 00:09:04.760
+I'm going to add an RSS feed here for Section
+
+00:09:04.760 --> 00:09:08.300
+Hiker, which is a fantastic gear review site.
+
+00:09:08.300 --> 00:09:10.700
+I can put in RSS URLs in here and go and
+
+00:09:10.770 --> 00:09:13.540
+specifically add specific RSS feeds.
+
+00:09:13.540 --> 00:09:15.470
+I can even add BlueSky lists or BlueSky
+
+00:09:15.470 --> 00:09:16.460
+starter packs.
+
+00:09:16.460 --> 00:09:19.730
+So let's go ahead and add a couple of those.
+
+00:09:19.740 --> 00:09:23.480
+So I'm going to add two of these here, two
+
+00:09:23.480 --> 00:09:25.170
+starter packs.
+
+00:09:25.180 --> 00:09:27.010
+And you can add BlueSky custom feeds as a source
+
+00:09:27.010 --> 00:09:27.320
+too.
+
+00:09:27.380 --> 00:09:30.640
+So I'm going to add a British Columbia hiking and backpack
+
+00:09:30.640 --> 00:09:31.420
+ing feed.
+
+00:09:31.420 --> 00:09:35.210
+And now I'll hit next and make my, I'm
+
+00:09:35.210 --> 00:09:39.360
+going to give it a name, backpacking.
+
+00:09:39.460 --> 00:09:42.190
+And I can add a community hashtag to it.
+
+00:09:42.260 --> 00:09:48.120
+I'm going to make this about Pacific Northwest backpacking.
+
+00:09:48.120 --> 00:09:52.760
+So I'll give it a hashtag.
+
+00:09:52.760 --> 00:09:55.430
+And now we're going out across the social web and pulling
+
+00:09:55.460 --> 00:10:00.420
+together all these different sources in this one really cool feed.
+
+00:10:00.420 --> 00:10:02.710
+Now as I scroll through this, you're going to see
+
+00:10:02.750 --> 00:10:05.800
+some stuff that isn't actually on topic like this one here
+
+00:10:05.800 --> 00:10:08.360
+because I added some starter packs, right?
+
+00:10:08.360 --> 00:10:10.400
+People as we know post about all sorts of things just because
+
+00:10:10.400 --> 00:10:12.750
+they're in the backpacking starter pack doesn't mean they
+
+00:10:12.750 --> 00:10:14.660
+'re not going to post about politics.
+
+00:10:14.660 --> 00:10:16.790
+So what I can do here is dial in this feed a
+
+00:10:16.790 --> 00:10:17.720
+bit further.
+
+00:10:17.720 --> 00:10:20.180
+I'm going to go into settings and I'm going to
+
+00:10:20.180 --> 00:10:22.200
+go ahead and say, you know what, let's keep
+
+00:10:22.200 --> 00:10:24.480
+this feed on topic.
+
+00:10:24.520 --> 00:10:27.120
+So I'm going to say, let's have all these
+
+00:10:27.220 --> 00:10:29.420
+posts that get into this feed just be about backpacking.
+
+00:10:29.420 --> 00:10:33.480
+I can also go ahead and turn off politics if I want
+
+00:10:33.480 --> 00:10:33.860
+.
+
+00:10:33.860 --> 00:10:38.300
+I can turn off even Elon Musk.
+
+00:10:38.300 --> 00:10:42.740
+I don't want Elon Musk in my feed, right?
+
+00:10:42.740 --> 00:10:46.350
+So I'm going to go ahead and save and then reload
+
+00:10:46.350 --> 00:10:49.180
+this feed.
+
+00:10:49.180 --> 00:10:55.550
+And you should see a very different looking feed that has nothing
+
+00:10:55.550 --> 00:10:58.180
+but wall to wall backpacking goodness.
+
+00:10:58.180 --> 00:11:03.550
+Podcasts, videos, articles, conversations, all about backpack
+
+00:11:03.560 --> 00:11:04.180
+ing.
+
+00:11:04.180 --> 00:11:07.050
+Then what I can do is say, all right, let
+
+00:11:07.050 --> 00:11:09.610
+'s publish this feed to blue sky.
+
+00:11:09.620 --> 00:11:12.370
+So I can just go over here and say publish.
+
+00:11:12.380 --> 00:11:15.580
+And now this backpacking feed is on my profile in blue
+
+00:11:15.580 --> 00:11:16.120
+sky.
+
+00:11:16.120 --> 00:11:18.100
+You can go and see it now and pin it to your
+
+00:11:18.100 --> 00:11:18.620
+home.
+
+00:11:18.620 --> 00:11:21.650
+And then let's also publish it to the web as a
+
+00:11:21.650 --> 00:11:23.060
+social website.
+
+00:11:23.060 --> 00:11:25.620
+So I'm going to go ahead and say, let's
+
+00:11:25.640 --> 00:11:32.460
+just call this backpacking, and hit publish.
+
+00:11:32.500 --> 00:11:33.830
+And now at backpacking.
+
+00:11:33.830 --> 00:11:34.250
+surf.
+
+00:11:34.250 --> 00:11:36.810
+social, if you go there, you'll see this awesome
+
+00:11:36.810 --> 00:11:38.500
+feed that I made.
+
+00:11:38.500 --> 00:11:39.500
+That's right now.
+
+00:11:39.500 --> 00:11:45.330
+And this is really cool because now if I open up in
+
+00:11:45.330 --> 00:11:50.220
+a private window and I go to backpacking.
+
+00:11:50.220 --> 00:11:53.230
+surf.
+
+00:11:53.410 --> 00:11:58.130
+social, and I've never heard, let's say I
+
+00:11:58.130 --> 00:12:01.400
+'ve never heard of blue sky or the atmosphere or any of
+
+00:12:01.400 --> 00:12:04.260
+those things, but I love backpacking and my friends love
+
+00:12:04.360 --> 00:12:05.780
+this backpacking feed.
+
+00:12:05.780 --> 00:12:07.660
+I can just go to backpacking.
+
+00:12:07.660 --> 00:12:08.170
+surf.
+
+00:12:08.250 --> 00:12:11.520
+social and I can see everything that's in this feed.
+
+00:12:11.520 --> 00:12:14.240
+I can go in and I can watch all the videos.
+
+00:12:14.240 --> 00:12:18.280
+We have this like really cool sort of TikTok style watch mode
+
+00:12:18.280 --> 00:12:18.580
+.
+
+00:12:18.600 --> 00:12:21.040
+You can go look at all the articles, just the articles
+
+00:12:21.050 --> 00:12:24.720
+in this feed or all the podcast episodes in this feed.
+
+00:12:24.720 --> 00:12:27.320
+And then if I like this feed, I can just say
+
+00:12:27.420 --> 00:12:28.620
+join community.
+
+00:12:28.620 --> 00:12:31.960
+And then I can join with my blue sky account or my
+
+00:12:31.960 --> 00:12:34.120
+Mastodon account or both.
+
+00:12:34.120 --> 00:12:36.860
+I can sign up for a completely new account which is super
+
+00:12:36.960 --> 00:12:40.310
+easy, which behind the scenes creates an @proto actor
+
+00:12:40.370 --> 00:12:43.030
+and an activity pub actor.
+
+00:12:43.040 --> 00:12:46.980
+So I can just seamlessly engage with anyone wherever they're posting
+
+00:12:46.980 --> 00:12:47.260
+.
+
+00:12:47.260 --> 00:12:49.240
+And I'll just show you one last thing here.
+
+00:12:49.240 --> 00:12:52.980
+This is how cool this can be.
+
+00:12:52.980 --> 00:12:55.350
+So this is David's film feed.
+
+00:12:55.360 --> 00:12:57.050
+If you go to filmfeed.
+
+00:12:57.050 --> 00:12:57.630
+surf.
+
+00:12:57.630 --> 00:13:01.180
+social, you'll see here, this is after putting a
+
+00:13:01.180 --> 00:13:03.600
+little bit of time and energy into kind of making the feed
+
+00:13:03.600 --> 00:13:04.440
+look really cool.
+
+00:13:04.440 --> 00:13:06.800
+You can make it look awesome.
+
+00:13:06.800 --> 00:13:08.800
+And here's what this looks like.
+
+00:13:08.800 --> 00:13:14.620
+Nothing but amazing film photography by really cool film photographers.
+
+00:13:14.620 --> 00:13:19.480
+Curated YouTubers and podcasts that David has hand selected.
+
+00:13:19.480 --> 00:13:22.720
+Great pictures being shared by those photographers.
+
+00:13:22.720 --> 00:13:25.460
+And I can go in and hit like or reply.
+
+00:13:25.500 --> 00:13:28.740
+This is a post from Pixel Fed.
+
+00:13:28.740 --> 00:13:29.740
+Here's a post from threads.
+
+00:13:29.740 --> 00:13:30.740
+I can hit like.
+
+00:13:30.740 --> 00:13:33.470
+I can repost these things.
+
+00:13:33.560 --> 00:13:35.500
+You'll see blue sky posts in here.
+
+00:13:35.500 --> 00:13:37.400
+You'll see YouTube videos.
+
+00:13:37.400 --> 00:13:41.190
+So this gives you a sense of just how amazing the social
+
+00:13:41.190 --> 00:13:42.420
+web really is.
+
+00:13:42.420 --> 00:13:45.410
+And our goal is to really make it super easy to discover
+
+00:13:45.410 --> 00:13:48.540
+all the good stuff that's happening on the social web,
+
+00:13:48.540 --> 00:13:52.860
+get people excited about that, join the social web super easily
+
+00:13:52.860 --> 00:13:55.680
+, which then will inspire a lot more people to build even
+
+00:13:55.680 --> 00:13:56.840
+more cool things.
+
+00:13:56.840 --> 00:13:59.500
+And we'll get that whole virtuous cycle going.
+
+00:13:59.500 --> 00:14:01.970
+And we'll finally dethrone these walled gardens that
+
+00:14:01.970 --> 00:14:07.290
+have owned our human connections for the last 20 years on the
+
+00:14:07.290 --> 00:14:09.160
+internet.
+
+00:14:09.180 --> 00:14:16.280
+Thank you.

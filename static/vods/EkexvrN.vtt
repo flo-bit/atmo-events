@@ -1,0 +1,2068 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:05.000
+So I think the, I asked Ted very last minute to
+
+00:00:05.000 --> 00:00:07.470
+change the description of the talk and I didn't make it
+
+00:00:07.470 --> 00:00:07.570
+.
+
+00:00:07.590 --> 00:00:08.200
+I don't blame him.
+
+00:00:08.200 --> 00:00:10.460
+He's a trans-dimensional being, so.
+
+00:00:10.470 --> 00:00:14.130
+The talk is actually about how, what the future of startups
+
+00:00:14.130 --> 00:00:16.600
+looks like in the world of open data.
+
+00:00:16.610 --> 00:00:19.110
+Not quite so much about, initially it was about like,
+
+00:00:19.110 --> 00:00:22.440
+you know, the experience I had working on a product with
+
+00:00:22.440 --> 00:00:24.410
+lexicons that I didn't, you know, I
+
+00:00:24.410 --> 00:00:25.770
+didn't make a single original lexicon.
+
+00:00:25.790 --> 00:00:26.960
+And I was happy about that.
+
+00:00:27.030 --> 00:00:27.580
+That was a great thing.
+
+00:00:27.990 --> 00:00:30.460
+But, you know, then it kind of expanded more,
+
+00:00:30.470 --> 00:00:33.980
+especially when I started talking to the community a lot more.
+
+00:00:33.990 --> 00:00:36.450
+And then there's like sort of a bigger issue here about
+
+00:00:36.450 --> 00:00:39.100
+, you know, the computer kill mentality that's there in
+
+00:00:39.100 --> 00:00:41.520
+conventional tech startups in the tech world.
+
+00:00:41.530 --> 00:00:44.810
+And what a huge opportunity we have to kind of change that
+
+00:00:44.810 --> 00:00:47.820
+and disrupt that in the ad proto world or the world of
+
+00:00:47.820 --> 00:00:48.680
+open data.
+
+00:00:48.690 --> 00:00:50.420
+So I want to talk about that a little bit.
+
+00:00:50.430 --> 00:00:53.180
+So, yeah, let's get started.
+
+00:00:53.180 --> 00:00:55.760
+Let's dive into like a little bit of the old world
+
+00:00:55.760 --> 00:00:56.020
+.
+
+00:00:56.030 --> 00:00:57.680
+Like, what the world looked like.
+
+00:00:57.680 --> 00:00:59.100
+Good old Microsoft, you know.
+
+00:00:59.110 --> 00:01:01.240
+So Microsoft kind of kicked things off.
+
+00:01:01.250 --> 00:01:04.110
+I mean, there's obviously like much, many more stories
+
+00:01:04.130 --> 00:01:07.240
+of how there's like this crazy competition outside of the tech
+
+00:01:07.240 --> 00:01:07.760
+world.
+
+00:01:07.770 --> 00:01:09.550
+But in the tech world, I think one of the biggest
+
+00:01:09.550 --> 00:01:11.470
+stories that got us kicked off back in the 90s,
+
+00:01:11.470 --> 00:01:15.160
+this was 96, was Microsoft with their kind of like cut
+
+00:01:15.200 --> 00:01:17.140
+throat, we must dominate mentality.
+
+00:01:17.630 --> 00:01:21.420
+They kind of dominated the market for operating systems in the first
+
+00:01:21.650 --> 00:01:22.060
+place.
+
+00:01:22.070 --> 00:01:24.300
+But on top of that, you know, when this new
+
+00:01:24.300 --> 00:01:27.320
+thing called the Internet came out and they were like, we
+
+00:01:27.320 --> 00:01:28.860
+'ve got to get in on that.
+
+00:01:28.870 --> 00:01:32.660
+So Netscape at the time was dominating the space with
+
+00:01:32.890 --> 00:01:36.100
+the Internet browser Netscape Navigator.
+
+00:01:36.110 --> 00:01:39.640
+I think Mike McHugh is somewhere in this sphere.
+
+00:01:39.650 --> 00:01:42.080
+So I'm glad he's not here because I hope I
+
+00:01:42.110 --> 00:01:44.020
+get all the details right.
+
+00:01:44.030 --> 00:01:47.600
+But, yeah, Microsoft didn't quite like that.
+
+00:01:47.650 --> 00:01:49.960
+And they were like, you know, we've got to
+
+00:01:49.960 --> 00:01:51.740
+get ourselves in there fast.
+
+00:01:51.750 --> 00:01:54.540
+So what they did was they noticed that everyone was using open
+
+00:01:54.580 --> 00:01:55.280
+standards.
+
+00:01:55.290 --> 00:01:57.380
+And that's a way for them to kind of put themselves
+
+00:01:57.380 --> 00:01:57.960
+in there.
+
+00:01:57.970 --> 00:01:59.620
+Everyone's kind of like agreeing that, you know, we
+
+00:01:59.620 --> 00:02:01.250
+'ve got to use these standards to kind of like build on
+
+00:02:01.250 --> 00:02:01.780
+the Internet.
+
+00:02:02.170 --> 00:02:03.690
+So then they say, yeah, we're going to come
+
+00:02:03.690 --> 00:02:05.400
+in, we're going to embrace your standards.
+
+00:02:05.410 --> 00:02:08.560
+We're going to, you know, make sure that we
+
+00:02:08.560 --> 00:02:12.000
+want to give the users the best, you know, even
+
+00:02:12.000 --> 00:02:15.260
+when some of that is originated elsewhere, like from people contributing
+
+00:02:15.260 --> 00:02:16.100
+to the ecosystem.
+
+00:02:16.110 --> 00:02:17.880
+And then, you know, the next thing they do is
+
+00:02:17.880 --> 00:02:19.600
+they extend it, being like, oh, we have to
+
+00:02:19.600 --> 00:02:21.620
+, we're not going to hold back our users for waiting
+
+00:02:21.620 --> 00:02:24.420
+for these like slow moving organizations and standards bodies.
+
+00:02:24.490 --> 00:02:26.760
+You know, we're going to have to move fast and
+
+00:02:26.760 --> 00:02:28.620
+do some of the things our own way.
+
+00:02:29.410 --> 00:02:31.910
+And the well-being of those few people who aren't
+
+00:02:31.910 --> 00:02:35.000
+our users is understandable, but also not a high priority,
+
+00:02:35.070 --> 00:02:35.840
+you know.
+
+00:02:35.850 --> 00:02:39.480
+And then eventually that goes to Extinguish, where they
+
+00:02:39.480 --> 00:02:43.660
+did this with ActiveX and Internet Explorer extensions to kind of
+
+00:02:43.660 --> 00:02:47.290
+like dominate the market share and kind of make sure that they
+
+00:02:47.560 --> 00:02:49.820
+are the only ones who kind of stay in there.
+
+00:02:50.530 --> 00:02:52.900
+So the rationale for that is like, why should we expend
+
+00:02:52.910 --> 00:02:55.090
+effort towards keeping competitors viable?
+
+00:02:55.110 --> 00:02:58.000
+Why shouldn't we actively help potential customers join us?
+
+00:02:58.050 --> 00:02:59.340
+You know, why do we have to care anymore?
+
+00:02:59.350 --> 00:03:01.910
+So suddenly the same, you know, standards that they were
+
+00:03:01.910 --> 00:03:04.340
+embracing, they have kind of weaponized that to kind of
+
+00:03:04.410 --> 00:03:05.910
+keep all the competitors out.
+
+00:03:06.790 --> 00:03:09.000
+And, you know, of course, they can also just
+
+00:03:09.000 --> 00:03:11.870
+tell all the PC manufacturers they're working with, if you
+
+00:03:11.870 --> 00:03:14.320
+work with Netscape, we're going to stop supplying
+
+00:03:14.340 --> 00:03:14.960
+you.
+
+00:03:14.970 --> 00:03:16.340
+So, you know, that's another way to just like
+
+00:03:16.340 --> 00:03:17.220
+kill your competitors.
+
+00:03:17.230 --> 00:03:19.690
+You know, so it's kind of crazy how Nets
+
+00:03:19.690 --> 00:03:22.820
+cape was literally 90% in 1995.
+
+00:03:23.390 --> 00:03:25.720
+And in the span of like seven years, like, you
+
+00:03:25.720 --> 00:03:28.360
+know, it flipped completely to 5%, you know.
+
+00:03:28.370 --> 00:03:32.160
+And Internet Explorer took over because of these sort of practices.
+
+00:03:32.390 --> 00:03:35.090
+And, you know, AOL acquires Netscape
+
+00:03:35.090 --> 00:03:37.710
+by the end of this, so they kind of get a
+
+00:03:37.710 --> 00:03:39.310
+nice, cushy exit.
+
+00:03:39.330 --> 00:03:43.600
+Okay, a bunch of people have had a chance to kind
+
+00:03:43.600 --> 00:03:45.640
+of dunk on the Zuck.
+
+00:03:45.650 --> 00:03:46.840
+It's my turn, okay.
+
+00:03:46.890 --> 00:03:48.440
+So this is the thing.
+
+00:03:48.450 --> 00:03:51.270
+He spent years shouting domination at the end of Facebook.
+
+00:03:51.290 --> 00:03:52.100
+Like, that's so weird.
+
+00:03:52.110 --> 00:03:53.270
+Like, I mean, imagine doing that at the end of
+
+00:03:53.350 --> 00:03:54.520
+a meeting, being like, domination.
+
+00:03:54.530 --> 00:03:55.340
+What?
+
+00:03:55.350 --> 00:03:56.720
+What a strange guy.
+
+00:03:56.730 --> 00:04:00.300
+And, you know, this is another thing that the guy
+
+00:04:00.340 --> 00:04:03.320
+, the Zuck, is capable of, you know.
+
+00:04:03.330 --> 00:04:06.170
+Like, he was working with Harvard to do the Facebook,
+
+00:04:06.180 --> 00:04:08.550
+but, you know, he's just giving out the data
+
+00:04:08.550 --> 00:04:09.700
+to other people.
+
+00:04:09.710 --> 00:04:11.570
+That's the kind of person that kind of comes up with
+
+00:04:11.750 --> 00:04:13.280
+this competition attitude, you know.
+
+00:04:13.310 --> 00:04:14.580
+That's like, I mean, I'm dunking on
+
+00:04:14.580 --> 00:04:16.000
+Zuck for sure, but like there's a sort of
+
+00:04:16.000 --> 00:04:18.480
+domination attitude, which is an abstraction that I'm trying to
+
+00:04:18.480 --> 00:04:19.400
+point towards here.
+
+00:04:20.830 --> 00:04:23.260
+And to ground it more in sort of like the same story
+
+00:04:23.260 --> 00:04:24.620
+as Microsoft from earlier.
+
+00:04:24.790 --> 00:04:26.800
+So we're all familiar with Snap, and we kind of
+
+00:04:26.840 --> 00:04:27.880
+lived through this.
+
+00:04:27.890 --> 00:04:31.180
+I was actively using Snap as a teenager at that point.
+
+00:04:31.190 --> 00:04:34.750
+And, you know, what was going on behind the scenes
+
+00:04:34.750 --> 00:04:39.690
+at that point was in 2012, Facebook acquired Instagram for $
+
+00:04:39.690 --> 00:04:40.940
+1 billion.
+
+00:04:41.450 --> 00:04:44.020
+And they, I think within a year, they wanted to
+
+00:04:44.080 --> 00:04:47.660
+acquire Snapchat because Snapchat was like this hot new thing.
+
+00:04:47.730 --> 00:04:48.710
+All the kids were using it.
+
+00:04:48.730 --> 00:04:51.800
+They wanted to, you know, grab those little kids in
+
+00:04:51.800 --> 00:04:54.070
+a, you know, probably weird way.
+
+00:04:54.090 --> 00:04:56.930
+But Snapchat declined the offer.
+
+00:04:56.950 --> 00:04:59.110
+And I think there was a subsequent offer from Google as well
+
+00:04:59.110 --> 00:05:00.320
+, which they also declined.
+
+00:05:01.410 --> 00:05:03.480
+And they continued to grow over those years.
+
+00:05:03.490 --> 00:05:06.350
+Like for a solid three or four years after that, Snapchat
+
+00:05:06.510 --> 00:05:08.300
+went up to 150 million users.
+
+00:05:08.310 --> 00:05:12.360
+But then, don't be too proud to copy.
+
+00:05:12.370 --> 00:05:14.250
+That was actually from a memo that was in Facebook.
+
+00:05:14.390 --> 00:05:18.580
+You know, they said, we should just rip those off
+
+00:05:18.580 --> 00:05:18.920
+.
+
+00:05:18.930 --> 00:05:19.600
+We have Instagram.
+
+00:05:19.610 --> 00:05:21.490
+Let's just put stories in there.
+
+00:05:21.690 --> 00:05:22.420
+You know, they launched stories.
+
+00:05:22.450 --> 00:05:27.770
+In one year, when they launched Instagram, when Snapchat had
+
+00:05:27.770 --> 00:05:32.020
+150 million users, within one year, Instagram had overtaken
+
+00:05:32.020 --> 00:05:32.850
+that, you know.
+
+00:05:32.870 --> 00:05:35.650
+And there was, like, I mean, for the previous
+
+00:05:35.650 --> 00:05:38.390
+story, there was at least an anti-compete for
+
+00:05:38.390 --> 00:05:39.520
+that scenario.
+
+00:05:39.530 --> 00:05:40.940
+And antitrust, rather.
+
+00:05:40.950 --> 00:05:44.360
+And Microsoft did actually face some repercussions.
+
+00:05:44.370 --> 00:05:47.840
+Not that it really stopped them in the grand scheme.
+
+00:05:47.850 --> 00:05:48.830
+But here, nothing happened.
+
+00:05:48.850 --> 00:05:51.710
+You know, Snapchat exists as a husk of itself,
+
+00:05:51.870 --> 00:05:54.220
+doing whatever people there do now.
+
+00:05:54.230 --> 00:05:57.770
+And, you know, this attitude of, like, copying
+
+00:05:57.770 --> 00:06:01.150
+things has pervaded, you know, Facebook.
+
+00:06:01.170 --> 00:06:02.440
+But not just Facebook, you know.
+
+00:06:02.450 --> 00:06:05.210
+Like, within Facebook alone, you have stories that become Snapchat
+
+00:06:05.210 --> 00:06:05.310
+.
+
+00:06:05.410 --> 00:06:08.060
+You have reels from TikTok and threads.
+
+00:06:08.070 --> 00:06:10.560
+Like, they built threads in, I think, in five
+
+00:06:10.560 --> 00:06:13.300
+months, which is, you know, pretty insane.
+
+00:06:13.310 --> 00:06:14.430
+And there's a point there.
+
+00:06:14.450 --> 00:06:17.010
+That these guys, at some point, the biggest guys,
+
+00:06:17.080 --> 00:06:18.760
+they become brokers of scale.
+
+00:06:18.960 --> 00:06:20.560
+The large companies become brokers of scale.
+
+00:06:20.570 --> 00:06:23.130
+And they're able to stay dominant because they have the means
+
+00:06:23.200 --> 00:06:25.510
+and ability to deploy things at scale really fast.
+
+00:06:25.530 --> 00:06:27.920
+And they have the users.
+
+00:06:27.930 --> 00:06:28.740
+They have the distribution.
+
+00:06:28.770 --> 00:06:29.780
+They have the network effects.
+
+00:06:29.790 --> 00:06:32.020
+And if you're some kind of, like, upstart
+
+00:06:32.020 --> 00:06:36.180
+with a genuinely innovative product and idea, you become big enough
+
+00:06:36.180 --> 00:06:39.520
+to get to the point where they'll notice you.
+
+00:06:39.530 --> 00:06:41.040
+And then they're kind of, you know, they're
+
+00:06:41.040 --> 00:06:42.420
+going to decide your fate at that point.
+
+00:06:42.490 --> 00:06:47.140
+And I want to look at this now from the founder perspective
+
+00:06:47.140 --> 00:06:48.400
+, you know.
+
+00:06:48.410 --> 00:06:50.870
+If you're building a company, like, you want to
+
+00:06:50.870 --> 00:06:52.500
+create something of value.
+
+00:06:52.510 --> 00:06:53.820
+And then you want to grow.
+
+00:06:53.830 --> 00:06:56.080
+And then, like, kind of the meta now, if
+
+00:06:56.080 --> 00:06:58.300
+you're a startup, you know, or, like,
+
+00:06:58.300 --> 00:07:00.220
+a founder, an entrepreneur, you want to, like,
+
+00:07:00.220 --> 00:07:01.680
+sell to the broker of scale.
+
+00:07:01.690 --> 00:07:03.570
+Like, this is actually, this isn't a failure.
+
+00:07:03.790 --> 00:07:04.910
+This is, like, the expected outcome.
+
+00:07:04.930 --> 00:07:07.360
+Like, founders now in, like, all these startup universities
+
+00:07:07.380 --> 00:07:09.080
+, they're taught to do this stuff, you know.
+
+00:07:09.090 --> 00:07:11.810
+Like, this is kind of, like, we've accepted
+
+00:07:11.810 --> 00:07:14.540
+that this is how the life cycle of a product, of
+
+00:07:14.540 --> 00:07:16.180
+a new innovative thing should be.
+
+00:07:16.190 --> 00:07:18.420
+And it's just, like, you know, it's
+
+00:07:18.420 --> 00:07:21.800
+first you build something that people love, you know.
+
+00:07:21.830 --> 00:07:23.520
+There's a whole user side of this.
+
+00:07:23.530 --> 00:07:25.160
+Users start relying on your product.
+
+00:07:25.170 --> 00:07:27.030
+They start, you know, integrating it into their lives.
+
+00:07:27.050 --> 00:07:28.360
+They start trusting it with their data.
+
+00:07:28.370 --> 00:07:30.540
+They start using it to find their community and build their community
+
+00:07:30.540 --> 00:07:30.680
+.
+
+00:07:31.350 --> 00:07:34.240
+There were some conversations I had with community members here and,
+
+00:07:34.370 --> 00:07:35.560
+of course, about meetup.
+
+00:07:35.560 --> 00:07:35.840
+com.
+
+00:07:35.850 --> 00:07:38.550
+Maybe you guys have had some bad experiences yourself, you know
+
+00:07:38.550 --> 00:07:39.780
+, where you're paying a bunch of money.
+
+00:07:39.790 --> 00:07:41.960
+And, you know, what's really happening there?
+
+00:07:41.970 --> 00:07:44.400
+You know, there's, like, I think I was
+
+00:07:44.420 --> 00:07:48.740
+talking to someone who said that meetup sent them a notice
+
+00:07:48.740 --> 00:07:50.260
+being, like, oh, you're our, like,
+
+00:07:50.260 --> 00:07:52.900
+I think you've brought, like, 10,000 people
+
+00:07:53.130 --> 00:07:55.480
+or reached 10,000 people to the network.
+
+00:07:55.490 --> 00:07:57.010
+And also, by the way, can you pay us for
+
+00:07:57.010 --> 00:07:57.740
+the next year?
+
+00:07:57.750 --> 00:07:59.240
+It's like, you should be paying them, man.
+
+00:08:00.270 --> 00:08:02.000
+But anyway, that's almost a separate point.
+
+00:08:02.010 --> 00:08:04.560
+But the point is here is that you kind of grow something
+
+00:08:04.560 --> 00:08:05.800
+until you're visible.
+
+00:08:05.830 --> 00:08:08.690
+And then when you sell, as an entrepreneur, if you
+
+00:08:08.850 --> 00:08:10.960
+sell, the product is a sacrifice.
+
+00:08:10.970 --> 00:08:13.530
+Like, the users who have now spent all this time building
+
+00:08:13.600 --> 00:08:16.730
+a relationship with what you've built, now it's,
+
+00:08:16.950 --> 00:08:22.000
+they're kind of, you know, they become the sacrifice
+
+00:08:22.000 --> 00:08:22.400
+.
+
+00:08:22.630 --> 00:08:23.900
+Like, all of that is sacrificed.
+
+00:08:23.910 --> 00:08:27.320
+Yeah, and the other note here is, like, scale
+
+00:08:27.320 --> 00:08:28.750
+doesn't matter.
+
+00:08:28.770 --> 00:08:31.300
+Like, Instagram, with its 30 million users, was a
+
+00:08:31.300 --> 00:08:34.200
+1 billion purchase, 400 million users for WhatsApp.
+
+00:08:34.210 --> 00:08:38.370
+Oculus, that was more of, like, a hardware remote
+
+00:08:38.370 --> 00:08:38.680
+.
+
+00:08:38.690 --> 00:08:41.020
+And be real, this is kind of a newer example.
+
+00:08:41.190 --> 00:08:42.940
+I just found this out while researching this talk.
+
+00:08:42.950 --> 00:08:44.640
+It had 40 million users.
+
+00:08:44.650 --> 00:08:46.110
+And, you know, like, even now, it's
+
+00:08:46.110 --> 00:08:48.040
+like, it doesn't matter if you hit the scale.
+
+00:08:48.050 --> 00:08:50.050
+If you hit a scale that's kind of big enough,
+
+00:08:50.100 --> 00:08:51.720
+big tech just comes in and swoops in.
+
+00:08:51.730 --> 00:08:54.380
+Because they just have to continue to dominate.
+
+00:08:54.390 --> 00:08:55.680
+It's just a mandate of domination.
+
+00:08:58.050 --> 00:09:00.180
+And, yeah, to go back to the earlier point,
+
+00:09:00.180 --> 00:09:02.070
+it's just, you know, I'm going to use
+
+00:09:02.070 --> 00:09:03.480
+some Cory Doctorow stuff here.
+
+00:09:03.490 --> 00:09:06.260
+The n-shittification starts happening, you know.
+
+00:09:06.270 --> 00:09:08.910
+This is, like, the eventual decline and death of products
+
+00:09:08.910 --> 00:09:09.130
+.
+
+00:09:09.170 --> 00:09:11.510
+You know, people have, like, opinions about Doctorow
+
+00:09:11.510 --> 00:09:13.350
+and the word n-shittification, but it is
+
+00:09:13.350 --> 00:09:14.260
+a true concept.
+
+00:09:14.270 --> 00:09:15.680
+It's something that happens to us, you know.
+
+00:09:15.690 --> 00:09:19.010
+I don't know if you guys have watched the movie Pentagon
+
+00:09:19.010 --> 00:09:19.500
+Wars.
+
+00:09:19.590 --> 00:09:20.660
+It's fantastic.
+
+00:09:20.670 --> 00:09:24.890
+It's about, basically, the Pentagon, they have this
+
+00:09:24.890 --> 00:09:28.570
+Bradley fighting vehicle, which is, like, this, a
+
+00:09:28.570 --> 00:09:29.010
+tank.
+
+00:09:29.090 --> 00:09:31.360
+But, you know, people, people aren't exactly sure
+
+00:09:31.360 --> 00:09:31.980
+what it is.
+
+00:09:32.010 --> 00:09:33.760
+Like, people get promoted to be in charge of it.
+
+00:09:33.770 --> 00:09:35.650
+They slap on a new feature, then they get promoted to
+
+00:09:35.820 --> 00:09:36.660
+work on something else.
+
+00:09:36.790 --> 00:09:39.680
+And then this goes on for, like, a while.
+
+00:09:39.750 --> 00:09:42.490
+And Kelsey Grammer, he's, you know, the
+
+00:09:42.490 --> 00:09:43.560
+guy in charge.
+
+00:09:43.650 --> 00:09:45.980
+But then, at some point, an airline guy comes in
+
+00:09:45.980 --> 00:09:48.060
+to vet the product, and he finds out that it doesn
+
+00:09:48.070 --> 00:09:49.480
+'t work, it doesn't do anything.
+
+00:09:49.490 --> 00:09:51.700
+And people aren't even sure what it's supposed to do
+
+00:09:51.700 --> 00:09:53.540
+, because it's supposed to be, like, submarine.
+
+00:09:53.550 --> 00:09:54.520
+It's supposed to be a land.
+
+00:09:54.530 --> 00:09:55.500
+It's supposed to be troop transport.
+
+00:09:55.510 --> 00:09:56.180
+It has a gun.
+
+00:09:56.210 --> 00:09:59.400
+And so the point here and the analogy here is that,
+
+00:09:59.400 --> 00:10:02.390
+you know, eventually the big tech, like, when they
+
+00:10:02.390 --> 00:10:05.220
+have their own products, like Google or Spotify, they start
+
+00:10:05.220 --> 00:10:06.200
+slapping on these features.
+
+00:10:06.210 --> 00:10:08.260
+People get promoted, you know, to a higher position,
+
+00:10:08.270 --> 00:10:09.680
+and then they stop caring about it.
+
+00:10:09.690 --> 00:10:10.880
+They move on to other things.
+
+00:10:10.910 --> 00:10:12.420
+And then, ultimately, you just have, like, this
+
+00:10:12.420 --> 00:10:14.010
+mess of, like, 50 different things going on.
+
+00:10:14.030 --> 00:10:16.190
+The user is, like, I actually just wanted these three
+
+00:10:16.190 --> 00:10:18.390
+things that I always had before, you know.
+
+00:10:19.750 --> 00:10:22.420
+And if you're a big company, this is what happens
+
+00:10:22.420 --> 00:10:22.640
+.
+
+00:10:22.690 --> 00:10:24.480
+If you're a startup, you sell your company, and
+
+00:10:24.480 --> 00:10:26.250
+then it becomes part of this machine where the same thing happens
+
+00:10:26.440 --> 00:10:26.540
+.
+
+00:10:26.550 --> 00:10:29.200
+You know, the user didn't choose the acquisition.
+
+00:10:29.210 --> 00:10:30.800
+The user doesn't get anything out of this.
+
+00:10:30.810 --> 00:10:32.430
+In fact, they just get, you know, they get
+
+00:10:32.430 --> 00:10:35.370
+squeezed more for putting their trust, placing their trust in this
+
+00:10:35.370 --> 00:10:36.550
+sort of ecosystem.
+
+00:10:37.350 --> 00:10:40.090
+So that's, like, and their information is weaponized
+
+00:10:40.090 --> 00:10:41.060
+against them now.
+
+00:10:41.070 --> 00:10:45.110
+And, ultimately, you know, at some point, they
+
+00:10:45.110 --> 00:10:46.760
+'ll just throw it out, you know, Google Reader
+
+00:10:46.760 --> 00:10:46.830
+.
+
+00:10:46.970 --> 00:10:48.510
+There's, like, Killed by Google has, I
+
+00:10:48.510 --> 00:10:51.220
+think, like, something like 200 products that Google has killed
+
+00:10:51.220 --> 00:10:52.720
+, maybe even more, actually, I forget.
+
+00:10:52.730 --> 00:10:56.550
+But, yeah, you know, at some point, everything
+
+00:10:56.550 --> 00:10:58.500
+you've kind of, like, worked towards, built your
+
+00:10:58.500 --> 00:11:01.250
+sort of, like, interaction with the Internet around, your
+
+00:11:01.290 --> 00:11:03.400
+community around, is now just gone, you know.
+
+00:11:05.970 --> 00:11:09.180
+Yeah, and founders aren't the bad guys.
+
+00:11:09.190 --> 00:11:10.830
+Like, why should, like, we're not, like
+
+00:11:10.830 --> 00:11:13.200
+, we're not bad for innovating here, right?
+
+00:11:13.210 --> 00:11:16.820
+The late-stage capitalism machine has forced us to serve the
+
+00:11:16.850 --> 00:11:18.540
+overlords, even if we break out of the system and
+
+00:11:18.590 --> 00:11:19.400
+forge our own paths.
+
+00:11:19.410 --> 00:11:23.490
+And users kind of end up in the same spot, even
+
+00:11:23.490 --> 00:11:25.960
+if they, you know, trust something that's new,
+
+00:11:25.970 --> 00:11:28.240
+even if they kind of, like, go with the overl
+
+00:11:28.240 --> 00:11:28.720
+ords.
+
+00:11:28.730 --> 00:11:35.050
+And the system kind of frames this as, like, exits
+
+00:11:35.100 --> 00:11:37.700
+are success, and gentrification is growth, you know
+
+00:11:37.750 --> 00:11:39.640
+, with all these metrics that come, like the dashboards
+
+00:11:39.640 --> 00:11:42.140
+that analysts are looking at and trying to squeeze users more.
+
+00:11:42.150 --> 00:11:44.030
+And lock-in is network effects, you know.
+
+00:11:44.070 --> 00:11:47.420
+Okay, that was enough of the doom and gloom.
+
+00:11:47.430 --> 00:11:48.410
+Let's start talking about the good stuff.
+
+00:11:48.430 --> 00:11:50.040
+Open data.
+
+00:11:50.050 --> 00:11:54.740
+So I want to just talk about lexicons, just
+
+00:11:54.760 --> 00:11:56.280
+in case anyone's not familiar with them.
+
+00:11:56.290 --> 00:11:59.720
+In app protocol, they are the unit of information.
+
+00:11:59.730 --> 00:12:03.370
+So essentially, everything you do in the app protocol, if
+
+00:12:03.380 --> 00:12:04.910
+you like something, it's a record, it's a
+
+00:12:04.920 --> 00:12:07.400
+lexicon that gets emitted and stored on a personal data
+
+00:12:07.550 --> 00:12:07.880
+server.
+
+00:12:07.890 --> 00:12:11.200
+And that's sort of, like, the information that's
+
+00:12:11.200 --> 00:12:12.810
+traveling around, that's a lexicon.
+
+00:12:12.870 --> 00:12:15.620
+Apps don't need to declare their own types.
+
+00:12:15.630 --> 00:12:16.800
+They can grab existing ones.
+
+00:12:16.810 --> 00:12:19.190
+It's cool that I've seen a lot of developers kind
+
+00:12:19.230 --> 00:12:21.610
+of come into the ecosystem being like, what, the same
+
+00:12:21.610 --> 00:12:22.850
+types are in different apps?
+
+00:12:22.990 --> 00:12:23.720
+That's awesome, you know.
+
+00:12:23.750 --> 00:12:25.860
+It's a very cool selling point for app proto.
+
+00:12:26.670 --> 00:12:30.360
+And developers can publish their own types and contribute to what's
+
+00:12:30.360 --> 00:12:32.380
+already, like, a very rich ecosystem.
+
+00:12:32.410 --> 00:12:34.140
+Like, there's, well, Paul said there's,
+
+00:12:34.140 --> 00:12:36.070
+like, a thousand apps on app proto now, which is
+
+00:12:36.080 --> 00:12:36.690
+pretty awesome.
+
+00:12:36.730 --> 00:12:41.690
+I just want to show a few lexicons, just
+
+00:12:41.740 --> 00:12:44.250
+so it's clear what we're doing.
+
+00:12:44.330 --> 00:12:47.170
+I have lexicon garden here.
+
+00:12:47.190 --> 00:12:51.300
+Yeah, so we have a cool website, lexicon
+
+00:12:51.300 --> 00:12:51.470
+.
+
+00:12:51.470 --> 00:12:52.030
+garden.
+
+00:12:52.050 --> 00:12:53.660
+If you guys haven't seen it, please check it out
+
+00:12:53.660 --> 00:12:53.800
+.
+
+00:12:55.810 --> 00:12:59.560
+So, yeah, it's basically just a string that's
+
+00:12:59.560 --> 00:13:00.910
+attached to a DNS.
+
+00:13:01.110 --> 00:13:02.200
+So it's bsky.
+
+00:13:02.250 --> 00:13:04.400
+app is the app for Blue Sky.
+
+00:13:04.410 --> 00:13:07.160
+And you can kind of, like, specify it.
+
+00:13:07.170 --> 00:13:08.360
+This is called a namespace ID.
+
+00:13:08.390 --> 00:13:12.950
+And you can kind of add a bunch of metadata to it
+
+00:13:13.010 --> 00:13:16.080
+that kind of defines what it is to like something, in
+
+00:13:16.080 --> 00:13:16.760
+this case, you know.
+
+00:13:16.790 --> 00:13:19.460
+So, like, what is the thing that's being liked
+
+00:13:19.460 --> 00:13:19.680
+?
+
+00:13:19.770 --> 00:13:22.630
+I'm not sure what the via is, but, yeah
+
+00:13:22.790 --> 00:13:25.860
+, when it's created and what's actually being liked.
+
+00:13:25.890 --> 00:13:27.250
+That's kind of, like, what matters to us here
+
+00:13:27.250 --> 00:13:27.420
+.
+
+00:13:27.430 --> 00:13:32.270
+Let's go back to full screen.
+
+00:13:32.290 --> 00:13:38.210
+Yeah, and now lexicons kind of open up a
+
+00:13:38.210 --> 00:13:39.120
+lot of things to us.
+
+00:13:40.410 --> 00:13:42.060
+In the old world, data is proprietary.
+
+00:13:42.070 --> 00:13:44.160
+We can't interoperate apps.
+
+00:13:44.170 --> 00:13:45.600
+You have to clone features.
+
+00:13:45.610 --> 00:13:47.400
+Like we saw, like, with stories, with reels
+
+00:13:47.400 --> 00:13:49.700
+, with threads, like how, like, you know,
+
+00:13:49.700 --> 00:13:51.970
+you have to build the whole thing by yourself in this sort
+
+00:13:52.010 --> 00:13:54.540
+of, like, necessarily antagonistic way.
+
+00:13:54.550 --> 00:13:58.160
+Now we have this sort of new perspective, new world,
+
+00:13:58.170 --> 00:14:01.960
+where, like, I'm about to demonstrate something I built
+
+00:14:02.190 --> 00:14:02.730
+later.
+
+00:14:02.930 --> 00:14:05.300
+But, like, I like a few features and I think
+
+00:14:05.300 --> 00:14:08.290
+I could compose these specific features from these different apps and then
+
+00:14:08.290 --> 00:14:09.450
+kind of, like, do my own weird thing, you
+
+00:14:09.450 --> 00:14:09.800
+know.
+
+00:14:09.810 --> 00:14:14.210
+So it's all about the quality of the interface than it
+
+00:14:14.220 --> 00:14:16.600
+is about, like, trying to capture users and drive growth
+
+00:14:16.600 --> 00:14:16.720
+.
+
+00:14:16.750 --> 00:14:20.800
+And from a user perspective, you can pick one app.
+
+00:14:20.810 --> 00:14:22.670
+You can accept all its compromises before.
+
+00:14:22.690 --> 00:14:24.340
+Like, you know, you're kind of stuck in this
+
+00:14:24.340 --> 00:14:26.520
+, the late-stage capitalism machine that I was talking about
+
+00:14:26.520 --> 00:14:26.700
+.
+
+00:14:26.710 --> 00:14:29.140
+But now you can just pick whatever app you want for your
+
+00:14:29.140 --> 00:14:29.570
+future.
+
+00:14:29.690 --> 00:14:30.660
+We've already seen this in Blue Sky.
+
+00:14:30.670 --> 00:14:33.480
+You have all these different front ends for Blue Sky, like
+
+00:14:33.480 --> 00:14:34.200
+Deer.
+
+00:14:34.310 --> 00:14:36.670
+social or, like, a fully different app view, like
+
+00:14:36.670 --> 00:14:37.180
+Black Sky.
+
+00:14:37.190 --> 00:14:39.540
+You have all these different opportunities.
+
+00:14:39.550 --> 00:14:42.090
+And as we saw yesterday, you can just make your own
+
+00:14:42.090 --> 00:14:43.580
+experience, you know.
+
+00:14:43.690 --> 00:14:46.460
+Like, users have infinite choice.
+
+00:14:46.470 --> 00:14:48.350
+You can see a couple I made already there.
+
+00:14:48.490 --> 00:14:51.010
+But so this is kind of, like, a big,
+
+00:14:51.010 --> 00:14:52.280
+big game changer.
+
+00:14:52.490 --> 00:14:54.850
+And I want to kind of talk about, like, this
+
+00:14:54.890 --> 00:14:56.520
+is the part of the talk where I'm, like,
+
+00:14:56.530 --> 00:14:58.360
+I'm not sure where we're going.
+
+00:14:59.470 --> 00:15:00.820
+But I have a lot of questions.
+
+00:15:00.830 --> 00:15:02.320
+I can at least throw those out there.
+
+00:15:02.330 --> 00:15:05.400
+So a few experiences I think I had.
+
+00:15:05.410 --> 00:15:07.040
+I don't know if any of you guys were in Ad
+
+00:15:07.040 --> 00:15:08.420
+Science a few days ago.
+
+00:15:08.430 --> 00:15:11.040
+In this exact room, there was a beautiful moment, one
+
+00:15:11.050 --> 00:15:14.240
+of my favorite moments of the conference so far, which was
+
+00:15:14.390 --> 00:15:15.000
+Som.
+
+00:15:15.110 --> 00:15:17.970
+He goes by the handle H-Y-L.
+
+00:15:17.990 --> 00:15:18.760
+S-T.
+
+00:15:18.770 --> 00:15:20.120
+Super cool person.
+
+00:15:20.130 --> 00:15:25.280
+And he built an extension called Seams, which is for
+
+00:15:25.350 --> 00:15:28.870
+annotating the atmosphere, or, like, annotating websites
+
+00:15:28.870 --> 00:15:31.140
+on the atmosphere, or just on the internet.
+
+00:15:31.150 --> 00:15:34.410
+But I think after Margin came out, he kind of
+
+00:15:34.430 --> 00:15:35.300
+, like, lost his joy.
+
+00:15:35.310 --> 00:15:37.170
+I think he felt a little bit, like, drained from
+
+00:15:37.300 --> 00:15:37.520
+it.
+
+00:15:37.530 --> 00:15:38.900
+He gave me permission to talk about this.
+
+00:15:38.910 --> 00:15:40.760
+I'm just, you know, that's...
+
+00:15:40.950 --> 00:15:43.100
+So, like, he kind of, like, shared his
+
+00:15:43.100 --> 00:15:46.040
+experience, actually right here, exactly here, about how he
+
+00:15:46.040 --> 00:15:49.170
+'s kind of, like, hospicing his extension, which
+
+00:15:49.210 --> 00:15:50.890
+is, you know, an interesting perspective.
+
+00:15:50.950 --> 00:15:54.260
+So I think what he said that stuck with me was,
+
+00:15:54.260 --> 00:15:55.520
+like, you've got to build with joy, you know
+
+00:15:55.570 --> 00:15:55.660
+?
+
+00:15:55.670 --> 00:15:57.180
+And he kind of, like, lost the joy that he
+
+00:15:57.180 --> 00:15:57.740
+was building for.
+
+00:15:57.750 --> 00:15:59.840
+So if we're building something, we definitely have to build
+
+00:15:59.840 --> 00:16:00.180
+for joy.
+
+00:16:00.230 --> 00:16:03.640
+And we want to build stuff for the community.
+
+00:16:03.650 --> 00:16:05.720
+Like, you know, I think Blaine's talk yesterday
+
+00:16:05.730 --> 00:16:07.000
+was a really big part of this.
+
+00:16:07.010 --> 00:16:11.260
+Like, you can just, like, you know, we
+
+00:16:11.260 --> 00:16:12.990
+'re all cheese, you know?
+
+00:16:13.150 --> 00:16:15.460
+You've got to just show up and make sure that the
+
+00:16:15.550 --> 00:16:19.450
+microbiome is looking good and you're doing it for the
+
+00:16:19.450 --> 00:16:20.840
+right reasons and for the right people.
+
+00:16:20.850 --> 00:16:24.100
+And we have to break the old patterns, you know?
+
+00:16:24.110 --> 00:16:27.390
+We have to, you know, make sure that we're
+
+00:16:27.400 --> 00:16:30.570
+not contributing back to the old ecosystem.
+
+00:16:30.590 --> 00:16:32.180
+We have this new opportunity.
+
+00:16:32.190 --> 00:16:39.030
+We have a necessarily different way of approaching competition.
+
+00:16:39.050 --> 00:16:42.480
+We can all build stuff that is similar.
+
+00:16:43.150 --> 00:16:45.400
+Even Tori, the other day from Skylight, she
+
+00:16:45.400 --> 00:16:48.120
+was saying in her talk about how, you know, there
+
+00:16:48.140 --> 00:16:49.210
+'s, like, all these other...
+
+00:16:49.230 --> 00:16:51.940
+In the Fediverse, there's Divine, which is another
+
+00:16:51.940 --> 00:16:52.760
+video platform.
+
+00:16:52.770 --> 00:16:54.180
+And she's like, that's awesome.
+
+00:16:54.190 --> 00:16:54.880
+That's great.
+
+00:16:54.890 --> 00:16:55.820
+We're all kind of growing...
+
+00:16:55.830 --> 00:16:56.690
+All ships rise together.
+
+00:16:56.710 --> 00:17:01.270
+But at the same time, we've got to get paid
+
+00:17:01.270 --> 00:17:02.440
+, you know?
+
+00:17:02.470 --> 00:17:05.620
+This is a post from Rudy a few days ago.
+
+00:17:06.150 --> 00:17:09.600
+Like, this is a part of the atmosphere that's,
+
+00:17:09.600 --> 00:17:13.640
+like, very heavily unsolved, which is what are we
+
+00:17:13.640 --> 00:17:16.260
+going to do about payments?
+
+00:17:16.270 --> 00:17:20.220
+I consider talking a little bit more about this, but I
+
+00:17:20.220 --> 00:17:23.480
+think it kind of, like, expands the scope too much
+
+00:17:23.480 --> 00:17:23.590
+.
+
+00:17:23.750 --> 00:17:26.220
+But, you know, we have...
+
+00:17:26.230 --> 00:17:29.800
+We don't really have protocols that are on payment yet.
+
+00:17:31.270 --> 00:17:33.080
+Sorry, payments on protocol yet.
+
+00:17:33.090 --> 00:17:37.380
+We don't really know how value creation happens.
+
+00:17:37.390 --> 00:17:40.430
+We don't really know how apps can make money.
+
+00:17:40.450 --> 00:17:43.000
+We don't know what's a convincing sell to investors here
+
+00:17:43.020 --> 00:17:43.620
+, you know?
+
+00:17:43.630 --> 00:17:45.840
+So we have good intentions.
+
+00:17:45.850 --> 00:17:48.280
+We have sort of, like, a post, you know
+
+00:17:48.280 --> 00:17:50.640
+, cut-through competition world, potentially.
+
+00:17:50.650 --> 00:17:55.070
+So what can we do with that in a way that actually
+
+00:17:55.070 --> 00:17:57.060
+is, you know, value creation here?
+
+00:17:58.550 --> 00:18:00.980
+You know, I mean, if you look back in economic
+
+00:18:01.010 --> 00:18:03.700
+theory, and I'm flexing my economics minor here,
+
+00:18:03.710 --> 00:18:05.430
+it's going to work a little too hard for a second
+
+00:18:05.430 --> 00:18:05.570
+.
+
+00:18:05.610 --> 00:18:10.640
+Oscar Morgenstein and John von Neumann made the book
+
+00:18:10.640 --> 00:18:13.580
+The Theory of Games and Economic Behavior, which is about...
+
+00:18:13.590 --> 00:18:16.670
+which kind of brought game theory as a mathematical field into what
+
+00:18:16.680 --> 00:18:18.680
+was the social science before of economics.
+
+00:18:18.690 --> 00:18:23.220
+And that kind of started this movement of economics that eventually led
+
+00:18:23.220 --> 00:18:26.750
+to the market's creation and sort of, like, the
+
+00:18:26.930 --> 00:18:29.580
+, you know, zero-sum games was exactly what
+
+00:18:29.580 --> 00:18:33.050
+they built and how, you know, if I get money
+
+00:18:33.210 --> 00:18:34.780
+, it's at the expense of someone else.
+
+00:18:34.790 --> 00:18:38.160
+Since that time, economic theory has moved to positive sum.
+
+00:18:38.170 --> 00:18:39.440
+There's, like, all kinds of, like, goofy
+
+00:18:39.440 --> 00:18:41.780
+things they're doing, and this is where my economics minor
+
+00:18:41.780 --> 00:18:42.260
+stops.
+
+00:18:42.270 --> 00:18:46.060
+But what I do know is that the theory has completely moved
+
+00:18:46.190 --> 00:18:47.920
+on, but the world is stuck with the same zero-
+
+00:18:47.920 --> 00:18:49.580
+sum stuff that we don't need to be stuck in
+
+00:18:49.630 --> 00:18:50.100
+anymore.
+
+00:18:50.750 --> 00:18:52.960
+So, and there's a few examples of this in the
+
+00:18:52.960 --> 00:18:53.820
+wild already.
+
+00:18:53.830 --> 00:18:55.180
+Like, we have Patreon.
+
+00:18:55.190 --> 00:18:57.300
+That's something that's come in the last decade where,
+
+00:18:57.300 --> 00:19:02.020
+like, donations are actually something that's people's regular source
+
+00:19:02.050 --> 00:19:04.220
+of income, you know, on a monthly basis.
+
+00:19:04.230 --> 00:19:07.730
+And you have all these other, like, sort of mutual
+
+00:19:07.730 --> 00:19:10.960
+aid and all these things that are coming up that are all
+
+00:19:11.010 --> 00:19:12.440
+on the Internet.
+
+00:19:12.450 --> 00:19:14.760
+This is the sort of model we need to move towards,
+
+00:19:15.270 --> 00:19:18.450
+and this is where it would be cool for us to use
+
+00:19:18.450 --> 00:19:22.300
+this framing that I'm presenting to come up with a way
+
+00:19:22.300 --> 00:19:27.390
+that we can monetize apps in the future, convince investors
+
+00:19:27.580 --> 00:19:31.910
+to get in, and then get people to be able to
+
+00:19:31.910 --> 00:19:34.410
+be paid to work on this stuff full-time, because
+
+00:19:34.460 --> 00:19:35.820
+, you know, man's got to eat.
+
+00:19:37.410 --> 00:19:40.710
+So for the last maybe five minutes or so, I'm
+
+00:19:40.710 --> 00:19:46.290
+going to show the extension I made, which is rabbit hole
+
+00:19:46.290 --> 00:19:46.800
+.
+
+00:19:46.810 --> 00:19:52.120
+Yeah, it occupies your new tab, and essentially it
+
+00:19:52.170 --> 00:19:55.570
+stores, you can kind of grab all the, you can
+
+00:19:55.580 --> 00:19:56.900
+track your rabbit holes online.
+
+00:19:56.910 --> 00:19:58.380
+That's kind of the idea here.
+
+00:19:58.390 --> 00:20:01.160
+These are a bunch of the different rabbit holes I made.
+
+00:20:01.370 --> 00:20:04.750
+The part where it relates to competition is because I don't
+
+00:20:04.750 --> 00:20:07.380
+, I didn't make any original lexicons here.
+
+00:20:07.390 --> 00:20:11.240
+These are all, these are trails, where, which were
+
+00:20:11.240 --> 00:20:14.060
+made on SideTrail, an app made by Dan Abr
+
+00:20:14.110 --> 00:20:16.610
+amal, who's coincidentally giving a talk in another
+
+00:20:16.620 --> 00:20:17.300
+room right now.
+
+00:20:17.310 --> 00:20:20.860
+Let me find a little trail.
+
+00:20:20.870 --> 00:20:22.420
+There was a good one.
+
+00:20:22.430 --> 00:20:24.000
+Oh, there you go.
+
+00:20:24.010 --> 00:20:25.360
+Brendan's one for Leaflet.
+
+00:20:25.370 --> 00:20:28.680
+So this extension allows you to actually, you know, just
+
+00:20:28.740 --> 00:20:29.640
+walk a trail.
+
+00:20:31.370 --> 00:20:33.480
+And check out stuff.
+
+00:20:33.490 --> 00:20:36.740
+Like, there's information on each, you know, stop
+
+00:20:36.870 --> 00:20:40.700
+that you're making on the trail that lets you kind of
+
+00:20:40.700 --> 00:20:42.760
+, like, understand what you need to do.
+
+00:20:42.770 --> 00:20:47.740
+And after that, hopefully you come out of it with some
+
+00:20:47.850 --> 00:20:50.400
+sort of knowledge or skill.
+
+00:20:50.410 --> 00:20:52.080
+I'll go through the whole thing.
+
+00:20:52.090 --> 00:20:56.100
+So if you guys haven't used Leaflet, beautiful editor
+
+00:20:56.110 --> 00:20:57.780
+, you know, it's, give it a try for
+
+00:20:57.890 --> 00:20:58.260
+sure.
+
+00:20:58.270 --> 00:21:00.120
+And it's fully feature complete.
+
+00:21:00.130 --> 00:21:01.770
+I don't use Notion anymore, which is awesome.
+
+00:21:01.810 --> 00:21:06.200
+Yeah.
+
+00:21:06.210 --> 00:21:09.750
+And let's just get to the end.
+
+00:21:09.770 --> 00:21:13.500
+Yeah.
+
+00:21:13.510 --> 00:21:17.980
+And the other thing that you can organize your rabbit holes into
+
+00:21:17.990 --> 00:21:19.000
+are burrows.
+
+00:21:19.010 --> 00:21:22.380
+These are literally just assemble collections.
+
+00:21:22.390 --> 00:21:26.900
+So that's, like, that's something, you know
+
+00:21:26.900 --> 00:21:31.020
+, these are all lexicons that already exist.
+
+00:21:31.030 --> 00:21:34.880
+And I don't see the need for us to, like
+
+00:21:34.930 --> 00:21:36.980
+, you know, if you want to build new stuff,
+
+00:21:36.990 --> 00:21:37.800
+you can build new stuff.
+
+00:21:37.810 --> 00:21:40.200
+If you want to take features, you can take features.
+
+00:21:40.210 --> 00:21:42.440
+All you got to do is have ideas and compose them.
+
+00:21:43.290 --> 00:21:46.820
+So that's kind of it in terms of what I plan
+
+00:21:46.820 --> 00:21:47.460
+to talk about.
+
+00:21:47.470 --> 00:21:50.010
+So we can, if you guys got questions, we can
+
+00:21:50.050 --> 00:21:51.040
+start talking about those.
+
+00:21:51.090 --> 00:21:52.210
+Excellent.
+
+00:21:52.230 --> 00:21:52.640
+Thank you.
+
+00:21:52.650 --> 00:21:54.840
+I love that idea of, like, oh, he just
+
+00:21:54.860 --> 00:21:55.960
+kind of drops.
+
+00:21:55.970 --> 00:21:57.990
+He's like, these are all just assemble collections, you
+
+00:21:57.990 --> 00:22:00.740
+know, just composing all these different parts.
+
+00:22:00.910 --> 00:22:03.140
+And they're not even, like, protocol-based parts
+
+00:22:03.190 --> 00:22:03.360
+.
+
+00:22:03.370 --> 00:22:05.220
+They're, like, the next level up.
+
+00:22:05.230 --> 00:22:07.320
+You know, that's the composable bit.
+
+00:22:07.330 --> 00:22:09.140
+And then you can keep composing, keep composing.
+
+00:22:09.150 --> 00:22:09.530
+Excellent.
+
+00:22:09.550 --> 00:22:10.320
+Thank you very much.
+
+00:22:10.330 --> 00:22:10.740
+All right.
+
+00:22:10.750 --> 00:22:12.260
+Let's give a round of applause.
+
+00:22:12.270 --> 00:22:13.360
+Thank you, guys.
+
+00:22:13.370 --> 00:22:14.760
+Thank you.
+
+00:22:14.770 --> 00:22:15.180
+Thank you.
+
+00:22:15.190 --> 00:22:16.840
+All right.
+
+00:22:16.850 --> 00:22:19.160
+Anybody have any questions or comments?
+
+00:22:19.170 --> 00:22:20.920
+Let me get you the mic.
+
+00:22:20.930 --> 00:22:22.180
+Let me get you the mic for the stream.
+
+00:22:22.190 --> 00:22:24.780
+I was just saying, was that a Chrome extension?
+
+00:22:24.790 --> 00:22:26.640
+Yeah, it's a Chromium only for now.
+
+00:22:26.650 --> 00:22:28.440
+Very soon, I'll do Firefox as well.
+
+00:22:29.170 --> 00:22:30.900
+There'll be an extension, sorry, there'll be an
+
+00:22:30.900 --> 00:22:32.800
+announcement for that coming, like, probably today at some point
+
+00:22:32.800 --> 00:22:32.900
+.
+
+00:22:32.910 --> 00:22:34.020
+So, yeah, look out for that.
+
+00:22:34.030 --> 00:22:34.610
+What's it called?
+
+00:22:34.630 --> 00:22:35.580
+What was it called?
+
+00:22:35.590 --> 00:22:36.620
+Rabbit Hole.
+
+00:22:36.630 --> 00:22:38.400
+Rabbit Hole.
+
+00:22:38.410 --> 00:22:39.180
+The Rabbit Hole extension.
+
+00:22:39.190 --> 00:22:40.740
+Oh, right there.
+
+00:22:40.750 --> 00:22:45.220
+On the Expo panel, they talked about how it allowed
+
+00:22:45.220 --> 00:22:46.680
+them to ship quickly.
+
+00:22:46.730 --> 00:22:52.180
+Like, there was this implicit competitive advantage thing.
+
+00:22:52.190 --> 00:22:55.500
+Yeah, I was just thinking about that.
+
+00:22:55.510 --> 00:22:59.100
+So, there still seems to be this drive to get something
+
+00:22:59.110 --> 00:23:02.740
+out fast, be the first one, potential first mover.
+
+00:23:02.750 --> 00:23:04.520
+Do you have any thoughts on that?
+
+00:23:04.530 --> 00:23:06.870
+Yeah, I mean, I think that's a good thing
+
+00:23:06.870 --> 00:23:07.040
+.
+
+00:23:07.050 --> 00:23:08.510
+You know, if you have an idea and you're burning
+
+00:23:08.530 --> 00:23:10.140
+with fashion to, like, get it out there, that
+
+00:23:10.140 --> 00:23:10.900
+'s such a good feeling.
+
+00:23:10.910 --> 00:23:14.550
+I've experienced that feeling a lot and I think there's
+
+00:23:14.550 --> 00:23:15.120
+nothing wrong with that.
+
+00:23:15.130 --> 00:23:17.980
+In fact, I'm more happy than ever that the same
+
+00:23:18.090 --> 00:23:20.650
+joy I experienced as a programmer when I first built something and
+
+00:23:20.650 --> 00:23:24.830
+I saw it worked, seeing that other people can have access
+
+00:23:24.830 --> 00:23:27.220
+to this without knowing how to program is awesome.
+
+00:23:27.230 --> 00:23:28.500
+I think that's just a really good thing.
+
+00:23:29.050 --> 00:23:33.270
+So I think if you make something first, that's cool
+
+00:23:33.270 --> 00:23:33.580
+.
+
+00:23:33.590 --> 00:23:35.540
+It's like, even this, like, rabbit hole,
+
+00:23:35.550 --> 00:23:36.900
+like, I think I saw Margin come out, I
+
+00:23:36.900 --> 00:23:38.630
+'m like, wow, this looks like they're doing similar
+
+00:23:38.680 --> 00:23:39.210
+stuff to me.
+
+00:23:39.230 --> 00:23:40.760
+I'm like, I just like building this.
+
+00:23:40.770 --> 00:23:42.750
+I've been building this for myself and you can see how
+
+00:23:42.750 --> 00:23:43.300
+many I have.
+
+00:23:43.310 --> 00:23:44.640
+I have like a whole bunch.
+
+00:23:45.190 --> 00:23:47.650
+So that's kind of, yeah, that's my thing
+
+00:23:47.700 --> 00:23:47.900
+on that.
+
+00:23:47.910 --> 00:23:49.650
+But that's an interesting point and that's something that I
+
+00:23:49.690 --> 00:23:51.360
+think is changing as well.
+
+00:23:51.370 --> 00:23:54.080
+Like one, like over the last, say, 15 or
+
+00:23:54.080 --> 00:23:57.860
+20 years of startups, we've often had to remind beginners
+
+00:23:57.880 --> 00:24:00.710
+that come into the space that, you know, once they
+
+00:24:00.760 --> 00:24:02.960
+have this passionate idea and then they make it and then they
+
+00:24:02.960 --> 00:24:04.640
+see, oh, this person already made it.
+
+00:24:04.650 --> 00:24:06.580
+Oh, it's like, no, they're doing more
+
+00:24:06.590 --> 00:24:07.900
+than one of those things in the world.
+
+00:24:07.910 --> 00:24:10.780
+That's okay and you can spin your own version.
+
+00:24:10.790 --> 00:24:13.930
+But now, you know, especially with like Claude and
+
+00:24:13.930 --> 00:24:16.820
+stuff, you're going to see a lot more like slightly
+
+00:24:16.820 --> 00:24:19.960
+tweaked different versions as people, as, you know,
+
+00:24:19.970 --> 00:24:21.800
+Jay said yesterday she was calling it liquid.
+
+00:24:21.810 --> 00:24:24.160
+You know, UIs are liquid and we talk about m
+
+00:24:24.160 --> 00:24:26.420
+alleable software and those types of concepts.
+
+00:24:26.430 --> 00:24:30.460
+So I think first to market doesn't necessarily, might lose
+
+00:24:30.510 --> 00:24:31.900
+meaning in the future, maybe?
+
+00:24:31.910 --> 00:24:32.480
+I don't know.
+
+00:24:32.490 --> 00:24:33.800
+Dawn, here you go.
+
+00:24:33.810 --> 00:24:37.000
+Yeah, great talk, great conversation so far.
+
+00:24:37.010 --> 00:24:39.760
+Wondering if you could build on what's just been
+
+00:24:39.760 --> 00:24:43.600
+said into that thing, you, your slide where you talk
+
+00:24:43.600 --> 00:24:46.600
+about like figuring out ways to get paid and do you have
+
+00:24:46.770 --> 00:24:49.980
+ideas or like dreams or like what that could look like for
+
+00:24:50.050 --> 00:24:52.300
+you in a non-zero-sum ecosystem?
+
+00:24:52.310 --> 00:24:55.930
+Yeah, I definitely, I think, as a lot of
+
+00:24:56.090 --> 00:24:58.840
+things in the protocol, Black Sky has been stewarding
+
+00:24:58.850 --> 00:25:01.630
+or taking the lead on this with Black Sky Cash.
+
+00:25:01.670 --> 00:25:03.400
+I'm eager to see how that pans out.
+
+00:25:03.410 --> 00:25:05.970
+I do think, I haven't talked to Jay about this
+
+00:25:06.010 --> 00:25:08.760
+yesterday, about like, what do they think about, you
+
+00:25:08.760 --> 00:25:12.550
+know, payments on protocol and that's not something that,
+
+00:25:12.570 --> 00:25:14.620
+you know, I understand there's a sequencing for things that
+
+00:25:14.620 --> 00:25:15.060
+need to happen.
+
+00:25:15.070 --> 00:25:17.300
+Like private data right now is probably more important.
+
+00:25:17.310 --> 00:25:20.840
+What I think would be cool is at least we start with
+
+00:25:20.840 --> 00:25:23.230
+mutual aid, we start with donations on protocol.
+
+00:25:23.250 --> 00:25:27.960
+It's actually kind of a cruel irony for me, someone
+
+00:25:27.960 --> 00:25:29.130
+who came from the crypto world.
+
+00:25:29.170 --> 00:25:31.980
+I was working on a bunch of cool projects, a bunch
+
+00:25:31.980 --> 00:25:35.360
+of people were working on cool projects, which the least cool
+
+00:25:35.360 --> 00:25:37.700
+part was the fact that there's a cryptocurrency and people like
+
+00:25:37.710 --> 00:25:38.820
+are expected to work with it.
+
+00:25:38.830 --> 00:25:40.770
+Now it's like we come to this space where we got
+
+00:25:40.810 --> 00:25:42.750
+all the cool stuff but we don't actually have any payments
+
+00:25:42.770 --> 00:25:43.260
+on protocol.
+
+00:25:43.270 --> 00:25:45.600
+It's just a funny irony that, yeah.
+
+00:25:45.610 --> 00:25:50.320
+Any other questions from the crowd?
+
+00:25:50.330 --> 00:25:52.700
+Okay, great.
+
+00:25:52.710 --> 00:25:54.340
+Well, thank you very much for the presentation.
+
+00:25:54.350 --> 00:25:56.080
+Thank you everybody for this afternoon.
+
+00:25:56.090 --> 00:25:56.500
+Cheers.
+
+00:25:56.500 --> 00:25:56.500
+Cheers.

@@ -1,0 +1,1729 @@
+WEBVTT
+
+00:00:00.120 --> 00:00:04.280
+So, this is going to be a bit of a discussion
+
+00:00:04.280 --> 00:00:07.790
+, starting with us three, and I'll introduce myself and
+
+00:00:07.800 --> 00:00:10.700
+then allow the others to introduce themselves as well, but feel
+
+00:00:10.700 --> 00:00:15.350
+free to put your hand up at any point and participate.
+
+00:00:15.390 --> 00:00:18.420
+I hope there's this, the general topic is, which
+
+00:00:18.420 --> 00:00:21.770
+flows on really well from Natalie's talk, so thank you
+
+00:00:21.770 --> 00:00:23.850
+, that really set us up well.
+
+00:00:23.890 --> 00:00:26.710
+I was kind of looking back at Nate and our previous discussions
+
+00:00:26.710 --> 00:00:29.220
+, and a lot of what we've talked about really resonated
+
+00:00:29.240 --> 00:00:29.770
+there.
+
+00:00:30.030 --> 00:00:35.390
+But overall, we bring it to AppProtocol specifically
+
+00:00:35.420 --> 00:00:40.050
+and building a new sort of creator economy here.
+
+00:00:40.470 --> 00:00:43.710
+So, from my perspective, I'm one of the co
+
+00:00:43.710 --> 00:00:45.520
+-founders of Spark.
+
+00:00:45.570 --> 00:00:50.840
+Spark is focused on content creators, the creator economy specifically,
+
+00:00:50.840 --> 00:00:54.940
+more like short-form creators and that kind of really,
+
+00:00:54.940 --> 00:01:00.320
+really big influencer marketing ecosystem that's grown on these incumbent social
+
+00:01:00.320 --> 00:01:05.660
+platforms, and we work out of a space in New York
+
+00:01:05.660 --> 00:01:09.580
+called Versi, which is home to a lot of content
+
+00:01:09.580 --> 00:01:10.550
+creators.
+
+00:01:10.750 --> 00:01:13.700
+I think they have a combined over 10 million followers, and
+
+00:01:13.700 --> 00:01:16.760
+these are predominantly spread across TikTok and Instagram.
+
+00:01:17.550 --> 00:01:19.810
+And a lot of them, a lot of the discussions and
+
+00:01:19.990 --> 00:01:23.400
+workshops that they run there is basically all about how they can
+
+00:01:23.400 --> 00:01:28.700
+extract their audiences from these closed platforms because, you know,
+
+00:01:28.730 --> 00:01:30.740
+they're at the whim of an algorithm change or a policy
+
+00:01:31.170 --> 00:01:34.420
+change, and their career could potentially end tomorrow in their livelihood
+
+00:01:34.420 --> 00:01:34.700
+.
+
+00:01:36.090 --> 00:01:38.020
+And AppProtocol, we see is a great solution
+
+00:01:38.140 --> 00:01:41.180
+for that, you know, their current solutions are pulling that
+
+00:01:41.310 --> 00:01:44.100
+out to things like Substack, to newsletters,
+
+00:01:44.100 --> 00:01:46.500
+Patreon, PayWorld Gardens.
+
+00:01:46.550 --> 00:01:49.110
+But AppProtocol is a way for them to native
+
+00:01:49.110 --> 00:01:53.000
+ly own that audience where they actually get discovered.
+
+00:01:53.950 --> 00:01:57.930
+And so that's a bit about Spark and my motivation for
+
+00:01:57.930 --> 00:02:00.460
+building in the atmosphere.
+
+00:02:00.490 --> 00:02:02.100
+Yeah, I don't know if I, I'm Joe
+
+00:02:02.100 --> 00:02:03.310
+Basser, by the way.
+
+00:02:03.370 --> 00:02:06.240
+Thank you, Joe.
+
+00:02:06.290 --> 00:02:08.120
+My name is Josh Shiket.
+
+00:02:08.150 --> 00:02:09.820
+I'm also New York-based.
+
+00:02:09.850 --> 00:02:12.310
+I'm one of the bad guys in the room like Natalie
+
+00:02:12.310 --> 00:02:12.560
+.
+
+00:02:12.590 --> 00:02:13.900
+I'm a venture investor.
+
+00:02:13.930 --> 00:02:16.860
+I work at a firm called Sentinel Global.
+
+00:02:17.310 --> 00:02:20.000
+We're a multi-stage investment firm.
+
+00:02:20.030 --> 00:02:23.960
+I've spent my whole career translating open protocols to real-
+
+00:02:24.030 --> 00:02:27.340
+world problems and commercial opportunities.
+
+00:02:27.370 --> 00:02:30.440
+So this started in the fintech and digital assets space
+
+00:02:30.440 --> 00:02:34.720
+where I've done a lot of work investing in companies from
+
+00:02:34.720 --> 00:02:37.120
+, you know, the seed stage to even underwriting public
+
+00:02:37.140 --> 00:02:37.580
+ones.
+
+00:02:37.610 --> 00:02:40.300
+I've done a lot of work in the open social web
+
+00:02:40.300 --> 00:02:45.340
+, serving communities from Noster to Farcaster, Activity
+
+00:02:45.340 --> 00:02:48.830
+Pub, came across AppProton Blue Sky a couple
+
+00:02:48.830 --> 00:02:51.810
+years ago and is really drawn to the affordance of data
+
+00:02:52.090 --> 00:02:55.320
+and identity portability that the ecosystem offered.
+
+00:02:55.350 --> 00:02:59.590
+And super excited to be here today and talk about some of
+
+00:02:59.590 --> 00:03:05.310
+the new novel business models that this protocol and technology foundation enables
+
+00:03:05.310 --> 00:03:05.580
+.
+
+00:03:05.610 --> 00:03:07.540
+So I'll pass it over to Nate.
+
+00:03:09.010 --> 00:03:10.740
+Hello, I'm Nate.
+
+00:03:10.770 --> 00:03:15.120
+I work on open sourced for most of my life.
+
+00:03:15.150 --> 00:03:17.880
+And recently I've become really enamored with AppProt
+
+00:03:17.880 --> 00:03:18.040
+on.
+
+00:03:18.070 --> 00:03:19.890
+So I'm working on, like, some SDKs for
+
+00:03:19.890 --> 00:03:20.640
+AppProton.
+
+00:03:20.670 --> 00:03:24.650
+And then recently a music app, which has sort of brought
+
+00:03:24.650 --> 00:03:28.680
+me into this problem of, like, what ways can artists
+
+00:03:28.680 --> 00:03:32.500
+, like, express how their content should be used.
+
+00:03:32.530 --> 00:03:36.100
+As Joe mentioned, like, how do you retain ownership of
+
+00:03:36.100 --> 00:03:40.520
+the content that you create without being subject to random things?
+
+00:03:40.550 --> 00:03:43.970
+So, yeah, I just think it's really exciting to
+
+00:03:43.970 --> 00:03:48.470
+sort of break open the problem that you get when you reverse
+
+00:03:48.470 --> 00:03:50.740
+the Faustian bargain that sort of she was referring to
+
+00:03:50.740 --> 00:03:51.860
+in the previous talk.
+
+00:03:51.890 --> 00:03:53.320
+So I'm excited to get into it.
+
+00:03:53.470 --> 00:03:56.340
+Awesome.
+
+00:03:56.370 --> 00:03:57.000
+Yeah.
+
+00:03:57.710 --> 00:04:00.860
+I guess everyone, the reason why everyone's here, everyone
+
+00:04:00.860 --> 00:04:04.540
+understands the issues with current social and the kind of power dynamics
+
+00:04:04.540 --> 00:04:07.460
+that are there, especially with content creators.
+
+00:04:07.490 --> 00:04:10.830
+Even looking at, you know, the creators, we're
+
+00:04:10.830 --> 00:04:15.040
+looking at catering to the most of their revenue sources that
+
+00:04:15.040 --> 00:04:16.950
+are not actually through the platforms they operate on.
+
+00:04:17.130 --> 00:04:20.750
+You know, the TikTok, Instagram, revenue sharing programs is
+
+00:04:20.750 --> 00:04:23.620
+actually a very, very small fraction of their revenue source.
+
+00:04:23.650 --> 00:04:26.410
+And it tends to be these kind of third-party brand
+
+00:04:26.410 --> 00:04:29.800
+sponsorships and things like that that make up, you know
+
+00:04:29.870 --> 00:04:32.090
+, the large portion.
+
+00:04:33.710 --> 00:04:37.420
+Yeah, Josh, you posted a really good leaflet recently
+
+00:04:37.470 --> 00:04:41.930
+about kind of redistribution, the redistribution of attention and
+
+00:04:42.910 --> 00:04:46.200
+especially with algorithms and feeds.
+
+00:04:46.330 --> 00:04:48.260
+So, yeah, I'd love to, if you could
+
+00:04:48.760 --> 00:04:51.750
+share your thoughts more on like how that can impact the creator
+
+00:04:51.750 --> 00:04:53.940
+economy specifically in the context of AppRoto.
+
+00:04:53.950 --> 00:04:55.580
+Sure.
+
+00:04:55.610 --> 00:04:56.600
+We'll do a quick survey.
+
+00:04:56.630 --> 00:04:59.040
+How many people post on social media?
+
+00:04:59.070 --> 00:04:59.820
+Put your hand up.
+
+00:04:59.830 --> 00:05:01.780
+All right.
+
+00:05:01.970 --> 00:05:03.130
+Everyone, hands down.
+
+00:05:03.170 --> 00:05:07.700
+Who makes meaningful income from their posts?
+
+00:05:07.810 --> 00:05:08.540
+Hands up.
+
+00:05:08.570 --> 00:05:11.040
+I see one hand in the room.
+
+00:05:11.070 --> 00:05:11.560
+Congrats.
+
+00:05:13.630 --> 00:05:18.880
+The reality is users and publishers are the stakeholders in these social
+
+00:05:18.890 --> 00:05:21.380
+networks that create value.
+
+00:05:21.410 --> 00:05:24.580
+But they're not the ones that capture the value.
+
+00:05:24.610 --> 00:05:27.610
+And this is because the platform at the end of the day
+
+00:05:27.610 --> 00:05:30.160
+is the entity that owns distribution.
+
+00:05:30.190 --> 00:05:31.580
+They own what...
+
+00:05:31.610 --> 00:05:36.650
+They're the ones who control what content users see and in
+
+00:05:36.870 --> 00:05:37.980
+what order.
+
+00:05:39.070 --> 00:05:41.110
+And they also control the interface.
+
+00:05:41.370 --> 00:05:44.160
+So, the screen real estate that users see.
+
+00:05:44.190 --> 00:05:48.480
+And these are really the two things that enable the platform to
+
+00:05:48.480 --> 00:05:52.760
+capture a meaningful majority of value on these platforms.
+
+00:05:52.810 --> 00:05:58.350
+And as the entity that captures the meaningful amount of value on
+
+00:05:58.350 --> 00:06:03.140
+these networks, the platform is also the arbiter of value
+
+00:06:03.140 --> 00:06:03.480
+.
+
+00:06:04.090 --> 00:06:08.530
+It is the entity that decides how that value gets allocated across
+
+00:06:08.530 --> 00:06:14.110
+the various stakeholders in its social network ecosystem.
+
+00:06:14.450 --> 00:06:17.920
+And ultimately, these platforms serve not users.
+
+00:06:17.950 --> 00:06:19.170
+They don't serve publishers.
+
+00:06:19.210 --> 00:06:22.160
+They serve shareholders at the end of the day.
+
+00:06:22.190 --> 00:06:26.560
+And so, there's really little to structurally no incentive
+
+00:06:26.560 --> 00:06:31.200
+for these platforms to share back revenue to creators.
+
+00:06:31.230 --> 00:06:35.310
+There are some of these creator monetization programs that exist where
+
+00:06:35.310 --> 00:06:39.670
+maybe a small fraction of advertising revenue is passed back to users
+
+00:06:39.680 --> 00:06:40.490
+and publishers.
+
+00:06:40.530 --> 00:06:44.690
+But they're prohibitively high thresholds to participating in
+
+00:06:44.690 --> 00:06:46.040
+these programs.
+
+00:06:46.070 --> 00:06:49.430
+And so, one of the core affordances that I mentioned
+
+00:06:49.480 --> 00:06:52.100
+of AppProto in my intro was this decoupling
+
+00:06:52.200 --> 00:06:55.230
+of data from application presentation.
+
+00:06:56.130 --> 00:07:00.030
+So, everyone's data lives in their own personal PDFs
+
+00:07:00.030 --> 00:07:05.790
+and applications tap into each user's respective PDFs and create
+
+00:07:05.800 --> 00:07:10.640
+an application view by tapping into this data.
+
+00:07:11.370 --> 00:07:15.570
+And so, one of the things that happens as a by
+
+00:07:15.570 --> 00:07:20.470
+product of this affordance is users in AppProto are
+
+00:07:20.490 --> 00:07:26.480
+able to create their own custom feeds and algorithms that live outside
+
+00:07:26.480 --> 00:07:28.650
+of the platform's control.
+
+00:07:28.690 --> 00:07:31.940
+And the algorithm at the end of the day is the thing
+
+00:07:31.940 --> 00:07:37.260
+that decides distribution, that decides who sees what content and in
+
+00:07:37.280 --> 00:07:38.500
+what order.
+
+00:07:39.230 --> 00:07:43.280
+And so, I'm hopeful that in this evolution of social
+
+00:07:43.280 --> 00:07:48.390
+platforms adopting AppProto and decoupling data from platforms
+
+00:07:48.420 --> 00:07:52.510
+themselves, we'll actually be able to live in a world
+
+00:07:52.510 --> 00:07:58.160
+of user-controlled algorithms versus platform-controlled algorithms.
+
+00:07:58.190 --> 00:08:02.370
+And that gives a lot more agency to the user and the
+
+00:08:02.370 --> 00:08:06.190
+creator as, well, number one, they get to take
+
+00:08:06.190 --> 00:08:11.130
+back control of distribution, which enables them to control what their
+
+00:08:11.170 --> 00:08:12.500
+audience sees.
+
+00:08:12.630 --> 00:08:15.840
+Today, if you're a user or publisher and you're
+
+00:08:15.840 --> 00:08:20.090
+broadcasting out into the social abyss, you have no control
+
+00:08:20.220 --> 00:08:23.960
+over what content your audience sees and in what order.
+
+00:08:24.990 --> 00:08:27.200
+And so, this is a really bad sort of trade-
+
+00:08:27.400 --> 00:08:29.040
+off for users and publishers.
+
+00:08:29.070 --> 00:08:34.950
+But if publishers are able to take back control of distribution through
+
+00:08:34.950 --> 00:08:38.820
+public feeds or through custom feeds and custom algorithms, not only
+
+00:08:38.820 --> 00:08:42.320
+do they take back distribution, but they also take back control
+
+00:08:42.390 --> 00:08:43.030
+of value.
+
+00:08:43.170 --> 00:08:47.100
+And now they become the arbiters of value in this ecosystem
+
+00:08:47.100 --> 00:08:48.800
+, not the platforms.
+
+00:08:48.830 --> 00:08:53.280
+And I'm hoping that with publishers and content creators becoming the
+
+00:08:53.320 --> 00:08:57.080
+arbiters of value in these ecosystems, now they're the
+
+00:08:57.370 --> 00:09:01.940
+ones that decide how that value gets allocated across the ecosystem.
+
+00:09:02.510 --> 00:09:05.790
+And I'm excited to see how this envelope of value could
+
+00:09:05.790 --> 00:09:09.000
+get distributed across various stakeholders.
+
+00:09:09.030 --> 00:09:11.930
+At the very extreme, you could imagine like Andra,
+
+00:09:11.930 --> 00:09:16.010
+for example, who runs the largest custom feeder algorithm on Blue
+
+00:09:16.010 --> 00:09:18.880
+Sky, a verified news feed that she built with Graze
+
+00:09:18.960 --> 00:09:19.130
+.
+
+00:09:19.170 --> 00:09:23.080
+She could embed advertising and sponsor posts within her feed, which
+
+00:09:23.080 --> 00:09:26.250
+she's already done, not at massive scale, and then
+
+00:09:26.250 --> 00:09:29.850
+redistribute all of that ad revenue that she generates to
+
+00:09:29.850 --> 00:09:32.200
+users or subscribers of her feed.
+
+00:09:32.230 --> 00:09:35.830
+And you could start to imagine how this envelope of value could
+
+00:09:35.830 --> 00:09:40.280
+get distributed across these various stakeholders that actually provide value to the
+
+00:09:40.280 --> 00:09:44.300
+feed or algorithm that creates these new incentives and new forms of
+
+00:09:44.300 --> 00:09:45.940
+economic coordination.
+
+00:09:47.170 --> 00:09:55.800
+So when you're talking about
+
+00:09:55.810 --> 00:10:04.460
+the redistribution of value
+
+00:10:04.460 --> 00:10:13.170
+to the creators, as a platform creator
+
+00:10:13.170 --> 00:10:18.130
+, as a venture capitalist, presumably this is actively against your
+
+00:10:18.130 --> 00:10:20.410
+core interests, right?
+
+00:10:20.450 --> 00:10:22.750
+Because in order for you to gain value from the thing you
+
+00:10:22.890 --> 00:10:26.500
+'re creating, you need to control what people see because that
+
+00:10:26.500 --> 00:10:30.400
+gives your platform value that then you can extract for yourself,
+
+00:10:30.400 --> 00:10:30.980
+right?
+
+00:10:31.010 --> 00:10:34.040
+So how are you reconciling that?
+
+00:10:34.070 --> 00:10:39.320
+Like, are you planning on somehow building record deals with creators
+
+00:10:39.330 --> 00:10:41.840
+where they pay you for access to a platform?
+
+00:10:41.870 --> 00:10:43.800
+And if they are the ones who are the ones creating value
+
+00:10:43.820 --> 00:10:48.480
+, how does the platform or the venture capitalist add anything to
+
+00:10:48.560 --> 00:10:50.850
+that that makes it worth getting the share of the value in
+
+00:10:50.850 --> 00:10:51.300
+return?
+
+00:10:51.470 --> 00:10:55.800
+Great.
+
+00:10:56.610 --> 00:10:57.400
+Thank you for the question.
+
+00:10:57.490 --> 00:10:59.420
+It's obviously tough to be the bad guy.
+
+00:11:01.070 --> 00:11:01.760
+No, no, no.
+
+00:11:01.760 --> 00:11:04.000
+Look, I think the competitive vectors are going to change in
+
+00:11:04.000 --> 00:11:07.310
+this space and the points of demand aggregation will change as
+
+00:11:07.380 --> 00:11:07.840
+well.
+
+00:11:07.890 --> 00:11:11.140
+Obviously, in this world, the creator has a lot more
+
+00:11:11.140 --> 00:11:15.660
+leverage as someone who controls their own distribution, owns their portable
+
+00:11:15.830 --> 00:11:19.100
+feed that they can take with them from one platform to another
+
+00:11:19.220 --> 00:11:19.540
+.
+
+00:11:19.570 --> 00:11:23.600
+I envision, again, it's still really early.
+
+00:11:23.630 --> 00:11:25.910
+It's still too early to say, but I envision,
+
+00:11:26.040 --> 00:11:28.760
+you know, companies like Graze, for example, will
+
+00:11:28.780 --> 00:11:32.580
+build, will almost become like the stripe for creators and build
+
+00:11:32.580 --> 00:11:36.430
+monetization tools for them that allow them to, you know
+
+00:11:36.430 --> 00:11:39.180
+, for example, Graze has already built an ad marketplace
+
+00:11:39.210 --> 00:11:43.980
+that allows for feed creators on Graze to embed advertising and
+
+00:11:44.460 --> 00:11:46.800
+sponsored ads within their feeds.
+
+00:11:46.970 --> 00:11:50.210
+And, you know, Graze will probably impose some sort
+
+00:11:50.210 --> 00:11:52.500
+of take rate on that transaction.
+
+00:11:52.530 --> 00:11:55.760
+And so, yeah, as more people use Graze,
+
+00:11:55.760 --> 00:11:59.370
+as more feed creators come on to Graze, as more
+
+00:11:59.400 --> 00:12:02.970
+attention concentrates in Graze feeds, you know, I
+
+00:12:03.370 --> 00:12:06.640
+expect Graze to, you know, potentially in the future
+
+00:12:06.690 --> 00:12:10.240
+, you know, participate in some of those economics where they
+
+00:12:10.300 --> 00:12:16.320
+'re introducing advertisers to attention that takes place within these algorithms or
+
+00:12:16.360 --> 00:12:19.000
+feeds that creators produce.
+
+00:12:19.150 --> 00:12:21.760
+And I think the platforms will also play a role in this
+
+00:12:21.760 --> 00:12:21.970
+.
+
+00:12:22.010 --> 00:12:24.340
+Ultimately, if you create a feed or an algorithm, you
+
+00:12:24.450 --> 00:12:27.380
+still need distribution for your feeder algorithm.
+
+00:12:27.430 --> 00:12:30.380
+If you just create it and put it out into the world
+
+00:12:30.380 --> 00:12:33.140
+, there's not much value in that.
+
+00:12:33.170 --> 00:12:34.500
+You need people to view it.
+
+00:12:34.530 --> 00:12:36.730
+And, you know, Blue Sky has 40 million users.
+
+00:12:36.790 --> 00:12:38.700
+They provide distribution for feeds.
+
+00:12:38.730 --> 00:12:40.710
+They'll probably want a piece of the cut as well.
+
+00:12:40.830 --> 00:12:45.440
+Whenever they render an ad within one of these feeds, whenever
+
+00:12:45.450 --> 00:12:47.790
+a user looks at one of these feeds in the Blue Sky
+
+00:12:47.790 --> 00:12:51.060
+client and sees an ad, you know, that envelope of
+
+00:12:51.060 --> 00:12:57.860
+value will get split between the creator and the platform and probably
+
+00:12:57.860 --> 00:13:02.420
+Graze as well, who's like this monetization tool
+
+00:13:02.420 --> 00:13:04.560
+or infrastructure for creators.
+
+00:13:05.030 --> 00:13:07.480
+But, yeah, that's my response.
+
+00:13:07.510 --> 00:13:11.220
+Yeah, I mean, I'll just make a quick point
+
+00:13:11.270 --> 00:13:12.340
+and then we'll go to the question over there.
+
+00:13:12.370 --> 00:13:15.320
+From the perspective of someone that's, you know, building
+
+00:13:15.320 --> 00:13:19.030
+an app there, I think I echo Josh a lot there
+
+00:13:19.030 --> 00:13:24.000
+in that there's still the distribution surface.
+
+00:13:24.030 --> 00:13:26.710
+And I think it does flip the power dynamics, but there
+
+00:13:26.710 --> 00:13:30.320
+'s still the requirement for the interface to get the creator's
+
+00:13:30.690 --> 00:13:31.650
+content to the audience.
+
+00:13:31.690 --> 00:13:33.220
+And there's costs involved with that.
+
+00:13:33.250 --> 00:13:37.860
+But I think that the competitive nature changes and the power dynamic
+
+00:13:38.500 --> 00:13:39.060
+changes.
+
+00:13:39.090 --> 00:13:43.010
+So, you know, the creator in this case has a
+
+00:13:43.010 --> 00:13:47.020
+lot more power and say and arguably more, much more bargaining
+
+00:13:47.530 --> 00:13:49.340
+power in that transaction.
+
+00:13:49.370 --> 00:13:53.080
+So, you know, the apps that exist, depending on
+
+00:13:53.130 --> 00:13:56.760
+what roles they play, you know, looking at protocols specifically
+
+00:13:56.760 --> 00:13:57.920
+, there's lots of different components.
+
+00:13:57.950 --> 00:14:01.000
+There's, they might host your PDS, which actually
+
+00:14:01.000 --> 00:14:02.940
+has your content stored on it.
+
+00:14:02.970 --> 00:14:04.980
+It might, they might have the app view and they might
+
+00:14:05.120 --> 00:14:06.100
+be running the feed.
+
+00:14:06.130 --> 00:14:07.290
+They might be doing the moderation.
+
+00:14:07.330 --> 00:14:10.120
+They might have a full stack, in which case they deserve
+
+00:14:10.120 --> 00:14:11.500
+a larger bit of that pie.
+
+00:14:11.530 --> 00:14:15.970
+But ultimately, the creator has a lot more bargaining power and
+
+00:14:16.010 --> 00:14:21.660
+these kind of other components of the system fall further back into
+
+00:14:21.680 --> 00:14:23.720
+the, you know, into the background.
+
+00:14:23.750 --> 00:14:27.050
+And, you know, they basically play a role as a
+
+00:14:27.050 --> 00:14:31.520
+broadcaster or the rails for which a creator can access the
+
+00:14:31.520 --> 00:14:32.340
+audience.
+
+00:14:32.370 --> 00:14:34.880
+And the creator has the choice over which apps that they use
+
+00:14:34.910 --> 00:14:36.760
+as the surface to reach their audience.
+
+00:14:37.330 --> 00:14:38.930
+So, yeah, there was, I think there was a
+
+00:14:38.930 --> 00:14:40.020
+question over there.
+
+00:14:40.170 --> 00:14:50.060
+Hi.
+
+00:14:50.650 --> 00:14:54.360
+So, I actually use Graze to create feeds and I
+
+00:14:54.370 --> 00:14:56.700
+have one feed enabled for monetization.
+
+00:14:56.730 --> 00:15:02.500
+But what I've found in general with the feed creators with
+
+00:15:02.500 --> 00:15:07.520
+Graze is that most of us are trying to create these
+
+00:15:07.520 --> 00:15:11.130
+feeds, but we're not necessarily out there trying to market
+
+00:15:11.130 --> 00:15:12.510
+to get advertisers.
+
+00:15:12.670 --> 00:15:15.400
+Like, that's not our main skill set, if you
+
+00:15:15.400 --> 00:15:16.000
+will.
+
+00:15:16.010 --> 00:15:21.340
+Whereas the creators themselves who are trying to monetize their work
+
+00:15:21.340 --> 00:15:23.140
+are skilled at that.
+
+00:15:23.170 --> 00:15:28.540
+And so, I guess I wonder both what do you see
+
+00:15:28.560 --> 00:15:33.210
+as a way that we can actually get advertisers even wanting to
+
+00:15:33.210 --> 00:15:35.840
+be part of this system.
+
+00:15:35.870 --> 00:15:36.620
+Yeah.
+
+00:15:36.650 --> 00:15:39.830
+Like, how do you make that happen when you kind of
+
+00:15:39.830 --> 00:15:45.530
+have this weird distribution of creator versus more of a developer general
+
+00:15:45.530 --> 00:15:47.170
+interest person?
+
+00:15:47.370 --> 00:15:47.820
+Yeah.
+
+00:15:47.850 --> 00:15:50.670
+I mean, wherever there's eyeballs, there's going to
+
+00:15:50.740 --> 00:15:51.440
+be value.
+
+00:15:51.470 --> 00:15:54.750
+And right now, like, yeah, there's over 40
+
+00:15:54.750 --> 00:15:57.960
+million accounts on Blue Sky, but then there's even less
+
+00:15:57.960 --> 00:15:59.880
+if you look at the actual monthly active users.
+
+00:15:59.910 --> 00:16:03.960
+And there are already interests in advertisers, whether that's through
+
+00:16:03.960 --> 00:16:06.850
+Graze or people, you know, sponsored feeds or brands
+
+00:16:06.850 --> 00:16:08.680
+participating in the network.
+
+00:16:08.730 --> 00:16:09.760
+There's clear value there.
+
+00:16:09.790 --> 00:16:10.380
+There's eyeballs.
+
+00:16:10.410 --> 00:16:10.980
+There's attention.
+
+00:16:11.470 --> 00:16:13.400
+And where there's attention, there's money to be made
+
+00:16:13.520 --> 00:16:15.620
+, especially if we're looking at, you know, advertising
+
+00:16:16.130 --> 00:16:16.400
+models.
+
+00:16:16.430 --> 00:16:17.970
+But there's a lot of other models as well, I
+
+00:16:17.970 --> 00:16:22.270
+think, which come about when permission spaces become a thing on
+
+00:16:22.270 --> 00:16:23.270
+App Protocol.
+
+00:16:23.450 --> 00:16:26.600
+But, yeah, to answer your question, I think more
+
+00:16:26.600 --> 00:16:29.460
+that becomes a real thing.
+
+00:16:29.570 --> 00:16:31.060
+Sorry.
+
+00:16:31.070 --> 00:16:33.100
+Sorry about that.
+
+00:16:35.230 --> 00:16:40.930
+Yeah, I think I would like to ask Nate to pass
+
+00:16:40.930 --> 00:16:42.540
+it to you.
+
+00:16:42.570 --> 00:16:45.130
+I mean, we've talked a bit about more from this
+
+00:16:45.130 --> 00:16:50.110
+perspective of creators and ads and that being their kind of source
+
+00:16:50.110 --> 00:16:50.900
+of revenue.
+
+00:16:50.930 --> 00:16:55.540
+But for musicians and artists, it's a pretty different revenue
+
+00:16:56.180 --> 00:16:56.320
+source.
+
+00:16:56.350 --> 00:16:59.690
+And algorithms, especially today with, you know, apps like
+
+00:16:59.690 --> 00:17:03.100
+Spotify and Apple Music that have a real impact on how the
+
+00:17:03.250 --> 00:17:06.010
+music's created in the first place.
+
+00:17:06.050 --> 00:17:09.760
+How do you see kind of App Proto changing that landscape
+
+00:17:09.810 --> 00:17:10.100
+?
+
+00:17:10.250 --> 00:17:13.180
+Cool.
+
+00:17:13.210 --> 00:17:16.200
+So I'm really excited about, well, first of all
+
+00:17:16.200 --> 00:17:18.300
+, how many of you have heard of App Proto fans
+
+00:17:18.500 --> 00:17:18.730
+?
+
+00:17:18.770 --> 00:17:20.660
+Okay.
+
+00:17:20.690 --> 00:17:21.780
+A good chunk of you.
+
+00:17:21.810 --> 00:17:24.010
+For those of you who haven't, it's sort of
+
+00:17:24.250 --> 00:17:26.940
+like you show up, you hook up your bank, and
+
+00:17:26.940 --> 00:17:29.740
+then other people can show up and pay you five bucks,
+
+00:17:29.870 --> 00:17:32.280
+like coffee or something like this.
+
+00:17:32.310 --> 00:17:36.540
+And so what's exciting to me is that in my music
+
+00:17:36.540 --> 00:17:41.090
+app today, you can say when you upload a track or
+
+00:17:41.090 --> 00:17:46.850
+something, you can say only allow supporters to consume this track
+
+00:17:46.850 --> 00:17:47.050
+.
+
+00:17:47.250 --> 00:17:49.610
+And so I can just, as an app view or an
+
+00:17:49.700 --> 00:17:54.900
+application, just respect that stated support, which when permission data
+
+00:17:54.900 --> 00:17:56.810
+is a thing, that can be private as well.
+
+00:17:58.270 --> 00:18:01.480
+And so it's sort of more, it's just like
+
+00:18:01.480 --> 00:18:07.440
+Patreon style, like creators have relationships that they build grassroots with
+
+00:18:07.440 --> 00:18:11.720
+people that's sort of divorced from the classical conception of distribution
+
+00:18:11.750 --> 00:18:15.200
+or the advertising models, which is exciting to me personally.
+
+00:18:16.590 --> 00:18:24.710
+So I think the tricky part in my mind comes around when
+
+00:18:24.710 --> 00:18:28.670
+you ask a question like, if Spark is going to present
+
+00:18:28.670 --> 00:18:32.950
+a cameo of a song that appears on a music platform
+
+00:18:32.990 --> 00:18:35.720
+where the content is gated, how do you trickle
+
+00:18:35.780 --> 00:18:38.860
+the value back to the artist who owns it?
+
+00:18:39.110 --> 00:18:44.100
+How do you quantify the value that the artist is providing by
+
+00:18:44.120 --> 00:18:45.920
+allowing their content to show up downstream?
+
+00:18:45.950 --> 00:18:51.300
+And so I think that is where I want to press and
+
+00:18:51.300 --> 00:18:54.120
+try to figure out how do I do a handshake with
+
+00:18:54.620 --> 00:18:57.960
+Joe and say, how much is it worth to the artist
+
+00:18:58.160 --> 00:19:00.640
+for their content to appear there?
+
+00:19:00.770 --> 00:19:03.740
+And I think that's a very tricky problem.
+
+00:19:03.770 --> 00:19:06.060
+And I don't have any answers to that right now.
+
+00:19:06.110 --> 00:19:08.720
+But like, that is where I'm really interested in thinking
+
+00:19:08.720 --> 00:19:08.720
+.
+
+00:19:08.730 --> 00:19:14.930
+Because it does seem like the value of an impression depends entirely
+
+00:19:14.950 --> 00:19:16.930
+on like what the content is, first of all.
+
+00:19:17.210 --> 00:19:18.840
+And then second of all, the place where you see it
+
+00:19:18.840 --> 00:19:18.840
+.
+
+00:19:18.870 --> 00:19:20.880
+Like, because you can like, just hold up.
+
+00:19:21.030 --> 00:19:23.040
+Like, you can have your phone in front of you,
+
+00:19:23.070 --> 00:19:24.290
+but you can just not look at it.
+
+00:19:24.330 --> 00:19:25.770
+And it's like, the system might count that as an
+
+00:19:25.770 --> 00:19:26.260
+impression.
+
+00:19:26.350 --> 00:19:29.310
+So it's like, there's a lot of different human
+
+00:19:29.310 --> 00:19:33.200
+ways that I think we need to think about what the value
+
+00:19:33.280 --> 00:19:39.790
+of content distributing downstream is that I think is an important problem
+
+00:19:39.820 --> 00:19:40.140
+.
+
+00:19:40.170 --> 00:19:44.050
+But one thing I'm really excited about is that if an
+
+00:19:44.340 --> 00:19:47.120
+artist doesn't like the way that Joe and I do the
+
+00:19:47.350 --> 00:19:49.720
+handshake as far as like respecting the value of their content
+
+00:19:49.720 --> 00:19:52.650
+downstream, they can just take their content and go to a
+
+00:19:53.310 --> 00:19:55.400
+different app because of AppProto, which I think is
+
+00:19:55.450 --> 00:19:56.020
+really cool.
+
+00:19:56.050 --> 00:19:58.420
+And so maybe a different app does a better handshake in
+
+00:19:58.420 --> 00:20:01.000
+terms of respecting the value of their work downstream.
+
+00:20:01.010 --> 00:20:02.760
+But yeah.
+
+00:20:02.770 --> 00:20:07.160
+Yeah, I think that's a great point.
+
+00:20:07.190 --> 00:20:11.510
+I mean, I, you know, Spark and Player,
+
+00:20:11.550 --> 00:20:13.410
+we're going to interoperate one day, I promise
+
+00:20:13.410 --> 00:20:13.710
+you.
+
+00:20:13.810 --> 00:20:16.580
+We'll have, you know, you can add songs to
+
+00:20:16.820 --> 00:20:19.380
+Spark posts that are, you know, play a record.
+
+00:20:19.410 --> 00:20:22.340
+So an artist's song that they have on their PDS
+
+00:20:22.370 --> 00:20:26.820
+can start to propagate, interoperate across lots of different
+
+00:20:26.870 --> 00:20:29.020
+apps, not just Spark, but wherever there's music.
+
+00:20:29.050 --> 00:20:33.470
+And where these kind of value exchanges happen, I think there
+
+00:20:33.470 --> 00:20:36.090
+'s, it's really important that there's some mechanism to
+
+00:20:36.090 --> 00:20:37.260
+share value there.
+
+00:20:37.990 --> 00:20:40.980
+I think right now we're starting to see like intra-
+
+00:20:40.980 --> 00:20:44.010
+app monetization models where, you know, Leaflet is
+
+00:20:44.100 --> 00:20:46.920
+launching Leaflet Pro and they have their monetization stream.
+
+00:20:46.950 --> 00:20:48.170
+You can subscribe to Leaflet.
+
+00:20:49.250 --> 00:20:51.500
+You know, you can have, there's other apps that
+
+00:20:51.500 --> 00:20:54.000
+are starting to do pro things as well or Graze has
+
+00:20:54.000 --> 00:20:55.880
+their own advertising.
+
+00:20:55.910 --> 00:20:58.240
+But, you know, even if you're looking at a
+
+00:20:58.350 --> 00:21:01.020
+Graze feed, which taps into your question, a feed
+
+00:21:01.030 --> 00:21:05.130
+builder on Graze could have ads in their feed and Blue
+
+00:21:05.190 --> 00:21:08.720
+Sky that are actually taking on the majority of the costs and
+
+00:21:08.720 --> 00:21:11.390
+distributing that content is getting none of that.
+
+00:21:11.930 --> 00:21:14.140
+And sure, that works for now while they've got $
+
+00:21:14.370 --> 00:21:16.480
+100 million in the bank, but it's not going to
+
+00:21:16.480 --> 00:21:18.020
+be a sustainable ecosystem.
+
+00:21:18.050 --> 00:21:21.960
+So, I am a bit of a proponent for,
+
+00:21:21.990 --> 00:21:24.220
+and this came up in the previous talk, micropay
+
+00:21:24.220 --> 00:21:27.760
+ments there for the inter-app ecosystem.
+
+00:21:27.790 --> 00:21:32.460
+So, you know, for example, a player song being
+
+00:21:32.460 --> 00:21:36.700
+used on a sponsored post on Spark and a percentage of the
+
+00:21:36.880 --> 00:21:40.980
+revenue being made on that sponsored post automatically being distributed to the
+
+00:21:41.050 --> 00:21:43.420
+artist whose song is being used there.
+
+00:21:43.450 --> 00:21:47.240
+And that also could flow in the other direction where you have
+
+00:21:47.550 --> 00:21:50.440
+niche artists, which this exists on platforms today.
+
+00:21:50.490 --> 00:21:53.010
+There's these kind of shadow economies where up-and-
+
+00:21:53.160 --> 00:21:58.260
+coming musician will pay for a popular content creator to use their
+
+00:21:58.260 --> 00:22:01.580
+song on their post as a great way to get discovered.
+
+00:22:01.610 --> 00:22:04.620
+And we see TikTok has been such a great discovery mechanism for
+
+00:22:04.620 --> 00:22:05.380
+artists recently.
+
+00:22:05.410 --> 00:22:08.350
+And this doesn't just have to stay within the, you
+
+00:22:08.350 --> 00:22:12.220
+know, creators like artists and UGC creators.
+
+00:22:12.250 --> 00:22:15.800
+It can propagate across every other component of the ecosystem.
+
+00:22:15.830 --> 00:22:19.540
+PDS hosts, moderation services, app views, labelers
+
+00:22:19.590 --> 00:22:20.660
+, whatever.
+
+00:22:20.770 --> 00:22:24.700
+They can all become sustainable models that don't just rely on
+
+00:22:25.090 --> 00:22:27.200
+donations, but share in the value that's being created across
+
+00:22:27.590 --> 00:22:28.260
+the ecosystem.
+
+00:22:28.330 --> 00:22:31.340
+So, if anyone wants to chat micropayments on
+
+00:22:31.340 --> 00:22:33.600
+AppRoto, then please talk to me.
+
+00:22:33.950 --> 00:22:35.640
+So, yeah, I think we had a question.
+
+00:22:35.670 --> 00:22:37.020
+Actually, this is...
+
+00:22:37.050 --> 00:22:39.160
+I'm glad you're asking a question because I was about
+
+00:22:39.160 --> 00:22:43.900
+to reference your most recent post and proposal about more artist-
+
+00:22:43.900 --> 00:22:46.270
+specific metadata on AppRoto.
+
+00:22:46.310 --> 00:22:48.040
+So, yeah, we'd love to hear it.
+
+00:22:48.070 --> 00:22:50.800
+Thank you that you're introduced because...
+
+00:22:50.830 --> 00:22:52.580
+And if you want to talk about what you...
+
+00:22:52.610 --> 00:22:52.760
+Yeah.
+
+00:22:52.790 --> 00:22:53.900
+Talk about that, please.
+
+00:22:53.930 --> 00:22:54.110
+Yeah.
+
+00:22:54.530 --> 00:22:55.500
+My name is Hilke.
+
+00:22:55.530 --> 00:22:59.780
+I'm a musician myself and I run a music label.
+
+00:22:59.810 --> 00:23:02.460
+So, I know a bit how the music industry works.
+
+00:23:02.470 --> 00:23:08.460
+And, well, if you talk about monetization downstream for
+
+00:23:08.490 --> 00:23:12.400
+music that is posed on a...
+
+00:23:12.430 --> 00:23:14.590
+that is in a video, we have a system for that
+
+00:23:14.870 --> 00:23:15.020
+.
+
+00:23:15.050 --> 00:23:15.900
+It's called copyright.
+
+00:23:15.930 --> 00:23:16.520
+Yeah.
+
+00:23:17.490 --> 00:23:20.120
+And I think this has to play a role even if it
+
+00:23:20.130 --> 00:23:24.020
+looks much too complicated for technologists like many of us.
+
+00:23:24.050 --> 00:23:28.000
+But this is actually the system in place that the music industry
+
+00:23:28.130 --> 00:23:29.400
+and the big players use.
+
+00:23:29.430 --> 00:23:34.390
+And I think we need to find out with this protocol how
+
+00:23:34.390 --> 00:23:39.060
+we can map their data to the AppRoto data.
+
+00:23:40.270 --> 00:23:43.510
+And, yeah, I think that opportunity was missed in the
+
+00:23:43.580 --> 00:23:46.620
+first wave of Spotify and stuff.
+
+00:23:46.650 --> 00:23:50.600
+And then the whole mess that was made, then they had
+
+00:23:50.600 --> 00:23:54.070
+to buy out a bit of majors and that's how all
+
+00:23:54.070 --> 00:23:57.190
+the indie musicians and players got fucked.
+
+00:23:57.270 --> 00:24:00.480
+So, I think now we have the opportunity to do this
+
+00:24:00.940 --> 00:24:02.220
+mapping properly.
+
+00:24:02.250 --> 00:24:07.560
+And then the music industry, the labels, will get along
+
+00:24:07.560 --> 00:24:11.860
+, hopefully, with this ecosystem that we try to build.
+
+00:24:11.890 --> 00:24:13.820
+So, that is where...
+
+00:24:14.310 --> 00:24:18.200
+That's the reason why I made a proposal for Lexicon
+
+00:24:18.230 --> 00:24:23.290
+who does actually that, to translate the copyright system to App
+
+00:24:23.290 --> 00:24:24.000
+Roto.
+
+00:24:24.010 --> 00:24:25.600
+Yeah.
+
+00:24:25.630 --> 00:24:28.860
+I think looking at, like, TikTok as an example,
+
+00:24:28.890 --> 00:24:34.210
+you know, they have a pretty complete library of licensed music
+
+00:24:34.220 --> 00:24:34.540
+there.
+
+00:24:34.570 --> 00:24:37.550
+And they have deals with these record labels and they tend to
+
+00:24:37.550 --> 00:24:40.400
+pay, on average, 30 cents per song used on a
+
+00:24:40.470 --> 00:24:41.100
+post.
+
+00:24:41.130 --> 00:24:46.500
+And this is a very static dynamic and they are able to
+
+00:24:46.510 --> 00:24:49.140
+achieve that because they have, you know, economics of scale
+
+00:24:49.300 --> 00:24:49.460
+.
+
+00:24:49.490 --> 00:24:51.600
+They have a lot of bargaining power there and distribution.
+
+00:24:51.630 --> 00:24:55.580
+And I think looking at AtProtocol and music on
+
+00:24:55.590 --> 00:24:58.010
+AtProtocol, at least for now, there's
+
+00:24:58.010 --> 00:25:00.930
+kind of two angles, which is, one, there's
+
+00:25:00.980 --> 00:25:03.690
+that library completeness on one end, which requires a lot
+
+00:25:03.690 --> 00:25:05.920
+of capital, a lot of bargaining power that we don't
+
+00:25:05.920 --> 00:25:06.240
+have.
+
+00:25:06.790 --> 00:25:09.340
+And on the other end, it's starting from the indie
+
+00:25:09.340 --> 00:25:14.130
+artists, the creators at the other end that are starting from
+
+00:25:14.130 --> 00:25:17.520
+nothing and owning their content from the ground up.
+
+00:25:17.590 --> 00:25:19.790
+We can then, over time, build that and build that
+
+00:25:20.190 --> 00:25:23.620
+bargaining power and then get those kind of partnerships with real copyright
+
+00:25:23.750 --> 00:25:27.470
+and real respect for the laws that are necessary to protect artists
+
+00:25:27.470 --> 00:25:27.660
+.
+
+00:25:29.730 --> 00:25:32.140
+We don't have much time left, but I think there
+
+00:25:32.270 --> 00:25:36.670
+'s a necessary topic to cover with the creator economy and that
+
+00:25:36.670 --> 00:25:40.540
+is AI, which is, you know, I think there
+
+00:25:40.540 --> 00:25:45.210
+'s a lot of talk about gen AI affecting content creation and
+
+00:25:46.250 --> 00:25:49.110
+verification of what's real and what's not and that affecting
+
+00:25:49.110 --> 00:25:49.840
+the economies.
+
+00:25:51.390 --> 00:25:52.950
+Josh, as an investor, like, I would love to
+
+00:25:52.980 --> 00:25:56.740
+hear your thoughts on AI in the creator economy at large.
+
+00:25:56.770 --> 00:26:01.130
+Yeah, I think Natalie touched on this during the last talk
+
+00:26:01.150 --> 00:26:01.840
+pretty well.
+
+00:26:01.870 --> 00:26:06.810
+She spoke about how the covenant of the web is dead.
+
+00:26:07.510 --> 00:26:09.920
+Google scrapes websites in return.
+
+00:26:09.950 --> 00:26:11.820
+Websites get traffic.
+
+00:26:11.850 --> 00:26:16.520
+But we're evolving from a system of search engines to answer
+
+00:26:17.030 --> 00:26:20.370
+engines where, you know, it's nine, ten times
+
+00:26:20.370 --> 00:26:23.380
+harder to get traffic on Google now than it was 10 years
+
+00:26:23.460 --> 00:26:23.780
+ago.
+
+00:26:23.810 --> 00:26:25.030
+There's some stat.
+
+00:26:25.070 --> 00:26:28.120
+It's like 750 to 1,000 times harder to get
+
+00:26:28.120 --> 00:26:33.120
+traffic if you're a website from OpenAI and Anthropic
+
+00:26:33.150 --> 00:26:34.700
+and some of these model providers.
+
+00:26:34.730 --> 00:26:37.320
+So users aren't going to websites.
+
+00:26:37.920 --> 00:26:43.180
+They're just getting all the answers fed to them natively
+
+00:26:43.710 --> 00:26:45.840
+within an AI chat interface.
+
+00:26:45.870 --> 00:26:49.760
+And AI agents don't look at ads, right?
+
+00:26:49.790 --> 00:26:51.960
+And so, you know, for publishers, I'm thinking
+
+00:26:51.980 --> 00:26:53.320
+more news organizations.
+
+00:26:53.370 --> 00:26:58.020
+You know, the current business model of the web doesn't
+
+00:26:58.040 --> 00:27:00.790
+work with the way in which AI works.
+
+00:27:00.850 --> 00:27:05.130
+Because, you know, typically these news media organizations are monet
+
+00:27:05.160 --> 00:27:11.130
+izing traffic to their website and monetizing that attention and selling
+
+00:27:11.130 --> 00:27:12.220
+ads against it.
+
+00:27:12.250 --> 00:27:14.880
+And so, you know, obviously Cloudflare, you
+
+00:27:14.880 --> 00:27:19.240
+know, Microsoft are doing some interesting work around content data market
+
+00:27:19.240 --> 00:27:19.900
+places.
+
+00:27:19.950 --> 00:27:23.960
+Publishers create unique niche content.
+
+00:27:23.990 --> 00:27:27.920
+AI model providers need data to train their models.
+
+00:27:28.770 --> 00:27:30.400
+There was an interesting stat.
+
+00:27:30.430 --> 00:27:34.710
+So I think it was, I forget which AI model provider
+
+00:27:34.710 --> 00:27:36.400
+it was, so I won't say the name.
+
+00:27:36.430 --> 00:27:39.340
+But, you know, for the same amount of data,
+
+00:27:39.370 --> 00:27:43.110
+I believe Reddit got paid, it was something like, you
+
+00:27:43.110 --> 00:27:46.910
+know, five to seven X times more for their data.
+
+00:27:46.970 --> 00:27:50.480
+And the reason for that, relative to New York Times,
+
+00:27:50.480 --> 00:27:50.820
+sorry.
+
+00:27:50.970 --> 00:27:53.940
+And the reason for that is because the New York Times'
+
+00:27:53.980 --> 00:27:57.180
+content is a lot more substitutable to a lot of other
+
+00:27:57.180 --> 00:28:00.640
+news publications out there, whereas the information that lives on Reddit
+
+00:28:00.890 --> 00:28:02.680
+is more unique and niche.
+
+00:28:02.710 --> 00:28:05.810
+And as a result, a lot more valuable to the AI
+
+00:28:05.810 --> 00:28:06.880
+model providers.
+
+00:28:06.910 --> 00:28:09.380
+And so, you know, while we haven't, you
+
+00:28:09.380 --> 00:28:12.940
+know, figured out an AI interface for social yet, I
+
+00:28:12.970 --> 00:28:16.200
+think we still, you know, swipe through the short form
+
+00:28:16.200 --> 00:28:16.910
+video reels.
+
+00:28:17.290 --> 00:28:20.050
+And, you know, we haven't really, AI hasn
+
+00:28:20.060 --> 00:28:24.550
+'t really solved the interface for social in an AI native way
+
+00:28:24.550 --> 00:28:24.770
+.
+
+00:28:24.810 --> 00:28:27.600
+Like Sora just died last week, right?
+
+00:28:27.630 --> 00:28:33.510
+It will be interesting to see how this business model evolves for
+
+00:28:33.520 --> 00:28:34.460
+publishers.
+
+00:28:34.490 --> 00:28:38.620
+And I think micropayments will be a really big
+
+00:28:38.630 --> 00:28:39.240
+piece of it.
+
+00:28:39.250 --> 00:28:41.920
+Anything to add there?
+
+00:28:44.330 --> 00:28:46.160
+Yeah, pretty much done for time.
+
+00:28:46.190 --> 00:28:48.890
+If there's any last questions, otherwise we'll wrap it
+
+00:28:48.900 --> 00:28:49.220
+up.
+
+00:28:49.230 --> 00:28:51.820
+Thank you.
+
+00:28:51.850 --> 00:28:54.900
+I think, yeah, we're all excited for that kind
+
+00:28:54.900 --> 00:28:57.580
+of, there's a big kind of sea change coming for
+
+00:28:57.730 --> 00:29:00.990
+creators in terms of how much power and the power dynamics there
+
+00:29:01.000 --> 00:29:01.740
+with creators.
+
+00:29:01.770 --> 00:29:03.980
+And we're building that on that protocol, so it's
+
+00:29:03.980 --> 00:29:04.440
+exciting.
+
+00:29:04.460 --> 00:29:04.480
+Thank you.

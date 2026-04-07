@@ -1,0 +1,2239 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:00.290
+to you.
+
+00:00:00.310 --> 00:00:01.140
+Great.
+
+00:00:01.140 --> 00:00:02.360
+Thank you so much.
+
+00:00:02.360 --> 00:00:05.300
+I'm going to wait for people to sit a little bit
+
+00:00:05.300 --> 00:00:05.510
+.
+
+00:00:05.510 --> 00:00:06.400
+Hi, Skylar.
+
+00:00:06.400 --> 00:00:09.170
+And if you want to sit in the front, you can
+
+00:00:09.170 --> 00:00:10.760
+also sit in the front.
+
+00:00:10.850 --> 00:00:12.520
+It is it is safe.
+
+00:00:12.570 --> 00:00:14.280
+I will not pop quiz you.
+
+00:00:14.280 --> 00:00:16.480
+So wait 30 more seconds.
+
+00:00:16.480 --> 00:00:19.780
+So if you want to get a cup of coffee or something
+
+00:00:19.780 --> 00:00:22.240
+, you can come through.
+
+00:00:22.530 --> 00:00:25.110
+My name is Amber Case.
+
+00:00:25.110 --> 00:00:26.830
+I go by Case.
+
+00:00:26.830 --> 00:00:30.800
+I'm an early blue sky adopter.
+
+00:00:30.800 --> 00:00:35.970
+And I am trained as a cyborg anthropologist.
+
+00:00:36.100 --> 00:00:39.920
+So I look at how technology affects culture and how culture affects
+
+00:00:40.240 --> 00:00:40.810
+technology.
+
+00:00:40.900 --> 00:00:44.570
+And today I want to get slightly metacognitive and
+
+00:00:44.570 --> 00:00:48.690
+think about how do we think about the future as humans?
+
+00:00:48.690 --> 00:00:50.540
+And what does that actually mean?
+
+00:00:50.540 --> 00:00:52.180
+What is the future anyway?
+
+00:00:52.180 --> 00:00:55.190
+So I like the idea of local minima.
+
+00:00:55.200 --> 00:00:57.200
+And who knows about local minima in here?
+
+00:00:57.200 --> 00:00:58.420
+You can raise your hand.
+
+00:00:58.560 --> 00:00:58.780
+Yay.
+
+00:00:58.780 --> 00:00:59.230
+Great.
+
+00:00:59.230 --> 00:00:59.880
+Good audience.
+
+00:00:59.880 --> 00:01:04.210
+So my non-perfect explanation of local minima is
+
+00:01:04.210 --> 00:01:09.060
+you are trying to find either the highest or the lowest point
+
+00:01:09.060 --> 00:01:09.900
+on a graph.
+
+00:01:09.940 --> 00:01:13.450
+But sometimes you can get stuck in this local minima.
+
+00:01:13.450 --> 00:01:15.520
+I don't know if this thing works.
+
+00:01:15.520 --> 00:01:18.560
+But anyway, so you can see that like little shallow div
+
+00:01:18.560 --> 00:01:19.530
+ot over there.
+
+00:01:19.530 --> 00:01:21.740
+And you can get stuck in the shallow divot.
+
+00:01:21.740 --> 00:01:24.020
+And because all the other mountains around, you can say,
+
+00:01:24.020 --> 00:01:25.960
+well, I'm at the lowest point.
+
+00:01:25.960 --> 00:01:27.030
+This is great.
+
+00:01:27.060 --> 00:01:29.990
+And the only way to get out of that is to walk
+
+00:01:29.990 --> 00:01:30.740
+around.
+
+00:01:30.740 --> 00:01:33.270
+And you can see the meme about just walk around.
+
+00:01:33.270 --> 00:01:33.840
+It's fine.
+
+00:01:33.840 --> 00:01:35.370
+But most people might get stuck.
+
+00:01:35.370 --> 00:01:37.550
+And they might say, well, I don't even know
+
+00:01:37.550 --> 00:01:38.750
+what it is to walk around.
+
+00:01:38.780 --> 00:01:42.060
+And so in this talk, I want to give you some
+
+00:01:42.060 --> 00:01:44.820
+ideas on how to get out of the local minima of
+
+00:01:44.890 --> 00:01:47.760
+what we think about the future and what we think the future
+
+00:01:47.760 --> 00:01:52.260
+is and learn how to walk around or different methods of walking
+
+00:01:52.260 --> 00:01:55.860
+around so that we can reach a different point.
+
+00:01:55.980 --> 00:01:59.720
+Usually this is someone who says, you know, VR and
+
+00:01:59.730 --> 00:02:00.690
+AR are the future.
+
+00:02:00.940 --> 00:02:02.980
+Where did they get that idea?
+
+00:02:03.280 --> 00:02:05.080
+That's usually a narrative.
+
+00:02:05.080 --> 00:02:10.280
+And just walking around can be the difference between trying to develop
+
+00:02:10.560 --> 00:02:17.180
+something for another $80 billion again or, yeah.
+
+00:02:17.200 --> 00:02:20.840
+So one of my favorite people, I call him the local
+
+00:02:21.100 --> 00:02:24.920
+big bird of Portland, Oregon, Ward Cunningham.
+
+00:02:24.920 --> 00:02:28.340
+He's one of my favorite friends, but he created the
+
+00:02:28.340 --> 00:02:28.890
+Wiki.
+
+00:02:28.940 --> 00:02:31.180
+But also he has Cunningham's Law.
+
+00:02:31.180 --> 00:02:34.150
+The best way to get the right answer on the internet is
+
+00:02:34.150 --> 00:02:37.220
+not to ask a question, but it's to post the
+
+00:02:37.220 --> 00:02:38.450
+wrong answer.
+
+00:02:38.450 --> 00:02:42.060
+But I also love this quote from James Baldwin, which is
+
+00:02:42.180 --> 00:02:45.430
+, the purpose of art is to lay bare the questions that
+
+00:02:45.440 --> 00:02:48.390
+have been hidden by the answers.
+
+00:02:48.390 --> 00:02:52.150
+And I think we have so many things that look like answers
+
+00:02:52.150 --> 00:02:57.370
+out there that it's incredibly hard to understand what the questions
+
+00:02:57.370 --> 00:02:58.090
+are.
+
+00:02:58.300 --> 00:03:01.910
+And for most of technology, we can look at once something
+
+00:03:02.100 --> 00:03:05.350
+gets adopted, it becomes normal, it becomes invisible.
+
+00:03:05.480 --> 00:03:07.380
+We don't question or talk about it.
+
+00:03:07.380 --> 00:03:08.200
+It just is.
+
+00:03:08.200 --> 00:03:11.920
+We do not have a massive set of headlines that say,
+
+00:03:12.060 --> 00:03:15.910
+every person at Stanford wants to raise venture capital in order to
+
+00:03:15.960 --> 00:03:17.410
+make the new light switch.
+
+00:03:17.410 --> 00:03:18.740
+It's a light switch.
+
+00:03:18.880 --> 00:03:22.140
+We don't even think about it because it's just normal
+
+00:03:22.140 --> 00:03:22.420
+.
+
+00:03:22.420 --> 00:03:24.680
+So, so many things in our everyday lives are so normal
+
+00:03:24.820 --> 00:03:27.740
+because technically they're so well-designed that we don
+
+00:03:27.740 --> 00:03:29.660
+'t have to think about them anymore.
+
+00:03:29.740 --> 00:03:32.060
+And so my question to you, if you can do anything
+
+00:03:32.090 --> 00:03:34.940
+after this talk, is to look at the things in your
+
+00:03:34.940 --> 00:03:38.420
+environment that are so well-designed, you no longer
+
+00:03:38.420 --> 00:03:42.360
+notice them, and question, where did they come from?
+
+00:03:42.360 --> 00:03:44.360
+Who invented them?
+
+00:03:44.360 --> 00:03:46.360
+Why do they exist?
+
+00:03:46.360 --> 00:03:49.620
+And then ask different questions, try to come up with,
+
+00:03:49.690 --> 00:03:50.780
+with the new questions.
+
+00:03:50.780 --> 00:03:53.860
+So, there's a lot of false narratives in the way
+
+00:03:54.000 --> 00:03:57.480
+of thinking about what the next thing actually is.
+
+00:03:57.480 --> 00:04:01.930
+And really, innovation comes from the side.
+
+00:04:01.930 --> 00:04:04.280
+You might be driving in a car, looking into the front
+
+00:04:04.280 --> 00:04:05.820
+, saying, "Oh, what's next?
+
+00:04:05.940 --> 00:04:06.460
+It's this future.
+
+00:04:06.550 --> 00:04:09.810
+It's this future." Or looking behind at what the notion
+
+00:04:09.820 --> 00:04:12.780
+of the future was told to you was supposed to be the
+
+00:04:12.810 --> 00:04:13.350
+future.
+
+00:04:13.660 --> 00:04:17.940
+And you might not see it coming.
+
+00:04:17.940 --> 00:04:22.730
+So, I started to interview people who had been sidesw
+
+00:04:22.730 --> 00:04:24.710
+iped by the future.
+
+00:04:24.800 --> 00:04:28.530
+I was interviewing people that worked at Blockbuster.
+
+00:04:28.530 --> 00:04:30.310
+And they said, "Yay, Blockbuster.
+
+00:04:30.310 --> 00:04:32.620
+It was great." And then somebody said, "Well,
+
+00:04:32.620 --> 00:04:33.870
+we're going to do this new thing.
+
+00:04:33.940 --> 00:04:35.570
+You know, there's, there's, there's,
+
+00:04:35.570 --> 00:04:37.500
+of course, Redbox, and then there's Netflix."
+
+00:04:37.500 --> 00:04:40.010
+And they said that the majority of people said, "Well
+
+00:04:40.010 --> 00:04:42.030
+, we're going to work on this thing." And there
+
+00:04:42.030 --> 00:04:43.940
+were a few people that said, "We're going to
+
+00:04:43.940 --> 00:04:47.000
+digitize content, and load it into the sky, and
+
+00:04:47.080 --> 00:04:50.230
+then download it through people's machines." And it wasn't
+
+00:04:50.230 --> 00:04:53.750
+until people could clearly see that future, that they could adopt
+
+00:04:53.760 --> 00:04:56.350
+it, and there was a pathway for them to get to
+
+00:04:56.380 --> 00:04:56.740
+it.
+
+00:04:56.740 --> 00:04:59.000
+And there were just a few people on the edge that said
+
+00:04:59.010 --> 00:05:00.570
+, "Yeah, I can see this future.
+
+00:05:00.620 --> 00:05:01.420
+It makes sense.
+
+00:05:01.640 --> 00:05:05.910
+This is normal." And then, and then the future sides
+
+00:05:06.040 --> 00:05:08.010
+wiped a bunch of people.
+
+00:05:08.080 --> 00:05:12.980
+I was trained at the Institute for the Future, which is
+
+00:05:12.980 --> 00:05:17.720
+a, at least 50 years of predicting the future.
+
+00:05:17.740 --> 00:05:20.200
+First, you do not predict one future, you predict multiple
+
+00:05:20.390 --> 00:05:21.130
+futures.
+
+00:05:21.130 --> 00:05:24.040
+Second, you use the past to understand the future.
+
+00:05:24.050 --> 00:05:27.100
+And three, you look at cosmotechnics, which is
+
+00:05:27.100 --> 00:05:30.750
+the idea that every culture has a technology, not just Silicon
+
+00:05:30.920 --> 00:05:33.900
+Valley, and that it is 10,000 to a million
+
+00:05:34.040 --> 00:05:37.160
+years old, and it's site-specific based on the
+
+00:05:37.160 --> 00:05:40.230
+geography, based on culture, based on history, based on
+
+00:05:40.300 --> 00:05:43.770
+food, and that we shouldn't narrow it into technology and
+
+00:05:43.770 --> 00:05:46.310
+the future as the last 20 years, but that it is
+
+00:05:46.310 --> 00:05:48.740
+all time, and it's extremely sophisticated.
+
+00:05:48.740 --> 00:05:51.900
+From wind catcher towers in Persia 2,000 years
+
+00:05:52.060 --> 00:05:56.170
+ago that allowed people to have modern air conditioning and ice cream
+
+00:05:56.170 --> 00:06:00.630
+, we can think of everything not as this time right now
+
+00:06:00.930 --> 00:06:02.340
+, but all time.
+
+00:06:02.340 --> 00:06:05.490
+And this is the two curves model.
+
+00:06:05.490 --> 00:06:09.000
+So the first curve is like a signal that masks the future
+
+00:06:09.000 --> 00:06:09.230
+.
+
+00:06:09.230 --> 00:06:12.360
+It's so hard to see the future because the signal is
+
+00:06:12.360 --> 00:06:13.370
+so weak at first.
+
+00:06:13.400 --> 00:06:17.460
+And then the second curve comes up, and it is only
+
+00:06:17.460 --> 00:06:21.140
+when that first curve declines that that second curve signal gets
+
+00:06:21.140 --> 00:06:22.700
+strong enough to be seen.
+
+00:06:22.790 --> 00:06:26.060
+My dad was an audio engineer, so everything I think about
+
+00:06:26.150 --> 00:06:27.480
+is in terms of signal processing.
+
+00:06:27.480 --> 00:06:28.100
+I'm sorry.
+
+00:06:28.100 --> 00:06:33.370
+Then I started to look at different different types of innovation.
+
+00:06:33.370 --> 00:06:35.270
+So Art Frye, who's a banjo player that
+
+00:06:35.320 --> 00:06:38.890
+worked at 3M, was trying to make the strongest adhesive
+
+00:06:39.120 --> 00:06:42.010
+in history, and he failed tremendously.
+
+00:06:42.010 --> 00:06:45.100
+He made this kind of weak, terrible adhesive that didn't
+
+00:06:45.280 --> 00:06:45.520
+work.
+
+00:06:45.520 --> 00:06:47.680
+And I think his wife at one point was like, "
+
+00:06:47.680 --> 00:06:50.830
+Hey, I just put these things on the choir notes and
+
+00:06:51.060 --> 00:06:54.650
+brought them to church, and everybody loves them because you can
+
+00:06:54.650 --> 00:06:57.280
+remove them and place them back on." And the sticky note
+
+00:06:57.280 --> 00:06:58.900
+was boring, the post-it note.
+
+00:06:58.900 --> 00:07:02.620
+There's a different side that comes more from constraint.
+
+00:07:02.760 --> 00:07:06.390
+There are a lot of books and interesting history on this,
+
+00:07:06.390 --> 00:07:09.960
+America's first paramedics, because people didn't have
+
+00:07:09.980 --> 00:07:10.740
+access.
+
+00:07:10.740 --> 00:07:13.220
+And it's a really upsetting, tragic story.
+
+00:07:13.220 --> 00:07:17.060
+And then we got this incredible service that people use all the
+
+00:07:17.060 --> 00:07:20.420
+time now, even though it's been really raised in price
+
+00:07:20.700 --> 00:07:22.340
+in the United States.
+
+00:07:22.340 --> 00:07:27.690
+But there's this idea that when there is constraint and discrimination
+
+00:07:28.100 --> 00:07:32.170
+and non-access, really interesting things can come about
+
+00:07:32.420 --> 00:07:34.920
+based on the community, based from the ground up.
+
+00:07:34.950 --> 00:07:37.080
+It's not a top-down innovation space.
+
+00:07:37.080 --> 00:07:39.470
+It's not a company saying, "The future is the
+
+00:07:39.470 --> 00:07:42.100
+metaverse," and then not understanding anything.
+
+00:07:42.100 --> 00:07:45.290
+I got to have dinner with this person.
+
+00:07:45.370 --> 00:07:48.020
+I spoke at a conference with him, and I saw him
+
+00:07:48.020 --> 00:07:49.630
+eating alone, and I was like, "Can I eat
+
+00:07:49.630 --> 00:07:53.700
+with you?" And he created - he's a really curious
+
+00:07:53.700 --> 00:07:57.510
+person, and his mother was one of the hidden figures that
+
+00:07:57.510 --> 00:07:58.260
+worked at NASA.
+
+00:07:58.260 --> 00:08:02.800
+But he tried to figure out how he could get an education
+
+00:08:02.980 --> 00:08:05.360
+in a world that didn't support that.
+
+00:08:05.360 --> 00:08:08.490
+And he ended up working at Bell Labs as an intern,
+
+00:08:08.490 --> 00:08:11.120
+and then he had a full-time position at Bell Labs
+
+00:08:11.120 --> 00:08:11.310
+.
+
+00:08:11.310 --> 00:08:14.860
+And he was talking about how not necessarily - if you're
+
+00:08:14.900 --> 00:08:18.350
+just curious, the microphone that I'm using is using his
+
+00:08:18.860 --> 00:08:19.460
+technology.
+
+00:08:19.460 --> 00:08:22.260
+He's a really, really curious person.
+
+00:08:23.700 --> 00:08:24.660
+But he followed it.
+
+00:08:24.660 --> 00:08:30.470
+And so a lot of really interesting inventions came forward, not
+
+00:08:30.820 --> 00:08:34.270
+because someone was trying to make something, but because they were
+
+00:08:34.270 --> 00:08:37.380
+interested in a very small thing and asked an interesting question.
+
+00:08:37.380 --> 00:08:42.840
+Also, if anyone knows why, Mario is very small on
+
+00:08:42.840 --> 00:08:44.300
+the screen.
+
+00:08:44.480 --> 00:08:46.360
+It was because of a constraint.
+
+00:08:46.360 --> 00:08:50.780
+So instead of pulling the camera away, which would have required
+
+00:08:51.090 --> 00:08:54.600
+more memory and processing power, to render a larger portion of
+
+00:08:54.600 --> 00:08:59.380
+the screen, the inventor suggested shrinking the size of the character
+
+00:08:59.480 --> 00:09:00.140
+sprite.
+
+00:09:00.140 --> 00:09:03.330
+And so the whole game could fit into 32K and about
+
+00:09:03.330 --> 00:09:07.000
+40K total with the full cartridge data with the code and
+
+00:09:07.000 --> 00:09:07.530
+graphics.
+
+00:09:07.920 --> 00:09:10.540
+Steve Wozniak, the co-founder of Apple
+
+00:09:10.630 --> 00:09:12.830
+, was up all night, every night, every night,
+
+00:09:12.850 --> 00:09:14.550
+because he really wanted a personal computer.
+
+00:09:14.550 --> 00:09:17.050
+And so he's constantly thinking, how could you fit the
+
+00:09:17.060 --> 00:09:20.020
+chips onto the motherboard in order to do this?
+
+00:09:20.140 --> 00:09:22.470
+And he's working at HP at the time.
+
+00:09:22.550 --> 00:09:24.770
+And of course, the famous thing was, he said,
+
+00:09:24.770 --> 00:09:27.380
+"Hey, we invented this small computer." And his boss
+
+00:09:27.380 --> 00:09:30.040
+said, "No one will want a small desktop computer,
+
+00:09:30.040 --> 00:09:32.580
+and there's no way it could be that small." And
+
+00:09:32.580 --> 00:09:34.340
+so Apple was born in the garage.
+
+00:09:34.370 --> 00:09:36.500
+Also, laziness.
+
+00:09:36.500 --> 00:09:39.990
+The first webcam was for coffee.
+
+00:09:40.180 --> 00:09:42.610
+It was in Cambridge, England.
+
+00:09:42.610 --> 00:09:45.060
+The idea was, "We don't want to go to
+
+00:09:45.100 --> 00:09:48.660
+the coffee all the way and see that it was empty,
+
+00:09:48.660 --> 00:09:51.380
+so we're going to make a webcam." And this was
+
+00:09:51.380 --> 00:09:54.580
+the first kind of wormhole to see another space when you
+
+00:09:54.580 --> 00:09:55.660
+were somewhere else.
+
+00:09:55.670 --> 00:09:57.560
+And then, of course, it got put on the web
+
+00:09:57.680 --> 00:10:00.340
+in 1993 and became an artifact of the web.
+
+00:10:00.410 --> 00:10:04.610
+So why are we as humans, not all humans, but
+
+00:10:04.610 --> 00:10:10.500
+many, many humans, especially in the West and especially in
+
+00:10:10.500 --> 00:10:13.370
+Silicon Valley, very obsessed with the future?
+
+00:10:13.370 --> 00:10:15.260
+What is this idea of the future?
+
+00:10:15.300 --> 00:10:17.830
+And I use this ostrich thing.
+
+00:10:17.830 --> 00:10:21.380
+One part of it was standing on two feet.
+
+00:10:21.380 --> 00:10:24.580
+When we started to stand on two feet, we had this
+
+00:10:24.880 --> 00:10:31.460
+huge foundational shift in evolution that was preceding large brain development
+
+00:10:31.460 --> 00:10:34.600
+, and really acting as a primary driver for neurological and cognitive
+
+00:10:34.780 --> 00:10:35.460
+advancement.
+
+00:10:35.460 --> 00:10:40.760
+Because you suddenly had your hands free, everything became about using
+
+00:10:40.760 --> 00:10:45.170
+tools and working with systems over time, and then also increased
+
+00:10:45.170 --> 00:10:49.300
+efficiency for long-range travel and better thermoregulation
+
+00:10:49.300 --> 00:10:50.260
+and open landscapes.
+
+00:10:50.260 --> 00:10:54.310
+But this was a huge neurocomputational shift.
+
+00:10:54.360 --> 00:10:57.910
+And we also started to look at the horizon, a fixed
+
+00:10:58.030 --> 00:10:58.590
+point.
+
+00:10:58.590 --> 00:11:01.980
+There are still many cultures that sit down by default.
+
+00:11:02.070 --> 00:11:04.660
+I work a lot in Japan, and we sit down when
+
+00:11:04.800 --> 00:11:06.010
+we think about things.
+
+00:11:06.080 --> 00:11:09.300
+And it's a very different way of thinking than standing up
+
+00:11:09.300 --> 00:11:12.870
+or sitting in an abstracted couch that's extremely, you
+
+00:11:13.180 --> 00:11:15.780
+know, it's a different way of thinking.
+
+00:11:15.780 --> 00:11:18.820
+This is the Chick-Saw tribe.
+
+00:11:18.820 --> 00:11:21.260
+Of course, here's an elder telling a story to a
+
+00:11:21.260 --> 00:11:22.100
+bunch of kids.
+
+00:11:22.100 --> 00:11:25.470
+But I was told by by one of the co-creat
+
+00:11:25.710 --> 00:11:31.670
+ors of Calm Technology that he was going to explore different ways
+
+00:11:31.690 --> 00:11:36.180
+of being, and how information got passed down through generations.
+
+00:11:36.180 --> 00:11:38.800
+And he was with a First Nations tribe, and he noticed
+
+00:11:38.800 --> 00:11:41.620
+that all of the kids were not ready to listen.
+
+00:11:41.620 --> 00:11:45.180
+And so the elder said, "Go swim across that river
+
+00:11:45.180 --> 00:11:47.740
+and come back." So all the kids get into the river
+
+00:11:47.880 --> 00:11:49.990
+, they swim across the shore, and they come back,
+
+00:11:49.990 --> 00:11:51.550
+and they're extremely exhausted.
+
+00:11:51.550 --> 00:11:53.590
+And then they're sitting down, and they're ready to
+
+00:11:53.590 --> 00:11:54.340
+listen to a story.
+
+00:11:54.600 --> 00:11:58.460
+But the most important thing was this is not a PhD level
+
+00:11:58.490 --> 00:11:58.500
+.
+
+00:11:58.500 --> 00:12:03.810
+This is a PhD level of information getting given in a narrative
+
+00:12:03.860 --> 00:12:07.230
+story that doesn't require a PhD or a research paper to
+
+00:12:07.240 --> 00:12:08.100
+be published.
+
+00:12:08.170 --> 00:12:09.980
+It's, you know, how do you tell the pH
+
+00:12:10.120 --> 00:12:10.870
+of the soil?
+
+00:12:10.940 --> 00:12:13.770
+Well, we've placed these indicator plants around so you can
+
+00:12:13.770 --> 00:12:15.420
+see when this is ready to plant.
+
+00:12:15.560 --> 00:12:17.640
+And now all you have to do is go and observe and
+
+00:12:17.680 --> 00:12:19.070
+you get this information.
+
+00:12:19.070 --> 00:12:22.370
+But you tell it in an interesting story because our brains are
+
+00:12:22.370 --> 00:12:25.540
+really, really excited about narrative information.
+
+00:12:25.540 --> 00:12:27.490
+Extremely excited.
+
+00:12:27.540 --> 00:12:31.040
+So excited that, as the first keynote was talking about,
+
+00:12:31.040 --> 00:12:33.540
+if it's in a nice narrative and you read about it
+
+00:12:33.540 --> 00:12:35.940
+with enough density that it looks like a thing, that we
+
+00:12:36.010 --> 00:12:38.790
+think that we have the knowledge unless we're asked to redo
+
+00:12:38.880 --> 00:12:41.540
+that or, you know, fix a toilet.
+
+00:12:41.820 --> 00:12:45.780
+But the important part about it is that when it's given
+
+00:12:45.780 --> 00:12:48.950
+in this structure multi-generationally, you get all sorts
+
+00:12:48.950 --> 00:12:50.500
+of interesting information.
+
+00:12:50.500 --> 00:12:56.060
+And sometimes narratives can really go crazy.
+
+00:12:56.090 --> 00:12:58.410
+This is the railway mania from the 1840s to
+
+00:12:58.430 --> 00:12:59.620
+1860s.
+
+00:12:59.620 --> 00:13:02.010
+In my opinion, this is still recent history.
+
+00:13:02.010 --> 00:13:05.540
+I don't think of history as like 500 years ago starts
+
+00:13:05.540 --> 00:13:07.730
+to get like, you know, that's like what we
+
+00:13:07.740 --> 00:13:10.310
+would think of as like the 80s to me.
+
+00:13:10.360 --> 00:13:13.030
+And then, you know, 1000 years ago, 2000 years
+
+00:13:13.030 --> 00:13:15.220
+ago, that's like, that's starting to get that
+
+00:13:15.220 --> 00:13:18.960
+'s like kind of contemporary in a sense, like, you
+
+00:13:18.960 --> 00:13:20.510
+know, that'd be like the 50s.
+
+00:13:20.510 --> 00:13:25.120
+Because our choice of how we experience time and understand what time
+
+00:13:25.120 --> 00:13:27.380
+is, is just a filter and a lens that we have
+
+00:13:27.380 --> 00:13:27.570
+.
+
+00:13:27.570 --> 00:13:30.670
+If we take that aperture and change it, we can start
+
+00:13:30.690 --> 00:13:33.220
+to understand how much rhyme there is out there.
+
+00:13:33.420 --> 00:13:37.310
+So this railway mania was hilarious and terrible.
+
+00:13:37.310 --> 00:13:39.830
+It was basically like an AI bubble.
+
+00:13:39.830 --> 00:13:44.240
+I think one fifth of people at that point in time,
+
+00:13:44.260 --> 00:13:47.980
+I think at least in England had invested and had shares in
+
+00:13:48.120 --> 00:13:49.620
+the railway companies.
+
+00:13:50.500 --> 00:13:53.000
+That was everyone going, you need to buy this, it
+
+00:13:53.000 --> 00:13:54.580
+'s going to go up like crazy.
+
+00:13:54.580 --> 00:13:57.190
+It's like the new crypto and we're going to pave
+
+00:13:57.360 --> 00:13:59.980
+the way literally to a future in which we're going to
+
+00:14:00.070 --> 00:14:01.490
+have all these amazing things.
+
+00:14:01.490 --> 00:14:04.380
+The narrative was so exciting that everyone went crazy about it.
+
+00:14:04.520 --> 00:14:07.060
+And then it crashed terribly.
+
+00:14:07.060 --> 00:14:10.140
+But all of that money that went in through, you know
+
+00:14:10.140 --> 00:14:14.320
+, the general public holding the bag, ended up paving
+
+00:14:14.320 --> 00:14:16.940
+, actually making rail possible.
+
+00:14:17.080 --> 00:14:20.100
+And so it was a really interesting thing.
+
+00:14:20.100 --> 00:14:22.790
+We can see parallels with the dot com boom, we can
+
+00:14:22.790 --> 00:14:26.610
+see parallels today, that oftentimes the public will get hoodw
+
+00:14:26.640 --> 00:14:29.290
+inked into a narrative of the future that's so exciting
+
+00:14:29.290 --> 00:14:32.180
+and spicy that they will fund it, it will crash,
+
+00:14:32.180 --> 00:14:34.710
+and then on the dying flames, the phoenix will
+
+00:14:34.710 --> 00:14:36.180
+rise of the real thing.
+
+00:14:36.180 --> 00:14:41.810
+So if we ask this question again, laying bare the questions
+
+00:14:41.810 --> 00:14:44.490
+that have been hidden by the answers, we can ask a
+
+00:14:44.520 --> 00:14:45.690
+question.
+
+00:14:45.720 --> 00:14:49.850
+So the question here today is where did the term artificial intelligence
+
+00:14:49.850 --> 00:14:50.410
+come from?
+
+00:14:50.410 --> 00:14:51.910
+We like to talk about this a lot.
+
+00:14:51.910 --> 00:14:52.900
+Does anyone know?
+
+00:14:53.040 --> 00:14:55.910
+Yay, great, one person.
+
+00:14:55.960 --> 00:15:00.090
+This is, it's very rare that even one person.
+
+00:15:00.180 --> 00:15:03.020
+When we use a term a lot, it doesn't mean
+
+00:15:03.020 --> 00:15:06.240
+that it's the real term, and it also doesn't
+
+00:15:06.240 --> 00:15:08.390
+mean that we know what it is.
+
+00:15:08.390 --> 00:15:11.340
+And looking into the terms that we use every day is so
+
+00:15:11.480 --> 00:15:12.230
+important.
+
+00:15:12.260 --> 00:15:15.270
+There's a longer history of this, but I'm going
+
+00:15:15.270 --> 00:15:16.430
+to give an abridged version.
+
+00:15:16.430 --> 00:15:17.400
+This is Norbert Wiener.
+
+00:15:17.400 --> 00:15:19.920
+He's considered the father of cybernetics.
+
+00:15:19.920 --> 00:15:23.880
+The idea of cybernetics is the thing that really pred
+
+00:15:23.880 --> 00:15:24.740
+ates AI.
+
+00:15:24.740 --> 00:15:30.440
+It's from Kubernetes, meaning Helms person.
+
+00:15:30.480 --> 00:15:31.620
+It's from Greek.
+
+00:15:31.620 --> 00:15:34.980
+Here's a person getting a signal and making a decision.
+
+00:15:34.980 --> 00:15:36.850
+So it's a human and a machine.
+
+00:15:36.890 --> 00:15:39.380
+Underneath this ship, there's a lot of automated processes
+
+00:15:39.660 --> 00:15:39.810
+.
+
+00:15:39.810 --> 00:15:42.930
+There's, there's tons of automation, but those autom
+
+00:15:42.930 --> 00:15:46.710
+ations are producing signals that can be human readable, and that
+
+00:15:46.980 --> 00:15:48.870
+the human is making a decision in steering.
+
+00:15:48.890 --> 00:15:50.100
+They're also trained.
+
+00:15:50.210 --> 00:15:51.850
+So here we have this cybernetic loop.
+
+00:15:51.860 --> 00:15:53.860
+Here's a sensor with a threshold.
+
+00:15:53.860 --> 00:15:55.250
+There's a difference.
+
+00:15:55.250 --> 00:15:56.820
+The controller sees it.
+
+00:15:56.820 --> 00:15:59.920
+There's an action that, you know, feeds back into
+
+00:15:59.920 --> 00:16:00.660
+the system.
+
+00:16:00.660 --> 00:16:03.530
+So over time, you can drive a car which could kill
+
+00:16:03.530 --> 00:16:06.450
+anyone for no good reason, yet we are trained to stay
+
+00:16:06.450 --> 00:16:09.900
+within the lines and get that information and steer.
+
+00:16:10.220 --> 00:16:13.610
+So it's about steering a system, not having the system
+
+00:16:13.610 --> 00:16:17.030
+do everything for you, knowing what things the system can do
+
+00:16:17.030 --> 00:16:20.260
+for you well as an automation, understanding what to steer.
+
+00:16:20.260 --> 00:16:24.300
+So some of it is making the invisible visible.
+
+00:16:24.300 --> 00:16:25.870
+This thing is an automation.
+
+00:16:25.870 --> 00:16:27.260
+Here's the information.
+
+00:16:27.260 --> 00:16:28.980
+Here's how to make a decision.
+
+00:16:29.620 --> 00:16:33.380
+Now, the problem is that Norbert Wiener apparently
+
+00:16:33.480 --> 00:16:35.700
+was a very talkative person.
+
+00:16:35.700 --> 00:16:37.920
+He would go into every room and say, well, that
+
+00:16:37.920 --> 00:16:38.920
+'s cybernetics.
+
+00:16:38.950 --> 00:16:39.570
+It was true.
+
+00:16:39.820 --> 00:16:41.620
+And he wouldn't stop talking.
+
+00:16:41.620 --> 00:16:43.840
+He just wouldn't stop talking.
+
+00:16:43.840 --> 00:16:46.080
+He's like, and, and, and so, um
+
+00:16:46.080 --> 00:16:50.020
+, John McCarthy, uh, on the creation of the term
+
+00:16:50.020 --> 00:16:52.910
+AI said, one reason for inventing the term AI was
+
+00:16:52.910 --> 00:16:55.610
+to escape association with cybernetics.
+
+00:16:55.650 --> 00:16:58.730
+I wish to avoid having either to accept Norbert Wien
+
+00:16:58.730 --> 00:17:01.140
+er as a guru or having to argue with him.
+
+00:17:01.140 --> 00:17:02.710
+All right.
+
+00:17:02.750 --> 00:17:05.850
+So wait, you're making this term, you're making
+
+00:17:05.900 --> 00:17:08.340
+a term so that Norbert Wiener will hate it
+
+00:17:08.340 --> 00:17:10.330
+so much that he won't show up to a meeting so
+
+00:17:10.330 --> 00:17:12.860
+that you have the ability for you and your friends to show
+
+00:17:12.980 --> 00:17:15.530
+up and have a nice chat without this guy hogging all
+
+00:17:15.530 --> 00:17:16.580
+the airspace.
+
+00:17:16.580 --> 00:17:18.020
+Okay.
+
+00:17:18.020 --> 00:17:24.400
+1956, they got Dartmouth to do a little summer conference.
+
+00:17:24.640 --> 00:17:27.260
+Here are some people like, um, you might recognize some
+
+00:17:27.350 --> 00:17:30.080
+names like Claude Shannon, Marvin Minsky, John McCarthy
+
+00:17:30.240 --> 00:17:30.260
+.
+
+00:17:30.260 --> 00:17:33.110
+And they said, we're going to have this conference.
+
+00:17:33.180 --> 00:17:34.010
+Here's a plaque.
+
+00:17:34.010 --> 00:17:37.880
+This is the first use of the term artificial intelligence at Dartmouth
+
+00:17:37.880 --> 00:17:38.060
+.
+
+00:17:38.200 --> 00:17:41.740
+And, um, I was just thinking about the, the
+
+00:17:41.740 --> 00:17:43.240
+comment by the woman who took this picture.
+
+00:17:43.360 --> 00:17:44.580
+She said, look at how happy they are.
+
+00:17:44.580 --> 00:17:47.070
+They don't have to deal with this guy.
+
+00:17:47.070 --> 00:17:48.440
+Um, but ha ha ha.
+
+00:17:48.440 --> 00:17:49.910
+We figured it out.
+
+00:17:49.910 --> 00:17:56.250
+Unfortunately, words are aesthetics and aesthetics are the, are the
+
+00:17:56.260 --> 00:17:57.740
+realm of causality.
+
+00:17:57.880 --> 00:18:00.480
+And by that, I mean, when we say something like
+
+00:18:00.660 --> 00:18:03.370
+black hole, most people think it's a black hole.
+
+00:18:03.370 --> 00:18:06.220
+And John Archibald Wheeler just said that offhand
+
+00:18:06.310 --> 00:18:08.920
+in the middle of a conference when he was sitting there.
+
+00:18:08.940 --> 00:18:10.140
+And it became this term.
+
+00:18:10.280 --> 00:18:13.530
+And the issue is that the term can be separate from what
+
+00:18:13.530 --> 00:18:15.150
+the thing actually is.
+
+00:18:15.150 --> 00:18:18.770
+And we can drive a narrative that's more about science fiction
+
+00:18:18.960 --> 00:18:21.380
+than it is about reality and distort things.
+
+00:18:21.380 --> 00:18:25.370
+And this term got taken up by journalists and pop tech and
+
+00:18:25.370 --> 00:18:26.310
+marketing.
+
+00:18:26.310 --> 00:18:28.900
+And there were all these headlines.
+
+00:18:28.900 --> 00:18:30.740
+Will automation be a Frankenstein?
+
+00:18:30.740 --> 00:18:33.070
+Now, Frankenstein is a really great book to read and
+
+00:18:33.230 --> 00:18:34.550
+you should definitely read it.
+
+00:18:34.600 --> 00:18:39.570
+But the speculation is using narratives that we already understand to put
+
+00:18:39.570 --> 00:18:42.570
+together some speculation.
+
+00:18:42.570 --> 00:18:43.930
+And the AI is taking off.
+
+00:18:43.940 --> 00:18:47.770
+IBM experts say electronic brains offer no threat to taking over the
+
+00:18:47.800 --> 00:18:48.310
+world.
+
+00:18:48.330 --> 00:18:51.190
+Too much autonomous and national defense could bring chaos.
+
+00:18:51.190 --> 00:18:52.340
+Yeah, definitely.
+
+00:18:52.340 --> 00:18:56.470
+We have not experienced any of that at all recently.
+
+00:18:56.690 --> 00:19:01.440
+Artificial intelligence moves into mainstream in 1987, right?
+
+00:19:01.680 --> 00:19:04.280
+Everybody was talking about this.
+
+00:19:04.320 --> 00:19:08.890
+Now, why are these narratives freaking people out, especially today
+
+00:19:08.890 --> 00:19:11.050
+, where all your jobs are going to be taken?
+
+00:19:11.050 --> 00:19:12.280
+They're always about all.
+
+00:19:12.280 --> 00:19:13.710
+All things are going to happen.
+
+00:19:13.710 --> 00:19:15.140
+That doesn't happen in nature.
+
+00:19:15.140 --> 00:19:17.240
+You don't have a system where all things happen.
+
+00:19:17.240 --> 00:19:20.390
+You have a system where a gradient amount of things happen.
+
+00:19:20.390 --> 00:19:24.740
+And then that gradient shifts over time and goes into dynamic equilibrium
+
+00:19:24.740 --> 00:19:27.630
+because that's how things balance, ideally.
+
+00:19:27.690 --> 00:19:30.770
+And if you have less of one variable, you have more
+
+00:19:30.770 --> 00:19:34.090
+of another variable to balance that equation.
+
+00:19:34.090 --> 00:19:37.820
+The Yellowstone, Wolves, and Deer population story
+
+00:19:38.130 --> 00:19:38.710
+fits here.
+
+00:19:38.960 --> 00:19:42.220
+But here is this book, which you might know as the
+
+00:19:42.220 --> 00:19:45.680
+film, which actually came out in 1900, The Wonderful Wizard
+
+00:19:45.680 --> 00:19:46.100
+of Oz.
+
+00:19:46.100 --> 00:19:49.050
+So I had these books from my grandmother that were the origin
+
+00:19:49.050 --> 00:19:51.270
+als, and I was reading them when I was a kid
+
+00:19:51.340 --> 00:19:51.460
+.
+
+00:19:51.460 --> 00:19:54.900
+I didn't have access to television except for Star Trek.
+
+00:19:54.900 --> 00:19:59.040
+And I love these book series because the one that came out
+
+00:19:59.050 --> 00:20:02.340
+in 1914 was this person lost her private keys and she couldn
+
+00:20:02.340 --> 00:20:03.700
+'t get into her kingdom.
+
+00:20:04.340 --> 00:20:06.730
+There is a robot called Tik Tok.
+
+00:20:06.800 --> 00:20:08.880
+T-I-K-T-O-K.
+
+00:20:08.880 --> 00:20:13.380
+There is a magic book in which everything can be seen by
+
+00:20:13.380 --> 00:20:16.040
+the ruler of the country/government.
+
+00:20:16.040 --> 00:20:21.390
+And it is a surveillance book in which everything is recorded into
+
+00:20:21.390 --> 00:20:22.020
+the book.
+
+00:20:22.020 --> 00:20:24.860
+And the person wields this power very strangely.
+
+00:20:25.000 --> 00:20:27.820
+She is the young girl ruler of Oz, a 14-
+
+00:20:27.820 --> 00:20:30.940
+year-old that actually is kind of mean, and spies
+
+00:20:31.080 --> 00:20:32.180
+on everybody.
+
+00:20:32.180 --> 00:20:35.450
+So there's a lot of things in here.
+
+00:20:35.450 --> 00:20:39.430
+But also the analogy of this was that at this point in
+
+00:20:39.430 --> 00:20:43.330
+time, the country of the United States was reeling between
+
+00:20:43.840 --> 00:20:46.900
+Industrial Revolution and Agricultural Revolution.
+
+00:20:46.900 --> 00:20:49.220
+The Yilbrick Road is the gold standard.
+
+00:20:49.220 --> 00:20:51.980
+You have the Tin Woodman, who's the industrial man
+
+00:20:51.980 --> 00:20:55.720
+, who wonders whether he has a heart as he goes into
+
+00:20:55.720 --> 00:20:56.550
+industry.
+
+00:20:56.560 --> 00:20:59.160
+You have the Scarecrow, which is the farmer
+
+00:20:59.160 --> 00:21:01.470
+, wondering if he is going to be automated or not,
+
+00:21:01.470 --> 00:21:03.080
+wondering whether he has a brain.
+
+00:21:03.080 --> 00:21:05.490
+You have Dorothy, who's growing up in the middle of
+
+00:21:05.510 --> 00:21:07.790
+this, is the ultimate Gen Z character.
+
+00:21:07.790 --> 00:21:10.180
+And you have the Cowardly Lion, who is the
+
+00:21:10.180 --> 00:21:12.040
+president at the time, freaking out.
+
+00:21:12.320 --> 00:21:16.260
+There's a lot of this tension between the Industrial Revolution and
+
+00:21:16.450 --> 00:21:20.120
+the first major use, human use of human beings through a
+
+00:21:20.380 --> 00:21:25.640
+machine, especially in Manchester, England, where you look and
+
+00:21:25.640 --> 00:21:29.100
+you say, wow, these people have such a good set
+
+00:21:29.100 --> 00:21:30.790
+of science fiction.
+
+00:21:30.820 --> 00:21:34.730
+When I was looking, when I was in Istanbul, Turkey
+
+00:21:34.730 --> 00:21:38.020
+, I met a Turkish science fiction author and I said,
+
+00:21:38.020 --> 00:21:40.550
+I don't find a lot of science fiction coming out of
+
+00:21:40.550 --> 00:21:41.210
+Turkey.
+
+00:21:41.340 --> 00:21:44.000
+And he said, that's because we have so much history
+
+00:21:44.000 --> 00:21:46.160
+that it suffocates the future.
+
+00:21:46.460 --> 00:21:49.860
+Whereas in Manchester, you're dealing with the fact that at
+
+00:21:49.860 --> 00:21:53.250
+any time, you could be stricken as an orphan,
+
+00:21:53.420 --> 00:21:57.720
+forced and last to a cotton machine in a textile factory,
+
+00:21:57.730 --> 00:22:01.160
+which predates computing, by the way, as textile producers
+
+00:22:01.300 --> 00:22:03.940
+, and you don't have any history, it gets torn
+
+00:22:03.940 --> 00:22:06.930
+down and for no good reason for an interdimensional highway.
+
+00:22:06.930 --> 00:22:11.940
+And so all of these things become this idea that when journalists
+
+00:22:12.040 --> 00:22:15.100
+talk about AI and automation, it's we've already experienced
+
+00:22:15.240 --> 00:22:19.380
+the automation of human beings and pushing that out to different countries
+
+00:22:19.680 --> 00:22:21.860
+and that sort of thing.
+
+00:22:21.860 --> 00:22:25.220
+But now it's what if our mental state goes that way
+
+00:22:25.220 --> 00:22:25.380
+, too?
+
+00:22:26.100 --> 00:22:30.710
+Because history isn't that long ago and the 1900s,
+
+00:22:30.740 --> 00:22:35.690
+1800s were not that long ago, we still have this
+
+00:22:35.760 --> 00:22:36.100
+memory.
+
+00:22:36.100 --> 00:22:41.130
+Most people have gone through something terrible in their history, not
+
+00:22:41.160 --> 00:22:43.330
+that long ago.
+
+00:22:43.330 --> 00:22:46.890
+And there's this this feeling that this could happen again.
+
+00:22:46.920 --> 00:22:49.690
+And so it just harkens back to these experiences.
+
+00:22:49.730 --> 00:22:53.000
+And so when a journalist says, everything will be taken over
+
+00:22:53.000 --> 00:22:54.900
+, well, that's what we feel.
+
+00:22:54.900 --> 00:22:59.210
+And then of course, we have the other issue, which
+
+00:22:59.210 --> 00:23:00.500
+is science fiction.
+
+00:23:00.500 --> 00:23:03.700
+Science fiction is really fun to watch, especially if it's
+
+00:23:03.700 --> 00:23:06.380
+on a movie screen and everything is a big bright blue light
+
+00:23:06.380 --> 00:23:06.560
+.
+
+00:23:06.560 --> 00:23:08.310
+And what does that actually mean?
+
+00:23:08.380 --> 00:23:12.400
+It means that we think that this is what the future looks
+
+00:23:12.400 --> 00:23:12.980
+like.
+
+00:23:13.100 --> 00:23:17.100
+But when we take one of these fancy smart washer and dryer
+
+00:23:17.100 --> 00:23:19.890
+machines home that like beep at us really loud and have bright
+
+00:23:20.140 --> 00:23:22.240
+blue lights and won't let us go to sleep and have
+
+00:23:22.240 --> 00:23:24.650
+a software update on the Samsung washer that won't let us
+
+00:23:24.650 --> 00:23:27.880
+use it until we download the software update or puts ads on
+
+00:23:27.880 --> 00:23:30.650
+the side, it's not a very good roommate.
+
+00:23:30.650 --> 00:23:34.040
+But it looks like what the future is supposed to look like
+
+00:23:34.040 --> 00:23:34.220
+.
+
+00:23:34.220 --> 00:23:36.560
+It looks like what that narrative is.
+
+00:23:36.560 --> 00:23:40.930
+And so instead, when Google first came out, people tried
+
+00:23:40.930 --> 00:23:43.140
+to scroll down the page because they said, well, where
+
+00:23:43.140 --> 00:23:43.900
+is everything?
+
+00:23:44.030 --> 00:23:46.390
+We're used to Yahoo, the little links.
+
+00:23:46.410 --> 00:23:50.250
+And so there's this difference in one of the local minim
+
+00:23:50.250 --> 00:23:53.480
+a that people can get trapped in is where is your notion
+
+00:23:53.760 --> 00:23:55.620
+of the future coming from?
+
+00:23:55.620 --> 00:23:58.430
+Is it actually from science fiction?
+
+00:23:58.430 --> 00:24:00.900
+Or is it from what you're seeing?
+
+00:24:01.120 --> 00:24:03.700
+Are you going to get side swiped or not?
+
+00:24:03.700 --> 00:24:08.100
+I think I have like eight minutes, so I'm not
+
+00:24:08.100 --> 00:24:10.050
+going to go through everything.
+
+00:24:10.050 --> 00:24:12.460
+But here's here's the first chat bot, Eliza
+
+00:24:12.550 --> 00:24:15.840
+, which all chat bots are based on.
+
+00:24:15.970 --> 00:24:20.150
+This was Joseph Weisenbaum was working as a psychotherap
+
+00:24:20.220 --> 00:24:20.690
+ist.
+
+00:24:20.690 --> 00:24:24.050
+He was a kind of Rogerian school psychotherapist,
+
+00:24:24.050 --> 00:24:27.910
+the therapist that reflects back the patient's words to the patient
+
+00:24:27.930 --> 00:24:31.650
+, unlike Claude, and says, oh, yeah,
+
+00:24:31.760 --> 00:24:35.150
+you're saying that AI can take over the world?
+
+00:24:35.150 --> 00:24:38.020
+Well, I will show you how dumb it is.
+
+00:24:38.020 --> 00:24:40.410
+And he made this chat bot as a joke.
+
+00:24:40.410 --> 00:24:42.180
+Ha ha ha, Rogerian method.
+
+00:24:42.300 --> 00:24:43.590
+Here's the chat bot.
+
+00:24:43.890 --> 00:24:46.960
+You know, please tell me what's been bothering you.
+
+00:24:46.960 --> 00:24:48.280
+Tell me more about that.
+
+00:24:48.280 --> 00:24:48.640
+Why?
+
+00:24:48.640 --> 00:24:51.310
+No, I'm not sure I understand you fully.
+
+00:24:51.330 --> 00:24:54.810
+So he noticed that his secretary was using this bot all the
+
+00:24:54.810 --> 00:24:55.320
+time.
+
+00:24:55.320 --> 00:24:58.160
+And he said, you dumb secretary, don't you know
+
+00:24:58.170 --> 00:24:58.730
+it's fake?
+
+00:24:58.740 --> 00:25:00.560
+And she said, I know it's fake, but it
+
+00:25:00.560 --> 00:25:02.790
+'s not judging me like a real therapist might.
+
+00:25:02.810 --> 00:25:06.220
+Here's Joseph Weisenbaum and his family.
+
+00:25:06.360 --> 00:25:11.310
+No other organism and certainly no computer can be made to confront
+
+00:25:11.310 --> 00:25:14.260
+genuine human problems in genuine human terms.
+
+00:25:14.260 --> 00:25:16.900
+He became like the foremost anti-AI guy.
+
+00:25:18.180 --> 00:25:21.140
+But his chat bot had gotten out into the world and dun
+
+00:25:21.220 --> 00:25:22.340
+dun dun dun.
+
+00:25:22.440 --> 00:25:24.420
+Now we have what we have now.
+
+00:25:24.420 --> 00:25:28.580
+So we really, we live in this very intense era of
+
+00:25:28.700 --> 00:25:33.300
+interruptive technology in which if we look back in time how
+
+00:25:33.300 --> 00:25:36.460
+electricity was built, we don't, we don't look
+
+00:25:36.600 --> 00:25:39.940
+at electricity as Wi-Fi.
+
+00:25:39.940 --> 00:25:42.190
+For instance, if electricity were built like Wi-Fi,
+
+00:25:42.240 --> 00:25:44.980
+it would be intermittent all the time and there would be like
+
+00:25:44.980 --> 00:25:45.620
+a rate limit.
+
+00:25:45.620 --> 00:25:47.690
+Sorry, you can't plug this in here.
+
+00:25:47.690 --> 00:25:48.590
+But we need it.
+
+00:25:48.590 --> 00:25:50.230
+We need a different thing.
+
+00:25:50.280 --> 00:25:52.540
+We need a kind of calm technology.
+
+00:25:52.540 --> 00:25:56.500
+And I will leave that exercise to the reader.
+
+00:25:56.500 --> 00:26:00.210
+But my big question here is why do people keep making the
+
+00:26:00.220 --> 00:26:00.890
+wrong thing?
+
+00:26:00.890 --> 00:26:03.080
+Why do they keep making annoying technologies?
+
+00:26:03.080 --> 00:26:05.300
+Why do they keep making the same thing again and again?
+
+00:26:05.300 --> 00:26:08.620
+And I think one of the reasons is that the future is
+
+00:26:08.710 --> 00:26:09.700
+outdated.
+
+00:26:09.700 --> 00:26:13.420
+The general future that a lot of people have that have a
+
+00:26:13.420 --> 00:26:16.540
+lot of money is that they grew up on this popular mechanics
+
+00:26:16.630 --> 00:26:20.290
+, scientific American, flying cars, and they're trying to
+
+00:26:20.290 --> 00:26:23.150
+make something in the shape of the thing that they had from
+
+00:26:23.150 --> 00:26:23.700
+childhood.
+
+00:26:23.700 --> 00:26:26.820
+Or they're just trying to consolidate and make a lot of
+
+00:26:26.920 --> 00:26:27.460
+money.
+
+00:26:27.460 --> 00:26:31.530
+So design is fundamentally governance.
+
+00:26:31.560 --> 00:26:35.270
+And what that means is that when you give people a touch
+
+00:26:35.270 --> 00:26:39.360
+screen, and I've worked a lot of manufacturing of cars
+
+00:26:39.400 --> 00:26:43.030
+to try to figure out how we can put buttons back on
+
+00:26:43.030 --> 00:26:46.560
+cars like this and make them orange, is that so many
+
+00:26:46.580 --> 00:26:50.230
+car manufacturers saw the Tesla come out and saw, you know
+
+00:26:50.260 --> 00:26:52.830
+, that 2010s experience of the iPhone and they said the
+
+00:26:52.830 --> 00:26:54.100
+future must be going flat.
+
+00:26:54.100 --> 00:26:55.110
+We have to do it.
+
+00:26:55.130 --> 00:26:57.150
+We're terrified and it's cheaper.
+
+00:26:57.150 --> 00:27:00.420
+But I interviewed people at leading car companies and I said,
+
+00:27:00.420 --> 00:27:03.540
+"Does anyone on your team that makes the flat screen touch
+
+00:27:03.740 --> 00:27:05.380
+technologies even have a car?
+
+00:27:05.380 --> 00:27:08.820
+Do you even drive?" And it was usually like a group
+
+00:27:08.820 --> 00:27:11.400
+of 25-year-olds that were like, "No
+
+00:27:11.400 --> 00:27:12.610
+, we don't drive yet.
+
+00:27:12.610 --> 00:27:16.340
+We use rideshares." And we, you know,
+
+00:27:16.340 --> 00:27:19.080
+and it was terrifying because you'd always talk to the people
+
+00:27:19.090 --> 00:27:20.260
+that made the physical stuff.
+
+00:27:20.330 --> 00:27:22.340
+They said, "Oh, well, I had this car
+
+00:27:22.340 --> 00:27:25.360
+in 1973 and I hand-built it like this." And
+
+00:27:25.360 --> 00:27:27.480
+it was very grounded to mechanics.
+
+00:27:27.480 --> 00:27:31.330
+And so that was terrifying because you had the most important part
+
+00:27:31.460 --> 00:27:33.790
+of the car, arguably, the, you know, the
+
+00:27:33.790 --> 00:27:37.140
+cognitive incurring of where your hands have eyes too.
+
+00:27:37.140 --> 00:27:40.220
+And you can experience the car over time and get better at
+
+00:27:40.310 --> 00:27:44.220
+it, turning into something that doesn't have any fixed state
+
+00:27:44.360 --> 00:27:47.630
+and position and is in a bright blue color from science fiction
+
+00:27:47.630 --> 00:27:50.820
+because blue LEDs were the most expensive LEDs at one point at
+
+00:27:50.820 --> 00:27:51.700
+Radio Shack.
+
+00:27:51.700 --> 00:27:54.460
+And when they became cheap enough, there was a Nobel prize
+
+00:27:54.460 --> 00:27:55.250
+awarded for it.
+
+00:27:55.250 --> 00:27:57.220
+And we thought that the color of the future was blue.
+
+00:28:00.740 --> 00:28:04.840
+So I would love to encourage you to beware of times
+
+00:28:04.840 --> 00:28:10.400
+when telling stories about doing the real thing are more rewarded than
+
+00:28:10.400 --> 00:28:13.220
+actually doing the real thing.
+
+00:28:13.220 --> 00:28:17.330
+And I think this is a particular era in which that,
+
+00:28:17.440 --> 00:28:20.430
+you know, with AI, LinkedIn is just full of it
+
+00:28:20.430 --> 00:28:20.660
+.
+
+00:28:20.660 --> 00:28:22.490
+This is how you do a thing.
+
+00:28:22.510 --> 00:28:23.750
+Okay.
+
+00:28:24.100 --> 00:28:26.440
+Well, there's no content in there.
+
+00:28:26.440 --> 00:28:30.040
+And then finally, if you get trained as a civil engineer
+
+00:28:30.040 --> 00:28:33.240
+, I went to a lot of engineering school as a kid
+
+00:28:33.250 --> 00:28:37.570
+in architecture, and my parents were broadcast engineers and audio engineers
+
+00:28:37.580 --> 00:28:37.860
+.
+
+00:28:37.860 --> 00:28:41.620
+So everything was about show the Tacoma Narrows Bridge in
+
+00:28:41.660 --> 00:28:45.110
+1940, Galloping Gertie, which was a bridge
+
+00:28:45.460 --> 00:28:48.870
+that had an issue due to heat and wind, and it
+
+00:28:49.180 --> 00:28:51.430
+fell with a bunch of cars on it.
+
+00:28:51.730 --> 00:28:55.210
+I don't think anyone died, but in civil engineering class
+
+00:28:55.210 --> 00:28:59.060
+, the first video that you see is with a good teacher
+
+00:28:59.060 --> 00:29:03.020
+is always this video about a catastrophic thing that can happen when
+
+00:29:03.020 --> 00:29:04.740
+you don't do things right.
+
+00:29:04.740 --> 00:29:08.260
+And it really, it's over building the bridge to a
+
+00:29:08.330 --> 00:29:13.980
+very intense spec because someone down the line of contractor subcont
+
+00:29:14.050 --> 00:29:17.070
+racting will degrade whatever you've set, and it
+
+00:29:17.070 --> 00:29:20.050
+still needs to work within a specific tolerance.
+
+00:29:20.100 --> 00:29:25.930
+And we do not have an artificial intelligence class that teaches what
+
+00:29:25.930 --> 00:29:28.790
+can happen catastrophically when things go wrong.
+
+00:29:28.820 --> 00:29:31.210
+You don't even get to watch war games as your first
+
+00:29:31.210 --> 00:29:32.420
+thing.
+
+00:29:32.420 --> 00:29:36.160
+So would you drive over this bridge in a 24 ton vehicle
+
+00:29:36.160 --> 00:29:36.340
+?
+
+00:29:36.340 --> 00:29:39.300
+Well, if you knew the bridge, and you knew how
+
+00:29:39.300 --> 00:29:41.780
+many subcontractors should work on it, you would
+
+00:29:41.850 --> 00:29:45.020
+know that it probably was weight rated to 24 tons.
+
+00:29:45.160 --> 00:29:48.250
+But you still wouldn't drive over on it, because these
+
+00:29:48.280 --> 00:29:49.540
+are the weight limits.
+
+00:29:49.540 --> 00:29:52.020
+But would you run an organization on this?
+
+00:29:52.020 --> 00:29:54.020
+ChatGPT can make mistakes.
+
+00:29:54.020 --> 00:29:56.900
+Consider checking important information without knowing the weight limit.
+
+00:29:56.900 --> 00:29:59.320
+It's very hard to know the weight limit.
+
+00:29:59.330 --> 00:30:01.450
+You're not actually getting the same thing every time.
+
+00:30:01.450 --> 00:30:04.730
+You're getting kind of a diluted version of the service
+
+00:30:04.770 --> 00:30:08.730
+if everybody's trying to finish their calculus homework with the time
+
+00:30:08.760 --> 00:30:10.250
+that you're logging in.
+
+00:30:10.290 --> 00:30:13.620
+So there's this book called Cognitive Security.
+
+00:30:13.620 --> 00:30:13.970
+CogSec.
+
+00:30:14.080 --> 00:30:16.150
+Well, it's attention and self-regulation.
+
+00:30:16.150 --> 00:30:18.340
+It's a control theory approach to human behavior.
+
+00:30:18.340 --> 00:30:21.860
+But really, I'm very interested in cognitive security.
+
+00:30:21.860 --> 00:30:23.850
+Where do you get your thoughts?
+
+00:30:23.870 --> 00:30:25.600
+Where did they come from?
+
+00:30:25.600 --> 00:30:28.460
+Is someone trying to monetize where that thing came from?
+
+00:30:28.600 --> 00:30:31.030
+And what is actually the path?
+
+00:30:31.030 --> 00:30:33.870
+What is that small signal that's coming up from the edge
+
+00:30:33.870 --> 00:30:35.990
+that's going to sideswipe the future?
+
+00:30:36.260 --> 00:30:38.490
+How do you find that and sift through all the strong
+
+00:30:38.520 --> 00:30:39.140
+signal?
+
+00:30:39.580 --> 00:30:41.540
+And yes.
+
+00:30:41.540 --> 00:30:45.030
+So Douglas Engelbart, during the same time as artificial
+
+00:30:45.030 --> 00:30:49.750
+intelligence came out, said, "How about augmented intelligence?
+
+00:30:49.860 --> 00:30:52.980
+It's a human alongside a machine." And as Norbert
+
+00:30:52.980 --> 00:30:55.420
+Wiener would say, "That's cybernetics
+
+00:30:55.730 --> 00:30:56.500
+." So.
+
+00:30:56.500 --> 00:30:59.540
+One final thought.
+
+00:30:59.820 --> 00:31:03.620
+The question is, what do most people have in common?
+
+00:31:03.620 --> 00:31:06.990
+Engineers, doctors, lawyers, artists, writers, political scientists
+
+00:31:07.200 --> 00:31:12.020
+, international security, building people, anybody.
+
+00:31:12.020 --> 00:31:16.360
+And the main thing is that most people in the past would
+
+00:31:16.360 --> 00:31:17.620
+have an apprenticeship.
+
+00:31:17.780 --> 00:31:21.330
+There would be a history, or especially in art, before
+
+00:31:21.330 --> 00:31:26.660
+somebody studies art history and joins advertising to sell people things based
+
+00:31:26.660 --> 00:31:27.890
+on art history.
+
+00:31:27.890 --> 00:31:29.460
+You get the history.
+
+00:31:29.460 --> 00:31:33.130
+In international security, you study the Peloponnesian
+
+00:31:33.130 --> 00:31:35.860
+War as if it happened yesterday, as if it's contemporary
+
+00:31:35.860 --> 00:31:38.140
+, because it's all the same stuff.
+
+00:31:38.320 --> 00:31:42.560
+But somehow we thought that technology and how it's taught is
+
+00:31:42.560 --> 00:31:44.360
+that it's separate from history.
+
+00:31:44.400 --> 00:31:47.130
+We don't study the history of like even the Atari or
+
+00:31:47.130 --> 00:31:48.260
+the PDP-11.
+
+00:31:48.260 --> 00:31:50.870
+That's in the history museum if you want to go hang
+
+00:31:50.870 --> 00:31:51.230
+out.
+
+00:31:51.230 --> 00:31:53.620
+It's a good history museum in California.
+
+00:31:53.620 --> 00:31:57.040
+But the idea is that we don't even think back to
+
+00:31:57.040 --> 00:32:00.820
+any sort of history when we teach this or programming or anything
+
+00:32:00.820 --> 00:32:00.900
+.
+
+00:32:00.900 --> 00:32:03.790
+And some of the people that go back in time or even
+
+00:32:03.850 --> 00:32:07.030
+Stuart Butterfield, who was a philosophy major who made Fl
+
+00:32:07.030 --> 00:32:09.490
+ickr and Slack and also Game Never Ending and Gl
+
+00:32:09.510 --> 00:32:12.470
+itch, the original side-scrolling flash base, not
+
+00:32:12.490 --> 00:32:17.490
+the glitch today, had an advantage by having either a liberal
+
+00:32:17.490 --> 00:32:21.440
+arts education or stepping outside of that local minima and asking
+
+00:32:21.440 --> 00:32:23.700
+what something was.
+
+00:32:23.700 --> 00:32:28.740
+So I'd like to say that technology is not separate from
+
+00:32:28.740 --> 00:32:29.220
+history.
+
+00:32:29.220 --> 00:32:32.940
+And that a good tool is invisible.
+
+00:32:33.080 --> 00:32:36.100
+By invisible, we mean that the tool does not intrude
+
+00:32:36.100 --> 00:32:39.490
+on your consciousness and you focus on the task and not the
+
+00:32:39.490 --> 00:32:40.250
+tool.
+
+00:32:41.380 --> 00:32:44.890
+So if we have humans alongside nature, we should also have
+
+00:32:44.890 --> 00:32:46.940
+humans alongside technology.
+
+00:32:46.980 --> 00:32:51.340
+Why does this still work, this nice Yamaha system,
+
+00:32:51.430 --> 00:32:55.490
+and this still work after 4,000 years?
+
+00:32:55.490 --> 00:32:57.490
+I just went to the anthropology museum.
+
+00:32:57.680 --> 00:33:00.550
+But the same piece of technology in the exhibit next to the
+
+00:33:00.620 --> 00:33:04.170
+4,000 year basket says, "Sorry, we're
+
+00:33:04.170 --> 00:33:09.730
+experiencing technical difficulties." I think I'm probably out of time
+
+00:33:09.730 --> 00:33:12.490
+, but maybe I can show you a thing that I've
+
+00:33:12.720 --> 00:33:13.640
+been working on.
+
+00:33:13.640 --> 00:33:17.430
+If you want to look at some history, I have this
+
+00:33:17.460 --> 00:33:19.160
+thing called Calm Tech Institute.
+
+00:33:19.160 --> 00:33:22.020
+We are the very first standards body that focuses on how much
+
+00:33:22.020 --> 00:33:25.090
+attention it takes to use a piece of technology.
+
+00:33:25.090 --> 00:33:28.560
+We hate blue lights, we love tactile interfaces, and we
+
+00:33:28.560 --> 00:33:34.180
+'re trying to make tech an enjoyable, delightful experience.
+
+00:33:34.180 --> 00:33:38.580
+Again, that's much more like this, or this,
+
+00:33:38.790 --> 00:33:40.730
+or this.
+
+00:33:40.740 --> 00:33:44.100
+So thank you so much.

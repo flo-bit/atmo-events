@@ -1,0 +1,676 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+Yes.
+
+00:00:01.750 --> 00:00:02.000
+Fantastic.
+
+00:00:02.000 --> 00:00:03.000
+Okay.
+
+00:00:03.000 --> 00:00:04.000
+Hi.
+
+00:00:04.000 --> 00:00:05.000
+I'm Filippo.
+
+00:00:05.000 --> 00:00:06.000
+I do a few things.
+
+00:00:06.000 --> 00:00:07.870
+In my day job, I'm an open source maintainer
+
+00:00:07.890 --> 00:00:07.980
+.
+
+00:00:08.000 --> 00:00:11.000
+I'm one of the maintainers of the Go Cryptography
+
+00:00:11.000 --> 00:00:13.830
+Standard Library, and I used to be the lead of the
+
+00:00:13.830 --> 00:00:15.590
+Go security team at Google.
+
+00:00:15.600 --> 00:00:18.830
+And then in 2022, I quit because I had opinions on
+
+00:00:18.830 --> 00:00:22.360
+how you could fund open source maintenance, and people said it
+
+00:00:22.370 --> 00:00:24.360
+was never going to work, and I'm that kind of
+
+00:00:24.360 --> 00:00:24.940
+person.
+
+00:00:24.940 --> 00:00:28.200
+Anyway, that's a completely different story, and that's
+
+00:00:28.260 --> 00:00:29.650
+what Jomis is about now.
+
+00:00:29.800 --> 00:00:33.280
+It's a small organization of open source maintainers, but
+
+00:00:33.360 --> 00:00:35.600
+it's not what we're here talking about.
+
+00:00:35.600 --> 00:00:38.480
+You might have also heard that I am on the board of
+
+00:00:38.480 --> 00:00:41.680
+the PLC organization that was just formed.
+
+00:00:41.680 --> 00:00:42.680
+Woo!
+
+00:00:43.380 --> 00:00:43.680
+Exactly.
+
+00:00:43.680 --> 00:00:44.680
+Yes.
+
+00:00:44.680 --> 00:00:47.390
+And that is closer to what I'm going to talk to
+
+00:00:47.480 --> 00:00:51.650
+you about, because I'm going to tell you about transparency
+
+00:00:51.650 --> 00:00:52.280
+logs.
+
+00:00:52.280 --> 00:00:55.440
+Transparency logs are something I am really, really
+
+00:00:55.440 --> 00:01:00.980
+into because they meet the moment for providing accountability for the systems
+
+00:01:01.030 --> 00:01:04.520
+that we have and that we can make for users.
+
+00:01:04.520 --> 00:01:05.790
+But a step back.
+
+00:01:05.800 --> 00:01:07.480
+What is a transparency log?
+
+00:01:07.600 --> 00:01:09.580
+A transparency log is a Merkle tree.
+
+00:01:09.600 --> 00:01:11.280
+Stop me if you've heard this one.
+
+00:01:11.400 --> 00:01:13.380
+It's a pen-only Merkle tree, too.
+
+00:01:13.400 --> 00:01:15.380
+It's not a Merkle search tree.
+
+00:01:15.400 --> 00:01:19.030
+It's just a Merkle tree that keeps growing of entries
+
+00:01:19.170 --> 00:01:19.360
+.
+
+00:01:19.480 --> 00:01:23.100
+And the entries are things that you want to have a list
+
+00:01:23.100 --> 00:01:27.580
+of visible to everybody and where everybody has the same list of
+
+00:01:27.710 --> 00:01:28.400
+things.
+
+00:01:28.400 --> 00:01:31.660
+That is a very useful primitive because, for example, think
+
+00:01:31.700 --> 00:01:33.400
+about package management.
+
+00:01:33.400 --> 00:01:37.760
+I'm involved in Go and usually how package management works is
+
+00:01:37.760 --> 00:01:40.880
+that you have a registry and you make an account, you
+
+00:01:40.880 --> 00:01:43.150
+upload a thing, but that's very centralized.
+
+00:01:43.280 --> 00:01:45.160
+Go has a completely different thing.
+
+00:01:45.160 --> 00:01:48.980
+It has a decentralized system where the name of the module is
+
+00:01:49.320 --> 00:01:52.690
+where you fetch it and there's a mechanism for fetching
+
+00:01:52.890 --> 00:01:53.600
+that data.
+
+00:01:53.600 --> 00:01:55.710
+Stop me if you've heard this one.
+
+00:01:55.800 --> 00:01:58.800
+But the problem with that is that then you have problems like
+
+00:01:58.800 --> 00:02:01.170
+left pad, you have the problem that if you connect to
+
+00:02:01.180 --> 00:02:04.220
+that website, it knows that you connected to it and that
+
+00:02:04.220 --> 00:02:06.230
+you're using it, which is not great.
+
+00:02:06.240 --> 00:02:09.430
+You can fix those things with a centralized system because you can
+
+00:02:09.430 --> 00:02:14.440
+put something that saves those modules and keeps them available.
+
+00:02:14.440 --> 00:02:19.060
+So sometimes having a centralized relay, stop me if you've
+
+00:02:19.060 --> 00:02:21.440
+heard this one, is useful.
+
+00:02:21.440 --> 00:02:24.150
+However, the problem is that now you need to trust that
+
+00:02:24.240 --> 00:02:28.180
+centralized party, just like you needed to trust PyPI and
+
+00:02:28.180 --> 00:02:28.790
+NPM.
+
+00:02:28.840 --> 00:02:33.160
+Well, that's what we use transparency logs for.
+
+00:02:33.160 --> 00:02:36.130
+There's a transparency log called the Go Jackson database, which
+
+00:02:36.130 --> 00:02:39.260
+is just a long list of every Go module version and its
+
+00:02:39.450 --> 00:02:39.860
+hash.
+
+00:02:39.880 --> 00:02:44.000
+It's append only, everybody sees the same list, and
+
+00:02:44.050 --> 00:02:47.640
+a client will only install a Go module if it has a
+
+00:02:47.790 --> 00:02:51.420
+cryptographic proof of inclusion in that list.
+
+00:02:51.420 --> 00:02:52.490
+This already works.
+
+00:02:52.500 --> 00:02:54.980
+You are using this if you're developing in Go.
+
+00:02:54.980 --> 00:02:57.080
+And a lot of people don't know because that's the
+
+00:02:57.080 --> 00:02:59.190
+beauty of tlogs, that you can build them on
+
+00:02:59.190 --> 00:03:03.670
+top of a centralized experience, and they just work.
+
+00:03:03.680 --> 00:03:07.310
+Python has tried so many times to get package outers to
+
+00:03:07.360 --> 00:03:10.660
+sign their thing, and it never works because either people don
+
+00:03:10.660 --> 00:03:12.940
+'t check the signature, or if people check the signature,
+
+00:03:12.940 --> 00:03:15.300
+now you're terrified of losing your key, so nobody signs
+
+00:03:15.300 --> 00:03:16.720
+, and you don't go anywhere.
+
+00:03:16.780 --> 00:03:21.320
+In tlogs one day we turn them on.
+
+00:03:21.320 --> 00:03:24.260
+And that works, and that's what the system database is
+
+00:03:24.260 --> 00:03:24.800
+.
+
+00:03:24.860 --> 00:03:28.480
+This is derived from certificate transparency, which is what Sunlight
+
+00:03:28.540 --> 00:03:31.320
+was about, and there's links later.
+
+00:03:31.320 --> 00:03:38.910
+The point of this is that you can use transparency logs to
+
+00:03:38.910 --> 00:03:46.400
+provide accountability where it's hard to provide decentralized trust.
+
+00:03:46.400 --> 00:03:51.060
+Instead of saying we're going to make a decentralized system where
+
+00:03:51.060 --> 00:03:54.600
+you have to connect to different package outers and there's
+
+00:03:54.790 --> 00:03:58.200
+all this problem, we said Google runs a proxy mirror.
+
+00:03:58.200 --> 00:04:01.460
+But then we also said that proxy mirror is held honest by
+
+00:04:01.460 --> 00:04:04.470
+the checksum database so that if they ever put a fake
+
+00:04:04.490 --> 00:04:07.950
+module in there, the outer of that module can notice.
+
+00:04:08.140 --> 00:04:11.990
+Because the same list that every client checks inclusion in is the
+
+00:04:12.270 --> 00:04:14.750
+same list that you can just sign up, download the whole
+
+00:04:14.750 --> 00:04:16.390
+thing, go like, yeah, that's my module.
+
+00:04:16.480 --> 00:04:19.480
+Wait, that's not the module version I developed.
+
+00:04:19.480 --> 00:04:21.580
+Google, what are you doing?
+
+00:04:21.580 --> 00:04:26.270
+And Google is staking its reputation on the system.
+
+00:04:26.400 --> 00:04:30.240
+To a cryptocurrency crowd, sometimes I describe it as there's
+
+00:04:30.560 --> 00:04:35.380
+proof of work, proof of stake, and proof of reputation
+
+00:04:35.380 --> 00:04:35.840
+.
+
+00:04:35.840 --> 00:04:39.100
+Tlogs remove all of the crypto economics, remove all
+
+00:04:39.170 --> 00:04:42.230
+of the extra work, and instead say, look, are
+
+00:04:42.230 --> 00:04:46.160
+you willing to be accountable for the content of this data,
+
+00:04:46.170 --> 00:04:47.810
+for all this data set?
+
+00:04:47.900 --> 00:04:49.170
+If yes, great.
+
+00:04:49.180 --> 00:04:52.810
+We will make a system such that if a client trusts something
+
+00:04:53.350 --> 00:04:56.250
+, it means it's forever in a public list where it
+
+00:04:56.250 --> 00:04:57.550
+can be audited.
+
+00:04:57.560 --> 00:04:59.670
+And if you put something wrong in there, you will be
+
+00:04:59.790 --> 00:05:01.140
+held accountable for that.
+
+00:05:01.140 --> 00:05:04.770
+Which in practice would probably mean somebody forks go to change
+
+00:05:05.270 --> 00:05:08.870
+what the checksum database operator is, because they're crypt
+
+00:05:08.870 --> 00:05:12.000
+ographic proof that its steward abused that power.
+
+00:05:12.000 --> 00:05:13.000
+Cool.
+
+00:05:13.000 --> 00:05:14.580
+So that's why I like transparency logs.
+
+00:05:14.580 --> 00:05:16.160
+I also like ATProto.
+
+00:05:16.160 --> 00:05:19.980
+So can we build transparency logs for ATProto collections?
+
+00:05:20.000 --> 00:05:21.740
+What is an example use case?
+
+00:05:21.740 --> 00:05:24.390
+For example, if you're making a package manager on top
+
+00:05:24.390 --> 00:05:25.200
+of ATProto.
+
+00:05:25.200 --> 00:05:29.020
+But also if you have any other situation where you would like
+
+00:05:29.300 --> 00:05:32.790
+all of your collections to be append only, never change,
+
+00:05:32.930 --> 00:05:34.500
+and be auditable forever.
+
+00:05:34.500 --> 00:05:37.210
+That is not the case for likes and posts.
+
+00:05:37.280 --> 00:05:38.280
+That's fine.
+
+00:05:38.280 --> 00:05:40.930
+Like sometimes you want to delete the cringe post from yesterday,
+
+00:05:40.930 --> 00:05:43.460
+or undo the like that you did while scrolling somebody's profile
+
+00:05:43.710 --> 00:05:47.480
+without realizing it was not your following feed.
+
+00:05:47.480 --> 00:05:48.750
+So those are deletable.
+
+00:05:49.510 --> 00:05:49.760
+Fantastic.
+
+00:05:49.760 --> 00:05:52.470
+But instead there are other applications where it makes sense to not
+
+00:05:52.580 --> 00:05:54.920
+want deletions, not want things to change.
+
+00:05:54.920 --> 00:05:58.850
+So let's say that you made some full collection and ABC
+
+00:05:59.090 --> 00:06:03.280
+collection that you would like as a client to use, knowing
+
+00:06:03.570 --> 00:06:05.710
+that those records can't go away.
+
+00:06:05.740 --> 00:06:09.370
+Here's a sketch of how that could work in protocol.
+
+00:06:09.520 --> 00:06:14.180
+Alice is developing a client that wants to consume Foo and
+
+00:06:14.180 --> 00:06:18.280
+ABC records, and she requests for a T log to be
+
+00:06:18.280 --> 00:06:19.240
+operated.
+
+00:06:19.240 --> 00:06:22.700
+So she makes a record called a T log config and says
+
+00:06:22.700 --> 00:06:25.130
+, "Hey, here are some collections, some NSID
+
+00:06:25.190 --> 00:06:28.530
+s, some DIDs, can somebody please run a T
+
+00:06:28.530 --> 00:06:32.090
+log out of these?" And a T log operator, which
+
+00:06:32.230 --> 00:06:37.630
+can be multiple ones because permissionlessly allows picking different operators,
+
+00:06:37.630 --> 00:06:40.070
+like Geomys could say, "Sure, we'll
+
+00:06:40.230 --> 00:06:43.450
+run T logs for free up to a million entries in the
+
+00:06:43.450 --> 00:06:46.280
+T log." It's going to be what?
+
+00:06:46.300 --> 00:06:48.070
+How much can a banana cost?
+
+00:06:48.910 --> 00:06:50.140
+200 megabytes?
+
+00:06:50.140 --> 00:06:53.040
+And it will create a T log, so it will take
+
+00:06:53.040 --> 00:06:57.200
+all of these records using tap, put them into that append
+
+00:06:57.200 --> 00:07:00.990
+-only Miracle tree, publish that Miracle tree using
+
+00:07:01.250 --> 00:07:04.560
+the C2SP T log specifications, which are already an
+
+00:07:04.740 --> 00:07:07.920
+ecosystem that the GoCheck XM database uses, that St
+
+00:07:07.920 --> 00:07:10.120
+aticCT uses and so on.
+
+00:07:10.120 --> 00:07:12.940
+And after publishing that, it makes a record saying, "
+
+00:07:12.940 --> 00:07:15.780
+Yeah, all right, I'm operating an instance for that
+
+00:07:15.780 --> 00:07:18.560
+T log config." It's the T log instance record,
+
+00:07:18.650 --> 00:07:21.030
+it has a strong ref to the config, and the URL
+
+00:07:21.030 --> 00:07:22.950
+where you can find that T log.
+
+00:07:22.960 --> 00:07:26.010
+Alice goes like, "Great, okay, I'm going
+
+00:07:26.110 --> 00:07:30.970
+to configure my clients to require an inclusion proof, cryptographic
+
+00:07:31.190 --> 00:07:35.230
+inclusion proof in this T log before they trust a record."
+
+00:07:35.240 --> 00:07:38.720
+And this is nice, because even if our tap instance mess
+
+00:07:38.720 --> 00:07:42.050
+es something up and we lose this record over here, it
+
+00:07:42.060 --> 00:07:44.250
+doesn't end up in the T log, so it's
+
+00:07:44.250 --> 00:07:46.360
+as good as if it didn't exist.
+
+00:07:46.360 --> 00:07:49.820
+Because the client will not accept that record, will not process
+
+00:07:49.820 --> 00:07:52.160
+it, will not trust it, will not install it if
+
+00:07:52.160 --> 00:07:54.290
+it's a package, will not show it if it's
+
+00:07:54.290 --> 00:07:57.140
+an attestation or a blue note or something like that
+
+00:07:57.140 --> 00:07:59.160
+, because it doesn't have an inclusion proof.
+
+00:07:59.160 --> 00:08:01.770
+So all of the things that get actually consumed by the client
+
+00:08:01.770 --> 00:08:04.240
+, you can be sure that they're in that list.
+
+00:08:04.240 --> 00:08:07.720
+And then someone else can go and monitor that list.
+
+00:08:07.720 --> 00:08:09.400
+And if they're the package outer, they can be like
+
+00:08:09.400 --> 00:08:10.740
+, "Hey, no, wait, wait, wait.
+
+00:08:10.740 --> 00:08:13.610
+My PDFs published something I didn't want to publish,"
+
+00:08:13.610 --> 00:08:15.040
+or anything of the sort.
+
+00:08:15.040 --> 00:08:18.300
+The leaves of this T log, so the actual things in
+
+00:08:18.340 --> 00:08:21.370
+the Merkle tree, would be the hash of the did
+
+00:08:21.370 --> 00:08:22.840
+, the hash of the NSID.
+
+00:08:22.840 --> 00:08:23.840
+Why hashes?
+
+00:08:23.840 --> 00:08:26.890
+Because you can never change the stuff in here.
+
+00:08:26.920 --> 00:08:29.630
+And it's really nice not to get user controlled data in
+
+00:08:29.730 --> 00:08:32.920
+places where you can't delete it.
+
+00:08:33.750 --> 00:08:34.980
+Enough said.
+
+00:08:34.980 --> 00:08:37.930
+And then the R key, which probably would have to be
+
+00:08:37.930 --> 00:08:40.540
+a times of ID for the same reason, and the S
+
+00:08:40.770 --> 00:08:41.140
+ID.
+
+00:08:41.140 --> 00:08:44.620
+The records are not actually in there, but you have all
+
+00:08:44.700 --> 00:08:47.140
+of the cryptographic pointers to the records.
+
+00:08:47.140 --> 00:08:50.620
+And if a record ever gets deleted, sure, this collection
+
+00:08:50.690 --> 00:08:54.790
+becomes unauditable, but the other ones are still standing
+
+00:08:54.790 --> 00:08:59.400
+, because you can still check what the full set of those
+
+00:08:59.400 --> 00:09:02.140
+were by monitoring the T log.
+
+00:09:02.140 --> 00:09:05.560
+And then I guess we can also put the checkpoint back into
+
+00:09:05.560 --> 00:09:08.140
+the protocol, because why not?
+
+00:09:08.140 --> 00:09:09.140
+I mean.
+
+00:09:09.140 --> 00:09:10.200
+So, yes.
+
+00:09:10.200 --> 00:09:13.460
+This is a thing that we can build very easily, because
+
+00:09:13.530 --> 00:09:16.530
+T log tooling, we've been developing it now for years
+
+00:09:16.530 --> 00:09:18.960
+to make it easy and cheap to run, and there are
+
+00:09:19.030 --> 00:09:21.080
+a bunch of libraries now.
+
+00:09:21.140 --> 00:09:25.700
+There is deployed software that already uses this, GoCheck some
+
+00:09:25.700 --> 00:09:28.860
+database, SigSum, SigStore, soon probably
+
+00:09:28.970 --> 00:09:32.110
+Merkle 3 certificates, which will probably replace the web P
+
+00:09:32.230 --> 00:09:34.140
+KI because quantum computers are coming.
+
+00:09:34.140 --> 00:09:35.140
+Hmm.
+
+00:09:35.140 --> 00:09:36.140
+Different story.
+
+00:09:36.140 --> 00:09:37.140
+Different talk.
+
+00:09:37.140 --> 00:09:38.140
+So, bunch of links.
+
+00:09:38.140 --> 00:09:42.640
+It's just a loose leaf from leaflet, because this
+
+00:09:42.640 --> 00:09:44.140
+stuff works.
+
+00:09:44.970 --> 00:09:46.140
+Right?
+
+00:09:46.140 --> 00:09:47.140
+I love it.
+
+00:09:47.140 --> 00:09:49.430
+And yeah, you can find a bunch of links, and
+
+00:09:49.580 --> 00:09:50.770
+reach out if you...
+
+00:09:50.900 --> 00:09:53.360
+What I'm looking for next is somebody that has a AT
+
+00:09:53.360 --> 00:09:55.800
+Proto use case for this, somebody that has a AT
+
+00:09:55.800 --> 00:09:59.630
+Proto collection that they would like to be able to say
+
+00:09:59.630 --> 00:10:03.540
+the list is universally known, and anybody can audit all of
+
+00:10:03.540 --> 00:10:06.140
+the things that a client could ever have trusted.
+
+00:10:06.140 --> 00:10:07.140
+Thank you.

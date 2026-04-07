@@ -1,0 +1,1357 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.970
+there you go Joe thank you we're gonna be three and
+
+00:00:02.970 --> 00:00:05.630
+you'll see about that in a minute but hi everybody I
+
+00:00:05.630 --> 00:00:08.060
+'m really happy to be here with you my name is Joe
+
+00:00:08.060 --> 00:00:10.250
+Jermuska I'm the chief nerd at night lab
+
+00:00:10.250 --> 00:00:13.920
+which is the media technology and design studio at Northwestern University
+
+00:00:13.920 --> 00:00:17.390
+just outside of Chicago in the United States night lab is a
+
+00:00:17.460 --> 00:00:21.170
+we build tools for journalists and storytellers we do design
+
+00:00:21.540 --> 00:00:25.610
+research we promote product thinking in journalism and of course we teach
+
+00:00:25.620 --> 00:00:30.580
+students my professional background is actually more in internet software development than
+
+00:00:30.580 --> 00:00:34.040
+journalism but I got into this field at the Chicago Tribune
+
+00:00:34.050 --> 00:00:36.620
+I did a stint as a news applications developer there and
+
+00:00:36.620 --> 00:00:39.540
+then I came to Northwestern to join a lab and I
+
+00:00:39.540 --> 00:00:43.050
+'m super excited to be here I was super excited to see
+
+00:00:43.060 --> 00:00:45.970
+a whole track about journalism why when we pitched this talk I
+
+00:00:45.970 --> 00:00:48.450
+was like okay well we're gonna explain this to people and
+
+00:00:48.450 --> 00:00:51.290
+now there's people all day have already been saying smarter things
+
+00:00:51.330 --> 00:00:54.070
+that I'm gonna tell you today but anyway and oh by
+
+00:00:54.140 --> 00:00:57.850
+the way I realized that I have had a cute or whatever
+
+00:00:58.070 --> 00:01:03.140
+avatar and I've been noticing recognizing people at the conference from
+
+00:01:03.140 --> 00:01:05.320
+there so I thought I should throw mine on there because it
+
+00:01:05.320 --> 00:01:08.140
+'s not me so that's me if it's familiar anyway
+
+00:01:08.140 --> 00:01:10.670
+also I'm co-presenting with Ben Wardm
+
+00:01:10.680 --> 00:01:13.980
+uller thank you so much Joe I'm so sorry I
+
+00:01:13.980 --> 00:01:16.590
+can't be there in person it's for reasons right outside
+
+00:01:16.590 --> 00:01:18.790
+of my control which is why I'm a disembod
+
+00:01:18.810 --> 00:01:22.000
+ied voice right now coming to you like a Timu Matt
+
+00:01:22.000 --> 00:01:24.650
+Barry my name's Ben Wardmuller I lead technology
+
+00:01:24.650 --> 00:01:27.360
+at ProPublica a nonprofit newsroom in the US
+
+00:01:27.360 --> 00:01:31.520
+that investigates abuses of trust and power in the public interest
+
+00:01:31.520 --> 00:01:34.620
+I've also got a long history of building on and writing
+
+00:01:34.690 --> 00:01:38.430
+about the open social web and I'm really excited to almost
+
+00:01:38.430 --> 00:01:41.810
+be here with you all right now we'll hear more from
+
+00:01:41.830 --> 00:01:45.200
+Ben later so but my I have the first part so I
+
+00:01:45.200 --> 00:01:47.170
+mentioned one of the things we do at Knight Lab is design
+
+00:01:47.170 --> 00:01:49.850
+research and over the last few years we've been involved in
+
+00:01:49.850 --> 00:01:52.420
+a series of projects that we call Next Gen News we were
+
+00:01:52.420 --> 00:01:56.870
+partnered with the Financial Times Strategies and were supported I need
+
+00:01:56.870 --> 00:02:01.360
+to say by Google News Initiative thank them for this so the
+
+00:02:01.360 --> 00:02:05.210
+idea was to understand the news and information behavior habits of younger
+
+00:02:05.210 --> 00:02:08.440
+adults 18 to 25 especially seeing them as kind of the v
+
+00:02:08.440 --> 00:02:10.660
+anguard of where things are going and hoping that if we can
+
+00:02:10.660 --> 00:02:14.420
+characterize how they interact with information these days maybe publishers can start
+
+00:02:14.420 --> 00:02:17.350
+to think better about how to meet them in the next few
+
+00:02:17.350 --> 00:02:21.620
+years and sort of rearrange their process to be better serving the
+
+00:02:21.620 --> 00:02:25.490
+needs of that audience so in 2023 we did about four dozen
+
+00:02:25.490 --> 00:02:28.710
+one-on-one interviews in the United States Nigeria and
+
+00:02:28.820 --> 00:02:32.670
+India and then last year we did another round of qualitative research
+
+00:02:32.670 --> 00:02:36.070
+we did about 85 diary studies in those three countries plus we
+
+00:02:36.080 --> 00:02:40.030
+added Brazil and the United Kingdom we also did a quantitative survey
+
+00:02:40.100 --> 00:02:43.650
+1,000 people in each of those countries and the quantitative
+
+00:02:43.650 --> 00:02:47.020
+survey went from 18 to actually 101 years old so we could
+
+00:02:47.080 --> 00:02:51.300
+do some analysis that sort of compared across brackets and buckets and
+
+00:02:51.300 --> 00:02:56.040
+so just some of the top line findings from that that frame
+
+00:02:56.060 --> 00:02:58.160
+how we're thinking about this stuff and maybe might set up
+
+00:02:58.160 --> 00:03:02.550
+thinking about how news has to change these are things that this
+
+00:03:02.550 --> 00:03:05.680
+audience is probably familiar with but not all publishers are and still
+
+00:03:05.680 --> 00:03:07.900
+just also being able to validate it say we actually went out
+
+00:03:07.910 --> 00:03:11.100
+and found one of the huge things with this audience is a
+
+00:03:11.100 --> 00:03:14.890
+continued sense of content overwhelm you know the world has gone
+
+00:03:14.890 --> 00:03:18.140
+from finite content where you could start at the front page and
+
+00:03:18.140 --> 00:03:20.330
+know when you flip the last page that you were done and
+
+00:03:20.340 --> 00:03:24.950
+now we have an infinite stream we went from a situation where
+
+00:03:24.950 --> 00:03:29.120
+news was defined pretty narrowly and basically defined by the publishers
+
+00:03:29.120 --> 00:03:31.570
+to a world now where news could be anything there's so
+
+00:03:31.570 --> 00:03:33.980
+many things that are vying for people's attention and so
+
+00:03:34.140 --> 00:03:37.940
+publishers have to recognize the very different landscape that they're moving
+
+00:03:37.940 --> 00:03:41.250
+into another thing that we think is really interesting is the way
+
+00:03:41.250 --> 00:03:43.440
+that sort of quality markers and trust which we'll get to
+
+00:03:43.440 --> 00:03:46.180
+on the next slide have kind of fallen away because now everything
+
+00:03:46.180 --> 00:03:48.120
+kind of looks the same it's all on a screen it
+
+00:03:48.120 --> 00:03:51.060
+'s all in basically the same shape and so it's a
+
+00:03:51.120 --> 00:03:53.920
+lot harder now for people to just know what exactly it is
+
+00:03:53.920 --> 00:03:58.480
+that they're getting when they are consuming information and so that
+
+00:03:58.530 --> 00:04:02.460
+also leads to a very strong you know over and over from
+
+00:04:02.460 --> 00:04:06.090
+these dozens of young people we've talked to trust is understand
+
+00:04:06.090 --> 00:04:09.090
+ably a big issue for them they have not been served well
+
+00:04:09.090 --> 00:04:12.740
+by a lot of media institutions um they're concerned that news
+
+00:04:12.740 --> 00:04:15.920
+is going to be false that it might be sensationalized that
+
+00:04:15.920 --> 00:04:18.560
+it's biased it might be combinations of those and so what
+
+00:04:18.560 --> 00:04:22.110
+they really want is a sense from the sources for their news
+
+00:04:22.110 --> 00:04:29.280
+of credibility affinity and transparent intention just like a factoid that
+
+00:04:29.310 --> 00:04:32.560
+maybe we can sort of verify probably fits everyone's assumptions but
+
+00:04:32.560 --> 00:04:35.970
+we find that almost 76 percent of the youngest bracket of the
+
+00:04:36.000 --> 00:04:38.980
+audience get their news from social media sometimes or often so this
+
+00:04:38.980 --> 00:04:41.310
+is a question where people could answer as many as they wanted
+
+00:04:41.390 --> 00:04:45.220
+to and uh but more than 50 percent of people up to
+
+00:04:45.220 --> 00:04:49.440
+50 get uh often get news from social media so obviously this
+
+00:04:49.440 --> 00:04:51.960
+is a huge change in consumption and a big place to be
+
+00:04:51.960 --> 00:04:58.950
+conscious about where we're meeting audiences another thing that this audience
+
+00:04:59.060 --> 00:05:03.040
+uh maybe less when we realize how many people who are familiar
+
+00:05:03.040 --> 00:05:05.420
+with journalism are here but still a lot of people from the
+
+00:05:05.420 --> 00:05:09.380
+at protocol world in the engineering world may just overestimate
+
+00:05:09.410 --> 00:05:12.590
+what newsrooms are working where they underestimate the scope of the
+
+00:05:12.590 --> 00:05:16.520
+problems you know the bottom fell out of advertising and journalism uh
+
+00:05:16.520 --> 00:05:20.550
+really 20 years ago and it hasn't gotten any better consolidation
+
+00:05:20.550 --> 00:05:24.000
+layoffs the threat of lawsuits are hitting all over the place
+
+00:05:24.000 --> 00:05:28.680
+google search filler referrals to publishers dropped 33 percent globally in a
+
+00:05:28.680 --> 00:05:31.200
+single year from 2024 to 2025.
+
+00:05:31.760 --> 00:05:34.200
+ai overviews are at the top of almost 10 of u
+
+00:05:34.210 --> 00:05:34.390
+.
+
+00:05:34.390 --> 00:05:38.880
+s search results um when they those show up only about one
+
+00:05:38.880 --> 00:05:42.580
+percent of users click through facebook referrals to news sites are down
+
+00:05:42.580 --> 00:05:46.800
+like 80 percent since 2020 x referrals have dropped about 60 percent
+
+00:05:46.800 --> 00:05:51.780
+small publishers have been hit the hardest social referrals for smaller outlets
+
+00:05:51.780 --> 00:05:54.890
+dropped 98 percent over five years from 10.
+
+00:05:54.890 --> 00:05:59.310
+1 million page views to under 187 000 and just four
+
+00:05:59.500 --> 00:06:02.090
+years this is uh from the reuters institute uh reuters
+
+00:06:02.090 --> 00:06:05.060
+does a lot of great research into the state of journalism from
+
+00:06:05.060 --> 00:06:08.560
+their uh journalism technology trends of this year they found just in
+
+00:06:08.560 --> 00:06:12.200
+four years uh there's a 22 percentage point drop in people
+
+00:06:12.200 --> 00:06:16.330
+who were confident about the prospects for news um so people are
+
+00:06:16.330 --> 00:06:23.620
+starting to realize that it is dire out there obviously economic sustainability
+
+00:06:23.680 --> 00:06:26.240
+is a key issue as i said advertising is bottomed out
+
+00:06:26.240 --> 00:06:29.840
+really only works at very large scale platforms take a huge cut
+
+00:06:29.840 --> 00:06:32.700
+and of course the algorithmic wins shift you're in a
+
+00:06:32.710 --> 00:06:37.690
+lot of trouble membership works for a business model for a lot
+
+00:06:37.690 --> 00:06:41.470
+of organizations uh the guardian is one that's doing fairly well
+
+00:06:41.470 --> 00:06:44.860
+with it but it does really require leaning into relationships developing that
+
+00:06:44.860 --> 00:06:49.770
+developing that affinity that we talked about earlier cutting through the content
+
+00:06:49.840 --> 00:06:52.840
+overwhelm and making sure that people value you enough to go
+
+00:06:52.840 --> 00:06:55.970
+to the trouble to join um so there's promising signs but
+
+00:06:55.970 --> 00:06:59.740
+it's a big question especially about how large organizations that will
+
+00:06:59.740 --> 00:07:02.780
+build around a different economic model are going to adapt to this
+
+00:07:02.780 --> 00:07:06.310
+world and then email newsletters were maybe going to be
+
+00:07:06.310 --> 00:07:09.820
+the last way that you could really own your relationship with audience
+
+00:07:09.840 --> 00:07:13.430
+but as ai starts creeping into people's inboxes the likelihood
+
+00:07:13.430 --> 00:07:17.480
+that people are reading at depth uh is even less than ever
+
+00:07:17.480 --> 00:07:22.130
+so that channel is also at risk so newsrooms most likely
+
+00:07:22.130 --> 00:07:25.770
+to lose their audiences are the ones covering the most underserved
+
+00:07:25.810 --> 00:07:28.550
+communities so ben lives in philadelphia as he observed the
+
+00:07:28.560 --> 00:07:31.450
+inquirer could run city-wide ad campaigns and sort
+
+00:07:31.450 --> 00:07:34.430
+of keep their uh face and you know keep themselves in people
+
+00:07:34.430 --> 00:07:37.670
+'s attention but smaller places like the kensington voice serving
+
+00:07:37.670 --> 00:07:40.410
+underserved part of philadelphia can't do that so
+
+00:07:40.540 --> 00:07:44.160
+independent voices while there's a lot more out there really have
+
+00:07:44.160 --> 00:07:46.650
+a lot of platform dependency challenges and a lot of just sort
+
+00:07:46.720 --> 00:07:51.610
+of cutting through the noise to get people's attention centralized platforms
+
+00:07:51.730 --> 00:07:56.960
+or silos are unreliable partners at protocols for publishers in
+
+00:07:56.960 --> 00:07:59.170
+london this february undra winensland
+
+00:07:59.170 --> 00:08:03.200
+documented what she called a brief history of algorithmic fuckery
+
+00:08:03.200 --> 00:08:07.330
+a timeline of every time platforms pulled the rug out from under
+
+00:08:07.330 --> 00:08:11.750
+the communities they were supposedly supporting here's an example in 2015
+
+00:08:11.750 --> 00:08:16.040
+facebook launched instant articles the new york times the washington
+
+00:08:16.040 --> 00:08:21.120
+post buzzfeed and dozens of others invested heavily in a 2018
+
+00:08:21.120 --> 00:08:24.900
+facebook announced a major algorithm change deprioritizing news and by
+
+00:08:24.900 --> 00:08:30.120
+2023 instant articles were shut down entirely publishers who restructured their
+
+00:08:30.120 --> 00:08:34.230
+operations around the product were left with nothing here's another uh
+
+00:08:34.230 --> 00:08:37.570
+infamously if you mention the phrase pivot to video in
+
+00:08:37.570 --> 00:08:40.900
+any newsroom people will physically shudder all of this
+
+00:08:40.930 --> 00:08:44.790
+has happened before and all of this will happen again this repeats
+
+00:08:44.900 --> 00:08:48.610
+because the incentives are baked in the platform's customer is the
+
+00:08:48.610 --> 00:08:52.800
+advertiser publisher content is the bait when the platform no longer
+
+00:08:52.800 --> 00:08:58.660
+needs that bait the publisher is stranded whoo well uh sorry
+
+00:08:58.660 --> 00:09:03.530
+for the jump scare i guess so right now platform algorithms are
+
+00:09:03.600 --> 00:09:08.890
+black boxes that prioritize business goals over audiences or society a small
+
+00:09:08.960 --> 00:09:13.340
+number of powerful people like this guy with vested interests own the
+
+00:09:13.340 --> 00:09:18.380
+major platforms journalists are being doxed news organizations are leaving
+
+00:09:18.380 --> 00:09:21.530
+npr left x because of bad treatment for example in the
+
+00:09:21.530 --> 00:09:25.490
+worst cases these platforms are culpable for genocides and
+
+00:09:25.490 --> 00:09:29.820
+the undermining of democracy itself and these platforms don't just
+
+00:09:30.060 --> 00:09:33.560
+control the reach they control the money too they can change the
+
+00:09:33.560 --> 00:09:37.080
+terms whenever it suits them it's all in their control but
+
+00:09:37.080 --> 00:09:42.240
+as everyone in this room knows all is not lost while links
+
+00:09:42.240 --> 00:09:46.100
+are suppressed on many platforms and sharing them is impossible on others
+
+00:09:46.110 --> 00:09:49.750
+forcing newsrooms to optimize for vanity metrics that don't help
+
+00:09:49.750 --> 00:09:53.910
+their businesses or really inform anyone many newsrooms have found that
+
+00:09:54.240 --> 00:09:59.970
+80 proto users are disproportionately engaged referral traffic click-through rates
+
+00:09:59.980 --> 00:10:05.320
+donations from blue sky are all much higher than from legacy platforms
+
+00:10:05.320 --> 00:10:11.880
+this audience already acts differently feeds on 80 proto are open infrastructure
+
+00:10:11.920 --> 00:10:15.680
+anyone can build an algorithmic feed and users choose which to
+
+00:10:15.700 --> 00:10:20.540
+subscribe to people have built custom feeds that surface journalism and ensure
+
+00:10:20.540 --> 00:10:25.030
+real reporting reaches real readers publishers don't have to be passive
+
+00:10:25.420 --> 00:10:29.100
+consumers subject to platform decisions they don't have to let technology
+
+00:10:29.220 --> 00:10:33.250
+happen to them like an asteroid they can build and of course
+
+00:10:33.310 --> 00:10:38.590
+the open social web is bigger than one protocol flipboard has
+
+00:10:38.640 --> 00:10:43.630
+federated via activity pub since late 2023 with over a hundred
+
+00:10:44.000 --> 00:10:47.090
+publishers like axios the verge semaphore smithson
+
+00:10:47.090 --> 00:10:51.440
+ian fast company the 19th federating their content through it
+
+00:10:51.440 --> 00:10:56.150
+a commercial company looked at the trajectory of centralized social media and
+
+00:10:56.150 --> 00:11:00.240
+bet on open federation it's your identity your data your
+
+00:11:00.250 --> 00:11:05.190
+relationships belong to you not a platform nobody can pull the rug
+
+00:11:05.190 --> 00:11:09.790
+this is the future of media thanks ben um so of course
+
+00:11:09.790 --> 00:11:12.960
+there's so much more we can build this is really what
+
+00:11:12.960 --> 00:11:15.050
+this talk is about and that's why we're actually not
+
+00:11:15.070 --> 00:11:16.880
+going to be i'm not going to be talking that much
+
+00:11:16.880 --> 00:11:19.770
+more we really want to have a conversation our whole goal with
+
+00:11:19.890 --> 00:11:23.360
+coming to atmosphere conf was to say there are some people in
+
+00:11:23.360 --> 00:11:25.690
+the news industry who are recognizing that there is a lot that
+
+00:11:25.820 --> 00:11:28.090
+needs to change and we want to think about it talk about
+
+00:11:28.090 --> 00:11:31.040
+it and work with this community to build i'm especially lucky
+
+00:11:31.040 --> 00:11:33.770
+working at northwestern that i can just sort of say i
+
+00:11:33.840 --> 00:11:36.800
+should be spending my time on this initiative and if there's
+
+00:11:36.800 --> 00:11:39.890
+things that we find that we can cooperate on to help make
+
+00:11:39.890 --> 00:11:43.040
+happen that would be great so we came up with a few
+
+00:11:43.040 --> 00:11:46.400
+sort of design provocations some things that maybe especially people who
+
+00:11:46.400 --> 00:11:49.210
+are more on the engineering side and less familiar with journalism maybe
+
+00:11:49.250 --> 00:11:51.540
+this will plant some seeds help you think a little bit about
+
+00:11:51.540 --> 00:11:54.440
+the problems that journalism has that have not been in the front
+
+00:11:54.440 --> 00:11:56.650
+of your mind and once we talk through a few of these
+
+00:11:56.780 --> 00:11:59.150
+we can have questions now we can talk more later because what
+
+00:11:59.150 --> 00:12:02.530
+we really want to do is solve problems so so one idea
+
+00:12:02.530 --> 00:12:06.600
+is what if you could have like a membership card on your
+
+00:12:06.680 --> 00:12:09.710
+pds you know it's uh old tradition that people who
+
+00:12:09.710 --> 00:12:12.410
+are like members of public media at least you know in chic
+
+00:12:12.540 --> 00:12:14.880
+ago for example you get your wbez card and then
+
+00:12:14.880 --> 00:12:17.380
+maybe you get a discount at a restaurant or something like that
+
+00:12:17.380 --> 00:12:19.690
+so what if we could take advantage of the sort of crypt
+
+00:12:19.690 --> 00:12:23.030
+ographic trustability that a person is a member and the the
+
+00:12:23.030 --> 00:12:26.360
+news organization can put a thing on their pds that says
+
+00:12:26.360 --> 00:12:29.220
+so or otherwise wire things up maybe it would unlock different pay
+
+00:12:29.220 --> 00:12:32.210
+wall treatment maybe this would be a way to bundle subscriptions a
+
+00:12:32.210 --> 00:12:35.760
+lot of people talk about the risk of subscription fatigue and people
+
+00:12:35.760 --> 00:12:39.600
+just not being comfortable making so many different financial arrangements so maybe
+
+00:12:39.600 --> 00:12:43.270
+something like this card could give you privileged access to a partner
+
+00:12:43.350 --> 00:12:46.860
+for a period of time your membership travels with you across the
+
+00:12:46.860 --> 00:12:51.480
+protocol instead of being locked up in an app another huge question
+
+00:12:51.480 --> 00:12:56.100
+how can we build more censorship resistant journalism you know in a
+
+00:12:56.300 --> 00:13:00.160
+world where social is powered by open protocols platforms can't exactly
+
+00:13:00.160 --> 00:13:03.320
+suppress the newsrooms reporting and they can't exactly turn off
+
+00:13:03.320 --> 00:13:07.440
+the algorithm to fully bury a story just because it's inconvenient
+
+00:13:07.440 --> 00:13:12.510
+but governments can attack a pds provider an individual application we
+
+00:13:12.510 --> 00:13:15.680
+need platforms to be resilient so this matters right now of course
+
+00:13:15.690 --> 00:13:18.450
+and it's only going to matter more in the near future
+
+00:13:18.450 --> 00:13:21.670
+what are some things that we might do to help improve the
+
+00:13:21.780 --> 00:13:26.950
+resilience against censorship for for media now for ben and what if
+
+00:13:26.950 --> 00:13:33.780
+publishers and their allies could create and share algorithmic feeds designed
+
+00:13:33.780 --> 00:13:38.160
+to service good journalism andre winensland's new specific
+
+00:13:38.160 --> 00:13:41.840
+feeds on blue sky are a fantastic proof of concept and the
+
+00:13:41.840 --> 00:13:45.510
+tools already exist graze lets anyone build and publish custom blue
+
+00:13:45.510 --> 00:13:49.790
+sky feeds flipboard surf app also lets you build custom feeds
+
+00:13:49.870 --> 00:13:52.960
+and it's a social browser that pulls together blue sky mast
+
+00:13:52.970 --> 00:13:57.170
+odon and rss sources into curated feeds organized by content
+
+00:13:57.180 --> 00:14:02.540
+type these tools are fantastic imagine newsrooms using them to release
+
+00:14:02.650 --> 00:14:06.050
+their own vetted algorithmic feeds built from sources and topics
+
+00:14:06.090 --> 00:14:09.630
+they trust operating over long-form content as well as short
+
+00:14:09.720 --> 00:14:14.040
+posts readers subscribe to the feed and the newsroom's editorial
+
+00:14:14.040 --> 00:14:18.880
+judgment becomes the discovery layer and then projects like standard.
+
+00:14:18.880 --> 00:14:22.990
+site are doing fantastic work getting full article content into the protocol
+
+00:14:23.070 --> 00:14:27.070
+layer so multiple apps and algorithms can surface it properly but how
+
+00:14:27.070 --> 00:14:30.880
+do you let an algorithm read the article so that it can
+
+00:14:30.880 --> 00:14:34.690
+recommend it while still preserving the publisher's right to get paid
+
+00:14:34.690 --> 00:14:38.240
+for their work this is a problem we can work on together
+
+00:14:38.380 --> 00:14:49.980
+and then let's talk about micro communities inside i
+
+00:14:49.980 --> 00:14:53.210
+can read slide notes the bristol cable of reader owned local
+
+00:14:53.220 --> 00:14:56.130
+newspaper in bristol built a new app with the newsmaster
+
+00:14:56.220 --> 00:14:59.530
+foundation that combines news delivery with a full mastodon powered
+
+00:14:59.560 --> 00:15:05.030
+community layer members get integrated stories and podcasts alongside a single news
+
+00:15:05.140 --> 00:15:09.420
+apps news platforms and news websites the bristol cable a reader
+
+00:15:09.420 --> 00:15:13.670
+owned local newspaper in bristol england built a new app
+
+00:15:13.670 --> 00:15:17.170
+with the newsmaster foundation that combines news delivery with a full
+
+00:15:17.170 --> 00:15:22.050
+mastodon powered community layer members get integrated stories and podcasts
+
+00:15:22.050 --> 00:15:26.150
+alongside a social following section where they connect with cable staff and
+
+00:15:26.150 --> 00:15:30.310
+each other plus curated topic-based channels because it's built
+
+00:15:30.310 --> 00:15:34.020
+on the fediverse the community is interoperable members from
+
+00:15:34.020 --> 00:15:37.520
+other newsrooms or anyone on the fediverse can participate through
+
+00:15:37.730 --> 00:15:40.330
+their own apps a bristol cable member and a member of
+
+00:15:40.450 --> 00:15:45.070
+another local newsroom can be in the same conversation the community
+
+00:15:45.100 --> 00:15:49.840
+builds trust and the cable aims to double its membership by 2030
+
+00:15:49.840 --> 00:15:53.830
+the community app is absolutely central to doing that i forgot that
+
+00:15:53.830 --> 00:15:56.900
+i meant to go through and cash all the audio before sorry
+
+00:15:56.900 --> 00:16:01.840
+about that anyway um so the gap between what open protocols can
+
+00:16:01.840 --> 00:16:04.330
+do in theory and what a non-technical publisher can
+
+00:16:04.400 --> 00:16:07.600
+use today is really the problem to solve and so um if
+
+00:16:07.620 --> 00:16:09.910
+you're here for glenn's talk just before there's
+
+00:16:09.940 --> 00:16:13.760
+interesting things happening in the oakland area about ways to apply
+
+00:16:13.760 --> 00:16:15.860
+these things if you stick around for andrew's talk there
+
+00:16:15.860 --> 00:16:17.780
+'ll be even more about things we can do but it's
+
+00:16:17.780 --> 00:16:20.130
+still too hard right now for a newsroom to set up
+
+00:16:20.130 --> 00:16:24.070
+and run community on the open social web community management at scale
+
+00:16:24.170 --> 00:16:27.990
+needs moderation tooling that really doesn't exist yet there's promising
+
+00:16:27.990 --> 00:16:31.600
+signs but there's work to do publishers need analytics for community
+
+00:16:31.600 --> 00:16:33.820
+health this is really important when you're trying to make a
+
+00:16:33.840 --> 00:16:35.920
+big going business concern even if you're just trying to be
+
+00:16:35.920 --> 00:16:39.580
+sustainable not rich you need to understand how your community's health
+
+00:16:39.620 --> 00:16:42.710
+works and those metrics are different from traditional web analytics which are
+
+00:16:42.710 --> 00:16:46.200
+also really important for these audiences so again our ask here is
+
+00:16:46.200 --> 00:16:51.120
+for the at proto development community to work with publishers not just
+
+00:16:51.120 --> 00:16:54.100
+building for them this is real there's real mutual interest between
+
+00:16:54.100 --> 00:16:58.480
+the publishing and protocol communities and also gaps in the understanding publishers
+
+00:16:58.480 --> 00:17:02.560
+often don't know what's technically possible protocol builders don't
+
+00:17:02.560 --> 00:17:06.400
+always know what publishers really need so sustained collaboration is really where
+
+00:17:06.400 --> 00:17:08.950
+both sides shape the project to get product together that's going
+
+00:17:08.950 --> 00:17:11.190
+to be how this works so let's work together so that
+
+00:17:11.190 --> 00:17:14.520
+'s it for the slides now i would just love to hear
+
+00:17:14.520 --> 00:17:18.030
+from folks either ideas you have questions you have about how journalism
+
+00:17:18.030 --> 00:17:20.800
+works if you're less of an insider what can we make
+
+00:17:20.800 --> 00:17:29.060
+together excellent thank you joe and thank
+
+00:17:29.120 --> 00:17:32.950
+you ben wherever you may be all right ben was so sad
+
+00:17:32.950 --> 00:17:35.050
+not to make it he was really so weird i'm happy
+
+00:17:35.120 --> 00:17:37.340
+hopefully it wasn't too weird to have him disembod
+
+00:17:37.380 --> 00:17:40.340
+ied glad to get it so i saw some hands yeah excellent
+
+00:17:40.340 --> 00:17:43.950
+let's open up the floor for questions uh all right we
+
+00:17:44.000 --> 00:17:49.450
+got one right back there um hi thank you um i you
+
+00:17:49.450 --> 00:17:55.550
+mentioned uh community primitives in like a couple slides back i
+
+00:17:55.550 --> 00:17:59.980
+'m wondering if uh newsrooms have any specific vision of what
+
+00:17:59.980 --> 00:18:05.810
+an incredible community around their work looks like um oh yeah hi
+
+00:18:05.810 --> 00:18:09.100
+i'm celine i work um on leaflet oh yeah
+
+00:18:09.100 --> 00:18:13.260
+hi celine um i doubt that there are a lot of
+
+00:18:13.260 --> 00:18:15.720
+newsrooms who have done that i don't recall being in
+
+00:18:15.720 --> 00:18:19.370
+conversation with them about it there's definitely been um i think
+
+00:18:19.490 --> 00:18:22.920
+more than just anecdotal evidence about the value of for example
+
+00:18:22.940 --> 00:18:26.510
+uh journalists showing up in comment threads and participating there you know
+
+00:18:26.580 --> 00:18:30.840
+comments the way they have traditionally worked on especially directly on news
+
+00:18:30.840 --> 00:18:34.390
+sites tend to be pretty bad but there's a lot of
+
+00:18:34.390 --> 00:18:38.580
+value to them showing up and engaging it helps to add credibility
+
+00:18:38.580 --> 00:18:41.400
+and uh and again we're talking about the sort of sense
+
+00:18:41.400 --> 00:18:44.140
+of affinity and belonging that we are we want to be a
+
+00:18:44.180 --> 00:18:46.760
+member because you're our people we want to give you money
+
+00:18:46.770 --> 00:18:48.970
+but i'm not sure those primitives are um if anyone
+
+00:18:48.980 --> 00:18:51.730
+else wants to chime in on that we can hear or just
+
+00:18:51.730 --> 00:18:55.790
+sort of noting that as a topic for future exploration um i
+
+00:18:55.790 --> 00:18:58.970
+think one of the things that i think is and i've
+
+00:18:59.040 --> 00:19:01.150
+heard this you know in other talks here uh it's a
+
+00:19:01.150 --> 00:19:03.880
+balancing act because i don't think that most of the challenges
+
+00:19:03.880 --> 00:19:07.360
+for journalism are technical i actually i came into this field at
+
+00:19:07.360 --> 00:19:10.580
+a time this is you know in the early teens where everyone
+
+00:19:10.580 --> 00:19:13.890
+was like oh the internet has destroyed the news industry so let
+
+00:19:13.890 --> 00:19:16.190
+'s get the computer people in here to fix things and i
+
+00:19:16.270 --> 00:19:18.740
+said my backgrounds in software you know and um i'm glad
+
+00:19:18.740 --> 00:19:21.200
+that i got in a lot of really cool people joined the
+
+00:19:21.200 --> 00:19:25.020
+community but also it didn't take that long to realize that
+
+00:19:25.020 --> 00:19:28.070
+that wasn't really the place to put and that's why
+
+00:19:28.080 --> 00:19:29.750
+a lot of times i sort of um i don't know
+
+00:19:29.750 --> 00:19:32.240
+if i'd say it but i really think about the problem
+
+00:19:32.240 --> 00:19:35.430
+more as a design problem than a technology problem but it is
+
+00:19:35.430 --> 00:19:39.890
+awesome that we have these technology building blocks coming up the short
+
+00:19:39.980 --> 00:19:44.410
+answer is that's a good one i don't know thanks
+
+00:19:44.410 --> 00:19:54.660
+for the talk joe i missed the beginning
+
+00:19:54.790 --> 00:19:58.800
+uh so apologies if i asked you something you already touched on
+
+00:19:59.840 --> 00:20:02.420
+how do you deal with the threat of ai what are some
+
+00:20:02.420 --> 00:20:06.220
+of your thoughts on you know cloud flares paper crawl program
+
+00:20:06.220 --> 00:20:12.240
+i know microsoft has a similar content marketplace for publishers would
+
+00:20:12.240 --> 00:20:15.290
+be keen to get your perspectives on those yeah that's a
+
+00:20:15.410 --> 00:20:18.790
+good question i think um you know there was one piece maybe
+
+00:20:18.790 --> 00:20:22.040
+before you came in where we acknowledge that like uh instant ai
+
+00:20:22.040 --> 00:20:25.050
+on google search is really uh hindering click-through this
+
+00:20:25.050 --> 00:20:28.880
+is well understood um and you know there are people including like
+
+00:20:29.090 --> 00:20:31.830
+friends of mine in the industry are like people are just going
+
+00:20:31.830 --> 00:20:34.000
+to turn to chat or whatever and that's where they're
+
+00:20:34.000 --> 00:20:36.310
+going to get their news they're not even going to go
+
+00:20:36.310 --> 00:20:37.950
+to a page i'll say and i am known to be
+
+00:20:38.020 --> 00:20:41.280
+a dyed in the wool idealist but i really think that
+
+00:20:41.340 --> 00:20:45.600
+the human knowing the human factor is one of the secret weapons
+
+00:20:45.600 --> 00:20:48.620
+here i think that one of the earlier sides that was at
+
+00:20:48.620 --> 00:20:53.270
+the beginning is the desire that especially young audiences but really everyone
+
+00:20:53.270 --> 00:20:56.290
+has is trust and a sense of affinity and so i think
+
+00:20:56.300 --> 00:20:59.310
+that there's a lot of value to knowing where your news
+
+00:20:59.310 --> 00:21:01.570
+is coming from and i also think i feel like i haven
+
+00:21:01.600 --> 00:21:03.970
+'t heard this that much and i don't have it perfectly
+
+00:21:03.970 --> 00:21:07.040
+articulated but i feel like the problem with uh asking an ai
+
+00:21:07.040 --> 00:21:10.460
+for your news is not that different from the problems with letting
+
+00:21:10.460 --> 00:21:13.440
+an algorithmic feed direct your attention it's like well what
+
+00:21:13.500 --> 00:21:16.240
+decisions have they made and how is that interfering with what you
+
+00:21:16.240 --> 00:21:19.730
+'re getting are you actually getting what you want and i think
+
+00:21:19.730 --> 00:21:22.640
+uh because of just the mystery of ai it's going to
+
+00:21:22.640 --> 00:21:26.790
+take the general public i think a little while to to really
+
+00:21:26.800 --> 00:21:30.130
+see that as a risk but on the whole i guess i
+
+00:21:30.130 --> 00:21:32.410
+would just say we have to lean into there is a market
+
+00:21:32.540 --> 00:21:34.780
+for this and there's not you know one of the big
+
+00:21:35.100 --> 00:21:38.570
+challenges is also uh you know i worked at a big news
+
+00:21:38.570 --> 00:21:42.790
+organization i think our partners in this next-gen news research
+
+00:21:42.790 --> 00:21:46.320
+are mostly thinking about big organizations that's not personally my stake
+
+00:21:46.320 --> 00:21:49.830
+i am interested in anything that helps audiences and people who have
+
+00:21:49.830 --> 00:21:52.290
+a thing that they want to say who want to make their
+
+00:21:52.540 --> 00:21:56.210
+living being a person who makes information to have them connect with
+
+00:21:56.340 --> 00:22:00.740
+less interference which is why i'm so excited about that protocol
+
+00:22:00.760 --> 00:22:05.230
+um and i think so uh it may not be replacing the
+
+00:22:05.290 --> 00:22:08.990
+biggest feeds there's going to be our biggest industry organizations um
+
+00:22:08.990 --> 00:22:12.170
+there's always going to be a mass audience that chooses kind
+
+00:22:12.240 --> 00:22:14.370
+of easy route and so on and i don't know that
+
+00:22:14.370 --> 00:22:16.890
+we can do that but if we can make it sustainable enough
+
+00:22:16.890 --> 00:22:19.250
+for the people who choose a different path to be able to
+
+00:22:19.250 --> 00:22:21.840
+do their thing i think that's a win so in short
+
+00:22:21.840 --> 00:22:25.470
+i think that there's the market for people instead of ai
+
+00:22:25.690 --> 00:22:29.520
+and there's also lots of not just hand waving about how
+
+00:22:29.520 --> 00:22:34.080
+ai might make it more efficient to do the work but ai
+
+00:22:34.080 --> 00:22:40.090
+generated content i'm not long on personally um you mentioned community
+
+00:22:40.090 --> 00:22:45.040
+engagement tools and um i'm asking because i used to work
+
+00:22:45.100 --> 00:22:49.200
+on an open source commenting tool called coral that was adopted by
+
+00:22:49.200 --> 00:22:53.290
+a lot of newsrooms where do you see the incentive for
+
+00:22:53.410 --> 00:22:59.070
+publishers to adapt their existing tools to like the open protocols versus
+
+00:22:59.500 --> 00:23:03.190
+adopting new tools that are getting created yeah i mean it's
+
+00:23:03.290 --> 00:23:07.440
+a good question uh i coral has done great research thank you
+
+00:23:07.500 --> 00:23:09.480
+for whatever part you played in that i mean i love i
+
+00:23:09.490 --> 00:23:11.490
+knew a lot of people on that team and uh it was
+
+00:23:11.820 --> 00:23:15.200
+private the sponsors of it don't really seem to have even
+
+00:23:15.200 --> 00:23:19.010
+uh bought into it that much so the motivation is it's
+
+00:23:19.030 --> 00:23:22.400
+a good question and i think this is another case where um
+
+00:23:22.400 --> 00:23:25.460
+there may be a little bit of uh dinosaurs and small mammals
+
+00:23:25.460 --> 00:23:28.480
+thing where we're in a phase change and some of the
+
+00:23:28.720 --> 00:23:31.430
+big people who don't want to change don't and they
+
+00:23:31.520 --> 00:23:36.120
+may not make it through um i think that especially when you
+
+00:23:36.120 --> 00:23:40.710
+'re a large organization you have to balance um so where was
+
+00:23:40.710 --> 00:23:45.560
+this uh it's been a full day uh people were talking
+
+00:23:45.610 --> 00:23:49.050
+about the washington post and uh and how hard it is
+
+00:23:49.060 --> 00:23:53.380
+to get them to like try new things um and uh oh
+
+00:23:53.380 --> 00:23:56.030
+yeah it was um laura and i forgot to mention so
+
+00:23:56.030 --> 00:23:59.330
+we part of the next gen news research was interviewing news creators
+
+00:23:59.330 --> 00:24:01.890
+uh including lauren sacks who was on stage in an
+
+00:24:01.890 --> 00:24:06.100
+earlier session uh she works with local news international and they were
+
+00:24:06.100 --> 00:24:09.400
+kind of the outshoot of washington post's briefly quite
+
+00:24:09.410 --> 00:24:12.140
+lauded tick tock presence and then the post was like
+
+00:24:12.140 --> 00:24:14.300
+we can't pay you all and they took the buyout
+
+00:24:14.300 --> 00:24:16.410
+and they went and did their own thing and they're doing
+
+00:24:16.480 --> 00:24:19.520
+great and they can experiment and they can switch um so if
+
+00:24:19.520 --> 00:24:22.380
+the big guys can't switch i don't know um i
+
+00:24:22.380 --> 00:24:28.320
+mean there's something to be said for making the case clear
+
+00:24:28.380 --> 00:24:31.600
+you know for them to make changes but especially if you have
+
+00:24:31.600 --> 00:24:34.620
+the experience you have at coral if you were unable to persuade
+
+00:24:34.620 --> 00:24:37.640
+people that this is a better way you should follow it then
+
+00:24:37.640 --> 00:24:39.470
+i'm not going to say that i know a better way
+
+00:24:39.480 --> 00:24:41.980
+than that so you know there's a going to be there
+
+00:24:41.980 --> 00:24:48.860
+'s a lot of shaking out happening so you you talked about
+
+00:24:48.970 --> 00:24:53.390
+kind of how we we design for getting readers to to trust
+
+00:24:53.390 --> 00:24:56.510
+the news sources and um but it kind of seems like at
+
+00:24:56.510 --> 00:25:00.900
+this particular moment in time one of the biggest threats is how
+
+00:25:00.900 --> 00:25:04.670
+do you make news organizations resilient to somebody with just a shit
+
+00:25:04.670 --> 00:25:06.650
+load of money coming in and saying i don't want you
+
+00:25:06.650 --> 00:25:08.680
+to do it this way anymore which which seems to be more
+
+00:25:08.680 --> 00:25:11.970
+of what's kind of hollowing out news in general you
+
+00:25:11.970 --> 00:25:15.150
+mean uh like alden publishing buying the chicago tribune
+
+00:25:15.150 --> 00:25:17.450
+shortly after well that was a little lie after i left but
+
+00:25:17.450 --> 00:25:20.900
+yeah um or jeff bezos and the washington post
+
+00:25:20.920 --> 00:25:24.400
+i mean i think that there's not much you can do
+
+00:25:24.400 --> 00:25:29.850
+when people with money can buy things in my heart of hearts
+
+00:25:29.850 --> 00:25:36.470
+enough people will know that that is a lesser product and i
+
+00:25:36.470 --> 00:25:39.040
+mean the washington post bled hundreds of thousands of subscribers
+
+00:25:39.040 --> 00:25:42.090
+when they decided not to do an endorsement in 2024 the
+
+00:25:42.090 --> 00:25:45.430
+audience that expected them to be sort of adhered all these
+
+00:25:45.430 --> 00:25:49.470
+old-fashioned news ideals saw that they were like oh we
+
+00:25:49.470 --> 00:25:52.640
+can't put in the editorial up that is against the guy
+
+00:25:52.640 --> 00:25:54.200
+who's probably going to win and if he wins he's
+
+00:25:54.200 --> 00:25:56.340
+going to take it out on us if we did um and
+
+00:25:56.340 --> 00:25:59.810
+i mean i canceled my subscription then and i'm again hundreds
+
+00:25:59.810 --> 00:26:02.720
+of thousands of people did so i do think that that will
+
+00:26:02.960 --> 00:26:05.450
+out again i'm a dyed in the wool optimist um
+
+00:26:05.570 --> 00:26:08.240
+but i think that and i mean a lot of this buying
+
+00:26:08.480 --> 00:26:10.870
+is happening at like the broadcast level i mean cbs news
+
+00:26:10.870 --> 00:26:13.360
+is tanking it's like all over the headlines it does
+
+00:26:13.360 --> 00:26:17.550
+it's not working um money is powerful they may be able
+
+00:26:17.570 --> 00:26:21.360
+to do more than i wish they could uh but what i
+
+00:26:21.360 --> 00:26:24.080
+really want to see is the people who have the ethos
+
+00:26:24.080 --> 00:26:27.280
+that i believe in again be able to sustainably do the
+
+00:26:27.280 --> 00:26:29.730
+work i take a lot of uh 404 media is one
+
+00:26:29.730 --> 00:26:32.760
+of my favorite stories because they just do brilliant work and it
+
+00:26:32.760 --> 00:26:35.130
+'s like five people and they are making a go of it
+
+00:26:35.260 --> 00:26:38.530
+and you know they they had i think their second anniversary recently
+
+00:26:38.540 --> 00:26:40.440
+and they the story they tell is that they're they're
+
+00:26:40.440 --> 00:26:42.470
+doing all right and there's been a lot of other ones
+
+00:26:42.470 --> 00:26:44.960
+like that so i think that's more what i'm interested
+
+00:26:44.960 --> 00:26:49.460
+in not only small but basically make it possible to do the
+
+00:26:49.460 --> 00:26:54.320
+work without having to have the money already when you start

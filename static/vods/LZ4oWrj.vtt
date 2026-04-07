@@ -1,0 +1,1648 @@
+WEBVTT
+
+00:00:01.600 --> 00:00:03.560
+Thank you.
+
+00:00:03.570 --> 00:00:09.140
+So I'm talking about two years of Skywatch Blue,
+
+00:00:09.140 --> 00:00:11.400
+and I'm going to try and talk a little bit.
+
+00:00:11.410 --> 00:00:13.380
+The mic isn't picking up your voice, you said it
+
+00:00:13.400 --> 00:00:16.400
+had something.
+
+00:00:16.410 --> 00:00:17.400
+Oh, it fell off.
+
+00:00:17.410 --> 00:00:18.400
+Thank you.
+
+00:00:18.410 --> 00:00:21.400
+Let's just try clipping it to my shirt.
+
+00:00:21.410 --> 00:00:22.400
+All right.
+
+00:00:22.410 --> 00:00:23.400
+How's that?
+
+00:00:23.410 --> 00:00:24.400
+Thank you.
+
+00:00:24.410 --> 00:00:25.400
+All right.
+
+00:00:25.410 --> 00:00:29.080
+So I'm talking about two years of running Skywatch Blue
+
+00:00:29.080 --> 00:00:29.330
+.
+
+00:00:29.390 --> 00:00:33.290
+And I'm going to try and impart a few lessons learned
+
+00:00:33.290 --> 00:00:35.430
+for community labelers.
+
+00:00:35.470 --> 00:00:38.360
+And some of these are hard-won lessons for, you
+
+00:00:38.360 --> 00:00:41.800
+know, really anyone who's looking to maybe start a lab
+
+00:00:41.800 --> 00:00:45.100
+eler, but doesn't have a ton of experience both with
+
+00:00:45.120 --> 00:00:49.590
+the tech, but also I think with sort of traditional trust
+
+00:00:49.590 --> 00:00:50.950
+and safety.
+
+00:00:50.970 --> 00:00:56.670
+So just by way of introduction, as Nick introduced me,
+
+00:00:56.670 --> 00:00:58.080
+I'm Julia.
+
+00:00:58.090 --> 00:01:02.420
+You also may know me as Scoyatolo, and
+
+00:01:02.420 --> 00:01:07.700
+I am not sure why that slide didn't advance.
+
+00:01:09.300 --> 00:01:11.700
+There we go.
+
+00:01:11.710 --> 00:01:15.480
+And I have been for the last two years running Skywatch
+
+00:01:15.480 --> 00:01:16.140
+Blue.
+
+00:01:16.170 --> 00:01:18.320
+Now, I'm going to preface this by saying that
+
+00:01:18.320 --> 00:01:20.990
+this isn't exactly the talk that I set out to just
+
+00:01:20.990 --> 00:01:24.670
+, you know, share, you know, when I proposed
+
+00:01:24.670 --> 00:01:25.770
+this talk.
+
+00:01:25.790 --> 00:01:28.740
+After this weekend, you know, talking to folks, I
+
+00:01:28.740 --> 00:01:31.730
+'ve been constantly tweaking the presentation.
+
+00:01:31.790 --> 00:01:34.130
+And if I had time following Dr.
+
+00:01:34.160 --> 00:01:36.120
+K, I probably would have made some changes because I learned
+
+00:01:36.130 --> 00:01:40.100
+some things during that talk that apply to some of the things
+
+00:01:40.120 --> 00:01:41.780
+that I'm going to say.
+
+00:01:41.790 --> 00:01:47.150
+So, what are labels?
+
+00:01:47.170 --> 00:01:51.390
+Labels are metadata.
+
+00:01:51.410 --> 00:01:59.950
+And this is the sort of actual definition provided
+
+00:01:59.950 --> 00:02:03.020
+by the AT proto docs.
+
+00:02:03.030 --> 00:02:07.000
+And it's kind of, it's a long explanation.
+
+00:02:07.030 --> 00:02:10.390
+But the two things sort of to keep in mind about them
+
+00:02:10.500 --> 00:02:14.010
+is that they're a form of metadata about any account or
+
+00:02:14.590 --> 00:02:16.640
+content in the AT proto ecosystem.
+
+00:02:16.650 --> 00:02:20.220
+They sort of exist as freestanding objects.
+
+00:02:20.230 --> 00:02:23.520
+And they can be used for moderation purposes.
+
+00:02:23.530 --> 00:02:26.160
+But they can also be used for other purposes.
+
+00:02:26.170 --> 00:02:29.300
+And there's quite a few labelers out there that are
+
+00:02:29.300 --> 00:02:31.580
+sort of novelty or fun labelers.
+
+00:02:31.590 --> 00:02:33.720
+All right.
+
+00:02:33.730 --> 00:02:37.100
+So I have an issue here where the slides don't exactly
+
+00:02:37.250 --> 00:02:40.480
+advance with sort of part that has the notes.
+
+00:02:40.490 --> 00:02:44.170
+So if it takes me a moment to move between slides,
+
+00:02:44.170 --> 00:02:45.380
+I apologize.
+
+00:02:45.390 --> 00:02:48.780
+So what is Skywatch?
+
+00:02:48.790 --> 00:02:51.980
+It is a general purpose labeling service.
+
+00:02:51.990 --> 00:02:54.940
+It's one of the largest, well, it might be
+
+00:02:54.940 --> 00:02:58.590
+one of the largest community labelers on BlueSky.
+
+00:02:58.610 --> 00:03:01.500
+There's no actual way to measure that other than by who
+
+00:03:01.500 --> 00:03:05.220
+has sort of clicked the heart button on the labeler.
+
+00:03:05.230 --> 00:03:08.420
+Which doesn't subscribe you to the labeler, by the
+
+00:03:08.420 --> 00:03:08.940
+way.
+
+00:03:08.950 --> 00:03:11.480
+It's possibly a cautionary tale.
+
+00:03:11.510 --> 00:03:15.540
+And it is definitely a personal project that got out of hand
+
+00:03:15.570 --> 00:03:15.900
+.
+
+00:03:15.910 --> 00:03:21.770
+Hence the picture of Fred Thompson in A Hunt for Red October
+
+00:03:21.770 --> 00:03:25.140
+where he's doing this business will get out of hand,
+
+00:03:25.140 --> 00:03:26.540
+it will get out of hand, and we'll be lucky
+
+00:03:26.540 --> 00:03:28.720
+to live through it.
+
+00:03:28.730 --> 00:03:30.790
+I would also like to note, and I will come back
+
+00:03:30.790 --> 00:03:32.960
+to this in a couple of slides, Skywatch is an
+
+00:03:32.960 --> 00:03:35.680
+inherently political project.
+
+00:03:35.690 --> 00:03:40.840
+Not exactly in the way you think, but in the sense
+
+00:03:40.880 --> 00:03:44.740
+that all labelers are political.
+
+00:03:44.750 --> 00:03:47.090
+So what is Skywatch not?
+
+00:03:47.230 --> 00:03:52.640
+Well, Skywatch is not a community.
+
+00:03:52.650 --> 00:04:01.230
+And this is worth noting, it is a community service
+
+00:04:01.230 --> 00:04:07.690
+, but one of the sort of key things to remember about
+
+00:04:07.690 --> 00:04:10.990
+Skywatch is that it started with a few dozen users in
+
+00:04:10.990 --> 00:04:11.600
+mind.
+
+00:04:11.610 --> 00:04:16.120
+And it grew at a slow rate until November of 2024,
+
+00:04:16.120 --> 00:04:21.060
+paralleling sites growth, at which point it exploded by an
+
+00:04:21.160 --> 00:04:23.160
+order of magnitude.
+
+00:04:23.170 --> 00:04:26.430
+I guess to that end, it's also hard to say
+
+00:04:26.670 --> 00:04:29.710
+that it serves a specific community.
+
+00:04:29.730 --> 00:04:34.160
+And one thing I haven't cracked is what to do about
+
+00:04:34.210 --> 00:04:34.980
+that.
+
+00:04:35.010 --> 00:04:38.560
+If you start with an original community of a few dozen,
+
+00:04:38.570 --> 00:04:42.450
+and now you are up at potentially 8,000 or more
+
+00:04:42.450 --> 00:04:47.220
+users who come from maybe backgrounds that you didn't originally plan
+
+00:04:47.290 --> 00:04:51.400
+for, it's hard to say how to serve them best
+
+00:04:51.490 --> 00:04:51.870
+.
+
+00:04:51.910 --> 00:04:55.780
+I also believe that Skywatch isn't a moderation service.
+
+00:04:55.790 --> 00:04:58.280
+We're not doing traditional trust and safety.
+
+00:04:58.290 --> 00:05:01.790
+We're also not -- we don't have takedown
+
+00:05:01.850 --> 00:05:03.450
+capabilities.
+
+00:05:03.490 --> 00:05:05.620
+Labelers are metadata.
+
+00:05:05.630 --> 00:05:08.720
+You can have block lists associated with certain labels, which we
+
+00:05:08.720 --> 00:05:11.560
+do, but block lists are soft moderation in the sense that
+
+00:05:11.720 --> 00:05:14.440
+they don't necessarily affect -- they don't affect taked
+
+00:05:14.440 --> 00:05:14.900
+owns.
+
+00:05:14.910 --> 00:05:19.540
+There was a recent paper actually published, which talked about the
+
+00:05:19.590 --> 00:05:23.570
+fact that they don't really break up the social graph either
+
+00:05:23.570 --> 00:05:23.860
+.
+
+00:05:23.870 --> 00:05:26.470
+And that's probably a good thing, even though the block
+
+00:05:26.470 --> 00:05:29.840
+on blue sky is understood to be a nuclear block.
+
+00:05:29.850 --> 00:05:34.840
+I will say that most labelers are not hard moderation.
+
+00:05:34.850 --> 00:05:39.540
+Some exceptions would be, you know, black sky, north
+
+00:05:39.540 --> 00:05:43.410
+sky, and of course, blue sky moderation.
+
+00:05:43.430 --> 00:05:50.540
+So then -- by way of example, I just wanted to
+
+00:05:50.580 --> 00:05:56.720
+show some of the labels that we sort of append to content
+
+00:05:56.720 --> 00:05:56.980
+.
+
+00:05:56.990 --> 00:06:00.540
+I've broken them out by account versus post.
+
+00:06:00.550 --> 00:06:03.240
+And when I say that we're appending metadata, that
+
+00:06:03.240 --> 00:06:04.980
+'s exactly what we're doing.
+
+00:06:04.990 --> 00:06:07.790
+We're analyzing the content in one way or another, some
+
+00:06:07.800 --> 00:06:10.720
+of it via automation, some of it via manual review,
+
+00:06:10.720 --> 00:06:14.420
+and then we are applying a label based on the rules and
+
+00:06:14.420 --> 00:06:20.600
+the definitions of the label that we provide.
+
+00:06:20.610 --> 00:06:23.950
+So I do want to, before I go on further,
+
+00:06:24.080 --> 00:06:29.630
+go back to the notion that Skywatch is an inherently political
+
+00:06:29.630 --> 00:06:30.160
+project.
+
+00:06:30.170 --> 00:06:33.630
+And to do that, I want to talk a little bit
+
+00:06:33.730 --> 00:06:35.920
+about why I started it.
+
+00:06:35.930 --> 00:06:38.120
+In 2018, I co-authored a paper with Kate
+
+00:06:38.120 --> 00:06:41.470
+Starbird and her team at the University of Washington that looked
+
+00:06:41.470 --> 00:06:45.190
+at the media ecosystem around the Syrian civil defense, also known
+
+00:06:45.190 --> 00:06:49.390
+as the White Helmets, in Syria during that country
+
+00:06:49.390 --> 00:06:50.830
+'s civil war.
+
+00:06:50.890 --> 00:06:52.760
+And we started with Twitter.
+
+00:06:52.770 --> 00:06:55.440
+Some of her team went on to analyze other platforms.
+
+00:06:55.450 --> 00:06:58.040
+And what we found was that there was an active attempt to
+
+00:06:58.040 --> 00:07:03.440
+reshape the information space through content sharing and remixing across
+
+00:07:03.440 --> 00:07:07.490
+multiple sites, domains, and political leanings to create the
+
+00:07:07.490 --> 00:07:10.440
+appearance of independent confirmation.
+
+00:07:10.450 --> 00:07:12.720
+The goal was to contest the civilian status of the White Hel
+
+00:07:12.720 --> 00:07:17.440
+mets and legitimize their targeting under international law.
+
+00:07:17.450 --> 00:07:21.220
+Skywatch came about because Blue Sky offered a means to shape
+
+00:07:21.220 --> 00:07:23.390
+my personal information space.
+
+00:07:23.450 --> 00:07:26.680
+And the information space of anybody who chose to use the lab
+
+00:07:26.740 --> 00:07:31.400
+eler, which at the time was a small handful, well
+
+00:07:31.400 --> 00:07:34.440
+, a few dozen people.
+
+00:07:34.450 --> 00:07:36.790
+And I think it's important to remember that all labelers
+
+00:07:36.830 --> 00:07:39.340
+and content moderation do this to some extent.
+
+00:07:39.350 --> 00:07:43.030
+And whether the admins of it are conscious of it or
+
+00:07:43.030 --> 00:07:46.010
+not, we should be honest about that.
+
+00:07:46.030 --> 00:07:48.330
+And so I've always tried to be open about my motivations
+
+00:07:48.330 --> 00:07:51.440
+, which is that Skywatch is opinionated.
+
+00:07:51.450 --> 00:07:54.030
+It embodies a set of values and ideas about what users
+
+00:07:54.030 --> 00:07:55.760
+want to see on their timelines.
+
+00:07:55.770 --> 00:07:58.070
+And so this is what I mean when I say the project
+
+00:07:58.140 --> 00:07:59.740
+is inherently political.
+
+00:07:59.770 --> 00:08:06.160
+However, there are a couple other reasons why I started it
+
+00:08:06.240 --> 00:08:06.720
+.
+
+00:08:06.730 --> 00:08:08.680
+Jerry Nerd sniped me.
+
+00:08:08.690 --> 00:08:13.120
+So the first label was really the Blue Sky Elder label,
+
+00:08:13.170 --> 00:08:19.720
+which follows basically the criteria laid out here.
+
+00:08:19.730 --> 00:08:24.230
+And then next is, and content warning, but my partner
+
+00:08:24.230 --> 00:08:27.480
+who's in the room created this monstrosity,
+
+00:08:27.490 --> 00:08:30.650
+and it became part of early Blue Sky culture, which is
+
+00:08:30.650 --> 00:08:32.710
+why we have a Sensual ALF label.
+
+00:08:32.730 --> 00:08:38.250
+Yes, there are community standards, and I am trying to
+
+00:08:38.250 --> 00:08:39.390
+live up to them here.
+
+00:08:39.410 --> 00:08:40.400
+All right.
+
+00:08:40.410 --> 00:08:43.820
+So you want to start a label, a labeler,
+
+00:08:43.970 --> 00:08:47.010
+and a non-novelty labeler at that.
+
+00:08:47.050 --> 00:08:53.650
+I think the first thing I'll say is, don't
+
+00:08:53.730 --> 00:08:54.280
+.
+
+00:08:54.290 --> 00:08:57.400
+If you do, you're probably someone who enjoys getting yelled
+
+00:08:57.400 --> 00:08:57.720
+at.
+
+00:08:57.730 --> 00:09:00.600
+You're now a mod, whether you like it or not
+
+00:09:00.600 --> 00:09:05.640
+, even though I said we're not a moderation service.
+
+00:09:05.650 --> 00:09:09.280
+Every label is going to be perceived as a personal attack.
+
+00:09:09.290 --> 00:09:12.840
+I mentioned you're getting yelled at.
+
+00:09:12.850 --> 00:09:15.080
+Which to be fair to users, we don't have,
+
+00:09:15.100 --> 00:09:17.460
+if you're not hosting a PDS and having a lab
+
+00:09:17.470 --> 00:09:19.910
+eler associated with the PDS, you have no way to
+
+00:09:19.910 --> 00:09:21.720
+do the two-way communication.
+
+00:09:21.750 --> 00:09:24.090
+You can get appeals in, but you can't explain to
+
+00:09:24.130 --> 00:09:27.240
+people why they were labeled in a private manner.
+
+00:09:27.250 --> 00:09:31.040
+There's no way to send them an email, and that
+
+00:09:31.040 --> 00:09:33.730
+'s a shortfall of the tooling.
+
+00:09:33.810 --> 00:09:38.440
+Folks don't read the label definitions, except for the rules
+
+00:09:38.440 --> 00:09:42.700
+layers, and they're always going to be trying to sort
+
+00:09:42.750 --> 00:09:47.300
+of work you to get the rules, sort of either talk
+
+00:09:47.380 --> 00:09:51.180
+you into removing a label from them or to apply a label
+
+00:09:51.180 --> 00:09:54.760
+to someone else because they think it fits your definition.
+
+00:09:54.770 --> 00:09:57.280
+And I think a lot of folks, this is getting a
+
+00:09:57.280 --> 00:09:59.950
+little bit better, but I think a lot of folks don
+
+00:09:59.950 --> 00:10:02.530
+'t understand what community labels are and can't necessarily tell the
+
+00:10:02.530 --> 00:10:06.720
+difference between you and blue sky.
+
+00:10:06.770 --> 00:10:13.980
+So, one thing you're going to have to learn is
+
+00:10:13.980 --> 00:10:19.420
+that, I'm not sure, I'm sorry, your
+
+00:10:19.420 --> 00:10:21.220
+signals are noisy.
+
+00:10:21.230 --> 00:10:28.620
+And there we go.
+
+00:10:28.630 --> 00:10:34.280
+Many of your user-generated signals are noisy.
+
+00:10:34.290 --> 00:10:36.850
+You are, to a subset of users, going to be
+
+00:10:36.850 --> 00:10:40.320
+a gun and they are going to attempt to weaponize you
+
+00:10:40.320 --> 00:10:40.820
+.
+
+00:10:40.830 --> 00:10:44.950
+But, as I said before, lots of folks don't
+
+00:10:45.000 --> 00:10:49.590
+necessarily read the labels and, as such, they're going
+
+00:10:49.610 --> 00:10:53.420
+to submit a lot of reports that have nothing to do with
+
+00:10:53.420 --> 00:10:55.880
+the things you label, per se.
+
+00:10:55.890 --> 00:11:01.170
+Case in point, we are constantly getting reports of things that
+
+00:11:01.210 --> 00:11:02.980
+people suspect are AI.
+
+00:11:02.990 --> 00:11:06.620
+Now, they are not necessarily misrepresenting what they
+
+00:11:06.620 --> 00:11:07.100
+are.
+
+00:11:07.130 --> 00:11:12.040
+I discovered this morning, people had started reporting Addy.
+
+00:11:12.050 --> 00:11:15.220
+It's just a fact of life.
+
+00:11:15.230 --> 00:11:20.100
+And user reports are noisy.
+
+00:11:20.110 --> 00:11:22.910
+Automation can fix some of this, but automation is also
+
+00:11:22.920 --> 00:11:24.960
+capable of making mistakes at scale.
+
+00:11:24.970 --> 00:11:30.600
+So there's always going to be risks inherent in either approach
+
+00:11:30.600 --> 00:11:30.910
+.
+
+00:11:31.010 --> 00:11:36.040
+Now in conversation with Luca and Juliette earlier this weekend,
+
+00:11:36.040 --> 00:11:39.000
+one thing that did come up is that there are ways to
+
+00:11:39.380 --> 00:11:41.850
+mitigate this through tweaks to the reporting workflow.
+
+00:11:41.870 --> 00:11:43.510
+So Brian, I'm sorry, you're probably going to
+
+00:11:43.510 --> 00:11:47.830
+get some GitHub issues from either me or Luca, requesting changes
+
+00:11:47.920 --> 00:11:49.980
+when you all have the time.
+
+00:11:49.990 --> 00:11:56.820
+And this is difficult if you don't control the reporting workflow
+
+00:11:56.820 --> 00:11:57.260
+.
+
+00:11:57.270 --> 00:12:02.020
+Scale is very hard.
+
+00:12:02.030 --> 00:12:04.800
+And if we go back to the fact that, yeah,
+
+00:12:04.800 --> 00:12:08.350
+I know, I went fully insane and I think the website
+
+00:12:08.350 --> 00:12:11.940
+probably, you know, was going through some things.
+
+00:12:11.970 --> 00:12:15.610
+Although interestingly, well, I'll get to it in a
+
+00:12:15.610 --> 00:12:19.650
+minute, but remember, so growth can be a bit of
+
+00:12:19.650 --> 00:12:22.700
+a curse, especially with a general purpose labeler.
+
+00:12:22.710 --> 00:12:26.300
+You know, one of the things that makes this difficult is
+
+00:12:26.300 --> 00:12:29.820
+not having a specific community that you serve makes it a little
+
+00:12:29.820 --> 00:12:32.260
+bit harder to find and onboard volunteers.
+
+00:12:32.270 --> 00:12:37.880
+So it's something to keep in mind.
+
+00:12:37.890 --> 00:12:40.400
+So we had an eternal November that, well, not,
+
+00:12:40.400 --> 00:12:41.280
+not eternal.
+
+00:12:41.290 --> 00:12:43.880
+It lasted about five months.
+
+00:12:43.910 --> 00:12:47.560
+We were getting, so November was 70,000 reports,
+
+00:12:47.560 --> 00:12:49.190
+November 2024.
+
+00:12:49.230 --> 00:12:53.000
+And interestingly, I was talking to Brian and this was actually
+
+00:12:53.000 --> 00:12:55.830
+different for them because, because we don't deal with things
+
+00:12:55.830 --> 00:12:56.760
+like sexual content.
+
+00:12:56.770 --> 00:12:59.110
+We didn't have to deal with the flood of reports that
+
+00:12:59.190 --> 00:13:02.710
+came in when video was rolled out.
+
+00:13:02.790 --> 00:13:05.800
+So it's essentially unique to each labeler and kind of
+
+00:13:05.800 --> 00:13:11.240
+what your labels are and what people perceive that you are covering
+
+00:13:11.310 --> 00:13:11.660
+.
+
+00:13:11.670 --> 00:13:15.200
+Reports began climbing, you know, right after election week or
+
+00:13:15.230 --> 00:13:16.160
+election day.
+
+00:13:16.170 --> 00:13:19.660
+They peaked in November 20th or so.
+
+00:13:19.670 --> 00:13:24.590
+And then there was a steady decline over the next four to
+
+00:13:24.590 --> 00:13:26.040
+five months.
+
+00:13:26.070 --> 00:13:29.160
+One thing I think that helped was that Blue Sky made some
+
+00:13:29.250 --> 00:13:33.100
+changes to the reporting workflow so that you could no longer sort
+
+00:13:33.100 --> 00:13:37.280
+of shotgun report content to every single labeler you subscribe to
+
+00:13:37.280 --> 00:13:37.880
+.
+
+00:13:37.890 --> 00:13:41.240
+It forced you to be a little bit more nuanced.
+
+00:13:41.250 --> 00:13:46.060
+And we've now settled out at a baseline of between three
+
+00:13:46.060 --> 00:13:49.520
+to 7,000 reports a month.
+
+00:13:49.530 --> 00:13:50.860
+It varies.
+
+00:13:50.870 --> 00:13:54.120
+And I suspect that as we get closer to midterms
+
+00:13:54.120 --> 00:13:58.910
+, we'll probably see a spike there as well as people
+
+00:13:59.160 --> 00:14:07.430
+start reporting certain content to Skywatch
+
+00:14:07.430 --> 00:14:08.100
+.
+
+00:14:08.170 --> 00:14:12.720
+So the other thing to keep in mind is that you're
+
+00:14:12.720 --> 00:14:16.380
+going to create new affordances.
+
+00:14:16.390 --> 00:14:18.730
+And some of them are going to suck.
+
+00:14:18.850 --> 00:14:21.190
+And you should undo your mistake.
+
+00:14:21.330 --> 00:14:24.160
+So this is actually not a screenshot of Skywatch.
+
+00:14:24.170 --> 00:14:26.510
+This labeler would put a badge on your account if you
+
+00:14:26.590 --> 00:14:30.330
+followed one of these individuals with the theory of change being that
+
+00:14:30.390 --> 00:14:33.300
+by making this legible, which is what labels do,
+
+00:14:33.300 --> 00:14:38.040
+they make certain things and behaviors legible.
+
+00:14:38.070 --> 00:14:41.490
+It would cause users to shun certain accounts and some social
+
+00:14:41.600 --> 00:14:44.340
+pressure for folks to unfollow those people.
+
+00:14:44.350 --> 00:14:48.780
+Unfortunately, it facilitated abuse, which is why it no
+
+00:14:48.830 --> 00:14:50.260
+longer exists.
+
+00:14:50.270 --> 00:14:52.340
+So you're going to make mistakes.
+
+00:14:52.350 --> 00:14:54.320
+Some of them are going to be innocuous.
+
+00:14:54.410 --> 00:14:57.340
+Slurs, for example, are hard to do, to
+
+00:14:57.340 --> 00:14:59.730
+sort of automatically flag.
+
+00:14:59.750 --> 00:15:04.040
+You'll decide one day that you want to label an unfortunately
+
+00:15:04.040 --> 00:15:07.030
+far too common English language slur, ableist slur
+
+00:15:07.030 --> 00:15:08.860
+, go to bed and you're going to wake up with
+
+00:15:08.860 --> 00:15:12.580
+the francophone world mad at you because you forgot that it
+
+00:15:12.580 --> 00:15:15.610
+'s a benign vocabulary word in French.
+
+00:15:15.630 --> 00:15:19.960
+And so you need to approach these things with some nuance and
+
+00:15:19.960 --> 00:15:23.400
+fortunately we have the tooling to do.
+
+00:15:23.410 --> 00:15:25.920
+So, though imperfect as it is, we do have the
+
+00:15:25.920 --> 00:15:35.300
+tooling to determine what language a given post is in.
+
+00:15:35.310 --> 00:15:40.370
+So you're going to want to label behavior and facts,
+
+00:15:40.450 --> 00:15:42.140
+not identity.
+
+00:15:42.150 --> 00:15:45.030
+And you're going to want to do it consistently with your
+
+00:15:45.030 --> 00:15:46.260
+label definitions.
+
+00:15:46.330 --> 00:15:49.070
+I think it should go without saying, but don't li
+
+00:15:49.070 --> 00:15:49.980
+bel people.
+
+00:15:49.990 --> 00:15:51.960
+Document your claims.
+
+00:15:51.990 --> 00:15:53.880
+Be ethical.
+
+00:15:53.890 --> 00:15:58.930
+You probably want to check your renter's or homeowner
+
+00:15:58.930 --> 00:16:03.130
+'s insurance to make sure that, if you're not a
+
+00:16:03.130 --> 00:16:06.270
+business this is, to make sure that you have just a
+
+00:16:06.270 --> 00:16:10.400
+sort of universal umbrella coverage in case somebody decides to hit you
+
+00:16:10.400 --> 00:16:11.660
+with a slap lawsuit.
+
+00:16:11.670 --> 00:16:15.540
+You are generally covered, at least from the conversations I've
+
+00:16:15.540 --> 00:16:21.630
+had with lawyers, you are generally covered under section 230,
+
+00:16:21.630 --> 00:16:23.670
+if -- Or not.
+
+00:16:23.690 --> 00:16:24.680
+Or not.
+
+00:16:24.690 --> 00:16:26.580
+Don't build up to it.
+
+00:16:26.590 --> 00:16:27.580
+Yes.
+
+00:16:27.590 --> 00:16:28.580
+Yes.
+
+00:16:28.590 --> 00:16:30.920
+Thank Ron Wyden for fighting a good fight.
+
+00:16:30.930 --> 00:16:35.800
+But, you know, your mileage may vary by jurisdiction,
+
+00:16:35.800 --> 00:16:39.660
+of course, and, you know, there's absolutely no
+
+00:16:39.660 --> 00:16:43.820
+certainty, you know, in a climate where speech is generally
+
+00:16:43.820 --> 00:16:45.450
+highly politicized.
+
+00:16:45.510 --> 00:16:49.780
+But, labelers can be fun, and I, you
+
+00:16:49.780 --> 00:16:55.700
+know, don't want to just talk about the negative parts
+
+00:16:55.730 --> 00:16:56.720
+of it.
+
+00:16:56.730 --> 00:17:01.640
+And so, there are affordances of labelers, and
+
+00:17:01.640 --> 00:17:05.680
+this is not really in Skywatch's remit, but
+
+00:17:05.680 --> 00:17:09.500
+I was testing whether or not I could use Osprey
+
+00:17:09.500 --> 00:17:14.360
+'s database to figure out who was the top Taylor Swift listener
+
+00:17:14.360 --> 00:17:18.450
+that day using, you know, using the Clickhouse database
+
+00:17:18.540 --> 00:17:20.610
+, and using teal.
+
+00:17:20.610 --> 00:17:22.720
+fm's lexicon.
+
+00:17:22.730 --> 00:17:23.720
+And I could.
+
+00:17:23.730 --> 00:17:25.700
+And it was pretty simple.
+
+00:17:25.730 --> 00:17:28.620
+And, you know, it's kind of funny, because
+
+00:17:28.620 --> 00:17:33.120
+then you can kind of go from there and independently invent something
+
+00:17:33.120 --> 00:17:36.060
+very similar to Addy, where you take the posts of
+
+00:17:36.090 --> 00:17:37.350
+the top teal.
+
+00:17:37.370 --> 00:17:40.990
+fm listeners of Taylor Swift tracks, and you just find
+
+00:17:40.990 --> 00:17:43.690
+some of their posts, and now you have a feed that
+
+00:17:43.710 --> 00:17:44.940
+you could potentially create.
+
+00:17:44.950 --> 00:17:47.150
+Again, not really within the scope of what we do,
+
+00:17:47.150 --> 00:17:50.750
+but I do want to sort of point out that that label
+
+00:17:50.760 --> 00:17:53.950
+ers can be fun.
+
+00:17:53.970 --> 00:17:57.520
+So looking a bit to the future, I want to talk
+
+00:17:57.530 --> 00:18:02.460
+a bit about some of the tools available to make this a
+
+00:18:02.460 --> 00:18:05.320
+little bit easier.
+
+00:18:05.330 --> 00:18:08.560
+So if you follow me on Blue Sky, you've probably
+
+00:18:08.800 --> 00:18:10.800
+seen a graph similar to this.
+
+00:18:10.810 --> 00:18:13.580
+This is a graph of the sort of the Gaza Spam
+
+00:18:13.580 --> 00:18:17.640
+accounts that have cropped up in the last two weeks.
+
+00:18:17.650 --> 00:18:23.160
+The accounts where they are recycling the same set of usern
+
+00:18:23.160 --> 00:18:27.600
+ames or the same set of profiles, and doing things like
+
+00:18:27.600 --> 00:18:30.580
+reposting people so it just shows up in their mentions
+
+00:18:30.590 --> 00:18:30.840
+.
+
+00:18:30.890 --> 00:18:34.750
+It is generally a good indicator of inauthentic behavior
+
+00:18:34.750 --> 00:18:38.640
+, and we're labeling it as inauthenticity.
+
+00:18:38.650 --> 00:18:43.810
+And I know that this specific case is controversial, but this
+
+00:18:43.840 --> 00:18:46.180
+is more by way of example.
+
+00:18:46.270 --> 00:18:48.190
+To do this, I would never have been able to do
+
+00:18:48.190 --> 00:18:51.600
+this or detect this at scale, just using ozone and manually
+
+00:18:51.720 --> 00:18:53.190
+labeling things.
+
+00:18:53.210 --> 00:19:01.660
+So we can make it suck less by using better tools.
+
+00:19:01.670 --> 00:19:06.460
+So our automod started as a bash script, this was
+
+00:19:06.460 --> 00:19:08.150
+two years ago.
+
+00:19:08.210 --> 00:19:11.750
+That lasted about a year, I rewrote it in
+
+00:19:11.770 --> 00:19:15.160
+TypeScript, and now we use Osprey.
+
+00:19:15.170 --> 00:19:17.500
+And it's great.
+
+00:19:17.710 --> 00:19:21.810
+We also use, it's Osprey plus ozone.
+
+00:19:21.830 --> 00:19:26.230
+And then I use Claude and a stack of skills and
+
+00:19:26.230 --> 00:19:30.940
+tools to help me rapidly query the database.
+
+00:19:30.950 --> 00:19:33.290
+So Claude is not making, now you see here Cla
+
+00:19:33.400 --> 00:19:36.910
+ude has opinions, but Claude is not making judgments or
+
+00:19:36.910 --> 00:19:38.760
+content moderation decisions.
+
+00:19:38.850 --> 00:19:43.770
+I've actually experimented in the past with trying to use
+
+00:19:43.770 --> 00:19:47.550
+LLMs to assess individual pieces of content, and there
+
+00:19:47.550 --> 00:19:49.840
+'s just not enough information there, at least for the tools
+
+00:19:49.840 --> 00:19:51.140
+I was using.
+
+00:19:51.150 --> 00:19:54.190
+Now, there are probably more sophisticated tools, there's fine
+
+00:19:54.190 --> 00:19:58.400
+tuning you can probably do to get your accuracy up.
+
+00:19:58.470 --> 00:20:01.910
+But for the most part, what I find it extremely useful
+
+00:20:02.030 --> 00:20:04.860
+for is going out, querying Ozone, querying
+
+00:20:04.930 --> 00:20:08.200
+the ClickHouse database to put together reports that I can
+
+00:20:08.400 --> 00:20:12.070
+then dive deeper into to see is this really a signal or
+
+00:20:12.070 --> 00:20:15.450
+is this just something spurious?
+
+00:20:15.510 --> 00:20:18.210
+And in this case, I have, to illustrate it,
+
+00:20:18.210 --> 00:20:22.170
+you know, there's basically a small network of accounts via
+
+00:20:22.170 --> 00:20:25.280
+, you know, coming via Bridgifed that are
+
+00:20:25.280 --> 00:20:29.420
+sort of reposting what you would consider, you know
+
+00:20:29.420 --> 00:20:34.530
+, Russian military telegram copy pasta and sort of other,
+
+00:20:34.530 --> 00:20:40.870
+you can call it propaganda, other content aimed at various different
+
+00:20:40.880 --> 00:20:42.320
+language groups.
+
+00:20:42.330 --> 00:20:47.020
+It's a relatively small number, but it's there.
+
+00:20:47.030 --> 00:20:50.720
+And, you know, if you have these tools, it
+
+00:20:50.720 --> 00:20:53.280
+'s relatively easy to find.
+
+00:20:53.290 --> 00:20:55.870
+You know, and to that end, I've been building
+
+00:20:55.890 --> 00:20:58.920
+some of those tools such as sidecar services to do,
+
+00:20:58.920 --> 00:21:01.360
+you know, Poisson analysis on PDS sign ups,
+
+00:21:01.360 --> 00:21:04.820
+you know, looking at URL over dispersion, doing some
+
+00:21:04.820 --> 00:21:10.430
+lighting clustering and account entropy calculations to help detect that activity
+
+00:21:10.430 --> 00:21:10.610
+.
+
+00:21:10.650 --> 00:21:12.620
+I'll say that those are noisy signals.
+
+00:21:12.650 --> 00:21:14.980
+So, by themselves, they shouldn't be sort of relied
+
+00:21:14.980 --> 00:21:15.480
+upon.
+
+00:21:15.490 --> 00:21:18.400
+So, human review is still important and correlation is still important
+
+00:21:18.400 --> 00:21:20.550
+between sources, between signals.
+
+00:21:20.650 --> 00:21:23.680
+And I just want to end on the note that automation is
+
+00:21:23.680 --> 00:21:28.600
+not perfect, it can make mistakes, but it's a
+
+00:21:28.600 --> 00:21:31.950
+lot easier than trying to find these things just using regular expressions
+
+00:21:31.950 --> 00:21:35.180
+or just using, you know, searches on Blue Sky.
+
+00:21:35.190 --> 00:21:40.750
+And since our users subscribe for, especially for some of the
+
+00:21:40.750 --> 00:21:44.330
+sort of, you know, authenticity labels, it's important
+
+00:21:44.330 --> 00:21:47.120
+for us to kind of proactively search for these things.
+
+00:21:47.130 --> 00:21:53.730
+So, what is the future of unintegrated labelers
+
+00:21:53.810 --> 00:21:54.340
+?
+
+00:21:54.350 --> 00:21:56.930
+And by unintegrated labelers, I mean what Sky
+
+00:21:56.930 --> 00:21:57.660
+watch is.
+
+00:21:57.670 --> 00:22:02.920
+We are not affiliated with a set of PDSs or
+
+00:22:02.920 --> 00:22:05.540
+an app view in the way that Blue Sky is or that
+
+00:22:05.540 --> 00:22:08.970
+Black Sky is.
+
+00:22:08.990 --> 00:22:13.350
+Now, my theory is that, because the atmosphere is growing
+
+00:22:13.350 --> 00:22:16.440
+, that not every application or PDS admin or relay owner
+
+00:22:16.440 --> 00:22:18.180
+is going to want to set up their own full-st
+
+00:22:18.180 --> 00:22:19.440
+ack moderation service.
+
+00:22:19.450 --> 00:22:25.140
+They are going to need trusted signals to action content and accounts
+
+00:22:25.140 --> 00:22:26.050
+on their network.
+
+00:22:26.070 --> 00:22:31.320
+A great example, excuse me, is PDS admins
+
+00:22:31.370 --> 00:22:31.380
+.
+
+00:22:31.390 --> 00:22:33.730
+And I want to give a shout-out to Bailey for
+
+00:22:33.810 --> 00:22:35.500
+building Label Watcher.
+
+00:22:35.530 --> 00:22:41.260
+If you haven't talked to Bailey about it, this is
+
+00:22:41.260 --> 00:22:45.960
+a tool for a PDS admin or any other piece of
+
+00:22:45.960 --> 00:22:50.490
+infrastructure to watch the firehose coming off of a set
+
+00:22:50.490 --> 00:22:51.340
+of labelers.
+
+00:22:51.350 --> 00:22:54.720
+And then it can either email you to tell you when a
+
+00:22:54.910 --> 00:22:59.570
+label of interest is detected being admitted against an account on your
+
+00:22:59.570 --> 00:23:03.820
+PDS or it can automate the takedown.
+
+00:23:03.830 --> 00:23:06.750
+And the nice thing about that, it is up to you
+
+00:23:06.750 --> 00:23:10.190
+as the admin to make a decision whether you trust the lab
+
+00:23:10.220 --> 00:23:12.500
+eler enough to actually do the takedown.
+
+00:23:12.530 --> 00:23:17.540
+And so as a result, we have this new group that
+
+00:23:17.540 --> 00:23:24.040
+previously wasn't considered a user that is now a user.
+
+00:23:24.050 --> 00:23:27.940
+And so Skywatch is one of the signals for catching spam
+
+00:23:27.940 --> 00:23:31.910
+accounts created on self-hosted social and PMX social
+
+00:23:31.910 --> 00:23:32.280
+.
+
+00:23:32.290 --> 00:23:35.540
+So thank you, Bailey, for building this and also for
+
+00:23:35.810 --> 00:23:37.720
+placing your trust in Skywatch.
+
+00:23:37.730 --> 00:23:46.370
+I think we nerd sniped ourselves with that one
+
+00:23:46.380 --> 00:23:47.140
+.
+
+00:23:47.150 --> 00:23:53.190
+So now I do just want to talk about this a little
+
+00:23:53.210 --> 00:23:57.690
+bit because the previous slide we talked a little bit about how
+
+00:23:57.750 --> 00:24:01.620
+Skywatch can be used by PDS admins.
+
+00:24:01.630 --> 00:24:05.750
+And I want to note that labelers are an informal governance
+
+00:24:05.800 --> 00:24:07.670
+institution in a sense.
+
+00:24:07.730 --> 00:24:10.070
+In a commons that, you know, as it grows
+
+00:24:10.140 --> 00:24:13.650
+, it's going to lack formal governance over the whole comm
+
+00:24:13.650 --> 00:24:14.210
+ons.
+
+00:24:14.230 --> 00:24:17.020
+Blue sky is going to take responsibility for certain parts of it
+
+00:24:17.020 --> 00:24:17.260
+.
+
+00:24:17.270 --> 00:24:19.900
+Other parts of it, other folks will.
+
+00:24:19.910 --> 00:24:22.250
+And other parts of it may be somewhat ungoverned.
+
+00:24:22.370 --> 00:24:26.260
+We should remember that labelers are embodying sort of a
+
+00:24:26.260 --> 00:24:28.540
+form of power and authority.
+
+00:24:28.550 --> 00:24:30.740
+They're agents which act on the network.
+
+00:24:30.750 --> 00:24:34.620
+And we should also note that some of these tools are incredibly
+
+00:24:34.620 --> 00:24:37.230
+powerful surveillance mechanisms.
+
+00:24:37.250 --> 00:24:39.920
+And so they need to be used ethically.
+
+00:24:39.930 --> 00:24:41.600
+We need moderation.
+
+00:24:41.610 --> 00:24:43.780
+But that, by its nature, is surveillance.
+
+00:24:43.790 --> 00:24:46.580
+And so seeing like a moderator means trying to take behavior and
+
+00:24:46.580 --> 00:24:48.880
+activity and making it legible.
+
+00:24:48.890 --> 00:24:51.580
+And that creates the temptation to fence in the commons,
+
+00:24:51.580 --> 00:24:55.220
+categorize people in behavior in a binary fashion, and then
+
+00:24:55.220 --> 00:24:57.760
+tightly define what's right and wrong, as Dr.
+
+00:24:57.760 --> 00:25:00.440
+K sort of had alluded to.
+
+00:25:00.450 --> 00:25:06.230
+Or, sorry, no, that was a previous session in
+
+00:25:06.230 --> 00:25:08.440
+here that was Dr.
+
+00:25:08.630 --> 00:25:10.360
+Blackwell.
+
+00:25:10.370 --> 00:25:12.570
+We don't want to fence in the commons entirely.
+
+00:25:12.590 --> 00:25:15.700
+We want to be able to sort of set norms and set
+
+00:25:15.700 --> 00:25:19.480
+the rules to govern the parts of the commons that we
+
+00:25:19.480 --> 00:25:24.590
+care about that are within our jurisdiction without trying to restrict how
+
+00:25:24.590 --> 00:25:26.660
+everyone else can act.
+
+00:25:26.670 --> 00:25:32.440
+All right, I am very close to wrapping up then,
+
+00:25:32.440 --> 00:25:34.380
+so thank you.
+
+00:25:34.390 --> 00:25:38.020
+I do want to talk about the elephant in the dark forest
+
+00:25:38.020 --> 00:25:41.050
+, because I'm an independent labeler.
+
+00:25:41.070 --> 00:25:44.860
+If you've not read or watched the three-body problem
+
+00:25:44.860 --> 00:25:48.970
+, the dark forest metaphor is the idea that all advanced gal
+
+00:25:49.300 --> 00:25:52.340
+actic civilizations are locked in a bit of real-life game
+
+00:25:52.370 --> 00:25:57.820
+theory, which the annihilation of any other civilization that they
+
+00:25:57.820 --> 00:26:01.060
+encounter is the only correct move.
+
+00:26:01.070 --> 00:26:03.400
+And this is kind of a tortured metaphor, because I was
+
+00:26:03.420 --> 00:26:06.440
+going for the elephant in the room plus the dark forest,
+
+00:26:06.690 --> 00:26:10.740
+and I don't necessarily want to cast dispersions on elephants
+
+00:26:10.740 --> 00:26:11.080
+.
+
+00:26:11.090 --> 00:26:12.700
+But I think we do need to talk a little bit about
+
+00:26:12.700 --> 00:26:13.060
+Aegis.
+
+00:26:13.130 --> 00:26:14.980
+If you don't know what Aegis was, it was
+
+00:26:14.980 --> 00:26:17.160
+one of the first independent labelers.
+
+00:26:17.190 --> 00:26:19.530
+The operator ended up using it for harassment, and I think
+
+00:26:19.620 --> 00:26:22.390
+it soured Blue Sky, both the community and the company
+
+00:26:22.390 --> 00:26:26.140
+, on the community labeler experiment for a while.
+
+00:26:26.150 --> 00:26:28.770
+And I want to remind people that I, as an individual
+
+00:26:28.810 --> 00:26:32.980
+, sometimes with help, sometimes with not, am running something
+
+00:26:32.980 --> 00:26:37.240
+that has the capability of being a surveillance platform.
+
+00:26:37.250 --> 00:26:40.310
+Labelers collapse context, and at scale, they could
+
+00:26:40.730 --> 00:26:42.640
+potentially break the social graph.
+
+00:26:42.650 --> 00:26:48.290
+And I think it's great that people put their trust in
+
+00:26:48.290 --> 00:26:49.010
+me.
+
+00:26:49.030 --> 00:26:52.120
+But by the same token, you shouldn't have to.
+
+00:26:52.130 --> 00:26:55.440
+You shouldn't have to trust that Fane will take away
+
+00:26:55.600 --> 00:26:57.740
+the keys if I suddenly go rogue.
+
+00:26:57.750 --> 00:27:01.850
+And you know, it's a bad model.
+
+00:27:01.910 --> 00:27:04.580
+In a previous life, I worked on issues of data ethics
+
+00:27:04.580 --> 00:27:08.900
+and privacy, and the harms technology can cause inhumanitarian
+
+00:27:08.900 --> 00:27:10.020
+response.
+
+00:27:10.030 --> 00:27:13.210
+Jay, quoting Melvin Kranzberg yesterday, I think
+
+00:27:13.210 --> 00:27:14.360
+was important.
+
+00:27:14.370 --> 00:27:16.600
+These tools are what we make of them.
+
+00:27:16.650 --> 00:27:19.650
+But we can't assume we're the only actors using them
+
+00:27:19.650 --> 00:27:19.900
+.
+
+00:27:19.910 --> 00:27:26.820
+And the assumption that we are acting in an ethical and just
+
+00:27:26.820 --> 00:27:29.520
+way, I want to think that I am.
+
+00:27:29.530 --> 00:27:31.240
+I want other people to think that I am.
+
+00:27:31.250 --> 00:27:33.220
+But I don't want you to have to rely on just
+
+00:27:33.300 --> 00:27:33.740
+that.
+
+00:27:33.750 --> 00:27:37.650
+And I think that we probably have to have some conversations as
+
+00:27:37.650 --> 00:27:43.560
+a sort of a community about how we govern the commons
+
+00:27:43.560 --> 00:27:46.600
+and how we govern labelers.
+
+00:27:46.610 --> 00:27:52.810
+So I would like to encourage people to come to the discourse
+
+00:27:52.810 --> 00:27:58.680
+and start discussions there and move us towards a composable moderation
+
+00:27:58.690 --> 00:28:01.950
+working group so we can set some standards and have some of
+
+00:28:01.950 --> 00:28:02.900
+these discussions.
+
+00:28:02.910 --> 00:28:11.220
+And I just want to wrap up with this quote from Lawrence
+
+00:28:11.220 --> 00:28:17.480
+, "An open protocol that does not answer the governance question
+
+00:28:17.480 --> 00:28:19.860
+will still receive an answer, yet it will be written by
+
+00:28:19.890 --> 00:28:25.400
+whichever actors make themselves indispensable first." And then I do want
+
+00:28:25.400 --> 00:28:27.590
+to finish on the note that I do think labelers are
+
+00:28:27.590 --> 00:28:28.360
+important.
+
+00:28:28.370 --> 00:28:30.520
+I think that they're incredibly useful.
+
+00:28:30.530 --> 00:28:33.730
+I think we have the opportunity to shape the spaces that we
+
+00:28:33.730 --> 00:28:37.280
+are sort of inhabiting for good.
+
+00:28:37.290 --> 00:28:40.570
+And so even though this talk has had pessimistic notes,
+
+00:28:40.570 --> 00:28:42.910
+I want to end on the note that you should check out
+
+00:28:42.910 --> 00:28:43.500
+some of these labelers.
+
+00:28:43.510 --> 00:28:46.190
+Skywatch is there, of course, but Lylabs
+
+00:28:46.190 --> 00:28:49.040
+, SteshLab, and Black Sky are also labelers
+
+00:28:49.040 --> 00:28:49.760
+that I use.
+
+00:28:49.770 --> 00:28:53.870
+I find valuable, and I hope you do too.
+
+00:28:53.950 --> 00:28:56.020
+And I think we are probably just at time, so I
+
+00:28:56.020 --> 00:28:57.300
+don't want to run over.
+
+00:28:57.310 --> 00:28:58.650
+But if there are any questions, I'm happy to hang
+
+00:28:58.650 --> 00:28:59.800
+out for a little bit and answer them.
+
+00:29:01.420 --> 00:29:04.640
+Thank you.

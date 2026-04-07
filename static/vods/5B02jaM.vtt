@@ -1,0 +1,574 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.010
+Hello everybody.
+
+00:00:04.170 --> 00:00:05.200
+Thanks for sticking around.
+
+00:00:05.200 --> 00:00:07.720
+I'm Jasper.
+
+00:00:07.720 --> 00:00:11.080
+Today I'm going to talk about keywords versus embeddings.
+
+00:00:11.080 --> 00:00:13.440
+I can tell you already, of course, it's keywords
+
+00:00:13.440 --> 00:00:14.790
+and embeddings.
+
+00:00:14.820 --> 00:00:17.720
+Yeah, let's get into it.
+
+00:00:17.720 --> 00:00:21.990
+Of course, I'm going to start with a couple of
+
+00:00:21.990 --> 00:00:23.670
+disclaimers.
+
+00:00:24.800 --> 00:00:27.220
+My level is Eli 12.
+
+00:00:27.220 --> 00:00:31.250
+So if I talk to Claude, that's usually how
+
+00:00:31.250 --> 00:00:34.060
+I let it explain math problems to me.
+
+00:00:34.060 --> 00:00:39.030
+So expect Eli 12, maybe Eli 15, not Eli 5
+
+00:00:39.030 --> 00:00:39.290
+.
+
+00:00:39.290 --> 00:00:43.970
+And since I'm scraping a lot of the atmosphere, I
+
+00:00:43.970 --> 00:00:47.140
+felt like it's important to say I try to be respectful
+
+00:00:47.300 --> 00:00:47.420
+.
+
+00:00:47.420 --> 00:00:51.760
+The way I'm doing it right now is if you have
+
+00:00:51.760 --> 00:00:53.460
+the no unauthenticated label.
+
+00:00:53.460 --> 00:00:56.300
+That means if you do not wish to see or be seen
+
+00:00:56.300 --> 00:00:59.510
+by unauthenticated users, then I will not show
+
+00:00:59.690 --> 00:01:01.220
+you on any of my pages.
+
+00:01:01.220 --> 00:01:05.480
+Also, you can always address me directly and tell me,
+
+00:01:05.480 --> 00:01:07.620
+please, I don't want to be part of this.
+
+00:01:07.620 --> 00:01:12.620
+I'm doing no LLM training yet.
+
+00:01:12.620 --> 00:01:15.180
+Although it's kind of interesting.
+
+00:01:15.180 --> 00:01:18.460
+Maybe in the future I might, but I would communicate that
+
+00:01:18.460 --> 00:01:18.540
+.
+
+00:01:18.600 --> 00:01:26.080
+So I do not consider myself a thought leader, at least
+
+00:01:26.230 --> 00:01:27.120
+in this realm.
+
+00:01:27.120 --> 00:01:32.080
+And so I was thinking about what could I actually contribute.
+
+00:01:32.080 --> 00:01:35.640
+I assume there are some developers here around you.
+
+00:01:35.990 --> 00:01:40.800
+So I thought maybe the thing that's most interesting is my
+
+00:01:40.800 --> 00:01:44.540
+stack, because it's kind of low budget, as low
+
+00:01:44.540 --> 00:01:48.380
+budget can be in this kind of space.
+
+00:01:48.510 --> 00:01:54.080
+And you see here my small, old Mac studios, and
+
+00:01:54.080 --> 00:01:56.110
+they are doing the heavy lifting.
+
+00:01:56.110 --> 00:01:58.300
+Nevermind, I will explain later.
+
+00:01:58.300 --> 00:02:04.160
+So one wall of text is allowed, right?
+
+00:02:04.160 --> 00:02:06.260
+This is my stack.
+
+00:02:06.260 --> 00:02:09.500
+These are the important bits.
+
+00:02:09.500 --> 00:02:14.310
+So if you later want to recreate this, these are probably
+
+00:02:14.310 --> 00:02:19.380
+the yellow ones, the things you might want to get or
+
+00:02:19.380 --> 00:02:23.160
+emulate.
+
+00:02:23.160 --> 00:02:25.750
+Yeah.
+
+00:02:25.750 --> 00:02:30.080
+So let's start with a little explanation.
+
+00:02:30.320 --> 00:02:33.770
+What I like about Blue Sky or what I like about Twitter
+
+00:02:33.770 --> 00:02:34.040
+?
+
+00:02:34.040 --> 00:02:39.330
+I think the coolest thing about Blue Sky and that coolest thing
+
+00:02:39.480 --> 00:02:44.910
+that was with Twitter was you can pretty quickly see whether you
+
+00:02:44.910 --> 00:02:47.140
+match with someone, right?
+
+00:02:47.140 --> 00:02:47.720
+Platonically.
+
+00:02:47.720 --> 00:02:51.290
+You go to the profile, you see like 10 tweets,
+
+00:02:51.290 --> 00:02:53.980
+and it's like, bam, that's a cool person
+
+00:02:54.020 --> 00:02:55.670
+or not, right?
+
+00:02:55.720 --> 00:02:59.420
+I like the quantity over quality approach, right?
+
+00:02:59.420 --> 00:03:03.240
+Because each message is like this high without images.
+
+00:03:03.240 --> 00:03:06.340
+You can go through thousands of them in minutes.
+
+00:03:06.450 --> 00:03:09.820
+Okay, it's a little, maybe hundreds.
+
+00:03:11.100 --> 00:03:15.090
+And by that you can kind of get this long tail discovery
+
+00:03:15.270 --> 00:03:16.340
+effect going, right?
+
+00:03:16.360 --> 00:03:20.730
+Because you see so much, you can also discover the small
+
+00:03:20.730 --> 00:03:21.570
+accounts.
+
+00:03:21.690 --> 00:03:24.680
+So it's not all Taylor Swift, but you might want
+
+00:03:24.680 --> 00:03:28.380
+to rather discover approachable people in your area or in your
+
+00:03:28.380 --> 00:03:30.510
+area of expertise or something.
+
+00:03:31.380 --> 00:03:34.080
+also for content like movies, books, whatever.
+
+00:03:34.080 --> 00:03:39.520
+And then by that you have this kind of lateral navigation.
+
+00:03:39.520 --> 00:03:42.480
+So shout out to all the people who do this threads kind
+
+00:03:42.480 --> 00:03:46.250
+of navigating style where you can jump between threads by topic.
+
+00:03:46.250 --> 00:03:49.370
+But that's kind of embedded in Twitter or Blue Sky already
+
+00:03:49.370 --> 00:03:49.880
+, right?
+
+00:03:49.880 --> 00:03:53.650
+And the coolest thing about Blue Sky that was kind of cool
+
+00:03:53.650 --> 00:03:58.040
+about Twitter is you have data access and that's where the
+
+00:03:58.040 --> 00:03:59.660
+tech comes in.
+
+00:03:59.860 --> 00:04:03.660
+So I was thinking about how to boost these functions.
+
+00:04:07.050 --> 00:04:10.860
+and of course the first idea I had was do some fancy
+
+00:04:10.860 --> 00:04:12.530
+Follower graph visualization.
+
+00:04:12.530 --> 00:04:18.860
+So you know Theo's work like this beautiful green shiny galaxy
+
+00:04:18.860 --> 00:04:21.130
+and you can dive in and it's pretty cool.
+
+00:04:21.130 --> 00:04:24.540
+And this is like my humble beginning some couple of years back
+
+00:04:24.540 --> 00:04:24.560
+.
+
+00:04:24.560 --> 00:04:28.490
+This is actually the Noster user space and I did some
+
+00:04:28.490 --> 00:04:29.420
+clustering.
+
+00:04:29.420 --> 00:04:31.800
+I don't even know anymore what the coloring was, but
+
+00:04:32.050 --> 00:04:34.350
+this is a force-directed graph around the center,
+
+00:04:34.450 --> 00:04:38.420
+so You could hover over it, but I can't always
+
+00:04:38.420 --> 00:04:41.410
+thought it's it's very beautiful and it gives you kind
+
+00:04:41.410 --> 00:04:45.640
+of a feeling of how things like the the shape of the
+
+00:04:45.960 --> 00:04:49.040
+sphere, but but it's hard to navigate, right?
+
+00:04:49.040 --> 00:04:52.520
+So how how do I use this now to find interesting stuff
+
+00:04:52.520 --> 00:04:52.540
+?
+
+00:04:52.540 --> 00:04:55.340
+I mean I can I can zoom in somewhere and then hover
+
+00:04:55.340 --> 00:04:58.010
+, but I always found that a little bit cumbersome
+
+00:04:58.010 --> 00:04:58.060
+.
+
+00:04:58.060 --> 00:05:02.460
+So what I did is I got more instead of the follow
+
+00:05:02.460 --> 00:05:03.190
+graph.
+
+00:05:03.190 --> 00:05:06.520
+I got into the content graph a little more and So there
+
+00:05:06.520 --> 00:05:11.670
+'s this really cool technology from the 70s Or 80s
+
+00:05:11.670 --> 00:05:14.210
+maybe and and it's called TF-IDF.
+
+00:05:14.210 --> 00:05:15.880
+Does anybody know from when it is?
+
+00:05:15.880 --> 00:05:17.360
+Yeah from when is it?
+
+00:05:17.360 --> 00:05:23.260
+Yeah early 90s even okay, so but it's It
+
+00:05:23.260 --> 00:05:28.690
+'s old and tested battle tested and it's really cool technology
+
+00:05:28.690 --> 00:05:32.730
+to extract keywords basically from a set of documents so and in
+
+00:05:32.740 --> 00:05:37.190
+In blue sky it's easy to just say okay every user
+
+00:05:37.330 --> 00:05:40.800
+account is basically a document So the collection of all your posts
+
+00:05:40.800 --> 00:05:44.300
+that's your document and then you can do these relative term
+
+00:05:44.900 --> 00:05:47.580
+counts and compare and then you know Okay, this user is
+
+00:05:47.580 --> 00:05:51.890
+mentioning a certain topic much more often like Star Trek than all
+
+00:05:51.890 --> 00:05:59.540
+the other users So Star Trek must be important for them One
+
+00:05:59.540 --> 00:06:01.680
+question I wanted to ask to the audience you don't have
+
+00:06:01.680 --> 00:06:03.740
+to answer it now But maybe after the talk you can come
+
+00:06:03.740 --> 00:06:08.260
+to me and explain to me and I am building still a
+
+00:06:08.550 --> 00:06:13.900
+highly individual tokenizing pipeline so tokenizing is the process of
+
+00:06:13.900 --> 00:06:17.500
+cutting the text into the smaller parts which you are actually counting
+
+00:06:17.500 --> 00:06:20.980
+and you have to do lots of cleanup and other stuff like
+
+00:06:20.980 --> 00:06:24.100
+stemming so bring them down to a common word stem so
+
+00:06:24.100 --> 00:06:28.280
+you can compare the words and I just wanted to ask this
+
+00:06:28.280 --> 00:06:30.710
+is normal is everybody doing that or is that kind of a
+
+00:06:30.710 --> 00:06:33.510
+black box approach where you just put in data And it gives
+
+00:06:33.510 --> 00:06:34.460
+you the tokens.
+
+00:06:34.460 --> 00:06:38.300
+I haven't found that yet Also, this is interesting I
+
+00:06:38.300 --> 00:06:41.900
+found I'm doing my own language detection on top of the
+
+00:06:41.940 --> 00:06:47.880
+language declaring by posters because There are many multilingual posters like
+
+00:06:47.880 --> 00:06:51.560
+me from Germany I switch between English and German all the time
+
+00:06:51.560 --> 00:06:54.970
+and a couple of times I will miss it and then I
+
+00:06:54.970 --> 00:06:59.140
+will post German post with English declaration or the other way around
+
+00:06:59.680 --> 00:07:04.510
+So I wanted to show you this beautiful chart which got zero
+
+00:07:04.510 --> 00:07:10.130
+likes when I posted it so here it is again Which illustrates
+
+00:07:10.290 --> 00:07:12.840
+that a little bit so the blue one it it's kind
+
+00:07:12.840 --> 00:07:18.190
+of lateral But still the blue line is the ratio from non
+
+00:07:18.330 --> 00:07:22.420
+EN to non English to English text so for example, you
+
+00:07:22.420 --> 00:07:24.950
+see this nice spike here that's when all the Braz
+
+00:07:24.950 --> 00:07:30.600
+ilians came in because Portuguese or Portuguese speakers came in because Brazil
+
+00:07:30.710 --> 00:07:35.620
+shut down X for a while You have this nice Slope
+
+00:07:35.620 --> 00:07:37.450
+or whatever you call it.
+
+00:07:37.450 --> 00:07:41.630
+This was actually when blue sky introduced their language detection feature in
+
+00:07:41.630 --> 00:07:42.620
+the frontend, right?
+
+00:07:42.620 --> 00:07:45.700
+They started asking you are you actually writing in English so you
+
+00:07:45.940 --> 00:07:49.940
+can pretty nicely see that and then here this is actually a
+
+00:07:49.940 --> 00:07:52.280
+bug so they had a bug so that's why this is
+
+00:07:52.280 --> 00:07:55.120
+not going up, but this is going up and What's
+
+00:07:55.120 --> 00:07:59.430
+also interesting is this is where the u.
+
+00:07:59.430 --> 00:07:59.580
+s.
+
+00:07:59.580 --> 00:08:04.320
+Election happened and You don't see anything because it affected the
+
+00:08:04.320 --> 00:08:07.700
+whole world and everybody was talking about it and the mix of
+
+00:08:07.720 --> 00:08:11.680
+non EN English to English speakers did not change in this time
+
+00:08:11.680 --> 00:08:15.220
+I thought this quite interesting, but still you have like 3
+
+00:08:15.220 --> 00:08:18.980
+% constant errors, and I didn't want to Have that
+
+00:08:18.980 --> 00:08:21.700
+in my in my terms basically I wanted to have pristine
+
+00:08:21.720 --> 00:08:26.000
+English terms or pristine German terms, so Okay.
+
+00:08:26.000 --> 00:08:28.820
+Oh, I've got not one minute left This is where
+
+00:08:28.820 --> 00:08:33.520
+cloud took over So my development not this presentation.
+
+00:08:33.520 --> 00:08:36.940
+I wrote most of it really by hand and Embeddings
+
+00:08:36.940 --> 00:08:38.950
+embeddings are magic.
+
+00:08:38.950 --> 00:08:39.880
+It's like a black box.
+
+00:08:39.880 --> 00:08:42.900
+You throw a text in yeah You get number a number out
+
+00:08:42.900 --> 00:08:45.760
+it gives you a test this takes us here in the space
+
+00:08:45.760 --> 00:08:45.810
+.
+
+00:08:45.950 --> 00:08:49.960
+This is here So I embedded all the text still doing that
+
+00:08:49.960 --> 00:08:52.730
+in real time, which is why I need the max they
+
+00:08:52.730 --> 00:08:56.440
+do that if you pay for that Like get a cloud solution
+
+00:08:56.440 --> 00:09:02.360
+you will be poor in one week the naive approach you are
+
+00:09:02.360 --> 00:09:05.780
+the average of all your posts had some nice results already,
+
+00:09:05.820 --> 00:09:10.790
+but of course everyone contains multitudes so This is what I
+
+00:09:10.790 --> 00:09:11.960
+use now.
+
+00:09:11.960 --> 00:09:14.550
+There is a dive pool discovery feed you can try it out
+
+00:09:14.550 --> 00:09:18.370
+in the blue sky app and This means I have multiple clusters
+
+00:09:18.370 --> 00:09:22.640
+for you and I compare them to Multiple clusters of other users
+
+00:09:22.640 --> 00:09:25.330
+, so if you connect to the dive pool feed and blue
+
+00:09:25.340 --> 00:09:28.430
+sky I will know you I Will know what you posted I
+
+00:09:28.430 --> 00:09:31.880
+can cluster that and I can compare it to the clusters of
+
+00:09:31.880 --> 00:09:39.390
+everybody else so of course I Will skip this the Thing missing
+
+00:09:39.390 --> 00:09:42.740
+is the labels I still need labels so by embeddings I
+
+00:09:42.740 --> 00:09:45.660
+only get the clusters, but when I want to show them
+
+00:09:45.660 --> 00:09:48.640
+to you I want to say this cluster is about these topics
+
+00:09:49.200 --> 00:09:52.140
+So this is why I still need TF IDF, but
+
+00:09:52.550 --> 00:09:57.810
+those labels are shit So to get slightly better labels I embed
+
+00:09:57.810 --> 00:10:04.000
+all the terms basically all the possible keywords and I use that
+
+00:10:04.000 --> 00:10:07.360
+information to find the terms that are closest to the clusters and
+
+00:10:07.360 --> 00:10:12.860
+So I guess thank you for your time Check it out dive
+
+00:10:12.860 --> 00:10:14.880
+pool dot social just go to the page.
+
+00:10:14.880 --> 00:10:17.890
+It's not self-explanatory because I designed it
+
+00:10:18.180 --> 00:10:24.120
+But you will get a feeling for it Outlook I might
+
+00:10:24.120 --> 00:10:29.170
+train QN at some time and That's it.
+
+00:10:29.330 --> 00:10:30.150
+That's my handle.
+
+00:10:30.150 --> 00:10:33.790
+Please follow me ask me everything Anything I'm here at Monday
+
+00:10:33.790 --> 00:10:34.420
+, too.
+
+00:10:34.420 --> 00:10:36.650
+So for those of you who are still here at Monday,
+
+00:10:36.650 --> 00:10:38.610
+please contact me and reach out

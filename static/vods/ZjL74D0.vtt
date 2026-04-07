@@ -1,0 +1,1798 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:04.910
+Yeah, so I'm Aurool and Jakard is
+
+00:00:04.920 --> 00:00:10.160
+the @proto library that I wrote.
+
+00:00:10.160 --> 00:00:14.390
+And yeah, first, I'm going to do a bit
+
+00:00:14.420 --> 00:00:15.820
+about me.
+
+00:00:15.830 --> 00:00:19.320
+I'm an embedded and at this point everything else developer.
+
+00:00:19.330 --> 00:00:21.200
+I design electronics.
+
+00:00:21.210 --> 00:00:24.220
+Atproto kind of hit me like a truck like it
+
+00:00:24.260 --> 00:00:26.320
+did a lot of people here.
+
+00:00:26.320 --> 00:00:29.980
+And yeah, got kind of -- yeah, very, very
+
+00:00:29.990 --> 00:00:31.000
+into it.
+
+00:00:31.010 --> 00:00:33.990
+I was trying to figure out something that felt right to contribute
+
+00:00:34.000 --> 00:00:37.600
+to the atmosphere, a bunch of different things.
+
+00:00:37.610 --> 00:00:40.560
+And yeah, this is -- Jakard and a few different
+
+00:00:40.560 --> 00:00:43.790
+things I've done are -- yeah, what you might call
+
+00:00:43.790 --> 00:00:45.820
+spite-driven development.
+
+00:00:45.820 --> 00:00:48.990
+This was a point where -- yeah, we had -- there
+
+00:00:49.020 --> 00:00:52.580
+were plenty of atproto libraries at the time, but
+
+00:00:52.580 --> 00:00:55.530
+they all kind of sucked to work with, especially back when
+
+00:00:55.530 --> 00:00:56.240
+I started.
+
+00:00:56.270 --> 00:00:58.910
+There were a couple of notable exceptions, but none of them
+
+00:00:58.910 --> 00:01:01.370
+were in Rust, which was my language of choice for a
+
+00:01:01.370 --> 00:01:03.340
+bunch of reasons to get into.
+
+00:01:03.350 --> 00:01:07.090
+I ended up putting another project on hold because I got frustrated
+
+00:01:07.090 --> 00:01:11.020
+and some other friends had similar conversations.
+
+00:01:11.030 --> 00:01:19.170
+And yeah, a lot of this came down to issues
+
+00:01:19.170 --> 00:01:26.760
+with code generation from -- yeah, from lexicons,
+
+00:01:26.760 --> 00:01:30.210
+GraphQL, everything you generate, you have how you specify
+
+00:01:30.210 --> 00:01:35.940
+what you want, and then you need code that does that
+
+00:01:35.940 --> 00:01:39.650
+, you either hand write it or more likely you generate it
+
+00:01:39.650 --> 00:01:42.680
+from some state, be that JSON, be that GraphQL
+
+00:01:42.680 --> 00:01:44.240
+, be that whatever.
+
+00:01:44.240 --> 00:01:48.840
+And unfortunately, most of these fucking suck.
+
+00:01:48.850 --> 00:01:51.360
+You end up -- so you generate all the -- you generate
+
+00:01:51.360 --> 00:01:52.410
+all your bindings.
+
+00:01:52.490 --> 00:01:54.850
+You spend way more time, or these days, LL
+
+00:01:54.900 --> 00:02:02.760
+M tokens writing code around them to make them actually usable.
+
+00:02:02.760 --> 00:02:06.200
+This isn't just an app problem, but it hurts more
+
+00:02:06.200 --> 00:02:09.660
+here, both because lexicons and a lot of them
+
+00:02:09.660 --> 00:02:12.870
+, and especially in the ecosystem for people wanting to not just
+
+00:02:12.950 --> 00:02:15.260
+play in Blue Sky Sandbox.
+
+00:02:15.270 --> 00:02:17.320
+But we do not have to live like this.
+
+00:02:17.330 --> 00:02:20.590
+And in as much as this talk is about the thing that
+
+00:02:20.600 --> 00:02:23.210
+I'm doing, it's also a, no, this
+
+00:02:23.220 --> 00:02:26.890
+is something everybody else can do in whatever language, whatever you
+
+00:02:26.920 --> 00:02:33.780
+can -- we can do this better, especially now.
+
+00:02:33.790 --> 00:02:40.230
+And so, yeah, it's like why Rust for me
+
+00:02:40.230 --> 00:02:40.860
+?
+
+00:02:40.860 --> 00:02:43.870
+This was my language, and it is kind of at this
+
+00:02:43.920 --> 00:02:48.680
+point the only language you can run it literally pretty much anywhere
+
+00:02:48.710 --> 00:02:51.820
+, and it's actually not completely stupid.
+
+00:02:51.830 --> 00:02:54.150
+You can run a lot of things a lot of places,
+
+00:02:54.150 --> 00:02:57.180
+but you would be hard to find defensible reasons.
+
+00:02:57.190 --> 00:02:59.560
+You can at least find defensible reasons for Rust, although
+
+00:02:59.590 --> 00:03:02.830
+there's -- if you're running Rust on your full stack
+
+00:03:02.850 --> 00:03:06.300
+, you better be my kind of pervert.
+
+00:03:06.320 --> 00:03:11.490
+Yeah.
+
+00:03:11.510 --> 00:03:20.330
+And so, yeah, it has a -- excuse me --
+
+00:03:20.360 --> 00:03:23.180
+it has a reputation as a difficult and demanding language.
+
+00:03:23.180 --> 00:03:27.500
+The reputation is sort of deserved and sort of not.
+
+00:03:27.510 --> 00:03:30.240
+And, of course, a lot of Rust libraries go a
+
+00:03:30.250 --> 00:03:32.710
+long way to improving on that state.
+
+00:03:32.730 --> 00:03:35.650
+And, of course, yeah, it's like one of
+
+00:03:35.650 --> 00:03:40.120
+the reasons why I am a fan of it is that,
+
+00:03:40.120 --> 00:03:45.200
+essentially, like, especially coming, for me, from the
+
+00:03:45.200 --> 00:03:47.600
+sea world, the things Rust forces you to think of,
+
+00:03:47.600 --> 00:03:50.490
+the things that people consider demanding difficult, are the things you
+
+00:03:50.510 --> 00:03:54.500
+need to think of anyway, and it makes them explicit.
+
+00:03:54.510 --> 00:03:56.850
+And, of course, like, the whole point, we
+
+00:03:56.910 --> 00:04:00.320
+can make the sharp edges easier if we care to.
+
+00:04:00.330 --> 00:04:01.320
+Yeah.
+
+00:04:01.330 --> 00:04:07.110
+And, again, we do not have to live like this
+
+00:04:07.120 --> 00:04:07.680
+.
+
+00:04:07.690 --> 00:04:09.440
+And, of course -- and this is the thing -- this
+
+00:04:09.440 --> 00:04:15.090
+is peripheral to sort of the whole talk, but this is
+
+00:04:15.110 --> 00:04:18.330
+one of the things that I came out -- ran into that
+
+00:04:18.330 --> 00:04:22.610
+I didn't necessarily expect in the development of Jaccard
+
+00:04:22.610 --> 00:04:22.820
+.
+
+00:04:22.830 --> 00:04:25.760
+And it's basically parse don't validate can only take you
+
+00:04:25.760 --> 00:04:26.320
+so far.
+
+00:04:26.320 --> 00:04:28.640
+This is kind of a truism that you get,
+
+00:04:28.650 --> 00:04:32.900
+and especially among Rust devs, among functional programmers.
+
+00:04:33.010 --> 00:04:35.400
+But the thing is that, like, there's a limit
+
+00:04:35.420 --> 00:04:39.320
+, especially depending on how your language handles errors.
+
+00:04:39.330 --> 00:04:40.320
+Yeah.
+
+00:04:40.330 --> 00:04:42.230
+If surdayjson or surdaycbor can't
+
+00:04:42.230 --> 00:04:45.500
+parse something as the type you're asking of it, you
+
+00:04:45.500 --> 00:04:46.690
+will just get an error.
+
+00:04:46.710 --> 00:04:49.380
+It does not give you the partial.
+
+00:04:49.390 --> 00:04:53.220
+And this is not something that I've got a good solution
+
+00:04:53.240 --> 00:04:53.820
+for.
+
+00:04:53.830 --> 00:04:56.840
+But it also -- but that lack of good solution for it
+
+00:04:56.890 --> 00:04:58.900
+gets us to a different place.
+
+00:04:58.910 --> 00:05:00.970
+And -- hang on.
+
+00:05:01.010 --> 00:05:11.090
+I've just got -- and so, yeah
+
+00:05:11.090 --> 00:05:12.940
+.
+
+00:05:12.950 --> 00:05:14.990
+And so, yeah, it's like atrium previous go
+
+00:05:14.990 --> 00:05:16.300
+-to at ProtoRustCrate.
+
+00:05:16.300 --> 00:05:20.110
+They had typed numbers, the number -- it wasn't just
+
+00:05:20.160 --> 00:05:23.340
+int 60 -- i64, i32, i8.
+
+00:05:23.350 --> 00:05:25.850
+It had a -- it would have a type, and that
+
+00:05:25.850 --> 00:05:28.700
+type encoded the limits, which is cool.
+
+00:05:28.730 --> 00:05:30.400
+It's very -- it's very interesting.
+
+00:05:30.410 --> 00:05:31.830
+In theory, in practice, it's a huge pain in
+
+00:05:31.840 --> 00:05:34.320
+the ass, and this is partially the fault of Rust.
+
+00:05:34.320 --> 00:05:38.500
+Rust type system does not handle that very well.
+
+00:05:38.510 --> 00:05:41.840
+And Jaccard, until recently, mostly just put these
+
+00:05:41.840 --> 00:05:44.390
+as code comments and generated APIs.
+
+00:05:44.410 --> 00:05:46.550
+Just fix that.
+
+00:05:46.610 --> 00:05:49.300
+And yeah, it's kind of the thing.
+
+00:05:49.310 --> 00:05:52.310
+And yeah.
+
+00:05:52.370 --> 00:05:55.090
+And of course, one of the challenges is, like,
+
+00:05:55.090 --> 00:05:58.020
+you've got methods for partial understanding.
+
+00:05:58.030 --> 00:06:01.840
+And this is something that I've really tried to push as
+
+00:06:01.880 --> 00:06:06.600
+far as possible in this without -- where you can have arbitrary
+
+00:06:06.630 --> 00:06:07.230
+data.
+
+00:06:07.290 --> 00:06:10.250
+And I will tell you that that's a lot of what
+
+00:06:10.250 --> 00:06:12.780
+'s going on in the back end here.
+
+00:06:12.790 --> 00:06:16.280
+And I'll show you more about that in a minute.
+
+00:06:16.290 --> 00:06:20.280
+Where'd the -- where'd the timeline go?
+
+00:06:20.280 --> 00:06:21.280
+Oh.
+
+00:06:21.290 --> 00:06:22.450
+Oh, so, overall.
+
+00:06:22.490 --> 00:06:23.480
+Off of that.
+
+00:06:23.480 --> 00:06:24.480
+Anyhow.
+
+00:06:24.480 --> 00:06:25.480
+But yeah.
+
+00:06:25.490 --> 00:06:26.930
+So, it's like, Jaccard has a data
+
+00:06:26.950 --> 00:06:28.620
+type, which is at ProtoInformed.
+
+00:06:28.630 --> 00:06:29.620
+It says all of this.
+
+00:06:29.630 --> 00:06:34.350
+It tries to derive, understand, just by looking at the
+
+00:06:34.350 --> 00:06:36.860
+JSON or CBOAR, what it is, what it
+
+00:06:36.880 --> 00:06:38.150
+'s likely to be.
+
+00:06:38.170 --> 00:06:39.760
+And to work with reform data in useful ways.
+
+00:06:39.770 --> 00:06:42.100
+But it doesn't, of course, handle the scenario where
+
+00:06:42.170 --> 00:06:44.820
+you have something that almost fits, but doesn't.
+
+00:06:44.830 --> 00:06:48.660
+For example, you have a -- and I already showed you
+
+00:06:48.680 --> 00:06:52.200
+in the next slide, or the next bit.
+
+00:06:52.210 --> 00:06:55.490
+For example, you have a whole feed of posts, and
+
+00:06:55.490 --> 00:06:57.990
+one of them has an invalid handle.
+
+00:06:58.010 --> 00:07:00.620
+One of them has -- or something, yeah, something else
+
+00:07:00.620 --> 00:07:05.330
+that doesn't validate, but handle is the really common one
+
+00:07:05.330 --> 00:07:05.870
+.
+
+00:07:05.890 --> 00:07:09.700
+And yeah, this was downstream of a GitHub issue I got
+
+00:07:09.740 --> 00:07:12.080
+early on in the development.
+
+00:07:12.090 --> 00:07:14.950
+And yeah, it's just a shitty developer experience, a
+
+00:07:14.950 --> 00:07:18.330
+shitty user experience to have to do that because you don't
+
+00:07:18.370 --> 00:07:19.700
+have to fall back.
+
+00:07:19.710 --> 00:07:22.340
+You don't have all your -- like, yeah, it
+
+00:07:22.340 --> 00:07:24.910
+'s like in Jaccard, you would have this,
+
+00:07:25.000 --> 00:07:27.480
+which is good, but it's still not your type.
+
+00:07:27.490 --> 00:07:29.720
+You have to do all this extra work.
+
+00:07:29.730 --> 00:07:30.930
+Yeah.
+
+00:07:30.950 --> 00:07:33.060
+And so, yeah, it's like that is, for
+
+00:07:33.060 --> 00:07:35.510
+example, why Jaccard has a carve out for the
+
+00:07:35.510 --> 00:07:38.850
+specific invalid handle, and there's a few other things like
+
+00:07:38.850 --> 00:07:40.080
+that in the library.
+
+00:07:40.090 --> 00:07:43.200
+The decision of when to do that versus not has been a
+
+00:07:43.200 --> 00:07:44.060
+fun thing.
+
+00:07:44.070 --> 00:07:46.900
+It's time to follow this back, and there's a
+
+00:07:46.900 --> 00:07:48.220
+time to refrain.
+
+00:07:48.230 --> 00:07:50.220
+And yeah.
+
+00:07:50.230 --> 00:07:51.220
+All right.
+
+00:07:51.230 --> 00:07:52.220
+We'll see.
+
+00:07:52.230 --> 00:07:53.220
+All right.
+
+00:07:53.220 --> 00:07:55.220
+Keep getting off this.
+
+00:07:55.230 --> 00:08:00.630
+And so, yeah, as much as -- and so this
+
+00:08:00.710 --> 00:08:06.370
+is sort of -- yeah, it's like my pitch,
+
+00:08:06.370 --> 00:08:10.980
+obviously, for my thing, and I think everybody else can
+
+00:08:10.980 --> 00:08:13.780
+-- like, this is -- like, we're all getting
+
+00:08:13.780 --> 00:08:17.160
+better at this in this ecosystem, but we can go so
+
+00:08:17.170 --> 00:08:20.860
+much further, is, like, you have stuff that does
+
+00:08:20.860 --> 00:08:24.280
+your -- does the -- does the work that it can for
+
+00:08:24.280 --> 00:08:27.660
+you, make it very, very easy, pluggable
+
+00:08:27.720 --> 00:08:31.290
+, so that in the Rust case, this is -- everything
+
+00:08:31.290 --> 00:08:32.340
+is traits.
+
+00:08:32.350 --> 00:08:36.160
+Everything is generic, but not generic in a way that screws
+
+00:08:36.200 --> 00:08:39.810
+-- that is a lot of work, has got good default
+
+00:08:39.810 --> 00:08:40.380
+s.
+
+00:08:40.390 --> 00:08:42.460
+And then, yeah, obviously, for me, it's
+
+00:08:42.470 --> 00:08:44.780
+like API code gen that you can just work with.
+
+00:08:44.780 --> 00:08:48.890
+Like, it ends up being reasonably pretty as of a few
+
+00:08:48.890 --> 00:08:49.990
+weeks ago.
+
+00:08:50.020 --> 00:08:51.020
+And yeah.
+
+00:08:51.030 --> 00:08:53.280
+Jacquard, if you're familiar with Rust, you know
+
+00:08:53.300 --> 00:08:54.010
+lifetimes.
+
+00:08:54.020 --> 00:08:57.450
+Lifetimes are everybody's favorite thing, and they're
+
+00:08:57.450 --> 00:09:00.300
+important, but they're also one of the things that I
+
+00:09:00.300 --> 00:09:02.020
+got the most comments on, is, like, this makes
+
+00:09:02.030 --> 00:09:04.450
+this harder, and I didn't want to have that be
+
+00:09:04.450 --> 00:09:05.480
+a barrier.
+
+00:09:05.490 --> 00:09:08.650
+And yeah, honestly, it's funny, because, like
+
+00:09:08.690 --> 00:09:11.160
+, I didn't actually -- I knew sort of when I
+
+00:09:11.160 --> 00:09:15.650
+started writing the library that picking this would -- picking this fight
+
+00:09:15.650 --> 00:09:17.080
+would be a barrier.
+
+00:09:17.090 --> 00:09:20.060
+But I kind of assumed everybody would figure it out.
+
+00:09:20.070 --> 00:09:22.520
+And I also couldn't -- and also, honestly, I
+
+00:09:22.520 --> 00:09:25.180
+didn't -- I hadn't figured out a good way around
+
+00:09:25.190 --> 00:09:28.540
+it until, amusingly, I was looking through some of
+
+00:09:28.580 --> 00:09:32.840
+FIG's code and found a really interesting library there,
+
+00:09:32.840 --> 00:09:34.760
+which we'll discuss in a moment.
+
+00:09:34.770 --> 00:09:37.560
+Oh, before I go back to that, what you're
+
+00:09:37.560 --> 00:09:41.470
+seeing in the background -- a little catch up to real time
+
+00:09:41.470 --> 00:09:47.130
+here, and we'll see -- this is the time hel
+
+00:09:47.160 --> 00:09:47.980
+ix.
+
+00:09:48.050 --> 00:09:51.020
+It was, like, I got -- it was, like
+
+00:09:51.040 --> 00:09:53.050
+, this so amusingly.
+
+00:09:53.070 --> 00:09:55.180
+This was -- yeah, it was, like, I was
+
+00:09:55.180 --> 00:09:57.760
+wanting to do some sort of visualization.
+
+00:09:57.770 --> 00:10:00.480
+And not sure exactly how to end up.
+
+00:10:00.490 --> 00:10:02.960
+And this was -- this was where I landed because somebody posted
+
+00:10:02.960 --> 00:10:04.850
+this and just, like, kind of, nerd snipe
+
+00:10:04.850 --> 00:10:06.040
+the hell out of me.
+
+00:10:06.090 --> 00:10:08.250
+And so this is Jetstream.
+
+00:10:08.280 --> 00:10:11.850
+This is -- everything coming in, well, it's one
+
+00:10:11.850 --> 00:10:16.800
+in ten of everything -- of everything of blue skies, everything
+
+00:10:16.800 --> 00:10:18.480
+of everything else.
+
+00:10:18.490 --> 00:10:20.950
+And yeah, so you can see -- and you can see
+
+00:10:20.950 --> 00:10:23.390
+how, as we go here, like, as whatever I
+
+00:10:23.390 --> 00:10:25.850
+'m messing over shows things.
+
+00:10:25.860 --> 00:10:28.720
+And so this is actually, again -- yeah, so this
+
+00:10:28.720 --> 00:10:32.020
+is hitting these -- like, obviously, some of the data
+
+00:10:32.030 --> 00:10:34.020
+is in the Jetstream data itself.
+
+00:10:34.030 --> 00:10:36.180
+But then it's also pulling on the refs and,
+
+00:10:36.190 --> 00:10:39.820
+of course, constellation, fig, photo for the win.
+
+00:10:39.830 --> 00:10:41.260
+Getting some of that.
+
+00:10:41.270 --> 00:10:42.260
+Yeah.
+
+00:10:42.270 --> 00:10:44.410
+And again, it's, like, doing, kind of
+
+00:10:44.410 --> 00:10:46.860
+, as generic -- like, a generic UI thing.
+
+00:10:46.870 --> 00:10:50.430
+And the fun thing is that -- let me get back over
+
+00:10:50.520 --> 00:10:53.790
+here and see if -- see if we can make this happen
+
+00:10:53.790 --> 00:10:56.580
+, because you've seen me editing text, and that's
+
+00:10:56.580 --> 00:11:00.780
+how I've been editing the slides.
+
+00:11:00.790 --> 00:11:04.670
+If I -- I will probably break something, but we'll
+
+00:11:04.680 --> 00:11:05.320
+see.
+
+00:11:05.330 --> 00:11:07.150
+You will.
+
+00:11:07.170 --> 00:11:08.160
+Yeah.
+
+00:11:08.160 --> 00:11:09.270
+Let's see.
+
+00:11:09.290 --> 00:11:16.280
+Why did we want to -- because, yeah, this is
+
+00:11:16.280 --> 00:11:20.320
+all running on this very, very hardworking little i5
+
+00:11:20.340 --> 00:11:23.090
+here, so -- on the conference Wi-Fi, so
+
+00:11:23.170 --> 00:11:27.660
+I'm impressed it's held up as well as it has
+
+00:11:27.660 --> 00:11:28.160
+.
+
+00:11:28.160 --> 00:11:29.760
+But, yeah.
+
+00:11:29.770 --> 00:11:32.120
+And so, yeah, as you can go -- yeah,
+
+00:11:32.170 --> 00:11:34.960
+so you can -- yeah, it hits the blue sky app
+
+00:11:34.960 --> 00:11:38.810
+for you to get the profiles, just because that was easy
+
+00:11:38.810 --> 00:11:39.160
+.
+
+00:11:39.170 --> 00:11:40.160
+Yeah.
+
+00:11:40.170 --> 00:11:45.300
+But -- where is it gone?
+
+00:11:45.300 --> 00:11:46.800
+I'm finding -- I'm trying to find my damn --
+
+00:11:46.800 --> 00:11:48.800
+yeah.
+
+00:11:48.810 --> 00:11:49.800
+Okay.
+
+00:11:49.810 --> 00:11:50.800
+Yeah.
+
+00:11:50.810 --> 00:11:52.300
+No, I'm not going to -- I'm not going
+
+00:11:52.300 --> 00:11:53.870
+to -- I'm not going to go way too far into
+
+00:11:53.890 --> 00:11:54.340
+this.
+
+00:11:54.340 --> 00:11:57.640
+But, yeah, you can get -- and, yeah,
+
+00:11:57.640 --> 00:12:01.500
+you can, like, change things, and, yeah,
+
+00:12:01.560 --> 00:12:04.160
+it's like, a lot of this is -- so,
+
+00:12:04.180 --> 00:12:06.710
+yeah, so what this actually is -- this is Bevy
+
+00:12:06.710 --> 00:12:07.780
+game engine.
+
+00:12:07.790 --> 00:12:10.800
+This is, like, their UI library just rendering all the
+
+00:12:10.840 --> 00:12:11.470
+slides.
+
+00:12:11.490 --> 00:12:13.410
+And I can -- and, yeah, it's like,
+
+00:12:13.410 --> 00:12:16.060
+it's hot reloading everything from the disk.
+
+00:12:16.070 --> 00:12:18.780
+And so everything sort of streams there, and -- because,
+
+00:12:18.780 --> 00:12:20.660
+yeah, like, the other fun things.
+
+00:12:20.670 --> 00:12:22.480
+And so, yeah, it was, like, this was
+
+00:12:22.520 --> 00:12:25.240
+something just, like, over a couple weeks, and kind
+
+00:12:25.240 --> 00:12:26.340
+of go.
+
+00:12:26.350 --> 00:12:29.040
+And -- but, yeah, and this is all sort of
+
+00:12:29.040 --> 00:12:30.820
+very straightforward.
+
+00:12:30.820 --> 00:12:33.200
+And a lot of this is as easy as it is because
+
+00:12:33.230 --> 00:12:37.240
+of services, because of tools everybody else has built here.
+
+00:12:37.250 --> 00:12:41.060
+Like, everybody in this ecosystem stands on the shoulders of giants
+
+00:12:41.100 --> 00:12:42.110
+, and, yeah.
+
+00:12:42.130 --> 00:12:48.220
+You are making a dent in Flingshot metrics.
+
+00:12:48.230 --> 00:12:49.220
+I bet.
+
+00:12:49.230 --> 00:12:50.220
+I bet.
+
+00:12:50.230 --> 00:12:51.220
+I bet I am right now.
+
+00:12:51.230 --> 00:12:52.220
+I'm very sorry.
+
+00:12:52.230 --> 00:12:54.220
+I will -- Okay.
+
+00:12:54.230 --> 00:12:55.220
+Yeah.
+
+00:12:55.230 --> 00:12:57.430
+I wasn't sure how badly that would show up because,
+
+00:12:57.500 --> 00:13:00.220
+yeah, I am hitting that quite a lot.
+
+00:13:00.230 --> 00:13:01.220
+Yeah.
+
+00:13:01.230 --> 00:13:02.220
+Yeah.
+
+00:13:02.230 --> 00:13:03.220
+All right.
+
+00:13:03.230 --> 00:13:04.220
+Yeah.
+
+00:13:04.230 --> 00:13:05.220
+And -- oh, yeah.
+
+00:13:05.230 --> 00:13:06.220
+The other thing.
+
+00:13:06.230 --> 00:13:07.220
+I'm going to -- yeah.
+
+00:13:07.220 --> 00:13:08.220
+One more.
+
+00:13:08.230 --> 00:13:09.220
+Because, yeah.
+
+00:13:09.230 --> 00:13:15.610
+Like I was saying, with the borrowing -- oh, yes
+
+00:13:15.610 --> 00:13:16.220
+.
+
+00:13:16.230 --> 00:13:21.780
+I'm forgetting I need to get the window back and focus
+
+00:13:21.780 --> 00:13:22.220
+.
+
+00:13:22.230 --> 00:13:26.220
+There we -- so, yeah.
+
+00:13:26.220 --> 00:13:33.220
+It's like this is why you ended up with borrowing.
+
+00:13:33.230 --> 00:13:35.260
+It's like you can either do unsafe in Rust, you
+
+00:13:35.260 --> 00:13:38.320
+can do separate borrowed own types, and then you -- so
+
+00:13:38.320 --> 00:13:39.220
+you end up -- okay.
+
+00:13:39.220 --> 00:13:43.730
+And now, like, Rust is language that has eight types
+
+00:13:43.730 --> 00:13:46.220
+of strings in the default.
+
+00:13:46.230 --> 00:13:47.220
+So, yeah.
+
+00:13:47.220 --> 00:13:50.390
+That plus however many -- at proto lexicons, that
+
+00:13:50.390 --> 00:13:52.200
+didn't feel achievable.
+
+00:13:52.230 --> 00:13:55.070
+And there's a, like, kind of, like,
+
+00:13:55.070 --> 00:13:56.870
+ByteMuck or -- and then there's the bor
+
+00:13:56.870 --> 00:13:58.220
+rower share, which was the thing that I found.
+
+00:13:58.220 --> 00:13:59.220
+And so, yeah.
+
+00:13:59.220 --> 00:14:02.720
+Jacquard is getting some fun things like that that made this
+
+00:14:02.720 --> 00:14:05.940
+all possible in the sense that it's -- oh, yeah
+
+00:14:05.940 --> 00:14:06.220
+.
+
+00:14:06.230 --> 00:14:07.220
+It's a little harder.
+
+00:14:07.230 --> 00:14:14.080
+And let me -- let me pull something over from my display
+
+00:14:14.080 --> 00:14:15.220
+here.
+
+00:14:15.220 --> 00:14:17.220
+So, yeah.
+
+00:14:17.230 --> 00:14:22.200
+This is -- this is the presentation.
+
+00:14:22.230 --> 00:14:24.220
+There's the slides.
+
+00:14:24.230 --> 00:14:27.210
+The QR code.
+
+00:14:27.230 --> 00:14:28.220
+And, yeah.
+
+00:14:28.230 --> 00:14:30.220
+A lot of this is bevy.
+
+00:14:30.230 --> 00:14:31.220
+This is very fun.
+
+00:14:31.230 --> 00:14:32.220
+But, yeah.
+
+00:14:32.230 --> 00:14:37.220
+And then you can kind of hit.
+
+00:14:37.230 --> 00:14:38.220
+Yeah.
+
+00:14:38.230 --> 00:14:40.950
+And so, actually, this provides -- let me minimize this
+
+00:14:40.970 --> 00:14:41.210
+.
+
+00:14:41.230 --> 00:14:42.220
+How big is the font here?
+
+00:14:42.230 --> 00:14:44.220
+Is this too small or too large?
+
+00:14:44.230 --> 00:14:45.220
+Okay.
+
+00:14:45.230 --> 00:14:46.220
+So, yeah.
+
+00:14:46.220 --> 00:14:52.280
+And this is actually kind of a good illustration because Jacquard
+
+00:14:52.280 --> 00:14:57.070
+provides a WebSocket client, runs on the Tokyo runtime
+
+00:14:57.070 --> 00:14:57.220
+.
+
+00:14:57.230 --> 00:14:59.220
+Bevy doesn't really like that.
+
+00:14:59.230 --> 00:15:04.730
+So, this is basically a real implementation on the small as
+
+00:15:04.730 --> 00:15:06.220
+ync runtime.
+
+00:15:06.230 --> 00:15:09.230
+It's like one little source file because it's a very
+
+00:15:09.230 --> 00:15:10.220
+simple trait.
+
+00:15:10.230 --> 00:15:12.980
+And then you can immediately plug in everything else in Jacquard
+
+00:15:12.980 --> 00:15:13.210
+.
+
+00:15:13.220 --> 00:15:15.220
+Just pick that one bit out.
+
+00:15:15.230 --> 00:15:17.220
+There you go.
+
+00:15:17.230 --> 00:15:20.470
+And I didn't end up using -- oh, we'll
+
+00:15:20.480 --> 00:15:22.200
+get to that.
+
+00:15:22.230 --> 00:15:25.880
+I didn't end up using this because I did end up
+
+00:15:25.890 --> 00:15:28.220
+using Tokyo and request.
+
+00:15:28.230 --> 00:15:30.640
+So, this -- but, of course, Bevy's
+
+00:15:30.640 --> 00:15:33.780
+sync -- Bevy is not async friendly, which makes
+
+00:15:33.780 --> 00:15:36.220
+a lot of sense for as a game engine.
+
+00:15:36.220 --> 00:15:39.200
+But you can just do -- yeah.
+
+00:15:39.230 --> 00:15:42.790
+So, again, this is another -- like Jacquard has
+
+00:15:42.790 --> 00:15:44.200
+a client trait.
+
+00:15:44.230 --> 00:15:46.220
+And this is an implementation of it.
+
+00:15:46.220 --> 00:15:49.760
+And on top of that, there is a sync trait and
+
+00:15:49.770 --> 00:15:53.220
+a polling version of it that supports.
+
+00:15:53.230 --> 00:15:55.220
+And, again, it follows in the same pattern.
+
+00:15:55.230 --> 00:15:58.210
+So, you interact with it pretty much the same way.
+
+00:15:58.230 --> 00:15:59.220
+And, yeah.
+
+00:15:59.230 --> 00:16:02.800
+It's like this is sort of example-wise and not
+
+00:16:02.880 --> 00:16:05.220
+intended for, like, use.
+
+00:16:05.220 --> 00:16:08.210
+But you get the idea for -- yeah.
+
+00:16:08.230 --> 00:16:12.180
+Like, this is -- this is why I like what I
+
+00:16:12.180 --> 00:16:16.610
+'ve built because it makes this kind of thing a lot more
+
+00:16:16.610 --> 00:16:19.210
+straightforward than it would have been otherwise.
+
+00:16:19.230 --> 00:16:20.220
+Because, yeah.
+
+00:16:20.230 --> 00:16:22.220
+Like, if -- I don't know any -- yeah.
+
+00:16:22.230 --> 00:16:24.220
+Is there anybody else working with some of the others?
+
+00:16:24.230 --> 00:16:25.220
+It's like, okay.
+
+00:16:25.230 --> 00:16:27.220
+So, I want to color outside the lines.
+
+00:16:27.230 --> 00:16:28.220
+How do I color outside the lines?
+
+00:16:28.230 --> 00:16:30.220
+How do I color outside the lines?
+
+00:16:30.230 --> 00:16:31.220
+The goal is for that to be easy.
+
+00:16:31.230 --> 00:16:34.210
+And for coloring inside the lines to be rewarding.
+
+00:16:34.220 --> 00:16:36.220
+So, yeah.
+
+00:16:36.230 --> 00:16:41.220
+And -- I'm on.
+
+00:16:41.220 --> 00:16:43.220
+So, yeah.
+
+00:16:43.230 --> 00:16:44.220
+Yeah.
+
+00:16:44.230 --> 00:16:46.220
+That's kind of my presentation.
+
+00:16:46.230 --> 00:16:48.910
+I don't know how -- I've got lots of time
+
+00:16:48.910 --> 00:16:49.210
+.
+
+00:16:49.230 --> 00:16:50.220
+But I figured -- yeah.
+
+00:16:50.230 --> 00:16:55.200
+Yeah, we've got lots of time for questions.
+
+00:16:55.230 --> 00:16:58.200
+So, does anyone have any?
+
+00:16:58.230 --> 00:16:59.220
+Yeah.
+
+00:16:59.230 --> 00:17:00.220
+Yes.
+
+00:17:00.230 --> 00:17:04.220
+I'll just wait so the streamers can hear.
+
+00:17:04.230 --> 00:17:10.220
+I'm actually wondering about your background there.
+
+00:17:10.230 --> 00:17:11.220
+Mm-hmm.
+
+00:17:11.230 --> 00:17:15.220
+Because this was -- I saw on BlueSky someone posted
+
+00:17:15.220 --> 00:17:16.220
+-- I don't know.
+
+00:17:16.230 --> 00:17:19.740
+-- the person on Nerds next to you about vibe coding
+
+00:17:19.740 --> 00:17:21.200
+something like this.
+
+00:17:21.230 --> 00:17:22.220
+What?
+
+00:17:22.230 --> 00:17:23.220
+Oh, cool.
+
+00:17:23.230 --> 00:17:24.220
+Yeah.
+
+00:17:24.230 --> 00:17:25.220
+That's pretty neat, though.
+
+00:17:25.220 --> 00:17:25.220
+Yeah.
+
+00:17:25.230 --> 00:17:26.220
+That's pretty neat, though.
+
+00:17:26.230 --> 00:17:29.680
+That's pretty neat though.
+
+00:17:56.230 --> 00:18:03.330
+And in terms of, okay, how do you maintain a
+
+00:18:03.330 --> 00:18:07.240
+quality, how do you maintain a quality, how do you
+
+00:18:07.260 --> 00:18:09.040
+maintain a quality, you know, like, and honestly,
+
+00:18:09.040 --> 00:18:10.160
+I can't write more.
+
+00:18:10.170 --> 00:18:11.810
+So this is because I want to go to the office,
+
+00:18:11.810 --> 00:18:16.010
+and then it's still, oh, that one stuck with
+
+00:18:16.010 --> 00:18:16.880
+it.
+
+00:18:16.910 --> 00:18:19.420
+Oh, I actually, how do I, how do I
+
+00:18:19.420 --> 00:18:20.940
+turn the back on?
+
+00:18:20.950 --> 00:18:22.680
+So I'm going to switch, yeah.
+
+00:18:22.690 --> 00:18:23.900
+Oh, sorry, there we go.
+
+00:18:25.690 --> 00:18:26.240
+My bad.
+
+00:18:26.250 --> 00:18:27.760
+Yeah.
+
+00:18:27.770 --> 00:18:31.680
+Right, yeah.
+
+00:18:31.680 --> 00:18:35.440
+And so, how far back was that turned off?
+
+00:18:35.450 --> 00:18:36.540
+I'm trying to get it.
+
+00:18:36.550 --> 00:18:38.550
+Or do we just want to move on?
+
+00:18:38.570 --> 00:18:39.400
+Anybody?
+
+00:18:39.410 --> 00:18:40.500
+Yeah.
+
+00:18:40.510 --> 00:18:42.880
+Next question.
+
+00:18:42.910 --> 00:18:45.160
+I saw a few more hands here.
+
+00:18:45.170 --> 00:18:46.130
+Yes.
+
+00:18:46.150 --> 00:18:51.320
+So cool.
+
+00:18:51.430 --> 00:18:54.180
+I want to know, like, what are the kind of
+
+00:18:54.180 --> 00:18:57.980
+recursive helices in your visualization represent?
+
+00:18:57.990 --> 00:19:01.080
+It's basically intervals of time.
+
+00:19:01.100 --> 00:19:04.120
+This is like the largest is, I want to say,
+
+00:19:04.170 --> 00:19:06.990
+what did I end up, what did we end up with
+
+00:19:06.990 --> 00:19:07.690
+here?
+
+00:19:07.980 --> 00:19:10.700
+Yeah, so it's like, you ended up with,
+
+00:19:10.700 --> 00:19:14.100
+like, sub-second level time, and then you ended
+
+00:19:14.100 --> 00:19:16.100
+up with, like, about, yeah, it was like
+
+00:19:16.120 --> 00:19:18.230
+, kind of seconds, minutes, sub-second, yeah
+
+00:19:18.230 --> 00:19:18.480
+.
+
+00:19:18.480 --> 00:19:20.450
+Because, of course, Jetstream is so fast.
+
+00:19:20.470 --> 00:19:23.760
+And if you noticed, when you have the slides, when
+
+00:19:23.760 --> 00:19:26.750
+you have the slides up, it slows down, and you
+
+00:19:26.750 --> 00:19:29.740
+see it go past, and then pull the slides down,
+
+00:19:29.740 --> 00:19:31.320
+it catches back up.
+
+00:19:33.370 --> 00:19:41.390
+And you can also pause and go back and far around
+
+00:19:41.390 --> 00:19:41.990
+.
+
+00:19:42.050 --> 00:19:46.950
+This gets a little laggy as it pulls things in,
+
+00:19:46.960 --> 00:19:48.560
+but, yeah.
+
+00:19:48.560 --> 00:19:51.800
+There's an SQLite database that this all gets dumped into
+
+00:19:51.800 --> 00:19:53.400
+for all the past events.
+
+00:19:54.830 --> 00:19:57.840
+The colors are different lexicons, actually, so it
+
+00:19:57.880 --> 00:19:59.970
+'s, yeah, it's, like, it's mostly
+
+00:19:59.970 --> 00:20:02.430
+the common ones, and then it's, like, you
+
+00:20:02.450 --> 00:20:05.460
+see the little, see the little yellow ones?
+
+00:20:05.460 --> 00:20:07.580
+Those are non-Blue Sky lexicons.
+
+00:20:07.590 --> 00:20:09.670
+Most of them will be account events.
+
+00:20:09.680 --> 00:20:10.790
+That's the common one.
+
+00:20:10.830 --> 00:20:12.580
+One thing that I've, one thing that I'm curious
+
+00:20:12.580 --> 00:20:14.180
+about, and actually, let's go look.
+
+00:20:14.190 --> 00:20:18.600
+Because, yeah, let's go, let's, can
+
+00:20:18.610 --> 00:20:20.180
+we get back?
+
+00:20:20.190 --> 00:20:23.340
+There was a, there we go, we got, we
+
+00:20:23.340 --> 00:20:24.560
+got there.
+
+00:20:24.820 --> 00:20:28.690
+There's this little, I keep seeing these little clusters,
+
+00:20:28.690 --> 00:20:31.160
+where it's, like, a bunch of, yeah,
+
+00:20:31.160 --> 00:20:32.620
+they're follows.
+
+00:20:32.620 --> 00:20:36.740
+Yeah, I wonder if this is, like, somebody subscribing
+
+00:20:36.740 --> 00:20:38.300
+to a starter pack?
+
+00:20:38.310 --> 00:20:39.470
+Could be.
+
+00:20:39.510 --> 00:20:43.220
+Or bots, definitely could be bots.
+
+00:20:43.220 --> 00:20:45.140
+Bots and starter packs.
+
+00:20:45.150 --> 00:20:47.140
+All the, all the, all the blue wave people following
+
+00:20:47.140 --> 00:20:48.440
+20,000 people.
+
+00:20:48.450 --> 00:20:52.600
+Yeah, I'm just, like, I wonder if you
+
+00:20:52.600 --> 00:20:55.270
+could, like, just talk to, like, how,
+
+00:20:55.270 --> 00:20:58.270
+at a high level, it kind of is using jac
+
+00:20:58.270 --> 00:21:01.660
+quard, like, in the visualization.
+
+00:21:01.670 --> 00:21:04.000
+See, honestly, this is, this is very high,
+
+00:21:04.070 --> 00:21:04.500
+yeah.
+
+00:21:04.510 --> 00:21:08.390
+So this is pretty high level in the sense that, like
+
+00:21:08.400 --> 00:21:10.470
+, like I said, I, like, I did re
+
+00:21:10.480 --> 00:21:14.080
+-implement a couple of the traits because I needed to
+
+00:21:14.130 --> 00:21:14.440
+.
+
+00:21:14.450 --> 00:21:16.760
+But in terms of, where is it?
+
+00:21:16.770 --> 00:21:18.070
+Yeah, it's, like, this is, this is
+
+00:21:18.090 --> 00:21:19.730
+most, this is the spot that has a hit, a
+
+00:21:19.730 --> 00:21:21.700
+bunch of jacquard stuff, and you're going
+
+00:21:21.700 --> 00:21:23.520
+to scroll through a bunch of bevy UI stuff here.
+
+00:21:23.530 --> 00:21:25.640
+But you can see, this is, yeah, it's
+
+00:21:25.640 --> 00:21:29.020
+, like, Jetstream messages, and then pulling out.
+
+00:21:29.030 --> 00:21:31.280
+And a lot of this is, like, using, kind
+
+00:21:31.280 --> 00:21:34.160
+of, the partial understanding stuff, jacquard's
+
+00:21:34.160 --> 00:21:35.720
+, arbitrary data type.
+
+00:21:35.730 --> 00:21:40.240
+And you kind of, where is it going?
+
+00:21:40.810 --> 00:21:42.740
+But, yeah, and it pulls out embeds.
+
+00:21:42.740 --> 00:21:45.020
+And, actually, where did that go?
+
+00:21:45.030 --> 00:21:49.140
+I kind of remember where I had that.
+
+00:21:49.150 --> 00:21:54.570
+Because I did, in here, I'm trying to find
+
+00:21:54.600 --> 00:21:57.260
+it, but I also just don't want to, like
+
+00:21:57.280 --> 00:22:00.040
+, try to, like, control F for it.
+
+00:22:00.060 --> 00:22:04.230
+Yeah.
+
+00:22:06.470 --> 00:22:08.330
+Yeah, okay, yeah, so this is, this is
+
+00:22:08.330 --> 00:22:08.960
+a fun one.
+
+00:22:08.970 --> 00:22:13.660
+So, this is the response types for constellation.
+
+00:22:13.670 --> 00:22:19.060
+Yeah, and this is a struct for it, did collection
+
+00:22:19.120 --> 00:22:21.020
+, r key, we just, yeah, just did strings
+
+00:22:21.020 --> 00:22:23.600
+for simplicity, and this is the get backlinks query,
+
+00:22:23.600 --> 00:22:23.970
+blue.
+
+00:22:23.970 --> 00:22:24.620
+microcosm.
+
+00:22:24.620 --> 00:22:25.050
+links.
+
+00:22:25.050 --> 00:22:25.980
+get backlinks.
+
+00:22:25.980 --> 00:22:30.880
+This derives XRPC request, and this basically generates
+
+00:22:30.880 --> 00:22:33.780
+all the code that drives everything else.
+
+00:22:33.790 --> 00:22:36.600
+Yes, and so when you, and so how jac
+
+00:22:36.600 --> 00:22:39.670
+quard works is, as we get in here, okay
+
+00:22:39.670 --> 00:22:42.320
+, yeah, this is, does it have, does this
+
+00:22:42.320 --> 00:22:44.320
+function have the call in it?
+
+00:22:44.320 --> 00:22:46.040
+Yes, it does.
+
+00:22:46.050 --> 00:22:50.880
+So, yeah, so this is a get profile call.
+
+00:22:50.890 --> 00:22:53.160
+This is going, hitting the blue sky app view, and
+
+00:22:53.160 --> 00:22:58.180
+you basically just send it.
+
+00:22:59.180 --> 00:23:02.940
+This is, this is, this is, implement this on
+
+00:23:02.940 --> 00:23:05.040
+the ATV client, yeah.
+
+00:23:05.040 --> 00:23:08.970
+And you just send it, and you await, and then
+
+00:23:08.970 --> 00:23:10.830
+you match on the response.
+
+00:23:10.840 --> 00:23:13.980
+You match into output, this gives you a nice owned,
+
+00:23:13.990 --> 00:23:16.020
+easy-to-work-with version.
+
+00:23:16.030 --> 00:23:18.940
+There's also parse that borrows from the buffer, and
+
+00:23:18.940 --> 00:23:22.220
+then, yeah, and so if you get a success,
+
+00:23:22.230 --> 00:23:25.460
+or you get the defined XRPC errors, also,
+
+00:23:25.460 --> 00:23:28.580
+again, from the lexicon, and, yeah,
+
+00:23:28.580 --> 00:23:30.940
+this is doing a lot of handling with that.
+
+00:23:30.970 --> 00:23:32.770
+And then, yeah, this is the request enrichment.
+
+00:23:32.790 --> 00:23:33.950
+This is where we're hitting slingshot.
+
+00:23:33.970 --> 00:23:36.980
+And, again, like, jacquard actually has
+
+00:23:37.020 --> 00:23:40.160
+a built-in slingshot helper that just hits it
+
+00:23:40.160 --> 00:23:42.010
+, which I need to change to use the blue.
+
+00:23:42.020 --> 00:23:42.620
+microcosm.
+
+00:23:42.710 --> 00:23:49.320
+But, yeah, and so, again, fetch record sl
+
+00:23:49.370 --> 00:23:54.610
+ingshot, and jacquard also has fetch record
+
+00:23:54.620 --> 00:23:58.610
+, or get record, that gives you a specific collection type
+
+00:23:58.610 --> 00:23:58.860
+.
+
+00:23:58.870 --> 00:24:01.600
+If you want a profile, it will give you the generated
+
+00:24:01.600 --> 00:24:02.660
+profile struct.
+
+00:24:02.670 --> 00:24:06.230
+And, yeah, this is for arbitrary data, which is
+
+00:24:06.320 --> 00:24:08.180
+why it's hitting that.
+
+00:24:08.770 --> 00:24:10.390
+And, again, yeah, you can kind of, and
+
+00:24:10.390 --> 00:24:11.830
+here's constellation, yeah.
+
+00:24:11.850 --> 00:24:14.720
+And so, you know, if the constellation-based URL
+
+00:24:14.720 --> 00:24:19.630
+, and then construct the query, XRPC, send
+
+00:24:19.630 --> 00:24:20.710
+it.
+
+00:24:20.730 --> 00:24:23.730
+Yeah.
+
+00:24:23.790 --> 00:24:25.400
+Incredible, thank you.
+
+00:24:25.410 --> 00:24:26.340
+So, yeah.
+
+00:24:26.340 --> 00:24:28.940
+Yeah, it's like, this, yeah, this is
+
+00:24:28.940 --> 00:24:31.480
+, that's kind of, yeah, it's like,
+
+00:24:31.480 --> 00:24:32.700
+that's kind of how it works.
+
+00:24:32.710 --> 00:24:33.400
+That's how you use it.
+
+00:24:33.410 --> 00:24:36.670
+You don't, and the whole goal is that you don
+
+00:24:36.680 --> 00:24:38.440
+'t need to do a whole lot.
+
+00:24:38.770 --> 00:24:39.020
+Beyond.
+
+00:24:39.030 --> 00:24:41.180
+Awesome.
+
+00:24:41.210 --> 00:24:43.650
+We have time for maybe one or two more questions, if
+
+00:24:43.650 --> 00:24:45.460
+there's any more in the audience.
+
+00:24:45.470 --> 00:24:46.630
+Yeah.
+
+00:24:46.650 --> 00:24:54.800
+Yeah, could you speak again on what the
+
+00:24:54.800 --> 00:24:59.600
+, did you say that you did make refactor to the
+
+00:24:59.610 --> 00:25:02.160
+lifetime challenges, or you have intended ideas?
+
+00:25:02.170 --> 00:25:06.030
+Oh, so, there, yes, I have.
+
+00:25:06.050 --> 00:25:08.720
+No, I've got, is it, good?
+
+00:25:08.720 --> 00:25:09.440
+Yeah.
+
+00:25:09.440 --> 00:25:10.020
+Okay.
+
+00:25:10.030 --> 00:25:13.840
+So, yeah, up on Tangled, there is a
+
+00:25:13.880 --> 00:25:18.500
+beta branch, boss, BOS dash beta, and that
+
+00:25:18.500 --> 00:25:22.400
+, I did this over last weekend, not this one,
+
+00:25:22.400 --> 00:25:25.360
+yeah, good lord, not this one.
+
+00:25:25.370 --> 00:25:30.420
+Yeah, over the previous weekend, I did refactor away
+
+00:25:30.420 --> 00:25:32.220
+, and that's why you're not seeing a whole bunch
+
+00:25:32.220 --> 00:25:32.920
+of lifetimes in here.
+
+00:25:32.920 --> 00:25:35.510
+This is, this is the beta of that, and so
+
+00:25:35.510 --> 00:25:37.520
+, yeah, I didn't want to go straight to,
+
+00:25:37.520 --> 00:25:40.570
+like, pushing that to main, because there are still some
+
+00:25:40.570 --> 00:25:43.670
+things that is broken on it, in particular, the le
+
+00:25:43.670 --> 00:25:46.990
+xicon, there's a, there's a, yeah
+
+00:25:47.020 --> 00:25:48.790
+, it's like, there's a lexicon-
+
+00:25:48.810 --> 00:25:51.760
+derived macro that still needs a bunch of fixing, but
+
+00:25:51.760 --> 00:25:54.900
+, and I'm sure there are a bunch of other bugs
+
+00:25:54.900 --> 00:25:55.060
+.
+
+00:25:55.070 --> 00:25:58.300
+I found a couple when I was building this, and so
+
+00:25:58.300 --> 00:26:01.540
+, yeah, that, and, yeah, it's like
+
+00:26:01.540 --> 00:26:04.920
+, that makes a lot of things much more possible, especially
+
+00:26:04.920 --> 00:26:08.700
+around interprocess communication, for example, the Deoxys
+
+00:26:08.700 --> 00:26:12.150
+library has a, does not, it requires you to have
+
+00:26:12.150 --> 00:26:16.330
+the deserialized owned constraint, which Jacquard previously
+
+00:26:16.340 --> 00:26:18.160
+cannot support, and now can.
+
+00:26:18.170 --> 00:26:21.730
+So, yeah, yeah, if people want to try out
+
+00:26:21.820 --> 00:26:24.580
+the beta, it's there, if, I can,
+
+00:26:24.580 --> 00:26:26.520
+I can maybe cargo publish it as, like, a beta
+
+00:26:26.520 --> 00:26:28.700
+version, if that's better for people, but, yeah
+
+00:26:28.740 --> 00:26:28.940
+.
+
+00:26:28.950 --> 00:26:33.120
+Awesome, thank you so much, Aruel.
+
+00:26:33.570 --> 00:26:34.400
+- Thank you.
+
+00:26:34.410 --> 00:26:36.240
+- This was very inspiring.

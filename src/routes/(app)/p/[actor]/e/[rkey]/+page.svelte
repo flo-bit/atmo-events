@@ -9,7 +9,8 @@
 	import EventRsvp from '$lib/components/EventRsvp.svelte';
 	import EventCard from '$lib/components/EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
-	import VodPlayer from '$lib/components/VodPlayer.svelte';
+	import VodPlayer, { type VodPlayerApi } from '$lib/components/VodPlayer.svelte';
+	import VodTranscript from '$lib/components/VodTranscript.svelte';
 	import { page } from '$app/state';
 	import { marked } from 'marked';
 	import { sanitize } from '$lib/cal/sanitize';
@@ -258,6 +259,9 @@
 
 	let speakers = $derived(data.speakerProfiles ?? []);
 
+	let vodCurrentTime = $state(0);
+	let vodApi: VodPlayerApi | undefined = $state();
+
 	let attendeesRef: EventAttendees | undefined = $state();
 
 	function handleRsvp(status: 'going' | 'interested') {
@@ -503,8 +507,27 @@
 						>
 							Recording
 						</p>
-						<VodPlayer playlistUrl={data.vod.playlistUrl} title={eventData.name} />
+						<VodPlayer
+							playlistUrl={data.vod.playlistUrl}
+							title={eventData.name}
+							subtitlesUrl="/vods/{rkey}-karaoke.vtt"
+							bind:currentTime={vodCurrentTime}
+							bind:api={vodApi}
+						/>
 					</div>
+
+					<!-- <div class="mt-4 mb-8">
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Transcript
+						</p>
+						<VodTranscript
+							transcriptUrl="/vods/{rkey}.json"
+							currentTime={vodCurrentTime}
+							onseek={(time) => vodApi?.seek(time)}
+						/>
+					</div> -->
 				{/if}
 
 				<!-- Map -->

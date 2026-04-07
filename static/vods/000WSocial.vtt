@@ -1,0 +1,568 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.880
+- Say hi again to the people.
+
+00:00:01.880 --> 00:00:04.640
+- All right, okay, hi camera, hi everybody.
+
+00:00:04.640 --> 00:00:06.740
+I'm John Lindblad, I'm from WSo
+
+00:00:06.740 --> 00:00:07.220
+cial.
+
+00:00:07.220 --> 00:00:10.970
+And if you heard the previous session from Gander, there
+
+00:00:10.970 --> 00:00:13.440
+'s gonna be a lot of similarities here.
+
+00:00:13.440 --> 00:00:16.330
+WSocial is also a new social medium being started up
+
+00:00:16.360 --> 00:00:19.660
+in the same sort of context that we just heard.
+
+00:00:19.660 --> 00:00:22.240
+And we are also very adamant about the ability to be
+
+00:00:22.240 --> 00:00:24.840
+able to trust your feed and maybe quiet things down a little
+
+00:00:25.010 --> 00:00:25.220
+bit.
+
+00:00:26.640 --> 00:00:30.240
+So we sort of want to go back to what the golden
+
+00:00:30.240 --> 00:00:34.030
+age when Twitter was new and actually useful, where we had
+
+00:00:34.030 --> 00:00:40.010
+common understanding and global discussion that we could really participate in in
+
+00:00:40.080 --> 00:00:40.990
+a useful way.
+
+00:00:41.020 --> 00:00:45.830
+We are all for real humans, quality journalism and open debate
+
+00:00:45.900 --> 00:00:46.100
+.
+
+00:00:46.100 --> 00:00:48.940
+So why now?
+
+00:00:48.940 --> 00:00:51.310
+Well, I don't need to go into this so much
+
+00:00:51.340 --> 00:00:51.340
+.
+
+00:00:51.340 --> 00:00:54.720
+You, we already know the situation in the world and in
+
+00:00:54.720 --> 00:00:58.180
+Europe, just as here in Canada, there is a lot
+
+00:00:58.220 --> 00:01:02.740
+of strong feelings about having something that's independent and that nobody
+
+00:01:02.740 --> 00:01:04.520
+should be able to shut down.
+
+00:01:04.520 --> 00:01:06.090
+But we don't want to be separatist, just
+
+00:01:06.090 --> 00:01:07.140
+like most other people.
+
+00:01:07.160 --> 00:01:10.490
+We want to be part of the whole ecosystem here, but
+
+00:01:10.540 --> 00:01:16.960
+not being dependent on certain pieces here that we don't control
+
+00:01:16.980 --> 00:01:17.230
+.
+
+00:01:17.240 --> 00:01:19.970
+So I'll mention some core principles.
+
+00:01:19.980 --> 00:01:23.330
+So we are hosted in Europe, both when it comes to
+
+00:01:23.330 --> 00:01:26.480
+ownership and the actual hosting and all the services.
+
+00:01:26.480 --> 00:01:28.980
+We verify humans, I'll come back to that.
+
+00:01:28.980 --> 00:01:32.340
+We want to be open and transparent.
+
+00:01:32.340 --> 00:01:34.560
+So show exactly what we are doing and why we're doing
+
+00:01:34.570 --> 00:01:35.060
+things.
+
+00:01:35.060 --> 00:01:41.180
+We want to allow free speech according to European laws and norms
+
+00:01:41.180 --> 00:01:41.470
+.
+
+00:01:41.480 --> 00:01:45.430
+We don't want to be interfering in what people say and
+
+00:01:45.430 --> 00:01:46.160
+stuff.
+
+00:01:46.160 --> 00:01:47.160
+Everybody should have their voice.
+
+00:01:47.160 --> 00:01:49.660
+That's why we go back to these verified humans.
+
+00:01:49.660 --> 00:01:53.440
+Anybody who is a human should have this democratic right to say
+
+00:01:53.450 --> 00:01:54.610
+whatever they want.
+
+00:01:54.620 --> 00:01:58.470
+Then as a participant in this network, you also have your
+
+00:01:58.470 --> 00:02:01.260
+right to choose what to listen to or not listen to,
+
+00:02:01.290 --> 00:02:01.700
+of course.
+
+00:02:01.700 --> 00:02:06.860
+So democracy is very important to us.
+
+00:02:10.340 --> 00:02:12.960
+We want to be good at Prado citizens.
+
+00:02:12.960 --> 00:02:15.340
+If we, we are pretty new to this.
+
+00:02:15.340 --> 00:02:17.080
+So if we goof, let us know.
+
+00:02:17.100 --> 00:02:22.070
+We of course wanted to start on at Prado, both
+
+00:02:22.070 --> 00:02:24.830
+from the sort of political point of view, this is the
+
+00:02:24.830 --> 00:02:26.820
+right thing to do, but this is also just as we
+
+00:02:26.820 --> 00:02:31.060
+noticed a cold start problem without 40 million users would be difficult
+
+00:02:31.060 --> 00:02:31.240
+.
+
+00:02:31.240 --> 00:02:33.070
+So it's a no brainer really.
+
+00:02:33.080 --> 00:02:37.140
+Okay, verified humans.
+
+00:02:37.140 --> 00:02:38.140
+You have already seen this.
+
+00:02:38.140 --> 00:02:39.380
+This is a solved problem, right?
+
+00:02:39.420 --> 00:02:41.790
+You just check that box and we know it's human.
+
+00:02:41.840 --> 00:02:44.620
+Maybe.
+
+00:02:44.620 --> 00:02:50.290
+No, so we really want to verify that your users are
+
+00:02:50.290 --> 00:02:50.660
+human.
+
+00:02:50.660 --> 00:02:53.620
+Or we will allow bots and organizations and things like this too
+
+00:02:53.620 --> 00:02:55.100
+, but they will be marked as such.
+
+00:02:55.100 --> 00:02:57.860
+This is an organization, this is a bot and so on
+
+00:02:57.860 --> 00:02:58.190
+.
+
+00:02:58.200 --> 00:03:01.460
+So we actually go all the way to scanning passports or
+
+00:03:01.460 --> 00:03:02.900
+ID documents.
+
+00:03:02.900 --> 00:03:08.500
+So when you click on that little ID badge next to your
+
+00:03:08.500 --> 00:03:11.000
+name, you will be able to see things about who you
+
+00:03:11.000 --> 00:03:11.450
+are.
+
+00:03:11.460 --> 00:03:13.320
+You will see at least, right now, it's only
+
+00:03:13.330 --> 00:03:15.990
+showing that you are a human, but it will show more
+
+00:03:16.000 --> 00:03:19.680
+things about you that you want to share.
+
+00:03:19.680 --> 00:03:21.100
+You can also be anonymous here.
+
+00:03:21.100 --> 00:03:23.220
+You don't have to share your real name, but we
+
+00:03:23.220 --> 00:03:25.140
+will know that you are a human.
+
+00:03:25.140 --> 00:03:27.140
+And how can we know that you're a human and not
+
+00:03:27.170 --> 00:03:28.800
+knowing who you are?
+
+00:03:28.800 --> 00:03:31.480
+Actually, I have this PDS call here.
+
+00:03:31.500 --> 00:03:34.840
+You can see that when you get your profile, you can
+
+00:03:34.840 --> 00:03:36.640
+tell that somebody is a human here.
+
+00:03:36.640 --> 00:03:42.940
+Yeah, we are building the whole system up into two separate
+
+00:03:42.980 --> 00:03:44.210
+domains.
+
+00:03:44.220 --> 00:03:49.040
+We have one part of the system, actually a separate company
+
+00:03:49.040 --> 00:03:51.680
+, that is running something called Widentity.
+
+00:03:51.680 --> 00:03:54.140
+And Widentity, that's the one that's scanning
+
+00:03:54.140 --> 00:03:58.240
+your passport and storing locally in the phone who you are.
+
+00:03:58.240 --> 00:04:01.530
+It will know your nationality, birth date, full name
+
+00:04:01.540 --> 00:04:01.840
+.
+
+00:04:01.840 --> 00:04:05.220
+In some countries, it will know your social security number.
+
+00:04:05.220 --> 00:04:07.440
+It will have the face of your photo, photo of your
+
+00:04:07.440 --> 00:04:08.120
+face.
+
+00:04:09.220 --> 00:04:12.930
+But it will not share that with WSocial.
+
+00:04:12.940 --> 00:04:16.500
+So WSocial is a separate app, separate company that
+
+00:04:16.500 --> 00:04:21.090
+knows, of course, everything that you know about your online
+
+00:04:21.090 --> 00:04:24.150
+life, your posts, your friends, your likes, and
+
+00:04:24.150 --> 00:04:24.680
+all that.
+
+00:04:24.680 --> 00:04:26.780
+But they will not know who you are.
+
+00:04:26.780 --> 00:04:29.110
+The only thing that unifies these two is this UU
+
+00:04:29.110 --> 00:04:33.540
+ID, 32 digit hex random number, basically.
+
+00:04:33.560 --> 00:04:37.510
+So if you are on the WID side, identity side
+
+00:04:37.510 --> 00:04:39.930
+, you will know that this is a human, but not
+
+00:04:39.930 --> 00:04:41.420
+who it is on social media.
+
+00:04:41.420 --> 00:04:43.960
+And on WSocial, you will know that this is
+
+00:04:43.960 --> 00:04:46.350
+somebody, that's a real human, but not who that
+
+00:04:46.480 --> 00:04:46.700
+is.
+
+00:04:46.700 --> 00:04:52.910
+We also bring over nationality and birth year, or actually
+
+00:04:52.910 --> 00:04:54.760
+that's, we are planning to, we are not doing
+
+00:04:54.760 --> 00:04:55.580
+that right now.
+
+00:04:55.580 --> 00:04:58.340
+And optionally, somebody who really wants to verify, I
+
+00:04:58.340 --> 00:05:03.690
+am really this person, should have an ability to verify that
+
+00:05:03.690 --> 00:05:06.780
+this is my real name, if they want to.
+
+00:05:06.780 --> 00:05:07.880
+Some people might want to.
+
+00:05:07.880 --> 00:05:10.920
+Who are we?
+
+00:05:10.920 --> 00:05:14.500
+We are about two dozen people spread out over Europe.
+
+00:05:14.500 --> 00:05:17.800
+WSocial is incorporated in Stockholm, or actually it's
+
+00:05:17.810 --> 00:05:20.280
+not incorporated, it's a foundation.
+
+00:05:20.280 --> 00:05:23.430
+So it's a foundation that owns these two companies, the
+
+00:05:23.450 --> 00:05:27.000
+W Identity Company and the WSocial Company.
+
+00:05:27.000 --> 00:05:29.220
+We have a CEO, Anna Zeiter.
+
+00:05:30.100 --> 00:05:35.480
+She has a background as privacy executive at eBay, and she
+
+00:05:35.490 --> 00:05:38.420
+has a PhD in free speech and data, GDPR and
+
+00:05:38.420 --> 00:05:39.900
+all those things.
+
+00:05:39.900 --> 00:05:41.780
+Legal kind of background.
+
+00:05:41.780 --> 00:05:43.520
+And I'm just a developer.
+
+00:05:43.520 --> 00:05:50.170
+Business model, okay, so we will have some advertisements at
+
+00:05:50.170 --> 00:05:51.740
+some point in the future, we think.
+
+00:05:51.740 --> 00:05:55.000
+And having verified human users is a good thing, because the
+
+00:05:55.000 --> 00:05:58.230
+advertisers typically want to pay more for ads for humans than for
+
+00:05:58.230 --> 00:05:58.900
+ads for bots.
+
+00:05:58.900 --> 00:06:02.970
+And we also, since we have this W Identity app
+
+00:06:02.980 --> 00:06:05.360
+that really knows who you are, and you can connect that
+
+00:06:05.370 --> 00:06:08.390
+app to wallets and banks and stuff, it will be
+
+00:06:08.430 --> 00:06:10.520
+easy for us to add micropayments.
+
+00:06:10.520 --> 00:06:13.230
+So that's really something that we're working on, especially
+
+00:06:13.230 --> 00:06:14.630
+for news media.
+
+00:06:14.700 --> 00:06:16.380
+So we want to work with the news medias.
+
+00:06:16.380 --> 00:06:20.530
+We have negotiations ongoing with a number of different European media houses
+
+00:06:20.540 --> 00:06:23.410
+for how we should not steal their content, but really provide
+
+00:06:23.410 --> 00:06:24.740
+the platform for their content.
+
+00:06:24.740 --> 00:06:32.400
+So we want to redistribute, work together with media
+
+00:06:32.400 --> 00:06:32.930
+sites.
+
+00:06:32.940 --> 00:06:35.300
+What did we do?
+
+00:06:35.300 --> 00:06:39.720
+Okay, we launched this project in January in Davos.
+
+00:06:39.740 --> 00:06:44.400
+And within one week of the announcement, we noticed on our
+
+00:06:44.400 --> 00:06:49.660
+social media monitoring dashboards that we had 1 billion social media
+
+00:06:49.670 --> 00:06:52.060
+views of posts that mentioned W Social.
+
+00:06:52.100 --> 00:06:54.240
+So some attention seems to have come our way.
+
+00:06:54.240 --> 00:07:00.920
+Yeah, and we're just taking in the first few users
+
+00:07:00.930 --> 00:07:01.710
+this week.
+
+00:07:01.720 --> 00:07:04.510
+We want to scale it up a little bit slowly so let
+
+00:07:04.540 --> 00:07:06.520
+'s see that our infrastructure holds up.
+
+00:07:08.240 --> 00:07:11.950
+And the next steps here, so around May timeframe or so
+
+00:07:11.960 --> 00:07:15.460
+, we think that we will be opening up for the wait
+
+00:07:15.460 --> 00:07:16.030
+list.
+
+00:07:16.040 --> 00:07:20.030
+We have a waitlist and then open up for anybody without
+
+00:07:20.040 --> 00:07:22.510
+any sort of invitation codes around that time.
+
+00:07:22.580 --> 00:07:30.020
+And what we hope to do with you here is of course
+
+00:07:30.020 --> 00:07:30.820
+, we want to say hello.
+
+00:07:30.840 --> 00:07:33.420
+We are glad to be here among at Prada friends.
+
+00:07:34.060 --> 00:07:37.100
+And if anybody wants to come with some ideas, proposals,
+
+00:07:37.100 --> 00:07:38.780
+questions, or whatever it is, just say hello.
+
+00:07:38.780 --> 00:07:40.020
+Come to me and we'll talk.
+
+00:07:40.020 --> 00:07:43.480
+This talk is coming to an end so it will have to
+
+00:07:43.480 --> 00:07:45.040
+be offline or afterwards.
+
+00:07:45.040 --> 00:07:48.980
+We really want to be good at Prada citizens.
+
+00:07:48.980 --> 00:07:51.740
+And since we're new to this, we're probably going
+
+00:07:51.740 --> 00:07:53.040
+to do a few things wrong.
+
+00:07:53.080 --> 00:07:55.700
+I already, during this couple of days here, noticed a
+
+00:07:55.700 --> 00:07:57.860
+few things that I should have done differently.
+
+00:07:59.240 --> 00:08:01.910
+We'll fix that whenever you see something that's a bit
+
+00:08:01.920 --> 00:08:04.880
+strange or perhaps even bad, let us know.
+
+00:08:04.880 --> 00:08:09.060
+And we know that a lot of the things that we aspire
+
+00:08:09.060 --> 00:08:12.420
+to do on at Prado is already maybe happening somewhere,
+
+00:08:12.420 --> 00:08:15.500
+like for example, there's permission data and stuff like that
+
+00:08:15.550 --> 00:08:15.760
+.
+
+00:08:15.960 --> 00:08:18.990
+So let us know when we should be taking part in something
+
+00:08:18.990 --> 00:08:19.780
+like that.
+
+00:08:19.780 --> 00:08:23.340
+And we also have a few ideas, especially around this,
+
+00:08:23.340 --> 00:08:28.190
+when it comes to account certification, verification, and account types
+
+00:08:28.190 --> 00:08:28.420
+.
+
+00:08:28.420 --> 00:08:29.800
+So this is a human account.
+
+00:08:29.820 --> 00:08:32.710
+We want to have some sort of commonly agreed upon way to
+
+00:08:32.780 --> 00:08:38.160
+express that so that everybody in the atmosphere can tell.
+
+00:08:38.160 --> 00:08:40.740
+Wish us luck.
+
+00:08:40.740 --> 00:08:45.160
+Thank you.

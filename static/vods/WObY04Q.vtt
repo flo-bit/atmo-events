@@ -1,0 +1,2035 @@
+WEBVTT
+
+00:00:00.770 --> 00:00:02.000
+Awesome.
+
+00:00:02.000 --> 00:00:02.990
+All right.
+
+00:00:03.000 --> 00:00:10.000
+So my name is Baldemar.
+
+00:00:10.000 --> 00:00:14.240
+I help run FurryList, which is a feed
+
+00:00:14.240 --> 00:00:19.470
+, which is a service that provides feeds for the furry community
+
+00:00:19.470 --> 00:00:19.760
+.
+
+00:00:19.760 --> 00:00:21.040
+And let me see here.
+
+00:00:21.040 --> 00:00:25.330
+I completely forgot how to actually do this.
+
+00:00:25.330 --> 00:00:26.340
+Right.
+
+00:00:26.340 --> 00:00:27.830
+There we go.
+
+00:00:27.890 --> 00:00:29.800
+Speaker notes.
+
+00:00:29.800 --> 00:00:30.330
+Awesome.
+
+00:00:30.470 --> 00:00:31.260
+All right.
+
+00:00:31.270 --> 00:00:33.210
+So we're good.
+
+00:00:33.220 --> 00:00:37.200
+So I have a question for you all.
+
+00:00:38.220 --> 00:00:39.790
+Awesome.
+
+00:00:39.860 --> 00:00:45.800
+So what makes you and me different from strangers?
+
+00:00:45.820 --> 00:00:51.080
+So raise your hand if you're a developmental biologist.
+
+00:00:51.080 --> 00:00:54.400
+Raise your hand if you're a Mexican.
+
+00:00:54.400 --> 00:00:55.950
+And now raise your hand if you care about the open web
+
+00:00:55.950 --> 00:00:56.100
+.
+
+00:00:56.100 --> 00:00:57.470
+That should be everyone.
+
+00:00:57.470 --> 00:00:57.780
+Yeah.
+
+00:00:57.850 --> 00:00:58.090
+Okay.
+
+00:00:58.090 --> 00:00:59.060
+That's what I thought.
+
+00:00:59.060 --> 00:00:59.890
+All right.
+
+00:00:59.900 --> 00:01:06.090
+So we have that shared identity and that those shared values.
+
+00:01:06.090 --> 00:01:06.780
+Right.
+
+00:01:06.800 --> 00:01:10.290
+As a and we are sharing this space here as a shared
+
+00:01:10.720 --> 00:01:12.820
+social space based on those values.
+
+00:01:12.820 --> 00:01:13.390
+Right.
+
+00:01:13.390 --> 00:01:18.240
+We have that common foundation of trust to build relationships from.
+
+00:01:18.240 --> 00:01:23.230
+And I'm interested in how exactly we can actually translate those
+
+00:01:24.060 --> 00:01:28.710
+relationships into the online space in a way that actually reflects how
+
+00:01:28.710 --> 00:01:31.980
+they exist in the real world as they exist.
+
+00:01:31.980 --> 00:01:34.580
+And this is what I've kind of been wondering as I
+
+00:01:34.580 --> 00:01:36.480
+have been helping out with FurryList.
+
+00:01:36.490 --> 00:01:37.480
+FurryList.
+
+00:01:37.480 --> 00:01:39.870
+So if you don't know, FurryList is
+
+00:01:39.880 --> 00:01:43.600
+a service on Blue Sky that provides feeds for the furry community
+
+00:01:43.600 --> 00:01:43.720
+.
+
+00:01:43.900 --> 00:01:45.340
+But we don't do a global feed.
+
+00:01:45.340 --> 00:01:47.800
+And we don't just rely on hashtag feeds.
+
+00:01:47.810 --> 00:01:48.800
+Right.
+
+00:01:48.800 --> 00:01:54.100
+What we do is we manually curate every single user that
+
+00:01:54.100 --> 00:01:57.630
+wants to become a member of our community of our feeds.
+
+00:01:57.630 --> 00:02:01.080
+So we've done that for about 64,000 people now
+
+00:02:01.080 --> 00:02:01.210
+.
+
+00:02:01.220 --> 00:02:04.340
+We've started doing that early on in Blue Sky when Ot
+
+00:02:04.350 --> 00:02:07.360
+ter was in charge back then othering our founder.
+
+00:02:07.360 --> 00:02:11.420
+Now Kev has been the lead.
+
+00:02:11.430 --> 00:02:14.160
+And we have grown quite a bit since then.
+
+00:02:14.160 --> 00:02:17.420
+And I'll just show you real quick how it works.
+
+00:02:17.420 --> 00:02:19.580
+I mean, it's nothing too complicated.
+
+00:02:19.600 --> 00:02:21.200
+A user follows us, right?
+
+00:02:21.200 --> 00:02:25.830
+And after that follow, they go into our review backend.
+
+00:02:25.870 --> 00:02:29.900
+Now the follow itself is a signal of intentionality, right
+
+00:02:29.900 --> 00:02:30.140
+?
+
+00:02:30.140 --> 00:02:33.090
+They have signal to us that they would like to join our
+
+00:02:33.100 --> 00:02:33.750
+community.
+
+00:02:33.750 --> 00:02:37.160
+And our review backend, which looks a little something like this
+
+00:02:37.160 --> 00:02:40.360
+, is a way for us to check, first off,
+
+00:02:40.360 --> 00:02:42.560
+whether they are furry.
+
+00:02:42.560 --> 00:02:46.030
+And second off, whether we believe that they would be a
+
+00:02:46.030 --> 00:02:48.220
+good addition to our community.
+
+00:02:48.240 --> 00:02:51.620
+So there is a manual creation to our community at every level
+
+00:02:51.770 --> 00:02:51.860
+.
+
+00:02:51.860 --> 00:02:56.160
+Every single person within our community has been seen by us.
+
+00:02:56.160 --> 00:02:59.720
+And we have made a manual decision about their belonging within our
+
+00:02:59.720 --> 00:03:00.540
+community.
+
+00:03:00.540 --> 00:03:04.560
+Every judgment here is intentional.
+
+00:03:04.570 --> 00:03:07.950
+So this is a classic, you know, bi-dire
+
+00:03:07.960 --> 00:03:08.650
+ctional membership.
+
+00:03:08.650 --> 00:03:11.250
+You know, like the user is part of the community because
+
+00:03:11.270 --> 00:03:12.200
+they wish to be.
+
+00:03:12.260 --> 00:03:15.510
+And the community allows someone to be part of their community as
+
+00:03:15.690 --> 00:03:15.830
+well.
+
+00:03:15.880 --> 00:03:19.550
+This is how most online communities work today, you know?
+
+00:03:20.510 --> 00:03:25.380
+But, and when we do this, we actually create what
+
+00:03:25.380 --> 00:03:26.960
+I'm going to call a trust domain.
+
+00:03:26.960 --> 00:03:29.590
+The user, by being part of, by being part of
+
+00:03:29.590 --> 00:03:33.120
+the community, implicitly at least initially trusts us to make
+
+00:03:33.130 --> 00:03:35.380
+good decisions for the community.
+
+00:03:35.430 --> 00:03:40.550
+And then FurryList then, through this follow record
+
+00:03:40.550 --> 00:03:45.090
+, says that we believe that they are also a trusted member
+
+00:03:45.130 --> 00:03:46.710
+of the community.
+
+00:03:46.720 --> 00:03:48.590
+And, you know, again, this is how most online
+
+00:03:48.990 --> 00:03:49.720
+communities work.
+
+00:03:49.720 --> 00:03:54.090
+But there are a few issues here that I think I've
+
+00:03:54.100 --> 00:03:56.530
+, that I started to think about.
+
+00:03:56.550 --> 00:04:02.590
+Now, the community depends on us for infrastructure and their existence
+
+00:04:02.630 --> 00:04:02.860
+.
+
+00:04:02.860 --> 00:04:05.730
+Now, to be clear, the community is defined through public
+
+00:04:05.770 --> 00:04:06.830
+records, right?
+
+00:04:06.850 --> 00:04:07.360
+Like, we follow them.
+
+00:04:07.360 --> 00:04:09.740
+The follow is a public, is a public record.
+
+00:04:09.740 --> 00:04:12.990
+But we're the ones who provide the feeds for Furry
+
+00:04:12.990 --> 00:04:13.370
+List.
+
+00:04:13.380 --> 00:04:15.360
+And this is, but why is that?
+
+00:04:15.370 --> 00:04:17.950
+Well, let's see, let's go through, uh
+
+00:04:17.950 --> 00:04:21.510
+, through what happens when we revoke a record, right
+
+00:04:21.510 --> 00:04:21.680
+?
+
+00:04:21.680 --> 00:04:23.940
+I mean, if we revoke a record, then there
+
+00:04:24.000 --> 00:04:26.320
+'s no proof that we have about.
+
+00:04:26.320 --> 00:04:28.540
+There's no historicity to the community.
+
+00:04:28.650 --> 00:04:32.540
+When it's gone, it's really difficult to prove that
+
+00:04:32.540 --> 00:04:35.100
+you were part of the community at a protocol level.
+
+00:04:35.110 --> 00:04:40.270
+And God forbid, if we stop existing, there is no
+
+00:04:40.270 --> 00:04:44.480
+proof that the community ever existed in the first place.
+
+00:04:44.680 --> 00:04:47.330
+There's no history or path forward.
+
+00:04:47.330 --> 00:04:49.420
+Everything has to be rebuilt from scratch.
+
+00:04:49.490 --> 00:04:51.480
+The community itself dissolves.
+
+00:04:51.480 --> 00:04:53.100
+I mean, this is as if a social media site,
+
+00:04:53.100 --> 00:04:54.760
+you know, like, were to disappear.
+
+00:04:54.760 --> 00:04:56.980
+Like, it, you might be able to have a few
+
+00:04:56.980 --> 00:05:01.230
+friends to find, but the entire social graph itself is gone
+
+00:05:01.230 --> 00:05:01.940
+, right?
+
+00:05:01.950 --> 00:05:06.050
+So, I, I divide these problems into, into two
+
+00:05:06.050 --> 00:05:08.120
+different domains.
+
+00:05:08.120 --> 00:05:11.810
+First, the trust service, the trust domain, lives in
+
+00:05:11.890 --> 00:05:13.350
+the records that we control.
+
+00:05:13.360 --> 00:05:16.550
+And if we, and they don't exist independently of us
+
+00:05:16.550 --> 00:05:17.070
+, right?
+
+00:05:17.090 --> 00:05:20.840
+And secondly, there's no easy way to organize, find
+
+00:05:20.840 --> 00:05:24.220
+, or navigate what others build on our work.
+
+00:05:24.220 --> 00:05:26.820
+Again, it's not impossible, but it's, but
+
+00:05:26.820 --> 00:05:30.060
+, but there's no surface through which to find new things
+
+00:05:30.060 --> 00:05:30.280
+.
+
+00:05:30.290 --> 00:05:34.470
+We become the default space, and we don't want to
+
+00:05:34.470 --> 00:05:36.600
+be the default space.
+
+00:05:36.600 --> 00:05:39.100
+Like, we provide default fees, but we don't want
+
+00:05:39.100 --> 00:05:42.510
+to do extended governance, uh, uh, because that,
+
+00:05:42.520 --> 00:05:46.120
+in, in, that enhances the surface through which conflict can
+
+00:05:46.120 --> 00:05:47.060
+happen with a community.
+
+00:05:47.070 --> 00:05:48.060
+Right?
+
+00:05:48.060 --> 00:05:49.060
+We have a limited mandate.
+
+00:05:49.060 --> 00:05:52.050
+Our mandate is to vet members of the community.
+
+00:05:52.060 --> 00:05:55.480
+If we start doing additional governance on top of that, that
+
+00:05:55.480 --> 00:05:58.450
+is additional surfaces through which we can come in conflict with the
+
+00:05:58.460 --> 00:05:58.880
+community.
+
+00:05:58.890 --> 00:06:02.220
+And we put so much effort into, into creating this community
+
+00:06:02.220 --> 00:06:02.480
+.
+
+00:06:02.480 --> 00:06:05.000
+We don't want it to go all to waste because of
+
+00:06:05.000 --> 00:06:07.340
+a, because of a mistake that we made.
+
+00:06:07.350 --> 00:06:09.670
+And, and if, because again, if we make a
+
+00:06:09.670 --> 00:06:13.740
+mistake and things collapse, it cannot exist independently of us,
+
+00:06:13.740 --> 00:06:13.880
+right?
+
+00:06:13.880 --> 00:06:15.200
+These are connected issues.
+
+00:06:15.970 --> 00:06:20.100
+Oh, and, um, so thankfully there, the,
+
+00:06:20.100 --> 00:06:22.060
+uh, permission that I, I don't, I'm
+
+00:06:22.230 --> 00:06:24.320
+sure that you, a lot of you guys have been looking
+
+00:06:24.340 --> 00:06:26.610
+at, uh, the permission data infrastructure proposal, or,
+
+00:06:26.620 --> 00:06:28.400
+you know, like rough proposals that it has been doing,
+
+00:06:28.400 --> 00:06:30.950
+that I think that actually solves one of the issues, uh
+
+00:06:30.950 --> 00:06:32.160
+, uh, pretty cleanly.
+
+00:06:32.170 --> 00:06:33.160
+And that's ownership.
+
+00:06:33.160 --> 00:06:36.990
+So essentially we have a, we have a spectrum here from
+
+00:06:36.990 --> 00:06:39.150
+private to public data, right?
+
+00:06:39.170 --> 00:06:41.810
+The, the, the protocol itself was designed for private,
+
+00:06:41.810 --> 00:06:44.620
+with, with a public data in mind, and you know
+
+00:06:44.620 --> 00:06:47.020
+, the extreme end of private data would be end to end
+
+00:06:47.020 --> 00:06:47.160
+encryption.
+
+00:06:47.170 --> 00:06:49.420
+Well, it's two parties who, who, who share
+
+00:06:49.470 --> 00:06:51.100
+a, a, a, a, a trust boundary,
+
+00:06:51.120 --> 00:06:54.160
+which is probably the smallest trust boundary you can make.
+
+00:06:55.110 --> 00:06:58.810
+Now, permission spaces are things, for example, like a
+
+00:06:58.810 --> 00:07:01.390
+discord, like a private subreddit or a private forum
+
+00:07:01.390 --> 00:07:02.160
+, right?
+
+00:07:02.170 --> 00:07:06.680
+These are spaces where there is, uh, where there is
+
+00:07:06.680 --> 00:07:09.160
+a shared domain of trust.
+
+00:07:09.170 --> 00:07:11.530
+Um, you know, like people within the, a discord
+
+00:07:11.530 --> 00:07:14.670
+community can see everything within the community, but they can't
+
+00:07:14.690 --> 00:07:16.160
+, but people outside of it cannot.
+
+00:07:16.170 --> 00:07:19.030
+Um, so this is, I, this I think is
+
+00:07:19.090 --> 00:07:22.950
+where the importance, uh, the, the, uh,
+
+00:07:23.130 --> 00:07:27.000
+the interesting, uh, like the interesting part for communities lie
+
+00:07:27.000 --> 00:07:27.160
+.
+
+00:07:27.170 --> 00:07:30.790
+And when thinking about, uh, when thinking about ownership of
+
+00:07:30.790 --> 00:07:33.950
+these trust domains, I think that the, that, uh
+
+00:07:34.120 --> 00:07:36.550
+, that blue sky has come up with, uh, uh
+
+00:07:36.550 --> 00:07:38.160
+, a correct solution.
+
+00:07:38.170 --> 00:07:40.490
+So here again, bi-directional follows, uh,
+
+00:07:40.490 --> 00:07:42.610
+each record here lives in the, in, uh, in
+
+00:07:42.610 --> 00:07:45.720
+each author's repository, which is, you know, how
+
+00:07:45.720 --> 00:07:47.150
+follow records typically work.
+
+00:07:47.170 --> 00:07:50.950
+However, uh, within the permission data infrastructure draft so far
+
+00:07:50.960 --> 00:07:54.780
+, there is a sign at the station that the ACL maintain
+
+00:07:54.780 --> 00:07:57.090
+er, the access control list maintainer, writes to the
+
+00:07:57.110 --> 00:08:00.160
+, to the user's, um, uh, repository.
+
+00:08:00.170 --> 00:08:03.400
+This is signed and this is verifiable independently of whether the
+
+00:08:03.400 --> 00:08:05.150
+ACL maintainer wants to or not.
+
+00:08:05.170 --> 00:08:07.160
+And it lives in the user's repository.
+
+00:08:07.170 --> 00:08:09.160
+It exists independently, right?
+
+00:08:09.170 --> 00:08:12.640
+So this becomes in a way a historical fact, even if
+
+00:08:12.640 --> 00:08:16.160
+, even if there is a retraction of the credential,
+
+00:08:16.190 --> 00:08:20.410
+um, this, uh, this credential still exists and it
+
+00:08:20.410 --> 00:08:23.030
+exists independently of the ACL maintainer.
+
+00:08:23.170 --> 00:08:25.800
+Um, now let's think about what furry list does today
+
+00:08:25.800 --> 00:08:28.630
+, uh, compared to the ACL maintainer in the permission
+
+00:08:28.630 --> 00:08:29.160
+spec.
+
+00:08:29.170 --> 00:08:35.160
+So we curate a membership list.
+
+00:08:35.170 --> 00:08:36.160
+They also curate a membership list.
+
+00:08:36.170 --> 00:08:37.160
+We do vetting.
+
+00:08:37.170 --> 00:08:39.160
+They also have to do vetting of some kind.
+
+00:08:39.170 --> 00:08:41.160
+Uh, we use followbacks as proofs.
+
+00:08:41.170 --> 00:08:43.160
+Credentials in this scenario are proof.
+
+00:08:43.170 --> 00:08:45.160
+We use unfollows as removals.
+
+00:08:45.170 --> 00:08:47.160
+You can also do credential withdrawals.
+
+00:08:47.170 --> 00:08:48.960
+Stop admitting, uh, uh, by, you know,
+
+00:08:48.960 --> 00:08:50.150
+not issuing any new ones.
+
+00:08:50.170 --> 00:08:52.160
+We already kind of act like an ACL.
+
+00:08:52.170 --> 00:08:55.150
+We just don't issue any credentials yet.
+
+00:08:55.170 --> 00:08:58.030
+So this is the, this is, uh, how things
+
+00:08:58.030 --> 00:09:02.160
+existed before, you know, again, no historicity.
+
+00:09:02.170 --> 00:09:05.950
+But think about how things look when we actually use these ver
+
+00:09:05.960 --> 00:09:09.160
+ifiable, uh, these verifiable credentials.
+
+00:09:09.170 --> 00:09:13.230
+A retraction really is not, uh, like, it
+
+00:09:13.230 --> 00:09:16.160
+, it, it's not an erasure.
+
+00:09:16.170 --> 00:09:18.640
+I think about it kind of like how, uh, you
+
+00:09:18.650 --> 00:09:21.090
+know, like, uh, uh, a scientific journal retract
+
+00:09:21.090 --> 00:09:22.160
+s a paper.
+
+00:09:22.170 --> 00:09:24.160
+A retraction is a statement that says, we made a
+
+00:09:24.160 --> 00:09:24.160
+mistake.
+
+00:09:24.170 --> 00:09:26.580
+We no longer believe, uh, this statement that we made
+
+00:09:26.580 --> 00:09:27.150
+is true.
+
+00:09:27.170 --> 00:09:29.160
+But the paper's still available.
+
+00:09:29.170 --> 00:09:30.160
+Similar here.
+
+00:09:30.170 --> 00:09:31.160
+It's a statement.
+
+00:09:31.170 --> 00:09:33.160
+Like a labeler, right?
+
+00:09:33.170 --> 00:09:36.160
+Um, the, the history of the decision is preserved.
+
+00:09:36.170 --> 00:09:40.160
+And the governance that results from it becomes auditable.
+
+00:09:40.170 --> 00:09:44.750
+And if we disappear, um, in theory, the,
+
+00:09:44.750 --> 00:09:48.690
+the, the, the history of the community survives.
+
+00:09:49.170 --> 00:09:50.160
+Because the credentials still exist.
+
+00:09:50.170 --> 00:09:52.160
+They exist within the user repository.
+
+00:09:52.170 --> 00:09:55.280
+And in theory, a path to credential, uh, to
+
+00:09:55.280 --> 00:09:57.150
+recovery is possible.
+
+00:09:57.170 --> 00:10:02.150
+But the important part is that it's possible.
+
+00:10:02.170 --> 00:10:04.670
+That does not mean that it is, uh, that,
+
+00:10:04.670 --> 00:10:06.160
+that it will happen.
+
+00:10:06.170 --> 00:10:11.940
+Without a structure to reorganize around, without a matrix that
+
+00:10:11.940 --> 00:10:14.930
+, that, that the community exists in, the community still
+
+00:10:15.110 --> 00:10:16.160
+becomes a diaspora, right?
+
+00:10:16.170 --> 00:10:18.730
+If we're just defined by the, by, by the
+
+00:10:18.730 --> 00:10:20.880
+ACL, then we're still back to the, to square
+
+00:10:20.880 --> 00:10:21.160
+one.
+
+00:10:21.170 --> 00:10:22.160
+If we disappear.
+
+00:10:22.170 --> 00:10:23.160
+And if our feeds disappear, right?
+
+00:10:23.170 --> 00:10:25.160
+There's nothing to reorganize around.
+
+00:10:25.170 --> 00:10:29.780
+Now, we, I think that credential solves the first part
+
+00:10:29.780 --> 00:10:31.160
+pretty nicely.
+
+00:10:31.170 --> 00:10:32.160
+But what about the second part?
+
+00:10:32.170 --> 00:10:34.160
+What about the structure itself?
+
+00:10:34.170 --> 00:10:36.980
+So to do this, I would like to, uh,
+
+00:10:37.010 --> 00:10:40.640
+talk about one of my, uh, favorite feeds, which
+
+00:10:40.670 --> 00:10:41.160
+is the science feed.
+
+00:10:41.170 --> 00:10:44.490
+And in many ways, the science feed, um, it
+
+00:10:44.490 --> 00:10:47.160
+does similar work to furry list.
+
+00:10:47.170 --> 00:10:51.160
+The science feed, uh, manually checks orchids.
+
+00:10:51.170 --> 00:10:53.950
+They do staff page, page checks to check whether, uh
+
+00:10:53.950 --> 00:10:56.210
+, something is, uh, uh, whether an account is
+
+00:10:56.220 --> 00:10:57.160
+associated with a professor.
+
+00:10:57.170 --> 00:10:59.160
+They check publication lists.
+
+00:10:59.170 --> 00:11:01.680
+They really do the field work, uh, to, to
+
+00:11:01.680 --> 00:11:05.160
+verify whether someone is part of their, of, uh,
+
+00:11:05.160 --> 00:11:07.160
+their, you know, scientific community.
+
+00:11:07.170 --> 00:11:11.480
+This has created, like, an extraordinary trust surface of thousands
+
+00:11:11.480 --> 00:11:14.160
+and thousands of real world scientists.
+
+00:11:14.170 --> 00:11:16.320
+It, it, it, it really is just an incredible
+
+00:11:16.320 --> 00:11:19.150
+undertaking, what they have been able to make here.
+
+00:11:19.170 --> 00:11:22.550
+But, like, think about, like, what results from
+
+00:11:22.550 --> 00:11:23.160
+this.
+
+00:11:23.170 --> 00:11:26.140
+It's just one feed.
+
+00:11:26.170 --> 00:11:28.160
+And it's good feed.
+
+00:11:28.170 --> 00:11:29.160
+And I love using that feed.
+
+00:11:29.170 --> 00:11:31.160
+But a feed is not a space.
+
+00:11:31.170 --> 00:11:35.160
+It's a one of many different conversations that can happen.
+
+00:11:35.170 --> 00:11:36.660
+I mean, I want to talk, you know, I
+
+00:11:36.660 --> 00:11:38.150
+'m a developmental biologist.
+
+00:11:38.170 --> 00:11:40.140
+I want to talk about, like, some help with,
+
+00:11:40.140 --> 00:11:42.160
+like, my zebrafish experiments.
+
+00:11:42.170 --> 00:11:43.160
+Or how to use a particular microscope.
+
+00:11:43.170 --> 00:11:44.160
+Or help with grant proposals.
+
+00:11:44.170 --> 00:11:45.160
+Things like that.
+
+00:11:45.170 --> 00:11:48.160
+This would be an amazing trust surface to use it on.
+
+00:11:48.170 --> 00:11:51.030
+Because I know that the people that are here know what they
+
+00:11:51.030 --> 00:11:52.160
+'re talking about.
+
+00:11:52.170 --> 00:11:55.140
+But there's nothing there to go to.
+
+00:11:55.170 --> 00:11:57.160
+And it's not because of the protocol.
+
+00:11:57.170 --> 00:12:01.160
+The, like, this is publicly accessible.
+
+00:12:01.170 --> 00:12:03.160
+You can make it, technically.
+
+00:12:03.170 --> 00:12:04.600
+And, you know, like, you can make that space
+
+00:12:04.600 --> 00:12:05.160
+if you wish.
+
+00:12:05.170 --> 00:12:07.160
+But there is no way to find it.
+
+00:12:07.170 --> 00:12:08.160
+Right?
+
+00:12:08.170 --> 00:12:10.160
+There's no way to, to, to find.
+
+00:12:10.170 --> 00:12:13.150
+There's no way to find what has been built off of
+
+00:12:13.160 --> 00:12:15.150
+this infrastructure here.
+
+00:12:15.170 --> 00:12:18.160
+No matrix through which the community itself can exist.
+
+00:12:18.170 --> 00:12:21.150
+Apart from what the maintainer itself provides.
+
+00:12:21.170 --> 00:12:24.140
+So, why does this happen?
+
+00:12:24.170 --> 00:12:28.880
+I think this is because of something that we should all be
+
+00:12:28.880 --> 00:12:30.160
+familiar here.
+
+00:12:30.170 --> 00:12:32.160
+When we think about the app protocol.
+
+00:12:32.170 --> 00:12:35.150
+And that's the tendency towards centralization.
+
+00:12:35.170 --> 00:12:37.160
+People want to be where the people are.
+
+00:12:37.170 --> 00:12:38.160
+You know?
+
+00:12:38.170 --> 00:12:42.160
+Like, distribution is not a good user experience.
+
+00:12:42.170 --> 00:12:44.160
+During the beginning there were many.
+
+00:12:44.170 --> 00:12:47.500
+But, because everyone wants to be in one place where everyone
+
+00:12:47.520 --> 00:12:48.160
+else is.
+
+00:12:48.170 --> 00:12:51.150
+Everything converges to one maintainer.
+
+00:12:51.170 --> 00:12:52.160
+The landlord.
+
+00:12:52.170 --> 00:12:55.240
+Same thing that happened with, you know, like, you
+
+00:12:55.240 --> 00:12:56.160
+know, the online social web as well.
+
+00:12:56.170 --> 00:12:58.550
+Everything converges to one because people want to be where the
+
+00:12:58.550 --> 00:12:59.150
+people are.
+
+00:12:59.170 --> 00:13:00.160
+You know?
+
+00:13:00.170 --> 00:13:02.090
+And I think, I think that a lot of people kind
+
+00:13:02.090 --> 00:13:03.150
+of ask the question.
+
+00:13:03.170 --> 00:13:05.160
+Like, how can we fight this?
+
+00:13:05.170 --> 00:13:08.780
+I don't think that this is really something that we can
+
+00:13:08.780 --> 00:13:10.150
+or should fight.
+
+00:13:10.170 --> 00:13:13.150
+It's not a good user experience to do so.
+
+00:13:13.170 --> 00:13:16.500
+Blue Sky and the app protocol so far has been successful precisely
+
+00:13:16.520 --> 00:13:17.160
+because it doesn't fight it.
+
+00:13:17.170 --> 00:13:18.160
+You know?
+
+00:13:18.170 --> 00:13:20.910
+Blue Sky itself, you know, is the entryway into
+
+00:13:20.910 --> 00:13:22.160
+the app protocol.
+
+00:13:22.170 --> 00:13:25.350
+But it does not make you make a choice about which app
+
+00:13:25.350 --> 00:13:26.160
+you will use.
+
+00:13:26.170 --> 00:13:28.730
+Because Blue Sky is the default and it's what everyone else
+
+00:13:28.730 --> 00:13:29.150
+uses.
+
+00:13:29.170 --> 00:13:33.220
+And from there you can make the choice to exit if you
+
+00:13:33.220 --> 00:13:34.150
+want to.
+
+00:13:34.170 --> 00:13:36.340
+I think that we can do something similar if we, with
+
+00:13:36.480 --> 00:13:37.150
+communities.
+
+00:13:37.170 --> 00:13:43.160
+By giving that centralizing force a limited mandate.
+
+00:13:43.170 --> 00:13:46.150
+And by making community infrastructure independent, like credentials.
+
+00:13:46.170 --> 00:13:53.160
+And then make community infrastructure discoverable from the community definition.
+
+00:13:53.170 --> 00:13:57.160
+From what something like furry list creates.
+
+00:13:57.170 --> 00:14:02.150
+So, if we allow members of a community to say,
+
+00:14:02.150 --> 00:14:04.160
+define a government social space.
+
+00:14:04.170 --> 00:14:06.160
+Which I'm going to call a venue here.
+
+00:14:06.170 --> 00:14:08.160
+Through some kind of record.
+
+00:14:08.170 --> 00:14:15.160
+Then that record becomes a link between the infrastructure of the community
+
+00:14:15.160 --> 00:14:15.160
+.
+
+00:14:15.170 --> 00:14:17.160
+And the definition of the community.
+
+00:14:17.170 --> 00:14:19.160
+The credentials of the community.
+
+00:14:19.170 --> 00:14:22.150
+And this opens up a ton of affordances.
+
+00:14:22.170 --> 00:14:27.150
+Governance now, has a surface for disagreement.
+
+00:14:27.170 --> 00:14:30.150
+There's two governances here, right?
+
+00:14:30.170 --> 00:14:32.160
+There's not just the one governance for us.
+
+00:14:32.170 --> 00:14:35.150
+Which means that if we make, if we make a mistake
+
+00:14:35.160 --> 00:14:35.160
+.
+
+00:14:35.170 --> 00:14:36.160
+Or something the community disagrees with.
+
+00:14:36.170 --> 00:14:39.150
+There is a surface here through which that disagreement can surface.
+
+00:14:39.170 --> 00:14:41.160
+And be absorbed.
+
+00:14:41.170 --> 00:14:42.160
+Not necessarily the member level.
+
+00:14:42.170 --> 00:14:45.150
+But at the actual spaces where people exist.
+
+00:14:45.170 --> 00:14:49.160
+And this can create back pressure.
+
+00:14:49.170 --> 00:14:54.370
+So, the relationship between these two is now surfaceable at
+
+00:14:54.370 --> 00:14:56.160
+a protocol level.
+
+00:14:56.170 --> 00:14:59.140
+Which means that apps.
+
+00:14:59.170 --> 00:15:01.160
+And app user apps.
+
+00:15:01.170 --> 00:15:04.140
+Can surface this connection.
+
+00:15:04.170 --> 00:15:06.160
+Between the community infrastructure.
+
+00:15:06.170 --> 00:15:08.160
+And the community definition itself.
+
+00:15:08.170 --> 00:15:15.160
+And because this is emergent from the community itself.
+
+00:15:15.170 --> 00:15:16.160
+And the community members.
+
+00:15:16.170 --> 00:15:19.140
+Plurality kind of becomes the norm.
+
+00:15:19.170 --> 00:15:22.030
+There are many spaces that are run by self-select
+
+00:15:22.140 --> 00:15:23.160
+ed stewards.
+
+00:15:23.170 --> 00:15:27.420
+Who have decided they care enough about the community to create these
+
+00:15:27.420 --> 00:15:28.150
+spaces.
+
+00:15:28.170 --> 00:15:32.100
+That create, that create like different spaces for different needs for
+
+00:15:32.120 --> 00:15:33.150
+the community.
+
+00:15:33.170 --> 00:15:35.160
+With different types of governances.
+
+00:15:35.170 --> 00:15:40.750
+And members can use the ones that they resonate with the most
+
+00:15:40.750 --> 00:15:41.160
+.
+
+00:15:41.170 --> 00:15:44.150
+And this topology emerges from the users.
+
+00:15:44.170 --> 00:15:47.150
+It does not emerge from, you know, furry lists.
+
+00:15:47.170 --> 00:15:49.160
+Or, you know, whoever defines the community itself.
+
+00:15:49.170 --> 00:15:54.620
+The credential is opening up all of these, all of these
+
+00:15:54.620 --> 00:15:56.150
+different, all of these different spaces.
+
+00:15:56.170 --> 00:15:59.150
+A single community can have different spaces.
+
+00:15:59.170 --> 00:16:01.160
+Run by different operators.
+
+00:16:01.170 --> 00:16:02.160
+Different governances.
+
+00:16:02.170 --> 00:16:05.150
+And yet they all here share a trust domain.
+
+00:16:05.170 --> 00:16:10.150
+Where the credential is the unifying factor.
+
+00:16:10.170 --> 00:16:15.630
+And users then can, you know, route their posts to
+
+00:16:15.630 --> 00:16:16.160
+different places.
+
+00:16:16.170 --> 00:16:19.270
+Through, for example, if this, if they're defined
+
+00:16:19.300 --> 00:16:20.160
+by a record.
+
+00:16:20.170 --> 00:16:22.160
+TID as metadata.
+
+00:16:22.170 --> 00:16:23.160
+Let's say, for example.
+
+00:16:23.170 --> 00:16:26.540
+It could, might as well just be like a random hashtag
+
+00:16:26.540 --> 00:16:28.150
+at the end of the post.
+
+00:16:28.170 --> 00:16:31.140
+And this can be used as metadata.
+
+00:16:31.170 --> 00:16:34.150
+As information that defines a space within the public network.
+
+00:16:34.170 --> 00:16:35.160
+Right?
+
+00:16:35.170 --> 00:16:38.140
+Because the metadata is unique.
+
+00:16:38.170 --> 00:16:40.160
+And it does not convey any information.
+
+00:16:40.170 --> 00:16:43.150
+The information emerges from how people use it.
+
+00:16:43.170 --> 00:16:46.370
+And this is actually something that I would like to, that
+
+00:16:46.370 --> 00:16:49.160
+I like to shout out for, with Nighthaven.
+
+00:16:49.170 --> 00:16:51.870
+Who's a Blue Sky fellow, I believe, has done
+
+00:16:51.870 --> 00:16:55.160
+some good work in, in kind of exploring this area.
+
+00:16:55.170 --> 00:16:57.160
+He calls it a mezzanine.
+
+00:16:57.170 --> 00:16:59.190
+They call it a mezzanine, which I think
+
+00:16:59.190 --> 00:17:01.160
+it's a, is a really apt description.
+
+00:17:01.170 --> 00:17:03.270
+Because a mezzanine is, is, shares a
+
+00:17:03.290 --> 00:17:05.160
+space with the ground floor.
+
+00:17:05.170 --> 00:17:07.160
+But there's an intentionality to going up there.
+
+00:17:07.170 --> 00:17:09.420
+There's a, it's a shared frequency where people can
+
+00:17:09.480 --> 00:17:10.150
+congregate.
+
+00:17:10.170 --> 00:17:13.150
+That still exists within the public network.
+
+00:17:13.170 --> 00:17:17.160
+So, it exists kind of like this.
+
+00:17:17.170 --> 00:17:20.730
+You know, like, because these all are, are connected
+
+00:17:20.730 --> 00:17:24.160
+through the, through the community definition.
+
+00:17:24.170 --> 00:17:28.160
+Each one is independently, either independently operated.
+
+00:17:28.170 --> 00:17:31.220
+So they are separate governances, separate stewards, but are
+
+00:17:31.230 --> 00:17:32.160
+all connected.
+
+00:17:32.170 --> 00:17:34.630
+So, this is what, this is what it could look
+
+00:17:34.630 --> 00:17:35.150
+like.
+
+00:17:35.170 --> 00:17:37.950
+You know, the roster kind of gives, the roster gives
+
+00:17:37.950 --> 00:17:40.150
+out credentials to the community members.
+
+00:17:40.170 --> 00:17:42.230
+The, the, the, the, they can make venues
+
+00:17:42.230 --> 00:17:45.840
+through which, through which members can then self sort and use
+
+00:17:45.870 --> 00:17:48.160
+the ones that they resonate with the most.
+
+00:17:48.170 --> 00:17:54.120
+And, yeah, each node in this graph is an independent
+
+00:17:54.120 --> 00:18:00.200
+agent that has complete, complete independence and complete agency within their
+
+00:18:00.200 --> 00:18:01.160
+own domains.
+
+00:18:01.170 --> 00:18:04.150
+But cannot, cannot directly affect the others.
+
+00:18:04.170 --> 00:18:08.380
+But they can affect the others collectively through back pressure from the
+
+00:18:08.380 --> 00:18:09.150
+bottom up.
+
+00:18:09.170 --> 00:18:11.880
+For example, if a venue, you know, if a
+
+00:18:11.880 --> 00:18:14.880
+venue's governance acts badly, well, they're operating in
+
+00:18:14.900 --> 00:18:16.160
+a public network with public data, right?
+
+00:18:16.170 --> 00:18:19.140
+So, they can make a different one.
+
+00:18:19.170 --> 00:18:21.680
+And they don't have to make a different one in order
+
+00:18:21.680 --> 00:18:23.160
+to change the governance.
+
+00:18:23.170 --> 00:18:27.880
+But the mere threat that they could influences venues to act in
+
+00:18:27.880 --> 00:18:31.160
+accordance to what the community wants, right?
+
+00:18:31.170 --> 00:18:33.160
+That is a back pressure mechanism of action.
+
+00:18:33.170 --> 00:18:35.160
+And this also works for the roster.
+
+00:18:35.170 --> 00:18:38.800
+If the roster makes a bad decision, if they admit someone
+
+00:18:38.800 --> 00:18:42.570
+they shouldn't have, or they, if they admit someone
+
+00:18:42.570 --> 00:18:44.520
+they shouldn't have, or they retract trust from someone that
+
+00:18:44.520 --> 00:18:47.950
+they shouldn't have, each individual venue here can override that
+
+00:18:47.950 --> 00:18:51.160
+decision and say, you made a bad decision.
+
+00:18:51.170 --> 00:18:53.760
+And if this happens throughout the community, that is a back
+
+00:18:53.760 --> 00:18:56.910
+pressure mechanism saying, you are doing, you're, like
+
+00:18:56.910 --> 00:18:58.160
+, you were wrong.
+
+00:18:58.170 --> 00:19:00.160
+The community disagrees with you.
+
+00:19:00.170 --> 00:19:03.150
+It is layered back pressure mechanisms.
+
+00:19:03.170 --> 00:19:06.150
+So, are we done here?
+
+00:19:06.170 --> 00:19:07.160
+I guess we're done here.
+
+00:19:07.170 --> 00:19:09.160
+I guess I can just go home.
+
+00:19:09.170 --> 00:19:11.160
+Oh, right.
+
+00:19:11.930 --> 00:19:18.500
+So, communities cannot simply exist in public, especially when they
+
+00:19:18.500 --> 00:19:20.150
+share a trust boundary.
+
+00:19:20.170 --> 00:19:22.890
+This is, it is a problem to exist only in public
+
+00:19:22.890 --> 00:19:24.160
+for communities.
+
+00:19:24.170 --> 00:19:27.150
+If everything is surface level, there's little opportunity for depth
+
+00:19:27.210 --> 00:19:28.160
+of conversation.
+
+00:19:28.170 --> 00:19:31.440
+Even if, in the science community, we have created this
+
+00:19:31.440 --> 00:19:34.160
+amazing, this amazing surface of trust.
+
+00:19:34.170 --> 00:19:36.980
+But there's little meaningful way to take advantage of it if
+
+00:19:37.020 --> 00:19:39.150
+every conversation happens in public.
+
+00:19:39.170 --> 00:19:40.160
+You know?
+
+00:19:40.170 --> 00:19:44.840
+Every interaction within these spaces is done in front of imagined audiences
+
+00:19:44.840 --> 00:19:45.150
+.
+
+00:19:45.170 --> 00:19:48.150
+People who you think might be looking at.
+
+00:19:48.170 --> 00:19:52.840
+And that depth, that community depth, I believe, is
+
+00:19:52.840 --> 00:19:59.170
+important to really take the full advantage of this trust that we
+
+00:19:59.250 --> 00:20:00.160
+'re building.
+
+00:20:00.170 --> 00:20:02.910
+And, you know, like I said, with the permission
+
+00:20:02.910 --> 00:20:07.140
+data system that Blue Sky is building, we're already acting
+
+00:20:07.190 --> 00:20:09.140
+kind of like an ACL.
+
+00:20:09.170 --> 00:20:13.220
+So, then the question becomes, like, what if we
+
+00:20:13.220 --> 00:20:16.160
+just become the ACL maintainer?
+
+00:20:16.170 --> 00:20:20.610
+What if we just become, like, the system that decides
+
+00:20:20.610 --> 00:20:25.140
+who does and does not gain access to permission data?
+
+00:20:25.170 --> 00:20:29.030
+Well, this means that not only could posts be made public
+
+00:20:29.060 --> 00:20:36.160
+or private to our community, but because venues exist as defined
+
+00:20:36.160 --> 00:20:40.350
+as records, individual venues can also be either public or private
+
+00:20:40.380 --> 00:20:43.160
+or even individual subspaces within them.
+
+00:20:43.170 --> 00:20:48.150
+The outside might see all of First Sky.
+
+00:20:48.170 --> 00:20:50.880
+They might see some of the fursuit maker spaces if
+
+00:20:50.880 --> 00:20:53.420
+there's, you know, like a sale going on for
+
+00:20:53.420 --> 00:20:55.150
+, like, a fursuit or something like that.
+
+00:20:55.170 --> 00:20:58.200
+But they don't see it all unless you're part of
+
+00:20:58.210 --> 00:21:01.160
+the permission space of the community.
+
+00:21:01.170 --> 00:21:03.980
+Once you're in this permission space, you can see,
+
+00:21:04.010 --> 00:21:06.650
+for example, that Bafers exists or that Stem
+
+00:21:06.650 --> 00:21:08.640
+fers exists, who did not want to share what they
+
+00:21:08.640 --> 00:21:10.150
+were talking about in public.
+
+00:21:10.170 --> 00:21:13.140
+You can join in with the advice for fursuit makers
+
+00:21:13.160 --> 00:21:14.640
+and see, you know, learn how to make a f
+
+00:21:14.640 --> 00:21:16.710
+ursuit for yourself or the fursuit, you know
+
+00:21:16.710 --> 00:21:20.160
+, if you don't have any experience with it.
+
+00:21:20.170 --> 00:21:22.680
+Even within these boundaries, you can create another one if you
+
+00:21:22.680 --> 00:21:23.150
+so wish.
+
+00:21:23.170 --> 00:21:25.420
+You can create another roster that's just for, like,
+
+00:21:25.420 --> 00:21:27.160
+for example, Furryless moderators.
+
+00:21:27.170 --> 00:21:36.030
+And this is just simple set logic, right
+
+00:21:36.740 --> 00:21:37.160
+?
+
+00:21:37.170 --> 00:21:39.160
+The design space is modular.
+
+00:21:39.170 --> 00:21:41.920
+And any kind of set logic here is possible because, I
+
+00:21:41.920 --> 00:21:44.150
+mean, we have the fundamentals here.
+
+00:21:44.170 --> 00:21:45.160
+We have the boundaries.
+
+00:21:45.170 --> 00:21:47.160
+And we have the spaces within them.
+
+00:21:47.170 --> 00:21:52.730
+So, however, if you're thinking about how efficient data
+
+00:21:52.730 --> 00:21:57.160
+system would work here, you might have noticed something.
+
+00:21:57.170 --> 00:22:02.150
+If the roster here has full control over the community's ACL
+
+00:22:02.160 --> 00:22:05.600
+and their permission data, and it can revoke protocol-
+
+00:22:05.600 --> 00:22:08.250
+level access to the community data, then it's kind of
+
+00:22:08.300 --> 00:22:12.150
+acting like what the landlord was acting like, right?
+
+00:22:12.170 --> 00:22:15.150
+They have full control over the community's permission data.
+
+00:22:15.170 --> 00:22:18.890
+So, haven't we just recreated the landlord, essentially
+
+00:22:18.890 --> 00:22:19.160
+?
+
+00:22:19.170 --> 00:22:23.880
+And this is where I think the at protocol can really help
+
+00:22:23.890 --> 00:22:28.030
+, not necessarily at the protocol level, but in the ability
+
+00:22:28.070 --> 00:22:30.160
+to go off protocol.
+
+00:22:30.170 --> 00:22:33.970
+So, say that we at Furryless retract that credential
+
+00:22:34.060 --> 00:22:35.150
+for someone.
+
+00:22:35.170 --> 00:22:37.960
+We say that we no longer trust them as a member of
+
+00:22:37.970 --> 00:22:39.160
+our community.
+
+00:22:39.170 --> 00:22:42.030
+As a result, they lose protocol-level access to the
+
+00:22:42.030 --> 00:22:43.160
+community data.
+
+00:22:43.170 --> 00:22:45.000
+There is no fix for this, and I don't think
+
+00:22:45.000 --> 00:22:46.150
+that there should be.
+
+00:22:46.170 --> 00:22:50.320
+But let's say that a single venue disagrees, in
+
+00:22:50.320 --> 00:22:51.160
+this case, Furseumakis.
+
+00:22:51.170 --> 00:22:53.160
+They're governed and still vouches for them.
+
+00:22:53.170 --> 00:22:55.160
+They still think that they were a valuable member of their community
+
+00:22:55.160 --> 00:22:57.160
+and that we were too harsh in their decisions.
+
+00:22:57.170 --> 00:23:00.150
+At the protocol level, there is no fixing this.
+
+00:23:00.170 --> 00:23:04.680
+But consider what happens when these live in an app, an
+
+00:23:04.680 --> 00:23:12.160
+app that must govern or moderate what happens within them, you
+
+00:23:12.160 --> 00:23:12.160
+know?
+
+00:23:12.170 --> 00:23:15.150
+Then something interesting can happen.
+
+00:23:15.170 --> 00:23:18.470
+If Furseumakis can send a voucher signal within
+
+00:23:18.470 --> 00:23:22.010
+this permission space and the app view has access to that space
+
+00:23:22.130 --> 00:23:27.310
+, then the app view can act as a mediator of
+
+00:23:27.310 --> 00:23:29.030
+that venue's governance.
+
+00:23:29.170 --> 00:23:31.620
+They can say, well, yes, we have access to
+
+00:23:31.620 --> 00:23:34.290
+all of this and the roster says, you know, that
+
+00:23:34.290 --> 00:23:36.160
+they do no longer trust them.
+
+00:23:36.170 --> 00:23:41.910
+But in this particular social space, in this particular governance space
+
+00:23:41.920 --> 00:23:45.140
+, they still trust them.
+
+00:23:45.170 --> 00:23:48.940
+So we can still serve that content to that user and allow
+
+00:23:48.940 --> 00:23:52.160
+them to interact in this particular space.
+
+00:23:52.170 --> 00:23:54.160
+But only in that space.
+
+00:23:54.170 --> 00:23:57.150
+It's a window into the permission space.
+
+00:23:57.170 --> 00:24:01.160
+And it only exists outside of the protocol.
+
+00:24:01.170 --> 00:24:06.590
+It exists because the app view is the trusted mediator of
+
+00:24:06.600 --> 00:24:10.140
+governance between all of these.
+
+00:24:10.170 --> 00:24:15.150
+So this is the system that I call composable trust.
+
+00:24:15.170 --> 00:24:20.150
+Each role here, each part here has a particular role.
+
+00:24:20.170 --> 00:24:25.150
+The roster can issue -- decides who belongs.
+
+00:24:25.170 --> 00:24:28.500
+But it does not decide what the community looks like or how
+
+00:24:28.520 --> 00:24:30.150
+they govern themselves.
+
+00:24:30.170 --> 00:24:33.150
+The venue can govern their space.
+
+00:24:33.170 --> 00:24:36.850
+They can design their space and set the rules and set what
+
+00:24:36.860 --> 00:24:38.150
+the space is about.
+
+00:24:38.170 --> 00:24:41.150
+But they can't yield -- they can't make credentials.
+
+00:24:41.170 --> 00:24:46.150
+They have to define themselves based on an existing community definition.
+
+00:24:46.170 --> 00:24:49.850
+The app view assembles the view, enforces -- enfor
+
+00:24:49.870 --> 00:24:54.160
+ces the ACL, enforces trust, mediates trust,
+
+00:24:54.170 --> 00:24:56.160
+mediates the venues governance.
+
+00:24:56.170 --> 00:24:58.160
+But it holds no data.
+
+00:24:58.170 --> 00:25:00.160
+It cannot make -- it does not make credentials.
+
+00:25:00.170 --> 00:25:03.150
+It has no governance authority in and of itself.
+
+00:25:03.170 --> 00:25:07.500
+It's powerful, but it's still replaceable, just
+
+00:25:07.500 --> 00:25:09.160
+as the rest of these.
+
+00:25:09.170 --> 00:25:12.890
+And the members themselves are the ones who hold all the cards
+
+00:25:12.890 --> 00:25:13.160
+.
+
+00:25:13.170 --> 00:25:14.160
+They own the data.
+
+00:25:14.170 --> 00:25:16.160
+They hold the credentials.
+
+00:25:16.170 --> 00:25:19.150
+They choose which community definitions to be a part of.
+
+00:25:19.170 --> 00:25:21.420
+And within those community definitions, within that trust domain, they
+
+00:25:21.420 --> 00:25:23.160
+choose where they want to be.
+
+00:25:23.170 --> 00:25:28.160
+And each role here is auditable by the others.
+
+00:25:28.170 --> 00:25:32.590
+And each one is replaceable without destroying the rest, without
+
+00:25:32.930 --> 00:25:34.160
+destroying the community.
+
+00:25:35.170 --> 00:25:40.150
+So compare this to how platforms and online communities exist nowadays.
+
+00:25:40.170 --> 00:25:42.160
+The platform is at the top.
+
+00:25:42.170 --> 00:25:44.160
+They control everything below.
+
+00:25:44.170 --> 00:25:47.760
+The admin for a particular space -- it's usually one person
+
+00:25:47.760 --> 00:25:52.070
+that controls the space -- is in control of the entire governed
+
+00:25:52.120 --> 00:25:53.150
+space.
+
+00:25:53.170 --> 00:25:57.440
+The mods -- they might delegate some authority, you know,
+
+00:25:57.440 --> 00:25:58.150
+to the mods.
+
+00:25:58.170 --> 00:26:01.150
+They're still ultimately at the discretion of the admin.
+
+00:26:01.170 --> 00:26:03.160
+And the users are at the very bottom.
+
+00:26:03.170 --> 00:26:07.440
+They are at -- their existence within this space is at the
+
+00:26:07.440 --> 00:26:09.160
+discretion of all the layers above.
+
+00:26:09.170 --> 00:26:13.160
+And if one of these fails, everything below it fails.
+
+00:26:13.170 --> 00:26:16.150
+Now consider how this system works.
+
+00:26:16.170 --> 00:26:19.150
+This is now a system of roles and relationships.
+
+00:26:19.170 --> 00:26:23.780
+The community structure itself emerges from the bottom up from the users
+
+00:26:23.780 --> 00:26:24.150
+.
+
+00:26:24.170 --> 00:26:27.910
+Each node here is -- can be audited by the others
+
+00:26:27.910 --> 00:26:28.160
+.
+
+00:26:28.170 --> 00:26:31.940
+If any one of these systems violates the community's trust
+
+00:26:31.940 --> 00:26:34.160
+, they can be replaced.
+
+00:26:34.170 --> 00:26:38.760
+And if these relationships are surfaced well, if the community
+
+00:26:38.760 --> 00:26:43.030
+structure is navigable, then the community can survive any one
+
+00:26:43.030 --> 00:26:45.150
+single failure of these.
+
+00:26:45.170 --> 00:26:49.160
+Nobody here holds all the power for a community.
+
+00:26:49.170 --> 00:26:53.800
+The community is built from the bottom up by the people that
+
+00:26:53.800 --> 00:26:55.160
+inhabit it.
+
+00:26:55.170 --> 00:26:58.970
+So I think that -- I think that this is a good
+
+00:26:59.070 --> 00:27:01.160
+structure for a solution.
+
+00:27:01.170 --> 00:27:05.160
+Remember this -- this diagram that I showed you here?
+
+00:27:05.170 --> 00:27:07.160
+So this is what a single community looks like.
+
+00:27:07.170 --> 00:27:10.150
+This is what for realists might look like.
+
+00:27:10.170 --> 00:27:12.160
+But consider what this could be.
+
+00:27:12.170 --> 00:27:14.160
+This is what communities could look like.
+
+00:27:14.170 --> 00:27:18.610
+A navigable trust graph with overlapping affinities, overlapping
+
+00:27:18.610 --> 00:27:23.830
+relationships that gives structure to communities in a way that no platform
+
+00:27:23.830 --> 00:27:26.160
+, no AI, no algorithm could make.
+
+00:27:26.170 --> 00:27:30.320
+Because it is built from the bottom up by the community and
+
+00:27:30.320 --> 00:27:31.150
+who they trust.
+
+00:27:31.170 --> 00:27:36.020
+This is a trust graph that is built by all and owned
+
+00:27:36.020 --> 00:27:37.160
+by none.
+
+00:27:37.170 --> 00:27:41.430
+So if you would like to help build this, I have
+
+00:27:41.430 --> 00:27:45.160
+a -- I have a more technical proposal up on Leaflet
+
+00:27:45.170 --> 00:27:48.150
+if you're interested in reading that.
+
+00:27:48.170 --> 00:27:51.800
+Otherwise, if you are interested in helping build these kinds of
+
+00:27:51.810 --> 00:27:54.160
+sustainable communities, please do reach out.
+
+00:27:54.170 --> 00:27:56.160
+I mean, I'm super interested.
+
+00:27:56.170 --> 00:27:59.150
+I'm hoping to get some schemas out after this conference
+
+00:27:59.160 --> 00:28:03.160
+and start building something -- something real.
+
+00:28:03.170 --> 00:28:08.290
+I'm not a coder, but I'm really excited
+
+00:28:08.290 --> 00:28:13.630
+to see what we can make with this infrastructure and with the
+
+00:28:13.680 --> 00:28:14.160
+protocol.
+
+00:28:14.170 --> 00:28:15.160
+Yeah.
+
+00:28:15.170 --> 00:28:16.160
+Thank you.
+
+00:28:16.170 --> 00:28:17.160
+Is this on?
+
+00:28:17.170 --> 00:28:18.160
+Ooh.
+
+00:28:18.170 --> 00:28:19.160
+Thank you so much.
+
+00:28:19.170 --> 00:28:20.160
+Baldemar.
+
+00:28:20.170 --> 00:28:21.160
+We have time for maybe one question.
+
+00:28:21.170 --> 00:28:29.690
+Is there anyone in the audience
+
+00:28:30.740 --> 00:28:36.160
+with a question?
+
+00:28:36.170 --> 00:28:37.160
+Yes.
+
+00:28:37.170 --> 00:28:38.160
+Really interesting.
+
+00:28:38.170 --> 00:28:39.160
+Thanks.
+
+00:28:39.170 --> 00:28:46.820
+Do you have a sense for which primitives might be missing
+
+00:28:46.820 --> 00:28:53.160
+from the protocol right now to support this?
+
+00:28:53.170 --> 00:28:58.150
+And which are already there and useful?
+
+00:28:58.170 --> 00:29:03.750
+So, really, like, the biggest thing that is missing
+
+00:29:03.760 --> 00:29:08.520
+is the permission data infrastructure, the one that has been proposed
+
+00:29:08.520 --> 00:29:09.160
+by Daniel.
+
+00:29:09.170 --> 00:29:15.530
+And the ability to connect infrastructure to existing, like, lists
+
+00:29:15.530 --> 00:29:18.150
+, for example, or credentials.
+
+00:29:18.170 --> 00:29:22.970
+I think that that infrastructure, that simple connection is really from
+
+00:29:22.970 --> 00:29:25.160
+where all of this can emerge.
+
+00:29:25.170 --> 00:29:28.030
+And a lot of the, like, the governance aspects of
+
+00:29:28.120 --> 00:29:30.160
+things, you know, for example, like the enforcing
+
+00:29:30.170 --> 00:29:34.320
+the ACLs and things like that, really come from the
+
+00:29:34.320 --> 00:29:36.160
+app level, right?
+
+00:29:36.170 --> 00:29:39.550
+And using metadata from within a post or, you know,
+
+00:29:39.560 --> 00:29:43.160
+whatever have you to actually compose this.
+
+00:29:43.170 --> 00:29:46.420
+But, you know, there's not really a ton that
+
+00:29:46.420 --> 00:29:49.160
+is missing here from the protocol.
+
+00:29:49.170 --> 00:29:51.510
+I think that once permission data happens and we have that credential
+
+00:29:51.510 --> 00:29:56.280
+infrastructure to work from, both, like, with a few
+
+00:29:56.300 --> 00:30:00.970
+record schemas, I think that this, that this can
+
+00:30:01.000 --> 00:30:04.160
+be built.
+
+00:30:04.170 --> 00:30:10.760
+Well, I think this can be built without much additional infrastructure
+
+00:30:10.760 --> 00:30:12.160
+, you know?
+
+00:30:12.170 --> 00:30:13.160
+Thank you so much.
+
+00:30:13.170 --> 00:30:16.150
+Can we have one more round of applause, please?
+
+00:30:16.170 --> 00:30:16.840
+Thank you.

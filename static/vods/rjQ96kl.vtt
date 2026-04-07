@@ -1,0 +1,1933 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.050
+Daniel Holmgren: Hey, everybody
+
+00:00:08.080 --> 00:00:08.960
+.
+
+00:00:08.960 --> 00:00:10.000
+My name is Daniel Holmgren.
+
+00:00:10.000 --> 00:00:13.270
+I'm the head of protocol at Blue Sky.
+
+00:00:13.480 --> 00:00:15.000
+Just a heads up, I've been losing my voice all
+
+00:00:15.000 --> 00:00:15.310
+week.
+
+00:00:15.310 --> 00:00:18.040
+I thought maybe if I drank six Modellos at the
+
+00:00:18.040 --> 00:00:20.800
+after party last night, that would loosen it up.
+
+00:00:20.800 --> 00:00:22.520
+And the jury's out on if that's working or not
+
+00:00:22.520 --> 00:00:22.700
+.
+
+00:00:22.710 --> 00:00:27.380
+So I'm hoping that I'm good for this talk.
+
+00:00:27.440 --> 00:00:29.590
+To tell you a little bit about, so I lead protocol
+
+00:00:29.720 --> 00:00:31.730
+development and design at Blue Sky.
+
+00:00:31.730 --> 00:00:34.110
+To tell you a little bit about our team, right now
+
+00:00:34.250 --> 00:00:36.360
+it's technically just me and Brian Newbold on it,
+
+00:00:36.360 --> 00:00:39.420
+although we collaborate closely with other folks from the Atmosphere
+
+00:00:39.420 --> 00:00:39.750
+team.
+
+00:00:39.750 --> 00:00:42.400
+Without going into our whole org structure, the reason that we
+
+00:00:42.400 --> 00:00:46.700
+split out this protocol department is that protocol design and governance just
+
+00:00:46.700 --> 00:00:49.420
+looks pretty different from running a startup.
+
+00:00:49.420 --> 00:00:52.580
+You want to make slower intentional decisions and you don't want
+
+00:00:52.580 --> 00:00:55.380
+it to get caught up in sort of the market and the
+
+00:00:55.380 --> 00:00:58.120
+product life cycle of the startup.
+
+00:00:58.120 --> 00:01:00.590
+So we put up a little bit of a internal firewall for
+
+00:01:00.590 --> 00:01:03.280
+that department so we can go a little bit slower and we
+
+00:01:03.280 --> 00:01:06.040
+can be focused on what we really care about with the protocol
+
+00:01:06.040 --> 00:01:09.040
+, which is the emergence of a functioning, resilient, multi
+
+00:01:09.070 --> 00:01:10.300
+-stakeholder atmosphere.
+
+00:01:10.300 --> 00:01:16.230
+So I want to start with the provocation, which is
+
+00:01:16.230 --> 00:01:19.070
+that it's logically impossible for Blue Sky to decentralize the
+
+00:01:19.070 --> 00:01:19.540
+network.
+
+00:01:19.540 --> 00:01:22.290
+We really want the network to be decentralized.
+
+00:01:22.300 --> 00:01:25.740
+It is impossible for us to do it because we are the
+
+00:01:25.740 --> 00:01:26.860
+party, right?
+
+00:01:26.860 --> 00:01:29.230
+And even if we funded somebody else to do it, they
+
+00:01:29.230 --> 00:01:31.230
+'re still downstream of us and it's not actually, do
+
+00:01:31.240 --> 00:01:32.270
+they actually have the authority?
+
+00:01:32.270 --> 00:01:33.300
+Do they actually have the power?
+
+00:01:33.300 --> 00:01:36.960
+We're the central entity.
+
+00:01:36.960 --> 00:01:38.860
+We can't decentralize it.
+
+00:01:38.860 --> 00:01:42.630
+We can provide the tools and structures by which to decentralize
+
+00:01:42.640 --> 00:01:45.590
+it, but we need others to use those tools and structures
+
+00:01:45.590 --> 00:01:48.910
+to take control, power, and authority in the network to
+
+00:01:49.190 --> 00:01:51.700
+actually make this a resilient multi-stakeholder network.
+
+00:01:51.700 --> 00:01:55.590
+So that's what I'm going to be talking about today
+
+00:01:55.590 --> 00:01:57.580
+is those tools and structures and how we address that.
+
+00:01:57.580 --> 00:01:59.560
+The agenda is pretty brief.
+
+00:01:59.560 --> 00:02:01.860
+We're going to talk about the IETF, some
+
+00:02:01.860 --> 00:02:06.100
+recent developments with PLC governance, and then hard decentralization
+
+00:02:06.100 --> 00:02:08.670
+, which is kind of getting into the actual threats of what
+
+00:02:08.910 --> 00:02:11.930
+having a big entity in the middle of the ecosystem could do
+
+00:02:11.930 --> 00:02:12.160
+.
+
+00:02:12.370 --> 00:02:15.760
+Before we do that, I'm on the big stage and
+
+00:02:15.760 --> 00:02:18.090
+I wanted to talk about the real governance question, which is
+
+00:02:18.090 --> 00:02:20.880
+how do we capitalize and stylize AT protocol?
+
+00:02:20.880 --> 00:02:23.440
+Again, this is a multi-stakeholder network,
+
+00:02:23.440 --> 00:02:24.660
+so this is just my opinion.
+
+00:02:24.660 --> 00:02:26.160
+It just happens to be the correct opinion.
+
+00:02:26.220 --> 00:02:30.870
+You can see AT protocol, at proto, all lowercase
+
+00:02:30.870 --> 00:02:33.010
+, not a capital A, and atmosphere.
+
+00:02:33.010 --> 00:02:36.480
+The rest of these are out, especially capital A, capital
+
+00:02:36.480 --> 00:02:38.740
+T, capital P, proto.
+
+00:02:38.890 --> 00:02:41.300
+That one is terrible, and it needs to be killed.
+
+00:02:41.300 --> 00:02:45.190
+Okay, now onto the real stuff.
+
+00:02:45.190 --> 00:02:48.660
+Talking about the IETF, or who gets to decide
+
+00:02:48.660 --> 00:02:50.720
+what the protocol actually is.
+
+00:02:50.720 --> 00:02:52.510
+So, what is the IETF?
+
+00:02:52.760 --> 00:02:54.640
+It's the Internet Engineering Task Force.
+
+00:02:54.660 --> 00:02:57.200
+It's the standards body for the Internet.
+
+00:02:57.200 --> 00:02:59.860
+It standardized all the protocols that you know and love.
+
+00:02:59.920 --> 00:03:01.330
+I'm sure that you're familiar with a lot of these
+
+00:03:01.330 --> 00:03:01.350
+.
+
+00:03:01.350 --> 00:03:01.520
+SMTP for email, HTTP for the web, TLS
+
+00:03:01.530 --> 00:03:01.800
+, it gives you the little green lock that tells you that
+
+00:03:01.820 --> 00:03:02.040
+your website's secure, web sockets, OAuth,
+
+00:03:02.040 --> 00:03:02.280
+and more.
+
+00:03:02.300 --> 00:03:10.300
+To tell you a little bit
+
+00:03:10.300 --> 00:03:15.200
+about the vibe of the IETF, it's a
+
+00:03:15.200 --> 00:03:18.030
+pretty weird, idiosyncratic organization.
+
+00:03:18.030 --> 00:03:20.300
+I have a quote here from Snarf that I think captures
+
+00:03:20.300 --> 00:03:20.300
+it pretty well.
+
+00:03:20.300 --> 00:03:20.300
+He said, standards bodies or bureaucracy for good, which I
+
+00:03:20.300 --> 00:03:20.300
+think sums it up.
+
+00:03:20.300 --> 00:03:20.300
+It's pretty bureaucratic, it's pretty pedantic,
+
+00:03:20.300 --> 00:03:20.300
+but it's ultimately a very idealistic organization.
+
+00:03:20.300 --> 00:03:22.840
+And it's a very neutral, credible body, and they
+
+00:03:22.840 --> 00:03:25.190
+do a very good job sort of stewarding and owning
+
+00:03:25.190 --> 00:03:27.040
+these sorts of Internet protocols.
+
+00:03:27.310 --> 00:03:35.280
+So, it's a mix of institutional, but it's
+
+00:03:35.280 --> 00:03:39.060
+also grassroots.
+
+00:03:39.060 --> 00:03:45.340
+You kind of have like a lot of old Internet heads there
+
+00:03:45.350 --> 00:03:48.100
+, you have activists, you have academics and researchers, you
+
+00:03:48.100 --> 00:03:51.150
+also have folks from the big tech companies that are Google and
+
+00:03:51.150 --> 00:03:53.280
+Cloudflare and others.
+
+00:03:53.280 --> 00:03:56.420
+And that also gives it this mix of idealism and prag
+
+00:03:56.450 --> 00:03:56.840
+matism.
+
+00:03:56.840 --> 00:04:00.530
+People have conversations about keeping the Internet decentralized, but also they
+
+00:04:00.530 --> 00:04:02.280
+care a lot about the Internet working well.
+
+00:04:02.280 --> 00:04:05.280
+And so they have this very pragmatic approach.
+
+00:04:05.280 --> 00:04:09.700
+The kind of motto there is that decisions are made by rough
+
+00:04:09.700 --> 00:04:13.280
+consensus and working code, which I think actually gives a good
+
+00:04:13.280 --> 00:04:15.280
+sense of that idealism and pragmatism.
+
+00:04:15.280 --> 00:04:17.570
+They want to see something working and they want to get a
+
+00:04:17.590 --> 00:04:20.880
+bunch of diverse voices in the room and have general agreement on
+
+00:04:20.880 --> 00:04:21.240
+it.
+
+00:04:21.300 --> 00:04:22.280
+It's open membership.
+
+00:04:22.290 --> 00:04:24.280
+Anybody can join.
+
+00:04:24.280 --> 00:04:25.730
+You don't need to pay money to join.
+
+00:04:25.870 --> 00:04:28.250
+You can just hop in the mailing list, start participating.
+
+00:04:28.250 --> 00:04:30.420
+You can show up to meetings and start participating.
+
+00:04:30.460 --> 00:04:32.660
+And companies are not members of it.
+
+00:04:32.660 --> 00:04:33.280
+Individuals are members.
+
+00:04:33.280 --> 00:04:36.710
+And I put kind of here because most people have an affili
+
+00:04:36.710 --> 00:04:39.240
+ation with a company and it's like they kind of where
+
+00:04:39.300 --> 00:04:42.280
+it's pretty clear that they are affiliated with companies.
+
+00:04:42.280 --> 00:04:45.670
+But it is still it kind of gets at their ethos
+
+00:04:45.670 --> 00:04:48.880
+in a way, which is that these are these are engineers
+
+00:04:48.880 --> 00:04:51.280
+coming together trying to reach consensus on protocols.
+
+00:04:51.280 --> 00:04:57.560
+So the exciting news is we have a working group at the
+
+00:04:57.750 --> 00:04:58.280
+IETF.
+
+00:04:58.280 --> 00:05:03.270
+Also huge kudos to Brian on that.
+
+00:05:03.290 --> 00:05:05.280
+Brian really let up the standards work.
+
+00:05:05.290 --> 00:05:07.710
+In all honesty, he should be the one up here presenting
+
+00:05:07.710 --> 00:05:08.280
+all of this.
+
+00:05:08.280 --> 00:05:10.280
+He's just done an incredible job at that.
+
+00:05:10.280 --> 00:05:14.270
+The working group is called Authenticated Transfer or ATP.
+
+00:05:14.270 --> 00:05:18.280
+This is the URL for it.
+
+00:05:18.280 --> 00:05:20.280
+The responsible area director is Andy Newton.
+
+00:05:20.280 --> 00:05:24.630
+The working group chairs are Shu Ping Peng and Mallory N
+
+00:05:24.640 --> 00:05:25.280
+odell.
+
+00:05:25.280 --> 00:05:27.570
+Brian and I got the chance to chat with all three of
+
+00:05:27.590 --> 00:05:29.270
+these folks earlier this week.
+
+00:05:29.270 --> 00:05:31.260
+Generally got very good vibes from them.
+
+00:05:31.290 --> 00:05:33.280
+They're ready to hit the ground running.
+
+00:05:33.280 --> 00:05:36.280
+They're kind of like start engaging on the mailing list,
+
+00:05:36.280 --> 00:05:37.280
+draft up some stuff.
+
+00:05:37.280 --> 00:05:39.990
+We want to have a lot of energy at the first meeting
+
+00:05:39.990 --> 00:05:40.280
+.
+
+00:05:40.280 --> 00:05:42.270
+So the vibes were good.
+
+00:05:42.280 --> 00:05:43.270
+I'm excited about this.
+
+00:05:43.280 --> 00:05:46.280
+This is our charter in very small font.
+
+00:05:46.280 --> 00:05:49.380
+You can read the entire thing on the IETF data
+
+00:05:49.380 --> 00:05:50.020
+tracker.
+
+00:05:50.280 --> 00:05:53.280
+This was on the note of bureaucracy for good.
+
+00:05:53.280 --> 00:05:56.530
+This was four months of going back and forth on a mailing
+
+00:05:56.750 --> 00:05:59.850
+list to get that nailed down to decide what we were going
+
+00:05:59.850 --> 00:06:00.280
+to work on.
+
+00:06:00.280 --> 00:06:03.320
+And to break down kind of what's in that, what
+
+00:06:03.320 --> 00:06:06.930
+the charter for this working group is for is the structure of
+
+00:06:06.930 --> 00:06:09.420
+the repo and how we encode records in it, the
+
+00:06:09.520 --> 00:06:14.240
+sync protocol for public repositories, the AT URI scheme
+
+00:06:14.300 --> 00:06:18.380
+for addressing records in those repositories, and then interface requirements
+
+00:06:18.380 --> 00:06:21.280
+and selection criteria for an identifier resolution system.
+
+00:06:21.280 --> 00:06:24.050
+This was kind of the hardest part of nailing down the
+
+00:06:24.050 --> 00:06:26.540
+charter, which is that we did not want to pull d
+
+00:06:26.560 --> 00:06:28.020
+ids into the IETF.
+
+00:06:28.290 --> 00:06:30.790
+We did not want to wade into the quagm
+
+00:06:30.800 --> 00:06:32.280
+ire of specifying identity.
+
+00:06:32.280 --> 00:06:35.320
+So we kind of, there's an identity-shaped hole
+
+00:06:35.330 --> 00:06:38.310
+in the spec, and we're specifying the shape of
+
+00:06:38.310 --> 00:06:39.020
+that hole.
+
+00:06:39.280 --> 00:06:42.360
+We are not going to be, this working group is not
+
+00:06:42.360 --> 00:06:46.030
+going to be doing lexicon, any microblogging
+
+00:06:46.280 --> 00:06:48.280
+, or social semantics at all.
+
+00:06:48.280 --> 00:06:50.570
+Identity, as I mentioned, labeling, and the permission
+
+00:06:50.590 --> 00:06:52.890
+data work that we're working on right now is outside of
+
+00:06:52.890 --> 00:06:54.240
+the working group as well.
+
+00:06:54.280 --> 00:06:56.950
+Though, parts of this may, we may recharter
+
+00:06:56.960 --> 00:07:00.380
+the work, if everything goes well for both parties, we
+
+00:07:00.400 --> 00:07:03.320
+may recharter the working group in the future and address
+
+00:07:03.320 --> 00:07:04.280
+some of these.
+
+00:07:04.280 --> 00:07:06.730
+So, just to call it out, this is your chance
+
+00:07:06.730 --> 00:07:10.240
+to contribute to the technical direction of the protocol.
+
+00:07:10.280 --> 00:07:12.690
+As I said, this is open membership, anybody can hop
+
+00:07:12.690 --> 00:07:13.280
+in here.
+
+00:07:13.280 --> 00:07:15.070
+If you think that we screwed it up and the protocol is
+
+00:07:15.320 --> 00:07:17.170
+stupid or ugly or whatever, this is your chance to say
+
+00:07:17.170 --> 00:07:20.020
+it and actually have an impact on the protocol.
+
+00:07:20.280 --> 00:07:23.590
+You, in some very real sense, you are on an
+
+00:07:23.590 --> 00:07:27.720
+equal playing field as Brian or I on that mailing list and
+
+00:07:27.910 --> 00:07:29.280
+in that room.
+
+00:07:29.280 --> 00:07:31.540
+So, just to give you a sense for participation, as
+
+00:07:31.560 --> 00:07:33.270
+I said, anyone can participate.
+
+00:07:33.280 --> 00:07:35.440
+There's three in-person meetings a year, one in
+
+00:07:35.440 --> 00:07:37.980
+North America, one in Europe, and one in Asia generally
+
+00:07:37.980 --> 00:07:38.270
+.
+
+00:07:38.280 --> 00:07:41.860
+They have a very good remote-first experience, and usually
+
+00:07:41.860 --> 00:07:44.540
+if you're attending remote and only for one day, they
+
+00:07:44.750 --> 00:07:46.280
+'ll give you a free ticket.
+
+00:07:46.280 --> 00:07:49.280
+So, that is great.
+
+00:07:49.280 --> 00:07:53.170
+The first working group meeting will probably be at IETF
+
+00:07:53.170 --> 00:07:57.280
+126 in Vienna, which is this summer, July.
+
+00:07:57.280 --> 00:08:01.120
+We may do a remote interim meeting beforehand, and I will
+
+00:08:01.120 --> 00:08:03.240
+keep people updated on that.
+
+00:08:03.280 --> 00:08:05.100
+But regardless, follow along on the mailing list.
+
+00:08:05.280 --> 00:08:06.080
+It's atp@ietf.
+
+00:08:06.080 --> 00:08:06.280
+org.
+
+00:08:06.280 --> 00:08:08.570
+Brian and I are going to be trying to send out some
+
+00:08:08.570 --> 00:08:10.280
+stuff on there somewhat soon.
+
+00:08:10.280 --> 00:08:12.100
+So, hop in and let us know your thoughts.
+
+00:08:12.280 --> 00:08:14.070
+Okay, on to the next one.
+
+00:08:14.280 --> 00:08:17.390
+PLC, or what about that centralized server at the bottom
+
+00:08:17.390 --> 00:08:18.250
+of the stack?
+
+00:08:18.280 --> 00:08:21.850
+For those that don't know, PLC is the identifier
+
+00:08:21.850 --> 00:08:26.280
+, not identity, the identifier system for the AT protocol.
+
+00:08:26.280 --> 00:08:28.820
+It's where your keys are stored, or yeah, it
+
+00:08:28.820 --> 00:08:32.240
+describes your public keys and your service endpoints.
+
+00:08:32.280 --> 00:08:35.730
+And it's kind of the centralized server run by Blue Sky
+
+00:08:35.730 --> 00:08:38.240
+right now at the bottom of the stack.
+
+00:08:38.280 --> 00:08:40.070
+My odd take is PLC isn't that bad.
+
+00:08:40.280 --> 00:08:42.100
+The threat model is actually pretty limited.
+
+00:08:42.280 --> 00:08:45.280
+Everything is cryptographically signed.
+
+00:08:45.280 --> 00:08:49.200
+The threat model of whoever is running the PLC directory,
+
+00:08:49.220 --> 00:08:51.270
+what they can get away with, is not that much.
+
+00:08:51.280 --> 00:08:54.080
+They can't arbitrarily change your identity or anything like that
+
+00:08:54.080 --> 00:08:54.280
+.
+
+00:08:54.280 --> 00:08:58.560
+They can essentially do denial of service attacks, removing operations from
+
+00:08:58.560 --> 00:09:01.280
+your identity, or refusing to serve your identity.
+
+00:09:01.280 --> 00:09:04.800
+Those aren't good, but just to note the threat model
+
+00:09:04.800 --> 00:09:06.270
+is pretty limited.
+
+00:09:06.280 --> 00:09:08.100
+All that being said, it still needs some work.
+
+00:09:08.280 --> 00:09:12.690
+And so we're sort of thinking about maturing governance of
+
+00:09:12.690 --> 00:09:14.240
+PLC as we go along.
+
+00:09:14.280 --> 00:09:16.520
+We'd like to use DNS and ICANN as an
+
+00:09:16.520 --> 00:09:21.020
+example, mostly for an analogy of iterative maturation of
+
+00:09:21.020 --> 00:09:22.280
+governance.
+
+00:09:22.280 --> 00:09:24.730
+DNS has issues, ICANN has issues, don't
+
+00:09:24.730 --> 00:09:27.740
+overthink the analogy, but you can kind of see how
+
+00:09:27.760 --> 00:09:29.020
+DNS evolved over time.
+
+00:09:29.280 --> 00:09:32.370
+It started as a text file that got distributed to different hosts
+
+00:09:32.370 --> 00:09:36.280
+in the network, moved to a single server that was a
+
+00:09:36.290 --> 00:09:39.100
+computer under the desk, transitioned to multiple root servers.
+
+00:09:39.280 --> 00:09:42.280
+ICANN got set up as a governance body for it
+
+00:09:42.280 --> 00:09:45.280
+, and ICANN continues to evolve in their governance,
+
+00:09:45.280 --> 00:09:47.860
+being more and more multi-stakeholder, taking into
+
+00:09:47.860 --> 00:09:49.990
+account other countries outside of the U.
+
+00:09:49.990 --> 00:09:50.270
+S.
+
+00:09:50.340 --> 00:09:51.240
+more.
+
+00:09:51.280 --> 00:09:54.440
+And so this is sort of the model that we look at
+
+00:09:54.440 --> 00:09:56.200
+with PLC is, you know, like we don't
+
+00:09:56.200 --> 00:09:58.400
+have to get it to the end state of like, this
+
+00:09:58.460 --> 00:10:00.280
+is the perfect PLC forever or something tomorrow.
+
+00:10:00.280 --> 00:10:04.280
+It's how can we iteratively move that forward as the
+
+00:10:04.280 --> 00:10:06.280
+like kind of threat model for the atmosphere evolves.
+
+00:10:06.280 --> 00:10:10.830
+So the exciting news to announce is that public ledger of
+
+00:10:10.830 --> 00:10:14.280
+credentials organization has officially been founded as a Swiss association.
+
+00:10:14.280 --> 00:10:22.280
+Again,
+
+00:10:22.280 --> 00:10:25.690
+huge kudos to Brian for leading this up as well as
+
+00:10:25.690 --> 00:10:27.980
+Matt, our head of legal, which if you guys can
+
+00:10:27.980 --> 00:10:28.400
+find, I don't know if Matt's here, but
+
+00:10:28.400 --> 00:10:30.090
+if you guys can find Matt, you should talk to Matt
+
+00:10:30.090 --> 00:10:30.100
+.
+
+00:10:30.280 --> 00:10:31.940
+He's like protocol-pilled now, it's very
+
+00:10:31.940 --> 00:10:32.100
+fun.
+
+00:10:32.280 --> 00:10:36.630
+So we put a lot of thought into who is going to
+
+00:10:36.630 --> 00:10:39.020
+be on the board for PLC.
+
+00:10:39.280 --> 00:10:43.790
+Like we wanted a board that people in the ecosystem could really
+
+00:10:43.790 --> 00:10:47.390
+trust to run this thing, and I think that we found
+
+00:10:47.390 --> 00:10:48.920
+the perfect one, which is, it's just going to
+
+00:10:48.920 --> 00:10:49.280
+be Roscoe.
+
+00:10:49.280 --> 00:10:54.270
+I think Roscoe is just going to run this.
+
+00:10:54.280 --> 00:10:57.280
+No, I'm kidding about that.
+
+00:10:57.280 --> 00:11:00.160
+This is going to be the actual board for the PLC
+
+00:11:00.160 --> 00:11:01.270
+association.
+
+00:11:01.280 --> 00:11:03.070
+There's five members.
+
+00:11:03.280 --> 00:11:05.070
+Brian, who is on the Blue Sky team.
+
+00:11:05.280 --> 00:11:07.100
+He's a protocol engineer on the Blue Sky team.
+
+00:11:07.280 --> 00:11:10.390
+He's the best person from the PLC or from the
+
+00:11:10.390 --> 00:11:12.270
+Blue Sky team for this.
+
+00:11:12.280 --> 00:11:14.630
+Richard Barnes, he's the co-founder of Let's
+
+00:11:14.630 --> 00:11:18.810
+Encrypt, which has some analogies to PLC
+
+00:11:18.830 --> 00:11:19.020
+.
+
+00:11:19.280 --> 00:11:20.280
+It looks pretty similar to PLC.
+
+00:11:20.280 --> 00:11:23.110
+He's also the co-author of the MLS,
+
+00:11:23.110 --> 00:11:25.780
+Acme, HPKE, all of these deep crypto I
+
+00:11:25.780 --> 00:11:27.020
+ETF specifications.
+
+00:11:27.280 --> 00:11:29.920
+Wendy Seltzer, who's an internet lawyer and open
+
+00:11:29.920 --> 00:11:31.270
+standards advocate.
+
+00:11:31.280 --> 00:11:32.280
+She's here at the conference.
+
+00:11:32.280 --> 00:11:34.990
+You should find her and talk to her if you're interested
+
+00:11:35.020 --> 00:11:35.280
+.
+
+00:11:35.280 --> 00:11:39.530
+Filippo Valsorda, who's a crypt
+
+00:11:39.530 --> 00:11:41.240
+ographer.
+
+00:11:41.280 --> 00:11:44.070
+He maintains the Go Cryptography Library, and he's also
+
+00:11:44.070 --> 00:11:47.360
+a transparency log aficionado and is working on the
+
+00:11:47.360 --> 00:11:48.280
+Project Sunlight implementation.
+
+00:11:48.280 --> 00:11:50.070
+He is also here at the conference.
+
+00:11:50.280 --> 00:11:54.280
+You should come talk to him.
+
+00:11:54.280 --> 00:11:55.580
+And then Tyla, and I don't know how to
+
+00:11:55.870 --> 00:11:57.890
+pronounce her last name, unfortunately, but she's a crypt
+
+00:11:57.890 --> 00:12:01.280
+ographer and a security and privacy engineer at Google.
+
+00:12:01.280 --> 00:12:07.240
+She also lives in Switzerland, which is quite nice for organizational
+
+00:12:07.260 --> 00:12:08.020
+reasons.
+
+00:12:08.280 --> 00:12:11.520
+Yeah, so just to note again, this is like the
+
+00:12:11.520 --> 00:12:14.240
+first step in the evolution of PLC.
+
+00:12:14.280 --> 00:12:15.280
+This isn't the end state of it.
+
+00:12:15.280 --> 00:12:17.100
+We're going to continue working on this.
+
+00:12:17.280 --> 00:12:20.060
+We also haven't actually transferred any assets over to PLC
+
+00:12:20.060 --> 00:12:20.280
+.
+
+00:12:20.280 --> 00:12:23.110
+That is something that we'll be doing in the coming months
+
+00:12:23.110 --> 00:12:24.280
+, and we'll give updates as that happens.
+
+00:12:24.280 --> 00:12:29.610
+The first order of business is getting the domain name over to
+
+00:12:29.610 --> 00:12:30.240
+PLC.
+
+00:12:30.280 --> 00:12:33.870
+Alongside these organizational improvements, we also have some technical improvements
+
+00:12:33.870 --> 00:12:34.200
+to PLC.
+
+00:12:34.280 --> 00:12:39.130
+We ship streaming replication and a replica reference implementation that provides full
+
+00:12:39.130 --> 00:12:41.280
+verification of all directory operations.
+
+00:12:41.280 --> 00:12:43.400
+There's a number of people that are running this in the
+
+00:12:43.400 --> 00:12:44.280
+network already.
+
+00:12:44.280 --> 00:12:46.670
+And the longer-term plan is a sophistication of that
+
+00:12:46.670 --> 00:12:48.250
+, which is transparency logs.
+
+00:12:48.280 --> 00:12:51.370
+And you know that we're going to do that because we
+
+00:12:51.370 --> 00:12:53.270
+have Filippo on the board.
+
+00:12:53.280 --> 00:12:56.280
+Great.
+
+00:12:56.280 --> 00:12:59.430
+Now, so those are sort of like the governance updates on
+
+00:12:59.430 --> 00:13:02.240
+like kind of these core parts of the protocol.
+
+00:13:02.280 --> 00:13:05.590
+This next section is about hard decentralization, or that's
+
+00:13:05.590 --> 00:13:07.880
+great and all, but what happens when blue sky kills API
+
+00:13:07.880 --> 00:13:08.270
+access?
+
+00:13:08.280 --> 00:13:11.870
+Or servers are actually just physical objects that can be destroyed,
+
+00:13:11.870 --> 00:13:13.270
+unplugged, or seized.
+
+00:13:13.280 --> 00:13:15.350
+This is kind of the real politic of running a multi-
+
+00:13:15.350 --> 00:13:18.540
+stakeholder network where you have one big person at the
+
+00:13:18.560 --> 00:13:19.270
+center of it.
+
+00:13:19.280 --> 00:13:21.850
+What are the particular threats, and what can they get away
+
+00:13:21.850 --> 00:13:22.280
+with?
+
+00:13:22.280 --> 00:13:25.290
+So, I want to call out that decentralization isn't
+
+00:13:25.290 --> 00:13:27.440
+just one thing, and we need to think through what those
+
+00:13:27.450 --> 00:13:28.270
+threats actually are.
+
+00:13:28.280 --> 00:13:31.730
+Numbers are important, but I'm somewhat uninterested in
+
+00:13:31.730 --> 00:13:35.020
+like what percentage of people are on what thing or what.
+
+00:13:35.280 --> 00:13:38.180
+It's what are the actual threats that come from blue sky
+
+00:13:38.180 --> 00:13:40.270
+being outsized in this ecosystem.
+
+00:13:40.280 --> 00:13:43.150
+Let's think through those threats, and think through how blue
+
+00:13:43.150 --> 00:13:46.020
+sky can address them, and how the network can address them
+
+00:13:46.080 --> 00:13:46.260
+.
+
+00:13:46.280 --> 00:13:49.090
+So, we're going to do some threat modeling on what
+
+00:13:49.090 --> 00:13:51.120
+blue sky could do, and then we're going to talk
+
+00:13:51.130 --> 00:13:52.260
+through some of the solutions.
+
+00:13:52.280 --> 00:13:55.190
+So, the most common thing that people think of is blue
+
+00:13:55.190 --> 00:13:57.270
+sky shuts down AppView API access.
+
+00:13:57.280 --> 00:14:00.150
+People are familiar with this because a lot of social companies in
+
+00:14:00.150 --> 00:14:01.250
+the past have done it.
+
+00:14:01.280 --> 00:14:03.740
+This is actually sort of the threat that I'm least concerned
+
+00:14:03.790 --> 00:14:07.420
+about, because data access is guaranteed by the open hosting PD
+
+00:14:07.460 --> 00:14:08.020
+S layer.
+
+00:14:08.280 --> 00:14:11.500
+As long as the hosting layer, the network inherits its
+
+00:14:11.500 --> 00:14:14.340
+openness from the PDS layer, and as long as the
+
+00:14:14.340 --> 00:14:18.570
+hosting layer remains locked open, then these other AppView implement
+
+00:14:18.590 --> 00:14:21.270
+ations can emerge as the need arises.
+
+00:14:21.280 --> 00:14:23.740
+I've somewhat jokingly in the past called this lazy decentral
+
+00:14:23.790 --> 00:14:26.960
+ization, that it's if you trust that the hosting layer
+
+00:14:26.960 --> 00:14:29.350
+is open, then you don't need to decentralize the
+
+00:14:29.350 --> 00:14:30.280
+app layer yet.
+
+00:14:30.280 --> 00:14:32.490
+But you have to trust that the hosting layer is open,
+
+00:14:32.490 --> 00:14:34.270
+and we'll talk about that in a second.
+
+00:14:34.280 --> 00:14:36.800
+Still, the things that we need for this are tools for
+
+00:14:36.800 --> 00:14:39.270
+backfilling the network, and syncing the network,
+
+00:14:39.300 --> 00:14:42.280
+and also AppView implementation code.
+
+00:14:44.280 --> 00:14:46.740
+So, now to talk about if we screwed up the hosting
+
+00:14:46.770 --> 00:14:50.020
+layer, this would be blue sky shutting down access to the
+
+00:14:50.020 --> 00:14:52.480
+PDS, or access to the open data that's hosted
+
+00:14:52.480 --> 00:14:53.280
+by the PDS.
+
+00:14:53.280 --> 00:14:55.750
+To note, blue sky, if blue sky were to do
+
+00:14:55.750 --> 00:14:58.790
+this, it destroys all of the feeds, apps, and
+
+00:14:58.790 --> 00:15:00.280
+labelers running on the protocol.
+
+00:15:00.280 --> 00:15:04.080
+So, the pain of destroying the network of open applications needs
+
+00:15:04.080 --> 00:15:07.680
+to be severe enough that blue sky cannot consider shutting down our
+
+00:15:07.680 --> 00:15:09.280
+PDS access.
+
+00:15:09.280 --> 00:15:12.640
+A smaller version of this attack would be blue sky may stop
+
+00:15:12.640 --> 00:15:15.240
+serving data to particular competitors.
+
+00:15:15.280 --> 00:15:19.530
+So, if one big competitor emerges in the ecosystem, maybe
+
+00:15:19.530 --> 00:15:21.680
+we keep sharing data to all of the feeds and labelers
+
+00:15:21.750 --> 00:15:25.060
+out there, but we cut off access to that one larger
+
+00:15:25.060 --> 00:15:26.280
+competitor.
+
+00:15:26.280 --> 00:15:29.180
+The things that we need to prevent this are a thriving network
+
+00:15:29.180 --> 00:15:30.250
+built on open data.
+
+00:15:30.280 --> 00:15:33.350
+If people are relying on open data, then we're incentiv
+
+00:15:33.350 --> 00:15:35.270
+ized to not cut off access to it.
+
+00:15:35.280 --> 00:15:39.090
+And then, specifically on this cutting off access to particular competitors
+
+00:15:39.090 --> 00:15:41.980
+, all of the data is signed and rebroadcastable
+
+00:15:42.000 --> 00:15:42.020
+.
+
+00:15:42.280 --> 00:15:44.110
+That means that you can get it from any source.
+
+00:15:44.280 --> 00:15:45.840
+You can get it from the blue sky PDS, or
+
+00:15:45.880 --> 00:15:47.280
+you can get it from another PDS.
+
+00:15:47.280 --> 00:15:54.020
+So, we need multiple sources to get data from.
+
+00:15:54.280 --> 00:15:58.010
+The next sort of threat is blue sky stops crawling non-
+
+00:15:58.010 --> 00:15:59.270
+blue sky PDSs.
+
+00:15:59.280 --> 00:16:01.570
+So, these are folks that have migrated their account off of
+
+00:16:01.600 --> 00:16:03.740
+the blue sky PDS, and the blue sky app view
+
+00:16:03.870 --> 00:16:06.270
+stops indexing non-blue sky PDS data.
+
+00:16:06.280 --> 00:16:10.270
+Their motivation to do that would be to monopolize hosting.
+
+00:16:10.280 --> 00:16:15.270
+What we need to prevent this is a critical mass of users
+
+00:16:15.290 --> 00:16:17.420
+on non-blue sky PDSs, and other applications
+
+00:16:17.420 --> 00:16:19.280
+that do index non-blue sky PDS data.
+
+00:16:19.280 --> 00:16:23.340
+And that, I want to call out that critical mass,
+
+00:16:23.340 --> 00:16:25.770
+basically we need the critical mass, because if blue sky were
+
+00:16:25.880 --> 00:16:28.510
+to stop indexing this, you needed to screw up people
+
+00:16:28.510 --> 00:16:30.760
+'s experience of the app, and they would get pissed because
+
+00:16:30.870 --> 00:16:32.970
+there's data that they want to see that they're not
+
+00:16:32.970 --> 00:16:34.270
+seeing in the blue sky app.
+
+00:16:34.280 --> 00:16:36.530
+I want to call out that I don't think that we
+
+00:16:36.530 --> 00:16:42.560
+need like an even distribution of users across hosting infrastructure in the
+
+00:16:42.560 --> 00:16:44.280
+network in order to achieve this.
+
+00:16:44.280 --> 00:16:47.680
+You can imagine 5% of the network, even less than
+
+00:16:47.680 --> 00:16:48.270
+that.
+
+00:16:48.280 --> 00:16:50.420
+If it's an important 5% of the network, that
+
+00:16:50.420 --> 00:16:53.270
+would be disruptive enough that if you cut off access to them
+
+00:16:53.280 --> 00:16:56.280
+, people would be upset and leave the blue sky app.
+
+00:16:56.280 --> 00:17:00.420
+This threat also becomes much less substantial if people can just go
+
+00:17:00.420 --> 00:17:03.280
+to another app that is indexing both blue sky content,
+
+00:17:03.280 --> 00:17:06.280
+and content from non-blue sky PDSs.
+
+00:17:06.280 --> 00:17:12.240
+So having other applications in the network helps prevent this threat.
+
+00:17:12.280 --> 00:17:15.280
+Another threat is blue sky messing with accounts.
+
+00:17:15.280 --> 00:17:19.000
+Examples of this are preventing users from migrating between PDS
+
+00:17:19.000 --> 00:17:21.990
+s, de-platforming users, especially if we don
+
+00:17:21.990 --> 00:17:25.420
+'t have Just Cause, preventing users from using certain apps or
+
+00:17:25.420 --> 00:17:26.280
+competitors.
+
+00:17:26.280 --> 00:17:30.950
+The things that we need to prevent this are basically account recovery
+
+00:17:30.950 --> 00:17:32.240
+or export tools.
+
+00:17:32.280 --> 00:17:35.710
+So backups of repositories if blue sky is refusing to serve
+
+00:17:35.710 --> 00:17:37.270
+your repository to you.
+
+00:17:37.280 --> 00:17:41.280
+User held recovery keys in case blue sky is refusing to sign
+
+00:17:41.280 --> 00:17:43.280
+account migration operations on your behalf.
+
+00:17:43.280 --> 00:17:45.070
+And then just a place to go.
+
+00:17:45.280 --> 00:17:48.650
+Non-blue sky PDS is running in the network that
+
+00:17:48.650 --> 00:17:50.270
+you can migrate to.
+
+00:17:50.280 --> 00:17:54.200
+And then the final threat is blue sky just losing access to
+
+00:17:54.220 --> 00:17:55.270
+accounts.
+
+00:17:55.280 --> 00:17:59.320
+This may be sort of out of ill intentions or this may
+
+00:17:59.320 --> 00:18:01.240
+be external forces.
+
+00:18:01.280 --> 00:18:03.890
+So going out of business, you know, a data center
+
+00:18:03.890 --> 00:18:07.860
+blowing up, legal action, servers getting seized, something like
+
+00:18:07.860 --> 00:18:08.280
+that.
+
+00:18:08.280 --> 00:18:10.100
+I would expect in most cases blue sky should be able to
+
+00:18:10.310 --> 00:18:11.280
+help ease this transition.
+
+00:18:11.280 --> 00:18:14.030
+For instance, like the most likely one of these is probably
+
+00:18:14.030 --> 00:18:15.280
+blue sky going out of business.
+
+00:18:15.280 --> 00:18:18.500
+And we should be able to help ease the transition if that
+
+00:18:18.500 --> 00:18:19.280
+were the case.
+
+00:18:19.280 --> 00:18:21.870
+Even if we stop providing PDS services, it's very
+
+00:18:21.870 --> 00:18:24.920
+cheap for us to keep some PDS's online and rotation
+
+00:18:24.920 --> 00:18:26.280
+keys as people move off.
+
+00:18:26.280 --> 00:18:29.420
+In extreme cases where blue sky is refusing to do that or
+
+00:18:29.420 --> 00:18:32.710
+unable to do it for some reason, we essentially need what
+
+00:18:32.840 --> 00:18:35.920
+we got from the last threat, which is backups of reposit
+
+00:18:35.920 --> 00:18:38.020
+ories and user held recovery keys.
+
+00:18:40.280 --> 00:18:43.450
+So pulling out the things that we found that we needed for
+
+00:18:43.450 --> 00:18:46.770
+each of these, it's basically app view implementation and sync
+
+00:18:46.770 --> 00:18:47.280
+tooling.
+
+00:18:47.280 --> 00:18:51.280
+Nice.
+
+00:18:51.280 --> 00:18:53.440
+More users on non-blue sky PDS's, so
+
+00:18:53.440 --> 00:18:56.270
+a more diverse open data hosting layer.
+
+00:18:56.280 --> 00:19:01.100
+Consumer key management and recovery tools, putting rotation keys in the
+
+00:19:01.130 --> 00:19:02.240
+hands of users.
+
+00:19:02.280 --> 00:19:05.280
+Other data sources and backups for repositories.
+
+00:19:05.280 --> 00:19:08.280
+And then a thriving ecosystem built on open data.
+
+00:19:08.280 --> 00:19:10.570
+So I want to walk through each one of these and talk
+
+00:19:10.580 --> 00:19:12.280
+about what the blue sky team can do, what we are
+
+00:19:12.280 --> 00:19:14.500
+doing, and then what folks in the ecosystem can do if
+
+00:19:14.500 --> 00:19:17.270
+you're concerned about these particular threats.
+
+00:19:17.280 --> 00:19:25.580
+So, first on app view implementation and sync
+
+00:19:25.580 --> 00:19:26.280
+.
+
+00:19:26.280 --> 00:19:27.280
+Relays are cheap now.
+
+00:19:27.280 --> 00:19:28.080
+With sync 1.
+
+00:19:28.080 --> 00:19:30.780
+1, FIG is running a relay for under $5
+
+00:19:30.780 --> 00:19:31.200
+a month.
+
+00:19:31.280 --> 00:19:32.280
+That's awesome.
+
+00:19:32.280 --> 00:19:34.100
+There's over 10 full network relays running in the network
+
+00:19:34.100 --> 00:19:34.100
+.
+
+00:19:34.280 --> 00:19:37.280
+We seem to be getting pretty good at doing this one.
+
+00:19:37.280 --> 00:19:40.040
+So you can get your data from a lot of different sources
+
+00:19:40.040 --> 00:19:40.280
+.
+
+00:19:40.280 --> 00:19:42.100
+There's lots of new sync tools coming out.
+
+00:19:42.280 --> 00:19:47.220
+We published tap, hydrant, the entire FIG proto
+
+00:19:47.220 --> 00:19:50.280
+microcosm universe is helping with sync.
+
+00:19:50.280 --> 00:19:54.070
+And then black sky is actually running a full network app view
+
+00:19:54.070 --> 00:19:55.270
+, which is incredible.
+
+00:19:55.280 --> 00:20:02.590
+So in some sense, I kind of think this one's
+
+00:20:02.590 --> 00:20:05.280
+solved, although we can always do better on it.
+
+00:20:05.280 --> 00:20:08.090
+But there's also novel approaches like red dwarf that provide a
+
+00:20:08.090 --> 00:20:10.280
+blue sky like experience with no app view.
+
+00:20:10.280 --> 00:20:13.670
+And so there's ways to rethink what this looks like in
+
+00:20:13.670 --> 00:20:16.380
+the network where maybe, I think it's amazing that black
+
+00:20:16.400 --> 00:20:17.280
+sky is running a full network app view.
+
+00:20:17.280 --> 00:20:20.900
+I think that you can probably provide blue sky like experiences for
+
+00:20:20.900 --> 00:20:24.720
+significantly cheaper if you make certain trade offs in how you construct
+
+00:20:25.130 --> 00:20:25.280
+this.
+
+00:20:25.280 --> 00:20:29.840
+The next one, Cuba joked that we should take a
+
+00:20:29.840 --> 00:20:35.280
+shot every time this graph is showed at the conference.
+
+00:20:35.280 --> 00:20:38.280
+And I told him I got one more for him.
+
+00:20:38.280 --> 00:20:40.920
+The next one is more users on non blue sky PDS
+
+00:20:40.920 --> 00:20:41.280
+s.
+
+00:20:41.280 --> 00:20:44.700
+This is a graph of weekly users posting from non blue sky
+
+00:20:44.700 --> 00:20:45.270
+PDSs.
+
+00:20:45.280 --> 00:20:47.070
+And you can see that the trend line is pretty good.
+
+00:20:47.280 --> 00:20:49.490
+So in some sense, we just got to keep cooking on
+
+00:20:49.490 --> 00:20:51.270
+this and doing what we're doing.
+
+00:20:51.280 --> 00:20:52.960
+What blue sky, what we can do and what we're
+
+00:20:52.960 --> 00:20:56.440
+planning to do to help with this is putting an account migration
+
+00:20:56.440 --> 00:20:57.280
+UI in the PDS.
+
+00:20:57.280 --> 00:21:00.870
+We think that users, especially non technical users, probably just
+
+00:21:00.870 --> 00:21:04.280
+have a better trust relationship with the blue sky PDS.
+
+00:21:04.280 --> 00:21:07.180
+Or yeah, with the blue sky PDS and would trust
+
+00:21:07.180 --> 00:21:11.060
+an account migration UI there a little bit more to get over
+
+00:21:11.060 --> 00:21:13.280
+to non blue sky PDS hosting.
+
+00:21:13.280 --> 00:21:16.140
+We want to improve the PDS distribution, especially for mid
+
+00:21:16.140 --> 00:21:18.630
+-sized deployments, things in the 1,000 to
+
+00:21:18.630 --> 00:21:20.280
+100,000 user range.
+
+00:21:20.280 --> 00:21:22.110
+Right now it works pretty well for self-hosters and
+
+00:21:22.310 --> 00:21:23.280
+small groups of people.
+
+00:21:23.280 --> 00:21:25.460
+It's a little bit of a pain for mid-sized
+
+00:21:25.460 --> 00:21:26.280
+deployments.
+
+00:21:26.280 --> 00:21:28.750
+And we also want to make the relay more self-s
+
+00:21:28.750 --> 00:21:32.690
+erve, both for third party relays, so that it
+
+00:21:32.690 --> 00:21:35.790
+'s easier for them to get proactive write notifications whenever PDS
+
+00:21:35.790 --> 00:21:37.270
+is right.
+
+00:21:37.280 --> 00:21:39.950
+But also for our relay doing dynamic rate limits so that you
+
+00:21:39.950 --> 00:21:43.240
+guys don't have to DM us whenever you run into that
+
+00:21:43.290 --> 00:21:46.280
+and you get cut off from the relay.
+
+00:21:46.280 --> 00:21:49.660
+What you all can do for this to improve this is keep
+
+00:21:49.660 --> 00:21:53.280
+cooking and also backup and recovery systems.
+
+00:21:53.280 --> 00:21:57.260
+We talked about backup and recovery systems in the context of sort
+
+00:21:57.260 --> 00:22:01.280
+of blue sky threatening people's repositories and keys.
+
+00:22:01.280 --> 00:22:04.630
+But it's also important for migrating off to non blue
+
+00:22:04.630 --> 00:22:08.600
+sky PDS's because you don't necessarily, you know
+
+00:22:08.600 --> 00:22:10.280
+, you're taking on an operational risk whenever you do that
+
+00:22:10.280 --> 00:22:10.280
+.
+
+00:22:10.280 --> 00:22:13.970
+You kind of know blue sky has money and you know how
+
+00:22:13.970 --> 00:22:16.820
+we operate stuff and you know that we're probably keeping your
+
+00:22:16.830 --> 00:22:17.280
+data secure.
+
+00:22:17.280 --> 00:22:19.900
+Whenever you move to another PDS or even self-host
+
+00:22:19.900 --> 00:22:23.360
+ing, you take on some operational risk and having backup and
+
+00:22:23.360 --> 00:22:26.280
+recovery systems can give you peace of mind to do that.
+
+00:22:26.280 --> 00:22:32.560
+The next thing that we call that was other data sources and
+
+00:22:32.730 --> 00:22:34.280
+backups for repositories.
+
+00:22:34.280 --> 00:22:37.820
+Phil, Fig, bad example, just announced Hubble, which
+
+00:22:37.820 --> 00:22:40.240
+is funded via a grant from blue sky.
+
+00:22:40.280 --> 00:22:42.100
+I'm super stoked about this project.
+
+00:22:42.310 --> 00:22:44.280
+Hubble's a full network mirror of public repositories.
+
+00:22:44.280 --> 00:22:47.800
+The relay used to offer this whenever we switched to sync 1
+
+00:22:47.800 --> 00:22:48.010
+.
+
+00:22:48.010 --> 00:22:48.280
+1.
+
+00:22:48.280 --> 00:22:51.280
+It no longer mirrors all the public repositories in the network
+
+00:22:51.280 --> 00:22:51.280
+.
+
+00:22:51.280 --> 00:22:55.720
+And so this provides a full network copy of all of the
+
+00:22:55.720 --> 00:22:56.270
+data.
+
+00:22:56.280 --> 00:22:58.110
+It's intended to increase network resilience.
+
+00:22:58.280 --> 00:23:00.070
+This is a backup of your repository.
+
+00:23:00.280 --> 00:23:03.120
+If your PDS crashes and burns and you lose your repository
+
+00:23:03.120 --> 00:23:04.280
+, you can go get it from here.
+
+00:23:04.280 --> 00:23:06.420
+If blue sky tries to lock you out of it, you
+
+00:23:06.420 --> 00:23:08.200
+can go get a backup of your repository here.
+
+00:23:08.280 --> 00:23:11.010
+Or if blue sky shuts down our APIs, then you can
+
+00:23:11.010 --> 00:23:13.270
+go sync repositories from Hubble.
+
+00:23:13.280 --> 00:23:15.570
+All of the code will be open source and permissibly
+
+00:23:15.590 --> 00:23:16.280
+licensed.
+
+00:23:16.280 --> 00:23:18.740
+Phil's planning on running an instance of this, but anybody
+
+00:23:18.790 --> 00:23:22.020
+can run an instance of this and provide a full network mirror
+
+00:23:22.120 --> 00:23:22.240
+.
+
+00:23:22.280 --> 00:23:26.280
+Consumer key management and recovery tools.
+
+00:23:26.280 --> 00:23:29.080
+I actually think that there's a really great product opportunity here
+
+00:23:29.080 --> 00:23:29.280
+.
+
+00:23:29.280 --> 00:23:31.100
+And I'm kind of surprised that nobody's done it.
+
+00:23:31.280 --> 00:23:34.640
+You can take advantage of phone TPMs for storing recovery
+
+00:23:34.640 --> 00:23:36.270
+keys in a very secure way.
+
+00:23:36.280 --> 00:23:39.610
+This application could also audit PLC and notify users of any
+
+00:23:39.610 --> 00:23:41.270
+unexpected operations.
+
+00:23:41.280 --> 00:23:44.120
+And just to note, I also think that this would partner
+
+00:23:44.120 --> 00:23:46.280
+well with a backup or recovery service.
+
+00:23:46.280 --> 00:23:49.280
+Especially whenever we put out permission data.
+
+00:23:49.280 --> 00:23:52.500
+And then the final thing is just a thriving ecosystem built on
+
+00:23:52.500 --> 00:23:53.270
+open data.
+
+00:23:53.280 --> 00:23:55.530
+And this is, I think, the biggest part where you
+
+00:23:55.530 --> 00:23:56.280
+all come in.
+
+00:23:56.280 --> 00:23:59.820
+Apps built on the atmosphere, atmospheric websites, feeds, label
+
+00:23:59.820 --> 00:24:01.270
+ers, social media tools.
+
+00:24:01.280 --> 00:24:03.110
+Anything that requires that the data be open.
+
+00:24:03.280 --> 00:24:06.650
+In some sense, all of the previous threats that we talked
+
+00:24:06.650 --> 00:24:09.280
+about are, they're pretty protocol brained.
+
+00:24:09.280 --> 00:24:10.980
+And I just don't think a lot of users are going
+
+00:24:10.980 --> 00:24:12.280
+to care or engage about that.
+
+00:24:12.280 --> 00:24:14.410
+And I don't think that we're going to get to
+
+00:24:14.410 --> 00:24:18.380
+like an even distribution of users by focusing on key recovery or
+
+00:24:18.400 --> 00:24:20.280
+non blue sky PDS's or anything like that.
+
+00:24:20.280 --> 00:24:23.710
+The most important thing for the resilience of the network is that
+
+00:24:23.710 --> 00:24:26.560
+users need to understand that they're participating in a multi-
+
+00:24:26.560 --> 00:24:27.280
+stakeholder network.
+
+00:24:27.280 --> 00:24:29.110
+That they're participating in the atmosphere.
+
+00:24:29.280 --> 00:24:31.100
+That they're not participating in blue sky.
+
+00:24:31.280 --> 00:24:34.090
+And so if we're building things that run on open data
+
+00:24:34.090 --> 00:24:37.240
+and users fall in love with open social.
+
+00:24:37.280 --> 00:24:40.280
+And these experiences that you can only build on open data.
+
+00:24:40.280 --> 00:24:42.460
+That is the most important thing that we can do to keep
+
+00:24:42.460 --> 00:24:43.280
+blue sky honest.
+
+00:24:43.280 --> 00:24:46.280
+And to keep the open social web running.
+
+00:24:46.280 --> 00:24:49.610
+So the best way to ensure the resilience of the network is
+
+00:24:49.610 --> 00:24:53.020
+to build something that people love so much that they would revolt
+
+00:24:53.290 --> 00:24:54.280
+if it ever went away.
+
+00:24:54.280 --> 00:24:56.110
+Sweet.
+
+00:24:56.280 --> 00:24:57.280
+Thank you.
+
+00:24:57.280 --> 00:25:07.280
+That's great.
+
+00:25:07.280 --> 00:25:09.280
+It's awesome.
+
+00:25:09.280 --> 00:25:12.280
+We should get that done probably by next week, week after
+
+00:25:12.280 --> 00:25:12.280
+next.
+
+00:25:12.280 --> 00:25:13.280
+So it's great.
+
+00:25:13.280 --> 00:25:14.280
+Easy.
+
+00:25:14.280 --> 00:25:17.380
+We're heading into the coffee break and we have a couple
+
+00:25:17.380 --> 00:25:18.270
+of minutes.
+
+00:25:18.280 --> 00:25:19.280
+Questions?
+
+00:25:19.280 --> 00:25:28.670
+So users knowing that they're participating in the atmosphere
+
+00:25:28.670 --> 00:25:32.280
+and not just blue sky.
+
+00:25:32.280 --> 00:25:33.280
+How do we do it?
+
+00:25:33.280 --> 00:25:34.280
+What's the branding?
+
+00:25:34.280 --> 00:25:37.280
+That's a great question and we should figure that out.
+
+00:25:37.280 --> 00:25:42.270
+This gentleman just showed you an ASCII presentation.
+
+00:25:42.280 --> 00:25:45.280
+This presentation came from our designer.
+
+00:25:45.280 --> 00:25:48.280
+I want to call that out.
+
+00:25:48.280 --> 00:25:51.280
+No, that's a good question.
+
+00:25:51.280 --> 00:25:52.600
+I think that that is, I mean I don't have
+
+00:25:52.610 --> 00:25:53.280
+the answer for you right now.
+
+00:25:53.280 --> 00:25:55.570
+But that is the core question that we need to figure out
+
+00:25:55.590 --> 00:25:56.280
+this year.
+
+00:25:56.280 --> 00:25:59.850
+Is how do we start to build intuition for users about what
+
+00:25:59.850 --> 00:26:01.270
+the atmosphere is.
+
+00:26:01.280 --> 00:26:02.280
+What they're participating in.
+
+00:26:02.280 --> 00:26:04.070
+What an atmosphere count is.
+
+00:26:04.280 --> 00:26:09.270
+And what this whole open social thing is about.
+
+00:26:09.280 --> 00:26:11.100
+How is the Swiss Association funded?
+
+00:26:11.280 --> 00:26:13.070
+Is that like a grant from blue sky?
+
+00:26:13.280 --> 00:26:18.270
+And how does this thing continue even if one of your scenarios
+
+00:26:18.280 --> 00:26:19.270
+, blue skies, went away?
+
+00:26:19.280 --> 00:26:21.070
+That's a good question.
+
+00:26:21.280 --> 00:26:24.280
+Right now it is funded via a grant from blue sky.
+
+00:26:24.280 --> 00:26:27.060
+The exact details of that haven't been nailed down just yet
+
+00:26:27.060 --> 00:26:27.280
+.
+
+00:26:27.280 --> 00:26:31.280
+Although it will probably provide some sort of ongoing funding.
+
+00:26:31.280 --> 00:26:36.540
+And then the association is going to be working to provide more
+
+00:26:36.560 --> 00:26:39.280
+sustainable funding options after that.
+
+00:26:39.280 --> 00:26:41.100
+But ultimately that's going to be the prerogative
+
+00:26:41.150 --> 00:26:42.280
+of the Swiss Association.
+
+00:26:42.280 --> 00:26:47.270
+Not blue sky.
+
+00:26:47.280 --> 00:26:48.280
+Let's go get some coffee.
+
+00:26:48.280 --> 00:26:52.280
+Thanks Dan.

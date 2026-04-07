@@ -1,0 +1,658 @@
+WEBVTT
+
+00:00:00.020 --> 00:00:02.320
+All right that's like 24 of the time.
+
+00:00:02.320 --> 00:00:07.760
+All right welcome to my talk.
+
+00:00:07.760 --> 00:00:11.160
+I'm presenting Crowdsourcing Research Synthesis on AT Pro
+
+00:00:11.160 --> 00:00:13.680
+: Envisioning an Inclusive Future.
+
+00:00:13.680 --> 00:00:17.280
+And I'm Jay Patel from the University of Maryland.
+
+00:00:17.280 --> 00:00:21.840
+So I want to preface this by the motivation for this
+
+00:00:21.840 --> 00:00:23.270
+lightning talk.
+
+00:00:23.280 --> 00:00:26.370
+Back in summer 2025 I was doing my first systematic review.
+
+00:00:26.370 --> 00:00:29.640
+So who's familiar with the idea of a systematic review in
+
+00:00:29.680 --> 00:00:30.960
+research?
+
+00:00:30.960 --> 00:00:33.610
+Okay who's familiar with the idea of any kind of review
+
+00:00:33.860 --> 00:00:34.730
+research synthesis?
+
+00:00:34.760 --> 00:00:35.640
+Very good okay.
+
+00:00:35.640 --> 00:00:39.240
+So a systematic review is a very systematic way of sort of
+
+00:00:39.240 --> 00:00:43.550
+assessing how much evidence there is out there in the broader research
+
+00:00:43.550 --> 00:00:44.200
+literature.
+
+00:00:44.270 --> 00:00:47.830
+And that involves four key steps which is searching for relevant pre
+
+00:00:47.830 --> 00:00:51.930
+prints and papers through keyword searches and natural language searches.
+
+00:00:51.930 --> 00:00:55.290
+Screening for relevant reports so from all the papers that you
+
+00:00:55.440 --> 00:00:58.670
+search for, which ones are relevant to your questions, and
+
+00:00:58.670 --> 00:01:01.240
+appraising or evaluating the study quality.
+
+00:01:01.250 --> 00:01:04.640
+After appraising for study quality you might drop off filter
+
+00:01:04.740 --> 00:01:06.350
+out a few more articles.
+
+00:01:06.350 --> 00:01:09.370
+And then when you do that you'll then synthesize the
+
+00:01:09.440 --> 00:01:13.860
+evidence that you have into some sort of prose which is suitable
+
+00:01:13.860 --> 00:01:14.520
+for publication.
+
+00:01:14.520 --> 00:01:16.050
+So this is what I've been working on for the past
+
+00:01:16.100 --> 00:01:16.520
+year.
+
+00:01:16.520 --> 00:01:19.260
+And the question that I was really trying to answer was how
+
+00:01:19.260 --> 00:01:25.080
+suitable are large language models for assessing research reports.
+
+00:01:25.080 --> 00:01:27.510
+So as I was doing this I noticed a few recurring problems
+
+00:01:27.510 --> 00:01:30.180
+that are not exactly novel but I really felt them in my
+
+00:01:30.180 --> 00:01:30.420
+bones.
+
+00:01:30.440 --> 00:01:32.920
+One is just that it's very slow to do this.
+
+00:01:32.920 --> 00:01:35.850
+It takes about one to two days to read a paper very
+
+00:01:35.980 --> 00:01:38.450
+deeply and to be able to say something smart about that.
+
+00:01:38.460 --> 00:01:41.200
+There are many such citations for that claim.
+
+00:01:41.270 --> 00:01:44.700
+It's also very tedious after you learn it, after you
+
+00:01:44.700 --> 00:01:46.150
+go to the first dozen or so papers.
+
+00:01:46.220 --> 00:01:48.350
+And if you want evidence of that you can just go to
+
+00:01:48.350 --> 00:01:50.700
+me because I've done this you know hundreds of times.
+
+00:01:50.700 --> 00:01:53.660
+This is actually a very costly procedure.
+
+00:01:53.730 --> 00:01:56.400
+So if you have a trained graduate student and maybe one other
+
+00:01:56.410 --> 00:01:59.160
+person working on it, it takes quite a lot of money
+
+00:01:59.160 --> 00:01:59.450
+.
+
+00:01:59.450 --> 00:02:02.350
+And there are only a few citations for this sort of
+
+00:02:02.420 --> 00:02:05.660
+thing but estimates range between fifty and a hundred and forty one
+
+00:02:05.660 --> 00:02:07.150
+thousand dollars USD.
+
+00:02:07.150 --> 00:02:11.960
+Actually in pharmacology or pharma companies it'll cost about
+
+00:02:11.960 --> 00:02:14.780
+a hundred and forty one thousand per systematic review.
+
+00:02:14.780 --> 00:02:16.120
+So that's quite a lot.
+
+00:02:16.140 --> 00:02:20.170
+You know and sadly this is also an error prone sort of
+
+00:02:20.200 --> 00:02:20.960
+thing.
+
+00:02:20.960 --> 00:02:24.490
+Ninety three percent of systematic reviews have at least one error
+
+00:02:24.490 --> 00:02:25.880
+in the search process.
+
+00:02:25.880 --> 00:02:28.660
+About fifty nine percent of the sampled ones have at least
+
+00:02:28.660 --> 00:02:33.110
+one error in the extraction process extracting key details of methods and
+
+00:02:33.120 --> 00:02:33.580
+analyses.
+
+00:02:33.600 --> 00:02:36.660
+And then when it comes to appraisal or evaluating the
+
+00:02:36.660 --> 00:02:40.090
+study quality, well there are very many problems and I would
+
+00:02:40.090 --> 00:02:42.260
+call that foobar or I guess you know that acronym
+
+00:02:42.260 --> 00:02:42.260
+.
+
+00:02:42.280 --> 00:02:46.620
+And then there's also a number of other problems like you
+
+00:02:46.620 --> 00:02:51.940
+use very often small homogeneous teams which limits the quality of your
+
+00:02:51.940 --> 00:02:52.660
+systematic review.
+
+00:02:52.660 --> 00:02:57.180
+Ideally use very large heterogeneous teams so they could get through
+
+00:02:57.180 --> 00:02:58.240
+the work more quickly.
+
+00:02:58.240 --> 00:03:02.270
+Tackle the problem from multiple frames using different kinds of knowledge
+
+00:03:02.270 --> 00:03:05.170
+, different kinds of skills, and use different connections to make
+
+00:03:05.180 --> 00:03:07.340
+sure you have a really great product at the end of it
+
+00:03:07.540 --> 00:03:07.920
+.
+
+00:03:07.960 --> 00:03:11.440
+And even more problematically, many of these systematic reviews because
+
+00:03:11.440 --> 00:03:13.940
+they take so long are dead upon arrival.
+
+00:03:13.940 --> 00:03:18.370
+They're rarely updated after publication and very troublesome to maintain even
+
+00:03:18.370 --> 00:03:23.260
+when you have a fancy sort of living web page.
+
+00:03:23.260 --> 00:03:26.770
+So what we would ideally have is you know solutions to these
+
+00:03:26.890 --> 00:03:29.240
+four key problems, volume and velocity.
+
+00:03:29.250 --> 00:03:32.480
+We would increase the speed at which we do reviews so that
+
+00:03:32.480 --> 00:03:34.230
+they take weeks not years.
+
+00:03:34.250 --> 00:03:38.400
+We would improve the veracity or accuracy and I propose we
+
+00:03:38.400 --> 00:03:42.570
+do that with crowdsourcing, increasing the team size and ensuring
+
+00:03:42.570 --> 00:03:47.520
+that certain team members are always engaged with error detection and error
+
+00:03:47.580 --> 00:03:48.430
+correction.
+
+00:03:48.430 --> 00:03:53.590
+We would hopefully increase the diversity of the different perspectives and contributors
+
+00:03:53.590 --> 00:03:54.440
+on our teams.
+
+00:03:54.440 --> 00:03:57.110
+That would allow us to reframe things, make suggestions,
+
+00:03:57.120 --> 00:04:01.710
+make interesting connections and then also have living systematic reviews which helps
+
+00:04:01.720 --> 00:04:06.710
+with providing timely data to people who might benefit from that data
+
+00:04:06.710 --> 00:04:06.950
+.
+
+00:04:06.950 --> 00:04:08.980
+And we kind of do this thing already with open source software
+
+00:04:09.000 --> 00:04:09.960
+development right.
+
+00:04:10.060 --> 00:04:11.740
+So how do we do this?
+
+00:04:11.760 --> 00:04:14.160
+Do we use some kind of shiny app with R, open
+
+00:04:14.160 --> 00:04:15.040
+science repos?
+
+00:04:15.060 --> 00:04:18.400
+Do we use like journal specific tools or journalware?
+
+00:04:18.400 --> 00:04:21.510
+This question has been asked on Blue Sky actually quite recently by
+
+00:04:21.510 --> 00:04:24.480
+this user who asked what is the best platform to host something
+
+00:04:24.480 --> 00:04:25.360
+like this?
+
+00:04:25.380 --> 00:04:27.920
+Meaning a living systematic review.
+
+00:04:27.920 --> 00:04:29.110
+Is it shiny?
+
+00:04:29.120 --> 00:04:30.630
+Is it a website?
+
+00:04:30.630 --> 00:04:34.360
+Well you know one other user had this interesting idea of a
+
+00:04:34.360 --> 00:04:37.140
+wiki which is a more dynamic approach where multiple researchers can
+
+00:04:37.140 --> 00:04:41.240
+edit and attach new evidence and reviewers and then various other people
+
+00:04:41.240 --> 00:04:44.060
+can make approvals, rejections and modifications.
+
+00:04:44.060 --> 00:04:46.480
+So something like Wikipedia but with additional guardrails.
+
+00:04:46.500 --> 00:04:50.780
+The nice thing is that the ATProto system is kind
+
+00:04:50.790 --> 00:04:53.940
+of like a full-ish stack right now.
+
+00:04:53.940 --> 00:04:57.280
+We have all the sort of necessary tooling to do an MVP
+
+00:04:57.280 --> 00:04:57.410
+.
+
+00:04:57.430 --> 00:04:59.990
+So suppose you have a bunch of research posters, a bunch
+
+00:04:59.990 --> 00:05:02.480
+of preprints, a bunch of fully polished papers.
+
+00:05:02.480 --> 00:05:06.000
+And then you sort of discourse graph them with their questions,
+
+00:05:06.000 --> 00:05:06.800
+claims and evidence.
+
+00:05:06.820 --> 00:05:12.960
+And push those data into symbol collections and margin annotations.
+
+00:05:12.960 --> 00:05:16.600
+Then you could probably layer that on to some kind of UI
+
+00:05:16.600 --> 00:05:22.160
+where users can validate the different extracted discourse graph nodes.
+
+00:05:22.180 --> 00:05:26.720
+Agree and then publish that into a leaflet blog post
+
+00:05:26.720 --> 00:05:33.190
+which recently has been working on creating sort of living documents,
+
+00:05:33.190 --> 00:05:34.740
+living posts.
+
+00:05:34.740 --> 00:05:37.440
+So if we do this, you know, I think the
+
+00:05:37.440 --> 00:05:40.300
+near-term goal could be to leverage the existing apps,
+
+00:05:40.300 --> 00:05:41.050
+create the MVP.
+
+00:05:41.050 --> 00:05:44.030
+Hopefully that could be done within a few weeks to months.
+
+00:05:44.100 --> 00:05:45.850
+In the medium term, I think it'd be cool to
+
+00:05:45.850 --> 00:05:49.560
+query data across multiple crowdsource reviews and scaffold also what's
+
+00:05:49.630 --> 00:05:54.800
+called primary research which would be not reviews but primary experiments,
+
+00:05:54.820 --> 00:05:56.360
+surveys, surveys, interviews.
+
+00:05:56.360 --> 00:05:58.160
+And in the very long term, it'd be very nice
+
+00:05:58.160 --> 00:06:02.760
+if we could build interesting visual dashboards and data stories that
+
+00:06:02.760 --> 00:06:06.810
+would appeal more to the public, more for public engagement rather
+
+00:06:06.810 --> 00:06:10.360
+than just creating, you know, typical research reports for scientists
+
+00:06:10.360 --> 00:06:10.480
+.
+
+00:06:10.480 --> 00:06:13.550
+So a fair number of things that we can do and I
+
+00:06:13.550 --> 00:06:16.070
+'d like you to kind of get your help with this.
+
+00:06:16.070 --> 00:06:17.600
+So if you're a builder, can you help me build
+
+00:06:17.600 --> 00:06:18.510
+the missing pieces?
+
+00:06:18.510 --> 00:06:20.240
+If you're a scholar or someone else, you know,
+
+00:06:20.240 --> 00:06:22.670
+can you help me test drive the MVP, spread the word
+
+00:06:22.670 --> 00:06:22.830
+?
+
+00:06:22.830 --> 00:06:24.780
+And I don't know who else is out here except a
+
+00:06:24.780 --> 00:06:28.860
+builder or a scholar or advocate but anyone else, you know
+
+00:06:28.860 --> 00:06:31.730
+, you can also help test drive the MVP, spread the
+
+00:06:31.990 --> 00:06:32.880
+word, get involved.
+
+00:06:33.930 --> 00:06:35.920
+I would really kind of love your advice here.
+
+00:06:35.920 --> 00:06:40.050
+I'd like to thank my research mentor Joel Chan for conceptual
+
+00:06:40.050 --> 00:06:43.480
+guidance here and then Ronan for also motivating this talk and
+
+00:06:43.500 --> 00:06:44.400
+bringing me out here.
+
+00:06:44.420 --> 00:06:47.520
+And finally, I'm available on ORCID and Blue
+
+00:06:47.520 --> 00:06:48.080
+Sky.
+
+00:06:48.080 --> 00:06:48.480
+Thank you.
+
+00:06:57.380 --> 00:06:57.980
+Thank you, Jay.
+
+00:06:58.050 --> 00:07:00.300
+Questions, anyone?
+
+00:07:00.300 --> 00:07:08.480
+Maybe I'll ask a question about the, yeah,
+
+00:07:08.480 --> 00:07:11.660
+just comparison, like what's your sort of mental model for
+
+00:07:11.660 --> 00:07:14.080
+where app proto fits in versus like AI?
+
+00:07:14.080 --> 00:07:15.360
+How do you see the two combining?
+
+00:07:15.360 --> 00:07:21.890
+I'm agreeable to both approaches.
+
+00:07:21.960 --> 00:07:25.680
+I haven't thought about AI as much because I think simply
+
+00:07:25.940 --> 00:07:28.690
+increasing the team size would be such a great benefit to the
+
+00:07:28.930 --> 00:07:31.080
+problem at hand.
+
+00:07:31.080 --> 00:07:33.710
+I know that for systematic reviews, there's an incredible amount
+
+00:07:33.710 --> 00:07:38.640
+of work being done right now for screening papers, extracting bits
+
+00:07:38.640 --> 00:07:41.160
+of questions, claims, and evidence, and also doing the
+
+00:07:41.170 --> 00:07:41.750
+synthesis.
+
+00:07:41.760 --> 00:07:46.220
+I agree more for using it for search, screening, and
+
+00:07:46.260 --> 00:07:49.280
+extracting questions, claims, and evidence.
+
+00:07:49.280 --> 00:07:51.540
+A little bit less so for synthesis because that's way more
+
+00:07:51.540 --> 00:07:53.120
+complicated and way more fun.
+
+00:07:53.120 --> 00:07:54.630
+As an amateur, I've tried to sort of do that
+
+00:07:54.630 --> 00:07:55.120
+myself.
+
+00:07:55.380 --> 00:07:57.280
+And it's not been as successful.
+
+00:07:57.280 --> 00:08:00.000
+But certainly, I think, you know, search, in
+
+00:08:00.000 --> 00:08:02.520
+fact, I couldn't have done part of my systematic review
+
+00:08:02.590 --> 00:08:07.120
+without using some AI-assisted elements into my workflow.
+
+00:08:07.120 --> 00:08:08.710
+It really would not have been possible.
+
+00:08:08.710 --> 00:08:12.240
+So I strongly advocate for using the right AI programs to help
+
+00:08:12.240 --> 00:08:16.330
+with search and screening, although my systematic review is so small
+
+00:08:16.330 --> 00:08:18.480
+that I can do the screening myself manually.
+
+00:08:18.500 --> 00:08:20.830
+And then when it comes to appraisal, I have
+
+00:08:20.830 --> 00:08:23.040
+a certain way of doing it that I like.
+
+00:08:23.040 --> 00:08:26.510
+And so I feel comfortable just doing that myself.
+
+00:08:26.510 --> 00:08:29.190
+But I'm open to anyone who might be able to sort
+
+00:08:29.190 --> 00:08:33.410
+of automate custom-built checklists and things using some sort
+
+00:08:33.430 --> 00:08:34.450
+of AI agent.
+
+00:08:34.450 --> 00:08:37.440
+So that is, yeah, it's quite doable.
+
+00:08:37.440 --> 00:08:38.960
+Cool.
+
+00:08:38.960 --> 00:08:39.460
+Anyone else?
+
+00:08:39.740 --> 00:08:47.760
+You mentioned using high-quality LLMs.
+
+00:08:47.760 --> 00:08:51.760
+Did you benchmark maybe like medium-level or low-quality
+
+00:08:51.760 --> 00:08:52.080
+ones?
+
+00:08:52.090 --> 00:08:55.530
+I did not do the, for the systematic review that I
+
+00:08:55.530 --> 00:08:58.960
+was conducting, I did not do the benchmarking myself.
+
+00:08:58.970 --> 00:09:01.550
+I was merely reviewing the studies that others had done, the
+
+00:09:01.550 --> 00:09:03.780
+benchmarking experiments that others have done.
+
+00:09:03.780 --> 00:09:06.620
+And so what I noted from that, which is actually helpful
+
+00:09:06.620 --> 00:09:09.280
+for this sort of meta project, is that, you know
+
+00:09:09.280 --> 00:09:12.860
+, a smattering of results, the more you focus these
+
+00:09:12.860 --> 00:09:15.840
+foundation models, the better they do.
+
+00:09:17.940 --> 00:09:19.520
+Using sort of, you know, fine-tuned data
+
+00:09:19.520 --> 00:09:22.040
+, better prompts, better context engineering, those things all sorts
+
+00:09:22.040 --> 00:09:22.470
+of help.
+
+00:09:22.480 --> 00:09:26.560
+But I think none of these models achieve, you know,
+
+00:09:26.560 --> 00:09:28.880
+expert human performance on every trial.
+
+00:09:28.880 --> 00:09:32.970
+So it would really be beneficial to have humans and AI agents
+
+00:09:33.120 --> 00:09:36.020
+work together across the systematic review process.
+
+00:09:36.020 --> 00:09:38.690
+Certainly, I see them being very useful for appraisal
+
+00:09:38.700 --> 00:09:39.210
+, right?
+
+00:09:39.210 --> 00:09:41.430
+Let's say you have a long checklist that's useful for
+
+00:09:41.430 --> 00:09:43.200
+evaluating the methods of analyses.
+
+00:09:43.940 --> 00:09:46.440
+You should, you should consider certain LLMs, I
+
+00:09:46.440 --> 00:09:46.960
+think.
+
+00:09:46.960 --> 00:09:47.760
+That's perfectly fine.
+
+00:09:47.760 --> 00:09:48.560
+Yeah.
+
+00:09:48.580 --> 00:09:50.580
+Any more questions?
+
+00:09:50.580 --> 00:09:54.480
+Maybe a quick one while Sophie sets up or we'll just
+
+00:09:54.560 --> 00:09:56.000
+move to the next talk.
+
+00:09:56.180 --> 00:09:57.480
+Okay.
+
+00:09:57.550 --> 00:10:03.600
+Well, let's thank Jay again.

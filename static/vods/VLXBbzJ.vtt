@@ -1,0 +1,1810 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:00.990
+N.
+
+00:00:00.990 --> 00:00:01.970
+A.
+
+00:00:02.210 --> 00:00:02.940
+M.
+
+00:00:03.050 --> 00:00:04.760
+Good morning, everyone.
+
+00:00:04.760 --> 00:00:10.040
+Welcome to day two or day five or day seven, depending
+
+00:00:10.040 --> 00:00:11.760
+on when you got to Vancouver.
+
+00:00:12.120 --> 00:00:16.180
+Very good to see your faces, especially since I hear about
+
+00:00:16.180 --> 00:00:18.320
+some of the damage that happened last night that we're not
+
+00:00:18.390 --> 00:00:19.260
+going to talk about.
+
+00:00:19.260 --> 00:00:23.770
+So this morning, once again, we're at the media
+
+00:00:23.790 --> 00:00:26.660
+and civics track here at Atmosphere Conf 2026
+
+00:00:26.870 --> 00:00:26.960
+.
+
+00:00:26.960 --> 00:00:29.530
+I'm Chad Gaholic from the Protocols for Pub
+
+00:00:29.580 --> 00:00:32.340
+lishers project, you might have heard.
+
+00:00:32.340 --> 00:00:36.470
+And we're going to kick off the morning with a discussion
+
+00:00:36.470 --> 00:00:40.010
+with some of our news and journalist folks here.
+
+00:00:40.020 --> 00:00:41.450
+And I'm just going to turn it over to Jim to
+
+00:00:41.450 --> 00:00:42.020
+take over.
+
+00:00:42.020 --> 00:00:44.020
+Thank you, Chad.
+
+00:00:44.170 --> 00:00:46.270
+And thanks for the work that you do with Protocols for
+
+00:00:46.280 --> 00:00:46.740
+Publishers.
+
+00:00:46.740 --> 00:00:49.610
+I got to meet some of those folks in London a couple
+
+00:00:49.610 --> 00:00:53.140
+of months ago, including our fine guests here today.
+
+00:00:53.140 --> 00:00:54.400
+So thank you again.
+
+00:00:54.400 --> 00:00:55.380
+My name is Jim.
+
+00:00:55.380 --> 00:00:57.640
+I work at Blue Sky on our DevRel team.
+
+00:00:57.870 --> 00:00:59.840
+If you have questions about how the platform works, you're
+
+00:01:00.120 --> 00:01:01.880
+looking for the other Jim and he's giving a talk later
+
+00:01:01.880 --> 00:01:02.420
+today.
+
+00:01:02.420 --> 00:01:06.340
+I'm joined by Andra Rinnensland and Tyler
+
+00:01:06.540 --> 00:01:10.370
+Fisher, both of whom have over, oh, I think
+
+00:01:10.370 --> 00:01:12.980
+we're zeroing in on 15 years of media experience and
+
+00:01:13.090 --> 00:01:14.600
+development experience as well.
+
+00:01:14.600 --> 00:01:16.380
+just to show you that I'm the old guy.
+
+00:01:16.380 --> 00:01:18.440
+They were getting into media as I was leaving it.
+
+00:01:18.440 --> 00:01:21.700
+So, but we're going to, we're going to
+
+00:01:21.700 --> 00:01:27.710
+talk a little bit about how and why news organizations should build
+
+00:01:27.710 --> 00:01:28.760
+on at proto.
+
+00:01:28.970 --> 00:01:31.360
+You'll notice that I throw out a bit of a ga
+
+00:01:31.360 --> 00:01:33.740
+untlet about capitalization on at proto there.
+
+00:01:33.740 --> 00:01:35.780
+And we also realized at the very last minute, we maybe
+
+00:01:35.890 --> 00:01:38.790
+should have named this one, meet the press.
+
+00:01:38.790 --> 00:01:42.210
+But so the really what we want to do is just kind
+
+00:01:42.270 --> 00:01:45.290
+of like have kind of an open free form conversation about what
+
+00:01:45.290 --> 00:01:46.620
+we've seen has worked.
+
+00:01:46.620 --> 00:01:48.900
+Clearly, there's a lot of things that are not working
+
+00:01:49.150 --> 00:01:49.800
+with media.
+
+00:01:49.800 --> 00:01:53.780
+I think my approach has generally been to harass and harang
+
+00:01:53.780 --> 00:01:56.180
+ue anyone who's in media and still on Twitter.
+
+00:01:56.290 --> 00:01:58.150
+And that doesn't seem to be working.
+
+00:01:58.160 --> 00:02:01.070
+So, I'm hoping Andra and Tyler have some better
+
+00:02:01.210 --> 00:02:02.060
+solutions.
+
+00:02:02.060 --> 00:02:06.490
+And so we'll start with Andra, who has been
+
+00:02:06.490 --> 00:02:09.560
+working in media since the early 2010s.
+
+00:02:09.560 --> 00:02:11.400
+And you're based in London.
+
+00:02:11.400 --> 00:02:12.000
+That's correct?
+
+00:02:12.000 --> 00:02:12.620
+Yeah, excellent.
+
+00:02:12.620 --> 00:02:13.760
+So I'm going to hand it over to you.
+
+00:02:13.760 --> 00:02:17.580
+And maybe you can kick us off with some of the approaches
+
+00:02:17.580 --> 00:02:21.300
+that you have seen that have worked and maybe what's changing
+
+00:02:21.300 --> 00:02:22.000
+a little bit.
+
+00:02:25.000 --> 00:02:26.000
+Thanks.
+
+00:02:26.000 --> 00:02:27.800
+Yeah, as mentioned, I'm Andre Renensland.
+
+00:02:27.800 --> 00:02:30.990
+I run the news feed and trending news feeds on Blue Sky
+
+00:02:30.990 --> 00:02:31.160
+.
+
+00:02:31.160 --> 00:02:34.280
+And what has worked?
+
+00:02:34.280 --> 00:02:37.160
+Well, so some of the things I find that really connect
+
+00:02:37.160 --> 00:02:40.180
+with publishers is the identity system is like a really big part
+
+00:02:40.290 --> 00:02:42.990
+of it, both in terms of being able to set your
+
+00:02:42.990 --> 00:02:48.680
+username to your domain name for your newspaper, as well as
+
+00:02:48.680 --> 00:02:51.640
+the new verification system, I think is really cool as well
+
+00:02:51.640 --> 00:02:54.920
+, for news orgs to be able to verify their own
+
+00:02:54.920 --> 00:03:00.070
+journalists instead of having to wait for some large tech company apparatus
+
+00:03:00.200 --> 00:03:00.920
+to do that for them.
+
+00:03:00.920 --> 00:03:02.760
+I think it's like a really powerful feature.
+
+00:03:02.760 --> 00:03:06.310
+I'd also really love to see journalism societies kind of start
+
+00:03:06.310 --> 00:03:09.750
+using more of the affordances of the platform in that way
+
+00:03:09.760 --> 00:03:10.120
+.
+
+00:03:10.120 --> 00:03:13.470
+Like for instance, like having, you know, journalism,
+
+00:03:13.480 --> 00:03:17.120
+journalist unions might be like a really powerful place for doing the
+
+00:03:17.120 --> 00:03:17.960
+verification layer.
+
+00:03:17.960 --> 00:03:20.680
+I'm not sure if I answered the question in terms of
+
+00:03:20.680 --> 00:03:21.080
+what's worked.
+
+00:03:21.080 --> 00:03:27.320
+I think in general, the reach that Blue Sky gives news
+
+00:03:27.420 --> 00:03:29.230
+orgs is really, really good.
+
+00:03:29.230 --> 00:03:32.100
+And the kind of traffic that news orgs are getting from
+
+00:03:32.330 --> 00:03:33.780
+Blue Sky is really impressive.
+
+00:03:33.780 --> 00:03:35.320
+Anecdotally, I've talked to a few
+
+00:03:35.320 --> 00:03:38.660
+orgs who have said that Blue Sky traffic has kind of
+
+00:03:38.660 --> 00:03:42.140
+outpaced a lot of other social networks, even ones that
+
+00:03:42.140 --> 00:03:44.190
+are like much, much bigger than Blue Sky.
+
+00:03:44.190 --> 00:03:47.970
+And I think that is reflective of just how engaged with news
+
+00:03:47.970 --> 00:03:51.160
+the Blue Sky community is and the atmosphere in general.
+
+00:03:51.160 --> 00:03:56.560
+And it's interesting how there's kind of been this movement
+
+00:03:56.560 --> 00:04:00.660
+of people who are really seriously interested in journalism to the platform
+
+00:04:00.660 --> 00:04:00.830
+.
+
+00:04:00.830 --> 00:04:03.140
+And I think kind of as builders, it's important to
+
+00:04:03.250 --> 00:04:06.120
+think, how do we keep the momentum going and how do
+
+00:04:06.120 --> 00:04:10.790
+we encourage more people to start making use of those affordances
+
+00:04:10.950 --> 00:04:11.240
+?
+
+00:04:11.340 --> 00:04:12.800
+Because I think kind of at this point, like, you
+
+00:04:12.800 --> 00:04:14.410
+'re right, like, you know, kind of trying to
+
+00:04:14.410 --> 00:04:17.160
+bully people off of Twitter so that they just use Blue Sky
+
+00:04:17.320 --> 00:04:21.720
+is probably a bit of a diminishing return strategy at this
+
+00:04:21.720 --> 00:04:21.960
+point.
+
+00:04:21.960 --> 00:04:26.280
+I think how we win is we start showing how the afford
+
+00:04:26.280 --> 00:04:30.920
+ances of the platform of the atmosphere lend themselves to really good
+
+00:04:30.920 --> 00:04:33.320
+journalism and good engagement with audience.
+
+00:04:33.320 --> 00:04:37.240
+Thank you, Andra.
+
+00:04:37.240 --> 00:04:40.570
+So and I realize I neglected to introduce folks.
+
+00:04:40.690 --> 00:04:43.290
+So Andra's been working in the industry and runs the
+
+00:04:43.930 --> 00:04:46.330
+breaking news feed, as you mentioned.
+
+00:04:46.330 --> 00:04:49.790
+One thing that took me a minute about the breaking news feed
+
+00:04:49.790 --> 00:04:52.700
+is that it actually works much better as an input to other
+
+00:04:52.700 --> 00:04:53.320
+feeds.
+
+00:04:53.320 --> 00:04:56.060
+And so when you can start inputting that into something like
+
+00:04:56.170 --> 00:04:57.960
+Graze, then, but you've done the work of
+
+00:04:57.960 --> 00:05:02.940
+going through and looking for basically every actual legitimate news organization that
+
+00:05:02.940 --> 00:05:04.200
+'s on the network.
+
+00:05:04.200 --> 00:05:08.130
+And then Tyler, in addition to his previous life working in
+
+00:05:08.130 --> 00:05:13.320
+media for companies like the New York Times, he runs an
+
+00:05:13.320 --> 00:05:14.440
+app called SIL.
+
+00:05:14.440 --> 00:05:17.000
+Do we have any SIL users in the house?
+
+00:05:17.000 --> 00:05:17.960
+Fantastic.
+
+00:05:17.960 --> 00:05:21.730
+And I won't even mention what SIL kind of resembles
+
+00:05:21.730 --> 00:05:23.960
+from previous iterations of this.
+
+00:05:23.960 --> 00:05:27.080
+But SIL is just a fantastic news aggregation app.
+
+00:05:27.080 --> 00:05:30.820
+And so you log in with your blue sky account, with
+
+00:05:30.820 --> 00:05:35.210
+your atmosphere account, with your Mastodon account even
+
+00:05:35.330 --> 00:05:35.510
+.
+
+00:05:35.560 --> 00:05:38.460
+And then it scrapes your timeline and finds all of the
+
+00:05:38.570 --> 00:05:40.440
+links and then pulls those together.
+
+00:05:40.440 --> 00:05:43.030
+So when multiple people are talking about the same thing, it
+
+00:05:43.030 --> 00:05:45.800
+kind of groups them together in clusters and subjects and things like
+
+00:05:45.800 --> 00:05:46.170
+that.
+
+00:05:46.170 --> 00:05:48.060
+So Tyler, maybe you can sit, you can talk a
+
+00:05:48.070 --> 00:05:51.220
+little bit about kind of your experience building SIL and,
+
+00:05:51.220 --> 00:05:54.520
+and some of the conversations that you've had with publishers and
+
+00:05:54.540 --> 00:05:56.030
+what resonates with them.
+
+00:05:56.040 --> 00:05:56.520
+Yeah.
+
+00:05:56.520 --> 00:05:57.800
+Yeah.
+
+00:05:58.160 --> 00:05:58.440
+Yeah.
+
+00:05:58.440 --> 00:06:01.280
+So I'm mostly known in the AT Pro space for S
+
+00:06:01.340 --> 00:06:01.480
+IL.
+
+00:06:01.480 --> 00:06:06.070
+Most of how I pay my bills is through consulting for news
+
+00:06:06.970 --> 00:06:07.320
+organizations.
+
+00:06:07.320 --> 00:06:12.840
+I don't work for the New York Times, but I
+
+00:06:12.840 --> 00:06:19.080
+have worked for other large, large national news orgs.
+
+00:06:19.080 --> 00:06:26.580
+With SIL, certainly my biggest user base is individual journalists
+
+00:06:26.600 --> 00:06:30.230
+, um, because they are on social media to follow news
+
+00:06:30.240 --> 00:06:33.550
+and communicate and have conversations about news.
+
+00:06:33.560 --> 00:06:37.340
+Um, but also they have actual jobs that they have to
+
+00:06:37.340 --> 00:06:38.920
+write and do reporting.
+
+00:06:38.920 --> 00:06:42.070
+Um, so they can't be, um, on the
+
+00:06:42.120 --> 00:06:43.070
+feed all day.
+
+00:06:43.070 --> 00:06:46.490
+Um, some certainly are anyway, uh, there's definitely
+
+00:06:46.500 --> 00:06:49.880
+an addictive property of, of microblogging.
+
+00:06:49.880 --> 00:06:52.220
+Um, but, uh, I find a lot of journalists
+
+00:06:52.220 --> 00:06:53.660
+are like, well, I, you know, I've
+
+00:06:53.660 --> 00:06:56.420
+got to write and go to my meetings and do my thing
+
+00:06:56.420 --> 00:06:58.690
+, but I can come back to SIL throughout the day
+
+00:06:58.760 --> 00:07:01.480
+and see what the conversation has been at a glance, uh
+
+00:07:01.480 --> 00:07:04.360
+, rather than having to scroll the three hours of my timeline
+
+00:07:04.360 --> 00:07:05.240
+that I missed.
+
+00:07:05.240 --> 00:07:09.510
+Um, there was, uh, first, before I say
+
+00:07:09.510 --> 00:07:12.640
+this, uh, I want to get a feel in the
+
+00:07:12.640 --> 00:07:13.480
+room.
+
+00:07:13.480 --> 00:07:16.710
+How many people here are coming from the journalism side?
+
+00:07:16.950 --> 00:07:19.400
+Like you work at a news org or somehow are affiliated with
+
+00:07:19.400 --> 00:07:20.350
+news publishing.
+
+00:07:20.350 --> 00:07:20.730
+Okay.
+
+00:07:20.730 --> 00:07:21.500
+Small amount.
+
+00:07:21.500 --> 00:07:24.120
+How many people are more like builders in this space?
+
+00:07:24.120 --> 00:07:25.460
+Okay.
+
+00:07:25.590 --> 00:07:26.620
+Almost everybody.
+
+00:07:26.620 --> 00:07:27.110
+Great.
+
+00:07:27.110 --> 00:07:28.820
+Um, so I feel like I can come with this from
+
+00:07:28.930 --> 00:07:30.440
+two perspectives, right?
+
+00:07:30.440 --> 00:07:33.650
+Why news organizations should be buying on AT pro buying in on
+
+00:07:33.650 --> 00:07:35.510
+AT proto and also why they're not yet.
+
+00:07:35.510 --> 00:07:37.720
+I think I can sort of give both sides of this.
+
+00:07:37.720 --> 00:07:39.770
+So I think I'm going to tailor what I say to
+
+00:07:39.770 --> 00:07:41.040
+why they're not yet.
+
+00:07:41.040 --> 00:07:43.160
+Um, given who we have in the room.
+
+00:07:43.160 --> 00:07:47.010
+Um, so I think, you know, having them join
+
+00:07:47.010 --> 00:07:50.690
+blue sky is great and like, uh, you know,
+
+00:07:50.690 --> 00:07:55.520
+blue sky offers, uh, better traffic and referral traffic than
+
+00:07:55.520 --> 00:07:57.980
+the other platforms because it doesn't downrank links.
+
+00:07:57.980 --> 00:08:00.240
+It has tools like SIL in the ecosystem that even do
+
+00:08:00.240 --> 00:08:01.750
+even more to promote links.
+
+00:08:01.750 --> 00:08:04.600
+You have the ability of, of custom feeds to like really
+
+00:08:04.600 --> 00:08:06.610
+hone in on a topic or, or, or, or
+
+00:08:06.610 --> 00:08:07.870
+things like that.
+
+00:08:07.870 --> 00:08:09.910
+Or, or, um, as Andre has, uh,
+
+00:08:09.910 --> 00:08:12.980
+talked about, uh, many times, like news orgs
+
+00:08:12.980 --> 00:08:16.450
+themselves can build custom feeds that really, uh, center in
+
+00:08:16.450 --> 00:08:18.370
+on their journalists and their communities.
+
+00:08:18.370 --> 00:08:20.370
+And that's just a really powerful primitive that they can be
+
+00:08:20.370 --> 00:08:20.920
+building on.
+
+00:08:21.560 --> 00:08:24.740
+Um, last week, the verge reported that Google is re
+
+00:08:24.740 --> 00:08:27.790
+writing headlines with AI in search results.
+
+00:08:27.880 --> 00:08:31.000
+Um, I, I quote posted their, their post about
+
+00:08:31.000 --> 00:08:33.400
+that and said, uh, this shit is why I'm
+
+00:08:33.400 --> 00:08:35.980
+a journalism on AT proto extremist.
+
+00:08:36.090 --> 00:08:38.280
+Um, so like, I'm, I'm, I
+
+00:08:38.280 --> 00:08:41.770
+'m a believer, but I also get why they're not
+
+00:08:41.770 --> 00:08:42.040
+.
+
+00:08:42.040 --> 00:08:45.410
+And so when I say I'm an AT proto extremist
+
+00:08:45.410 --> 00:08:48.440
+, um, for journalism, I'm not talking about just
+
+00:08:48.440 --> 00:08:51.200
+be having an account on blue sky and linking to your journalism
+
+00:08:51.210 --> 00:08:51.350
+.
+
+00:08:51.350 --> 00:08:53.780
+I mean, putting your journalism on the protocol.
+
+00:08:53.780 --> 00:08:54.320
+Right.
+
+00:08:54.320 --> 00:08:55.780
+Um, and like standard.
+
+00:08:55.890 --> 00:08:59.590
+site is a really exciting community that offers us some affordances
+
+00:08:59.590 --> 00:09:00.080
+to do that.
+
+00:09:00.080 --> 00:09:02.020
+Um, but I think there's some things that are missing
+
+00:09:02.130 --> 00:09:02.220
+.
+
+00:09:02.220 --> 00:09:02.670
+Right.
+
+00:09:02.700 --> 00:09:06.980
+So, um, first standard site has no concept of auth
+
+00:09:07.090 --> 00:09:07.870
+orship.
+
+00:09:07.870 --> 00:09:10.920
+Um, and I think that's, uh, partially because
+
+00:09:10.920 --> 00:09:15.240
+the I love the leaflet and pocket and off print folks
+
+00:09:15.240 --> 00:09:17.800
+, they're focused on like solo bloggers for most of
+
+00:09:17.800 --> 00:09:18.340
+the time.
+
+00:09:18.340 --> 00:09:21.390
+Uh, whereas news organizations have many authors and, and many
+
+00:09:21.400 --> 00:09:22.120
+contributors.
+
+00:09:22.120 --> 00:09:24.830
+And like, you need a way to describe those relationships.
+
+00:09:24.830 --> 00:09:27.060
+What desk does this person work for?
+
+00:09:27.060 --> 00:09:28.520
+Are they a freelancer?
+
+00:09:28.520 --> 00:09:31.800
+Uh, we need better ways on protocol of describing those relationships
+
+00:09:31.800 --> 00:09:35.330
+for every individual document, um, and who worked on them
+
+00:09:35.390 --> 00:09:35.580
+.
+
+00:09:35.580 --> 00:09:37.610
+Uh, and then also the content lexicon thing is
+
+00:09:37.610 --> 00:09:40.350
+, is a real, uh, problem to be solved.
+
+00:09:40.350 --> 00:09:42.760
+Uh, it was announced yesterday that I, uh, am
+
+00:09:42.760 --> 00:09:45.010
+receiving a small grant from the community fund.
+
+00:09:45.010 --> 00:09:47.050
+Thank you to the community fund.
+
+00:09:47.050 --> 00:09:52.130
+Um, uh, and I'm trying to work in this
+
+00:09:52.210 --> 00:09:55.310
+space of like, how can we describe news content on the
+
+00:09:55.310 --> 00:09:58.360
+protocol, uh, and work within, uh, the bounds
+
+00:09:58.360 --> 00:09:59.010
+of standard.
+
+00:09:59.010 --> 00:10:00.140
+site for that.
+
+00:10:00.140 --> 00:10:03.380
+Um, even if we had all that, the thing that
+
+00:10:03.380 --> 00:10:08.130
+is really missing is, like, a premium news reading experience
+
+00:10:08.130 --> 00:10:10.170
+that's built on top of standard.
+
+00:10:10.170 --> 00:10:10.660
+site.
+
+00:10:10.660 --> 00:10:13.960
+Um, I, I talk a lot about Apple news on
+
+00:10:13.960 --> 00:10:15.320
+AT Proto.
+
+00:10:15.320 --> 00:10:19.360
+Um, Apple news offers a ton of reach.
+
+00:10:19.360 --> 00:10:21.480
+Um, and I, I know this because I've implemented
+
+00:10:21.480 --> 00:10:24.290
+Apple news at publications I've worked at, um, where
+
+00:10:24.290 --> 00:10:26.800
+, uh, we would get a story promoted on Apple news
+
+00:10:27.020 --> 00:10:29.710
+and it would just dwarf the traffic we got to our main
+
+00:10:29.710 --> 00:10:30.170
+site.
+
+00:10:30.170 --> 00:10:32.160
+Like orders of magnitude higher.
+
+00:10:32.160 --> 00:10:35.780
+Um, but Apple news offered no way to, other than
+
+00:10:36.090 --> 00:10:40.680
+following the publication on Apple news to deepen your relationship with a
+
+00:10:40.680 --> 00:10:41.290
+reader.
+
+00:10:41.290 --> 00:10:43.620
+And, uh, so we never were able to get them
+
+00:10:43.620 --> 00:10:46.710
+to subscribe to our newsletters, to donate, to
+
+00:10:46.710 --> 00:10:47.620
+become members.
+
+00:10:47.620 --> 00:10:50.280
+Like there was just no facility for doing that stuff.
+
+00:10:50.280 --> 00:10:52.980
+I think it was just such a huge opportunity.
+
+00:10:52.980 --> 00:10:56.440
+If we can get the content on protocol and tell that story
+
+00:10:56.440 --> 00:11:02.010
+to build a news aggregator that is actually owned and operated
+
+00:11:02.090 --> 00:11:06.510
+by news publishers and offers them the opportunity to actually control their
+
+00:11:06.510 --> 00:11:09.070
+distribution layer in a way that they'd never been able to
+
+00:11:09.100 --> 00:11:09.880
+in the digital space.
+
+00:11:09.880 --> 00:11:13.240
+Um, so that's my pitch at the moment.
+
+00:11:13.240 --> 00:11:17.210
+One thing I keep coming back to and when I sit down
+
+00:11:17.210 --> 00:11:19.930
+and actually think instead of just get mad about why there's
+
+00:11:19.930 --> 00:11:23.600
+so many organizations that still really lean into Twitter and even individual
+
+00:11:23.600 --> 00:11:25.950
+journalists, it's, it's, it really is just
+
+00:11:25.950 --> 00:11:27.460
+all about the incentives.
+
+00:11:27.460 --> 00:11:30.100
+And so it feels like there's an opportunity to kind of
+
+00:11:30.100 --> 00:11:35.520
+move those incentives away from the traditional centralized protocols that we've
+
+00:11:35.520 --> 00:11:38.250
+got now and, uh, onto something where there's a
+
+00:11:38.250 --> 00:11:39.080
+lot more ownership.
+
+00:11:39.360 --> 00:11:41.000
+Um, under, I'm kind of curious to get your
+
+00:11:41.000 --> 00:11:43.720
+perspective a little bit, um, thinking about those incentives.
+
+00:11:43.720 --> 00:11:48.150
+And I'm wondering if you have seen anything that has really
+
+00:11:48.150 --> 00:11:51.500
+moved the needle, like in the feeds that you've created
+
+00:11:51.500 --> 00:11:54.930
+, um, are, are there opportunities to either give news
+
+00:11:54.930 --> 00:11:58.600
+organizations more feedback or allow them to kind of have some more
+
+00:11:58.600 --> 00:12:00.040
+control over some of those things?
+
+00:12:00.040 --> 00:12:06.760
+Um, so like more control over like what specific things?
+
+00:12:06.760 --> 00:12:09.700
+Um, well, you know, so the content that they
+
+00:12:09.700 --> 00:12:12.010
+'re putting out, um, whether that's on their own
+
+00:12:12.010 --> 00:12:15.120
+websites or on the protocol, you know, what, what
+
+00:12:15.120 --> 00:12:17.940
+are things that we can do at kind of a technical level
+
+00:12:17.940 --> 00:12:22.890
+to help drive those incentives away from platforms like Twitter that,
+
+00:12:22.890 --> 00:12:26.520
+you know, D D platform their links or, um,
+
+00:12:26.520 --> 00:12:29.140
+Facebook, which, uh, you know, deprioritizes
+
+00:12:29.140 --> 00:12:31.960
+has been deprioritizing news for years now.
+
+00:12:31.960 --> 00:12:34.650
+Um, well, uh, one thought I've had,
+
+00:12:34.650 --> 00:12:37.940
+um, I think this is like originally, uh, De
+
+00:12:37.940 --> 00:12:40.720
+vin from Grace's idea, um, is that to really
+
+00:12:41.250 --> 00:12:44.210
+unlock the power of like custom feeds, um, as a
+
+00:12:44.460 --> 00:12:47.790
+primitive that news orgs can start using, you need to
+
+00:12:47.790 --> 00:12:52.330
+, like the discovery, um, story for custom feeds needs
+
+00:12:52.330 --> 00:12:54.120
+to be improved in some way.
+
+00:12:54.120 --> 00:12:56.020
+Um, I, I'm not entirely sure how the best
+
+00:12:56.020 --> 00:12:58.450
+way of doing it, but, uh, I think De
+
+00:12:58.450 --> 00:13:01.490
+vin's suggestion was to allow, um, if you create
+
+00:13:01.490 --> 00:13:03.960
+a feed to have it be, to kind of pin it
+
+00:13:03.970 --> 00:13:07.450
+more front and center on your user profile.
+
+00:13:07.450 --> 00:13:09.620
+Say you are a news org and you create a feed of
+
+00:13:09.620 --> 00:13:11.670
+all of the journalists at your news org.
+
+00:13:11.670 --> 00:13:13.340
+And it's a way that you can see at a glance
+
+00:13:13.370 --> 00:13:16.300
+what all the journalists at your news org are talking about.
+
+00:13:16.300 --> 00:13:19.100
+At the moment, it's buried like four tabs deep onto
+
+00:13:19.100 --> 00:13:20.120
+your profile.
+
+00:13:20.120 --> 00:13:23.080
+And most people don't ever kind of, you know,
+
+00:13:23.490 --> 00:13:24.780
+click through to that.
+
+00:13:24.780 --> 00:13:28.040
+If you like have like little, you know, pin posts
+
+00:13:28.040 --> 00:13:29.990
+, like maybe above your other pin posts being like, oh
+
+00:13:29.990 --> 00:13:31.450
+, by the way, we have a, we have a
+
+00:13:31.450 --> 00:13:32.120
+custom feed.
+
+00:13:32.120 --> 00:13:34.430
+If you want to engage with our journalism that way, um
+
+00:13:34.430 --> 00:13:38.250
+, that might encourage more news orgs to kind of start
+
+00:13:38.250 --> 00:13:39.900
+using that affordance.
+
+00:13:39.930 --> 00:13:42.520
+I think in general, um, news orgs are a
+
+00:13:42.520 --> 00:13:47.470
+bit slow to discover the affordances that, um, AT
+
+00:13:47.470 --> 00:13:48.970
+proto offers.
+
+00:13:48.970 --> 00:13:51.960
+Um, I think in, I, I kind of have
+
+00:13:51.960 --> 00:13:55.750
+a bit of a suspicion that if they weren't kind of
+
+00:13:55.750 --> 00:13:59.320
+initially incentivized to use, uh, domain handles, um
+
+00:13:59.320 --> 00:14:02.330
+, one of the aspects of, uh, the feeds that
+
+00:14:02.330 --> 00:14:05.120
+I run is I require some kind of verification.
+
+00:14:05.120 --> 00:14:08.520
+And prior to blue sky having a, uh, the decentralized
+
+00:14:08.520 --> 00:14:11.000
+verification system that they have now, um, the only way
+
+00:14:11.000 --> 00:14:13.320
+you could really do that was via domain handles.
+
+00:14:13.320 --> 00:14:15.360
+Um, and so in order to verify titles, I require
+
+00:14:15.530 --> 00:14:16.680
+they have a domain handle.
+
+00:14:16.680 --> 00:14:19.530
+And I kind of suspect that if they weren't kind of
+
+00:14:19.530 --> 00:14:23.350
+like incentivized to, to use that feature, they might
+
+00:14:23.350 --> 00:14:23.750
+not have.
+
+00:14:23.750 --> 00:14:25.620
+And we'd have a lot more news orgs with b
+
+00:14:25.620 --> 00:14:26.020
+sky.
+
+00:14:26.170 --> 00:14:27.090
+social handles.
+
+00:14:27.090 --> 00:14:29.610
+So, um, you know, kind of as developers,
+
+00:14:29.670 --> 00:14:32.660
+one thing we can do is start using the affordances ourselves
+
+00:14:32.660 --> 00:14:35.990
+and showing how they can be used in a productive capacity.
+
+00:14:35.990 --> 00:14:38.030
+Um, and I think kind of once we start doing that
+
+00:14:38.040 --> 00:14:40.270
+, it'll be a lot easier for news orgs to
+
+00:14:40.280 --> 00:14:42.950
+start using them themselves, but also again, discovery is,
+
+00:14:42.950 --> 00:14:45.000
+I think one of the biggest challenges facing it.
+
+00:14:45.000 --> 00:14:46.760
+Yeah.
+
+00:14:47.130 --> 00:14:48.710
+Discovery is a huge issue there.
+
+00:14:48.710 --> 00:14:52.400
+Tyler, I'm curious as somebody who builds a discovery platform
+
+00:14:52.400 --> 00:14:55.680
+in some ways, what are, are there affordances that
+
+00:14:55.680 --> 00:14:58.840
+we can either help with on the protocol or are there things
+
+00:14:58.840 --> 00:15:02.490
+that publishers can do that would help make their work more discover
+
+00:15:02.700 --> 00:15:05.480
+able outside of, you know, the big five platforms?
+
+00:15:05.480 --> 00:15:06.350
+Yeah.
+
+00:15:06.350 --> 00:15:13.100
+Um, a challenge I have in sill is getting metadata about
+
+00:15:13.100 --> 00:15:13.930
+the link.
+
+00:15:13.930 --> 00:15:17.650
+Um, which is really silly because in the head of every
+
+00:15:17.650 --> 00:15:21.970
+HTML document is on news sites, especially our open graph tags
+
+00:15:21.970 --> 00:15:22.770
+and JSON LD.
+
+00:15:22.840 --> 00:15:26.110
+And the whole purpose of those tags is that so platforms like
+
+00:15:26.110 --> 00:15:27.810
+mine can describe them.
+
+00:15:28.010 --> 00:15:30.670
+However, this is largely due to LLMs, I
+
+00:15:30.670 --> 00:15:35.430
+can no longer get that data because I get blocked every time
+
+00:15:35.710 --> 00:15:35.710
+.
+
+00:15:35.770 --> 00:15:38.940
+Um, uh, so I do all kinds of crazy browser
+
+00:15:38.940 --> 00:15:42.280
+proxying stuff with Cloudflare and whatever to,
+
+00:15:42.280 --> 00:15:45.850
+like, try to force them to render the page.
+
+00:15:45.850 --> 00:15:48.710
+Uh, but it gets harder every day.
+
+00:15:48.760 --> 00:15:52.330
+Um, and so, again, uh, journalism on the
+
+00:15:52.330 --> 00:15:53.480
+into pro extremists.
+
+00:15:53.480 --> 00:15:56.060
+If I had a standard site record to reference, this wouldn
+
+00:15:56.060 --> 00:15:57.390
+'t be a problem.
+
+00:15:57.390 --> 00:15:59.700
+Um, I can just go get that.
+
+00:15:59.740 --> 00:16:02.690
+Um, uh, so that, that's, you know
+
+00:16:02.690 --> 00:16:06.160
+, part of my end goal is, um, having,
+
+00:16:06.160 --> 00:16:09.080
+uh, the, the, the, the ways we get
+
+00:16:09.080 --> 00:16:12.840
+link metadata on the web are broken by AI now.
+
+00:16:12.840 --> 00:16:17.710
+Um, so I think the protocol offers an opportunity to put
+
+00:16:17.710 --> 00:16:21.270
+that in a new space that is effectively a big decentralized database
+
+00:16:21.270 --> 00:16:22.730
+and on the internet.
+
+00:16:22.730 --> 00:16:25.240
+Um, so I'm really excited about that opportunity.
+
+00:16:25.240 --> 00:16:28.810
+Um, I talked yesterday, uh, in a talk I
+
+00:16:28.810 --> 00:16:34.240
+gave about atmospheric clients that, um, atmospheric clients in order
+
+00:16:34.240 --> 00:16:36.760
+to win people over have to be immediately interesting.
+
+00:16:36.760 --> 00:16:40.530
+Um, and so when you come to SIL, if
+
+00:16:40.530 --> 00:16:42.600
+you've already invested a ton of time in the people you
+
+00:16:42.650 --> 00:16:44.780
+follow and you have a good network, SIL is immediately
+
+00:16:44.780 --> 00:16:45.500
+interesting.
+
+00:16:45.500 --> 00:16:46.760
+If you haven't, it's not.
+
+00:16:46.760 --> 00:16:50.170
+Um, so I've been thinking about how if you're
+
+00:16:50.170 --> 00:16:53.010
+brand new to the atmosphere or like, you know, you
+
+00:16:53.010 --> 00:16:55.180
+'re, you're here, but you only follow 20 people
+
+00:16:55.180 --> 00:16:58.460
+or something, how can I, uh, point you in
+
+00:16:58.460 --> 00:17:01.140
+the direction of trustworthy news from SIL and say, okay
+
+00:17:01.210 --> 00:17:04.720
+, follow these feeds, these starter packs, uh, or
+
+00:17:04.720 --> 00:17:05.230
+whatnot.
+
+00:17:05.320 --> 00:17:07.770
+Um, I can't maintain all those feeds and starter packs
+
+00:17:07.770 --> 00:17:08.440
+by myself.
+
+00:17:08.440 --> 00:17:09.240
+I would lose my mind.
+
+00:17:09.240 --> 00:17:13.900
+Uh, so what's the community driven approach to, um
+
+00:17:13.900 --> 00:17:15.320
+, uh, maintaining all that?
+
+00:17:15.320 --> 00:17:17.510
+And it would be great if news orgs, you know
+
+00:17:17.510 --> 00:17:20.390
+, uh, did that themselves and be like, here's
+
+00:17:20.390 --> 00:17:23.680
+the, here's the New York Times journalism starter pack,
+
+00:17:23.680 --> 00:17:24.160
+right?
+
+00:17:24.160 --> 00:17:27.190
+And here's their custom feed of all their stories, uh
+
+00:17:27.200 --> 00:17:30.130
+, and, and everything that journalists are talking about.
+
+00:17:30.170 --> 00:17:31.080
+That would be great.
+
+00:17:31.080 --> 00:17:33.980
+Um, so yeah, uh, journalism is on 90%
+
+00:17:33.980 --> 00:17:34.540
+extremist.
+
+00:17:34.540 --> 00:17:36.270
+My answer is always the protocol.
+
+00:17:36.270 --> 00:17:39.600
+The, uh, point that you make about, uh,
+
+00:17:39.600 --> 00:17:41.720
+open graph takes is like really interesting.
+
+00:17:41.730 --> 00:17:43.550
+I, I ran into that, um, last week when
+
+00:17:43.550 --> 00:17:46.270
+I was working on the news classifier at my talk yesterday
+
+00:17:46.270 --> 00:17:49.150
+, I talked about labeler I've created that tries to
+
+00:17:49.150 --> 00:17:52.500
+, uh, scan the open graph takes of news articles on
+
+00:17:52.500 --> 00:17:55.320
+the newsfeed and applies a genre label.
+
+00:17:55.320 --> 00:17:57.950
+So if it's like sports or entertainment or hard news or
+
+00:17:57.950 --> 00:18:01.510
+whatever to it, and like, yeah, getting open graph
+
+00:18:01.640 --> 00:18:03.530
+tags of all things is really challenging.
+
+00:18:03.530 --> 00:18:05.560
+But what I actually ended up doing is I ended up,
+
+00:18:05.560 --> 00:18:07.880
+um, just, uh, kind of using Cardi B
+
+00:18:07.880 --> 00:18:10.640
+, which if unfamiliar is, uh, Blue Sky's,
+
+00:18:10.860 --> 00:18:14.460
+uh, preview link previewer service that kind of pulls the
+
+00:18:14.860 --> 00:18:15.010
+metadata.
+
+00:18:15.020 --> 00:18:16.910
+And kind of the reason why that works is like, I
+
+00:18:16.910 --> 00:18:20.430
+think news orgs have seen incoming requests from this Cardi
+
+00:18:20.460 --> 00:18:24.290
+B dot BSky dot social domain and have like, kind
+
+00:18:24.290 --> 00:18:26.620
+of like, uh, allow listed it, which means that
+
+00:18:26.630 --> 00:18:28.440
+I can kind of get through those.
+
+00:18:28.440 --> 00:18:32.810
+But yeah, it's, I would love to see standard
+
+00:18:32.810 --> 00:18:35.240
+site become more of a thing that news orgs can use
+
+00:18:35.240 --> 00:18:36.360
+to promote this information.
+
+00:18:36.360 --> 00:18:41.060
+Speaker of the devil and he shall appear as, as standard
+
+00:18:41.180 --> 00:18:43.010
+side as mentioned, look who shows up.
+
+00:18:43.010 --> 00:18:45.110
+So in, in the last few minutes that we've got
+
+00:18:45.110 --> 00:18:47.470
+here, we've got a room full of people who build
+
+00:18:47.480 --> 00:18:48.600
+and a few media folks.
+
+00:18:48.600 --> 00:18:50.320
+Um, I guess I'm curious from y'all's
+
+00:18:50.320 --> 00:18:53.650
+perspective, what are the things that this crowd can go out
+
+00:18:53.650 --> 00:18:57.050
+and build that we think either realistically or just completely pie in
+
+00:18:57.060 --> 00:18:57.700
+the sky?
+
+00:18:57.720 --> 00:18:59.750
+I, I have a bet with myself that, uh,
+
+00:18:59.930 --> 00:19:02.670
+this is going to be the year of an ad proto native
+
+00:19:02.680 --> 00:19:03.060
+CMS.
+
+00:19:03.060 --> 00:19:05.620
+Um, so not just plugins that will, will, will
+
+00:19:05.730 --> 00:19:09.180
+publish a standard site document, but, um, you know
+
+00:19:09.180 --> 00:19:11.640
+, a full blown CMS, you know, beyond just like
+
+00:19:11.640 --> 00:19:12.440
+the blogging tools are great.
+
+00:19:12.440 --> 00:19:14.070
+We love you guys, but, um, you know,
+
+00:19:14.070 --> 00:19:17.900
+something that, that can, that is actually useful in Tyler
+
+00:19:17.900 --> 00:19:20.290
+, you were mentioning one of the challenges, um, is
+
+00:19:20.290 --> 00:19:23.550
+that a news organization is composed of many people.
+
+00:19:23.550 --> 00:19:27.050
+And, um, and so the idea of saving individual documents
+
+00:19:27.050 --> 00:19:29.640
+to everybody's PDS doesn't really track.
+
+00:19:29.640 --> 00:19:31.180
+And so, uh, Tyler, maybe I'll start with
+
+00:19:31.180 --> 00:19:32.480
+you and then we can finish up with Andre.
+
+00:19:32.480 --> 00:19:34.520
+Like, you know, what are the things that this crowd
+
+00:19:34.520 --> 00:19:37.040
+can build that'll make the work that you do easier and
+
+00:19:37.040 --> 00:19:39.680
+better, but also that will make the internet, uh,
+
+00:19:39.680 --> 00:19:41.480
+a less crummy place?
+
+00:19:41.480 --> 00:19:43.320
+Uh, yeah.
+
+00:19:43.320 --> 00:19:45.210
+So the project I got a grant for, I called wire
+
+00:19:45.210 --> 00:19:45.800
+service.
+
+00:19:45.800 --> 00:19:48.590
+Um, and originally what the first thing I did with wire
+
+00:19:48.590 --> 00:19:50.740
+service and the thing that the community fund, uh, got
+
+00:19:50.850 --> 00:19:53.580
+in touch with me about was a WordPress plugin from, uh
+
+00:19:53.580 --> 00:19:55.710
+, WordPress to standard dot site.
+
+00:19:55.710 --> 00:19:58.540
+Uh, it works, but then, uh, automatic came
+
+00:19:58.540 --> 00:19:59.370
+out with their own.
+
+00:19:59.370 --> 00:20:00.350
+You should use theirs.
+
+00:20:00.440 --> 00:20:02.680
+Um, I don't actually want to maintain a WordPress plugin
+
+00:20:02.680 --> 00:20:02.680
+.
+
+00:20:02.680 --> 00:20:05.230
+So, um, but I think we do need like a
+
+00:20:05.230 --> 00:20:07.780
+full AT pro CMS would be amazing.
+
+00:20:07.970 --> 00:20:10.900
+CMS migrations are so hard and take years, uh,
+
+00:20:10.900 --> 00:20:13.320
+for larger news organizations to pull off.
+
+00:20:13.320 --> 00:20:16.300
+So I'm at the moment more interested in, uh,
+
+00:20:16.300 --> 00:20:19.490
+how do we get the publishing tools they're already using to
+
+00:20:19.540 --> 00:20:22.910
+speak standard dot site, which is why I started with WordPress
+
+00:20:22.910 --> 00:20:24.710
+, but ghost would also be great.
+
+00:20:24.710 --> 00:20:25.510
+Um, Drupal.
+
+00:20:25.510 --> 00:20:27.800
+I don't know if people still own Drupal.
+
+00:20:27.800 --> 00:20:29.120
+Maybe Drupal.
+
+00:20:29.120 --> 00:20:31.210
+Um, uh, yeah, great.
+
+00:20:31.210 --> 00:20:31.870
+Yeah.
+
+00:20:31.980 --> 00:20:32.920
+Awesome.
+
+00:20:33.020 --> 00:20:34.360
+Then we need the, then we need a Drupal
+
+00:20:34.360 --> 00:20:34.910
+plugin.
+
+00:20:34.920 --> 00:20:37.320
+Um, uh, so yeah, I'd, I'd
+
+00:20:37.320 --> 00:20:40.710
+love to see, uh, more, uh, tools that
+
+00:20:40.870 --> 00:20:43.820
+help people from wherever they already are, uh, uh,
+
+00:20:43.820 --> 00:20:45.280
+uh, speak AT proto.
+
+00:20:45.280 --> 00:20:47.480
+Um, uh, so that's, that's what I
+
+00:20:47.480 --> 00:20:50.230
+'m, you know, thinking about with wire service, uh
+
+00:20:50.230 --> 00:20:52.210
+, in addition to like the lexicon, the sort
+
+00:20:52.210 --> 00:20:54.520
+of middle piece, the content lexicon and the,
+
+00:20:55.080 --> 00:20:58.280
+um, the renderer, the, the premium news experience
+
+00:20:58.280 --> 00:20:58.280
+.
+
+00:20:58.280 --> 00:21:00.610
+Yeah.
+
+00:21:00.610 --> 00:21:03.630
+Um, all of that.
+
+00:21:03.630 --> 00:21:06.710
+Uh, and like, you know, I, I quite
+
+00:21:06.710 --> 00:21:10.930
+often describe, um, newsroom development as like CMS development
+
+00:21:10.930 --> 00:21:12.060
+on hard mode.
+
+00:21:12.100 --> 00:21:15.880
+Uh, and so many, you know, requirements that you
+
+00:21:15.880 --> 00:21:18.770
+have in a newsroom CMS are like the sort of thing
+
+00:21:18.770 --> 00:21:21.990
+you would, uh, not really think about if building like
+
+00:21:22.140 --> 00:21:23.450
+a piece of blogging software.
+
+00:21:23.450 --> 00:21:26.230
+So yeah, I totally agree that kind of building things where
+
+00:21:26.230 --> 00:21:29.220
+people already are so that you can start talking like the dialect
+
+00:21:29.220 --> 00:21:30.930
+s of, um, the atmosphere is, is I think
+
+00:21:30.930 --> 00:21:32.310
+a really good starting point.
+
+00:21:32.310 --> 00:21:34.710
+Uh, what I would personally like to see builders, uh
+
+00:21:34.710 --> 00:21:38.110
+, do in terms of like this space is experimental labelers
+
+00:21:38.110 --> 00:21:38.300
+.
+
+00:21:38.300 --> 00:21:40.490
+Um, labels are such a cool technology.
+
+00:21:40.490 --> 00:21:42.440
+They're not super hard to set up.
+
+00:21:42.440 --> 00:21:43.740
+They're, they're a little bit finicky to set
+
+00:21:43.740 --> 00:21:43.910
+up.
+
+00:21:43.910 --> 00:21:45.070
+I'll, I'll, I'll take the back.
+
+00:21:45.080 --> 00:21:46.410
+They're a little bit finicky to set up, but
+
+00:21:46.410 --> 00:21:48.180
+like once you kind of get them like, you know,
+
+00:21:48.180 --> 00:21:50.720
+talking to the app and everything else, they're, you
+
+00:21:50.720 --> 00:21:53.320
+know, you can run a basic labeler like pretty easily
+
+00:21:53.320 --> 00:21:53.480
+.
+
+00:21:53.490 --> 00:21:58.460
+And, um, what that allows is something that like you
+
+00:21:58.460 --> 00:22:01.960
+can't do on any other social platform.
+
+00:22:01.960 --> 00:22:05.270
+You can, you know, write annotations to other people
+
+00:22:05.270 --> 00:22:08.520
+'s posts and let other people subscribe to those annotations,
+
+00:22:08.520 --> 00:22:10.800
+being able to annotate like random pieces of content on the
+
+00:22:10.800 --> 00:22:12.840
+network like that and have people be able to subscribe to that
+
+00:22:12.840 --> 00:22:12.970
+.
+
+00:22:12.970 --> 00:22:14.170
+That's a really cool feature.
+
+00:22:14.170 --> 00:22:16.010
+And not only do you get that, but you also get
+
+00:22:16.010 --> 00:22:18.440
+like, you can use it in like a moderation capacity.
+
+00:22:18.440 --> 00:22:21.760
+Um, what I'd really love from like blue sky in
+
+00:22:21.760 --> 00:22:24.760
+terms of that technology would be, uh, two things.
+
+00:22:24.760 --> 00:22:28.150
+One, uh, links in descriptions, like in like label
+
+00:22:28.150 --> 00:22:30.960
+descriptions, um, my media ownership labeler, I'd
+
+00:22:30.960 --> 00:22:33.080
+love to create like a microsite that's, you know
+
+00:22:33.080 --> 00:22:36.800
+, detailed information about the media ownership of like the companies that
+
+00:22:36.800 --> 00:22:37.990
+it, uh, labels.
+
+00:22:37.990 --> 00:22:40.160
+Um, but there's no way to kind of do,
+
+00:22:40.160 --> 00:22:42.180
+you know, links via label descriptions yet.
+
+00:22:42.200 --> 00:22:45.100
+But the other thing is, um, being able to do
+
+00:22:45.250 --> 00:22:46.760
+like one-off labels.
+
+00:22:46.760 --> 00:22:49.760
+Uh, I think if like you create one-off labels
+
+00:22:49.760 --> 00:22:52.880
+that at the moment, like a label definition, it's
+
+00:22:52.880 --> 00:22:57.460
+like if you create a label called something, um, they
+
+00:22:57.460 --> 00:23:00.440
+'ll have the same description every single time that label is,
+
+00:23:00.440 --> 00:23:02.920
+is attached to a piece of content.
+
+00:23:02.920 --> 00:23:06.450
+Whereas, um, I would love to be able to like
+
+00:23:06.450 --> 00:23:10.020
+attach a unique label to pieces of content that can annotate
+
+00:23:10.020 --> 00:23:12.640
+because that would open up the way to do some really cool
+
+00:23:12.640 --> 00:23:13.800
+stuff in this space.
+
+00:23:13.800 --> 00:23:16.480
+For instance, like, uh, fact checking would be like
+
+00:23:16.490 --> 00:23:17.820
+one use case for that.
+
+00:23:17.820 --> 00:23:20.040
+Um, you could, uh, as like a fact checking
+
+00:23:20.040 --> 00:23:22.090
+org, you could add a label to post that, um
+
+00:23:22.200 --> 00:23:24.680
+, kind of almost like a community notes sort of thing a
+
+00:23:24.680 --> 00:23:25.280
+little bit.
+
+00:23:25.280 --> 00:23:27.620
+Um, but at the moment that's like really challenging.
+
+00:23:27.730 --> 00:23:29.720
+Kind of what you'd sort of have to do would be
+
+00:23:29.720 --> 00:23:32.940
+to create like a microsite and have people post like,
+
+00:23:32.940 --> 00:23:35.830
+you know, paste the link to the post or whatever.
+
+00:23:35.830 --> 00:23:36.690
+It'd be messy.
+
+00:23:36.690 --> 00:23:38.730
+Um, so yeah, like kind of like one-off
+
+00:23:38.730 --> 00:23:40.980
+labels would be like a really, I think cool feature as
+
+00:23:40.980 --> 00:23:41.260
+well.
+
+00:23:41.260 --> 00:23:41.800
+Excellent.
+
+00:23:41.800 --> 00:23:43.400
+That's fantastic.
+
+00:23:43.400 --> 00:23:44.520
+We are just about out of time.
+
+00:23:44.520 --> 00:23:47.870
+Uh, Jonathan Warden, who, uh, is here
+
+00:23:47.870 --> 00:23:50.590
+, I keep running into him and he's giving a presentation
+
+00:23:50.600 --> 00:23:50.600
+.
+
+00:23:50.600 --> 00:23:53.540
+It might even be next, um, about he, he
+
+00:23:53.650 --> 00:23:56.390
+essentially forked the, the blue sky app view and created
+
+00:23:56.550 --> 00:23:57.000
+his own.
+
+00:23:57.000 --> 00:23:58.940
+He calls blues notes and he did just that.
+
+00:23:58.950 --> 00:24:01.080
+He added kind of a community notes feature.
+
+00:24:01.080 --> 00:24:03.310
+And, um, so we're trying to figure out work
+
+00:24:03.530 --> 00:24:03.890
+with him.
+
+00:24:03.960 --> 00:24:05.960
+We've got our own product roadmap.
+
+00:24:05.960 --> 00:24:08.050
+So we're trying to figure out how we can possibly wedge
+
+00:24:08.560 --> 00:24:10.200
+something like community notes in there.
+
+00:24:10.200 --> 00:24:13.440
+Um, really appreciate Andra and Tyler coming up and,
+
+00:24:13.440 --> 00:24:14.650
+uh, and presenting.
+
+00:24:14.650 --> 00:24:16.830
+I hope my help from this presentation is that y'all
+
+00:24:16.840 --> 00:24:19.780
+will go away and have at least one amazing idea for how
+
+00:24:19.890 --> 00:24:23.200
+we can help improve the media media ecosystem because it's not
+
+00:24:23.200 --> 00:24:24.720
+just going to happen on its own.
+
+00:24:24.720 --> 00:24:26.360
+Um, so we need to, we need folks to get
+
+00:24:26.360 --> 00:24:27.460
+out there and build stuff.
+
+00:24:27.460 --> 00:24:30.050
+So, um, please come talk to us, ask questions
+
+00:24:30.100 --> 00:24:30.290
+.
+
+00:24:30.290 --> 00:24:32.840
+Um, we'll be on the hallway track just like everybody
+
+00:24:32.840 --> 00:24:33.140
+else.
+
+00:24:33.140 --> 00:24:34.350
+So thanks again for coming out.
+
+00:24:34.650 --> 00:24:35.070
+Appreciate it.
+
+00:24:35.080 --> 00:24:36.520
+Thank you very much.

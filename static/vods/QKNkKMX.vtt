@@ -1,0 +1,1009 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.360
+All right, I'm going to go real fast because we
+
+00:00:03.360 --> 00:00:04.120
+got a lot to get through.
+
+00:00:04.120 --> 00:00:05.080
+But I'm Jim.
+
+00:00:05.080 --> 00:00:07.280
+I run the platform team at Blue Sky.
+
+00:00:07.280 --> 00:00:10.910
+Platform team is the team that runs our infrastructure, our data
+
+00:00:10.990 --> 00:00:13.700
+centers, cloud stuff, write a lot of back end code
+
+00:00:13.710 --> 00:00:14.310
+as well.
+
+00:00:14.360 --> 00:00:15.600
+And yeah, we have a lot to get through.
+
+00:00:15.600 --> 00:00:16.600
+So I'm going to go super fast.
+
+00:00:16.600 --> 00:00:18.580
+But hit me up after if you have any questions or want
+
+00:00:18.580 --> 00:00:19.560
+to talk more.
+
+00:00:19.560 --> 00:00:19.880
+Who am I?
+
+00:00:19.880 --> 00:00:20.400
+I'm Jim.
+
+00:00:20.400 --> 00:00:21.080
+I live in Boston.
+
+00:00:21.080 --> 00:00:22.280
+I run the platform team, as I said.
+
+00:00:22.280 --> 00:00:23.840
+I've been at Blue Sky for about a year.
+
+00:00:23.840 --> 00:00:26.290
+And I'm here today to share some information with you on
+
+00:00:26.290 --> 00:00:26.950
+how we do stuff.
+
+00:00:26.960 --> 00:00:30.400
+Our Atmospheric Systems, our App View, I want
+
+00:00:30.400 --> 00:00:32.610
+to talk about what's going well, what could be improved
+
+00:00:32.610 --> 00:00:35.120
+, and maybe give some recommendations, or at least like food
+
+00:00:35.120 --> 00:00:36.360
+for thought for you as well.
+
+00:00:36.360 --> 00:00:38.430
+All right, let's get into it.
+
+00:00:38.520 --> 00:00:39.120
+Who's this for?
+
+00:00:39.120 --> 00:00:41.070
+So there's a lot of people here who are in the
+
+00:00:41.070 --> 00:00:42.080
+weeds of AtProto.
+
+00:00:42.080 --> 00:00:44.390
+A lot of people have different needs and wants out of At
+
+00:00:44.390 --> 00:00:44.880
+Proto.
+
+00:00:44.880 --> 00:00:47.270
+And so this is really a talk for people who want to
+
+00:00:47.270 --> 00:00:50.750
+achieve high scale, such as running a big whole world App
+
+00:00:50.860 --> 00:00:52.960
+View, such as the Blue Sky App View, right?
+
+00:00:52.960 --> 00:00:56.680
+Another persona might be running a large fleet of PDSs
+
+00:00:56.680 --> 00:00:57.000
+.
+
+00:00:57.000 --> 00:00:58.080
+Euro Sky is coming online.
+
+00:00:58.080 --> 00:00:59.040
+That's awesome.
+
+00:00:59.040 --> 00:01:01.420
+Black Sky, like there's so much movement on this,
+
+00:01:01.420 --> 00:01:02.480
+and it's really cool.
+
+00:01:02.480 --> 00:01:04.550
+And I want to talk about, well, okay.
+
+00:01:04.600 --> 00:01:06.520
+So not all projects are in this category.
+
+00:01:06.520 --> 00:01:07.360
+Totally rad.
+
+00:01:07.360 --> 00:01:08.760
+It's super awesome.
+
+00:01:08.760 --> 00:01:10.490
+And yeah, I'll tell you a little bit about what
+
+00:01:10.510 --> 00:01:10.830
+we do.
+
+00:01:10.880 --> 00:01:11.960
+This is just like fact dump.
+
+00:01:11.960 --> 00:01:13.520
+So we're just going to get through it real quick.
+
+00:01:13.520 --> 00:01:14.480
+PDS fleet.
+
+00:01:14.480 --> 00:01:16.920
+We run about 110, wow, that's small.
+
+00:01:16.920 --> 00:01:21.000
+Run about 110 rented bare metal cloud hosts in US East and
+
+00:01:21.010 --> 00:01:22.120
+US West.
+
+00:01:22.120 --> 00:01:25.190
+They range from 16 to 64 cores, depending on what year
+
+00:01:25.190 --> 00:01:26.210
+we spun them up.
+
+00:01:26.240 --> 00:01:28.440
+They have 256 gigs of RAM.
+
+00:01:28.440 --> 00:01:30.720
+They have about a gig up, a gig down.
+
+00:01:30.720 --> 00:01:32.430
+And they have various disk configs.
+
+00:01:32.440 --> 00:01:33.720
+This is kind of fun and goofy.
+
+00:01:33.720 --> 00:01:37.120
+I learn about new disk configs every now and then.
+
+00:01:37.120 --> 00:01:39.570
+Most of them are XFS set up in RAID 1
+
+00:01:39.570 --> 00:01:39.880
+.
+
+00:01:39.880 --> 00:01:42.470
+One of them I learned was running ZFS.
+
+00:01:42.480 --> 00:01:43.630
+That's a little nifty experiment.
+
+00:01:43.640 --> 00:01:44.600
+It's been live for a long time.
+
+00:01:44.600 --> 00:01:45.960
+That's cool.
+
+00:01:45.960 --> 00:01:50.000
+We also run one against our will on Ceph.
+
+00:01:50.000 --> 00:01:51.280
+So that's kind of cool.
+
+00:01:51.280 --> 00:01:53.960
+We had an emergency situation where we had to lift and shift
+
+00:01:53.960 --> 00:01:55.760
+to PDS and all we had was a Ceph
+
+00:01:55.760 --> 00:01:57.600
+array in our data centers.
+
+00:01:57.600 --> 00:01:59.600
+That was right after Christmas.
+
+00:01:59.600 --> 00:02:02.400
+They cost about 600 bucks a month each on OVH
+
+00:02:02.400 --> 00:02:05.580
+and i3D are the two suppliers that we use there
+
+00:02:05.580 --> 00:02:05.960
+.
+
+00:02:05.960 --> 00:02:07.280
+And I'd say, you know, one thing on this
+
+00:02:07.280 --> 00:02:09.590
+, if you are looking to set up a big fleet of
+
+00:02:09.600 --> 00:02:11.950
+PDSs, we are way over provisioned on these
+
+00:02:11.950 --> 00:02:12.600
+things.
+
+00:02:12.600 --> 00:02:15.130
+So here's a BTOP, and that is not showing
+
+00:02:15.130 --> 00:02:15.910
+up at all.
+
+00:02:15.920 --> 00:02:19.350
+But you can see we're using somewhere around like 5%
+
+00:02:19.350 --> 00:02:20.680
+CPU, 5% of the RAM.
+
+00:02:20.920 --> 00:02:22.920
+So that's like 12 and a half gigs.
+
+00:02:22.920 --> 00:02:26.420
+It's doing relatively little network I/O as well,
+
+00:02:26.420 --> 00:02:29.530
+even though you do kind of want to have at least a
+
+00:02:30.000 --> 00:02:31.920
+little bit of a beefy setup there.
+
+00:02:31.920 --> 00:02:33.680
+Most of it actually is like disk storage.
+
+00:02:33.680 --> 00:02:35.580
+We're kind of coming up on like actually starting to fill
+
+00:02:35.580 --> 00:02:36.040
+up disks.
+
+00:02:36.040 --> 00:02:38.110
+And we're going to have to expand and stuff.
+
+00:02:38.200 --> 00:02:39.910
+And so you can do a lot with the little with the
+
+00:02:39.950 --> 00:02:40.270
+PDS.
+
+00:02:40.280 --> 00:02:43.670
+I'll also say we have about half a million users per
+
+00:02:43.670 --> 00:02:44.320
+host.
+
+00:02:44.320 --> 00:02:46.200
+I'll say also that was my production PDS.
+
+00:02:46.200 --> 00:02:47.320
+So like that's dapper link.
+
+00:02:47.320 --> 00:02:49.110
+There's a half million users running on that box.
+
+00:02:49.160 --> 00:02:50.680
+There's no special sauce.
+
+00:02:50.680 --> 00:02:52.580
+We're just running the open source code.
+
+00:02:52.580 --> 00:02:53.900
+There's nothing behind the scenes.
+
+00:02:53.900 --> 00:02:56.180
+There's no like rate limit bypass tokens or anything.
+
+00:02:56.180 --> 00:02:57.400
+It's just the code.
+
+00:02:57.400 --> 00:03:00.510
+And yeah, we do put a note on that.
+
+00:03:00.600 --> 00:03:02.670
+We have our own auth server.
+
+00:03:02.760 --> 00:03:04.120
+But our config looks like this.
+
+00:03:04.120 --> 00:03:06.060
+We run an HAProxy on each one.
+
+00:03:06.060 --> 00:03:07.840
+There's 16 PDS containers.
+
+00:03:07.840 --> 00:03:11.960
+Each one of them has-- sorry, each user has a
+
+00:03:11.960 --> 00:03:12.940
+SQLite.
+
+00:03:12.940 --> 00:03:15.480
+And we back those SQLites up with our clone once a
+
+00:03:15.480 --> 00:03:15.740
+day.
+
+00:03:15.740 --> 00:03:17.720
+And we do a light stream for live.
+
+00:03:17.720 --> 00:03:19.700
+We have some Redis, some Datadog for monitoring
+
+00:03:19.700 --> 00:03:22.160
+, Tailscale for network auth.
+
+00:03:22.160 --> 00:03:24.080
+It's all fully automated, zero touch provisioning.
+
+00:03:24.080 --> 00:03:25.840
+So like you just run one Ansible command.
+
+00:03:25.840 --> 00:03:26.940
+Boom, you got a new one.
+
+00:03:26.940 --> 00:03:29.140
+It's really fast to stand up new ones.
+
+00:03:29.140 --> 00:03:31.580
+Second major topic is our pops.
+
+00:03:31.580 --> 00:03:33.100
+A pop is a point of presence.
+
+00:03:33.100 --> 00:03:35.040
+And it's basically like a co-location center.
+
+00:03:35.040 --> 00:03:36.040
+It's a small data center.
+
+00:03:36.040 --> 00:03:37.920
+We run our own hardware that we own.
+
+00:03:37.920 --> 00:03:39.100
+We bought it.
+
+00:03:39.100 --> 00:03:41.930
+We run the relay in our data centers.
+
+00:03:42.020 --> 00:03:44.020
+We run the app view, primarily powered by Scylla
+
+00:03:44.020 --> 00:03:45.740
+DB in the data centers.
+
+00:03:45.740 --> 00:03:47.040
+We run Discover in the data centers.
+
+00:03:47.040 --> 00:03:48.320
+There's a few other things.
+
+00:03:48.320 --> 00:03:50.610
+Our search cluster's in there.
+
+00:03:50.620 --> 00:03:52.240
+Yeah, there's two of them.
+
+00:03:52.240 --> 00:03:55.070
+One in California, one in Ashburn, Virginia.
+
+00:03:55.100 --> 00:03:57.780
+And there's about 80 very large servers in each that we
+
+00:03:57.780 --> 00:03:59.840
+own and operate.
+
+00:03:59.920 --> 00:04:03.350
+We have super duper fast networks and it's easy to
+
+00:04:03.350 --> 00:04:04.160
+add more.
+
+00:04:04.180 --> 00:04:06.680
+Super fast disks and a lot of them.
+
+00:04:06.680 --> 00:04:09.240
+It's really high bandwidth and we have active active everything.
+
+00:04:09.240 --> 00:04:10.440
+So there's like two ISPs.
+
+00:04:10.440 --> 00:04:12.440
+There's two copies of pretty much everything.
+
+00:04:12.440 --> 00:04:15.700
+Yeah, we want that high degree of redundancy so you
+
+00:04:15.700 --> 00:04:17.200
+can provide really solid service.
+
+00:04:17.380 --> 00:04:18.380
+Here's some pictures.
+
+00:04:18.380 --> 00:04:19.880
+This is the posting factory.
+
+00:04:19.880 --> 00:04:20.940
+You can see me and Austin.
+
+00:04:20.940 --> 00:04:22.730
+Austin's over there down on the back.
+
+00:04:22.780 --> 00:04:24.380
+My friend Patrick's actually behind Austin.
+
+00:04:24.380 --> 00:04:25.380
+Sorry, Patrick.
+
+00:04:25.380 --> 00:04:27.380
+But, yeah, this is one of them.
+
+00:04:27.380 --> 00:04:29.380
+This is what a data center looks like.
+
+00:04:29.380 --> 00:04:31.900
+So you get a cage that's like your full suite and
+
+00:04:31.900 --> 00:04:33.680
+in it you put a bunch of racks.
+
+00:04:33.680 --> 00:04:34.680
+Here's one of the racks.
+
+00:04:34.680 --> 00:04:36.470
+Within the rack, you have a couple of switches and then
+
+00:04:36.580 --> 00:04:38.420
+you have a bunch of compute servers.
+
+00:04:38.420 --> 00:04:40.180
+And then you have two of those, right?
+
+00:04:40.180 --> 00:04:41.180
+So two of everything.
+
+00:04:41.180 --> 00:04:43.180
+It's kind of what it looks like.
+
+00:04:43.180 --> 00:04:45.760
+It's pretty bog standard.
+
+00:04:45.760 --> 00:04:46.760
+Next is our AWS account.
+
+00:04:46.760 --> 00:04:48.020
+I'm not going to talk to you too much about AWS
+
+00:04:48.020 --> 00:04:49.400
+, but it's where we run a bunch of like sing
+
+00:04:49.400 --> 00:04:51.970
+leton stuff that's, you know, lots of stuff in
+
+00:04:51.970 --> 00:04:52.540
+there.
+
+00:04:52.540 --> 00:04:53.540
+Super important.
+
+00:04:53.540 --> 00:04:54.540
+Some of it's kind of chill.
+
+00:04:54.540 --> 00:04:55.860
+PLC is like obviously really important.
+
+00:04:55.860 --> 00:04:56.650
+The main bsky.
+
+00:04:56.650 --> 00:04:59.290
+app website like the HTML, the CSS, the JavaScript,
+
+00:04:59.290 --> 00:05:01.380
+the assets are served out of there.
+
+00:05:01.380 --> 00:05:02.380
+A few other things.
+
+00:05:02.380 --> 00:05:03.880
+And we have a ton of Postgres in there.
+
+00:05:03.880 --> 00:05:04.880
+Postgres is really hard to run.
+
+00:05:04.880 --> 00:05:05.880
+It's really annoying.
+
+00:05:05.880 --> 00:05:06.880
+RDS is great.
+
+00:05:06.880 --> 00:05:08.960
+It's very expensive.
+
+00:05:08.980 --> 00:05:11.200
+What's going well?
+
+00:05:11.200 --> 00:05:12.200
+Pops are goaded.
+
+00:05:12.200 --> 00:05:13.200
+Pops are the goat.
+
+00:05:13.200 --> 00:05:14.990
+They're super duper cheap and they're extremely high performance
+
+00:05:15.100 --> 00:05:15.200
+.
+
+00:05:15.200 --> 00:05:18.310
+The PDS fleet is working quite well actually.
+
+00:05:18.320 --> 00:05:20.100
+It's really easy to add more servers.
+
+00:05:20.100 --> 00:05:24.060
+So as we're growing, we can just chuck new servers
+
+00:05:24.060 --> 00:05:24.580
+up.
+
+00:05:24.600 --> 00:05:26.360
+They're very reasonably priced.
+
+00:05:26.360 --> 00:05:27.360
+AWS is AWS.
+
+00:05:27.360 --> 00:05:28.360
+It's fine.
+
+00:05:28.360 --> 00:05:29.360
+Yeah.
+
+00:05:29.360 --> 00:05:30.360
+RDS is so good.
+
+00:05:30.360 --> 00:05:31.360
+It's worth every penny.
+
+00:05:31.360 --> 00:05:32.740
+Renting GPUs is quite convenient.
+
+00:05:32.740 --> 00:05:34.930
+We do run a bunch of GPUs up there for various
+
+00:05:34.930 --> 00:05:35.540
+things.
+
+00:05:35.540 --> 00:05:39.120
+Besides that, it is very, very expensive.
+
+00:05:39.120 --> 00:05:41.120
+Do some very rough napkin math and I'm really not
+
+00:05:41.120 --> 00:05:43.520
+going to get into this too, too much, but it
+
+00:05:43.520 --> 00:05:46.470
+costs us probably about 800 grand a year to run the P
+
+00:05:46.470 --> 00:05:49.790
+ops, amortizing for depreciation of the assets over
+
+00:05:49.790 --> 00:05:50.940
+four years.
+
+00:05:50.940 --> 00:05:55.180
+The roughly equivalent AWS install is literally impossible because our total switching
+
+00:05:55.210 --> 00:05:56.700
+capacity in the Pops is just shocking.
+
+00:05:56.700 --> 00:05:58.700
+It's crazy.
+
+00:05:58.700 --> 00:06:01.030
+And you couldn't do our Pops setup in AWS,
+
+00:06:01.030 --> 00:06:03.700
+but if you did, it'd probably be about 10x
+
+00:06:03.700 --> 00:06:05.700
+that, so about 8 million a year.
+
+00:06:05.700 --> 00:06:08.520
+And that's with, like, heavily negotiated long-term
+
+00:06:08.520 --> 00:06:09.450
+reservations.
+
+00:06:09.460 --> 00:06:11.250
+Probably about 14 million if you were doing on-demand
+
+00:06:11.360 --> 00:06:11.460
+.
+
+00:06:11.460 --> 00:06:12.460
+Heavy asterisks.
+
+00:06:12.460 --> 00:06:13.460
+I vibe-coded all that.
+
+00:06:13.460 --> 00:06:17.540
+So, yeah, vibe finance.
+
+00:06:17.560 --> 00:06:19.580
+That being said, the Pops are an absolute shitload
+
+00:06:19.580 --> 00:06:20.060
+of work.
+
+00:06:20.060 --> 00:06:21.460
+It requires deep expertise.
+
+00:06:21.460 --> 00:06:24.820
+Austin has gone, like, absolutely crazy on trying to do
+
+00:06:24.820 --> 00:06:27.660
+our reprovisioning of all this stuff and make it sane
+
+00:06:27.660 --> 00:06:29.240
+and make it easy to work with.
+
+00:06:29.240 --> 00:06:31.310
+It has really slow iteration cycles.
+
+00:06:31.400 --> 00:06:32.920
+Once you're getting new hardware, it takes a while to
+
+00:06:32.920 --> 00:06:35.660
+get it online unless you have excellent operational practices.
+
+00:06:35.660 --> 00:06:36.660
+Again, kudos, Austin.
+
+00:06:36.660 --> 00:06:40.160
+RAM and storage also is up and to the right, unfortunately
+
+00:06:40.160 --> 00:06:40.460
+.
+
+00:06:40.460 --> 00:06:44.060
+And so we bought a bunch of stuff thanks to Jazz,
+
+00:06:44.060 --> 00:06:45.660
+like, here-ish.
+
+00:06:45.660 --> 00:06:52.510
+Yeah, about here, so Jazz is the goat.
+
+00:06:52.620 --> 00:06:53.500
+So what's work?
+
+00:06:53.500 --> 00:06:54.500
+What's next?
+
+00:06:54.500 --> 00:06:56.570
+And I'm running out of time, so I'm going
+
+00:06:56.680 --> 00:06:57.330
+to go fast.
+
+00:06:57.340 --> 00:06:59.930
+Pops make them easier to operate.
+
+00:06:59.940 --> 00:07:02.220
+As I said, Austin's been doing yeoman's work
+
+00:07:02.220 --> 00:07:02.770
+on this.
+
+00:07:02.800 --> 00:07:04.420
+Increase our compute density as well.
+
+00:07:04.420 --> 00:07:07.700
+Previously, we basically were assigning one service to a box,
+
+00:07:07.700 --> 00:07:10.600
+and, like, oftentimes, the service would need less than
+
+00:07:10.700 --> 00:07:12.360
+1% of one of the CPUs, and each one
+
+00:07:12.480 --> 00:07:14.300
+of them has, like, 256.
+
+00:07:14.380 --> 00:07:18.820
+And so I'm going to say the evil Kubernetes word.
+
+00:07:18.820 --> 00:07:21.050
+So yeah, trying to improve our density there.
+
+00:07:21.060 --> 00:07:23.410
+We're improving our provisioning, making it faster to get
+
+00:07:23.410 --> 00:07:24.600
+new stuff online.
+
+00:07:24.600 --> 00:07:27.980
+We migrated our network architecture from a single switch into a spine
+
+00:07:27.980 --> 00:07:30.360
+-and-leaf close network topology.
+
+00:07:30.360 --> 00:07:31.360
+It's really fun.
+
+00:07:31.360 --> 00:07:32.680
+It's like a network of networks, essentially.
+
+00:07:32.680 --> 00:07:34.600
+This is what everybody does as well.
+
+00:07:34.600 --> 00:07:36.500
+A lot of people do this, at least.
+
+00:07:36.500 --> 00:07:38.210
+Kubernetes for compute density.
+
+00:07:38.220 --> 00:07:41.690
+The net result is higher engineering velocity, robust, high-
+
+00:07:41.690 --> 00:07:44.370
+availability systems, and we can actually reclaim a lot
+
+00:07:44.370 --> 00:07:47.200
+of cloud spend and bring that back to our pops.
+
+00:07:47.200 --> 00:07:49.270
+We're also going to improve the PDS hosting in some
+
+00:07:49.380 --> 00:07:49.760
+way.
+
+00:07:49.760 --> 00:07:52.590
+We're still talking about this, but when you have 110
+
+00:07:52.700 --> 00:07:55.480
+servers that you rent, those servers are bare metal servers.
+
+00:07:55.480 --> 00:07:56.480
+They're ours.
+
+00:07:56.480 --> 00:07:57.620
+They're not virtual.
+
+00:07:57.620 --> 00:08:01.030
+I literally have, like, IPMI login on all those
+
+00:08:01.030 --> 00:08:01.860
+things.
+
+00:08:01.860 --> 00:08:04.680
+They all fail independently, and OVH is not sending
+
+00:08:04.680 --> 00:08:05.490
+their best.
+
+00:08:05.520 --> 00:08:08.330
+And so as you add more servers, your mean time between
+
+00:08:08.330 --> 00:08:11.320
+failure increases, meaning your on-call burden goes up a
+
+00:08:11.320 --> 00:08:11.680
+lot.
+
+00:08:11.680 --> 00:08:13.280
+You're at the mercy of your hosting providers.
+
+00:08:13.280 --> 00:08:15.610
+When a server goes down, we're waiting for, like
+
+00:08:15.610 --> 00:08:17.740
+, six hours to, like, get notice from OV
+
+00:08:17.740 --> 00:08:19.180
+H, and it's, like, in the meantime,
+
+00:08:19.180 --> 00:08:20.660
+it's, like, okay, we can restore to a
+
+00:08:20.660 --> 00:08:22.560
+different server, or we're just going to eat it,
+
+00:08:22.560 --> 00:08:23.440
+and so that sucks.
+
+00:08:23.440 --> 00:08:26.160
+Shared storage also is a big thing that we're talking
+
+00:08:26.160 --> 00:08:26.720
+about.
+
+00:08:26.720 --> 00:08:28.120
+SQLite on the server is rough.
+
+00:08:28.120 --> 00:08:30.000
+PDS is, like, the best case of this,
+
+00:08:30.020 --> 00:08:32.560
+but I am kind of a SQLite hater, so
+
+00:08:32.560 --> 00:08:33.720
+I'm just going to leave it at that, and we
+
+00:08:33.720 --> 00:08:34.120
+will chat.
+
+00:08:34.120 --> 00:08:35.120
+Yeah.
+
+00:08:35.120 --> 00:08:36.120
+Boo you.
+
+00:08:36.120 --> 00:08:38.120
+Boo you.
+
+00:08:38.120 --> 00:08:40.020
+So I'm thinking about virtual PDS, the shared storage
+
+00:08:40.020 --> 00:08:41.200
+, whatever that looks like.
+
+00:08:41.200 --> 00:08:42.080
+I'm just kind of hand-waving.
+
+00:08:42.080 --> 00:08:45.950
+And then more interesting PDS implementations are coming online.
+
+00:08:46.000 --> 00:08:47.960
+I'd love to talk about if you have weird PDS
+
+00:08:47.960 --> 00:08:48.480
+ideas.
+
+00:08:48.480 --> 00:08:51.160
+Advice or lessons learned.
+
+00:08:51.160 --> 00:08:52.920
+I'm going to start with the do-nots.
+
+00:08:52.920 --> 00:08:55.480
+You must have two of everything.
+
+00:08:55.480 --> 00:08:58.220
+Single points of failures will die, and you will be sad
+
+00:08:58.220 --> 00:08:59.480
+, and your users will be sad.
+
+00:08:59.480 --> 00:09:01.710
+Reputation is hard-earned and quickly lost.
+
+00:09:01.720 --> 00:09:04.000
+Skip the SQLite layer in your app view.
+
+00:09:04.000 --> 00:09:08.760
+Go with my personal favorite, MySQL or Postgres,
+
+00:09:09.040 --> 00:09:12.730
+if you don't like good things, and then only move
+
+00:09:12.730 --> 00:09:14.570
+past it when you're sure you need it.
+
+00:09:14.640 --> 00:09:16.600
+Start simple, basically.
+
+00:09:16.600 --> 00:09:17.600
+Don't accept local maximums.
+
+00:09:17.600 --> 00:09:18.600
+You can do hard stuff.
+
+00:09:18.600 --> 00:09:19.600
+You can do great things.
+
+00:09:19.600 --> 00:09:20.600
+That's a do-not.
+
+00:09:20.600 --> 00:09:21.600
+Now, do's.
+
+00:09:21.600 --> 00:09:25.100
+First is think really hard about your data access patterns.
+
+00:09:25.100 --> 00:09:28.620
+We've really optimized the absolute daylights out of the blue
+
+00:09:28.620 --> 00:09:29.760
+sky data plane.
+
+00:09:29.760 --> 00:09:31.960
+You want to have this notion of mechanical sympathy.
+
+00:09:31.960 --> 00:09:34.700
+Be in tune with your hardware and try and optimize the shit
+
+00:09:34.700 --> 00:09:37.710
+out of it, because you'll pay for it otherwise in
+
+00:09:38.150 --> 00:09:40.450
+dollars and also your sanity.
+
+00:09:40.460 --> 00:09:41.960
+Bloom filters are your friend.
+
+00:09:41.960 --> 00:09:42.960
+Memcache is your friend.
+
+00:09:42.960 --> 00:09:44.900
+Redis is not your friend.
+
+00:09:44.900 --> 00:09:46.960
+You should have elastic compute and storage.
+
+00:09:46.960 --> 00:09:48.740
+Even on-prem, you should use cattle, not pets
+
+00:09:48.860 --> 00:09:48.960
+.
+
+00:09:48.960 --> 00:09:51.030
+That kind of comes back to two of everything.
+
+00:09:51.100 --> 00:09:53.100
+You should have very, very thorough observability.
+
+00:09:53.100 --> 00:09:56.640
+Be able to answer any question dead about your systems and do
+
+00:09:56.640 --> 00:09:58.600
+it before you have an outage.
+
+00:09:58.600 --> 00:09:59.600
+Here's some recs on that.
+
+00:09:59.600 --> 00:10:02.670
+Finally, one more thing to do is real quick, build
+
+00:10:02.670 --> 00:10:05.100
+a team that's very strong operationally.
+
+00:10:05.100 --> 00:10:06.600
+You can't do it alone.
+
+00:10:06.600 --> 00:10:07.600
+Then come talk to us.
+
+00:10:07.600 --> 00:10:08.600
+Let's organize.
+
+00:10:08.600 --> 00:10:10.670
+Brian posted a while ago about what does Nanog of App
+
+00:10:10.780 --> 00:10:11.600
+Proto look like?
+
+00:10:11.600 --> 00:10:12.600
+Let's talk about it.
+
+00:10:12.600 --> 00:10:15.170
+I want to -- I posted a minute ago like L7
+
+00:10:15.170 --> 00:10:15.600
+BGP.
+
+00:10:15.600 --> 00:10:18.150
+Let's go talk to each other and figure out the right
+
+00:10:18.150 --> 00:10:19.100
+way to do this.
+
+00:10:19.100 --> 00:10:20.100
+There's no silver bullet.
+
+00:10:20.100 --> 00:10:21.100
+It's really hard work.
+
+00:10:21.100 --> 00:10:22.100
+That's it.

@@ -1,0 +1,781 @@
+WEBVTT
+
+00:00:00.960 --> 00:00:02.500
+Okay, you guys.
+
+00:00:02.520 --> 00:00:03.140
+Thanks, Tori.
+
+00:00:03.140 --> 00:00:04.340
+Yeah, thank you.
+
+00:00:04.340 --> 00:00:06.020
+Sorry for being late.
+
+00:00:06.140 --> 00:00:07.180
+Thanks for waiting for me.
+
+00:00:07.320 --> 00:00:08.060
+Hi, everyone.
+
+00:00:08.060 --> 00:00:08.900
+I'm Tori.
+
+00:00:08.900 --> 00:00:10.020
+Welcome to my talk.
+
+00:00:10.020 --> 00:00:13.500
+It used to be what 350,000 users taught me,
+
+00:00:13.500 --> 00:00:16.210
+but hell yeah.
+
+00:00:16.220 --> 00:00:18.380
+Now it's 400,000.
+
+00:00:18.380 --> 00:00:19.220
+Holy crap.
+
+00:00:19.220 --> 00:00:21.940
+What I'm hoping to do today, and I'm hoping
+
+00:00:21.940 --> 00:00:24.900
+it's going to be useful, is just distill some of
+
+00:00:24.900 --> 00:00:27.770
+my learnings and reads Nye's learnings from this
+
+00:00:27.770 --> 00:00:31.200
+past year and package them up here for you today with the
+
+00:00:31.250 --> 00:00:34.920
+hopes that you don't make the same mistakes that we made
+
+00:00:35.030 --> 00:00:35.180
+.
+
+00:00:35.180 --> 00:00:40.610
+And oh, how do I get over there?
+
+00:00:40.620 --> 00:00:45.240
+Oh, there we are.
+
+00:00:45.240 --> 00:00:46.500
+Wait, sorry, you guys.
+
+00:00:46.500 --> 00:00:47.120
+Hold on a second.
+
+00:00:47.120 --> 00:00:50.360
+My mouse is, there she is.
+
+00:00:50.460 --> 00:00:51.860
+Was I over there?
+
+00:00:51.880 --> 00:00:53.350
+Yeah, and that's on me.
+
+00:00:55.220 --> 00:00:58.800
+But also with the caveat that we could be completely wrong about
+
+00:00:58.930 --> 00:01:01.300
+the things that we're suggesting, so do what's right
+
+00:01:01.420 --> 00:01:01.940
+for you, okay?
+
+00:01:01.940 --> 00:01:05.180
+So this is the Skylight Squad.
+
+00:01:05.240 --> 00:01:08.430
+This is Reed and I, and we built Skylight Social
+
+00:01:08.470 --> 00:01:08.760
+.
+
+00:01:08.760 --> 00:01:11.840
+Skylight is a video Instagram-y style app on the
+
+00:01:11.840 --> 00:01:12.800
+protocol.
+
+00:01:13.600 --> 00:01:17.780
+We started building last year in January 2025, right before the
+
+00:01:17.780 --> 00:01:18.880
+big TikTok ban.
+
+00:01:18.880 --> 00:01:21.830
+We launched in April and, like I said, have since
+
+00:01:21.830 --> 00:01:26.090
+grown to over 400,000 organic downloads, no paid ads
+
+00:01:26.090 --> 00:01:26.890
+, insane.
+
+00:01:26.940 --> 00:01:31.210
+And that's Skylight right there on your guys' right
+
+00:01:31.210 --> 00:01:31.540
+.
+
+00:01:31.540 --> 00:01:32.320
+Oh, she's beautiful.
+
+00:01:34.640 --> 00:01:36.560
+Oh, and there's transitions on this.
+
+00:01:36.560 --> 00:01:37.500
+Woo, okay.
+
+00:01:37.500 --> 00:01:40.740
+So with the help of my co-founder, Reed,
+
+00:01:40.880 --> 00:01:44.940
+I've kind of distilled my learnings into these three
+
+00:01:44.940 --> 00:01:48.130
+main pillars, which hopefully will help organize this thing.
+
+00:01:48.160 --> 00:01:49.540
+Prove yourself wrong.
+
+00:01:49.540 --> 00:01:51.920
+We win together and share your story.
+
+00:01:51.920 --> 00:01:54.860
+So prove yourself wrong.
+
+00:01:54.860 --> 00:01:56.790
+Right now, a lot of you are builders, so you
+
+00:01:56.790 --> 00:01:59.460
+probably, like we did, have a hypothesis of what you
+
+00:01:59.460 --> 00:02:00.450
+think users want.
+
+00:02:00.880 --> 00:02:03.820
+And your new North Star is to try and test whether that
+
+00:02:03.820 --> 00:02:05.230
+hypothesis is right.
+
+00:02:05.240 --> 00:02:08.480
+Not to build every feature, not to fix every bug.
+
+00:02:08.480 --> 00:02:11.350
+God knows we still have bugs in Skylight, but get
+
+00:02:11.350 --> 00:02:14.830
+as quickly as possible to the answer to this question, I
+
+00:02:14.830 --> 00:02:15.300
+think.
+
+00:02:15.300 --> 00:02:17.730
+Hot tip.
+
+00:02:17.840 --> 00:02:20.480
+The first thing you build is almost certainly the wrong thing.
+
+00:02:20.480 --> 00:02:22.740
+This doesn't mean your insight was wrong.
+
+00:02:22.740 --> 00:02:25.510
+This just means that maybe the solution that you built, users
+
+00:02:25.510 --> 00:02:26.980
+don't actually want to use it.
+
+00:02:27.100 --> 00:02:30.580
+Our first version of Skylight, over 10,000 people
+
+00:02:30.580 --> 00:02:32.440
+entered, and all of them left.
+
+00:02:32.440 --> 00:02:33.970
+Not ideal.
+
+00:02:33.980 --> 00:02:35.090
+I don't recommend.
+
+00:02:35.140 --> 00:02:37.140
+Makes you sad on the inside.
+
+00:02:37.140 --> 00:02:40.320
+In fact, we've made at least three versions of Sky
+
+00:02:40.320 --> 00:02:41.850
+light's interface.
+
+00:02:41.860 --> 00:02:45.360
+We even dabbled in a horizontal swiping interface.
+
+00:02:45.360 --> 00:02:49.420
+Again, spoiler alert, that absolutely did not work.
+
+00:02:49.660 --> 00:02:51.130
+And people literally hated it.
+
+00:02:51.180 --> 00:02:53.980
+The comment you see here, yeah, there was a lot
+
+00:02:53.980 --> 00:02:54.660
+of them.
+
+00:02:54.660 --> 00:02:57.720
+People on the internet are sometimes mean.
+
+00:02:57.720 --> 00:03:00.150
+Be nice to me in my comments, you guys, okay
+
+00:03:00.310 --> 00:03:00.440
+?
+
+00:03:00.440 --> 00:03:04.020
+But don't crash out if your first version doesn't work
+
+00:03:04.150 --> 00:03:04.420
+.
+
+00:03:04.420 --> 00:03:07.420
+I think we all have a couple of shots at bat.
+
+00:03:07.420 --> 00:03:09.910
+The first couple people who see this, you know there's
+
+00:03:10.010 --> 00:03:12.930
+7 billion, wait, maybe 8 billion people in the world
+
+00:03:13.030 --> 00:03:15.640
+, you have some opportunity to try again.
+
+00:03:15.660 --> 00:03:19.140
+And ironically, our best version of Skylight wasn't the
+
+00:03:19.140 --> 00:03:20.760
+one that users asked for.
+
+00:03:20.860 --> 00:03:24.050
+And on social, it often isn't.
+
+00:03:24.080 --> 00:03:26.970
+So see what they say with their feet and with their,
+
+00:03:26.970 --> 00:03:29.460
+you know, the time they spend on your platform.
+
+00:03:30.820 --> 00:03:33.660
+And to that end, I highly recommend PostHog for
+
+00:03:33.680 --> 00:03:34.570
+Analytics.
+
+00:03:34.600 --> 00:03:36.320
+This really saved us.
+
+00:03:36.320 --> 00:03:39.440
+Again, people will tell you with their actions whether or not
+
+00:03:39.440 --> 00:03:41.290
+they're enjoying what you build.
+
+00:03:41.300 --> 00:03:44.750
+Warning, don't use Analytics to convince yourself it's working
+
+00:03:44.750 --> 00:03:44.880
+.
+
+00:03:45.000 --> 00:03:47.350
+You're not trying to get retention from 3.
+
+00:03:47.350 --> 00:03:48.070
+2% to 3.
+
+00:03:48.070 --> 00:03:50.160
+4%, especially in the beginning.
+
+00:03:50.160 --> 00:03:53.740
+Yeah, try not to chase these numbers.
+
+00:03:53.760 --> 00:03:55.040
+Just use it as a gut check.
+
+00:03:55.040 --> 00:03:56.920
+Our user is liking what you made.
+
+00:03:56.920 --> 00:03:58.590
+This was really helpful for us.
+
+00:03:58.900 --> 00:04:01.560
+They have a, PostHog has a free startup program
+
+00:04:01.560 --> 00:04:01.810
+.
+
+00:04:01.820 --> 00:04:03.670
+I know some, a lot of people here, when I
+
+00:04:03.690 --> 00:04:05.900
+'ve told them about this, they're like, oh,
+
+00:04:05.990 --> 00:04:07.140
+I built my own analytics.
+
+00:04:07.140 --> 00:04:08.610
+And I'm like, wow, you're a badass.
+
+00:04:08.700 --> 00:04:13.070
+But yeah, we really were thankful for that when we got
+
+00:04:13.070 --> 00:04:14.940
+hit with a fat bill.
+
+00:04:14.940 --> 00:04:17.610
+Woke up freaking out and then got an email like,
+
+00:04:17.610 --> 00:04:20.490
+hey, you should really join the startup program.
+
+00:04:20.500 --> 00:04:22.800
+We're like, oh, wait, that would be really
+
+00:04:22.800 --> 00:04:23.340
+great.
+
+00:04:23.360 --> 00:04:25.300
+Yeah.
+
+00:04:25.300 --> 00:04:26.770
+Okay.
+
+00:04:27.760 --> 00:04:30.180
+Pillar number two, we are in this together.
+
+00:04:30.180 --> 00:04:32.620
+The people in this room, the people at this conference,
+
+00:04:32.770 --> 00:04:34.640
+they are going to be your greatest strength.
+
+00:04:34.640 --> 00:04:36.030
+I know that they were ours.
+
+00:04:36.080 --> 00:04:40.080
+And I truly believe that our communal collaboration is going to make
+
+00:04:40.080 --> 00:04:41.880
+or break the things that we build.
+
+00:04:41.880 --> 00:04:46.100
+Hot shout out to these five folks.
+
+00:04:46.100 --> 00:04:48.380
+And gosh, honestly, a ton of people.
+
+00:04:48.380 --> 00:04:50.820
+They have talked me off the ledge.
+
+00:04:50.900 --> 00:04:54.090
+They have physically come into my code base and written things.
+
+00:04:55.100 --> 00:04:56.780
+We have collaborated with them.
+
+00:04:56.780 --> 00:04:59.290
+Some of the things that they have built now exist inside of
+
+00:04:59.370 --> 00:05:00.820
+Skylight, making it better.
+
+00:05:00.820 --> 00:05:01.820
+Yeah.
+
+00:05:01.820 --> 00:05:04.540
+Black Sky, Graze, Stream Place, Germ.
+
+00:05:04.540 --> 00:05:06.720
+I just can't thank these guys enough.
+
+00:05:06.740 --> 00:05:07.580
+And that's Jimmy.
+
+00:05:07.580 --> 00:05:08.980
+He lets us use his space.
+
+00:05:09.000 --> 00:05:09.940
+Yeah.
+
+00:05:10.440 --> 00:05:12.440
+So talk with the people here.
+
+00:05:12.440 --> 00:05:15.260
+Try and get a group together so that when you're inevitably
+
+00:05:15.280 --> 00:05:17.730
+crashing out in the middle of the night, you have someone
+
+00:05:17.730 --> 00:05:18.130
+to call.
+
+00:05:21.160 --> 00:05:22.630
+This is a big one for us.
+
+00:05:22.640 --> 00:05:24.520
+The app protocol is a resource.
+
+00:05:24.520 --> 00:05:26.640
+I highly recommend using it.
+
+00:05:26.640 --> 00:05:29.830
+The way that we chose to use it was to utilize Blue
+
+00:05:30.010 --> 00:05:32.830
+Sky's lexicon so that a Skylight post is
+
+00:05:32.830 --> 00:05:34.420
+the same as a Blue Sky post.
+
+00:05:34.420 --> 00:05:37.330
+And this was very intentional on our part because we wanted people
+
+00:05:37.330 --> 00:05:40.780
+who stepped into Skylight to not have that feeling of emptiness
+
+00:05:40.990 --> 00:05:42.240
+in a social network.
+
+00:05:42.700 --> 00:05:45.510
+And I'm not saying that this is right for everyone to
+
+00:05:45.560 --> 00:05:45.940
+do.
+
+00:05:45.960 --> 00:05:48.580
+I'm just saying that there are some ways that we can
+
+00:05:48.580 --> 00:05:51.160
+leverage distribution, the tools that exist.
+
+00:05:52.220 --> 00:05:53.320
+And I think you should.
+
+00:05:53.320 --> 00:05:54.660
+That's why it exists.
+
+00:05:54.660 --> 00:05:57.420
+That's what kind of makes us better than all those other
+
+00:05:57.420 --> 00:05:58.480
+sucky platforms.
+
+00:05:58.480 --> 00:06:00.800
+Use it if you can.
+
+00:06:00.800 --> 00:06:05.170
+And if you, what is it called?
+
+00:06:05.200 --> 00:06:07.600
+If you want to brainstorm on how you might be able to
+
+00:06:07.600 --> 00:06:11.070
+leverage what exists in the protocol to make it easier to market
+
+00:06:11.190 --> 00:06:13.910
+your thing, I honestly wouldn't even, I mean,
+
+00:06:13.960 --> 00:06:16.180
+you can come talk to me, but I would highly recommend
+
+00:06:16.290 --> 00:06:17.640
+talking to my co-founder, Reed.
+
+00:06:17.640 --> 00:06:19.920
+I swear this is like his bread and butter.
+
+00:06:19.920 --> 00:06:23.110
+He's really good at thinking about how you can get your
+
+00:06:23.150 --> 00:06:26.850
+idea in front of more faces or like utilize what exists for
+
+00:06:27.030 --> 00:06:28.900
+people to see what you're building.
+
+00:06:28.900 --> 00:06:34.950
+Most folks won't get it first that we are actively working
+
+00:06:35.040 --> 00:06:36.440
+together.
+
+00:06:36.440 --> 00:06:39.900
+This is something I constantly have to explain to people.
+
+00:06:39.900 --> 00:06:43.700
+I had an advisor emailing me, kind of freaking out
+
+00:06:43.710 --> 00:06:44.010
+.
+
+00:06:44.040 --> 00:06:46.470
+They're like, what are you going to do about divine
+
+00:06:46.630 --> 00:06:46.760
+?
+
+00:06:46.760 --> 00:06:48.900
+And I remember I was like laughing.
+
+00:06:48.900 --> 00:06:50.820
+I was like, cheer them on.
+
+00:06:50.820 --> 00:06:53.260
+That's so cool what Rabble is doing.
+
+00:06:53.300 --> 00:06:56.430
+I'm so freaking excited that we now, all of us
+
+00:06:56.430 --> 00:06:59.040
+have access to Vine's old videos.
+
+00:06:59.040 --> 00:07:02.270
+I mean, I had to remind my advisor, this is
+
+00:07:02.270 --> 00:07:03.410
+open social.
+
+00:07:03.480 --> 00:07:05.500
+This is the whole point of what we're doing.
+
+00:07:05.500 --> 00:07:09.080
+I on Skylight now have direct access to showcasing Vine
+
+00:07:09.190 --> 00:07:10.160
+'s videos.
+
+00:07:10.880 --> 00:07:13.990
+And it's not just because, you know, Divine exists
+
+00:07:13.990 --> 00:07:14.280
+.
+
+00:07:14.280 --> 00:07:17.790
+Like Rabble legitimately built a tool to make it easier for
+
+00:07:17.790 --> 00:07:19.540
+us to port over those videos.
+
+00:07:19.540 --> 00:07:21.220
+And that's what open social is all about.
+
+00:07:21.320 --> 00:07:22.780
+Yeah.
+
+00:07:22.780 --> 00:07:27.710
+So I really, really hope, you know, he gets
+
+00:07:27.830 --> 00:07:30.800
+out there and he kills it.
+
+00:07:30.800 --> 00:07:31.700
+And he already is.
+
+00:07:31.820 --> 00:07:34.510
+And I hope that for everyone who's building on this protocol
+
+00:07:34.510 --> 00:07:37.840
+, because we have really big fish to fry.
+
+00:07:37.840 --> 00:07:40.660
+And it's almost certainly not each other.
+
+00:07:40.660 --> 00:07:43.060
+There are a ton of badasses in this space.
+
+00:07:43.060 --> 00:07:46.100
+Find them, collaborate with them, cheer them on.
+
+00:07:46.100 --> 00:07:49.090
+Because if they take down the monster in the room, then
+
+00:07:49.090 --> 00:07:50.670
+we all get to win, right?
+
+00:07:51.080 --> 00:07:51.360
+Okay.
+
+00:07:51.360 --> 00:07:53.020
+And that's his real yacht, by the way.
+
+00:07:53.020 --> 00:07:54.900
+Shout out to Marky Mark.
+
+00:07:54.900 --> 00:07:56.940
+Okay.
+
+00:07:56.940 --> 00:08:00.740
+Tell your story.
+
+00:08:00.740 --> 00:08:03.620
+Marketing is absolutely a part of what you're building.
+
+00:08:03.620 --> 00:08:06.350
+Storytelling is a part of what you will have to
+
+00:08:06.350 --> 00:08:06.780
+do.
+
+00:08:06.780 --> 00:08:08.680
+We want folks using these things.
+
+00:08:08.680 --> 00:08:11.630
+So we have to make sure we build community around them.
+
+00:08:11.640 --> 00:08:14.080
+And I know you guys know that.
+
+00:08:14.220 --> 00:08:17.460
+Building in public really worked well for us.
+
+00:08:17.500 --> 00:08:19.860
+If you're up for it, obviously can't recommend short
+
+00:08:19.860 --> 00:08:20.740
+form video more.
+
+00:08:21.340 --> 00:08:22.680
+Make sure to post it on Skylight.
+
+00:08:22.680 --> 00:08:26.480
+We made a video before we ever wrote a line of code
+
+00:08:26.490 --> 00:08:26.790
+.
+
+00:08:26.820 --> 00:08:30.210
+And maybe your medium isn't video, but highly recommend trying
+
+00:08:30.210 --> 00:08:31.190
+to figure it out.
+
+00:08:31.280 --> 00:08:34.150
+And to that point, if you find a format that works
+
+00:08:34.150 --> 00:08:37.200
+, then roll that thing until the cows come home.
+
+00:08:37.200 --> 00:08:38.440
+You see this video?
+
+00:08:38.440 --> 00:08:41.620
+I have made this style of video where I point at these
+
+00:08:41.620 --> 00:08:43.580
+guys who suck so many times.
+
+00:08:43.580 --> 00:08:46.190
+I've gotten over a million views with this style of video
+
+00:08:46.200 --> 00:08:46.420
+.
+
+00:08:46.440 --> 00:08:49.680
+It took me a lot of different tries to find this format
+
+00:08:49.740 --> 00:08:50.020
+.
+
+00:08:50.520 --> 00:08:52.960
+But if you try something that works, stick to it.
+
+00:08:52.980 --> 00:08:57.350
+And yes, we have to show up where people are.
+
+00:08:57.480 --> 00:08:59.150
+Yes, I am on these platforms.
+
+00:08:59.280 --> 00:09:01.680
+And yes, I am telling the people on these platforms about
+
+00:09:01.680 --> 00:09:03.650
+OpenSocial and telling them to get over here.
+
+00:09:03.720 --> 00:09:05.400
+And please join me.
+
+00:09:05.420 --> 00:09:07.680
+Don't leave me alone.
+
+00:09:07.780 --> 00:09:09.830
+I want to be able to tag the things that you built
+
+00:09:09.830 --> 00:09:12.770
+on these platforms when I inevitably make a video about them.
+
+00:09:12.820 --> 00:09:13.180
+Okay?
+
+00:09:13.740 --> 00:09:15.210
+So join me over here.
+
+00:09:15.280 --> 00:09:17.720
+I know that's shocking to say at an OpenSocial
+
+00:09:17.870 --> 00:09:18.800
+conference.
+
+00:09:18.800 --> 00:09:21.410
+But some language that helped us.
+
+00:09:21.420 --> 00:09:22.780
+Decentralized, never work.
+
+00:09:22.780 --> 00:09:25.200
+Never say the word app protocol, unfortunately.
+
+00:09:25.200 --> 00:09:27.620
+OpenSocial.
+
+00:09:27.620 --> 00:09:29.520
+Emphasizing creator ownership.
+
+00:09:29.520 --> 00:09:30.320
+That did work.
+
+00:09:32.020 --> 00:09:34.800
+Please put your app logo on the internet.
+
+00:09:34.800 --> 00:09:36.980
+So when I make a video about you, I know I
+
+00:09:36.990 --> 00:09:38.840
+can have access to your logo.
+
+00:09:38.840 --> 00:09:41.280
+Not just on your blue sky page.
+
+00:09:41.360 --> 00:09:41.700
+Okay?
+
+00:09:41.700 --> 00:09:43.240
+Because it's really hard to screenshot those.
+
+00:09:43.260 --> 00:09:46.080
+That's a personal request by me.
+
+00:09:46.100 --> 00:09:47.760
+Okay.
+
+00:09:47.760 --> 00:09:48.560
+That's it.
+
+00:09:48.560 --> 00:09:49.760
+Thanks, you guys.
+
+00:09:49.760 --> 00:09:50.520
+Woo!
+
+00:09:50.530 --> 00:09:53.580
+Woo!

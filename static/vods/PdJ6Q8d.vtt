@@ -1,0 +1,2257 @@
+WEBVTT
+
+00:00:02.470 --> 00:00:04.000
+Can people hear me?
+
+00:00:04.000 --> 00:00:08.000
+Is the mic turned on?
+
+00:00:08.000 --> 00:00:12.000
+It's on?
+
+00:00:12.000 --> 00:00:18.000
+Let me...
+
+00:00:18.000 --> 00:00:20.000
+Can I clip it down the shirt?
+
+00:00:20.000 --> 00:00:24.000
+Thank you for your patience.
+
+00:00:24.000 --> 00:00:24.990
+Cool.
+
+00:00:24.990 --> 00:00:28.000
+Can people hear me now?
+
+00:00:28.000 --> 00:00:28.000
+Yes.
+
+00:00:28.000 --> 00:00:28.600
+I did.
+
+00:00:28.600 --> 00:00:30.000
+Okay, awesome.
+
+00:00:30.470 --> 00:00:32.000
+Please bear with me.
+
+00:00:32.000 --> 00:00:33.020
+I'm kind of breaking a little bit.
+
+00:00:33.020 --> 00:00:36.000
+I'm following two of my heroes from the industry, and
+
+00:00:36.000 --> 00:00:38.570
+also I've basically had to completely revise my entire talk on
+
+00:00:38.570 --> 00:00:42.000
+the fly as a result of the earlier keynote.
+
+00:00:42.000 --> 00:00:44.000
+So let's do this.
+
+00:00:44.000 --> 00:00:48.430
+This is about the third-ish time I've given this
+
+00:00:48.430 --> 00:00:50.590
+talk, but I've done it for completely different audiences the
+
+00:00:50.590 --> 00:00:51.380
+other two times.
+
+00:00:51.380 --> 00:00:53.840
+The first time was for a group mostly of publishers in London
+
+00:00:53.840 --> 00:00:54.800
+at Protocols for Publishers.
+
+00:00:54.800 --> 00:00:59.560
+The second time was for more of a journalism tech audience,
+
+00:00:59.630 --> 00:01:02.550
+mostly like journalism consumers, and this one's more for builders
+
+00:01:02.550 --> 00:01:04.000
+and people who are in this space.
+
+00:01:04.000 --> 00:01:08.000
+And kind of the idea I'm going to be talking about
+
+00:01:08.000 --> 00:01:12.000
+is how can journalism start using the tools available in the atmosphere
+
+00:01:12.000 --> 00:01:15.610
+to start creating its own algorithms, and I'll talk about
+
+00:01:15.610 --> 00:01:16.000
+why it's important.
+
+00:01:16.000 --> 00:01:18.000
+First off, a little bit about myself.
+
+00:01:18.000 --> 00:01:22.720
+I work and have worked in news media since 2013 or so
+
+00:01:22.720 --> 00:01:25.800
+, but my background has always been kind of journalism and/
+
+00:01:25.800 --> 00:01:28.000
+or tech kind of on some level.
+
+00:01:28.000 --> 00:01:34.000
+I moved from Canada to London in 2011.
+
+00:01:34.000 --> 00:01:36.000
+I also went to the UBC at one point.
+
+00:01:36.000 --> 00:01:38.000
+It's really cool to be on this campus again.
+
+00:01:38.000 --> 00:01:39.260
+But I ended up in London.
+
+00:01:39.260 --> 00:01:44.000
+I currently work at a financial newspaper doing fancy charts mainly.
+
+00:01:44.000 --> 00:01:48.700
+But I've had bylines in various papers, including Financial
+
+00:01:48.700 --> 00:01:51.000
+Times, Times and Sunday Times, Economist, Guardian,
+
+00:01:51.000 --> 00:01:52.000
+etc.
+
+00:01:52.000 --> 00:01:55.000
+And yeah, so I arrived in kind of like the decentralized
+
+00:01:55.000 --> 00:02:00.000
+social media space because I find it really interesting in terms of
+
+00:02:00.000 --> 00:02:04.000
+how do we how can the space be used to present a
+
+00:02:04.000 --> 00:02:10.660
+idea of journalism that can be seen in ways that are censorship
+
+00:02:10.660 --> 00:02:14.190
+resistant, that gives publishers more control over how their content is
+
+00:02:14.190 --> 00:02:16.000
+distributed, etc.
+
+00:02:16.000 --> 00:02:18.000
+And so I started initially on Mastodon.
+
+00:02:18.000 --> 00:02:22.000
+I was I created an instance on Mastodon called
+
+00:02:22.000 --> 00:02:22.000
+foreststate.
+
+00:02:22.000 --> 00:02:24.000
+media way back in 2018.
+
+00:02:24.000 --> 00:02:27.000
+I think it was the very first journalism related instance on the
+
+00:02:27.000 --> 00:02:28.000
+Fediverse.
+
+00:02:28.000 --> 00:02:28.000
+I might be wrong about that.
+
+00:02:28.000 --> 00:02:30.000
+Please correct me if I am.
+
+00:02:30.000 --> 00:02:33.000
+It didn't really go anywhere.
+
+00:02:33.000 --> 00:02:36.000
+I got maybe like five users and I shut it down literally
+
+00:02:36.000 --> 00:02:38.000
+the week that Musk took over Twitter.
+
+00:02:38.000 --> 00:02:42.000
+Which was probably a good move in hindsight.
+
+00:02:42.000 --> 00:02:46.000
+I kind of, you know, fell out of love with
+
+00:02:46.000 --> 00:02:50.200
+ActivityPub as a way of distributing journalism because there
+
+00:02:50.200 --> 00:02:52.900
+'s some topographical kind of issues of the network that I
+
+00:02:52.900 --> 00:02:56.000
+kind of found frustrating and then I, you know, I
+
+00:02:56.000 --> 00:03:02.000
+got a blue sky invite in 2023 and I really enjoyed being
+
+00:03:02.000 --> 00:03:02.920
+on the atmosphere.
+
+00:03:02.920 --> 00:03:08.000
+I built a few different things probably most notably the verified news
+
+00:03:08.000 --> 00:03:11.540
+feed and also the trending news feed which I'll be talking
+
+00:03:11.540 --> 00:03:12.000
+about a little bit in a second.
+
+00:03:12.000 --> 00:03:14.000
+So yeah.
+
+00:03:14.000 --> 00:03:18.000
+Approaching this from two ways.
+
+00:03:18.000 --> 00:03:22.000
+AT Pro needs journalists.
+
+00:03:22.000 --> 00:03:26.900
+I think that journalism is a very core function of any social
+
+00:03:26.900 --> 00:03:28.000
+media platform.
+
+00:03:28.000 --> 00:03:30.000
+My theory of change.
+
+00:03:30.000 --> 00:03:33.470
+You need to have all the following for a effective social media
+
+00:03:33.470 --> 00:03:36.000
+network that kind of is a center of conversation.
+
+00:03:36.000 --> 00:03:40.150
+You start with the creatives, the shit posters, the
+
+00:03:40.150 --> 00:03:43.000
+people who are doing artsy fun things on this brave new
+
+00:03:43.000 --> 00:03:46.000
+platform that no one's really ever heard of yet.
+
+00:03:46.000 --> 00:03:50.000
+And, you know, those are kind of like the people
+
+00:03:50.000 --> 00:03:54.000
+who start the platform, who build interest for it, who
+
+00:03:54.000 --> 00:03:58.000
+pull interest from other people who will eventually join.
+
+00:03:58.000 --> 00:04:02.000
+Academics are another big part of a healthy social network.
+
+00:04:02.000 --> 00:04:07.000
+Seeing all this stuff at AT Science yesterday was just like super
+
+00:04:07.000 --> 00:04:08.000
+, super cool.
+
+00:04:08.000 --> 00:04:10.470
+And it's really exciting to see so much work happening kind
+
+00:04:10.470 --> 00:04:12.000
+of in that space.
+
+00:04:12.000 --> 00:04:14.000
+Any journalists.
+
+00:04:14.000 --> 00:04:18.000
+Because journalists talk about what's happening on these platforms, they
+
+00:04:18.000 --> 00:04:21.290
+are a big part of why they're seen as being socially
+
+00:04:21.290 --> 00:04:22.000
+relevant.
+
+00:04:22.000 --> 00:04:27.000
+And journalists kind of follow the creative types eventually.
+
+00:04:27.000 --> 00:04:30.000
+And following the journalists you also get politicians.
+
+00:04:30.000 --> 00:04:34.370
+And I see politicians as a big driver of people joining the
+
+00:04:34.370 --> 00:04:40.000
+social network because people want to talk to their elected representatives.
+
+00:04:40.000 --> 00:04:44.000
+The elected representatives want to talk to the constituents.
+
+00:04:44.000 --> 00:04:48.000
+It's important for the health of an ongoing social network.
+
+00:04:48.000 --> 00:04:50.750
+And then following all those groups, you get celebrities which are
+
+00:04:50.750 --> 00:04:54.000
+really the kind of draw of like the other 90% of
+
+00:04:54.000 --> 00:04:54.000
+the social platform.
+
+00:04:54.000 --> 00:04:57.000
+People like to follow celebrities because they're curious what the people
+
+00:04:57.000 --> 00:04:58.000
+who they're excited about are.
+
+00:04:58.000 --> 00:05:02.000
+And like lastly, pornography is also like a really big part
+
+00:05:02.000 --> 00:05:04.000
+of what makes a healthy social network in my mind.
+
+00:05:04.000 --> 00:05:06.430
+And I think that, I have an idea for a talking
+
+00:05:06.430 --> 00:05:08.710
+I've been going to do next year about why I think
+
+00:05:08.710 --> 00:05:10.000
+that's the case.
+
+00:05:10.000 --> 00:05:14.000
+But anyways, I'm going to talk specifically about journalism.
+
+00:05:14.000 --> 00:05:17.620
+And I think that the atmosphere is really important for journalism right
+
+00:05:17.620 --> 00:05:22.000
+now because right now we have so much of our media ecosystem
+
+00:05:22.000 --> 00:05:30.000
+influenced by for-profit social networks like Twitter, Facebook,
+
+00:05:30.000 --> 00:05:30.000
+etc.
+
+00:05:30.000 --> 00:05:37.440
+and this chart is from Magnitude Media using a data source
+
+00:05:37.440 --> 00:05:40.000
+called Junkipedia which looks at social media traffic.
+
+00:05:40.000 --> 00:05:45.680
+And it breaks down the most partisan-leaning political accounts
+
+00:05:45.680 --> 00:05:47.000
+on X in February.
+
+00:05:47.000 --> 00:05:51.280
+And, suffice to say, one of those circles is
+
+00:05:51.280 --> 00:05:55.000
+able to kind of impact the discourse a little bit.
+
+00:05:55.000 --> 00:05:58.550
+If only, it's a bit bigger is all I'm
+
+00:05:58.630 --> 00:05:59.000
+saying.
+
+00:05:59.000 --> 00:06:05.720
+And I guess, you know, kind of why I like
+
+00:06:05.720 --> 00:06:10.080
+all this stuff interests me is because when I was going to
+
+00:06:10.090 --> 00:06:12.180
+journalism school back in like 2011 like a huge part of what
+
+00:06:12.180 --> 00:06:15.000
+you're taught is how do you maintain a Twitter following?
+
+00:06:15.000 --> 00:06:17.000
+How do you engage with your audience?
+
+00:06:17.000 --> 00:06:21.000
+How do you use social media for sourcing news coverage?
+
+00:06:21.000 --> 00:06:22.760
+And that's a big part of the day-to-
+
+00:06:22.760 --> 00:06:24.000
+day life of journalists.
+
+00:06:24.000 --> 00:06:27.410
+And my personal belief, and I should mention that, pretty
+
+00:06:27.410 --> 00:06:30.000
+much everything I'm saying is just completely all just my opinions
+
+00:06:30.000 --> 00:06:30.000
+.
+
+00:06:30.000 --> 00:06:33.000
+I'm not reflective of any employer I've ever had.
+
+00:06:33.000 --> 00:06:36.150
+But my feeling is maybe the reason why the discourse is a
+
+00:06:36.150 --> 00:06:39.530
+little bit cooked is because the majority of journalists are spending a
+
+00:06:39.530 --> 00:06:45.210
+huge amount of their time on social networks that both elevate and
+
+00:06:45.210 --> 00:06:48.990
+incentivize far-right content.
+
+00:06:49.000 --> 00:06:55.000
+So, AT Pro needs journalists.
+
+00:06:55.000 --> 00:06:58.000
+But also, I think journalism needs AT Pro.
+
+00:06:58.000 --> 00:07:02.360
+I think AT Pro solves a lot of the fundamental needs that
+
+00:07:02.360 --> 00:07:06.000
+you have for social network as a media organization.
+
+00:07:06.000 --> 00:07:09.590
+And I'll get into a few of those in a second
+
+00:07:09.630 --> 00:07:10.000
+.
+
+00:07:10.000 --> 00:07:12.000
+Why I think this is the case.
+
+00:07:12.000 --> 00:07:15.270
+A lot of these charts are from the Reuters Digital News
+
+00:07:15.270 --> 00:07:16.000
+Report.
+
+00:07:16.000 --> 00:07:20.000
+They track something called news avoidance.
+
+00:07:20.000 --> 00:07:22.090
+And I'm going to show us in three different charts or
+
+00:07:22.440 --> 00:07:23.000
+different metrics.
+
+00:07:23.000 --> 00:07:25.640
+This is from the 2024 edition because I couldn't find this
+
+00:07:25.640 --> 00:07:27.990
+longitudinal kind of data for 2025 yet.
+
+00:07:28.000 --> 00:07:34.310
+So, this shows the proportion of people who reported using no
+
+00:07:34.320 --> 00:07:36.980
+sources of news in the last week.
+
+00:07:37.000 --> 00:07:39.000
+They just completely managed to avoid all the news headlines.
+
+00:07:39.000 --> 00:07:41.400
+And in the last like 10 years, it's grown by
+
+00:07:41.480 --> 00:07:45.990
+about like roughly 10%, especially amongst younger age cohorts.
+
+00:07:46.000 --> 00:07:50.230
+Further, you have the amount of people who are extremely or
+
+00:07:50.230 --> 00:07:56.000
+very interested in news has declined substantially since 2015.
+
+00:07:56.000 --> 00:08:00.580
+To a point where the 18 to 24 demographic, only 33
+
+00:08:00.580 --> 00:08:03.990
+% are extremely or very interested in news.
+
+00:08:04.000 --> 00:08:08.710
+This is from the 2025 data showing just the breakdown globally of
+
+00:08:08.710 --> 00:08:10.000
+news avoidance.
+
+00:08:10.000 --> 00:08:14.990
+40% of all people surveyed are avoiding the news.
+
+00:08:15.000 --> 00:08:18.000
+It's even bigger in like the younger cohorts.
+
+00:08:18.000 --> 00:08:21.150
+In the 25 to 34 cohort, a whole 43% of
+
+00:08:21.150 --> 00:08:24.000
+readers are actively avoiding the news.
+
+00:08:24.000 --> 00:08:28.990
+So, like, what's driving this?
+
+00:08:29.000 --> 00:08:33.120
+I kind of feel in some ways that a big part of
+
+00:08:33.120 --> 00:08:37.000
+it is the way in which algorithms deliver news to readers.
+
+00:08:37.000 --> 00:08:41.990
+And it's very overwhelming and it prioritizes engagement over news
+
+00:08:42.010 --> 00:08:45.000
+worthiness or public understanding.
+
+00:08:45.000 --> 00:08:49.170
+And as a result of that burnout, you have people who
+
+00:08:49.170 --> 00:08:51.990
+are moving to AI as a primary source of news.
+
+00:08:52.000 --> 00:08:55.010
+This is the proportion that used AI chat box for news in
+
+00:08:55.010 --> 00:08:56.000
+the last week.
+
+00:08:56.000 --> 00:08:59.000
+This is also from the Reuters digital news report.
+
+00:08:59.000 --> 00:09:05.470
+And it kind of is towards about 10% kind of globally
+
+00:09:05.510 --> 00:09:05.990
+.
+
+00:09:06.000 --> 00:09:12.000
+And further, news leaders understand this challenge.
+
+00:09:12.000 --> 00:09:14.920
+50% think it's going to be like a slow burn
+
+00:09:14.920 --> 00:09:17.000
+kind of impact on the industry.
+
+00:09:17.000 --> 00:09:18.600
+And 20% thinks it's going to be the next big
+
+00:09:18.600 --> 00:09:19.000
+thing.
+
+00:09:19.000 --> 00:09:21.200
+So, regardless, about 70% of news leaders think it
+
+00:09:21.290 --> 00:09:23.000
+'s going to have an impact on the industry.
+
+00:09:23.000 --> 00:09:28.510
+And yet, despite all this, social media continues to be
+
+00:09:28.510 --> 00:09:30.990
+a major source of news.
+
+00:09:31.000 --> 00:09:33.000
+And in fact, it's growing.
+
+00:09:33.000 --> 00:09:36.660
+If you look at that orange line, that's the US
+
+00:09:36.670 --> 00:09:37.000
+.
+
+00:09:37.000 --> 00:09:40.590
+In 2025, the US joined what Reuters refers to as
+
+00:09:40.590 --> 00:09:45.210
+the Social First Club, which is countries that where a majority
+
+00:09:45.210 --> 00:09:48.990
+of people get their news primarily initially from social media.
+
+00:09:49.000 --> 00:09:52.650
+So, we need to make social work as a place that
+
+00:09:52.670 --> 00:09:54.000
+people get news.
+
+00:09:54.000 --> 00:09:57.410
+Because if we don't, then the incumbents will continue
+
+00:09:57.410 --> 00:09:58.000
+doing so.
+
+00:09:58.000 --> 00:10:01.770
+And the quality of our discourse will just deteriorate over time
+
+00:10:01.780 --> 00:10:02.000
+.
+
+00:10:02.000 --> 00:10:07.000
+This is alluded to in the last talk.
+
+00:10:07.000 --> 00:10:08.820
+And I'm going to go through it very, very briefly
+
+00:10:08.820 --> 00:10:09.000
+.
+
+00:10:09.000 --> 00:10:12.330
+But this is my brief and incomplete recent history of algorithmic
+
+00:10:12.330 --> 00:10:13.000
+fuckery.
+
+00:10:13.000 --> 00:10:17.000
+So, this only goes back to 2015.
+
+00:10:17.000 --> 00:10:19.000
+I'm sure there are more examples that you can use.
+
+00:10:19.000 --> 00:10:21.720
+And these are just a half dozen I just picked out of
+
+00:10:21.720 --> 00:10:23.000
+a hat, basically.
+
+00:10:23.000 --> 00:10:25.000
+But these are the ones that kind of impact me.
+
+00:10:25.000 --> 00:10:28.340
+Google Accelerated Mobile Pages, AMP is one of
+
+00:10:28.340 --> 00:10:29.000
+them.
+
+00:10:29.000 --> 00:10:32.290
+Google said, hey, if you use this new technology that
+
+00:10:32.290 --> 00:10:35.780
+makes news faster to download and read, we'll boost you
+
+00:10:35.780 --> 00:10:37.000
+in terms of page rank.
+
+00:10:37.000 --> 00:10:39.650
+And I think that had a pretty negative effect on the quality
+
+00:10:39.650 --> 00:10:41.990
+of news that was being served by Google.
+
+00:10:42.000 --> 00:10:46.000
+As mentioned in the last talk, there was pivot to video
+
+00:10:46.000 --> 00:10:46.000
+.
+
+00:10:46.000 --> 00:10:49.650
+And I have another personal kind of connection to this in that
+
+00:10:49.660 --> 00:10:53.450
+I'm from the generation of journalists who sort of graduated journalism
+
+00:10:53.490 --> 00:10:55.000
+school while pivot to video was happening.
+
+00:10:55.000 --> 00:11:00.000
+And it was devastating for an entire generation of journalists.
+
+00:11:00.000 --> 00:11:03.470
+And I'm not sure it's kind of like the young
+
+00:11:03.470 --> 00:11:06.650
+core journalists that I've really even fully recovered from at this
+
+00:11:06.650 --> 00:11:06.990
+point.
+
+00:11:07.000 --> 00:11:10.740
+In 2022, you have Musk taking over Twitter and depriorit
+
+00:11:10.740 --> 00:11:14.980
+izing outgoing links, which has had a major impact on news
+
+00:11:14.980 --> 00:11:15.980
+traffic.
+
+00:11:16.000 --> 00:11:20.670
+In 2023, you had Facebook blocking Canadian titles because of the
+
+00:11:20.670 --> 00:11:22.000
+Online Media Act.
+
+00:11:22.000 --> 00:11:25.000
+Can't get Canadian news on Facebook no more.
+
+00:11:25.000 --> 00:11:28.380
+And in 2024, you started to see AI overviews start
+
+00:11:28.380 --> 00:11:31.990
+to become a thing on Google, which has had a really
+
+00:11:32.000 --> 00:11:36.800
+massive impact on the traffic that news orgs receive from organic
+
+00:11:36.810 --> 00:11:38.000
+search.
+
+00:11:38.000 --> 00:11:40.380
+Before this one, I've also added like a 2026
+
+00:11:40.480 --> 00:11:41.000
+edition.
+
+00:11:41.000 --> 00:11:42.000
+There's a few more things.
+
+00:11:42.000 --> 00:11:43.000
+These are kind of like just loosely related.
+
+00:11:43.000 --> 00:11:45.520
+I know they're not quite on topic with it, but
+
+00:11:45.520 --> 00:11:47.990
+you had like TikTok being sold to Oracle.
+
+00:11:48.000 --> 00:11:52.870
+So you have a major upcoming channel for news be sold to
+
+00:11:52.870 --> 00:12:00.010
+a company for ultimately political reasons in a very politically fraught
+
+00:12:00.010 --> 00:12:01.990
+moment, I should say.
+
+00:12:02.000 --> 00:12:05.740
+You also had Congress pressuring Apple News over leftist bias
+
+00:12:05.740 --> 00:12:06.000
+.
+
+00:12:06.000 --> 00:12:10.440
+So in both these examples, you have a government that is
+
+00:12:10.440 --> 00:12:15.710
+pushing technology providers to change how their algorithms work in order to
+
+00:12:15.930 --> 00:12:19.000
+better align with that regime's interests.
+
+00:12:19.000 --> 00:12:23.990
+And then just this month, you have Google trialing,
+
+00:12:24.000 --> 00:12:29.000
+basically replacing human written headlines with AI headlines.
+
+00:12:29.000 --> 00:12:35.290
+And you also have the superhuman experts controversy where they have
+
+00:12:35.290 --> 00:12:39.300
+Grammarly effectively had this new feature that they've since
+
+00:12:39.340 --> 00:12:43.580
+killed where it would offer writing advice from your favorite journalists just
+
+00:12:43.660 --> 00:12:46.460
+to promise they didn't ask the journalists if they could use
+
+00:12:46.480 --> 00:12:47.000
+their names.
+
+00:12:47.000 --> 00:12:49.740
+So basically, I'm trying to get out of all this
+
+00:12:49.740 --> 00:12:50.000
+.
+
+00:12:50.000 --> 00:12:51.000
+I'm trying to make a point here.
+
+00:12:51.000 --> 00:12:54.240
+And my point is ultimately, why do we still trust big
+
+00:12:54.240 --> 00:12:55.990
+tech with news distribution?
+
+00:12:56.000 --> 00:12:58.500
+There's lots of reasons why we probably shouldn't at this
+
+00:12:58.500 --> 00:12:59.000
+point.
+
+00:12:59.000 --> 00:13:05.420
+Back when I was growing up, my local paper used to
+
+00:13:05.420 --> 00:13:09.110
+hire people to ride around on bicycles, usually like elementary and
+
+00:13:09.110 --> 00:13:11.740
+high school students, and chuck papers onto people's front lawn
+
+00:13:11.750 --> 00:13:12.000
+s.
+
+00:13:12.000 --> 00:13:14.890
+That was a very core function of the newspaper and it related
+
+00:13:14.890 --> 00:13:16.000
+to distribution.
+
+00:13:17.000 --> 00:13:20.830
+Since then, in the internet era, we've basically handed
+
+00:13:20.830 --> 00:13:24.290
+that entire part of the business to tech companies whose interests are
+
+00:13:24.300 --> 00:13:28.660
+often not aligned with that of journalism or that of just public
+
+00:13:28.660 --> 00:13:30.000
+information.
+
+00:13:30.000 --> 00:13:34.000
+So with that, a couple of questions.
+
+00:13:34.000 --> 00:13:36.020
+One, wouldn't it be cool if journalism wasn't held
+
+00:13:36.350 --> 00:13:38.710
+hostage by large tech companies and the billionaires who owned them
+
+00:13:38.710 --> 00:13:38.990
+?
+
+00:13:39.000 --> 00:13:41.910
+And furthermore, wouldn't it be cool if journalists and
+
+00:13:41.910 --> 00:13:44.690
+news orgs had a say in how users discovered news content
+
+00:13:44.690 --> 00:13:45.000
+?
+
+00:13:45.000 --> 00:13:46.930
+And lastly, wouldn't it be cool if there was more
+
+00:13:47.440 --> 00:13:49.990
+transparency about why users are seeing news topics on social media?
+
+00:13:50.000 --> 00:13:52.920
+At the moment, so much of the way in which news
+
+00:13:52.920 --> 00:13:56.860
+is delivered to users is basically like an opaque box that you
+
+00:13:56.860 --> 00:14:00.100
+can't look into and you can't really interrogate and
+
+00:14:00.100 --> 00:14:03.000
+you don't really know why you're receiving the news.
+
+00:14:03.000 --> 00:14:05.680
+And furthermore, why is this the news of the day
+
+00:14:05.680 --> 00:14:06.000
+?
+
+00:14:06.000 --> 00:14:08.040
+Wouldn't it be cool if we could kind of work to
+
+00:14:08.430 --> 00:14:10.000
+improve all of these things together?
+
+00:14:10.000 --> 00:14:14.110
+And to some degree, I think custom feeds are an answer
+
+00:14:14.110 --> 00:14:14.990
+to that.
+
+00:14:15.000 --> 00:14:18.460
+And it's one of those things that I think we're
+
+00:14:18.460 --> 00:14:22.990
+going to have to do some work as builders in the atmosphere
+
+00:14:22.990 --> 00:14:28.000
+to try and teach newspapers how to use this technology.
+
+00:14:28.000 --> 00:14:30.000
+Because they can start using it.
+
+00:14:30.000 --> 00:14:31.000
+They can start building their own algorithms.
+
+00:14:31.000 --> 00:14:33.620
+They can start serving content to readers in a way that makes
+
+00:14:33.620 --> 00:14:35.000
+sense for that readership.
+
+00:14:35.000 --> 00:14:36.000
+They can start doing it today.
+
+00:14:36.000 --> 00:14:39.000
+And frankly, very few have.
+
+00:14:39.000 --> 00:14:42.000
+So, these are two feeds I built.
+
+00:14:42.000 --> 00:14:44.000
+This is probably what I'm best known for.
+
+00:14:44.000 --> 00:14:47.500
+On the left, you have the OG reverse chronological news
+
+00:14:47.500 --> 00:14:52.170
+feed, which has about 300-ish odd news orgs
+
+00:14:52.170 --> 00:14:52.980
+in it.
+
+00:14:53.000 --> 00:14:56.500
+And on the right, you have the trending news feed,
+
+00:14:56.500 --> 00:15:00.920
+which is the same but using a very arbitrarily weighted trending
+
+00:15:00.920 --> 00:15:01.980
+algorithm.
+
+00:15:02.000 --> 00:15:04.400
+I used to just like chose random numbers for the trending news
+
+00:15:04.470 --> 00:15:06.000
+feed when I initially like set it up.
+
+00:15:06.000 --> 00:15:11.160
+And it's been really cool working with some researchers in the
+
+00:15:11.160 --> 00:15:11.530
+U.
+
+00:15:11.550 --> 00:15:12.000
+S.
+
+00:15:12.000 --> 00:15:14.960
+to try to basically A/B test various versions of the
+
+00:15:15.080 --> 00:15:20.880
+feed with different weights to see which delivers the most user satisfaction
+
+00:15:20.880 --> 00:15:23.000
+for consuming the news.
+
+00:15:23.000 --> 00:15:24.000
+And I think it's really interesting.
+
+00:15:24.000 --> 00:15:26.880
+As somebody who works in the journalism space, who's created
+
+00:15:26.880 --> 00:15:29.880
+a feed of news for users to then work with researchers to
+
+00:15:29.890 --> 00:15:32.260
+try and improve the news reading experience for readers, not so
+
+00:15:32.260 --> 00:15:36.180
+much that increases their engagement or whatever, but so that they
+
+00:15:36.180 --> 00:15:38.450
+can have a better news reading experience, so they can see
+
+00:15:38.450 --> 00:15:40.610
+more local news, so they can see more things that are
+
+00:15:40.610 --> 00:15:41.000
+relevant to them.
+
+00:15:41.000 --> 00:15:44.590
+Instead of just whatever hot button topic is just wanting to be
+
+00:15:44.630 --> 00:15:47.990
+pushed in front of them by the major traditional media.
+
+00:15:48.000 --> 00:15:51.560
+So my news feeds together, we have about 80,000
+
+00:15:51.580 --> 00:15:54.170
+DAUs, and in the context of, say,
+
+00:15:54.170 --> 00:15:58.690
+Twitter's discovery feed or a lot of the other big platforms
+
+00:15:58.710 --> 00:16:01.720
+, 80,000 DAUs, it's not much
+
+00:16:01.720 --> 00:16:01.990
+.
+
+00:16:02.000 --> 00:16:06.000
+But to start, it puts it going to be done.
+
+00:16:06.000 --> 00:16:09.190
+And I think that's a point that we need to start
+
+00:16:09.190 --> 00:16:12.460
+bringing to news orgs, the fact that you can do
+
+00:16:12.460 --> 00:16:13.990
+these things now.
+
+00:16:14.000 --> 00:16:17.310
+This is, and furthermore, you can do things that
+
+00:16:17.310 --> 00:16:20.000
+, like, you can do it fairly easily.
+
+00:16:20.000 --> 00:16:22.520
+This is my graze page for the news feed, and
+
+00:16:22.520 --> 00:16:25.320
+there's a button that I've circled up top saying
+
+00:16:25.320 --> 00:16:26.000
+remix.
+
+00:16:26.000 --> 00:16:29.120
+And if you want to create your own version of the feed
+
+00:16:29.120 --> 00:16:32.000
+, say you want to exclude the onion from it.
+
+00:16:32.000 --> 00:16:34.160
+The one satirical paper I have in the news feed
+
+00:16:34.270 --> 00:16:35.000
+is the onion.
+
+00:16:35.000 --> 00:16:37.170
+I kind of just take it as given that in 2026
+
+00:16:37.320 --> 00:16:39.490
+you should probably know that the onion is a satirical
+
+00:16:39.490 --> 00:16:39.990
+paper.
+
+00:16:40.000 --> 00:16:41.830
+I still have people constantly asking me to remove it, though
+
+00:16:41.830 --> 00:16:42.000
+.
+
+00:16:42.000 --> 00:16:43.740
+If you want to, though, you can remix the feed
+
+00:16:43.740 --> 00:16:45.000
+and remove the onion from it.
+
+00:16:45.000 --> 00:16:46.000
+There you go.
+
+00:16:46.000 --> 00:16:47.000
+I would, though.
+
+00:16:47.000 --> 00:16:48.000
+I love the onion.
+
+00:16:48.000 --> 00:16:49.790
+Or say you want to change, like, a sorting option
+
+00:16:49.790 --> 00:16:50.000
+.
+
+00:16:50.000 --> 00:16:52.680
+Or say you want to make it so that, you know
+
+00:16:52.680 --> 00:16:54.990
+, image posts aren't allowed.
+
+00:16:55.000 --> 00:16:56.000
+You can do that.
+
+00:16:56.000 --> 00:16:57.000
+You can click remix.
+
+00:16:57.000 --> 00:17:00.720
+It will create a new version of my feed in your account
+
+00:17:00.720 --> 00:17:01.000
+.
+
+00:17:01.000 --> 00:17:03.000
+It will still use the same list of orgs and whatnot
+
+00:17:03.000 --> 00:17:03.000
+.
+
+00:17:03.000 --> 00:17:08.010
+And you can then have that as a personalized, improved source
+
+00:17:08.050 --> 00:17:09.000
+of news.
+
+00:17:09.000 --> 00:17:13.220
+And similarly, Graze recently released a new feature called,
+
+00:17:13.220 --> 00:17:17.140
+it effectively uses a similar algorithm to the 4U feed to
+
+00:17:17.140 --> 00:17:19.000
+find personalized content.
+
+00:17:19.000 --> 00:17:21.610
+And in, like, five minutes of work, I created
+
+00:17:21.610 --> 00:17:24.090
+a new version of the feed that is, like, very
+
+00:17:24.090 --> 00:17:27.000
+personalized to my news viewing habits.
+
+00:17:27.000 --> 00:17:31.000
+And anybody who uses Graze can just do this.
+
+00:17:31.000 --> 00:17:34.150
+And news orgs that, you know, create their own
+
+00:17:34.150 --> 00:17:38.650
+feeds can create different ways in which users can view that content
+
+00:17:38.650 --> 00:17:38.990
+.
+
+00:17:39.000 --> 00:17:42.000
+How many of you have per time, by the way?
+
+00:17:44.430 --> 00:17:46.000
+Sorry.
+
+00:17:46.000 --> 00:17:47.000
+Okay, cool.
+
+00:17:47.000 --> 00:17:49.000
+Thank you.
+
+00:17:49.000 --> 00:17:50.000
+So, yeah.
+
+00:17:50.000 --> 00:17:53.290
+So these are two examples of, like, ways that news
+
+00:17:53.290 --> 00:17:57.740
+orgs or feeds could work in a kind of more localized
+
+00:17:57.750 --> 00:17:58.980
+capacity.
+
+00:17:59.000 --> 00:18:01.000
+Like, so my two feeds are very, very global.
+
+00:18:01.000 --> 00:18:04.470
+They're world news orgs, reverse chronological training as
+
+00:18:04.470 --> 00:18:05.000
+it is.
+
+00:18:05.000 --> 00:18:08.080
+But you can also do things that are more specific to your
+
+00:18:08.090 --> 00:18:09.990
+news org and to that audience.
+
+00:18:10.000 --> 00:18:12.370
+On the left is the Financial Times staff feed, which is
+
+00:18:12.420 --> 00:18:14.000
+a feed that I may have helped with.
+
+00:18:14.000 --> 00:18:20.790
+And it's effectively anybody who the Financial Times account follows in
+
+00:18:20.790 --> 00:18:21.990
+one feed.
+
+00:18:22.000 --> 00:18:23.000
+And, like, I kind of love it.
+
+00:18:23.000 --> 00:18:24.980
+Like, I use it, like, myself, like,
+
+00:18:24.980 --> 00:18:26.000
+on a daily basis.
+
+00:18:26.000 --> 00:18:27.800
+It's one of the first feeds I check in the morning
+
+00:18:27.800 --> 00:18:28.000
+.
+
+00:18:28.000 --> 00:18:30.360
+Because it has all the contributors for the FT, you can
+
+00:18:30.470 --> 00:18:34.380
+see what are those journalists talking about at a glance in one
+
+00:18:34.380 --> 00:18:34.990
+place.
+
+00:18:35.000 --> 00:18:36.000
+And you can pan it to your home screen.
+
+00:18:36.000 --> 00:18:38.090
+And if you're a reader of that paper and you really
+
+00:18:38.300 --> 00:18:40.990
+care deeply about what those journalists are talking about or thinking about
+
+00:18:40.990 --> 00:18:43.000
+, you can see that really quickly.
+
+00:18:43.000 --> 00:18:46.000
+Similarly, you have Rich Ferro's Minneapolis ICE feed,
+
+00:18:46.000 --> 00:18:48.310
+which I think is, like, a great example of using
+
+00:18:48.310 --> 00:18:50.000
+feeds in, like, a hyperlocal context.
+
+00:18:50.000 --> 00:18:53.240
+Taking a topic that is really relevant to the local community and
+
+00:18:53.250 --> 00:18:58.550
+taking a combination of news content, local writers, individuals who
+
+00:18:58.550 --> 00:19:00.000
+are impacted, and putting it into one place.
+
+00:19:00.000 --> 00:19:01.880
+And I think that there's, like, a lot of
+
+00:19:01.880 --> 00:19:04.990
+really interesting use cases like this that local news can do.
+
+00:19:05.000 --> 00:19:07.470
+But maybe part of the problem that why I haven't really
+
+00:19:07.480 --> 00:19:10.570
+seen a lot of examples like this is just because they're
+
+00:19:10.580 --> 00:19:11.990
+not really aware of this technology.
+
+00:19:12.000 --> 00:19:15.960
+And so with that, I think, you know, a
+
+00:19:15.960 --> 00:19:20.240
+big part of what we need to do as builders is sort
+
+00:19:20.240 --> 00:19:24.000
+of popularizing this technology and trying things and just building feeds
+
+00:19:24.000 --> 00:19:24.000
+.
+
+00:19:24.000 --> 00:19:26.430
+And, you know, whether it's using Graze or
+
+00:19:26.470 --> 00:19:28.990
+, like, Surf is also really, really exciting.
+
+00:19:29.000 --> 00:19:30.480
+I mentioned Graze a lot, but Surf is super,
+
+00:19:30.480 --> 00:19:31.000
+super cool.
+
+00:19:31.000 --> 00:19:33.000
+I've been playing with that a little bit.
+
+00:19:33.000 --> 00:19:35.000
+I love the interface for it.
+
+00:19:35.000 --> 00:19:39.990
+The new thing they mentioned earlier could also be cool.
+
+00:19:40.000 --> 00:19:43.890
+But, like, ultimately there are many, and there's
+
+00:19:43.900 --> 00:19:46.000
+also, like, yeah.
+
+00:19:46.000 --> 00:19:47.790
+So, but anyways, there's a lot of routes to
+
+00:19:47.790 --> 00:19:49.000
+create custom feeds now.
+
+00:19:49.000 --> 00:19:52.060
+And I think, you know, I would encourage people to
+
+00:19:52.060 --> 00:19:53.990
+just start building things.
+
+00:19:54.000 --> 00:19:57.560
+If you don't have a source of news that you need
+
+00:19:57.580 --> 00:20:00.000
+on AT Proto, just build it.
+
+00:20:00.000 --> 00:20:03.420
+You can just do things and share with people and tell people
+
+00:20:03.440 --> 00:20:06.660
+about it and tell them why it's useful because it's
+
+00:20:06.660 --> 00:20:09.490
+kind of up to us to popularize this technology because at
+
+00:20:09.490 --> 00:20:12.000
+the moment it's kind of hard to find.
+
+00:20:12.000 --> 00:20:16.090
+It's kind of not exactly obvious for people who are new
+
+00:20:16.090 --> 00:20:18.990
+to blue sky or to the atmosphere more generally.
+
+00:20:19.000 --> 00:20:23.000
+Why should media orcs create custom feeds?
+
+00:20:23.000 --> 00:20:26.000
+Because it connects their journalists with their audience.
+
+00:20:26.000 --> 00:20:28.110
+If you make one for your paper, like the FT Staff
+
+00:20:28.270 --> 00:20:32.720
+ord I mentioned, you can give them this very close kind
+
+00:20:32.720 --> 00:20:35.820
+of, like, summary of everything that your journalists are talking
+
+00:20:35.820 --> 00:20:37.850
+about, which, again, if you're a subscriber,
+
+00:20:37.850 --> 00:20:39.000
+you might care about.
+
+00:20:39.000 --> 00:20:43.300
+If you have multiple verticals, for instance, you can
+
+00:20:43.300 --> 00:20:45.000
+use a custom feed to unify them into one place.
+
+00:20:45.000 --> 00:20:48.480
+And so even if you have multiple accounts or publishing various other
+
+00:20:48.480 --> 00:20:51.530
+places, you can consolidate them into, like, a singular
+
+00:20:51.530 --> 00:20:52.000
+feed.
+
+00:20:52.000 --> 00:20:54.000
+You can also highlight top content.
+
+00:20:54.000 --> 00:20:56.810
+You can use pin posts to do promotions or to, like
+
+00:20:56.810 --> 00:21:01.150
+, highlight a particular editorial kind of, like, campaign or
+
+00:21:01.150 --> 00:21:03.000
+something of that nature.
+
+00:21:03.000 --> 00:21:05.700
+One thing I would really like to see is custom feeds being
+
+00:21:05.700 --> 00:21:08.000
+used as a way of promoting, say, subscription deals.
+
+00:21:08.000 --> 00:21:12.990
+Say you have a subscription sale going on.
+
+00:21:13.000 --> 00:21:15.330
+You could use a rotating post to just put a little note
+
+00:21:15.470 --> 00:21:16.960
+being like, "Hey, do you want to see this
+
+00:21:16.960 --> 00:21:18.000
+content without a paywall?
+
+00:21:18.000 --> 00:21:22.380
+Buy a subscription over here." There's lots of cool things
+
+00:21:22.380 --> 00:21:24.650
+that, like, a news org could do with a custom
+
+00:21:24.670 --> 00:21:27.290
+feed that maybe they're sleeping on and you need to tell
+
+00:21:27.470 --> 00:21:28.000
+them about.
+
+00:21:28.000 --> 00:21:31.010
+And most importantly, all this stuff is, like, kind
+
+00:21:31.010 --> 00:21:32.000
+of free to use.
+
+00:21:32.000 --> 00:21:34.640
+It doesn't require a huge capital outlay from a news
+
+00:21:34.640 --> 00:21:37.000
+org, most of which are increasingly cash-strapped,
+
+00:21:37.000 --> 00:21:39.750
+to be able to try these things and to do these things
+
+00:21:39.750 --> 00:21:40.000
+.
+
+00:21:40.000 --> 00:21:44.610
+And one thing also that I would love to see is journalism
+
+00:21:44.610 --> 00:21:47.990
+societies start to use custom feeds.
+
+00:21:48.000 --> 00:21:51.270
+Not just newspapers, but kind of the civil society organizations around
+
+00:21:51.270 --> 00:21:52.000
+journalism.
+
+00:21:52.000 --> 00:21:54.000
+So, like, in the UK we have the NU
+
+00:21:54.000 --> 00:21:57.000
+J, which is the National Union of Journalists.
+
+00:21:57.000 --> 00:21:59.380
+And we also have IPSO, which is one of our
+
+00:21:59.470 --> 00:22:01.000
+many press regulators.
+
+00:22:01.000 --> 00:22:06.740
+These are organizations that are kind of connected with journalism but don
+
+00:22:06.740 --> 00:22:09.000
+'t produce a lot of journalism themselves quite often.
+
+00:22:09.000 --> 00:22:13.650
+They can use some of these technologies to do really cool things
+
+00:22:13.650 --> 00:22:13.990
+.
+
+00:22:14.000 --> 00:22:15.810
+Say you're, like, a union of journalists, right
+
+00:22:15.810 --> 00:22:16.000
+?
+
+00:22:16.000 --> 00:22:19.000
+You do your yearly renewal and you send out your form,
+
+00:22:19.000 --> 00:22:20.000
+"Hey, are you still a practicing journalist?
+
+00:22:20.000 --> 00:22:21.000
+Where are you at?
+
+00:22:21.300 --> 00:22:23.900
+Could I get some details, updates?" You've got a
+
+00:22:23.900 --> 00:22:26.000
+form saying, "What is your Blue Sky Handle?"
+
+00:22:26.000 --> 00:22:28.460
+And then suddenly you have a big database of all of the
+
+00:22:28.490 --> 00:22:31.270
+journalists in your organization who have Blue Sky Handles, put
+
+00:22:31.270 --> 00:22:34.120
+them onto a custom feed, and suddenly you have a really
+
+00:22:34.120 --> 00:22:38.050
+good source of, like, independent journalism from the journalists who
+
+00:22:38.050 --> 00:22:40.000
+are either working at titles or are freelance.
+
+00:22:40.000 --> 00:22:41.640
+One of the, I think, biggest kind of things that
+
+00:22:41.640 --> 00:22:44.540
+, like, I wish the news feed could do better would
+
+00:22:44.540 --> 00:22:49.820
+be to surface freelance journalists and surface individual contributors kind of in
+
+00:22:49.820 --> 00:22:50.990
+that space.
+
+00:22:51.000 --> 00:22:54.000
+I kind of bolted the idea of, you know,
+
+00:22:54.000 --> 00:22:57.000
+verifying every single journalist who came to me on Blue Sky
+
+00:22:57.000 --> 00:22:58.000
+asking if you add to a feed.
+
+00:22:58.000 --> 00:23:00.000
+So I didn't really do an individual journalist feed.
+
+00:23:00.000 --> 00:23:02.450
+It would be really easy if you're, like, you
+
+00:23:02.480 --> 00:23:04.990
+know, a journalist union, for instance.
+
+00:23:05.000 --> 00:23:07.750
+And there's lots of, kind of, various things you
+
+00:23:07.750 --> 00:23:09.000
+could do with that.
+
+00:23:09.000 --> 00:23:11.000
+You could, here's a wild idea.
+
+00:23:11.000 --> 00:23:12.880
+Say, like, you're a journalism org, like the
+
+00:23:12.880 --> 00:23:15.270
+NUJ, like I mentioned, and you get a
+
+00:23:15.270 --> 00:23:18.000
+trusted verifier status.
+
+00:23:18.000 --> 00:23:21.420
+Suddenly you can verify independent journalists who are working, might not
+
+00:23:21.440 --> 00:23:24.120
+have access to the verification facilities that, like, a major
+
+00:23:24.120 --> 00:23:24.990
+newspaper would have.
+
+00:23:25.000 --> 00:23:27.140
+I think there's, like, a lot of tools for
+
+00:23:27.470 --> 00:23:32.990
+specifically independent titles and for small publishers that the atmosphere provides that
+
+00:23:32.990 --> 00:23:37.000
+we really need to start talking to news orgs about.
+
+00:23:37.000 --> 00:23:42.080
+Because it can really change how they do things and really kind
+
+00:23:42.080 --> 00:23:46.320
+of improve some of the, you know, give them more
+
+00:23:46.490 --> 00:23:50.980
+traffic and be able to use the platform better.
+
+00:23:51.000 --> 00:23:53.560
+Another point that I've been trying to make a little bit
+
+00:23:53.560 --> 00:23:56.220
+over the last little while is I kind of feel increasingly that
+
+00:23:56.220 --> 00:23:59.000
+journalism in 2026 is more than just reportage.
+
+00:23:59.000 --> 00:24:02.420
+It's not simply taking view from nowhere, reporting the facts
+
+00:24:02.450 --> 00:24:03.990
+journalism all the time.
+
+00:24:04.000 --> 00:24:06.530
+A lot of the time, like, in my mind in
+
+00:24:06.530 --> 00:24:11.680
+some ways as doing journalism in 2026 means helping the audience
+
+00:24:11.680 --> 00:24:14.000
+navigate this news climate.
+
+00:24:14.000 --> 00:24:21.650
+Steve Bannon in 2016 had the expression filling the, filling
+
+00:24:21.650 --> 00:24:23.000
+the zone with shit.
+
+00:24:23.000 --> 00:24:28.150
+Which is basically the idea of creating so much just nonsense in
+
+00:24:28.150 --> 00:24:31.090
+the press that people don't really know where to focus or
+
+00:24:31.090 --> 00:24:33.000
+know where to, like, focus their attentions on.
+
+00:24:33.000 --> 00:24:36.280
+And I think kind of some of those slides earlier talking about
+
+00:24:36.280 --> 00:24:39.680
+news avoidance is a good indication that that strategy has been
+
+00:24:39.680 --> 00:24:41.000
+kind of successful.
+
+00:24:41.000 --> 00:24:44.060
+So how do we as creators and builders and how do we
+
+00:24:44.060 --> 00:24:48.110
+also as journalists start to use these tools to start unpacking
+
+00:24:48.110 --> 00:24:48.990
+the zone?
+
+00:24:49.000 --> 00:24:52.000
+I've had a few ideas.
+
+00:24:52.000 --> 00:24:54.960
+On the left you have xBlock which is probably,
+
+00:24:54.990 --> 00:24:58.540
+I think it's Blue Sky's longest running third party lab
+
+00:24:58.540 --> 00:24:59.000
+eler.
+
+00:24:59.000 --> 00:25:02.650
+I built this back in, I think, 20, 24
+
+00:25:02.670 --> 00:25:03.000
+?
+
+00:25:03.000 --> 00:25:05.000
+And it's been running ever since then.
+
+00:25:05.000 --> 00:25:09.080
+It labels screenshots from social media platforms, whether it be Twitter
+
+00:25:09.080 --> 00:25:11.000
+or Blue Sky itself or threads or whatever.
+
+00:25:11.000 --> 00:25:13.580
+I need to really train the model because it's basically labeling
+
+00:25:13.580 --> 00:25:17.000
+most things as Twitter right now, but it works.
+
+00:25:17.000 --> 00:25:21.000
+And I think people find it very, very useful as a
+
+00:25:21.000 --> 00:25:25.900
+way of kind of turning down the volume on their social media
+
+00:25:25.930 --> 00:25:27.000
+experience.
+
+00:25:27.000 --> 00:25:31.250
+By not seeing screenshots dunking from Twitter, they're able
+
+00:25:31.250 --> 00:25:33.710
+to have a kind of, like, cleaner, less emot
+
+00:25:33.710 --> 00:25:35.000
+ive sort of social media experience.
+
+00:25:35.000 --> 00:25:37.250
+And kind of like, you know, my experience with x
+
+00:25:37.300 --> 00:25:39.690
+Block has informed two new labelers that I've created
+
+00:25:39.690 --> 00:25:39.990
+.
+
+00:25:40.000 --> 00:25:42.000
+They're very much in development.
+
+00:25:42.000 --> 00:25:44.000
+They're a little bit trash right now.
+
+00:25:44.000 --> 00:25:45.610
+Be forewarned if you, like, subscribe to
+
+00:25:45.610 --> 00:25:46.000
+them.
+
+00:25:46.000 --> 00:25:48.000
+But I'm working on them.
+
+00:25:48.000 --> 00:25:49.720
+They're a work in progress and I'll explain what they
+
+00:25:49.720 --> 00:25:50.000
+are.
+
+00:25:50.000 --> 00:25:53.000
+In the middle you have Media Ownership Labeler.
+
+00:25:53.000 --> 00:25:55.620
+I have this big list of all the titles in the news
+
+00:25:55.620 --> 00:25:59.000
+feed and I've tried to manually go through and figure out
+
+00:25:59.000 --> 00:26:00.000
+what their funding model is.
+
+00:26:00.000 --> 00:26:03.000
+Whether they're independently funded or whether they have, like,
+
+00:26:03.000 --> 00:26:04.990
+a big corporate owner, like, say, Condé Nast
+
+00:26:04.990 --> 00:26:06.000
+or something like that.
+
+00:26:06.000 --> 00:26:08.000
+Or whether they're, like, reader supported.
+
+00:26:08.000 --> 00:26:10.840
+And what it allows you to do, it allows you to
+
+00:26:10.840 --> 00:26:12.000
+do two things.
+
+00:26:12.000 --> 00:26:14.570
+First thing is you can have just, like, a little
+
+00:26:14.570 --> 00:26:17.570
+badge on every news title saying, like, what their funding
+
+00:26:17.580 --> 00:26:18.000
+model is.
+
+00:26:18.000 --> 00:26:19.720
+So if you're just scrolling the news feed and you're
+
+00:26:19.720 --> 00:26:21.000
+kind of curious, you can see that.
+
+00:26:21.000 --> 00:26:22.890
+The cool thing is if you want to block all of R
+
+00:26:22.890 --> 00:26:24.650
+upert Murdoch's papers, you can do that
+
+00:26:24.670 --> 00:26:25.000
+.
+
+00:26:25.000 --> 00:26:28.000
+The last one is News Classifier.
+
+00:26:28.000 --> 00:26:29.020
+And this is, like, an idea that I've had
+
+00:26:29.020 --> 00:26:30.000
+for, like, a really long time.
+
+00:26:30.000 --> 00:26:33.560
+I've wanted to find a way of classifying the content
+
+00:26:33.630 --> 00:26:36.000
+being emitted by the news feed.
+
+00:26:36.000 --> 00:26:38.500
+It uses -- and I only actually managed to figure out how
+
+00:26:38.500 --> 00:26:39.000
+to do this.
+
+00:26:39.000 --> 00:26:41.050
+This idea has been circling in my head for about,
+
+00:26:41.050 --> 00:26:42.000
+like, a year now.
+
+00:26:42.000 --> 00:26:44.090
+But I only managed to figure out how to do it about
+
+00:26:44.090 --> 00:26:45.000
+a fortnight ago.
+
+00:26:45.000 --> 00:26:51.000
+This is kind of driven by getting a lot of requests for
+
+00:26:51.000 --> 00:26:53.000
+kind of get the news feed but without sports.
+
+00:26:53.000 --> 00:26:55.000
+Or the news feed without entertainment.
+
+00:26:55.000 --> 00:26:57.940
+And it's kind of hard because news orgs publish all
+
+00:26:57.940 --> 00:27:01.990
+genres of content under, like, the same account name.
+
+00:27:02.000 --> 00:27:07.610
+So I have a very, very light BERT text classification
+
+00:27:07.610 --> 00:27:12.000
+model that's looking at the OG tags of news orgs
+
+00:27:12.000 --> 00:27:14.770
+, or news posts that are being emitted by the news feed
+
+00:27:14.770 --> 00:27:15.000
+.
+
+00:27:15.000 --> 00:27:17.220
+And it tries to add a label to them, which is
+
+00:27:17.440 --> 00:27:19.000
+used for downstream tooling.
+
+00:27:19.000 --> 00:27:21.500
+Say you want to create a version of the news feed without
+
+00:27:21.500 --> 00:27:25.000
+sports, you can do that pretty easily using Graze.
+
+00:27:25.000 --> 00:27:28.190
+It uses Contrails, which is a Graze feature
+
+00:27:28.190 --> 00:27:31.490
+that gives you, like, a web socket of all the
+
+00:27:31.530 --> 00:27:35.000
+content being emitted by a particular custom feed.
+
+00:27:35.000 --> 00:27:38.280
+And it makes the infrastructure side of it, like, a
+
+00:27:38.280 --> 00:27:39.990
+lot easier to deal with.
+
+00:27:40.000 --> 00:27:42.000
+Okay.
+
+00:27:42.000 --> 00:27:44.000
+I think that's it.
+
+00:27:44.000 --> 00:27:47.000
+Thank you.
+
+00:27:47.000 --> 00:27:49.310
+If you want to try remixing the news feed, gra
+
+00:27:49.470 --> 00:27:49.820
+ze.
+
+00:27:49.820 --> 00:27:52.000
+social/feed/396.
+
+00:27:52.000 --> 00:27:54.300
+Again, encourage everyone to, like, try and create their
+
+00:27:54.430 --> 00:27:58.000
+own news sources and try and, like, use this technology
+
+00:27:58.000 --> 00:28:00.000
+to create a better understanding of news.
+
+00:28:00.000 --> 00:28:01.580
+I'm open to questions if anyone has them, but I
+
+00:28:01.580 --> 00:28:03.000
+'m in trouble answering questions.
+
+00:28:03.000 --> 00:28:04.000
+Hi.
+
+00:28:10.000 --> 00:28:11.000
+Excellent.
+
+00:28:11.000 --> 00:28:11.000
+Okay.
+
+00:28:11.000 --> 00:28:12.890
+So we have a few minutes to answer some, or to
+
+00:28:12.890 --> 00:28:14.000
+take some questions.
+
+00:28:14.000 --> 00:28:15.000
+Do you have a question?
+
+00:28:15.000 --> 00:28:16.000
+All right.
+
+00:28:16.000 --> 00:28:17.000
+Matt.
+
+00:28:17.000 --> 00:28:18.000
+Thanks, Henry.
+
+00:28:18.000 --> 00:28:19.000
+Quick question.
+
+00:28:19.000 --> 00:28:20.830
+What do you think about permissioned data and what that offers
+
+00:28:20.830 --> 00:28:21.000
+?
+
+00:28:21.000 --> 00:28:23.000
+Perhaps new subscription products?
+
+00:28:23.000 --> 00:28:25.000
+Maybe bundled subscription products?
+
+00:28:25.000 --> 00:28:28.240
+So people can subscribe to a custom feed and get content that
+
+00:28:28.240 --> 00:28:31.000
+they wouldn't find on, like, on the main,
+
+00:28:31.000 --> 00:28:31.990
+on the open.
+
+00:28:32.000 --> 00:28:34.280
+I don't know, a subscription product, basically, that
+
+00:28:34.470 --> 00:28:35.000
+could be sold.
+
+00:28:35.000 --> 00:28:37.000
+Could you actually generate revenue for news organizations?
+
+00:28:37.000 --> 00:28:39.560
+So, like, kind of, like, yeah, so
+
+00:28:39.560 --> 00:28:42.010
+I think a big part of it is, like, the
+
+00:28:42.050 --> 00:28:44.000
+private data story for AT Proto.
+
+00:28:44.000 --> 00:28:45.830
+Like, until there's, like, more, you know
+
+00:28:45.830 --> 00:28:48.270
+, private data, I think, will facilitate more, and
+
+00:28:48.270 --> 00:28:50.310
+, like, permissioned data, I think is how they
+
+00:28:50.320 --> 00:28:52.400
+'re referring to it, will facilitate that kind of thing a
+
+00:28:52.400 --> 00:28:52.970
+lot better.
+
+00:28:53.000 --> 00:28:56.000
+There's already some stuff you can do with Graze.
+
+00:28:56.000 --> 00:28:58.000
+Excuse me.
+
+00:28:58.000 --> 00:29:00.720
+I think Graze has, like, some kind of,
+
+00:29:00.720 --> 00:29:02.990
+like, Patreon integration.
+
+00:29:03.000 --> 00:29:05.000
+I'm not entirely sure how that works.
+
+00:29:05.000 --> 00:29:06.680
+But I think the idea with that is to be able to
+
+00:29:06.680 --> 00:29:09.000
+post into the feed you need to be a Patreon subscriber.
+
+00:29:09.000 --> 00:29:11.000
+So it's kind of like a subscriber feed.
+
+00:29:11.000 --> 00:29:13.650
+And so I think there are kind of things like that that
+
+00:29:13.650 --> 00:29:15.990
+, you know, could be useful approaches.
+
+00:29:16.000 --> 00:29:18.530
+Again, though, like, the lack of permission data kind
+
+00:29:18.530 --> 00:29:21.880
+of makes it challenging to do subscribers-only sort of stuff
+
+00:29:21.890 --> 00:29:26.000
+, I think, kind of on the platform.
+
+00:29:26.000 --> 00:29:27.000
+Hello.
+
+00:29:27.000 --> 00:29:32.830
+I have a question around -- so we would love to work
+
+00:29:32.840 --> 00:29:37.000
+with more newsrooms, journalists, all of it.
+
+00:29:37.000 --> 00:29:39.760
+And I think one of the difficult things that we have when
+
+00:29:39.760 --> 00:29:41.750
+we're messaging to them, and maybe you can help me
+
+00:29:41.750 --> 00:29:44.320
+with, is that -- and I haven't worked with news
+
+00:29:44.320 --> 00:29:46.840
+rooms, so this is mostly from, like, indie publishers
+
+00:29:46.860 --> 00:29:48.830
+, maybe on Substack, like, that kind of thing
+
+00:29:48.840 --> 00:29:49.000
+.
+
+00:29:49.000 --> 00:29:52.000
+That reach is really everything.
+
+00:29:52.000 --> 00:29:55.000
+Like, it has to get you more views.
+
+00:29:55.000 --> 00:29:58.000
+If it does that, everything else kind of is good.
+
+00:29:58.000 --> 00:30:00.000
+Well, maybe not good, but fine.
+
+00:30:00.000 --> 00:30:04.560
+And the atmosphere ecosystem is not yet at a scale where I
+
+00:30:04.560 --> 00:30:08.660
+can promise someone, like, 2x views or anything like
+
+00:30:08.660 --> 00:30:08.970
+that.
+
+00:30:09.000 --> 00:30:12.000
+But all this feed stuff is incredible.
+
+00:30:12.000 --> 00:30:17.270
+So how do I talk about that in a way that respects
+
+00:30:17.270 --> 00:30:25.030
+that kind of, like, discovery portion and highlights the things
+
+00:30:25.030 --> 00:30:26.990
+that we can do?
+
+00:30:27.000 --> 00:30:28.000
+Yeah.
+
+00:30:28.000 --> 00:30:29.000
+That's a big question.
+
+00:30:29.000 --> 00:30:30.000
+And that one's really hard.
+
+00:30:30.000 --> 00:30:35.010
+That's, you know, convincing news orgs to switch
+
+00:30:35.050 --> 00:30:38.600
+en masse to Blue Sky, and potentially even, like,
+
+00:30:38.600 --> 00:30:40.000
+exclusively to Blue Sky.
+
+00:30:40.000 --> 00:30:42.700
+First of all, the exclusivity thing isn't going to
+
+00:30:42.700 --> 00:30:44.990
+happen because news orgs are like that.
+
+00:30:45.000 --> 00:30:49.920
+But also, the -- you know, the more reach the
+
+00:30:49.920 --> 00:30:52.410
+platform has, the easier it is to make this case to
+
+00:30:52.410 --> 00:30:53.000
+news orgs.
+
+00:30:53.000 --> 00:30:55.450
+And right now, Blue Sky's reach is not what the
+
+00:30:55.490 --> 00:30:57.000
+commercial platform is.
+
+00:30:57.000 --> 00:30:59.000
+That's just the long and short of it.
+
+00:30:59.000 --> 00:31:04.010
+I think part of it is we need to increase that user
+
+00:31:04.050 --> 00:31:05.000
+base.
+
+00:31:05.000 --> 00:31:07.870
+And my feeling is that one way to do that is by
+
+00:31:07.870 --> 00:31:11.000
+creating better news reading experiences.
+
+00:31:11.000 --> 00:31:13.680
+If you create a news reading experience that, you know,
+
+00:31:13.680 --> 00:31:20.010
+privileges people's time and doesn't kind of overwhelm them
+
+00:31:20.080 --> 00:31:22.990
+nearly as much, that might be, like, one route
+
+00:31:22.990 --> 00:31:26.380
+in which we can start building more traffic on, like,
+
+00:31:26.380 --> 00:31:29.000
+AT Proto, for news consuming experiences.
+
+00:31:29.000 --> 00:31:31.550
+What Surf's doing really, you know, excites me
+
+00:31:31.550 --> 00:31:34.290
+because it's a way of doing something that's not just
+
+00:31:34.290 --> 00:31:37.070
+on AT Proto, but also on Activity Pub,
+
+00:31:37.070 --> 00:31:39.590
+and pulling together these disparate sources of content in a way
+
+00:31:39.610 --> 00:31:42.550
+that is, like, kind of engaging, but also,
+
+00:31:42.560 --> 00:31:45.780
+like, very, you know, respective of your mental energy
+
+00:31:45.790 --> 00:31:46.000
+.
+
+00:31:46.000 --> 00:31:50.190
+I really like how they have filters on Surf to hide politics
+
+00:31:50.190 --> 00:31:52.000
+content or Elon Musk.
+
+00:31:52.000 --> 00:31:55.260
+I think, like, yeah, I think part of it
+
+00:31:55.260 --> 00:32:00.400
+is we need to just create better news reading experiences and people
+
+00:32:00.400 --> 00:32:02.000
+will start gravitating towards them.
+
+00:32:02.000 --> 00:32:05.290
+But, yeah, the question of getting news orgs onto
+
+00:32:05.290 --> 00:32:12.000
+the platform is challenging, I think, like, yeah.
+
+00:32:12.000 --> 00:32:14.940
+One thing I did with the news feed, like, initially
+
+00:32:14.940 --> 00:32:17.670
+, was required that all the orgs in it have domain
+
+00:32:17.670 --> 00:32:18.990
+verified handles.
+
+00:32:19.000 --> 00:32:23.590
+It's called the verified news feed because I required anybody in
+
+00:32:23.590 --> 00:32:27.500
+it -- this is before blue ticks were a thing on blue
+
+00:32:27.500 --> 00:32:30.000
+sky -- I required them to have a domain handle.
+
+00:32:30.000 --> 00:32:33.690
+So I could actually verify they are who they say they are
+
+00:32:33.690 --> 00:32:34.000
+.
+
+00:32:34.000 --> 00:32:38.510
+And I think in doing that, that pushed them to use
+
+00:32:38.510 --> 00:32:44.660
+a primary affordance of the platform, which kind of sort
+
+00:32:44.680 --> 00:32:49.080
+of gave -- kind of put a bit of effort to do
+
+00:32:49.090 --> 00:32:50.000
+that.
+
+00:32:50.000 --> 00:32:52.420
+They had to talk to their tech people to do the DNS
+
+00:32:52.480 --> 00:32:53.000
+entry.
+
+00:32:53.000 --> 00:32:55.630
+They had to -- you know, once you've invested that
+
+00:32:55.630 --> 00:32:57.990
+much effort into a platform, it's, you know,
+
+00:32:58.000 --> 00:33:00.040
+it's harder for someone to just be, like, oh
+
+00:33:00.040 --> 00:33:01.000
+, we're not getting enough traffic from here.
+
+00:33:01.000 --> 00:33:02.550
+Let's just, like, you know, kill that entire
+
+00:33:02.550 --> 00:33:03.000
+account.
+
+00:33:03.000 --> 00:33:04.000
+So, I don't know.
+
+00:33:04.000 --> 00:33:06.940
+I think kind of encouraging news orgs to use primary afford
+
+00:33:06.940 --> 00:33:10.000
+ance of the platform, like custom feeds, like labelers
+
+00:33:10.000 --> 00:33:11.570
+, is one way we start to build interest kind of in
+
+00:33:11.570 --> 00:33:13.000
+that space, I think, a little bit.
+
+00:33:13.000 --> 00:33:15.730
+I'm not sure if I've answered your question, but
+
+00:33:15.730 --> 00:33:17.990
+it's a bunch of scattered thoughts.
+
+00:33:18.000 --> 00:33:19.320
+It's a problem.

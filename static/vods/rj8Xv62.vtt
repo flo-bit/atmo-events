@@ -1,0 +1,1933 @@
+WEBVTT
+
+00:00:00.010 --> 00:00:02.000
+Hello.
+
+00:00:02.000 --> 00:00:03.000
+Thanks, Boris.
+
+00:00:03.040 --> 00:00:05.620
+It's so good to be here.
+
+00:00:06.240 --> 00:00:08.610
+It's also a lot, and I just want to take
+
+00:00:08.880 --> 00:00:10.900
+a beat to acknowledge that.
+
+00:00:10.900 --> 00:00:14.260
+There's so much devastating in the world right now, but
+
+00:00:14.260 --> 00:00:17.750
+in this room, there's so many inspiring people with inspiring
+
+00:00:17.880 --> 00:00:18.790
+ideas and dreams.
+
+00:00:18.790 --> 00:00:22.080
+Holding it all takes a lot of energy, and while it
+
+00:00:22.090 --> 00:00:24.240
+'s exciting, I'm feeling overwhelmed, so I just want
+
+00:00:24.280 --> 00:00:27.330
+to share that and hold space if you're feeling overwhelmed,
+
+00:00:27.340 --> 00:00:27.680
+too.
+
+00:00:27.680 --> 00:00:28.410
+I'm Blaine.
+
+00:00:28.410 --> 00:00:30.980
+I work at New Public, where I'm the engineering lead
+
+00:00:30.980 --> 00:00:32.990
+on a roundabout project, which we're building to help
+
+00:00:33.300 --> 00:00:37.320
+local neighborhoods come together online in a healthy way, without the
+
+00:00:37.320 --> 00:00:40.960
+noise or toxicity of big social media platforms.
+
+00:00:40.960 --> 00:00:47.420
+I'm here, like so many, after building for a
+
+00:00:47.420 --> 00:00:54.640
+lifetime online, and my past work as a founding engineer at
+
+00:00:54.640 --> 00:00:55.790
+Twitter and the creator of our auth.
+
+00:00:55.800 --> 00:01:01.700
+Speaking of neighborhoods, I'm honored to be here with you
+
+00:01:01.700 --> 00:01:01.860
+.
+
+00:01:01.860 --> 00:01:02.540
+Oh, sorry.
+
+00:01:02.540 --> 00:01:04.370
+No, no, I don't have slides.
+
+00:01:04.380 --> 00:01:05.900
+I'm just going to talk.
+
+00:01:05.900 --> 00:01:10.180
+I could put some slime molds or something up.
+
+00:01:10.180 --> 00:01:11.230
+Right.
+
+00:01:11.230 --> 00:01:17.080
+So speaking of neighborhoods, I'm honored to be here with
+
+00:01:17.080 --> 00:01:20.400
+you in Muskeman territory, bringing this talk from my
+
+00:01:20.400 --> 00:01:22.190
+home in Sinai's territory.
+
+00:01:22.260 --> 00:01:24.900
+I grew up in BC, in the territories of the D
+
+00:01:24.900 --> 00:01:26.710
+ine, Simisen, Kitsumkalem, Tan
+
+00:01:26.710 --> 00:01:28.650
+aha, and Semiamu, and now the Sinai
+
+00:01:28.650 --> 00:01:29.190
+xt peoples.
+
+00:01:29.360 --> 00:01:32.730
+I moved around a lot, and I value immensely the broad
+
+00:01:32.730 --> 00:01:34.620
+perspective that this disruption gifted me.
+
+00:01:34.620 --> 00:01:37.190
+It also gave me a deep appreciation for the size and diversity
+
+00:01:37.190 --> 00:01:39.890
+of this province, and how much it resists being flatten
+
+00:01:39.890 --> 00:01:40.650
+ed into one story.
+
+00:01:40.860 --> 00:01:43.900
+If you have the chance while you're here, I really
+
+00:01:43.900 --> 00:01:45.990
+encourage you to go visit the Museum of Anthropology just
+
+00:01:46.150 --> 00:01:46.650
+across campus.
+
+00:01:46.780 --> 00:01:49.060
+It's one of the best places I know to encounter that
+
+00:01:49.340 --> 00:01:50.760
+diversity on its own terms.
+
+00:01:50.760 --> 00:01:53.300
+And it's special for me to share this with you from
+
+00:01:53.300 --> 00:01:55.560
+my bioregional neighborhood and my alma mater.
+
+00:01:55.680 --> 00:01:58.130
+I studied here, and this is actually where the thread of
+
+00:01:58.130 --> 00:01:58.900
+the talk begins.
+
+00:01:58.940 --> 00:01:59.950
+So at 9 a.
+
+00:01:59.960 --> 00:02:00.130
+m.
+
+00:02:00.340 --> 00:02:05.060
+on September 11th, 2001, I was attending a lecture
+
+00:02:05.060 --> 00:02:08.500
+on relational database theory inside the Hennings building at UBC
+
+00:02:08.530 --> 00:02:09.610
+, just over there.
+
+00:02:09.610 --> 00:02:12.850
+It's literally the next building over from where we are now
+
+00:02:13.050 --> 00:02:13.180
+.
+
+00:02:13.180 --> 00:02:16.760
+For the duration of that class, not the professor, not
+
+00:02:16.850 --> 00:02:20.030
+the students, no one addressed the elephant in the room.
+
+00:02:20.240 --> 00:02:23.170
+And looking around, I realized that the people in the room
+
+00:02:23.170 --> 00:02:25.530
+, the people who were being trained to build the software systems
+
+00:02:25.750 --> 00:02:28.390
+of the future, were not being trained to think about,
+
+00:02:28.480 --> 00:02:31.500
+think seriously about what those systems would do when they met actual
+
+00:02:31.500 --> 00:02:32.080
+humans.
+
+00:02:32.080 --> 00:02:34.560
+So, on 9-11, I switched my major from
+
+00:02:34.560 --> 00:02:36.560
+computer science to sociology.
+
+00:02:36.560 --> 00:02:41.900
+I realized that I could teach myself the software pieces, but
+
+00:02:41.900 --> 00:02:44.960
+that would leave me without a deeper understanding of the social systems
+
+00:02:45.330 --> 00:02:46.810
+that the technology was for.
+
+00:02:46.810 --> 00:02:50.600
+This wasn't a rejection of the technological systems.
+
+00:02:50.600 --> 00:02:52.410
+I like tech.
+
+00:02:52.420 --> 00:02:56.230
+It was a realization about what kind of approach is needed to
+
+00:02:56.230 --> 00:02:59.380
+build technological tools to support people and societies.
+
+00:02:59.380 --> 00:03:05.370
+Engineering trains you to specify desired behavior, build the system,
+
+00:03:05.370 --> 00:03:07.260
+and treat deviation as a bug.
+
+00:03:07.260 --> 00:03:11.300
+I believe this approach is incompatible with social software.
+
+00:03:11.300 --> 00:03:14.140
+Social systems are living, breathing things.
+
+00:03:14.410 --> 00:03:16.810
+Sociology, on the other hand, trains you to observe
+
+00:03:17.000 --> 00:03:19.870
+what is actually happening, to identify the patterns, to try
+
+00:03:19.870 --> 00:03:22.600
+and understand what produces healthy outcomes.
+
+00:03:22.600 --> 00:03:26.290
+Only then can you cultivate those conditions.
+
+00:03:26.360 --> 00:03:29.590
+You don't define and control the system.
+
+00:03:29.590 --> 00:03:30.190
+You tend it.
+
+00:03:30.400 --> 00:03:31.470
+You steward it.
+
+00:03:31.470 --> 00:03:36.810
+That distinction between prescribing outcomes and describing conditions is central to
+
+00:03:36.810 --> 00:03:39.980
+understanding what it means to build the sort of software we want
+
+00:03:39.980 --> 00:03:40.980
+to see in the world.
+
+00:03:41.120 --> 00:03:46.070
+This is part of a long conversation, one that starts before
+
+00:03:46.230 --> 00:03:49.430
+Christopher Alexander's patterns and Ursula Franklin's warnings about pres
+
+00:03:49.630 --> 00:03:52.880
+criptive technologies and continues through resonant local first home-
+
+00:03:52.880 --> 00:03:54.040
+cooked software.
+
+00:03:54.130 --> 00:03:57.840
+Butler and Ostrom would be proud of today's intercommun
+
+00:03:57.840 --> 00:03:59.270
+al revolutionary networks.
+
+00:03:59.300 --> 00:04:01.710
+Many of you in this room and our peers elsewhere at the
+
+00:04:01.750 --> 00:04:05.890
+conference have signed manifestos, written code, and built organizations
+
+00:04:05.890 --> 00:04:08.030
+that embody versions of this argument.
+
+00:04:08.030 --> 00:04:10.790
+So I'm not here to convince you that the first era
+
+00:04:10.920 --> 00:04:12.520
+of social media got it wrong.
+
+00:04:12.520 --> 00:04:13.620
+You already know that.
+
+00:04:14.430 --> 00:04:17.200
+What I want to do is dig in a little and push
+
+00:04:17.200 --> 00:04:19.330
+us to think a little bit further.
+
+00:04:19.650 --> 00:04:23.620
+Because even in this community, in my own mind, I
+
+00:04:23.620 --> 00:04:27.060
+hear a lingering instinct, a quiet hope that the answer is
+
+00:04:27.210 --> 00:04:30.270
+something like, "a good trust and safety team, but
+
+00:04:30.290 --> 00:04:33.770
+decentralized, a better manager, a kinder machine." And
+
+00:04:33.770 --> 00:04:36.140
+I want to argue that the shift we need is more radical
+
+00:04:36.140 --> 00:04:36.450
+than that.
+
+00:04:36.460 --> 00:04:38.820
+And I want to ground it in something visceral.
+
+00:04:38.820 --> 00:04:44.190
+Something that I think proves that centralized cultural governance fails structurally
+
+00:04:44.280 --> 00:04:45.620
+, not just politically.
+
+00:04:45.620 --> 00:04:47.820
+It comes from cheese.
+
+00:04:47.820 --> 00:04:53.190
+A decade ago, when I was living in London, I
+
+00:04:53.190 --> 00:04:55.800
+encountered the work of Bronwyn Percival, who manages
+
+00:04:55.820 --> 00:04:59.020
+the cheese counter at Neal's Yard Dairy in
+
+00:04:59.020 --> 00:05:02.160
+London, and has written brilliantly about the relationship between safety
+
+00:05:02.160 --> 00:05:04.290
+, complexity, and living systems.
+
+00:05:04.300 --> 00:05:07.610
+She tells a story about traditional cheesemaking in the
+
+00:05:07.610 --> 00:05:08.990
+Overn region of France.
+
+00:05:09.020 --> 00:05:14.130
+They make raw milk cheeses made with unpasteurized
+
+00:05:14.140 --> 00:05:17.280
+milk, milked by hand, in open fields, on
+
+00:05:17.280 --> 00:05:23.290
+volcanic slopes, into wooden buckets in the fields that serve as
+
+00:05:23.330 --> 00:05:25.900
+the molds for the traditional wheels of Seller.
+
+00:05:25.900 --> 00:05:29.330
+From above the managerial stance, this looks like a food
+
+00:05:29.370 --> 00:05:30.780
+safety nightmare.
+
+00:05:30.780 --> 00:05:34.490
+There's no sterilization, there's no fully controlled environment
+
+00:05:34.590 --> 00:05:35.750
+, no standardized inputs.
+
+00:05:35.780 --> 00:05:39.050
+And yet, these cheeses can be remarkably resilient.
+
+00:05:39.050 --> 00:05:40.060
+Why?
+
+00:05:40.390 --> 00:05:42.780
+Because the microbial culture is already there.
+
+00:05:42.780 --> 00:05:46.230
+It has adapted over time to this place, this practice,
+
+00:05:46.260 --> 00:05:47.660
+this environment.
+
+00:05:47.660 --> 00:05:51.110
+It occupies the ecological niches that a harmful organism would
+
+00:05:51.110 --> 00:05:52.630
+otherwise move into.
+
+00:05:52.660 --> 00:05:55.930
+Safety does not come from absence.
+
+00:05:55.930 --> 00:05:59.980
+It comes from presence, from a healthy, adapted, living
+
+00:05:59.980 --> 00:06:00.660
+biome.
+
+00:06:00.660 --> 00:06:04.040
+And one of the remarkable things about traditional cheeses is that
+
+00:06:04.040 --> 00:06:05.540
+they are not all the same.
+
+00:06:05.540 --> 00:06:08.250
+They are shaped by geography, by farming practice, by the
+
+00:06:08.300 --> 00:06:11.160
+cave, by the shelf, the climate, the accumulated microb
+
+00:06:11.370 --> 00:06:12.340
+ial life of a place.
+
+00:06:12.340 --> 00:06:14.970
+Terroir is not just branding.
+
+00:06:14.970 --> 00:06:17.320
+It's microbial geography.
+
+00:06:17.340 --> 00:06:21.340
+It is a living community shaped by place over time.
+
+00:06:21.340 --> 00:06:23.440
+Now, pasteurization.
+
+00:06:23.640 --> 00:06:25.620
+Pasteurization saved lives.
+
+00:06:25.620 --> 00:06:26.960
+That needs to be said clearly.
+
+00:06:27.020 --> 00:06:29.120
+Milk-borne disease was real.
+
+00:06:29.140 --> 00:06:34.250
+Heating milk made industrial-scale dairy possible and dramatically reduced
+
+00:06:34.320 --> 00:06:34.740
+risk.
+
+00:06:34.740 --> 00:06:36.830
+But it also wiped the site clean.
+
+00:06:37.020 --> 00:06:41.710
+It destroyed the indigenous microbial ecology, the living community that
+
+00:06:41.740 --> 00:06:45.220
+evolved over long periods of practice to do useful things.
+
+00:06:45.220 --> 00:06:48.250
+And then it added back a simplified starter culture.
+
+00:06:48.260 --> 00:06:52.640
+A few selected strains chosen for predictability produced by just two
+
+00:06:52.870 --> 00:06:53.890
+corporations globally.
+
+00:06:54.060 --> 00:06:57.520
+You get safe, you get consistent, you get scalable,
+
+00:06:57.580 --> 00:06:58.620
+and you lose flavor.
+
+00:06:58.620 --> 00:07:00.500
+However, you lose specificity.
+
+00:07:00.540 --> 00:07:04.220
+You lose 90% of the biological diversity, the accumulated intelligence
+
+00:07:04.220 --> 00:07:08.060
+of a living system adapted to its context, to our context
+
+00:07:08.110 --> 00:07:08.470
+.
+
+00:07:08.500 --> 00:07:11.100
+Sterilization didn't even fully eliminate the risk.
+
+00:07:11.100 --> 00:07:13.100
+Sterilization didn't even fully eliminate the risk.
+
+00:07:13.100 --> 00:07:16.380
+It relocated it from places where living systems could manage it
+
+00:07:16.380 --> 00:07:19.380
+to places where only procedural compliance could.
+
+00:07:19.380 --> 00:07:23.110
+Now, people aren't cheese.
+
+00:07:23.260 --> 00:07:26.690
+Human communities are infinitely more complex than 40 kilograms of microbial
+
+00:07:26.690 --> 00:07:27.260
+ecology.
+
+00:07:27.260 --> 00:07:34.240
+The required diversity in a healthy cultural system is structurally impossible
+
+00:07:34.240 --> 00:07:36.980
+to encode from one place at planetary scale.
+
+00:07:36.980 --> 00:07:40.710
+Not just difficult, not just politically fraught, structurally
+
+00:07:41.540 --> 00:07:41.860
+impossible.
+
+00:07:41.860 --> 00:07:45.570
+And that impossibility does not get better as you add complexity
+
+00:07:45.570 --> 00:07:45.860
+.
+
+00:07:45.860 --> 00:07:46.830
+It gets worse.
+
+00:07:46.860 --> 00:07:50.560
+If a single centralized approach can't preserve the diversity of cheese
+
+00:07:50.560 --> 00:07:53.160
+, one of the simplest living systems that we know how to
+
+00:07:53.160 --> 00:07:57.740
+cultivate, then consider what we attempted over the last 20 years
+
+00:07:57.740 --> 00:07:58.740
+with human culture.
+
+00:07:58.740 --> 00:08:02.170
+At most half a dozen global platforms, each one operating as
+
+00:08:02.180 --> 00:08:06.060
+a single cultural pasteurization plant for hundreds of millions of
+
+00:08:06.060 --> 00:08:11.180
+people, one classification scheme, one starter culture, one idea
+
+00:08:11.220 --> 00:08:14.620
+of what safe means, one interface for the entire world.
+
+00:08:14.620 --> 00:08:19.310
+The possible forms of healthy human community are orders of magnitude more
+
+00:08:19.340 --> 00:08:21.490
+complex than a cheese culture.
+
+00:08:21.500 --> 00:08:26.480
+They require correspondingly richer means of expression, richer and more
+
+00:08:26.540 --> 00:08:30.540
+diverse forms of self-governance, richer mechanisms for maintaining
+
+00:08:30.540 --> 00:08:31.180
+health.
+
+00:08:31.180 --> 00:08:36.390
+I think the first generation of the social web really did try
+
+00:08:36.390 --> 00:08:39.100
+to pasteurize human culture.
+
+00:08:39.100 --> 00:08:43.210
+And the thing that I want us to reckon with is not
+
+00:08:43.630 --> 00:08:47.390
+just that it failed, it is that it could not have
+
+00:08:47.430 --> 00:08:48.670
+succeeded.
+
+00:08:48.700 --> 00:08:52.410
+Not because the people involved were bad, not because the incentives
+
+00:08:52.410 --> 00:08:57.310
+were wrong, but because the architecture made it structurally impossible
+
+00:08:57.420 --> 00:08:59.420
+to preserve the thing that it was trying to protect.
+
+00:08:59.420 --> 00:09:02.870
+And not that it didn't do damage, it did enormous
+
+00:09:02.870 --> 00:09:03.980
+damage.
+
+00:09:03.980 --> 00:09:07.430
+But it could never have achieved what it set out to do
+
+00:09:07.430 --> 00:09:12.260
+because human culture is more resilient than any system designed to contain
+
+00:09:12.260 --> 00:09:12.610
+it.
+
+00:09:12.620 --> 00:09:15.330
+There are two ways to make something safe at scale.
+
+00:09:15.580 --> 00:09:18.900
+You can sterilize it or you can cultivate the conditions under
+
+00:09:18.900 --> 00:09:20.690
+which healthy life persists.
+
+00:09:20.700 --> 00:09:23.840
+The first era chose the first path, I think it's
+
+00:09:23.840 --> 00:09:25.580
+time to try the second.
+
+00:09:25.580 --> 00:09:28.850
+So what does the second path actually require?
+
+00:09:28.860 --> 00:09:32.320
+If you study living systems, cells, ecosystems, communities that
+
+00:09:32.450 --> 00:09:35.390
+persist over time, you notice they all solve the same problem
+
+00:09:35.460 --> 00:09:35.460
+.
+
+00:09:35.660 --> 00:09:41.290
+They maintain a difference between inside and outside.
+
+00:09:41.580 --> 00:09:44.700
+A cell does this with a membrane, not a wall,
+
+00:09:44.700 --> 00:09:47.010
+a membrane, selectively permeable.
+
+00:09:47.020 --> 00:09:50.700
+It lets certain things in and it keeps certain things out.
+
+00:09:50.700 --> 00:09:53.890
+And the specificity of what crosses that boundary is what makes
+
+00:09:53.890 --> 00:09:56.780
+the cell alive, rather than just chemicals in equilibrium with their
+
+00:09:56.950 --> 00:09:57.230
+surroundings.
+
+00:09:57.340 --> 00:10:01.300
+A community does this too, with norms, with shared context
+
+00:10:01.300 --> 00:10:04.300
+, with the slow accumulation of trust.
+
+00:10:04.300 --> 00:10:07.290
+When Rudy spoke of groundings with his siblings, this is
+
+00:10:07.340 --> 00:10:08.700
+what he's pointing to.
+
+00:10:08.700 --> 00:10:14.260
+A community that cannot maintain the difference from its environment is not
+
+00:10:14.260 --> 00:10:16.940
+really a community, it's just more environment.
+
+00:10:16.940 --> 00:10:20.350
+Aaron's example this morning of the numbness that results from
+
+00:10:20.350 --> 00:10:23.260
+the jarring contrast of the joy of a wedding and the
+
+00:10:23.260 --> 00:10:26.910
+horror of international atrocities is a poignant illustration of this
+
+00:10:26.910 --> 00:10:27.050
+.
+
+00:10:27.100 --> 00:10:32.210
+And this is what happened on the old platforms, the membrane
+
+00:10:32.280 --> 00:10:36.520
+dissolved, inside became outside, and every context collapsed into one
+
+00:10:36.520 --> 00:10:37.980
+undifferentiated public.
+
+00:10:37.980 --> 00:10:42.630
+So, stop thinking about platforms and start thinking about membranes
+
+00:10:42.630 --> 00:10:42.940
+.
+
+00:10:42.940 --> 00:10:47.920
+Living systems maintain boundaries, selectively permeable with consent.
+
+00:10:47.980 --> 00:10:51.920
+They signal across those boundaries, not commands, but information that
+
+00:10:51.920 --> 00:10:54.460
+others can interpret and respond to in context.
+
+00:10:54.460 --> 00:11:00.090
+They adapt through feedback, graduated responses, calibrated to situation
+
+00:11:00.090 --> 00:11:01.500
+, not uniform rules from above.
+
+00:11:01.500 --> 00:11:05.340
+And they differentiate, becoming this community, with this character,
+
+00:11:05.340 --> 00:11:10.690
+with these members, rather than a generic instance of one universal
+
+00:11:10.690 --> 00:11:13.100
+social form, one global social graph.
+
+00:11:14.220 --> 00:11:17.920
+The opposite of a giant engineered monoculture is not disorder
+
+00:11:17.920 --> 00:11:19.100
+, it's ecology.
+
+00:11:19.100 --> 00:11:26.280
+Many bounded systems communicating across difference, adapting to local conditions,
+
+00:11:26.280 --> 00:11:28.890
+and persisting because they are healthy, not because they are
+
+00:11:28.890 --> 00:11:29.420
+controlled.
+
+00:11:29.420 --> 00:11:33.130
+So, if that is the vision, many bounded systems communicating
+
+00:11:34.030 --> 00:11:38.140
+across difference, adapting locally, what does the infrastructure for that
+
+00:11:38.300 --> 00:11:39.180
+actually look like?
+
+00:11:39.180 --> 00:11:41.090
+I want to talk about two problems.
+
+00:11:41.900 --> 00:11:44.610
+The year before my database class, in the same lecture hall
+
+00:11:44.930 --> 00:11:47.280
+, just over there, I learned the old joke that there
+
+00:11:47.280 --> 00:11:50.360
+are only two hard problems in computer science: cache invalidation
+
+00:11:50.380 --> 00:11:51.210
+and naming things.
+
+00:11:51.340 --> 00:11:56.950
+I think that AppProto, and this new thing you
+
+00:11:56.950 --> 00:11:59.810
+'ve probably never heard of, PanProto, between them
+
+00:11:59.810 --> 00:12:00.700
+might solve both.
+
+00:12:00.700 --> 00:12:03.410
+Let me start with cache invalidation.
+
+00:12:03.660 --> 00:12:07.390
+If communities are going to persist, they need durable infrastructure that
+
+00:12:07.390 --> 00:12:10.800
+does not depend on one company's continued existence or goodwill
+
+00:12:10.800 --> 00:12:10.940
+.
+
+00:12:11.580 --> 00:12:14.710
+They need to own their data, they need continuity, memory
+
+00:12:14.710 --> 00:12:16.990
+, the ability to move, to fork, to recomb
+
+00:12:16.990 --> 00:12:19.230
+ine, and to remain legible to one another through all
+
+00:12:19.380 --> 00:12:19.740
+of that.
+
+00:12:19.740 --> 00:12:24.710
+AppProto gives us this: identity, data, and
+
+00:12:24.770 --> 00:12:28.080
+sync that persist across a distributed network without collapsing back into one
+
+00:12:28.080 --> 00:12:28.620
+service.
+
+00:12:28.620 --> 00:12:31.270
+Cache invalidation at protocol scale.
+
+00:12:31.980 --> 00:12:36.250
+Keeping data consistent, authentic, and verifiable across many independent
+
+00:12:36.580 --> 00:12:39.490
+hosts is what AppProto was built to solve.
+
+00:12:39.580 --> 00:12:39.580
+We're all building on it.
+
+00:12:39.580 --> 00:12:41.580
+You know what it makes possible.
+
+00:12:41.580 --> 00:12:45.770
+Now, a question that I find useful is what sort of
+
+00:12:46.190 --> 00:12:48.940
+forms does Instagram prescribe?
+
+00:12:48.940 --> 00:12:52.060
+That's actually a pretty easy question to answer.
+
+00:12:52.060 --> 00:12:55.900
+A feed of images with descriptions that forbid links, stories,
+
+00:12:55.900 --> 00:12:59.340
+reels, a specific set of interactions optimized for a specific
+
+00:12:59.340 --> 00:13:00.050
+business model.
+
+00:13:00.060 --> 00:13:04.130
+You can describe Instagram's social ontology in an afternoon.
+
+00:13:04.140 --> 00:13:08.380
+What social forms does AppProto describe?
+
+00:13:08.380 --> 00:13:10.860
+That's a categorically harder question.
+
+00:13:10.860 --> 00:13:15.380
+That difficulty tells you something about what kind of system AppPr
+
+00:13:15.470 --> 00:13:16.060
+oto is.
+
+00:13:16.060 --> 00:13:18.150
+AppProto is not socially neutral.
+
+00:13:18.300 --> 00:13:20.300
+No substrate is.
+
+00:13:20.300 --> 00:13:23.750
+It makes choices about identity, about data ownership, about what
+
+00:13:23.770 --> 00:13:24.300
+is public.
+
+00:13:24.300 --> 00:13:27.730
+But it's architecturally resistant to prescribing the full shape
+
+00:13:27.750 --> 00:13:28.780
+of social life.
+
+00:13:28.780 --> 00:13:32.780
+It decomposes what the old platforms had collapsed together.
+
+00:13:32.780 --> 00:13:33.640
+It creates room.
+
+00:13:33.660 --> 00:13:36.860
+But here's what I think is not yet finished.
+
+00:13:36.860 --> 00:13:39.990
+There's the second problem, and I think the harder one
+
+00:13:39.990 --> 00:13:40.130
+.
+
+00:13:40.140 --> 00:13:41.340
+Naming things.
+
+00:13:41.340 --> 00:13:46.960
+I work on a community platform called Roundabout built on App
+
+00:13:46.960 --> 00:13:50.300
+Proto, designed as a healthy alternative to local Facebook groups
+
+00:13:50.360 --> 00:13:51.090
+and Nextdoor.
+
+00:13:51.100 --> 00:13:54.840
+We're currently supporting communities in Richmond, Virginia, Burlington
+
+00:13:54.840 --> 00:13:58.220
+, North Carolina, Lancaster, Pennsylvania, Lincoln County,
+
+00:13:58.230 --> 00:14:00.060
+Wisconsin, and Chattanooga, Tennessee.
+
+00:14:00.060 --> 00:14:04.380
+These are different places with different cultures, different needs, and
+
+00:14:04.670 --> 00:14:07.810
+different ideas about what healthy conversation looks like.
+
+00:14:07.820 --> 00:14:11.960
+When Richmond says community member, they might mean something different than
+
+00:14:11.960 --> 00:14:13.830
+when Burlington says community member.
+
+00:14:13.980 --> 00:14:17.330
+When one community says moderation, they might mean graduated, trust
+
+00:14:17.330 --> 00:14:18.300
+-building, among neighbors.
+
+00:14:18.300 --> 00:14:21.440
+When another says it, they might mean rapid response to harassment
+
+00:14:21.440 --> 00:14:21.650
+.
+
+00:14:21.660 --> 00:14:25.120
+The words are the same, but the social reality underneath it
+
+00:14:25.180 --> 00:14:25.500
+is not.
+
+00:14:25.500 --> 00:14:29.500
+If we require every community to use exactly the same schema,
+
+00:14:29.500 --> 00:14:32.620
+the same names, the same categories, the same assumptions,
+
+00:14:32.960 --> 00:14:36.280
+then we will have rebuilt monoculture at the protocol layer
+
+00:14:36.430 --> 00:14:36.460
+.
+
+00:14:36.460 --> 00:14:40.300
+We've pushed prescription down into lexicon, we've
+
+00:14:40.300 --> 00:14:42.840
+pasteurized the substrate, and built a great, a
+
+00:14:42.840 --> 00:14:46.620
+really great distribution system for filtered, normalized culture.
+
+00:14:46.620 --> 00:14:49.250
+And this is the problem with naming things.
+
+00:14:49.260 --> 00:14:51.280
+Not in the trivial sense, but naming is an act of
+
+00:14:51.280 --> 00:14:52.290
+social description.
+
+00:14:52.300 --> 00:14:55.540
+It's not in the trivial sense of how communities describe their
+
+00:14:55.540 --> 00:14:59.430
+own reality in terms that are locally meaningful and still mutually transl
+
+00:14:59.560 --> 00:15:00.140
+atable.
+
+00:15:00.140 --> 00:15:02.790
+I've thought about this for a long time.
+
+00:15:02.860 --> 00:15:05.260
+It's one of the reasons I was skeptical of earlier attempts
+
+00:15:05.260 --> 00:15:06.780
+at interoperable social schemas.
+
+00:15:06.780 --> 00:15:09.490
+I didn't think that we had the tools to do schema
+
+00:15:09.810 --> 00:15:13.400
+evolution well, to let naming diverge without fragmenting.
+
+00:15:13.420 --> 00:15:15.370
+I thought it might be five or ten years away if we
+
+00:15:15.370 --> 00:15:15.980
+were lucky.
+
+00:15:17.500 --> 00:15:19.600
+After the last couple of weeks, I now think the tools
+
+00:15:19.800 --> 00:15:20.620
+are here or very close.
+
+00:15:20.620 --> 00:15:23.330
+And that's what we're working on with a project called
+
+00:15:23.650 --> 00:15:24.080
+PanProto.
+
+00:15:24.300 --> 00:15:28.700
+PanProto is an attempt to create the conditions under which
+
+00:15:28.910 --> 00:15:31.680
+schemas can evolve, diverge, and specialize, and
+
+00:15:31.890 --> 00:15:33.420
+still remain in relation.
+
+00:15:33.420 --> 00:15:36.660
+So that a neighborhood forum and a mutual aid network and an
+
+00:15:36.660 --> 00:15:39.520
+art collective can each structure their social life in their own terms
+
+00:15:39.880 --> 00:15:42.060
+and still communicate across the differences.
+
+00:15:42.060 --> 00:15:47.330
+Not by forcing everyone into one vocabulary, but by making translation
+
+00:15:47.340 --> 00:15:49.430
+a first-class property of the infrastructure.
+
+00:15:49.580 --> 00:15:53.810
+Not identical, not collapsed into one universal ontology, but
+
+00:15:54.170 --> 00:15:54.850
+capable of relation.
+
+00:15:54.860 --> 00:15:59.660
+AppProto solves cache and validation, how distributed communities maintain
+
+00:15:59.660 --> 00:16:01.900
+continuity and integrity.
+
+00:16:01.900 --> 00:16:05.610
+PanProto addresses naming things, how those communities describe themselves
+
+00:16:05.610 --> 00:16:09.070
+in terms that can diverge without fragmenting, converging
+
+00:16:09.070 --> 00:16:10.070
+, when the time is right.
+
+00:16:10.140 --> 00:16:14.940
+Together, they point towards infrastructure that does not prescribe social form
+
+00:16:14.940 --> 00:16:17.970
+, but creates the conditions under which many social forms can emerge
+
+00:16:17.980 --> 00:16:20.140
+and remain in relation.
+
+00:16:20.140 --> 00:16:21.340
+And this is already happening.
+
+00:16:21.340 --> 00:16:25.660
+When people in the atmosphere talk about composable moderation, they
+
+00:16:25.900 --> 00:16:27.500
+usually mean ozone, the labeling model.
+
+00:16:27.500 --> 00:16:33.820
+Label content let users choose how labels affect their experience.
+
+00:16:33.820 --> 00:16:35.530
+That is real and valuable.
+
+00:16:35.660 --> 00:16:38.070
+BlackSky's recently announced Acorn tool is a beautiful
+
+00:16:38.130 --> 00:16:40.300
+and deeply considered approach to moderation.
+
+00:16:40.300 --> 00:16:44.360
+At Roundabout, our moderation tool, which we call the
+
+00:16:44.360 --> 00:16:47.260
+Empathy Bureau, does not work like Ozone or Ac
+
+00:16:47.260 --> 00:16:47.740
+orn.
+
+00:16:47.740 --> 00:16:48.700
+It's not label-based.
+
+00:16:48.700 --> 00:16:51.820
+It is a different shape entirely, and it's based on
+
+00:16:51.820 --> 00:16:53.900
+the pre-moderation pro-social design pattern.
+
+00:16:53.900 --> 00:16:57.350
+Like Ozone and Acorn, though, its architecture is
+
+00:16:57.350 --> 00:16:59.820
+composable, and we're looking forward to sharing it with
+
+00:16:59.820 --> 00:17:01.400
+the wider AppRoto community soon.
+
+00:17:01.420 --> 00:17:05.130
+The fact that AppRoto enables all of this without permission
+
+00:17:05.130 --> 00:17:08.140
+, without a proposal, without anyone at Blue Sky or the
+
+00:17:08.140 --> 00:17:11.470
+IETF deciding it was allowed, that is the point
+
+00:17:11.470 --> 00:17:11.820
+.
+
+00:17:11.820 --> 00:17:17.180
+This is ecology, ecological computing in practice.
+
+00:17:17.180 --> 00:17:21.100
+The protocol didn't prescribe a moderation architecture.
+
+00:17:21.100 --> 00:17:25.020
+It created room for moderation architectures to evolve.
+
+00:17:25.020 --> 00:17:28.450
+Different communities, different conditions, different forms.
+
+00:17:28.460 --> 00:17:31.660
+That is ecology, not engineering.
+
+00:17:31.660 --> 00:17:34.140
+And it extends beyond moderation.
+
+00:17:34.140 --> 00:17:36.220
+BlackSky, Gander, Rumi, Roundabout
+
+00:17:36.220 --> 00:17:39.770
+, we're all working in similar spaces on similar but differently
+
+00:17:40.390 --> 00:17:40.760
+shaped projects.
+
+00:17:40.860 --> 00:17:44.010
+In a monoculture, that would make us competitors fighting
+
+00:17:44.010 --> 00:17:45.260
+for the same users.
+
+00:17:45.260 --> 00:17:48.610
+In an ecology, it makes us something else entirely.
+
+00:17:48.620 --> 00:17:52.370
+Different organisms in a shared ecosystem, each adapted to our niche
+
+00:17:52.390 --> 00:17:55.340
+, each stronger because the others exist.
+
+00:17:55.340 --> 00:17:59.510
+We're a kelp forest, not just one kelp
+
+00:17:59.950 --> 00:18:00.220
+plant.
+
+00:18:00.220 --> 00:18:05.840
+It is critical to our mutual success that we understand this.
+
+00:18:05.980 --> 00:18:06.990
+We're not competing.
+
+00:18:07.020 --> 00:18:08.380
+We're differentiating.
+
+00:18:08.380 --> 00:18:11.580
+And differentiation is how ecosystems become resilient.
+
+00:18:11.580 --> 00:18:15.340
+I want to sit with the hard part of this for a
+
+00:18:15.340 --> 00:18:15.900
+moment.
+
+00:18:15.900 --> 00:18:18.310
+There are many critiques and questions with this line of reasoning
+
+00:18:18.360 --> 00:18:18.530
+.
+
+00:18:18.540 --> 00:18:21.170
+The one I take most seriously is this: Local self-
+
+00:18:21.520 --> 00:18:24.230
+governance has a long history of protecting insiders at the
+
+00:18:24.230 --> 00:18:25.340
+expense of outsiders.
+
+00:18:25.340 --> 00:18:30.140
+Community standards can mean we've decided this person isn't welcome
+
+00:18:30.140 --> 00:18:31.740
+, or this kind of person isn't welcome.
+
+00:18:31.740 --> 00:18:36.710
+Graduated sanctions can mean the popular member gets three warnings while
+
+00:18:36.770 --> 00:18:38.780
+the newcomer who complains gets shown the door.
+
+00:18:39.820 --> 00:18:42.870
+Composable moderation can mean choosing the labeling service that does
+
+00:18:42.870 --> 00:18:45.580
+not flag the content that harms people outside your boundaries.
+
+00:18:45.580 --> 00:18:46.860
+I know this.
+
+00:18:46.860 --> 00:18:48.360
+I work on these problems every day.
+
+00:18:48.380 --> 00:18:50.380
+I'm not going to stand here and tell you that the
+
+00:18:50.380 --> 00:18:53.020
+ecological model is problem-free.
+
+00:18:53.020 --> 00:18:56.300
+But I want to hold that concern next to what came before
+
+00:18:56.300 --> 00:18:56.300
+.
+
+00:18:57.420 --> 00:19:00.080
+Because the centralized model did not solve the insider-outsider
+
+00:19:00.120 --> 00:19:00.690
+problem.
+
+00:19:00.700 --> 00:19:04.770
+It was the insider-outsider problem at planetary scale.
+
+00:19:04.780 --> 00:19:09.340
+One company's cultural framework shaped by one country's norms applied
+
+00:19:09.390 --> 00:19:12.340
+as the default governance layer for billions of people who had no
+
+00:19:12.640 --> 00:19:13.510
+voice in its design.
+
+00:19:13.580 --> 00:19:17.720
+Rudy's black sky demonstrates this better than anything I could build
+
+00:19:17.720 --> 00:19:18.940
+in a slide deck.
+
+00:19:18.940 --> 00:19:23.100
+Under Twitter, black users built something extraordinary: black Twitter,
+
+00:19:23.550 --> 00:19:26.110
+entirely within and against a system that was not designed for them
+
+00:19:26.110 --> 00:19:28.510
+, was not governed by them, and regularly failed them.
+
+00:19:28.540 --> 00:19:32.370
+What black sky has that black Twitter never could is self-
+
+00:19:32.370 --> 00:19:35.730
+determination at the architectural level, its own moderation, its
+
+00:19:35.730 --> 00:19:37.420
+own governance, its own membrane.
+
+00:19:37.420 --> 00:19:40.850
+On the other side of the coin, does the ecological model
+
+00:19:40.850 --> 00:19:44.530
+also make possible communities that govern themselves badly, though?
+
+00:19:45.180 --> 00:19:48.300
+Yes, absolutely, but those failures are local, they're
+
+00:19:48.300 --> 00:19:51.160
+bounded, they can be identified, responded to, and rout
+
+00:19:51.160 --> 00:19:52.540
+ed around by the rest of the network.
+
+00:19:52.540 --> 00:19:55.430
+Under monoculture, when governance fails, it fails for
+
+00:19:55.570 --> 00:19:56.610
+everyone at once.
+
+00:19:56.620 --> 00:20:00.440
+Under ecology, the network's diversity is itself a form of
+
+00:20:01.210 --> 00:20:01.500
+resilience.
+
+00:20:01.500 --> 00:20:05.230
+And I want to name one more thing: the ecological model
+
+00:20:05.230 --> 00:20:07.500
+carries its own form of privilege.
+
+00:20:07.500 --> 00:20:10.160
+The ability to run a community, to moderate, to ste
+
+00:20:10.180 --> 00:20:13.500
+ward, to maintain a membrane requires capacity.
+
+00:20:14.220 --> 00:20:17.670
+Technical capacity, social capacity, time, these are not equally
+
+00:20:17.670 --> 00:20:19.180
+distributed resources.
+
+00:20:19.180 --> 00:20:22.630
+A world of self-governing communities is not automatically
+
+00:20:22.760 --> 00:20:23.740
+a just world.
+
+00:20:23.740 --> 00:20:27.350
+It just has better conditions for justice to emerge, if we
+
+00:20:27.350 --> 00:20:29.010
+build with that awareness.
+
+00:20:29.020 --> 00:20:33.150
+So the real question is not whether to intervene, but from
+
+00:20:33.580 --> 00:20:35.550
+where and with what knowledge.
+
+00:20:35.580 --> 00:20:39.720
+The prescriptive approach intervenes from above, with general
+
+00:20:39.720 --> 00:20:41.820
+rules applied uniformly.
+
+00:20:41.820 --> 00:20:43.330
+It scales and it flattens.
+
+00:20:43.420 --> 00:20:48.530
+The descriptive approach intervenes from close, with local knowledge adapted
+
+00:20:48.600 --> 00:20:49.420
+to context.
+
+00:20:49.420 --> 00:20:51.590
+It's harder, and it is the only thing that I
+
+00:20:51.720 --> 00:20:54.530
+have seen that can produce health at the scale and complexity of
+
+00:20:54.650 --> 00:20:55.840
+actual human communities.
+
+00:20:55.900 --> 00:20:59.060
+Erin Kassane's work on governance in this space bears
+
+00:20:59.060 --> 00:20:59.820
+this out.
+
+00:20:59.820 --> 00:21:02.680
+The communities doing the best moderation work are not the ones with
+
+00:21:02.710 --> 00:21:04.790
+the most sophisticated rule sets.
+
+00:21:05.500 --> 00:21:07.820
+They are the ones with the most, the ones most deeply
+
+00:21:07.820 --> 00:21:11.020
+embedded in the communities of the people that they serve.
+
+00:21:11.020 --> 00:21:13.680
+And yes, in a moment when we're all watching what
+
+00:21:14.050 --> 00:21:18.550
+happens with what capital and organizational, when capital and organizational change
+
+00:21:18.550 --> 00:21:21.260
+arrive at the doorstep of an ecosystem we care about,
+
+00:21:21.980 --> 00:21:24.710
+this is why the substrate matters more than any single company built
+
+00:21:25.010 --> 00:21:25.330
+on it.
+
+00:21:25.340 --> 00:21:29.740
+An ecosystem is more resilient than any single organism.
+
+00:21:29.740 --> 00:21:33.770
+We have an opportunity to break with the world view that shaped
+
+00:21:33.770 --> 00:21:34.700
+the last era.
+
+00:21:34.700 --> 00:21:37.820
+Not by building a better Twitter, not by building a nicer
+
+00:21:37.820 --> 00:21:42.190
+control system, but by building infrastructure that supports many forms of
+
+00:21:42.190 --> 00:21:45.990
+community governance, and then doing the much harder, much less
+
+00:21:46.000 --> 00:21:49.780
+technical work of ensuring that those communities have the capacity and the
+
+00:21:49.780 --> 00:21:51.150
+accountability to govern well.
+
+00:21:51.180 --> 00:21:55.020
+So I want to end where I started, with cheese.
+
+00:21:55.020 --> 00:21:59.420
+The best cheeses in the world are not the ones made
+
+00:21:59.580 --> 00:22:01.620
+in sterile labs with standardized cultures.
+
+00:22:01.820 --> 00:22:05.550
+They're the ones where someone tended specific conditions in a specific
+
+00:22:06.430 --> 00:22:07.450
+place over time.
+
+00:22:09.100 --> 00:22:12.130
+They chose the right milk, built the right wooden bucket,
+
+00:22:12.140 --> 00:22:15.780
+tended the right cave, trusted the microbial community to do
+
+00:22:15.780 --> 00:22:17.660
+what it had been doing for generations.
+
+00:22:17.660 --> 00:22:20.290
+They didn't engineer the cheese.
+
+00:22:20.300 --> 00:22:24.360
+They cultivated the conditions under which a particular unrepeatable form
+
+00:22:24.360 --> 00:22:25.810
+of life could thrive.
+
+00:22:25.820 --> 00:22:31.020
+But, and this matters, they did not walk away and
+
+00:22:31.020 --> 00:22:32.350
+let nature take its course.
+
+00:22:32.540 --> 00:22:34.940
+They showed up every day.
+
+00:22:34.940 --> 00:22:35.950
+They turned the wheels.
+
+00:22:35.980 --> 00:22:37.340
+They monitored the humidity.
+
+00:22:37.340 --> 00:22:40.450
+They knew when something was wrong, before the tests would have
+
+00:22:40.450 --> 00:22:43.120
+caught it, because they had built a relationship with the system
+
+00:22:43.330 --> 00:22:43.730
+over time.
+
+00:22:43.740 --> 00:22:45.740
+That is not hands-off.
+
+00:22:45.740 --> 00:22:47.830
+That is the most hands-on thing there is.
+
+00:22:47.980 --> 00:22:49.890
+It's just a different kind of hands.
+
+00:22:49.900 --> 00:22:52.620
+Not the hands of an engineer building to spec, prescribing
+
+00:22:52.620 --> 00:22:54.380
+the shape of a low-poly virtual world.
+
+00:22:54.380 --> 00:22:57.500
+The hands of someone tending a living system.
+
+00:22:57.500 --> 00:23:00.210
+It's not a metaphor for what we're building.
+
+00:23:00.300 --> 00:23:02.300
+It's a description of what we're building.
+
+00:23:02.300 --> 00:23:05.750
+We don't need a better machine for managing culture.
+
+00:23:05.820 --> 00:23:09.280
+We need better conditions for us all to thrive.
+
+00:23:09.500 --> 00:23:12.870
+And then we need to show up every day and tend them
+
+00:23:12.870 --> 00:23:12.960
+.
+
+00:23:13.200 --> 00:23:28.860
+Thank you.
+
+00:23:28.860 --> 00:23:31.010
+Blaine, there are some people who have questions, and
+
+00:23:31.010 --> 00:23:32.300
+we have a little bit of time.
+
+00:23:32.860 --> 00:23:35.270
+So, I'll run the mic, and you'll answer
+
+00:23:35.310 --> 00:23:36.320
+some questions.
+
+00:23:36.560 --> 00:23:41.820
+Love it.
+
+00:23:41.820 --> 00:23:42.540
+Thank you for talking.
+
+00:23:42.540 --> 00:23:43.400
+Thank you.
+
+00:23:43.420 --> 00:23:47.420
+Given all of this, do you think traditional text standards bodies
+
+00:23:47.420 --> 00:23:50.540
+are still good stewards for the protocol and architecture itself?
+
+00:23:50.540 --> 00:23:59.050
+I'm a person to ask about that
+
+00:23:59.130 --> 00:24:00.220
+.
+
+00:24:00.220 --> 00:24:03.930
+I think we need to recalibrate a whole bunch
+
+00:24:03.930 --> 00:24:05.100
+of things.
+
+00:24:05.100 --> 00:24:09.780
+So, I cut a piece from the talk talking about DNA
+
+00:24:09.780 --> 00:24:10.210
+.
+
+00:24:10.220 --> 00:24:11.960
+DNA is a very simple standard.
+
+00:24:11.980 --> 00:24:17.600
+There are four bases and a very small number of base pairs
+
+00:24:17.660 --> 00:24:17.660
+.
+
+00:24:17.660 --> 00:24:19.660
+And from that, all of life.
+
+00:24:19.660 --> 00:24:22.370
+And so, I think that's the level that maybe we
+
+00:24:22.400 --> 00:24:25.660
+need standardization at, like technical standardization.
+
+00:24:25.660 --> 00:24:28.930
+I think app proto is like, you know, the le
+
+00:24:28.930 --> 00:24:33.180
+xicons, plus storage, plus communication is like maybe all
+
+00:24:33.310 --> 00:24:33.740
+we need.
+
+00:24:33.740 --> 00:24:39.360
+And then the way that I kind of think about the governance
+
+00:24:39.490 --> 00:24:41.900
+of the next layer up.
+
+00:24:41.900 --> 00:24:45.350
+One of the things that I'm excited about this pan proto
+
+00:24:45.350 --> 00:24:49.060
+thing is that I think it shifts the conversation to a social
+
+00:24:49.280 --> 00:24:51.260
+governance question.
+
+00:24:51.260 --> 00:24:54.460
+So, rather than having a bunch of engineers debate about what
+
+00:24:54.460 --> 00:24:58.000
+the attribute, what the JSON attribute should be called, we
+
+00:24:58.000 --> 00:25:03.340
+can debate about how our communities want to collaborate and what the
+
+00:25:03.530 --> 00:25:06.060
+meaning that we're communicating across the network is.
+
+00:25:06.060 --> 00:25:10.620
+And those are very different people in the room for that.
+
+00:25:10.620 --> 00:25:12.130
+So, I don't think the ITF is a suitable
+
+00:25:12.530 --> 00:25:14.460
+place for that sort of conversation.
+
+00:25:14.460 --> 00:25:17.820
+But I think we'll figure it out.
+
+00:25:19.100 --> 00:25:23.040
+I mean, it makes me think about just even having le
+
+00:25:23.710 --> 00:25:28.700
+xicons that aren't only defined in English.
+
+00:25:28.700 --> 00:25:31.410
+Because maybe it don't matter no more.
+
+00:25:31.500 --> 00:25:34.700
+Full emoji lexicons is of course what I mean.
+
+00:25:34.700 --> 00:25:40.320
+Other questions for Blaine?
+
+00:25:46.380 --> 00:25:47.180
+Please state your name.
+
+00:25:47.180 --> 00:25:48.690
+I'm Gav.
+
+00:25:48.940 --> 00:25:49.580
+Nice to meet you guys.
+
+00:25:49.580 --> 00:25:54.690
+I'm wondering, so what becomes of engineering standard bodies,
+
+00:25:54.700 --> 00:25:56.540
+you know, in this world?
+
+00:25:56.540 --> 00:25:59.820
+Especially if, you know, like we saw with the Ad
+
+00:25:59.830 --> 00:26:02.140
+dy demo, you know, everyone can make their own thing
+
+00:26:02.140 --> 00:26:02.860
+, which is great.
+
+00:26:02.860 --> 00:26:03.500
+I love that.
+
+00:26:03.500 --> 00:26:06.740
+But what becomes of like formal engineering standards, in your opinion
+
+00:26:06.740 --> 00:26:06.930
+?
+
+00:26:06.940 --> 00:26:09.650
+I mean, I think, you know, I'll kind
+
+00:26:09.760 --> 00:26:13.360
+of lean back into that prescriptive, descriptive lens.
+
+00:26:13.420 --> 00:26:18.220
+I think that the prescriptive, we're going to
+
+00:26:18.220 --> 00:26:20.970
+define the standard, and then we're going to build software
+
+00:26:20.970 --> 00:26:23.420
+that conforms to that standard model should go away.
+
+00:26:23.420 --> 00:26:25.390
+Like, so it's, you know, sort of Ryan
+
+00:26:25.390 --> 00:26:26.050
+'s question.
+
+00:26:26.060 --> 00:26:29.770
+Like, I don't think that that's a useful mechanism
+
+00:26:29.770 --> 00:26:31.680
+in this place.
+
+00:26:31.900 --> 00:26:35.510
+I think that there are some really fundamental coordination questions.
+
+00:26:35.580 --> 00:26:38.520
+So, like, how do I get data off of a
+
+00:26:38.620 --> 00:26:41.200
+PDS is a mechanical question.
+
+00:26:41.420 --> 00:26:44.540
+You know, we're talking like tRNA or something.
+
+00:26:44.540 --> 00:26:49.020
+It's like these mechanical pieces are important to encode,
+
+00:26:49.150 --> 00:26:52.390
+but the rest of it, like everything above that, we
+
+00:26:52.490 --> 00:26:56.620
+need to really aggressively think differently about how we approach that.
+
+00:26:56.620 --> 00:26:59.330
+And I think really, I would love to see us as
+
+00:26:59.330 --> 00:27:04.540
+a community really strongly distance ourselves from this sort of engineering mindset
+
+00:27:04.540 --> 00:27:04.640
+.
+
+00:27:04.700 --> 00:27:07.480
+And one of the things that I'm really so grateful for
+
+00:27:07.730 --> 00:27:11.500
+at this conference is just how many people who aren't engineers
+
+00:27:11.500 --> 00:27:15.820
+are in this space, which is a protocol conference.
+
+00:27:15.820 --> 00:27:18.240
+And I think that's a really good sign for where the
+
+00:27:18.270 --> 00:27:19.550
+community is headed.
+
+00:27:20.380 --> 00:27:26.910
+I'd like to observe that all your observations apply to far
+
+00:27:27.210 --> 00:27:30.860
+more than just technology to do social communications.
+
+00:27:30.860 --> 00:27:35.730
+If you think of how diversity in the animal and the other
+
+00:27:35.730 --> 00:27:40.590
+nature kingdoms is dying, it's the exact same approach of
+
+00:27:40.590 --> 00:27:44.380
+applying the same pesticides in all the same places.
+
+00:27:45.260 --> 00:27:47.350
+And I think there's a 100% analogy to what you
+
+00:27:47.560 --> 00:27:47.970
+just said.
+
+00:27:48.140 --> 00:27:51.170
+So, very much applaud those comments.
+
+00:27:51.180 --> 00:27:52.540
+Thank you.
+
+00:27:52.540 --> 00:28:01.750
+So, first of all, awesome, thank
+
+00:28:01.840 --> 00:28:03.740
+you.
+
+00:28:06.460 --> 00:28:10.190
+So, on the one hand, you told the story about
+
+00:28:10.190 --> 00:28:15.020
+, you know, the way cheese evolved in the local control
+
+00:28:15.020 --> 00:28:17.420
+and all the, and control is the wrong word, sorry
+
+00:28:17.420 --> 00:28:17.650
+.
+
+00:28:17.660 --> 00:28:25.650
+But just that pattern and how it has all this resilience and
+
+00:28:25.660 --> 00:28:30.480
+, you know, the anchoring to the kelp bed
+
+00:28:30.480 --> 00:28:31.560
+floor and all that.
+
+00:28:31.590 --> 00:28:38.140
+But I'm struck thinking back on this that, but it
+
+00:28:38.200 --> 00:28:44.270
+was effectively wiped out by the other approach.
+
+00:28:44.540 --> 00:28:46.200
+And it's all well and good to say, well,
+
+00:28:46.200 --> 00:28:46.910
+don't do that.
+
+00:28:47.040 --> 00:28:52.890
+But if this is indeed a model for resilience, it's
+
+00:28:52.890 --> 00:28:57.590
+also a profound example of resilience failure.
+
+00:28:57.610 --> 00:29:01.090
+So, what do you think?
+
+00:29:01.100 --> 00:29:04.890
+I think I'll lean back to the first things that I
+
+00:29:04.890 --> 00:29:09.310
+said, acknowledging the traditional space and the peoples that were here
+
+00:29:09.310 --> 00:29:09.500
+.
+
+00:29:09.500 --> 00:29:12.880
+I think it's actually a profound failure of sort of Western
+
+00:29:12.880 --> 00:29:16.930
+managerial culture and perspectives.
+
+00:29:16.930 --> 00:29:21.340
+The pasteurized cheeses are actually, if you go
+
+00:29:21.350 --> 00:29:24.430
+and look at the science, they're actually less safe than
+
+00:29:24.430 --> 00:29:28.990
+farmhouse cheeses using raw milk because they relocate,
+
+00:29:29.290 --> 00:29:32.590
+and I sort of alluded to this, they relocate the
+
+00:29:32.590 --> 00:29:33.900
+failure cases.
+
+00:29:33.900 --> 00:29:37.500
+And so, now it's people in cheese making plants or
+
+00:29:37.840 --> 00:29:42.420
+, you know, retail people who are handling cheeses that
+
+00:29:42.700 --> 00:29:45.650
+are less resilient and less safe overall.
+
+00:29:45.760 --> 00:29:48.150
+And so, they actually have higher, like the pasteur
+
+00:29:48.360 --> 00:29:50.290
+ized cheeses have higher failure rates.
+
+00:29:50.290 --> 00:29:54.400
+And we've also encoded into law the inability to sort
+
+00:29:54.420 --> 00:29:56.530
+of have farmhouse cheeses.
+
+00:29:56.530 --> 00:29:59.300
+And so, Bronwyn Percival's book, she
+
+00:29:59.300 --> 00:30:01.810
+'s got a book called Reinventing the Wheel, is
+
+00:30:02.130 --> 00:30:05.970
+really about this sort of managerial failure and and the governance
+
+00:30:05.970 --> 00:30:09.100
+failure that doesn't let us sort of reflect on, oh
+
+00:30:09.100 --> 00:30:12.830
+, pasteurization was great in the 18th century when
+
+00:30:12.830 --> 00:30:16.340
+people were living in, you know, very dirty conditions,
+
+00:30:16.340 --> 00:30:18.610
+making cheese in their backyard.
+
+00:30:18.620 --> 00:30:22.070
+And now that we understand the process more, we could actually
+
+00:30:22.200 --> 00:30:24.620
+move to a different, better mode.
+
+00:30:24.620 --> 00:30:28.110
+And I think, I just want us to avoid doing that
+
+00:30:28.140 --> 00:30:28.930
+again.
+
+00:30:29.180 --> 00:30:31.880
+So, let's keep rolling.
+
+00:30:31.880 --> 00:30:32.940
+You should keep talking.
+
+00:30:32.940 --> 00:30:36.220
+We should have more cheese talks afterwards.
+
+00:30:36.220 --> 00:30:38.640
+I think I know what you're getting at where you're
+
+00:30:38.680 --> 00:30:39.500
+like, are we?
+
+00:30:39.500 --> 00:30:41.900
+AUDIENCE MEMBER 1: Yeah, okay.
+
+00:30:41.900 --> 00:30:44.130
+Any other questions?
+
+00:30:44.160 --> 00:30:47.500
+Amazing.
+
+00:30:47.500 --> 00:30:51.100
+Thank you very much, Blaine.

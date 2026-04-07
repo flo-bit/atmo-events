@@ -99,7 +99,7 @@
 
 			{#if vodPlaylistUrl}
 				<div class="mt-3">
-					<VodPlayer playlistUrl={vodPlaylistUrl} title={event.title} />
+					<VodPlayer playlistUrl={vodPlaylistUrl} title={event.title} subtitlesUrl="/vods/{event.rkey}-karaoke.vtt" />
 				</div>
 			{/if}
 			<Button href="/p/atmosphereconf.org/e/{event.rkey}" variant="secondary" class="mt-2 w-full">Go to event</Button>
