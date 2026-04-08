@@ -8,11 +8,13 @@
 	let {
 		value = $bindable(''),
 		required = false,
-		minValue = ''
+		minValue = '',
+		referenceTime = ''
 	}: {
 		value: string;
 		required?: boolean;
 		minValue?: string;
+		referenceTime?: string;
 	} = $props();
 
 	let datePart = $state('');
@@ -21,6 +23,32 @@
 
 	const locale = browser ? navigator.language || 'en' : 'en';
 	let minDatePart = $derived(minValue ? minValue.split('T')[0] || '' : '');
+	let refTimePart = $derived.by(() => {
+		if (!referenceTime) return '';
+		const [refDate, refTime] = referenceTime.split('T');
+		if (refDate && refDate === datePart && refTime) return refTime;
+		return '';
+	});
+
+	// Default to current date/time rounded up to the next hour when no initial value
+	if (browser && !value) {
+		const now = new Date();
+		const rounded = new Date(now);
+		rounded.setMinutes(0, 0, 0);
+		rounded.setHours(rounded.getHours() + 1);
+
+		const yyyy = rounded.getFullYear();
+		const mm = String(rounded.getMonth() + 1).padStart(2, '0');
+		const dd = String(rounded.getDate()).padStart(2, '0');
+		const hh = String(rounded.getHours()).padStart(2, '0');
+		const min = String(rounded.getMinutes()).padStart(2, '0');
+
+		const defaultDate = `${yyyy}-${mm}-${dd}`;
+		const defaultTime = `${hh}:${min}`;
+		datePart = defaultDate;
+		timePart = defaultTime;
+		value = `${defaultDate}T${defaultTime}`;
+	}
 
 	// Sync external value -> date/time parts
 	$effect(() => {
@@ -68,6 +96,6 @@
 		onSelect={focusTime}
 	/>
 	<div bind:this={timeEl}>
-		<TimePicker bind:value={timePart} {locale} />
+		<TimePicker bind:value={timePart} {locale} referenceTime={refTimePart} />
 	</div>
 </div>

@@ -20,7 +20,8 @@
 
 	let isOpen = $state(false);
 
-	const currentYear = new Date().getFullYear();
+	const now = new Date();
+	const currentYear = now.getFullYear();
 	const yearRange = Array.from({ length: 7 }, (_, i) => currentYear - 1 + i);
 	const today = new Date();
 	const todayDay = today.getDate();
@@ -61,6 +62,7 @@
 					parsed.day !== internalValue.day
 				) {
 					internalValue = parsed;
+					previousValue = parsed;
 				}
 			} else {
 				internalValue = undefined;
@@ -68,15 +70,17 @@
 		});
 	});
 
+	let previousValue: CalendarDate | undefined = $state(undefined);
+
 	function handleValueChange(newVal: DateValue | undefined) {
 		if (newVal && newVal instanceof CalendarDate) {
+			previousValue = newVal;
 			internalValue = newVal;
 			value = formatDateStr(newVal);
+		} else if (!newVal && previousValue) {
+			// Prevent deselection — restore previous value
+			internalValue = previousValue;
 		}
-	}
-
-	function handleOpenChange(open: boolean) {
-		isOpen = open;
 	}
 
 	function handleOpenChangeComplete(open: boolean) {
@@ -84,12 +88,22 @@
 			onSelect?.();
 		}
 	}
+
+	let displayText = $derived.by(() => {
+		if (!internalValue) return '';
+		const date = new Date(internalValue.year, internalValue.month - 1, internalValue.day);
+		const opts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+		if (internalValue.year !== currentYear) {
+			opts.year = 'numeric';
+		}
+		return date.toLocaleDateString(locale, opts);
+	});
 </script>
 
 <DatePicker.Root
 	bind:value={internalValue}
+	bind:open={isOpen}
 	onValueChange={handleValueChange}
-	onOpenChange={handleOpenChange}
 	onOpenChangeComplete={handleOpenChangeComplete}
 	minValue={internalMinValue}
 	granularity="day"
@@ -98,47 +112,20 @@
 	{locale}
 	{required}
 >
-	<div
-		class="border-base-300 bg-base-100 text-base-900 focus-within:border-accent-500 dark:border-base-700 dark:bg-base-800 dark:text-base-100 dark:focus-within:border-accent-400 flex items-center rounded-xl border px-2.5 py-1.5 text-sm transition-colors"
+	<DatePicker.Trigger
+		class="border-base-300 bg-base-100 text-base-900 focus-within:border-accent-500 dark:border-base-700 dark:bg-base-800 dark:text-base-100 dark:focus-within:border-accent-400 flex w-full min-w-[8.5rem] cursor-pointer items-center rounded-xl border px-2.5 py-1.5 text-sm transition-colors"
 	>
-		<DatePicker.Input>
-			{#snippet children({ segments })}
-				{#each segments as segment, i (segment.part + i)}
-					{#if segment.part === 'literal'}
-						<span class="text-base-400 dark:text-base-500">{segment.value}</span>
-					{:else}
-						<DatePicker.Segment
-							part={segment.part}
-							class="hover:bg-base-200 focus:bg-base-200 dark:hover:bg-base-700 dark:focus:bg-base-700 rounded px-0.5 focus:outline-none"
-						>
-							{segment.value}
-						</DatePicker.Segment>
-					{/if}
-				{/each}
-			{/snippet}
-		</DatePicker.Input>
-
-		<DatePicker.Trigger
-			class="text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300 ml-auto cursor-pointer pl-1.5"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="size-4"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-				/>
-			</svg>
-		</DatePicker.Trigger>
-	</div>
+		<span class="select-none">
+			{#if displayText}
+				{displayText}
+			{:else}
+				<span class="text-base-400 dark:text-base-500">Select date</span>
+			{/if}
+		</span>
+	</DatePicker.Trigger>
 
 	<DatePicker.Content
+		sideOffset={8}
 		class="border-base-200 bg-base-50 dark:border-base-700 dark:bg-base-900 z-50 rounded-2xl border p-4 shadow-lg"
 	>
 		<DatePicker.Calendar>

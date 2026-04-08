@@ -28,6 +28,7 @@
 	import { PlainTextEditor } from '@foxui/text';
 	import Avatar from 'svelte-boring-avatars';
 	import DateTimePicker from '$lib/components/DateTimePicker.svelte';
+	import TimezonePicker from '$lib/components/TimezonePicker.svelte';
 	import type { FlatEventRecord } from '$lib/contrail';
 
 	let {
@@ -57,6 +58,7 @@
 		description: string;
 		startsAt: string;
 		endsAt: string;
+		timezone?: string;
 		links: Array<{ uri: string; name: string }>;
 		mode?: EventMode;
 		thumbnailKey?: string;
@@ -73,6 +75,7 @@
 	let description = $state('');
 	let startsAt = $state('');
 	let endsAt = $state('');
+	let timezone = $state(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	let mode: EventMode = $state('inperson');
 	let thumbnailFile: File | null = $state(null);
 	let thumbnailPreview: string | null = $state(null);
@@ -92,7 +95,6 @@
 	let locationResult: { displayName: string; location: EventLocation } | null = $state(null);
 
 	let links: Array<{ uri: string; name: string }> = $state([]);
-	let editingDates = $state(false);
 	let showLinkPopup = $state(false);
 	let newLinkUri = $state('');
 	let newLinkName = $state('');
@@ -118,10 +120,40 @@
 		}
 	});
 
+	const pad = (n: number) => n.toString().padStart(2, '0');
+
 	function isoToDatetimeLocal(iso: string): string {
 		const date = new Date(iso);
-		const pad = (n: number) => n.toString().padStart(2, '0');
 		return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+	}
+
+	function dateToDatetimeLocal(date: Date): string {
+		return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+	}
+
+	/**
+	 * Convert a datetime-local string (e.g. "2026-04-09T15:00") to an ISO string
+	 * interpreting the date/time as being in the selected timezone.
+	 */
+	function datetimeLocalToISO(dt: string, tz: string): string {
+		// Parse the datetime-local components
+		const [datePart, timePart] = dt.split('T');
+		const [year, month, day] = datePart.split('-').map(Number);
+		const [hour, minute] = timePart.split(':').map(Number);
+
+		// Create a date and find the offset for the target timezone
+		// by formatting a known date in that timezone and comparing
+		const utcGuess = Date.UTC(year, month - 1, day, hour, minute);
+
+		// Get what time it would be in the target timezone at our UTC guess
+		const inTz = new Date(utcGuess).toLocaleString('en-US', { timeZone: tz });
+		const tzDate = new Date(inTz);
+
+		// The difference tells us the timezone offset
+		const offsetMs = tzDate.getTime() - utcGuess;
+
+		// Subtract the offset to get the correct UTC time
+		return new Date(utcGuess - offsetMs).toISOString();
 	}
 
 	function stripModePrefix(modeStr: string): EventMode {
@@ -196,6 +228,7 @@
 				description = draft.description || '';
 				startsAt = draft.startsAt || '';
 				endsAt = draft.endsAt || '';
+				if (draft.timezone) timezone = draft.timezone;
 				links = draft.links || [];
 				mode = draft.mode || 'inperson';
 				locationChanged = draft.locationChanged || false;
@@ -227,7 +260,6 @@
 			populateFromEventData();
 		}
 		draftLoaded = true;
-		if (!startsAt) editingDates = true;
 		if (titleEditor) get(titleEditor)?.commands.focus();
 	});
 
@@ -242,6 +274,7 @@
 				description,
 				startsAt,
 				endsAt,
+				timezone,
 				links,
 				mode,
 				thumbnailChanged,
@@ -260,6 +293,7 @@
 			description,
 			startsAt,
 			endsAt,
+			timezone,
 			mode,
 			JSON.stringify(links),
 			JSON.stringify(location)
@@ -403,39 +437,14 @@
 		saveDraft();
 	}
 
-	function formatMonth(date: Date): string {
-		return date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
-	}
-
-	function formatDay(date: Date): number {
-		return date.getDate();
-	}
-
-	function formatWeekday(date: Date): string {
-		return date.toLocaleDateString('en-US', { weekday: 'long' });
-	}
-
-	function formatFullDate(date: Date): string {
-		const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' };
-		if (date.getFullYear() !== new Date().getFullYear()) {
-			options.year = 'numeric';
+	// Auto-set end date to 1 hour after start if empty
+	$effect(() => {
+		if (startsAt && !endsAt) {
+			const s = new Date(startsAt);
+			s.setHours(s.getHours() + 1);
+			endsAt = isoToDatetimeLocal(s.toISOString());
 		}
-		return date.toLocaleDateString('en-US', options);
-	}
-
-	function formatTime(date: Date): string {
-		return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-	}
-
-	let startDate = $derived(startsAt ? new Date(startsAt) : null);
-	let endDate = $derived(endsAt ? new Date(endsAt) : null);
-	let isSameDay = $derived(
-		startDate &&
-			endDate &&
-			startDate.getFullYear() === endDate.getFullYear() &&
-			startDate.getMonth() === endDate.getMonth() &&
-			startDate.getDate() === endDate.getDate()
-	);
+	});
 
 	// Auto-adjust end date if start moves past it
 	$effect(() => {
@@ -502,6 +511,10 @@
 			error = 'Start date is required.';
 			return;
 		}
+		if (!endsAt) {
+			error = 'End date is required.';
+			return;
+		}
 		if (!user.isLoggedIn || !user.did) {
 			error = 'You must be logged in.';
 			return;
@@ -558,7 +571,7 @@
 				name: name.trim(),
 				mode: `community.lexicon.calendar.event#${mode}`,
 				status: 'community.lexicon.calendar.event#scheduled',
-				startsAt: new Date(startsAt).toISOString(),
+				startsAt: datetimeLocalToISO(startsAt, timezone),
 				createdAt
 			};
 			// Remove flattened fields that aren't part of the actual record
@@ -582,7 +595,7 @@
 				}
 			}
 			if (endsAt) {
-				record.endsAt = new Date(endsAt).toISOString();
+				record.endsAt = datetimeLocalToISO(endsAt, timezone);
 			}
 			if (media) {
 				record.media = media;
@@ -659,8 +672,6 @@
 		}
 	}
 
-	$inspect(name);
-
 	async function handleCreateRecurring() {
 		if (!name.trim() || !startsAt || !user.isLoggedIn || !user.did) return;
 
@@ -730,7 +741,7 @@
 					name: eventName,
 					mode: `community.lexicon.calendar.event#${mode}`,
 					status: 'community.lexicon.calendar.event#scheduled',
-					startsAt: eventStart.toISOString(),
+					startsAt: datetimeLocalToISO(dateToDatetimeLocal(eventStart), timezone),
 					createdAt: new Date().toISOString(),
 					recurringEventOf: parentUri
 				};
@@ -740,7 +751,7 @@
 					record.description = trimmedDescription;
 				}
 				if (eventEnd) {
-					record.endsAt = eventEnd.toISOString();
+					record.endsAt = datetimeLocalToISO(dateToDatetimeLocal(eventEnd), timezone);
 				}
 				if (media) {
 					record.media = media;
@@ -886,7 +897,7 @@
 					<Button
 						type="submit"
 						class="mt-3 w-full"
-						disabled={submitting || !name.trim() || !startsAt}
+						disabled={submitting || !name.trim() || !startsAt || !endsAt}
 					>
 						{submitting
 							? isNew
@@ -905,7 +916,16 @@
 								bind:editor={titleEditor}
 								placeholder="Event name"
 								onupdate={() => {
-									if (titleEditor) name = get(titleEditor)?.getText() ?? '';
+									if (titleEditor) {
+										const text = get(titleEditor)?.getText() ?? '';
+										if (text.includes('\n')) {
+											const cleaned = text.replace(/\n/g, ' ');
+											get(titleEditor)?.commands.setContent(cleaned);
+											name = cleaned;
+										} else {
+											name = text;
+										}
+									}
 								}}
 								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full text-3xl leading-tight font-bold focus:outline-none sm:text-4xl"
 							/>
@@ -933,158 +953,19 @@
 						</div>
 
 						<!-- Date row -->
-						<div class="mb-4 flex items-start gap-4">
-							<div
-								class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border"
-							>
-								{#if startDate}
-									<span
-										class="text-base-500 dark:text-base-400 text-[9px] leading-none font-semibold"
-									>
-										{formatMonth(startDate)}
-									</span>
-									<span class="text-base-900 dark:text-base-50 text-lg leading-tight font-bold">
-										{formatDay(startDate)}
-									</span>
-								{:else}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="text-base-900 dark:text-base-200 size-5"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-										/>
-									</svg>
-								{/if}
+						<div class="mb-4 flex items-stretch gap-3">
+							<div class="flex flex-col gap-2">
+								<div class="flex items-center gap-2">
+									<span class="text-base-500 dark:text-base-400 w-9 text-sm">Start</span>
+									<DateTimePicker bind:value={startsAt} required />
+								</div>
+								<div class="flex items-center gap-2">
+									<span class="text-base-500 dark:text-base-400 w-9 text-sm">End</span>
+									<DateTimePicker bind:value={endsAt} minValue={startsAt} referenceTime={startsAt} />
+								</div>
 							</div>
-							<div class="flex-1">
-								{#if startDate && !editingDates}
-									<!-- Display mode: show formatted date, click to edit -->
-									<div class="flex items-start gap-2">
-										<button
-											type="button"
-											onclick={() => (editingDates = true)}
-											class="cursor-pointer text-left"
-										>
-											<p class="text-base-900 dark:text-base-50 font-semibold">
-												{formatWeekday(startDate)}, {formatFullDate(startDate)}
-												{#if endDate && !isSameDay}
-													- {formatWeekday(endDate)}, {formatFullDate(endDate)}
-												{/if}
-											</p>
-											<p class="text-base-500 dark:text-base-400 text-sm">
-												{formatTime(startDate)}
-												{#if endDate && isSameDay}
-													- {formatTime(endDate)}
-												{/if}
-											</p>
-										</button>
-										<Button variant="ghost" size="iconSm" onclick={() => (editingDates = true)}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												class="size-3.5"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-												/>
-											</svg>
-										</Button>
-									</div>
-								{:else}
-									<!-- Edit mode: show pickers -->
-									<div class="flex flex-col gap-2">
-										<div class="flex items-center gap-2">
-											{#if endsAt}
-												<span class="text-base-500 dark:text-base-400 w-9 text-xs">Start</span>
-											{/if}
-											<DateTimePicker bind:value={startsAt} required />
-										</div>
-										{#if endsAt}
-											<div class="flex items-center gap-2">
-												<span class="text-base-500 dark:text-base-400 w-9 text-xs">End</span>
-												<DateTimePicker bind:value={endsAt} minValue={startsAt} />
-												<Button variant="ghost" size="iconSm" onclick={() => (endsAt = '')}>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														fill="none"
-														viewBox="0 0 24 24"
-														stroke-width="1.5"
-														stroke="currentColor"
-														class="size-3.5"
-													>
-														<path
-															stroke-linecap="round"
-															stroke-linejoin="round"
-															d="M6 18 18 6M6 6l12 12"
-														/>
-													</svg>
-												</Button>
-											</div>
-										{:else}
-											<Button
-												variant="ghost"
-												size="sm"
-												class="w-fit"
-												onclick={() => {
-													if (startsAt) {
-														const d = new Date(startsAt);
-														d.setHours(d.getHours() + 1);
-														endsAt = isoToDatetimeLocal(d.toISOString());
-													} else {
-														endsAt = '';
-													}
-												}}
-											>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke-width="1.5"
-													stroke="currentColor"
-													class="size-3.5"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														d="M12 4.5v15m7.5-7.5h-15"
-													/>
-												</svg>
-												Add end date
-											</Button>
-										{/if}
-										{#if startDate}
-											<Button size="sm" onclick={() => (editingDates = false)} class="mt-1 w-fit">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke-width="2"
-													stroke="currentColor"
-													class="size-3.5"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														d="m4.5 12.75 6 6 9-13.5"
-													/>
-												</svg>
-												Done
-											</Button>
-										{/if}
-									</div>
-								{/if}
+							<div class="hidden sm:flex">
+								<TimezonePicker bind:value={timezone} />
 							</div>
 						</div>
 
@@ -1132,7 +1013,7 @@
 							</div>
 						{:else}
 							<div class="mb-6">
-								<Button variant="ghost" onclick={() => (showLocationModal = true)}>
+								<Button variant="secondary" onclick={() => (showLocationModal = true)}>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -1177,7 +1058,7 @@
 							<p class="mb-4 text-sm text-red-600 dark:text-red-400">{error}</p>
 						{/if}
 
-						<Button type="submit" disabled={submitting || !name.trim() || !startsAt}>
+						<Button type="submit" disabled={submitting || !name.trim() || !startsAt || !endsAt}>
 							{submitting
 								? isNew
 									? 'Publishing...'
@@ -1190,7 +1071,7 @@
 							<Button
 								type="button"
 								variant="secondary"
-								disabled={submitting || !name.trim() || !startsAt}
+								disabled={submitting || !name.trim() || !startsAt || !endsAt}
 								onclick={() => {
 									recurringError = null;
 									recurringCreated = 0;
