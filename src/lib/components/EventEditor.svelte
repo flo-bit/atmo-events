@@ -29,6 +29,8 @@
 	import Avatar from 'svelte-boring-avatars';
 	import DateTimePicker from '$lib/components/DateTimePicker.svelte';
 	import TimezonePicker from '$lib/components/TimezonePicker.svelte';
+	import { parseDateTime } from '@internationalized/date';
+	import { datetimeLocalToISO, isoToDatetimeLocalInTz } from '$lib/date-format';
 	import ThumbnailPresets from '$lib/components/ThumbnailPresets.svelte';
 	import { designs } from '$lib/components/thumbnails/designs';
 	import type { FlatEventRecord } from '$lib/contrail';
@@ -132,42 +134,6 @@
 		}
 	});
 
-	const pad = (n: number) => n.toString().padStart(2, '0');
-
-	function isoToDatetimeLocal(iso: string): string {
-		const date = new Date(iso);
-		return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-	}
-
-	function dateToDatetimeLocal(date: Date): string {
-		return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-	}
-
-	/**
-	 * Convert a datetime-local string (e.g. "2026-04-09T15:00") to an ISO string
-	 * interpreting the date/time as being in the selected timezone.
-	 */
-	function datetimeLocalToISO(dt: string, tz: string): string {
-		// Parse the datetime-local components
-		const [datePart, timePart] = dt.split('T');
-		const [year, month, day] = datePart.split('-').map(Number);
-		const [hour, minute] = timePart.split(':').map(Number);
-
-		// Create a date and find the offset for the target timezone
-		// by formatting a known date in that timezone and comparing
-		const utcGuess = Date.UTC(year, month - 1, day, hour, minute);
-
-		// Get what time it would be in the target timezone at our UTC guess
-		const inTz = new Date(utcGuess).toLocaleString('en-US', { timeZone: tz });
-		const tzDate = new Date(inTz);
-
-		// The difference tells us the timezone offset
-		const offsetMs = tzDate.getTime() - utcGuess;
-
-		// Subtract the offset to get the correct UTC time
-		return new Date(utcGuess - offsetMs).toISOString();
-	}
-
 	function stripModePrefix(modeStr: string): EventMode {
 		const stripped = modeStr.replace('community.lexicon.calendar.event#', '');
 		if (stripped === 'virtual' || stripped === 'hybrid' || stripped === 'inperson') return stripped;
@@ -214,8 +180,11 @@
 		if (!eventData) return;
 		name = eventData.name || '';
 		description = eventData.description || '';
-		startsAt = eventData.startsAt ? isoToDatetimeLocal(eventData.startsAt) : '';
-		endsAt = eventData.endsAt ? isoToDatetimeLocal(eventData.endsAt) : '';
+		// Restore the event's authored timezone first so the wall-clock fields we
+		// populate below land in that zone (not the viewer's browser zone).
+		if (eventData.timezone) timezone = eventData.timezone;
+		startsAt = eventData.startsAt ? isoToDatetimeLocalInTz(eventData.startsAt, timezone) : '';
+		endsAt = eventData.endsAt ? isoToDatetimeLocalInTz(eventData.endsAt, timezone) : '';
 		mode = eventData.mode ? stripModePrefix(eventData.mode) : 'inperson';
 		links = eventData.uris ? eventData.uris.map((l) => ({ uri: l.uri, name: l.name || '' })) : [];
 		if (eventData.theme) eventTheme = { ...eventData.theme };
@@ -473,25 +442,26 @@
 		}
 	});
 
+	// Trim a CalendarDateTime.toString() ("YYYY-MM-DDTHH:mm:ss[.sss]") down to
+	// the "YYYY-MM-DDTHH:mm" shape that <input type="datetime-local"> expects.
+	function cdtToDatetimeLocal(s: string): string {
+		return s.slice(0, 16);
+	}
+
 	// Auto-set end date to 1 hour after start if empty
 	$effect(() => {
 		if (startsAt && !endsAt) {
-			const s = new Date(startsAt);
-			s.setHours(s.getHours() + 1);
-			endsAt = isoToDatetimeLocal(s.toISOString());
+			endsAt = cdtToDatetimeLocal(parseDateTime(startsAt).add({ hours: 1 }).toString());
 		}
 	});
 
 	// Auto-adjust end date if start moves past it
 	$effect(() => {
 		if (startsAt && endsAt) {
-			const s = new Date(startsAt);
-			const e = new Date(endsAt);
-			if (s >= e) {
-				// eslint-disable-next-line svelte/prefer-svelte-reactivity -- temporary local, not reactive state
-				const adjusted = new Date(s);
-				adjusted.setHours(adjusted.getHours() + 1);
-				endsAt = isoToDatetimeLocal(adjusted.toISOString());
+			const s = parseDateTime(startsAt);
+			const e = parseDateTime(endsAt);
+			if (s.compare(e) >= 0) {
+				endsAt = cdtToDatetimeLocal(s.add({ hours: 1 }).toString());
 			}
 		}
 	});
@@ -622,6 +592,7 @@
 				mode: `community.lexicon.calendar.event#${mode}`,
 				status: 'community.lexicon.calendar.event#scheduled',
 				startsAt: datetimeLocalToISO(startsAt, timezone),
+				timezone,
 				createdAt,
 				theme: eventTheme
 			};
@@ -731,9 +702,14 @@
 		recurringCreated = 0;
 
 		try {
-			const baseStart = new Date(startsAt);
-			const baseEnd = endsAt ? new Date(endsAt) : null;
-			const duration = baseEnd ? baseEnd.getTime() - baseStart.getTime() : 0;
+			// Recurring instances advance by wall-clock duration (e.g. "every week
+			// at 10am"), so operate on CalendarDateTime — not absolute instants —
+			// to preserve the wall time across DST transitions.
+			const baseStart = parseDateTime(startsAt);
+			const baseEnd = endsAt ? parseDateTime(endsAt) : null;
+			const durationMs = baseEnd
+				? baseEnd.toDate(timezone).getTime() - baseStart.toDate(timezone).getTime()
+				: 0;
 			const baseName = recurringNumberInTitle && titleNumberMatch
 				? name.replace(/#?\d+\s*$/, '').trimEnd()
 				: name.trim();
@@ -784,14 +760,23 @@
 			const parentUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
 
 			for (let i = 0; i < recurringCount; i++) {
-				const eventStart = new Date(baseStart);
-				const offset = (i + 1);
-				if (recurringUnit === 'days') eventStart.setDate(eventStart.getDate() + offset * recurringInterval);
-				else if (recurringUnit === 'weeks') eventStart.setDate(eventStart.getDate() + offset * recurringInterval * 7);
-				else if (recurringUnit === 'months') eventStart.setMonth(eventStart.getMonth() + offset * recurringInterval);
-				else if (recurringUnit === 'years') eventStart.setFullYear(eventStart.getFullYear() + offset * recurringInterval);
+				const offset = i + 1;
+				const step = offset * recurringInterval;
+				const eventStart =
+					recurringUnit === 'days'
+						? baseStart.add({ days: step })
+						: recurringUnit === 'weeks'
+							? baseStart.add({ weeks: step })
+							: recurringUnit === 'months'
+								? baseStart.add({ months: step })
+								: baseStart.add({ years: step });
 
-				const eventEnd = duration ? new Date(eventStart.getTime() + duration) : null;
+				const eventStartIso = eventStart.toDate(timezone).toISOString();
+				// Preserve the original absolute duration (handles events that
+				// span midnight or odd wall-clock lengths correctly).
+				const eventEndIso = durationMs
+					? new Date(eventStart.toDate(timezone).getTime() + durationMs).toISOString()
+					: null;
 
 				let eventName = baseName;
 				if (recurringNumberInTitle) {
@@ -806,7 +791,8 @@
 					name: eventName,
 					mode: `community.lexicon.calendar.event#${mode}`,
 					status: 'community.lexicon.calendar.event#scheduled',
-					startsAt: datetimeLocalToISO(dateToDatetimeLocal(eventStart), timezone),
+					startsAt: eventStartIso,
+					timezone,
 					createdAt: new Date().toISOString(),
 					recurringEventOf: parentUri
 				};
@@ -815,8 +801,8 @@
 				if (trimmedDescription) {
 					record.description = trimmedDescription;
 				}
-				if (eventEnd) {
-					record.endsAt = datetimeLocalToISO(dateToDatetimeLocal(eventEnd), timezone);
+				if (eventEndIso) {
+					record.endsAt = eventEndIso;
 				}
 				if (media) {
 					record.media = media;

@@ -7,6 +7,12 @@ import type { CommunityLexiconCalendarEvent } from '../lexicon-types';
 export type EventData = CommunityLexiconCalendarEvent.Main & {
 	/** startsAt is always present on actual records even though the lexicon marks it optional */
 	startsAt: string;
+	/**
+	 * IANA timezone id (e.g. "Europe/Berlin") in which the event's wall-clock times
+	 * were authored. Not part of the upstream lexicon, but persisted on records we
+	 * write so display code can render startsAt/endsAt in the author's intended zone.
+	 */
+	timezone?: string;
 	media?: Array<{
 		role: string;
 		alt?: string;

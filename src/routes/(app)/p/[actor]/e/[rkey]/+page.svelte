@@ -37,6 +37,9 @@
 		typeof window !== 'undefined' ? `${window.location.origin}${eventPath}` : eventPath
 	);
 
+	// Times are always rendered in the viewer's local timezone — the stored UTC
+	// instant is what the Date constructor parses, and toLocaleString/Time uses
+	// the browser's zone by default.
 	let startDate = $derived(new Date(eventData.startsAt));
 	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
 
