@@ -84,6 +84,9 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 		if (req.status !== 'collecting') {
 			return json({ error: 'Poll already generated' }, { status: 400 });
 		}
+		if (req.organizer_did !== locals.did) {
+			return json({ error: 'Only the organizer can lock availability' }, { status: 403 });
+		}
 
 		// compute overlapping windows
 		const slotCounts = await getSlotCounts(db, request_id);

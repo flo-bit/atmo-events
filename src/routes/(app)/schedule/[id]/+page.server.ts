@@ -47,30 +47,23 @@ export const load: PageServerLoad = async ({ params, locals, platform }) => {
 		heatmap[sc.slot_start] = sc.count;
 	}
 
-	// build per-participant slot sets (for hover highlight)
-	const participantDids = [...new Set(availability.map((a) => a.participant_did))];
+	// build per-participant slot sets in a single pass (for hover highlight)
 	const participantSlots: Record<string, string[]> = {};
-	for (const did of participantDids) {
-		participantSlots[did] = availability
-			.filter((a) => a.participant_did === did)
-			.map((a) => a.slot_start);
+	for (const row of availability) {
+		(participantSlots[row.participant_did] ??= []).push(row.slot_start);
 	}
+	const participantDids = Object.keys(participantSlots);
 
-	// load participant profiles
-	const participants: Array<{
-		did: string;
-		handle: string;
-		avatar?: string;
-		displayName?: string;
-	}> = [];
-	for (const did of participantDids) {
-		const profile = await loadProfile(did as Did, db);
-		if (profile) {
-			participants.push(profile as typeof participants[number]);
-		} else {
-			participants.push({ did, handle: did });
-		}
-	}
+	// load participant profiles concurrently
+	const profileResults = await Promise.all(
+		participantDids.map((did) => loadProfile(did as Did, db))
+	);
+	const participants = participantDids.map((did, i) => {
+		const profile = profileResults[i];
+		return profile
+			? (profile as { did: string; handle: string; avatar?: string; displayName?: string })
+			: { did, handle: did };
+	});
 
 	// current user's selections
 	let mySlots: string[] = [];

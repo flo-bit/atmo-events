@@ -61,21 +61,17 @@ export function generateSlots(
  * Convert a wall-clock datetime string (no timezone) to a UTC ISO string,
  * interpreting the input as being in the given IANA timezone.
  *
- * Uses the Intl API to find the UTC offset for that timezone at that moment,
- * then applies the offset.
+ * Uses iterative offset probing to handle DST transitions correctly:
+ * the offset at the initial guess may differ from the offset at the
+ * actual target time, so we refine once to converge.
  */
 function wallClockToUtc(wallClock: string, timezone: string): string {
-	// Parse the wall clock time
 	const [datePart, timePart] = wallClock.split('T');
 	const [year, month, day] = datePart.split('-').map(Number);
 	const [hour, minute, second] = (timePart || '00:00:00').split(':').map(Number);
 
-	// Create a date object and use Intl to find what UTC time corresponds
-	// to this wall-clock time in the given timezone.
-	// Strategy: create a UTC date at the wall-clock values, then find the offset.
-	const guessUtc = Date.UTC(year, month - 1, day, hour, minute, second || 0);
+	const targetMs = Date.UTC(year, month - 1, day, hour, minute, second || 0);
 
-	// Format the guess in the target timezone to see what wall-clock it maps to
 	const formatter = new Intl.DateTimeFormat('en-US', {
 		timeZone: timezone,
 		year: 'numeric',
@@ -87,23 +83,24 @@ function wallClockToUtc(wallClock: string, timezone: string): string {
 		hour12: false
 	});
 
-	const parts = formatter.formatToParts(new Date(guessUtc));
-	const get = (type: string) => Number(parts.find((p) => p.type === type)?.value ?? 0);
+	function getOffsetMs(utcMs: number): number {
+		const parts = formatter.formatToParts(new Date(utcMs));
+		const get = (type: string) => Number(parts.find((p) => p.type === type)?.value ?? 0);
+		const h = get('hour') === 24 ? 0 : get('hour');
+		const localMs = Date.UTC(get('year'), get('month') - 1, get('day'), h, get('minute'), 0);
+		return localMs - utcMs;
+	}
 
-	const localYear = get('year');
-	const localMonth = get('month');
-	const localDay = get('day');
-	const localHour = get('hour') === 24 ? 0 : get('hour');
-	const localMinute = get('minute');
+	// first pass: estimate UTC from offset at the naive guess
+	const offset1 = getOffsetMs(targetMs);
+	const guess1 = targetMs - offset1;
 
-	// The offset is: guessUtc shows as localTime in timezone
-	// So: localTime = guessUtc + offset  =>  offset = localTime - guessUtc
-	const localAsUtc = Date.UTC(localYear, localMonth - 1, localDay, localHour, localMinute, 0);
-	const offsetMs = localAsUtc - guessUtc;
+	// second pass: refine using offset at the first estimate
+	// (handles DST transitions where offset differs at guess vs target)
+	const offset2 = getOffsetMs(guess1);
+	const result = targetMs - offset2;
 
-	// The actual UTC time is: wallClock - offset
-	const actualUtc = new Date(guessUtc - offsetMs);
-	return actualUtc.toISOString();
+	return new Date(result).toISOString();
 }
 
 /**

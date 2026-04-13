@@ -65,12 +65,12 @@
 			});
 
 			if (!res.ok) {
-				const data = await res.json().catch(() => null);
-				throw new Error(data?.error || `request failed (${res.status})`);
+				const errData: { error?: string } = await res.json().catch(() => ({}));
+				throw new Error(errData.error || `request failed (${res.status})`);
 			}
 
-			const data = await res.json();
-			await goto(`/schedule/${data.id}`);
+			const result: { id: string } = await res.json();
+			await goto(`/schedule/${result.id}`);
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'something went wrong';
 		} finally {
