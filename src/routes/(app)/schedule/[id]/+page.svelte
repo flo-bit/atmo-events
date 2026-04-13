@@ -2,7 +2,7 @@
 	import AvailabilityGrid from '$lib/components/scheduling/AvailabilityGrid.svelte';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { Button, Avatar as FoxAvatar } from '@foxui/core';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { formatSlotInTz, getTimezoneAbbr } from '$lib/scheduling/timezones';
 	import type { PollOption } from '$lib/scheduling/types';
 
@@ -58,7 +58,7 @@
 			});
 			if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed');
 			saved = true;
-			setTimeout(() => location.reload(), 600);
+			setTimeout(() => invalidateAll(), 600);
 		} catch (err) {
 			alert(err instanceof Error ? err.message : 'Something went wrong');
 		} finally {
@@ -81,7 +81,7 @@
 				const err = await res.json().catch(() => ({}));
 				throw new Error(err.error || 'Failed to generate poll');
 			}
-			location.reload();
+			invalidateAll();
 		} catch (err) {
 			alert(err instanceof Error ? err.message : 'Something went wrong');
 		} finally {

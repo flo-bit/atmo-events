@@ -15,7 +15,14 @@ import type { PollOption } from '$lib/scheduling/types';
 
 export const POST: RequestHandler = async ({ request, locals, platform }) => {
 	const db = platform!.env.DB;
-	const body = await request.json();
+
+	let body: Record<string, unknown>;
+	try {
+		body = await request.json();
+	} catch {
+		return json({ error: 'Invalid JSON' }, { status: 400 });
+	}
+
 	const action = body.action;
 
 	if (action === 'create') {
@@ -122,7 +129,12 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 			return json({ error: 'Voting is not open' }, { status: 400 });
 		}
 
-		const options: PollOption[] = JSON.parse(req.poll_options ?? '[]');
+		let options: PollOption[];
+		try {
+			options = JSON.parse(req.poll_options ?? '[]');
+		} catch {
+			return json({ error: 'Corrupted poll data' }, { status: 500 });
+		}
 		// option_index can be -1 for "none of these work"
 		if (option_index < -1 || option_index >= options.length) {
 			return json({ error: 'Invalid option' }, { status: 400 });

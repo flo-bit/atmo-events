@@ -104,7 +104,11 @@ export const load: PageServerLoad = async ({ params, locals, platform }) => {
 	let myVote: number | null = null;
 
 	if (request.status === 'polling' || request.status === 'resolved') {
-		pollOptions = JSON.parse(request.poll_options ?? '[]');
+		try {
+			pollOptions = JSON.parse(request.poll_options ?? '[]');
+		} catch {
+			pollOptions = [];
+		}
 		votes = await getVotes(db, params.id);
 		if (locals.did) {
 			myVote = await getMyVote(db, params.id, locals.did);
