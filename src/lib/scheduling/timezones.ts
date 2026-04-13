@@ -64,7 +64,7 @@ export function generateSlots(
  * Uses the Intl API to find the UTC offset for that timezone at that moment,
  * then applies the offset.
  */
-export function wallClockToUtc(wallClock: string, timezone: string): string {
+function wallClockToUtc(wallClock: string, timezone: string): string {
 	// Parse the wall clock time
 	const [datePart, timePart] = wallClock.split('T');
 	const [year, month, day] = datePart.split('-').map(Number);
