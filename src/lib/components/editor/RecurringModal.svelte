@@ -8,6 +8,7 @@
 	import type { FlatEventRecord } from '$lib/contrail';
 	import type { EventLocation, EventMode } from './types';
 	import { buildThumbnailMedia, renderPresetThumbnail } from './save';
+	import { hashSeed } from '$lib/components/thumbnails/designs';
 
 	let {
 		open = $bindable(),
@@ -25,7 +26,8 @@
 		thumbnailDateStr,
 		thumbnailFile,
 		thumbnailChanged,
-		selectedPreset
+		selectedPreset,
+		accent
 	}: {
 		open: boolean;
 		rkey: string;
@@ -42,7 +44,8 @@
 		thumbnailDateStr: string;
 		thumbnailFile: File | null;
 		thumbnailChanged: boolean;
-		selectedPreset: { design: string; seed: number } | null;
+		selectedPreset: string | null;
+		accent: string;
 	} = $props();
 
 	let interval = $state(1);
@@ -88,10 +91,11 @@
 			let hasNewThumbnail = thumbnailChanged;
 			if (selectedPreset && !fileForUpload) {
 				const rendered = await renderPresetThumbnail({
-					design: selectedPreset.design,
-					seed: selectedPreset.seed,
+					design: selectedPreset,
+					seed: hashSeed(rkey),
 					name,
-					dateStr: thumbnailDateStr
+					dateStr: thumbnailDateStr,
+					accent
 				});
 				if (rendered) {
 					fileForUpload = rendered;

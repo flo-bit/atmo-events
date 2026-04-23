@@ -9,6 +9,7 @@
 	import EventCard from '$lib/components/EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
 	import VodPlayer, { type VodPlayerApi } from '$lib/components/VodPlayer.svelte';
+	import StreamPlacePlayer from './event-view/StreamPlacePlayer.svelte';
 	import { page } from '$app/state';
 	import { launchConfetti } from '@foxui/visual';
 	import ThemeBackground from '$lib/components/ThemeBackground.svelte';
@@ -93,6 +94,16 @@
 
 	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
 	let isPast = $derived(endDate ? endDate < new Date() : false);
+
+	let streamPlaceHandle = $derived.by(() => {
+		const uris = eventData.uris;
+		if (!uris) return null;
+		for (const { uri } of uris) {
+			const m = uri.match(/^https?:\/\/stream\.place\/([^/?#]+)/i);
+			if (m) return m[1];
+		}
+		return null;
+	});
 
 	let descriptionHtml = $derived(
 		buildDescriptionHtml(eventData.description, eventData.facets)
@@ -247,6 +258,18 @@
 						onrsvp={handleRsvp}
 						oncancel={handleRsvpCancel}
 					/>
+				{/if}
+
+				<!-- Live stream -->
+				{#if isOngoing && streamPlaceHandle}
+					<div class="mt-8 mb-8">
+						<p
+							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+						>
+							Live now
+						</p>
+						<StreamPlacePlayer handle={streamPlaceHandle} title={eventData.name} />
+					</div>
 				{/if}
 
 				<!-- About Event -->

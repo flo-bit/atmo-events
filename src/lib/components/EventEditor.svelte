@@ -12,8 +12,7 @@
 	} from '@foxui/core';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { browser, dev } from '$app/environment';
-	import { getImage, deleteImage } from '$lib/components/image-store';
+	import { dev } from '$app/environment';
 	import { PlainTextEditor } from '@foxui/text';
 	import DateTimePicker from '$lib/components/DateTimePicker.svelte';
 	import TimezonePicker from '$lib/components/TimezonePicker.svelte';
@@ -22,7 +21,7 @@
 	import type { FlatEventRecord } from '$lib/contrail';
 	import ThemeApply from '$lib/components/ThemeApply.svelte';
 	import ThemeBackground from '$lib/components/ThemeBackground.svelte';
-	import { defaultTheme, type EventTheme } from '$lib/theme';
+	import { defaultTheme, randomAccentColor, type EventTheme } from '$lib/theme';
 
 	import type { Readable } from 'svelte/store';
 	import { get } from 'svelte/store';
@@ -35,13 +34,12 @@
 	import RecurringModal from './editor/RecurringModal.svelte';
 	import {
 		stripModePrefix,
-		type EventDraft,
 		type EventLocation,
 		type EventMode,
 		type Visibility
 	} from './editor/types';
-	import { clearDraft, migrateLegacyDraft, readDraft, writeDraft } from './editor/draft';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
+	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
 
 	let {
 		eventData = null,
@@ -58,7 +56,6 @@
 
 	let isNew = $derived(eventData === null);
 
-	let thumbnailKey: string | null = $state(null);
 	let thumbnailChanged = $state(false);
 
 	// svelte-ignore state_referenced_locally
@@ -70,10 +67,14 @@
 	let mode: EventMode = $state('inperson');
 	// svelte-ignore state_referenced_locally
 	let visibility: Visibility = $state(privateMode && dev ? 'private' : 'public');
-	let eventTheme: EventTheme = $state({ ...defaultTheme });
+	let eventTheme: EventTheme = $state(
+		eventData === null
+			? { ...defaultTheme, accentColor: randomAccentColor() }
+			: { ...defaultTheme }
+	);
 	let thumbnailFile: File | null = $state(null);
 	let thumbnailPreview: string | null = $state(null);
-	let selectedPreset: { design: string; seed: number } | null = $state(null);
+	let selectedPreset: string | null = $state(eventData === null ? DEFAULT_PRESET : null);
 	let submitting = $state(false);
 	let error: string | null = $state(null);
 	let titleEditor: Readable<Editor> | undefined = $state(undefined);
@@ -82,8 +83,6 @@
 	let locationChanged = $state(false);
 
 	let links: Array<{ uri: string; name: string }> = $state([]);
-
-	let draftLoaded = $state(false);
 
 	let showRecurringModal = $state(false);
 
@@ -144,91 +143,9 @@
 		populateThumbnailFromEventData();
 	}
 
-	onMount(async () => {
-		if (isNew) migrateLegacyDraft(rkey);
-
-		const draft = readDraft(rkey);
-		if (draft) {
-			name = draft.name || '';
-			description = draft.description || '';
-			startsAt = draft.startsAt || '';
-			endsAt = draft.endsAt || '';
-			if (draft.timezone) timezone = draft.timezone;
-			if (draft.theme) eventTheme = draft.theme;
-			links = draft.links || [];
-			mode = draft.mode || 'inperson';
-			if (draft.visibility && (draft.visibility !== 'private' || dev))
-				visibility = draft.visibility;
-			else if (privateMode && dev) visibility = 'private';
-			locationChanged = draft.locationChanged || false;
-			if (draft.locationChanged) {
-				location = draft.location || null;
-			} else if (!isNew) {
-				populateLocationFromEventData();
-			}
-			thumbnailChanged = draft.thumbnailChanged || false;
-
-			if (draft.thumbnailKey) {
-				const img = await getImage(draft.thumbnailKey);
-				if (img) {
-					thumbnailKey = draft.thumbnailKey;
-					thumbnailFile = new File([img.blob], img.name, { type: img.blob.type });
-					thumbnailPreview = URL.createObjectURL(img.blob);
-					thumbnailChanged = true;
-				}
-			} else if (!thumbnailChanged && !isNew) {
-				populateThumbnailFromEventData();
-			}
-		} else if (!isNew) {
-			populateFromEventData();
-		}
-		draftLoaded = true;
+	onMount(() => {
+		if (!isNew) populateFromEventData();
 		if (titleEditor) get(titleEditor)?.commands.focus();
-	});
-
-	let saveDraftTimeout: ReturnType<typeof setTimeout> | undefined;
-
-	function saveDraft() {
-		if (!draftLoaded || !browser) return;
-		clearTimeout(saveDraftTimeout);
-		saveDraftTimeout = setTimeout(() => {
-			const draft: EventDraft = {
-				name,
-				description,
-				startsAt,
-				endsAt,
-				timezone,
-				theme: eventTheme,
-				links,
-				mode,
-				visibility,
-				thumbnailChanged,
-				locationChanged
-			};
-			if (locationChanged) draft.location = location;
-			if (thumbnailKey) draft.thumbnailKey = thumbnailKey;
-			writeDraft(rkey, draft);
-		}, 500);
-	}
-
-	$effect(() => {
-		// track all draft fields by reading them
-		void [
-			name,
-			description,
-			startsAt,
-			endsAt,
-			timezone,
-			JSON.stringify(eventTheme),
-			mode,
-			visibility,
-			JSON.stringify(links),
-			JSON.stringify(location),
-			thumbnailKey,
-			thumbnailChanged,
-			locationChanged
-		];
-		saveDraft();
 	});
 
 	let hostName = $derived(user.profile?.displayName || user.profile?.handle || user.did || '');
@@ -278,10 +195,11 @@
 			// Generate thumbnail from preset if selected and no custom upload
 			if (selectedPreset && !thumbnailFile) {
 				const rendered = await renderPresetThumbnail({
-					design: selectedPreset.design,
-					seed: selectedPreset.seed,
+					design: selectedPreset,
+					seed: hashSeed(rkey),
 					name,
-					dateStr: thumbnailDateStr
+					dateStr: thumbnailDateStr,
+					accent: eventTheme.accentColor
 				});
 				if (rendered) {
 					thumbnailFile = rendered;
@@ -317,8 +235,6 @@
 			if (visibility === 'private') {
 				const { createPrivateEvent } = await import('$lib/spaces/server/spaces.remote');
 				const { spaceUri, rkey: eventRkey } = await createPrivateEvent({ key: rkey, record });
-				clearDraft(rkey);
-				if (thumbnailKey) deleteImage(thumbnailKey);
 				const spaceKey = spaceUri.split('/').pop();
 				const handle =
 					user.profile?.handle && user.profile.handle !== 'handle.invalid'
@@ -337,8 +253,6 @@
 			if (response.ok) {
 				const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
 				await notifyContrailOfUpdate(eventUri);
-				clearDraft(rkey);
-				if (thumbnailKey) deleteImage(thumbnailKey);
 				const handle =
 					user.profile?.handle && user.profile.handle !== 'handle.invalid'
 						? user.profile.handle
@@ -367,8 +281,6 @@
 			});
 			const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
 			await notifyContrailOfUpdate(eventUri);
-			clearDraft(rkey);
-			if (thumbnailKey) deleteImage(thumbnailKey);
 			const handle =
 				user.profile?.handle && user.profile.handle !== 'handle.invalid'
 					? user.profile.handle
@@ -413,9 +325,9 @@
 						{rkey}
 						{name}
 						dateStr={thumbnailDateStr}
+						accent={eventTheme.accentColor}
 						bind:thumbnailFile
 						bind:thumbnailPreview
-						bind:thumbnailKey
 						bind:thumbnailChanged
 						bind:selectedPreset
 					/>
@@ -621,4 +533,5 @@
 	{thumbnailFile}
 	{thumbnailChanged}
 	{selectedPreset}
+	accent={eventTheme.accentColor}
 />

@@ -39,9 +39,20 @@
 			.getPropertyValue('--color-accent-500')
 			.trim();
 
-		const bgColor = getComputedStyle(document.documentElement)
-			.getPropertyValue('--color-base-900')
-			.trim();
+		let bgColor = '';
+		function readBgColor() {
+			const isDark = document.documentElement.classList.contains('dark');
+			bgColor = getComputedStyle(document.documentElement)
+				.getPropertyValue(isDark ? '--color-base-900' : '--color-base-50')
+				.trim();
+		}
+		readBgColor();
+
+		const themeObserver = new MutationObserver(readBgColor);
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
 
 		let lastResize = canvas.width;
 		let lastTime = performance.now();
@@ -129,6 +140,7 @@
 		return () => {
 			cancelAnimationFrame(animId);
 			window.removeEventListener('resize', resize);
+			themeObserver.disconnect();
 		};
 	});
 </script>
