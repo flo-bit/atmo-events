@@ -2,27 +2,26 @@
 	import { Button, Modal } from '@foxui/core';
 	import Avatar from 'svelte-boring-avatars';
 	import ThumbnailPresets from '$lib/components/ThumbnailPresets.svelte';
-	import { designs } from '$lib/components/thumbnails/designs';
-	import { deleteImage, putImage } from '$lib/components/image-store';
+	import { designs, hashSeed, resolveAccentColor } from '$lib/components/thumbnails/designs';
 
 	let {
 		rkey,
 		name,
 		dateStr,
+		accent,
 		thumbnailFile = $bindable(),
 		thumbnailPreview = $bindable(),
-		thumbnailKey = $bindable(),
 		thumbnailChanged = $bindable(),
 		selectedPreset = $bindable()
 	}: {
 		rkey: string;
 		name: string;
 		dateStr: string;
+		accent: string;
 		thumbnailFile: File | null;
 		thumbnailPreview: string | null;
-		thumbnailKey: string | null;
 		thumbnailChanged: boolean;
-		selectedPreset: { design: string; seed: number } | null;
+		selectedPreset: string | null;
 	} = $props();
 
 	let fileInput: HTMLInputElement | undefined = $state();
@@ -30,16 +29,14 @@
 	let showModal = $state(false);
 	let isDragOver = $state(false);
 
-	async function setThumbnail(file: File) {
+	const seed = $derived(hashSeed(rkey));
+
+	function setThumbnail(file: File) {
 		thumbnailFile = file;
 		thumbnailChanged = true;
 		selectedPreset = null;
 		if (thumbnailPreview) URL.revokeObjectURL(thumbnailPreview);
 		thumbnailPreview = URL.createObjectURL(file);
-
-		if (thumbnailKey) await deleteImage(thumbnailKey);
-		thumbnailKey = crypto.randomUUID();
-		await putImage(thumbnailKey, file, file.name);
 	}
 
 	function onFileChange(e: Event) {
@@ -77,27 +74,24 @@
 			URL.revokeObjectURL(thumbnailPreview);
 			thumbnailPreview = null;
 		}
-		if (thumbnailKey) {
-			deleteImage(thumbnailKey);
-			thumbnailKey = null;
-		}
 		if (fileInput) fileInput.value = '';
 	}
 
-	// Render preset preview canvas whenever the selection, name, or date changes.
+	// Render preset preview canvas whenever the selection, name, date, or accent changes.
 	$effect(() => {
-		if (selectedPreset && presetPreviewCanvas && designs[selectedPreset.design]) {
+		if (selectedPreset && presetPreviewCanvas && designs[selectedPreset]) {
 			const ctx = presetPreviewCanvas.getContext('2d');
 			if (!ctx) return;
 			presetPreviewCanvas.width = 800;
 			presetPreviewCanvas.height = 800;
-			designs[selectedPreset.design](
+			designs[selectedPreset](
 				ctx,
 				800,
 				800,
 				name || 'Event',
 				dateStr,
-				selectedPreset.seed
+				seed,
+				resolveAccentColor(accent)
 			);
 		}
 	});
@@ -124,7 +118,7 @@
 				alt="Thumbnail preview"
 				class="border-base-200 dark:border-base-800 aspect-square w-full rounded-2xl border object-cover"
 			/>
-		{:else if selectedPreset && designs[selectedPreset.design]}
+		{:else if selectedPreset && designs[selectedPreset]}
 			<div
 				class="border-base-200 dark:border-base-800 aspect-square w-full overflow-hidden rounded-2xl border"
 			>
@@ -211,6 +205,8 @@
 		<ThumbnailPresets
 			{name}
 			{dateStr}
+			{accent}
+			{seed}
 			bind:selected={selectedPreset}
 			onselect={() => {
 				showModal = false;

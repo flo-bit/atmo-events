@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Badge } from '@foxui/core';
 	import { formatDay, formatFullDate, formatMonth, formatTime, formatWeekday } from './format';
 
 	let { startDate, endDate }: { startDate: Date; endDate: Date | null } = $props();
@@ -29,11 +30,14 @@
 				- {formatWeekday(endDate)}, {formatFullDate(endDate)}
 			{/if}
 		</p>
-		<p class="text-base-500 dark:text-base-400 text-sm">
-			{formatTime(startDate)}
-			{#if endDate && isSameDay}
-				- {formatTime(endDate)}
-			{/if}
+		<p class="text-base-500 dark:text-base-400 flex flex-wrap items-center gap-2 text-sm">
+			<span>
+				{formatTime(startDate)}
+				{#if endDate && isSameDay}
+					- {formatTime(endDate)}
+				{/if}
+			</span>
+			<Badge size="sm" variant="secondary">local time</Badge>
 		</p>
 	</div>
 </div>

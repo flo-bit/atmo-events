@@ -3,7 +3,7 @@ import { compressImage } from '$lib/atproto/image-helper';
 import { tokenize, type Token } from '@atcute/bluesky-richtext-parser';
 import type { Handle } from '@atcute/lexicons';
 import { datetimeLocalToISO } from '$lib/date-format';
-import { designs } from '$lib/components/thumbnails/designs';
+import { designs, resolveAccentColor } from '$lib/components/thumbnails/designs';
 import type { FlatEventRecord } from '$lib/contrail';
 import type { EventTheme } from '$lib/theme';
 import type { EventLocation, EventMode, Visibility } from './types';
@@ -56,6 +56,7 @@ export async function renderPresetThumbnail(args: {
 	seed: number;
 	name: string;
 	dateStr: string;
+	accent?: string;
 }): Promise<File | null> {
 	const drawer = designs[args.design];
 	if (!drawer) return null;
@@ -64,7 +65,15 @@ export async function renderPresetThumbnail(args: {
 	canvas.height = 800;
 	const ctx = canvas.getContext('2d');
 	if (!ctx) return null;
-	drawer(ctx, 800, 800, args.name.trim() || 'Event', args.dateStr, args.seed);
+	drawer(
+		ctx,
+		800,
+		800,
+		args.name.trim() || 'Event',
+		args.dateStr,
+		args.seed,
+		resolveAccentColor(args.accent)
+	);
 	const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, 'image/png'));
 	if (!blob) return null;
 	return new File([blob], 'thumbnail.png', { type: 'image/png' });

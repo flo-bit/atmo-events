@@ -1,5 +1,3 @@
-import type { EventTheme } from '$lib/theme';
-
 export type EventMode = 'inperson' | 'virtual' | 'hybrid';
 export type Visibility = 'public' | 'private' | 'unlisted';
 
@@ -8,22 +6,6 @@ export interface EventLocation {
 	locality?: string;
 	region?: string;
 	country?: string;
-}
-
-export interface EventDraft {
-	name: string;
-	description: string;
-	startsAt: string;
-	endsAt: string;
-	timezone?: string;
-	theme?: EventTheme;
-	links: Array<{ uri: string; name: string }>;
-	mode?: EventMode;
-	visibility?: Visibility;
-	thumbnailKey?: string;
-	thumbnailChanged?: boolean;
-	location?: EventLocation | null;
-	locationChanged?: boolean;
 }
 
 export function stripModePrefix(modeStr: string): EventMode {
