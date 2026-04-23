@@ -4,6 +4,7 @@
 	import Stars from './themes/Stars.svelte';
 	import Matrix from './themes/Matrix.svelte';
 	import Fireflies from './themes/Fireflies.svelte';
+	import Butterflies from './themes/Butterflies.svelte';
 	import Kaleidoscope from './themes/Kaleidoscope.svelte';
 
 	let {
@@ -24,6 +25,8 @@
 		<Matrix />
 	{:else if theme.name === 'fireflies'}
 		<Fireflies />
+	{:else if theme.name === 'butterflies'}
+		<Butterflies />
 	{:else if theme.name === 'kaleidoscope'}
 		<Kaleidoscope />
 	{/if}

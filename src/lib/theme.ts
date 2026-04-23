@@ -26,5 +26,6 @@ export const themeBackgrounds: Record<string, string> = {
 	warp: 'Stars',
 	matrix: 'Matrix',
 	fireflies: 'Fireflies',
+	butterflies: 'Butterflies',
 	kaleidoscope: 'Kaleidoscope'
 };
