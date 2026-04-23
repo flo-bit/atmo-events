@@ -1,7 +1,14 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
 
+const prefixedLogger = {
+	log: (...args: unknown[]) => console.log('[contrail]', ...args),
+	warn: (...args: unknown[]) => console.warn('[contrail]', ...args),
+	error: (...args: unknown[]) => console.error('[contrail]', ...args)
+};
+
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',
+	logger: prefixedLogger,
 	collections: {
 		'community.lexicon.calendar.event': {
 			queryable: {

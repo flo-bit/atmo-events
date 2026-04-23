@@ -8,6 +8,7 @@ import type {
 } from '../lexicon-types';
 import type { Client } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
+import type { ResourceUri } from '@atcute/lexicons/syntax';
 
 export { getServerClient } from '$lib/contrail/index';
 
@@ -105,7 +106,17 @@ export function getProfileBlobUrl(did: string, blob: unknown) {
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {
-	if (!record.record?.startsAt) return null;
+	if (!record.record?.startsAt) {
+		console.warn('[flatten] Dropping event — missing startsAt', {
+			uri: record.uri,
+			did: record.did,
+			rkey: record.rkey,
+			recordKeys: record.record ? Object.keys(record.record) : null,
+			name: record.record?.name,
+			createdAt: record.record?.createdAt
+		});
+		return null;
+	}
 
 	return {
 		...(record.record as EventData),
@@ -124,9 +135,14 @@ export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRec
 }
 
 export function flattenEventRecords(records: EventListRecord[]): FlatEventRecord[] {
-	return records
+	const flattened = records
 		.map((record) => flattenEventRecord(record))
 		.filter((record): record is FlatEventRecord => record !== null);
+	const dropped = records.length - flattened.length;
+	if (dropped > 0) {
+		console.warn(`[flatten] Dropped ${dropped}/${records.length} events during flattening`);
+	}
+	return flattened;
 }
 
 export function getHostProfile(did: string, profiles?: EventProfiles): HostProfile | null {
@@ -232,7 +248,13 @@ export async function listEventRecordsFromContrail(
 		params
 	});
 
-	if (!response.ok) return null;
+	if (!response.ok) {
+		console.warn('[listEventRecords] Non-ok response', { params });
+		return null;
+	}
+	console.log(
+		`[listEventRecords] actor=${params.actor ?? '*'} startsAtMin=${params.startsAtMin ?? '-'} startsAtMax=${params.startsAtMax ?? '-'} sort=${params.sort ?? '-'} order=${params.order ?? '-'} limit=${params.limit ?? '-'} → ${response.data.records?.length ?? 0} records (cursor=${response.data.cursor ?? 'none'})`
+	);
 	return response.data;
 }
 
@@ -250,15 +272,20 @@ export async function getEventRecordFromContrail(
 		profiles?: boolean;
 	}
 ): Promise<EventGetOutput | null> {
+	const uri = `at://${did}/community.lexicon.calendar.event/${rkey}` as ResourceUri;
 	const response = await client.get('community.lexicon.calendar.event.getRecord', {
 		params: {
-			uri: `at://${did}/community.lexicon.calendar.event/${rkey}`,
+			uri,
 			...(hydrateRsvps ? { hydrateRsvps } : {}),
 			...(profiles ? { profiles } : {})
 		}
 	});
 
-	if (!response.ok) return null;
+	if (!response.ok) {
+		console.warn(`[getEventRecord] Non-ok response for ${uri}`);
+		return null;
+	}
+	console.log(`[getEventRecord] uri=${uri} → found (startsAt=${response.data.record?.startsAt ?? 'MISSING'})`);
 	return response.data;
 }
 

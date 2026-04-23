@@ -7,7 +7,14 @@ const handle = createHandler(contrail);
 async function handler(request: Request, platform: App.Platform | undefined) {
 	const db = platform!.env.DB;
 	await ensureInit(db);
-	return handle(request, db) as Promise<Response>;
+	const url = new URL(request.url);
+	const nsid = url.pathname.replace(/^\/xrpc\//, '');
+	const startedAt = Date.now();
+	const response = (await handle(request, db)) as Response;
+	console.log(
+		`[xrpc] ${request.method} ${nsid}${url.search} → ${response.status} in ${Date.now() - startedAt}ms`
+	);
+	return response;
 }
 
 export const GET: RequestHandler = async ({ request, platform }) => handler(request, platform);
