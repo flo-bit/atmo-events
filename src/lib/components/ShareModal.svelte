@@ -42,7 +42,7 @@
 		} catch {}
 	}
 
-	let blueskyButton: HTMLAnchorElement | undefined = $state();
+	let blueskyButton: HTMLAnchorElement | null = $state(null);
 
 	let blueskyUrl = $derived(
 		`https://bsky.app/intent/compose?text=${encodeURIComponent(shareText || url)}`
@@ -95,9 +95,15 @@
 					{copiedText ? 'Copied!' : 'Copy text'}
 				</Button>
 			{/if}
-			<a bind:this={blueskyButton} class="flex-1" href={blueskyUrl} target="_blank">
-				<Button class="w-full">Share to Bluesky</Button>
-			</a>
+			<Button
+				bind:ref={blueskyButton}
+				class="flex-1"
+				href={blueskyUrl}
+				target="_blank"
+				rel="noopener"
+			>
+				Share to Bluesky
+			</Button>
 		</div>
 	</div>
 </Modal>
