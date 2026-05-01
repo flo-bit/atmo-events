@@ -45,11 +45,11 @@ export type LocationData = {
 	shortAddress: string;
 	fullAddress: string;
 	fullString: string;
-	mapsUrl: string;
+	googleMapsUrl: string;
 };
 
 export function getLocationData(locations: FlatEventRecord['locations']): LocationData | null {
-	if (!locations || locations.length === 0) return null;
+	if (!locations?.length) return null;
 
 	const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
 		| { name?: string; street?: string; locality?: string; region?: string; country?: string }
@@ -64,16 +64,33 @@ export function getLocationData(locations: FlatEventRecord['locations']): Locati
 	const fullAddress = fullParts.join(', ');
 	const displayName = loc.name || undefined;
 	const fullString = displayName ? `${displayName}, ${fullAddress}` : fullAddress;
-	const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullString)}`;
+	const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullString)}`;
 
-	return { name: displayName, shortAddress, fullAddress, fullString, mapsUrl };
+	return { name: displayName, shortAddress, fullAddress, fullString, googleMapsUrl };
+}
+
+export type GeoLocation = {
+	lat: number;
+	lng: number;
+	googleMapsUrl: string;
+	osmUrl: string;
+};
+
+function geoUrls(lat: number, lng: number, osmType?: string, osmId?: number) {
+	return {
+		googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+		osmUrl:
+			osmType && osmId
+				? `https://www.openstreetmap.org/${osmType}/${osmId}`
+				: `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=17/${lat}/${lng}`
+	};
 }
 
 export async function resolveGeoLocation(
 	locations: FlatEventRecord['locations'],
 	locationData: LocationData | null
-): Promise<{ lat: number; lng: number } | null> {
-	if (!locations || locations.length === 0) return null;
+): Promise<GeoLocation | null> {
+	if (!locations?.length) return null;
 
 	const geo = locations.find((v) => v.$type === 'community.lexicon.location.geo') as
 		| { latitude?: string; longitude?: string }
@@ -81,18 +98,25 @@ export async function resolveGeoLocation(
 	if (geo?.latitude && geo?.longitude) {
 		const lat = parseFloat(geo.latitude);
 		const lng = parseFloat(geo.longitude);
-		if (!isNaN(lat) && !isNaN(lng)) return { lat, lng };
+		if (!isNaN(lat) && !isNaN(lng)) return { lat, lng, ...geoUrls(lat, lng) };
 	}
 
-	const addressQuery = locationData?.fullAddress;
-	if (!addressQuery) return null;
+	if (!locationData?.fullAddress) return null;
 
 	try {
-		const r = await fetch(`/api/geocoding?q=${encodeURIComponent(addressQuery)}`);
+		const r = await fetch(`/api/geocoding?q=${encodeURIComponent(locationData.fullAddress)}`);
 		if (!r.ok) return null;
-		const data = (await r.json()) as Record<string, unknown> | null;
-		if (!data || !data.lat || !data.lon) return null;
-		return { lat: parseFloat(data.lat as string), lng: parseFloat(data.lon as string) };
+		const data = (await r.json()) as {
+			lat?: string;
+			lon?: string;
+			osm_type?: string;
+			osm_id?: number;
+		} | null;
+		if (!data?.lat || !data?.lon) return null;
+		const lat = parseFloat(data.lat);
+		const lng = parseFloat(data.lon);
+		if (isNaN(lat) || isNaN(lng)) return null;
+		return { lat, lng, ...geoUrls(lat, lng, data.osm_type, data.osm_id) };
 	} catch {
 		return null;
 	}
