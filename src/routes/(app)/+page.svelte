@@ -42,4 +42,15 @@
 			{/each}
 		</div>
 	{/if}
+
+	<footer class="text-base-500 dark:text-base-400 mt-24 text-center text-sm">
+		<a
+			href="https://github.com/flo-bit/atmo-events"
+			target="_blank"
+			rel="noopener"
+			class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+		>
+			View source on GitHub
+		</a>
+	</footer>
 </div>
