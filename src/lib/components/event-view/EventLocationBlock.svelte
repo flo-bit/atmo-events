@@ -6,7 +6,7 @@
 
 {#if locationData}
 	<a
-		href={locationData.mapsUrl}
+		href={locationData.googleMapsUrl}
 		target="_blank"
 		rel="noopener noreferrer"
 		class="mb-6 flex items-center gap-4 transition-opacity hover:opacity-80"

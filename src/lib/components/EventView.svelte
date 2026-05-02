@@ -25,7 +25,7 @@
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
-	import { buildDescriptionHtml, getLocationData, resolveGeoLocation } from './event-view/format';
+	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
 	let { data } = $props();
 
@@ -50,7 +50,7 @@
 	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
 
 	let locationData = $derived(getLocationData(eventData.locations));
-	let geoLocation: { lat: number; lng: number } | null = $state(null);
+	let geoLocation: GeoLocation | null = $state(null);
 
 	let showShareModal = $state(false);
 	let shareModalTitle = $state('Event created!');
