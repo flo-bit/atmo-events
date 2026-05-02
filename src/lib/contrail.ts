@@ -1,4 +1,5 @@
 import '../lexicon-types/index.js';
+import { getProfileUrl } from '$lib/atproto/profile-url';
 import type { EventData } from '$lib/event-types';
 import type {
 	RsvpAtmoGetProfile,
@@ -159,10 +160,6 @@ export function getHostProfile(did: string, profiles?: EventProfiles): HostProfi
 	};
 }
 
-function getProfileUrl(did: string, handle?: string) {
-	return `/p/${handle || did}`;
-}
-
 function buildAttendee(
 	did: string,
 	status: 'going' | 'interested',
@@ -177,7 +174,7 @@ function buildAttendee(
 		avatar: getProfileBlobUrl(did, profile?.record?.avatar),
 		name: profile?.record?.displayName || handle || did,
 		handle,
-		url: getProfileUrl(did, handle)
+		url: getProfileUrl(handle || did)
 	};
 }
 

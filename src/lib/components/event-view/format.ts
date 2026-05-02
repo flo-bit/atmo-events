@@ -1,5 +1,6 @@
 import { marked } from 'marked';
 import { sanitize } from '$lib/cal/sanitize';
+import { getProfileUrl } from '$lib/atproto/profile-url';
 import type { FlatEventRecord } from '$lib/contrail';
 
 export function formatMonth(date: Date): string {
@@ -111,24 +112,30 @@ function renderDescription(text: string, facets?: Facet[]): string {
 	let result = text;
 
 	if (facets && facets.length > 0) {
-		const encoder = new TextEncoder();
-		const encoded = encoder.encode(text);
+		const encoded = new TextEncoder().encode(text);
 		const decoder = new TextDecoder();
 
-		const sorted = [...facets].sort((a, b) => b.index.byteStart - a.index.byteStart);
+		const sorted = [...facets].sort((a, b) => a.index.byteStart - b.index.byteStart);
+
+		const parts: string[] = [];
+		let cursor = 0;
 
 		for (const facet of sorted) {
 			const feature = facet.features?.[0];
 			if (!feature) continue;
+			if (facet.index.byteStart < cursor) continue;
 
-			const segmentBytes = encoded.slice(facet.index.byteStart, facet.index.byteEnd);
-			const segmentText = decoder.decode(segmentBytes);
+			const segmentText = decoder.decode(
+				encoded.slice(facet.index.byteStart, facet.index.byteEnd)
+			);
 
 			let mdLink: string | null = null;
 			switch (feature.$type) {
-				case 'app.bsky.richtext.facet#mention':
-					mdLink = `[${segmentText}](/${feature.did})`;
+				case 'app.bsky.richtext.facet#mention': {
+					const handle = segmentText.startsWith('@') ? segmentText.slice(1) : segmentText;
+					mdLink = `[${segmentText}](${getProfileUrl(handle || feature.did || '')})`;
 					break;
+				}
 				case 'app.bsky.richtext.facet#link':
 					mdLink = `[${segmentText}](${feature.uri})`;
 					break;
@@ -138,11 +145,14 @@ function renderDescription(text: string, facets?: Facet[]): string {
 			}
 
 			if (mdLink) {
-				const before = decoder.decode(encoded.slice(0, facet.index.byteStart));
-				const after = decoder.decode(encoded.slice(facet.index.byteEnd));
-				result = before + mdLink + after;
+				parts.push(decoder.decode(encoded.slice(cursor, facet.index.byteStart)));
+				parts.push(mdLink);
+				cursor = facet.index.byteEnd;
 			}
 		}
+
+		parts.push(decoder.decode(encoded.slice(cursor)));
+		result = parts.join('');
 	}
 
 	return marked.parse(result, { renderer }) as string;
