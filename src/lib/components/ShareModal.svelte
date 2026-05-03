@@ -2,6 +2,7 @@
 	import { Modal, Button, Avatar } from '@foxui/core';
 	import { LinkCard } from '@foxui/social';
 	import { user } from '$lib/atproto/auth.svelte';
+	import PostToBlueskyModal from '$lib/components/PostToBlueskyModal.svelte';
 
 	let {
 		open = $bindable(false),
@@ -9,7 +10,12 @@
 		title = 'Event created!',
 		shareText,
 		eventName,
-		ogImageUrl
+		ogImageUrl,
+		canSetEventComments = false,
+		eventDid,
+		eventRkey,
+		eventDescription,
+		onPosted
 	}: {
 		open: boolean;
 		url: string;
@@ -17,12 +23,17 @@
 		shareText?: string;
 		eventName?: string;
 		ogImageUrl?: string;
+		canSetEventComments?: boolean;
+		eventDid?: string;
+		eventRkey?: string;
+		eventDescription?: string;
+		onPosted?: (ref: { uri: string; cid: string; showComments: boolean }) => void;
 	} = $props();
 
 	let copiedUrl = $state(false);
 	let copiedText = $state(false);
+	let showPostModal = $state(false);
 
-	// Split share text into the part before the URL
 	let textBeforeUrl = $derived(shareText ? shareText.replace(url, '').trim() : undefined);
 
 	async function copyUrl() {
@@ -42,11 +53,24 @@
 		} catch {}
 	}
 
-	let blueskyButton: HTMLAnchorElement | null = $state(null);
+	let blueskyButton: HTMLElement | null = $state(null);
 
-	let blueskyUrl = $derived(
+	let canPostDirectly = $derived(
+		!!eventDid && !!eventRkey && !!eventName && user.isLoggedIn
+	);
+
+	let blueskyIntentUrl = $derived(
 		`https://bsky.app/intent/compose?text=${encodeURIComponent(shareText || url)}`
 	);
+
+	function handleBlueskyClick() {
+		showPostModal = true;
+	}
+
+	function handlePostedFromInner(ref: { uri: string; cid: string; showComments: boolean }) {
+		onPosted?.(ref);
+		open = false;
+	}
 </script>
 
 <Modal
@@ -95,15 +119,36 @@
 					{copiedText ? 'Copied!' : 'Copy text'}
 				</Button>
 			{/if}
-			<Button
-				bind:ref={blueskyButton}
-				class="flex-1"
-				href={blueskyUrl}
-				target="_blank"
-				rel="noopener"
-			>
-				Share to Bluesky
-			</Button>
+			{#if canPostDirectly}
+				<Button bind:ref={blueskyButton} class="flex-1" onclick={handleBlueskyClick}>
+					Share to Bluesky
+				</Button>
+			{:else}
+				<Button
+					bind:ref={blueskyButton}
+					class="flex-1"
+					href={blueskyIntentUrl}
+					target="_blank"
+					rel="noopener"
+				>
+					Share to Bluesky
+				</Button>
+			{/if}
 		</div>
 	</div>
 </Modal>
+
+{#if canPostDirectly && eventDid && eventRkey && eventName}
+	<PostToBlueskyModal
+		bind:open={showPostModal}
+		{canSetEventComments}
+		{eventDid}
+		{eventRkey}
+		{eventName}
+		eventUrl={url}
+		{eventDescription}
+		{ogImageUrl}
+		initialText={textBeforeUrl ?? eventName}
+		onPosted={handlePostedFromInner}
+	/>
+{/if}

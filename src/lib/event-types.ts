@@ -32,4 +32,14 @@ export type EventData = CommunityLexiconCalendarEvent.Main & {
 		accentColor: string;
 		baseColor: string;
 	};
+	/**
+	 * Reference to a Bluesky post about this event. When present, the host has
+	 * shared the event to their Bluesky feed; when `showComments` is true, the
+	 * event page renders the post's reply thread as a comments section.
+	 */
+	bskyPostRef?: {
+		uri: string;
+		cid: string;
+		showComments: boolean;
+	};
 };

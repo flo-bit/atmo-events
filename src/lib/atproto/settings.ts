@@ -10,7 +10,9 @@ export const collections = [
 	'community.lexicon.calendar.rsvp'
 ] as const;
 
-export type AllowedCollection = (typeof collections)[number];
+export const allowedCollections = [...collections, 'app.bsky.feed.post'];
+
+export type AllowedCollection = (typeof allowedCollections)[number];
 
 // OAuth scopes. `include:rsvp.atmo.permissionSet?aud=*` bundles every rpc method
 // the deployment exposes; `aud=*` lets the same consent cover dev (tunnel DID)
@@ -21,7 +23,8 @@ export const scopes = [
 	'atproto',
 	scope.repo({ collection: [...collections] }),
 	scope.blob({ accept: ['image/*'] }),
-	'include:rsvp.atmo.permissionSet'
+	'include:rsvp.atmo.permissionSet',
+	'include:app.bsky.authCreatePosts'
 ];
 
 // set to false to disable signup

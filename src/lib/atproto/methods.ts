@@ -210,6 +210,27 @@ export async function putRecord({
 }
 
 /**
+ * Creates a new record (PDS rejects if the rkey already exists). Use this
+ * instead of putRecord when the OAuth grant only includes the `create` action
+ * for the target collection (e.g. `app.bsky.feed.post`).
+ */
+export async function createRecord({
+	collection,
+	rkey,
+	record
+}: {
+	collection: AllowedCollection;
+	rkey?: string;
+	record: Record<string, unknown>;
+}) {
+	if (!user.did) throw new Error('Not logged in');
+
+	const { createRecord: createRecordRemote } = await import('./server/repo.remote');
+	const data = await createRecordRemote({ collection, rkey, record });
+	return { ok: true, data };
+}
+
+/**
  * Deletes a record via remote function.
  */
 export async function deleteRecord({

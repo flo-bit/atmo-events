@@ -2,8 +2,9 @@
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from '$lib/contrail';
 	import { getCDNImageBlobUrl } from '$lib/atproto';
 	import { user } from '$lib/atproto/auth.svelte';
-	import { Avatar as FoxAvatar, Button } from '@foxui/core';
+	import { Avatar as FoxAvatar, Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import ShareModal from '$lib/components/ShareModal.svelte';
+	import EventComments from '$lib/components/EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
 	import EventRsvp from '$lib/components/EventRsvp.svelte';
 	import EventCard from '$lib/components/EventCard.svelte';
@@ -55,6 +56,16 @@
 	let showShareModal = $state(false);
 	let shareModalTitle = $state('Event created!');
 	let shareModalText: string | undefined = $state(undefined);
+	// True only when the share modal was opened via the post-creation flow by
+	// the event's host. Drives the "show comments on event page" checkbox and
+	// the bskyPostRef write — RSVP shares should never overwrite the comments
+	// root, even when the RSVPer is the host.
+	let canSetEventComments = $state(false);
+	let isHost = $derived(!!user.did && user.did === did);
+	let hasComments = $derived(
+		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
+	);
+	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
 	onMount(async () => {
 		geoLocation = await resolveGeoLocation(eventData.locations, locationData);
@@ -66,6 +77,7 @@
 			launchConfetti();
 			shareModalTitle = 'Event created!';
 			shareModalText = `I'm hosting "${eventData.name}"!\n\n${shareUrl}`;
+			canSetEventComments = isHost;
 			showShareModal = true;
 		}
 	});
@@ -135,6 +147,7 @@
 		if (status === 'interested') return;
 		shareModalTitle = "You're going!";
 		shareModalText = `I'm going to "${eventData.name}".\n\n${shareUrl}`;
+		canSetEventComments = false;
 		showShareModal = true;
 	}
 
@@ -272,19 +285,53 @@
 					</div>
 				{/if}
 
-				<!-- About Event -->
-				{#if descriptionHtml}
+				<!-- About + Comments -->
+				{#if descriptionHtml || hasComments}
 					<div class="mt-8 mb-8">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							About
-						</p>
-						<div
-							class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
-						>
-							{@html descriptionHtml}
-						</div>
+						{#if descriptionHtml && hasComments}
+							<ToggleGroup
+								type="single"
+								bind:value={
+									() => aboutCommentsTab,
+									(val) => {
+										if (val === 'about' || val === 'comments') aboutCommentsTab = val;
+									}
+								}
+								class="mb-4 w-fit"
+								size="xs"
+							>
+								<ToggleGroupItem value="about">About</ToggleGroupItem>
+								<ToggleGroupItem value="comments">Comments</ToggleGroupItem>
+							</ToggleGroup>
+
+							{#if aboutCommentsTab === 'about'}
+								<div
+									class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
+								>
+									{@html descriptionHtml}
+								</div>
+							{:else if eventData.bskyPostRef?.uri}
+								<EventComments postUri={eventData.bskyPostRef.uri} />
+							{/if}
+						{:else if descriptionHtml}
+							<p
+								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+							>
+								About
+							</p>
+							<div
+								class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
+							>
+								{@html descriptionHtml}
+							</div>
+						{:else if eventData.bskyPostRef?.uri}
+							<p
+								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+							>
+								Comments
+							</p>
+							<EventComments postUri={eventData.bskyPostRef.uri} />
+						{/if}
 					</div>
 				{/if}
 
@@ -336,4 +383,8 @@
 	shareText={shareModalText}
 	eventName={eventData.name}
 	{ogImageUrl}
+	{canSetEventComments}
+	eventDid={did}
+	eventRkey={rkey}
+	eventDescription={eventData.description}
 />
