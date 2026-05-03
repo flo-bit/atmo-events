@@ -66,6 +66,12 @@ export type EventAttendeesResult = {
 	interestedCount: number;
 };
 
+export type ActivityCluster = {
+	event: FlatEventRecord;
+	attendees: AttendeeInfo[];
+	latestTimeUs: number;
+};
+
 type ListEventsParams = {
 	actor?: ActorIdentifier;
 	search?: string;
@@ -160,7 +166,7 @@ export function getHostProfile(did: string, profiles?: EventProfiles): HostProfi
 	};
 }
 
-function buildAttendee(
+export function buildAttendee(
 	did: string,
 	status: 'going' | 'interested',
 	profiles?: EventProfiles | RsvpProfileEntry[]
