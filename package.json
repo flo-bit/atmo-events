@@ -50,6 +50,7 @@
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"svelte": "^5.55.0",
 		"svelte-check": "^4.4.5",
+		"svelte-tiptap": "^3.0.1",
 		"tailwindcss": "^4.2.2",
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.2",

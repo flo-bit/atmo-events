@@ -14,7 +14,7 @@
 			</Badge>
 		{/if}
 		{#if mode}
-			<Badge size="md" variant={getModeColor(mode)}>{getModeLabel(mode)}</Badge>
+			<Badge size="md" variant="primary" class={getModeColor(mode)}>{getModeLabel(mode)}</Badge>
 		{/if}
 	</div>
 {/if}

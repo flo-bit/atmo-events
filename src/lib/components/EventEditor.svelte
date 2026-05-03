@@ -25,7 +25,7 @@
 
 	import type { Readable } from 'svelte/store';
 	import { get } from 'svelte/store';
-	import type { Editor } from '@tiptap/core';
+	import type { Editor } from 'svelte-tiptap';
 
 	import ThumbnailSection from './editor/ThumbnailSection.svelte';
 	import LocationSection from './editor/LocationSection.svelte';
@@ -502,12 +502,12 @@
 								>
 									Cancel
 								</Button>
-								<Button size="sm" onclick={handleDelete} disabled={deleting} variant="red">
+								<Button size="sm" onclick={handleDelete} disabled={deleting} variant="primary" class="red">
 									{deleting ? 'Deleting...' : 'Delete'}
 								</Button>
 							</div>
 						{:else}
-							<Button variant="red" onclick={() => (showDeleteConfirm = true)}>Delete event</Button>
+							<Button variant="primary" class="red" onclick={() => (showDeleteConfirm = true)}>Delete event</Button>
 						{/if}
 					</div>
 				{/if}

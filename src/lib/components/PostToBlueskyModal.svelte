@@ -166,7 +166,7 @@
 
 			if (canSetEventComments) {
 				const fresh = await getRecord({
-					did: eventDid as `did:${string}`,
+					did: eventDid as `did:${string}:${string}`,
 					collection: 'community.lexicon.calendar.event',
 					rkey: eventRkey
 				});

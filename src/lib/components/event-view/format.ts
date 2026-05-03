@@ -34,11 +34,13 @@ export function getModeLabel(mode: string): string {
 	return 'Event';
 }
 
-export function getModeColor(mode: string): 'cyan' | 'purple' | 'amber' | 'secondary' {
+/** Foxui accent-color class — applied alongside `variant="primary"` on a Badge
+ *  to override its `--accent-*` CSS variables (see @foxui/core/dist/theme.css). */
+export function getModeColor(mode: string): string {
 	if (mode.includes('virtual')) return 'cyan';
 	if (mode.includes('hybrid')) return 'purple';
 	if (mode.includes('inperson')) return 'amber';
-	return 'secondary';
+	return '';
 }
 
 export type LocationData = {

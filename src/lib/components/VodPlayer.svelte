@@ -96,7 +96,7 @@
 
 			// Add track after Plyr init and force captions on
 			if (subtitlesUrl) {
-				const media = plyr.media as HTMLVideoElement;
+				const media = videoEl;
 				// Remove any existing tracks first
 				media.querySelectorAll('track').forEach((t) => t.remove());
 				// Add fresh track

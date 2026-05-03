@@ -52,7 +52,7 @@
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} variant="rose">Logout</Button>
+					<Button onclick={logout} variant="primary" class="rose">Logout</Button>
 				{/if}
 			{/snippet}
 		</UserProfile>
