@@ -99,7 +99,7 @@
 			{/if}
 		</p>
 		<h3
-			class="text-base-900 dark:text-base-50 group-hover:text-base-700 dark:group-hover:text-base-200 mt-0.5 line-clamp-2 flex items-center gap-1.5 text-sm leading-snug font-semibold transition-colors sm:text-base"
+			class="text-base-900 dark:text-base-50 group-hover:text-base-700 dark:group-hover:text-base-200 mt-0.5 flex items-start gap-1.5 text-sm leading-snug font-semibold transition-colors sm:text-base"
 		>
 			{#if event.space}
 				<svg
@@ -109,14 +109,14 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="text-base-500 dark:text-base-400 mt-0.5 size-3.5 shrink-0"
+					class="text-base-500 dark:text-base-400 mt-1 size-3.5 shrink-0"
 					aria-label="Private event"
 				>
 					<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
 					<path d="M7 11V7a5 5 0 0 1 10 0v4" />
 				</svg>
 			{/if}
-			<span>{event.name}</span>
+			<span class="line-clamp-2">{event.name}</span>
 		</h3>
 		{#if location || mode}
 			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">

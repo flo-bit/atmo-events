@@ -32,8 +32,8 @@ export async function load({ locals, platform }) {
 	const rsvpRkeys: Record<string, string> = {};
 	if (rsvpResponse?.ok) {
 		for (const r of rsvpResponse.data.records ?? []) {
-			const status = r.record?.status;
-			const uri = r.record?.subject?.uri;
+			const status = r.value?.status;
+			const uri = r.value?.subject?.uri;
 			if (status && uri) {
 				const shortStatus = status.split('#').pop()!;
 				rsvpStatuses[uri] = shortStatus;

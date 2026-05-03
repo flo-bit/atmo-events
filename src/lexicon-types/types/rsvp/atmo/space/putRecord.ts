@@ -10,7 +10,7 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.putRecord", {
       collection: /*#__PURE__*/ v.nsidString(),
       record: /*#__PURE__*/ v.unknown(),
       rkey: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-      spaceUri: /*#__PURE__*/ v.resourceUriString(),
+      spaceUri: /*#__PURE__*/ v.string(),
     }),
   },
   output: {

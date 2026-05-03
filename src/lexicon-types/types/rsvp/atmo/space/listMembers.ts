@@ -5,7 +5,7 @@ import * as RsvpAtmoSpaceDefs from "./defs.js";
 
 const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.space.listMembers", {
   params: /*#__PURE__*/ v.object({
-    spaceUri: /*#__PURE__*/ v.resourceUriString(),
+    spaceUri: /*#__PURE__*/ v.string(),
   }),
   output: {
     type: "lex",

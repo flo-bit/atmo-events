@@ -12,6 +12,8 @@ features:
 - add your events to any ical compatible calendar 
 (go to calendar/ when signed in and click "Add to your calendar")
 - post your events/rsvps to bluesky or anywhere else with nice open-graph images
+- display comments
+- show what events your bsky follows are going to
 
 ## development
 
@@ -30,7 +32,7 @@ set remote to false in `wrangler.jsonc` L22:
 optionally if you want all current events to be displayed run this: (will take a few minutes)
 
 ```
-pnpm run sync
+pnpm backfill
 ```
 
 start dev server:

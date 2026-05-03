@@ -4,7 +4,20 @@ import type { OAuthSession } from '@atcute/oauth-node-client';
 import type { Client } from '@atcute/client';
 import type { Did } from '@atcute/lexicons';
 
+interface AtmoEmbedSDK {
+	getParams(): { base: string; accent: string; dark: boolean; did: string | null };
+	createRecord(opts: {
+		collection: string;
+		rkey?: string;
+		record: Record<string, unknown>;
+	}): Promise<{ uri: string }>;
+	deleteRecord(opts: { collection: string; rkey: string }): Promise<void>;
+}
+
 declare global {
+	interface Window {
+		AtmoEmbed?: AtmoEmbedSDK;
+	}
 	namespace App {
 		// interface Error {}
 		interface Locals {
@@ -21,9 +34,13 @@ declare global {
 				CLIENT_ASSERTION_KEY: string;
 				COOKIE_SECRET: string;
 				OAUTH_PUBLIC_URL: string;
-DB: D1Database;
+				DB: D1Database;
 				CRON_SECRET: string;
 			};
+			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
+			 *  let the worker keep a fire-and-forget task alive after the response
+			 *  has been sent. Optional in dev (wrangler proxy may not provide it). */
+			ctx?: { waitUntil(promise: Promise<unknown>): void };
 		}
 	}
 }

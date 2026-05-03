@@ -69,7 +69,14 @@ export type EventAttendeesResult = {
 export type ActivityCluster = {
 	event: FlatEventRecord;
 	attendees: AttendeeInfo[];
-	latestTimeUs: number;
+	/** Set when the cluster's source was the event itself being authored by
+	 *  someone in the viewer's follow set (vs. only an RSVP from a follow).
+	 *  Used by the UI to render "Hosted by X" when `attendees` is empty. */
+	host?: HostProfile;
+	/** ms since epoch of the most recent activity in this cluster — the latest
+	 *  RSVP `createdAt`, or the event's own `createdAt` for event-only clusters.
+	 *  Drives display order. */
+	latestCreatedAtMs: number;
 };
 
 type ListEventsParams = {
@@ -79,6 +86,7 @@ type ListEventsParams = {
 	startsAtMax?: string;
 	endsAtMin?: string;
 	endsAtMax?: string;
+	rsvpsCountMin?: number;
 	rsvpsGoingCountMin?: number;
 	hydrateRsvps?: number;
 	profiles?: boolean;
@@ -115,10 +123,15 @@ export function getProfileBlobUrl(did: string, blob: unknown) {
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {
-	if (!record.record?.startsAt) return null;
+	// Top-level envelope records use `value`; hydrated sub-records (e.g. the
+	// event embedded on an RSVP) still use `record`. Accept either shape.
+	const body =
+		('value' in record ? (record.value as EventData | undefined) : undefined) ??
+		('record' in record ? (record.record as EventData | undefined) : undefined);
+	if (!body?.startsAt) return null;
 
 	return {
-		...(record.record as EventData),
+		...body,
 		cid: record.cid ?? null,
 		did: record.did,
 		rkey: record.rkey,
@@ -147,29 +160,42 @@ export function flattenEventRecords(records: EventListRecord[]): FlatEventRecord
 export function eventUrl(event: FlatEventRecord, actor?: string): string {
 	const who = actor || event.did;
 	if (event.space) {
-		const m = event.space.match(/^at:\/\/[^/]+\/[^/]+\/([^/]+)$/);
+		const m = event.space.match(/^ats?:\/\/[^/]+\/[^/]+\/([^/]+)$/);
 		const skey = m?.[1];
 		if (skey) return `/p/${who}/e/${event.rkey}/s/${skey}`;
 	}
 	return `/p/${who}/e/${event.rkey}`;
 }
 
-export function getHostProfile(did: string, profiles?: EventProfiles): HostProfile | null {
+export function getHostProfile(
+	did: string,
+	profiles?: AttendeeProfileEntry[]
+): HostProfile | null {
 	const profile = profiles?.find((entry) => entry.did === did);
 	if (!profile) return null;
 
 	return {
 		did,
 		handle: profile.handle,
-		displayName: profile.record?.displayName,
-		avatar: getProfileBlobUrl(did, profile.record?.avatar)
+		displayName: profile.value?.displayName,
+		avatar: getProfileBlobUrl(did, profile.value?.avatar)
 	};
 }
+
+/** Structural minimum buildAttendee needs — every contrail profile-entry
+ *  shape (event.listRecords, rsvp.listRecords, getProfile, getFeed) widens to
+ *  this. Using a structural type avoids a union of nominally-distinct lex types
+ *  whose `$type` literals don't match. */
+type AttendeeProfileEntry = {
+	did: string;
+	handle?: string;
+	value?: { displayName?: string; avatar?: unknown };
+};
 
 export function buildAttendee(
 	did: string,
 	status: 'going' | 'interested',
-	profiles?: EventProfiles | RsvpProfileEntry[]
+	profiles?: AttendeeProfileEntry[]
 ): AttendeeInfo {
 	const profile = profiles?.find((entry) => entry.did === did);
 	const handle = profile?.handle;
@@ -177,8 +203,8 @@ export function buildAttendee(
 	return {
 		did,
 		status,
-		avatar: getProfileBlobUrl(did, profile?.record?.avatar),
-		name: profile?.record?.displayName || handle || did,
+		avatar: getProfileBlobUrl(did, profile?.value?.avatar),
+		name: profile?.value?.displayName || handle || did,
 		handle,
 		url: getProfileUrl(handle || did)
 	};
@@ -390,7 +416,7 @@ export async function listAttendingEventsFromContrail(client: Client, actor: Act
 	const seen = new Set<string>();
 	return (response.data.records ?? [])
 		.filter((record) => {
-			const status = record.record?.status;
+			const status = record.value?.status;
 			return status?.endsWith('#going') || status?.endsWith('#interested');
 		})
 		.flatMap((record) => {

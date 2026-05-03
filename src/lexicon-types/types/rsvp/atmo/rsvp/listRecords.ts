@@ -81,6 +81,14 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.rsvp.listRecords", {
      * Only used with spaceUri — filter to records authored by this DID.
      */
     byUser: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.didString()),
+    /**
+     * Maximum value for createdAt
+     */
+    createdAtMax: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+    /**
+     * Minimum value for createdAt
+     */
+    createdAtMin: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     cursor: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * Embed the referenced event record
@@ -115,12 +123,14 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.rsvp.listRecords", {
      * Field to sort by (default: time_us)
      */
     sort: /*#__PURE__*/ v.optional(
-      /*#__PURE__*/ v.string<"status" | "subjectUri" | (string & {})>(),
+      /*#__PURE__*/ v.string<
+        "createdAt" | "status" | "subjectUri" | (string & {})
+      >(),
     ),
     /**
-     * If set, query records inside this permissioned space (requires service-auth JWT or a read-grant invite token).
+     * If set, query records inside this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI.
      */
-    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * Filter by status
      */
@@ -149,36 +159,36 @@ const _profileEntrySchema = /*#__PURE__*/ v.object({
   $type: /*#__PURE__*/ v.optional(
     /*#__PURE__*/ v.literal("rsvp.atmo.rsvp.listRecords#profileEntry"),
   ),
-  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
   collection: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.nsidString()),
   did: /*#__PURE__*/ v.didString(),
   handle: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-  get record() {
-    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
-  },
   rkey: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   uri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  get value() {
+    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
+  },
 });
 const _recordSchema = /*#__PURE__*/ v.object({
   $type: /*#__PURE__*/ v.optional(
     /*#__PURE__*/ v.literal("rsvp.atmo.rsvp.listRecords#record"),
   ),
-  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+  cid: /*#__PURE__*/ v.cidString(),
   collection: /*#__PURE__*/ v.nsidString(),
   did: /*#__PURE__*/ v.didString(),
   get event() {
     return /*#__PURE__*/ v.optional(refEventRecordSchema);
   },
-  get record() {
-    return /*#__PURE__*/ v.optional(CommunityLexiconCalendarRsvp.mainSchema);
-  },
   rkey: /*#__PURE__*/ v.string(),
   /**
-   * Present when the record was read from a permissioned space; its value is the space URI.
+   * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
    */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
+  get value() {
+    return CommunityLexiconCalendarRsvp.mainSchema;
+  },
 });
 const _refEventRecordSchema = /*#__PURE__*/ v.object({
   $type: /*#__PURE__*/ v.optional(
@@ -192,9 +202,9 @@ const _refEventRecordSchema = /*#__PURE__*/ v.object({
   },
   rkey: /*#__PURE__*/ v.string(),
   /**
-   * Present when the record was read from a permissioned space.
+   * Present when the record was read from a permissioned space; `ats://` URI.
    */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });

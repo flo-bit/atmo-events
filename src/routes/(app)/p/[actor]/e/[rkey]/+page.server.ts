@@ -65,7 +65,7 @@ export async function load({ params, locals, url, platform }) {
 							.then((p) => ({
 								id: s.id,
 								name: s.name,
-								avatar: p?.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined,
+								avatar: p?.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined,
 								handle: p?.handle || s.id
 							}))
 							.catch(() => ({ id: s.id, name: s.name, avatar: undefined, handle: s.id }))
@@ -80,7 +80,7 @@ export async function load({ params, locals, url, platform }) {
 			rkey,
 			hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
 			attendees,
-			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.record?.status),
+			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.value?.status),
 			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
 			parentEvent,
 			vod,

@@ -26,7 +26,7 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.space.listRecords", {
       ]),
       50,
     ),
-    spaceUri: /*#__PURE__*/ v.resourceUriString(),
+    spaceUri: /*#__PURE__*/ v.string(),
   }),
   output: {
     type: "lex",

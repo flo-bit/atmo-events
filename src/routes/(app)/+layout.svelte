@@ -12,7 +12,7 @@
 
 <ModeWatcher />
 
-<Navbar class="top-2 right-2 left-2 mx-auto max-w-3xl rounded-full pr-3 pl-6">
+<Navbar class="top-2 right-2 left-2 mx-auto max-w-3xl rounded-full! pr-3 pl-6">
 	<div class="flex items-center gap-6">
 		<a
 			href={resolve('/')}

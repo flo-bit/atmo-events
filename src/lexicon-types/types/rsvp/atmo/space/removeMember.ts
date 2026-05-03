@@ -8,7 +8,7 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.removeMember", {
     type: "lex",
     schema: /*#__PURE__*/ v.object({
       did: /*#__PURE__*/ v.didString(),
-      spaceUri: /*#__PURE__*/ v.resourceUriString(),
+      spaceUri: /*#__PURE__*/ v.string(),
     }),
   },
   output: {

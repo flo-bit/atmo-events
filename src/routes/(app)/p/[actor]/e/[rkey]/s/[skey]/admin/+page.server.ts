@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	if (!ownerDid) throw error(404, 'Not found');
 	if (ownerDid !== locals.did) throw error(403, 'Only the host can manage this event');
 
-	const spaceUri = `at://${ownerDid}/${SPACE_TYPE}/${params.skey}`;
+	const spaceUri = `ats://${ownerDid}/${SPACE_TYPE}/${params.skey}`;
 
 	const [members, invites] = await Promise.all([
 		listMembers({ spaceUri }).catch(() => []),

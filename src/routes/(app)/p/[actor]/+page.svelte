@@ -11,7 +11,7 @@
 
 	let hostProfile = $derived(data.actorProfile);
 	let hostDid = $derived(data.actorDid as string);
-	let hostName = $derived(hostProfile?.record?.displayName || hostProfile?.handle || hostDid);
+	let hostName = $derived(hostProfile?.value?.displayName || hostProfile?.handle || hostDid);
 
 	let now = $derived(new Date());
 
@@ -45,14 +45,14 @@
 			profile={{
 				handle: hostProfile?.handle,
 				displayName: hostName,
-				avatar: hostProfile?.record?.avatar
-					? getProfileBlobUrl(hostDid, hostProfile.record.avatar)
+				avatar: hostProfile?.value?.avatar
+					? getProfileBlobUrl(hostDid, hostProfile.value.avatar)
 					: undefined
 			}}
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} variant="rose">Logout</Button>
+					<Button onclick={logout} variant="primary" class="rose">Logout</Button>
 				{/if}
 			{/snippet}
 		</UserProfile>

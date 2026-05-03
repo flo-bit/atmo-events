@@ -36,8 +36,8 @@
 		window.addEventListener('resize', resize);
 
 		const flies: Firefly[] = Array.from({ length: COUNT }, () => ({
-			x: Math.random() * canvas.width,
-			y: Math.random() * canvas.height,
+			x: Math.random() * canvas!.width,
+			y: Math.random() * canvas!.height,
 			vx: (Math.random() - 0.5) * 2,
 			vy: (Math.random() - 0.5) * 2,
 			phase: Math.random() * Math.PI * 2,

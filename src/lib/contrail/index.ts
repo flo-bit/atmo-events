@@ -1,7 +1,7 @@
 import { Contrail } from '@atmo-dev/contrail';
 import { createHandler } from '@atmo-dev/contrail/server';
 import { Client } from '@atcute/client';
-import { config } from './config';
+import { config } from '../contrail.config';
 import { getSpacesConfig, spacesAvailable } from '../spaces/config';
 
 const spaces = getSpacesConfig();

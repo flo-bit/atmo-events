@@ -4,18 +4,6 @@
 	import Avatar from 'svelte-boring-avatars';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
 
-	interface AtmoEmbedSDK {
-		getParams(): { base: string; accent: string; dark: boolean; did: string | null };
-		createRecord(opts: { collection: string; rkey?: string; record: Record<string, unknown> }): Promise<{ uri: string }>;
-		deleteRecord(opts: { collection: string; rkey: string }): Promise<void>;
-	}
-
-	declare global {
-		interface Window {
-			AtmoEmbed?: AtmoEmbedSDK;
-		}
-	}
-
 	let { data } = $props();
 
 	let rsvpStatus: 'going' | 'interested' | 'notgoing' | null = $state(untrack(() => data.viewerRsvpStatus));

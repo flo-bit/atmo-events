@@ -8,14 +8,7 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.addMember", {
     type: "lex",
     schema: /*#__PURE__*/ v.object({
       did: /*#__PURE__*/ v.didString(),
-      /**
-       * @default "write"
-       */
-      perms: /*#__PURE__*/ v.optional(
-        /*#__PURE__*/ v.string<"read" | "write" | (string & {})>(),
-        "write",
-      ),
-      spaceUri: /*#__PURE__*/ v.resourceUriString(),
+      spaceUri: /*#__PURE__*/ v.string(),
     }),
   },
   output: {

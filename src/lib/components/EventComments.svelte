@@ -40,7 +40,7 @@
 				`https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}&depth=6`
 			);
 			if (!res.ok) throw new Error(`Failed to load thread (${res.status})`);
-			const data = await res.json();
+			const data = (await res.json()) as { thread?: { replies?: unknown[] } };
 			const thread = data.thread;
 			comments = thread?.replies?.length ? threadToComments(thread.replies) : [];
 		} catch (err) {

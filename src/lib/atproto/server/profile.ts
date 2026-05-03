@@ -13,8 +13,8 @@ export async function loadProfile(did: Did, db: D1Database) {
 		return {
 			did: p.did,
 			handle: p.handle && p.handle !== 'handle.invalid' ? p.handle : did,
-			displayName: p.record?.displayName,
-			avatar: p.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined
+			displayName: p.value?.displayName,
+			avatar: p.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined
 		};
 	} catch (e) {
 		console.error('Failed to load profile:', e);

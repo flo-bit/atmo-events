@@ -21,7 +21,7 @@
 	let hostDid = $derived(hostProfile?.did ?? '');
 	let isOwnProfile = $derived(user.isLoggedIn && !!hostDid && user.did === hostDid);
 	let hostName = $derived(
-		hostProfile?.record?.displayName || hostProfile?.handle || 'ATmosphereConf'
+		hostProfile?.value?.displayName || hostProfile?.handle || 'ATmosphereConf'
 	);
 
 	let scheduleEvents = $derived(getScheduleEvents(data.events));
@@ -112,14 +112,14 @@
 			profile={{
 				handle: hostProfile?.handle,
 				displayName: hostName,
-				avatar: hostProfile?.record?.avatar
-					? getProfileBlobUrl(hostDid, hostProfile.record.avatar)
+				avatar: hostProfile?.value?.avatar
+					? getProfileBlobUrl(hostDid, hostProfile.value.avatar)
 					: undefined
 			}}
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} color="rose" variant="secondary">Logout</Button>
+					<Button onclick={logout} variant="secondary" class="rose">Logout</Button>
 				{/if}
 			{/snippet}
 		</UserProfile>

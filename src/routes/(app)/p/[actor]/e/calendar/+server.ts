@@ -7,11 +7,12 @@ import {
 	buildEventAttendees,
 	flattenEventRecords,
 	getHostProfile,
+	getServerClient,
 	listEventRecordsFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
 
-export async function GET({ params }) {
+export async function GET({ params, platform }) {
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}
@@ -23,7 +24,8 @@ export async function GET({ params }) {
 	}
 
 	try {
-		const response = await listEventRecordsFromContrail({
+		const client = getServerClient(platform!.env.DB);
+		const response = await listEventRecordsFromContrail(client, {
 			actor: params.actor,
 			hydrateRsvps: RSVP_HYDRATE_LIMIT,
 			profiles: true,

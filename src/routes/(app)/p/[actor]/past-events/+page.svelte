@@ -6,9 +6,9 @@
 
 	let hostProfile = $derived(data.actorProfile);
 	let hostDid = $derived(data.actorDid as string);
-	let hostName = $derived(hostProfile?.record?.displayName || hostProfile?.handle || hostDid);
+	let hostName = $derived(hostProfile?.value?.displayName || hostProfile?.handle || hostDid);
 	let hostAvatar = $derived(
-		hostProfile?.record?.avatar ? getProfileBlobUrl(hostDid, hostProfile.record.avatar) : undefined
+		hostProfile?.value?.avatar ? getProfileBlobUrl(hostDid, hostProfile.value.avatar) : undefined
 	);
 
 	let fetchParams: Record<string, string> = $derived({

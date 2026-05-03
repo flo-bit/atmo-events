@@ -6,7 +6,7 @@ import '../../../lexicon-types/index.js';
 import { getSpacesClient } from './client';
 import { SPACE_TYPE, spacesAvailable } from '../config';
 
-const atUriSchema = v.pipe(v.string(), v.regex(/^at:\/\/.+/));
+const atUriSchema = v.pipe(v.string(), v.regex(/^ats?:\/\/.+/));
 const didSchema = v.pipe(v.string(), v.regex(/^did:[a-z]+:.+/));
 const nsidSchema = v.pipe(v.string(), v.regex(/^[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z][a-zA-Z0-9-]*){2,}$/));
 
@@ -165,7 +165,7 @@ export const createInvite = command(
 	}),
 	async (input) => {
 		const { client } = getClient();
-		const res = await client.post('rsvp.atmo.space.invite.create', {
+		const res = await client.post('rsvp.atmo.invite.create', {
 			input: { ...input, spaceUri: input.spaceUri as unknown as import('@atcute/lexicons').ResourceUri }
 		});
 		if (!res.ok) error(res.status, 'createInvite failed');
@@ -177,7 +177,7 @@ export const listInvites = query(
 	v.object({ spaceUri: atUriSchema, includeRevoked: v.optional(v.boolean()) }),
 	async ({ spaceUri, includeRevoked }) => {
 		const { client } = getClient();
-		const res = await client.get('rsvp.atmo.space.invite.list', {
+		const res = await client.get('rsvp.atmo.invite.list', {
 			params: {
 				spaceUri: spaceUri as unknown as import('@atcute/lexicons').ResourceUri,
 				includeRevoked: includeRevoked ?? false
@@ -192,7 +192,7 @@ export const revokeInvite = command(
 	v.object({ spaceUri: atUriSchema, tokenHash: v.string() }),
 	async (input) => {
 		const { client } = getClient();
-		const res = await client.post('rsvp.atmo.space.invite.revoke', {
+		const res = await client.post('rsvp.atmo.invite.revoke', {
 			input: { ...input, spaceUri: input.spaceUri as unknown as import('@atcute/lexicons').ResourceUri }
 		});
 		if (!res.ok) error(res.status, 'revokeInvite failed');
@@ -246,7 +246,7 @@ export const deleteSpaceRecord = command(
 
 export const redeemInvite = command(v.object({ token: v.string() }), async ({ token }) => {
 	const { client } = getClient();
-	const res = await client.post('rsvp.atmo.space.invite.redeem', { input: { token } });
+	const res = await client.post('rsvp.atmo.invite.redeem', { input: { token } });
 	if (!res.ok) {
 		console.error('[redeemInvite] xrpc error', res.status, res.data);
 		error(res.status, `redeemInvite ${res.status}: ${JSON.stringify(res.data)}`);

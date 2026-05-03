@@ -9,7 +9,7 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.space.getSpace", {
      * Read-grant invite token. When supplied, replaces JWT auth for this read.
      */
     inviteToken: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-    uri: /*#__PURE__*/ v.resourceUriString(),
+    uri: /*#__PURE__*/ v.string(),
   }),
   output: {
     type: "lex",
