@@ -175,10 +175,20 @@ export function getHostProfile(did: string, profiles?: EventProfiles): HostProfi
 	};
 }
 
+/** Structural minimum buildAttendee needs — every contrail profile-entry
+ *  shape (event.listRecords, rsvp.listRecords, getProfile, getFeed) widens to
+ *  this. Using a structural type avoids a union of nominally-distinct lex types
+ *  whose `$type` literals don't match. */
+type AttendeeProfileEntry = {
+	did: string;
+	handle?: string;
+	value?: { displayName?: string; avatar?: unknown };
+};
+
 export function buildAttendee(
 	did: string,
 	status: 'going' | 'interested',
-	profiles?: EventProfiles | RsvpProfileEntry[]
+	profiles?: AttendeeProfileEntry[]
 ): AttendeeInfo {
 	const profile = profiles?.find((entry) => entry.did === did);
 	const handle = profile?.handle;

@@ -84,7 +84,53 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		limit: 20
 	});
 
-	const recentActivityPromise = (async (): Promise<ActivityCluster[]> => {
+	// listRecords and getFeed return structurally identical rsvp records, but TS
+	// sees them as nominally-distinct lex types. Cast inputs to the structural
+	// minimum we actually use.
+	type ActivityRsvp = {
+		did: string;
+		collection: string;
+		uri: string;
+		value?: { status?: string; createdAt?: string };
+		event?: Parameters<typeof flattenEventRecord>[0];
+	};
+	type ActivityProfile = Parameters<typeof buildAttendee>[2] extends Array<infer P> | undefined
+		? P
+		: never;
+
+	function clusterRsvps(
+		records: ActivityRsvp[],
+		profiles: ActivityProfile[]
+	): ActivityCluster[] {
+		const nowMs = Date.now();
+		const clusters = new Map<string, ActivityCluster>();
+		for (const r of records) {
+			const status = r.value?.status;
+			const isGoing = status?.endsWith('#going');
+			const isInterested = status?.endsWith('#interested');
+			if (!isGoing && !isInterested) continue;
+			if (!r.event) continue;
+			const flatEvent = flattenEventRecord(r.event);
+			if (!flatEvent) continue;
+			const eventEndMs = new Date(flatEvent.endsAt || flatEvent.startsAt).getTime();
+			if (eventEndMs < nowMs) continue;
+
+			const attendee = buildAttendee(r.did, isGoing ? 'going' : 'interested', profiles);
+			const createdAtMs = r.value?.createdAt ? new Date(r.value.createdAt).getTime() : 0;
+			let cluster = clusters.get(flatEvent.uri);
+			if (!cluster) {
+				cluster = { event: flatEvent, attendees: [], latestCreatedAtMs: createdAtMs };
+				clusters.set(flatEvent.uri, cluster);
+			}
+			cluster.attendees.push(attendee);
+			if (createdAtMs > cluster.latestCreatedAtMs) cluster.latestCreatedAtMs = createdAtMs;
+		}
+		return Array.from(clusters.values())
+			.sort((a, b) => b.latestCreatedAtMs - a.latestCreatedAtMs)
+			.slice(0, ACTIVITY_DISPLAY_LIMIT);
+	}
+
+	async function fetchGlobalActivity(): Promise<ActivityCluster[]> {
 		const response = await publicClient.get('rsvp.atmo.rsvp.listRecords', {
 			params: {
 				hydrateEvent: true,
@@ -95,50 +141,55 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			}
 		});
 		if (!response.ok) return [];
+		return clusterRsvps(
+			(response.data.records ?? []) as ActivityRsvp[],
+			(response.data.profiles ?? []) as ActivityProfile[]
+		);
+	}
 
-		const records = response.data.records ?? [];
-		const profiles = response.data.profiles ?? [];
-		const nowMs = Date.now();
-		const clusters = new Map<string, ActivityCluster>();
-
-		for (const r of records) {
-			const status = r.value?.status;
-			const isGoing = status?.endsWith('#going');
-			const isInterested = status?.endsWith('#interested');
-			if (!isGoing && !isInterested) continue;
-
-			if (!r.event) continue;
-			const flatEvent = flattenEventRecord(r.event);
-			if (!flatEvent) continue;
-
-			const eventEndMs = new Date(flatEvent.endsAt || flatEvent.startsAt).getTime();
-			if (eventEndMs < nowMs) continue;
-
-			const attendee = buildAttendee(r.did, isGoing ? 'going' : 'interested', profiles);
-			// `createdAt` is an atproto convention all RSVPs carry, even though the
-			// community.lexicon.calendar.rsvp schema doesn't formally declare it.
-			const createdAt = (r.value as { createdAt?: string } | undefined)?.createdAt;
-			const createdAtMs = createdAt ? new Date(createdAt).getTime() : 0;
-
-			let cluster = clusters.get(flatEvent.uri);
-			if (!cluster) {
-				cluster = { event: flatEvent, attendees: [], latestCreatedAtMs: createdAtMs };
-				clusters.set(flatEvent.uri, cluster);
+	const recentActivityPromise = (async (): Promise<{
+		activity: ActivityCluster[];
+		isPersonalized: boolean;
+	}> => {
+		// Logged-in: try the personalized "from people you follow" feed first.
+		// If empty (cold start, follows haven't RSVP'd to upcoming events),
+		// fall back to the global recent-RSVP feed so the section isn't dead.
+		// Anon: skip straight to global.
+		if (locals.did) {
+			const response = await publicClient.get('rsvp.atmo.getFeed', {
+				params: {
+					feed: 'network',
+					actor: locals.did,
+					// NOTE: contrail's getFeed runtime checks `collection` against
+					// the SHORT names from `feedConfig.targets` (e.g. 'rsvp'), but
+					// the regenerated lex schema documents the full NSID as the
+					// valid enum. Pass the short name; full NSID returns 400.
+					collection: 'rsvp',
+					hydrateEvent: true,
+					profiles: true,
+					sort: 'createdAt',
+					order: 'desc',
+					limit: ACTIVITY_FETCH_LIMIT
+				}
+			});
+			if (response.ok) {
+				const personalized = clusterRsvps(
+					(response.data.records ?? []) as ActivityRsvp[],
+					(response.data.profiles ?? []) as ActivityProfile[]
+				);
+				if (personalized.length > 0) return { activity: personalized, isPersonalized: true };
 			}
-			cluster.attendees.push(attendee);
-			if (createdAtMs > cluster.latestCreatedAtMs) cluster.latestCreatedAtMs = createdAtMs;
 		}
-
-		return Array.from(clusters.values())
-			.sort((a, b) => b.latestCreatedAtMs - a.latestCreatedAtMs)
-			.slice(0, ACTIVITY_DISPLAY_LIMIT);
+		return { activity: await fetchGlobalActivity(), isPersonalized: false };
 	})();
 
-	const [myEvents, response, recentActivity] = await Promise.all([
+	const [myEvents, response, recentActivityResult] = await Promise.all([
 		myEventsPromise,
 		globalPromise,
 		recentActivityPromise
 	]);
+	const { activity: recentActivity, isPersonalized: recentActivityIsPersonalized } =
+		recentActivityResult;
 
 	if (!response) {
 		return {
@@ -146,7 +197,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			handles: {},
 			myUpcoming: myEvents.upcoming,
 			myPast: myEvents.past,
-			recentActivity
+			recentActivity,
+			recentActivityIsPersonalized
 		};
 	}
 
@@ -160,6 +212,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		handles,
 		myUpcoming: myEvents.upcoming,
 		myPast: myEvents.past,
-		recentActivity
+		recentActivity,
+		recentActivityIsPersonalized
 	};
 };

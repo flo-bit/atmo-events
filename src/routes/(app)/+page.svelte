@@ -99,7 +99,14 @@
 
 	{#if data.recentActivity.length > 0}
 		<section class="mt-16">
-			<h2 class="text-base-900 dark:text-base-50 mb-4 text-xl font-bold">Recent activity</h2>
+			<h2 class="text-base-900 dark:text-base-50 text-xl font-bold {data.recentActivityIsPersonalized ? 'mb-1' : 'mb-4'}">
+				{data.recentActivityIsPersonalized ? 'From people you follow' : 'Recent activity'}
+			</h2>
+			{#if data.recentActivityIsPersonalized}
+				<p class="text-base-500 dark:text-base-400 mb-4 text-sm">
+					Events your Bluesky follows are RSVPing to.
+				</p>
+			{/if}
 			<RecentActivity activities={data.recentActivity} />
 		</section>
 	{/if}

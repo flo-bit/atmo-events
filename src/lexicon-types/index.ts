@@ -1,4 +1,5 @@
 export * as AppBskyActorProfile from "./types/app/bsky/actor/profile.js";
+export * as AppBskyGraphFollow from "./types/app/bsky/graph/follow.js";
 export * as CommunityLexiconCalendarEvent from "./types/community/lexicon/calendar/event.js";
 export * as CommunityLexiconCalendarRsvp from "./types/community/lexicon/calendar/rsvp.js";
 export * as CommunityLexiconLocationAddress from "./types/community/lexicon/location/address.js";
@@ -8,6 +9,7 @@ export * as CommunityLexiconLocationHthree from "./types/community/lexicon/locat
 export * as RsvpAtmoEventGetRecord from "./types/rsvp/atmo/event/getRecord.js";
 export * as RsvpAtmoEventListRecords from "./types/rsvp/atmo/event/listRecords.js";
 export * as RsvpAtmoGetCursor from "./types/rsvp/atmo/getCursor.js";
+export * as RsvpAtmoGetFeed from "./types/rsvp/atmo/getFeed.js";
 export * as RsvpAtmoGetOverview from "./types/rsvp/atmo/getOverview.js";
 export * as RsvpAtmoGetProfile from "./types/rsvp/atmo/getProfile.js";
 export * as RsvpAtmoInviteCreate from "./types/rsvp/atmo/invite/create.js";

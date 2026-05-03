@@ -62,10 +62,6 @@ export const config: ContrailConfig = {
 			queryable: {
 				status: {},
 				'subject.uri': {},
-				// Sortable so the home-page activity feed can order by when the user
-				// actually RSVP'd (record.createdAt) — not by when contrail indexed
-				// it (time_us). Without this, a fresh backfill clusters thousands of
-				// historical RSVPs at the top of time_us order, drowning live activity.
 				createdAt: { type: 'range' }
 			},
 			references: {
@@ -74,6 +70,16 @@ export const config: ContrailConfig = {
 					field: 'subject.uri'
 				}
 			}
+		}
+		// `follow` (app.bsky.graph.follow) is auto-added by contrail 0.5+ when
+		// `feeds` is configured: discover:false, subjectField:'subject' (so only
+		// follows whose subject is already in identities are indexed).
+	},
+	feeds: {
+		// Exposed as rsvp.atmo.getFeed?feed=network&actor=<did>&collection=<nsid>.
+		// Powers the home-page "from people you follow" surface.
+		network: {
+			targets: ['event', 'rsvp']
 		}
 	}
 };

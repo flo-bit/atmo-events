@@ -37,6 +37,10 @@ declare global {
 				DB: D1Database;
 				CRON_SECRET: string;
 			};
+			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
+			 *  let the worker keep a fire-and-forget task alive after the response
+			 *  has been sent. Optional in dev (wrangler proxy may not provide it). */
+			ctx?: { waitUntil(promise: Promise<unknown>): void };
 		}
 	}
 }

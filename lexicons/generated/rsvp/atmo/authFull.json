@@ -15,6 +15,7 @@
             "rsvp.atmo.event.getRecord",
             "rsvp.atmo.event.listRecords",
             "rsvp.atmo.getCursor",
+            "rsvp.atmo.getFeed",
             "rsvp.atmo.getOverview",
             "rsvp.atmo.getProfile",
             "rsvp.atmo.invite.create",
