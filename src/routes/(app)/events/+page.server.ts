@@ -11,6 +11,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	const client = getServerClient(platform!.env.DB);
 	const now = new Date().toISOString();
 	const cursor = url.searchParams.get('cursor') ?? undefined;
+	const isPopular = url.searchParams.get('filter') !== 'all';
 
 	const response = await listDiscoverableEventsFromContrail(client, {
 		startsAtMin: now,
@@ -18,7 +19,8 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 		sort: 'startsAt',
 		order: 'asc',
 		limit: PAGE_SIZE,
-		cursor
+		cursor,
+		...(isPopular ? { rsvpsGoingCountMin: 2 } : {})
 	});
 
 	if (!response) return { events: [], handles: {}, cursor: null };

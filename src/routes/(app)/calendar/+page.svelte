@@ -13,6 +13,8 @@
 		user.profile?.handle ? `https://atmo.rsvp/p/${user.profile.handle}/calendar.ics` : ''
 	);
 
+	let hasEvents = $derived(data.upcoming.length > 0 || data.past.length > 0);
+
 	async function copyAndShowModal() {
 		if (!calendarUrl) return;
 		try {
@@ -35,7 +37,7 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-2 flex items-center justify-between">
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Calendar</h1>
-		{#if data.loggedIn && data.events.length > 0}
+		{#if data.loggedIn && hasEvents}
 			<Button variant="secondary" onclick={copyAndShowModal}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -53,9 +55,9 @@
 			</Button>
 		{/if}
 	</div>
-	<h1 class="text-base-700 dark:text-base-300 mb-8 mt-4 text-sm">
-		Upcoming events you're hosting, attending or interested in
-	</h1>
+	<p class="text-base-700 dark:text-base-300 mb-8 mt-4 text-sm">
+		Events you're hosting, attending or interested in
+	</p>
 
 	{#if !data.loggedIn}
 		<div
@@ -64,12 +66,12 @@
 			<p class="text-base-600 dark:text-base-400 mb-4">Log in to see your events</p>
 			<Button onclick={() => atProtoLoginModalState.show()}>Login</Button>
 		</div>
-	{:else if data.events.length === 0}
+	{:else if !hasEvents}
 		<div
 			class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
 		>
 			<p class="text-base-600 dark:text-base-400 text-center text-sm">
-				No upcoming events on your calendar.
+				No events on your calendar.
 			</p>
 			<div class="mt-6 flex justify-center gap-3">
 				<Button href="/">Join events</Button>
@@ -77,10 +79,32 @@
 			</div>
 		</div>
 	{:else}
-		<div class="grid gap-6 sm:grid-cols-2">
-			{#each data.events as event (event.uri)}
-				<EventCard {event} />
-			{/each}
+		<div class="space-y-10">
+			{#if data.upcoming.length > 0}
+				<div>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
+						Upcoming events
+					</h3>
+					<div class="grid gap-6 sm:grid-cols-2">
+						{#each data.upcoming as event (event.uri)}
+							<EventCard {event} />
+						{/each}
+					</div>
+				</div>
+			{/if}
+
+			{#if data.past.length > 0}
+				<div>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
+						Past events
+					</h3>
+					<div class="grid gap-6 sm:grid-cols-2">
+						{#each data.past as event (event.uri)}
+							<EventCard {event} />
+						{/each}
+					</div>
+				</div>
+			{/if}
 		</div>
 
 		<Modal bind:open={calendarModalOpen}>
@@ -89,17 +113,19 @@
 					Add to your calendar
 				</h2>
 				<p class="text-base-600 dark:text-base-400 text-sm">
-					Subscribe to your events calendar using the URL below. Your calendar will stay
-					in sync automatically as you RSVP to new events.
+					Subscribe to your events calendar using the URL below. Your calendar will stay in
+					sync automatically as you RSVP to new events.
 				</p>
 
 				<button
-					class="border-base-200 dark:border-base-700 bg-base-50 dark:bg-base-900 flex w-full min-w-0 cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 transition-colors hover:bg-base-100 dark:hover:bg-base-800"
+					class="border-base-200 dark:border-base-700 bg-base-50 dark:bg-base-900 hover:bg-base-100 dark:hover:bg-base-800 flex w-full min-w-0 cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 transition-colors"
 					onclick={async () => {
 						try {
 							await navigator.clipboard.writeText(calendarUrl);
 							copied = true;
-							setTimeout(() => { copied = false; }, 3000);
+							setTimeout(() => {
+								copied = false;
+							}, 3000);
 						} catch {
 							// ignore
 						}
@@ -135,9 +161,7 @@
 							class="text-base-600 dark:text-base-400 mt-1 list-inside list-decimal space-y-0.5 text-sm"
 						>
 							<li>Open Google Calendar in your browser</li>
-							<li>
-								Click the + next to "Other calendars" in the sidebar
-							</li>
+							<li>Click the + next to "Other calendars" in the sidebar</li>
 							<li>Select "From URL"</li>
 							<li>Paste the URL above and click "Add calendar"</li>
 						</ol>
