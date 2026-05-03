@@ -2,6 +2,8 @@
 
 events for the open social web, built on atproto.
 
+https://atmo.rsvp
+
 uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
 
 features:
