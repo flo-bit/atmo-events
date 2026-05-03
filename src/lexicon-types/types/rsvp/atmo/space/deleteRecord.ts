@@ -9,7 +9,7 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.deleteRecord", {
     schema: /*#__PURE__*/ v.object({
       collection: /*#__PURE__*/ v.nsidString(),
       rkey: /*#__PURE__*/ v.string(),
-      spaceUri: /*#__PURE__*/ v.resourceUriString(),
+      spaceUri: /*#__PURE__*/ v.string(),
     }),
   },
   output: {

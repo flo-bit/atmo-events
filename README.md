@@ -30,7 +30,7 @@ set remote to false in `wrangler.jsonc` L22:
 optionally if you want all current events to be displayed run this: (will take a few minutes)
 
 ```
-pnpm run sync
+pnpm backfill
 ```
 
 start dev server:

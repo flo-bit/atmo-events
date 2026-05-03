@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 	const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
 		.filter((r) => {
-			const status = r.record?.status;
+			const status = r.value?.status;
 			return status?.endsWith('#going') || status?.endsWith('#interested');
 		})
 		.flatMap((r) => {

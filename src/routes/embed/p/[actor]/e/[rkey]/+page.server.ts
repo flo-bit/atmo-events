@@ -61,7 +61,7 @@ export async function load({ params, url, platform }) {
 			hostProfile,
 			thumbnailUrl,
 			viewerDid,
-			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.record?.status),
+			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.value?.status),
 			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null
 		};
 	} catch (e) {

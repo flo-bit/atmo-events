@@ -137,7 +137,6 @@
 				<li class="flex items-center justify-between py-2">
 					<div>
 						<div class="font-mono text-xs">{m.did}</div>
-						<div class="text-base-500 text-xs">{m.perms}</div>
 					</div>
 					<button class="text-xs text-red-600" onclick={() => handleRemoveMember(m.did)}
 						>Remove</button

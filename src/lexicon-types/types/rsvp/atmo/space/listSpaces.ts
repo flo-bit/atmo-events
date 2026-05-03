@@ -18,6 +18,10 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.space.listSpaces", {
       50,
     ),
     /**
+     * With scope=member, filter to spaces owned by this DID. Ignored when scope=owner.
+     */
+    owner: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.didString()),
+    /**
      * @default "member"
      */
     scope: /*#__PURE__*/ v.optional(

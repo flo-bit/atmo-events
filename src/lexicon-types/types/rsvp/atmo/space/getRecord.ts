@@ -12,7 +12,7 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.space.getRecord", {
      */
     inviteToken: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     rkey: /*#__PURE__*/ v.string(),
-    spaceUri: /*#__PURE__*/ v.resourceUriString(),
+    spaceUri: /*#__PURE__*/ v.string(),
   }),
   output: {
     type: "lex",

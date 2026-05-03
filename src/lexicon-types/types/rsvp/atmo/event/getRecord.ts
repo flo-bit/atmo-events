@@ -108,9 +108,9 @@ const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object({
   },
   rkey: /*#__PURE__*/ v.string(),
   /**
-   * Present when the record was read from a permissioned space.
+   * Present when the record was read from a permissioned space; `ats://` URI.
    */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });
@@ -135,9 +135,9 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.getRecord", {
      */
     profiles: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
     /**
-     * If set, fetch from this permissioned space (requires service-auth JWT or a read-grant invite token).
+     * If set, fetch from this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI.
      */
-    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * AT URI of the record
      */
@@ -146,17 +146,12 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.getRecord", {
   output: {
     type: "lex",
     schema: /*#__PURE__*/ v.object({
-      cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+      cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
       collection: /*#__PURE__*/ v.nsidString(),
       did: /*#__PURE__*/ v.didString(),
       get profiles() {
         return /*#__PURE__*/ v.optional(
           /*#__PURE__*/ v.array(profileEntrySchema),
-        );
-      },
-      get record() {
-        return /*#__PURE__*/ v.optional(
-          CommunityLexiconCalendarEvent.mainSchema,
         );
       },
       rkey: /*#__PURE__*/ v.string(),
@@ -180,11 +175,14 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.getRecord", {
        */
       rsvpsNotgoingCount: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
       /**
-       * Present when the record was read from a permissioned space; its value is the space URI.
+       * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
        */
-      space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+      space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
       time_us: /*#__PURE__*/ v.integer(),
       uri: /*#__PURE__*/ v.resourceUriString(),
+      get value() {
+        return CommunityLexiconCalendarEvent.mainSchema;
+      },
     }),
   },
 });
@@ -192,15 +190,15 @@ const _profileEntrySchema = /*#__PURE__*/ v.object({
   $type: /*#__PURE__*/ v.optional(
     /*#__PURE__*/ v.literal("rsvp.atmo.event.getRecord#profileEntry"),
   ),
-  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
   collection: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.nsidString()),
   did: /*#__PURE__*/ v.didString(),
   handle: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-  get record() {
-    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
-  },
   rkey: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   uri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  get value() {
+    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
+  },
 });
 
 type appBskyActorProfile$schematype = typeof _appBskyActorProfileSchema;

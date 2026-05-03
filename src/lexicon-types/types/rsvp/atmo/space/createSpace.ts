@@ -18,9 +18,6 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.createSpace", {
        * Space key. Auto-generated (TID) if omitted.
        */
       key: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-      memberListRef: /*#__PURE__*/ v.optional(
-        /*#__PURE__*/ v.resourceUriString(),
-      ),
       /**
        * Space type NSID. Defaults to the service's configured type.
        */

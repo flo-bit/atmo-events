@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@atmo-dev/contrail':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.4.2
+        version: 0.4.2(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
       '@ethercorps/sveltekit-og':
         specifier: ^4.2.1
         version: 4.2.1(@sveltejs/kit@2.55.0(@sveltejs/vite-plugin-svelte@7.0.0(svelte@5.55.0)(vite@8.0.3(@types/node@25.0.10)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)))(svelte@5.55.0)(typescript@6.0.2)(vite@8.0.3(@types/node@25.0.10)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)))
@@ -99,6 +99,9 @@ importers:
       '@atcute/tid':
         specifier: ^1.1.2
         version: 1.1.2
+      '@atmo-dev/contrail-lexicons':
+        specifier: ^0.4.3
+        version: 0.4.3(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
       '@cloudflare/workers-types':
         specifier: ^4.20260317.1
         version: 4.20260317.1
@@ -270,12 +273,20 @@ packages:
   '@atcute/xrpc-server@0.1.12':
     resolution: {integrity: sha512-70KIerQlljp5+s6t0u6YNN9klEboQUZa2hhoi/hmXIO1cIKEORettTMctnyjfcCJaSfAuj42dxPu51GTZBlm8w==}
 
-  '@atmo-dev/contrail@0.1.1':
-    resolution: {integrity: sha512-7BdLYjHHGC2EKlT/p3KszJAE6Pv1FPPuLVG+eYRpXSTF6iwrk/FVA0Dep7lTowbLlo5mQBpbEpo2CrQtUZAPfQ==}
+  '@atmo-dev/contrail-lexicons@0.4.3':
+    resolution: {integrity: sha512-j9eEiiOWj9usOqEK0hFoVcl/NSMM29X0S/vO7SlmE5jEF2UoWwXAxIr81uZ3HODtlWn5ztgWS7Ls8a6GGIU/lw==}
+    hasBin: true
+
+  '@atmo-dev/contrail@0.4.2':
+    resolution: {integrity: sha512-ixPuxovCMnXQtjhxFhGzlDLxFt3r5FfozrQ0e9ABOjujqzP7nYpfCT1ltPJxSt2nHQJ43IUnVqqkPvV9GO0AaA==}
+    hasBin: true
     peerDependencies:
       pg: ^8.0.0
+      wrangler: ^4.0.0
     peerDependenciesMeta:
       pg:
+        optional: true
+      wrangler:
         optional: true
 
   '@badrap/valita@0.4.6':
@@ -1671,6 +1682,10 @@ packages:
   brace-expansion@5.0.5:
     resolution: {integrity: sha512-VZznLgtwhn+Mact9tfiwx64fA9erHH/MCXEUfB/0bX/6Fz6ny5EGTXYltMocqg4xFAQZtnO3DHWWXi8RiuN7cQ==}
     engines: {node: 18 || 20 || >=22}
+
+  cac@7.0.0:
+    resolution: {integrity: sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ==}
+    engines: {node: '>=20.19.0'}
 
   camelize@1.0.1:
     resolution: {integrity: sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==}
@@ -3150,16 +3165,31 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.7
 
-  '@atmo-dev/contrail@0.1.1':
+  '@atmo-dev/contrail-lexicons@0.4.3(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
+    dependencies:
+      '@atcute/lex-cli': 2.5.3
+      '@atmo-dev/contrail': 0.4.2(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
+    transitivePeerDependencies:
+      - pg
+      - react
+      - wrangler
+
+  '@atmo-dev/contrail@0.4.2(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
     dependencies:
       '@atcute/atproto': 3.1.10
+      '@atcute/cbor': 2.3.2
+      '@atcute/cid': 2.4.1
       '@atcute/client': 4.2.1
       '@atcute/identity': 1.1.4
       '@atcute/identity-resolver': 1.2.2(@atcute/identity@1.1.4)
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
+      cac: 7.0.0
       hono: 4.12.14
+      jiti: 2.6.1
+    optionalDependencies:
+      wrangler: 4.77.0(@cloudflare/workers-types@4.20260317.1)
     transitivePeerDependencies:
       - react
 
@@ -4411,6 +4441,8 @@ snapshots:
   brace-expansion@5.0.5:
     dependencies:
       balanced-match: 4.0.4
+
+  cac@7.0.0: {}
 
   camelize@1.0.1: {}
 

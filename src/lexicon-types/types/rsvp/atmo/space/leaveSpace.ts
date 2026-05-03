@@ -7,7 +7,7 @@ const _mainSchema = /*#__PURE__*/ v.procedure("rsvp.atmo.space.leaveSpace", {
   input: {
     type: "lex",
     schema: /*#__PURE__*/ v.object({
-      spaceUri: /*#__PURE__*/ v.resourceUriString(),
+      spaceUri: /*#__PURE__*/ v.string(),
     }),
   },
   output: {

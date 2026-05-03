@@ -42,7 +42,7 @@ export async function GET({ params, platform }) {
 
 		const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
 			.filter((r) => {
-				const status = r.record?.status;
+				const status = r.value?.status;
 				return status?.endsWith('#going') || status?.endsWith('#interested');
 			})
 			.flatMap((r) => {

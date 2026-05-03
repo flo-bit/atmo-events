@@ -69,7 +69,11 @@ export type EventAttendeesResult = {
 export type ActivityCluster = {
 	event: FlatEventRecord;
 	attendees: AttendeeInfo[];
-	latestTimeUs: number;
+	/** ms since epoch of the most recent RSVP in this cluster, taken from the
+	 *  RSVP record's `createdAt` (when the user actually RSVP'd) — not from
+	 *  contrail's `time_us` (which reflects index time and all bunches up after
+	 *  a backfill). */
+	latestCreatedAtMs: number;
 };
 
 type ListEventsParams = {
@@ -115,10 +119,15 @@ export function getProfileBlobUrl(did: string, blob: unknown) {
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {
-	if (!record.record?.startsAt) return null;
+	// Top-level envelope records use `value`; hydrated sub-records (e.g. the
+	// event embedded on an RSVP) still use `record`. Accept either shape.
+	const body =
+		('value' in record ? (record.value as EventData | undefined) : undefined) ??
+		('record' in record ? (record.record as EventData | undefined) : undefined);
+	if (!body?.startsAt) return null;
 
 	return {
-		...(record.record as EventData),
+		...body,
 		cid: record.cid ?? null,
 		did: record.did,
 		rkey: record.rkey,
@@ -147,7 +156,7 @@ export function flattenEventRecords(records: EventListRecord[]): FlatEventRecord
 export function eventUrl(event: FlatEventRecord, actor?: string): string {
 	const who = actor || event.did;
 	if (event.space) {
-		const m = event.space.match(/^at:\/\/[^/]+\/[^/]+\/([^/]+)$/);
+		const m = event.space.match(/^ats?:\/\/[^/]+\/[^/]+\/([^/]+)$/);
 		const skey = m?.[1];
 		if (skey) return `/p/${who}/e/${event.rkey}/s/${skey}`;
 	}
@@ -161,8 +170,8 @@ export function getHostProfile(did: string, profiles?: EventProfiles): HostProfi
 	return {
 		did,
 		handle: profile.handle,
-		displayName: profile.record?.displayName,
-		avatar: getProfileBlobUrl(did, profile.record?.avatar)
+		displayName: profile.value?.displayName,
+		avatar: getProfileBlobUrl(did, profile.value?.avatar)
 	};
 }
 
@@ -177,8 +186,8 @@ export function buildAttendee(
 	return {
 		did,
 		status,
-		avatar: getProfileBlobUrl(did, profile?.record?.avatar),
-		name: profile?.record?.displayName || handle || did,
+		avatar: getProfileBlobUrl(did, profile?.value?.avatar),
+		name: profile?.value?.displayName || handle || did,
 		handle,
 		url: getProfileUrl(handle || did)
 	};
@@ -390,7 +399,7 @@ export async function listAttendingEventsFromContrail(client: Client, actor: Act
 	const seen = new Set<string>();
 	return (response.data.records ?? [])
 		.filter((record) => {
-			const status = record.record?.status;
+			const status = record.value?.status;
 			return status?.endsWith('#going') || status?.endsWith('#interested');
 		})
 		.flatMap((record) => {

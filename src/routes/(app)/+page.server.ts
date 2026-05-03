@@ -45,7 +45,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 		const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
 			.filter((r) => {
-				const status = r.record?.status;
+				const status = r.value?.status;
 				return status?.endsWith('#going') || status?.endsWith('#interested');
 			})
 			.flatMap((r) => {
@@ -89,6 +89,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			params: {
 				hydrateEvent: true,
 				profiles: true,
+				sort: 'createdAt',
+				order: 'desc',
 				limit: ACTIVITY_FETCH_LIMIT
 			}
 		});
@@ -100,7 +102,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		const clusters = new Map<string, ActivityCluster>();
 
 		for (const r of records) {
-			const status = r.record?.status;
+			const status = r.value?.status;
 			const isGoing = status?.endsWith('#going');
 			const isInterested = status?.endsWith('#interested');
 			if (!isGoing && !isInterested) continue;
@@ -113,18 +115,22 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			if (eventEndMs < nowMs) continue;
 
 			const attendee = buildAttendee(r.did, isGoing ? 'going' : 'interested', profiles);
+			// `createdAt` is an atproto convention all RSVPs carry, even though the
+			// community.lexicon.calendar.rsvp schema doesn't formally declare it.
+			const createdAt = (r.value as { createdAt?: string } | undefined)?.createdAt;
+			const createdAtMs = createdAt ? new Date(createdAt).getTime() : 0;
 
 			let cluster = clusters.get(flatEvent.uri);
 			if (!cluster) {
-				cluster = { event: flatEvent, attendees: [], latestTimeUs: r.time_us };
+				cluster = { event: flatEvent, attendees: [], latestCreatedAtMs: createdAtMs };
 				clusters.set(flatEvent.uri, cluster);
 			}
 			cluster.attendees.push(attendee);
-			if (r.time_us > cluster.latestTimeUs) cluster.latestTimeUs = r.time_us;
+			if (createdAtMs > cluster.latestCreatedAtMs) cluster.latestCreatedAtMs = createdAtMs;
 		}
 
 		return Array.from(clusters.values())
-			.sort((a, b) => b.latestTimeUs - a.latestTimeUs)
+			.sort((a, b) => b.latestCreatedAtMs - a.latestCreatedAtMs)
 			.slice(0, ACTIVITY_DISPLAY_LIMIT);
 	})();
 

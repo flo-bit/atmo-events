@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 		return { authState: 'not-found' as const };
 	}
 
-	const spaceUri = `at://${ownerDid}/${SPACE_TYPE}/${params.skey}`;
+	const spaceUri = `ats://${ownerDid}/${SPACE_TYPE}/${params.skey}`;
 	const inviteToken = url.searchParams.get('invite') ?? undefined;
 	const hasInvite = inviteToken != null;
 
@@ -79,8 +79,8 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 			hostProfile = {
 				did: p.did,
 				handle: p.handle && p.handle !== 'handle.invalid' ? p.handle : ownerDid,
-				displayName: p.record?.displayName,
-				avatar: p.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined
+				displayName: p.value?.displayName,
+				avatar: p.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined
 			};
 		}
 	} catch {
@@ -120,8 +120,8 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 					profileMap.set(did, {
 						did: p.did,
 						handle: p.handle && p.handle !== 'handle.invalid' ? p.handle : did,
-						displayName: p.record?.displayName,
-						avatar: p.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined
+						displayName: p.value?.displayName,
+						avatar: p.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined
 					});
 				}
 			} catch {
@@ -242,8 +242,8 @@ async function loadByInviteToken(
 					profileMap.set(d, {
 						did: p.did,
 						handle: p.handle && p.handle !== 'handle.invalid' ? p.handle : d,
-						displayName: p.record?.displayName,
-						avatar: p.record?.avatar ? getProfileBlobUrl(p.did, p.record.avatar) : undefined
+						displayName: p.value?.displayName,
+						avatar: p.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined
 					});
 				}
 			} catch {

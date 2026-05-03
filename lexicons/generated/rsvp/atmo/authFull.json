@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "rsvp.atmo.authFull",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Atmo Events",
+      "description": "Manage your private events and rsvps.",
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "aud": "*",
+          "lxm": [
+            "rsvp.atmo.event.getRecord",
+            "rsvp.atmo.event.listRecords",
+            "rsvp.atmo.getCursor",
+            "rsvp.atmo.getOverview",
+            "rsvp.atmo.getProfile",
+            "rsvp.atmo.invite.create",
+            "rsvp.atmo.invite.list",
+            "rsvp.atmo.invite.redeem",
+            "rsvp.atmo.invite.revoke",
+            "rsvp.atmo.notifyOfUpdate",
+            "rsvp.atmo.rsvp.getRecord",
+            "rsvp.atmo.rsvp.listRecords",
+            "rsvp.atmo.space.addMember",
+            "rsvp.atmo.space.createSpace",
+            "rsvp.atmo.space.deleteRecord",
+            "rsvp.atmo.space.getBlob",
+            "rsvp.atmo.space.getRecord",
+            "rsvp.atmo.space.getSpace",
+            "rsvp.atmo.space.leaveSpace",
+            "rsvp.atmo.space.listBlobs",
+            "rsvp.atmo.space.listMembers",
+            "rsvp.atmo.space.listRecords",
+            "rsvp.atmo.space.listSpaces",
+            "rsvp.atmo.space.putRecord",
+            "rsvp.atmo.space.removeMember",
+            "rsvp.atmo.space.uploadBlob",
+            "rsvp.atmo.spaceExt.whoami"
+          ]
+        }
+      ]
+    }
+  }
+}

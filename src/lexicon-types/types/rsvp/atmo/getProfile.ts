@@ -89,15 +89,15 @@ const _profileEntrySchema = /*#__PURE__*/ v.object({
   $type: /*#__PURE__*/ v.optional(
     /*#__PURE__*/ v.literal("rsvp.atmo.getProfile#profileEntry"),
   ),
-  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+  cid: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
   collection: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.nsidString()),
   did: /*#__PURE__*/ v.didString(),
   handle: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-  get record() {
-    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
-  },
   rkey: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   uri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+  get value() {
+    return /*#__PURE__*/ v.optional(appBskyActorProfileSchema);
+  },
 });
 
 type appBskyActorProfile$schematype = typeof _appBskyActorProfileSchema;

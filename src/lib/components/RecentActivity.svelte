@@ -29,8 +29,8 @@
 		return plural ? 'are interested' : 'is interested';
 	}
 
-	function relativeTime(timeUs: number): string {
-		const ageMs = Date.now() - timeUs / 1000;
+	function relativeTime(timeMs: number): string {
+		const ageMs = Date.now() - timeMs;
 		const sec = Math.max(0, Math.floor(ageMs / 1000));
 		if (sec < 60) return 'just now';
 		const mins = Math.floor(sec / 60);
@@ -66,7 +66,7 @@
 						{eventTitle}
 					</h3>
 					<span class="text-base-500 shrink-0 text-xs">
-						{relativeTime(cluster.latestTimeUs)}
+						{relativeTime(cluster.latestCreatedAtMs)}
 					</span>
 				</div>
 				<div class="mt-2 flex items-center gap-2">
