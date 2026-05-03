@@ -79,7 +79,14 @@ export const config: ContrailConfig = {
 		// Exposed as rsvp.atmo.getFeed?feed=network&actor=<did>&collection=<nsid>.
 		// Powers the home-page "from people you follow" surface.
 		network: {
-			targets: ['event', 'rsvp']
+			// Per-target caps so RSVPs (high-volume) can't squeeze events
+			// (low-volume) out of the cap. Bumped above the default 200 because
+			// most RSVPs in feed_items refer to past events, and we want enough
+			// breathing room to find recent ones after the JS-side filter.
+			targets: [
+				{ collection: 'event', maxItems: 200 },
+				{ collection: 'rsvp', maxItems: 1000 }
+			]
 		}
 	}
 };

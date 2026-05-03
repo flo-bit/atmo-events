@@ -71,48 +71,71 @@
 				</div>
 				<div class="mt-2 flex items-center gap-2">
 					<div class="flex shrink-0 -space-x-1.5">
-						{#if shown.length >= 4}
-							{#each shown.slice(0, 2) as attendee (attendee.did)}
-								{#if attendee.avatar}
-									<img
-										src={attendee.avatar}
-										alt=""
-										class="ring-base-50 dark:ring-base-900 h-6 w-6 rounded-full object-cover ring-2"
-									/>
-								{:else}
-									<div
-										class="bg-base-300 dark:bg-base-700 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-medium ring-2"
-									>
-										{initial(attendee.name)}
-									</div>
-								{/if}
-							{/each}
-							<span
-								class="bg-base-200 dark:bg-base-800 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 inline-flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold ring-2"
-							>
-								+{shown.length - 2}
-							</span>
-						{:else}
-							{#each shown as attendee (attendee.did)}
-								{#if attendee.avatar}
-									<img
-										src={attendee.avatar}
-										alt=""
-										class="ring-base-50 dark:ring-base-900 h-6 w-6 rounded-full object-cover ring-2"
-									/>
-								{:else}
-									<div
-										class="bg-base-300 dark:bg-base-700 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-medium ring-2"
-									>
-										{initial(attendee.name)}
-									</div>
-								{/if}
-							{/each}
+						{#if shown.length > 0}
+							{#if shown.length >= 4}
+								{#each shown.slice(0, 2) as attendee (attendee.did)}
+									{#if attendee.avatar}
+										<img
+											src={attendee.avatar}
+											alt=""
+											class="ring-base-50 dark:ring-base-900 h-6 w-6 rounded-full object-cover ring-2"
+										/>
+									{:else}
+										<div
+											class="bg-base-300 dark:bg-base-700 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-medium ring-2"
+										>
+											{initial(attendee.name)}
+										</div>
+									{/if}
+								{/each}
+								<span
+									class="bg-base-200 dark:bg-base-800 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 inline-flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold ring-2"
+								>
+									+{shown.length - 2}
+								</span>
+							{:else}
+								{#each shown as attendee (attendee.did)}
+									{#if attendee.avatar}
+										<img
+											src={attendee.avatar}
+											alt=""
+											class="ring-base-50 dark:ring-base-900 h-6 w-6 rounded-full object-cover ring-2"
+										/>
+									{:else}
+										<div
+											class="bg-base-300 dark:bg-base-700 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-medium ring-2"
+										>
+											{initial(attendee.name)}
+										</div>
+									{/if}
+								{/each}
+							{/if}
+						{:else if cluster.host}
+							{#if cluster.host.avatar}
+								<img
+									src={cluster.host.avatar}
+									alt=""
+									class="ring-base-50 dark:ring-base-900 h-6 w-6 rounded-full object-cover ring-2"
+								/>
+							{:else}
+								<div
+									class="bg-base-300 dark:bg-base-700 text-base-700 dark:text-base-200 ring-base-50 dark:ring-base-900 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-medium ring-2"
+								>
+									{initial(cluster.host.displayName || cluster.host.handle || cluster.host.did)}
+								</div>
+							{/if}
 						{/if}
 					</div>
 					<p class="text-base-600 dark:text-base-400 min-w-0 truncate text-sm">
-						<span class="text-base-800 dark:text-base-200">{namesSentence(shown)}</span>
-						{verb(shown.length, status)}
+						{#if shown.length > 0}
+							<span class="text-base-800 dark:text-base-200">{namesSentence(shown)}</span>
+							{verb(shown.length, status)}
+						{:else if cluster.host}
+							Hosted by
+							<span class="text-base-800 dark:text-base-200"
+								>{cluster.host.displayName || cluster.host.handle || cluster.host.did}</span
+							>
+						{/if}
 					</p>
 				</div>
 			</a>

@@ -69,10 +69,13 @@ export type EventAttendeesResult = {
 export type ActivityCluster = {
 	event: FlatEventRecord;
 	attendees: AttendeeInfo[];
-	/** ms since epoch of the most recent RSVP in this cluster, taken from the
-	 *  RSVP record's `createdAt` (when the user actually RSVP'd) — not from
-	 *  contrail's `time_us` (which reflects index time and all bunches up after
-	 *  a backfill). */
+	/** Set when the cluster's source was the event itself being authored by
+	 *  someone in the viewer's follow set (vs. only an RSVP from a follow).
+	 *  Used by the UI to render "Hosted by X" when `attendees` is empty. */
+	host?: HostProfile;
+	/** ms since epoch of the most recent activity in this cluster — the latest
+	 *  RSVP `createdAt`, or the event's own `createdAt` for event-only clusters.
+	 *  Drives display order. */
 	latestCreatedAtMs: number;
 };
 
@@ -83,6 +86,7 @@ type ListEventsParams = {
 	startsAtMax?: string;
 	endsAtMin?: string;
 	endsAtMax?: string;
+	rsvpsCountMin?: number;
 	rsvpsGoingCountMin?: number;
 	hydrateRsvps?: number;
 	profiles?: boolean;
@@ -163,7 +167,10 @@ export function eventUrl(event: FlatEventRecord, actor?: string): string {
 	return `/p/${who}/e/${event.rkey}`;
 }
 
-export function getHostProfile(did: string, profiles?: EventProfiles): HostProfile | null {
+export function getHostProfile(
+	did: string,
+	profiles?: AttendeeProfileEntry[]
+): HostProfile | null {
 	const profile = profiles?.find((entry) => entry.did === did);
 	if (!profile) return null;
 

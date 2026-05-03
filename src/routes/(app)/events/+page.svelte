@@ -14,7 +14,7 @@
 		sort: 'startsAt',
 		order: 'asc',
 		limit: '20',
-		...(filter === 'popular' ? { rsvpsGoingCountMin: '2' } : {})
+		...(filter === 'popular' ? { rsvpsCountMin: '2' } : {})
 	});
 
 	function setFilter(val: string) {

@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 		order: 'asc',
 		limit: PAGE_SIZE,
 		cursor,
-		...(isPopular ? { rsvpsGoingCountMin: 2 } : {})
+		...(isPopular ? { rsvpsCountMin: 2 } : {})
 	});
 
 	if (!response) return { events: [], handles: {}, cursor: null };
