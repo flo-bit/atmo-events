@@ -1,4 +1,4 @@
-import { uploadBlob, resolveHandle } from '$lib/atproto/methods';
+import { resolveHandle } from '$lib/atproto/methods';
 import { compressImage } from '$lib/atproto/image-helper';
 import { tokenize, type Token } from '@atcute/bluesky-richtext-parser';
 import type { Handle } from '@atcute/lexicons';
@@ -84,8 +84,9 @@ export async function buildThumbnailMedia(args: {
 	thumbnailChanged: boolean;
 	thumbnailFile: File | null;
 	existingMedia: Array<Record<string, unknown>>;
+	uploadBlob: (blob: Blob) => Promise<Record<string, unknown>>;
 }): Promise<Array<Record<string, unknown>> | undefined> {
-	const { isNew, thumbnailChanged, thumbnailFile, existingMedia } = args;
+	const { isNew, thumbnailChanged, thumbnailFile, existingMedia, uploadBlob } = args;
 
 	if (!isNew && !thumbnailChanged) {
 		return existingMedia.length > 0 ? existingMedia : undefined;
@@ -97,12 +98,9 @@ export async function buildThumbnailMedia(args: {
 	}
 
 	const compressed = await compressImage(thumbnailFile);
-	const result = await uploadBlob({ blob: compressed.blob });
-	if (!result) return existingMedia.length > 0 ? existingMedia : undefined;
+	const blobRef = await uploadBlob(compressed.blob);
+	if (!blobRef) return existingMedia.length > 0 ? existingMedia : undefined;
 
-	const { aspectRatio: _ar, ...blobRef } = result as Record<string, unknown> & {
-		aspectRatio?: unknown;
-	};
 	return [
 		...existingMedia.filter((m) => m.role !== 'thumbnail'),
 		{

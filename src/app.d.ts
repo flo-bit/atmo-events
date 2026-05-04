@@ -50,15 +50,6 @@ interface Blento {
 	notify(name: string, payload?: unknown): void;
 }
 
-type BlentoErrorCode =
-	| 'no_session'
-	| 'user_cancelled'
-	| 'rate_limited'
-	| 'pds_error'
-	| 'unsupported'
-	| 'invalid_request'
-	| 'unknown';
-
 declare global {
 	interface Window {
 		Blento?: Blento;

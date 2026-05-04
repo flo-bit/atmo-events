@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { user } from '$lib/atproto/auth.svelte';
-	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-	import { putRecord, deleteRecord } from '$lib/atproto/methods';
 	import { getCDNImageBlobUrl } from '$lib/atproto';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
 	import {
@@ -10,7 +7,6 @@
 		ToggleGroup,
 		ToggleGroupItem
 	} from '@foxui/core';
-	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { PlainTextEditor } from '@foxui/text';
@@ -40,18 +36,23 @@
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
 	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
+	import type { EditorAdapter, EditorViewer } from './editor/adapter';
 
 	let {
 		eventData = null,
 		actorDid,
 		rkey,
-		privateMode = false
+		privateMode = false,
+		adapter,
+		viewer
 	}: {
 		eventData: FlatEventRecord | null;
 		actorDid: string;
 		rkey: string;
 		/** If true, save writes into a permissioned space instead of the user's public PDS. */
 		privateMode?: boolean;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 	} = $props();
 
 	let isNew = $derived(eventData === null);
@@ -148,7 +149,7 @@
 		if (titleEditor) get(titleEditor)?.commands.focus();
 	});
 
-	let hostName = $derived(user.profile?.displayName || user.profile?.handle || user.did || '');
+	let hostName = $derived(viewer.displayName || viewer.handle || viewer.did || '');
 
 	let thumbnailDateStr = $derived.by(() => {
 		if (!startsAt) return '';
@@ -187,7 +188,7 @@
 		if (!name.trim()) return void (error = 'Name is required.');
 		if (!startsAt) return void (error = 'Start date is required.');
 		if (!endsAt) return void (error = 'End date is required.');
-		if (!user.isLoggedIn || !user.did) return void (error = 'You must be logged in.');
+		if (!viewer.isLoggedIn || !viewer.did) return void (error = 'You must be logged in.');
 
 		submitting = true;
 
@@ -212,7 +213,9 @@
 				isNew,
 				thumbnailChanged,
 				thumbnailFile,
-				existingMedia
+				existingMedia,
+				uploadBlob: (blob) =>
+					adapter.uploadBlob(blob) as unknown as Promise<Record<string, unknown>>
 			});
 
 			const record = await buildEventRecord({
@@ -233,34 +236,30 @@
 			});
 
 			if (visibility === 'private') {
-				const { createPrivateEvent } = await import('$lib/spaces/server/spaces.remote');
-				const { spaceUri, rkey: eventRkey } = await createPrivateEvent({ key: rkey, record });
-				const spaceKey = spaceUri.split('/').pop();
+				if (!adapter.createPrivateEvent) {
+					error = 'Private events are not supported here.';
+					return;
+				}
+				const { rkey: eventRkey, spaceKey } = await adapter.createPrivateEvent({
+					key: rkey,
+					record
+				});
 				const handle =
-					user.profile?.handle && user.profile.handle !== 'handle.invalid'
-						? user.profile.handle
-						: user.did;
-				goto(`/p/${handle}/e/${eventRkey}/s/${spaceKey}?created=true`);
+					viewer.handle && viewer.handle !== 'handle.invalid' ? viewer.handle : viewer.did;
+				const target = `/p/${handle}/e/${eventRkey}/s/${spaceKey}?created=true`;
+				const { goto } = await import('$app/navigation');
+				goto(target);
 				return;
 			}
 
-			const response = await putRecord({
+			const result = await adapter.putRecord({
 				collection: 'community.lexicon.calendar.event',
 				rkey,
 				record
 			});
 
-			if (response.ok) {
-				const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
-				await notifyContrailOfUpdate(eventUri);
-				const handle =
-					user.profile?.handle && user.profile.handle !== 'handle.invalid'
-						? user.profile.handle
-						: user.did;
-				goto(`/p/${handle}/e/${rkey}${isNew ? '?created=true' : ''}`);
-			} else {
-				error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
-			}
+			await notifyContrailOfUpdate(result.uri);
+			adapter.onSaved({ uri: result.uri, rkey, isNew });
 		} catch (e) {
 			console.error(`Failed to ${isNew ? 'create' : 'save'} event:`, e);
 			error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
@@ -275,17 +274,13 @@
 	async function handleDelete() {
 		deleting = true;
 		try {
-			await deleteRecord({
+			await adapter.deleteRecord({
 				collection: 'community.lexicon.calendar.event',
 				rkey
 			});
-			const eventUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
+			const eventUri = `at://${viewer.did}/community.lexicon.calendar.event/${rkey}`;
 			await notifyContrailOfUpdate(eventUri);
-			const handle =
-				user.profile?.handle && user.profile.handle !== 'handle.invalid'
-					? user.profile.handle
-					: user.did;
-			goto(`/p/${handle}`);
+			adapter.onDeleted?.();
 		} catch (e) {
 			console.error('Failed to delete event:', e);
 			error = 'Failed to delete event. Please try again.';
@@ -301,14 +296,14 @@
 
 <div class="px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-3xl">
-		{#if !user.isLoggedIn}
+		{#if !viewer.isLoggedIn}
 			<div
 				class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-900/50 rounded-2xl border p-8 text-center"
 			>
 				<p class="text-base-600 dark:text-base-400 mb-4">
 					Log in to {isNew ? 'create an event' : 'edit this event'}.
 				</p>
-				<Button onclick={() => atProtoLoginModalState.show()}>Log in</Button>
+				<Button onclick={() => adapter.requestLogin()}>Log in</Button>
 			</div>
 		{:else}
 			<form
@@ -390,7 +385,7 @@
 								disabled={!isNew && visibility === 'private'}
 							>
 								<ToggleGroupItem value="public">Public</ToggleGroupItem>
-								{#if dev}
+								{#if dev && adapter.features.privateMode}
 									<ToggleGroupItem value="private">Private</ToggleGroupItem>
 								{/if}
 								<ToggleGroupItem value="unlisted">Unlisted</ToggleGroupItem>
@@ -454,7 +449,7 @@
 									? 'Publish Event'
 									: 'Save Changes'}
 						</Button>
-						{#if !isNew}
+						{#if !isNew && adapter.features.recurring}
 							<Button
 								type="button"
 								variant="secondary"
@@ -474,7 +469,7 @@
 							Hosted By
 						</p>
 						<div class="flex items-center gap-2.5">
-							<FoxAvatar src={user.profile?.avatar} alt={hostName} class="size-8 shrink-0" />
+							<FoxAvatar src={viewer.avatar} alt={hostName} class="size-8 shrink-0" />
 							<span class="text-base-900 dark:text-base-100 truncate text-sm font-medium">
 								{hostName}
 							</span>
@@ -487,7 +482,7 @@
 					</div>
 				</div>
 
-				{#if !isNew}
+				{#if !isNew && adapter.features.delete}
 					<div class="border-base-200 dark:border-base-800 mt-12 border-t pt-8">
 						{#if showDeleteConfirm}
 							<div class="flex items-center gap-3">
@@ -533,5 +528,7 @@
 	{thumbnailFile}
 	{thumbnailChanged}
 	{selectedPreset}
+	{adapter}
+	{viewer}
 	accent={eventTheme.accentColor}
 />

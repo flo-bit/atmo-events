@@ -2,13 +2,12 @@
 	import { Button, Checkbox, Input, Modal, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import { parseDateTime } from '@internationalized/date';
 	import * as TID from '@atcute/tid';
-	import { putRecord } from '$lib/atproto/methods';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
-	import { user } from '$lib/atproto/auth.svelte';
 	import type { FlatEventRecord } from '$lib/contrail';
 	import type { EventLocation, EventMode } from './types';
 	import { buildThumbnailMedia, renderPresetThumbnail } from './save';
 	import { hashSeed } from '$lib/components/thumbnails/designs';
+	import type { EditorAdapter, EditorViewer } from './adapter';
 
 	let {
 		open = $bindable(),
@@ -27,7 +26,9 @@
 		thumbnailFile,
 		thumbnailChanged,
 		selectedPreset,
-		accent
+		accent,
+		adapter,
+		viewer
 	}: {
 		open: boolean;
 		rkey: string;
@@ -46,6 +47,8 @@
 		thumbnailChanged: boolean;
 		selectedPreset: string | null;
 		accent: string;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 	} = $props();
 
 	let interval = $state(1);
@@ -64,7 +67,7 @@
 	});
 
 	async function handleCreate() {
-		if (!name.trim() || !startsAt || !user.isLoggedIn || !user.did) return;
+		if (!name.trim() || !startsAt || !viewer.isLoggedIn || !viewer.did) return;
 
 		creating = true;
 		errorMsg = null;
@@ -108,10 +111,12 @@
 				isNew,
 				thumbnailChanged: hasNewThumbnail,
 				thumbnailFile: fileForUpload,
-				existingMedia
+				existingMedia,
+				uploadBlob: (blob) =>
+					adapter.uploadBlob(blob) as unknown as Promise<Record<string, unknown>>
 			});
 
-			const parentUri = `at://${user.did}/community.lexicon.calendar.event/${rkey}`;
+			const parentUri = `at://${viewer.did}/community.lexicon.calendar.event/${rkey}`;
 
 			for (let i = 0; i < count; i++) {
 				const offset = i + 1;
@@ -165,17 +170,15 @@
 					];
 				}
 
-				const response = await putRecord({
-					collection: 'community.lexicon.calendar.event',
-					rkey: newRkey,
-					record
-				});
-
-				if (response.ok) {
-					const eventUri = `at://${user.did}/community.lexicon.calendar.event/${newRkey}`;
-					await notifyContrailOfUpdate(eventUri);
+				try {
+					const result = await adapter.putRecord({
+						collection: 'community.lexicon.calendar.event',
+						rkey: newRkey,
+						record
+					});
+					await notifyContrailOfUpdate(result.uri);
 					created = i + 1;
-				} else {
+				} catch {
 					errorMsg = `Failed to create event ${i + 1}. Stopping.`;
 					return;
 				}
