@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { resolve } from '$app/paths';
 	import Avatar from 'svelte-boring-avatars';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
@@ -9,6 +9,35 @@
 	let rsvpStatus: 'going' | 'interested' | 'notgoing' | null = $state(untrack(() => data.viewerRsvpStatus));
 	let rsvpRkey: string | null = $state(untrack(() => data.viewerRsvpRkey));
 	let submitting = $state(false);
+
+	onMount(() => {
+		if (!window.Blento) return;
+		let cancelled = false;
+		let unsubscribe: (() => void) | undefined;
+		(async () => {
+			try {
+				await window.Blento!.ready;
+			} catch {
+				return;
+			}
+			if (cancelled) return;
+			unsubscribe = window.Blento!.on('session', (s) => {
+				if (s && !data.viewerDid) {
+					const url = new URL(window.location.href);
+					url.searchParams.set('did', s.did);
+					window.location.href = url.toString();
+				}
+			});
+		})();
+		return () => {
+			cancelled = true;
+			unsubscribe?.();
+		};
+	});
+
+	function handleLogin() {
+		window.Blento?.promptLogin();
+	}
 
 	let eventUrl = $derived(`https://atmo.rsvp/p/${data.actorDid}/e/${data.rkey}`);
 
@@ -50,10 +79,11 @@
 
 
 	async function submitRsvp(status: 'going' | 'interested') {
-		if (!window.AtmoEmbed || !data.viewerDid) return;
+		if (!window.Blento || !data.viewerDid) return;
 		submitting = true;
 		try {
-			const result = await window.AtmoEmbed.createRecord({
+			await window.Blento.ready;
+			const result = await window.Blento.createRecord({
 				collection: 'community.lexicon.calendar.rsvp',
 				record: {
 					$type: 'community.lexicon.calendar.rsvp',
@@ -80,11 +110,12 @@
 	}
 
 	async function cancelRsvp() {
-		if (!window.AtmoEmbed || !rsvpRkey || !data.viewerDid) return;
+		if (!window.Blento || !rsvpRkey || !data.viewerDid) return;
 		submitting = true;
 		const rsvpUri = `at://${data.viewerDid}/community.lexicon.calendar.rsvp/${rsvpRkey}`;
 		try {
-			await window.AtmoEmbed.deleteRecord({
+			await window.Blento.ready;
+			await window.Blento.deleteRecord({
 				collection: 'community.lexicon.calendar.rsvp',
 				rkey: rsvpRkey
 			});
@@ -108,7 +139,7 @@
 		var a = p.get('accent'); if (a) h.classList.add(a);
 		if (p.get('dark') === '1') h.classList.add('dark');
 	</script>
-	<script src="https://atmo.social/embed-sdk.js"></script>
+	<script src="https://blento.app/embed/v0/sdk.js"></script>
 </svelte:head>
 
 <div class="@container bg-base-200 dark:bg-base-950/50 text-base-900 dark:text-base-50 flex h-full items-center gap-4.5 overflow-hidden px-5 py-3 @sm:gap-5 @sm:px-6 @sm:py-4 @lg:gap-8 @lg:px-8 @lg:py-6">
@@ -148,7 +179,14 @@
 		</a>
 
 		<!-- RSVP -->
-		{#if data.viewerDid}
+		{#if !data.viewerDid}
+		<div class="mt-2 @sm:mt-3 @lg:mt-4">
+			<button
+				onclick={handleLogin}
+				class="bg-accent-600 hover:bg-accent-700 w-full cursor-pointer rounded-md px-2.5 py-1 text-[11px] font-medium text-white transition-colors @sm:rounded-lg @sm:px-4 @sm:py-1.5 @sm:text-sm @lg:px-5 @lg:py-2 @lg:text-base"
+			>Log in to RSVP</button>
+		</div>
+		{:else}
 		<div class="border-base-300 dark:border-base-800 bg-base-100 dark:bg-base-900/50 mt-2 flex flex-col justify-center rounded-lg border px-2 py-2 @sm:mt-3 @sm:rounded-xl @sm:px-3 @sm:py-3 @lg:mt-4 @lg:rounded-2xl @lg:px-4 @lg:py-4">
 			{#if rsvpStatus === 'going'}
 				<div class="flex items-center justify-between">
