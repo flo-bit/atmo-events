@@ -47,6 +47,7 @@ interface Blento {
 	notifyResize(heightPx: number): void;
 	notifyNavigate(url: string): void;
 	promptLogin(): void;
+	notify(name: string, payload?: unknown): void;
 }
 
 type BlentoErrorCode =
