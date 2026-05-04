@@ -5,8 +5,19 @@
 	import EventView from '$lib/components/EventView.svelte';
 	import { redeemInvite } from '$lib/spaces/server/spaces.remote';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
+	import { user } from '$lib/atproto/auth.svelte';
+	import { createInAppAdapter } from '$lib/components/editor/adapter';
 
 	let { data } = $props();
+
+	let viewer = $derived({
+		isLoggedIn: user.isLoggedIn,
+		did: user.did ?? null,
+		handle: user.profile?.handle,
+		displayName: user.profile?.displayName,
+		avatar: user.profile?.avatar
+	});
+	let adapter = $derived(createInAppAdapter({ viewer }));
 
 	let inviteBusy = $state(false);
 	let inviteError: string | null = $state(null);
@@ -70,7 +81,7 @@
 			<p class="text-base-500 text-sm">Redeeming invite…</p>
 		</div>
 	{/if}
-	<EventView {data} />
+	<EventView {data} {adapter} {viewer} />
 	{#if data.isOwner}
 		<div class="mx-auto max-w-3xl px-4 pb-12">
 			<a

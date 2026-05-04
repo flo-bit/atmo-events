@@ -1,8 +1,7 @@
 <script lang="ts">
-	import EventEditor from '$lib/components/EventEditor.svelte';
+	import EventView from '$lib/components/EventView.svelte';
 	import { onMount } from 'svelte';
 	import { createBlentoAdapter, type EditorViewer } from '$lib/components/editor/adapter';
-	import type { EventTheme } from '$lib/theme';
 
 	let { data } = $props();
 
@@ -15,6 +14,7 @@
 
 	let ready = $state(false);
 	let session = $state<Session | null>(null);
+	let shareUrlOverride = $state<string | undefined>(undefined);
 
 	let viewer = $derived<EditorViewer>({
 		isLoggedIn: !!session,
@@ -25,28 +25,22 @@
 	});
 	let adapter = $derived(createBlentoAdapter({ viewer }));
 
-	// Inherit the embedder's theme so new events default to the surrounding
-	// palette rather than a random accent.
-	let initialTheme = $state<Partial<EventTheme> | undefined>(undefined);
-
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
-		const accent = params.get('accent');
-		const base = params.get('base');
-		if (accent || base) {
-			initialTheme = {
-				...(accent ? { accentColor: accent } : {}),
-				...(base ? { baseColor: base } : {})
-			};
-		}
+		const shareUrl = params.get('share_url');
+		if (shareUrl) shareUrlOverride = shareUrl;
 
-		if (!window.Blento) return;
+		if (!window.Blento) {
+			ready = true;
+			return;
+		}
 		let unsubscribe: (() => void) | undefined;
 		let cancelled = false;
 		(async () => {
 			try {
 				await window.Blento!.ready;
 			} catch {
+				ready = true;
 				return;
 			}
 			if (cancelled) return;
@@ -84,12 +78,5 @@
 		></div>
 	</div>
 {:else}
-	<EventEditor
-		eventData={null}
-		actorDid={viewer.did ?? ''}
-		rkey={data.rkey}
-		{adapter}
-		{viewer}
-		{initialTheme}
-	/>
+	<EventView {data} {adapter} {viewer} embedMode {shareUrlOverride} />
 {/if}

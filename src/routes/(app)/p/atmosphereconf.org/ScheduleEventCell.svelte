@@ -10,6 +10,17 @@
 	import { Modal, Button } from '@foxui/core';
 	import EventRsvp from '$lib/components/EventRsvp.svelte';
 	import VodPlayer from '$lib/components/VodPlayer.svelte';
+	import { user } from '$lib/atproto/auth.svelte';
+	import { createInAppAdapter } from '$lib/components/editor/adapter';
+
+	let viewer = $derived({
+		isLoggedIn: user.isLoggedIn,
+		did: user.did ?? null,
+		handle: user.profile?.handle,
+		displayName: user.profile?.displayName,
+		avatar: user.profile?.avatar
+	});
+	let adapter = $derived(createInAppAdapter({ viewer }));
 
 	let {
 		event,
@@ -91,6 +102,8 @@
 					eventCid={event.cid ?? null}
 					{initialRsvpStatus}
 					{initialRsvpRkey}
+					{adapter}
+					{viewer}
 					onlogin={() => (modalOpen = false)}
 					onrsvp={(status, key) => { onrsvpchange?.(event.uri, status, key); modalOpen = false; }}
 					oncancel={() => { onrsvpchange?.(event.uri, null); }}

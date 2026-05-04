@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Modal, Button, Avatar } from '@foxui/core';
 	import { LinkCard } from '@foxui/social';
-	import { user } from '$lib/atproto/auth.svelte';
 	import PostToBlueskyModal from '$lib/components/PostToBlueskyModal.svelte';
+	import type { EditorAdapter, EditorViewer } from '$lib/components/editor/adapter';
 
 	let {
 		open = $bindable(false),
@@ -15,6 +15,8 @@
 		eventDid,
 		eventRkey,
 		eventDescription,
+		adapter,
+		viewer,
 		onPosted
 	}: {
 		open: boolean;
@@ -27,6 +29,8 @@
 		eventDid?: string;
 		eventRkey?: string;
 		eventDescription?: string;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 		onPosted?: (ref: { uri: string; cid: string; showComments: boolean }) => void;
 	} = $props();
 
@@ -56,7 +60,7 @@
 	let blueskyButton: HTMLElement | null = $state(null);
 
 	let canPostDirectly = $derived(
-		!!eventDid && !!eventRkey && !!eventName && user.isLoggedIn
+		!!eventDid && !!eventRkey && !!eventName && viewer.isLoggedIn
 	);
 
 	let blueskyIntentUrl = $derived(
@@ -87,11 +91,11 @@
 		<div
 			class="bg-base-200 dark:bg-base-950/30 border-base-400/40 dark:border-base-700 mb-6 overflow-hidden rounded-xl border px-4 py-3 text-left"
 		>
-			{#if user.profile}
+			{#if viewer.isLoggedIn}
 				<div class="flex items-center gap-2 pb-4">
-					<Avatar src={user.profile.avatar} alt="" class="size-6" />
+					<Avatar src={viewer.avatar} alt="" class="size-6" />
 					<span class="text-base-700 dark:text-base-200 text-sm font-medium"
-						>{user.profile.handle}</span
+						>{viewer.handle ?? viewer.did}</span
 					>
 				</div>
 			{/if}
@@ -149,6 +153,8 @@
 		{eventDescription}
 		{ogImageUrl}
 		initialText={textBeforeUrl ?? eventName}
+		{adapter}
+		{viewer}
 		onPosted={handlePostedFromInner}
 	/>
 {/if}

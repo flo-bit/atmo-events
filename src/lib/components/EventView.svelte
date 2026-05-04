@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from '$lib/contrail';
 	import { getCDNImageBlobUrl } from '$lib/atproto';
-	import { user } from '$lib/atproto/auth.svelte';
 	import { Avatar as FoxAvatar, Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import ShareModal from '$lib/components/ShareModal.svelte';
 	import EventComments from '$lib/components/EventComments.svelte';
@@ -17,6 +16,7 @@
 	import ThemeApply from '$lib/components/ThemeApply.svelte';
 	import { defaultTheme, type EventTheme } from '$lib/theme';
 	import { onMount } from 'svelte';
+	import type { EditorAdapter, EditorViewer } from '$lib/components/editor/adapter';
 
 	import EventBadges from './event-view/EventBadges.svelte';
 	import EventDateBlock from './event-view/EventDateBlock.svelte';
@@ -28,7 +28,22 @@
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
-	let { data } = $props();
+	let {
+		data,
+		adapter,
+		viewer,
+		embedMode = false,
+		shareUrlOverride
+	}: {
+		data: any;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
+		embedMode?: boolean;
+		/** When set, the share modal / Bluesky post embed use this URL instead
+		 *  of the canonical atmo.rsvp event URL. Useful for embedders that want
+		 *  share links to point at their own event page. */
+		shareUrlOverride?: string;
+	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
 	let did: string = $derived(data.actorDid);
@@ -41,7 +56,11 @@
 	let hostUrl = $derived(`/p/${hostProfile?.handle || did}`);
 	let eventPath = $derived(eventUrl(eventData, hostProfile?.handle || did));
 	let shareUrl = $derived(
-		typeof window !== 'undefined' ? `${window.location.origin}${eventPath}` : eventPath
+		shareUrlOverride
+			? shareUrlOverride
+			: typeof window !== 'undefined'
+				? `${window.location.origin}${eventPath}`
+				: eventPath
 	);
 
 	// Times are always rendered in the viewer's local timezone — the stored UTC
@@ -61,7 +80,7 @@
 	// the bskyPostRef write — RSVP shares should never overwrite the comments
 	// root, even when the RSVPer is the host.
 	let canSetEventComments = $state(false);
-	let isHost = $derived(!!user.did && user.did === did);
+	let isHost = $derived(!!viewer.did && viewer.did === did);
 	let hasComments = $derived(
 		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
 	);
@@ -123,9 +142,9 @@
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
-	let ogImageUrl = $derived(`${page.url.origin}${page.url.pathname}/og.png`);
+	let ogImageUrl = $derived(data.ogImage ?? `${page.url.origin}${page.url.pathname}/og.png`);
 
-	let isOwner = $derived(user.isLoggedIn && user.did === did);
+	let isOwner = $derived(!embedMode && viewer.isLoggedIn && viewer.did === did);
 
 	let speakers = $derived(data.speakerProfiles ?? []);
 
@@ -135,14 +154,14 @@
 	let attendeesRef: EventAttendees | undefined = $state();
 
 	function handleRsvp(status: 'going' | 'interested') {
-		if (!user.did) return;
+		if (!viewer.did) return;
 		attendeesRef?.addAttendee({
-			did: user.did,
+			did: viewer.did,
 			status,
-			avatar: user.profile?.avatar,
-			name: user.profile?.displayName || user.profile?.handle || user.did,
-			handle: user.profile?.handle,
-			url: `/${user.profile?.handle || user.did}`
+			avatar: viewer.avatar,
+			name: viewer.displayName || viewer.handle || viewer.did,
+			handle: viewer.handle,
+			url: `/${viewer.handle || viewer.did}`
 		});
 		if (status === 'interested') return;
 		shareModalTitle = "You're going!";
@@ -152,8 +171,8 @@
 	}
 
 	function handleRsvpCancel() {
-		if (!user.did) return;
-		attendeesRef?.removeAttendee(user.did);
+		if (!viewer.did) return;
+		attendeesRef?.removeAttendee(viewer.did);
 	}
 </script>
 
@@ -218,6 +237,8 @@
 								{rkey}
 								eventName={eventData.name}
 								{hostProfile}
+								{adapter}
+								{viewer}
 							/>
 						{/if}
 					{/if}
@@ -268,6 +289,8 @@
 						initialRsvpStatus={data.viewerRsvpStatus}
 						initialRsvpRkey={data.viewerRsvpRkey}
 						spaceUri={data.spaceUri ?? null}
+						{adapter}
+						{viewer}
 						onrsvp={handleRsvp}
 						oncancel={handleRsvpCancel}
 					/>
@@ -387,4 +410,6 @@
 	eventDid={did}
 	eventRkey={rkey}
 	eventDescription={eventData.description}
+	{adapter}
+	{viewer}
 />

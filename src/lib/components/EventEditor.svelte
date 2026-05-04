@@ -44,7 +44,8 @@
 		rkey,
 		privateMode = false,
 		adapter,
-		viewer
+		viewer,
+		initialTheme
 	}: {
 		eventData: FlatEventRecord | null;
 		actorDid: string;
@@ -53,6 +54,8 @@
 		privateMode?: boolean;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
+		/** Override default theme for new events (e.g. inherit embedder's palette). */
+		initialTheme?: Partial<EventTheme>;
 	} = $props();
 
 	let isNew = $derived(eventData === null);
@@ -68,9 +71,14 @@
 	let mode: EventMode = $state('inperson');
 	// svelte-ignore state_referenced_locally
 	let visibility: Visibility = $state(privateMode && dev ? 'private' : 'public');
+	// svelte-ignore state_referenced_locally
 	let eventTheme: EventTheme = $state(
 		eventData === null
-			? { ...defaultTheme, accentColor: randomAccentColor() }
+			? {
+					...defaultTheme,
+					accentColor: initialTheme?.accentColor ?? randomAccentColor(),
+					...(initialTheme?.baseColor ? { baseColor: initialTheme.baseColor } : {})
+				}
 			: { ...defaultTheme }
 	);
 	let thumbnailFile: File | null = $state(null);

@@ -4,6 +4,7 @@
 	import ShareModal from '$lib/components/ShareModal.svelte';
 	import { datetimeLocalToISO } from '$lib/date-format';
 	import type { HostProfile } from '$lib/contrail';
+	import type { EditorAdapter, EditorViewer } from '$lib/components/editor/adapter';
 
 	let {
 		spaceUri,
@@ -11,7 +12,9 @@
 		did,
 		rkey,
 		eventName,
-		hostProfile
+		hostProfile,
+		adapter,
+		viewer
 	}: {
 		spaceUri: string;
 		spaceKey: string;
@@ -19,6 +22,8 @@
 		rkey: string;
 		eventName: string;
 		hostProfile: HostProfile | null | undefined;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 	} = $props();
 
 	let inviteUrl: string | null = $state(null);
@@ -164,5 +169,7 @@
 		title="Invite link"
 		shareText={`You're invited to "${eventName}".\n\n${inviteUrl}`}
 		{eventName}
+		{adapter}
+		{viewer}
 	/>
 {/if}

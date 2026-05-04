@@ -1,5 +1,5 @@
 import { goto } from '$app/navigation';
-import { putRecord, deleteRecord, uploadBlob } from '$lib/atproto/methods';
+import { putRecord, createRecord, deleteRecord, uploadBlob } from '$lib/atproto/methods';
 import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 
 export type EditorBlobRef = {
@@ -28,6 +28,11 @@ export type EditorAdapter = {
 		rkey: string;
 		record: Record<string, unknown>;
 	}): Promise<{ uri: string }>;
+	createRecord(opts: {
+		collection: string;
+		rkey?: string;
+		record: Record<string, unknown>;
+	}): Promise<{ uri: string; cid?: string }>;
 	deleteRecord(opts: { collection: string; rkey: string }): Promise<void>;
 	uploadBlob(blob: Blob): Promise<EditorBlobRef>;
 	onSaved(result: { uri: string; rkey: string; isNew: boolean }): void;
@@ -57,6 +62,16 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			if (!response.ok) throw new Error('putRecord failed');
 			if (!viewer.did) throw new Error('Not logged in');
 			return { uri: `at://${viewer.did}/${collection}/${rkey}` };
+		},
+		async createRecord({ collection, rkey, record }) {
+			const response = await createRecord({
+				collection: collection as Parameters<typeof createRecord>[0]['collection'],
+				rkey,
+				record
+			});
+			if (!response.ok) throw new Error('createRecord failed');
+			const data = response.data as { uri: string; cid?: string };
+			return { uri: data.uri, cid: data.cid };
 		},
 		async deleteRecord({ collection, rkey }) {
 			await deleteRecord({
@@ -103,8 +118,14 @@ export function createBlentoAdapter(opts: {
 	return {
 		features: { delete: false, recurring: true, privateMode: false },
 		async putRecord({ collection, rkey, record }) {
-			const result = await blento().putRecord({ collection, rkey, record });
+			const plain = JSON.parse(JSON.stringify(record)) as Record<string, unknown>;
+			const result = await blento().putRecord({ collection, rkey, record: plain });
 			return { uri: result.uri };
+		},
+		async createRecord({ collection, rkey, record }) {
+			const plain = JSON.parse(JSON.stringify(record)) as Record<string, unknown>;
+			const result = await blento().createRecord({ collection, rkey, record: plain });
+			return { uri: result.uri, cid: result.cid };
 		},
 		async deleteRecord({ collection, rkey }) {
 			await blento().deleteRecord({ collection, rkey });
@@ -116,8 +137,8 @@ export function createBlentoAdapter(opts: {
 		onSaved(result) {
 			try {
 				blento().notify('event-created', result);
-			} catch {
-				// Blento not present (e.g. preview); swallow.
+			} catch (e) {
+				console.error('[blento adapter] notify failed', e);
 			}
 			onAfterSave?.(result);
 		},

@@ -10,9 +10,9 @@
 	import type { JSONContent, SvelteTiptap } from '@foxui/text';
 	import type { Readable } from 'svelte/store';
 	import { get } from 'svelte/store';
-	import { putRecord, getRecord, createRecord, uploadBlob } from '$lib/atproto/methods';
-	import { user } from '$lib/atproto/auth.svelte';
+	import { getRecord } from '$lib/atproto/methods';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
+	import type { EditorAdapter, EditorViewer } from '$lib/components/editor/adapter';
 
 	let {
 		open = $bindable(false),
@@ -24,6 +24,8 @@
 		eventDescription,
 		ogImageUrl,
 		initialText,
+		adapter,
+		viewer,
 		onPosted
 	}: {
 		open: boolean;
@@ -35,6 +37,8 @@
 		eventDescription?: string;
 		ogImageUrl?: string;
 		initialText: string;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 		onPosted?: (ref: { uri: string; cid: string; showComments: boolean }) => void;
 	} = $props();
 
@@ -91,7 +95,7 @@
 			const blob = await resp.blob();
 			if (!blob.type.startsWith('image/')) return null;
 			if (blob.size > 1_000_000) return null;
-			const result = await uploadBlob({ blob });
+			const result = await adapter.uploadBlob(blob);
 			return {
 				$type: result.$type,
 				ref: result.ref,
@@ -105,7 +109,7 @@
 	}
 
 	async function handlePost() {
-		if (!user.did || posting) return;
+		if (!viewer.did || posting) return;
 
 		// Read the editor's live JSON directly — postContent only updates on the
 		// editor's onupdate callback and can lag behind setContent prefills.
@@ -146,23 +150,18 @@
 			};
 			if (facets.length > 0) postRecord.facets = facets;
 
-			const postResp = await createRecord({
+			const postResp = await adapter.createRecord({
 				collection: 'app.bsky.feed.post',
 				record: postRecord
 			});
-			const postRespData = postResp.data as
-				| { uri?: string; cid?: string; error?: string; message?: string }
-				| undefined;
-			if (!postRespData?.uri || !postRespData?.cid) {
-				console.error('PostToBlueskyModal: PDS response from putRecord (post)', postRespData);
+			if (!postResp.uri || !postResp.cid) {
+				console.error('PostToBlueskyModal: PDS response missing uri/cid', postResp);
 				throw new Error(
-					postRespData?.message ||
-						postRespData?.error ||
-						'PDS rejected the post — try logging out and back in to refresh permissions'
+					'PDS rejected the post — try logging out and back in to refresh permissions'
 				);
 			}
-			const postUri = postRespData.uri;
-			const postCid = postRespData.cid;
+			const postUri = postResp.uri;
+			const postCid = postResp.cid;
 
 			if (canSetEventComments) {
 				const fresh = await getRecord({
@@ -179,7 +178,7 @@
 						showComments
 					}
 				};
-				await putRecord({
+				await adapter.putRecord({
 					collection: 'community.lexicon.calendar.event',
 					rkey: eventRkey,
 					record: updatedRecord

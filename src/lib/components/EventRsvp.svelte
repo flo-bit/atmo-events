@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { user } from '$lib/atproto/auth.svelte';
-	import { putRecord, deleteRecord, createTID } from '$lib/atproto/methods';
+	import { createTID } from '$lib/atproto/methods';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
-	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { Avatar, Button } from '@foxui/core';
 	import { launchConfetti } from '@foxui/visual';
+	import type { EditorAdapter, EditorViewer } from '$lib/components/editor/adapter';
 
 	let {
 		eventUri,
@@ -12,6 +11,8 @@
 		initialRsvpStatus = null,
 		initialRsvpRkey = null,
 		spaceUri = null,
+		adapter,
+		viewer,
 		onrsvp,
 		oncancel,
 		onlogin
@@ -22,6 +23,8 @@
 		initialRsvpRkey?: string | null;
 		/** If set, RSVPs write into this space instead of the user's public PDS. */
 		spaceUri?: string | null;
+		adapter: EditorAdapter;
+		viewer: EditorViewer;
 		onrsvp?: (status: 'going' | 'interested', rkey: string) => void;
 		oncancel?: () => void;
 		onlogin?: () => void;
@@ -37,7 +40,7 @@
 	let rsvpRkey = $derived(rsvpRkeyOverride !== undefined ? rsvpRkeyOverride : initialRsvpRkey);
 
 	async function submitRsvp(status: 'going' | 'interested') {
-		if (!user.isLoggedIn || !user.did) return;
+		if (!viewer.isLoggedIn || !viewer.did) return;
 		rsvpSubmitting = true;
 		try {
 			const key = rsvpRkey ?? createTID();
@@ -63,14 +66,16 @@
 				});
 				ok = !!result;
 			} else {
-				const response = await putRecord({
-					collection: 'community.lexicon.calendar.rsvp',
-					rkey: key,
-					record
-				});
-				ok = response.ok;
-				if (ok) {
-					notifyContrailOfUpdate(`at://${user.did}/community.lexicon.calendar.rsvp/${key}`);
+				try {
+					await adapter.putRecord({
+						collection: 'community.lexicon.calendar.rsvp',
+						rkey: key,
+						record
+					});
+					ok = true;
+					notifyContrailOfUpdate(`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`);
+				} catch (e) {
+					console.error('RSVP putRecord failed:', e);
 				}
 			}
 
@@ -88,7 +93,7 @@
 	}
 
 	async function cancelRsvp() {
-		if (!user.isLoggedIn || !user.did || !rsvpRkey) return;
+		if (!viewer.isLoggedIn || !viewer.did || !rsvpRkey) return;
 		rsvpSubmitting = true;
 		try {
 			if (spaceUri) {
@@ -99,12 +104,12 @@
 					rkey: rsvpRkey
 				});
 			} else {
-				await deleteRecord({
+				await adapter.deleteRecord({
 					collection: 'community.lexicon.calendar.rsvp',
 					rkey: rsvpRkey
 				});
 				notifyContrailOfUpdate(
-					`at://${user.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
+					`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
 				);
 			}
 			rsvpStatusOverride = null;
@@ -121,11 +126,11 @@
 <div
 	class="border-base-200 dark:border-base-800 bg-base-100 items-between dark:bg-base-950/50 mt-8 mb-2 flex h-25 flex-col justify-center rounded-2xl border p-4"
 >
-	{#if !user.isLoggedIn}
+	{#if !viewer.isLoggedIn}
 		<div class="flex items-center justify-between gap-4">
 			<p class="text-base-600 dark:text-base-400 text-sm">Log in to RSVP to this event</p>
 
-			<Button onclick={() => { onlogin?.(); atProtoLoginModalState.show(); }}>Log in to RSVP</Button>
+			<Button onclick={() => { onlogin?.(); adapter.requestLogin(); }}>Log in to RSVP</Button>
 		</div>
 	{:else if rsvpStatus === 'going'}
 		<div class="flex items-center justify-between">
@@ -195,16 +200,16 @@
 			<Button onclick={cancelRsvp} disabled={rsvpSubmitting} variant="ghost">Remove</Button>
 		</div>
 	{:else}
-		{#if user.profile}
+		{#if viewer.isLoggedIn}
 			<div class="mb-4 flex items-center gap-2">
 				<span class="text-base-500 dark:text-base-400 text-sm">Attend as</span>
 				<Avatar
-					src={user.profile.avatar}
-					alt={user.profile.displayName || user.profile.handle}
+					src={viewer.avatar}
+					alt={viewer.displayName || viewer.handle || viewer.did || ''}
 					class="size-5"
 				/>
 				<span class="text-base-700 dark:text-base-300 truncate text-sm font-medium">
-					{user.profile.displayName || user.profile.handle}
+					{viewer.displayName || viewer.handle || viewer.did}
 				</span>
 			</div>
 		{/if}
