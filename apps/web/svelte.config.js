@@ -7,6 +7,9 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
+		alias: {
+			'@atmo-dev/events-ui': '../../packages/ui/src'
+		},
 		experimental: {
 			remoteFunctions: true
 		}

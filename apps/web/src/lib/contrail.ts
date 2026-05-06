@@ -1,5 +1,5 @@
 import '../lexicon-types/index.js';
-import { getProfileUrl } from '$lib/atproto/profile-url';
+import { getProfileUrl } from '@atmo-dev/events-ui';
 import type { EventData } from '$lib/event-types';
 import type {
 	RsvpAtmoGetProfile,
@@ -29,35 +29,8 @@ type FlattenableEventRecord = EventListRecord | EventGetOutput | HydratedEventRe
 type EventProfiles = EventProfileEntry[] | EventGetProfileEntry[] | undefined;
 type EventRsvps = EventListRecord['rsvps'] | EventGetOutput['rsvps'];
 
-export type FlatEventRecord = EventData & {
-	cid?: string | null;
-	did: string;
-	rkey: string;
-	uri: string;
-	/** Populated when the event was read from a permissioned space. */
-	space?: string;
-	rsvps?: EventRsvps;
-	rsvpsCount?: number;
-	rsvpsGoingCount?: number;
-	rsvpsInterestedCount?: number;
-	rsvpsNotgoingCount?: number;
-};
-
-export type HostProfile = {
-	did: string;
-	handle?: string;
-	displayName?: string;
-	avatar?: string;
-};
-
-export type AttendeeInfo = {
-	did: string;
-	status: 'going' | 'interested';
-	avatar?: string;
-	name: string;
-	handle?: string;
-	url: string;
-};
+export type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/events-ui';
+import type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/events-ui';
 
 export type EventAttendeesResult = {
 	going: AttendeeInfo[];

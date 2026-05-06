@@ -1,5 +1,5 @@
 export { user, login, signup, logout } from './auth.svelte';
-export { getProfileUrl } from './profile-url';
+export { getProfileUrl } from '@atmo-dev/events-ui';
 
 export {
 	parseUri,

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FlatEventRecord } from '$lib/contrail';
 	import { loadMoreEvents } from '$lib/contrail/events.remote';
-	import EventCard from '$lib/components/EventCard.svelte';
+	import { EventCard } from '@atmo-dev/events-ui';
 
 	let {
 		events,

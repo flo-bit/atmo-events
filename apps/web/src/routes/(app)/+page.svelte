@@ -1,5 +1,5 @@
 <script lang="ts">
-	import EventCard from '$lib/components/EventCard.svelte';
+	import { EventCard } from '@atmo-dev/events-ui';
 	import RecentActivity from '$lib/components/RecentActivity.svelte';
 	import { Button } from '@foxui/core';
 	import { user } from '$lib/atproto/auth.svelte';

@@ -3,7 +3,7 @@
 	import { user, logout } from '$lib/atproto/auth.svelte';
 	import UserProfile from '$lib/components/UserProfile.svelte';
 	import { Button } from '@foxui/core';
-	import EventCard from '$lib/components/EventCard.svelte';
+	import { EventCard } from '@atmo-dev/events-ui';
 
 	let { data } = $props();
 

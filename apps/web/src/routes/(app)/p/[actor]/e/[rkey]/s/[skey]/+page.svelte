@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
-	import EventView from '$lib/components/EventView.svelte';
+	import { EventView } from '@atmo-dev/events-ui';
 	import { redeemInvite } from '$lib/spaces/server/spaces.remote';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { user } from '$lib/atproto/auth.svelte';
@@ -81,7 +81,7 @@
 			<p class="text-base-500 text-sm">Redeeming invite…</p>
 		</div>
 	{/if}
-	<EventView {data} {adapter} {viewer} />
+	<EventView {data} {adapter} {viewer} pageUrl={page.url} />
 	{#if data.isOwner}
 		<div class="mx-auto max-w-3xl px-4 pb-12">
 			<a

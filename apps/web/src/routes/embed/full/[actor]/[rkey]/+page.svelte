@@ -1,7 +1,8 @@
 <script lang="ts">
-	import EventView from '$lib/components/EventView.svelte';
+	import { EventView } from '@atmo-dev/events-ui';
 	import { onMount } from 'svelte';
 	import { createBlentoAdapter, type EditorViewer } from '$lib/components/editor/adapter';
+	import { page } from '$app/state';
 
 	let { data } = $props();
 
@@ -78,5 +79,5 @@
 		></div>
 	</div>
 {:else}
-	<EventView {data} {adapter} {viewer} embedMode {shareUrlOverride} />
+	<EventView {data} {adapter} {viewer} pageUrl={page.url} embedMode {shareUrlOverride} />
 {/if}

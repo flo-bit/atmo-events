@@ -1,8 +1,8 @@
 <script lang="ts">
-	import EventEditor from '$lib/components/EventEditor.svelte';
+	import { EventEditor } from '@atmo-dev/events-ui';
 	import { onMount } from 'svelte';
 	import { createBlentoAdapter, type EditorViewer } from '$lib/components/editor/adapter';
-	import type { EventTheme } from '$lib/theme';
+	import type { EventTheme } from '@atmo-dev/events-ui';
 
 	let { data } = $props();
 

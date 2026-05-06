@@ -8,8 +8,8 @@
 		formatTime
 	} from './schedule-utils';
 	import { Modal, Button } from '@foxui/core';
-	import EventRsvp from '$lib/components/EventRsvp.svelte';
-	import VodPlayer from '$lib/components/VodPlayer.svelte';
+	import { EventRsvp } from '@atmo-dev/events-ui';
+	import { VodPlayer } from '@atmo-dev/events-ui';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { createInAppAdapter } from '$lib/components/editor/adapter';
 

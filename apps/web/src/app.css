@@ -3,6 +3,8 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 @source "../node_modules/@foxui";
+@source "../node_modules/@atmo-dev/events-ui/dist";
+@source "../../../packages/ui/src";
 
 @custom-variant dark (&:is(.dark *));
 

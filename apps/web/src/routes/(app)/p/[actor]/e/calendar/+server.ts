@@ -45,10 +45,14 @@ export async function GET({ params, platform }) {
 				const imageUrl = thumbnail?.content
 					? getCDNImageBlobUrl({ did, blob: thumbnail.content })
 					: undefined;
-				const attendeeGroups = buildEventAttendees(r.rsvps, response.profiles, {
-					goingCount: r.rsvpsGoingCount,
-					interestedCount: r.rsvpsInterestedCount
-				});
+				const attendeeGroups = buildEventAttendees(
+					r.rsvps as Parameters<typeof buildEventAttendees>[0],
+					response.profiles,
+					{
+						goingCount: r.rsvpsGoingCount,
+						interestedCount: r.rsvpsInterestedCount
+					}
+				);
 				const attendees: ICalAttendee[] = [...attendeeGroups.going, ...attendeeGroups.interested];
 
 				return {

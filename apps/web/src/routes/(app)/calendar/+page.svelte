@@ -1,5 +1,5 @@
 <script lang="ts">
-	import EventCard from '$lib/components/EventCard.svelte';
+	import { EventCard } from '@atmo-dev/events-ui';
 	import { Button, Modal } from '@foxui/core';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { user } from '$lib/atproto/auth.svelte';

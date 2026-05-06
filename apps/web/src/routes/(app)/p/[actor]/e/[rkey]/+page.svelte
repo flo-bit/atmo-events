@@ -1,7 +1,8 @@
 <script lang="ts">
-	import EventView from '$lib/components/EventView.svelte';
+	import { EventView } from '@atmo-dev/events-ui';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { createInAppAdapter } from '$lib/components/editor/adapter';
+	import { page } from '$app/state';
 
 	let { data } = $props();
 
@@ -15,4 +16,4 @@
 	let adapter = $derived(createInAppAdapter({ viewer }));
 </script>
 
-<EventView {data} {adapter} {viewer} />
+<EventView {data} {adapter} {viewer} pageUrl={page.url} />

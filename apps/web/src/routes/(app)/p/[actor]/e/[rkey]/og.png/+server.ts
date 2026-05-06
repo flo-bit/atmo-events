@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 import EventOgImage from './EventOgImage.svelte';
 import { getActor } from '$lib/actor';
 import { flattenEventRecord, getEventRecordFromContrail, getServerClient } from '$lib/contrail';
-import { formatInTz, partsInTz } from '$lib/date-format';
+import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
 
 function formatDate(dateStr: string, tz: string | undefined): string {
