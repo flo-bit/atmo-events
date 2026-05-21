@@ -15,6 +15,9 @@ export type {
 	EditorViewer
 } from './editor/adapter.js';
 
+// Editor inputs
+export type { EventEditorPrefill } from './editor/types.js';
+
 // Domain types
 export type {
 	FlatEventRecord,

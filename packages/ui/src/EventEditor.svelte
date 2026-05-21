@@ -29,6 +29,7 @@
 	import RecurringModal from './editor/RecurringModal.svelte';
 	import {
 		stripModePrefix,
+		type EventEditorPrefill,
 		type EventLocation,
 		type EventMode,
 		type Visibility
@@ -44,7 +45,8 @@
 		privateMode = false,
 		adapter,
 		viewer,
-		initialTheme
+		initialTheme,
+		prefill = null
 	}: {
 		eventData: FlatEventRecord | null;
 		actorDid: string;
@@ -55,19 +57,41 @@
 		viewer: EditorViewer;
 		/** Override default theme for new events (e.g. inherit embedder's palette). */
 		initialTheme?: Partial<EventTheme>;
+		/** Autofill payload for new events (e.g. imported from Luma/Meetup). */
+		prefill?: EventEditorPrefill | null;
 	} = $props();
 
 	let isNew = $derived(eventData === null);
 
-	let thumbnailChanged = $state(false);
+	// svelte-ignore state_referenced_locally
+	let thumbnailChanged = $state(
+		eventData === null && (prefill?.thumbnailFile ?? null) !== null
+	);
+
+	// Initial values: prefer prefill (only honored for brand-new events) so the
+	// title editor and date inputs see the imported values on their first render
+	// — TipTap reads `content` only once at mount.
+	// svelte-ignore state_referenced_locally
+	const initialPrefill = eventData === null ? prefill : null;
+	const initialTimezone =
+		initialPrefill?.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 	// svelte-ignore state_referenced_locally
-	let name = $state(eventData?.name || '');
-	let description = $state('');
-	let startsAt = $state('');
-	let endsAt = $state('');
-	let timezone = $state(Intl.DateTimeFormat().resolvedOptions().timeZone);
-	let mode: EventMode = $state('inperson');
+	let name = $state(initialPrefill?.name ?? eventData?.name ?? '');
+	// svelte-ignore state_referenced_locally
+	let description = $state(initialPrefill?.description ?? '');
+	// svelte-ignore state_referenced_locally
+	let startsAt = $state(
+		initialPrefill?.startsAt ? isoToDatetimeLocalInTz(initialPrefill.startsAt, initialTimezone) : ''
+	);
+	// svelte-ignore state_referenced_locally
+	let endsAt = $state(
+		initialPrefill?.endsAt ? isoToDatetimeLocalInTz(initialPrefill.endsAt, initialTimezone) : ''
+	);
+	// svelte-ignore state_referenced_locally
+	let timezone = $state(initialTimezone);
+	// svelte-ignore state_referenced_locally
+	let mode: EventMode = $state(initialPrefill?.mode ?? 'inperson');
 	// svelte-ignore state_referenced_locally
 	let visibility: Visibility = $state(privateMode && dev ? 'private' : 'public');
 	// svelte-ignore state_referenced_locally
@@ -80,17 +104,30 @@
 				}
 			: { ...defaultTheme }
 	);
-	let thumbnailFile: File | null = $state(null);
-	let thumbnailPreview: string | null = $state(null);
-	let selectedPreset: string | null = $state(eventData === null ? DEFAULT_PRESET : null);
+	const initialThumbnailFile = initialPrefill?.thumbnailFile ?? null;
+	// svelte-ignore state_referenced_locally
+	let thumbnailFile: File | null = $state(initialThumbnailFile);
+	// svelte-ignore state_referenced_locally
+	let thumbnailPreview: string | null = $state(
+		initialThumbnailFile ? URL.createObjectURL(initialThumbnailFile) : null
+	);
+	// svelte-ignore state_referenced_locally
+	let selectedPreset: string | null = $state(
+		initialThumbnailFile ? null : eventData === null ? DEFAULT_PRESET : null
+	);
 	let submitting = $state(false);
 	let error: string | null = $state(null);
 	let titleEditor: Readable<Editor> | undefined = $state(undefined);
 
-	let location: EventLocation | null = $state(null);
-	let locationChanged = $state(false);
+	// svelte-ignore state_referenced_locally
+	let location: EventLocation | null = $state(initialPrefill?.location ? { ...initialPrefill.location } : null);
+	// svelte-ignore state_referenced_locally
+	let locationChanged = $state(initialPrefill?.location != null);
 
-	let links: Array<{ uri: string; name: string }> = $state([]);
+	// svelte-ignore state_referenced_locally
+	let links: Array<{ uri: string; name: string }> = $state(
+		initialPrefill?.links ? initialPrefill.links.map((l) => ({ ...l })) : []
+	);
 
 	let showRecurringModal = $state(false);
 
@@ -242,6 +279,11 @@
 				media,
 				resolveHandle: (handle) => adapter.resolveHandle(handle)
 			});
+
+			if (isNew && prefill?.additionalData) {
+				const existing = (record.additionalData ?? {}) as Record<string, unknown>;
+				record.additionalData = { ...existing, ...prefill.additionalData };
+			}
 
 			if (visibility === 'private') {
 				if (!adapter.createPrivateEvent) {
