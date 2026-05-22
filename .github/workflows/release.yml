@@ -27,16 +27,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Reads the version from the root package.json "packageManager" field (pnpm@11.2.2).
-      - name: 📦 Setup pnpm
-        uses: pnpm/action-setup@v4
-
+      # Node must be set up BEFORE pnpm: pnpm/action-setup runs pnpm's self-installer
+      # under the active Node, and pnpm 11 requires Node >=22.13 (the runner default
+      # is Node 20).
       - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           # No registry-url on purpose: OIDC trusted publishing does not use a
           # token, and setup-node's auth .npmrc would inject an empty one.
+
+      # Reads the version from the root package.json "packageManager" field (pnpm@11.2.2).
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
 
       - name: 📥 Install dependencies
         run: pnpm install --frozen-lockfile
