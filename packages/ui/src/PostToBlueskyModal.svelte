@@ -52,6 +52,9 @@
 
 	const searchMentions = createBlueskyMentionSearch();
 
+	// Seed from the initial prop; the $effect below re-pushes it into the editor
+	// each time the modal opens, so only capturing the initial value is intentional.
+	// svelte-ignore state_referenced_locally
 	let postContent = $state<MicrobloggingPostContent>({
 		text: initialText,
 		json: textToDoc(initialText)

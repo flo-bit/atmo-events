@@ -2,6 +2,7 @@
 	import { EventCard } from '@atmo-dev/events-ui';
 	import { Button, Modal } from '@foxui/core';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
+	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
 	import { user } from '$lib/atproto/auth.svelte';
 
 	let { data } = $props();
@@ -75,7 +76,9 @@
 			</p>
 			<div class="mt-6 flex justify-center gap-3">
 				<Button href="/">Join events</Button>
-				<Button href="/create" variant="secondary">Create event</Button>
+				<Button onclick={() => createEventModalState.show()} variant="secondary">
+					Create event
+				</Button>
 			</div>
 		</div>
 	{:else}

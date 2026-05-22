@@ -71,6 +71,7 @@
 			{#each accentColors as color}
 				<button
 					type="button"
+					aria-label="Accent color {color.label}"
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.accentColor === color.label
 						? 'border-white scale-110 ring-2 ring-base-400'
@@ -88,6 +89,7 @@
 			{#each baseColors as color}
 				<button
 					type="button"
+					aria-label="Base color {color.label}"
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.baseColor === color.label
 						? 'border-white scale-110 ring-2 ring-base-400'

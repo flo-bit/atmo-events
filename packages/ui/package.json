@@ -4,6 +4,16 @@
 	"description": "Svelte components for atmo events (EventView, EventEditor, EventCard).",
 	"license": "MIT",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/flo-bit/atmo-events.git",
+		"directory": "packages/ui"
+	},
+	"homepage": "https://github.com/flo-bit/atmo-events/tree/main/packages/ui#readme",
+	"bugs": "https://github.com/flo-bit/atmo-events/issues",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"package": "svelte-kit sync && svelte-package -i src -o dist && publint",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
