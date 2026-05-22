@@ -27,9 +27,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Node must be set up BEFORE pnpm: pnpm/action-setup runs pnpm's self-installer
-      # under the active Node, and pnpm 11 requires Node >=22.13 (the runner default
-      # is Node 20).
       - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
@@ -37,9 +34,14 @@ jobs:
           # No registry-url on purpose: OIDC trusted publishing does not use a
           # token, and setup-node's auth .npmrc would inject an empty one.
 
-      # Reads the version from the root package.json "packageManager" field (pnpm@11.2.2).
-      - name: 📦 Setup pnpm
-        uses: pnpm/action-setup@v4
+      # pnpm is pinned via the root package.json "packageManager" field (pnpm@11.2.2)
+      # and run through corepack under Node 22. We avoid pnpm/action-setup because its
+      # self-installer runs under the Actions runtime's Node 20, which pnpm 11 rejects
+      # (engines.node >=22.13). corepack@latest is installed first for current keys.
+      - name: 📦 Enable pnpm (corepack)
+        run: |
+          npm install --global corepack@latest --force
+          corepack enable
 
       - name: 📥 Install dependencies
         run: pnpm install --frozen-lockfile
