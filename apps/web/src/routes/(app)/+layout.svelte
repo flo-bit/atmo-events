@@ -6,6 +6,9 @@
 	import { page } from '$app/state';
 	import { ModeWatcher } from 'mode-watcher';
 	import LoginModal from '$lib/components/LoginModal.svelte';
+	import CreateEventModal, {
+		createEventModalState
+	} from '$lib/components/CreateEventModal.svelte';
 
 	let { children } = $props();
 </script>
@@ -48,8 +51,10 @@
 		</a>
 		{#if user.isLoggedIn}
 			{#if !page.url.pathname.startsWith('/create')}
-				<Button href="/create" class="hidden sm:inline-flex">Create Event</Button>
-				<Button href="/create" size="icon" class="sm:hidden">
+				<Button onclick={() => createEventModalState.show()} class="hidden sm:inline-flex">
+					Create Event
+				</Button>
+				<Button onclick={() => createEventModalState.show()} size="icon" class="sm:hidden">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -60,6 +65,7 @@
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 					</svg>
+					<span class="sr-only">create event</span>
 				</Button>
 			{/if}
 			<a href="/p/{user.profile?.handle || user.did}" class="shrink-0">
@@ -106,6 +112,7 @@
 </main>
 
 <LoginModal />
+<CreateEventModal />
 
 <Head
 	title="atmo.rsvp"

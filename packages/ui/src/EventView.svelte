@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
-	import { Avatar as FoxAvatar, Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import ShareModal from './ShareModal.svelte';
 	import EventComments from './EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
@@ -25,6 +25,7 @@
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
+	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
 	let {
@@ -149,6 +150,17 @@
 	let isOwner = $derived(!embedMode && viewer.isLoggedIn && viewer.did === did);
 
 	let speakers = $derived(data.speakerProfiles ?? []);
+
+	// Imported events can opt out of atmo's own RSVPs (rsvpMode === 'external_only').
+	// In that case we hide the RSVP controls and link out to the original event page.
+	let externalSource = $derived(
+		(eventData.additionalData as Record<string, unknown> | undefined)?.externalSource as
+			| { url?: string; rsvpMode?: 'external_only' | 'atmo_too' }
+			| undefined
+	);
+	let rsvpExternalOnly = $derived(
+		externalSource?.rsvpMode === 'external_only' && !!externalSource?.url
+	);
 
 	let vodCurrentTime = $state(0);
 	let vodApi: VodPlayerApi | undefined = $state();
@@ -285,17 +297,21 @@
 				{/if}
 
 				{#if !isPast}
-					<EventRsvp
-						{eventUri}
-						eventCid={eventData.cid ?? null}
-						initialRsvpStatus={data.viewerRsvpStatus}
-						initialRsvpRkey={data.viewerRsvpRkey}
-						spaceUri={data.spaceUri ?? null}
-						{adapter}
-						{viewer}
-						onrsvp={handleRsvp}
-						oncancel={handleRsvpCancel}
-					/>
+					{#if rsvpExternalOnly && externalSource?.url}
+						<ExternalRsvpNotice url={externalSource.url} />
+					{:else}
+						<EventRsvp
+							{eventUri}
+							eventCid={eventData.cid ?? null}
+							initialRsvpStatus={data.viewerRsvpStatus}
+							initialRsvpRkey={data.viewerRsvpRkey}
+							spaceUri={data.spaceUri ?? null}
+							{adapter}
+							{viewer}
+							onrsvp={handleRsvp}
+							oncancel={handleRsvpCancel}
+						/>
+					{/if}
 				{/if}
 
 				<!-- Live stream -->

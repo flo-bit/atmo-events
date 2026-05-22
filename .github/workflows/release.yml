@@ -1,0 +1,53 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+# Never run two releases at once.
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+# Least privilege by default; the job below grants exactly what it needs.
+permissions: {}
+
+jobs:
+  release:
+    name: 📦 Release @atmo-dev/events-ui
+    if: ${{ github.repository == 'flo-bit/atmo-events' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # changesets pushes the version-bump branch + git tags
+      pull-requests: write # changesets opens/updates the "Version Packages" PR
+      id-token: write # OIDC: tokenless "trusted publishing" to npm (+ provenance)
+
+    steps:
+      - name: ⬇︎ Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      # Reads the version from the root package.json "packageManager" field (pnpm@11.2.2).
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          # No registry-url on purpose: OIDC trusted publishing does not use a
+          # token, and setup-node's auth .npmrc would inject an empty one.
+
+      - name: 📥 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # On a push with pending changesets -> opens/updates the "Version Packages" PR.
+      # On a push where changesets are already consumed (i.e. that PR was merged)
+      # -> runs `pnpm changeset publish`, which publishes via OIDC.
+      - name: 🚀 Version or Publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version && pnpm install --lockfile-only
+          publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

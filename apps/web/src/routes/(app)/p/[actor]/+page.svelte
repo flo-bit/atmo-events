@@ -4,6 +4,7 @@
 	import UserProfile from '$lib/components/UserProfile.svelte';
 	import { Button } from '@foxui/core';
 	import { EventCard } from '@atmo-dev/events-ui';
+	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
 
 	let { data } = $props();
 
@@ -58,7 +59,9 @@
 		</UserProfile>
 
 		{#if isOwnProfile}
-			<Button href="/create" class="-mt-6 mb-6" size="lg">Create Event</Button>
+			<Button onclick={() => createEventModalState.show()} class="-mt-6 mb-6" size="lg">
+				Create Event
+			</Button>
 		{/if}
 
 		<!-- Upcoming Events -->

@@ -54,6 +54,7 @@
 		{#each presetKeys as key}
 			<button
 				type="button"
+				aria-label="Use {key} preset thumbnail"
 				class="aspect-square cursor-pointer overflow-hidden rounded-xl border-2 transition-colors
 					{selected === key
 					? 'border-accent-500'

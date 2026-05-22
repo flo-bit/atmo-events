@@ -4,6 +4,7 @@
 	import { Button } from '@foxui/core';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
+	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
 
 	let { data } = $props();
 
@@ -22,7 +23,7 @@
 		</p>
 		<div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
 			{#if user.isLoggedIn}
-				<Button href="/create">Create Event</Button>
+				<Button onclick={() => createEventModalState.show()}>Create Event</Button>
 			{:else}
 				<Button onclick={() => atProtoLoginModalState.show()}>Create Event</Button>
 			{/if}

@@ -3,16 +3,21 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"packageManager": "pnpm@11.2.2",
 	"scripts": {
 		"dev": "pnpm --filter web dev",
 		"build": "pnpm --filter web build",
 		"check": "pnpm -r check",
 		"lint": "pnpm -r lint",
 		"format": "prettier --write .",
-		"package:ui": "pnpm --filter @atmo-dev/events-ui package"
+		"package:ui": "pnpm --filter @atmo-dev/events-ui package",
+		"changeset": "changeset",
+		"version-packages": "changeset version",
+		"release": "changeset publish"
 	},
 	"license": "MIT",
 	"devDependencies": {
+		"@changesets/cli": "^2.31.0",
 		"prettier": "^3.8.1",
 		"prettier-plugin-svelte": "^3.5.1",
 		"prettier-plugin-tailwindcss": "^0.7.2"
