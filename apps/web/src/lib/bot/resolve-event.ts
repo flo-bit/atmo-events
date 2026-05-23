@@ -2,7 +2,8 @@ import type { Client } from '@atcute/client';
 import type { Did } from '@atcute/lexicons';
 import type { Handle, ResourceUri } from '@atcute/lexicons/syntax';
 import { getEventRecordFromContrail } from '$lib/contrail';
-import { ATMO_HOSTS } from './config';
+import { getPDS } from '$lib/atproto/methods';
+import { ATMO_HOSTS, EVENT_COLLECTION } from './config';
 
 /** The fields of a Bluesky post record we care about for link extraction. */
 export type BotPostRecord = {
@@ -133,29 +134,58 @@ export type ResolvedEvent = {
 	externalRsvpUrl: string | null;
 };
 
+type EventValue = {
+	additionalData?: { externalSource?: { rsvpMode?: string; url?: string } };
+};
+
+function toResolvedEvent(uri: string, cid: string, value: EventValue | undefined): ResolvedEvent {
+	const externalSource = value?.additionalData?.externalSource;
+	const externalOnly = externalSource?.rsvpMode === 'external_only';
+	return {
+		uri,
+		cid,
+		externalOnly,
+		externalRsvpUrl: externalOnly ? (externalSource?.url ?? null) : null
+	};
+}
+
 /**
- * Load the event referenced by a link via contrail's in-process index, returning
- * the strong-ref pieces (uri + cid) and the external-RSVP signal. Returns null
- * when the event isn't indexed (treated as "no event").
+ * Load the event referenced by a link. Prefers contrail's in-process index
+ * (fast, no network); falls back to a direct read from the owner's PDS when the
+ * index misses — so the bot keeps working even while contrail is fresh/behind
+ * (e.g. right after a DB switch, before backfill completes). Returns null only
+ * when the event genuinely can't be found anywhere.
  */
 export async function loadEvent(
 	serverClient: Client,
 	did: Did,
 	rkey: string
 ): Promise<ResolvedEvent | null> {
-	const event = await getEventRecordFromContrail(serverClient, { did, rkey });
-	if (!event?.cid) return null;
+	try {
+		const event = await getEventRecordFromContrail(serverClient, { did, rkey });
+		if (event?.cid) {
+			return toResolvedEvent(event.uri, event.cid, event.value as unknown as EventValue);
+		}
+	} catch {
+		// Index hiccup — fall through to the PDS.
+	}
+	return loadEventFromPds(did, rkey);
+}
 
-	const value = event.value as unknown as {
-		additionalData?: { externalSource?: { rsvpMode?: string; url?: string } };
-	};
-	const externalSource = value?.additionalData?.externalSource;
-	const externalOnly = externalSource?.rsvpMode === 'external_only';
-
-	return {
-		uri: event.uri,
-		cid: event.cid,
-		externalOnly,
-		externalRsvpUrl: externalOnly ? (externalSource?.url ?? null) : null
-	};
+/** Direct public read of the event record from its owner's PDS (no auth needed). */
+async function loadEventFromPds(did: Did, rkey: string): Promise<ResolvedEvent | null> {
+	try {
+		const pds = await getPDS(did);
+		if (!pds) return null;
+		const url =
+			`${pds.replace(/\/$/, '')}/xrpc/com.atproto.repo.getRecord` +
+			`?repo=${encodeURIComponent(did)}&collection=${EVENT_COLLECTION}&rkey=${encodeURIComponent(rkey)}`;
+		const res = await fetch(url);
+		if (!res.ok) return null;
+		const data = (await res.json()) as { uri?: string; cid?: string; value?: EventValue };
+		if (!data?.uri || !data?.cid) return null;
+		return toResolvedEvent(data.uri, data.cid, data.value);
+	} catch {
+		return null;
+	}
 }

@@ -24,8 +24,8 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "atmo-events-v4",
-			"database_id": "3ba9a931-aae7-425b-a68e-d18d9a8ab31b",
+			"database_name": "atmo-events-v5",
+			"database_id": "3f862040-84ee-4216-8ba7-ef3146058de4",
 			"remote": true
 		}
 	],

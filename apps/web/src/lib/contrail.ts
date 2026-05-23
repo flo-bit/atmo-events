@@ -16,6 +16,32 @@ export const RSVP_HYDRATE_LIMIT = 20;
 export const RSVP_GOING = 'community.lexicon.calendar.rsvp#going';
 export const RSVP_INTERESTED = 'community.lexicon.calendar.rsvp#interested';
 
+/** Transient D1 failures worth retrying (CPU-limit resets, lost connections). */
+function isTransientD1Error(e: unknown): boolean {
+	const msg = e instanceof Error ? e.message : String(e);
+	return /D1_ERROR|CPU time|was reset|Network connection lost|7429|storage caused object to be reset|internal error/i.test(
+		msg
+	);
+}
+
+/**
+ * Retry a contrail/D1 read on transient D1 errors (e.g. "D1 exceeded its CPU
+ * time limit and was reset" under load). Non-transient errors throw immediately.
+ */
+export async function withD1Retry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+	let lastErr: unknown;
+	for (let i = 0; i < attempts; i++) {
+		try {
+			return await fn();
+		} catch (e) {
+			lastErr = e;
+			if (!isTransientD1Error(e) || i === attempts - 1) throw e;
+			await new Promise((r) => setTimeout(r, 120 * (i + 1)));
+		}
+	}
+	throw lastErr;
+}
+
 type ProfileOutput = RsvpAtmoGetProfile.$output;
 type EventListOutput = RsvpAtmoEventListRecords.$output;
 type EventListRecord = RsvpAtmoEventListRecords.Record;
@@ -140,10 +166,7 @@ export function eventUrl(event: FlatEventRecord, actor?: string): string {
 	return `/p/${who}/e/${event.rkey}`;
 }
 
-export function getHostProfile(
-	did: string,
-	profiles?: AttendeeProfileEntry[]
-): HostProfile | null {
+export function getHostProfile(did: string, profiles?: AttendeeProfileEntry[]): HostProfile | null {
 	const profile = profiles?.find((entry) => entry.did === did);
 	if (!profile) return null;
 

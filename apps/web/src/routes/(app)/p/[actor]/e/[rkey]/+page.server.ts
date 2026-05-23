@@ -11,9 +11,57 @@ import {
 	getServerClient,
 	getViewerRsvpFromContrail,
 	listEventAttendeesFromContrail,
+	withD1Retry,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
+import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '$lib/vods';
+
+type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
+
+/**
+ * Fetch the event record with resilience: retry transient D1 errors, cache
+ * successes briefly (Cloudflare Cache API), and fall back to the cached copy
+ * when D1 is momentarily unavailable — so a DB hiccup serves slightly-stale
+ * data instead of a misleading 404.
+ */
+async function loadEventRecordResilient(
+	client: Client,
+	did: string,
+	rkey: string
+): Promise<EventRecord> {
+	// `caches.default` is a Cloudflare extension not in the DOM `CacheStorage`
+	// type, and is absent in dev (vite/node) — guard + cast.
+	const cache =
+		typeof caches !== 'undefined' && 'default' in caches
+			? (caches as unknown as { default: Cache }).default
+			: null;
+	const cacheKey = new Request(`https://event-cache.internal/${did}/${rkey}`);
+
+	try {
+		const record = await withD1Retry(() =>
+			getEventRecordFromContrail(client, {
+				did,
+				rkey,
+				hydrateRsvps: RSVP_HYDRATE_LIMIT,
+				profiles: true
+			})
+		);
+		if (record && cache) {
+			await cache.put(
+				cacheKey,
+				new Response(JSON.stringify(record), { headers: { 'cache-control': 'max-age=120' } })
+			);
+		}
+		return record;
+	} catch (e) {
+		if (cache) {
+			const cached = await cache.match(cacheKey);
+			if (cached) return (await cached.json()) as EventRecord;
+		}
+		throw e;
+	}
+}
 
 export async function load({ params, locals, url, platform }) {
 	const client = getServerClient(platform!.env.DB);
@@ -33,16 +81,12 @@ export async function load({ params, locals, url, platform }) {
 		throw error(503, 'Could not resolve this profile right now — please try again.');
 	}
 
-	// Fetch the event. Distinguish "genuinely not indexed" (404) from a transient
-	// index/D1 error (503), so a hiccup doesn't masquerade as "not found".
-	let eventRecord;
+	// Fetch the event (retry + cache fallback). Distinguish "genuinely not
+	// indexed" (404) from a transient index/D1 error (503), so a hiccup doesn't
+	// masquerade as "not found".
+	let eventRecord: EventRecord;
 	try {
-		eventRecord = await getEventRecordFromContrail(client, {
-			did,
-			rkey,
-			hydrateRsvps: RSVP_HYDRATE_LIMIT,
-			profiles: true
-		});
+		eventRecord = await loadEventRecordResilient(client, did, rkey);
 	} catch {
 		throw error(503, 'Temporarily unavailable — please try again.');
 	}

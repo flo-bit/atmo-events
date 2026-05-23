@@ -80,12 +80,14 @@ export const config: ContrailConfig = {
 		// Powers the home-page "from people you follow" surface.
 		network: {
 			// Per-target caps so RSVPs (high-volume) can't squeeze events
-			// (low-volume) out of the cap. Bumped above the default 200 because
-			// most RSVPs in feed_items refer to past events, and we want enough
-			// breathing room to find recent ones after the JS-side filter.
+			// (low-volume) out of the cap. Kept deliberately modest: feed_items is
+			// pruned every cycle with a ROW_NUMBER()-over-the-table query, so large
+			// caps bloat the table and make the prune exceed D1's per-query CPU
+			// limit (which then thrashes the DB and fails concurrent reads). These
+			// values are enough to surface recent items after the JS-side filter.
 			targets: [
-				{ collection: 'event', maxItems: 200 },
-				{ collection: 'rsvp', maxItems: 1000 }
+				{ collection: 'event', maxItems: 100 },
+				{ collection: 'rsvp', maxItems: 250 }
 			]
 		}
 	}
