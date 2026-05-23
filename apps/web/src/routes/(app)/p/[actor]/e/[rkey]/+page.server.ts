@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import type { ActorIdentifier } from '@atcute/lexicons';
-import { getActor } from '$lib/actor';
+import type { ActorIdentifier, Did } from '@atcute/lexicons';
+import { actorToDid } from '$lib/atproto/methods';
 import {
 	flattenEventRecord,
 	getEventRecordFromContrail,
@@ -19,75 +19,108 @@ export async function load({ params, locals, url, platform }) {
 	const client = getServerClient(platform!.env.DB);
 	const { rkey } = params;
 
-	const did = await getActor(params.actor);
-
-	if (!did || !rkey) {
+	if (!rkey) {
 		throw error(404, 'Event not found');
 	}
 
+	// Resolve the actor (handle→DID). A failure here is almost always transient
+	// (DNS / network), not a missing event — surface it as retryable rather than
+	// a misleading "not found" the user can't recover from.
+	let did: Did;
 	try {
-		const eventRecord = await getEventRecordFromContrail(client, {
+		did = await actorToDid(params.actor);
+	} catch {
+		throw error(503, 'Could not resolve this profile right now — please try again.');
+	}
+
+	// Fetch the event. Distinguish "genuinely not indexed" (404) from a transient
+	// index/D1 error (503), so a hiccup doesn't masquerade as "not found".
+	let eventRecord;
+	try {
+		eventRecord = await getEventRecordFromContrail(client, {
 			did,
 			rkey,
 			hydrateRsvps: RSVP_HYDRATE_LIMIT,
 			profiles: true
 		});
+	} catch {
+		throw error(503, 'Temporarily unavailable — please try again.');
+	}
 
-		const eventData = eventRecord ? flattenEventRecord(eventRecord) : null;
+	const eventData = eventRecord ? flattenEventRecord(eventRecord) : null;
 
-		if (!eventData) {
-			throw error(404, 'Event not found');
-		}
+	if (!eventData) {
+		throw error(404, 'Event not found');
+	}
 
-		const fullEventRecord = eventRecord!;
-		const isAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)?.isAtmosphereconf;
+	const fullEventRecord = eventRecord!;
+	const isAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)
+		?.isAtmosphereconf;
 
-		const speakers = ((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
+	const speakers =
+		((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
 			| Array<{ id: string; name: string }>
 			| undefined) ?? [];
 
-		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as string | undefined;
-		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
+	const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
+		| string
+		| undefined;
+	const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
-		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
-			listEventAttendeesFromContrail(client, fullEventRecord.uri),
-			locals.did
-				? getViewerRsvpFromContrail(client, { eventUri: fullEventRecord.uri, actor: locals.did })
-				: null,
-			isAtmosphereconf
-				? getEventRecordFromContrail(client, { did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e', profiles: true })
-					.then((r) => r ? flattenEventRecord(r) : null)
+	// Secondary hydration is best-effort: the event already loaded, so a hiccup
+	// fetching attendees/rsvp/speakers must not take down (or 404) the page.
+	const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
+		listEventAttendeesFromContrail(client, fullEventRecord.uri).catch(() => ({
+			going: [],
+			interested: [],
+			goingCount: 0,
+			interestedCount: 0
+		})),
+		locals.did
+			? getViewerRsvpFromContrail(client, {
+					eventUri: fullEventRecord.uri,
+					actor: locals.did
+				}).catch(() => null)
+			: null,
+		isAtmosphereconf
+			? getEventRecordFromContrail(client, {
+					did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq',
+					rkey: '3lte3c7x43l2e',
+					profiles: true
+				})
+					.then((r) => (r ? flattenEventRecord(r) : null))
 					.catch(() => null)
-				: null,
-			...speakers.map((s) =>
-				s.id
-					? getProfileFromContrail(client, s.id as ActorIdentifier)
-							.then((p) => ({
-								id: s.id,
-								name: s.name,
-								avatar: p?.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined,
-								handle: p?.handle || s.id
-							}))
-							.catch(() => ({ id: s.id, name: s.name, avatar: undefined, handle: s.id }))
-					: Promise.resolve({ id: undefined, name: s.name, avatar: undefined, handle: undefined })
-			)
-		]);
+			: null,
+		...speakers.map((s) =>
+			s.id
+				? getProfileFromContrail(client, s.id as ActorIdentifier)
+						.then((p) => ({
+							id: s.id,
+							name: s.name,
+							avatar: p?.value?.avatar ? getProfileBlobUrl(p.did, p.value.avatar) : undefined,
+							handle: p?.handle || s.id
+						}))
+						.catch(() => ({ id: s.id, name: s.name, avatar: undefined, handle: s.id }))
+				: Promise.resolve({ id: undefined, name: s.name, avatar: undefined, handle: undefined })
+		)
+	]);
 
-		return {
-			ogImage: `${url.origin}${url.pathname}/og.png`,
-			eventData,
-			actorDid: did,
-			rkey,
-			hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
-			attendees,
-			viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.value?.status),
-			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
-			parentEvent,
-			vod,
-			speakerProfiles: speakerProfiles as Array<{ id?: string; name: string; avatar?: string; handle?: string }>
-		};
-	} catch (e) {
-		if (e && typeof e === 'object' && 'status' in e) throw e;
-		throw error(404, 'Event not found');
-	}
+	return {
+		ogImage: `${url.origin}${url.pathname}/og.png`,
+		eventData,
+		actorDid: did,
+		rkey,
+		hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
+		attendees,
+		viewerRsvpStatus: getRsvpStatus(viewerRsvpRecord?.value?.status),
+		viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
+		parentEvent,
+		vod,
+		speakerProfiles: speakerProfiles as Array<{
+			id?: string;
+			name: string;
+			avatar?: string;
+			handle?: string;
+		}>
+	};
 }

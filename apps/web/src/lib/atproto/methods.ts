@@ -40,12 +40,37 @@ export async function resolveHandle({ handle }: { handle: Handle }) {
 	return data;
 }
 
+// Handle→DID is stable enough to cache, and resolution hits the network (DoH +
+// `.well-known`), which is occasionally flaky. Cache successes (per worker
+// isolate) and retry transient failures so a momentary blip doesn't surface to
+// callers as an unresolvable actor. Only successes are cached, so a transient
+// failure is retried on the next call rather than stuck as a negative.
+const HANDLE_CACHE_TTL_MS = 60 * 60 * 1000;
+const handleCache = new Map<string, { did: Did; at: number }>();
+
 /**
- * Returns a DID given a handle or DID string.
+ * Returns a DID given a handle or DID string. Caches + retries handle lookups.
+ * Throws if resolution genuinely fails after retries (callers should treat that
+ * as transient, not as "actor doesn't exist").
  */
 export async function actorToDid(actor: string): Promise<Did> {
 	if (isDid(actor)) return actor;
-	return await resolveHandle({ handle: actor as Handle });
+
+	const cached = handleCache.get(actor);
+	if (cached && Date.now() - cached.at < HANDLE_CACHE_TTL_MS) return cached.did;
+
+	let lastErr: unknown;
+	for (let attempt = 0; attempt < 3; attempt++) {
+		try {
+			const did = await resolveHandle({ handle: actor as Handle });
+			handleCache.set(actor, { did, at: Date.now() });
+			return did;
+		} catch (e) {
+			lastErr = e;
+			if (attempt < 2) await new Promise((r) => setTimeout(r, 150 * (attempt + 1)));
+		}
+	}
+	throw lastErr;
 }
 
 const didResolver = new CompositeDidDocumentResolver({
