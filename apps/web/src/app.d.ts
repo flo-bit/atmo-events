@@ -72,6 +72,12 @@ declare global {
 				OAUTH_PUBLIC_URL: string;
 				DB: D1Database;
 				CRON_SECRET: string;
+				/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
+				BOT_IDENTIFIER?: string;
+				/** App password for the bot account (set via `wrangler secret put`). */
+				BOT_APP_PASSWORD?: string;
+				/** PDS the bot authenticates against; defaults to bsky.social. */
+				BOT_PDS_URL?: string;
 			};
 			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
 			 *  let the worker keep a fire-and-forget task alive after the response
