@@ -36,7 +36,7 @@
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
 	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
-	import type { EditorAdapter, EditorViewer } from './editor/adapter';
+	import type { EditorAdapter, EditorViewer, PublishTarget } from './editor/adapter';
 
 	let {
 		eventData = null,
@@ -131,6 +131,14 @@
 
 	let showRecurringModal = $state(false);
 
+	let publishTargets: PublishTarget[] = $state([]);
+	let selectedCommunityDid: string | null = $state(null);
+	let loadingTargets = $state(false);
+
+	let lockedCommunityDid = $derived(
+		!isNew && publishTargets.find(t => t.did === actorDid) ? actorDid : null
+	);
+
 	function populateLocationFromEventData() {
 		if (!eventData) return;
 		if (eventData.locations && eventData.locations.length > 0) {
@@ -191,9 +199,27 @@
 	onMount(() => {
 		if (!isNew) populateFromEventData();
 		if (titleEditor) get(titleEditor)?.commands.focus();
+		if (adapter.listPublishTargets) {
+			loadingTargets = true;
+			adapter.listPublishTargets()
+				.then((targets) => {
+					publishTargets = targets;
+					if (!isNew && targets.find(t => t.did === actorDid)) {
+						selectedCommunityDid = actorDid;
+					}
+				})
+				.catch((err) => console.error('Failed to load publish targets:', err))
+				.finally(() => { loadingTargets = false; });
+		}
 	});
 
 	let hostName = $derived(viewer.displayName || viewer.handle || viewer.did || '');
+
+	let effectiveHostName = $derived(
+		selectedCommunityDid
+			? publishTargets.find(t => t.did === selectedCommunityDid)?.identifier ?? selectedCommunityDid
+			: hostName
+	);
 
 	let thumbnailDateStr = $derived.by(() => {
 		if (!startsAt) return '';
@@ -307,6 +333,22 @@
 				return;
 			}
 
+			if (selectedCommunityDid && adapter.putCommunityRecord) {
+				const communityResult = await adapter.putCommunityRecord({
+					communityDid: selectedCommunityDid,
+					collection: 'community.lexicon.calendar.event',
+					rkey,
+					record
+				});
+				await adapter.notifyUpdate?.(communityResult.uri);
+				if (adapter.onCommunityEventSaved) {
+					adapter.onCommunityEventSaved({ uri: communityResult.uri, rkey, communityDid: selectedCommunityDid });
+				} else {
+					adapter.onSaved({ uri: communityResult.uri, rkey, isNew });
+				}
+				return;
+			}
+
 			const result = await adapter.putRecord({
 				collection: 'community.lexicon.calendar.event',
 				rkey,
@@ -384,6 +426,28 @@
 
 					<!-- Right column: event details -->
 					<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-5 md:row-start-1">
+						{#if publishTargets.length > 0 || lockedCommunityDid}
+							<div class="mb-4">
+								<p class="text-base-500 dark:text-base-400 mb-1.5 text-xs font-semibold tracking-wider uppercase">
+									Create as
+								</p>
+								{#if lockedCommunityDid}
+									<div class="text-base-700 dark:text-base-300 text-sm">
+										{publishTargets.find(t => t.did === lockedCommunityDid)?.identifier ?? lockedCommunityDid}
+									</div>
+								{:else}
+									<select
+										bind:value={selectedCommunityDid}
+										class="text-base-700 dark:text-base-300 bg-base-100 dark:bg-base-900 border-base-300 dark:border-base-700 rounded-md border px-2 py-1 text-sm"
+									>
+										<option value={null}>Me ({viewer.displayName || viewer.handle || 'personal'})</option>
+										{#each publishTargets as target}
+											<option value={target.did}>{target.identifier}</option>
+										{/each}
+									</select>
+								{/if}
+							</div>
+						{/if}
 						<!-- Name -->
 						<div class="mb-2 min-h-14">
 							<PlainTextEditor
@@ -526,7 +590,7 @@
 						<div class="flex items-center gap-2.5">
 							<FoxAvatar src={viewer.avatar} alt={hostName} class="size-8 shrink-0" />
 							<span class="text-base-900 dark:text-base-100 truncate text-sm font-medium">
-								{hostName}
+								{effectiveHostName}
 							</span>
 						</div>
 					</div>
@@ -537,7 +601,7 @@
 					</div>
 				</div>
 
-				{#if !isNew && adapter.features.delete}
+				{#if !isNew && adapter.features.delete && !lockedCommunityDid}
 					<div class="border-base-200 dark:border-base-800 mt-12 border-t pt-8">
 						{#if showDeleteConfirm}
 							<div class="flex items-center gap-3">
