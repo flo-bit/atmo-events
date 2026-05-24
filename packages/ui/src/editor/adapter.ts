@@ -14,6 +14,12 @@ export type EditorBlobRef = {
 	size: number;
 };
 
+export type PublishTarget = {
+	did: string;
+	identifier: string;
+	mode: string;
+};
+
 export type EditorViewer = {
 	isLoggedIn: boolean;
 	did: string | null;
@@ -73,4 +79,12 @@ export type EditorAdapter = {
 		maxUses?: number;
 		expiresAt?: number;
 	}): Promise<{ token: string }>;
+	listPublishTargets?(): Promise<PublishTarget[]>;
+	putCommunityRecord?(opts: {
+		communityDid: string;
+		collection: string;
+		rkey: string;
+		record: Record<string, unknown>;
+	}): Promise<{ uri: string; cid: string }>;
+	onCommunityEventSaved?(result: { uri: string; rkey: string; communityDid: string }): void;
 };

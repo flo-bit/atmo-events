@@ -25,7 +25,8 @@ export type { ScheduleEvent, ParentEventRef } from './conference.js';
 export type {
 	EditorAdapter,
 	EditorBlobRef,
-	EditorViewer
+	EditorViewer,
+	PublishTarget
 } from './editor/adapter.js';
 
 // Editor inputs
