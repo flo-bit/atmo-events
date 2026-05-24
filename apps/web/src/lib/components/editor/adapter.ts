@@ -151,6 +151,30 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 				...(expiresAt != null ? { expiresAt } : {})
 			});
 			return { token: result.token };
+		},
+		async listPublishTargets() {
+			const { listPublishTargets } = await import('$lib/community/server/community.remote');
+			return listPublishTargets();
+		},
+		async putCommunityRecord({
+			communityDid,
+			collection,
+			rkey,
+			record
+		}: {
+			communityDid: string;
+			collection: string;
+			rkey: string;
+			record: Record<string, unknown>;
+		}) {
+			const { putCommunityRecord } = await import('$lib/community/server/community.remote');
+			const result = await putCommunityRecord({
+				communityDid,
+				collection,
+				rkey,
+				record
+			});
+			return { uri: result.uri, cid: result.cid };
 		}
 	};
 }
