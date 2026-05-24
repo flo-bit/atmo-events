@@ -12,7 +12,7 @@
 		displayName: user.profile?.displayName,
 		avatar: user.profile?.avatar
 	});
-	let adapter = $derived(createInAppAdapter({ viewer }));
+	let adapter = $derived(createInAppAdapter({ viewer, actorDid: data.actorDid }));
 </script>
 
 <svelte:head>

@@ -22,8 +22,8 @@ function handleOrDid(viewer: EditorViewer): string {
 	return viewer.did ?? '';
 }
 
-export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapter {
-	const { viewer } = opts;
+export function createInAppAdapter(opts: { viewer: EditorViewer; actorDid?: string }): EditorAdapter {
+	const { viewer, actorDid } = opts;
 	return {
 		features: { delete: true, recurring: true, privateMode: true },
 		async putRecord({ collection, rkey, record }) {
@@ -73,13 +73,16 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			return resolveHandle({ handle: handle as Parameters<typeof resolveHandle>[0]['handle'] });
 		},
 		onSaved({ rkey, isNew, spaceKey }) {
-			const handle = handleOrDid(viewer);
+			const actor = actorDid ?? handleOrDid(viewer);
 			const created = isNew ? '?created=true' : '';
 			if (spaceKey) {
-				goto(`/p/${handle}/e/${rkey}/s/${spaceKey}${created}`);
+				goto(`/p/${actor}/e/${rkey}/s/${spaceKey}${created}`);
 			} else {
-				goto(`/p/${handle}/e/${rkey}${created}`);
+				goto(`/p/${actor}/e/${rkey}${created}`);
 			}
+		},
+		onCommunityEventSaved({ rkey, communityDid }) {
+			goto(`/p/${communityDid}/e/${rkey}?created=true`);
 		},
 		onDeleted() {
 			goto(`/p/${handleOrDid(viewer)}`);
