@@ -14,6 +14,8 @@
           "lxm": [
             "rsvp.atmo.event.getRecord",
             "rsvp.atmo.event.listRecords",
+            "rsvp.atmo.follow.getRecord",
+            "rsvp.atmo.follow.listRecords",
             "rsvp.atmo.getCursor",
             "rsvp.atmo.getFeed",
             "rsvp.atmo.getOverview",

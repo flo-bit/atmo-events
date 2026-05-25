@@ -97,25 +97,26 @@ export const config: ContrailConfig = {
 					field: 'subject.uri'
 				}
 			}
+		},
+		// PR #30: contrail no longer auto-adds the follow collection from feed
+		// configs — must be declared explicitly. discover:false because we only
+		// want follows whose subject is already in our identity set.
+		follow: {
+			collection: 'app.bsky.graph.follow',
+			discover: false
 		}
-		// `follow` (app.bsky.graph.follow) is auto-added by contrail 0.5+ when
-		// `feeds` is configured: discover:false, subjectField:'subject' (so only
-		// follows whose subject is already in identities are indexed).
 	},
 	feeds: {
 		// Exposed as rsvp.atmo.getFeed?feed=network&actor=<did>&collection=<nsid>.
 		// Powers the home-page "from people you follow" surface.
+		// PR #30 dropped per-target maxItems in favor of a single feed-level
+		// cap. The rsvp-vs-event caps from before are not expressible here.
+		// (Push-back candidate: high-volume RSVPs can squeeze low-volume events
+		// out of the feed.)
 		network: {
-			// Per-target caps so RSVPs (high-volume) can't squeeze events
-			// (low-volume) out of the cap. Kept deliberately modest: feed_items is
-			// pruned every cycle with a ROW_NUMBER()-over-the-table query, so large
-			// caps bloat the table and make the prune exceed D1's per-query CPU
-			// limit (which then thrashes the DB and fails concurrent reads). These
-			// values are enough to surface recent items after the JS-side filter.
-			targets: [
-				{ collection: 'event', maxItems: 100 },
-				{ collection: 'rsvp', maxItems: 250 }
-			]
+			follow: 'follow',
+			targets: ['event', 'rsvp'],
+			maxItems: 1000
 		}
 	}
 };

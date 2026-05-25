@@ -5,7 +5,9 @@ import { SERVICE_DID, SERVICE_URL } from './tunnel-service.generated';
 export const SPACE_TYPE = 'tools.atmo.event.space';
 
 /** Build the spaces config for contrail, or null if we can't run spaces
- *  (no service DID => dev without tunnel, prod before service is published). */
+ *  (no service DID => dev without tunnel, prod before service is published).
+ *  PR #30 split the config into authority + recordHost. We host both in the
+ *  same process for now. */
 export function getSpacesConfig(): SpacesConfig | null {
 	if (!SERVICE_DID) {
 		return null;
