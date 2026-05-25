@@ -181,7 +181,7 @@
 						Import event from somewhere else
 					</div>
 					<div class="text-base-600 dark:text-base-400 mt-1 text-xs">
-						Paste a Luma, Meetup, Eventbrite or Partiful link.
+						Paste a Luma, Meetup, Eventbrite, Partiful or Resident Advisor link.
 					</div>
 				</button>
 			</div>
