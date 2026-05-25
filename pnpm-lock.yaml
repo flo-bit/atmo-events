@@ -102,6 +102,9 @@ importers:
       '@atcute/client':
         specifier: ^4.2.1
         version: 4.2.1
+      '@atcute/crypto':
+        specifier: ^2.4.1
+        version: 2.4.1
       '@atcute/identity-resolver':
         specifier: ^1.2.2
         version: 1.2.2(@atcute/identity@1.1.4)
@@ -117,6 +120,9 @@ importers:
       '@atcute/tid':
         specifier: ^1.1.2
         version: 1.1.2
+      '@atcute/xrpc-server':
+        specifier: ^0.1.12
+        version: 0.1.12
       '@atmo-dev/contrail-lexicons':
         specifier: ^0.4.4
         version: 0.4.4(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))

@@ -24,7 +24,12 @@ export const scopes = [
 	scope.repo({ collection: [...collections] }),
 	scope.blob({ accept: ['image/*'] }),
 	'include:rsvp.atmo.permissionSet',
-	'include:app.bsky.authCreatePosts'
+	'include:app.bsky.authCreatePosts',
+	// atmo.pub notifications: lets us mint user tokens (via
+	// com.atproto.server.getServiceAuth) to ask for/revoke notification consent.
+	// `send` itself needs no user scope (it's signed with our app key).
+	'rpc?lxm=pub.atmo.notify.requestPermission&aud=*',
+	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*'
 ];
 
 // set to false to disable signup

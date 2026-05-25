@@ -1,5 +1,6 @@
 import { contrail, ensureInit } from '$lib/contrail/index';
 import { processBotMentions } from '$lib/bot/process-mentions';
+import { runNotifications } from '$lib/notify/process';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
@@ -27,6 +28,15 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		await contrail.ingest({}, db);
 	} catch (e) {
 		console.error('[cron] contrail.ingest failed:', e);
+	}
+
+	// atmo.pub notifications: event reminders + host RSVP alerts. Runs after
+	// ingest so it sees the freshest records; isolated so a failure can't 500
+	// the tick. No-ops when notifications aren't configured.
+	try {
+		await runNotifications(platform!.env, db);
+	} catch (e) {
+		console.error('[cron] runNotifications failed:', e);
 	}
 
 	return new Response('OK');

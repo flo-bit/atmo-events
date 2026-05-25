@@ -78,6 +78,10 @@ declare global {
 				BOT_APP_PASSWORD?: string;
 				/** PDS the bot authenticates against; defaults to bsky.social. */
 				BOT_PDS_URL?: string;
+				/** P-256 private key (multikey) used to sign atmo.pub app tokens and
+				 *  publish the `did:web` DID document. Set via `wrangler secret put`.
+				 *  When unset, notifications are disabled (the feature no-ops). */
+				ATMO_NOTIFY_PRIVATE_KEY?: string;
 			};
 			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
 			 *  let the worker keep a fire-and-forget task alive after the response

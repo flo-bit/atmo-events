@@ -5,13 +5,25 @@
 
 	let { activities }: { activities: ActivityCluster[] } = $props();
 
+	function dedupeByDid(attendees: AttendeeInfo[]): AttendeeInfo[] {
+		const seen = new Set<string>();
+		return attendees.filter((a) => {
+			if (seen.has(a.did)) return false;
+			seen.add(a.did);
+			return true;
+		});
+	}
+
 	function visibleAttendees(cluster: ActivityCluster): {
 		shown: AttendeeInfo[];
 		status: 'going' | 'interested';
 	} {
-		const going = cluster.attendees.filter((a) => a.status === 'going');
+		// Dedupe by DID: the same actor can surface from multiple sources when a
+		// cluster is assembled, which would otherwise produce duplicate `{#each}`
+		// keys (each_key_duplicate) and inflate counts.
+		const going = dedupeByDid(cluster.attendees.filter((a) => a.status === 'going'));
 		if (going.length > 0) return { shown: going, status: 'going' };
-		return { shown: cluster.attendees, status: 'interested' };
+		return { shown: dedupeByDid(cluster.attendees), status: 'interested' };
 	}
 
 	function namesSentence(attendees: AttendeeInfo[]): string {
@@ -60,9 +72,7 @@
 				class="hover:bg-base-100 dark:hover:bg-base-900/50 -mx-2 block rounded-lg px-2 py-3 transition-colors"
 			>
 				<div class="flex items-baseline justify-between gap-2">
-					<h3
-						class="text-base-900 dark:text-base-50 min-w-0 truncate text-base font-semibold"
-					>
+					<h3 class="text-base-900 dark:text-base-50 min-w-0 truncate text-base font-semibold">
 						{eventTitle}
 					</h3>
 					<span class="text-base-500 shrink-0 text-xs">
