@@ -63,10 +63,16 @@ async function resolveFromDidDoc(
 				const endpoint = service.serviceEndpoint.toString();
 				const match = matchEndpointToRegistry(endpoint, registry);
 				if (match) return match;
+				const fallbackNamespace = registry[0]?.namespace;
+				if (!fallbackNamespace) {
+					throw new Error(
+						`space_host endpoint ${endpoint} not in registry and no registry entries to derive namespace`
+					);
+				}
 				return {
 					endpoint,
 					serviceDid: `did:web:${new URL(endpoint).hostname}`,
-					namespace: 'net.openmeet'
+					namespace: fallbackNamespace
 				};
 			}
 		}

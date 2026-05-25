@@ -3,19 +3,19 @@ import { parseAuthorityRegistry, type AuthorityEntry } from './authority-registr
 
 describe('parseAuthorityRegistry', () => {
   it('parses a single authority entry', () => {
-    const input = 'http://localhost:3000|did:web:api.dev.openmeet.net|net.openmeet';
+    const input = 'http://localhost:3000|did:web:community.atmo.rsvp|rsvp.atmo';
     const result = parseAuthorityRegistry(input);
     expect(result).toEqual([
       {
         endpoint: 'http://localhost:3000',
-        serviceDid: 'did:web:api.dev.openmeet.net',
-        namespace: 'net.openmeet'
+        serviceDid: 'did:web:community.atmo.rsvp',
+        namespace: 'rsvp.atmo'
       }
     ]);
   });
 
   it('parses multiple authority entries', () => {
-    const input = 'http://localhost:3000|did:web:api.dev.openmeet.net|net.openmeet,https://atmo.rsvp|did:web:atmo.rsvp|rsvp.atmo';
+    const input = 'http://localhost:3000|did:web:community.atmo.rsvp|rsvp.atmo,https://atmo.rsvp|did:web:atmo.rsvp|rsvp.atmo';
     const result = parseAuthorityRegistry(input);
     expect(result).toHaveLength(2);
     expect(result[0].endpoint).toBe('http://localhost:3000');

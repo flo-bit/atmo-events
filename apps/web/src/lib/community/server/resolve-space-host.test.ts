@@ -14,7 +14,7 @@ vi.mock('@atcute/identity-resolver', () => ({
 
 describe('resolveSpaceHost', () => {
 	const registry: AuthorityEntry[] = [
-		{ endpoint: 'http://localhost:3000', serviceDid: 'did:web:api.dev.openmeet.net', namespace: 'net.openmeet' }
+		{ endpoint: 'http://localhost:3000', serviceDid: 'did:web:community.atmo.rsvp', namespace: 'rsvp.atmo' }
 	];
 
 	beforeEach(() => {
@@ -33,8 +33,8 @@ describe('resolveSpaceHost', () => {
 		const result = await resolveSpaceHost('did:plc:abc123', registry);
 		expect(result).toEqual({
 			endpoint: 'http://localhost:3000',
-			serviceDid: 'did:web:api.dev.openmeet.net',
-			namespace: 'net.openmeet'
+			serviceDid: 'did:web:community.atmo.rsvp',
+			namespace: 'rsvp.atmo'
 		});
 	});
 
@@ -48,8 +48,8 @@ describe('resolveSpaceHost', () => {
 		const result = await resolveSpaceHost('did:plc:abc123', registry);
 		expect(result).toEqual({
 			endpoint: 'http://localhost:3000',
-			serviceDid: 'did:web:api.dev.openmeet.net',
-			namespace: 'net.openmeet'
+			serviceDid: 'did:web:community.atmo.rsvp',
+			namespace: 'rsvp.atmo'
 		});
 	});
 

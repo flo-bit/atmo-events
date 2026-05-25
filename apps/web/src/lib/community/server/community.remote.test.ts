@@ -23,7 +23,7 @@ vi.mock('$app/server', () => ({
 vi.mock('$env/dynamic/private', () => ({
 	env: {
 		COMMUNITY_AUTHORITIES:
-			'http://localhost:3000|did:web:api.dev.openmeet.net|net.openmeet'
+			'http://localhost:3000|did:web:community.atmo.rsvp|rsvp.atmo'
 	}
 }));
 
@@ -66,7 +66,7 @@ describe('community.remote', () => {
 			expect(result).toEqual([]);
 
 			(envMod.env as Record<string, string | undefined>).COMMUNITY_AUTHORITIES =
-				'http://localhost:3000|did:web:api.dev.openmeet.net|net.openmeet';
+				'http://localhost:3000|did:web:community.atmo.rsvp|rsvp.atmo';
 		});
 
 		it('mints service-auth and fetches communities from each authority', async () => {
@@ -90,14 +90,14 @@ describe('community.remote', () => {
 				'com.atproto.server.getServiceAuth',
 				expect.objectContaining({
 					params: expect.objectContaining({
-						aud: 'did:web:api.dev.openmeet.net',
-						lxm: 'net.openmeet.community.list'
+						aud: 'did:web:community.atmo.rsvp',
+						lxm: 'rsvp.atmo.community.list'
 					})
 				})
 			);
 
 			expect(mockFetch).toHaveBeenCalledWith(
-				expect.stringContaining('/xrpc/net.openmeet.community.list?actor='),
+				expect.stringContaining('/xrpc/rsvp.atmo.community.list?actor='),
 				expect.objectContaining({
 					headers: { Authorization: 'Bearer test-jwt-token' }
 				})
@@ -143,15 +143,15 @@ describe('community.remote', () => {
 	describe('putCommunityRecord', () => {
 		const input = {
 			communityDid: 'did:plc:comm1',
-			collection: 'net.openmeet.event',
+			collection: 'rsvp.atmo.event',
 			rkey: '3abc123',
 			record: { title: 'Test Event' }
 		};
 
 		const mockAuthority = {
 			endpoint: 'http://localhost:3000',
-			serviceDid: 'did:web:api.dev.openmeet.net',
-			namespace: 'net.openmeet'
+			serviceDid: 'did:web:community.atmo.rsvp',
+			namespace: 'rsvp.atmo'
 		};
 
 		beforeEach(() => {
@@ -167,7 +167,7 @@ describe('community.remote', () => {
 			mockFetch.mockResolvedValue({
 				ok: true,
 				json: async () => ({
-					uri: 'at://did:plc:comm1/net.openmeet.event/3abc123',
+					uri: 'at://did:plc:comm1/rsvp.atmo.event/3abc123',
 					cid: 'bafyreia...'
 				})
 			});
@@ -180,7 +180,7 @@ describe('community.remote', () => {
 			);
 
 			expect(mockFetch).toHaveBeenCalledWith(
-				'http://localhost:3000/xrpc/net.openmeet.community.putRecord',
+				'http://localhost:3000/xrpc/rsvp.atmo.community.putRecord',
 				expect.objectContaining({
 					method: 'POST',
 					headers: expect.objectContaining({
@@ -192,7 +192,7 @@ describe('community.remote', () => {
 			);
 
 			expect(result).toEqual({
-				uri: 'at://did:plc:comm1/net.openmeet.event/3abc123',
+				uri: 'at://did:plc:comm1/rsvp.atmo.event/3abc123',
 				cid: 'bafyreia...'
 			});
 		});
