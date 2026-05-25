@@ -1,52 +1,82 @@
 import { error } from '@sveltejs/kit';
 import { command, query, getRequestEvent } from '$app/server';
 import * as v from 'valibot';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable, SPACE_TYPE } from '$lib/spaces/config';
 import type { PublishTarget } from '@atmo-dev/events-ui';
-import '../../../lexicon-types/index.js';
+import { parseAuthorityRegistry } from './authority-registry';
+import { resolveSpaceHost } from './resolve-space-host';
+import { env as privateEnv } from '$env/dynamic/private';
 
 const didSchema = v.pipe(v.string(), v.regex(/^did:[a-z]+:.+/));
 
-function getClient() {
-	const { locals, platform } = getRequestEvent();
-	if (!spacesAvailable()) error(503, 'Community features require spaces to be configured');
+function getSession() {
+	const { locals } = getRequestEvent();
 	if (!locals.client || !locals.did) error(401, 'Not authenticated');
-	if (!platform?.env.DB) error(500, 'No database binding');
-	return { client: getSpacesClient(locals.client, platform.env.DB), did: locals.did };
+	return { oauthClient: locals.client, did: locals.did };
 }
 
-function buildPublishersUri(communityDid: string): string {
-	return `ats://${communityDid}/${SPACE_TYPE}/$publishers`;
+async function mintServiceAuth(
+	oauthClient: { get: Function },
+	aud: string,
+	lxm: string
+): Promise<string> {
+	const res = await oauthClient.get('com.atproto.server.getServiceAuth', {
+		params: {
+			aud: aud as `did:${string}:${string}`,
+			lxm: lxm as `${string}.${string}.${string}`,
+			exp: Math.floor(Date.now() / 1000) + 300
+		}
+	});
+	if (!res.ok) {
+		throw new Error(`getServiceAuth failed: ${res.status} ${JSON.stringify(res.data)}`);
+	}
+	return res.data.token;
 }
 
 export const listPublishTargets = query(async (): Promise<PublishTarget[]> => {
-	const { client, did } = getClient();
+	const { oauthClient, did } = getSession();
+	const registry = parseAuthorityRegistry(privateEnv.COMMUNITY_AUTHORITIES);
+	if (registry.length === 0) return [];
 
-	const listRes = await client.get('rsvp.atmo.community.list' as any, {
-		params: { actor: did }
-	});
-	if (!listRes.ok) return [];
-
-	const communities = (listRes.data as any).communities as Array<{
-		did: string;
-		mode: string;
-		identifier: string;
-		createdAt: string;
-	}>;
-	if (!communities || communities.length === 0) return [];
-
+	const { fetch } = getRequestEvent();
 	const targets: PublishTarget[] = [];
-	for (const comm of communities) {
-		const whoamiRes = await client.get('rsvp.atmo.spaceExt.whoami' as any, {
-			params: { spaceUri: buildPublishersUri(comm.did) }
-		});
-		if (whoamiRes.ok && (whoamiRes.data as any).isMember) {
-			targets.push({
-				did: comm.did,
-				identifier: comm.identifier,
-				mode: comm.mode
+
+	for (const authority of registry) {
+		try {
+			const lxm = `${authority.namespace}.community.list`;
+			const token = await mintServiceAuth(oauthClient, authority.serviceDid, lxm);
+
+			const url = `${authority.endpoint}/xrpc/${lxm}?actor=${encodeURIComponent(did)}`;
+			const res = await fetch(url, {
+				headers: { Authorization: `Bearer ${token}` }
 			});
+
+			if (!res.ok) {
+				console.warn(`[listPublishTargets] ${authority.endpoint} returned ${res.status}`);
+				continue;
+			}
+
+			const data = (await res.json()) as { communities?: Array<{
+				did: string;
+				mode: string;
+				identifier: string;
+			}> };
+			const communities = data.communities as Array<{
+				did: string;
+				mode: string;
+				identifier: string;
+			}>;
+
+			if (communities) {
+				for (const comm of communities) {
+					targets.push({
+						did: comm.did,
+						identifier: comm.identifier,
+						mode: comm.mode
+					});
+				}
+			}
+		} catch (err) {
+			console.warn(`[listPublishTargets] authority ${authority.endpoint} unreachable:`, err);
 		}
 	}
 
@@ -56,32 +86,46 @@ export const listPublishTargets = query(async (): Promise<PublishTarget[]> => {
 export const putCommunityRecord = command(
 	v.object({
 		communityDid: didSchema,
-		collection: v.pipe(v.string(), v.regex(/^[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z][a-zA-Z0-9-]*){2,}$/)),
+		collection: v.pipe(
+			v.string(),
+			v.regex(/^[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z][a-zA-Z0-9-]*){2,}$/)
+		),
 		rkey: v.string(),
 		record: v.record(v.string(), v.unknown())
 	}),
 	async (input) => {
-		const { client } = getClient();
+		const { oauthClient } = getSession();
+		const registry = parseAuthorityRegistry(privateEnv.COMMUNITY_AUTHORITIES);
+		const authority = await resolveSpaceHost(input.communityDid, registry);
 
-		const res = await client.post('rsvp.atmo.community.putRecord' as any, {
-			input: {
+		const { fetch } = getRequestEvent();
+		const lxm = `${authority.namespace}.community.putRecord`;
+		const token = await mintServiceAuth(oauthClient, authority.serviceDid, lxm);
+
+		const res = await fetch(`${authority.endpoint}/xrpc/${lxm}`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
 				communityDid: input.communityDid,
 				collection: input.collection,
 				rkey: input.rkey,
 				record: input.record
-			}
+			})
 		});
 
 		if (!res.ok) {
-			const data = res.data as any;
+			const data = await res.json().catch(() => ({}));
 			console.error('[putCommunityRecord] failed', res.status, data);
 			if (res.status === 403) {
-				error(403, data?.reason ?? 'Not authorized to publish to this community');
+				error(403, (data as any)?.reason ?? 'Not authorized to publish to this community');
 			}
 			error(502, `Community putRecord failed: ${res.status}`);
 		}
 
-		const out = res.data as { uri?: string; cid?: string };
+		const out = (await res.json()) as { uri?: string; cid?: string };
 		return { uri: out.uri ?? '', cid: out.cid ?? '' };
 	}
 );
