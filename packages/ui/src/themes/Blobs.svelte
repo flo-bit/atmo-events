@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-base-50 dark:bg-base-900">
 	<div
 		class="blob-1 absolute rounded-full bg-accent-500 opacity-30 blur-3xl"

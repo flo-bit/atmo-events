@@ -202,7 +202,9 @@
 </svelte:head>
 
 <ThemeApply accentColor={theme.accentColor} baseColor={theme.baseColor} />
-<ThemeBackground {theme} />
+<div class="motion-reduce:hidden">
+	<ThemeBackground {theme} />
+</div>
 
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-3xl">
