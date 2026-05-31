@@ -6,6 +6,7 @@
 	"packageManager": "pnpm@11.2.2",
 	"scripts": {
 		"dev": "pnpm --filter web dev",
+		"dev:studio": "pnpm --filter studio dev",
 		"build": "pnpm --filter web build",
 		"check": "pnpm -r check",
 		"lint": "pnpm -r lint",

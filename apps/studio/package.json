@@ -1,0 +1,33 @@
+{
+	"name": "studio",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"description": "Local-only motion studio for recording atmo announcement videos with real components.",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"prepare": "svelte-kit sync || echo ''"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.55.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@tailwindcss/vite": "^4.2.2",
+		"svelte": "^5.55.0",
+		"svelte-check": "^4.4.8",
+		"tailwindcss": "^4.2.2",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.3"
+	},
+	"dependencies": {
+		"@atmo-dev/events-ui": "workspace:*",
+		"@foxui/core": "^0.9.1",
+		"bits-ui": "^2.16.3",
+		"gsap": "^3.13.0",
+		"hls.js": "^1.6.15",
+		"plyr": "^3.8.4"
+	}
+}

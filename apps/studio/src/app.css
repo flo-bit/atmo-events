@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@source "../node_modules/@foxui";
+@source "../../../packages/ui/src";
+
+@custom-variant dark (&:is(.dark *));
+
+@import '@foxui/core/theme.css';
+
+html,
+body {
+	height: 100%;
+	background: #000;
+	color: #fff;
+	font-family:
+		-apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+}
