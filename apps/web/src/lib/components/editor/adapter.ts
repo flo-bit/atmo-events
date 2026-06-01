@@ -81,7 +81,14 @@ export function createInAppAdapter(opts: { viewer: EditorViewer; actorDid?: stri
 				goto(`/p/${actor}/e/${rkey}${created}`);
 			}
 		},
-		onCommunityEventSaved({ rkey, communityDid }) {
+		async onCommunityEventSaved({ rkey, communityDid }) {
+			// Poke contrail to fetch + index the new community event immediately so
+			// the redirect lands on a rendered page instead of waiting for the
+			// jetstream live-ingest. notifyOfUpdate resolves the community DID via
+			// the local PLC (PUBLIC_PLC_URL). Best-effort — notifyContrailOfUpdate
+			// swallows failures and live-ingest is the backstop.
+			const uri = `at://${communityDid}/community.lexicon.calendar.event/${rkey}`;
+			await notifyContrailOfUpdate(uri);
 			goto(`/p/${communityDid}/e/${rkey}?created=true`);
 		},
 		onDeleted() {
