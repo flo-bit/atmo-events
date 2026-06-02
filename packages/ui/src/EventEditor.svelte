@@ -285,7 +285,10 @@
 				thumbnailFile,
 				existingMedia,
 				uploadBlob: (blob) =>
-					adapter.uploadBlob(blob) as unknown as Promise<Record<string, unknown>>
+					adapter.uploadBlob(
+						blob,
+						selectedCommunityDid ? { communityDid: selectedCommunityDid } : undefined
+					) as unknown as Promise<Record<string, unknown>>
 			});
 
 			const record = await buildEventRecord({

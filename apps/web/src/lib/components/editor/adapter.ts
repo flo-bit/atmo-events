@@ -52,7 +52,21 @@ export function createInAppAdapter(opts: { viewer: EditorViewer; actorDid?: stri
 				rkey
 			});
 		},
-		async uploadBlob(blob) {
+		async uploadBlob(blob, opts) {
+			if (opts?.communityDid) {
+				// Community-targeted: the blob must live in the community repo so the
+				// event record that references it (written via putCommunityRecord) is
+				// valid. Route through the custodian uploadBlob proxy.
+				const { uploadCommunityBlob } = await import(
+					'$lib/community/server/community-blob.remote'
+				);
+				const bytes = Array.from(new Uint8Array(await blob.arrayBuffer()));
+				return await uploadCommunityBlob({
+					communityDid: opts.communityDid,
+					bytes,
+					mimeType: blob.type || 'application/octet-stream'
+				});
+			}
 			const result = await uploadBlob({ blob });
 			if (!result) throw new Error('uploadBlob failed');
 			const { aspectRatio: _ar, ...rest } = result as Record<string, unknown> & {

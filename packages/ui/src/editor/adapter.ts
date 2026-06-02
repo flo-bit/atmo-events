@@ -45,7 +45,12 @@ export type EditorAdapter = {
 		record: Record<string, unknown>;
 	}): Promise<{ uri: string; cid?: string }>;
 	deleteRecord(opts: { collection: string; rkey: string }): Promise<void>;
-	uploadBlob(blob: Blob): Promise<EditorBlobRef>;
+	/**
+	 * Upload a blob. When `opts.communityDid` is set, the blob must land in that
+	 * community's repo (not the user's), so its ref is valid in records written
+	 * to the community via `putCommunityRecord`.
+	 */
+	uploadBlob(blob: Blob, opts?: { communityDid?: string }): Promise<EditorBlobRef>;
 	getRecord(opts: {
 		did: string;
 		collection: string;
