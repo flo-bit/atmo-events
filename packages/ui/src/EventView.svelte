@@ -16,6 +16,8 @@
 	import { defaultTheme, type EventTheme } from './theme.js';
 	import { onMount } from 'svelte';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
+	import ConferenceTimetable from './schedule/ConferenceTimetable.svelte';
+	import { isConferenceEvent, toScheduleEvents, getConferenceRooms } from './conference.js';
 
 	import EventBadges from './event-view/EventBadges.svelte';
 	import EventDateBlock from './event-view/EventDateBlock.svelte';
@@ -151,6 +153,14 @@
 
 	let speakers = $derived(data.speakerProfiles ?? []);
 
+	// Conference: when this event is a conference, render its talks as a timetable.
+	let isConference = $derived(isConferenceEvent(eventData));
+	let eventActor = $derived(hostProfile?.handle || did);
+	let conferenceRooms = $derived(getConferenceRooms(eventData));
+	let scheduleEvents = $derived(
+		isConference ? toScheduleEvents(data.conferenceTalks ?? [], eventUri) : []
+	);
+
 	// Imported events can opt out of atmo's own RSVPs (rsvpMode === 'external_only').
 	// In that case we hide the RSVP controls and link out to the original event page.
 	let externalSource = $derived(
@@ -275,8 +285,9 @@
 
 				<EventLocationBlock {locationData} />
 
-				<!-- Part of -->
+				<!-- Part of: link back to the parent conference -->
 				{#if data.parentEvent}
+					{@const parentActor = data.parentEventActor ?? data.parentEvent.did}
 					<div
 						class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 mt-8 mb-2 justify-center rounded-2xl border p-4"
 					>
@@ -285,17 +296,15 @@
 						>
 							Part of
 						</p>
-						<EventCard event={data.parentEvent} actor="atprotocol.dev" />
-						<Button href="/p/atmosphereconf.org" size="lg" class="mt-6 w-full">
+						<EventCard event={data.parentEvent} actor={parentActor} />
+						<Button
+							href={data.parentScheduleUrl ?? `/p/${parentActor}/e/${data.parentEvent.rkey}`}
+							size="lg"
+							class="mt-6 w-full"
+						>
 							See full schedule
 						</Button>
 					</div>
-				{/if}
-
-				{#if did === 'did:plc:lehcqqkwzcwvjvw66uthu5oq' && rkey === '3lte3c7x43l2e'}
-					<Button href="/p/atmosphereconf.org" size="lg" class="mb-4 w-full">
-						See full schedule
-					</Button>
 				{/if}
 
 				{#if !isPast}
@@ -416,6 +425,24 @@
 				/>
 			</div>
 		</div>
+
+		<!-- Conference timetable: talks belonging to this conference event -->
+		{#if isConference && scheduleEvents.length > 0}
+			<div class="mt-12">
+				<ConferenceTimetable
+					{scheduleEvents}
+					tz={data.conferenceTimezone ?? eventData.timezone ?? 'UTC'}
+					{eventActor}
+					{adapter}
+					{viewer}
+					rooms={conferenceRooms}
+					rsvpStatuses={data.conferenceRsvpStatuses}
+					rsvpRkeys={data.conferenceRsvpRkeys}
+					eventVods={data.conferenceVods}
+					loggedIn={data.loggedIn}
+				/>
+			</div>
+		{/if}
 	</div>
 </div>
 

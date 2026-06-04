@@ -54,6 +54,26 @@ export const config: ContrailConfig = {
 						`(json_extract(r.record, '$.preferences.showInDiscovery') IS NULL
 							OR json_extract(r.record, '$.preferences.showInDiscovery') != 0)`
 					]
+				}),
+				// Endpoint: rsvp.atmo.event.listTalks?parentUri=at://…
+				// Returns the talk events belonging to a conference, i.e. those
+				// whose additionalData.parentEvent.uri matches `parentUri`. Composes
+				// with the standard listRecords params (actor, sort, limit, …), so
+				// pass actor=<organizer did> to scope to the organizer's own talks.
+				// json_extract runs at query time, so this needs no reindex; an
+				// empty/missing parentUri matches nothing (safe default).
+				listTalks: async (_db, params) => ({
+					conditions: [`json_extract(r.record, '$.additionalData.parentEvent.uri') = ?`],
+					params: [params.get('parentUri') ?? '']
+				}),
+				// Endpoint: rsvp.atmo.event.listAuthored
+				// Same shape as listRecords, but excludes conference talks (events
+				// that belong to a parent conference via additionalData.parentEvent),
+				// so a conference's talks don't flood the host's profile/listings —
+				// the conference event itself still appears. Filtered in SQL so
+				// pagination/cursors stay correct.
+				listAuthored: async () => ({
+					conditions: [`json_extract(r.record, '$.additionalData.parentEvent.uri') IS NULL`]
 				})
 			}
 		},

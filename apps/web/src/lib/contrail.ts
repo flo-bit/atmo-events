@@ -298,6 +298,57 @@ export async function listDiscoverableEventsFromContrail(
 	return response.data;
 }
 
+/**
+ * Hits the `listAuthored` pipelineQuery: same as listRecords but excludes
+ * conference talks (events with `additionalData.parentEvent`). Used on profile
+ * pages and the host's listings so a conference's talks don't flood the list —
+ * the conference event itself still appears. Response shape matches listRecords.
+ */
+export async function listAuthoredEventsFromContrail(
+	client: Client,
+	params: ListEventsParams
+): Promise<EventListOutput | null> {
+	const response = await client.get(
+		'rsvp.atmo.event.listAuthored' as 'rsvp.atmo.event.listRecords',
+		{ params }
+	);
+
+	if (!response.ok) return null;
+	return response.data;
+}
+
+/**
+ * Hits the `listTalks` pipelineQuery, returning the talk events that belong to
+ * a conference (their `additionalData.parentEvent.uri === parentUri`). Pass
+ * `actor` to scope to the conference organizer's own repo — for now talks are
+ * organizer-authored, so this keeps stray cross-author records out. Response
+ * shape is identical to listRecords.
+ */
+export async function listConferenceTalksFromContrail(
+	client: Client,
+	{
+		parentUri,
+		actor,
+		limit = 300
+	}: { parentUri: string; actor?: ActorIdentifier; limit?: number }
+): Promise<EventListOutput | null> {
+	const response = await client.get(
+		'rsvp.atmo.event.listTalks' as 'rsvp.atmo.event.listRecords',
+		{
+			params: {
+				...(actor ? { actor } : {}),
+				parentUri,
+				sort: 'startsAt',
+				order: 'asc',
+				limit
+			} as ListEventsParams
+		}
+	);
+
+	if (!response.ok) return null;
+	return response.data;
+}
+
 export async function getEventRecordFromContrail(
 	client: Client,
 	{

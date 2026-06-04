@@ -7,6 +7,19 @@ export { default as EventComments } from './EventComments.svelte';
 export { default as EventAttendees } from './EventAttendees.svelte';
 export { default as VodPlayer } from './VodPlayer.svelte';
 export { default as VodTranscript } from './VodTranscript.svelte';
+export { default as ConferenceTimetable } from './schedule/ConferenceTimetable.svelte';
+
+// Conference / multi-event grouping
+export {
+	isConferenceEvent,
+	getEventType,
+	getParentEventRef,
+	getConferenceRooms,
+	parseEventUri,
+	toScheduleEvents,
+	linkableTalkTypes
+} from './conference.js';
+export type { ScheduleEvent, ParentEventRef } from './conference.js';
 
 // Adapter contract
 export type {

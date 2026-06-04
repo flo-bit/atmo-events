@@ -2,5 +2,5 @@
  *  When the tunnel is running, this file is rewritten with the tunnel's
  *  service DID + URL; when the tunnel stops, it is reset to null values. */
 
-export const SERVICE_DID: string | null = "did:web:described-yamaha-fame-social.trycloudflare.com";
-export const SERVICE_URL: string | null = "https://described-yamaha-fame-social.trycloudflare.com";
+export const SERVICE_DID: string | null = null;
+export const SERVICE_URL: string | null = null;

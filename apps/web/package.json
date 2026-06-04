@@ -21,7 +21,8 @@
 		"env:generate-secret": "npx tsx src/lib/atproto/scripts/generate-secret.ts",
 		"env:setup-dev": "npx tsx src/lib/atproto/scripts/setup-dev.ts",
 		"tunnel": "npx tsx src/lib/atproto/scripts/tunnel.ts",
-		"publish-lexicons": "contrail-lex publish"
+		"publish-lexicons": "contrail-lex publish",
+		"seed:conference": "bun run scripts/publish-test-conference.ts"
 	},
 	"devDependencies": {
 		"@atcute/atproto": "^3.1.10",

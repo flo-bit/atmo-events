@@ -3,7 +3,7 @@ import {
 	flattenEventRecords,
 	getProfileFromContrail,
 	getServerClient,
-	listEventRecordsFromContrail
+	listAuthoredEventsFromContrail
 } from '$lib/contrail';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
@@ -24,7 +24,7 @@ export async function load({ params, url, platform }) {
 
 	const [profile, response] = await Promise.all([
 		getProfileFromContrail(client, actor),
-		listEventRecordsFromContrail(client, {
+		listAuthoredEventsFromContrail(client, {
 			profiles: true,
 			sort: 'startsAt',
 			order: 'asc',

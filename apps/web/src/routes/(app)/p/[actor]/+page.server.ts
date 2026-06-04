@@ -4,7 +4,7 @@ import {
 	getProfileFromContrail,
 	getServerClient,
 	listAttendingEventsFromContrail,
-	listEventRecordsFromContrail
+	listAuthoredEventsFromContrail
 } from '$lib/contrail';
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
@@ -22,6 +22,11 @@ export async function load({ params, platform, locals }) {
 		locals.client && locals.did && spacesAvailable()
 			? getSpacesClient(locals.client, platform!.env.DB)
 			: getServerClient(platform!.env.DB);
+	// `listAuthored` is a public pipelineQuery, not a declared lexicon method, so
+	// the service-auth spaces client can't mint a JWT for it (the PDS 403s). Route
+	// the public event listings through the in-process server client instead —
+	// matching the hosting/past-events pages, which already use it.
+	const publicClient = getServerClient(platform!.env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;
@@ -33,7 +38,7 @@ export async function load({ params, platform, locals }) {
 
 	const [profile, upcomingResponse, pastResponse, attendingEvents] = await Promise.all([
 		getProfileFromContrail(client, actor),
-		listEventRecordsFromContrail(client, {
+		listAuthoredEventsFromContrail(publicClient, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',
@@ -42,7 +47,7 @@ export async function load({ params, platform, locals }) {
 			actor,
 			limit: PREVIEW_LIMIT + 1
 		}),
-		listEventRecordsFromContrail(client, {
+		listAuthoredEventsFromContrail(publicClient, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',

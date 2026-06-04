@@ -45,7 +45,9 @@
 			{#each speakers as speaker, i (speaker.id || i)}
 				{#if speaker.handle}
 					<a
-						href="/p/{speaker.handle}"
+						href="https://bsky.app/profile/{speaker.handle}"
+						target="_blank"
+						rel="noopener noreferrer"
 						class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
 					>
 						<FoxAvatar src={speaker.avatar} alt={speaker.name} class="size-8 shrink-0" />
