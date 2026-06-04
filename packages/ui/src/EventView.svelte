@@ -255,6 +255,11 @@
 					{/if}
 					{#if isOwner}
 						<Button href="./{rkey}/edit" class="mt-9 w-full">Edit Event</Button>
+						{#if isConference && !data.spaceUri}
+							<Button href="./{rkey}/talks" variant="secondary" class="mt-2 w-full">
+								Manage talks
+							</Button>
+						{/if}
 						{#if data.spaceUri}
 							<InviteShareFlow
 								spaceUri={data.spaceUri}

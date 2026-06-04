@@ -4,7 +4,7 @@
  * onto talk-event fields. Kept format-agnostic on purpose so different
  * conferences can bring whatever export they already have.
  */
-import yaml from 'js-yaml';
+import { parse as parseYaml } from 'yaml';
 
 export type ImportFormat = 'csv' | 'json' | 'yaml';
 
@@ -31,7 +31,7 @@ export function parseFile(filename: string, text: string): ParsedFile {
 	if (format === 'json') {
 		rows = coerceRows(JSON.parse(text));
 	} else if (format === 'yaml') {
-		rows = coerceRows(yaml.load(text));
+		rows = coerceRows(parseYaml(text));
 	} else {
 		rows = parseCsv(text);
 	}

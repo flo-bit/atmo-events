@@ -83,6 +83,7 @@
 		"plyr": "^3.8.4",
 		"svelte-boring-avatars": "^1.2.6",
 		"svelte-maplibre-gl": "^1.0.3",
-		"valibot": "^1.3.1"
+		"valibot": "^1.3.1",
+		"yaml": "^2.8.1"
 	}
 }

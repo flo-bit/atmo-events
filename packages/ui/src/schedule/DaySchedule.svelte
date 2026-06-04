@@ -50,6 +50,9 @@
 	let dayKey = $derived(dayEvents[0]?.start ? getDayKey(dayEvents[0].start, tz) : '');
 	let nowRow = $derived(getNowGridRow(grid, dayKey, nowKey, nowMinutes));
 
+	// Mobile shows one room at a time, picked from a dropdown (there can be many).
+	let roomMenuOpen = $state(false);
+
 	function isDimmed(event: { uri: string; type: string }): boolean {
 		if (dimUnattended) {
 			if (event.type === 'info') return true;
@@ -63,21 +66,77 @@
 <div
 	class="border-base-200 dark:border-base-800 bg-base-100/60 dark:bg-base-950/50 overflow-hidden rounded-xl border"
 >
-	<!-- Mobile: room tabs -->
-	<div
-		class="border-base-200 dark:border-base-800 divide-base-200 dark:divide-base-800 flex flex-col divide-y border-b md:hidden"
-	>
-		{#each rooms as room, i}
-			<button
-				class="flex-1 px-3 py-2 text-xs font-semibold tracking-wide uppercase transition-colors
-					{activeRoom === i
-					? 'bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300'
-					: 'text-base-500 dark:text-base-400'}"
-				onclick={() => (activeRoom = i)}
+	<!-- Mobile: room selector (one room shown at a time) -->
+	<div class="border-base-200 dark:border-base-800 relative border-b md:hidden">
+		<button
+			type="button"
+			onclick={() => (roomMenuOpen = !roomMenuOpen)}
+			class="flex w-full items-center justify-between gap-2 px-3 py-2.5"
+		>
+			<span
+				class="text-accent-700 dark:text-accent-300 truncate text-xs font-semibold tracking-wide uppercase"
 			>
-				{room}
-			</button>
-		{/each}
+				{rooms[activeRoom] ?? ''}
+			</span>
+			<span class="text-base-400 dark:text-base-500 flex shrink-0 items-center gap-2">
+				<span class="text-xs tabular-nums">{activeRoom + 1}/{rooms.length}</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					class="size-4 transition-transform {roomMenuOpen ? 'rotate-180' : ''}"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</span>
+		</button>
+		{#if roomMenuOpen}
+			<button
+				type="button"
+				class="fixed inset-0 z-[9990] cursor-default"
+				aria-label="Close room menu"
+				onclick={() => (roomMenuOpen = false)}
+			></button>
+			<ul
+				class="border-base-200 dark:border-base-800 bg-base-50 dark:bg-base-900 absolute inset-x-0 top-full z-[10000] max-h-64 overflow-auto border-b shadow-lg"
+			>
+				{#each rooms as room, i (room)}
+					<li>
+						<button
+							type="button"
+							onclick={() => {
+								activeRoom = i;
+								roomMenuOpen = false;
+							}}
+							class="flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs transition-colors {activeRoom ===
+							i
+								? 'bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 font-semibold'
+								: 'text-base-600 dark:text-base-300'}"
+						>
+							<span class="truncate">{room}</span>
+							{#if activeRoom === i}
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+									class="size-4 shrink-0"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							{/if}
+						</button>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 	</div>
 
 	<!-- Mobile: single room view -->
@@ -97,7 +156,7 @@
 							<div>
 								{#if (grid.minTime + i * SLOT) % 60 === 0}
 									<div
-										class="text-base-400 dark:text-base-500 sticky left-0 z-20 -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none"
+										class="text-base-400 dark:text-base-500 sticky left-0 z-[1500] -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none"
 									>
 										{formatHour(grid.minTime + i * SLOT)}
 									</div>
@@ -184,7 +243,7 @@
 							<div>
 								{#if (grid.minTime + i * SLOT) % 60 === 0}
 									<div
-										class="text-base-400 dark:text-base-500 sticky left-0 z-20 -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none"
+										class="text-base-400 dark:text-base-500 sticky left-0 z-[1500] -mt-2 -ml-14 w-14 pr-2 text-right text-[0.65rem] leading-none"
 									>
 										{formatHour(grid.minTime + i * SLOT)}
 									</div>
