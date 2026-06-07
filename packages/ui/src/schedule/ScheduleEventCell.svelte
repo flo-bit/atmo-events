@@ -10,6 +10,7 @@
 	import EventRsvp from '../EventRsvp.svelte';
 	import VodPlayer from '../VodPlayer.svelte';
 	import type { EditorAdapter, EditorViewer } from '../editor/adapter.js';
+	import type { Snippet } from 'svelte';
 
 	let {
 		event,
@@ -21,7 +22,8 @@
 		rsvpRkeys = {},
 		vodPlaylistUrl,
 		vodSubtitlesUrl,
-		onrsvpchange
+		onrsvpchange,
+		trigger
 	}: {
 		event: GridEvent;
 		/** Timezone the schedule is laid out in. */
@@ -35,6 +37,9 @@
 		vodPlaylistUrl?: string;
 		vodSubtitlesUrl?: string;
 		onrsvpchange?: (uri: string, status: string | null, rkey?: string) => void;
+		/** Custom clickable trigger; receives `open` to launch the modal. Defaults
+		 *  to the standard colored grid-cell button. */
+		trigger?: Snippet<[{ open: () => void }]>;
 	} = $props();
 
 	let modalOpen = $state(false);
@@ -50,6 +55,9 @@
 </script>
 
 {#if linkableTypes.has(event.type) && event.rkey}
+	{#if trigger}
+		{@render trigger({ open: () => (modalOpen = true) })}
+	{:else}
 	<button
 		onclick={() => (modalOpen = true)}
 		class="relative cursor-pointer flex-1 overflow-hidden rounded-md leading-tight transition-[filter] hover:brightness-95 {getEventColor(
@@ -106,6 +114,7 @@
 			</svg>
 		{/if}
 	</button>
+	{/if}
 
 	<Modal bind:open={modalOpen} class="bg-base-50 dark:bg-base-900 dark:border-base-800">
 		<div class="overflow-hidden">

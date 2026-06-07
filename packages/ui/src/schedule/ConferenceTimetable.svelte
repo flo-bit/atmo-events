@@ -2,14 +2,17 @@
 	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import { onMount } from 'svelte';
 	import DaySchedule from './DaySchedule.svelte';
+	import ScheduleEventCell from './ScheduleEventCell.svelte';
 	import {
 		type ScheduleEvent,
+		type GridEvent,
 		getDayKey,
 		getDayLabel,
 		getDayShortLabel,
 		getRooms,
 		buildGrid,
-		isoToMinutes
+		isoToMinutes,
+		formatTime
 	} from './schedule-utils.js';
 	import type { EditorAdapter, EditorViewer } from '../editor/adapter.js';
 
@@ -92,6 +95,61 @@
 		return now >= new Date(first) && now <= new Date(lastEnd);
 	});
 
+	// The viewer's RSVP'd talks (going/interested) that haven't ended yet, shown
+	// a few at a time via "Show more".
+	let visibleCount = $state(3);
+	let upNextAll = $derived.by(() => {
+		if (!loggedIn) return [];
+		const nowMs = now.getTime();
+		return scheduleEvents
+			.filter((e) => {
+				const status = rsvpStatuses[e.uri];
+				if (status !== 'going' && status !== 'interested') return false;
+				const endMs = new Date(e.end ?? e.start).getTime();
+				return endMs >= nowMs;
+			})
+			.sort((a, b) => a.start.localeCompare(b.start));
+	});
+	let upNext = $derived(upNextAll.slice(0, visibleCount));
+
+	function whenLabel(ev: ScheduleEvent): { text: string; soon: boolean } {
+		const start = new Date(ev.start);
+		const end = new Date(ev.end ?? ev.start);
+		if (now >= start && now <= end) return { text: 'Now', soon: true };
+		const diffMin = Math.round((start.getTime() - now.getTime()) / 60_000);
+		if (diffMin >= 0 && diffMin < 60) return { text: `in ${diffMin} min`, soon: true };
+		const time = formatTime(ev.start, tz);
+		const sameDay = getDayKey(ev.start, tz) === nowKey;
+		return { text: sameDay ? time : `${getDayShortLabel(ev.start, tz)} ${time}`, soon: false };
+	}
+
+	function subtitle(ev: ScheduleEvent): string {
+		return [
+			ev.room && ev.room !== 'none' ? ev.room : null,
+			ev.speakers?.length ? ev.speakers.map((s) => s.name).join(', ') : null
+		]
+			.filter(Boolean)
+			.join(' · ');
+	}
+
+	// Wrap a schedule event as a GridEvent so ScheduleEventCell can own its modal
+	// (the layout fields are unused; only the start/end-minute span matters).
+	function toGridEvent(ev: ScheduleEvent): GridEvent {
+		const durMin = ev.end
+			? Math.max(0, Math.round((new Date(ev.end).getTime() - new Date(ev.start).getTime()) / 60_000))
+			: 30;
+		return {
+			...ev,
+			startMin: 0,
+			endMin: durMin,
+			startRow: 1,
+			spanRows: 1,
+			colStart: 1,
+			colSpan: 1,
+			zIndex: 0
+		};
+	}
+
 	let tzLabel = $derived.by(() => {
 		try {
 			const parts = new Intl.DateTimeFormat('en-US', {
@@ -149,6 +207,90 @@
 	</div>
 
 	<p class="text-base-500 dark:text-base-400 mb-4 text-sm">All times shown in {tzLabel}.</p>
+
+	{#if upNextAll.length > 0}
+		<div class="mb-8">
+			<h2 class="text-base-900 dark:text-base-50 mb-3 text-xl font-bold">Up next</h2>
+			<div class="space-y-2">
+				{#each upNext as ev (ev.uri)}
+					{@const w = whenLabel(ev)}
+					<ScheduleEventCell
+						event={toGridEvent(ev)}
+						{tz}
+						{eventActor}
+						{adapter}
+						{viewer}
+						{rsvpStatuses}
+						{rsvpRkeys}
+						vodPlaylistUrl={eventVods[ev.uri]?.playlistUrl}
+						vodSubtitlesUrl={eventVods[ev.uri]?.subtitlesUrl}
+						onrsvpchange={handleRsvpChange}
+					>
+						{#snippet trigger({ open })}
+							<button
+								onclick={open}
+								class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 hover:border-base-300 dark:hover:border-base-700 flex w-full cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-left leading-tight transition-colors"
+							>
+								<div class="min-w-0 flex-1">
+									<p class="text-base-900 dark:text-base-100 truncate text-sm font-semibold">
+										{ev.title}
+									</p>
+									{#if subtitle(ev)}
+										<p class="text-base-500 dark:text-base-400 mt-0.5 truncate text-xs">
+											{subtitle(ev)}
+										</p>
+									{/if}
+								</div>
+								<span
+									class="flex shrink-0 items-center gap-1.5 text-xs whitespace-nowrap {w.soon
+										? 'text-accent-600 dark:text-accent-400 font-semibold'
+										: 'text-base-500 dark:text-base-400'}"
+								>
+									{#if rsvpStatuses[ev.uri] === 'going'}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											class="size-3.5 text-green-500"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									{:else}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											class="size-3.5 text-amber-500"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									{/if}
+									{w.text}
+								</span>
+							</button>
+						{/snippet}
+					</ScheduleEventCell>
+				{/each}
+			</div>
+			{#if upNextAll.length > upNext.length}
+				<button
+					type="button"
+					onclick={() => (visibleCount += 5)}
+					class="text-accent-600 dark:text-accent-400 mt-2 text-sm font-medium hover:underline"
+				>
+					Show more
+				</button>
+			{/if}
+		</div>
+	{/if}
 
 	{#if dayGroups.length > 1 || loggedIn}
 	<div class="mb-6 space-y-3">

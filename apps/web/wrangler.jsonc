@@ -25,8 +25,7 @@
 		{
 			"binding": "DB",
 			"database_name": "atmo-events-v5",
-			"database_id": "3f862040-84ee-4216-8ba7-ef3146058de4",
-			"remote": true
+			"database_id": "3f862040-84ee-4216-8ba7-ef3146058de4"
 		}
 	],
 	"triggers": {
