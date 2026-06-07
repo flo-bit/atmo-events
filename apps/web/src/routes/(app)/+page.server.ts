@@ -12,11 +12,20 @@ import {
 } from '$lib/contrail';
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
+import { cachedRead } from '$lib/server/edge-cache';
 import type { PageServerLoad } from './$types';
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-const ACTIVITY_FETCH_LIMIT = 200;
+/** Raw records pulled for the activity feed before JS-side filtering/clustering
+ *  down to ACTIVITY_DISPLAY_LIMIT. Recent RSVPs concentrate on popular events,
+ *  so a modest window still yields a full set of clusters — fetching more just
+ *  hydrates events we throw away. */
+const ACTIVITY_FETCH_LIMIT = 75;
 const ACTIVITY_DISPLAY_LIMIT = 10;
+/** TTL for the global (non-personalized) home-page surfaces. They're identical
+ *  for every visitor, so we serve them from the colo edge cache and only hit D1
+ *  on a miss. Short enough that new events/RSVPs surface within ~a minute. */
+const GLOBAL_CACHE_TTL_S = 60;
 /** Activity feed includes RSVPs to events that ended within this window so
  *  recently-finished events linger briefly (their RSVPs are still meaningful
  *  social signal). */
@@ -85,15 +94,20 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		return { upcoming, past };
 	})();
 
-	const globalPromise = withD1Retry(() =>
-		listDiscoverableEventsFromContrail(publicClient, {
-			startsAtMin: nowIso,
-			rsvpsCountMin: 2,
-			hydrateRsvps: 5,
-			sort: 'startsAt',
-			order: 'asc',
-			limit: 20
-		})
+	// Global discovery list — same for every visitor, so cache it at the edge.
+	// The key is static (no per-request `nowIso`), so a hit just means the
+	// `startsAtMin` filter is up to one TTL stale — harmless for "upcoming".
+	const globalPromise = cachedRead('home:discoverable', GLOBAL_CACHE_TTL_S, () =>
+		withD1Retry(() =>
+			listDiscoverableEventsFromContrail(publicClient, {
+				startsAtMin: nowIso,
+				rsvpsCountMin: 2,
+				hydrateRsvps: 5,
+				sort: 'startsAt',
+				order: 'asc',
+				limit: 20
+			})
+		)
 	);
 
 	// listRecords and getFeed return structurally identical rsvp records, but TS
@@ -185,26 +199,30 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			.slice(0, ACTIVITY_DISPLAY_LIMIT);
 	}
 
-	async function fetchGlobalActivity(): Promise<ActivityCluster[]> {
-		const response = await withD1Retry(() =>
-			publicClient.get('rsvp.atmo.rsvp.listRecords', {
-				params: {
-					hydrateEvent: true,
-					profiles: true,
-					sort: 'createdAt',
-					order: 'desc',
-					limit: ACTIVITY_FETCH_LIMIT
-				}
-			})
-		);
-		if (!response.ok) return [];
-		const clusters = new Map<string, ActivityCluster>();
-		addRsvpsToClusters(
-			(response.data.records ?? []) as ActivityRsvp[],
-			(response.data.profiles ?? []) as ActivityProfile[],
-			clusters
-		);
-		return finalizeClusters(clusters);
+	// Global activity is identical for every visitor; cache the fully-clustered
+	// result so a hit skips the record hydrate AND the clustering work.
+	function fetchGlobalActivity(): Promise<ActivityCluster[]> {
+		return cachedRead('home:global-activity', GLOBAL_CACHE_TTL_S, async () => {
+			const response = await withD1Retry(() =>
+				publicClient.get('rsvp.atmo.rsvp.listRecords', {
+					params: {
+						hydrateEvent: true,
+						profiles: true,
+						sort: 'createdAt',
+						order: 'desc',
+						limit: ACTIVITY_FETCH_LIMIT
+					}
+				})
+			);
+			if (!response.ok) return [];
+			const clusters = new Map<string, ActivityCluster>();
+			addRsvpsToClusters(
+				(response.data.records ?? []) as ActivityRsvp[],
+				(response.data.profiles ?? []) as ActivityProfile[],
+				clusters
+			);
+			return finalizeClusters(clusters);
+		});
 	}
 
 	const recentActivityPromise = (async (): Promise<{

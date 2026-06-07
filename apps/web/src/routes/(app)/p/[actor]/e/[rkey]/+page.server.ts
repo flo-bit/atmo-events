@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { ActorIdentifier, Did } from '@atcute/lexicons';
-import { actorToDid } from '$lib/atproto/methods';
+import type { ActorIdentifier } from '@atcute/lexicons';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
@@ -30,7 +29,7 @@ type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
  */
 async function loadEventRecordResilient(
 	client: Client,
-	did: string,
+	actor: string,
 	rkey: string
 ): Promise<EventRecord> {
 	// `caches.default` is a Cloudflare extension not in the DOM `CacheStorage`
@@ -39,12 +38,15 @@ async function loadEventRecordResilient(
 		typeof caches !== 'undefined' && 'default' in caches
 			? (caches as unknown as { default: Cache }).default
 			: null;
-	const cacheKey = new Request(`https://event-cache.internal/${did}/${rkey}`);
+	const cacheKey = new Request(`https://event-cache.internal/${actor}/${rkey}`);
 
 	try {
+		// `actor` may be a handle or DID — contrail's getRecord resolves a handle
+		// authority in the URI (from its local identities table), so we skip the
+		// app's own network handle resolution entirely.
 		const record = await withD1Retry(() =>
 			getEventRecordFromContrail(client, {
-				did,
+				did: actor,
 				rkey,
 				hydrateRsvps: RSVP_HYDRATE_LIMIT,
 				profiles: true
@@ -74,22 +76,13 @@ export async function load({ params, locals, url, platform }) {
 		throw error(404, 'Event not found');
 	}
 
-	// Resolve the actor (handle→DID). A failure here is almost always transient
-	// (DNS / network), not a missing event — surface it as retryable rather than
-	// a misleading "not found" the user can't recover from.
-	let did: Did;
-	try {
-		did = await actorToDid(params.actor);
-	} catch {
-		throw error(503, 'Could not resolve this profile right now — please try again.');
-	}
-
-	// Fetch the event (retry + cache fallback). Distinguish "genuinely not
-	// indexed" (404) from a transient index/D1 error (503), so a hiccup doesn't
-	// masquerade as "not found".
+	// Fetch the event by actor (handle or DID) — contrail resolves a handle in
+	// the URI authority server-side, so there's no separate app-side resolution
+	// step. Retry + cache fallback distinguishes a transient index/D1 error (503)
+	// from a genuinely-missing event (404).
 	let eventRecord: EventRecord;
 	try {
-		eventRecord = await loadEventRecordResilient(client, did, rkey);
+		eventRecord = await loadEventRecordResilient(client, params.actor, rkey);
 	} catch {
 		throw error(503, 'Temporarily unavailable — please try again.');
 	}
@@ -102,6 +95,9 @@ export async function load({ params, locals, url, platform }) {
 
 	const fullEventRecord = eventRecord!;
 	const eventUri = fullEventRecord.uri;
+	// Canonical DID from the resolved record — use this (not params.actor, which
+	// may be a handle) for all downstream lookups that need a DID.
+	const did = eventData.did;
 
 	// A conference is just an event with type=conference; its talks are events
 	// pointing back at it via additionalData.parentEvent.

@@ -7,6 +7,13 @@ export const config: ContrailConfig = {
 	// writing records to the PDS so contrail re-fetches and indexes them
 	// immediately instead of waiting for the jetstream.
 	notify: true,
+	// Refresh the SQLite query planner's statistics on a schedule so
+	// multi-predicate reads (e.g. rsvp.listRecords filtered by subject.uri +
+	// status) pick the selective index instead of the planner's default
+	// heuristic — measured ~50x fewer rows read. Runs in the ingest cycle, gated
+	// to once/24h via a persisted timestamp, bounded by PRAGMA analysis_limit so
+	// it can't blow D1's per-query CPU budget. Defaults are fine.
+	maintenance: { optimize: true },
 	// `spaces` is declared statically so `pnpm generate` emits the `rsvp.atmo.space.*`
 	// lexicons. The real serviceDid is injected at runtime in `$lib/contrail/index.ts`
 	// via `getSpacesConfig()` — generate doesn't serialize it.
