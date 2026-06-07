@@ -6,14 +6,9 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
+# First-party packages we publish ourselves — exempt from the minimum-release-age
+# supply-chain cooldown (the cooldown guards against compromised third-party
+# publishes; it doesn't apply to our own code, and otherwise blocks deploying a
+# just-published contrail for ~24h). Scope glob so we don't re-add per version.
 minimumReleaseAgeExclude:
-  - '@atmo-dev/contrail-appview@0.9.0'
-  - '@atmo-dev/contrail-authority@0.9.0'
-  - '@atmo-dev/contrail-base@0.9.0'
-  - '@atmo-dev/contrail-record-host@0.9.0'
-  - '@atmo-dev/contrail@0.9.0'
-  - '@atmo-dev/contrail-appview@0.11.0'
-  - '@atmo-dev/contrail-authority@0.11.0'
-  - '@atmo-dev/contrail-base@0.11.0'
-  - '@atmo-dev/contrail-record-host@0.11.0'
-  - '@atmo-dev/contrail@0.11.0'
+  - '@atmo-dev/*'
