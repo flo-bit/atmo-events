@@ -10,7 +10,7 @@ export const config: ContrailConfig = {
 	// `spaces` is declared statically so `pnpm generate` emits the `rsvp.atmo.space.*`
 	// lexicons. The real serviceDid is injected at runtime in `$lib/contrail/index.ts`
 	// via `getSpacesConfig()` — generate doesn't serialize it.
-	spaces: { type: SPACE_TYPE, serviceDid: 'did:web:placeholder' },
+	spaces: { authority: { type: SPACE_TYPE, serviceDid: 'did:web:placeholder' }, recordHost: {} },
 	permissionSet: {
 		title: 'Atmo Events',
 		description: 'Manage your private events and rsvps.'

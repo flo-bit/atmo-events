@@ -6,6 +6,7 @@ import {
 	getServerClient,
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail,
+	withD1Retry,
 	type ActivityCluster,
 	type HostProfile
 } from '$lib/contrail';
@@ -27,6 +28,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 	const myEventsPromise = (async () => {
 		if (!locals.did) return { upcoming: [], past: [] };
+		const did = locals.did;
 
 		const client =
 			locals.client && spacesAvailable()
@@ -36,18 +38,20 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		const cutoff = new Date(Date.now() - SEVEN_DAYS_MS);
 		const cutoffIso = cutoff.toISOString();
 
-		const [rsvpResponse, hostingResponse] = await Promise.all([
-			client.get('rsvp.atmo.rsvp.listRecords', {
-				params: { actor: locals.did, hydrateEvent: true, limit: 100 }
-			}),
-			listEventRecordsFromContrail(client, {
-				actor: locals.did,
-				startsAtMin: cutoffIso,
-				sort: 'startsAt',
-				order: 'asc',
-				limit: 100
-			})
-		]);
+		const [rsvpResponse, hostingResponse] = await withD1Retry(() =>
+			Promise.all([
+				client.get('rsvp.atmo.rsvp.listRecords', {
+					params: { actor: did, hydrateEvent: true, limit: 100 }
+				}),
+				listEventRecordsFromContrail(client, {
+					actor: did,
+					startsAtMin: cutoffIso,
+					sort: 'startsAt',
+					order: 'asc',
+					limit: 100
+				})
+			])
+		);
 
 		const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
 			.filter((r) => {
@@ -81,14 +85,16 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		return { upcoming, past };
 	})();
 
-	const globalPromise = listDiscoverableEventsFromContrail(publicClient, {
-		startsAtMin: nowIso,
-		rsvpsCountMin: 2,
-		hydrateRsvps: 5,
-		sort: 'startsAt',
-		order: 'asc',
-		limit: 20
-	});
+	const globalPromise = withD1Retry(() =>
+		listDiscoverableEventsFromContrail(publicClient, {
+			startsAtMin: nowIso,
+			rsvpsCountMin: 2,
+			hydrateRsvps: 5,
+			sort: 'startsAt',
+			order: 'asc',
+			limit: 20
+		})
+	);
 
 	// listRecords and getFeed return structurally identical rsvp records, but TS
 	// sees them as nominally-distinct lex types. Cast inputs to the structural
@@ -180,15 +186,17 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	}
 
 	async function fetchGlobalActivity(): Promise<ActivityCluster[]> {
-		const response = await publicClient.get('rsvp.atmo.rsvp.listRecords', {
-			params: {
-				hydrateEvent: true,
-				profiles: true,
-				sort: 'createdAt',
-				order: 'desc',
-				limit: ACTIVITY_FETCH_LIMIT
-			}
-		});
+		const response = await withD1Retry(() =>
+			publicClient.get('rsvp.atmo.rsvp.listRecords', {
+				params: {
+					hydrateEvent: true,
+					profiles: true,
+					sort: 'createdAt',
+					order: 'desc',
+					limit: ACTIVITY_FETCH_LIMIT
+				}
+			})
+		);
 		if (!response.ok) return [];
 		const clusters = new Map<string, ActivityCluster>();
 		addRsvpsToClusters(
@@ -209,35 +217,38 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		// just gets layered on. If the merged set is empty (cold start), fall
 		// back to the global recent-RSVP feed.
 		if (locals.did) {
-			const [rsvpResp, eventResp] = await Promise.all([
-				publicClient.get('rsvp.atmo.getFeed', {
-					params: {
-						feed: 'network',
-						actor: locals.did,
-						collection: 'rsvp',
-						hydrateEvent: true,
-						profiles: true,
-						sort: 'createdAt',
-						order: 'desc',
-						limit: ACTIVITY_FETCH_LIMIT
-					}
-				}),
-				publicClient.get('rsvp.atmo.getFeed', {
-					params: {
-						feed: 'network',
-						actor: locals.did,
-						collection: 'event',
-						profiles: true,
-						sort: 'startsAt',
-						order: 'asc',
-						// Only events still upcoming or recent. Server-side filter is
-						// possible here because startsAt IS in the event collection's
-						// queryable (unlike rsvp records, which carry no event date).
-						startsAtMin: new Date(Date.now() - ACTIVITY_RECENT_EVENT_WINDOW_MS).toISOString(),
-						limit: ACTIVITY_FETCH_LIMIT
-					}
-				})
-			]);
+			const did = locals.did;
+			const [rsvpResp, eventResp] = await withD1Retry(() =>
+				Promise.all([
+					publicClient.get('rsvp.atmo.getFeed', {
+						params: {
+							feed: 'network',
+							actor: did,
+							collection: 'rsvp',
+							hydrateEvent: true,
+							profiles: true,
+							sort: 'createdAt',
+							order: 'desc',
+							limit: ACTIVITY_FETCH_LIMIT
+						}
+					}),
+					publicClient.get('rsvp.atmo.getFeed', {
+						params: {
+							feed: 'network',
+							actor: did,
+							collection: 'event',
+							profiles: true,
+							sort: 'startsAt',
+							order: 'asc',
+							// Only events still upcoming or recent. Server-side filter is
+							// possible here because startsAt IS in the event collection's
+							// queryable (unlike rsvp records, which carry no event date).
+							startsAtMin: new Date(Date.now() - ACTIVITY_RECENT_EVENT_WINDOW_MS).toISOString(),
+							limit: ACTIVITY_FETCH_LIMIT
+						}
+					})
+				])
+			);
 
 			const clusters = new Map<string, ActivityCluster>();
 			if (rsvpResp.ok) {

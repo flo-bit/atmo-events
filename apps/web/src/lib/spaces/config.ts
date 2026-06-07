@@ -10,9 +10,17 @@ export function getSpacesConfig(): SpacesConfig | null {
 	if (!SERVICE_DID) {
 		return null;
 	}
+	// contrail 0.9 split SpacesConfig into authority (member list / credentials /
+	// space management) and recordHost (record + blob storage). type+serviceDid
+	// moved under `authority`. `recordHost` must be present for record-host XRPC
+	// routes to register — without it space records can't be read/written. We
+	// store blobs on the PDS (scope.blob in atproto/settings), so no blob adapter.
 	return {
-		type: SPACE_TYPE,
-		serviceDid: SERVICE_DID
+		authority: {
+			type: SPACE_TYPE,
+			serviceDid: SERVICE_DID
+		},
+		recordHost: {}
 	};
 }
 

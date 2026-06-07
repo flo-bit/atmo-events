@@ -30,8 +30,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@atmo-dev/contrail':
-        specifier: ^0.5.0
-        version: 0.5.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
+        specifier: ^0.9.0
+        version: 0.9.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
       '@atmo-dev/events-ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -388,12 +388,41 @@ packages:
   '@atcute/xrpc-server@0.1.12':
     resolution: {integrity: sha512-70KIerQlljp5+s6t0u6YNN9klEboQUZa2hhoi/hmXIO1cIKEORettTMctnyjfcCJaSfAuj42dxPu51GTZBlm8w==}
 
+  '@atmo-dev/contrail-appview@0.9.0':
+    resolution: {integrity: sha512-nb/l820ex4h41Eh1AMKxu2vLuBZ9kAlhr7RiGi1Q9ynA2I9R4Gjy4guEzGXADKs4mLfiHvGbVINn/IGixNtFtQ==}
+
+  '@atmo-dev/contrail-authority@0.9.0':
+    resolution: {integrity: sha512-Vriw3ICqJCkALE3euc2U5lZ5mAIyRij3A7kyPNeQ2+WSuxSrIoyc97C3hol73nZQzAyC8SskfFcve2dN8CGR/A==}
+
+  '@atmo-dev/contrail-base@0.9.0':
+    resolution: {integrity: sha512-BTTRaOG4amCJvZwMbN2AbYcnfdUn5k0UGezBtKL5RUueDvIVVcNNk9cvS8Ol08y1FYqT8fn1KsyW2vb46e5Ctw==}
+    peerDependencies:
+      pg: ^8.0.0
+    peerDependenciesMeta:
+      pg:
+        optional: true
+
   '@atmo-dev/contrail-lexicons@0.4.4':
     resolution: {integrity: sha512-rb22K1H0NYp9Y7Okui/ny42T3X4xfj795p+pPrtWeBsio2ZsK9uuFtn3E+XnB314sGSUQQSe0FtkgVCUjLT+uQ==}
     hasBin: true
 
+  '@atmo-dev/contrail-record-host@0.9.0':
+    resolution: {integrity: sha512-32Re59u8BJFWHhfqRo7kBC2Iv5eLFFFjowVvriz1xqwAJIZSD74Ch7rJHj8542GgNPr45LGIOYeRw7ACzNKYbA==}
+
   '@atmo-dev/contrail@0.5.0':
     resolution: {integrity: sha512-PeeA3Q6NDwaho2dgaW4QANPRvhjKBml17MMxjcq6DwQG7p0MTUqoa2RM1G7DpA8CAIPrRXTVcosb6ybqshlWtQ==}
+    hasBin: true
+    peerDependencies:
+      pg: ^8.0.0
+      wrangler: ^4.0.0
+    peerDependenciesMeta:
+      pg:
+        optional: true
+      wrangler:
+        optional: true
+
+  '@atmo-dev/contrail@0.9.0':
+    resolution: {integrity: sha512-6L6+cNWyCel79Hjwk/G3P/vq9m2ENjMCf0J6RGf2nk+rJl3uZ/Ai7JvzU/HDNAMRf36fPjNME05zqL6AzVelhg==}
     hasBin: true
     peerDependencies:
       pg: ^8.0.0
@@ -3662,6 +3691,45 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.7
 
+  '@atmo-dev/contrail-appview@0.9.0':
+    dependencies:
+      '@atcute/atproto': 3.1.10
+      '@atcute/cbor': 2.3.2
+      '@atcute/cid': 2.4.1
+      '@atcute/client': 4.2.1
+      '@atcute/identity': 1.1.4
+      '@atcute/identity-resolver': 1.2.2(@atcute/identity@1.1.4)
+      '@atcute/jetstream': 1.1.2
+      '@atcute/lexicons': 1.2.9
+      '@atcute/xrpc-server': 0.1.12
+      '@atmo-dev/contrail-authority': 0.9.0
+      '@atmo-dev/contrail-base': 0.9.0
+      '@atmo-dev/contrail-record-host': 0.9.0
+      hono: 4.12.14
+    transitivePeerDependencies:
+      - pg
+      - react
+
+  '@atmo-dev/contrail-authority@0.9.0':
+    dependencies:
+      '@atcute/cid': 2.4.1
+      '@atcute/lexicons': 1.2.9
+      '@atmo-dev/contrail-base': 0.9.0
+      hono: 4.12.14
+    transitivePeerDependencies:
+      - pg
+
+  '@atmo-dev/contrail-base@0.9.0':
+    dependencies:
+      '@atcute/atproto': 3.1.10
+      '@atcute/cid': 2.4.1
+      '@atcute/client': 4.2.1
+      '@atcute/identity': 1.1.4
+      '@atcute/identity-resolver': 1.2.2(@atcute/identity@1.1.4)
+      '@atcute/lexicons': 1.2.9
+      '@atcute/xrpc-server': 0.1.12
+      hono: 4.12.14
+
   '@atmo-dev/contrail-lexicons@0.4.4(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
     dependencies:
       '@atcute/lex-cli': 2.5.3
@@ -3670,6 +3738,14 @@ snapshots:
       - pg
       - react
       - wrangler
+
+  '@atmo-dev/contrail-record-host@0.9.0':
+    dependencies:
+      '@atcute/cid': 2.4.1
+      '@atmo-dev/contrail-base': 0.9.0
+      hono: 4.12.14
+    transitivePeerDependencies:
+      - pg
 
   '@atmo-dev/contrail@0.5.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
     dependencies:
@@ -3682,6 +3758,29 @@ snapshots:
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
+      cac: 7.0.0
+      hono: 4.12.14
+      jiti: 2.6.1
+    optionalDependencies:
+      wrangler: 4.77.0(@cloudflare/workers-types@4.20260317.1)
+    transitivePeerDependencies:
+      - react
+
+  '@atmo-dev/contrail@0.9.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
+    dependencies:
+      '@atcute/atproto': 3.1.10
+      '@atcute/cbor': 2.3.2
+      '@atcute/cid': 2.4.1
+      '@atcute/client': 4.2.1
+      '@atcute/identity': 1.1.4
+      '@atcute/identity-resolver': 1.2.2(@atcute/identity@1.1.4)
+      '@atcute/jetstream': 1.1.2
+      '@atcute/lexicons': 1.2.9
+      '@atcute/xrpc-server': 0.1.12
+      '@atmo-dev/contrail-appview': 0.9.0
+      '@atmo-dev/contrail-authority': 0.9.0
+      '@atmo-dev/contrail-base': 0.9.0
+      '@atmo-dev/contrail-record-host': 0.9.0
       cac: 7.0.0
       hono: 4.12.14
       jiti: 2.6.1

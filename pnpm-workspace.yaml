@@ -6,3 +6,9 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - '@atmo-dev/contrail-appview@0.9.0'
+  - '@atmo-dev/contrail-authority@0.9.0'
+  - '@atmo-dev/contrail-base@0.9.0'
+  - '@atmo-dev/contrail-record-host@0.9.0'
+  - '@atmo-dev/contrail@0.9.0'
