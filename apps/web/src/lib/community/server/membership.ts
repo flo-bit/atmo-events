@@ -5,6 +5,7 @@ import { getActor } from '$lib/actor';
 import { SPACE_TYPE } from '$lib/spaces/config';
 import type { AuthorityEntry } from './authority-registry';
 import { resolveSpaceHostFromDidDoc, type ResolvedAuthority } from './resolve-space-host';
+import { mintServiceAuth } from './service-auth';
 
 export type AccessLevel = 'member' | 'manager' | 'admin' | 'owner';
 
@@ -38,24 +39,6 @@ export async function detectCommunity(
 	registry: AuthorityEntry[]
 ): Promise<ResolvedAuthority | null> {
 	return resolveSpaceHostFromDidDoc(actorDid, registry);
-}
-
-async function mintServiceAuth(
-	oauthClient: OAuthClient,
-	aud: string,
-	lxm: string
-): Promise<string> {
-	const res = await oauthClient.get('com.atproto.server.getServiceAuth', {
-		params: {
-			aud: aud as `did:${string}:${string}`,
-			lxm: lxm as `${string}.${string}.${string}`,
-			exp: Math.floor(Date.now() / 1000) + 300
-		}
-	});
-	if (!res.ok) {
-		throw new Error(`getServiceAuth failed: ${res.status} ${JSON.stringify(res.data)}`);
-	}
-	return res.data.token;
 }
 
 async function authorityGet<T>(

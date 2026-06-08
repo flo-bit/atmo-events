@@ -4,6 +4,7 @@ import * as v from 'valibot';
 import type { EditorBlobRef } from '@atmo-dev/events-ui';
 import { parseAuthorityRegistry } from './authority-registry';
 import { resolveSpaceHost } from './resolve-space-host';
+import { mintServiceAuth } from './service-auth';
 
 const didSchema = v.pipe(v.string(), v.regex(/^did:[a-z]+:.+/));
 
@@ -11,24 +12,6 @@ function getSession() {
 	const { locals } = getRequestEvent();
 	if (!locals.client || !locals.did) error(401, 'Not authenticated');
 	return { oauthClient: locals.client, did: locals.did };
-}
-
-async function mintServiceAuth(
-	oauthClient: { get: Function },
-	aud: string,
-	lxm: string
-): Promise<string> {
-	const res = await oauthClient.get('com.atproto.server.getServiceAuth', {
-		params: {
-			aud: aud as `did:${string}:${string}`,
-			lxm: lxm as `${string}.${string}.${string}`,
-			exp: Math.floor(Date.now() / 1000) + 300
-		}
-	});
-	if (!res.ok) {
-		throw new Error(`getServiceAuth failed: ${res.status} ${JSON.stringify(res.data)}`);
-	}
-	return res.data.token;
 }
 
 /**
