@@ -135,9 +135,18 @@
 	let selectedCommunityDid: string | null = $state(null);
 	let loadingTargets = $state(false);
 
+	// An event whose actor differs from the viewer is a community event. This is known
+	// synchronously from props, so the edit target never depends on listPublishTargets
+	// resolving — without this, a slow or failed publish-target load would leave
+	// selectedCommunityDid null and the save would silently write the community event
+	// into the viewer's own repo.
 	let lockedCommunityDid = $derived(
-		!isNew && publishTargets.find(t => t.did === actorDid) ? actorDid : null
+		!isNew && actorDid !== viewer.did ? actorDid : null
 	);
+
+	// The repo a save targets: locked to the event's actor when editing a community
+	// event, otherwise the user's "Create as" selection (null = personal).
+	let effectiveCommunityDid = $derived(lockedCommunityDid ?? selectedCommunityDid);
 
 	function populateLocationFromEventData() {
 		if (!eventData) return;
@@ -204,9 +213,6 @@
 			adapter.listPublishTargets()
 				.then((targets) => {
 					publishTargets = targets;
-					if (!isNew && targets.find(t => t.did === actorDid)) {
-						selectedCommunityDid = actorDid;
-					}
 				})
 				.catch((err) => console.error('Failed to load publish targets:', err))
 				.finally(() => { loadingTargets = false; });
@@ -216,8 +222,8 @@
 	let hostName = $derived(viewer.displayName || viewer.handle || viewer.did || '');
 
 	let effectiveHostName = $derived(
-		selectedCommunityDid
-			? publishTargets.find(t => t.did === selectedCommunityDid)?.identifier ?? selectedCommunityDid
+		effectiveCommunityDid
+			? publishTargets.find(t => t.did === effectiveCommunityDid)?.identifier ?? effectiveCommunityDid
 			: hostName
 	);
 
@@ -287,7 +293,7 @@
 				uploadBlob: (blob) =>
 					adapter.uploadBlob(
 						blob,
-						selectedCommunityDid ? { communityDid: selectedCommunityDid } : undefined
+						effectiveCommunityDid ? { communityDid: effectiveCommunityDid } : undefined
 					) as unknown as Promise<Record<string, unknown>>
 			});
 
@@ -336,16 +342,23 @@
 				return;
 			}
 
-			if (selectedCommunityDid && adapter.putCommunityRecord) {
+			// A community target must be written to the community repo. Never fall through
+			// to the personal putRecord below — that would silently write the community
+			// event into the viewer's own PDS.
+			if (effectiveCommunityDid) {
+				if (!adapter.putCommunityRecord) {
+					error = 'Community event authoring is not available here.';
+					return;
+				}
 				const communityResult = await adapter.putCommunityRecord({
-					communityDid: selectedCommunityDid,
+					communityDid: effectiveCommunityDid,
 					collection: 'community.lexicon.calendar.event',
 					rkey,
 					record
 				});
 				await adapter.notifyUpdate?.(communityResult.uri);
 				if (adapter.onCommunityEventSaved) {
-					adapter.onCommunityEventSaved({ uri: communityResult.uri, rkey, communityDid: selectedCommunityDid });
+					adapter.onCommunityEventSaved({ uri: communityResult.uri, rkey, communityDid: effectiveCommunityDid });
 				} else {
 					adapter.onSaved({ uri: communityResult.uri, rkey, isNew });
 				}
