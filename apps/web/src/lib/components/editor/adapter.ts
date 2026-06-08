@@ -56,7 +56,7 @@ export function createInAppAdapter(opts: { viewer: EditorViewer; actorDid?: stri
 			if (opts?.communityDid) {
 				// Community-targeted: the blob must live in the community repo so the
 				// event record that references it (written via putCommunityRecord) is
-				// valid. Route through the custodian uploadBlob proxy.
+				// valid. Route through the space host's uploadBlob proxy.
 				const { uploadCommunityBlob } = await import(
 					'$lib/community/server/community-blob.remote'
 				);

@@ -15,8 +15,8 @@ function getSession() {
 }
 
 /**
- * Upload a blob into a community's repo via the custodian (contrail-community's
- * `<ns>.community.uploadBlob` proxy). The custodian enforces the `$publishers`
+ * Upload a blob into a community's repo via the space host (contrail-community's
+ * `<ns>.community.uploadBlob` proxy). The space host enforces the `$publishers`
  * ACL and writes the bytes to the community PDS, so the returned BlobRef is
  * valid in the COMMUNITY repo — exactly what a subsequent `putCommunityRecord`
  * needs to reference. The blob bytes are the request body, so `communityDid`
