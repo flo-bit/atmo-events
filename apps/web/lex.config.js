@@ -12,14 +12,12 @@ export default defineLexiconConfig({
         mode: "nsids",
         nsids: [
                   "app.bsky.actor.profile",
-                  "app.bsky.graph.follow",
                   "community.lexicon.calendar.event",
                   "community.lexicon.calendar.rsvp",
                   "community.lexicon.location.address",
                   "community.lexicon.location.fsq",
                   "community.lexicon.location.geo",
-                  "community.lexicon.location.hthree",
-                  "follow"
+                  "community.lexicon.location.hthree"
         ],
       },
     ],

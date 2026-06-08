@@ -14,8 +14,6 @@
           "lxm": [
             "rsvp.atmo.event.getRecord",
             "rsvp.atmo.event.listRecords",
-            "rsvp.atmo.follow.getRecord",
-            "rsvp.atmo.follow.listRecords",
             "rsvp.atmo.getCursor",
             "rsvp.atmo.getFeed",
             "rsvp.atmo.getOverview",
@@ -31,8 +29,6 @@
             "rsvp.atmo.space.createSpace",
             "rsvp.atmo.space.deleteRecord",
             "rsvp.atmo.space.getBlob",
-            "rsvp.atmo.space.getCredential",
-            "rsvp.atmo.space.getMembershipManifest",
             "rsvp.atmo.space.getRecord",
             "rsvp.atmo.space.getSpace",
             "rsvp.atmo.space.leaveSpace",
@@ -41,7 +37,6 @@
             "rsvp.atmo.space.listRecords",
             "rsvp.atmo.space.listSpaces",
             "rsvp.atmo.space.putRecord",
-            "rsvp.atmo.space.refreshCredential",
             "rsvp.atmo.space.removeMember",
             "rsvp.atmo.space.uploadBlob",
             "rsvp.atmo.spaceExt.whoami"
