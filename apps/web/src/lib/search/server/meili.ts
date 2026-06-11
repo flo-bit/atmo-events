@@ -55,14 +55,29 @@ async function querySearchIndex(backend: SearchBackend, body: Record<string, unk
 	return { hits, estimatedTotalHits: data.estimatedTotalHits ?? hits.length };
 }
 
+/** Filter clause restricting to events that haven't ended yet: the bound is on
+ *  endsAt, since an event is still "upcoming" while it is running; events with
+ *  no endsAt fall back to startsAt. Meilisearch range-compares the ISO-8601 UTC
+ *  strings chronologically (verified live, v1.46.1); EXISTS/NOT EXISTS gate the
+ *  fallback. Matches the endsAt||startsAt>=now rule the in-memory surfaces use. */
+function upcomingFilter(now: string): string {
+	return `(endsAt >= "${now}" OR (endsAt NOT EXISTS AND startsAt >= "${now}"))`;
+}
+
 export async function searchEvents(
 	backend: SearchBackend,
-	{ q, limit, offset }: { q: string; limit: number; offset: number }
+	{
+		q,
+		limit,
+		offset,
+		now = new Date().toISOString()
+	}: { q: string; limit: number; offset: number; now?: string }
 ): Promise<SearchResult> {
 	return querySearchIndex(backend, {
 		q,
 		limit,
 		offset,
+		filter: upcomingFilter(now),
 		attributesToRetrieve: ['uri']
 	});
 }
@@ -90,18 +105,12 @@ export async function nearMeEvents(
 	if (![lat, lng, radiusMeters].every(Number.isFinite)) {
 		throw new Error('invalid coordinates');
 	}
-	// Only events that haven't ended yet — an event is still "upcoming" while it
-	// is running, so the bound is on endsAt; events with no endsAt fall back to
-	// startsAt. Meilisearch range-compares the ISO-8601 UTC strings
-	// chronologically (verified live, v1.46.1); EXISTS/NOT EXISTS gate the
-	// fallback. Matches the endsAt||startsAt>=now rule the in-memory surfaces use.
-	const upcoming = `(endsAt >= "${now}" OR (endsAt NOT EXISTS AND startsAt >= "${now}"))`;
 	// No attributesToRetrieve here: restricting it makes Meilisearch drop the
 	// computed _geoDistance from hits (observed live), and the distance is the
 	// whole point of this query. Docs are small; the overfetch cost is fine.
 	return querySearchIndex(backend, {
 		q: '',
-		filter: `_geoRadius(${lat}, ${lng}, ${radiusMeters}) AND ${upcoming}`,
+		filter: `_geoRadius(${lat}, ${lng}, ${radiusMeters}) AND ${upcomingFilter(now)}`,
 		sort: [`_geoPoint(${lat}, ${lng}):asc`],
 		limit,
 		offset

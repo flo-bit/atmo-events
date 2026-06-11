@@ -30,7 +30,12 @@ describe('searchEvents', () => {
 			estimatedTotalHits: 7
 		});
 
-		const result = await searchEvents(cfg(fetchFn), { q: 'kite festival', limit: 20, offset: 0 });
+		const result = await searchEvents(cfg(fetchFn), {
+			q: 'kite festival',
+			limit: 20,
+			offset: 0,
+			now: '2026-06-11T00:00:00.000Z'
+		});
 
 		expect(calls).toHaveLength(1);
 		expect(calls[0].url).toBe('https://search.testnet.openmeet.net/indexes/events/search');
@@ -42,6 +47,9 @@ describe('searchEvents', () => {
 			q: 'kite festival',
 			limit: 20,
 			offset: 0,
+			filter:
+				'(endsAt >= "2026-06-11T00:00:00.000Z" OR ' +
+				'(endsAt NOT EXISTS AND startsAt >= "2026-06-11T00:00:00.000Z"))',
 			attributesToRetrieve: ['uri']
 		});
 		expect(result.hits.map((h) => h.uri)).toEqual([
@@ -49,6 +57,26 @@ describe('searchEvents', () => {
 			'at://did:plc:two/community.lexicon.calendar.event/2'
 		]);
 		expect(result.estimatedTotalHits).toBe(7);
+	});
+
+	it('restricts results to upcoming events: endsAt (or startsAt when no endsAt) >= now', async () => {
+		const { fetchFn, calls } = fakeFetch({ hits: [], estimatedTotalHits: 0 });
+
+		await searchEvents(cfg(fetchFn), {
+			q: 'kite',
+			limit: 20,
+			offset: 0,
+			now: '2026-06-11T00:00:00.000Z'
+		});
+
+		const body = JSON.parse(String(calls[0].init.body));
+		expect(body.filter).toBe(
+			'(endsAt >= "2026-06-11T00:00:00.000Z" OR ' +
+				'(endsAt NOT EXISTS AND startsAt >= "2026-06-11T00:00:00.000Z"))'
+		);
+		// The upcoming bound is a filter, not a retrieved attribute, so search
+		// still asks only for uris.
+		expect(body.attributesToRetrieve).toEqual(['uri']);
 	});
 
 	it('throws on a non-OK response without leaking the api key', async () => {

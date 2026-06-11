@@ -27,9 +27,13 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 		}
 	}
 
+	// Keep the degraded path consistent with the Meilisearch path: upcoming only.
+	// D1 range params AND together (an endsAt bound would drop events with no
+	// endsAt), so this uses the start-based approximation the home list also uses.
 	const response = await listDiscoverableEventsFromContrail(client, {
 		search: q,
 		profiles: true,
+		startsAtMin: new Date().toISOString(),
 		sort: 'startsAt',
 		order: 'desc',
 		limit: SEARCH_PAGE_SIZE,
