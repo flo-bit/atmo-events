@@ -3,9 +3,9 @@ import {
 	getServerClient,
 	listDiscoverableEventsFromContrail
 } from '$lib/contrail';
+import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
 import type { PageServerLoad } from './$types';
-
-const PAGE_SIZE = 20;
 
 export const load: PageServerLoad = async ({ url, platform }) => {
 	const client = getServerClient(platform!.env.DB);
@@ -14,12 +14,25 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 
 	if (!q) return { events: [], handles: {}, cursor: null, query: '' };
 
+	// Meilisearch ranks (typo tolerance, prefix, relevance); D1 supplies the
+	// records. Falls back to the LIKE-based D1 path when the search backend is
+	// unconfigured (local dev) or down.
+	const backend = searchBackendFromEnv(platform?.env);
+	if (backend) {
+		try {
+			const page = await runEventSearchPage(backend, client, { q, cursor });
+			return { events: page.events, handles: page.handles, cursor: page.cursor, query: q };
+		} catch (err) {
+			console.error('search backend failed, falling back to D1 search:', err);
+		}
+	}
+
 	const response = await listDiscoverableEventsFromContrail(client, {
 		search: q,
 		profiles: true,
 		sort: 'startsAt',
 		order: 'desc',
-		limit: PAGE_SIZE,
+		limit: SEARCH_PAGE_SIZE,
 		cursor
 	});
 
