@@ -88,6 +88,10 @@ describe('nearMeEvents', () => {
 		expect(body.filter).toBe('_geoRadius(38.25, -85.76, 25000)');
 		expect(body.sort).toEqual(['_geoPoint(38.25, -85.76):asc']);
 		expect(body.q).toBe('');
+		// Meilisearch silently drops _geoDistance from hits when
+		// attributesToRetrieve is restricted (verified live, v1.x) — geo
+		// queries must request full documents to get distances back.
+		expect(body.attributesToRetrieve).toBeUndefined();
 		expect(result.hits).toEqual([
 			{ uri: 'at://did:plc:one/community.lexicon.calendar.event/1', distanceMeters: 1200 }
 		]);

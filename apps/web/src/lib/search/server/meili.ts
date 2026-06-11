@@ -80,12 +80,14 @@ export async function nearMeEvents(
 	if (![lat, lng, radiusMeters].every(Number.isFinite)) {
 		throw new Error('invalid coordinates');
 	}
+	// No attributesToRetrieve here: restricting it makes Meilisearch drop the
+	// computed _geoDistance from hits (observed live), and the distance is the
+	// whole point of this query. Docs are small; the overfetch cost is fine.
 	return querySearchIndex(backend, {
 		q: '',
 		filter: `_geoRadius(${lat}, ${lng}, ${radiusMeters})`,
 		sort: [`_geoPoint(${lat}, ${lng}):asc`],
 		limit,
-		offset,
-		attributesToRetrieve: ['uri']
+		offset
 	});
 }
