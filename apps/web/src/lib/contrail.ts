@@ -318,6 +318,32 @@ export async function listAuthoredEventsFromContrail(
 }
 
 /**
+ * Hits the `listDiscoverableByUris` pipelineQuery: fetches the given event
+ * records (discoverability filter applied) in one D1 query. Hydration half of
+ * the Meilisearch read path — search ranks uris, this supplies the display
+ * data. Returns records in D1's order; callers re-sort to search rank.
+ */
+export async function listDiscoverableEventsByUrisFromContrail(
+	client: Client,
+	{ uris, profiles = true }: { uris: string[]; profiles?: boolean }
+): Promise<EventListOutput | null> {
+	if (uris.length === 0) return { records: [] };
+	const response = await client.get(
+		'rsvp.atmo.event.listDiscoverableByUris' as 'rsvp.atmo.event.listRecords',
+		{
+			params: {
+				uris: uris.join(','),
+				profiles,
+				limit: uris.length
+			} as unknown as ListEventsParams
+		}
+	);
+
+	if (!response.ok) return null;
+	return response.data;
+}
+
+/**
  * Hits the `listTalks` pipelineQuery, returning the talk events that belong to
  * a conference (their `additionalData.parentEvent.uri === parentUri`). Pass
  * `actor` to scope to the conference organizer's own repo — for now talks are
