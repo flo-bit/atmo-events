@@ -14,7 +14,6 @@ export function assembleSearchPage<T extends { uri: string }>(
 ): { items: { record: T; distanceMeters?: number }[]; consumed: number } {
 	const byUri = new Map(records.map((r) => [r.uri, r]));
 	const items: { record: T; distanceMeters?: number }[] = [];
-	let consumed = 0;
 
 	for (const [index, hit] of hits.entries()) {
 		const record = byUri.get(hit.uri);
@@ -23,8 +22,7 @@ export function assembleSearchPage<T extends { uri: string }>(
 			record,
 			...(hit.distanceMeters !== undefined ? { distanceMeters: hit.distanceMeters } : {})
 		});
-		consumed = index + 1;
-		if (items.length === pageSize) return { items, consumed };
+		if (items.length === pageSize) return { items, consumed: index + 1 };
 	}
 	// Hits exhausted before the page filled: everything was examined.
 	return { items, consumed: hits.length };

@@ -49,7 +49,6 @@ type EventProfileEntry = RsvpAtmoEventListRecords.ProfileEntry;
 type EventGetOutput = RsvpAtmoEventGetRecord.$output;
 type EventGetProfileEntry = RsvpAtmoEventGetRecord.ProfileEntry;
 type RsvpListRecord = RsvpAtmoRsvpListRecords.Record;
-type RsvpProfileEntry = RsvpAtmoRsvpListRecords.ProfileEntry;
 type HydratedEventRecord = RsvpAtmoRsvpListRecords.RefEventRecord;
 type FlattenableEventRecord = EventListRecord | EventGetOutput | HydratedEventRecord;
 type EventProfiles = EventProfileEntry[] | EventGetProfileEntry[] | undefined;
