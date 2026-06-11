@@ -91,10 +91,7 @@ describe('runEventSearchPage', () => {
 
 describe('runNearMePage', () => {
 	it('returns distances keyed by uri alongside hydrated events', async () => {
-		const { fetchFn, bodies } = meiliFetch(
-			[{ uri: 'at://did:plc:a/c/1', _geoDistance: 420 }],
-			1
-		);
+		const { fetchFn } = meiliFetch([{ uri: 'at://did:plc:a/c/1', _geoDistance: 420 }], 1);
 		const client = fakeClient([record('at://did:plc:a/c/1', 'alpha')]);
 
 		const page = await runNearMePage(backend(fetchFn), client, {
@@ -104,7 +101,6 @@ describe('runNearMePage', () => {
 			cursor: null
 		});
 
-		expect(bodies[0].filter).toBe('_geoRadius(38.25, -85.76, 25000)');
 		expect(page.events.map((e) => e.name)).toEqual(['alpha']);
 		expect(page.distances).toEqual({ 'at://did:plc:a/c/1': 420 });
 		expect(page.cursor).toBeNull();

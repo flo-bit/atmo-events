@@ -74,18 +74,34 @@ export async function nearMeEvents(
 		lng,
 		radiusMeters,
 		limit,
-		offset
-	}: { lat: number; lng: number; radiusMeters: number; limit: number; offset: number }
+		offset,
+		now = new Date().toISOString()
+	}: {
+		lat: number;
+		lng: number;
+		radiusMeters: number;
+		limit: number;
+		offset: number;
+		/** ISO-8601 UTC instant the "upcoming" bound is measured against;
+		 *  injectable for deterministic tests. */
+		now?: string;
+	}
 ): Promise<SearchResult> {
 	if (![lat, lng, radiusMeters].every(Number.isFinite)) {
 		throw new Error('invalid coordinates');
 	}
+	// Only events that haven't ended yet — an event is still "upcoming" while it
+	// is running, so the bound is on endsAt; events with no endsAt fall back to
+	// startsAt. Meilisearch range-compares the ISO-8601 UTC strings
+	// chronologically (verified live, v1.46.1); EXISTS/NOT EXISTS gate the
+	// fallback. Matches the endsAt||startsAt>=now rule the in-memory surfaces use.
+	const upcoming = `(endsAt >= "${now}" OR (endsAt NOT EXISTS AND startsAt >= "${now}"))`;
 	// No attributesToRetrieve here: restricting it makes Meilisearch drop the
 	// computed _geoDistance from hits (observed live), and the distance is the
 	// whole point of this query. Docs are small; the overfetch cost is fine.
 	return querySearchIndex(backend, {
 		q: '',
-		filter: `_geoRadius(${lat}, ${lng}, ${radiusMeters})`,
+		filter: `_geoRadius(${lat}, ${lng}, ${radiusMeters}) AND ${upcoming}`,
 		sort: [`_geoPoint(${lat}, ${lng}):asc`],
 		limit,
 		offset

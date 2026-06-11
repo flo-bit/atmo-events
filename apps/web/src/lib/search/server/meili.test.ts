@@ -81,11 +81,16 @@ describe('nearMeEvents', () => {
 			lng: -85.76,
 			radiusMeters: 25000,
 			limit: 20,
-			offset: 0
+			offset: 0,
+			now: '2026-06-11T00:00:00.000Z'
 		});
 
 		const body = JSON.parse(String(calls[0].init.body));
-		expect(body.filter).toBe('_geoRadius(38.25, -85.76, 25000)');
+		expect(body.filter).toBe(
+			'_geoRadius(38.25, -85.76, 25000) AND ' +
+				'(endsAt >= "2026-06-11T00:00:00.000Z" OR ' +
+				'(endsAt NOT EXISTS AND startsAt >= "2026-06-11T00:00:00.000Z"))'
+		);
 		expect(body.sort).toEqual(['_geoPoint(38.25, -85.76):asc']);
 		expect(body.q).toBe('');
 		// Meilisearch silently drops _geoDistance from hits when
@@ -95,6 +100,30 @@ describe('nearMeEvents', () => {
 		expect(result.hits).toEqual([
 			{ uri: 'at://did:plc:one/community.lexicon.calendar.event/1', distanceMeters: 1200 }
 		]);
+	});
+
+	it('restricts results to upcoming events: endsAt (or startsAt when no endsAt) >= now', async () => {
+		const { fetchFn, calls } = fakeFetch({ hits: [], estimatedTotalHits: 0 });
+
+		await nearMeEvents(cfg(fetchFn), {
+			lat: 38.25,
+			lng: -85.76,
+			radiusMeters: 25000,
+			limit: 20,
+			offset: 0,
+			now: '2026-06-11T00:00:00.000Z'
+		});
+
+		// An event counts as upcoming while it is still running, so the bound is
+		// on endsAt; events with no endsAt fall back to startsAt. Verified live
+		// against Meilisearch v1.46.1 — string range compares ISO-8601 UTC
+		// chronologically, and EXISTS/NOT EXISTS gate the fallback.
+		const body = JSON.parse(String(calls[0].init.body));
+		expect(body.filter).toBe(
+			'_geoRadius(38.25, -85.76, 25000) AND ' +
+				'(endsAt >= "2026-06-11T00:00:00.000Z" OR ' +
+				'(endsAt NOT EXISTS AND startsAt >= "2026-06-11T00:00:00.000Z"))'
+		);
 	});
 
 	it('rejects non-finite coordinates before making any request', async () => {
