@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@atmo-dev/contrail-appview': file:./vendor/atmo-dev-contrail-appview-0.11.0.tgz
-  '@atmo-dev/contrail-base': file:./vendor/atmo-dev-contrail-base-0.11.0.tgz
-
 importers:
 
   .:
@@ -34,8 +30,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@atmo-dev/contrail':
-        specifier: ^0.11.0
-        version: 0.11.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
+        specifier: ^0.12.0
+        version: 0.12.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
       '@atmo-dev/events-ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -398,16 +394,14 @@ packages:
   '@atcute/xrpc-server@0.1.12':
     resolution: {integrity: sha512-70KIerQlljp5+s6t0u6YNN9klEboQUZa2hhoi/hmXIO1cIKEORettTMctnyjfcCJaSfAuj42dxPu51GTZBlm8w==}
 
-  '@atmo-dev/contrail-appview@file:vendor/atmo-dev-contrail-appview-0.11.0.tgz':
-    resolution: {integrity: sha512-2HYJ2Ce0wlyR7mfJ/t7JxmwCGNHB/bkiK9G+hf7x0IFFvutdcvd4k2mJWfv4dvLVsm4F8nO8716hqs+k+90mfA==, tarball: file:vendor/atmo-dev-contrail-appview-0.11.0.tgz}
-    version: 0.11.0
+  '@atmo-dev/contrail-appview@0.12.0':
+    resolution: {integrity: sha512-yUnddbn+Y5iyAnBXoNd7a5qVla9F+fpejb3hyNQH4VJBPaConQrJJR00AqJRszDUJoWCp1d6Cvr1l6jqkYIouw==}
 
-  '@atmo-dev/contrail-authority@0.11.0':
-    resolution: {integrity: sha512-7Fg9AQbI9yqeD1db8moaI0QjWWOn3RuzHC7lH4+jiLSTDOOyxfp+YFOrosRJ+mF41bEKqdZOHuAjk6VTORsOPw==}
+  '@atmo-dev/contrail-authority@0.12.0':
+    resolution: {integrity: sha512-5ZjDR71ZAN0OhFMspmbuYKM2nFxePSa5KqOH4tyRYajL18H7r66yq7GOvLfqHxy/t9nj++IJdR4r1nMdCQ3WWA==}
 
-  '@atmo-dev/contrail-base@file:vendor/atmo-dev-contrail-base-0.11.0.tgz':
-    resolution: {integrity: sha512-uvQpeb05vwkSm44C38ttzLMneiR7Zf5DUIqNYRmUdZuOtK2pvfRZR7gq2qMIo1pi2j/7Fr6P7uDER9utQZuvTg==, tarball: file:vendor/atmo-dev-contrail-base-0.11.0.tgz}
-    version: 0.11.0
+  '@atmo-dev/contrail-base@0.12.0':
+    resolution: {integrity: sha512-fFzO52sIekVWoLKVKRhZVyLoOk260z1sy9plmLA0cEkBlNIDKXkS4UVrGkxrq8tLbZ9M8Lax6kggx0T6QQCaqg==}
     peerDependencies:
       pg: ^8.0.0
     peerDependenciesMeta:
@@ -418,11 +412,11 @@ packages:
     resolution: {integrity: sha512-rb22K1H0NYp9Y7Okui/ny42T3X4xfj795p+pPrtWeBsio2ZsK9uuFtn3E+XnB314sGSUQQSe0FtkgVCUjLT+uQ==}
     hasBin: true
 
-  '@atmo-dev/contrail-record-host@0.11.0':
-    resolution: {integrity: sha512-u4jeCtLOOhx6ycDwfwB8cHl5W3w2TkQrAlgCsxJS+2xdTWkV1dx8vapRM84IuicbBbmjPm3gCUZ7x9b5+Npf7g==}
+  '@atmo-dev/contrail-record-host@0.12.0':
+    resolution: {integrity: sha512-BHVMiS8R2FbHwsMzynBnErBJMBmVBr3CpowG4HY4iv8QRRdnOhVvW3JkloSZz7bjGfTRKy0IjSKSxVqFMHbM/Q==}
 
-  '@atmo-dev/contrail@0.11.0':
-    resolution: {integrity: sha512-oPN50OqG9KiEAZVSc9va2mGu5CzhTGX/QPHkCV1bfQ92Z+I9NkMRxvLzXEGjFYZLDtXgKDkpKW8a0U9QLCpioA==}
+  '@atmo-dev/contrail@0.12.0':
+    resolution: {integrity: sha512-eXYBqrRiIYuY96X56BhoC6er0siZvwhxG5/1gLCqpBrklYaP7h202+Pyc/Tqnv4L4bzO8cUctV8PzO6OByyeTQ==}
     hasBin: true
     peerDependencies:
       pg: ^8.0.0
@@ -3829,7 +3823,7 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.7
 
-  '@atmo-dev/contrail-appview@file:vendor/atmo-dev-contrail-appview-0.11.0.tgz':
+  '@atmo-dev/contrail-appview@0.12.0':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cbor': 2.3.2
@@ -3840,24 +3834,24 @@ snapshots:
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
-      '@atmo-dev/contrail-authority': 0.11.0
-      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
-      '@atmo-dev/contrail-record-host': 0.11.0
+      '@atmo-dev/contrail-authority': 0.12.0
+      '@atmo-dev/contrail-base': 0.12.0
+      '@atmo-dev/contrail-record-host': 0.12.0
       hono: 4.12.14
     transitivePeerDependencies:
       - pg
       - react
 
-  '@atmo-dev/contrail-authority@0.11.0':
+  '@atmo-dev/contrail-authority@0.12.0':
     dependencies:
       '@atcute/cid': 2.4.1
       '@atcute/lexicons': 1.2.9
-      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
+      '@atmo-dev/contrail-base': 0.12.0
       hono: 4.12.14
     transitivePeerDependencies:
       - pg
 
-  '@atmo-dev/contrail-base@file:vendor/atmo-dev-contrail-base-0.11.0.tgz':
+  '@atmo-dev/contrail-base@0.12.0':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cid': 2.4.1
@@ -3877,15 +3871,15 @@ snapshots:
       - react
       - wrangler
 
-  '@atmo-dev/contrail-record-host@0.11.0':
+  '@atmo-dev/contrail-record-host@0.12.0':
     dependencies:
       '@atcute/cid': 2.4.1
-      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
+      '@atmo-dev/contrail-base': 0.12.0
       hono: 4.12.14
     transitivePeerDependencies:
       - pg
 
-  '@atmo-dev/contrail@0.11.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
+  '@atmo-dev/contrail@0.12.0(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cbor': 2.3.2
@@ -3896,10 +3890,10 @@ snapshots:
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
-      '@atmo-dev/contrail-appview': file:vendor/atmo-dev-contrail-appview-0.11.0.tgz
-      '@atmo-dev/contrail-authority': 0.11.0
-      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
-      '@atmo-dev/contrail-record-host': 0.11.0
+      '@atmo-dev/contrail-appview': 0.12.0
+      '@atmo-dev/contrail-authority': 0.12.0
+      '@atmo-dev/contrail-base': 0.12.0
+      '@atmo-dev/contrail-record-host': 0.12.0
       cac: 7.0.0
       hono: 4.12.14
       jiti: 2.6.1
