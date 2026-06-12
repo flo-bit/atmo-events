@@ -78,6 +78,7 @@
 		"@number-flow/svelte": "^0.4.0",
 		"@tailwindcss/typography": "^0.5.19",
 		"dompurify": "^3.3.3",
+		"h3-js": "^4.2.1",
 		"hls.js": "^1.6.15",
 		"maplibre-gl": "^5.21.1",
 		"marked": "^17.0.5",

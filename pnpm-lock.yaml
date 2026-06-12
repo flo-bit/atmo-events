@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@atmo-dev/contrail-appview': file:./vendor/atmo-dev-contrail-appview-0.11.0.tgz
+  '@atmo-dev/contrail-base': file:./vendor/atmo-dev-contrail-base-0.11.0.tgz
+
 importers:
 
   .:
@@ -68,6 +72,9 @@ importers:
       dompurify:
         specifier: ^3.3.3
         version: 3.3.3
+      h3-js:
+        specifier: ^4.2.1
+        version: 4.4.0
       hls.js:
         specifier: ^1.6.15
         version: 1.6.15
@@ -391,14 +398,16 @@ packages:
   '@atcute/xrpc-server@0.1.12':
     resolution: {integrity: sha512-70KIerQlljp5+s6t0u6YNN9klEboQUZa2hhoi/hmXIO1cIKEORettTMctnyjfcCJaSfAuj42dxPu51GTZBlm8w==}
 
-  '@atmo-dev/contrail-appview@0.11.0':
-    resolution: {integrity: sha512-x+HNRDG41hQBWDR6TWwBsh25K3jXXnpsaGiCOyul+AOz04vIYy7d9OPh6pWiBKJgw5In/itSp4Oc/Rl7vfYojg==}
+  '@atmo-dev/contrail-appview@file:vendor/atmo-dev-contrail-appview-0.11.0.tgz':
+    resolution: {integrity: sha512-2HYJ2Ce0wlyR7mfJ/t7JxmwCGNHB/bkiK9G+hf7x0IFFvutdcvd4k2mJWfv4dvLVsm4F8nO8716hqs+k+90mfA==, tarball: file:vendor/atmo-dev-contrail-appview-0.11.0.tgz}
+    version: 0.11.0
 
   '@atmo-dev/contrail-authority@0.11.0':
     resolution: {integrity: sha512-7Fg9AQbI9yqeD1db8moaI0QjWWOn3RuzHC7lH4+jiLSTDOOyxfp+YFOrosRJ+mF41bEKqdZOHuAjk6VTORsOPw==}
 
-  '@atmo-dev/contrail-base@0.11.0':
-    resolution: {integrity: sha512-whI53PRFAOVcvciSWNm8rtzvagJw/OaGuwsKiKqynlqiqP9L5QaFvyA7NMHOBbBC2gbX1TJq+MaJkiK/s1P0ww==}
+  '@atmo-dev/contrail-base@file:vendor/atmo-dev-contrail-base-0.11.0.tgz':
+    resolution: {integrity: sha512-uvQpeb05vwkSm44C38ttzLMneiR7Zf5DUIqNYRmUdZuOtK2pvfRZR7gq2qMIo1pi2j/7Fr6P7uDER9utQZuvTg==, tarball: file:vendor/atmo-dev-contrail-base-0.11.0.tgz}
+    version: 0.11.0
     peerDependencies:
       pg: ^8.0.0
     peerDependenciesMeta:
@@ -2415,6 +2424,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  h3-js@4.4.0:
+    resolution: {integrity: sha512-DvJh07MhGgY2KcC4OeZc8SSyA+ZXpdvoh6uCzGpoKvWtZxJB+g6VXXC1+eWYkaMIsLz7J/ErhOalHCpcs1KYog==}
+    engines: {node: '>=4', npm: '>=3', yarn: '>=1.3.0'}
+
   hex-rgb@4.3.0:
     resolution: {integrity: sha512-Ox1pJVrDCyGHMG9CFg1tmrRUMRPRsAWYc/PinY0XzJU4K7y7vjNoLKIQ7BR5UJMCxNN8EM1MNDmHWA/B3aZUuw==}
     engines: {node: '>=6'}
@@ -3816,7 +3829,7 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.7
 
-  '@atmo-dev/contrail-appview@0.11.0':
+  '@atmo-dev/contrail-appview@file:vendor/atmo-dev-contrail-appview-0.11.0.tgz':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cbor': 2.3.2
@@ -3828,7 +3841,7 @@ snapshots:
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
       '@atmo-dev/contrail-authority': 0.11.0
-      '@atmo-dev/contrail-base': 0.11.0
+      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
       '@atmo-dev/contrail-record-host': 0.11.0
       hono: 4.12.14
     transitivePeerDependencies:
@@ -3839,12 +3852,12 @@ snapshots:
     dependencies:
       '@atcute/cid': 2.4.1
       '@atcute/lexicons': 1.2.9
-      '@atmo-dev/contrail-base': 0.11.0
+      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
       hono: 4.12.14
     transitivePeerDependencies:
       - pg
 
-  '@atmo-dev/contrail-base@0.11.0':
+  '@atmo-dev/contrail-base@file:vendor/atmo-dev-contrail-base-0.11.0.tgz':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cid': 2.4.1
@@ -3867,7 +3880,7 @@ snapshots:
   '@atmo-dev/contrail-record-host@0.11.0':
     dependencies:
       '@atcute/cid': 2.4.1
-      '@atmo-dev/contrail-base': 0.11.0
+      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
       hono: 4.12.14
     transitivePeerDependencies:
       - pg
@@ -3883,9 +3896,9 @@ snapshots:
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
-      '@atmo-dev/contrail-appview': 0.11.0
+      '@atmo-dev/contrail-appview': file:vendor/atmo-dev-contrail-appview-0.11.0.tgz
       '@atmo-dev/contrail-authority': 0.11.0
-      '@atmo-dev/contrail-base': 0.11.0
+      '@atmo-dev/contrail-base': file:vendor/atmo-dev-contrail-base-0.11.0.tgz
       '@atmo-dev/contrail-record-host': 0.11.0
       cac: 7.0.0
       hono: 4.12.14
@@ -5865,6 +5878,8 @@ snapshots:
       slash: 3.0.0
 
   graceful-fs@4.2.11: {}
+
+  h3-js@4.4.0: {}
 
   hex-rgb@4.3.0: {}
 

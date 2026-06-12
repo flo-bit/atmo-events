@@ -12,3 +12,11 @@ allowBuilds:
 # just-published contrail for ~24h). Scope glob so we don't re-add per version.
 minimumReleaseAgeExclude:
   - '@atmo-dev/*'
+# Contrail is vendored with the upstream `sinks` seam (flo-bit/contrail#54),
+# pending merge + release. Only the two sink-touched packages are forced to
+# local tarballs; the umbrella/authority/record-host/lexicons stay on npm
+# 0.11.0 (untouched by #54), and the umbrella imports the overridden appview at
+# runtime. Drop these overrides + vendor/ once #54 ships.
+overrides:
+  '@atmo-dev/contrail-appview': 'file:./vendor/atmo-dev-contrail-appview-0.11.0.tgz'
+  '@atmo-dev/contrail-base': 'file:./vendor/atmo-dev-contrail-base-0.11.0.tgz'

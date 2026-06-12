@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick
 	// (which previously also took the bot down with it).
 	try {
-		await ensureInit(db);
+		await ensureInit(db, platform!.env);
 		await contrail.ingest({}, db);
 	} catch (e) {
 		console.error('[cron] contrail.ingest failed:', e);
