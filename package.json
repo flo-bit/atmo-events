@@ -8,6 +8,7 @@
 		"dev": "pnpm --filter web dev",
 		"build": "pnpm --filter web build",
 		"check": "pnpm -r check",
+		"test": "pnpm -r test",
 		"lint": "pnpm -r lint",
 		"format": "prettier --write .",
 		"package:ui": "pnpm --filter @atmo-dev/events-ui package",
