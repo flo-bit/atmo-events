@@ -98,7 +98,13 @@ export class MeiliEventIndex {
 	}
 
 	private async request(method: string, path: string, body: unknown): Promise<void> {
-		const res = await this.fetch(`${this.base}${path}`, {
+		// Call fetch detached, not as `this.fetch(...)`: on workerd the global
+		// fetch throws "Illegal invocation" when invoked with `this` bound to a
+		// non-global object (which method-call syntax would do). A bare call
+		// leaves `this` undefined, which both the runtime fetch and test mocks
+		// accept. (Node/undici is lenient, so this only bites in the Worker.)
+		const doFetch = this.fetch;
+		const res = await doFetch(`${this.base}${path}`, {
 			method,
 			headers: {
 				authorization: `Bearer ${this.apiKey}`,

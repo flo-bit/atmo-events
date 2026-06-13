@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createMeiliSink, meiliSinkBackendFromEnv, type MeiliSinkBackend } from './meili-sink';
+import {
+	createMeiliSink,
+	meiliSinkBackendFromEnv,
+	applyMeiliSettings,
+	type MeiliSinkBackend
+} from './meili-sink';
 import { searchDocId } from './normalize';
 
 const BACKEND: MeiliSinkBackend = { url: 'http://meili.local', apiKey: 'admin-key' };
@@ -143,5 +148,34 @@ describe('createMeiliSink onRecords', () => {
 		});
 
 		expect(calls).toHaveLength(0);
+	});
+});
+
+describe('fetch is invoked detached (workerd Illegal invocation guard)', () => {
+	// workerd throws "Illegal invocation" if the global fetch runs with `this`
+	// bound to a non-global object — which `this.fetch(...)` method-call syntax
+	// does. Node/undici is lenient, so the fakeFetch above never catches it;
+	// this stub mirrors the runtime by rejecting any bound, non-global `this`.
+	function strictFetch() {
+		return function (this: unknown) {
+			if (this !== undefined && this !== globalThis) {
+				throw new TypeError('Illegal invocation');
+			}
+			return Promise.resolve(new Response(null, { status: 202 }));
+		} as unknown as typeof fetch;
+	}
+
+	it('applyMeiliSettings does not trip Illegal invocation', async () => {
+		await expect(applyMeiliSettings(BACKEND, strictFetch())).resolves.toBeUndefined();
+	});
+
+	it('onRecords upsert/delete do not trip Illegal invocation', async () => {
+		const sink = createMeiliSink(() => BACKEND, strictFetch());
+		await expect(
+			sink.onRecords(
+				[created('at://did:plc:alice/community.lexicon.calendar.event/4', { name: 'x' })],
+				{ phase: 'live' }
+			)
+		).resolves.toBeUndefined();
 	});
 });
