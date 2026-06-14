@@ -18,12 +18,14 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	// records. Falls back to the LIKE-based D1 path when the search backend is
 	// unconfigured (local dev) or down.
 	const backend = searchBackendFromEnv(platform?.env);
+	let backendFailed = false;
 	if (backend) {
 		try {
 			const page = await runEventSearchPage(backend, client, { q, cursor });
 			return { events: page.events, handles: page.handles, cursor: page.cursor, query: q };
 		} catch (err) {
 			console.error('search backend failed, falling back to D1 search:', err);
+			backendFailed = true;
 		}
 	}
 
@@ -50,7 +52,13 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	return {
 		events: flattenEventRecords(response.records),
 		handles,
-		cursor: response.cursor ?? null,
+		// When a configured backend errored, the D1 cursor is a different format
+		// than the Meili offset that loadMoreEvents expects (it re-routes to Meili
+		// whenever a backend is configured), so handing it back would break or
+		// duplicate the next page. Drop it: the degraded page shows the first
+		// batch only. When no backend is configured at all, load-more also uses
+		// D1, so the cursor is compatible and we keep it.
+		cursor: backendFailed ? null : (response.cursor ?? null),
 		query: q
 	};
 };

@@ -63,11 +63,20 @@ async function hydrateToPage(
 		if (item.distanceMeters !== undefined) distances[item.record.uri] = item.distanceMeters;
 	}
 
+	// More pages remain when either we stopped before draining this batch (the
+	// page filled with hits left over), or the batch came back at the requested
+	// size (Meilisearch likely has more beyond this offset). We deliberately do
+	// NOT gate on estimatedTotalHits: it is an estimate and can undercount,
+	// which would null the cursor while real matches are still unreachable. An
+	// overcount instead costs one extra fetch that returns nothing and ends.
+	const requestedLimit = SEARCH_PAGE_SIZE * SEARCH_OVERFETCH;
+	const moreToScan = consumed < result.hits.length || result.hits.length === requestedLimit;
+
 	const next = offset + consumed;
 	return {
 		events: flattenEventRecords(items.map((i) => i.record)),
 		handles,
-		cursor: consumed > 0 && next < result.estimatedTotalHits ? String(next) : null,
+		cursor: consumed > 0 && moreToScan ? String(next) : null,
 		distances
 	};
 }

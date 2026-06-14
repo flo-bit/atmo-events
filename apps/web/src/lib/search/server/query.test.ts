@@ -7,6 +7,7 @@ import type { Client } from '@atcute/client';
 vi.mock('@atmo-dev/events-ui', () => ({ getProfileUrl: vi.fn() }));
 
 import { runEventSearchPage, runNearMePage, searchBackendFromEnv } from './query';
+import { SEARCH_PAGE_SIZE, SEARCH_OVERFETCH } from '../constants';
 
 // Meili side: fake fetch returning canned hits. D1 side: fake in-process
 // contrail client returning canned hydrated records. The flow under test is
@@ -54,7 +55,7 @@ describe('searchBackendFromEnv', () => {
 });
 
 describe('runEventSearchPage', () => {
-	it('hydrates hits in rank order, drops unhydratable ones, advances cursor by consumed hits', async () => {
+	it('hydrates hits in rank order and drops unhydratable ones', async () => {
 		const { fetchFn, bodies } = meiliFetch(
 			[
 				{ uri: 'at://did:plc:a/c/1' },
@@ -74,11 +75,28 @@ describe('runEventSearchPage', () => {
 		expect(bodies[0].q).toBe('fest');
 		expect(page.events.map((e) => e.name)).toEqual(['alpha', 'beta']);
 		expect(page.handles).toEqual({ 'did:plc:a': 'alice.test' });
-		// 3 hits examined, page not full: next offset = 10 + 3.
-		expect(page.cursor).toBe('13');
+		// Meili returned fewer hits than the overfetch request, so it is exhausted
+		// and pagination ends here — even though estimatedTotalHits (50) is high.
+		expect(page.cursor).toBeNull();
 	});
 
-	it('ends pagination when the estimate is exhausted', async () => {
+	it('advances the cursor by consumed hits when the batch comes back full', async () => {
+		// A full batch (hits.length === the overfetch request) signals more may
+		// remain, so the cursor advances by however many hits filled this page.
+		const full = Array.from({ length: SEARCH_PAGE_SIZE * SEARCH_OVERFETCH }, (_, i) => ({
+			uri: `at://did:plc:a/c/${i}`
+		}));
+		const { fetchFn } = meiliFetch(full, 9999);
+		const client = fakeClient(full.map((h, i) => record(h.uri, `e${i}`)));
+
+		const page = await runEventSearchPage(backend(fetchFn), client, { q: 'fest', cursor: null });
+
+		// Page fills at SEARCH_PAGE_SIZE hits; the next offset is that count.
+		expect(page.events).toHaveLength(SEARCH_PAGE_SIZE);
+		expect(page.cursor).toBe(String(SEARCH_PAGE_SIZE));
+	});
+
+	it('ends pagination when fewer hits than requested come back', async () => {
 		const { fetchFn } = meiliFetch([{ uri: 'at://did:plc:a/c/1' }], 1);
 		const client = fakeClient([record('at://did:plc:a/c/1', 'alpha')]);
 
