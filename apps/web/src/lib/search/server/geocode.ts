@@ -2,7 +2,10 @@
 // name → coordinates, so users can search a location without sharing their
 // device position. Uses Nominatim (OpenStreetMap); its usage policy requires
 // an identifying User-Agent and tolerates only light traffic, which fits a
-// user-initiated search box (never called in a loop).
+// user-initiated search box (never called in a loop). The policy's attribution
+// requirement is satisfied by the OpenStreetMap credit shown on the near-me
+// page. Heavier-traffic compliance (app-wide rate limiting, caching) is still
+// a follow-up before high-volume exposure.
 export type GeocodeResult = {
 	lat: number;
 	lng: number;

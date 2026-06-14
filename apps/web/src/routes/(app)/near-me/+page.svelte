@@ -161,6 +161,17 @@
 			{#if status === 'ready' && locationLabel}
 				<p class="text-base-500 truncate text-sm">Showing events near {locationLabel}</p>
 			{/if}
+			<!-- Nominatim/OpenStreetMap usage policy requires displayed attribution
+			     for geocoded results; the place lookup above is the only consumer. -->
+			<p class="text-base-400 dark:text-base-500 text-xs">
+				Address search by
+				<a
+					href="https://www.openstreetmap.org/copyright"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="underline">OpenStreetMap</a
+				>
+			</p>
 		</div>
 
 		{#if status === 'denied'}
