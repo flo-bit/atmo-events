@@ -19,7 +19,11 @@ function withCors(res: Response): Response {
 
 async function handler(request: Request, platform: App.Platform | undefined) {
 	const db = platform!.env.DB;
-	await ensureInit(db);
+	// Pass env so the search sink is configured here too: the notify endpoint
+	// (rsvp.atmo.notifyOfUpdate) re-ingests a just-written record through
+	// applyEvents, which fires the sink — so a new/edited event lands in search
+	// immediately on write, not only on the next cron tick.
+	await ensureInit(db, platform!.env);
 	const res = (await handle(request, db)) as Response;
 	return withCors(res);
 }

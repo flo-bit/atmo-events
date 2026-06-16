@@ -2,6 +2,7 @@ import { command, getRequestEvent } from '$app/server';
 import * as v from 'valibot';
 import { getServerClient } from './index';
 import { flattenEventRecords, listEventRecordsFromContrail } from '$lib/contrail';
+import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
 const listEventsInput = v.object({
@@ -23,6 +24,19 @@ export const loadMoreEvents = command(listEventsInput, async (input) => {
 	const { platform } = getRequestEvent();
 
 	const client = getServerClient(platform!.env.DB);
+
+	// Text-search pagination goes through Meilisearch when configured, matching
+	// the search page's first-page path — its cursor is a Meili offset, which
+	// the D1 path below cannot consume (and vice versa). Errors propagate to
+	// EventList's catch so the user can retry with the cursor intact.
+	const searchBackend = input.search?.trim() ? searchBackendFromEnv(platform?.env) : null;
+	if (searchBackend && input.search) {
+		const page = await runEventSearchPage(searchBackend, client, {
+			q: input.search.trim(),
+			cursor: input.cursor ?? null
+		});
+		return { events: page.events, handles: page.handles, cursor: page.cursor };
+	}
 
 	const response = await listEventRecordsFromContrail(client, {
 		...input,
