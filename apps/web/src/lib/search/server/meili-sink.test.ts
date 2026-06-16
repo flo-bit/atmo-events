@@ -57,7 +57,7 @@ describe('meiliSinkBackendFromEnv', () => {
 			meiliSinkBackendFromEnv({
 				SEARCH_SINK_URL: 'http://x',
 				SEARCH_SINK_API_KEY: 'k',
-				SEARCH_SINK_INDEX: 'events-test'
+				SEARCH_INDEX: 'events-test'
 			})
 		).toEqual({ url: 'http://x', apiKey: 'k', indexUid: 'events-test' });
 	});
@@ -114,6 +114,43 @@ describe('createMeiliSink onRecords', () => {
 		expect(del).toBeDefined();
 		expect(del!.method).toBe('POST');
 		expect(del!.body).toEqual([searchDocId(uri)]);
+	});
+
+	it('removes (does not index) a created event hidden from discovery', async () => {
+		const { fn, calls } = fakeFetch();
+		const sink = createMeiliSink(() => BACKEND, fn);
+		const uri = 'at://did:plc:alice/community.lexicon.calendar.event/hidden';
+
+		await sink.onRecords(
+			[created(uri, { name: 'Secret', preferences: { showInDiscovery: false } })],
+			{ phase: 'live' }
+		);
+
+		// A hidden event's name/description must never reach the index; treat it as
+		// a delete so a discoverable->unlisted flip purges any existing entry.
+		expect(calls.find((c) => c.method === 'PUT')).toBeUndefined();
+		const del = calls.find((c) => c.url.endsWith('/documents/delete-batch'));
+		expect(del!.body).toEqual([searchDocId(uri)]);
+	});
+
+	it('indexes a created event when showInDiscovery is missing or true', async () => {
+		const { fn, calls } = fakeFetch();
+		const sink = createMeiliSink(() => BACKEND, fn);
+
+		await sink.onRecords(
+			[
+				created('at://did:plc:alice/community.lexicon.calendar.event/m', { name: 'NoPref' }),
+				created('at://did:plc:alice/community.lexicon.calendar.event/t', {
+					name: 'Shown',
+					preferences: { showInDiscovery: true }
+				})
+			],
+			{ phase: 'live' }
+		);
+
+		const put = calls.find((c) => c.method === 'PUT');
+		expect((put!.body as unknown[]).length).toBe(2);
+		expect(calls.find((c) => c.url.endsWith('/documents/delete-batch'))).toBeUndefined();
 	});
 
 	it('ignores records from other collections', async () => {

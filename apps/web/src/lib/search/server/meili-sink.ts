@@ -25,6 +25,14 @@ type RecordEvent = Parameters<Sink['onRecords']>[0][number];
 /** The one collection we index for search. */
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
 
+/** True when the event author hid it from discovery. Mirrors the D1 filter in
+ *  contrail.config.ts: only `preferences.showInDiscovery === false` hides;
+ *  a missing/null field stays discoverable. */
+function isHiddenFromDiscovery(record: Record<string, unknown>): boolean {
+	const prefs = record?.preferences as { showInDiscovery?: boolean } | undefined;
+	return prefs?.showInDiscovery === false;
+}
+
 export interface MeiliSinkBackend {
 	url: string;
 	apiKey: string;
@@ -39,8 +47,10 @@ export interface MeiliSinkEnv {
 	/** Default Admin API Key (write). Set via `wrangler secret put`. Never the
 	 *  instance root key. */
 	SEARCH_SINK_API_KEY?: string;
-	/** Index uid override; defaults to `events` (what ./meili.ts reads). */
-	SEARCH_SINK_INDEX?: string;
+	/** Index uid; defaults to `events`. Shared with the read path (the sink
+	 *  writes the same index ./meili.ts reads), so there is one index var, not a
+	 *  separate write-side override. */
+	SEARCH_INDEX?: string;
 }
 
 /** Resolves the sink backend from Worker env, or null when unconfigured. Does
@@ -57,7 +67,7 @@ export function meiliSinkBackendFromEnv(env?: MeiliSinkEnv): MeiliSinkBackend | 
 	return {
 		url: env.SEARCH_SINK_URL,
 		apiKey: env.SEARCH_SINK_API_KEY,
-		indexUid: env.SEARCH_SINK_INDEX
+		indexUid: env.SEARCH_INDEX
 	};
 }
 
@@ -147,7 +157,13 @@ export function createMeiliSink(
 			const deletes: string[] = [];
 			for (const e of events) {
 				if (e.collection !== EVENT_COLLECTION) continue;
-				if (e.kind === 'created') {
+				// Mirror the D1 discoverable filter (contrail.config.ts): only
+				// `showInDiscovery === false` hides; missing/null stays discoverable.
+				// Index discoverable creates; for everything else — real deletes AND
+				// events hidden from discovery — remove the doc so the search index
+				// never holds a hidden event's name/description and a discoverable→
+				// unlisted flip purges the existing entry.
+				if (e.kind === 'created' && !isHiddenFromDiscovery(e.record)) {
 					docs.push(
 						eventToSearchDoc({
 							uri: e.uri,

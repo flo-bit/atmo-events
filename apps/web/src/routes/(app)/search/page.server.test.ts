@@ -3,7 +3,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // The search load decides between two backends whose cursors are NOT
 // interchangeable: Meilisearch (offset cursor) and the D1 LIKE fallback (opaque
 // cursor). loadMoreEvents re-routes to Meili whenever a backend is configured,
-// so a D1 cursor handed back after a backend failure would be misread. These
+// so a D1 cursor handed back after a backend failure would be misread. And even
+// with no backend at all, loadMoreEvents paginates via listRecords — without the
+// discoverable filter or startsAtMin this load applies — so its cursor isn't
+// safe to continue either. The D1 fallback is therefore first-batch-only. These
 // tests pin that contract.
 vi.mock('$lib/contrail', () => ({
 	getServerClient: vi.fn(() => ({})),
@@ -86,7 +89,7 @@ describe('search page load', () => {
 		expect(flattenEventRecords).toHaveBeenCalled();
 	});
 
-	it('keeps the D1 cursor when no backend is configured (load-more also uses D1)', async () => {
+	it('drops the D1 cursor when no backend is configured, so load-more cannot drift past the first batch', async () => {
 		mockSearchBackendFromEnv.mockReturnValue(null);
 		mockListDiscoverable.mockResolvedValue({
 			records: [{ uri: 'at://did:plc:c/community.lexicon.calendar.event/3' }],
@@ -96,7 +99,12 @@ describe('search page load', () => {
 
 		const result = await runLoad('kite');
 
-		expect(result.cursor).toBe('d1-opaque-cursor');
+		// First batch is served from the discoverable, upcoming-only D1 query...
+		expect(result.events).toHaveLength(1);
+		// ...but the cursor is suppressed: loadMoreEvents would paginate via
+		// listRecords without the discoverable filter or startsAtMin, drifting
+		// into past and non-discoverable events on later pages.
+		expect(result.cursor).toBeNull();
 		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
 	});
 });

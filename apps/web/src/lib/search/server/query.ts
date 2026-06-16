@@ -32,8 +32,8 @@ export function searchBackendFromEnv(env?: {
 	SEARCH_INDEX?: string;
 }): SearchBackend | null {
 	if (!env?.SEARCH_URL || !env?.SEARCH_API_KEY) return null;
-	// SEARCH_INDEX must match the sink's SEARCH_SINK_INDEX (both default to
-	// `events`); otherwise the read path queries an index the sink never fills.
+	// SEARCH_INDEX (default `events`) is the single index var shared with the
+	// sink, so the read path always queries the index the sink fills.
 	return { url: env.SEARCH_URL, apiKey: env.SEARCH_API_KEY, indexUid: env.SEARCH_INDEX };
 }
 
