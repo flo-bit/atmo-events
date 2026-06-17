@@ -1,5 +1,12 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
 import { SPACE_TYPE } from './spaces/config';
+import { MAX_HYDRATION_URIS } from './search/constants';
+
+// Events hidden from discovery (preferences.showInDiscovery === false) are
+// excluded; a missing field defaults to true so pre-existing records without
+// `preferences` are included. Shared by every discovery-facing pipelineQuery.
+const DISCOVERABLE_CONDITION = `(json_extract(r.record, '$.preferences.showInDiscovery') IS NULL
+	OR json_extract(r.record, '$.preferences.showInDiscovery') != 0)`;
 
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',
@@ -53,15 +60,33 @@ export const config: ContrailConfig = {
 			},
 			pipelineQueries: {
 				// Endpoint: rsvp.atmo.event.listDiscoverable
-				// Same shape as listRecords, but filters out unlisted events
-				// (preferences.showInDiscovery === false). Missing field defaults
-				// to true, so pre-existing records without `preferences` are included.
+				// Same shape as listRecords, but filters out unlisted events.
 				listDiscoverable: async () => ({
-					conditions: [
-						`(json_extract(r.record, '$.preferences.showInDiscovery') IS NULL
-							OR json_extract(r.record, '$.preferences.showInDiscovery') != 0)`
-					]
+					conditions: [DISCOVERABLE_CONDITION]
 				}),
+				// Endpoint: rsvp.atmo.event.listDiscoverableByUris?uris=at://…,at://…
+				// Hydration half of the Meilisearch read path: search
+				// returns ranked uris only; this fetches those records from D1 so
+				// display data (rsvp counts, profiles) stays consistent and uris we
+				// never ingested drop out. Keeps the discoverability filter — the
+				// search surface must not leak unlisted events. Accepts repeated
+				// and/or comma-separated `uris` (AT-URIs contain no commas).
+				listDiscoverableByUris: async (_db, params) => {
+					const uris = params
+						.getAll('uris')
+						.flatMap((v) => v.split(','))
+						.map((u) => u.trim())
+						.filter(Boolean)
+						.slice(0, MAX_HYDRATION_URIS);
+					if (uris.length === 0) return { conditions: ['0 = 1'] };
+					return {
+						conditions: [
+							`r.uri IN (${uris.map(() => '?').join(', ')})`,
+							DISCOVERABLE_CONDITION
+						],
+						params: uris
+					};
+				},
 				// Endpoint: rsvp.atmo.event.listTalks?parentUri=at://…
 				// Returns the talk events belonging to a conference, i.e. those
 				// whose additionalData.parentEvent.uri matches `parentUri`. Composes

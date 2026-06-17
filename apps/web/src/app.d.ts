@@ -82,6 +82,25 @@ declare global {
 				 *  publish the `did:web` DID document. Set via `wrangler secret put`.
 				 *  When unset, notifications are disabled (the feature no-ops). */
 				ATMO_NOTIFY_PRIVATE_KEY?: string;
+				/** Meilisearch base url for the search read path (search/near-me).
+				 *  When either var is unset, search falls back to the D1 path and
+				 *  near-me is unavailable. */
+				SEARCH_URL?: string;
+				/** Read-only Default Search API Key (set via `wrangler secret put`).
+				 *  Never the admin or root key. */
+				SEARCH_API_KEY?: string;
+				/** Search index uid; defaults to `events`. Shared by the read path
+				 *  and the write sink (one index, written and read), so there is no
+				 *  separate write-side index var. */
+				SEARCH_INDEX?: string;
+				/** Meilisearch base url for the WRITE path (the search sink). Kept
+				 *  distinct from SEARCH_URL so the writer can use the admin key while
+				 *  the read path stays on the search-only key. When unset, the cron
+				 *  ingest runs without feeding search (D1 fallback still serves). */
+				SEARCH_SINK_URL?: string;
+				/** Default Admin API Key for the write path (set via
+				 *  `wrangler secret put`). Never the instance root key. */
+				SEARCH_SINK_API_KEY?: string;
 			};
 			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
 			 *  let the worker keep a fire-and-forget task alive after the response
