@@ -13,6 +13,7 @@ import {
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
 import { cachedRead } from '$lib/server/edge-cache';
+import { dedupeByUri } from '$lib/dedupe-by-uri';
 import type { PageServerLoad } from './$types';
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -76,12 +77,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 		const hostingEvents = hostingResponse ? flattenEventRecords(hostingResponse.records) : [];
 
-		const seen = new Set<string>();
-		const all = [...rsvpEvents, ...hostingEvents].filter((e) => {
-			if (seen.has(e.uri)) return false;
-			seen.add(e.uri);
-			return true;
-		});
+		const all = dedupeByUri([...rsvpEvents, ...hostingEvents]);
 
 		const nowMs = Date.now();
 		const upcoming = all

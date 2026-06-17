@@ -8,6 +8,7 @@ import {
 	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
+import { dedupeByUri } from '$lib/dedupe-by-uri';
 
 export async function GET({ params, platform }) {
 	if (!isActorIdentifier(params.actor)) {
@@ -54,14 +55,9 @@ export async function GET({ params, platform }) {
 
 		const hostingEvents = hostingResponse ? flattenEventRecords(hostingResponse.records) : [];
 
-		const seen = new Set<string>();
-		const allEvents = [...rsvpEvents, ...hostingEvents]
-			.filter((e) => {
-				if (seen.has(e.uri)) return false;
-				seen.add(e.uri);
-				return true;
-			})
-			.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
+		const allEvents = dedupeByUri([...rsvpEvents, ...hostingEvents]).sort(
+			(a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+		);
 
 		const events: ICalEvent[] = allEvents.map((r) => ({
 			eventData: r,

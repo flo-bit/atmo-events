@@ -6,6 +6,7 @@ import {
 } from '$lib/contrail';
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
+import { dedupeByUri } from '$lib/dedupe-by-uri';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -42,12 +43,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 
 	const hostingEvents = hostingResponse ? flattenEventRecords(hostingResponse.records) : [];
 
-	const seen = new Set<string>();
-	const all = [...rsvpEvents, ...hostingEvents].filter((e) => {
-		if (seen.has(e.uri)) return false;
-		seen.add(e.uri);
-		return true;
-	});
+	const all = dedupeByUri([...rsvpEvents, ...hostingEvents]);
 
 	const nowMs = Date.now();
 	const upcoming = all
