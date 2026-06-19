@@ -114,3 +114,46 @@ run('MeiliSink ↔ read client, live against real Meilisearch', () => {
 		expect(text.hits.map((h) => h.uri)).not.toContain(uri);
 	});
 });
+
+// The `contrail` CLI loads contrail.config.ts and fires `config.sinks` on the
+// backfill path (phase:'backfill'). This proves the config the CLI actually loads
+// carries a sink that lands a backfilled event in real Meili, reachable via the
+// read path — the end-to-end half the mocked config unit test can't cover.
+run('contrail.config sink populates Meili on backfill (CLI path)', () => {
+	const readBackend: SearchBackend = { url: URL!, apiKey: KEY, indexUid: INDEX };
+	const uri = 'at://did:plc:alice/community.lexicon.calendar.event/backfilled-via-config';
+	const savedEnv: Record<string, string | undefined> = {};
+
+	beforeAll(async () => {
+		// Point the config-resolved sink at the test Meili, exactly as an operator
+		// would export these before running `pnpm backfill:remote`.
+		for (const k of ['SEARCH_SINK_URL', 'SEARCH_SINK_API_KEY', 'SEARCH_INDEX'] as const) {
+			savedEnv[k] = process.env[k];
+		}
+		process.env.SEARCH_SINK_URL = URL;
+		process.env.SEARCH_SINK_API_KEY = KEY;
+		process.env.SEARCH_INDEX = INDEX;
+		await applyMeiliSettings({ url: URL!, apiKey: KEY, indexUid: INDEX });
+	});
+
+	it('indexes a backfilled event through the config sink so the read path finds it', async () => {
+		const { config } = await import('../../contrail.config');
+		expect(config.sinks && config.sinks.length).toBeTruthy();
+
+		await config.sinks![0].onRecords(
+			[created(uri, { name: 'Backfilled Jazz Night', description: 'via cli backfill', startsAt: FUTURE })],
+			{ phase: 'backfill' }
+		);
+
+		const text = await eventually(
+			() => searchEvents(readBackend, { q: 'jazz', limit: 10, offset: 0 }),
+			(r) => r.hits.some((h) => h.uri === uri)
+		);
+		expect(text.hits.map((h) => h.uri)).toContain(uri);
+
+		for (const k of ['SEARCH_SINK_URL', 'SEARCH_SINK_API_KEY', 'SEARCH_INDEX'] as const) {
+			if (savedEnv[k] === undefined) delete process.env[k];
+			else process.env[k] = savedEnv[k];
+		}
+	});
+});
