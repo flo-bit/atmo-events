@@ -31,6 +31,21 @@ export interface ReindexOptions {
 	onProgress?: (total: number) => void;
 }
 
+/** Parse a stored `record` cell into a plain object, or null if it's missing /
+ *  not valid JSON / not an object. The live ingest path uses safeParseJson, so a
+ *  single poison row must be skipped, not allowed to abort the whole reindex. */
+function parseRecordObject(raw: unknown): Record<string, unknown> | null {
+	if (raw == null) return null;
+	try {
+		const parsed = JSON.parse(String(raw));
+		return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+			? (parsed as Record<string, unknown>)
+			: null;
+	} catch {
+		return null;
+	}
+}
+
 /** Pages `records_event` and feeds each batch to `sink.onRecords(..., {phase:
  *  'backfill'})`. Returns the number of event rows fed. */
 export async function reindexEventsToSink(opts: ReindexOptions): Promise<number> {
@@ -49,8 +64,17 @@ export async function reindexEventsToSink(opts: ReindexOptions): Promise<number>
 		const rows = page.results ?? [];
 		if (rows.length === 0) break;
 
-		const records = rows.map(
-			(r): RecordEvent => ({
+		const records: RecordEvent[] = [];
+		for (const r of rows) {
+			// D1 stores `record` as a JSON string; the sink expects a parsed object.
+			// Skip (don't throw on) a missing/corrupt cell so one poison row can't
+			// abort coverage for the rest of the table.
+			const record = parseRecordObject(r.record);
+			if (!record) {
+				console.warn(`[reindex] skipping ${String(r.uri)}: record is missing or not valid JSON`);
+				continue;
+			}
+			records.push({
 				kind: 'created',
 				uri: String(r.uri),
 				did: String(r.did),
@@ -59,16 +83,15 @@ export async function reindexEventsToSink(opts: ReindexOptions): Promise<number>
 				// records_event has no `collection` column (one table per collection)
 				// and may store a null cid; the sink wants a string.
 				cid: r.cid == null ? '' : String(r.cid),
-				// D1 stores `record` as a JSON string; the sink expects a parsed
-				// object (applyEvents passes safeParseJson(record) on the live path).
-				record: JSON.parse(String(r.record)) as Record<string, unknown>,
+				record,
 				time_us: Number(r.time_us)
-			})
-		);
+			});
+		}
 
-		await sink.onRecords(records, { phase: 'backfill' });
-		total += rows.length;
-		offset += batchSize;
+		if (records.length > 0) await sink.onRecords(records, { phase: 'backfill' });
+		total += records.length;
+		// Advance by rows read (not records fed) so skipped rows don't stall paging.
+		offset += rows.length;
 		opts.onProgress?.(total);
 		if (rows.length < batchSize) break;
 	}

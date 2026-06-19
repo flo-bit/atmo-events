@@ -101,4 +101,38 @@ describe('reindexEventsToSink', () => {
 
 		expect(batches[0].records[0].cid).toBe('');
 	});
+
+	it('skips a row whose record is missing or not valid JSON without aborting the run', async () => {
+		const { db } = fakeDb([
+			// malformed JSON — the live path uses safeParseJson, so reindex must not
+			// throw and abort coverage on one poison row.
+			{
+				uri: 'at://did:plc:a/community.lexicon.calendar.event/bad',
+				did: 'did:plc:a',
+				rkey: 'bad',
+				cid: 'c',
+				record: '{not json',
+				time_us: 1
+			},
+			// NULL record column.
+			{
+				uri: 'at://did:plc:a/community.lexicon.calendar.event/null',
+				did: 'did:plc:a',
+				rkey: 'null',
+				cid: 'c',
+				record: null,
+				time_us: 1
+			},
+			row('at://did:plc:a/community.lexicon.calendar.event/ok', { name: 'OK' })
+		]);
+		const { sink, batches } = recordingSink();
+
+		const total = await reindexEventsToSink({ db, sink });
+
+		// only the valid row is fed; the two bad rows are skipped, not thrown.
+		expect(total).toBe(1);
+		expect(batches.flatMap((b) => b.records.map((r) => r.uri))).toEqual([
+			'at://did:plc:a/community.lexicon.calendar.event/ok'
+		]);
+	});
 });

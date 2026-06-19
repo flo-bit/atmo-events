@@ -7,7 +7,7 @@
 //     getmeili/meilisearch:v1.46
 //   MEILI_TEST_URL=http://localhost:7700 MEILI_TEST_KEY=masterKey \
 //     pnpm vitest run src/lib/search/server/meili-sink.integration.test.ts
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { createMeiliSink, applyMeiliSettings, type MeiliSinkBackend } from './meili-sink';
 import { searchEvents, nearMeEvents, type SearchBackend } from './meili';
 
@@ -136,12 +136,27 @@ run('contrail.config sink populates Meili on backfill (CLI path)', () => {
 		await applyMeiliSettings({ url: URL!, apiKey: KEY, indexUid: INDEX });
 	});
 
+	// Restore in afterAll, not inline: a failing assertion in the `it` must not
+	// leak SEARCH_SINK_* into the rest of the process.
+	afterAll(() => {
+		for (const k of ['SEARCH_SINK_URL', 'SEARCH_SINK_API_KEY', 'SEARCH_INDEX'] as const) {
+			if (savedEnv[k] === undefined) delete process.env[k];
+			else process.env[k] = savedEnv[k];
+		}
+	});
+
 	it('indexes a backfilled event through the config sink so the read path finds it', async () => {
 		const { config } = await import('../../contrail.config');
 		expect(config.sinks && config.sinks.length).toBeTruthy();
 
 		await config.sinks![0].onRecords(
-			[created(uri, { name: 'Backfilled Jazz Night', description: 'via cli backfill', startsAt: FUTURE })],
+			[
+				created(uri, {
+					name: 'Backfilled Jazz Night',
+					description: 'via cli backfill',
+					startsAt: FUTURE
+				})
+			],
 			{ phase: 'backfill' }
 		);
 
@@ -150,10 +165,5 @@ run('contrail.config sink populates Meili on backfill (CLI path)', () => {
 			(r) => r.hits.some((h) => h.uri === uri)
 		);
 		expect(text.hits.map((h) => h.uri)).toContain(uri);
-
-		for (const k of ['SEARCH_SINK_URL', 'SEARCH_SINK_API_KEY', 'SEARCH_INDEX'] as const) {
-			if (savedEnv[k] === undefined) delete process.env[k];
-			else process.env[k] = savedEnv[k];
-		}
 	});
 });
