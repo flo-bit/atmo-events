@@ -3,15 +3,14 @@ import { SPACE_TYPE } from './spaces/config';
 import { MAX_HYDRATION_URIS } from './search/constants';
 import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
 
-// The `contrail` CLI (`pnpm backfill` / `contrail refresh`) loads this config and
-// fires `config.sinks` from applyEvents on the backfill/refresh paths, so a
-// freshly-set-up or re-synced installation gets full search coverage, not just
-// whatever flowed through live ingest. The backend is read from process.env
-// (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected at runtime by
-// the operator (e.g. `op run`), so no secret is committed. Gated on
-// SEARCH_SINK_URL: absent it, the sink stays off, which keeps `pnpm generate`
-// sink-free. The runtime Worker (`$lib/contrail/index.ts`) does not use this: it
-// overrides `sinks` with its own env-armed sink, so there is never a double feed.
+// The `contrail` CLI (`pnpm backfill` / `contrail refresh`) fires `config.sinks`
+// on the backfill/refresh paths, so a fresh or re-synced install gets full search
+// coverage, not just what flowed through live ingest. The backend is read from
+// process.env (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected by
+// the operator at runtime so no secret is committed; an unset SEARCH_SINK_URL
+// omits the sink, keeping `pnpm generate` clean. The runtime Worker
+// (`$lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
+// sink, so this one runs only under the CLI.
 const searchSinks: NonNullable<ContrailConfig['sinks']> =
 	typeof process !== 'undefined' && process.env?.SEARCH_SINK_URL
 		? [createMeiliSink(() => meiliSinkBackendFromEnv(process.env))]
