@@ -92,7 +92,15 @@ export class MeiliEventIndex {
 	async applySettings(): Promise<void> {
 		await this.request('PATCH', `/indexes/${this.indexUid}/settings`, {
 			searchableAttributes: ['name', 'description'],
-			filterableAttributes: ['_geo', 'startsAt', 'endsAt', 'status', 'mode', 'did', 'locationTypes'],
+			filterableAttributes: [
+				'_geo',
+				'startsAt',
+				'endsAt',
+				'status',
+				'mode',
+				'did',
+				'locationTypes'
+			],
 			sortableAttributes: ['_geo', 'startsAt', 'endsAt']
 		});
 	}
@@ -148,6 +156,12 @@ export function createMeiliSink(
 	getBackend: () => MeiliSinkBackend | null,
 	fetchFn?: typeof fetch
 ): Sink {
+	// Apply the read-path's filterable/sortable settings once, before the first
+	// write. Otherwise a fresh-rollout `pnpm backfill` (or reindex) lets PUT
+	// /documents auto-create a bare index whose _geo/startsAt filtered searches
+	// 400. Only flip the flag on success, so a transient Meili outage retries
+	// next batch instead of permanently disabling the sink in the Worker.
+	let settingsApplied = false;
 	return {
 		async onRecords(events: RecordEvent[]): Promise<void> {
 			const backend = getBackend();
@@ -180,6 +194,10 @@ export function createMeiliSink(
 			if (docs.length === 0 && deletes.length === 0) return;
 
 			const index = new MeiliEventIndex(backend, fetchFn);
+			if (!settingsApplied) {
+				await index.applySettings();
+				settingsApplied = true;
+			}
 			// Order doesn't matter across upsert/remove within a batch: a given uri
 			// is deduplicated to a single RecordEvent, so it's either a create or a
 			// delete, never both.

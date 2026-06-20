@@ -6,7 +6,11 @@ import { config } from './contrail.config';
 const listDiscoverableByUris = config.collections!.event.pipelineQueries!.listDiscoverableByUris;
 
 const run = async (search: string) => {
-	const source = await listDiscoverableByUris(undefined as never, new URLSearchParams(search), config);
+	const source = await listDiscoverableByUris(
+		undefined as never,
+		new URLSearchParams(search),
+		config
+	);
 	return { conditions: source.conditions ?? [], params: source.params };
 };
 
@@ -22,9 +26,9 @@ describe('listDiscoverableByUris pipelineQuery', () => {
 		const placeholders = source.conditions.join(' ').match(/\?/g) ?? [];
 		expect(placeholders).toHaveLength(2);
 		// The search surface must not leak events hidden from discovery.
-		expect(
-			source.conditions.some((c: string) => c.includes('preferences.showInDiscovery'))
-		).toBe(true);
+		expect(source.conditions.some((c: string) => c.includes('preferences.showInDiscovery'))).toBe(
+			true
+		);
 	});
 
 	it('matches nothing when no uris are given', async () => {

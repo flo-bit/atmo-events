@@ -7,10 +7,11 @@ https://atmo.rsvp
 uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
 
 features:
+
 - event creation
 - rsvp to events
-- add your events to any ical compatible calendar 
-(go to calendar/ when signed in and click "Add to your calendar")
+- add your events to any ical compatible calendar
+  (go to calendar/ when signed in and click "Add to your calendar")
 - post your events/rsvps to bluesky or anywhere else with nice open-graph images
 - display comments
 - show what events your bsky follows are going to
@@ -60,9 +61,8 @@ the read and write keys are kept separate on purpose so the browser-facing read 
 
 **rollout order on an existing deployment.** the sink only indexes records applied _after_ it's enabled, so don't turn on the read path first or existing upcoming events vanish from search until they're next touched. instead: (1) set the write vars and let the sink arm, (2) populate the index (see below) and confirm the meili `events` index count looks right, then (3) set the read vars (`SEARCH_URL` / `SEARCH_API_KEY`). until step 3 the app keeps using the d1 fallback, so search stays working throughout.
 
-**populating the index.** backfill and refresh now feed the sink, so `pnpm backfill` fills meili as it walks each user's pds. on an existing deployment the event records are usually already in d1, so `pnpm meili:reindex` is faster: it replays the stored `community.lexicon.calendar.event` rows straight from d1 into the index with no network walk and no d1 writes (add `:remote` to target the deployed d1). both paths apply the same discoverable filter as live ingest, so re-running either is idempotent.
+**populating the index.** backfill and refresh now feed the sink, so `pnpm backfill` fills meili as it walks each user's pds. on an existing deployment the event records are usually already in d1, so `pnpm meili:reindex` is faster: it replays the stored `community.lexicon.calendar.event` rows straight from d1 into the index with no network walk and no d1 writes. both paths apply the same discoverable filter as live ingest, and the sink applies the index settings on its first write, so a fresh index gets the right filterable fields and re-running either is idempotent. `pnpm meili:reindex:remote` targets the deployed d1 and needs the same wrangler `env.production` that `pnpm backfill:remote` uses.
 
 ## contributing
 
 open for contributions by all :)
-

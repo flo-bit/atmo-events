@@ -95,10 +95,7 @@ export const config: ContrailConfig = {
 						.slice(0, MAX_HYDRATION_URIS);
 					if (uris.length === 0) return { conditions: ['0 = 1'] };
 					return {
-						conditions: [
-							`r.uri IN (${uris.map(() => '?').join(', ')})`,
-							DISCOVERABLE_CONDITION
-						],
+						conditions: [`r.uri IN (${uris.map(() => '?').join(', ')})`, DISCOVERABLE_CONDITION],
 						params: uris
 					};
 				},

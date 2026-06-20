@@ -1,6 +1,8 @@
-// CLI entry for the D1 -> Meili event reindex. Mirrors `contrail backfill`:
-//   pnpm meili:reindex            # local D1 binding
-//   pnpm meili:reindex:remote     # --remote -> getPlatformProxy production binding
+// CLI entry for the D1 -> Meili event reindex. Resolves the D1 binding exactly
+// like `contrail backfill`, so `:remote` needs the same wrangler `env.production`
+// that `backfill:remote` already relies on:
+//   pnpm meili:reindex            # default env -> local D1 binding
+//   pnpm meili:reindex:remote     # --remote -> getPlatformProxy production env
 //
 // The Meili backend is resolved from the same env the sink uses, injected by the
 // operator (so no secret is committed):
@@ -32,6 +34,11 @@ if (!backend) {
 await applyMeiliSettings(backend);
 const sink = createMeiliSink(() => backend);
 
+// Say which D1 we're about to touch, so an operator can't mistake a default-env
+// (local) run for a deployed one, or vice-versa.
+console.log(
+	`reindex target: ${remote ? 'production env (deployed D1)' : 'default env (local D1)'}`
+);
 const { env, dispose } = await getPlatformProxy({
 	environment: remote ? 'production' : undefined
 });
