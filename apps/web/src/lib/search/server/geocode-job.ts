@@ -146,8 +146,9 @@ export async function runGeocodeJob(opts: GeocodeJobOptions): Promise<GeocodeJob
 	const throttleMs =
 		typeof sleepMs === 'number' && Number.isFinite(sleepMs) && sleepMs >= 0 ? sleepMs : 1100;
 
-	// Defensive: the table is created by geocode-cache.sql, but a fresh DB
-	// shouldn't make the job crash before it can self-heal.
+	// This CREATE is the authoritative definition of geocode_cache: like the
+	// app's other D1 tables it lives in code and self-heals, so a fresh DB just
+	// works on first run with nothing to apply by hand.
 	await d1.query(
 		`CREATE TABLE IF NOT EXISTS geocode_cache (
       address_norm TEXT PRIMARY KEY, lat REAL, lng REAL, precision TEXT,
