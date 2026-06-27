@@ -2,6 +2,7 @@ import type { ContrailConfig } from '@atmo-dev/contrail';
 import { SPACE_TYPE } from './spaces/config';
 import { MAX_HYDRATION_URIS } from './search/constants';
 import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
+import { discoverableSql } from './search/server/discoverability';
 
 // The `contrail` CLI (`pnpm backfill` / `contrail refresh`) fires `config.sinks`
 // on the backfill/refresh paths, so a fresh or re-synced install gets full search
@@ -16,11 +17,11 @@ const searchSinks: NonNullable<ContrailConfig['sinks']> =
 		? [createMeiliSink(() => meiliSinkBackendFromEnv(process.env))]
 		: [];
 
-// Events hidden from discovery (preferences.showInDiscovery === false) are
-// excluded; a missing field defaults to true so pre-existing records without
-// `preferences` are included. Shared by every discovery-facing pipelineQuery.
-const DISCOVERABLE_CONDITION = `(json_extract(r.record, '$.preferences.showInDiscovery') IS NULL
-	OR json_extract(r.record, '$.preferences.showInDiscovery') != 0)`;
+// Events hidden from discovery (a falsey preferences.showInDiscovery) are
+// excluded; a missing field defaults to discoverable so pre-existing records
+// without `preferences` are included. The predicate is the single source of
+// truth shared with the sink's in-memory filter and the geocode worklist.
+const DISCOVERABLE_CONDITION = discoverableSql('r.record');
 
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',

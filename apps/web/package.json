@@ -25,7 +25,8 @@
 		"env:setup-dev": "npx tsx src/lib/atproto/scripts/setup-dev.ts",
 		"tunnel": "npx tsx src/lib/atproto/scripts/tunnel.ts",
 		"publish-lexicons": "contrail-lex publish",
-		"seed:conference": "bun run scripts/publish-test-conference.ts"
+		"seed:conference": "bun run scripts/publish-test-conference.ts",
+		"geocode:backfill": "tsx scripts/geocode-events.ts"
 	},
 	"devDependencies": {
 		"@atcute/atproto": "^3.1.10",

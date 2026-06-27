@@ -8,8 +8,14 @@
 //   MEILI_TEST_URL=http://localhost:7700 MEILI_TEST_KEY=masterKey \
 //     pnpm vitest run src/lib/search/server/meili-sink.integration.test.ts
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { createMeiliSink, applyMeiliSettings, type MeiliSinkBackend } from './meili-sink';
+import {
+	createMeiliSink,
+	applyMeiliSettings,
+	MeiliEventIndex,
+	type MeiliSinkBackend
+} from './meili-sink';
 import { searchEvents, nearMeEvents, type SearchBackend } from './meili';
+import { eventToSearchDoc } from './normalize';
 
 const URL = process.env.MEILI_TEST_URL;
 const KEY = process.env.MEILI_TEST_KEY ?? 'masterKey';
@@ -99,6 +105,55 @@ run('MeiliSink ↔ read client, live against real Meilisearch', () => {
 		expect(near.hits.map((h) => h.uri)).toContain(uri);
 		const hit = near.hits.find((h) => h.uri === uri);
 		expect(hit?.distanceMeters).toBeGreaterThanOrEqual(0);
+	});
+
+	it('the geocode job upsert attaches _geo to an address-only event, keeping its other fields', async () => {
+		const addrUri = 'at://did:plc:alice/community.lexicon.calendar.event/addr-only';
+		const addrRecord = {
+			name: 'Antwerp Atproto Drinks',
+			description: 'address-only event',
+			startsAt: FUTURE,
+			locations: [
+				{ $type: 'community.lexicon.location.address', locality: 'Antwerp', country: 'BE' }
+			]
+		};
+		// An address-only event: indexed by the sink, but with no _geo yet.
+		await sink.onRecords([created(addrUri, addrRecord)], { phase: 'live' });
+		await eventually(
+			() => searchEvents(readBackend, { q: 'Antwerp Atproto', limit: 10, offset: 0 }),
+			(r) => r.hits.some((h) => h.uri === addrUri)
+		);
+
+		// Attach coordinates the way the external geocode job does: rebuild the FULL
+		// doc (eventToSearchDoc) and upsert it with _geo — idempotent, stub-free, and
+		// identical to the doc the sink writes.
+		const doc = eventToSearchDoc({
+			uri: addrUri,
+			did: 'did:plc:alice',
+			collection: EVENT,
+			rkey: addrUri.split('/').pop()!,
+			record: addrRecord
+		});
+		doc._geo = { lat: 51.2194, lng: 4.4025 };
+		await new MeiliEventIndex(backend).upsert([doc]);
+
+		// near-me finds it (so _geo landed) AND text still matches (so name/startsAt
+		// survived) — both read-path filters pass against the full doc.
+		const near = await eventually(
+			() =>
+				nearMeEvents(readBackend, {
+					lat: 51.2194,
+					lng: 4.4025,
+					radiusMeters: 5000,
+					limit: 10,
+					offset: 0
+				}),
+			(r) => r.hits.some((h) => h.uri === addrUri)
+		);
+		expect(near.hits.map((h) => h.uri)).toContain(addrUri);
+
+		const text = await searchEvents(readBackend, { q: 'Antwerp Atproto', limit: 10, offset: 0 });
+		expect(text.hits.map((h) => h.uri)).toContain(addrUri); // name survived the merge
 	});
 
 	it('removes a deleted event so the read path no longer finds it', async () => {

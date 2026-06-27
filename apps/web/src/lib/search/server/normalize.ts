@@ -97,11 +97,29 @@ function str(v: unknown): string | undefined {
 	return typeof v === 'string' ? v : undefined;
 }
 
-export function eventToSearchDoc(payload: EventRecordPayload): SearchDoc {
-	const record = payload.record ?? {};
-	const locations = (Array.isArray(record.locations) ? record.locations : []).filter(
+/** The record's locations[] narrowed to the location objects deriveGeo and the
+ *  doc builder read. */
+function recordLocations(record: Record<string, unknown>): Loc[] {
+	return (Array.isArray(record?.locations) ? record.locations : []).filter(
 		(l): l is Loc => !!l && typeof l === 'object'
 	);
+}
+
+/** The single canonical _geo a record resolves to (precedence geo > fsq >
+ *  hthree, in-range only), or undefined. Shared by the search doc AND the
+ *  external geocode worklist so "already has coordinates" means the exact same
+ *  thing in both: the worklist must not geocode an event the index already
+ *  geo-derives (which would overwrite precise fsq/geo coords), and must still
+ *  geocode one whose only coordinate location is out of range (no _geo). */
+export function recordGeo(
+	record: Record<string, unknown>
+): { lat: number; lng: number } | undefined {
+	return deriveGeo(recordLocations(record));
+}
+
+export function eventToSearchDoc(payload: EventRecordPayload): SearchDoc {
+	const record = payload.record ?? {};
+	const locations = recordLocations(record);
 
 	const doc: SearchDoc = {
 		id: searchDocId(payload.uri),

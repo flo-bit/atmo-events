@@ -27,16 +27,28 @@ if (!spacesAvailable()) {
 // which is fine: reads never ingest, so the sink never fires there.
 let searchSinkBackend: MeiliSinkBackend | null = null;
 
+// The geocode cache lives in D1; the sink reads it (read-only, best-effort) to
+// reproduce the _geo the external geocode job writes, so a live update doesn't
+// drop it. Like searchSinkBackend, it's a module-level holder the env-bearing
+// ensureInit populates — the sink no-ops on it until then.
+let geocodeCacheDb: D1Database | null = null;
+
 export const contrail = new Contrail({
 	...config,
 	...(spaces ? { spaces } : {}),
-	sinks: [createMeiliSink(() => searchSinkBackend)]
+	sinks: [
+		createMeiliSink(
+			() => searchSinkBackend,
+			() => geocodeCacheDb
+		)
+	]
 });
 
 let initialized = false;
 let sinkConfigured = false;
 
 export async function ensureInit(db: D1Database, env?: MeiliSinkEnv) {
+	geocodeCacheDb = db;
 	if (!initialized) {
 		await contrail.init(db);
 		initialized = true;
