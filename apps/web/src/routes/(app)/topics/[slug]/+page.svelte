@@ -3,17 +3,17 @@
 
 	let { data } = $props();
 
-	let fetchParams = $derived(
-		Object.fromEntries(
-			Object.entries({
-				search: data.topic.hashtags.map((h) => h.replace(/^#/, '')).join(' OR '),
-				profiles: 'true',
-				sort: 'startsAt',
-				order: 'desc',
-				limit: '20'
-			}).filter(([, v]) => v != null)
-		)
-	);
+	// Query is built server-side and passed through `data` so the two stay in
+	// sync. Mirrors the search page. The topic page is first-batch-only
+	// (data.cursor is null), so these params are only a contract for EventList,
+	// not an active pagination path.
+	let fetchParams = $derived({
+		search: data.query,
+		profiles: 'true',
+		sort: 'startsAt',
+		order: 'asc',
+		limit: '20'
+	});
 </script>
 
 <svelte:head>

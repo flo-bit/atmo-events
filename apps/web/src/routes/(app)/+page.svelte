@@ -78,7 +78,7 @@
 		</section>
 	{/if}
 
-<div class="mb-8 flex items-baseline justify-between">
+	<div class="mb-8 flex items-baseline justify-between">
 		<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Upcoming Popular Events</h2>
 		<a
 			href="/events"
