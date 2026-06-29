@@ -12,6 +12,9 @@
 	);
 
 	let fetchParams: Record<string, string> = $derived({
+		// load-more must re-run the authored pipeline page 1 used, or conference
+		// talks (excluded by listAuthored) leak onto later pages.
+		pipeline: 'authored',
 		profiles: 'true',
 		sort: 'startsAt',
 		order: 'desc',

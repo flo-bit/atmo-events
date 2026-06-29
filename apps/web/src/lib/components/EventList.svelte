@@ -45,7 +45,7 @@
 		try {
 			const params: Record<string, unknown> = {};
 			for (const [key, value] of Object.entries(fetchParams)) {
-				if (key === 'limit' || key === 'rsvpsGoingCountMin') {
+				if (key === 'limit' || key === 'rsvpsGoingCountMin' || key === 'rsvpsCountMin') {
 					params[key] = Number(value);
 				} else if (key === 'profiles') {
 					params[key] = value === 'true';

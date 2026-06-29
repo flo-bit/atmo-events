@@ -9,6 +9,9 @@
 	let filter = $derived(page.url.searchParams.get('filter') === 'all' ? 'all' : 'popular');
 
 	let fetchParams = $derived({
+		// load-more must re-run the discoverable pipeline + popular filter page 1
+		// used, or unlisted / non-popular events leak onto later pages.
+		pipeline: 'discoverable',
 		startsAtMin: new Date().toISOString(),
 		profiles: 'true',
 		sort: 'startsAt',
