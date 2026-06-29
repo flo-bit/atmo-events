@@ -1,4 +1,4 @@
-import { command } from '$app/server';
+import { command, getRequestEvent } from '$app/server';
 import { error } from '@sveltejs/kit';
 import { geocodeLocation } from './server/geocode';
 import { geocodeInput } from './geocode-input';
@@ -8,8 +8,9 @@ import { geocodeInput } from './geocode-input';
  *  geocoder sees the Worker, not the user. Returns null when nothing
  *  matches (distinct from upstream failure, which is a 502). */
 export const geocodeQuery = command(geocodeInput, async ({ q }) => {
+	const { platform } = getRequestEvent();
 	try {
-		return await geocodeLocation(q);
+		return await geocodeLocation(q, fetch, platform?.env);
 	} catch {
 		error(502, 'Location lookup is unavailable right now');
 	}

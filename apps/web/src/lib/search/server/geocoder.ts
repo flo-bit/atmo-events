@@ -25,15 +25,27 @@ export interface GeocoderEnv {
 	GEOCODER_USER_AGENT?: string;
 }
 
-const DEFAULT_URL = 'https://nominatim.openstreetmap.org/search';
-const DEFAULT_USER_AGENT = 'atmo-events (https://atmo.rsvp)';
+/** Public OSM Nominatim /search endpoint — the keyless default and the single
+ *  source of the base geocoder URL. The near-me search box (geocode.ts) imports
+ *  this so the two paths can't drift onto different hardcoded literals. */
+export const DEFAULT_GEOCODER_URL = 'https://nominatim.openstreetmap.org/search';
+/** Default identifying User-Agent. Nominatim's usage policy requires one; an
+ *  operator can override it via GEOCODER_USER_AGENT (see resolveGeocoderUserAgent). */
+export const DEFAULT_GEOCODER_USER_AGENT = 'atmo-events (https://atmo.rsvp)';
 const PUBLIC_NOMINATIM_HOST = 'nominatim.openstreetmap.org';
+
+/** Resolve the geocoder User-Agent: operator override (GEOCODER_USER_AGENT) else
+ *  the atmo default. The single env-driven source both the bulk client and the
+ *  near-me search box use, so the UA can't drift across paths. */
+export function resolveGeocoderUserAgent(env: GeocoderEnv = {}): string {
+	return env.GEOCODER_USER_AGENT || DEFAULT_GEOCODER_USER_AGENT;
+}
 
 /** True when the effective geocoder endpoint is public OSM Nominatim — i.e. the
  *  shared, usage-policy-bound host. The in-Worker drip uses this to pick SAFE
  *  defaults (a smaller per-tick cap + a slower throttle floor) when on Nominatim,
  *  rather than refusing to run: the drip works keyless out of the box, just
- *  policy-compliantly. `createGeocoder` falls back to DEFAULT_URL (this host)
+ *  policy-compliantly. `createGeocoder` falls back to DEFAULT_GEOCODER_URL (this host)
  *  when GEOCODER_URL is unset — even with a key present, in which case the ?key=
  *  is ignored and we're really on Nominatim — so an unset URL counts as public.
  *  Malformed URL → treated as public (fail safe toward the slower limits). A
@@ -139,9 +151,9 @@ export function derivePrecision(top: {
 }
 
 export function createGeocoder(env: GeocoderEnv = {}, fetchImpl: typeof fetch = fetch): Geocoder {
-	const base = env.GEOCODER_URL || DEFAULT_URL;
+	const base = env.GEOCODER_URL || DEFAULT_GEOCODER_URL;
 	const key = env.GEOCODER_KEY;
-	const userAgent = env.GEOCODER_USER_AGENT || DEFAULT_USER_AGENT;
+	const userAgent = resolveGeocoderUserAgent(env);
 
 	return {
 		async geocode(q: string): Promise<GeoPoint | null> {
