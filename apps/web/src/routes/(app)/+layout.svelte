@@ -26,6 +26,11 @@
 			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 text-sm font-medium transition-colors"
 			>calendar</a
 		>
+		<a
+			href="/topics"
+			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 text-sm font-medium transition-colors"
+			>topics</a
+		>
 	</div>
 	<div class="flex items-center gap-4">
 		<a
