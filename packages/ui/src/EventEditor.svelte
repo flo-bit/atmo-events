@@ -489,6 +489,9 @@
 								class="text-base-700 dark:text-base-300 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 leading-relaxed focus:border-0 focus:ring-0 focus:outline-none"
 								style="field-sizing: content;"
 							></textarea>
+							<p class="text-base-400 dark:text-base-500 mt-2 text-xs">
+								Add a hashtag like <span class="font-medium">#webdev</span> or <span class="font-medium">#music</span> to have this event appear under a <a href="/topics" class="text-accent-600 dark:text-accent-400 hover:underline">topic</a>.
+							</p>
 						</div>
 
 						{#if error}
