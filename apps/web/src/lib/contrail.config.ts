@@ -1,6 +1,20 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
 import { SPACE_TYPE } from './spaces/config';
 import { MAX_HYDRATION_URIS } from './search/constants';
+import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
+
+// The `contrail` CLI (`pnpm backfill` / `contrail refresh`) fires `config.sinks`
+// on the backfill/refresh paths, so a fresh or re-synced install gets full search
+// coverage, not just what flowed through live ingest. The backend is read from
+// process.env (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected by
+// the operator at runtime so no secret is committed; an unset SEARCH_SINK_URL
+// omits the sink, keeping `pnpm generate` clean. The runtime Worker
+// (`$lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
+// sink, so this one runs only under the CLI.
+const searchSinks: NonNullable<ContrailConfig['sinks']> =
+	typeof process !== 'undefined' && process.env?.SEARCH_SINK_URL
+		? [createMeiliSink(() => meiliSinkBackendFromEnv(process.env))]
+		: [];
 
 // Events hidden from discovery (preferences.showInDiscovery === false) are
 // excluded; a missing field defaults to true so pre-existing records without
@@ -33,6 +47,7 @@ export const config: ContrailConfig = {
 		// blob uploads are declared as standalone `scope.repo(...)` /
 		// `scope.blob(...)` entries in `atproto/settings.ts`, not here.
 	},
+	...(searchSinks.length ? { sinks: searchSinks } : {}),
 	collections: {
 		event: {
 			collection: 'community.lexicon.calendar.event',
@@ -80,10 +95,7 @@ export const config: ContrailConfig = {
 						.slice(0, MAX_HYDRATION_URIS);
 					if (uris.length === 0) return { conditions: ['0 = 1'] };
 					return {
-						conditions: [
-							`r.uri IN (${uris.map(() => '?').join(', ')})`,
-							DISCOVERABLE_CONDITION
-						],
+						conditions: [`r.uri IN (${uris.map(() => '?').join(', ')})`, DISCOVERABLE_CONDITION],
 						params: uris
 					};
 				},

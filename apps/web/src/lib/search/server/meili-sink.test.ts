@@ -186,6 +186,30 @@ describe('createMeiliSink onRecords', () => {
 
 		expect(calls).toHaveLength(0);
 	});
+
+	it('applies index settings once, before the first write (fresh-index safety)', async () => {
+		const { fn, calls } = fakeFetch();
+		const sink = createMeiliSink(() => BACKEND, fn);
+
+		// Two batches on the same sink: a fresh-rollout `pnpm backfill` must not
+		// let PUT /documents auto-create a bare index whose _geo/startsAt searches
+		// 400. Settings are applied exactly once, and before the first write.
+		await sink.onRecords(
+			[created('at://did:plc:alice/community.lexicon.calendar.event/a', { name: 'A' })],
+			{ phase: 'backfill' }
+		);
+		await sink.onRecords(
+			[created('at://did:plc:alice/community.lexicon.calendar.event/b', { name: 'B' })],
+			{ phase: 'backfill' }
+		);
+
+		const settings = calls.filter((c) => c.method === 'PATCH' && c.url.endsWith('/settings'));
+		expect(settings).toHaveLength(1);
+		const firstSettingsIdx = calls.findIndex((c) => c.url.endsWith('/settings'));
+		const firstPutIdx = calls.findIndex((c) => c.method === 'PUT');
+		expect(firstSettingsIdx).toBeGreaterThanOrEqual(0);
+		expect(firstSettingsIdx).toBeLessThan(firstPutIdx);
+	});
 });
 
 describe('fetch is invoked detached (workerd Illegal invocation guard)', () => {

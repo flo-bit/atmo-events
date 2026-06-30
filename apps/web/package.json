@@ -12,6 +12,8 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"backfill": "contrail backfill",
 		"backfill:remote": "contrail backfill --remote",
+		"meili:reindex": "npx tsx src/lib/search/server/reindex-cli.ts",
+		"meili:reindex:remote": "npx tsx src/lib/search/server/reindex-cli.ts --remote",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest run",
