@@ -101,6 +101,20 @@ declare global {
 				/** Default Admin API Key for the write path (set via
 				 *  `wrangler secret put`). Never the instance root key. */
 				SEARCH_SINK_API_KEY?: string;
+				/** Forward-geocoder endpoint for the address→_geo drip (the cron job
+				 *  that resolves coordinates for newly-ingested address-only events).
+				 *  Nominatim-compatible /search; LocationIQ = `https://us1.locationiq.com/v1/search`.
+				 *  Reuses the SEARCH_SINK_* Meili write creds + the DB binding, so this
+				 *  plus GEOCODER_KEY are the only drip-specific config. */
+				GEOCODER_URL?: string;
+				/** Geocoder API key (LocationIQ), set via `wrangler secret put`. When
+				 *  unset, the drip no-ops (it won't fall back to public Nominatim). */
+				GEOCODER_KEY?: string;
+				/** Optional User-Agent for geocoder requests. */
+				GEOCODER_USER_AGENT?: string;
+				/** Min ms between geocoder calls in the drip — the rate limiter. Set to
+				 *  the ceiling the geocoder tier allows; defaults to DEFAULT_GEOCODE_SLEEP_MS. */
+				GEOCODE_SLEEP_MS?: string;
 			};
 			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
 			 *  let the worker keep a fire-and-forget task alive after the response

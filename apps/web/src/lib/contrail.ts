@@ -280,9 +280,9 @@ export async function listEventRecordsFromContrail(
 
 /**
  * Hits the `listDiscoverable` pipelineQuery, which reuses the listRecords
- * pipeline but adds a WHERE condition excluding events where
- * `preferences.showInDiscovery === false`. Missing field is treated as true.
- * Response shape is identical to listRecords.
+ * pipeline but adds a WHERE condition excluding events with a falsey
+ * `preferences.showInDiscovery` (false or 0). Missing field is treated as
+ * discoverable. Response shape is identical to listRecords.
  */
 export async function listDiscoverableEventsFromContrail(
 	client: Client,
@@ -351,24 +351,17 @@ export async function listDiscoverableEventsByUrisFromContrail(
  */
 export async function listConferenceTalksFromContrail(
 	client: Client,
-	{
-		parentUri,
-		actor,
-		limit = 300
-	}: { parentUri: string; actor?: ActorIdentifier; limit?: number }
+	{ parentUri, actor, limit = 300 }: { parentUri: string; actor?: ActorIdentifier; limit?: number }
 ): Promise<EventListOutput | null> {
-	const response = await client.get(
-		'rsvp.atmo.event.listTalks' as 'rsvp.atmo.event.listRecords',
-		{
-			params: {
-				...(actor ? { actor } : {}),
-				parentUri,
-				sort: 'startsAt',
-				order: 'asc',
-				limit
-			} as ListEventsParams
-		}
-	);
+	const response = await client.get('rsvp.atmo.event.listTalks' as 'rsvp.atmo.event.listRecords', {
+		params: {
+			...(actor ? { actor } : {}),
+			parentUri,
+			sort: 'startsAt',
+			order: 'asc',
+			limit
+		} as ListEventsParams
+	});
 
 	if (!response.ok) return null;
 	return response.data;

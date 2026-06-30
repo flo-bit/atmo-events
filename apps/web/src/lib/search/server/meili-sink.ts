@@ -14,6 +14,8 @@
 //     so a Meilisearch outage degrades to "search index falls behind", not
 //     "ingest stops".
 import { eventToSearchDoc, searchDocId, type SearchDoc } from './normalize';
+import { addressLocation, normalizeAddress } from './address-norm';
+import { isHiddenFromDiscovery } from './discoverability';
 import type { ContrailConfig } from '@atmo-dev/contrail';
 
 // The umbrella re-exports ContrailConfig (which carries `sinks?: Sink[]`) but
@@ -24,14 +26,6 @@ type RecordEvent = Parameters<Sink['onRecords']>[0][number];
 
 /** The one collection we index for search. */
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
-
-/** True when the event author hid it from discovery. Mirrors the D1 filter in
- *  contrail.config.ts: only `preferences.showInDiscovery === false` hides;
- *  a missing/null field stays discoverable. */
-function isHiddenFromDiscovery(record: Record<string, unknown>): boolean {
-	const prefs = record?.preferences as { showInDiscovery?: boolean } | undefined;
-	return prefs?.showInDiscovery === false;
-}
 
 export interface MeiliSinkBackend {
 	url: string;
@@ -147,6 +141,34 @@ export async function applyMeiliSettings(
 	await new MeiliEventIndex(backend, fetchFn).applySettings();
 }
 
+/** Best-effort fill of doc._geo from the geocode_cache. Read-only; a missing
+ *  table or D1 hiccup just means "no _geo this pass" (never an ingest failure).
+ *  Its real job is to reproduce the _geo the external geocode job wrote, so a
+ *  later live UPDATE (full-doc PUT) of an already-geocoded event doesn't drop it. */
+async function fillGeoFromCache(
+	db: D1Database | null,
+	pending: { doc: SearchDoc; norm: string }[]
+): Promise<void> {
+	if (!db || pending.length === 0) return;
+	try {
+		const norms = [...new Set(pending.map((p) => p.norm))];
+		const placeholders = norms.map(() => '?').join(',');
+		const { results } = await db
+			.prepare(
+				`SELECT address_norm, lat, lng FROM geocode_cache WHERE lat IS NOT NULL AND address_norm IN (${placeholders})`
+			)
+			.bind(...norms)
+			.all<{ address_norm: string; lat: number; lng: number }>();
+		const byNorm = new Map(results.map((r) => [r.address_norm, r]));
+		for (const { doc, norm } of pending) {
+			const row = byNorm.get(norm);
+			if (row) doc._geo = { lat: row.lat, lng: row.lng };
+		}
+	} catch (e) {
+		console.warn('[search-sink] geocode cache lookup failed; indexing without _geo:', e);
+	}
+}
+
 /** Builds the contrail Sink. The backend is resolved lazily per batch via
  *  `getBackend` because a Cloudflare Worker only has env per invocation, while
  *  `contrail` is constructed once at module load — the cron/xrpc handlers set
@@ -154,6 +176,7 @@ export async function applyMeiliSettings(
  *  the backend is null (unconfigured), onRecords is a no-op. */
 export function createMeiliSink(
 	getBackend: () => MeiliSinkBackend | null,
+	getDb: () => D1Database | null = () => null,
 	fetchFn?: typeof fetch
 ): Sink {
 	// Apply the read-path's filterable/sortable settings once, before the first
@@ -169,28 +192,39 @@ export function createMeiliSink(
 
 			const docs: SearchDoc[] = [];
 			const deletes: string[] = [];
+			// Docs that have no coordinate _geo but do carry an address — candidates
+			// for a geocode_cache fill.
+			const pending: { doc: SearchDoc; norm: string }[] = [];
 			for (const e of events) {
 				if (e.collection !== EVENT_COLLECTION) continue;
-				// Mirror the D1 discoverable filter (contrail.config.ts): only
-				// `showInDiscovery === false` hides; missing/null stays discoverable.
+				// Discoverability is decided by the shared predicate (discoverability.ts)
+				// so this in-memory filter and the D1 SQL filter never diverge.
 				// Index discoverable creates; for everything else — real deletes AND
 				// events hidden from discovery — remove the doc so the search index
 				// never holds a hidden event's name/description and a discoverable→
 				// unlisted flip purges the existing entry.
 				if (e.kind === 'created' && !isHiddenFromDiscovery(e.record)) {
-					docs.push(
-						eventToSearchDoc({
-							uri: e.uri,
-							did: e.did,
-							collection: e.collection,
-							rkey: e.rkey,
-							record: e.record
-						})
-					);
+					const doc = eventToSearchDoc({
+						uri: e.uri,
+						did: e.did,
+						collection: e.collection,
+						rkey: e.rkey,
+						record: e.record
+					});
+					docs.push(doc);
+					if (!doc._geo) {
+						const loc = addressLocation(e.record);
+						const norm = loc ? normalizeAddress(loc) : null;
+						if (norm) pending.push({ doc, norm });
+					}
 				} else {
 					deletes.push(searchDocId(e.uri));
 				}
 			}
+
+			// Mutates doc._geo in place before the upsert below.
+			await fillGeoFromCache(getDb(), pending);
+
 			if (docs.length === 0 && deletes.length === 0) return;
 
 			const index = new MeiliEventIndex(backend, fetchFn);

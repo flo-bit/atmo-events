@@ -54,7 +54,11 @@ type Loc = Record<string, unknown>;
 // finite-but-out-of-range value. Meilisearch rejects such a doc and can fail
 // the whole async indexing task (losing the rest of the batch), so we drop the
 // _geo here rather than index it. Bounds are WGS84: lat [-90, 90], lng [-180, 180].
-function inGeoRange(lat: number, lng: number): boolean {
+// Exported so the geocoder (geocoder.ts) range-checks its results against the
+// EXACT same bounds — a geocoder hit and a record's own coords must not be able
+// to disagree on what Meili will accept. NaN fails every comparison, so this also
+// rejects non-finite input.
+export function inGeoRange(lat: number, lng: number): boolean {
 	return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
 }
 
@@ -97,11 +101,29 @@ function str(v: unknown): string | undefined {
 	return typeof v === 'string' ? v : undefined;
 }
 
-export function eventToSearchDoc(payload: EventRecordPayload): SearchDoc {
-	const record = payload.record ?? {};
-	const locations = (Array.isArray(record.locations) ? record.locations : []).filter(
+/** The record's locations[] narrowed to the location objects deriveGeo and the
+ *  doc builder read. */
+function recordLocations(record: Record<string, unknown>): Loc[] {
+	return (Array.isArray(record?.locations) ? record.locations : []).filter(
 		(l): l is Loc => !!l && typeof l === 'object'
 	);
+}
+
+/** The single canonical _geo a record resolves to (precedence geo > fsq >
+ *  hthree, in-range only), or undefined. Shared by the search doc AND the
+ *  external geocode worklist so "already has coordinates" means the exact same
+ *  thing in both: the worklist must not geocode an event the index already
+ *  geo-derives (which would overwrite precise fsq/geo coords), and must still
+ *  geocode one whose only coordinate location is out of range (no _geo). */
+export function recordGeo(
+	record: Record<string, unknown>
+): { lat: number; lng: number } | undefined {
+	return deriveGeo(recordLocations(record));
+}
+
+export function eventToSearchDoc(payload: EventRecordPayload): SearchDoc {
+	const record = payload.record ?? {};
+	const locations = recordLocations(record);
 
 	const doc: SearchDoc = {
 		id: searchDocId(payload.uri),

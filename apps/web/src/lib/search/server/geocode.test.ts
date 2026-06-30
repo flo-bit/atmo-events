@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { geocodeLocation } from './geocode';
+import { DEFAULT_GEOCODER_URL, DEFAULT_GEOCODER_USER_AGENT } from './geocoder';
 
 function fakeFetch(status: number, body: unknown) {
 	return vi.fn(async () => new Response(JSON.stringify(body), { status }));
@@ -20,19 +21,35 @@ describe('geocodeLocation', () => {
 		expect(fetchImpl).toHaveBeenCalledTimes(1);
 		const [input, init] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
 		const url = new URL(String(input));
+		// URL is sourced from the shared geocoder constant, not a local literal.
+		const shared = new URL(DEFAULT_GEOCODER_URL);
+		expect(url.hostname).toBe(shared.hostname);
+		expect(url.pathname).toBe(shared.pathname);
 		expect(url.hostname).toBe('nominatim.openstreetmap.org');
-		expect(url.pathname).toBe('/search');
 		expect(url.searchParams.get('q')).toBe('Louisville, KY');
 		expect(url.searchParams.get('format')).toBe('jsonv2');
 		expect(url.searchParams.get('limit')).toBe('1');
-		// Nominatim's usage policy requires an identifying User-Agent.
-		expect(new Headers(init.headers).get('user-agent')).toMatch(/atmo/i);
+		// Nominatim's usage policy requires an identifying User-Agent; default
+		// comes from the shared env-driven helper.
+		expect(new Headers(init.headers).get('user-agent')).toBe(DEFAULT_GEOCODER_USER_AGENT);
+		expect(DEFAULT_GEOCODER_USER_AGENT).toMatch(/atmo/i);
 
 		expect(result).toEqual({
 			lat: 38.2542,
 			lng: -85.7594,
 			label: 'Louisville, Jefferson County, Kentucky, United States'
 		});
+	});
+
+	it('sources the User-Agent from GEOCODER_USER_AGENT when set', async () => {
+		const fetchImpl = fakeFetch(200, louisville);
+
+		await geocodeLocation('Louisville, KY', fetchImpl, {
+			GEOCODER_USER_AGENT: 'custom-agent/9.9 (https://example.test)'
+		});
+
+		const [, init] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
+		expect(new Headers(init.headers).get('user-agent')).toBe('custom-agent/9.9 (https://example.test)');
 	});
 
 	it('returns null when nothing matches', async () => {

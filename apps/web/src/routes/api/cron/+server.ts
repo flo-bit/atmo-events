@@ -1,6 +1,7 @@
 import { contrail, ensureInit } from '$lib/contrail/index';
 import { processBotMentions } from '$lib/bot/process-mentions';
 import { runNotifications } from '$lib/notify/process';
+import { runGeocodeDrip } from '$lib/geocode/process';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
@@ -58,6 +59,16 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		await runNotifications(platform!.env, db);
 	} catch (e) {
 		console.error('[cron] runNotifications failed:', e);
+	}
+
+	// Address→_geo geocode drip: resolves coordinates for newly-ingested
+	// address-only events so they appear in /near-me. Self-throttled to ~30 min
+	// via a D1 gate (rides this every-minute cron); no-ops when the geocoder/sink
+	// isn't configured. Isolated so a geocoder/Meili hiccup can't 500 the tick.
+	try {
+		await runGeocodeDrip(platform!.env, db);
+	} catch (e) {
+		console.error('[cron] runGeocodeDrip failed:', e);
 	}
 
 	return new Response('OK');
