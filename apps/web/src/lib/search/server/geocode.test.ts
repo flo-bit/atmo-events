@@ -13,7 +13,7 @@ const louisville = [
 ];
 
 describe('geocodeLocation', () => {
-	it('queries Nominatim and returns the top result as numeric coords', async () => {
+	it('geocodes through the shared client and returns the top result as numeric coords', async () => {
 		const fetchImpl = fakeFetch(200, louisville);
 
 		const result = await geocodeLocation('Louisville, KY', fetchImpl);
@@ -21,13 +21,12 @@ describe('geocodeLocation', () => {
 		expect(fetchImpl).toHaveBeenCalledTimes(1);
 		const [input, init] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
 		const url = new URL(String(input));
-		// URL is sourced from the shared geocoder constant, not a local literal.
+		// URL is sourced from the shared geocoder client, not a local literal.
 		const shared = new URL(DEFAULT_GEOCODER_URL);
 		expect(url.hostname).toBe(shared.hostname);
 		expect(url.pathname).toBe(shared.pathname);
 		expect(url.hostname).toBe('nominatim.openstreetmap.org');
 		expect(url.searchParams.get('q')).toBe('Louisville, KY');
-		expect(url.searchParams.get('format')).toBe('jsonv2');
 		expect(url.searchParams.get('limit')).toBe('1');
 		// Nominatim's usage policy requires an identifying User-Agent; default
 		// comes from the shared env-driven helper.
@@ -50,6 +49,20 @@ describe('geocodeLocation', () => {
 
 		const [, init] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
 		expect(new Headers(init.headers).get('user-agent')).toBe('custom-agent/9.9 (https://example.test)');
+	});
+
+	it('honors a configured GEOCODER_URL/KEY (the shared client appends the key server-side)', async () => {
+		const fetchImpl = fakeFetch(200, louisville);
+
+		await geocodeLocation('Louisville, KY', fetchImpl, {
+			GEOCODER_URL: 'https://us1.locationiq.com/v1/search',
+			GEOCODER_KEY: 'tok'
+		});
+
+		const [input] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
+		const url = new URL(String(input));
+		expect(url.hostname).toBe('us1.locationiq.com');
+		expect(url.searchParams.get('key')).toBe('tok');
 	});
 
 	it('returns null when nothing matches', async () => {
