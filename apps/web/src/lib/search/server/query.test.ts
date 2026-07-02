@@ -55,7 +55,11 @@ describe('searchBackendFromEnv', () => {
 
 	it('carries SEARCH_INDEX through so the read path can match the sink index', () => {
 		expect(
-			searchBackendFromEnv({ SEARCH_URL: 'https://s', SEARCH_API_KEY: 'k', SEARCH_INDEX: 'events-test' })
+			searchBackendFromEnv({
+				SEARCH_URL: 'https://s',
+				SEARCH_API_KEY: 'k',
+				SEARCH_INDEX: 'events-test'
+			})
 		).toMatchObject({ url: 'https://s', apiKey: 'k', indexUid: 'events-test' });
 	});
 });
@@ -75,7 +79,12 @@ describe('runEventSearchPage', () => {
 			[{ did: 'did:plc:a', handle: 'alice.test' }]
 		);
 
-		const page = await runEventSearchPage(backend(fetchFn), client, { q: 'fest', cursor: '10' });
+		// A tagged `meili:10` cursor (from a load-more round-trip) parses back to
+		// offset 10 — the tag is stripped before it reaches Meilisearch.
+		const page = await runEventSearchPage(backend(fetchFn), client, {
+			q: 'fest',
+			cursor: 'meili:10'
+		});
 
 		expect(bodies[0].offset).toBe(10);
 		expect(bodies[0].q).toBe('fest');
@@ -97,9 +106,19 @@ describe('runEventSearchPage', () => {
 
 		const page = await runEventSearchPage(backend(fetchFn), client, { q: 'fest', cursor: null });
 
-		// Page fills at SEARCH_PAGE_SIZE hits; the next offset is that count.
+		// Page fills at SEARCH_PAGE_SIZE hits; the next offset is that count, tagged
+		// with the Meili backend so load-more can't misroute it to D1 (om-7dbs).
 		expect(page.events).toHaveLength(SEARCH_PAGE_SIZE);
-		expect(page.cursor).toBe(String(SEARCH_PAGE_SIZE));
+		expect(page.cursor).toBe(`meili:${SEARCH_PAGE_SIZE}`);
+	});
+
+	it('accepts a bare legacy offset cursor (untagged, pre-deploy in-flight)', async () => {
+		const { fetchFn, bodies } = meiliFetch([{ uri: 'at://did:plc:a/c/1' }], 5);
+		const client = fakeClient([record('at://did:plc:a/c/1', 'alpha')]);
+
+		await runEventSearchPage(backend(fetchFn), client, { q: 'fest', cursor: '10' });
+
+		expect(bodies[0].offset).toBe(10);
 	});
 
 	it('throws when D1 hydration fails so the caller can fall back instead of skipping hits', async () => {
