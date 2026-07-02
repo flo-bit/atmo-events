@@ -13,6 +13,15 @@ export interface GeoPoint {
 	lng: number;
 	/** Provider-reported granularity tier (rooftop/street/locality/...). */
 	precision?: string;
+	/** Top match's display name — shown so a user can spot a wrong match. Present
+	 *  for interactive callers (near-me search box, address-entry form). */
+	label?: string;
+	/** Structured address parts (addressdetails=1) — the address-entry form maps
+	 *  these back onto its street/locality/region/country fields. */
+	address?: Record<string, string>;
+	/** OSM object refs for a canonical openstreetmap.org permalink. */
+	osmType?: string;
+	osmId?: number;
 }
 
 export interface Geocoder {
@@ -118,6 +127,9 @@ type NominatimHit = {
 	class?: string;
 	place_rank?: number;
 	addresstype?: string;
+	address?: Record<string, string>;
+	osm_type?: string;
+	osm_id?: number;
 };
 
 const ROOFTOP = new Set(['house', 'building', 'address', 'house_number']);
@@ -161,6 +173,10 @@ export function createGeocoder(env: GeocoderEnv = {}, fetchImpl: typeof fetch = 
 			url.searchParams.set('q', q);
 			url.searchParams.set('format', 'json');
 			url.searchParams.set('limit', '1');
+			// Structured address parts so the interactive address-entry form can map
+			// them onto its fields without a second client. Both Nominatim and
+			// LocationIQ honor this; the bulk drip simply ignores the extra fields.
+			url.searchParams.set('addressdetails', '1');
 			if (key) url.searchParams.set('key', key);
 
 			const res = await fetchImpl(url, {
@@ -189,7 +205,15 @@ export function createGeocoder(env: GeocoderEnv = {}, fetchImpl: typeof fetch = 
 			// inGeoRange returns false for NaN, so it subsumes the finite check.
 			if (!inGeoRange(lat, lng)) return null;
 
-			return { lat, lng, precision: derivePrecision(top) };
+			return {
+				lat,
+				lng,
+				precision: derivePrecision(top),
+				label: top.display_name,
+				address: top.address,
+				osmType: top.osm_type,
+				osmId: top.osm_id
+			};
 		}
 	};
 }
