@@ -4,13 +4,19 @@ import { FETCH_HEADERS, MAX_BYTES, readLimited } from './http';
 import { racoImporter } from './raco';
 import { icalImporter } from './ical';
 import { webpageImporter } from './webpage';
+import { guildImporter } from './guild';
 
 /**
  * Registry of source-specific importers, tried in order. Put the most specific
  * (host-matched, no fetch) first and the generic HTML fallback last. To support
  * a new platform, add a module exporting an `EventImporter` and list it here.
  */
-export const importers: EventImporter[] = [racoImporter, icalImporter, webpageImporter];
+export const importers: EventImporter[] = [
+	racoImporter,
+	icalImporter,
+	guildImporter,
+	webpageImporter
+];
 
 /**
  * Run the import pipeline for a URL. The first importer whose `accept()` returns
