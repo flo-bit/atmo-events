@@ -9,7 +9,7 @@ const GuildEventSchema = v.object({
 	slug: v.string(),
 	fullUrl: v.pipe(v.string(), v.url()),
 	name: v.string(),
-	description: v.string(),
+	description: v.optional(v.string()),
 	startAt: v.string(),
 	endAt: v.string(),
 	timeZone: v.string(),
