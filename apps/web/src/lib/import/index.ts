@@ -13,8 +13,8 @@ import { guildImporter } from './guild';
  */
 export const importers: EventImporter[] = [
 	racoImporter,
-	icalImporter,
 	guildImporter,
+	icalImporter,
 	webpageImporter
 ];
 
