@@ -16,7 +16,10 @@ const GuildEventSchema = v.object({
 	hasVenue: v.boolean(),
 	hasExternalUrl: v.boolean(),
 	createdAt: v.pipe(v.string(), v.toDate()),
-	uploadedSocialCard: v.optional(
+	// The API sends `null` (not absent) for events with no uploaded card, so use
+	// nullish (accepts null and undefined); parseData then falls back to
+	// generatedSocialCardURL.
+	uploadedSocialCard: v.nullish(
 		v.object({
 			url: v.pipe(v.string(), v.url())
 		})
