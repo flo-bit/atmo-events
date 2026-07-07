@@ -16,6 +16,7 @@ import {
 	listDiscoverableEventsByUrisFromContrail,
 	type FlatEventRecord
 } from '$lib/contrail';
+import { parseCursor, tagCursor } from '$lib/contrail/cursor';
 
 export interface SearchPageResult {
 	events: FlatEventRecord[];
@@ -38,7 +39,14 @@ export function searchBackendFromEnv(env?: {
 }
 
 function parseOffsetCursor(cursor: string | null | undefined): number {
-	const n = Number(cursor);
+	// Accept both a tagged `meili:<n>` cursor (a load-more round-trip) and a bare
+	// `<n>` (first page, or a legacy pre-deploy cursor). A D1-tagged keyset should
+	// never reach here now that load-more routes by tag — but if one does, treat
+	// it as offset 0 (a clean restart) rather than Number(base64url) -> NaN, which
+	// this guard already collapses to 0 anyway.
+	const { backend, raw } = parseCursor(cursor);
+	if (backend === 'd1') return 0;
+	const n = Number(raw);
 	return Number.isInteger(n) && n > 0 ? n : 0;
 }
 
@@ -82,7 +90,9 @@ async function hydrateToPage(
 	return {
 		events: flattenEventRecords(items.map((i) => i.record)),
 		handles,
-		cursor: consumed > 0 && moreToScan ? String(next) : null,
+		// Tag the offset with the Meili backend so load-more continues on Meili and
+		// never feeds this number to D1 listRecords (om-7dbs).
+		cursor: consumed > 0 && moreToScan ? tagCursor('meili', String(next)) : null,
 		distances
 	};
 }

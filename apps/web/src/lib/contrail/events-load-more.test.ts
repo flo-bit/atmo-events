@@ -26,7 +26,7 @@ import {
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
-import { searchBackendFromEnv } from '$lib/search/server/query';
+import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
 
 const mockRecords = vi.mocked(listEventRecordsFromContrail);
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
@@ -92,5 +92,110 @@ describe('runLoadMoreEvents pipeline routing', () => {
 		await call({ pipeline: 'discoverable', cursor: 'c' });
 
 		expect(mockSearchBackend).not.toHaveBeenCalled();
+	});
+
+	it('tags the D1 cursor it returns to the client with the d1 backend', async () => {
+		mockDiscoverable.mockResolvedValue(emptyPage); // cursor: 'next'
+
+		const result = await call({ pipeline: 'discoverable', cursor: 'd1:opaque' });
+
+		expect(result.cursor).toBe('d1:next');
+	});
+});
+
+// The om-7dbs bug class: a page whose FIRST load came from one backend but whose
+// load-more re-derived the OTHER, handing over an incompatible cursor. Routing
+// by the cursor's own tag pins each continuation to the backend that issued it.
+describe('runLoadMoreEvents backend routing by cursor tag', () => {
+	const mockRunSearch = vi.mocked(runEventSearchPage);
+	const searchPage = {
+		events: [],
+		handles: {},
+		cursor: 'meili:40'
+	} as unknown as Awaited<ReturnType<typeof runEventSearchPage>>;
+
+	it('keeps a d1-tagged cursor on D1 even with a search term AND Meili configured', async () => {
+		// PR #49's trip case: D1 first page + search term + configured Meili. The
+		// old inference re-routed to Meili and NaN-parsed the keyset into a page-1
+		// refetch. The tag must win: stay on D1, filters intact.
+		mockSearchBackend.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+		mockDiscoverable.mockResolvedValue(emptyPage);
+
+		const result = await call({
+			pipeline: 'discoverable',
+			search: 'jazz',
+			startsAtMin: '2026-01-01T00:00:00Z',
+			cursor: 'd1:keyset'
+		});
+
+		expect(mockRunSearch).not.toHaveBeenCalled();
+		expect(mockDiscoverable).toHaveBeenCalledTimes(1);
+		const params = mockDiscoverable.mock.calls[0][1];
+		// The untagged keyset is forwarded to D1; filters survive.
+		expect(params).toMatchObject({
+			cursor: 'keyset',
+			search: 'jazz',
+			startsAtMin: '2026-01-01T00:00:00Z'
+		});
+		expect(result.cursor).toBe('d1:next');
+	});
+
+	it('keeps a meili-tagged cursor on Meili and hands it the untagged offset', async () => {
+		mockSearchBackend.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+		mockRunSearch.mockResolvedValue(searchPage);
+
+		const result = await call({ search: 'jazz', cursor: 'meili:20' });
+
+		expect(mockRunSearch).toHaveBeenCalledTimes(1);
+		expect(mockRunSearch.mock.calls[0][2]).toMatchObject({ q: 'jazz', cursor: '20' });
+		expect(mockRecords).not.toHaveBeenCalled();
+		expect(mockDiscoverable).not.toHaveBeenCalled();
+		expect(result.cursor).toBe('meili:40');
+	});
+
+	it('fails safe (ends pagination) for a meili-tagged cursor when no backend is configured', async () => {
+		// The Meili offset is meaningless to D1 listRecords; rather than restart
+		// page 1 on D1 or NaN-parse, end pagination.
+		mockSearchBackend.mockReturnValue(null);
+
+		const result = await call({ search: 'jazz', cursor: 'meili:20' });
+
+		expect(mockRunSearch).not.toHaveBeenCalled();
+		expect(mockRecords).not.toHaveBeenCalled();
+		expect(mockDiscoverable).not.toHaveBeenCalled();
+		expect(result).toEqual({ events: [], handles: {}, cursor: null });
+	});
+
+	it('fails safe for a meili-tagged cursor when the search term was lost from the continuation', async () => {
+		mockSearchBackend.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+
+		const result = await call({ cursor: 'meili:20' });
+
+		expect(mockRunSearch).not.toHaveBeenCalled();
+		expect(mockDiscoverable).not.toHaveBeenCalled();
+		expect(result).toEqual({ events: [], handles: {}, cursor: null });
+	});
+
+	it('legacy untagged cursor + search + Meili configured falls back to the old inference (Meili)', async () => {
+		mockSearchBackend.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+		mockRunSearch.mockResolvedValue(searchPage);
+
+		const result = await call({ search: 'jazz', cursor: '20' });
+
+		expect(mockRunSearch).toHaveBeenCalledTimes(1);
+		// The legacy offset is passed through for the Meili path to parse.
+		expect(mockRunSearch.mock.calls[0][2]).toMatchObject({ q: 'jazz', cursor: '20' });
+		expect(result.cursor).toBe('meili:40');
+	});
+
+	it('legacy untagged cursor with no search context falls back to D1', async () => {
+		mockRecords.mockResolvedValue(emptyPage);
+
+		const result = await call({ cursor: 'legacyOpaqueKeyset' });
+
+		expect(mockRecords).toHaveBeenCalledTimes(1);
+		expect(mockRecords.mock.calls[0][1]).toMatchObject({ cursor: 'legacyOpaqueKeyset' });
+		expect(mockRunSearch).not.toHaveBeenCalled();
+		expect(result.cursor).toBe('d1:next');
 	});
 });

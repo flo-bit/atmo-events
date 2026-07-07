@@ -50,13 +50,13 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	return {
 		events: flattenEventRecords(response.records),
 		handles,
-		// The D1 fallback is first-batch-only; don't hand its cursor back.
-		// loadMoreEvents has no search backend here, so it paginates via
-		// listRecords, which applies neither the discoverable filter nor the
-		// startsAtMin this page uses — later pages would drift into past and
-		// non-discoverable events. (When a configured backend errored the cursor
-		// is also unusable: it's a D1 cursor but loadMoreEvents re-routes to Meili
-		// whenever a backend is configured.) Drop it in both cases.
+		// The D1 fallback is first-batch-only; don't hand its cursor back. Even
+		// with self-describing cursors (om-7dbs), the search fetchParams carry no
+		// `pipeline`, so a d1-tagged cursor would route load-more through plain
+		// listRecords — dropping the discoverable filter and startsAtMin this page
+		// applies — and later pages would drift into past and non-discoverable
+		// events. Re-enabling consistent D1 pagination here would mean threading the
+		// discoverable pipeline + filters through; deferred. Drop the cursor.
 		cursor: null,
 		query: q
 	};

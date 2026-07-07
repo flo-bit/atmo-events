@@ -7,6 +7,7 @@ import {
 	listEventRecordsFromContrail
 } from '$lib/contrail';
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+import { parseCursor, tagCursor } from './cursor';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
 export const listEventsInput = v.object({
@@ -50,23 +51,53 @@ export async function runLoadMoreEvents(
 ): Promise<LoadMoreEventsResult> {
 	const client = getServerClient(env.DB);
 
-	// Text-search pagination goes through Meilisearch when configured, matching
-	// the search page's first-page path — its cursor is a Meili offset, which
-	// the D1 path below cannot consume (and vice versa). Errors propagate to
-	// EventList's catch so the user can retry with the cursor intact.
-	const searchBackend = input.search?.trim() ? searchBackendFromEnv(env) : null;
-	if (searchBackend && input.search) {
+	// Route by the cursor's own tag, not by re-deriving the backend from request
+	// shape. The page that issued this cursor already committed to a backend;
+	// load-more MUST continue on that same one or first-load and load-more diverge
+	// and hand over an incompatible cursor (om-7dbs).
+	const { backend: cursorBackend, raw: cursorRaw } = parseCursor(input.cursor);
+
+	// Only resolve the Meili backend when a search term is present (matches the
+	// search page's first-page path); avoids touching it for plain D1 loads.
+	const searchTerm = input.search?.trim();
+	const searchBackend = searchTerm ? searchBackendFromEnv(env) : null;
+
+	// Meili path when: the cursor is explicitly meili-tagged, OR it's an untagged
+	// legacy cursor (in-flight from before this deploy) and the old inference
+	// ("search set AND Meili configured") would have chosen Meili. A d1-tagged
+	// cursor is NEVER routed here, even with a search term + configured backend —
+	// that is exactly the divergence the tag exists to prevent.
+	const routeMeili =
+		cursorBackend === 'meili' || (cursorBackend === null && !!searchBackend && !!searchTerm);
+	if (routeMeili) {
+		if (!searchBackend || !searchTerm) {
+			// A meili-tagged cursor arrived but this context can't serve Meili (the
+			// backend is now unconfigured, or the search term was lost from the
+			// continuation). Feeding the offset to D1 listRecords would ignore it and
+			// drop filters, and re-inferring would restart page 1 on the wrong
+			// backend. Fail safe: end pagination cleanly. Errors otherwise propagate
+			// to EventList's catch so the user can retry with the cursor intact.
+			return { events: [], handles: {}, cursor: null };
+		}
 		const page = await runEventSearchPage(searchBackend, client, {
-			q: input.search.trim(),
-			cursor: input.cursor ?? null
+			q: searchTerm,
+			// Pass the untagged offset; runEventSearchPage also strips a meili tag
+			// itself, so a legacy bare offset works here too.
+			cursor: cursorRaw
 		});
 		return { events: page.events, handles: page.handles, cursor: page.cursor };
 	}
 
-	// Re-run the SAME page-1 pipeline so load-more inherits its filters. `pipeline`
-	// is our selector, not an xrpc param, so strip it before the call.
+	// D1 path: an explicit d1 tag, or an untagged cursor with no Meili search
+	// context. Re-run the SAME page-1 pipeline so load-more inherits its filters.
+	// `pipeline` is our selector, not an xrpc param, so strip it. `cursor` is
+	// overwritten below with the untagged keyset (the inbound one carries the tag).
 	const { pipeline, ...rest } = input;
-	const params = { ...rest, actor: rest.actor as ActorIdentifier | undefined };
+	const params = {
+		...rest,
+		actor: rest.actor as ActorIdentifier | undefined,
+		cursor: cursorRaw ?? undefined
+	};
 
 	const response =
 		pipeline === 'discoverable'
@@ -89,6 +120,8 @@ export async function runLoadMoreEvents(
 	return {
 		events,
 		handles,
-		cursor: response.cursor ?? null
+		// Tag the keyset with the D1 backend so the next load-more stays on D1 and
+		// can't be re-inferred onto Meili (om-7dbs).
+		cursor: tagCursor('d1', response.cursor ?? null)
 	};
 }

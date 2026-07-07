@@ -41,13 +41,14 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 		topic,
 		events: flattenEventRecords(response?.records ?? []),
 		handles,
-		// First-batch-only, like the search page's D1 fallback. This D1 FTS read has
-		// no cursor loadMoreEvents can resume: with a search backend configured it
-		// re-routes to Meili (whose offset cursor is incompatible with this D1
-		// cursor), and without one it paginates via listRecords (dropping the
-		// discoverable + startsAtMin filters this page relies on). Either way later
-		// pages would drift, so don't hand back a cursor. Deep topic pagination is
-		// tracked separately (om-47ak).
+		// First-batch-only, like the search page's D1 fallback. Self-describing
+		// cursors (om-7dbs) now stop this page's D1 cursor from being mis-consumed
+		// as a Meili offset, but they don't make it resumable here: this fetchParams
+		// contract carries no `pipeline`, so a d1-tagged cursor would still route
+		// load-more through plain listRecords, dropping the discoverable +
+		// startsAtMin filters this page relies on. So don't hand back a cursor. Deep
+		// topic pagination (threading the discoverable pipeline through) is tracked
+		// separately (om-47ak).
 		cursor: null,
 		query
 	};
