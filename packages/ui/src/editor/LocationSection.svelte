@@ -39,7 +39,7 @@
 			const country = addr.country || '';
 
 			result = {
-				displayName: (data.display_name as string) || q,
+				displayName: (data.label as string) || q,
 				location: {
 					...(street && { street }),
 					...(locality && { locality }),

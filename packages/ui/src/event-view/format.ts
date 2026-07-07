@@ -109,17 +109,18 @@ export async function resolveGeoLocation(
 	try {
 		const r = await fetch(`/api/geocoding?q=${encodeURIComponent(locationData.fullAddress)}`);
 		if (!r.ok) return null;
+		// /api/geocoding returns a normalized { lat, lng, label, ... } shape.
 		const data = (await r.json()) as {
-			lat?: string;
-			lon?: string;
-			osm_type?: string;
-			osm_id?: number;
+			lat?: number;
+			lng?: number;
+			osmType?: string;
+			osmId?: number;
 		} | null;
-		if (!data?.lat || !data?.lon) return null;
-		const lat = parseFloat(data.lat);
-		const lng = parseFloat(data.lon);
+		if (typeof data?.lat !== 'number' || typeof data?.lng !== 'number') return null;
+		const lat = data.lat;
+		const lng = data.lng;
 		if (isNaN(lat) || isNaN(lng)) return null;
-		return { lat, lng, ...geoUrls(lat, lng, data.osm_type, data.osm_id) };
+		return { lat, lng, ...geoUrls(lat, lng, data.osmType, data.osmId) };
 	} catch {
 		return null;
 	}

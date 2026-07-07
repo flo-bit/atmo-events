@@ -73,6 +73,36 @@ describe('createGeocoder', () => {
 		expect(calls[0].url).toContain('key=tok');
 	});
 
+	it('requests addressdetails so callers get structured address parts', async () => {
+		const { fn, calls } = fakeFetch([{ lat: '50.84', lon: '4.36', addresstype: 'city' }]);
+		await createGeocoder({}, fn).geocode('Bruxelles, BE');
+		expect(calls[0].url).toContain('addressdetails=1');
+	});
+
+	it('carries label + addressdetails + osm refs so no caller needs a second client', async () => {
+		const { fn } = fakeFetch([
+			{
+				lat: '38.2542',
+				lon: '-85.7594',
+				display_name: 'Louisville, Jefferson County, Kentucky, United States',
+				addresstype: 'city',
+				osm_type: 'relation',
+				osm_id: 207611,
+				address: { city: 'Louisville', state: 'Kentucky', country: 'United States' }
+			}
+		]);
+		const point = await createGeocoder({}, fn).geocode('Louisville, KY');
+		expect(point).toEqual({
+			lat: 38.2542,
+			lng: -85.7594,
+			precision: 'locality',
+			label: 'Louisville, Jefferson County, Kentucky, United States',
+			address: { city: 'Louisville', state: 'Kentucky', country: 'United States' },
+			osmType: 'relation',
+			osmId: 207611
+		});
+	});
+
 	it('returns null on an empty result set (no-match)', async () => {
 		const { fn } = fakeFetch([]);
 		expect(await createGeocoder({}, fn).geocode('nowhere')).toBeNull();
