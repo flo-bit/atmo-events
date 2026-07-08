@@ -27,6 +27,16 @@ type RecordEvent = Parameters<Sink['onRecords']>[0][number];
 /** The one collection we index for search. */
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
 
+/** How long the settings PATCH (which also arms/creates the index) may run
+ *  before we abort it. This request fires on the ensureInit arming path — and
+ *  for the cron handler that runs BEFORE the ingest hard-timeout race, so an
+ *  unbounded fetch to a *stalling* (not erroring) Meili endpoint would hang the
+ *  whole tick past the 55s backstop and starve notify/drip. A short bound
+ *  degrades that to "sink disabled this cycle" (caught by ensureInit's
+ *  try/catch), retried next tick. Upsert/remove stay unbounded here: they only
+ *  run inside contrail.ingest, already under the cron race. */
+const SETTINGS_TIMEOUT_MS = 8_000;
+
 export interface MeiliSinkBackend {
 	url: string;
 	apiKey: string;
@@ -82,21 +92,28 @@ export class MeiliEventIndex {
 
 	/** PATCHing settings auto-creates the index, so this doubles as ensure-index.
 	 *  _geo in filterable enables _geoRadius/_geoBoundingBox; in sortable, _geoPoint.
-	 *  Must mirror the filters ./meili.ts issues (startsAt/endsAt range, _geo). */
-	async applySettings(): Promise<void> {
-		await this.request('PATCH', `/indexes/${this.indexUid}/settings`, {
-			searchableAttributes: ['name', 'description'],
-			filterableAttributes: [
-				'_geo',
-				'startsAt',
-				'endsAt',
-				'status',
-				'mode',
-				'did',
-				'locationTypes'
-			],
-			sortableAttributes: ['_geo', 'startsAt', 'endsAt']
-		});
+	 *  Must mirror the filters ./meili.ts issues (startsAt/endsAt range, _geo).
+	 *  Bounded by an AbortSignal so a stalling Meili endpoint can't hang the
+	 *  arming path (see SETTINGS_TIMEOUT_MS). */
+	async applySettings(timeoutMs: number = SETTINGS_TIMEOUT_MS): Promise<void> {
+		await this.request(
+			'PATCH',
+			`/indexes/${this.indexUid}/settings`,
+			{
+				searchableAttributes: ['name', 'description'],
+				filterableAttributes: [
+					'_geo',
+					'startsAt',
+					'endsAt',
+					'status',
+					'mode',
+					'did',
+					'locationTypes'
+				],
+				sortableAttributes: ['_geo', 'startsAt', 'endsAt']
+			},
+			AbortSignal.timeout(timeoutMs)
+		);
 	}
 
 	async upsert(docs: SearchDoc[]): Promise<void> {
@@ -109,7 +126,12 @@ export class MeiliEventIndex {
 		await this.request('POST', `/indexes/${this.indexUid}/documents/delete-batch`, ids);
 	}
 
-	private async request(method: string, path: string, body: unknown): Promise<void> {
+	private async request(
+		method: string,
+		path: string,
+		body: unknown,
+		signal?: AbortSignal
+	): Promise<void> {
 		// Call fetch detached, not as `this.fetch(...)`: on workerd the global
 		// fetch throws "Illegal invocation" when invoked with `this` bound to a
 		// non-global object (which method-call syntax would do). A bare call
@@ -122,7 +144,8 @@ export class MeiliEventIndex {
 				authorization: `Bearer ${this.apiKey}`,
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal
 		});
 		if (!res.ok) {
 			// No body/key echoed — it can end up in logs or error pages.
@@ -133,12 +156,15 @@ export class MeiliEventIndex {
 
 /** PATCH the index settings (and auto-create the index) for a backend. Call
  *  once per worker before the sink starts upserting so the read path's filters
- *  resolve. */
+ *  resolve. Bounded by SETTINGS_TIMEOUT_MS (override for tests) so a stalling
+ *  Meili endpoint can't hang the caller — the arming path runs outside the cron
+ *  ingest race. */
 export async function applyMeiliSettings(
 	backend: MeiliSinkBackend,
-	fetchFn?: typeof fetch
+	fetchFn?: typeof fetch,
+	timeoutMs: number = SETTINGS_TIMEOUT_MS
 ): Promise<void> {
-	await new MeiliEventIndex(backend, fetchFn).applySettings();
+	await new MeiliEventIndex(backend, fetchFn).applySettings(timeoutMs);
 }
 
 /** Best-effort fill of doc._geo from the geocode_cache. Read-only; a missing
