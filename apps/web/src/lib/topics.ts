@@ -214,3 +214,18 @@ export const TOPICS: Topic[] = [
 export function getTopicBySlug(slug: string): Topic | undefined {
 	return TOPICS.find((t) => t.slug === slug);
 }
+
+/**
+ * The FTS5 disjunction query for a topic slug: match events whose
+ * name/description mention ANY of the topic's hashtag terms. D1's SQLite FTS5
+ * MATCH treats an uppercase `OR` as a real disjunction operator, so this is a
+ * true "any term" query. Returns null for an unknown slug so callers (the topic
+ * page load AND the load-more registry) can end pagination cleanly rather than
+ * run an empty/garbage search — the two MUST derive the query identically or
+ * page 1 and load-more drift apart.
+ */
+export function orQueryFromSlug(slug: string): string | null {
+	const topic = getTopicBySlug(slug);
+	if (!topic) return null;
+	return topic.hashtags.map((h) => h.replace(/^#/, '')).join(' OR ');
+}
