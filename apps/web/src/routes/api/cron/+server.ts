@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick
 	// (which previously also took the bot down with it).
 	try {
-		await ensureInit(db);
+		await ensureInit(db, platform!.env);
 		// Two deliberately-split budgets. contrail saves the jetstream cursor LAST in
 		// runIngestCycle — after the drain, applyEvents, and the per-DID
 		// refreshStaleIdentities network tail. If this handler aborts before that
