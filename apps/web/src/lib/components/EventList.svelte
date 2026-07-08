@@ -9,14 +9,19 @@
 		cursor,
 		handles = {},
 		actor = undefined,
-		fetchParams,
+		q = undefined,
 		gridClass = 'grid gap-6 sm:grid-cols-2'
 	}: {
 		events: FlatEventRecord[];
 		cursor: string | null;
 		handles?: Record<string, string>;
 		actor?: string | undefined;
-		fetchParams: Record<string, string>;
+		// The cursor is now a fully opaque, self-describing continuation envelope:
+		// load-more POSTs only { cursor }, no client-echoed pipeline/
+		// filters. The single exception is the free-text search TERM, which stays
+		// OUT of the envelope and rides here so the search page's load-more can
+		// re-run its query; other pages leave it undefined.
+		q?: string | undefined;
 		gridClass?: string;
 	} = $props();
 
@@ -43,19 +48,13 @@
 		loading = true;
 
 		try {
-			const params: Record<string, unknown> = {};
-			for (const [key, value] of Object.entries(fetchParams)) {
-				if (key === 'limit' || key === 'rsvpsGoingCountMin' || key === 'rsvpsCountMin') {
-					params[key] = Number(value);
-				} else if (key === 'profiles') {
-					params[key] = value === 'true';
-				} else {
-					params[key] = value;
-				}
-			}
-			params.cursor = currentCursor;
-
-			const result = await loadMoreEvents(params as Parameters<typeof loadMoreEvents>[0]);
+			// Opaque token in, opaque token out: the envelope names the server-side
+			// query, so there is no client-side query reconstruction to echo. Only
+			// the search term (when present) rides alongside the cursor.
+			const result = await loadMoreEvents({
+				cursor: currentCursor,
+				...(q !== undefined ? { q } : {})
+			});
 
 			extraEvents = [...extraEvents, ...result.events];
 			currentCursor = result.cursor;

@@ -2,12 +2,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // The search load decides between two backends whose cursors are NOT
 // interchangeable: Meilisearch (offset cursor) and the D1 LIKE fallback (opaque
-// cursor). loadMoreEvents re-routes to Meili whenever a backend is configured,
-// so a D1 cursor handed back after a backend failure would be misread. And even
-// with no backend at all, loadMoreEvents paginates via listRecords — without the
-// discoverable filter or startsAtMin this load applies — so its cursor isn't
-// safe to continue either. The D1 fallback is therefore first-batch-only. These
-// tests pin that contract.
+// keyset). Both now hand back a self-describing continuation ENVELOPE: the Meili
+// path a 'search-meili' envelope, the D1 fallback a 'search-d1' envelope. The D1
+// fallback used to return cursor:null because load-more had no safe way to
+// re-run the discoverable+startsAtMin query — the envelope closes that gap (and
+// with it the earlier "search results stop after the first batch" limitation),
+// so these tests now pin a REAL cursor on the D1 path, keyed to a query the
+// load-more registry re-runs identically.
 vi.mock('$lib/contrail', () => ({
 	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
@@ -19,8 +20,9 @@ vi.mock('$lib/search/server/query', () => ({
 }));
 
 import { load } from './+page.server';
-import { flattenEventRecords, listDiscoverableEventsFromContrail } from '$lib/contrail';
+import { listDiscoverableEventsFromContrail } from '$lib/contrail';
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
 
 const mockSearchBackendFromEnv = vi.mocked(searchBackendFromEnv);
 const mockRunEventSearchPage = vi.mocked(runEventSearchPage);
@@ -54,23 +56,24 @@ describe('search page load', () => {
 		expect(mockListDiscoverable).not.toHaveBeenCalled();
 	});
 
-	it('serves the Meili page (offset cursor) when the backend succeeds', async () => {
+	it('serves the Meili page wrapped in a search-meili envelope when the backend succeeds', async () => {
 		mockSearchBackendFromEnv.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
 		mockRunEventSearchPage.mockResolvedValue({
 			events: [{ uri: 'at://did:plc:a/community.lexicon.calendar.event/1' }],
 			handles: { 'did:plc:a': 'alice' },
-			cursor: '20',
+			cursor: 'meili:20',
 			distances: {}
 		} as unknown as Awaited<ReturnType<typeof runEventSearchPage>>);
 
 		const result = await runLoad('kite');
 
-		expect(result.cursor).toBe('20');
-		expect(result.events).toHaveLength(1);
+		// The offset rides inside a self-describing envelope, so load-more re-runs
+		// the Meili path (not D1 listRecords) with the term from ?q=/input.
+		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'search-meili', raw: 'meili:20' });
 		expect(mockListDiscoverable).not.toHaveBeenCalled();
 	});
 
-	it('drops the D1 cursor when a configured backend fails, so load-more cannot misroute it', async () => {
+	it('paginates the D1 fallback with a search-d1 envelope when a configured backend fails', async () => {
 		mockSearchBackendFromEnv.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
 		mockRunEventSearchPage.mockRejectedValue(new Error('meili down'));
 		mockListDiscoverable.mockResolvedValue({
@@ -81,15 +84,13 @@ describe('search page load', () => {
 
 		const result = await runLoad('kite');
 
-		// Events still served from the D1 fallback...
-		expect(result.events).toHaveLength(1);
 		expect(result.handles).toEqual({ 'did:plc:b': 'bob' });
-		// ...but the incompatible D1 cursor is suppressed.
-		expect(result.cursor).toBeNull();
-		expect(flattenEventRecords).toHaveBeenCalled();
+		// The D1 cursor is now RESUMABLE: a search-d1 envelope whose load-more re-runs
+		// the same discoverable + startsAtMin + desc query. No more cursor:null.
+		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'search-d1', raw: 'd1-opaque-cursor' });
 	});
 
-	it('drops the D1 cursor when no backend is configured, so load-more cannot drift past the first batch', async () => {
+	it('paginates the D1 fallback with a search-d1 envelope when no backend is configured', async () => {
 		mockSearchBackendFromEnv.mockReturnValue(null);
 		mockListDiscoverable.mockResolvedValue({
 			records: [{ uri: 'at://did:plc:c/community.lexicon.calendar.event/3' }],
@@ -99,12 +100,56 @@ describe('search page load', () => {
 
 		const result = await runLoad('kite');
 
-		// First batch is served from the discoverable, upcoming-only D1 query...
-		expect(result.events).toHaveLength(1);
-		// ...but the cursor is suppressed: loadMoreEvents would paginate via
-		// listRecords without the discoverable filter or startsAtMin, drifting
-		// into past and non-discoverable events on later pages.
-		expect(result.cursor).toBeNull();
+		// First batch is the discoverable, upcoming-only, desc D1 query...
+		const params = mockListDiscoverable.mock.calls[0][1];
+		expect(params).toMatchObject({ search: 'kite', order: 'desc' });
+		expect(typeof params.startsAtMin).toBe('string');
+		// ...and later pages resume it via a real envelope, not cursor:null.
+		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'search-d1', raw: 'd1-opaque-cursor' });
 		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
+	});
+
+	it('ends cleanly (cursor:null) only on a genuinely last D1 page', async () => {
+		mockSearchBackendFromEnv.mockReturnValue(null);
+		mockListDiscoverable.mockResolvedValue({
+			records: [{ uri: 'at://did:plc:d/community.lexicon.calendar.event/4' }],
+			profiles: [],
+			cursor: null
+		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
+
+		const result = await runLoad('kite');
+		expect(result.cursor).toBeNull();
+	});
+
+	it('deep-link: does NOT resume even its OWN search-d1 envelope (term not in envelope)', async () => {
+		mockSearchBackendFromEnv.mockReturnValue(null);
+		mockListDiscoverable.mockResolvedValue({
+			records: [],
+			profiles: [],
+			cursor: null
+		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
+
+		// The keyset was minted for SOME term, but the term rides ?q= and is absent
+		// from the envelope — a `dogs` keyset under ?q=kite would corrupt pagination,
+		// and the two are indistinguishable. So page 1 always starts fresh.
+		const inbound = encodeCursor({ v: 1, q: 'search-d1', raw: 'page2keyset' });
+		await runLoad('kite', inbound);
+
+		expect(mockListDiscoverable.mock.calls[0][1].cursor).toBeUndefined();
+	});
+
+	it('deep-link: ignores a foreign-query envelope (fresh page 1, no resume)', async () => {
+		mockSearchBackendFromEnv.mockReturnValue(null);
+		mockListDiscoverable.mockResolvedValue({
+			records: [],
+			profiles: [],
+			cursor: null
+		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
+
+		// An 'events' envelope deep-linked into /search must not resume its keyset.
+		const foreign = encodeCursor({ v: 1, q: 'events', args: { popular: true }, raw: 'nope' });
+		await runLoad('kite', foreign);
+
+		expect(mockListDiscoverable.mock.calls[0][1].cursor).toBeUndefined();
 	});
 });

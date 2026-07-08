@@ -5,14 +5,18 @@ import {
 } from '$lib/contrail';
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
 import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
+import { nextCursor } from '$lib/contrail/cursor';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url, platform }) => {
 	const client = getServerClient(platform!.env.DB);
 	const q = url.searchParams.get('q')?.trim() || '';
-	const cursor = url.searchParams.get('cursor') ?? undefined;
 
 	if (!q) return { events: [], handles: {}, cursor: null, query: '' };
+
+	// Search page 1 does NOT resume from ?cursor=: the term rides ?q=, not the
+	// envelope, so an inbound cursor can't be proven to match this route's term.
+	// (Load-more still resumes via the remote command, which carries the term.)
 
 	// Meilisearch ranks (typo tolerance, prefix, relevance); D1 supplies the
 	// records. Falls back to the LIKE-based D1 path when the search backend is
@@ -20,8 +24,13 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	const backend = searchBackendFromEnv(platform?.env);
 	if (backend) {
 		try {
-			const page = await runEventSearchPage(backend, client, { q, cursor });
-			return { events: page.events, handles: page.handles, cursor: page.cursor, query: q };
+			const page = await runEventSearchPage(backend, client, { q });
+			return {
+				events: page.events,
+				handles: page.handles,
+				cursor: nextCursor('search-meili', page.cursor),
+				query: q
+			};
 		} catch (err) {
 			console.error('search backend failed, falling back to D1 search:', err);
 		}
@@ -36,8 +45,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 		startsAtMin: new Date().toISOString(),
 		sort: 'startsAt',
 		order: 'desc',
-		limit: SEARCH_PAGE_SIZE,
-		cursor
+		limit: SEARCH_PAGE_SIZE
 	});
 
 	if (!response) return { events: [], handles: {}, cursor: null, query: q };
@@ -50,14 +58,11 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	return {
 		events: flattenEventRecords(response.records),
 		handles,
-		// The D1 fallback is first-batch-only; don't hand its cursor back. Even
-		// with self-describing cursors (om-7dbs), the search fetchParams carry no
-		// `pipeline`, so a d1-tagged cursor would route load-more through plain
-		// listRecords — dropping the discoverable filter and startsAtMin this page
-		// applies — and later pages would drift into past and non-discoverable
-		// events. Re-enabling consistent D1 pagination here would mean threading the
-		// discoverable pipeline + filters through; deferred. Drop the cursor.
-		cursor: null,
+		// Self-describing 'search-d1' envelope: load-more re-runs the SAME
+		// discoverable + startsAtMin + desc query, with the search term from ?q=/
+		// input — later pages stay upcoming-only and discoverable, no drift into
+		// past/non-discoverable events.
+		cursor: nextCursor('search-d1', response.cursor ?? null),
 		query: q
 	};
 };
