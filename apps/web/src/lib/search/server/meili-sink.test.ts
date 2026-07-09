@@ -236,7 +236,11 @@ describe('createMeiliSink onRecords', () => {
 
 	it('applies index settings once, before the first write (fresh-index safety)', async () => {
 		const { fn, calls } = fakeFetch();
-		const sink = createMeiliSink(() => BACKEND, () => null, fn);
+		const sink = createMeiliSink(
+			() => BACKEND,
+			() => null,
+			fn
+		);
 
 		// Two batches on the same sink: a fresh-rollout `pnpm backfill` must not
 		// let PUT /documents auto-create a bare index whose _geo/startsAt searches
@@ -289,6 +293,35 @@ describe('fetch is invoked detached (workerd Illegal invocation guard)', () => {
 				{ phase: 'live' }
 			)
 		).resolves.toBeUndefined();
+	});
+});
+
+describe('applyMeiliSettings bounds the settings fetch', () => {
+	it('passes an AbortSignal on the settings request', async () => {
+		let sawSignal: AbortSignal | null | undefined;
+		const fn = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+			sawSignal = init?.signal;
+			return new Response(null, { status: 202 });
+		}) as unknown as typeof fetch;
+
+		await applyMeiliSettings(BACKEND, fn);
+		expect(sawSignal).toBeInstanceOf(AbortSignal);
+	});
+
+	it('rejects when the settings fetch stalls past the timeout', async () => {
+		// A fetch that never settles on its own — only the AbortSignal can end it.
+		// A short timeout keeps this fast and deterministic without fake timers.
+		const stalling = vi.fn(
+			(_input: RequestInfo | URL, init?: RequestInit) =>
+				new Promise<Response>((_resolve, reject) => {
+					const signal = init?.signal;
+					if (signal) {
+						signal.addEventListener('abort', () => reject(signal.reason ?? new Error('aborted')));
+					}
+				})
+		) as unknown as typeof fetch;
+
+		await expect(applyMeiliSettings(BACKEND, stalling, 10)).rejects.toThrow();
 	});
 });
 

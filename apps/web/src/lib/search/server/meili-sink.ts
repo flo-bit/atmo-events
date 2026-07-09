@@ -27,6 +27,23 @@ type RecordEvent = Parameters<Sink['onRecords']>[0][number];
 /** The one collection we index for search. */
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
 
+/** How long the settings PATCH (which also arms/creates the index) may run
+ *  before we abort it. This request fires on the ensureInit arming path. On the
+ *  cron handler that path now runs INSIDE the ingest hard-timeout race, ahead of
+ *  ingest, so the bound is what makes arming self-terminate within the shared
+ *  budget instead of consuming it: without it, a *stalling* (not erroring) Meili
+ *  endpoint would eat the whole race budget and starve the ingest it runs ahead
+ *  of. The same bound also covers the user-facing xrpc arming path, which is NOT
+ *  inside any race and would otherwise hang the request unboundedly. A short
+ *  bound degrades either case to "sink disabled this cycle" (caught by
+ *  ensureInit's try/catch), retried next tick.
+ *  Upsert/remove are NOT bounded here — they pass no AbortSignal. They run under
+ *  the cron race (via contrail.ingest) but ALSO outside it: MeiliEventIndex.upsert
+ *  is reached from the geocode drip (runGeocodeDrip, after the race) and from
+ *  xrpc notify re-ingests (no race at all), so a stalling Meili can still hang
+ *  those write paths. Pre-existing exposure, tracked separately. */
+const SETTINGS_TIMEOUT_MS = 8_000;
+
 export interface MeiliSinkBackend {
 	url: string;
 	apiKey: string;
@@ -82,21 +99,28 @@ export class MeiliEventIndex {
 
 	/** PATCHing settings auto-creates the index, so this doubles as ensure-index.
 	 *  _geo in filterable enables _geoRadius/_geoBoundingBox; in sortable, _geoPoint.
-	 *  Must mirror the filters ./meili.ts issues (startsAt/endsAt range, _geo). */
-	async applySettings(): Promise<void> {
-		await this.request('PATCH', `/indexes/${this.indexUid}/settings`, {
-			searchableAttributes: ['name', 'description'],
-			filterableAttributes: [
-				'_geo',
-				'startsAt',
-				'endsAt',
-				'status',
-				'mode',
-				'did',
-				'locationTypes'
-			],
-			sortableAttributes: ['_geo', 'startsAt', 'endsAt']
-		});
+	 *  Must mirror the filters ./meili.ts issues (startsAt/endsAt range, _geo).
+	 *  Bounded by an AbortSignal so a stalling Meili endpoint can't hang the
+	 *  arming path (see SETTINGS_TIMEOUT_MS). */
+	async applySettings(timeoutMs: number = SETTINGS_TIMEOUT_MS): Promise<void> {
+		await this.request(
+			'PATCH',
+			`/indexes/${this.indexUid}/settings`,
+			{
+				searchableAttributes: ['name', 'description'],
+				filterableAttributes: [
+					'_geo',
+					'startsAt',
+					'endsAt',
+					'status',
+					'mode',
+					'did',
+					'locationTypes'
+				],
+				sortableAttributes: ['_geo', 'startsAt', 'endsAt']
+			},
+			AbortSignal.timeout(timeoutMs)
+		);
 	}
 
 	async upsert(docs: SearchDoc[]): Promise<void> {
@@ -109,7 +133,12 @@ export class MeiliEventIndex {
 		await this.request('POST', `/indexes/${this.indexUid}/documents/delete-batch`, ids);
 	}
 
-	private async request(method: string, path: string, body: unknown): Promise<void> {
+	private async request(
+		method: string,
+		path: string,
+		body: unknown,
+		signal?: AbortSignal
+	): Promise<void> {
 		// Call fetch detached, not as `this.fetch(...)`: on workerd the global
 		// fetch throws "Illegal invocation" when invoked with `this` bound to a
 		// non-global object (which method-call syntax would do). A bare call
@@ -122,7 +151,8 @@ export class MeiliEventIndex {
 				authorization: `Bearer ${this.apiKey}`,
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal
 		});
 		if (!res.ok) {
 			// No body/key echoed — it can end up in logs or error pages.
@@ -133,12 +163,16 @@ export class MeiliEventIndex {
 
 /** PATCH the index settings (and auto-create the index) for a backend. Call
  *  once per worker before the sink starts upserting so the read path's filters
- *  resolve. */
+ *  resolve. Bounded by SETTINGS_TIMEOUT_MS (override for tests) so a stalling
+ *  Meili endpoint can't hang the caller — on cron the arming path runs inside the
+ *  ingest race and must self-terminate within that shared budget; on xrpc it runs
+ *  outside any race, where this bound is the only backstop. */
 export async function applyMeiliSettings(
 	backend: MeiliSinkBackend,
-	fetchFn?: typeof fetch
+	fetchFn?: typeof fetch,
+	timeoutMs: number = SETTINGS_TIMEOUT_MS
 ): Promise<void> {
-	await new MeiliEventIndex(backend, fetchFn).applySettings();
+	await new MeiliEventIndex(backend, fetchFn).applySettings(timeoutMs);
 }
 
 /** Best-effort fill of doc._geo from the geocode_cache. Read-only; a missing

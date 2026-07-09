@@ -25,7 +25,6 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick
 	// (which previously also took the bot down with it).
 	try {
-		await ensureInit(db);
 		// Two deliberately-split budgets. contrail saves the jetstream cursor LAST in
 		// runIngestCycle — after the drain, applyEvents, and the per-DID
 		// refreshStaleIdentities network tail. If this handler aborts before that
@@ -40,16 +39,29 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		//           normal cycle, and under the cron interval so ticks don't overlap.
 		//           Scheduled invocations get ~15min wall-clock and this is I/O-bound,
 		//           so the tail has ample room.
+		// The HARD budget covers ARMING too: ensureInit runs INSIDE the race, ahead
+		// of ingest (the sink must be armed before ingest upserts — see the ordering
+		// rationale in $lib/contrail/index.ts). ensureInit's own settings fetch is
+		// separately time-bounded, but that bound would be ADDITIVE to HARD if arming
+		// were awaited before the race — a stalling search endpoint could then push a
+		// tick past the cron interval and overlap the next one. Racing arming +
+		// ingest together bounds the RACED SECTION by HARD, so a stalling search
+		// endpoint can no longer push that section past the interval. (The whole
+		// tick also spans the un-raced stages below — bot/notify/drip — so this
+		// bounds the search-endpoint hazard, not the tick's total duration.)
 		const DRAIN_TIMEOUT_MS = 20_000;
 		const HARD_TIMEOUT_MS = 55_000;
 		await Promise.race([
-			contrail.ingest({ timeoutMs: DRAIN_TIMEOUT_MS }, db),
+			(async () => {
+				await ensureInit(db, platform!.env);
+				await contrail.ingest({ timeoutMs: DRAIN_TIMEOUT_MS }, db);
+			})(),
 			new Promise((_, reject) =>
 				setTimeout(() => reject(new Error('ingest hard timeout')), HARD_TIMEOUT_MS)
 			)
 		]);
 	} catch (e) {
-		console.error('[cron] contrail.ingest failed:', e);
+		console.error('[cron] ingest cycle failed:', e);
 	}
 
 	// atmo.pub notifications: event reminders + host RSVP alerts. Runs after
