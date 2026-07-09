@@ -28,13 +28,20 @@ type RecordEvent = Parameters<Sink['onRecords']>[0][number];
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
 
 /** How long the settings PATCH (which also arms/creates the index) may run
- *  before we abort it. This request fires on the ensureInit arming path — and
- *  for the cron handler that runs BEFORE the ingest hard-timeout race, so an
- *  unbounded fetch to a *stalling* (not erroring) Meili endpoint would hang the
- *  whole tick past the 55s backstop and starve notify/drip. A short bound
- *  degrades that to "sink disabled this cycle" (caught by ensureInit's
- *  try/catch), retried next tick. Upsert/remove stay unbounded here: they only
- *  run inside contrail.ingest, already under the cron race. */
+ *  before we abort it. This request fires on the ensureInit arming path. On the
+ *  cron handler that path now runs INSIDE the ingest hard-timeout race, ahead of
+ *  ingest, so the bound is what makes arming self-terminate within the shared
+ *  budget instead of consuming it: without it, a *stalling* (not erroring) Meili
+ *  endpoint would eat the whole race budget and starve the ingest it runs ahead
+ *  of. The same bound also covers the user-facing xrpc arming path, which is NOT
+ *  inside any race and would otherwise hang the request unboundedly. A short
+ *  bound degrades either case to "sink disabled this cycle" (caught by
+ *  ensureInit's try/catch), retried next tick.
+ *  Upsert/remove are NOT bounded here — they pass no AbortSignal. They run under
+ *  the cron race (via contrail.ingest) but ALSO outside it: MeiliEventIndex.upsert
+ *  is reached from the geocode drip (runGeocodeDrip, after the race) and from
+ *  xrpc notify re-ingests (no race at all), so a stalling Meili can still hang
+ *  those write paths. Pre-existing exposure, tracked separately. */
 const SETTINGS_TIMEOUT_MS = 8_000;
 
 export interface MeiliSinkBackend {
@@ -157,8 +164,9 @@ export class MeiliEventIndex {
 /** PATCH the index settings (and auto-create the index) for a backend. Call
  *  once per worker before the sink starts upserting so the read path's filters
  *  resolve. Bounded by SETTINGS_TIMEOUT_MS (override for tests) so a stalling
- *  Meili endpoint can't hang the caller — the arming path runs outside the cron
- *  ingest race. */
+ *  Meili endpoint can't hang the caller — on cron the arming path runs inside the
+ *  ingest race and must self-terminate within that shared budget; on xrpc it runs
+ *  outside any race, where this bound is the only backstop. */
 export async function applyMeiliSettings(
 	backend: MeiliSinkBackend,
 	fetchFn?: typeof fetch,

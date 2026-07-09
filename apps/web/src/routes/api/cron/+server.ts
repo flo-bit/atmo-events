@@ -45,7 +45,10 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		// separately time-bounded, but that bound would be ADDITIVE to HARD if arming
 		// were awaited before the race — a stalling search endpoint could then push a
 		// tick past the cron interval and overlap the next one. Racing arming +
-		// ingest together keeps the whole tick under HARD, and thus under the interval.
+		// ingest together bounds the RACED SECTION by HARD, so a stalling search
+		// endpoint can no longer push that section past the interval. (The whole
+		// tick also spans the un-raced stages below — bot/notify/drip — so this
+		// bounds the search-endpoint hazard, not the tick's total duration.)
 		const DRAIN_TIMEOUT_MS = 20_000;
 		const HARD_TIMEOUT_MS = 55_000;
 		await Promise.race([
