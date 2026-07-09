@@ -1,34 +1,31 @@
 import * as v from 'valibot';
+import type { Client } from '@atcute/client';
+import type { ActorIdentifier } from '@atcute/lexicons';
+import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { getServerClient } from './index';
 import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
-	listDiscoverableEventsFromContrail,
-	listEventRecordsFromContrail
+	listDiscoverableEventsFromContrail
 } from '$lib/contrail';
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
-import { parseCursor, tagCursor } from './cursor';
-import type { ActorIdentifier } from '@atcute/lexicons';
+import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
+import { orQueryFromSlug } from '$lib/topics';
+import { decodeCursor, nextCursor, type CursorArgs, type CursorEnvelope, type CursorQuery } from './cursor';
 
+const PAGE_SIZE = 20;
+
+// The load-more remote input. The continuation cursor is now a self-describing
+// ENVELOPE carrying the server-side query name + public-safe args, so the client
+// no longer echoes a query-reconstruction bag of pipeline/filters. Only two
+// fields are read: `cursor` (the envelope) and `q` (the search TERM, which stays
+// OUT of the envelope and rides ?q=/input — see the search resumers). A legacy
+// client may still POST extra query params; `v.object` drops them, so they are
+// accepted WITHOUT being trusted.
 export const listEventsInput = v.object({
-	actor: v.optional(v.string()),
-	search: v.optional(v.string()),
-	startsAtMin: v.optional(v.string()),
-	startsAtMax: v.optional(v.string()),
-	endsAtMin: v.optional(v.string()),
-	endsAtMax: v.optional(v.string()),
-	rsvpsCountMin: v.optional(v.number()),
-	rsvpsGoingCountMin: v.optional(v.number()),
-	profiles: v.optional(v.boolean()),
-	sort: v.optional(v.string()),
-	order: v.optional(v.picklist(['asc', 'desc'])),
-	limit: v.optional(v.number()),
 	cursor: v.optional(v.string()),
-	// Which page-1 read pipeline this list came from. load-more MUST re-run the
-	// same pipeline or it drifts: 'discoverable' (home) drops the unlisted-event
-	// filter, 'authored' (profile hosting/past) drops the conference-talk filter,
-	// and either leaks records page 1 excluded. Absent => plain listRecords.
-	pipeline: v.optional(v.picklist(['discoverable', 'authored']))
+	/** Free-text search term for the search page; ignored for every other query. */
+	q: v.optional(v.string())
 });
 
 export type LoadMoreEventsInput = v.InferOutput<typeof listEventsInput>;
@@ -39,89 +36,163 @@ export type LoadMoreEventsResult = {
 	cursor: string | null;
 };
 
+const EMPTY: LoadMoreEventsResult = { events: [], handles: {}, cursor: null };
+
+function now(): string {
+	return new Date().toISOString();
+}
+
+/**
+ * Shape a contrail list response into a load-more result, re-encoding the next
+ * page's cursor as a same-query envelope (identical `q`/`args`, the fresh raw
+ * keyset) so continuations stay on the same server-authoritative query.
+ */
+function toResult(
+	q: CursorQuery,
+	args: CursorArgs | undefined,
+	response: Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>
+): LoadMoreEventsResult {
+	if (!response) return EMPTY;
+	const events = flattenEventRecords(response.records ?? []);
+	const handles: Record<string, string> = {};
+	for (const p of response.profiles ?? []) {
+		if (p.handle) handles[p.did] = p.handle;
+	}
+	return { events, handles, cursor: nextCursor(q, response.cursor ?? null, args) };
+}
+
+/**
+ * A resumer re-runs the page-1 query named by the envelope, from the envelope's
+ * opaque `raw` keyset, with SERVER-AUTHORITATIVE filter values. It receives the
+ * decoded envelope (never the raw client bag) plus the free-text search term
+ * (search queries only). Missing/malformed required args => end cleanly (EMPTY);
+ * never throw, never fall through to another query.
+ */
+type Resumer = (
+	env: App.Platform['env'],
+	client: Client,
+	envelope: CursorEnvelope,
+	searchTerm: string | undefined
+) => Promise<LoadMoreEventsResult>;
+
+// The backend->resumer REGISTRY, keyed by the envelope's query name. Adding a
+// paginated query is REGISTERING an entry here, not editing a conditional; every
+// filter VALUE is server-authoritative and lives in the entry. The plain,
+// unlisted-inclusive listRecords pipeline deliberately has NO entry, so no
+// decoded envelope can reach it. (See README → "Load-more pagination".)
+const REGISTRY: Record<CursorQuery, Resumer> = {
+	events: async (_env, client, { args, raw }) => {
+		const response = await listDiscoverableEventsFromContrail(client, {
+			startsAtMin: now(),
+			profiles: true,
+			sort: 'startsAt',
+			order: 'asc',
+			limit: PAGE_SIZE,
+			...(args?.popular ? { rsvpsCountMin: 2 } : {}),
+			cursor: raw
+		});
+		return toResult('events', args, response);
+	},
+
+	hosting: async (_env, client, { args, raw }) => {
+		if (!args?.actor || !isActorIdentifier(args.actor)) return EMPTY;
+		const response = await listAuthoredEventsFromContrail(client, {
+			actor: args.actor as ActorIdentifier,
+			startsAtMin: now(),
+			sort: 'startsAt',
+			order: 'asc',
+			profiles: true,
+			limit: PAGE_SIZE,
+			cursor: raw
+		});
+		return toResult('hosting', args, response);
+	},
+
+	'past-events': async (_env, client, { args, raw }) => {
+		if (!args?.actor || !isActorIdentifier(args.actor)) return EMPTY;
+		const response = await listAuthoredEventsFromContrail(client, {
+			actor: args.actor as ActorIdentifier,
+			startsAtMax: now(),
+			sort: 'startsAt',
+			order: 'desc',
+			profiles: true,
+			limit: PAGE_SIZE,
+			cursor: raw
+		});
+		return toResult('past-events', args, response);
+	},
+
+	topic: async (_env, client, { args, raw }) => {
+		// Re-derive the search from the slug SERVER-side (shared helper), never from
+		// a client-supplied query. Unknown slug => end cleanly.
+		const search = args?.slug ? orQueryFromSlug(args.slug) : null;
+		if (!search) return EMPTY;
+		const response = await listDiscoverableEventsFromContrail(client, {
+			search,
+			startsAtMin: now(),
+			sort: 'startsAt',
+			order: 'asc',
+			profiles: true,
+			limit: PAGE_SIZE,
+			cursor: raw
+		});
+		return toResult('topic', args, response);
+	},
+
+	'search-d1': async (_env, client, { args, raw }, searchTerm) => {
+		const q = searchTerm?.trim();
+		if (!q) return EMPTY; // search term lost from the continuation => end cleanly
+		const response = await listDiscoverableEventsFromContrail(client, {
+			search: q,
+			startsAtMin: now(),
+			sort: 'startsAt',
+			order: 'desc',
+			profiles: true,
+			limit: SEARCH_PAGE_SIZE,
+			cursor: raw
+		});
+		return toResult('search-d1', args, response);
+	},
+
+	'search-meili': async (env, client, { args, raw }, searchTerm) => {
+		const q = searchTerm?.trim();
+		const backend = q ? searchBackendFromEnv(env) : null;
+		// Missing search term OR unconfigured backend => end cleanly rather than
+		// restart page 1 on the wrong backend.
+		if (!q || !backend) return EMPTY;
+		const page = await runEventSearchPage(backend, client, { q, cursor: raw });
+		return {
+			events: page.events,
+			handles: page.handles,
+			cursor: nextCursor('search-meili', page.cursor, args)
+		};
+	}
+};
+
 /**
  * Shared load-more handler. Kept out of the `.remote.ts` adapter so it is a
  * plain function the SvelteKit remote-functions plugin won't wrap — that lets it
  * be unit-tested directly (the plugin rejects non-remote exports from
  * `*.remote.ts`, so a test there can't mock `$app/server`).
+ *
+ * Decode the envelope, look up its resumer, resume with server-authoritative
+ * filters, re-encode the next envelope — no per-backend if/else. An undecodable
+ * or legacy cursor decodes to null and ends pagination cleanly, without
+ * reconstructing the query from client fields. See README →
+ * "Load-more pagination".
  */
 export async function runLoadMoreEvents(
 	env: App.Platform['env'],
 	input: LoadMoreEventsInput
 ): Promise<LoadMoreEventsResult> {
+	const envelope = decodeCursor(input.cursor);
+	if (!envelope) return EMPTY;
+
+	const resumer = REGISTRY[envelope.q];
+	// decodeCursor already rejects an unknown `q`; this is belt-and-suspenders so
+	// the dispatch can never fall through to a default/plain pipeline.
+	if (!resumer) return EMPTY;
+
 	const client = getServerClient(env.DB);
-
-	// Route by the cursor's own tag, not by re-deriving the backend from request
-	// shape. The page that issued this cursor already committed to a backend;
-	// load-more MUST continue on that same one or first-load and load-more diverge
-	// and hand over an incompatible cursor (om-7dbs).
-	const { backend: cursorBackend, raw: cursorRaw } = parseCursor(input.cursor);
-
-	// Only resolve the Meili backend when a search term is present (matches the
-	// search page's first-page path); avoids touching it for plain D1 loads.
-	const searchTerm = input.search?.trim();
-	const searchBackend = searchTerm ? searchBackendFromEnv(env) : null;
-
-	// Meili path when: the cursor is explicitly meili-tagged, OR it's an untagged
-	// legacy cursor (in-flight from before this deploy) and the old inference
-	// ("search set AND Meili configured") would have chosen Meili. A d1-tagged
-	// cursor is NEVER routed here, even with a search term + configured backend —
-	// that is exactly the divergence the tag exists to prevent.
-	const routeMeili =
-		cursorBackend === 'meili' || (cursorBackend === null && !!searchBackend && !!searchTerm);
-	if (routeMeili) {
-		if (!searchBackend || !searchTerm) {
-			// A meili-tagged cursor arrived but this context can't serve Meili (the
-			// backend is now unconfigured, or the search term was lost from the
-			// continuation). Feeding the offset to D1 listRecords would ignore it and
-			// drop filters, and re-inferring would restart page 1 on the wrong
-			// backend. Fail safe: end pagination cleanly. Errors otherwise propagate
-			// to EventList's catch so the user can retry with the cursor intact.
-			return { events: [], handles: {}, cursor: null };
-		}
-		const page = await runEventSearchPage(searchBackend, client, {
-			q: searchTerm,
-			// Pass the untagged offset; runEventSearchPage also strips a meili tag
-			// itself, so a legacy bare offset works here too.
-			cursor: cursorRaw
-		});
-		return { events: page.events, handles: page.handles, cursor: page.cursor };
-	}
-
-	// D1 path: an explicit d1 tag, or an untagged cursor with no Meili search
-	// context. Re-run the SAME page-1 pipeline so load-more inherits its filters.
-	// `pipeline` is our selector, not an xrpc param, so strip it. `cursor` is
-	// overwritten below with the untagged keyset (the inbound one carries the tag).
-	const { pipeline, ...rest } = input;
-	const params = {
-		...rest,
-		actor: rest.actor as ActorIdentifier | undefined,
-		cursor: cursorRaw ?? undefined
-	};
-
-	const response =
-		pipeline === 'discoverable'
-			? await listDiscoverableEventsFromContrail(client, params)
-			: pipeline === 'authored'
-				? await listAuthoredEventsFromContrail(client, params)
-				: await listEventRecordsFromContrail(client, params);
-
-	if (!response) {
-		return { events: [], handles: {}, cursor: null };
-	}
-
-	const events = flattenEventRecords(response.records ?? []);
-
-	const handles: Record<string, string> = {};
-	for (const p of response.profiles ?? []) {
-		if (p.handle) handles[p.did] = p.handle;
-	}
-
-	return {
-		events,
-		handles,
-		// Tag the keyset with the D1 backend so the next load-more stays on D1 and
-		// can't be re-inferred onto Meili (om-7dbs).
-		cursor: tagCursor('d1', response.cursor ?? null)
-	};
+	return resumer(env, client, envelope, input.q);
 }

@@ -8,18 +8,6 @@
 
 	let filter = $derived(page.url.searchParams.get('filter') === 'all' ? 'all' : 'popular');
 
-	let fetchParams = $derived({
-		// load-more must re-run the discoverable pipeline + popular filter page 1
-		// used, or unlisted / non-popular events leak onto later pages.
-		pipeline: 'discoverable',
-		startsAtMin: new Date().toISOString(),
-		profiles: 'true',
-		sort: 'startsAt',
-		order: 'asc',
-		limit: '20',
-		...(filter === 'popular' ? { rsvpsCountMin: '2' } : {})
-	});
-
 	function setFilter(val: string) {
 		const url = new URL(page.url);
 		if (val === 'all') url.searchParams.set('filter', 'all');
@@ -67,6 +55,6 @@
 			{/if}
 		</p>
 	{:else}
-		<EventList events={data.events} cursor={data.cursor} handles={data.handles} {fetchParams} />
+		<EventList events={data.events} cursor={data.cursor} handles={data.handles} />
 	{/if}
 </div>
