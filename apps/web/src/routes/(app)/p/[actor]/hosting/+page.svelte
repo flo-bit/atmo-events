@@ -10,18 +10,6 @@
 	let hostAvatar = $derived(
 		hostProfile?.value?.avatar ? getProfileBlobUrl(hostDid, hostProfile.value.avatar) : undefined
 	);
-
-	let fetchParams: Record<string, string> = $derived({
-		// load-more must re-run the authored pipeline page 1 used, or conference
-		// talks (excluded by listAuthored) leak onto later pages.
-		pipeline: 'authored',
-		profiles: 'true',
-		sort: 'startsAt',
-		order: 'asc',
-		startsAtMin: new Date().toISOString(),
-		...(data.actor ? { actor: data.actor } : {}),
-		limit: '20'
-	});
 </script>
 
 <svelte:head>
@@ -55,7 +43,6 @@
 				events={data.events ?? []}
 				cursor={data.cursor ?? null}
 				actor={data.actor}
-				{fetchParams}
 				gridClass="space-y-3"
 			/>
 		{:else}

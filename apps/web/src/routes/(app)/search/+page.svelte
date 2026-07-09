@@ -57,13 +57,7 @@
 				events={data.events}
 				cursor={data.cursor}
 				handles={data.handles}
-				fetchParams={{
-					search: data.query,
-					profiles: 'true',
-					sort: 'startsAt',
-					order: 'desc',
-					limit: '20'
-				}}
+				q={data.query}
 			/>
 		{/if}
 	{/if}

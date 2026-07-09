@@ -2,18 +2,6 @@
 	import EventList from '$lib/components/EventList.svelte';
 
 	let { data } = $props();
-
-	// Query is built server-side and passed through `data` so the two stay in
-	// sync. Mirrors the search page. The topic page is first-batch-only
-	// (data.cursor is null), so these params are only a contract for EventList,
-	// not an active pagination path.
-	let fetchParams = $derived({
-		search: data.query,
-		profiles: 'true',
-		sort: 'startsAt',
-		order: 'asc',
-		limit: '20'
-	});
 </script>
 
 <svelte:head>
@@ -62,11 +50,6 @@
 			</p>
 		</div>
 	{:else}
-		<EventList
-			events={data.events}
-			cursor={data.cursor}
-			handles={data.handles}
-			{fetchParams}
-		/>
+		<EventList events={data.events} cursor={data.cursor} handles={data.handles} />
 	{/if}
 </div>
