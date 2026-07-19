@@ -28,6 +28,14 @@ export type {
 	EditorViewer
 } from './editor/adapter.js';
 
+// Atmosphere Tickets (ATM) — event page tickets section
+export { formatTicketPrice } from './event-view/tickets.js';
+export type {
+	EventTicketingView,
+	TicketTierView,
+	ViewerTicketView
+} from './event-view/tickets.js';
+
 // Editor inputs
 export type { EventEditorPrefill } from './editor/types.js';
 

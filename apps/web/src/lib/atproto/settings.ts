@@ -29,7 +29,13 @@ export const scopes = [
 	// com.atproto.server.getServiceAuth) to ask for/revoke notification consent.
 	// `send` itself needs no user scope (it's signed with our app key).
 	'rpc?lxm=pub.atmo.notify.requestPermission&aud=*',
-	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*'
+	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*',
+	// Atmosphere Money (ATM) tickets: lets us mint short-lived buyer assertions
+	// (again via com.atproto.server.getServiceAuth) proving the signed-in buyer
+	// was present for a paid ticket checkout / free-ticket claim. Availability
+	// reads and hold creation are signed with the app account (no user scope).
+	'rpc?lxm=money.atmosphere.payment.assertPayer&aud=*',
+	'rpc?lxm=tickets.atmosphere.claimFreeTicket&aud=*'
 ];
 
 // set to false to disable signup
