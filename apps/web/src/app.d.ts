@@ -78,6 +78,26 @@ declare global {
 				BOT_APP_PASSWORD?: string;
 				/** PDS the bot authenticates against; defaults to bsky.social. */
 				BOT_PDS_URL?: string;
+				/** Atmosphere Money (ATM) ticketing — opt-in; every ATM surface
+				 *  no-ops while ATM_APP_IDENTIFIER/ATM_APP_PASSWORD are unset.
+				 *  Handle or DID of the app account registered with ATM. */
+				ATM_APP_IDENTIFIER?: string;
+				/** App password for the ATM app account (set via `wrangler secret put`). */
+				ATM_APP_PASSWORD?: string;
+				/** PDS the ATM app account authenticates against; defaults to bsky.social. */
+				ATM_APP_PDS_URL?: string;
+				/** Optional sanity pin: the DID registered with ATM. When set and the
+				 *  app-account session resolves to a different DID, ATM is disabled. */
+				ATM_APP_DID?: string;
+				/** ATM environment (`test` | `live`); defaults to `test`. */
+				ATM_ENVIRONMENT?: string;
+				/** ATM webhook signing secret (set via `wrangler secret put`). When
+				 *  unset, the /api/atm-webhook receiver answers NotConfigured. */
+				ATM_WEBHOOK_SECRET?: string;
+				/** ATM broker base URL; defaults to https://checkout.atmosphere.money. */
+				ATM_BROKER_URL?: string;
+				/** ATM AppView base URL; defaults to https://appview.atmosphere.money. */
+				ATM_APPVIEW_URL?: string;
 				/** P-256 private key (multikey) used to sign atmo.pub app tokens and
 				 *  publish the `did:web` DID document. Set via `wrangler secret put`.
 				 *  When unset, notifications are disabled (the feature no-ops). */
