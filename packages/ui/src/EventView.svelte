@@ -28,6 +28,8 @@
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
+	import TicketsSection from './event-view/TicketsSection.svelte';
+	import type { EventTicketingView } from './event-view/tickets.js';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
 	let {
@@ -36,7 +38,8 @@
 		viewer,
 		pageUrl,
 		embedMode = false,
-		shareUrlOverride
+		shareUrlOverride,
+		onBuyTickets
 	}: {
 		data: any;
 		adapter: EditorAdapter;
@@ -48,6 +51,10 @@
 		 *  of the canonical atmo.rsvp event URL. Useful for embedders that want
 		 *  share links to point at their own event page. */
 		shareUrlOverride?: string;
+		/** Atmosphere Tickets purchase entry point. The tickets section renders
+		 *  only when the server load put `atmTickets` on `data` (ATM configured
+		 *  and the host set up ticket tiers for this event). */
+		onBuyTickets?: (input: { tierId: string; quantity: number }) => Promise<void>;
 	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
@@ -171,6 +178,10 @@
 	let rsvpExternalOnly = $derived(
 		externalSource?.rsvpMode === 'external_only' && !!externalSource?.url
 	);
+
+	// Atmosphere Tickets: present only when the page's server load resolved
+	// ticket tiers for this event (ATM configured + host set up ticketing).
+	let atmTickets: EventTicketingView | null = $derived(data.atmTickets ?? null);
 
 	let vodCurrentTime = $state(0);
 	let vodApi: VodPlayerApi | undefined = $state();
@@ -313,6 +324,14 @@
 				{/if}
 
 				{#if !isPast}
+					{#if atmTickets && atmTickets.tiers.length > 0}
+						<TicketsSection
+							ticketing={atmTickets}
+							loggedIn={viewer.isLoggedIn}
+							onbuy={onBuyTickets}
+							onlogin={() => adapter.requestLogin()}
+						/>
+					{/if}
 					{#if rsvpExternalOnly && externalSource?.url}
 						<ExternalRsvpNotice url={externalSource.url} />
 					{:else}

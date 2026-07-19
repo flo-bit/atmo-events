@@ -17,6 +17,7 @@ import {
 } from '$lib/contrail';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '$lib/vods';
+import { loadEventTicketing } from '$lib/atm/tickets-data';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/events-ui/conference';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
@@ -98,6 +99,18 @@ export async function load({ params, locals, url, platform }) {
 	// Canonical DID from the resolved record — use this (not params.actor, which
 	// may be a handle) for all downstream lookups that need a DID.
 	const did = eventData.did;
+
+	// Atmosphere Tickets (opt-in): tier availability + the signed-in viewer's
+	// own tickets for this event. Resolves to null — and the page renders no
+	// tickets section — unless the ATM_* vars are set AND the host configured
+	// ticket tiers for this event's AT-URI. Best-effort and started early so it
+	// overlaps the hydration fan-out below; it never throws.
+	const atmTicketsPromise = loadEventTicketing(
+		platform!.env,
+		eventUri,
+		locals.did,
+		url.searchParams.get('tickets') === 'success'
+	);
 
 	// A conference is just an event with type=conference; its talks are events
 	// pointing back at it via additionalData.parentEvent.
@@ -240,6 +253,7 @@ export async function load({ params, locals, url, platform }) {
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,
 		conferenceVods,
+		atmTickets: await atmTicketsPromise,
 		loggedIn: !!locals.did,
 		speakerProfiles: speakerProfiles as Array<{
 			id?: string;
