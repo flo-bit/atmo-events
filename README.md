@@ -87,6 +87,58 @@ Every paginated list — the home events feed, a profile's hosting and past even
 
 **The pieces.** `cursor.ts` handles envelope encode/decode and backend tagging. `events-load-more.ts` holds the resumer registry and the shared load-more handler. Each route's `+page.server.ts` mints the page-1 envelope from its own filters, and `EventList.svelte` echoes the token on "load more". Adding a query or backend means registering a resumer, not editing a branch.
 
+## ATM ticketing (experimental)
+
+Opt-in integration with [Atmosphere Money](https://atmosphere.money) (ATM), the payments/ticketing layer for the Atmosphere: organizers can sell paid tickets (and offer capacity-limited free tickets) for their `community.lexicon.calendar.event` records, right on the event page. atmo-events never touches card data or holds payment secrets — it asks ATM for a ticket _hold_, redirects the buyer to ATM-hosted checkout, and ATM issues the tickets, sends the ticket emails, and hosts the QR pass pages.
+
+**Invisible when unconfigured.** Every surface below is guarded on the `ATM_*` vars: with none of them set, event pages render exactly as before, the buy flow answers "not configured", and `/api/atm-webhook` 404s. You can ignore this section entirely.
+
+what a configured deployment gets:
+
+- a **Tickets** section on event pages that have ATM ticket tiers (name, price, availability, sold-out state), with quantity selection and a "Get tickets" button → ATM-hosted checkout → back to the event page
+- free-tier claims (ATM's zero-price path — issued instantly, no checkout)
+- a **Your tickets** block for signed-in buyers (ticket number, tier, status, link to the ATM pass page with the QR code)
+- a signed, deduped webhook receiver at `/api/atm-webhook` (delivery dedupe lives in a self-creating D1 table, like the notify tables)
+
+### worker configuration
+
+The app authenticates to ATM as its own AT-Protocol account (an "app DID") using an app password; per-call service-auth tokens are minted through that account's PDS. Use a dedicated account (like the `going.atmo.rsvp` bot), not your personal one.
+
+```
+# required — the integration is off without these two
+wrangler secret put ATM_APP_PASSWORD      # app password for the app account
+# vars (wrangler.jsonc "vars" or dashboard):
+#   ATM_APP_IDENTIFIER                    # handle or DID of the app account
+#   ATM_ENVIRONMENT                       # "test" (default) or "live"
+
+# recommended
+wrangler secret put ATM_WEBHOOK_SECRET    # from ATM's app dashboard; enables /api/atm-webhook
+#   ATM_APP_DID                           # sanity pin: DID registered with ATM; a
+#                                         # mismatched session disables ATM instead
+#                                         # of failing every call
+
+# optional overrides (default to ATM production)
+#   ATM_APP_PDS_URL                       # PDS of the app account, default bsky.social
+#   ATM_BROKER_URL                        # default https://checkout.atmosphere.money
+#   ATM_APPVIEW_URL                       # default https://appview.atmosphere.money
+```
+
+### ATM-side setup
+
+ATM app sign-ups are currently allowlisted, so this starts with a conversation with the ATM team:
+
+1. get the app DID added to ATM's app-registration allowlist
+2. sign in to ATM with that DID and register at `atmosphere.money/app/register` with the **payments + tickets** modules, staying in the **test** environment (test traffic rides ATM's shared Stripe sandbox — no real charges)
+3. in ATM's app settings, set the webhook URL to `https://<your-deployment>/api/atm-webhook` and copy the signing secret into `ATM_WEBHOOK_SECRET` (ATM queues deliveries as `config_needed` until a URL is set, then redrives)
+4. organizers connect payouts on ATM (each organizer approves the app + finishes Stripe onboarding there) and create ticket tiers in ATM's dashboard **bound to the event's AT-URI** (`at://<did>/community.lexicon.calendar.event/<rkey>`) — atmo-events has no organizer ticketing UI yet, so tier setup is a handoff to ATM
+5. once a live review passes on ATM's side, flip `ATM_ENVIRONMENT` to `live` with the live webhook secret
+
+### buyer flow
+
+signed-in buyer → picks a tier/quantity on the event page → the server mints a short-lived buyer assertion via the buyer's own PDS (`com.atproto.server.getServiceAuth`; the two `rpc?lxm=…` scopes in `atproto/settings.ts` cover it — sessions created before those scopes existed need a re-login to buy) → the server calls ATM `createTicketHold` (capacity reserved before payment) → redirect to ATM checkout → ATM settles, issues tickets, emails the buyer, and webhooks us → buyer lands back on the event page (`?tickets=success`) where "Your tickets" shows the pass link. Free tiers skip checkout via `claimFreeTicket` and issue immediately.
+
+RSVPs are unchanged — ticketed events still take atmo RSVPs; tickets render above the RSVP box.
+
 ## contributing
 
 open for contributions by all :)
