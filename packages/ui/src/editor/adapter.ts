@@ -32,7 +32,7 @@ export type EditorAdapter = {
 		collection: string;
 		rkey: string;
 		record: Record<string, unknown>;
-	}): Promise<{ uri: string }>;
+	}): Promise<{ uri: string; cid?: string }>;
 	createRecord(opts: {
 		collection: string;
 		rkey?: string;
@@ -61,11 +61,7 @@ export type EditorAdapter = {
 		rkey: string;
 		record: Record<string, unknown>;
 	}): Promise<{ ok: boolean }>;
-	deleteSpaceRecord?(opts: {
-		spaceUri: string;
-		collection: string;
-		rkey: string;
-	}): Promise<void>;
+	deleteSpaceRecord?(opts: { spaceUri: string; collection: string; rkey: string }): Promise<void>;
 	/** Mint an invite token for a private space. */
 	createSpaceInvite?(opts: {
 		spaceUri: string;

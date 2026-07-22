@@ -22,29 +22,41 @@ export {
 export type { ScheduleEvent, ParentEventRef } from './conference.js';
 
 // Adapter contract
-export type {
-	EditorAdapter,
-	EditorBlobRef,
-	EditorViewer
-} from './editor/adapter.js';
+export type { EditorAdapter, EditorBlobRef, EditorViewer } from './editor/adapter.js';
 
 // Atmosphere Tickets (ATM) — event page tickets section
 export { formatTicketPrice } from './event-view/tickets.js';
 export type {
 	EventTicketingView,
+	OrganizerTicketTermsView,
+	TicketOrderPreviewView,
 	TicketTierView,
 	ViewerTicketView
 } from './event-view/tickets.js';
+export {
+	bindTicketOrderPreview,
+	hasAcceptedOrganizerTicketTerms,
+	isTicketOrderPreviewCurrent,
+	normalizeTicketOfferCode,
+	ticketPurchasePriceSummary,
+	ticketPurchaseSelectionKey
+} from './event-view/ticket-purchase.js';
+export type {
+	AppliedTicketOrderPreview,
+	TicketPurchasePriceSummary,
+	TicketPurchaseSelection
+} from './event-view/ticket-purchase.js';
 
 // Editor inputs
-export type { EventEditorPrefill } from './editor/types.js';
+export type {
+	EventEditorPrefill,
+	EventTicketSetupLauncher,
+	EventTicketSetupRequest,
+	EventTicketSyncRequest
+} from './editor/types.js';
 
 // Domain types
-export type {
-	FlatEventRecord,
-	HostProfile,
-	AttendeeInfo
-} from './contrail.js';
+export type { FlatEventRecord, HostProfile, AttendeeInfo } from './contrail.js';
 export type {
 	EventData,
 	EventLexiconMain,
@@ -55,12 +67,7 @@ export type {
 export type { EventTheme } from './theme.js';
 
 // Theme values
-export {
-	defaultTheme,
-	themeBackgrounds,
-	randomAccentColor,
-	accentColors
-} from './theme.js';
+export { defaultTheme, themeBackgrounds, randomAccentColor, accentColors } from './theme.js';
 
 // Event helpers
 export { eventUrl, isEventOngoing, RSVP_GOING, RSVP_INTERESTED } from './contrail.js';

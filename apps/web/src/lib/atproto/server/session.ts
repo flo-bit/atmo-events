@@ -11,6 +11,7 @@ import {
 import { createOAuthClient } from './oauth';
 import { getSignedCookie } from './signed-cookie';
 import { scopes } from '../settings';
+import { createDevBuyerClient, isDevBuyerDid } from './dev-account';
 
 export type SessionLocals = {
 	session: OAuthSession | null;
@@ -32,6 +33,10 @@ export async function restoreSession(
 
 	if (!did) {
 		return { session: null, client: null, did: null };
+	}
+
+	if (isDevBuyerDid(did)) {
+		return { session: null, client: createDevBuyerClient(), did };
 	}
 
 	// If permissions changed since login, invalidate the session

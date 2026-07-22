@@ -35,7 +35,12 @@ export const scopes = [
 	// was present for a paid ticket checkout / free-ticket claim. Availability
 	// reads and hold creation are signed with the app account (no user scope).
 	'rpc?lxm=money.atmosphere.payment.assertPayer&aud=*',
-	'rpc?lxm=tickets.atmosphere.claimFreeTicket&aud=*'
+	'rpc?lxm=tickets.atmosphere.claimFreeTicket&aud=*',
+	// Organizer handoff: the first assertion proves presence for ATM app
+	// approval/KYC; the second binds this exact canonical event to its paused
+	// ticket shell. Both are minted server-side from the organizer session.
+	'rpc?lxm=money.atmosphere.app.assertRecipient&aud=*',
+	'rpc?lxm=tickets.atmosphere.createTicketEvent&aud=*'
 ];
 
 // set to false to disable signup

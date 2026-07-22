@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
 import {
 	putRecord,
 	createRecord,
@@ -9,11 +10,7 @@ import {
 } from '$lib/atproto/methods';
 import { notifyContrailOfUpdate } from '$lib/contrail';
 import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-import type {
-	EditorAdapter,
-	EditorBlobRef,
-	EditorViewer
-} from '@atmo-dev/events-ui';
+import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/events-ui';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };
 
@@ -34,7 +31,11 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			});
 			if (!response.ok) throw new Error('putRecord failed');
 			if (!viewer.did) throw new Error('Not logged in');
-			return { uri: `at://${viewer.did}/${collection}/${rkey}` };
+			const data = response.data as { uri?: string; cid?: string };
+			return {
+				uri: data.uri ?? `at://${viewer.did}/${collection}/${rkey}`,
+				...(data.cid ? { cid: data.cid } : {})
+			};
 		},
 		async createRecord({ collection, rkey, record }) {
 			const response = await createRecord({
@@ -55,9 +56,12 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 		async uploadBlob(blob) {
 			const result = await uploadBlob({ blob });
 			if (!result) throw new Error('uploadBlob failed');
-			const { aspectRatio: _ar, ...rest } = result as Record<string, unknown> & {
-				aspectRatio?: unknown;
+			const rest = {
+				...(result as Record<string, unknown> & {
+					aspectRatio?: unknown;
+				})
 			};
+			delete rest.aspectRatio;
 			return rest as unknown as EditorBlobRef;
 		},
 		async getRecord({ did, collection, rkey }) {
@@ -74,15 +78,24 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 		},
 		onSaved({ rkey, isNew, spaceKey }) {
 			const handle = handleOrDid(viewer);
-			const created = isNew ? '?created=true' : '';
 			if (spaceKey) {
-				goto(`/p/${handle}/e/${rkey}/s/${spaceKey}${created}`);
+				const params = { actor: handle, rkey, skey: spaceKey };
+				if (isNew) {
+					goto(resolve('/(app)/p/[actor]/e/[rkey]/s/[skey]?created=true', params));
+				} else {
+					goto(resolve('/(app)/p/[actor]/e/[rkey]/s/[skey]', params));
+				}
 			} else {
-				goto(`/p/${handle}/e/${rkey}${created}`);
+				const params = { actor: handle, rkey };
+				if (isNew) {
+					goto(resolve('/(app)/p/[actor]/e/[rkey]?created=true', params));
+				} else {
+					goto(resolve('/(app)/p/[actor]/e/[rkey]', params));
+				}
 			}
 		},
 		onDeleted() {
-			goto(`/p/${handleOrDid(viewer)}`);
+			goto(resolve('/(app)/p/[actor]', { actor: handleOrDid(viewer) }));
 		},
 		requestLogin() {
 			atProtoLoginModalState.show();
@@ -214,7 +227,7 @@ export function createBlentoAdapter(opts: {
 			} catch {
 				// Blento not present; swallow.
 			}
-		},
+		}
 		// no createPrivateEvent — privateMode disabled in features
 		// no onDeleted — delete is disabled in features
 	};

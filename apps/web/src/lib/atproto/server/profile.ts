@@ -1,7 +1,10 @@
 import type { Did } from '@atcute/lexicons';
 import { getProfileFromContrail, getProfileBlobUrl, getServerClient } from '$lib/contrail';
+import { DEV_BUYER_PROFILE, isDevBuyerDid } from './dev-account';
 
 export async function loadProfile(did: Did, db: D1Database) {
+	if (isDevBuyerDid(did)) return DEV_BUYER_PROFILE;
+
 	try {
 		const client = getServerClient(db);
 		const p = await getProfileFromContrail(client, did);

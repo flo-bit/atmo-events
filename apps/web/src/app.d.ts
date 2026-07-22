@@ -91,6 +91,10 @@ declare global {
 				ATM_APP_DID?: string;
 				/** ATM environment (`test` | `live`); defaults to `test`. */
 				ATM_ENVIRONMENT?: string;
+				/** Comma/whitespace-separated organizer DIDs allowed to start or finish
+				 *  Atmosphere Tickets setup. Unset/empty means organizer creation is off;
+				 *  buyer availability and checkout remain enabled. */
+				ATM_TICKET_ORGANIZER_DIDS?: string;
 				/** ATM webhook signing secret (set via `wrangler secret put`). When
 				 *  unset, the /api/atm-webhook receiver answers NotConfigured. */
 				ATM_WEBHOOK_SECRET?: string;

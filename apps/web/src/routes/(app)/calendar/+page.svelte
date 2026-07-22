@@ -56,7 +56,7 @@
 			</Button>
 		{/if}
 	</div>
-	<p class="text-base-700 dark:text-base-300 mb-8 mt-4 text-sm">
+	<p class="text-base-700 dark:text-base-300 mt-4 mb-8 text-sm">
 		Events you're hosting, attending or interested in
 	</p>
 
@@ -85,12 +85,10 @@
 		<div class="space-y-10">
 			{#if data.upcoming.length > 0}
 				<div>
-					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
-						Upcoming events
-					</h3>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">Upcoming events</h3>
 					<div class="grid gap-6 sm:grid-cols-2">
 						{#each data.upcoming as event (event.uri)}
-							<EventCard {event} />
+							<EventCard {event} ticketIconUrl={data.ticketBadges[event.uri]} />
 						{/each}
 					</div>
 				</div>
@@ -98,12 +96,10 @@
 
 			{#if data.past.length > 0}
 				<div>
-					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
-						Past events
-					</h3>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">Past events</h3>
 					<div class="grid gap-6 sm:grid-cols-2">
 						{#each data.past as event (event.uri)}
-							<EventCard {event} />
+							<EventCard {event} ticketIconUrl={data.ticketBadges[event.uri]} />
 						{/each}
 					</div>
 				</div>
@@ -112,12 +108,10 @@
 
 		<Modal bind:open={calendarModalOpen}>
 			<div class="min-w-0 space-y-4 overflow-hidden">
-				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">
-					Add to your calendar
-				</h2>
+				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Add to your calendar</h2>
 				<p class="text-base-600 dark:text-base-400 text-sm">
-					Subscribe to your events calendar using the URL below. Your calendar will stay in
-					sync automatically as you RSVP to new events.
+					Subscribe to your events calendar using the URL below. Your calendar will stay in sync
+					automatically as you RSVP to new events.
 				</p>
 
 				<button
@@ -144,9 +138,7 @@
 
 				<div class="space-y-3 pt-2">
 					<div>
-						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">
-							Apple Calendar
-						</h3>
+						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">Apple Calendar</h3>
 						<ol
 							class="text-base-600 dark:text-base-400 mt-1 list-inside list-decimal space-y-0.5 text-sm"
 						>
@@ -157,9 +149,7 @@
 					</div>
 
 					<div>
-						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">
-							Google Calendar
-						</h3>
+						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">Google Calendar</h3>
 						<ol
 							class="text-base-600 dark:text-base-400 mt-1 list-inside list-decimal space-y-0.5 text-sm"
 						>

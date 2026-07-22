@@ -19,7 +19,16 @@
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
-		"BOT_PDS_URL": "https://eurosky.social"
+		"BOT_PDS_URL": "https://eurosky.social",
+		// Atmosphere Tickets app identity. Password and webhook signing key remain
+		// Worker secrets; these public values make production deploys reproducible.
+		"ATM_APP_IDENTIFIER": "atmo.rsvp",
+		"ATM_APP_DID": "did:plc:b63bmauox6z5rbibwrhxrdnw",
+		"ATM_APP_PDS_URL": "https://stropharia.us-west.host.bsky.network",
+		"ATM_ENVIRONMENT": "live",
+		// Closed Atmosphere Tickets organizer rollout. Exact DIDs only; this does
+		// not restrict buyers from viewing or purchasing the pilot event.
+		"ATM_TICKET_ORGANIZER_DIDS": "did:plc:retm6aeqattyxp7bhmyyv7gk"
 	},
 	"d1_databases": [
 		{

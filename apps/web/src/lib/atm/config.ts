@@ -61,6 +61,37 @@ export function atmConfigured(env: Env): boolean {
 	return !!env.ATM_APP_IDENTIFIER && !!env.ATM_APP_PASSWORD;
 }
 
+const DID_PATTERN = /^did:[a-z0-9]+:[^\s,]+$/;
+
+function validRolloutDid(value: string): boolean {
+	return !value.includes('*') && DID_PATTERN.test(value);
+}
+
+/**
+ * Closed-rollout gate for organizer ticket creation. This is deliberately
+ * separate from `atmConfigured`: buyers must still be able to view and buy
+ * tickets for the pilot event even when their own DID is not on this list.
+ *
+ * The list accepts DIDs only (never handles) and fails closed when missing,
+ * blank, malformed, or configured with a wildcard.
+ */
+export function atmTicketOrganizerAllowed(env: Env, did: string | null | undefined): boolean {
+	if (!did || !validRolloutDid(did)) return false;
+	const raw = env.ATM_TICKET_ORGANIZER_DIDS?.trim();
+	if (!raw) return false;
+	const configured = raw.split(/[\s,]+/).map((entry) => entry.trim());
+	if (configured.some((entry) => !validRolloutDid(entry))) return false;
+	return configured.includes(did);
+}
+
+/** Organizer creation is available only when ATM itself and the DID gate are enabled. */
+export function atmOrganizerTicketCreationEnabled(
+	env: Env,
+	did: string | null | undefined
+): boolean {
+	return atmConfigured(env) && atmTicketOrganizerAllowed(env, did);
+}
+
 /** True when the deployment can verify inbound ATM webhooks. */
 export function atmWebhookConfigured(env: Env): boolean {
 	return !!env.ATM_WEBHOOK_SECRET;

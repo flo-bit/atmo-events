@@ -35,6 +35,36 @@ export interface EventEditorPrefill {
 	thumbnailFile?: File;
 }
 
+export interface EventTicketSetupRequest {
+	/** Canonical organizer-owned calendar record written before the handoff. */
+	eventUri: string;
+	/** CID returned by the organizer's PDS for that exact planned record. */
+	eventCid?: string;
+}
+
+export interface EventTicketSyncRequest {
+	/** Canonical organizer-owned calendar record that was just updated. */
+	eventUri: string;
+	/** CID returned by the PDS for the exact saved version. */
+	eventCid?: string;
+}
+
+/**
+ * Optional commerce handoff supplied by an event app. The shared editor owns
+ * only the canonical calendar write; the app server launches the configured
+ * ticket provider and keeps credentials/assertions out of browser code.
+ */
+export interface EventTicketSetupLauncher {
+	providerName?: string;
+	iconUrl?: string;
+	start(input: EventTicketSetupRequest): Promise<{ url: string }>;
+	/**
+	 * Optional post-save reference sync for an event already linked to this
+	 * provider. Implementations must not change ticket sales status.
+	 */
+	syncAfterSave?(input: EventTicketSyncRequest): Promise<void>;
+}
+
 export function stripModePrefix(modeStr: string): EventMode {
 	const stripped = modeStr.replace('community.lexicon.calendar.event#', '');
 	if (stripped === 'virtual' || stripped === 'hybrid' || stripped === 'inperson') return stripped;

@@ -15,6 +15,9 @@ export type TicketTierView = {
 	status: string;
 	availableQuantity: number;
 	maxPerOrder: number;
+	/** Optional UTC sale window supplied by ATM. */
+	saleStartsAt?: string;
+	saleEndsAt?: string;
 };
 
 export type ViewerTicketView = {
@@ -27,13 +30,42 @@ export type ViewerTicketView = {
 	scanUrl?: string;
 };
 
+/** Optional terms supplied by the event organizer, not ATM platform terms. */
+export type OrganizerTicketTermsView = {
+	url: string;
+	/** Opaque ATM revision. Acceptance is valid only for this exact version. */
+	version: string;
+	/** Organizer-defined link label; clients provide a plain-language fallback. */
+	label?: string;
+};
+
+/** Authoritative, non-reserving price preview returned by ATM. */
+export type TicketOrderPreviewView = {
+	subtotalAmount: number;
+	buyerFeeAmount: number;
+	discountAmount: number;
+	totalAmount: number;
+	currency: string;
+	offerCode?: string;
+	offerLabel?: string;
+};
+
 export type EventTicketingView = {
 	/** ATM environment the data came from; `test` renders a badge. */
 	environment: 'test' | 'live';
+	/** Atmosphere Tickets brand mark served by the configured ATM instance. */
+	iconUrl?: string;
+	/** When present, acceptance is required before the app starts checkout. */
+	organizerTerms?: OrganizerTicketTermsView;
+	/** Fail-closed projection when ATM supplied terms that cannot be safely version-bound. */
+	organizerTermsError?: string;
 	tiers: TicketTierView[];
 	viewerTickets: ViewerTicketView[];
-	/** True right after checkout returned successfully (`?tickets=success`). */
-	justPurchased: boolean;
+	/**
+	 * One-shot server-verified checkout state. It is never derived directly
+	 * from browser query parameters.
+	 */
+	purchaseStatus?: 'processing' | 'confirmed';
 };
 
 // Currencies whose smallest unit is the whole unit (no minor-unit scaling).

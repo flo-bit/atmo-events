@@ -1,11 +1,6 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
-	import {
-		Avatar as FoxAvatar,
-		Button,
-		ToggleGroup,
-		ToggleGroupItem
-	} from '@foxui/core';
+	import { Avatar as FoxAvatar, Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
 	import { onMount } from 'svelte';
 	import { DEV as dev } from 'esm-env';
 	import { PlainTextEditor } from '@foxui/text';
@@ -32,6 +27,8 @@
 		type EventEditorPrefill,
 		type EventLocation,
 		type EventMode,
+		type EventTicketSetupLauncher,
+		type EventTicketSyncRequest,
 		type Visibility
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
@@ -46,7 +43,8 @@
 		adapter,
 		viewer,
 		initialTheme,
-		prefill = null
+		prefill = null,
+		ticketSetup = null
 	}: {
 		eventData: FlatEventRecord | null;
 		actorDid: string;
@@ -59,14 +57,17 @@
 		initialTheme?: Partial<EventTheme>;
 		/** Autofill payload for new events (e.g. imported from Luma/Meetup). */
 		prefill?: EventEditorPrefill | null;
+		/** Optional app-provided handoff into a generic ticketing provider. */
+		ticketSetup?: EventTicketSetupLauncher | null;
 	} = $props();
 
 	let isNew = $derived(eventData === null);
+	let isTicketSetupDraft = $derived(
+		eventData?.status === 'community.lexicon.calendar.event#planned'
+	);
 
 	// svelte-ignore state_referenced_locally
-	let thumbnailChanged = $state(
-		eventData === null && (prefill?.thumbnailFile ?? null) !== null
-	);
+	let thumbnailChanged = $state(eventData === null && (prefill?.thumbnailFile ?? null) !== null);
 
 	// Initial values: prefer prefill (only honored for brand-new events) so the
 	// title editor and date inputs see the imported values on their first render
@@ -117,10 +118,13 @@
 	);
 	let submitting = $state(false);
 	let error: string | null = $state(null);
+	let pendingTicketSync: EventTicketSyncRequest | null = $state(null);
 	let titleEditor: Readable<Editor> | undefined = $state(undefined);
 
 	// svelte-ignore state_referenced_locally
-	let location: EventLocation | null = $state(initialPrefill?.location ? { ...initialPrefill.location } : null);
+	let location: EventLocation | null = $state(
+		initialPrefill?.location ? { ...initialPrefill.location } : null
+	);
 	// svelte-ignore state_referenced_locally
 	let locationChanged = $state(initialPrefill?.location != null);
 
@@ -130,6 +134,13 @@
 	);
 
 	let showRecurringModal = $state(false);
+	// A planned event returning from ATM stays opted into ticket setup. New
+	// events remain ordinary public events until the organizer explicitly opts in.
+	// svelte-ignore state_referenced_locally
+	let sellTickets = $state(eventData?.status === 'community.lexicon.calendar.event#planned');
+	let ticketSetupRequested = $derived(
+		Boolean(ticketSetup && (isTicketSetupDraft || (visibility === 'public' && sellTickets)))
+	);
 
 	function populateLocationFromEventData() {
 		if (!eventData) return;
@@ -179,7 +190,8 @@
 		mode = eventData.mode ? stripModePrefix(eventData.mode) : 'inperson';
 		const prefs = (eventData as unknown as { preferences?: { showInDiscovery?: boolean } })
 			.preferences;
-		if (privateMode && dev) visibility = 'private';
+		if (isTicketSetupDraft) visibility = 'public';
+		else if (privateMode && dev) visibility = 'private';
 		else if (prefs && prefs.showInDiscovery === false) visibility = 'unlisted';
 		else visibility = 'public';
 		links = eventData.uris ? eventData.uris.map((l) => ({ uri: l.uri, name: l.name || '' })) : [];
@@ -234,6 +246,9 @@
 		if (!endsAt) return void (error = 'End date is required.');
 		if (!viewer.isLoggedIn || !viewer.did) return void (error = 'You must be logged in.');
 
+		const shouldSetUpTickets = ticketSetupRequested;
+		let plannedRecordSaved = false;
+		let recordSaved = false;
 		submitting = true;
 
 		try {
@@ -277,7 +292,9 @@
 				location,
 				locationChanged,
 				media,
-				resolveHandle: (handle) => adapter.resolveHandle(handle)
+				resolveHandle: (handle) => adapter.resolveHandle(handle),
+				publicationStatus: shouldSetUpTickets || isTicketSetupDraft ? 'planned' : undefined,
+				showInDiscovery: shouldSetUpTickets || isTicketSetupDraft ? false : undefined
 			});
 
 			if (isNew && prefill?.additionalData) {
@@ -312,12 +329,63 @@
 				rkey,
 				record
 			});
+			recordSaved = true;
+			plannedRecordSaved = shouldSetUpTickets;
+
+			if (shouldSetUpTickets && ticketSetup) {
+				await adapter.notifyUpdate?.(result.uri);
+				const handoff = await ticketSetup.start({
+					eventUri: result.uri,
+					...(result.cid ? { eventCid: result.cid } : {})
+				});
+				window.location.assign(handoff.url);
+				return;
+			}
+
+			if (!isNew && ticketSetup?.syncAfterSave) {
+				pendingTicketSync = {
+					eventUri: result.uri,
+					...(result.cid ? { eventCid: result.cid } : {})
+				};
+				await ticketSetup.syncAfterSave(pendingTicketSync);
+				pendingTicketSync = null;
+			}
 
 			await adapter.notifyUpdate?.(result.uri);
 			adapter.onSaved({ uri: result.uri, rkey, isNew });
 		} catch (e) {
 			console.error(`Failed to ${isNew ? 'create' : 'save'} event:`, e);
-			error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
+			if (pendingTicketSync) {
+				error =
+					'Your event changes were saved, but Atmosphere Tickets could not be updated. Retry the ticket sync—your ticket sales status has not changed.';
+			} else if (plannedRecordSaved) {
+				error =
+					'Your event was saved as a hidden draft, but ticket setup could not open. Try Continue ticket setup again.';
+			} else if (recordSaved) {
+				error =
+					'Your event changes were saved, but atmo could not finish updating. Please try again.';
+			} else {
+				error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
+			}
+		} finally {
+			submitting = false;
+		}
+	}
+
+	async function retryTicketSync() {
+		if (!pendingTicketSync || !ticketSetup?.syncAfterSave) return;
+		const retry = pendingTicketSync;
+		submitting = true;
+		error = null;
+		try {
+			await ticketSetup.syncAfterSave(retry);
+			pendingTicketSync = null;
+			await adapter.notifyUpdate?.(retry.eventUri);
+			adapter.onSaved({ uri: retry.eventUri, rkey, isNew: false });
+		} catch (cause) {
+			console.error('Failed to retry Atmosphere Tickets event sync:', cause);
+			error =
+				'Your event changes are saved, but Atmosphere Tickets is still out of sync. Try again without re-saving the event.';
 		} finally {
 			submitting = false;
 		}
@@ -465,7 +533,11 @@
 								</div>
 								<div class="flex items-center gap-2">
 									<span class="text-base-500 dark:text-base-400 w-9 text-sm">End</span>
-									<DateTimePicker bind:value={endsAt} minValue={startsAt} referenceTime={startsAt} />
+									<DateTimePicker
+										bind:value={endsAt}
+										minValue={startsAt}
+										referenceTime={startsAt}
+									/>
 								</div>
 							</div>
 							<div class="hidden sm:flex">
@@ -490,22 +562,84 @@
 								style="field-sizing: content;"
 							></textarea>
 							<p class="text-base-400 dark:text-base-500 mt-2 text-xs">
-								Add a hashtag like <span class="font-medium">#webdev</span> or <span class="font-medium">#music</span> to have this event appear under a <a href="/topics" class="text-accent-600 dark:text-accent-400 hover:underline">topic</a>.
+								Add a hashtag like <span class="font-medium">#webdev</span> or
+								<span class="font-medium">#music</span>
+								to have this event appear under a
+								<a href="/topics" class="text-accent-600 dark:text-accent-400 hover:underline"
+									>topic</a
+								>.
 							</p>
 						</div>
 
+						{#if ticketSetup && (isNew || isTicketSetupDraft)}
+							<div
+								class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 mb-6 rounded-2xl border p-4"
+							>
+								<label class="flex cursor-pointer items-start gap-3">
+									<input
+										type="checkbox"
+										class="accent-accent-600 mt-1 size-4 shrink-0"
+										bind:checked={sellTickets}
+										disabled={isTicketSetupDraft || visibility !== 'public'}
+									/>
+									<span class="min-w-0 flex-1">
+										<span
+											class="text-base-900 dark:text-base-50 flex items-center gap-2 text-sm font-semibold"
+										>
+											{#if ticketSetup.iconUrl}
+												<img src={ticketSetup.iconUrl} alt="" class="size-4" aria-hidden="true" />
+											{/if}
+											Sell Atmosphere Tickets
+										</span>
+										<span class="text-base-500 dark:text-base-400 mt-1 block text-xs leading-5">
+											{#if isTicketSetupDraft}
+												This event is hidden from Explore while you finish payout and ticket setup
+												in {ticketSetup.providerName ?? 'ATM'}.
+											{:else if visibility !== 'public'}
+												Ticketed events must be public in V1. Choose Public to enable ticket sales.
+											{:else}
+												Save a hidden planned event, then configure payouts, ticket types, capacity,
+												offers, and sales in {ticketSetup.providerName ?? 'ATM'} before publishing.
+											{/if}
+										</span>
+									</span>
+								</label>
+							</div>
+						{/if}
+
 						{#if error}
-							<p class="mb-4 text-sm text-red-600 dark:text-red-400">{error}</p>
+							<div class="mb-4">
+								<p class="text-sm text-red-600 dark:text-red-400" role="alert">{error}</p>
+								{#if pendingTicketSync}
+									<Button
+										type="button"
+										variant="secondary"
+										class="mt-3"
+										disabled={submitting}
+										onclick={retryTicketSync}
+									>
+										{submitting ? 'Retrying ticket sync...' : 'Retry ticket sync'}
+									</Button>
+								{/if}
+							</div>
 						{/if}
 
 						<Button type="submit" disabled={submitting || !name.trim() || !startsAt || !endsAt}>
 							{submitting
 								? isNew
-									? 'Publishing...'
+									? ticketSetupRequested
+										? 'Opening ticket setup...'
+										: 'Publishing...'
 									: 'Saving...'
 								: isNew
-									? 'Publish Event'
-									: 'Save Changes'}
+									? ticketSetupRequested
+										? 'Save & Set Up Tickets'
+										: 'Publish Event'
+									: isTicketSetupDraft
+										? ticketSetup
+											? 'Continue Ticket Setup'
+											: 'Save Draft'
+										: 'Save Changes'}
 						</Button>
 						{#if !isNew && adapter.features.recurring}
 							<Button
@@ -555,12 +689,20 @@
 								>
 									Cancel
 								</Button>
-								<Button size="sm" onclick={handleDelete} disabled={deleting} variant="primary" class="red">
+								<Button
+									size="sm"
+									onclick={handleDelete}
+									disabled={deleting}
+									variant="primary"
+									class="red"
+								>
 									{deleting ? 'Deleting...' : 'Delete'}
 								</Button>
 							</div>
 						{:else}
-							<Button variant="primary" class="red" onclick={() => (showDeleteConfirm = true)}>Delete event</Button>
+							<Button variant="primary" class="red" onclick={() => (showDeleteConfirm = true)}
+								>Delete event</Button
+							>
 						{/if}
 					</div>
 				{/if}
