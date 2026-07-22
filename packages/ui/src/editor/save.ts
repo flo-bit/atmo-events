@@ -131,6 +131,14 @@ export async function buildEventRecord(args: {
 	locationChanged: boolean;
 	media: Array<Record<string, unknown>> | undefined;
 	resolveHandle: (handle: string) => Promise<string>;
+	/**
+	 * Protocol publication state. Ticket-enabled event apps first write a
+	 * public-but-undiscoverable `#planned` record so commerce can bind to a real
+	 * AT URI before the organizer publishes the event.
+	 */
+	publicationStatus?: 'planned' | 'scheduled';
+	/** Override discovery independently from the editor visibility selection. */
+	showInDiscovery?: boolean;
 }): Promise<Record<string, unknown>> {
 	const {
 		eventData,
@@ -147,7 +155,9 @@ export async function buildEventRecord(args: {
 		location,
 		locationChanged,
 		media,
-		resolveHandle
+		resolveHandle,
+		publicationStatus,
+		showInDiscovery
 	} = args;
 
 	const createdAt = isNew
@@ -161,7 +171,7 @@ export async function buildEventRecord(args: {
 		createdWith: 'https://atmo.rsvp',
 		name: name.trim(),
 		mode: `community.lexicon.calendar.event#${mode}`,
-		status: 'community.lexicon.calendar.event#scheduled',
+		status: `community.lexicon.calendar.event#${publicationStatus ?? 'scheduled'}`,
 		startsAt: datetimeLocalToISO(startsAt, timezone),
 		timezone,
 		createdAt,
@@ -212,7 +222,7 @@ export async function buildEventRecord(args: {
 		{}) as Record<string, unknown>;
 	record.preferences = {
 		...existingPrefs,
-		showInDiscovery: visibility !== 'unlisted'
+		showInDiscovery: showInDiscovery ?? visibility !== 'unlisted'
 	};
 
 	return record;

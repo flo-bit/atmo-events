@@ -2,3 +2,6 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Vendored ATM SDK — kept byte-identical to upstream for diffing
+apps/web/src/lib/atm/sdk.ts

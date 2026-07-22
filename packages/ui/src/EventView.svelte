@@ -28,7 +28,14 @@
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
-	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
+	import TicketsSection from './event-view/TicketsSection.svelte';
+	import type { EventTicketingView } from './event-view/tickets.js';
+	import {
+		buildDescriptionHtml,
+		getLocationData,
+		resolveGeoLocation,
+		type GeoLocation
+	} from './event-view/format';
 
 	let {
 		data,
@@ -36,7 +43,12 @@
 		viewer,
 		pageUrl,
 		embedMode = false,
-		shareUrlOverride
+		shareUrlOverride,
+		onBuyTickets,
+		onPreviewTickets,
+		autoRsvpGoing = false,
+		autoRsvpRkey = null,
+		onAutoRsvpComplete
 	}: {
 		data: any;
 		adapter: EditorAdapter;
@@ -48,12 +60,35 @@
 		 *  of the canonical atmo.rsvp event URL. Useful for embedders that want
 		 *  share links to point at their own event page. */
 		shareUrlOverride?: string;
+		/** Atmosphere Tickets purchase entry point. The tickets section renders
+		 *  only when the server load put `atmTickets` on `data` (ATM configured
+		 *  and the host set up ticket tiers for this event). */
+		onBuyTickets?: (input: {
+			tierId: string;
+			quantity: number;
+			offerCode?: string;
+			organizerTermsAccepted?: boolean;
+			organizerTermsVersion?: string;
+			intentId: string;
+		}) => Promise<void>;
+		/** Authoritative, non-reserving quote for the app-native ticket picker. */
+		onPreviewTickets?: (input: {
+			tierId: string;
+			quantity: number;
+			offerCode?: string;
+		}) => Promise<import('./event-view/tickets.js').TicketOrderPreviewView>;
+		/** One-shot signal set only after ATM reports an issued ticket for this viewer. */
+		autoRsvpGoing?: boolean;
+		/** Stable signed-intent key so concurrent tabs PUT the same RSVP record. */
+		autoRsvpRkey?: string | null;
+		onAutoRsvpComplete?: () => void;
 	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
 	let did: string = $derived(data.actorDid);
 	let rkey: string = $derived(data.rkey);
 	let hostProfile = $derived(data.hostProfile);
+	let hostName: string = $derived(hostProfile?.displayName || hostProfile?.handle || did);
 	let attendees = $derived(data.attendees);
 
 	let theme: EventTheme = $derived(eventData.theme ?? defaultTheme);
@@ -86,9 +121,7 @@
 	// root, even when the RSVPer is the host.
 	let canSetEventComments = $state(false);
 	let isHost = $derived(!!viewer.did && viewer.did === did);
-	let hasComments = $derived(
-		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
-	);
+	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
 	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
 	onMount(async () => {
@@ -141,9 +174,7 @@
 		return null;
 	});
 
-	let descriptionHtml = $derived(
-		buildDescriptionHtml(eventData.description, eventData.facets)
-	);
+	let descriptionHtml = $derived(buildDescriptionHtml(eventData.description, eventData.facets));
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -172,12 +203,17 @@
 		externalSource?.rsvpMode === 'external_only' && !!externalSource?.url
 	);
 
+	// Atmosphere Tickets: present only when the page's server load resolved
+	// ticket tiers for this event (ATM configured + host set up ticketing).
+	let atmTickets: EventTicketingView | null = $derived(data.atmTickets ?? null);
+	let ticketPickerOpen = $state(false);
+
 	let vodCurrentTime = $state(0);
 	let vodApi: VodPlayerApi | undefined = $state();
 
 	let attendeesRef: EventAttendees | undefined = $state();
 
-	function handleRsvp(status: 'going' | 'interested') {
+	function handleRsvp(status: 'going' | 'interested', _rkey: string) {
 		if (!viewer.did) return;
 		attendeesRef?.addAttendee({
 			did: viewer.did,
@@ -313,6 +349,18 @@
 				{/if}
 
 				{#if !isPast}
+					{#if atmTickets && atmTickets.tiers.length > 0}
+						<TicketsSection
+							bind:open={ticketPickerOpen}
+							ticketing={atmTickets}
+							loggedIn={viewer.isLoggedIn}
+							{hostName}
+							standalone={rsvpExternalOnly}
+							onbuy={onBuyTickets}
+							onpreviewoffer={onPreviewTickets}
+							onlogin={() => adapter.requestLogin()}
+						/>
+					{/if}
 					{#if rsvpExternalOnly && externalSource?.url}
 						<ExternalRsvpNotice url={externalSource.url} />
 					{:else}
@@ -324,8 +372,14 @@
 							spaceUri={data.spaceUri ?? null}
 							{adapter}
 							{viewer}
+							ticketing={atmTickets}
+							{hostName}
+							onbuytickets={() => (ticketPickerOpen = true)}
+							{autoRsvpGoing}
+							{autoRsvpRkey}
 							onrsvp={handleRsvp}
 							oncancel={handleRsvpCancel}
+							{onAutoRsvpComplete}
 						/>
 					{/if}
 				{/if}

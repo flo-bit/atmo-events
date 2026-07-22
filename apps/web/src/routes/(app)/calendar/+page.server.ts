@@ -7,18 +7,26 @@ import {
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
 import { dedupeByUri } from '$lib/dedupe-by-uri';
+import { loadViewerTicketBadges } from '$lib/atm/tickets-data';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
+export const load: PageServerLoad = async ({ locals, platform, setHeaders }) => {
+	setHeaders({ 'cache-control': 'private, no-store, max-age=0' });
+
 	if (!locals.did) {
-		return { upcoming: [], past: [], loggedIn: false };
+		return {
+			upcoming: [],
+			past: [],
+			ticketBadges: {} as Record<string, string>,
+			loggedIn: false
+		};
 	}
 	const client =
 		locals.client && spacesAvailable()
 			? getSpacesClient(locals.client, platform!.env.DB)
 			: getServerClient(platform!.env.DB);
 
-	const [rsvpResponse, hostingResponse] = await Promise.all([
+	const [rsvpResponse, hostingResponse, ticketBadges] = await Promise.all([
 		client.get('rsvp.atmo.rsvp.listRecords', {
 			params: { actor: locals.did, hydrateEvent: true, limit: 100 }
 		}),
@@ -27,7 +35,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			sort: 'startsAt',
 			order: 'desc',
 			limit: 100
-		})
+		}),
+		loadViewerTicketBadges(platform!.env, locals.did)
 	]);
 
 	const rsvpEvents = (rsvpResponse.ok ? (rsvpResponse.data.records ?? []) : [])
@@ -53,5 +62,5 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		.filter((e) => new Date(e.endsAt || e.startsAt).getTime() < nowMs)
 		.sort((a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime());
 
-	return { upcoming, past, loggedIn: true, did: locals.did };
+	return { upcoming, past, ticketBadges, loggedIn: true, did: locals.did };
 };

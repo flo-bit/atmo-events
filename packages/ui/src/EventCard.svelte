@@ -5,10 +5,13 @@
 
 	let {
 		event,
-		actor
+		actor,
+		ticketIconUrl
 	}: {
 		event: FlatEventRecord;
 		actor?: string;
+		/** ATM-provided Atmosphere Tickets icon when this viewer owns a ticket. */
+		ticketIconUrl?: string;
 	} = $props();
 
 	function formatDateTime(dateStr: string): string {
@@ -66,7 +69,7 @@
 	href={eventUrl(event, actor)}
 	class="group grid grid-cols-[4rem_1fr] gap-3 transition-colors sm:grid-cols-[5rem_1fr] sm:gap-4"
 >
-	<div class="w-full">
+	<div class="relative w-full">
 		{#if thumbnail}
 			<img
 				src={thumbnail.url}
@@ -86,14 +89,26 @@
 				/>
 			</div>
 		{/if}
+		{#if ticketIconUrl}
+			<span
+				class="ring-base-50 dark:ring-base-950 pointer-events-none absolute top-1 right-1 flex size-6 items-center justify-center rounded-full bg-black p-1 shadow-sm ring-2"
+				role="img"
+				title="You have a ticket for this event"
+				aria-label="You have a ticket for this event"
+			>
+				<img src={ticketIconUrl} alt="" class="size-full object-contain" />
+			</span>
+		{/if}
 	</div>
 
 	<div class="min-w-0 self-center">
 		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
 			{formatDateTime(event.startsAt)}
 			{#if isOngoing}
-				<span class="inline-flex items-center gap-1 rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-semibold text-accent-700 dark:bg-accent-900/30 dark:text-accent-400">
-					<span class="size-1.5 rounded-full bg-accent-500 animate-pulse"></span>
+				<span
+					class="bg-accent-100 text-accent-700 dark:bg-accent-900/30 dark:text-accent-400 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+				>
+					<span class="bg-accent-500 size-1.5 animate-pulse rounded-full"></span>
 					Live
 				</span>
 			{/if}

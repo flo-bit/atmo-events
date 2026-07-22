@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { EventEditor, type EventEditorPrefill } from '@atmo-dev/events-ui';
+	import {
+		EventEditor,
+		type EventEditorPrefill,
+		type EventTicketSetupLauncher
+	} from '@atmo-dev/events-ui';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import { startOrganizerTicketSetup } from '$lib/atm/organizer.remote';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { createInAppAdapter } from '$lib/components/editor/adapter';
 	import { readPendingImportPrefill } from '$lib/components/CreateEventModal.svelte';
@@ -17,6 +22,14 @@
 		avatar: user.profile?.avatar
 	});
 	let adapter = $derived(createInAppAdapter({ viewer }));
+	let ticketSetup = $derived.by((): EventTicketSetupLauncher | null => {
+		if (!data.atmTicketsEnabled) return null;
+		return {
+			providerName: 'Atmosphere Tickets',
+			iconUrl: data.atmTicketIconUrl ?? undefined,
+			start: async ({ eventUri }) => startOrganizerTicketSetup({ eventUri })
+		};
+	});
 
 	// Pulled out of sessionStorage on mount so the editor sees it on its first
 	// pass. EventEditor only reads `prefill` in its own onMount, so we gate
@@ -68,5 +81,6 @@
 		{adapter}
 		{viewer}
 		{prefill}
+		{ticketSetup}
 	/>
 {/if}
