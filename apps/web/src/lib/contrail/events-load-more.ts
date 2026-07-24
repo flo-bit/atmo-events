@@ -140,10 +140,10 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 	},
 
 	'search-d1': async (_env, client, { args, raw }, searchTerm) => {
-		const q = searchTerm?.trim();
-		if (!q) return EMPTY; // search term lost from the continuation => end cleanly
+		const term = searchTerm?.trim();
+		if (!term) return EMPTY; // search term lost from the continuation => end cleanly
 		const response = await listDiscoverableEventsFromContrail(client, {
-			search: q,
+			search: term,
 			startsAtMin: now(),
 			sort: 'startsAt',
 			order: 'desc',
@@ -155,12 +155,12 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 	},
 
 	'search-meili': async (env, client, { args, raw }, searchTerm) => {
-		const q = searchTerm?.trim();
-		const backend = q ? searchBackendFromEnv(env) : null;
+		const term = searchTerm?.trim();
+		const backend = term ? searchBackendFromEnv(env) : null;
 		// Missing search term OR unconfigured backend => end cleanly rather than
 		// restart page 1 on the wrong backend.
-		if (!q || !backend) return EMPTY;
-		const page = await runEventSearchPage(backend, client, { q, cursor: raw });
+		if (!term || !backend) return EMPTY;
+		const page = await runEventSearchPage(backend, client, { q: term, cursor: raw });
 		return {
 			events: page.events,
 			handles: page.handles,
@@ -185,14 +185,24 @@ export async function runLoadMoreEvents(
 	env: App.Platform['env'],
 	input: LoadMoreEventsInput
 ): Promise<LoadMoreEventsResult> {
+	// Two different `q`s meet in this file: `input.q` is the free-text search TERM
+	// the client re-supplies, while `envelope.q` below is the server-side query
+	// NAME. Bind the term to a distinct local so the rest of the file can't read
+	// one as the other. The WIRE field stays `q` — renaming it would silently
+	// strand already-loaded search tabs across a deploy.
+	const searchTerm = input.q;
+
 	const envelope = decodeCursor(input.cursor);
 	if (!envelope) return EMPTY;
 
+	// Own-property dispatch guard: index REGISTRY only when it OWNS the key, so a
+	// prototype-chain name (e.g. 'constructor', 'toString') can never resolve to an
+	// inherited value and dispatch. decodeCursor already allow-lists `q` against
+	// CURSOR_QUERIES upstream, so this is defense in depth against the dispatch
+	// ever falling through to a default/plain pipeline.
+	if (!Object.hasOwn(REGISTRY, envelope.q)) return EMPTY;
 	const resumer = REGISTRY[envelope.q];
-	// decodeCursor already rejects an unknown `q`; this is belt-and-suspenders so
-	// the dispatch can never fall through to a default/plain pipeline.
-	if (!resumer) return EMPTY;
 
 	const client = getServerClient(env.DB);
-	return resumer(env, client, envelope, input.q);
+	return resumer(env, client, envelope, searchTerm);
 }
