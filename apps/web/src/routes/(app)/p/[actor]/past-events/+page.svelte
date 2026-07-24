@@ -38,7 +38,11 @@
 			{hostName}
 		</a>
 
-		{#if (data.events?.length ?? 0) > 0}
+		<!-- Also render when this batch filtered down to nothing but more pages
+		     remain: the ended-event predicate runs after pagination, so a first
+		     batch of only ongoing events would otherwise show "no past events"
+		     and strand the genuinely past ones behind a button never drawn. -->
+		{#if (data.events?.length ?? 0) > 0 || data.cursor}
 			<EventList
 				events={data.events ?? []}
 				cursor={data.cursor ?? null}

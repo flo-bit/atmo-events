@@ -11,6 +11,7 @@ import {
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
 import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
 import { orQueryFromSlug } from '$lib/topics';
+import { hasEnded } from '$lib/past-events';
 import { decodeCursor, nextCursor, type CursorArgs, type CursorEnvelope, type CursorQuery } from './cursor';
 
 const PAGE_SIZE = 20;
@@ -110,16 +111,21 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 
 	'past-events': async (_env, client, { args, raw }) => {
 		if (!args?.actor || !isActorIdentifier(args.actor)) return EMPTY;
+		const asOf = now();
 		const response = await listAuthoredEventsFromContrail(client, {
 			actor: args.actor as ActorIdentifier,
-			startsAtMax: now(),
+			startsAtMax: asOf,
 			sort: 'startsAt',
 			order: 'desc',
 			profiles: true,
 			limit: PAGE_SIZE,
 			cursor: raw
 		});
-		return toResult('past-events', args, response);
+		// Page 1 narrows the same way, with the same shared predicate: startsAtMax
+		// still admits an event that began earlier and is still running, and an
+		// ongoing event must not be hidden on page 1 only to resurface on page 2.
+		const result = toResult('past-events', args, response);
+		return { ...result, events: result.events.filter((e) => hasEnded(e, asOf)) };
 	},
 
 	topic: async (_env, client, { args, raw }) => {

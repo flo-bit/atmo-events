@@ -6,6 +6,7 @@ import {
 	listAuthoredEventsFromContrail
 } from '$lib/contrail';
 import { nextCursor, rawForQuery } from '$lib/contrail/cursor';
+import { hasEnded } from '$lib/past-events';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
 
@@ -37,9 +38,12 @@ export async function load({ params, url, platform }) {
 		})
 	]);
 
-	const nowDate = new Date(now);
-	const events = (response ? flattenEventRecords(response.records) : []).filter(
-		(e) => new Date(e.endsAt || e.startsAt) < nowDate
+	// Narrow to events that have actually ENDED — startsAtMax still admits one
+	// that began earlier and is still running. The load-more resumer applies the
+	// same shared predicate, so an ongoing event can't be dropped here only to
+	// reappear on page 2.
+	const events = (response ? flattenEventRecords(response.records) : []).filter((e) =>
+		hasEnded(e, now)
 	);
 
 	return {
