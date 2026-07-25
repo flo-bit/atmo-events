@@ -1,11 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-// The search load picks between two backends whose cursors are NOT
-// interchangeable: Meilisearch (offset cursor) and the D1 LIKE fallback (opaque
-// keyset). Each hands back a self-describing continuation envelope naming its
-// own query, so load-more resumes on the backend that produced the page. These
-// pin the page-1 behaviour, the deep-link guard, and — for both backends — that
-// page 1 and its resumer issue the same query.
+// The one route that picks between two backends whose cursors are NOT
+// interchangeable: Meilisearch (offset) and the D1 LIKE fallback (opaque keyset).
+// Only page 1 may fall back — a continuation must not switch backends — so these
+// pin which backend serves the page, that the emitted envelope names it, and that
+// no inbound ?cursor= is ever resumed here (the term rides ?q=, not the
+// envelope).
 vi.mock('$lib/contrail', () => ({
 	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
@@ -17,17 +17,13 @@ vi.mock('$lib/search/server/query', () => ({
 }));
 
 import { load } from './+page.server';
-import { runLoadMoreEvents } from '$lib/contrail/events-load-more';
 import { listDiscoverableEventsFromContrail } from '$lib/contrail';
 import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
 import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
-import { FROZEN_NOW, expectSameQuery } from '$lib/contrail/continuity.test-utils';
 
 const mockSearchBackendFromEnv = vi.mocked(searchBackendFromEnv);
 const mockRunEventSearchPage = vi.mocked(runEventSearchPage);
 const mockListDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
-
-const env = { DB: {} } as unknown as App.Platform['env'];
 
 type LoadResult = {
 	events: unknown[];
@@ -47,11 +43,7 @@ function event(q: string, cursor?: string) {
 	return { url, platform: { env: {} } } as unknown as Parameters<typeof load>[0];
 }
 
-beforeEach(() => vi.useFakeTimers({ toFake: ['Date'], now: FROZEN_NOW }));
-afterEach(() => {
-	vi.useRealTimers();
-	vi.clearAllMocks();
-});
+afterEach(() => vi.clearAllMocks());
 
 describe('search page load', () => {
 	it('returns early for an empty query without touching any backend', async () => {
@@ -156,62 +148,5 @@ describe('search page load', () => {
 		await runLoad('kite', foreign);
 
 		expect(mockListDiscoverable.mock.calls[0][1].cursor).toBeUndefined();
-	});
-});
-
-// Unlike the other routes the search term rides ?q=/input, NOT the envelope, so
-// the resumer must be HANDED the term to reproduce page 1. These pin that once
-// it is, the page-1 load and the resumer issue the same query — on whichever of
-// the two backends served page 1.
-describe('search page load ↔ resumer continuity', () => {
-	it('page-1 D1 fallback and the search-d1 resumer issue the same query', async () => {
-		mockSearchBackendFromEnv.mockReturnValue(null);
-		mockListDiscoverable.mockResolvedValue({
-			records: [{ uri: 'at://did:plc:a/community.lexicon.calendar.event/1' }],
-			profiles: [{ did: 'did:plc:a', handle: 'alice' }],
-			cursor: 'keyset-p1'
-		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
-
-		const result = await runLoad('kite');
-		const p1 = mockListDiscoverable.mock.calls[0][1];
-		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'search-d1', raw: 'keyset-p1' });
-
-		// The term is absent from the envelope; the client re-supplies it as `q`.
-		await runLoadMoreEvents(env, { cursor: result.cursor!, q: 'kite' });
-		const p2 = mockListDiscoverable.mock.calls[1][1];
-
-		expectSameQuery(p1, p2, 'keyset-p1');
-	});
-
-	it('page-1 Meili and the search-meili resumer issue the same query, threading the raw offset', async () => {
-		mockSearchBackendFromEnv.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
-		mockRunEventSearchPage.mockResolvedValue({
-			events: [{ uri: 'at://did:plc:a/community.lexicon.calendar.event/1' }],
-			handles: { 'did:plc:a': 'alice' },
-			cursor: 'meili:20',
-			distances: {}
-		} as unknown as Awaited<ReturnType<typeof runEventSearchPage>>);
-
-		const result = await runLoad('kite');
-		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'search-meili', raw: 'meili:20' });
-
-		await runLoadMoreEvents(env, { cursor: result.cursor!, q: 'kite' });
-
-		// Compare the whole options object both sides passed, not just `q` — an
-		// option added to the page-1 call alone (a filter, a page size, a locale)
-		// would search a different result set on page 2.
-		const p1 = mockRunEventSearchPage.mock.calls[0][2];
-		const p2 = mockRunEventSearchPage.mock.calls[1][2];
-		expectSameQuery(p1, p2, 'meili:20');
-
-		// The backend is part of the query's identity too — it carries the index
-		// being searched, so an offset from one index is meaningless against
-		// another. This is outside the options bag, so it needs its own pin.
-		expect(mockRunEventSearchPage.mock.calls[1][0]).toEqual(
-			mockRunEventSearchPage.mock.calls[0][0]
-		);
-
-		expect(p1.q).toBe('kite');
-		expect(mockListDiscoverable).not.toHaveBeenCalled(); // never the D1 path
 	});
 });

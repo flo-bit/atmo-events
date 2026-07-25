@@ -1,9 +1,9 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-// Page 1 of /p/[actor]/hosting comes from this route's load(); page 2 comes from
-// the load-more registry's 'hosting' resumer. They are separate code paths that
-// must issue the same authored + upcoming query, scoped to the same actor, so
-// these drive both for real and compare what each one emitted.
+// What this route decides for /p/[actor]/hosting: which query it runs, the actor
+// scope it records in the emitted envelope, and whether an inbound ?cursor= may
+// be resumed. The query body — authored, upcoming, asc — is pinned in
+// lib/contrail/events-load-more.test.ts.
 vi.mock('$lib/actor', () => ({
 	getActor: vi.fn(async () => 'did:plc:alice')
 }));
@@ -20,15 +20,12 @@ vi.mock('$lib/search/server/query', () => ({
 }));
 
 import { load } from './+page.server';
-import { runLoadMoreEvents } from '$lib/contrail/events-load-more';
 import { listAuthoredEventsFromContrail } from '$lib/contrail';
 import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
-import { FROZEN_NOW, expectSameQuery } from '$lib/contrail/continuity.test-utils';
 
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);
 
 const ACTOR = 'did:plc:alice';
-const env = { DB: {} } as unknown as App.Platform['env'];
 
 function event(actor: string, cursor?: string) {
 	const url = new URL(`https://atmo.test/p/${actor}/hosting`);
@@ -51,17 +48,14 @@ type LoadResult = { events: unknown[]; cursor: string | null };
 const runLoad = async (actor: string, cursor?: string) =>
 	(await load(event(actor, cursor))) as LoadResult;
 
-beforeEach(() => vi.useFakeTimers({ toFake: ['Date'], now: FROZEN_NOW }));
-afterEach(() => {
-	vi.useRealTimers();
-	vi.clearAllMocks();
-});
+afterEach(() => vi.clearAllMocks());
 
-describe('hosting page load ↔ resumer continuity', () => {
-	it('page-1 load and the hosting resumer issue the same query', async () => {
+describe('hosting page load', () => {
+	// The envelope names the query that minted it, so this also pins that the
+	// route called the hosting query — the past-events one would say so here.
+	it("mints a 'hosting' envelope scoped to this actor", async () => {
 		mockAuthored.mockResolvedValue(page('keyset-p1'));
 		const result = await runLoad(ACTOR);
-		const p1 = mockAuthored.mock.calls[0][1];
 
 		expect(decodeCursor(result.cursor)).toEqual({
 			v: 1,
@@ -69,11 +63,6 @@ describe('hosting page load ↔ resumer continuity', () => {
 			args: { actor: ACTOR },
 			raw: 'keyset-p1'
 		});
-
-		await runLoadMoreEvents(env, { cursor: result.cursor! });
-		const p2 = mockAuthored.mock.calls[1][1];
-
-		expectSameQuery(p1, p2, 'keyset-p1');
 	});
 });
 
