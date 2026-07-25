@@ -1,15 +1,9 @@
 import { getActor } from '$lib/actor';
-import {
-	flattenEventRecords,
-	getProfileFromContrail,
-	getServerClient,
-	listAuthoredEventsFromContrail
-} from '$lib/contrail';
-import { nextCursor, rawForQuery } from '$lib/contrail/cursor';
+import { getProfileFromContrail, getServerClient } from '$lib/contrail';
+import { hostingQuery } from '$lib/contrail/queries';
+import { rawForQuery } from '$lib/contrail/cursor';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
-
-const PAGE_SIZE = 20;
 
 export async function load({ params, url, platform }) {
 	const client = getServerClient(platform!.env.DB);
@@ -22,26 +16,15 @@ export async function load({ params, url, platform }) {
 
 	// Deep-link ?cursor= resumes only a 'hosting' cursor for this actor; else fresh page 1.
 	const cursor = rawForQuery(url.searchParams.get('cursor'), 'hosting', { actor });
-	const now = new Date().toISOString();
 
-	const [profile, response] = await Promise.all([
+	// The same query load-more continues — see queries.ts.
+	const [profile, page] = await Promise.all([
 		getProfileFromContrail(client, actor),
-		listAuthoredEventsFromContrail(client, {
-			profiles: true,
-			sort: 'startsAt',
-			order: 'asc',
-			startsAtMin: now,
-			actor,
-			limit: PAGE_SIZE,
-			cursor
-		})
+		hostingQuery(client, { actor }, cursor)
 	]);
 
 	return {
-		events: response ? flattenEventRecords(response.records) : [],
-		// Self-describing envelope: load-more re-runs the authored + upcoming query
-		// scoped to this actor, server-side.
-		cursor: nextCursor('hosting', response?.cursor ?? null, { actor }),
+		...page,
 		actorProfile: profile,
 		actor,
 		actorDid: did
