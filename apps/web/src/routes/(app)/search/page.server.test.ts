@@ -1,14 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-// The search load decides between two backends whose cursors are NOT
-// interchangeable: Meilisearch (offset cursor) and the D1 LIKE fallback (opaque
-// keyset). Both now hand back a self-describing continuation ENVELOPE: the Meili
-// path a 'search-meili' envelope, the D1 fallback a 'search-d1' envelope. The D1
-// fallback used to return cursor:null because load-more had no safe way to
-// re-run the discoverable+startsAtMin query — the envelope closes that gap (and
-// with it the earlier "search results stop after the first batch" limitation),
-// so these tests now pin a REAL cursor on the D1 path, keyed to a query the
-// load-more registry re-runs identically.
+// The one route that picks between two backends whose cursors are NOT
+// interchangeable: Meilisearch (offset) and the D1 LIKE fallback (opaque keyset).
+// Only page 1 may fall back — a continuation must not switch backends — so these
+// pin which backend serves the page, that the emitted envelope names it, and that
+// no inbound ?cursor= is ever resumed here (the term rides ?q=, not the
+// envelope).
 vi.mock('$lib/contrail', () => ({
 	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),

@@ -1,15 +1,9 @@
 import { getActor } from '$lib/actor';
-import {
-	flattenEventRecords,
-	getProfileFromContrail,
-	getServerClient,
-	listAuthoredEventsFromContrail
-} from '$lib/contrail';
-import { nextCursor, rawForQuery } from '$lib/contrail/cursor';
+import { getProfileFromContrail, getServerClient } from '$lib/contrail';
+import { pastEventsQuery } from '$lib/contrail/queries';
+import { rawForQuery } from '$lib/contrail/cursor';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
-
-const PAGE_SIZE = 20;
 
 export async function load({ params, url, platform }) {
 	const client = getServerClient(platform!.env.DB);
@@ -22,31 +16,16 @@ export async function load({ params, url, platform }) {
 
 	// Deep-link ?cursor= resumes only a 'past-events' cursor for this actor; else fresh page 1.
 	const cursor = rawForQuery(url.searchParams.get('cursor'), 'past-events', { actor });
-	const now = new Date().toISOString();
 
-	const [profile, response] = await Promise.all([
+	// The same query load-more continues, including its ended-event narrowing, so
+	// this page can come back short while a cursor remains — see queries.ts.
+	const [profile, page] = await Promise.all([
 		getProfileFromContrail(client, actor),
-		listAuthoredEventsFromContrail(client, {
-			profiles: true,
-			sort: 'startsAt',
-			order: 'desc',
-			startsAtMax: now,
-			actor,
-			limit: PAGE_SIZE,
-			cursor
-		})
+		pastEventsQuery(client, { actor }, cursor)
 	]);
 
-	const nowDate = new Date(now);
-	const events = (response ? flattenEventRecords(response.records) : []).filter(
-		(e) => new Date(e.endsAt || e.startsAt) < nowDate
-	);
-
 	return {
-		events,
-		// Self-describing envelope: load-more re-runs the authored + past query
-		// (desc, startsAtMax=now) scoped to this actor, server-side.
-		cursor: nextCursor('past-events', response?.cursor ?? null, { actor }),
+		...page,
 		actorProfile: profile,
 		actor,
 		actorDid: did

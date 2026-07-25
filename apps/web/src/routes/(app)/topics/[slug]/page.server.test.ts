@@ -1,15 +1,20 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-// The topic page used to return cursor:null (first-batch-only) because load-more
-// had no safe way to re-run its discoverable + OR-search + startsAtMin query.
-// The envelope closes that gap: the load now emits a self-describing 'topic'
-// envelope carrying the slug, and the load-more registry re-derives the SAME
-// OR-search from that slug server-side. These pin the page-1 side of that
-// continuity plus the deep-link query-match rule.
+// What this route decides for /topics/[slug]: the 404 for an unknown slug, which
+// query it runs, the slug it records in the emitted envelope, and whether an
+// inbound ?cursor= may be resumed. $lib/topics is left REAL so the OR-search is
+// derived from the slug for real rather than stubbed.
 vi.mock('$lib/contrail', () => ({
 	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
-	listDiscoverableEventsFromContrail: vi.fn()
+	listDiscoverableEventsFromContrail: vi.fn(),
+	listAuthoredEventsFromContrail: vi.fn()
+}));
+// queries.ts imports the search module at load time; the topic query never hits
+// it, so a null-backend stub keeps the import deterministic.
+vi.mock('$lib/search/server/query', () => ({
+	searchBackendFromEnv: vi.fn(() => null),
+	runEventSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
@@ -80,7 +85,12 @@ describe('topic page load', () => {
 			cursor: null
 		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
 
-		const inbound = encodeCursor({ v: 1, q: 'topic', args: { slug: 'technology' }, raw: 'p2keyset' });
+		const inbound = encodeCursor({
+			v: 1,
+			q: 'topic',
+			args: { slug: 'technology' },
+			raw: 'p2keyset'
+		});
 		await run('technology', inbound);
 
 		expect(mockListDiscoverable.mock.calls[0][1]).toMatchObject({ cursor: 'p2keyset' });
@@ -99,7 +109,7 @@ describe('topic page load', () => {
 		expect(mockListDiscoverable.mock.calls[0][1].cursor).toBeUndefined();
 	});
 
-	it("deep-link: ignores a topic envelope minted for a DIFFERENT slug (fresh page 1)", async () => {
+	it('deep-link: ignores a topic envelope minted for a DIFFERENT slug (fresh page 1)', async () => {
 		mockListDiscoverable.mockResolvedValue({
 			records: [],
 			profiles: [],

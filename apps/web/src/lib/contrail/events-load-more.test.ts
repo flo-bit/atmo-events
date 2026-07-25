@@ -26,7 +26,8 @@ vi.mock('$lib/search/server/query', () => ({
 	runEventSearchPage: vi.fn()
 }));
 
-import { runLoadMoreEvents } from './events-load-more';
+import * as v from 'valibot';
+import { listEventsInput, runLoadMoreEvents } from './events-load-more';
 import { encodeCursor, decodeCursor, type CursorEnvelope } from './cursor';
 import {
 	listAuthoredEventsFromContrail,
@@ -231,10 +232,14 @@ describe('security: a tampered/forged envelope cannot surface non-discoverable e
 		noReads();
 	});
 
-	it('q tampered to an unknown string / missing / empty => empty, and listRecords never runs', async () => {
+	it('q tampered to an unknown string / prototype key / missing / empty => empty, and listRecords never runs', async () => {
 		mockRecords.mockResolvedValue(page([unlisted]));
 		for (const forged of [
 			forge({ v: 1, q: 'listRecords', raw: 'x' }),
+			// A prototype-chain name must never dispatch (decodeCursor rejects it first,
+			// and the Object.hasOwn dispatch guard is belt-and-suspenders behind that).
+			forge({ v: 1, q: 'constructor', raw: 'x' }),
+			forge({ v: 1, q: '__proto__', raw: 'x' }),
 			forge({ v: 1, raw: 'x' }),
 			forge({ v: 1, q: '', raw: 'x' })
 		]) {
@@ -270,7 +275,9 @@ describe('security: a tampered/forged envelope cannot surface non-discoverable e
 		mockAuthored.mockResolvedValue(page([{ uri: 'at://authored' }], null));
 		// A different actor on 'hosting' is exactly the same as browsing that public
 		// profile — permitted, and it still scopes to that actor.
-		const result = await call(token({ v: 1, q: 'hosting', args: { actor: 'did:plc:bob' }, raw: 'k' }));
+		const result = await call(
+			token({ v: 1, q: 'hosting', args: { actor: 'did:plc:bob' }, raw: 'k' })
+		);
 		expect(mockAuthored).toHaveBeenCalledTimes(1);
 		expect(mockAuthored.mock.calls[0][1]).toMatchObject({ actor: 'did:plc:bob' });
 		expect(result.cursor).toBeNull();
@@ -293,7 +300,9 @@ describe('registry required-arg guards end cleanly (never throw, never fall thro
 	});
 
 	it('topic with an unknown slug => empty', async () => {
-		const result = await call(token({ v: 1, q: 'topic', args: { slug: 'no-such-topic' }, raw: 'k' }));
+		const result = await call(
+			token({ v: 1, q: 'topic', args: { slug: 'no-such-topic' }, raw: 'k' })
+		);
 		expect(mockDiscoverable).not.toHaveBeenCalled();
 		expect(result).toEqual({ events: [], handles: {}, cursor: null });
 	});
@@ -350,5 +359,38 @@ describe('legacy / undecodable cursors end pagination cleanly with no read', () 
 		const result = await call('meili:20', 'jazz');
 		expect(result.cursor).toBeNull();
 		expect(mockRunSearch).not.toHaveBeenCalled();
+	});
+});
+
+// The schema is the trust boundary for the load-more POST body — a legacy client
+// mid-deploy, or a hostile one, can put anything in it. `v.object` STRIPS unknown
+// keys, so only `cursor` and `q` ever reach runLoadMoreEvents and every filter
+// value stays server-authoritative instead of client-echoed.
+describe('listEventsInput accepts a client bag without trusting it', () => {
+	it('strips a query-reconstruction bag down to the two fields that are read', () => {
+		const parsed = v.parse(listEventsInput, {
+			cursor: 'envelope-token',
+			q: 'jazz',
+			// What a pre-envelope client echoed, and what a hostile one would widen.
+			pipeline: 'listRecords',
+			sort: 'indexedAt',
+			order: 'desc',
+			limit: 500,
+			startsAtMin: '1970-01-01T00:00:00.000Z',
+			actor: 'did:plc:someone-else'
+		});
+		expect(parsed).toEqual({ cursor: 'envelope-token', q: 'jazz' });
+	});
+
+	it('accepts a cursor-only body and an empty one', () => {
+		expect(v.parse(listEventsInput, { cursor: 'envelope-token' })).toEqual({
+			cursor: 'envelope-token'
+		});
+		expect(v.parse(listEventsInput, {})).toEqual({});
+	});
+
+	it('rejects a mistyped cursor/q rather than coercing it', () => {
+		expect(() => v.parse(listEventsInput, { cursor: 123 })).toThrow();
+		expect(() => v.parse(listEventsInput, { q: ['jazz'] })).toThrow();
 	});
 });
