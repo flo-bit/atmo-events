@@ -86,3 +86,47 @@ describe('recordGeo', () => {
 		expect(recordGeo(record)).toEqual(eventToSearchDoc(payload(record))._geo);
 	});
 });
+
+describe('eventToSearchDoc timestamp normalization', () => {
+	// Meilisearch compares startsAt/endsAt as STRINGS, so what gets indexed has to
+	// be the instant, not the way the source wrote it. These are the shapes the
+	// importers actually produce (see lib/import/*.test.ts).
+	it('rewrites an offset-bearing timestamp to the instant it names', () => {
+		const doc = eventToSearchDoc(
+			payload({ startsAt: '2026-08-10T09:00:00-06:00', endsAt: '2026-08-10T17:00:00-06:00' })
+		);
+		expect(doc.startsAt).toBe('2026-08-10T15:00:00.000Z');
+		expect(doc.endsAt).toBe('2026-08-10T23:00:00.000Z');
+	});
+
+	it('orders an offset timestamp against a UTC one by instant, not by text', () => {
+		// The bug this guards: as raw text '2026-08-10T13:00:00+02:00' sorts AFTER
+		// '2026-08-10T12:00:00Z', though it is the earlier instant by an hour — so
+		// a live event could be filtered out of the happening-now band.
+		const offset = eventToSearchDoc(payload({ startsAt: '2026-08-10T13:00:00+02:00' })).startsAt!;
+		const utc = eventToSearchDoc(payload({ startsAt: '2026-08-10T12:00:00Z' })).startsAt!;
+		expect(offset < utc).toBe(true);
+		expect('2026-08-10T13:00:00+02:00' < '2026-08-10T12:00:00Z').toBe(false);
+	});
+
+	it('gives whole seconds the same millisecond precision `now` is written with', () => {
+		// `now` is a toISOString(); against a bare-seconds string 'Z' > '.', so
+		// 12:00:00Z used to compare as later than 12:00:00.500Z.
+		const doc = eventToSearchDoc(payload({ startsAt: '2026-08-10T12:00:00Z' }));
+		expect(doc.startsAt).toBe('2026-08-10T12:00:00.000Z');
+		expect(doc.startsAt! < new Date('2026-08-10T12:00:00.500Z').toISOString()).toBe(true);
+	});
+
+	it('passes an unparseable timestamp through rather than dropping the field', () => {
+		// Dropping it would remove the event from every bounded query; leaving it is
+		// what the index did before normalization existed.
+		const doc = eventToSearchDoc(payload({ startsAt: 'not a date' }));
+		expect(doc.startsAt).toBe('not a date');
+	});
+
+	it('leaves a missing timestamp undefined', () => {
+		const doc = eventToSearchDoc(payload({ name: 'x' }));
+		expect(doc.startsAt).toBeUndefined();
+		expect(doc.endsAt).toBeUndefined();
+	});
+});

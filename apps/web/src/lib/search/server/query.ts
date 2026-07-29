@@ -5,6 +5,7 @@ import type { Client } from '@atcute/client';
 import {
 	searchEvents,
 	nearMeEvents,
+	ongoingEvents,
 	type SearchBackend,
 	type SearchHit,
 	type SearchResult
@@ -104,6 +105,30 @@ export async function runEventSearchPage(
 ): Promise<SearchPageResult> {
 	const offset = parseOffsetCursor(cursor);
 	const result = await searchEvents(backend, {
+		q,
+		limit: SEARCH_PAGE_SIZE * SEARCH_OVERFETCH,
+		offset
+	});
+	return hydrateToPage(client, result, offset);
+}
+
+/**
+ * One page of events UNDER WAY matching a term, ranked by the search backend.
+ *
+ * The term-scoped band and the `/events/now` page its "see all" links to both go
+ * through here, so the two cannot disagree about what matches. They did: the band
+ * ran on D1 while the list beside it ran on Meili, the page promoted any live
+ * event out of that list into the band, and the D1-only destination could not
+ * contain what Meili had ranked and D1 had not. "See all" then led to a shorter
+ * list than the block it was offered beside.
+ */
+export async function runOngoingSearchPage(
+	backend: SearchBackend,
+	client: Client,
+	{ q, cursor }: { q: string; cursor?: string | null }
+): Promise<SearchPageResult> {
+	const offset = parseOffsetCursor(cursor);
+	const result = await ongoingEvents(backend, {
 		q,
 		limit: SEARCH_PAGE_SIZE * SEARCH_OVERFETCH,
 		offset
