@@ -101,7 +101,9 @@ describe('createMeiliSink onRecords', () => {
 			id: searchDocId('at://did:plc:alice/community.lexicon.calendar.event/1'),
 			uri: 'at://did:plc:alice/community.lexicon.calendar.event/1',
 			name: 'Coffee',
-			startsAt: '2026-07-01T10:00:00Z',
+			// Indexed as the instant, not as the record wrote it: the index compares
+			// this field as a string, so it is normalized (see normalize.ts).
+			startsAt: '2026-07-01T10:00:00.000Z',
 			_geo: { lat: 40, lng: -105 }
 		});
 	});

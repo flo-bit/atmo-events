@@ -82,6 +82,8 @@ export function parseCursor(cursor: string | null | undefined): ParsedCursor {
  */
 export const CURSOR_QUERIES = [
 	'events',
+	'happening-now',
+	'happening-now-meili',
 	'hosting',
 	'past-events',
 	'topic',
@@ -247,7 +249,13 @@ function argsEqual(a: CursorArgs | undefined, b: CursorArgs | undefined): boolea
  * (`q` + `args`). Search is excluded — its defining term rides `?q=`, not the
  * envelope, so a search cursor can't be validated against the route.
  */
-const DEEP_LINKABLE: readonly CursorQuery[] = ['events', 'hosting', 'past-events', 'topic'];
+const DEEP_LINKABLE: readonly CursorQuery[] = [
+	'events',
+	'happening-now',
+	'hosting',
+	'past-events',
+	'topic'
+];
 
 /**
  * Deep-link guard for a first-page load: return the inbound `?cursor=`'s opaque

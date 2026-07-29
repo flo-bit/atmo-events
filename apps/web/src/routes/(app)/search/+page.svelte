@@ -8,6 +8,14 @@
 
 	let query = $state(data.query);
 
+	// The live band's "See all" carries this page's TERM to /events/now, so the
+	// count it shows and the page it opens describe the same set. Built through
+	// resolve() for the base path, with the query string appended after — the
+	// same shape handleSearch below uses, for the same reason.
+	let ongoingSeeAllHref = $derived(
+		`${resolve('/(app)/events/now')}?q=${encodeURIComponent(data.query)}`
+	);
+
 	function handleSearch(e: Event) {
 		e.preventDefault();
 		const q = query.trim();
@@ -50,13 +58,17 @@
 	</p>
 
 	{#if data.query}
-		{#if data.events.length === 0}
+		{#if data.events.length === 0 && data.ongoing.length === 0}
 			<p class="text-base-500 py-8 text-center">No events found for "{data.query}".</p>
 		{:else}
 			<EventList
 				events={data.events}
 				cursor={data.cursor}
 				handles={data.handles}
+				ongoing={data.ongoing}
+				ongoingTotal={data.ongoingTotal}
+				ongoingTotalIsFloor={data.ongoingTotalIsFloor}
+				{ongoingSeeAllHref}
 				q={data.query}
 			/>
 		{/if}

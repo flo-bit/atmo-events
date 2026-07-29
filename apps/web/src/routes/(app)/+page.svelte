@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { EventCard } from '@atmo-dev/events-ui';
 	import RecentActivity from '$lib/components/RecentActivity.svelte';
+	import HappeningNow from '$lib/components/HappeningNow.svelte';
 	import { Button } from '@foxui/core';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
@@ -11,10 +12,11 @@
 	let hasMyEvents = $derived(
 		user.isLoggedIn && (data.myUpcoming.length > 0 || data.myPast.length > 0)
 	);
+	// Name the few hosts holding back the most, count the rest.
 </script>
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
-	<div class="mb-32 mt-16 sm:mt-28">
+	<div class="mt-16 mb-32 sm:mt-28">
 		<h1 class="text-base-900 dark:text-base-50 text-4xl font-bold sm:text-5xl">
 			Events for the open social web.
 		</h1>
@@ -29,7 +31,7 @@
 			{/if}
 			<a
 				href="/events"
-				class="text-sm font-medium text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transition-colors"
+				class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 			>
 				Browse Events &rarr;
 			</a>
@@ -42,7 +44,7 @@
 				<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Your events</h2>
 				<a
 					href="/calendar"
-					class="text-sm font-medium text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transition-colors"
+					class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 				>
 					Open calendar &rarr;
 				</a>
@@ -78,11 +80,23 @@
 		</section>
 	{/if}
 
+	<HappeningNow
+		events={data.ongoing}
+		total={data.ongoingTotal}
+		totalIsFloor={data.ongoingTotalIsFloor}
+		handles={data.handles}
+		sectionClass="mb-14"
+		headingClass="text-xl font-bold"
+		headerClass="mb-8"
+	/>
+
 	<div class="mb-8 flex items-baseline justify-between">
-		<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Upcoming Popular Events</h2>
+		<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">
+			{data.ongoing.length > 0 ? 'Upcoming' : 'Upcoming Popular Events'}
+		</h2>
 		<a
 			href="/events"
-			class="text-sm font-medium text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transition-colors"
+			class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 		>
 			See all &rarr;
 		</a>
@@ -100,7 +114,11 @@
 
 	{#if data.recentActivity.length > 0}
 		<section class="mt-16">
-			<h2 class="text-base-900 dark:text-base-50 text-xl font-bold {data.recentActivityIsPersonalized ? 'mb-1' : 'mb-4'}">
+			<h2
+				class="text-base-900 dark:text-base-50 text-xl font-bold {data.recentActivityIsPersonalized
+					? 'mb-1'
+					: 'mb-4'}"
+			>
 				{data.recentActivityIsPersonalized ? 'From people you follow' : 'Recent activity'}
 			</h2>
 			{#if data.recentActivityIsPersonalized}
@@ -113,7 +131,9 @@
 	{/if}
 
 	{#if !user.isLoggedIn}
-		<section class="border-base-200 dark:border-base-800 mt-20 grid gap-10 border-t pt-12 sm:grid-cols-3 sm:gap-8">
+		<section
+			class="border-base-200 dark:border-base-800 mt-20 grid gap-10 border-t pt-12 sm:grid-cols-3 sm:gap-8"
+		>
 			<div>
 				<h3 class="text-base-900 dark:text-base-50 mb-2 text-base font-semibold">
 					Sign in with Bluesky.
@@ -135,7 +155,8 @@
 					Your stuff stays yours.
 				</h3>
 				<p class="text-base-600 dark:text-base-400 text-sm">
-					Events live on your account, not ours. atmo.rsvp is just a view — take everything anywhere.
+					Events live on your account, not ours. atmo.rsvp is just a view — take everything
+					anywhere.
 				</p>
 			</div>
 		</section>

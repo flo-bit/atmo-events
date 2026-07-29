@@ -12,7 +12,7 @@
 		"declaration": true,
 		"declarationMap": false,
 		"sourceMap": true,
-		"types": ["svelte"]
+		"types": ["svelte", "vite/client"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.svelte"]
 }

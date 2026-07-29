@@ -5,6 +5,8 @@ import { getServerClient } from './index';
 import {
 	EMPTY_PAGE,
 	eventsQuery,
+	happeningNowMeiliQuery,
+	happeningNowQuery,
 	hostingQuery,
 	pastEventsQuery,
 	searchD1Query,
@@ -55,6 +57,21 @@ type Resumer = (
 const REGISTRY: Record<CursorQuery, Resumer> = {
 	events: async (_env, client, { args, raw }) =>
 		eventsQuery(client, { popular: args?.popular === true }, raw),
+
+	// Scoped by the clock, and optionally by a topic slug re-derived to a search
+	// SERVER-side (never taken from the client). A term-scoped list carries its
+	// term outside the envelope, exactly as the search resumers do.
+	'happening-now': async (_env, client, { args, raw }, searchTerm) =>
+		happeningNowQuery(client, raw, { slug: args?.slug, search: searchTerm }),
+
+	// The Meili-ranked twin, used when the band is scoped by a free-text TERM so
+	// that it and the list beside it run the same backend. Like the search
+	// resumers the term rides ?q=/input rather than the envelope, so a lost term
+	// ends pagination cleanly rather than continuing an unscoped live list.
+	'happening-now-meili': async (env, client, { raw }, searchTerm) => {
+		if (!searchTerm?.trim()) return EMPTY;
+		return happeningNowMeiliQuery(env, client, { term: searchTerm }, raw);
+	},
 
 	hosting: async (_env, client, { args, raw }) => {
 		const actor = args?.actor;

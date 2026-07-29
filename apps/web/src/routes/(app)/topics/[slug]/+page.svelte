@@ -1,7 +1,15 @@
 <script lang="ts">
 	import EventList from '$lib/components/EventList.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
+
+	// The live band's "See all" carries this topic to /events/now, so the count it
+	// shows and the page it opens describe the same set. resolve() covers the base
+	// path; the query string is appended after, as it cannot go through resolve().
+	let ongoingSeeAllHref = $derived(
+		`${resolve('/(app)/events/now')}?topic=${encodeURIComponent(data.topic.slug)}`
+	);
 </script>
 
 <svelte:head>
@@ -15,20 +23,25 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="relative mb-10 overflow-hidden rounded-2xl">
 		<div class="aspect-[21/9] w-full overflow-hidden">
-			<img
-				src={data.topic.image}
-				alt={data.topic.name}
-				class="h-full w-full object-cover"
-			/>
+			<img src={data.topic.image} alt={data.topic.name} class="h-full w-full object-cover" />
 		</div>
 		<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 		<div class="absolute bottom-0 left-0 p-6">
 			<a
 				href="/topics"
-				class="mb-3 inline-flex items-center gap-1 text-sm text-white/70 hover:text-white transition-colors"
+				class="mb-3 inline-flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-white"
 			>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4">
-					<path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					class="size-4"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+						clip-rule="evenodd"
+					/>
 				</svg>
 				All topics
 			</a>
@@ -42,7 +55,7 @@
 		</div>
 	</div>
 
-	{#if data.events.length === 0}
+	{#if data.events.length === 0 && data.ongoing.length === 0}
 		<div class="py-16 text-center">
 			<p class="text-base-500 dark:text-base-400 text-lg">No events found for this topic yet.</p>
 			<p class="text-base-400 dark:text-base-500 mt-2 text-sm">
@@ -50,6 +63,14 @@
 			</p>
 		</div>
 	{:else}
-		<EventList events={data.events} cursor={data.cursor} handles={data.handles} />
+		<EventList
+			events={data.events}
+			cursor={data.cursor}
+			handles={data.handles}
+			ongoing={data.ongoing}
+			ongoingTotal={data.ongoingTotal}
+			ongoingTotalIsFloor={data.ongoingTotalIsFloor}
+			{ongoingSeeAllHref}
+		/>
 	{/if}
 </div>

@@ -22,6 +22,7 @@ vi.mock('$lib/search/server/query', () => ({
 import { load } from './+page.server';
 import { listAuthoredEventsFromContrail } from '$lib/contrail';
 import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
+import { ONGOING_PER_ACTOR } from '$lib/contrail/ongoing';
 
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);
 
@@ -44,9 +45,19 @@ const page = (cursor: string | null) =>
 		cursor
 	}) as unknown as Awaited<ReturnType<typeof listAuthoredEventsFromContrail>>;
 
-type LoadResult = { events: unknown[]; cursor: string | null };
+type LoadResult = { events: unknown[]; cursor: string | null; ongoing: unknown[] };
 const runLoad = async (actor: string, cursor?: string) =>
 	(await load(event(actor, cursor))) as LoadResult;
+
+// Two DIFFERENT queries reach listAuthored on this route, so a test must pick the
+// one it means rather than trusting call order:
+//   - the paginated HOSTING list — bounded `startsAtMin` (upcoming only)
+//   - the ONGOING band           — bounded `startsAtMax` + `endsAtMin`
+const paramsOf = (i: number) => mockAuthored.mock.calls[i][1] as Record<string, unknown>;
+const listCall = () =>
+	mockAuthored.mock.calls.map((_, i) => paramsOf(i)).find((p) => p.startsAtMin !== undefined);
+const bandCall = () =>
+	mockAuthored.mock.calls.map((_, i) => paramsOf(i)).find((p) => p.endsAtMin !== undefined);
 
 afterEach(() => vi.clearAllMocks());
 
@@ -66,12 +77,44 @@ describe('hosting page load', () => {
 	});
 });
 
+describe('hosting ongoing band', () => {
+	// More of one actor's live events than the shared-list cap would allow through.
+	const manyLive = (n: number) =>
+		({
+			records: Array.from({ length: n }, (_, i) => ({
+				uri: `at://did:plc:alice/community.lexicon.calendar.event/${i}`,
+				did: ACTOR
+			})),
+			profiles: [{ did: ACTOR, handle: 'alice' }],
+			cursor: null
+		}) as unknown as Awaited<ReturnType<typeof listAuthoredEventsFromContrail>>;
+
+	it('runs the band UNCAPPED — this page is where the shared lists’ "see all" lands', async () => {
+		mockAuthored.mockResolvedValue(manyLive(ONGOING_PER_ACTOR + 2));
+		const result = await runLoad(ACTOR);
+
+		expect(bandCall()).toMatchObject({ actor: ACTOR, sort: 'endsAt', order: 'asc' });
+		// A per-actor cap here would send a reader chasing the rest of a publisher's
+		// live events to a page showing the same three they were escaping.
+		expect(result.ongoing.length).toBeGreaterThan(ONGOING_PER_ACTOR);
+	});
+
+	it('does NOT re-send the band on a resumed continuation', async () => {
+		mockAuthored.mockResolvedValue(page(null));
+		const inbound = encodeCursor({ v: 1, q: 'hosting', args: { actor: ACTOR }, raw: 'p2keyset' });
+		const result = await runLoad(ACTOR, inbound);
+
+		expect(bandCall()).toBeUndefined();
+		expect(result.ongoing).toEqual([]);
+	});
+});
+
 describe('hosting deep-link ?cursor= guard', () => {
 	it('resumes a hosting envelope minted for THIS actor', async () => {
 		mockAuthored.mockResolvedValue(page(null));
 		const inbound = encodeCursor({ v: 1, q: 'hosting', args: { actor: ACTOR }, raw: 'p2keyset' });
 		await runLoad(ACTOR, inbound);
-		expect(mockAuthored.mock.calls[0][1].cursor).toBe('p2keyset');
+		expect(listCall()!.cursor).toBe('p2keyset');
 	});
 
 	it('ignores a hosting envelope minted for a DIFFERENT actor (same q, diff args => fresh page 1)', async () => {
@@ -83,13 +126,13 @@ describe('hosting deep-link ?cursor= guard', () => {
 			raw: 'nope'
 		});
 		await runLoad(ACTOR, otherActor);
-		expect(mockAuthored.mock.calls[0][1].cursor).toBeUndefined();
+		expect(listCall()!.cursor).toBeUndefined();
 	});
 
 	it('ignores a foreign-query (past-events) envelope even for the same actor (fresh page 1)', async () => {
 		mockAuthored.mockResolvedValue(page(null));
 		const foreign = encodeCursor({ v: 1, q: 'past-events', args: { actor: ACTOR }, raw: 'nope' });
 		await runLoad(ACTOR, foreign);
-		expect(mockAuthored.mock.calls[0][1].cursor).toBeUndefined();
+		expect(listCall()!.cursor).toBeUndefined();
 	});
 });

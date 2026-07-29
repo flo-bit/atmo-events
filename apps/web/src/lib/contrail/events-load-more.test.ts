@@ -23,7 +23,8 @@ vi.mock('$lib/contrail', () => ({
 }));
 vi.mock('$lib/search/server/query', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
-	runEventSearchPage: vi.fn()
+	runEventSearchPage: vi.fn(),
+	runOngoingSearchPage: vi.fn()
 }));
 
 import * as v from 'valibot';
@@ -34,7 +35,11 @@ import {
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
-import { runEventSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+import {
+	runEventSearchPage,
+	runOngoingSearchPage,
+	searchBackendFromEnv
+} from '$lib/search/server/query';
 import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
 
 const mockRecords = vi.mocked(listEventRecordsFromContrail);
@@ -42,6 +47,7 @@ const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);
 const mockSearchBackend = vi.mocked(searchBackendFromEnv);
 const mockRunSearch = vi.mocked(runEventSearchPage);
+const mockRunOngoingSearch = vi.mocked(runOngoingSearchPage);
 
 const env = { DB: {} } as unknown as App.Platform['env'];
 
@@ -100,6 +106,21 @@ describe('runLoadMoreEvents registry dispatch', () => {
 		mockDiscoverable.mockResolvedValue(page([], null));
 		await call(token({ v: 1, q: 'events', args: { popular: false }, raw: 'r' }));
 		expect(mockDiscoverable.mock.calls[0][1]).not.toHaveProperty('rsvpsCountMin');
+	});
+
+	it("routes 'happening-now' to listDiscoverable with BOTH band bounds, endsAt asc", async () => {
+		mockDiscoverable.mockResolvedValue(page([{ uri: 'at://x' }], 'raw2'));
+
+		const result = await call(token({ v: 1, q: 'happening-now', raw: 'raw1' }));
+
+		expect(mockDiscoverable).toHaveBeenCalledTimes(1);
+		const params = mockDiscoverable.mock.calls[0][1];
+		// Same literals the events/now page-1 load uses (continuity).
+		expect(params).toMatchObject({ sort: 'endsAt', order: 'asc', limit: 20, cursor: 'raw1' });
+		expect(params.startsAtMax).toBe(params.endsAtMin);
+		// The upcoming bound must NOT appear — it excludes the entire list.
+		expect(params.startsAtMin).toBeUndefined();
+		expect(decodeCursor(result.cursor)).toEqual({ v: 1, q: 'happening-now', raw: 'raw2' });
 	});
 
 	it("routes 'hosting' to listAuthored scoped to the actor, upcoming asc", async () => {
@@ -392,5 +413,46 @@ describe('listEventsInput accepts a client bag without trusting it', () => {
 	it('rejects a mistyped cursor/q rather than coercing it', () => {
 		expect(() => v.parse(listEventsInput, { cursor: 123 })).toThrow();
 		expect(() => v.parse(listEventsInput, { q: ['jazz'] })).toThrow();
+	});
+});
+
+describe("'happening-now-meili' continues a TERM-scoped live list", () => {
+	// The term rides the remote input, never the envelope. A page that forgets to
+	// send it strands the list at its first 20 results — which /events/now did,
+	// because it never passed the term down to the list component at all.
+	const backend = { url: 'https://meili.test', apiKey: 'k' };
+
+	it('resumes on the search backend when the term is supplied', async () => {
+		mockSearchBackend.mockReturnValue(backend);
+		mockRunOngoingSearch.mockResolvedValue({
+			events: [{ uri: 'at://did:plc:a/community.lexicon.calendar.event/1' }],
+			handles: {},
+			cursor: 'meili:40',
+			distances: {}
+		} as unknown as Awaited<ReturnType<typeof runOngoingSearchPage>>);
+
+		const result = await call(token({ v: 1, q: 'happening-now-meili', raw: 'meili:20' }), 'town');
+
+		expect(mockRunOngoingSearch).toHaveBeenCalledWith(backend, expect.anything(), {
+			q: 'town',
+			cursor: 'meili:20'
+		});
+		expect(result.events).toHaveLength(1);
+		// The continuation stays on the query that minted it.
+		expect(decodeCursor(result.cursor)).toEqual({
+			v: 1,
+			q: 'happening-now-meili',
+			raw: 'meili:40'
+		});
+	});
+
+	it('ends cleanly without a term rather than continuing an unscoped live list', async () => {
+		mockSearchBackend.mockReturnValue(backend);
+
+		const result = await call(token({ v: 1, q: 'happening-now-meili', raw: 'meili:20' }));
+
+		expect(result).toEqual({ events: [], handles: {}, cursor: null });
+		expect(mockRunOngoingSearch).not.toHaveBeenCalled();
+		noReads();
 	});
 });

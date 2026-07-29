@@ -101,6 +101,38 @@ function str(v: unknown): string | undefined {
 	return typeof v === 'string' ? v : undefined;
 }
 
+/** The instant a timestamp names, as one canonical UTC string — for the two
+ *  fields the index RANGE-FILTERS and SORTS on.
+ *
+ *  Meilisearch has no date type: `startsAt`/`endsAt` are strings, and every
+ *  bound ./meili.ts issues is a string comparison. That is only chronological
+ *  while every value is written the same way, and RFC 3339 does not require
+ *  that — it permits a zone offset, and the importers keep whatever the source
+ *  wrote (an .ics in Denver yields `2026-08-10T09:00:00-06:00`; see
+ *  import/ical.test.ts). Compared as text, such a value collates by its
+ *  wall-clock digits rather than by the instant it names, so `13:00+02:00`
+ *  sorts and filters as if it were later than a `12:00Z` it actually precedes.
+ *
+ *  Sub-second precision is the same hazard in miniature: `now` is a
+ *  toISOString() with milliseconds, so a stored `12:00:00Z` compares as GREATER
+ *  than `12:00:00.500Z` ('Z' > '.'), off by up to a second even with all-UTC
+ *  data. Emitting toISOString() on both sides settles both cases at once.
+ *
+ *  Unparseable input passes through as written — that is what the index stores
+ *  today, whereas dropping the field would silently remove the event from every
+ *  bounded query. Only these two fields are normalized: nothing filters or
+ *  sorts on `createdAt`, and no read path retrieves any of them (searches ask
+ *  for `uri` alone), so this changes what the index COMPARES, never what a
+ *  reader is shown. Existing documents converge as they are re-upserted; all
+ *  currently indexed timestamps are already UTC, so the two forms differ only
+ *  in milliseconds until then. */
+function utcInstant(v: unknown): string | undefined {
+	const s = str(v);
+	if (s === undefined) return undefined;
+	const ms = Date.parse(s);
+	return Number.isNaN(ms) ? s : new Date(ms).toISOString();
+}
+
 /** The record's locations[] narrowed to the location objects deriveGeo and the
  *  doc builder read. */
 function recordLocations(record: Record<string, unknown>): Loc[] {
@@ -132,8 +164,10 @@ export function eventToSearchDoc(payload: EventRecordPayload): SearchDoc {
 		rkey: payload.rkey,
 		name: str(record.name),
 		description: str(record.description),
-		startsAt: str(record.startsAt),
-		endsAt: str(record.endsAt),
+		// The two fields the index range-filters and sorts on, so they carry the
+		// instant rather than the way the source happened to write it.
+		startsAt: utcInstant(record.startsAt),
+		endsAt: utcInstant(record.endsAt),
 		mode: str(record.mode),
 		status: str(record.status),
 		createdAt: str(record.createdAt),

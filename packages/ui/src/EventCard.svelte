@@ -21,6 +21,35 @@
 		});
 	}
 
+	/**
+	 * What a card says about an event ALREADY UNDER WAY: when it finishes, not when
+	 * it began. A "Live" badge beside "Wed, Jul 1" reads as a bug, and in a list
+	 * sorted by finishing time the start dates look shuffled. Day and weekday are
+	 * dropped when it ends today, since the only thing a reader wants then is how
+	 * long they have left.
+	 */
+	function formatEndsAt(endsAt: string): string {
+		const end = new Date(endsAt);
+		const now = new Date();
+		const endsToday = end.toDateString() === now.toDateString();
+		// Carry the YEAR when it is not this one. Long-running events are exactly
+		// what this band surfaces — a year-long journey ending 2027-07-04 rendered
+		// as "Ends Sun, Jul 4", which reads as a date three days ago.
+		const endsThisYear = end.getFullYear() === now.getFullYear();
+		return end.toLocaleTimeString('en-US', {
+			...(endsToday
+				? {}
+				: {
+						weekday: 'short',
+						month: 'short',
+						day: 'numeric',
+						...(endsThisYear ? {} : { year: 'numeric' })
+					}),
+			hour: 'numeric',
+			minute: '2-digit'
+		});
+	}
+
 	function getModeLabel(mode: string | undefined): string | undefined {
 		if (!mode) return undefined;
 		if (mode.includes('virtual')) return 'Virtual';
@@ -90,10 +119,16 @@
 
 	<div class="min-w-0 self-center">
 		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
-			{formatDateTime(event.startsAt)}
+			{#if isOngoing && event.endsAt}
+				Ends {formatEndsAt(event.endsAt)}
+			{:else}
+				{formatDateTime(event.startsAt)}
+			{/if}
 			{#if isOngoing}
-				<span class="inline-flex items-center gap-1 rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-semibold text-accent-700 dark:bg-accent-900/30 dark:text-accent-400">
-					<span class="size-1.5 rounded-full bg-accent-500 animate-pulse"></span>
+				<span
+					class="bg-accent-100 text-accent-700 dark:bg-accent-900/30 dark:text-accent-400 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+				>
+					<span class="bg-accent-500 size-1.5 animate-pulse rounded-full"></span>
 					Live
 				</span>
 			{/if}

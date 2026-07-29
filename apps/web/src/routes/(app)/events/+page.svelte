@@ -23,25 +23,46 @@
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Upcoming Events</h1>
-		<ToggleGroup
-			type="single"
-			bind:value={
-				() => filter,
-				(val) => {
-					if (val) setFilter(val);
-				}
-			}
-			class="w-fit"
-			size="xs"
-		>
-			<ToggleGroupItem value="popular">Popular</ToggleGroupItem>
-			<ToggleGroupItem value="all">All</ToggleGroupItem>
-		</ToggleGroup>
+		<!-- The page title covers both sections below it; each names itself. -->
+		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Events</h1>
 	</div>
 
+	<!-- The popular/all filter belongs to the UPCOMING half. It used to sit in the
+	     page header, where the section directly under it was "Happening Now" — the
+	     one list it does not filter — so the page read as broken: you toggle, and
+	     the thing under the toggle does not move. -->
+	{#snippet upcomingHeader()}
+		<div class="mb-4 flex flex-wrap items-baseline justify-between gap-4">
+			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upcoming</h2>
+			<ToggleGroup
+				type="single"
+				bind:value={
+					() => filter,
+					(val) => {
+						if (val) setFilter(val);
+					}
+				}
+				class="w-fit"
+				size="xs"
+			>
+				<ToggleGroupItem value="popular">Popular</ToggleGroupItem>
+				<ToggleGroupItem value="all">All</ToggleGroupItem>
+			</ToggleGroup>
+		</div>
+	{/snippet}
+
+	<EventList
+		events={data.events}
+		cursor={data.cursor}
+		handles={data.handles}
+		ongoing={data.ongoing}
+		ongoingTotal={data.ongoingTotal}
+		ongoingTotalIsFloor={data.ongoingTotalIsFloor}
+		{upcomingHeader}
+	/>
+
 	{#if data.events.length === 0}
-		<p class="text-base-500 text-center text-lg">
+		<p class="text-base-500 py-8 text-center text-lg">
 			{#if filter === 'popular'}
 				No popular events right now. <button
 					type="button"
@@ -54,7 +75,5 @@
 				No upcoming events found.
 			{/if}
 		</p>
-	{:else}
-		<EventList events={data.events} cursor={data.cursor} handles={data.handles} />
 	{/if}
 </div>

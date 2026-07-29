@@ -5,6 +5,8 @@
 	import { Button } from '@foxui/core';
 	import { EventCard } from '@atmo-dev/events-ui';
 	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
+	import HappeningNow from '$lib/components/HappeningNow.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 
@@ -13,6 +15,11 @@
 	let hostProfile = $derived(data.actorProfile);
 	let hostDid = $derived(data.actorDid as string);
 	let hostName = $derived(hostProfile?.value?.displayName || hostProfile?.handle || hostDid);
+
+	// `data.actor` is OPTIONAL in the load's return type: an invalid route param
+	// returns early and leaves the page with no data at all. The DID names the same
+	// profile and the route accepts either, so it stands in to keep this a string.
+	let profileActor = $derived(data.actor ?? hostDid);
 
 	let now = $derived(new Date());
 
@@ -64,7 +71,21 @@
 			</Button>
 		{/if}
 
-		<!-- Upcoming Events -->
+		<!-- Its own section, as on every other surface. Interleaving the two under one
+		     heading made this the one page where a reader had to read a badge to tell
+		     "under way" from "not started yet" — the distinction the section exists to
+		     draw. "See all" leads to this host's hosting list, which runs the same
+		     band uncapped. -->
+		<HappeningNow
+			events={data.ongoingEvents ?? []}
+			total={data.ongoingTotal}
+			totalIsFloor={data.ongoingTotalIsFloor}
+			actor={data.actor}
+			seeAllHref={resolve('/(app)/p/[actor]/hosting', { actor: profileActor })}
+			sectionClass="mb-10"
+			gridClass="space-y-5"
+		/>
+
 		{#if (data.upcomingEvents?.length ?? 0) > 0}
 			<section class="mb-10">
 				<div class="mb-4 flex items-baseline justify-between">
@@ -120,7 +141,10 @@
 			</section>
 		{/if}
 
-		{#if !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !data.pastEvents?.length}
+		<!-- `ongoingEvents` counts here too. A host whose only event is running RIGHT
+		     NOW has cards on the page, and claiming underneath them that they have
+		     never created an event contradicts what the reader can see. -->
+		{#if !data.ongoingEvents?.length && !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !data.pastEvents?.length}
 			<div
 				class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
 			>

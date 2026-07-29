@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { searchEvents, nearMeEvents } from './meili';
+import { searchEvents, nearMeEvents, ongoingEvents } from './meili';
 
 // Fake fetch capturing the request and returning a canned Meilisearch response.
 function fakeFetch(body: unknown, status = 200) {
@@ -85,9 +85,9 @@ describe('searchEvents', () => {
 		await expect(searchEvents(cfg(fetchFn), { q: 'x', limit: 1, offset: 0 })).rejects.toThrow(
 			/search request failed: 403/i
 		);
-		await expect(
-			searchEvents(cfg(fetchFn), { q: 'x', limit: 1, offset: 0 })
-		).rejects.not.toThrow(/read-only-key/);
+		await expect(searchEvents(cfg(fetchFn), { q: 'x', limit: 1, offset: 0 })).rejects.not.toThrow(
+			/read-only-key/
+		);
 	});
 });
 
@@ -167,5 +167,46 @@ describe('nearMeEvents', () => {
 			})
 		).rejects.toThrow(/invalid coordinates/i);
 		expect(calls).toHaveLength(0);
+	});
+});
+
+describe('ongoingEvents', () => {
+	it('bounds BOTH ends of the window and sorts soonest-ending first', async () => {
+		const { fetchFn, calls } = fakeFetch({ hits: [], estimatedTotalHits: 0 });
+
+		await ongoingEvents(cfg(fetchFn), {
+			q: 'town',
+			limit: 60,
+			offset: 0,
+			now: '2026-07-28T12:00:00.000Z'
+		});
+
+		expect(JSON.parse(String(calls[0].init.body))).toEqual({
+			q: 'town',
+			limit: 60,
+			offset: 0,
+			// Started, and not yet ended — the window every upcoming list drops.
+			filter: '(startsAt <= "2026-07-28T12:00:00.000Z" AND endsAt >= "2026-07-28T12:00:00.000Z")',
+			// Overrides relevance ranking: for "what is on now", when it ends is what
+			// decides whether a reader can still get to it.
+			sort: ['endsAt:asc'],
+			attributesToRetrieve: ['uri']
+		});
+	});
+
+	it('has no missing-endsAt fallback, unlike the upcoming bound', async () => {
+		// An event with no endsAt is over once it has started (hasEnded), so it can
+		// never be ongoing. The bound excludes exactly the records that cannot answer
+		// "is it still on?" — the same exclusion D1 gets free from `NULL >= 'x'`.
+		const { fetchFn, calls } = fakeFetch({ hits: [], estimatedTotalHits: 0 });
+
+		await ongoingEvents(cfg(fetchFn), {
+			q: 'town',
+			limit: 60,
+			offset: 0,
+			now: '2026-07-28T12:00:00.000Z'
+		});
+
+		expect(JSON.parse(String(calls[0].init.body)).filter).not.toContain('NOT EXISTS');
 	});
 });
