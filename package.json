@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"package:ui": "pnpm --filter @atmo-dev/events-ui package",
 		"changeset": "changeset",
-		"version-packages": "changeset version",
+		"version-packages": "changeset version && pnpm install --lockfile-only",
 		"release": "changeset publish"
 	},
 	"license": "MIT",
