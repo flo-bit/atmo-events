@@ -14,6 +14,81 @@ const louisville = [
 	}
 ];
 
+// Real Nominatim capture for the flagship repro `Humboldt Park Chicago`.
+// Nominatim sends the place name in the top-level `name` plus class/type (place/
+// suburb); the proxy forwards class/type (as category/placeType) — the signal
+// both providers share — with `name` as the preferred name source.
+const humboldtPark = [
+	{
+		lat: '41.9027884',
+		lon: '-87.7209107',
+		display_name:
+			'Humboldt Park, Chicago, West Chicago Township, Cook County, Illinois, 60651, United States',
+		class: 'place',
+		type: 'suburb',
+		addresstype: 'suburb',
+		name: 'Humboldt Park',
+		osm_type: 'node',
+		osm_id: 153623522,
+		address: {
+			suburb: 'Humboldt Park',
+			city: 'Chicago',
+			municipality: 'West Chicago Township',
+			county: 'Cook County',
+			state: 'Illinois',
+			postcode: '60651',
+			country: 'United States'
+		}
+	}
+];
+
+// Real LocationIQ capture for the same repro: LocationIQ leaves the top-level
+// `name` empty and puts the place name in `namedetails.name` instead. The proxy
+// must fold that into `name` so the picker keeps it.
+const humboldtParkLocationIQ = [
+	{
+		lat: '41.9027884',
+		lon: '-87.7209107',
+		display_name:
+			'Humboldt Park, Chicago, West Chicago Township, Cook County, Illinois, 60651, USA',
+		class: 'place',
+		type: 'suburb',
+		namedetails: { name: 'Humboldt Park' },
+		osm_type: 'node',
+		osm_id: 153623522,
+		address: {
+			suburb: 'Humboldt Park',
+			city: 'Chicago',
+			county: 'Cook County',
+			state: 'Illinois',
+			postcode: '60651',
+			country_code: 'us',
+			country: 'United States of America'
+		}
+	}
+];
+
+// An unnamed building: no top-level name, no namedetails. The proxy forwards no
+// `name`, so the picker stores no place name (it must not invent one).
+const unnamedBuilding = [
+	{
+		lat: '42.0',
+		lon: '-87.66',
+		display_name: '1234, West Farwell Avenue, Chicago, Cook County, Illinois, 60626, USA',
+		class: 'building',
+		type: 'yes',
+		namedetails: {},
+		osm_type: 'way',
+		osm_id: 1,
+		address: {
+			house_number: '1234',
+			road: 'West Farwell Avenue',
+			city: 'Chicago',
+			country_code: 'us'
+		}
+	}
+];
+
 function fakeFetch(status: number, body: unknown) {
 	const calls: { url: string; headers: Record<string, string> }[] = [];
 	const fn = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -85,6 +160,46 @@ describe('GET /api/geocoding', () => {
 		// Goes through the one shared client: shared URL + shared User-Agent.
 		expect(calls[0].url).toContain(DEFAULT_GEOCODER_URL);
 		expect(calls[0].headers['user-agent']).toBe(DEFAULT_GEOCODER_USER_AGENT);
+	});
+
+	it('forwards the OSM class/type (as category/placeType) plus the top-level name', async () => {
+		const { fn } = fakeFetch(200, humboldtPark);
+		const res = await GET(event({ q: 'Humboldt Park Chicago', did: 'did:plc:abc', fetch: fn }));
+		expect(res.status).toBe(200);
+		const body = (await res.json()) as {
+			name?: string;
+			category?: string;
+			placeType?: string;
+			address: Record<string, string>;
+		};
+		// The picker classifies named-place-vs-admin on class/type — the only fields BOTH
+		// Nominatim and LocationIQ return — so the proxy must forward them; the
+		// top-level `name` (Nominatim-only) rides along as the preferred name source.
+		expect(body.category).toBe('place');
+		expect(body.placeType).toBe('suburb');
+		expect(body.name).toBe('Humboldt Park');
+		expect(body.address.suburb).toBe('Humboldt Park');
+	});
+
+	it('folds LocationIQ namedetails.name into name when the top-level name is empty', async () => {
+		const { fn } = fakeFetch(200, humboldtParkLocationIQ);
+		const res = await GET(event({ q: 'Humboldt Park Chicago', did: 'did:plc:abc', fetch: fn }));
+		expect(res.status).toBe(200);
+		const body = (await res.json()) as { name?: string; category?: string; placeType?: string };
+		expect(body.category).toBe('place');
+		expect(body.placeType).toBe('suburb');
+		// LocationIQ leaves top-level name empty; the proxy recovers it from namedetails.
+		expect(body.name).toBe('Humboldt Park');
+	});
+
+	it('forwards no name for an unnamed feature (building=yes, empty namedetails)', async () => {
+		const { fn } = fakeFetch(200, unnamedBuilding);
+		const res = await GET(event({ q: '1234 West Farwell Avenue', did: 'did:plc:abc', fetch: fn }));
+		expect(res.status).toBe(200);
+		const body = (await res.json()) as { name?: string; category?: string; placeType?: string };
+		expect(body.category).toBe('building');
+		expect(body.placeType).toBe('yes');
+		expect(body.name).toBeUndefined();
 	});
 
 	it('appends the key server-side when GEOCODER_URL/KEY are configured', async () => {

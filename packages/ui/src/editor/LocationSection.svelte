@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button, Input, Modal } from '@foxui/core';
 	import { getLocationDisplayString, type EventLocation } from './types';
+	import { geocodeResponseToLocation, type GeocodeResponse } from './location';
 
 	let {
 		location = $bindable(),
@@ -9,6 +10,14 @@
 		location: EventLocation | null;
 		locationChanged: boolean;
 	} = $props();
+
+	// Gate the block on what there is to SHOW, not on the model being non-null: a
+	// saved record can hold a location this editor has no label for — a geo entry at
+	// the 0,0 sentinel, which every other reader now renders as no location at all.
+	// Keyed off the object, the block rendered an empty line beside a Remove button.
+	// The stored entry is untouched; an untouched save preserves `locations[]`
+	// wholesale, and picking a new place replaces it the way it already did.
+	let displayString = $derived(location ? getLocationDisplayString(location) : '');
 
 	let showModal = $state(false);
 	let searchText = $state('');
@@ -26,26 +35,12 @@
 		try {
 			const response = await fetch('/api/geocoding?q=' + encodeURIComponent(q));
 			if (!response.ok) throw new Error('response not ok');
-			const data: Record<string, unknown> = await response.json();
+			const data = (await response.json()) as GeocodeResponse & { error?: unknown };
 			if (!data || data.error) throw new Error('no results');
 
-			const addr = (data.address || {}) as Record<string, string>;
-			const road = addr.road || '';
-			const houseNumber = addr.house_number || '';
-			const street = road ? (houseNumber ? `${road} ${houseNumber}` : road) : '';
-			const locality =
-				addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || '';
-			const region = addr.state || addr.county || '';
-			const country = addr.country || '';
-
 			result = {
-				displayName: (data.label as string) || q,
-				location: {
-					...(street && { street }),
-					...(locality && { locality }),
-					...(region && { region }),
-					...(country && { country })
-				}
+				displayName: data.label || q,
+				location: geocodeResponseToLocation(data)
 			};
 		} catch {
 			error = "Couldn't find that location.";
@@ -71,7 +66,7 @@
 	}
 </script>
 
-{#if location}
+{#if displayString}
 	<div class="mb-6 flex items-center gap-4">
 		<div
 			class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 items-center justify-center rounded-xl border"
@@ -97,7 +92,7 @@
 			</svg>
 		</div>
 		<p class="text-base-900 dark:text-base-50 flex-1 font-semibold">
-			{getLocationDisplayString(location)}
+			{displayString}
 		</p>
 		<Button variant="ghost" size="iconSm" onclick={remove} class="shrink-0">
 			<svg

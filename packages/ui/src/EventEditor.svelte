@@ -35,6 +35,7 @@
 		type Visibility
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
+	import { eventLocationFromEntries } from './editor/location';
 	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter';
 
@@ -133,22 +134,18 @@
 
 	function populateLocationFromEventData() {
 		if (!eventData) return;
-		if (eventData.locations && eventData.locations.length > 0) {
-			const loc = eventData.locations.find(
-				(v) => v.$type === 'community.lexicon.location.address'
-			) as { street?: string; locality?: string; region?: string; country?: string } | undefined;
-			if (loc) {
-				const street = loc.street || undefined;
-				const locality = loc.locality || undefined;
-				const region = loc.region || undefined;
-				const country = loc.country || undefined;
-				location = {
-					...(street && { street }),
-					...(locality && { locality }),
-					...(region && { region }),
-					...(country && { country })
-				};
-			}
+		// Rebuild from BOTH the address entry and the companion geo entry, so the
+		// coordinates survive a re-edit — otherwise the recurring-event builder
+		// (which authors records straight from this location) drops the _geo.
+		const hydrated = eventLocationFromEntries(
+			eventData.locations as Array<Record<string, unknown>> | undefined
+		);
+		// A coordinates-only location counts: that is how a pick the geocoder gave no
+		// ISO country code for is stored, and LocationSection labels it with the
+		// point. Only a record with neither an address nor a geo entry (FSQ/H3-only)
+		// leaves the editor showing no location.
+		if (Object.keys(hydrated).length > 0) {
+			location = hydrated;
 		}
 		locationChanged = false;
 	}
@@ -582,6 +579,7 @@
 	{description}
 	{links}
 	{location}
+	{locationChanged}
 	{thumbnailDateStr}
 	{thumbnailFile}
 	{thumbnailChanged}

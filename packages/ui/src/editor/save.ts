@@ -5,6 +5,7 @@ import { designs, resolveAccentColor } from '../thumbnails/designs.js';
 import type { FlatEventRecord } from '../contrail.js';
 import type { EventTheme } from '../theme.js';
 import type { EventLocation, EventMode, Visibility } from './types.js';
+import { locationsForSave } from './location.js';
 
 export async function tokensToFacets(
 	tokens: Token[],
@@ -194,18 +195,19 @@ export async function buildEventRecord(args: {
 	if (media) record.media = media;
 	if (links.length > 0) record.uris = links;
 
-	if (isNew || locationChanged) {
-		if (location) {
-			record.locations = [
-				{
-					$type: 'community.lexicon.location.address',
-					...location
-				}
-			];
-		}
-		// If changed/new but no location, locations stays undefined (removed/absent)
-	} else if (eventData?.locations && eventData.locations.length > 0) {
-		record.locations = eventData.locations;
+	const locations = locationsForSave({
+		isNew,
+		locationChanged,
+		location,
+		existing: eventData?.locations as ReadonlyArray<Record<string, unknown>> | undefined
+	});
+	if (locations) {
+		record.locations = locations;
+	} else {
+		// Nothing to write: a removed location, or an unchanged event with none. The
+		// initial `...eventData` spread may have copied a stale locations[], so drop
+		// it explicitly.
+		delete record.locations;
 	}
 
 	const existingPrefs = ((record.preferences as Record<string, unknown> | undefined) ??

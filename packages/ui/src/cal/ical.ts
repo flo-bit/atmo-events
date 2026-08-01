@@ -1,3 +1,4 @@
+import { locationFullLabel } from '../location-summary.js';
 import type { EventData } from '../event-types.js';
 
 /**
@@ -53,19 +54,10 @@ function toICalDate(isoString: string): string {
  * Extract a location string from event locations array.
  */
 function getLocationString(locations: EventData['locations']): string | undefined {
-	if (!locations || locations.length === 0) return undefined;
-
-	const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-		| { street?: string; locality?: string; region?: string }
-		| undefined;
-	if (!loc) return undefined;
-
-	const street = loc.street || undefined;
-	const locality = loc.locality || undefined;
-	const region = loc.region || undefined;
-
-	const parts = [street, locality, region].filter(Boolean);
-	return parts.length > 0 ? parts.join(', ') : undefined;
+	// The whole location, untrimmed and including the place name and country: a
+	// calendar app wants the full address in LOCATION, and the name is the thing
+	// the user picked. Shared with the web export's mirror of this rule.
+	return locationFullLabel(locations);
 }
 
 function getModeLabel(mode: string): string {

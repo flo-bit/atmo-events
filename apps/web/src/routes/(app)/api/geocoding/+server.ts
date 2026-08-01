@@ -27,6 +27,9 @@ export async function GET({ url, locals, platform, fetch }) {
 			lat: point.lat,
 			lng: point.lng,
 			label: point.label ?? q,
+			name: point.name,
+			category: point.category,
+			placeType: point.placeType,
 			address: point.address ?? {},
 			osmType: point.osmType,
 			osmId: point.osmId

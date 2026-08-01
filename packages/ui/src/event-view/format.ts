@@ -1,6 +1,8 @@
 import { marked } from 'marked';
 import { sanitize } from '../cal/sanitize.js';
 import { getProfileUrl } from '../profile-url.js';
+import { dropRepeats, formatPoint, locationSummary } from '../location-summary.js';
+import { coordsUsableForDisplay } from '../editor/location.js';
 import type { FlatEventRecord } from '../contrail.js';
 
 export function formatMonth(date: Date): string {
@@ -43,33 +45,96 @@ export function getModeColor(mode: string): string {
 	return '';
 }
 
+/** The `lat,lng` a Google Maps query should use, or '' when the stored point is not
+ *  safe to point at. Coordinates beat address text for resolution: text is geocoded
+ *  by Google afresh, and an address whose fields the record kept out of order ("a
+ *  city, then a street") resolves to the wrong feature — a Copenhagen record aimed
+ *  at the city square landed on the train station of the same name. */
+function mapQueryPoint(lat: string | undefined, lng: string | undefined): string {
+	if (!lat?.trim() || !lng?.trim()) return '';
+	const latitude = Number(lat);
+	const longitude = Number(lng);
+	return coordsUsableForDisplay(latitude, longitude) ? `${latitude},${longitude}` : '';
+}
+
 export type LocationData = {
 	name?: string;
 	shortAddress: string;
 	fullAddress: string;
 	fullString: string;
+	/** Every address field in address order, repeats and all — for GEOCODING, not for
+	 *  display. The displayed strings drop what the name already states, and that is
+	 *  the wrong input for a geocoder: a venue named after its city ("Copenhagen")
+	 *  suppresses the locality, throwing away the token that disambiguates the
+	 *  street. Empty when there are no address fields. */
+	geocodeQuery: string;
 	googleMapsUrl: string;
 };
 
 export function getLocationData(locations: FlatEventRecord['locations']): LocationData | null {
-	if (!locations?.length) return null;
+	const summary = locationSummary(locations);
+	if (!summary) return null;
 
-	const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-		| { name?: string; street?: string; locality?: string; region?: string; country?: string }
-		| undefined;
-	if (!loc) return null;
+	const fullParts = [summary.street, summary.locality, summary.region, summary.country].filter(
+		Boolean
+	);
+	// No address fields — a place saved as a geo entry alone. Show its name, or the
+	// point itself when it has none, which is what the editor shows for the same
+	// record. Returning null here would render no location and no map for a record
+	// that does have a position.
+	if (fullParts.length === 0) {
+		// Query the point only once it is safe to point at — the raw lexicon strings are
+		// whatever another client wrote, and a named record must not smuggle a bad point
+		// into the map link just because the name kept the label non-empty.
+		const displayPoint = formatPoint(summary.lat, summary.lng);
+		const point = mapQueryPoint(summary.lat, summary.lng);
+		const label = summary.name || displayPoint;
+		if (!label) return null;
+		// The text fallback is the NAME, never `label` — `label` may be the formatted
+		// point, and querying that is the same bad link by another route: a point this
+		// module refused to pin is not a point it may search for either. The two guards
+		// agree today, so this is belt-and-braces; it stops them from disagreeing
+		// silently if the display bound is ever loosened.
+		const query = point || summary.name;
+		if (!query) return null;
+		return {
+			name: summary.name,
+			shortAddress: '',
+			fullAddress: '',
+			geocodeQuery: '',
+			fullString: label,
+			googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+		};
+	}
 
-	const shortParts = [loc.street, loc.locality].filter(Boolean);
-	const fullParts = [loc.street, loc.locality, loc.region, loc.country].filter(Boolean);
-	if (fullParts.length === 0) return null;
+	// Drop what something already shown states, exactly as locationShortLabel does —
+	// this page lays the fields out separately, so it needs the positional form. Two
+	// repetitions to catch: a name that IS its own street (a named flight of steps,
+	// a plaza — the picker keeps those names on purpose), which would otherwise
+	// render "Rocky Steps, Rocky Steps, Philadelphia"; and fields restating each
+	// other, which in a city-state gave "Berlin, Berlin, Berlin, DE".
+	const [street, locality, region, country] = dropRepeats(summary.name, [
+		summary.street,
+		summary.locality,
+		summary.region,
+		summary.country
+	]);
+	const shortAddress = [street, locality].filter(Boolean).join(', ');
+	const fullAddress = [street, locality, region, country].filter(Boolean).join(', ');
+	const fullString = [summary.name, fullAddress].filter(Boolean).join(', ');
+	// The point when we have one, the address text only as the fallback. Text is
+	// re-geocoded by Google and can land on a different feature of the same name.
+	const point = mapQueryPoint(summary.lat, summary.lng);
+	const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point || fullString)}`;
 
-	const shortAddress = shortParts.join(', ');
-	const fullAddress = fullParts.join(', ');
-	const displayName = loc.name || undefined;
-	const fullString = displayName ? `${displayName}, ${fullAddress}` : fullAddress;
-	const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullString)}`;
-
-	return { name: displayName, shortAddress, fullAddress, fullString, googleMapsUrl };
+	return {
+		name: summary.name,
+		shortAddress,
+		fullAddress,
+		geocodeQuery: fullParts.join(', '),
+		fullString,
+		googleMapsUrl
+	};
 }
 
 export type GeoLocation = {
@@ -101,13 +166,25 @@ export async function resolveGeoLocation(
 	if (geo?.latitude && geo?.longitude) {
 		const lat = parseFloat(geo.latitude);
 		const lng = parseFloat(geo.longitude);
-		if (!isNaN(lat) && !isNaN(lng)) return { lat, lng, ...geoUrls(lat, lng) };
+		// Same bound the writers and the other readers use, plus the 0,0 sentinel. A
+		// record carrying it has a real address in its other fields, so falling through
+		// to geocode that beats pinning the map in the Gulf of Guinea.
+		if (coordsUsableForDisplay(lat, lng)) return { lat, lng, ...geoUrls(lat, lng) };
+		// ...but only fall through when there is address text to geocode INSTEAD.
+		// /api/geocoding is uncached, so every pageview of a sentinel-only record
+		// would otherwise fire a fresh upstream geocode for a query that cannot
+		// resolve to anything better. Before this PR these records returned here
+		// with zero network work; a bare `return null` keeps that.
+		if (!locationData?.geocodeQuery && !locationData?.fullAddress) return null;
 	}
 
-	if (!locationData?.fullAddress) return null;
+	// The un-de-duplicated query, so a venue named after its own city still geocodes
+	// with the city attached.
+	const query = locationData?.geocodeQuery || locationData?.fullAddress;
+	if (!query) return null;
 
 	try {
-		const r = await fetch(`/api/geocoding?q=${encodeURIComponent(locationData.fullAddress)}`);
+		const r = await fetch(`/api/geocoding?q=${encodeURIComponent(query)}`);
 		if (!r.ok) return null;
 		// /api/geocoding returns a normalized { lat, lng, label, ... } shape.
 		const data = (await r.json()) as {

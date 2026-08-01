@@ -1,4 +1,17 @@
 import type { EventData } from '$lib/event-types';
+// The ONE implementation of the LOCATION string, shared with the package's own
+// exporter and with every on-screen reader. Imported by SUBPATH, not from the
+// package barrel: the barrel pulls in Svelte components and these endpoints are
+// server-only, while `location-summary` is plain TypeScript. Same pattern as
+// `@atmo-dev/events-ui/conference` in the +page.server.ts routes.
+//
+// This was a hand-maintained copy until it silently drifted: it tested `v.trim()`
+// but returned `v`, so a name with surrounding whitespace exported as
+// "LOCATION: Copenhagen \, DK" here and "Copenhagen, DK" from the package. The two
+// mirrored test tables could not catch it — a shared table only pins the cases
+// someone remembered to write into both copies. Sharing the module removes the
+// class of bug rather than the one instance.
+import { locationFullLabel } from '@atmo-dev/events-ui/location-summary';
 
 /**
  * Escape text for iCal fields (RFC 5545 Section 3.3.11).
@@ -47,25 +60,6 @@ function toICalDate(isoString: string): string {
 		pad(d.getUTCSeconds()) +
 		'Z'
 	);
-}
-
-/**
- * Extract a location string from event locations array.
- */
-function getLocationString(locations: EventData['locations']): string | undefined {
-	if (!locations || locations.length === 0) return undefined;
-
-	const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-		| { street?: string; locality?: string; region?: string }
-		| undefined;
-	if (!loc) return undefined;
-
-	const street = loc.street || undefined;
-	const locality = loc.locality || undefined;
-	const region = loc.region || undefined;
-
-	const parts = [street, locality, region].filter(Boolean);
-	return parts.length > 0 ? parts.join(', ') : undefined;
 }
 
 function getModeLabel(mode: string): string {
@@ -151,7 +145,7 @@ function generateVEvent(event: ICalEvent): string | null {
 	if (typeof room === 'string' && room && room !== 'none') {
 		locationParts.push(room);
 	}
-	const address = getLocationString(eventData.locations);
+	const address = locationFullLabel(eventData.locations);
 	if (address) {
 		locationParts.push(address);
 	}

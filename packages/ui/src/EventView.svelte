@@ -288,7 +288,7 @@
 
 				<EventDateBlock {startDate} {endDate} />
 
-				<EventLocationBlock {locationData} />
+				<EventLocationBlock {locationData} {geoLocation} />
 
 				<!-- Part of: link back to the parent conference -->
 				{#if data.parentEvent}

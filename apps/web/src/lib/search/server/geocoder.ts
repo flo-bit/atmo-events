@@ -16,9 +16,24 @@ export interface GeoPoint {
 	/** Top match's display name — shown so a user can spot a wrong match. Present
 	 *  for interactive callers (near-me search box, address-entry form). */
 	label?: string;
+	/** The feature's authoritative place name (e.g. "Humboldt Park"), when it has
+	 *  one. Nominatim fills the top-level `name`; LocationIQ leaves that empty and
+	 *  only fills `namedetails.name`, so this folds the two (`name ||
+	 *  namedetails.name`). Populated ONLY for genuinely named features — an
+	 *  unnamed building=yes result has neither — so the address form can trust it
+	 *  as the place's name without guessing from the display label. */
+	name?: string;
 	/** Structured address parts (addressdetails=1) — the address-entry form maps
 	 *  these back onto its street/locality/region/country fields. */
 	address?: Record<string, string>;
+	/** OSM feature classification (`class`/`type`), returned by BOTH Nominatim and
+	 *  LocationIQ — e.g. place/suburb, amenity/restaurant, boundary/administrative,
+	 *  highway/secondary. The address-entry form uses these (not the Nominatim-only
+	 *  `addresstype`, which LocationIQ never sends) to tell a named place (a POI, a
+	 *  park, a neighbourhood) from an administrative area or a street, so it behaves
+	 *  the same on either provider. */
+	category?: string;
+	placeType?: string;
 	/** OSM object refs for a canonical openstreetmap.org permalink. */
 	osmType?: string;
 	osmId?: number;
@@ -123,6 +138,8 @@ type NominatimHit = {
 	lat?: string;
 	lon?: string;
 	display_name?: string;
+	name?: string;
+	namedetails?: { name?: string } | null;
 	type?: string;
 	class?: string;
 	place_rank?: number;
@@ -177,7 +194,16 @@ export function createGeocoder(env: GeocoderEnv = {}, fetchImpl: typeof fetch = 
 			// them onto its fields without a second client. Both Nominatim and
 			// LocationIQ honor this; the bulk drip simply ignores the extra fields.
 			url.searchParams.set('addressdetails', '1');
-			if (key) url.searchParams.set('key', key);
+			// The authoritative place name. Nominatim already puts it in the top-level
+			// `name`, so ask for namedetails only on LocationIQ, which leaves that
+			// empty and fills namedetails instead. `key` is what distinguishes the
+			// two. Unconditional, it costs the bulk backfill drip the whole `name:*`
+			// tag set — dozens of keys per hit for a well-known place — parsed and
+			// discarded, since the drip reads neither.
+			if (key) {
+				url.searchParams.set('namedetails', '1');
+				url.searchParams.set('key', key);
+			}
 
 			const res = await fetchImpl(url, {
 				headers: { accept: 'application/json', 'user-agent': userAgent }
@@ -210,7 +236,10 @@ export function createGeocoder(env: GeocoderEnv = {}, fetchImpl: typeof fetch = 
 				lng,
 				precision: derivePrecision(top),
 				label: top.display_name,
+				name: top.name || top.namedetails?.name,
 				address: top.address,
+				category: top.class,
+				placeType: top.type,
 				osmType: top.osm_type,
 				osmId: top.osm_id
 			};

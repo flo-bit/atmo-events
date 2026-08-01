@@ -5,6 +5,7 @@
 	import type { FlatEventRecord } from '../contrail.js';
 	import type { EventLocation, EventMode } from './types';
 	import { buildThumbnailMedia, renderPresetThumbnail } from './save';
+	import { locationsForSave } from './location';
 	import { hashSeed } from '../thumbnails/designs.js';
 	import type { EditorAdapter, EditorViewer } from './adapter';
 
@@ -21,6 +22,7 @@
 		description,
 		links,
 		location,
+		locationChanged,
 		thumbnailDateStr,
 		thumbnailFile,
 		thumbnailChanged,
@@ -41,6 +43,7 @@
 		description: string;
 		links: Array<{ uri: string; name: string }>;
 		location: EventLocation | null;
+		locationChanged: boolean;
 		thumbnailDateStr: string;
 		thumbnailFile: File | null;
 		thumbnailChanged: boolean;
@@ -160,14 +163,16 @@
 				if (eventEndIso) record.endsAt = eventEndIso;
 				if (media) record.media = media;
 				if (links.length > 0) record.uris = links;
-				if (location) {
-					record.locations = [
-						{
-							$type: 'community.lexicon.location.address',
-							...location
-						}
-					];
-				}
+				// A recurrence is not a location change, so an untouched location carries
+				// the parent's entries wholesale (keeping FSQ/H3/extra-geo the editor
+				// doesn't model); only an edited location is rebuilt from the model.
+				const locations = locationsForSave({
+					isNew,
+					locationChanged,
+					location,
+					existing: eventData?.locations as ReadonlyArray<Record<string, unknown>> | undefined
+				});
+				if (locations) record.locations = locations;
 
 				try {
 					const result = await adapter.putRecord({

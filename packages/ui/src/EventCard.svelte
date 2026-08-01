@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
+	import { locationShortParts } from './location-summary.js';
 	import Avatar from 'svelte-boring-avatars';
 
 	let {
@@ -58,17 +59,6 @@
 		return 'Event';
 	}
 
-	function getLocationString(locations: FlatEventRecord['locations']): string | undefined {
-		if (!locations?.length) return undefined;
-
-		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { locality?: string; region?: string }
-			| undefined;
-		if (!loc) return undefined;
-
-		return [loc.locality, loc.region].filter(Boolean).join(', ') || undefined;
-	}
-
 	function getThumbnail(event: FlatEventRecord): { url: string; alt: string } | null {
 		const media = event.media?.find((m) => m.role === 'thumbnail');
 		if (media?.content) {
@@ -86,7 +76,15 @@
 	}
 
 	let thumbnail = $derived(getThumbnail(event));
-	let location = $derived(getLocationString(event.locations));
+	// Kept in two pieces so only the PLACE can be elided. Records written by other
+	// clients hold a whole reverse-geocoded address in the name field, and a card is
+	// a fixed-width row in a list: left whole it wraps to several lines, grows the
+	// card, and pushes the mode label out of sight. Eliding the joined string
+	// instead would cut the town off the end, which is the failure the deleted
+	// length budget had. The town is short and always survives.
+	let locationParts = $derived(locationShortParts(event.locations));
+	let locationPlace = $derived(locationParts?.place ?? null);
+	let locationContext = $derived(locationParts?.context.join(', ') || null);
 	let mode = $derived(getModeLabel(event.mode));
 	let isOngoing = $derived(isEventOngoing(event.startsAt, event.endsAt));
 </script>
@@ -153,13 +151,24 @@
 			{/if}
 			<span class="line-clamp-2">{event.name}</span>
 		</h3>
-		{#if location || mode}
-			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
-				{#if location}{location}{/if}
-				{#if location && mode}
-					<span class="mx-1">&middot;</span>
+		{#if locationParts || mode}
+			<p class="text-base-500 dark:text-base-400 mt-1 flex items-baseline text-xs">
+				{#if locationPlace}
+					<span class="truncate">{locationPlace}</span>
 				{/if}
-				{#if mode}{mode}{/if}
+				{#if locationContext}
+					<!-- Beside a place the town must NOT shrink — the place is what gives, and
+					     eliding the town instead is the failure this layout exists to avoid.
+					     Alone it is the only thing here that can give: 737 records in the index
+					     carry a town with no place, and a few reach 59 characters. -->
+					<span class={locationPlace ? 'shrink-0' : 'truncate'}
+						>{locationPlace ? ', ' : ''}{locationContext}</span
+					>
+				{/if}
+				{#if locationParts && mode}
+					<span class="mx-1 shrink-0">&middot;</span>
+				{/if}
+				{#if mode}<span class="shrink-0">{mode}</span>{/if}
 			</p>
 		{/if}
 	</div>

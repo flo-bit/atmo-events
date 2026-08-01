@@ -1,12 +1,22 @@
 <script lang="ts">
-	import type { LocationData } from './format';
+	import type { GeoLocation, LocationData } from './format';
 
-	let { locationData }: { locationData: LocationData | null } = $props();
+	let {
+		locationData,
+		geoLocation = null
+	}: { locationData: LocationData | null; geoLocation?: GeoLocation | null } = $props();
+
+	// A resolved point beats the address text: the text is re-geocoded by Google and
+	// can land on a different feature of the same name — a Copenhagen record aimed at
+	// the city square opened the train station called Rådhuspladsen. geoLocation
+	// resolves after mount, so the text link is what SSR renders and what stands if no
+	// point can be had.
+	const href = $derived(geoLocation?.googleMapsUrl ?? locationData?.googleMapsUrl ?? '');
 </script>
 
 {#if locationData}
 	<a
-		href={locationData.googleMapsUrl}
+		{href}
 		target="_blank"
 		rel="noopener noreferrer"
 		class="mb-6 flex items-center gap-4 transition-opacity hover:opacity-80"
@@ -37,10 +47,15 @@
 		<div>
 			{#if locationData.name}
 				<p class="text-base-900 dark:text-base-50 font-semibold">{locationData.name}</p>
-				<p class="text-base-500 dark:text-base-400 text-sm">{locationData.shortAddress}</p>
+				{#if locationData.shortAddress}
+					<p class="text-base-500 dark:text-base-400 text-sm">{locationData.shortAddress}</p>
+				{/if}
 			{:else}
+				<!-- fullString, not shortAddress: a record saved as a bare point has no
+				     address fields at all, and showing shortAddress renders an empty
+				     line where the coordinates should be. -->
 				<p class="text-base-900 dark:text-base-50 font-semibold">
-					{locationData.shortAddress}
+					{locationData.shortAddress || locationData.fullString}
 				</p>
 			{/if}
 		</div>

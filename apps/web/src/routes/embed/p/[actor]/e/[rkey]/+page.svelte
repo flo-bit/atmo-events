@@ -2,6 +2,7 @@
 	import { onMount, untrack } from 'svelte';
 	import { resolve } from '$app/paths';
 	import Avatar from 'svelte-boring-avatars';
+	import { locationShortLabel } from '@atmo-dev/events-ui';
 	import { notifyContrailOfUpdate } from '$lib/contrail';
 
 	let { data } = $props();
@@ -56,19 +57,10 @@
 		return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 	}
 
-	function getLocationString(): string | null {
-		const locations = data.eventData.locations;
-		if (!locations || locations.length === 0) return null;
-		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { name?: string; street?: string; locality?: string; region?: string }
-			| undefined;
-		if (!loc) return null;
-		if (loc.name) return loc.name;
-		const parts = [loc.locality, loc.region].filter(Boolean);
-		return parts.length > 0 ? parts.join(', ') : null;
-	}
-
-	let location = $derived(getLocationString());
+	// Same rule as a card: the place name leads, trimmed to fit, with locality and
+	// region for context while there is room. An embed is space-constrained too, so
+	// it shares the short label rather than keeping its own near-copy of the rule.
+	let location = $derived(locationShortLabel(data.eventData.locations) ?? null);
 
 	let isSameDay = $derived(
 		endDate &&
