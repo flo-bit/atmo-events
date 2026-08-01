@@ -96,11 +96,14 @@ describe('guildImporter robustness', () => {
 		expect(result?.description).toBeUndefined();
 	});
 
-	it('throws on a non-OK Guild API response so /api/import-event surfaces a 502', async () => {
+	it('throws an UpstreamError naming the status, so the failure is diagnosable', async () => {
+		// It used to throw a bare 'failed to fetch guild event', which told whoever
+		// read the log nothing about why. The status is the whole point: a 429 from
+		// Guild means "try again later", a 503 means "Guild is down".
 		stubFetch([{ when: API, reply: () => jsonReply({ error: 'nope' }, 503) }]);
 		await expect(
 			guildImporter.parseData(importContext('https://guild.host/events/whatever'))
-		).rejects.toThrow(/failed to fetch guild event/);
+		).rejects.toMatchObject({ status: 503, contentType: 'application/json' });
 	});
 
 	// The Guild API returns `uploadedSocialCard: null` (not absent) for events with

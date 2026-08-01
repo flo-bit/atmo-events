@@ -1,4 +1,4 @@
-import { FETCH_HEADERS, fetchImageAsDataUrl } from './http';
+import { FETCH_HEADERS, fetchImageAsDataUrl, upstreamError } from './http';
 import type { EventImporter } from './types';
 import * as v from 'valibot';
 
@@ -60,7 +60,7 @@ export const guildImporter: EventImporter = {
 		});
 
 		if (!res.ok) {
-			throw new Error('failed to fetch guild event', { cause: res });
+			throw upstreamError(res, `${GUILD_API_BASE}/events/${slug}`);
 		}
 
 		const data = v.parse(GuildEventSchema, await res.json());

@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { fetchImageAsDataUrl, importFromUrl } from '$lib/import';
+import { describeUpstream, fetchImageAsDataUrl, importFromUrl, UpstreamError } from '$lib/import';
 
 export async function POST({ request, locals }) {
 	if (!locals.did) {
@@ -41,7 +41,21 @@ export async function POST({ request, locals }) {
 		}
 		return json(result);
 	} catch (err) {
-		console.error('import-event failed:', sourceUrl, err);
+		// Log err.message explicitly. The runtime renders a thrown Error by its
+		// stack, which drops the status and left a failed import undiagnosable
+		// from logs alone.
+		console.error(
+			'import-event failed:',
+			sourceUrl,
+			err instanceof Error ? err.message : String(err)
+		);
+		if (err instanceof UpstreamError) {
+			// Pass a rate limit through as a rate limit. 502 says the source gave us
+			// something invalid, but a 429 is a perfectly valid answer that means
+			// "later", and only the distinct status makes that visible in metrics.
+			const status = err.status === 429 ? 429 : 502;
+			return json({ error: describeUpstream(err.status, parsedUrl.host) }, { status });
+		}
 		return json({ error: 'Failed to fetch or parse that URL.' }, { status: 502 });
 	}
 }

@@ -20,8 +20,9 @@ export type ImportContext = {
 	/** The URL the user pasted. */
 	url: string;
 	/**
-	 * Fetch the source URL (once). Rejects on a non-OK upstream so the caller
-	 * surfaces a 502 rather than silently reporting "no event found".
+	 * Fetch the source URL (once). Rejects with an `UpstreamError` on a non-OK
+	 * upstream, so the caller reports why the source refused us rather than
+	 * silently reporting "no event found".
 	 */
 	getPage(): Promise<FetchedPage>;
 };

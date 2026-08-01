@@ -1,6 +1,6 @@
 import type { EventImportPrefill } from '$lib/import-event';
 import type { EventImporter, FetchedPage, ImportContext } from './types';
-import { FETCH_HEADERS, MAX_BYTES, readLimited } from './http';
+import { FETCH_HEADERS, MAX_BYTES, readLimited, upstreamError } from './http';
 import { racoImporter } from './raco';
 import { icalImporter } from './ical';
 import { webpageImporter } from './webpage';
@@ -46,11 +46,11 @@ function createImportContext(url: string): ImportContext {
 
 async function fetchPage(url: string): Promise<FetchedPage> {
 	const res = await fetch(url, { headers: FETCH_HEADERS, redirect: 'follow' });
-	if (!res.ok) throw new Error(`upstream ${res.status}`);
+	if (!res.ok) throw upstreamError(res, url);
 	const contentType = (res.headers.get('content-type') || '').toLowerCase();
 	const text = await readLimited(res, MAX_BYTES);
 	return { finalUrl: res.url || url, contentType, text };
 }
 
-export { fetchImageAsDataUrl } from './http';
+export { describeUpstream, fetchImageAsDataUrl, UpstreamError } from './http';
 export type { EventImporter, ImportContext, FetchedPage } from './types';
