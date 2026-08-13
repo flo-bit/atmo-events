@@ -28,6 +28,7 @@
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
+	import GetTicketsNotice from './event-view/GetTicketsNotice.svelte';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
 	let {
@@ -140,6 +141,27 @@
 		}
 		return null;
 	});
+
+	// Ticket links get promoted from the sidebar Links list to the event's
+	// primary action area. This stays opt-in: an organizer must add a ticket
+	// link, so unticketed events never advertise an unavailable sales page.
+	let ticketsLink = $derived.by(() => {
+		const uris = eventData.uris;
+		if (!uris) return null;
+		for (const link of uris) {
+			if (link.name && /^(buy|get)\s+tickets?$|^tickets?$/i.test(link.name.trim())) return link;
+			try {
+				const host = new URL(link.uri).hostname.toLowerCase().replace(/^www\./, '');
+				if (host === 'events.atmosphere.tickets') return link;
+			} catch {
+				// Leave unparseable links in the regular links list.
+			}
+		}
+		return null;
+	});
+	let sidebarUris = $derived(
+		ticketsLink ? eventData.uris?.filter((link) => link !== ticketsLink) : eventData.uris
+	);
 
 	let descriptionHtml = $derived(
 		buildDescriptionHtml(eventData.description, eventData.facets)
@@ -313,6 +335,9 @@
 				{/if}
 
 				{#if !isPast}
+					{#if ticketsLink}
+						<GetTicketsNotice url={ticketsLink.uri} />
+					{/if}
 					{#if rsvpExternalOnly && externalSource?.url}
 						<ExternalRsvpNotice url={externalSource.url} />
 					{:else}
@@ -417,7 +442,7 @@
 			<div class="order-3 space-y-6 md:order-0 md:col-start-1">
 				<EventHostedBy {hostProfile} {hostUrl} {did} {speakers} />
 
-				<EventLinksList uris={eventData.uris} />
+				<EventLinksList uris={sidebarUris} />
 
 				<AddToCalendarButton {eventData} {eventUri} pageHref={pageUrl.href} />
 

@@ -121,7 +121,7 @@
 				<Input
 					type="text"
 					bind:value={newName}
-					placeholder="Label (optional)"
+					placeholder="Label (optional) — e.g. Buy tickets"
 					variant="secondary"
 					class="mb-2"
 					onkeydown={(e) => {
