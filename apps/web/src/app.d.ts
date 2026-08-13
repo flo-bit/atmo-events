@@ -115,6 +115,13 @@ declare global {
 				/** Min ms between geocoder calls in the drip — the rate limiter. Set to
 				 *  the ceiling the geocoder tier allows; defaults to DEFAULT_GEOCODE_SLEEP_MS. */
 				GEOCODE_SLEEP_MS?: string;
+				/** Opt in to the currently draft tickets.atmosphere.ticketedEvent
+				 *  discovery contract. Only the literal string "true" enables it. */
+				ATM_TICKET_DISCOVERY_ENABLED?: string;
+				/** Public ATM AppView origin; defaults to production when discovery is enabled. */
+				ATM_TICKET_APPVIEW_URL?: string;
+				/** Exact calendar event AT-URIs with an explicit temporary ticket-required policy. */
+				ATM_TICKET_REQUIRED_EVENT_URIS?: string;
 			};
 			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
 			 *  let the worker keep a fire-and-forget task alive after the response

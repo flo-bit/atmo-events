@@ -5,7 +5,6 @@
 	import ShareModal from './ShareModal.svelte';
 	import EventComments from './EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
-	import EventRsvp from './EventRsvp.svelte';
 	import EventCard from './EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
 	import VodPlayer, { type VodPlayerApi } from './VodPlayer.svelte';
@@ -27,7 +26,13 @@
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
-	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
+	import EventAttendanceActions from './event-view/EventAttendanceActions.svelte';
+	import {
+		getTicketSalesEndTimestamp,
+		isTicketCtaEligible as checkTicketCtaEligibility,
+		resolveTicketPresentation,
+		shouldShowRsvpPanel
+	} from './event-view/tickets.js';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
 	let {
@@ -129,7 +134,42 @@
 	let isBannerOnly = $derived(!thumbnailImage && !!bannerImage);
 
 	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
+	// Preserve the existing RSVP behavior: this clock is evaluated when the
+	// derived value runs and is not driven by the ticket boundary timer.
 	let isPast = $derived(endDate ? endDate < new Date() : false);
+	// A no-end event stops advertising ticket sales at its start. Keep this
+	// separate from RSVP semantics, where an omitted endsAt is historically not
+	// treated as past.
+	let ticketNow = $state(Date.now());
+	let ticketSalesEnd = $derived(getTicketSalesEndTimestamp(eventData.startsAt, eventData.endsAt));
+	let isTicketCtaEligible = $derived(
+		checkTicketCtaEligibility({
+			startsAt: eventData.startsAt,
+			endsAt: eventData.endsAt,
+			status: eventData.status,
+			now: ticketNow
+		})
+	);
+
+	$effect(() => {
+		// Reading the derived boundary here makes navigation to another event
+		// cancel the old timer and immediately refresh the clock for the new one.
+		const boundary = ticketSalesEnd;
+		let timeout: number | undefined;
+		const refreshAndSchedule = () => {
+			const current = Date.now();
+			ticketNow = current;
+			if (boundary === null) return;
+			const millisecondsUntilBoundary = boundary - current;
+			if (millisecondsUntilBoundary <= 0) return;
+			timeout = window.setTimeout(
+				refreshAndSchedule,
+				Math.min(millisecondsUntilBoundary + 250, 86_400_000)
+			);
+		};
+		refreshAndSchedule();
+		return () => window.clearTimeout(timeout);
+	});
 
 	let streamPlaceHandle = $derived.by(() => {
 		const uris = eventData.uris;
@@ -140,6 +180,26 @@
 		}
 		return null;
 	});
+
+	// Only verified protocol discovery can produce the special Atmosphere
+	// Tickets CTA. Organizer-supplied URLs remain untouched in the Links list.
+	let ticketPresentation = $derived(
+		resolveTicketPresentation({
+			protocolTicketUrl: data.protocolTicketUrl,
+			eventDid: did,
+			eventRkey: rkey,
+			showCta: isTicketCtaEligible
+		})
+	);
+	// This is independent from protocol discovery. During the pilot it comes
+	// from an exact deployment allowlist; a ticketedEvent alone is not policy.
+	let ticketAdmissionRequired = $derived(data.ticketAdmissionRequired === true);
+	let showRsvpPanel = $derived(
+		shouldShowRsvpPanel({
+			isLoggedIn: viewer.isLoggedIn,
+			ticketAdmissionRequired
+		})
+	);
 
 	let descriptionHtml = $derived(
 		buildDescriptionHtml(eventData.description, eventData.facets)
@@ -312,23 +372,23 @@
 					</div>
 				{/if}
 
-				{#if !isPast}
-					{#if rsvpExternalOnly && externalSource?.url}
-						<ExternalRsvpNotice url={externalSource.url} />
-					{:else}
-						<EventRsvp
-							{eventUri}
-							eventCid={eventData.cid ?? null}
-							initialRsvpStatus={data.viewerRsvpStatus}
-							initialRsvpRkey={data.viewerRsvpRkey}
-							spaceUri={data.spaceUri ?? null}
-							{adapter}
-							{viewer}
-							onrsvp={handleRsvp}
-							oncancel={handleRsvpCancel}
-						/>
-					{/if}
-				{/if}
+				<EventAttendanceActions
+					ticketUrl={ticketPresentation?.href}
+					{ticketAdmissionRequired}
+					ticketActionEligible={isTicketCtaEligible}
+					showRsvpPanel={!isPast && showRsvpPanel}
+					{rsvpExternalOnly}
+					externalSourceUrl={externalSource?.url}
+					{eventUri}
+					eventCid={eventData.cid ?? null}
+					initialRsvpStatus={data.viewerRsvpStatus}
+					initialRsvpRkey={data.viewerRsvpRkey}
+					spaceUri={data.spaceUri ?? null}
+					{adapter}
+					{viewer}
+					onrsvp={handleRsvp}
+					oncancel={handleRsvpCancel}
+				/>
 
 				<!-- Live stream -->
 				{#if isOngoing && streamPlaceHandle}

@@ -17,6 +17,13 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
+		// Experimental, fail-soft discovery of organizer-owned ticketedEvent records.
+		// Keep independently switchable until the tickets.atmosphere lexicons are published.
+		"ATM_TICKET_DISCOVERY_ENABLED": "true",
+		"ATM_TICKET_APPVIEW_URL": "https://appview.atmosphere.money",
+		// Temporary explicit policy for the ticketing pilot. ticketedEvent discovery alone
+		// does not imply admission is required.
+		"ATM_TICKET_REQUIRED_EVENT_URIS": "at://did:plc:retm6aeqattyxp7bhmyyv7gk/community.lexicon.calendar.event/3mrdbziccpcah",
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social"

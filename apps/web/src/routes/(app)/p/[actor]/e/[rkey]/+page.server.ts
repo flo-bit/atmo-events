@@ -18,6 +18,7 @@ import {
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '$lib/vods';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/events-ui/conference';
+import { getEventProtocolTicketLink, isTicketAdmissionRequired } from '$lib/atmosphere-tickets';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -95,6 +96,7 @@ export async function load({ params, locals, url, platform }) {
 
 	const fullEventRecord = eventRecord!;
 	const eventUri = fullEventRecord.uri;
+	const ticketAdmissionRequired = isTicketAdmissionRequired(eventUri, platform!.env);
 	// Canonical DID from the resolved record — use this (not params.actor, which
 	// may be a handle) for all downstream lookups that need a DID.
 	const did = eventData.did;
@@ -133,6 +135,7 @@ export async function load({ params, locals, url, platform }) {
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
+		protocolTicketUrl,
 		...speakerProfiles
 	] = await Promise.all([
 		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
@@ -170,6 +173,12 @@ export async function load({ params, locals, url, platform }) {
 					})
 					.catch(() => null)
 			: null,
+		getEventProtocolTicketLink({
+			eventUri,
+			event: eventData,
+			env: platform!.env,
+			waitUntil: platform!.ctx?.waitUntil.bind(platform!.ctx)
+		}),
 		...speakers.map((s) =>
 			s.id
 				? getProfileFromContrail(client, s.id as ActorIdentifier)
@@ -240,6 +249,8 @@ export async function load({ params, locals, url, platform }) {
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,
 		conferenceVods,
+		protocolTicketUrl,
+		ticketAdmissionRequired,
 		loggedIn: !!locals.did,
 		speakerProfiles: speakerProfiles as Array<{
 			id?: string;

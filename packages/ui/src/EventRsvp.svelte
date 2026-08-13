@@ -3,6 +3,8 @@
 	import { Avatar, Button } from '@foxui/core';
 	import { launchConfetti } from '@foxui/visual';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
+	import AtmosphereTicketsIcon from './event-view/AtmosphereTicketsIcon.svelte';
+	import { isAtmosphereTicketsUrlForEvent, sanitizeWebUrl } from './event-view/tickets.js';
 
 	let {
 		eventUri,
@@ -10,6 +12,9 @@
 		initialRsvpStatus = null,
 		initialRsvpRkey = null,
 		spaceUri = null,
+		ticketUrl,
+		ticketRequired = false,
+		allowGoing = true,
 		adapter,
 		viewer,
 		onrsvp,
@@ -22,6 +27,12 @@
 		initialRsvpRkey?: string | null;
 		/** If set, RSVPs write into this space instead of the user's public PDS. */
 		spaceUri?: string | null;
+		/** Canonical hosted ticket page to use instead of offering a new Going RSVP. */
+		ticketUrl?: string;
+		/** Explicit admission policy supplied independently from ticket discovery. */
+		ticketRequired?: boolean;
+		/** Whether this surface may create a new Going RSVP. Existing state remains manageable. */
+		allowGoing?: boolean;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
 		onrsvp?: (status: 'going' | 'interested', rkey: string) => void;
@@ -29,17 +40,28 @@
 		onlogin?: () => void;
 	} = $props();
 
-	let rsvpStatusOverride: 'going' | 'interested' | 'notgoing' | null | undefined = $state(
-		undefined
-	);
+	let rsvpStatusOverride: 'going' | 'interested' | 'notgoing' | null | undefined =
+		$state(undefined);
 	let rsvpRkeyOverride: string | null | undefined = $state(undefined);
 	let rsvpSubmitting = $state(false);
 
-	let rsvpStatus = $derived(rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus);
+	let rsvpStatus = $derived(
+		rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus
+	);
 	let rsvpRkey = $derived(rsvpRkeyOverride !== undefined ? rsvpRkeyOverride : initialRsvpRkey);
+	let safeTicketUrl = $derived.by(() => {
+		const href = ticketUrl ? sanitizeWebUrl(ticketUrl) : null;
+		return href && isAtmosphereTicketsUrlForEvent(href, eventUri) ? href : null;
+	});
+	let ticketUnavailable = $derived(ticketRequired && !safeTicketUrl);
+
+	function retryTicketDiscovery() {
+		if (typeof window !== 'undefined') window.location.reload();
+	}
 
 	async function submitRsvp(status: 'going' | 'interested') {
 		if (!viewer.isLoggedIn || !viewer.did) return;
+		if (status === 'going' && (!allowGoing || safeTicketUrl)) return;
 		rsvpSubmitting = true;
 		try {
 			const key = rsvpRkey ?? TID.now();
@@ -75,9 +97,7 @@
 						record
 					});
 					ok = true;
-					adapter.notifyUpdate?.(
-						`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`
-					);
+					adapter.notifyUpdate?.(`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`);
 				} catch (e) {
 					console.error('RSVP putRecord failed:', e);
 				}
@@ -115,9 +135,7 @@
 					collection: 'community.lexicon.calendar.rsvp',
 					rkey: rsvpRkey
 				});
-				adapter.notifyUpdate?.(
-					`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
-				);
+				adapter.notifyUpdate?.(`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`);
 			}
 			rsvpStatusOverride = null;
 			rsvpRkeyOverride = null;
@@ -130,9 +148,38 @@
 	}
 </script>
 
+{#snippet buyTicketsButton(className = '')}
+	{#if safeTicketUrl}
+		<Button href={safeTicketUrl} target="_blank" rel="noopener noreferrer" class={className}>
+			<AtmosphereTicketsIcon class="size-5 shrink-0" />
+			Buy tickets
+			<span class="sr-only">(opens in a new tab)</span>
+		</Button>
+	{/if}
+{/snippet}
+
+{#snippet ticketAction(className = '')}
+	{#if safeTicketUrl}
+		{@render buyTicketsButton(className)}
+	{:else if ticketUnavailable}
+		<Button onclick={retryTicketDiscovery} variant="secondary" class={className}>Try again</Button>
+	{/if}
+{/snippet}
+
 <div
-	class="border-base-200 dark:border-base-800 bg-base-100 items-between dark:bg-base-950/50 mt-8 mb-2 flex h-25 flex-col justify-center rounded-2xl border p-4"
+	class="border-base-200 dark:border-base-800 bg-base-100 items-between dark:bg-base-950/50 mt-8 mb-2 flex flex-col justify-center rounded-2xl border p-4"
+	class:h-25={!safeTicketUrl && !ticketUnavailable}
 >
+	{#if viewer.isLoggedIn && ticketRequired}
+		<p class="text-base-900 dark:text-base-50 mb-3 text-sm font-semibold">
+			This is a ticketed event
+		</p>
+		{#if ticketUnavailable}
+			<p class="text-base-600 dark:text-base-400 -mt-2 mb-3 text-sm">
+				Ticket information is unavailable right now.
+			</p>
+		{/if}
+	{/if}
 	{#if !viewer.isLoggedIn}
 		<div class="flex items-center justify-between gap-4">
 			<p class="text-base-600 dark:text-base-400 text-sm">Log in to RSVP to this event</p>
@@ -140,7 +187,7 @@
 			<Button onclick={() => { onlogin?.(); adapter.requestLogin(); }}>Log in to RSVP</Button>
 		</div>
 	{:else if rsvpStatus === 'going'}
-		<div class="flex items-center justify-between">
+		<div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
 			<div class="flex items-center gap-3">
 				<div
 					class="flex size-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30"
@@ -160,10 +207,18 @@
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">You're Going</p>
 			</div>
-			<Button onclick={cancelRsvp} disabled={rsvpSubmitting} variant="ghost">Remove</Button>
+			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+				{@render ticketAction('w-full sm:w-auto')}
+				<Button
+					onclick={cancelRsvp}
+					disabled={rsvpSubmitting}
+					variant="ghost"
+					class="w-full sm:w-auto">Remove</Button
+				>
+			</div>
 		</div>
 	{:else if rsvpStatus === 'interested'}
-		<div class="flex items-center justify-between">
+		<div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
 			<div class="flex items-center gap-3">
 				<div
 					class="flex size-8 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/30"
@@ -183,10 +238,18 @@
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">You're Interested</p>
 			</div>
-			<Button onclick={cancelRsvp} disabled={rsvpSubmitting} variant="ghost">Remove</Button>
+			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+				{@render ticketAction('w-full sm:w-auto')}
+				<Button
+					onclick={cancelRsvp}
+					disabled={rsvpSubmitting}
+					variant="ghost"
+					class="w-full sm:w-auto">Remove</Button
+				>
+			</div>
 		</div>
 	{:else if rsvpStatus === 'notgoing'}
-		<div class="flex items-center justify-between">
+		<div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
 			<div class="flex items-center gap-3">
 				<div
 					class="flex size-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
@@ -204,12 +267,22 @@
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">Not Going</p>
 			</div>
-			<Button onclick={cancelRsvp} disabled={rsvpSubmitting} variant="ghost">Remove</Button>
+			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+				{@render ticketAction('w-full sm:w-auto')}
+				<Button
+					onclick={cancelRsvp}
+					disabled={rsvpSubmitting}
+					variant="ghost"
+					class="w-full sm:w-auto">Remove</Button
+				>
+			</div>
 		</div>
 	{:else}
 		{#if viewer.isLoggedIn}
 			<div class="mb-4 flex items-center gap-2">
-				<span class="text-base-500 dark:text-base-400 text-sm">Attend as</span>
+				<span class="text-base-500 dark:text-base-400 text-sm">
+					{ticketRequired ? 'Respond as' : 'Attend as'}
+				</span>
 				<Avatar
 					src={viewer.avatar}
 					alt={viewer.displayName || viewer.handle || viewer.did || ''}
@@ -221,9 +294,15 @@
 			</div>
 		{/if}
 		<div class="flex gap-3">
-			<Button onclick={() => submitRsvp('going')} disabled={rsvpSubmitting} class="flex-1">
-				{rsvpSubmitting ? '...' : 'Going'}
-			</Button>
+			{#if safeTicketUrl}
+				{@render buyTicketsButton('flex-1')}
+			{:else if ticketUnavailable}
+				{@render ticketAction('flex-1')}
+			{:else if allowGoing}
+				<Button onclick={() => submitRsvp('going')} disabled={rsvpSubmitting} class="flex-1">
+					{rsvpSubmitting ? '...' : 'Going'}
+				</Button>
+			{/if}
 			<Button
 				onclick={() => submitRsvp('interested')}
 				disabled={rsvpSubmitting}
