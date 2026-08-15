@@ -1,4 +1,5 @@
 export type TicketActionState = 'open' | 'closed' | 'unknown';
+export type TicketDiscoveryState = 'found' | 'none' | 'unavailable';
 
 const ATMOSPHERE_TICKETS_ORIGIN = 'https://events.atmosphere.tickets';
 const CANCELLED_EVENT_STATUS = 'community.lexicon.calendar.event#cancelled';
@@ -113,13 +114,20 @@ export function isTicketCtaEligible({
 export function shouldShowRsvpPanel({
 	isLoggedIn,
 	ticketAdmissionRequired,
-	ticketActionState = 'open'
+	ticketActionState = 'open',
+	ticketDiscoveryState = 'none'
 }: {
 	isLoggedIn: boolean;
 	ticketAdmissionRequired: boolean;
 	ticketActionState?: TicketActionState;
+	ticketDiscoveryState?: TicketDiscoveryState;
 }): boolean {
-	return isLoggedIn || !ticketAdmissionRequired || ticketActionState === 'unknown';
+	return (
+		isLoggedIn ||
+		!ticketAdmissionRequired ||
+		ticketActionState === 'unknown' ||
+		ticketDiscoveryState !== 'found'
+	);
 }
 
 /**

@@ -37,6 +37,7 @@ function renderActions(
 	return render(EventAttendanceActions, {
 		props: {
 			ticketUrl,
+			ticketDiscoveryState: 'found',
 			showRsvpPanel: false,
 			eventUri: 'at://did:plc:abc/community.lexicon.calendar.event/3mrdbziccpcah',
 			adapter,
@@ -50,21 +51,21 @@ describe('ticket-aware attendance actions', () => {
 	it('shows only the ticket action to a signed-out viewer of the pilot ticketed event', () => {
 		const body = renderActions({
 			ticketAdmissionRequired: true,
-			rsvpExternalOnly: true,
-			externalSourceUrl: externalRsvpUrl
+			showRsvpPanel: false
 		});
 
 		expect(body).toContain('Buy tickets');
 		expect(body).toContain(`href="${ticketUrl}"`);
 		expect(body).not.toContain('Log in to RSVP');
 		expect(body).not.toContain('RSVP on the original page');
-		expect(body).not.toContain(externalRsvpUrl);
 	});
 
-	it('keeps a signed-out required event actionable when discovery is unavailable', () => {
+	it('keeps RSVP login available during a signed-out discovery outage', () => {
 		const body = renderActions({
 			ticketUrl: undefined,
-			ticketAdmissionRequired: true
+			ticketAdmissionRequired: true,
+			ticketDiscoveryState: 'unavailable',
+			showRsvpPanel: true
 		});
 
 		expect(body).toContain('This is a ticketed event');
@@ -73,7 +74,7 @@ describe('ticket-aware attendance actions', () => {
 		);
 		expect(body).toContain('role="status"');
 		expect(body).not.toContain('Try again');
-		expect(body).not.toContain('Log in to RSVP');
+		expect(body).toContain('Log in to RSVP');
 	});
 
 	it('renders no ticket or RSVP actions after a required event closes', () => {
@@ -88,6 +89,22 @@ describe('ticket-aware attendance actions', () => {
 		expect(body).not.toContain('Ticket information is temporarily unavailable.');
 		expect(body).not.toContain('Try again');
 		expect(body).not.toContain('Going');
+		expect(body).not.toContain('Interested');
+	});
+
+	it('keeps an existing RSVP manageable after a required event is cancelled', () => {
+		const body = renderActions({
+			ticketAdmissionRequired: true,
+			ticketActionState: 'closed',
+			showRsvpPanel: true,
+			viewer: signedInViewer,
+			initialRsvpStatus: 'going',
+			initialRsvpRkey: 'existing-rsvp'
+		});
+
+		expect(body).toContain("You're Going");
+		expect(body).toContain('Remove');
+		expect(body).not.toContain('Buy tickets');
 		expect(body).not.toContain('Interested');
 	});
 
@@ -134,6 +151,7 @@ describe('ticket-aware attendance actions', () => {
 	it('keeps Interested and honest status copy when signed-in discovery is unavailable', () => {
 		const body = renderActions({
 			ticketUrl: undefined,
+			ticketDiscoveryState: 'unavailable',
 			showRsvpPanel: true,
 			ticketAdmissionRequired: true,
 			viewer: signedInViewer
@@ -199,6 +217,7 @@ describe('ticket-aware attendance actions', () => {
 	it('keeps the ordinary Going and Interested controls for a non-ticketed event', () => {
 		const body = renderActions({
 			ticketUrl: undefined,
+			ticketDiscoveryState: 'none',
 			showRsvpPanel: true,
 			viewer: signedInViewer
 		});
@@ -209,7 +228,7 @@ describe('ticket-aware attendance actions', () => {
 		expect(body).toContain('Interested');
 	});
 
-	it('does not let an external RSVP route bypass required-ticket presentation', () => {
+	it('respects an organizer-configured external RSVP route alongside ticketing', () => {
 		const body = renderActions({
 			showRsvpPanel: true,
 			ticketAdmissionRequired: true,
@@ -219,10 +238,52 @@ describe('ticket-aware attendance actions', () => {
 		});
 
 		expect(body).toContain('Buy tickets');
+		expect(body).toContain('RSVP on the original page');
+		expect(body).toContain(externalRsvpUrl);
+		expect(body).not.toContain('Interested');
+	});
+
+	it('keeps the organizer external RSVP route for signed-out ticketed viewers', () => {
+		const body = renderActions({
+			showRsvpPanel: true,
+			ticketAdmissionRequired: true,
+			viewer: signedOutViewer,
+			rsvpExternalOnly: true,
+			externalSourceUrl: externalRsvpUrl
+		});
+
+		expect(body).toContain('Buy tickets');
+		expect(body).toContain('RSVP on the original page');
+		expect(body).toContain(externalRsvpUrl);
+		expect(body).not.toContain('Log in to RSVP');
+	});
+
+	it('falls back to ordinary RSVP after a healthy no-ticket response', () => {
+		const body = renderActions({
+			ticketUrl: undefined,
+			ticketDiscoveryState: 'none',
+			showRsvpPanel: true,
+			ticketAdmissionRequired: true,
+			viewer: signedInViewer
+		});
+
+		expect(body).not.toContain('Ticket information is temporarily unavailable.');
+		expect(body).toContain('Attend as');
+		expect(body).toContain('Going');
 		expect(body).toContain('Interested');
-		expect(body).not.toContain('Going');
-		expect(body).not.toContain('RSVP on the original page');
-		expect(body).not.toContain(externalRsvpUrl);
+	});
+
+	it('restores the signed-out RSVP login after a healthy no-ticket response', () => {
+		const body = renderActions({
+			ticketUrl: undefined,
+			ticketDiscoveryState: 'none',
+			showRsvpPanel: true,
+			ticketAdmissionRequired: true,
+			viewer: signedOutViewer
+		});
+
+		expect(body).not.toContain('Ticket information is temporarily unavailable.');
+		expect(body).toContain('Log in to RSVP');
 	});
 
 	it('retains an organizer-configured external RSVP route when admission is optional', () => {

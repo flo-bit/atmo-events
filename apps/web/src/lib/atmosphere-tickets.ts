@@ -6,7 +6,10 @@ const CACHE_KEY_ORIGIN = 'https://ticket-discovery-cache.internal';
 const LOOKUP_TIMEOUT_MS = 1_000;
 const FOUND_FRESH_MS = 5 * 60_000;
 const NOT_FOUND_FRESH_MS = 60_000;
-const CACHE_RETAIN_MS = 24 * 60 * 60_000;
+const UNAVAILABLE_FRESH_MS = 15_000;
+const FOUND_RETAIN_MS = 15 * 60_000;
+const NOT_FOUND_RETAIN_MS = 24 * 60 * 60_000;
+const CACHE_STORAGE_MS = NOT_FOUND_RETAIN_MS;
 const DEFAULT_RATE_LIMIT_BACKOFF_MS = 30_000;
 const MAX_RATE_LIMIT_BACKOFF_MS = 5 * 60_000;
 const FAILURE_REPORT_INTERVAL_MS = 5 * 60_000;
@@ -23,8 +26,23 @@ type PublicTicketConfigRecord = {
 	event?: { uri?: unknown; cid?: unknown };
 };
 
-type CachedLookup = { v: 1; href: string | null; checkedAt: number };
+export type TicketDiscoveryResult =
+	| { state: 'found'; href: string }
+	| { state: 'none' }
+	| { state: 'unavailable' };
+
+type CachedLookup = { v: 2; result: TicketDiscoveryResult; checkedAt: number };
 type FailureOperation = 'lookup' | 'cache-read' | 'cache-write';
+
+class TicketDiscoveryLookupError extends Error {
+	constructor(
+		message: string,
+		readonly scope: 'event' | 'origin' = 'origin',
+		readonly retryAfterMs = DEFAULT_RATE_LIMIT_BACKOFF_MS
+	) {
+		super(message);
+	}
+}
 
 export type TicketDiscoveryEnv = {
 	ATM_TICKET_DISCOVERY_ENABLED?: string;
@@ -40,7 +58,7 @@ export type TicketDiscoveryCache = {
 export type TicketDiscoveryFailureReporter = (operation: FailureOperation, error: unknown) => void;
 
 const memoryCache = new Map<string, CachedLookup>();
-const inFlight = new Map<string, Promise<string | null>>();
+const inFlight = new Map<string, Promise<TicketDiscoveryResult>>();
 const appViewRetryNotBefore = new Map<string, number>();
 const reportedFailureAt = new Map<FailureOperation, number>();
 
@@ -62,6 +80,9 @@ export function isTicketAdmissionRequired(
 	eventUri: string,
 	env: TicketDiscoveryEnv | undefined
 ): boolean {
+	// The kill switch must restore baseline RSVP behavior, not leave a pinned
+	// event enforcing a policy whose ticket action can no longer be discovered.
+	if (env?.ATM_TICKET_DISCOVERY_ENABLED !== 'true') return false;
 	return parseRequiredEventUris(env?.ATM_TICKET_REQUIRED_EVENT_URIS).has(eventUri);
 }
 
@@ -89,7 +110,7 @@ export function shouldDiscoverProtocolTickets(
 }
 
 /** Shared, fail-soft loader seam for normal and full-embed public pages. */
-export async function getEventProtocolTicketLink({
+export async function getEventProtocolTicketDiscovery({
 	eventUri,
 	event,
 	env,
@@ -109,17 +130,17 @@ export async function getEventProtocolTicketLink({
 	cache?: TicketDiscoveryCache;
 	waitUntil?: (promise: Promise<unknown>) => void;
 	onFailure?: TicketDiscoveryFailureReporter;
-}): Promise<string | null> {
-	if (env?.ATM_TICKET_DISCOVERY_ENABLED !== 'true') return null;
-	if (!shouldDiscoverProtocolTickets(event, now())) return null;
+}): Promise<TicketDiscoveryResult> {
+	if (env?.ATM_TICKET_DISCOVERY_ENABLED !== 'true') return { state: 'none' };
+	if (!shouldDiscoverProtocolTickets(event, now())) return { state: 'none' };
 
 	const appViewUrl = normalizeOrigin(env.ATM_TICKET_APPVIEW_URL ?? DEFAULT_ATM_APPVIEW_URL);
 	if (!appViewUrl) {
 		reportFailure(onFailure, 'lookup', new Error('ATM AppView URL is invalid'));
-		return null;
+		return { state: 'unavailable' };
 	}
 
-	return getProtocolTicketLink({
+	return getProtocolTicketDiscovery({
 		eventUri,
 		appViewUrl,
 		fetcher,
@@ -137,7 +158,7 @@ export async function getEventProtocolTicketLink({
  * becoming request-per-page AppView traffic. Stale entries are presentation
  * hints only; they never become admission policy.
  */
-export async function getProtocolTicketLink({
+export async function getProtocolTicketDiscovery({
 	eventUri,
 	appViewUrl = DEFAULT_ATM_APPVIEW_URL,
 	fetcher = fetch,
@@ -155,13 +176,13 @@ export async function getProtocolTicketLink({
 	cache?: TicketDiscoveryCache;
 	waitUntil?: (promise: Promise<unknown>) => void;
 	onFailure?: TicketDiscoveryFailureReporter;
-}): Promise<string | null> {
+}): Promise<TicketDiscoveryResult> {
 	const event = parseCalendarEventUri(eventUri);
 	const normalizedAppViewUrl = normalizeOrigin(appViewUrl);
-	if (!event) return null;
+	if (!event) return { state: 'none' };
 	if (!normalizedAppViewUrl) {
 		reportFailure(onFailure, 'lookup', new Error('ATM AppView URL is invalid'));
-		return null;
+		return { state: 'unavailable' };
 	}
 
 	const key = buildCacheKey(normalizedAppViewUrl, eventUri);
@@ -171,10 +192,11 @@ export async function getProtocolTicketLink({
 
 	if (cached) {
 		const age = Math.max(0, checkedAt - cached.checkedAt);
-		const freshFor = cached.href ? FOUND_FRESH_MS : NOT_FOUND_FRESH_MS;
-		if (age <= freshFor) return cached.href;
+		const freshFor = getFreshDuration(cached.result);
+		if (age <= freshFor) return cached.result;
 
-		if (age <= CACHE_RETAIN_MS) {
+		const retainFor = getRetainDuration(cached.result);
+		if (retainFor > freshFor && age <= retainFor) {
 			const refresh = startLookup({
 				key,
 				eventUri,
@@ -185,30 +207,26 @@ export async function getProtocolTicketLink({
 				now,
 				cache,
 				waitUntil,
-				onFailure
-			}).catch((error) => reportFailure(onFailure, 'lookup', error));
+				onFailure,
+				staleFallback: cached
+			});
 			scheduleBackground(refresh, waitUntil, onFailure);
-			return cached.href;
+			return cached.result;
 		}
 	}
 
-	try {
-		return await startLookup({
-			key,
-			eventUri,
-			event,
-			appViewUrl: normalizedAppViewUrl,
-			fetcher,
-			timeoutMs,
-			now,
-			cache,
-			waitUntil,
-			onFailure
-		});
-	} catch (error) {
-		reportFailure(onFailure, 'lookup', error);
-		return null;
-	}
+	return startLookup({
+		key,
+		eventUri,
+		event,
+		appViewUrl: normalizedAppViewUrl,
+		fetcher,
+		timeoutMs,
+		now,
+		cache,
+		waitUntil,
+		onFailure
+	});
 }
 
 function startLookup({
@@ -221,7 +239,8 @@ function startLookup({
 	now,
 	cache,
 	waitUntil,
-	onFailure
+	onFailure,
+	staleFallback
 }: {
 	key: string;
 	eventUri: string;
@@ -233,40 +252,72 @@ function startLookup({
 	cache?: TicketDiscoveryCache;
 	waitUntil?: (promise: Promise<unknown>) => void;
 	onFailure: TicketDiscoveryFailureReporter;
-}): Promise<string | null> {
+	staleFallback?: CachedLookup;
+}): Promise<TicketDiscoveryResult> {
 	const pending = inFlight.get(key);
 	if (pending) return pending;
 
-	const lookup = (async () => {
+	const lookup = (async (): Promise<TicketDiscoveryResult> => {
 		const checkedAt = now();
 		const retryAt = appViewRetryNotBefore.get(appViewUrl) ?? 0;
-		if (retryAt > checkedAt) throw new Error('ATM AppView retry window is active');
+		if (retryAt > checkedAt) {
+			return handleUnavailable(
+				new TicketDiscoveryLookupError('ATM AppView retry window is active'),
+				checkedAt
+			);
+		}
 		if (retryAt) appViewRetryNotBefore.delete(appViewUrl);
 
-		const href = await fetchProtocolTicketLink({
-			eventUri,
-			event,
-			appViewUrl,
-			fetcher,
-			timeoutMs,
-			now
-		});
-		const entry: CachedLookup = { v: 1, href, checkedAt: now() };
-		remember(key, entry);
-		scheduleBackground(
-			writeCachedLookup(key, entry, cache, onFailure),
-			waitUntil,
-			onFailure,
-			'cache-write'
-		);
-		return href;
+		try {
+			const result = await fetchProtocolTicketDiscovery({
+				eventUri,
+				event,
+				appViewUrl,
+				fetcher,
+				timeoutMs,
+				now
+			});
+			cacheResult({ v: 2, result, checkedAt: now() });
+			return result;
+		} catch (error) {
+			return handleUnavailable(error, checkedAt);
+		}
+
+		function handleUnavailable(error: unknown, checkedAt: number): TicketDiscoveryResult {
+			reportFailure(onFailure, 'lookup', error);
+			const failure =
+				error instanceof TicketDiscoveryLookupError
+					? error
+					: new TicketDiscoveryLookupError(formatFailureReason(error));
+			if (failure.scope === 'origin') {
+				const retryAt = checkedAt + failure.retryAfterMs;
+				appViewRetryNotBefore.set(
+					appViewUrl,
+					Math.max(appViewRetryNotBefore.get(appViewUrl) ?? 0, retryAt)
+				);
+			}
+			if (staleFallback) return staleFallback.result;
+			const result: TicketDiscoveryResult = { state: 'unavailable' };
+			cacheResult({ v: 2, result, checkedAt });
+			return result;
+		}
+
+		function cacheResult(entry: CachedLookup): void {
+			remember(key, entry);
+			scheduleBackground(
+				writeCachedLookup(key, entry, cache, onFailure),
+				waitUntil,
+				onFailure,
+				'cache-write'
+			);
+		}
 	})().finally(() => inFlight.delete(key));
 
 	inFlight.set(key, lookup);
 	return lookup;
 }
 
-async function fetchProtocolTicketLink({
+async function fetchProtocolTicketDiscovery({
 	eventUri,
 	event,
 	appViewUrl,
@@ -280,12 +331,12 @@ async function fetchProtocolTicketLink({
 	fetcher: typeof fetch;
 	timeoutMs: number;
 	now: () => number;
-}): Promise<string | null> {
+}): Promise<TicketDiscoveryResult> {
 	const query = new URL('/xrpc/tickets.atmosphere.listPublicConfig', appViewUrl);
 	query.searchParams.set('organizer', event.organizerDid);
 	query.searchParams.set('eventUri', eventUri);
 	query.searchParams.set('collections', TICKETED_EVENT_COLLECTION);
-	query.searchParams.set('limit', '5');
+	query.searchParams.set('limit', '100');
 
 	const response = await fetcher(query, {
 		headers: { accept: 'application/json' },
@@ -294,22 +345,27 @@ async function fetchProtocolTicketLink({
 	});
 	if (response.status === 429) {
 		const delay = parseRetryAfter(response.headers.get('retry-after'), now());
-		const retryAt = now() + delay;
-		appViewRetryNotBefore.set(
-			appViewUrl,
-			Math.max(appViewRetryNotBefore.get(appViewUrl) ?? 0, retryAt)
-		);
+		throw new TicketDiscoveryLookupError('ATM AppView returned 429', 'origin', delay);
 	}
-	if (!response.ok) throw new Error(`ATM AppView returned ${response.status}`);
+	if (!response.ok) {
+		throw new TicketDiscoveryLookupError(`ATM AppView returned ${response.status}`);
+	}
 
-	const body = (await response.json()) as { records?: unknown };
-	if (!Array.isArray(body.records)) throw new Error('ATM AppView returned an invalid envelope');
-	if (body.records.length === 0) return null;
+	let body: { records?: unknown };
+	try {
+		body = (await response.json()) as { records?: unknown };
+	} catch {
+		throw new TicketDiscoveryLookupError('ATM AppView returned invalid JSON');
+	}
+	if (!Array.isArray(body.records)) {
+		throw new TicketDiscoveryLookupError('ATM AppView returned an invalid envelope');
+	}
+	if (body.records.length === 0) return { state: 'none' };
 
 	const found = body.records.some((record) =>
 		isActiveTicketedEvent(record, { eventUri, organizerDid: event.organizerDid })
 	);
-	if (found) return buildTicketUrl(event.organizerDid, event.rkey);
+	if (found) return { state: 'found', href: buildTicketUrl(event.organizerDid, event.rkey) };
 
 	// listPublicConfig normally filters archived records before returning them.
 	// Treat an exact archived record as an authoritative negative if a compatible
@@ -318,8 +374,11 @@ async function fetchProtocolTicketLink({
 	const archived = body.records.some((record) =>
 		isTicketedEventForEvent(record, { eventUri, organizerDid: event.organizerDid }, true)
 	);
-	if (archived) return null;
-	throw new Error('ATM AppView returned no usable ticketedEvent record');
+	if (archived) return { state: 'none' };
+	throw new TicketDiscoveryLookupError(
+		'ATM AppView returned no usable ticketedEvent record',
+		'event'
+	);
 }
 
 async function readCachedLookup({
@@ -363,7 +422,7 @@ async function writeCachedLookup(
 			new Response(JSON.stringify(entry), {
 				headers: {
 					'content-type': 'application/json',
-					'cache-control': `public, max-age=${Math.floor(CACHE_RETAIN_MS / 1_000)}`
+					'cache-control': `public, max-age=${Math.floor(CACHE_STORAGE_MS / 1_000)}`
 				}
 			})
 		);
@@ -404,6 +463,8 @@ function isTicketedEventForEvent(
 }
 
 function remember(key: string, entry: CachedLookup): void {
+	// Refresh insertion order so the bounded map behaves as LRU, not FIFO.
+	if (memoryCache.has(key)) memoryCache.delete(key);
 	if (memoryCache.size >= MAX_MEMORY_ENTRIES) {
 		const oldest = memoryCache.keys().next().value;
 		if (oldest !== undefined) memoryCache.delete(oldest);
@@ -470,10 +531,31 @@ function buildCacheKey(appViewUrl: string, eventUri: string): string {
 function isCachedLookup(value: unknown, expectedHref: string): value is CachedLookup {
 	if (!isObject(value)) return false;
 	return (
-		value.v === 1 &&
+		value.v === 2 &&
 		Number.isFinite(value.checkedAt) &&
-		(value.href === null || value.href === expectedHref)
+		isTicketDiscoveryResult(value.result, expectedHref)
 	);
+}
+
+function isTicketDiscoveryResult(
+	value: unknown,
+	expectedHref: string
+): value is TicketDiscoveryResult {
+	if (!isObject(value) || typeof value.state !== 'string') return false;
+	if (value.state === 'found') return value.href === expectedHref;
+	return value.state === 'none' || value.state === 'unavailable';
+}
+
+function getFreshDuration(result: TicketDiscoveryResult): number {
+	if (result.state === 'found') return FOUND_FRESH_MS;
+	if (result.state === 'none') return NOT_FOUND_FRESH_MS;
+	return UNAVAILABLE_FRESH_MS;
+}
+
+function getRetainDuration(result: TicketDiscoveryResult): number {
+	if (result.state === 'found') return FOUND_RETAIN_MS;
+	if (result.state === 'none') return NOT_FOUND_RETAIN_MS;
+	return UNAVAILABLE_FRESH_MS;
 }
 
 function getDefaultCache(): TicketDiscoveryCache | undefined {
@@ -496,7 +578,8 @@ function parseRequiredEventUris(value: string | undefined): Set<string> {
 
 function buildTicketUrl(organizerDid: string, rkey: string): string {
 	const actor = encodeURIComponent(organizerDid).replaceAll('%3A', ':');
-	return `${ATM_EVENTS_URL}/p/${actor}/e/${encodeURIComponent(rkey)}`;
+	const eventKey = encodeURIComponent(rkey).replaceAll('%3A', ':');
+	return `${ATM_EVENTS_URL}/p/${actor}/e/${eventKey}`;
 }
 
 function parseCalendarEventUri(uri: string): { organizerDid: string; rkey: string } | null {

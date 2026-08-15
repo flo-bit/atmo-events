@@ -202,7 +202,13 @@ describe('ticket CTA timing', () => {
 
 describe('ticket-aware RSVP presentation', () => {
 	it('hides only the competing signed-out RSVP prompt for explicit required admission', () => {
-		expect(shouldShowRsvpPanel({ isLoggedIn: false, ticketAdmissionRequired: true })).toBe(false);
+		expect(
+			shouldShowRsvpPanel({
+				isLoggedIn: false,
+				ticketAdmissionRequired: true,
+				ticketDiscoveryState: 'found'
+			})
+		).toBe(false);
 	});
 
 	it('keeps RSVP independent from ticket discovery when admission is optional', () => {
@@ -220,4 +226,17 @@ describe('ticket-aware RSVP presentation', () => {
 			})
 		).toBe(true);
 	});
+
+	it.each(['none', 'unavailable'] as const)(
+		'keeps RSVP reachable when discovery is %s',
+		(ticketDiscoveryState) => {
+			expect(
+				shouldShowRsvpPanel({
+					isLoggedIn: false,
+					ticketAdmissionRequired: true,
+					ticketDiscoveryState
+				})
+			).toBe(true);
+		}
+	);
 });

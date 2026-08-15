@@ -3,12 +3,17 @@
 	import EventRsvp from '../EventRsvp.svelte';
 	import ExternalRsvpNotice from './ExternalRsvpNotice.svelte';
 	import GetTicketsNotice from './GetTicketsNotice.svelte';
-	import { isAtmosphereTicketsUrlForEvent, type TicketActionState } from './tickets.js';
+	import {
+		isAtmosphereTicketsUrlForEvent,
+		type TicketActionState,
+		type TicketDiscoveryState
+	} from './tickets.js';
 
 	let {
 		ticketUrl,
 		ticketAdmissionRequired = false,
 		ticketActionState = 'open',
+		ticketDiscoveryState = 'none',
 		showRsvpPanel,
 		rsvpExternalOnly = false,
 		externalSourceUrl,
@@ -27,6 +32,8 @@
 		ticketAdmissionRequired?: boolean;
 		/** Whether ticket actions are open, closed, or unsafe to infer from public dates. */
 		ticketActionState?: TicketActionState;
+		/** Whether protocol discovery found a page, found none, or could not complete. */
+		ticketDiscoveryState?: TicketDiscoveryState;
 		showRsvpPanel: boolean;
 		rsvpExternalOnly?: boolean;
 		externalSourceUrl?: string;
@@ -43,19 +50,51 @@
 
 	let ticketActionOpen = $derived(ticketActionState === 'open');
 	let effectiveTicketRequired = $derived(
-		ticketAdmissionRequired && ticketActionState !== 'unknown'
+		ticketAdmissionRequired && ticketActionState !== 'unknown' && ticketDiscoveryState !== 'none'
 	);
 	let hasTicketCta = $derived(
-		ticketActionOpen && isAtmosphereTicketsUrlForEvent(ticketUrl, eventUri)
+		ticketActionOpen &&
+			ticketDiscoveryState === 'found' &&
+			isAtmosphereTicketsUrlForEvent(ticketUrl, eventUri)
 	);
 	let attendanceClosed = $derived(effectiveTicketRequired && ticketActionState === 'closed');
-	let ticketUnavailable = $derived(ticketActionOpen && effectiveTicketRequired && !hasTicketCta);
+	let ticketUnavailable = $derived(
+		ticketActionOpen &&
+			effectiveTicketRequired &&
+			(ticketDiscoveryState === 'unavailable' ||
+				(ticketDiscoveryState === 'found' && !hasTicketCta))
+	);
 	let combineTicketAndRsvp = $derived(
-		effectiveTicketRequired && ticketActionOpen && showRsvpPanel && viewer.isLoggedIn
+		effectiveTicketRequired &&
+			ticketActionOpen &&
+			showRsvpPanel &&
+			viewer.isLoggedIn &&
+			!rsvpExternalOnly
 	);
 </script>
 
-{#if !attendanceClosed}
+{#if attendanceClosed}
+	{#if showRsvpPanel}
+		{#if rsvpExternalOnly && externalSourceUrl}
+			<ExternalRsvpNotice url={externalSourceUrl} />
+		{:else if viewer.isLoggedIn && initialRsvpStatus}
+			<EventRsvp
+				{eventUri}
+				{eventCid}
+				{initialRsvpStatus}
+				{initialRsvpRkey}
+				{spaceUri}
+				ticketRequired={false}
+				allowGoing={false}
+				allowResponses={false}
+				{adapter}
+				{viewer}
+				{onrsvp}
+				{oncancel}
+			/>
+		{/if}
+	{/if}
+{:else}
 	{#if ticketUrl && hasTicketCta && !combineTicketAndRsvp}
 		<GetTicketsNotice url={ticketUrl} {eventUri} />
 	{:else if ticketUnavailable && !combineTicketAndRsvp}
@@ -63,7 +102,7 @@
 	{/if}
 
 	{#if showRsvpPanel}
-		{#if rsvpExternalOnly && externalSourceUrl && !effectiveTicketRequired}
+		{#if rsvpExternalOnly && externalSourceUrl}
 			<ExternalRsvpNotice url={externalSourceUrl} />
 		{:else}
 			<EventRsvp

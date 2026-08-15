@@ -22,7 +22,10 @@ import {
 	getParentEventRef,
 	parseEventUri
 } from '@atmo-dev/events-ui/conference';
-import { getEventProtocolTicketLink, isTicketAdmissionRequired } from '$lib/atmosphere-tickets';
+import {
+	getEventProtocolTicketDiscovery,
+	isTicketAdmissionRequired
+} from '$lib/atmosphere-tickets';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -139,7 +142,7 @@ export async function load({ params, locals, url, platform }) {
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
-		protocolTicketUrl,
+		protocolTicketDiscovery,
 		...speakerProfiles
 	] = await Promise.all([
 		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
@@ -177,12 +180,12 @@ export async function load({ params, locals, url, platform }) {
 					})
 					.catch(() => null)
 			: null,
-		getEventProtocolTicketLink({
+		getEventProtocolTicketDiscovery({
 			eventUri,
 			event: eventData,
 			env: platform!.env,
 			waitUntil: platform!.ctx?.waitUntil.bind(platform!.ctx)
-		}).catch(() => null),
+		}).catch(() => ({ state: 'unavailable' }) as const),
 		...speakers.map((s) =>
 			s.id
 				? getProfileFromContrail(client, s.id as ActorIdentifier)
@@ -253,7 +256,9 @@ export async function load({ params, locals, url, platform }) {
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,
 		conferenceVods,
-		protocolTicketUrl,
+		protocolTicketUrl:
+			protocolTicketDiscovery.state === 'found' ? protocolTicketDiscovery.href : null,
+		protocolTicketDiscoveryState: protocolTicketDiscovery.state,
 		ticketAdmissionRequired,
 		loggedIn: !!locals.did,
 		speakerProfiles: speakerProfiles as Array<{

@@ -15,6 +15,7 @@
 		ticketUrl,
 		ticketRequired = false,
 		allowGoing = true,
+		allowResponses = true,
 		adapter,
 		viewer,
 		onrsvp,
@@ -33,6 +34,8 @@
 		ticketRequired?: boolean;
 		/** Whether this surface may create a new Going RSVP. Existing state remains manageable. */
 		allowGoing?: boolean;
+		/** Whether this surface may create any new RSVP after existing state is removed. */
+		allowResponses?: boolean;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
 		onrsvp?: (status: 'going' | 'interested', rkey: string) => void;
@@ -56,7 +59,7 @@
 	let ticketUnavailable = $derived(ticketRequired && !safeTicketUrl);
 
 	async function submitRsvp(status: 'going' | 'interested') {
-		if (!viewer.isLoggedIn || !viewer.did) return;
+		if (!allowResponses || !viewer.isLoggedIn || !viewer.did) return;
 		if (status === 'going' && (!allowGoing || safeTicketUrl)) return;
 		rsvpSubmitting = true;
 		try {
@@ -163,6 +166,7 @@
 <div
 	class="border-base-200 dark:border-base-800 bg-base-100 items-between dark:bg-base-950/50 mt-8 mb-2 flex flex-col justify-center rounded-2xl border p-4"
 	class:h-25={!safeTicketUrl && !ticketUnavailable}
+	class:hidden={!allowResponses && !rsvpStatus}
 >
 	{#if viewer.isLoggedIn && ticketRequired}
 		<p class="text-base-900 dark:text-base-50 mb-3 text-sm font-semibold">
@@ -280,7 +284,7 @@
 				>
 			</div>
 		</div>
-	{:else}
+	{:else if allowResponses}
 		{#if viewer.isLoggedIn}
 			<div class="mb-4 flex items-center gap-2">
 				<span class="text-base-500 dark:text-base-400 text-sm">

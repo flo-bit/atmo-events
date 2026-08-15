@@ -17,8 +17,8 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
-		// Experimental, fail-soft discovery of organizer-owned ticketedEvent records.
-		// Keep independently switchable until the tickets.atmosphere lexicons are published.
+		// Explicit production pilot opt-in. Set false (or remove) to restore the
+		// baseline RSVP surface; the kill switch also disables the pilot policy.
 		"ATM_TICKET_DISCOVERY_ENABLED": "true",
 		"ATM_TICKET_APPVIEW_URL": "https://appview.atmosphere.money",
 		// Temporary explicit policy for the ticketing pilot. ticketedEvent discovery alone

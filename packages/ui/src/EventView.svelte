@@ -198,11 +198,16 @@
 	// This is independent from protocol discovery. During the pilot it comes
 	// from an exact deployment allowlist; a ticketedEvent alone is not policy.
 	let ticketAdmissionRequired = $derived(data.ticketAdmissionRequired === true);
+	let ticketDiscoveryState = $derived.by(() => {
+		const state = data.protocolTicketDiscoveryState;
+		return state === 'found' || state === 'unavailable' ? state : 'none';
+	});
 	let showRsvpPanel = $derived(
 		shouldShowRsvpPanel({
 			isLoggedIn: viewer.isLoggedIn,
 			ticketAdmissionRequired,
-			ticketActionState
+			ticketActionState,
+			ticketDiscoveryState
 		})
 	);
 
@@ -379,7 +384,8 @@
 					ticketUrl={ticketUrl ?? undefined}
 					{ticketAdmissionRequired}
 					{ticketActionState}
-					showRsvpPanel={!isPast && showRsvpPanel}
+					{ticketDiscoveryState}
+					showRsvpPanel={!isPast && (showRsvpPanel || rsvpExternalOnly)}
 					{rsvpExternalOnly}
 					externalSourceUrl={externalSource?.url}
 					{eventUri}
