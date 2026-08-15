@@ -9,6 +9,7 @@ const NOT_FOUND_FRESH_MS = 60_000;
 const CACHE_RETAIN_MS = 24 * 60 * 60_000;
 const DEFAULT_RATE_LIMIT_BACKOFF_MS = 30_000;
 const MAX_RATE_LIMIT_BACKOFF_MS = 5 * 60_000;
+const FAILURE_REPORT_INTERVAL_MS = 5 * 60_000;
 const MAX_MEMORY_ENTRIES = 500;
 const DID_PATTERN = /^did:[a-z0-9]+:(?:[a-zA-Z0-9._:-]|%[0-9a-fA-F]{2})+$/;
 
@@ -41,11 +42,13 @@ export type TicketDiscoveryFailureReporter = (operation: FailureOperation, error
 const memoryCache = new Map<string, CachedLookup>();
 const inFlight = new Map<string, Promise<string | null>>();
 const appViewRetryNotBefore = new Map<string, number>();
-const reportedFailures = new Set<FailureOperation>();
+const reportedFailureAt = new Map<FailureOperation, number>();
 
 const defaultFailureReporter: TicketDiscoveryFailureReporter = (operation, error) => {
-	if (reportedFailures.has(operation)) return;
-	reportedFailures.add(operation);
+	const now = Date.now();
+	const previous = reportedFailureAt.get(operation);
+	if (previous !== undefined && now - previous < FAILURE_REPORT_INTERVAL_MS) return;
+	reportedFailureAt.set(operation, now);
 	console.warn(`[ticket-discovery] ${operation} failed: ${formatFailureReason(error)}`);
 };
 
@@ -67,19 +70,22 @@ export function clearTicketDiscoveryCache(): void {
 	memoryCache.clear();
 	inFlight.clear();
 	appViewRetryNotBefore.clear();
-	reportedFailures.clear();
+	reportedFailureAt.clear();
 }
 
-/** Do not discover or advertise a ticket page after the event boundary. */
+/**
+ * Do not discover or advertise a ticket page after a known end boundary.
+ * An omitted endsAt follows atmo's existing no-end event semantics and stays
+ * discoverable; malformed public dates fail closed.
+ */
 export function shouldDiscoverProtocolTickets(
 	event: { startsAt?: unknown; endsAt?: unknown; status?: unknown },
 	now = Date.now()
 ): boolean {
 	if (event.status === CANCELLED_EVENT_STATUS) return false;
-	const boundaryValue = event.endsAt ?? event.startsAt;
-	if (typeof boundaryValue !== 'string') return false;
-	const boundary = Date.parse(boundaryValue);
-	return Number.isFinite(boundary) && boundary > now;
+	if (!isDatetime(event.startsAt) || !Number.isFinite(now)) return false;
+	if (event.endsAt === undefined || event.endsAt === null) return true;
+	return isDatetime(event.endsAt) && Date.parse(event.endsAt) > now;
 }
 
 /** Shared, fail-soft loader seam for normal and full-embed public pages. */
@@ -279,7 +285,7 @@ async function fetchProtocolTicketLink({
 	query.searchParams.set('organizer', event.organizerDid);
 	query.searchParams.set('eventUri', eventUri);
 	query.searchParams.set('collections', TICKETED_EVENT_COLLECTION);
-	query.searchParams.set('limit', '1');
+	query.searchParams.set('limit', '5');
 
 	const response = await fetcher(query, {
 		headers: { accept: 'application/json' },
@@ -303,8 +309,17 @@ async function fetchProtocolTicketLink({
 	const found = body.records.some((record) =>
 		isActiveTicketedEvent(record, { eventUri, organizerDid: event.organizerDid })
 	);
-	if (!found) throw new Error('ATM AppView returned no usable ticketedEvent record');
-	return buildTicketUrl(event.organizerDid, event.rkey);
+	if (found) return buildTicketUrl(event.organizerDid, event.rkey);
+
+	// listPublicConfig normally filters archived records before returning them.
+	// Treat an exact archived record as an authoritative negative if a compatible
+	// AppView returns one anyway, while keeping malformed/mismatched envelopes
+	// transient so they cannot poison a verified positive cache.
+	const archived = body.records.some((record) =>
+		isTicketedEventForEvent(record, { eventUri, organizerDid: event.organizerDid }, true)
+	);
+	if (archived) return null;
+	throw new Error('ATM AppView returned no usable ticketedEvent record');
 }
 
 async function readCachedLookup({
@@ -361,6 +376,14 @@ function isActiveTicketedEvent(
 	value: unknown,
 	expected: { eventUri: string; organizerDid: string }
 ): boolean {
+	return isTicketedEventForEvent(value, expected, false);
+}
+
+function isTicketedEventForEvent(
+	value: unknown,
+	expected: { eventUri: string; organizerDid: string },
+	archived: boolean
+): boolean {
 	if (!isObject(value)) return false;
 	const record = value as PublicTicketConfigRecord;
 	// Treat the event AT-URI as the stable logical identity. Requiring the
@@ -376,7 +399,7 @@ function isActiveTicketedEvent(
 		isCid(record.cid) &&
 		record.event?.uri === expected.eventUri &&
 		isCid(record.event?.cid) &&
-		record.archived === false
+		record.archived === archived
 	);
 }
 
@@ -505,4 +528,8 @@ function isCid(value: unknown): value is string {
 
 function isObject(value: unknown): value is Record<string, unknown> {
 	return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function isDatetime(value: unknown): value is string {
+	return typeof value === 'string' && value.trim().length > 0 && Number.isFinite(Date.parse(value));
 }

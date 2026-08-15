@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+	getTicketActionState,
 	getTicketSalesEndTimestamp,
 	isAtmosphereTicketsEventUrl,
 	isAtmosphereTicketsUrlForEvent,
@@ -84,7 +85,7 @@ describe('ticket presentation arbitration', () => {
 			showCta: true
 		});
 
-		expect(result).toEqual({ href: protocol });
+		expect(result).toBe(protocol);
 	});
 
 	it.each([
@@ -141,13 +142,11 @@ describe('ticket presentation arbitration', () => {
 describe('ticket CTA timing', () => {
 	const now = Date.parse('2026-08-13T12:00:00Z');
 
-	it('uses endsAt when present and startsAt for a no-end event', () => {
+	it('returns a known end boundary and no boundary for a no-end event', () => {
 		expect(getTicketSalesEndTimestamp('2026-08-13T13:00:00Z', '2026-08-13T14:00:00Z')).toBe(
 			Date.parse('2026-08-13T14:00:00Z')
 		);
-		expect(getTicketSalesEndTimestamp('2026-08-13T13:00:00Z', undefined)).toBe(
-			Date.parse('2026-08-13T13:00:00Z')
-		);
+		expect(getTicketSalesEndTimestamp('2026-08-13T13:00:00Z', undefined)).toBeNull();
 	});
 
 	it.each([
@@ -157,10 +156,17 @@ describe('ticket CTA timing', () => {
 		{ startsAt: '' }
 	])('fails closed for malformed public record dates: %o', (event) => {
 		expect(isTicketCtaEligible({ ...event, now })).toBe(false);
+		expect(getTicketActionState({ ...event, now })).toBe('unknown');
 	});
 
 	it('hides the CTA at the sales boundary and for cancelled events', () => {
-		expect(isTicketCtaEligible({ startsAt: '2026-08-13T12:00:00Z', now })).toBe(false);
+		expect(
+			isTicketCtaEligible({
+				startsAt: '2026-08-13T11:00:00Z',
+				endsAt: '2026-08-13T12:00:00Z',
+				now
+			})
+		).toBe(false);
 		expect(
 			isTicketCtaEligible({
 				startsAt: '2026-08-13T13:00:00Z',
@@ -168,10 +174,22 @@ describe('ticket CTA timing', () => {
 				now
 			})
 		).toBe(false);
+		expect(
+			getTicketActionState({
+				startsAt: '2026-08-13T13:00:00Z',
+				status: 'community.lexicon.calendar.event#cancelled',
+				now
+			})
+		).toBe('closed');
 	});
 
-	it('shows the CTA only while a valid event is still on sale', () => {
+	it('keeps a valid no-end event open after it starts', () => {
 		expect(isTicketCtaEligible({ startsAt: '2026-08-13T13:00:00Z', now })).toBe(true);
+		expect(isTicketCtaEligible({ startsAt: '2026-08-13T11:00:00Z', now })).toBe(true);
+		expect(getTicketActionState({ startsAt: '2026-08-13T11:00:00Z', now })).toBe('open');
+	});
+
+	it('shows the CTA while a valid event with an end is still open', () => {
 		expect(
 			isTicketCtaEligible({
 				startsAt: '2026-08-13T11:00:00Z',
@@ -191,5 +209,15 @@ describe('ticket-aware RSVP presentation', () => {
 		expect(shouldShowRsvpPanel({ isLoggedIn: true, ticketAdmissionRequired: true })).toBe(true);
 		expect(shouldShowRsvpPanel({ isLoggedIn: true, ticketAdmissionRequired: false })).toBe(true);
 		expect(shouldShowRsvpPanel({ isLoggedIn: false, ticketAdmissionRequired: false })).toBe(true);
+	});
+
+	it('falls back to RSVP when ticket timing cannot be trusted', () => {
+		expect(
+			shouldShowRsvpPanel({
+				isLoggedIn: false,
+				ticketAdmissionRequired: true,
+				ticketActionState: 'unknown'
+			})
+		).toBe(true);
 	});
 });

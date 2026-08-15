@@ -1,6 +1,4 @@
-export type TicketPresentation = {
-	href: string;
-};
+export type TicketActionState = 'open' | 'closed' | 'unknown';
 
 const ATMOSPHERE_TICKETS_ORIGIN = 'https://events.atmosphere.tickets';
 const CANCELLED_EVENT_STATUS = 'community.lexicon.calendar.event#cancelled';
@@ -63,17 +61,34 @@ export function isAtmosphereTicketsUrlForEvent(value: unknown, eventUri: string)
 	);
 }
 
-/**
- * Return the instant after which the protocol ticket CTA must be hidden.
- * Invalid public record dates fail closed rather than advertising tickets
- * indefinitely.
- */
+/** Return a known event end boundary, or null when the event has no usable end. */
 export function getTicketSalesEndTimestamp(startsAt: unknown, endsAt: unknown): number | null {
-	const value = endsAt ?? startsAt;
-	if (typeof value !== 'string' || value.trim().length === 0) return null;
+	if (!isValidDate(startsAt) || endsAt === undefined || endsAt === null) return null;
+	if (!isValidDate(endsAt)) return null;
+	return Date.parse(endsAt);
+}
 
-	const timestamp = Date.parse(value);
-	return Number.isFinite(timestamp) ? timestamp : null;
+/**
+ * Separate an ended event from an event whose public dates are malformed.
+ * Unknown timing falls back to ordinary RSVP presentation; it must not make
+ * the complete attendance surface disappear.
+ */
+export function getTicketActionState({
+	startsAt,
+	endsAt,
+	status,
+	now = Date.now()
+}: {
+	startsAt: unknown;
+	endsAt?: unknown;
+	status?: unknown;
+	now?: number;
+}): TicketActionState {
+	if (status === CANCELLED_EVENT_STATUS) return 'closed';
+	if (!Number.isFinite(now) || !isValidDate(startsAt)) return 'unknown';
+	if (endsAt === undefined || endsAt === null) return 'open';
+	if (!isValidDate(endsAt)) return 'unknown';
+	return Date.parse(endsAt) > now ? 'open' : 'closed';
 }
 
 export function isTicketCtaEligible({
@@ -87,10 +102,7 @@ export function isTicketCtaEligible({
 	status?: unknown;
 	now?: number;
 }): boolean {
-	const salesEnd = getTicketSalesEndTimestamp(startsAt, endsAt);
-	return (
-		salesEnd !== null && Number.isFinite(now) && salesEnd > now && status !== CANCELLED_EVENT_STATUS
-	);
+	return getTicketActionState({ startsAt, endsAt, status, now }) === 'open';
 }
 
 /**
@@ -100,12 +112,14 @@ export function isTicketCtaEligible({
  */
 export function shouldShowRsvpPanel({
 	isLoggedIn,
-	ticketAdmissionRequired
+	ticketAdmissionRequired,
+	ticketActionState = 'open'
 }: {
 	isLoggedIn: boolean;
 	ticketAdmissionRequired: boolean;
+	ticketActionState?: TicketActionState;
 }): boolean {
-	return isLoggedIn || !ticketAdmissionRequired;
+	return isLoggedIn || !ticketAdmissionRequired || ticketActionState === 'unknown';
 }
 
 /**
@@ -124,7 +138,7 @@ export function resolveTicketPresentation({
 	eventDid: string;
 	eventRkey: string;
 	showCta: boolean;
-}): TicketPresentation | null {
+}): string | null {
 	if (!showCta) return null;
 
 	const protocolHref = sanitizeWebUrl(protocolTicketUrl);
@@ -132,5 +146,9 @@ export function resolveTicketPresentation({
 		return null;
 	}
 
-	return { href: protocolHref };
+	return protocolHref;
+}
+
+function isValidDate(value: unknown): value is string {
+	return typeof value === 'string' && value.trim().length > 0 && Number.isFinite(Date.parse(value));
 }

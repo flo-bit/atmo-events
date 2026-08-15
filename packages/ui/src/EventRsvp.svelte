@@ -55,10 +55,6 @@
 	});
 	let ticketUnavailable = $derived(ticketRequired && !safeTicketUrl);
 
-	function retryTicketDiscovery() {
-		if (typeof window !== 'undefined') window.location.reload();
-	}
-
 	async function submitRsvp(status: 'going' | 'interested') {
 		if (!viewer.isLoggedIn || !viewer.did) return;
 		if (status === 'going' && (!allowGoing || safeTicketUrl)) return;
@@ -161,8 +157,6 @@
 {#snippet ticketAction(className = '')}
 	{#if safeTicketUrl}
 		{@render buyTicketsButton(className)}
-	{:else if ticketUnavailable}
-		<Button onclick={retryTicketDiscovery} variant="secondary" class={className}>Try again</Button>
 	{/if}
 {/snippet}
 
@@ -175,8 +169,12 @@
 			This is a ticketed event
 		</p>
 		{#if ticketUnavailable}
-			<p class="text-base-600 dark:text-base-400 -mt-2 mb-3 text-sm">
-				Ticket information is unavailable right now.
+			<p
+				class="text-base-600 dark:text-base-400 -mt-2 mb-3 text-sm"
+				role="status"
+				aria-live="polite"
+			>
+				Ticket information is temporarily unavailable. Please refresh in a few minutes.
 			</p>
 		{/if}
 	{/if}
@@ -184,7 +182,12 @@
 		<div class="flex items-center justify-between gap-4">
 			<p class="text-base-600 dark:text-base-400 text-sm">Log in to RSVP to this event</p>
 
-			<Button onclick={() => { onlogin?.(); adapter.requestLogin(); }}>Log in to RSVP</Button>
+			<Button
+				onclick={() => {
+					onlogin?.();
+					adapter.requestLogin();
+				}}>Log in to RSVP</Button
+			>
 		</div>
 	{:else if rsvpStatus === 'going'}
 		<div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -296,9 +299,7 @@
 		<div class="flex gap-3">
 			{#if safeTicketUrl}
 				{@render buyTicketsButton('flex-1')}
-			{:else if ticketUnavailable}
-				{@render ticketAction('flex-1')}
-			{:else if allowGoing}
+			{:else if !ticketUnavailable && allowGoing}
 				<Button onclick={() => submitRsvp('going')} disabled={rsvpSubmitting} class="flex-1">
 					{rsvpSubmitting ? '...' : 'Going'}
 				</Button>

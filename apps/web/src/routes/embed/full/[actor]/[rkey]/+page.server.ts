@@ -44,8 +44,9 @@ export async function load({ params, url, platform }) {
 			((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
 				| Array<{ id: string; name: string }>
 				| undefined) ?? [];
-		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)
-			?.vodAtUri as string | undefined;
+		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
+			| string
+			| undefined;
 		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 		const viewerDid = url.searchParams.get('did') ?? null;
@@ -54,7 +55,7 @@ export async function load({ params, url, platform }) {
 			event: eventData,
 			env: platform!.env,
 			waitUntil: platform!.ctx?.waitUntil.bind(platform!.ctx)
-		});
+		}).catch(() => null);
 
 		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			listEventAttendeesFromContrail(client, fullEventRecord.uri),

@@ -13,7 +13,7 @@ policy being inferred from every ticketedEvent record. For that pilot,
 signed-out viewers see the ticket action without a competing RSVP prompt, while
 signed-in viewers can mark themselves Interested and existing RSVP state remains
 visible, manageable, and clearly labelled as ticketed. Discovery uses bounded
-edge caching and shows a retryable unavailable state instead of leaving required
-events without an attendance action during an AppView failure. This presentation
+edge caching and shows an explicit temporary-unavailability message instead of
+leaving required events without context during an AppView failure. This presentation
 does not prove ticket ownership or enforce admission; those remain authoritative
 in the ticket service until the protocol-native admission model is added.

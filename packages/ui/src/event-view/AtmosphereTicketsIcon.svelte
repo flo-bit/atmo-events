@@ -4,7 +4,8 @@
 
 <!--
 	Official Atmosphere Tickets mark from atmosphere-money/app/public/atmosphere-tickets.svg
-	(commit 733001791), adapted to inherit the button's text color.
+	(commit 733001791), included with the Atmosphere brand owner's permission and
+	adapted to inherit the button's text color.
 -->
 <svg
 	class={className}

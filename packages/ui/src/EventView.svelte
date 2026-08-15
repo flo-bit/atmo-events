@@ -28,12 +28,17 @@
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import EventAttendanceActions from './event-view/EventAttendanceActions.svelte';
 	import {
+		getTicketActionState,
 		getTicketSalesEndTimestamp,
-		isTicketCtaEligible as checkTicketCtaEligibility,
 		resolveTicketPresentation,
 		shouldShowRsvpPanel
 	} from './event-view/tickets.js';
-	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
+	import {
+		buildDescriptionHtml,
+		getLocationData,
+		resolveGeoLocation,
+		type GeoLocation
+	} from './event-view/format';
 
 	let {
 		data,
@@ -91,9 +96,7 @@
 	// root, even when the RSVPer is the host.
 	let canSetEventComments = $state(false);
 	let isHost = $derived(!!viewer.did && viewer.did === did);
-	let hasComments = $derived(
-		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
-	);
+	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
 	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
 	onMount(async () => {
@@ -137,19 +140,20 @@
 	// Preserve the existing RSVP behavior: this clock is evaluated when the
 	// derived value runs and is not driven by the ticket boundary timer.
 	let isPast = $derived(endDate ? endDate < new Date() : false);
-	// A no-end event stops advertising ticket sales at its start. Keep this
-	// separate from RSVP semantics, where an omitted endsAt is historically not
-	// treated as past.
+	// Ticket timing is separate from the existing RSVP clock. A missing endsAt
+	// remains open, matching atmo's longstanding no-end event semantics, while
+	// malformed dates fall back to ordinary RSVP presentation.
 	let ticketNow = $state(Date.now());
 	let ticketSalesEnd = $derived(getTicketSalesEndTimestamp(eventData.startsAt, eventData.endsAt));
-	let isTicketCtaEligible = $derived(
-		checkTicketCtaEligibility({
+	let ticketActionState = $derived(
+		getTicketActionState({
 			startsAt: eventData.startsAt,
 			endsAt: eventData.endsAt,
 			status: eventData.status,
 			now: ticketNow
 		})
 	);
+	let isTicketCtaEligible = $derived(ticketActionState === 'open');
 
 	$effect(() => {
 		// Reading the derived boundary here makes navigation to another event
@@ -183,7 +187,7 @@
 
 	// Only verified protocol discovery can produce the special Atmosphere
 	// Tickets CTA. Organizer-supplied URLs remain untouched in the Links list.
-	let ticketPresentation = $derived(
+	let ticketUrl = $derived(
 		resolveTicketPresentation({
 			protocolTicketUrl: data.protocolTicketUrl,
 			eventDid: did,
@@ -197,13 +201,12 @@
 	let showRsvpPanel = $derived(
 		shouldShowRsvpPanel({
 			isLoggedIn: viewer.isLoggedIn,
-			ticketAdmissionRequired
+			ticketAdmissionRequired,
+			ticketActionState
 		})
 	);
 
-	let descriptionHtml = $derived(
-		buildDescriptionHtml(eventData.description, eventData.facets)
-	);
+	let descriptionHtml = $derived(buildDescriptionHtml(eventData.description, eventData.facets));
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -373,9 +376,9 @@
 				{/if}
 
 				<EventAttendanceActions
-					ticketUrl={ticketPresentation?.href}
+					ticketUrl={ticketUrl ?? undefined}
 					{ticketAdmissionRequired}
-					ticketActionEligible={isTicketCtaEligible}
+					{ticketActionState}
 					showRsvpPanel={!isPast && showRsvpPanel}
 					{rsvpExternalOnly}
 					externalSourceUrl={externalSource?.url}

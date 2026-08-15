@@ -68,21 +68,24 @@ describe('ticket-aware attendance actions', () => {
 		});
 
 		expect(body).toContain('This is a ticketed event');
-		expect(body).toContain('Ticket information is unavailable right now.');
-		expect(body).toContain('Try again');
+		expect(body).toContain(
+			'Ticket information is temporarily unavailable. Please refresh in a few minutes.'
+		);
+		expect(body).toContain('role="status"');
+		expect(body).not.toContain('Try again');
 		expect(body).not.toContain('Log in to RSVP');
 	});
 
 	it('renders no ticket or RSVP actions after a required event closes', () => {
 		const body = renderActions({
 			ticketAdmissionRequired: true,
-			ticketActionEligible: false,
+			ticketActionState: 'closed',
 			showRsvpPanel: true,
 			viewer: signedInViewer
 		});
 
 		expect(body).not.toContain('Buy tickets');
-		expect(body).not.toContain('Ticket information is unavailable right now.');
+		expect(body).not.toContain('Ticket information is temporarily unavailable.');
 		expect(body).not.toContain('Try again');
 		expect(body).not.toContain('Going');
 		expect(body).not.toContain('Interested');
@@ -128,7 +131,7 @@ describe('ticket-aware attendance actions', () => {
 		expect(body.match(/Buy tickets/g)).toHaveLength(1);
 	});
 
-	it('keeps Interested and a retry action when signed-in discovery is unavailable', () => {
+	it('keeps Interested and honest status copy when signed-in discovery is unavailable', () => {
 		const body = renderActions({
 			ticketUrl: undefined,
 			showRsvpPanel: true,
@@ -137,8 +140,11 @@ describe('ticket-aware attendance actions', () => {
 		});
 
 		expect(body).toContain('This is a ticketed event');
-		expect(body).toContain('Ticket information is unavailable right now.');
-		expect(body).toContain('Try again');
+		expect(body).toContain(
+			'Ticket information is temporarily unavailable. Please refresh in a few minutes.'
+		);
+		expect(body).toContain('role="status"');
+		expect(body).not.toContain('Try again');
 		expect(body).toContain('Respond as');
 		expect(body).not.toContain('Attend as');
 		expect(body).toContain('Interested');
@@ -155,10 +161,26 @@ describe('ticket-aware attendance actions', () => {
 		});
 
 		expect(body).not.toContain('href="https://events.atmosphere.tickets');
-		expect(body).toContain('Ticket information is unavailable right now.');
-		expect(body).toContain('Try again');
+		expect(body).toContain('Ticket information is temporarily unavailable.');
+		expect(body).not.toContain('Try again');
 		expect(body).toContain('Interested');
 		expect(body).not.toContain('Going');
+	});
+
+	it('falls back to ordinary RSVP when public event timing is unknown', () => {
+		const body = renderActions({
+			ticketUrl: undefined,
+			ticketAdmissionRequired: true,
+			ticketActionState: 'unknown',
+			showRsvpPanel: true,
+			viewer: signedInViewer
+		});
+
+		expect(body).not.toContain('This is a ticketed event');
+		expect(body).not.toContain('Ticket information is temporarily unavailable.');
+		expect(body).toContain('Attend as');
+		expect(body).toContain('Going');
+		expect(body).toContain('Interested');
 	});
 
 	it('keeps ticket discovery additive when admission is not required', () => {

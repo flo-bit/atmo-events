@@ -3,12 +3,12 @@
 	import EventRsvp from '../EventRsvp.svelte';
 	import ExternalRsvpNotice from './ExternalRsvpNotice.svelte';
 	import GetTicketsNotice from './GetTicketsNotice.svelte';
-	import { isAtmosphereTicketsUrlForEvent } from './tickets.js';
+	import { isAtmosphereTicketsUrlForEvent, type TicketActionState } from './tickets.js';
 
 	let {
 		ticketUrl,
 		ticketAdmissionRequired = false,
-		ticketActionEligible = true,
+		ticketActionState = 'open',
 		showRsvpPanel,
 		rsvpExternalOnly = false,
 		externalSourceUrl,
@@ -25,8 +25,8 @@
 		ticketUrl?: string;
 		/** Explicit admission policy; never inferred from ticketUrl discovery. */
 		ticketAdmissionRequired?: boolean;
-		/** Whether ticket/attendance actions are still open for this event. */
-		ticketActionEligible?: boolean;
+		/** Whether ticket actions are open, closed, or unsafe to infer from public dates. */
+		ticketActionState?: TicketActionState;
 		showRsvpPanel: boolean;
 		rsvpExternalOnly?: boolean;
 		externalSourceUrl?: string;
@@ -41,15 +41,17 @@
 		oncancel?: () => void;
 	} = $props();
 
+	let ticketActionOpen = $derived(ticketActionState === 'open');
+	let effectiveTicketRequired = $derived(
+		ticketAdmissionRequired && ticketActionState !== 'unknown'
+	);
 	let hasTicketCta = $derived(
-		ticketActionEligible && isAtmosphereTicketsUrlForEvent(ticketUrl, eventUri)
+		ticketActionOpen && isAtmosphereTicketsUrlForEvent(ticketUrl, eventUri)
 	);
-	let attendanceClosed = $derived(ticketAdmissionRequired && !ticketActionEligible);
-	let ticketUnavailable = $derived(
-		ticketActionEligible && ticketAdmissionRequired && !hasTicketCta
-	);
+	let attendanceClosed = $derived(effectiveTicketRequired && ticketActionState === 'closed');
+	let ticketUnavailable = $derived(ticketActionOpen && effectiveTicketRequired && !hasTicketCta);
 	let combineTicketAndRsvp = $derived(
-		ticketAdmissionRequired && ticketActionEligible && showRsvpPanel && viewer.isLoggedIn
+		effectiveTicketRequired && ticketActionOpen && showRsvpPanel && viewer.isLoggedIn
 	);
 </script>
 
@@ -61,7 +63,7 @@
 	{/if}
 
 	{#if showRsvpPanel}
-		{#if rsvpExternalOnly && externalSourceUrl && !ticketAdmissionRequired}
+		{#if rsvpExternalOnly && externalSourceUrl && !effectiveTicketRequired}
 			<ExternalRsvpNotice url={externalSourceUrl} />
 		{:else}
 			<EventRsvp
@@ -71,8 +73,8 @@
 				{initialRsvpRkey}
 				{spaceUri}
 				ticketUrl={combineTicketAndRsvp ? ticketUrl : undefined}
-				ticketRequired={ticketAdmissionRequired}
-				allowGoing={!ticketAdmissionRequired}
+				ticketRequired={effectiveTicketRequired}
+				allowGoing={!effectiveTicketRequired}
 				{adapter}
 				{viewer}
 				{onrsvp}
