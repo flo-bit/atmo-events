@@ -197,7 +197,7 @@ export async function getProtocolTicketDiscovery({
 	const key = buildCacheKey(normalizedAppViewUrl, eventUri);
 	const checkedAt = now();
 	const expectedHref = buildTicketUrl(event.organizerDid, event.rkey);
-	const cached = await readCachedLookup({ key, expectedHref, cache, onFailure });
+	const cached = await readCachedLookup({ key, expectedHref, checkedAt, cache, onFailure });
 
 	if (cached) {
 		const age = Math.max(0, checkedAt - cached.checkedAt);
@@ -368,7 +368,10 @@ async function fetchProtocolTicketDiscovery({
 		throw new TicketDiscoveryLookupError('ATM AppView returned 429', 'origin', delay);
 	}
 	if (!response.ok) {
-		const scope = response.status >= 400 && response.status < 500 ? 'event' : 'origin';
+		// Only validation failures caused by this exact query stay event-scoped.
+		// Auth, routing, deployment, and other HTTP failures indicate that the
+		// AppView origin itself is not currently usable and must share backoff.
+		const scope = response.status === 400 || response.status === 422 ? 'event' : 'origin';
 		throw new TicketDiscoveryLookupError(`ATM AppView returned ${response.status}`, scope);
 	}
 
@@ -405,29 +408,39 @@ async function fetchProtocolTicketDiscovery({
 async function readCachedLookup({
 	key,
 	expectedHref,
+	checkedAt,
 	cache,
 	onFailure
 }: {
 	key: string;
 	expectedHref: string;
+	checkedAt: number;
 	cache?: TicketDiscoveryCache;
 	onFailure: TicketDiscoveryFailureReporter;
 }): Promise<CachedLookup | null> {
 	const memory = memoryCache.get(key);
-	if (memory) return memory;
-	if (!cache) return null;
+	if (memory && isFreshAt(memory, checkedAt)) {
+		remember(key, memory);
+		return memory;
+	}
+	if (!cache) return memory ?? null;
 
 	try {
 		const response = await cache.match(key);
-		if (!response) return null;
+		if (!response) return memory ?? null;
 		const value = await response.json();
 		if (!isCachedLookup(value, expectedHref)) throw new Error('invalid cached response');
-		remember(key, value);
-		return value;
+		const resolved = !memory || value.checkedAt > memory.checkedAt ? value : memory;
+		remember(key, resolved);
+		return resolved;
 	} catch (error) {
 		reportFailure(onFailure, 'cache-read', error);
-		return null;
+		return memory ?? null;
 	}
+}
+
+function isFreshAt(entry: CachedLookup, checkedAt: number): boolean {
+	return Math.max(0, checkedAt - entry.checkedAt) <= getFreshDuration(entry.result);
 }
 
 async function writeCachedLookup(

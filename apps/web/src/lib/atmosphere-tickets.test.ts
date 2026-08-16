@@ -265,7 +265,7 @@ describe('protocol ticket lookup', () => {
 		expect(onFailure).toHaveBeenCalledOnce();
 	});
 
-	it('keeps non-rate-limit 4xx responses scoped to one event', async () => {
+	it.each([400, 422])('keeps query-validation HTTP %i scoped to one event', async (status) => {
 		const otherRkey = 'other-event';
 		const otherEventUri = `at://${organizerDid}/community.lexicon.calendar.event/${otherRkey}`;
 		const otherRecord = {
@@ -276,7 +276,7 @@ describe('protocol ticket lookup', () => {
 		};
 		const fetcher = vi
 			.fn<typeof fetch>()
-			.mockResolvedValueOnce(jsonResponse({ error: 'invalid request' }, 400))
+			.mockResolvedValueOnce(jsonResponse({ error: 'invalid request' }, status))
 			.mockResolvedValueOnce(jsonResponse({ records: [otherRecord] }));
 
 		await expect(getProtocolTicketDiscovery({ eventUri, fetcher })).resolves.toEqual(unavailable);
@@ -289,6 +289,23 @@ describe('protocol ticket lookup', () => {
 
 		expect(fetcher).toHaveBeenCalledTimes(2);
 	});
+
+	it.each([401, 403, 404, 405, 410])(
+		'backs off origin-level HTTP %i responses across events',
+		async (status) => {
+			const otherEventUri = `at://${organizerDid}/community.lexicon.calendar.event/other-event`;
+			const fetcher = vi.fn<typeof fetch>(async () =>
+				jsonResponse({ error: 'unavailable' }, status)
+			);
+
+			await expect(getProtocolTicketDiscovery({ eventUri, fetcher })).resolves.toEqual(unavailable);
+			await expect(
+				getProtocolTicketDiscovery({ eventUri: otherEventUri, fetcher })
+			).resolves.toEqual(unavailable);
+
+			expect(fetcher).toHaveBeenCalledOnce();
+		}
+	);
 
 	it('keeps an event-specific malformed record from blocking unrelated events', async () => {
 		const otherRkey = 'other-event';
@@ -447,6 +464,38 @@ describe('protocol ticket lookup', () => {
 			getProtocolTicketDiscovery({ eventUri, fetcher, cache, now: () => checkedAt })
 		).resolves.toEqual(found);
 		expect(fetcher).toHaveBeenCalledTimes(2);
+	});
+
+	it('checks the shared edge cache before refreshing stale isolate memory', async () => {
+		const cache = createCache();
+		const base = Date.parse('2026-08-13T12:00:00Z');
+		const writes: Promise<unknown>[] = [];
+
+		await expect(
+			getProtocolTicketDiscovery({
+				eventUri,
+				fetcher: vi.fn<typeof fetch>(async () => jsonResponse({ records: [] })),
+				cache,
+				now: () => base,
+				waitUntil: (promise) => writes.push(promise)
+			})
+		).resolves.toEqual(none);
+		await Promise.all(writes);
+
+		const key = [...cache.entries.keys()][0];
+		cache.entries.set(key, jsonResponse({ v: 2, result: found, checkedAt: base + 5 * 60_000 }));
+		const fetcher = vi.fn<typeof fetch>();
+
+		await expect(
+			getProtocolTicketDiscovery({
+				eventUri,
+				fetcher,
+				cache,
+				now: () => base + 6 * 60_000
+			})
+		).resolves.toEqual(found);
+
+		expect(fetcher).not.toHaveBeenCalled();
 	});
 
 	it('ignores the previous cache namespace without reporting corruption', async () => {
