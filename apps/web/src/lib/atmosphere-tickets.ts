@@ -5,7 +5,10 @@ const CANCELLED_EVENT_STATUS = 'community.lexicon.calendar.event#cancelled';
 const CACHE_KEY_ORIGIN = 'https://ticket-discovery-cache.internal';
 const LOOKUP_TIMEOUT_MS = 1_000;
 const FOUND_FRESH_MS = 5 * 60_000;
-const NOT_FOUND_FRESH_MS = 60_000;
+// listPublicConfig has an additional 30 requests/minute/IP route budget on top
+// of the AppView-wide limiter. Keep clean negatives fresh long enough that
+// ordinary non-ticketed event traffic does not continuously spend that budget.
+const NOT_FOUND_FRESH_MS = 5 * 60_000;
 const UNAVAILABLE_FRESH_MS = 15_000;
 const FOUND_RETAIN_MS = 15 * 60_000;
 const NOT_FOUND_RETAIN_MS = 24 * 60 * 60_000;
@@ -33,6 +36,10 @@ export type TicketDiscoveryResult =
 
 type CachedLookup = { v: 2; result: TicketDiscoveryResult; checkedAt: number };
 type FailureOperation = 'lookup' | 'cache-read' | 'cache-write';
+type InFlightLookup = {
+	promise: Promise<TicketDiscoveryResult>;
+	context: { staleFallback?: CachedLookup };
+};
 
 class TicketDiscoveryLookupError extends Error {
 	constructor(
@@ -58,7 +65,7 @@ export type TicketDiscoveryCache = {
 export type TicketDiscoveryFailureReporter = (operation: FailureOperation, error: unknown) => void;
 
 const memoryCache = new Map<string, CachedLookup>();
-const inFlight = new Map<string, Promise<TicketDiscoveryResult>>();
+const inFlight = new Map<string, InFlightLookup>();
 const appViewRetryNotBefore = new Map<string, number>();
 const reportedFailureAt = new Map<FailureOperation, number>();
 
@@ -71,10 +78,12 @@ const defaultFailureReporter: TicketDiscoveryFailureReporter = (operation, error
 };
 
 /**
- * Admission policy is deliberately independent from ticket discovery. Until
- * the ticketedEvent contract grows an organizer-authored policy field, atmo can
- * opt exact pilot events into ticket-required presentation through deployment
- * configuration. A ticketedEvent record alone never implies this policy.
+ * Admission policy is configured separately from ticket discovery. Until the
+ * ticketedEvent contract grows an organizer-authored policy field, atmo can opt
+ * exact pilot events into ticket-required presentation through deployment
+ * configuration. Discovery never enables that policy by itself; conversely, an
+ * authoritative no-record result restores baseline RSVP behavior even for a
+ * configured pilot event so viewers never reach a ticketless dead end.
  */
 export function isTicketAdmissionRequired(
 	eventUri: string,
@@ -255,16 +264,27 @@ function startLookup({
 	staleFallback?: CachedLookup;
 }): Promise<TicketDiscoveryResult> {
 	const pending = inFlight.get(key);
-	if (pending) return pending;
+	if (pending) {
+		if (
+			staleFallback &&
+			(!pending.context.staleFallback ||
+				staleFallback.checkedAt > pending.context.staleFallback.checkedAt)
+		) {
+			pending.context.staleFallback = staleFallback;
+		}
+		return pending.promise;
+	}
+
+	const context: InFlightLookup['context'] = { staleFallback };
 
 	const lookup = (async (): Promise<TicketDiscoveryResult> => {
 		const checkedAt = now();
 		const retryAt = appViewRetryNotBefore.get(appViewUrl) ?? 0;
 		if (retryAt > checkedAt) {
-			return handleUnavailable(
-				new TicketDiscoveryLookupError('ATM AppView retry window is active'),
-				checkedAt
-			);
+			// Merely observing an open breaker must never extend it. Return any
+			// retained authoritative result, otherwise fail soft until the original
+			// retry deadline passes.
+			return context.staleFallback?.result ?? { state: 'unavailable' };
 		}
 		if (retryAt) appViewRetryNotBefore.delete(appViewUrl);
 
@@ -296,7 +316,7 @@ function startLookup({
 					Math.max(appViewRetryNotBefore.get(appViewUrl) ?? 0, retryAt)
 				);
 			}
-			if (staleFallback) return staleFallback.result;
+			if (context.staleFallback) return context.staleFallback.result;
 			const result: TicketDiscoveryResult = { state: 'unavailable' };
 			cacheResult({ v: 2, result, checkedAt });
 			return result;
@@ -313,7 +333,7 @@ function startLookup({
 		}
 	})().finally(() => inFlight.delete(key));
 
-	inFlight.set(key, lookup);
+	inFlight.set(key, { promise: lookup, context });
 	return lookup;
 }
 
@@ -348,7 +368,8 @@ async function fetchProtocolTicketDiscovery({
 		throw new TicketDiscoveryLookupError('ATM AppView returned 429', 'origin', delay);
 	}
 	if (!response.ok) {
-		throw new TicketDiscoveryLookupError(`ATM AppView returned ${response.status}`);
+		const scope = response.status >= 400 && response.status < 500 ? 'event' : 'origin';
+		throw new TicketDiscoveryLookupError(`ATM AppView returned ${response.status}`, scope);
 	}
 
 	let body: { records?: unknown };
@@ -522,7 +543,9 @@ function parseRetryAfter(value: string | null, now: number): number {
 }
 
 function buildCacheKey(appViewUrl: string, eventUri: string): string {
-	const key = new URL('/v1', CACHE_KEY_ORIGIN);
+	// Keep the key namespace aligned with CachedLookup.v so deployments do not
+	// parse an older envelope as corruption and emit avoidable cache warnings.
+	const key = new URL('/v2', CACHE_KEY_ORIGIN);
 	key.searchParams.set('appview', appViewUrl);
 	key.searchParams.set('event', eventUri);
 	return key.href;

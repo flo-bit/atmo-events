@@ -195,8 +195,9 @@
 			showCta: isTicketCtaEligible
 		})
 	);
-	// This is independent from protocol discovery. During the pilot it comes
-	// from an exact deployment allowlist; a ticketedEvent alone is not policy.
+	// This is configured separately from discovery. During the pilot it comes
+	// from an exact deployment allowlist; a ticketedEvent alone is not policy,
+	// and a clean no-record result restores baseline RSVP presentation.
 	let ticketAdmissionRequired = $derived(data.ticketAdmissionRequired === true);
 	let ticketDiscoveryState = $derived.by(() => {
 		const state = data.protocolTicketDiscoveryState;

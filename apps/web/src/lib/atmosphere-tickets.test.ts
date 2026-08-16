@@ -237,7 +237,57 @@ describe('protocol ticket lookup', () => {
 		).resolves.toEqual(unavailable);
 
 		expect(fetcher).toHaveBeenCalledOnce();
-		expect(onFailure).toHaveBeenCalledTimes(2);
+		expect(onFailure).toHaveBeenCalledOnce();
+	});
+
+	it('does not extend an open breaker and resumes fetching after its deadline', async () => {
+		const fetcher = vi
+			.fn<typeof fetch>()
+			.mockResolvedValueOnce(jsonResponse({ error: 'busy' }, 503))
+			.mockResolvedValueOnce(jsonResponse({ records: [ticketRecord] }));
+		const onFailure = vi.fn();
+		const base = Date.parse('2026-08-13T12:00:00Z');
+		let checkedAt = base;
+
+		await expect(
+			getProtocolTicketDiscovery({ eventUri, fetcher, onFailure, now: () => checkedAt })
+		).resolves.toEqual(unavailable);
+		checkedAt = base + 16_000;
+		await expect(
+			getProtocolTicketDiscovery({ eventUri, fetcher, onFailure, now: () => checkedAt })
+		).resolves.toEqual(unavailable);
+		checkedAt = base + 31_000;
+		await expect(
+			getProtocolTicketDiscovery({ eventUri, fetcher, onFailure, now: () => checkedAt })
+		).resolves.toEqual(found);
+
+		expect(fetcher).toHaveBeenCalledTimes(2);
+		expect(onFailure).toHaveBeenCalledOnce();
+	});
+
+	it('keeps non-rate-limit 4xx responses scoped to one event', async () => {
+		const otherRkey = 'other-event';
+		const otherEventUri = `at://${organizerDid}/community.lexicon.calendar.event/${otherRkey}`;
+		const otherRecord = {
+			...ticketRecord,
+			rkey: 'other-ticket-config',
+			uri: `at://${organizerDid}/tickets.atmosphere.ticketedEvent/other-ticket-config`,
+			event: { ...ticketRecord.event, uri: otherEventUri }
+		};
+		const fetcher = vi
+			.fn<typeof fetch>()
+			.mockResolvedValueOnce(jsonResponse({ error: 'invalid request' }, 400))
+			.mockResolvedValueOnce(jsonResponse({ records: [otherRecord] }));
+
+		await expect(getProtocolTicketDiscovery({ eventUri, fetcher })).resolves.toEqual(unavailable);
+		await expect(getProtocolTicketDiscovery({ eventUri: otherEventUri, fetcher })).resolves.toEqual(
+			{
+				state: 'found',
+				href: `https://events.atmosphere.tickets/p/${organizerDid}/e/${otherRkey}`
+			}
+		);
+
+		expect(fetcher).toHaveBeenCalledTimes(2);
 	});
 
 	it('keeps an event-specific malformed record from blocking unrelated events', async () => {
@@ -283,6 +333,56 @@ describe('protocol ticket lookup', () => {
 		expect(fetcher).toHaveBeenCalledOnce();
 	});
 
+	it('preserves a stale fallback that joins an in-flight cold lookup', async () => {
+		const cache = createCache();
+		const base = Date.parse('2026-08-13T12:00:00Z');
+		let checkedAt = base;
+		const writes: Promise<unknown>[] = [];
+
+		await expect(
+			getProtocolTicketDiscovery({
+				eventUri,
+				fetcher: vi.fn<typeof fetch>(async () => jsonResponse({ records: [ticketRecord] })),
+				cache,
+				now: () => checkedAt,
+				waitUntil: (promise) => writes.push(promise)
+			})
+		).resolves.toEqual(found);
+		await Promise.all(writes);
+		clearTicketDiscoveryCache();
+		checkedAt = base + 10 * 60_000;
+
+		let finishLookup: ((response: Response) => void) | undefined;
+		const fetcher = vi.fn<typeof fetch>(
+			() => new Promise<Response>((resolve) => (finishLookup = resolve))
+		);
+		const coldLookup = getProtocolTicketDiscovery({
+			eventUri,
+			fetcher,
+			now: () => checkedAt
+		});
+		await Promise.resolve();
+		const refreshes: Promise<unknown>[] = [];
+
+		await expect(
+			getProtocolTicketDiscovery({
+				eventUri,
+				fetcher,
+				cache,
+				now: () => checkedAt,
+				waitUntil: (promise) => refreshes.push(promise)
+			})
+		).resolves.toEqual(found);
+		expect(fetcher).toHaveBeenCalledOnce();
+
+		finishLookup?.(jsonResponse({ error: 'busy' }, 503));
+		await expect(coldLookup).resolves.toEqual(found);
+		await Promise.all(refreshes);
+
+		const stored = await [...cache.entries.values()][0].clone().json();
+		expect(stored).toMatchObject({ v: 2, result: found });
+	});
+
 	it('does not delay the page response while writing the edge cache', async () => {
 		let finishPut: (() => void) | undefined;
 		const cache: TicketDiscoveryCache = {
@@ -307,25 +407,67 @@ describe('protocol ticket lookup', () => {
 		await Promise.all(background);
 	});
 
-	it('shares fresh negative results through the edge cache', async () => {
+	it('shares and revalidates negative results within the route-specific request budget', async () => {
 		const cache = createCache();
-		const fetcher = vi.fn<typeof fetch>(async () => jsonResponse({ records: [] }));
+		const fetcher = vi
+			.fn<typeof fetch>()
+			.mockResolvedValueOnce(jsonResponse({ records: [] }))
+			.mockResolvedValueOnce(jsonResponse({ records: [ticketRecord] }));
 		let checkedAt = Date.parse('2026-08-13T12:00:00Z');
 
 		await expect(
 			getProtocolTicketDiscovery({ eventUri, fetcher, cache, now: () => checkedAt })
 		).resolves.toEqual(none);
 		clearTicketDiscoveryCache();
-		checkedAt += 30_000;
+		checkedAt += 2 * 60_000;
 		await expect(
 			getProtocolTicketDiscovery({ eventUri, fetcher, cache, now: () => checkedAt })
 		).resolves.toEqual(none);
 
 		expect(fetcher).toHaveBeenCalledOnce();
 		expect(cache.entries.size).toBe(1);
+		expect(new URL([...cache.entries.keys()][0]).pathname).toBe('/v2');
 		expect([...cache.entries.values()][0].headers.get('cache-control')).toBe(
 			'public, max-age=86400'
 		);
+
+		checkedAt += 4 * 60_000;
+		const background: Promise<unknown>[] = [];
+		await expect(
+			getProtocolTicketDiscovery({
+				eventUri,
+				fetcher,
+				cache,
+				now: () => checkedAt,
+				waitUntil: (promise) => background.push(promise)
+			})
+		).resolves.toEqual(none);
+		await Promise.all(background);
+		await expect(
+			getProtocolTicketDiscovery({ eventUri, fetcher, cache, now: () => checkedAt })
+		).resolves.toEqual(found);
+		expect(fetcher).toHaveBeenCalledTimes(2);
+	});
+
+	it('ignores the previous cache namespace without reporting corruption', async () => {
+		const cache = createCache();
+		const oldKey = new URL('/v1', 'https://ticket-discovery-cache.internal');
+		oldKey.searchParams.set('appview', 'https://appview.atmosphere.money');
+		oldKey.searchParams.set('event', eventUri);
+		cache.entries.set(
+			oldKey.href,
+			jsonResponse({ v: 1, href: ticketUrl, checkedAt: Date.parse('2026-08-13T12:00:00Z') })
+		);
+		const fetcher = vi.fn<typeof fetch>(async () => jsonResponse({ records: [] }));
+		const onFailure = vi.fn();
+
+		await expect(
+			getProtocolTicketDiscovery({ eventUri, fetcher, cache, onFailure })
+		).resolves.toEqual(none);
+
+		expect(fetcher).toHaveBeenCalledOnce();
+		expect(onFailure).not.toHaveBeenCalled();
+		expect([...cache.entries.keys()].some((key) => new URL(key).pathname === '/v2')).toBe(true);
 	});
 
 	it('rejects an edge-cache destination that does not match the event', async () => {

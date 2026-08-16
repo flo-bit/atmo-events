@@ -107,9 +107,10 @@ export function isTicketCtaEligible({
 }
 
 /**
- * Admission policy is supplied independently from ticket discovery. A
- * ticketedEvent backlink may show the CTA, but only explicit app/organizer
- * policy may suppress the competing signed-out RSVP prompt.
+ * Admission policy is configured separately from ticket discovery. A
+ * ticketedEvent backlink never enables policy by itself; an explicit policy
+ * may suppress the competing signed-out RSVP prompt only while discovery has
+ * found the CTA. A clean no-record or unavailable result restores that prompt.
  */
 export function shouldShowRsvpPanel({
 	isLoggedIn,
