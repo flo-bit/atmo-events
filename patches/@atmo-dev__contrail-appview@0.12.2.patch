@@ -1,0 +1,330 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..2ba9f66ddc176a27a68b7fd9fdf98c298946fbe3 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -226,8 +226,10 @@ declare function refresh(db: Database, config: ContrailConfig, options?: Refresh
+  * Returns null if search is disabled or no fields found.
+  */
+ declare function getSearchableFields(collection: string, colConfig: CollectionConfig): string[] | null;
+-/** Sanitized FTS table name for a collection. */
++/** Sanitized FTS virtual-table name for a collection. */
+ declare function ftsTableName(collection: string): string;
++/** Ordinary unique URI-to-FTS-rowid mapping table for a collection. */
++declare function ftsRowTableName(collection: string): string;
+ /** Extract searchable field values from a record and join them into a single string. */
+ declare function buildFtsContent(record: unknown, fields: string[]): string | null;
+ 
+@@ -241,7 +243,7 @@ declare function backfillFollowersFromConstellation(db: Database, config: Contra
+  *  table shapes (their DDL isn't all enumerated into the fingerprint). Pure
+  *  config-driven changes (collections, feeds, indexes, migrations) bust the
+  *  fingerprint automatically and don't need a bump. */
+-declare const CONTRAIL_SCHEMA_VERSION = 1;
++declare const CONTRAIL_SCHEMA_VERSION = 2;
+ interface BuilderOpts {
+     /** Emit tables for the spaces variant (spaces_records_<short> with space_uri column). */
+     forSpaces?: boolean;
+@@ -794,4 +796,4 @@ declare function resetLabelerCursor(db: Database, did: string): Promise<void>;
+  *  per-labeler. */
+ declare function buildLabelsSchema(dialect: SqlDialect): string[];
+ 
+-export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
++export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
+diff --git a/dist/index.js b/dist/index.js
+index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d033f56f068 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -56,6 +56,7 @@ __export(index_exports, {
+   discoverDIDs: () => discoverDIDs,
+   fieldToParam: () => fieldToParam,
+   formatRecord: () => formatRecord,
++  ftsRowTableName: () => ftsRowTableName,
+   ftsTableName: () => ftsTableName,
+   getFeedPruneCursor: () => getFeedPruneCursor,
+   getLabelerState: () => getLabelerState,
+@@ -273,8 +274,14 @@ function getSearchableFields(collection, colConfig) {
+   if (!Array.isArray(colConfig.searchable)) return null;
+   return colConfig.searchable.length > 0 ? colConfig.searchable : null;
+ }
++function sanitizedCollectionName(collection) {
++  return collection.replace(/[^a-zA-Z0-9]/g, "_");
++}
+ function ftsTableName(collection) {
+-  return `fts_${collection.replace(/[^a-zA-Z0-9]/g, "_")}`;
++  return `fts_${sanitizedCollectionName(collection)}`;
++}
++function ftsRowTableName(collection) {
++  return `${ftsTableName(collection)}_rows`;
+ }
+ function buildFtsContent(record, fields) {
+   const parts = [];
+@@ -284,7 +291,8 @@ function buildFtsContent(record, fields) {
+       parts.push(value);
+     }
+   }
+-  return parts.length > 0 ? parts.join(" ") : null;
++  const content = parts.join(" ").trim();
++  return content.length > 0 ? content : null;
+ }
+ 
+ // src/core/spaces/schema.ts
+@@ -396,7 +404,7 @@ async function getMetaNumber(db, key) {
+ }
+ 
+ // src/core/db/schema.ts
+-var CONTRAIL_SCHEMA_VERSION = 1;
++var CONTRAIL_SCHEMA_VERSION = 2;
+ var SCHEMA_FINGERPRINT_KEY = "schema_fingerprint";
+ function getResolved(config) {
+   return config._resolved ?? (0, types_exports.resolveConfig)(config)._resolved;
+@@ -664,6 +672,172 @@ function buildFtsTables(config, dialect, opts = {}) {
+   }
+   return stmts;
+ }
++function sqliteFtsContentExpression(fields) {
++  const safeField = /^[a-zA-Z0-9_.]+$/;
++  const terms = fields.map((field) => {
++    if (!safeField.test(field)) throw new Error(`Invalid field name: ${field}`);
++    const path = `$.${field}`;
++    return `CASE WHEN json_type(record, '${path}') = 'text' THEN json_extract(record, '${path}') ELSE '' END`;
++  });
++  const trimCodePoints = [
++    9,
++    10,
++    11,
++    12,
++    13,
++    32,
++    160,
++    5760,
++    8192,
++    8193,
++    8194,
++    8195,
++    8196,
++    8197,
++    8198,
++    8199,
++    8200,
++    8201,
++    8202,
++    8232,
++    8233,
++    8239,
++    8287,
++    12288,
++    65279
++  ];
++  return `trim(${terms.join(" || ' ' || ")}, char(${trimCodePoints.join(", ")}))`;
++}
++function ftsProjectionTables(collection, opts) {
++  const recordsTable = tableFor(collection, opts);
++  const ftsTable = recordsTable.replace("records_", "fts_");
++  return { recordsTable, ftsTable, rowsTable: `${ftsTable}_rows` };
++}
++async function virtualFtsColumns(db, table) {
++  const rows = await db.prepare(`PRAGMA table_info(${table})`).all();
++  return (rows.results ?? []).map((row) => row.name);
++}
++function populateVirtualFtsStatements(db, collection, fields, opts) {
++  const { recordsTable, ftsTable, rowsTable } = ftsProjectionTables(
++    collection,
++    opts
++  );
++  const content = sqliteFtsContentExpression(fields);
++  return [
++    db.prepare(
++      `INSERT INTO ${rowsTable} (uri)
++       SELECT uri FROM (
++         SELECT uri, ${content} AS content FROM ${recordsTable}
++       ) rebuilt
++       WHERE content <> ''
++       ORDER BY uri`
++    ),
++    db.prepare(
++      `INSERT INTO ${ftsTable} (rowid, content)
++       SELECT fts_rows.id, rebuilt.content
++       FROM (
++         SELECT uri, ${content} AS content FROM ${recordsTable}
++       ) rebuilt
++       JOIN ${rowsTable} fts_rows ON fts_rows.uri = rebuilt.uri
++       WHERE rebuilt.content <> ''`
++    )
++  ];
++}
++async function verifyVirtualFtsProjection(db, collection, fields, opts) {
++  const { recordsTable, ftsTable, rowsTable } = ftsProjectionTables(
++    collection,
++    opts
++  );
++  const content = sqliteFtsContentExpression(fields);
++  const row = await db.prepare(
++    `SELECT
++         (SELECT COUNT(*) FROM (
++            SELECT uri, ${content} AS content FROM ${recordsTable}
++          ) expected WHERE content <> '') AS expected_rows,
++         (SELECT COUNT(*) FROM ${rowsTable}) AS mapping_rows,
++         (SELECT COUNT(*) FROM ${ftsTable}) AS fts_rows,
++         (SELECT COUNT(*)
++            FROM ${rowsTable} mapped
++            JOIN ${ftsTable} fts ON fts.rowid = mapped.id
++            JOIN (
++              SELECT uri FROM (
++                SELECT uri, ${content} AS content FROM ${recordsTable}
++              ) searchable
++              WHERE content <> ''
++            ) expected ON expected.uri = mapped.uri) AS joined_rows`
++  ).first();
++  const expected = Number(row?.expected_rows ?? 0);
++  const mapping = Number(row?.mapping_rows ?? 0);
++  const fts = Number(row?.fts_rows ?? 0);
++  const joined = Number(row?.joined_rows ?? 0);
++  if (mapping !== expected || fts !== expected || joined !== expected) {
++    throw new Error(
++      `FTS migration verification failed for ${collection}: expected=${expected}, mapping=${mapping}, fts=${fts}, joined=${joined}`
++    );
++  }
++}
++async function migrateLegacyVirtualFts(db, config, dialect, collection, fields, opts) {
++  const { recordsTable, ftsTable, rowsTable } = ftsProjectionTables(
++    collection,
++    opts
++  );
++  const schema = (0, dialect_exports.buildFtsSchema)(dialect, recordsTable, fields);
++  await db.batch([
++    db.prepare(`DROP TABLE IF EXISTS ${ftsTable}`),
++    db.prepare(`DROP TABLE IF EXISTS ${rowsTable}`),
++    ...schema.map((statement) => db.prepare(statement)),
++    ...populateVirtualFtsStatements(db, collection, fields, opts)
++  ]);
++  await verifyVirtualFtsProjection(db, collection, fields, opts);
++  (config.logger ?? console).log(
++    `[schema] migrated ${ftsTable} to indexed rowid maintenance`
++  );
++}
++async function rebuildVirtualFtsProjection(db, collection, fields, opts) {
++  const { ftsTable, rowsTable } = ftsProjectionTables(collection, opts);
++  await db.batch([
++    db.prepare(`DELETE FROM ${ftsTable}`),
++    db.prepare(`DELETE FROM ${rowsTable}`),
++    ...populateVirtualFtsStatements(db, collection, fields, opts)
++  ]);
++  await verifyVirtualFtsProjection(db, collection, fields, opts);
++}
++async function applyFtsTables(db, config, dialect, opts = {}) {
++  if (dialect.ftsStrategy === "generated-column") {
++    for (const statement of buildFtsTables(config, dialect, opts)) {
++      await db.prepare(statement).run();
++    }
++    return;
++  }
++  for (const [collection, colConfig] of Object.entries(config.collections)) {
++    if (opts.forSpaces && colConfig.allowInSpaces === false) continue;
++    const fields = getSearchableFields(collection, colConfig);
++    if (!fields || fields.length === 0) continue;
++    const { recordsTable, ftsTable } = ftsProjectionTables(collection, opts);
++    const columns = await virtualFtsColumns(db, ftsTable);
++    if (columns.includes("uri")) {
++      await migrateLegacyVirtualFts(
++        db,
++        config,
++        dialect,
++        collection,
++        fields,
++        opts
++      );
++      continue;
++    }
++    const schema = (0, dialect_exports.buildFtsSchema)(dialect, recordsTable, fields);
++    await db.prepare(schema[0]).run();
++    try {
++      await db.prepare(schema[1]).run();
++    } catch {
++    }
++    const currentColumns = columns.length > 0 ? columns : await virtualFtsColumns(db, ftsTable);
++    if (currentColumns.length > 0) {
++      await rebuildVirtualFtsProjection(db, collection, fields, opts);
++    }
++  }
++}
+ var MIGRATIONS = [
+   { table: "backfills", column: "retries", columnDef: "INTEGER NOT NULL DEFAULT 0" },
+   { table: "backfills", column: "last_error", columnDef: "TEXT" },
+@@ -699,13 +873,6 @@ async function applySpacesSchema(target, config, dialect) {
+   for (const stmt of [...base, ...perCollection, ...indexes]) {
+     await runIdempotentDdl(target, stmt);
+   }
+-  const ftsStmts = buildFtsTables(config, dialect, { forSpaces: true });
+-  for (const stmt of ftsStmts) {
+-    try {
+-      await target.prepare(stmt).run();
+-    } catch {
+-    }
+-  }
+   await applyCountColumns(target, config, { forSpaces: true });
+ }
+ function hashStrings(parts) {
+@@ -773,12 +940,7 @@ async function initSchema(db, config, options = {}) {
+       await runIdempotentDdl(db, stmt);
+     }
+   }
+-  for (const stmt of ftsStatements) {
+-    try {
+-      await db.prepare(stmt).run();
+-    } catch {
+-    }
+-  }
++  await applyFtsTables(db, config, dialect);
+   const hasSpaces = !!(config.spaces?.authority || config.spaces?.recordHost);
+   const hasFeeds = !!(config.feeds && Object.keys(config.feeds).length > 0);
+   await runMigrations(db, spacesSharesMainDb ? void 0 : spacesDb, hasSpaces, hasFeeds);
+@@ -881,21 +1043,29 @@ function buildFtsStatements(db, event, config) {
+   const fields = getSearchableFields(short, colConfig);
+   if (!fields || fields.length === 0) return [];
+   const table = ftsTableName(short);
+-  const stmts = [];
++  const rowsTable = ftsRowTableName(short);
++  const deleteFtsRow = () => db.prepare(
++    `DELETE FROM ${table} WHERE rowid = (SELECT id FROM ${rowsTable} WHERE uri = ?)`
++  ).bind(event.uri);
++  const deleteMapping = () => db.prepare(`DELETE FROM ${rowsTable} WHERE uri = ?`).bind(event.uri);
+   if (event.operation === "delete") {
+-    stmts.push(db.prepare(`DELETE FROM ${table} WHERE uri = ?`).bind(event.uri));
+-  } else {
+-    const record = event.record ? JSON.parse(event.record) : null;
+-    if (!record) return [];
+-    stmts.push(db.prepare(`DELETE FROM ${table} WHERE uri = ?`).bind(event.uri));
+-    const content = buildFtsContent(record, fields);
+-    if (content) {
+-      stmts.push(
+-        db.prepare(`INSERT INTO ${table} (uri, content) VALUES (?, ?)`).bind(event.uri, content)
+-      );
+-    }
++    return [deleteFtsRow(), deleteMapping()];
+   }
+-  return stmts;
++  const record = event.record ? JSON.parse(event.record) : null;
++  if (!record) return [];
++  const content = buildFtsContent(record, fields);
++  if (!content) {
++    return [deleteFtsRow(), deleteMapping()];
++  }
++  return [
++    db.prepare(
++      `INSERT INTO ${rowsTable} (uri) VALUES (?) ON CONFLICT(uri) DO NOTHING`
++    ).bind(event.uri),
++    deleteFtsRow(),
++    db.prepare(
++      `INSERT INTO ${table} (rowid, content) SELECT id, ? FROM ${rowsTable} WHERE uri = ?`
++    ).bind(content, event.uri)
++  ];
+ }
+ function buildFeedStatements(db, event, config, existingRecords) {
+   if (!config.feeds) return [];
+@@ -5596,6 +5766,7 @@ export {
+   discoverDIDs,
+   fieldToParam,
+   formatRecord,
++  ftsRowTableName,
+   ftsTableName,
+   getFeedPruneCursor,
+   getLabelerState,
