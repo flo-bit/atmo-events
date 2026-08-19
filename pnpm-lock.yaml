@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@atmo-dev/contrail-appview@0.12.2': f4aa36f86a9f705620dcbd57e82d87abed38c36e5ff2c889e66ec9a0970f767f
+  '@atmo-dev/contrail-appview@0.12.2': aa343d8a2faef8d66a275aec3ddcb5d88bb4bb484e197032bfdf8604bacb96d8
   '@atmo-dev/contrail-base@0.12.2': f13888cab253afcb9fe4fa92ace590d94e28ba71a58fea3919d6c2284daffa22
 
 importers:
@@ -141,7 +141,7 @@ importers:
         version: 0.1.12
       '@atmo-dev/contrail-appview':
         specifier: 0.12.2
-        version: 0.12.2(patch_hash=f4aa36f86a9f705620dcbd57e82d87abed38c36e5ff2c889e66ec9a0970f767f)
+        version: 0.12.2(patch_hash=aa343d8a2faef8d66a275aec3ddcb5d88bb4bb484e197032bfdf8604bacb96d8)
       '@atmo-dev/contrail-lexicons':
         specifier: ^0.4.4
         version: 0.4.4(wrangler@4.77.0(@cloudflare/workers-types@4.20260317.1))
@@ -3856,7 +3856,7 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.7
 
-  '@atmo-dev/contrail-appview@0.12.2(patch_hash=f4aa36f86a9f705620dcbd57e82d87abed38c36e5ff2c889e66ec9a0970f767f)':
+  '@atmo-dev/contrail-appview@0.12.2(patch_hash=aa343d8a2faef8d66a275aec3ddcb5d88bb4bb484e197032bfdf8604bacb96d8)':
     dependencies:
       '@atcute/atproto': 3.1.10
       '@atcute/cbor': 2.3.2
@@ -3923,7 +3923,7 @@ snapshots:
       '@atcute/jetstream': 1.1.2
       '@atcute/lexicons': 1.2.9
       '@atcute/xrpc-server': 0.1.12
-      '@atmo-dev/contrail-appview': 0.12.2(patch_hash=f4aa36f86a9f705620dcbd57e82d87abed38c36e5ff2c889e66ec9a0970f767f)
+      '@atmo-dev/contrail-appview': 0.12.2(patch_hash=aa343d8a2faef8d66a275aec3ddcb5d88bb4bb484e197032bfdf8604bacb96d8)
       '@atmo-dev/contrail-authority': 0.12.2
       '@atmo-dev/contrail-base': 0.12.2(patch_hash=f13888cab253afcb9fe4fa92ace590d94e28ba71a58fea3919d6c2284daffa22)
       '@atmo-dev/contrail-record-host': 0.12.2
