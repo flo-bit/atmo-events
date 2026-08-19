@@ -1,0 +1,30 @@
+diff --git a/dist/chunk-3XZU2VZ3.js b/dist/chunk-3XZU2VZ3.js
+index 987bb992d678fadd6a2d7765bb8665c961d6f27a..be7353961fdbcf3c3372b955f91784a2a28891b4 100644
+--- a/dist/chunk-3XZU2VZ3.js
++++ b/dist/chunk-3XZU2VZ3.js
+@@ -48,8 +48,13 @@ var postgresDialect = {
+ function buildFtsSchema(dialect, recordsTable, fields) {
+   if (dialect.ftsStrategy === "virtual-table") {
+     const ftsTable = recordsTable.replace("records_", "fts_");
++    const rowsTable = `${ftsTable}_rows`;
+     return [
+-      `CREATE VIRTUAL TABLE IF NOT EXISTS ${ftsTable} USING fts5(uri UNINDEXED, content)`
++      `CREATE TABLE IF NOT EXISTS ${rowsTable} (
++        id INTEGER PRIMARY KEY,
++        uri TEXT NOT NULL UNIQUE
++      )`,
++      `CREATE VIRTUAL TABLE IF NOT EXISTS ${ftsTable} USING fts5(content)`
+     ];
+   } else {
+     const concatExpr = fields.map((f) => `COALESCE(${dialect.jsonExtract("record", f)}, '')`).join(" || ' ' || ");
+@@ -62,8 +67,9 @@ function buildFtsSchema(dialect, recordsTable, fields) {
+ function ftsQueryClause(dialect, recordsTable) {
+   if (dialect.ftsStrategy === "virtual-table") {
+     const ftsTable = recordsTable.replace("records_", "fts_");
++    const rowsTable = `${ftsTable}_rows`;
+     return {
+-      join: `JOIN ${ftsTable} fts ON fts.uri = r.uri`,
++      join: `JOIN ${rowsTable} fts_rows ON fts_rows.uri = r.uri JOIN ${ftsTable} fts ON fts.rowid = fts_rows.id`,
+       condition: "fts.content MATCH ?",
+       orderExpr: "fts.rank"
+     };

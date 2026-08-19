@@ -12,3 +12,6 @@ allowBuilds:
 # just-published contrail for ~24h). Scope glob so we don't re-add per version.
 minimumReleaseAgeExclude:
   - '@atmo-dev/*'
+patchedDependencies:
+  '@atmo-dev/contrail-appview@0.12.2': patches/@atmo-dev__contrail-appview@0.12.2.patch
+  '@atmo-dev/contrail-base@0.12.2': patches/@atmo-dev__contrail-base@0.12.2.patch
