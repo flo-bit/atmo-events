@@ -14,6 +14,10 @@ import {
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
 import { vodFromAtUri } from '$lib/vods';
+import {
+	getEventProtocolTicketDiscovery,
+	isTicketAdmissionRequired
+} from '$lib/atmosphere-tickets';
 
 export async function load({ params, url, platform }) {
 	const client = getServerClient(platform!.env.DB);
@@ -36,17 +40,25 @@ export async function load({ params, url, platform }) {
 		if (!eventData) throw error(404, 'Event not found');
 
 		const fullEventRecord = eventRecord!;
+		const ticketAdmissionRequired = isTicketAdmissionRequired(fullEventRecord.uri, platform!.env);
 		const isAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)
 			?.isAtmosphereconf;
 		const speakers =
 			((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
 				| Array<{ id: string; name: string }>
 				| undefined) ?? [];
-		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)
-			?.vodAtUri as string | undefined;
+		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
+			| string
+			| undefined;
 		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 		const viewerDid = url.searchParams.get('did') ?? null;
+		const protocolTicketDiscoveryPromise = getEventProtocolTicketDiscovery({
+			eventUri: fullEventRecord.uri,
+			event: eventData,
+			env: platform!.env,
+			waitUntil: platform!.ctx?.waitUntil.bind(platform!.ctx)
+		}).catch(() => ({ state: 'unavailable' }) as const);
 
 		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			listEventAttendeesFromContrail(client, fullEventRecord.uri),
@@ -78,6 +90,7 @@ export async function load({ params, url, platform }) {
 					: Promise.resolve({ id: undefined, name: s.name, avatar: undefined, handle: undefined })
 			)
 		]);
+		const protocolTicketDiscovery = await protocolTicketDiscoveryPromise;
 
 		return {
 			ogImage: `${url.origin}/p/${params.actor}/e/${rkey}/og.png`,
@@ -90,6 +103,10 @@ export async function load({ params, url, platform }) {
 			viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
 			parentEvent,
 			vod,
+			protocolTicketUrl:
+				protocolTicketDiscovery.state === 'found' ? protocolTicketDiscovery.href : null,
+			protocolTicketDiscoveryState: protocolTicketDiscovery.state,
+			ticketAdmissionRequired,
 			speakerProfiles: speakerProfiles as Array<{
 				id?: string;
 				name: string;

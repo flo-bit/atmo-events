@@ -17,7 +17,15 @@ import {
 } from '$lib/contrail';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '$lib/vods';
-import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/events-ui/conference';
+import {
+	isConferenceEvent,
+	getParentEventRef,
+	parseEventUri
+} from '@atmo-dev/events-ui/conference';
+import {
+	getEventProtocolTicketDiscovery,
+	isTicketAdmissionRequired
+} from '$lib/atmosphere-tickets';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -95,6 +103,7 @@ export async function load({ params, locals, url, platform }) {
 
 	const fullEventRecord = eventRecord!;
 	const eventUri = fullEventRecord.uri;
+	const ticketAdmissionRequired = isTicketAdmissionRequired(eventUri, platform!.env);
 	// Canonical DID from the resolved record — use this (not params.actor, which
 	// may be a handle) for all downstream lookups that need a DID.
 	const did = eventData.did;
@@ -133,6 +142,7 @@ export async function load({ params, locals, url, platform }) {
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
+		protocolTicketDiscovery,
 		...speakerProfiles
 	] = await Promise.all([
 		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
@@ -170,6 +180,12 @@ export async function load({ params, locals, url, platform }) {
 					})
 					.catch(() => null)
 			: null,
+		getEventProtocolTicketDiscovery({
+			eventUri,
+			event: eventData,
+			env: platform!.env,
+			waitUntil: platform!.ctx?.waitUntil.bind(platform!.ctx)
+		}).catch(() => ({ state: 'unavailable' }) as const),
 		...speakers.map((s) =>
 			s.id
 				? getProfileFromContrail(client, s.id as ActorIdentifier)
@@ -240,6 +256,10 @@ export async function load({ params, locals, url, platform }) {
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,
 		conferenceVods,
+		protocolTicketUrl:
+			protocolTicketDiscovery.state === 'found' ? protocolTicketDiscovery.href : null,
+		protocolTicketDiscoveryState: protocolTicketDiscovery.state,
+		ticketAdmissionRequired,
 		loggedIn: !!locals.did,
 		speakerProfiles: speakerProfiles as Array<{
 			id?: string;
