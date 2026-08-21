@@ -1,0 +1,147 @@
+import type {} from '@atcute/lexicons';
+import * as v from '@atcute/lexicons/validations';
+import type {} from '@atcute/lexicons/ambient';
+import * as AppBskyActorProfile from "../../../app/bsky/actor/profile.js";
+import * as CommunityLexiconCalendarEvent from "../../../community/lexicon/calendar/event.js";
+import * as CommunityLexiconCalendarRsvp from "../../../community/lexicon/calendar/rsvp.js";
+
+const _hydrateRsvpsSchema = /*#__PURE__*/ v.object(
+	{
+		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.event.getRecord#hydrateRsvps")),
+		get "going"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(hydrateRsvpsRecordSchema))
+		},
+		get "interested"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(hydrateRsvpsRecordSchema))
+		},
+		get "notgoing"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(hydrateRsvpsRecordSchema))
+		},
+		get "other"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(hydrateRsvpsRecordSchema))
+		},
+	}
+);
+const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object(
+	{
+		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.event.getRecord#hydrateRsvpsRecord")),
+		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
+		"collection": /*#__PURE__*/ v.nsidString(),
+		"did": /*#__PURE__*/ v.didString(),
+		"rkey": /*#__PURE__*/ v.string(),
+		"time_us": /*#__PURE__*/ v.integer(),
+		"uri": /*#__PURE__*/ v.resourceUriString(),
+		get "value"() {
+			return CommunityLexiconCalendarRsvp.mainSchema
+		},
+	}
+);
+const _mainSchema = /*#__PURE__*/ v.query(
+	"rsvp.atmo.event.getRecord",
+	{
+		"params": /*#__PURE__*/ v.object(
+			{
+				/**
+				 * Number of rsvps records to embed
+				 * @minimum 1
+				 * @maximum 50
+				 */
+				"hydrateRsvps": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+					/*#__PURE__*/ v.integer(),
+					[/*#__PURE__*/ v.integerRange(1, 50)]
+				)),
+				/**
+				 * Include indexed profile and identity information
+				 */
+				"profiles": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
+				/**
+				 * AT URI of the record
+				 */
+				"uri": /*#__PURE__*/ v.resourceUriString(),
+			}
+		),
+		"output": {
+			"type": "lex",
+			"schema": /*#__PURE__*/ v.object(
+				{
+					"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
+					"collection": /*#__PURE__*/ v.nsidString(),
+					"did": /*#__PURE__*/ v.didString(),
+					get "profiles"() {
+						return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(profileEntrySchema))
+					},
+					"rkey": /*#__PURE__*/ v.string(),
+					get "rsvps"() {
+						return /*#__PURE__*/ v.optional(hydrateRsvpsSchema)
+					},
+					/**
+					 * Total rsvps count
+					 */
+					"rsvpsCount": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
+					/**
+					 * rsvps count where status = going
+					 */
+					"rsvpsGoingCount": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
+					/**
+					 * rsvps count where status = interested
+					 */
+					"rsvpsInterestedCount": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
+					/**
+					 * rsvps count where status = notgoing
+					 */
+					"rsvpsNotgoingCount": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
+					"time_us": /*#__PURE__*/ v.integer(),
+					"uri": /*#__PURE__*/ v.resourceUriString(),
+					get "value"() {
+						return CommunityLexiconCalendarEvent.mainSchema
+					},
+				}
+			),
+		}
+	}
+);
+const _profileEntrySchema = /*#__PURE__*/ v.object(
+	{
+		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.event.getRecord#profileEntry")),
+		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
+		"collection": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.nsidString()),
+		"did": /*#__PURE__*/ v.didString(),
+		"handle": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		"rkey": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		"uri": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
+		get "value"() {
+			return /*#__PURE__*/ v.optional(AppBskyActorProfile.mainSchema)
+		},
+	}
+);
+type hydrateRsvps$schematype = typeof _hydrateRsvpsSchema;
+type hydrateRsvpsRecord$schematype = typeof _hydrateRsvpsRecordSchema;
+type main$schematype = typeof _mainSchema;
+type profileEntry$schematype = typeof _profileEntrySchema;
+
+export interface hydrateRsvpsSchema extends hydrateRsvps$schematype {}
+
+export interface hydrateRsvpsRecordSchema extends hydrateRsvpsRecord$schematype {}
+
+export interface mainSchema extends main$schematype {}
+
+export interface profileEntrySchema extends profileEntry$schematype {}
+export const hydrateRsvpsSchema = _hydrateRsvpsSchema as hydrateRsvpsSchema;
+export const hydrateRsvpsRecordSchema = _hydrateRsvpsRecordSchema as hydrateRsvpsRecordSchema;
+export const mainSchema = _mainSchema as mainSchema;
+export const profileEntrySchema = _profileEntrySchema as profileEntrySchema;
+
+export interface HydrateRsvps extends v.InferInput<typeof hydrateRsvpsSchema> {}
+
+export interface HydrateRsvpsRecord extends v.InferInput<typeof hydrateRsvpsRecordSchema> {}
+
+export interface ProfileEntry extends v.InferInput<typeof profileEntrySchema> {}
+
+export interface $params extends v.InferInput<mainSchema['params']> {}
+
+export interface $output extends v.InferXRPCBodyInput<mainSchema['output']> {}
+declare module '@atcute/lexicons/ambient' {
+	interface XRPCQueries {
+		"rsvp.atmo.event.getRecord": mainSchema;
+	}
+}
