@@ -1,125 +1,107 @@
-import type {} from "@atcute/lexicons";
-import * as v from "@atcute/lexicons/validations";
-import type {} from "@atcute/lexicons/ambient";
-import * as CommunityLexiconLocationAddress from "../location/address.js";
-import * as CommunityLexiconLocationFsq from "../location/fsq.js";
-import * as CommunityLexiconLocationGeo from "../location/geo.js";
-import * as CommunityLexiconLocationHthree from "../location/hthree.js";
+import type {} from '@atcute/lexicons';
+import * as v from '@atcute/lexicons/validations';
+import type {} from '@atcute/lexicons/ambient';
+import * as CommunityLexiconLocationAddress from '../location/address.js';
+import * as CommunityLexiconLocationFsq from '../location/fsq.js';
+import * as CommunityLexiconLocationGeo from '../location/geo.js';
+import * as CommunityLexiconLocationHthree from '../location/hthree.js';
 
-const _cancelledSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#cancelled",
-);
-const _hybridSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#hybrid",
-);
-const _inpersonSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#inperson",
-);
+const _cancelledSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#cancelled');
+const _hybridSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#hybrid');
+const _inpersonSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#inperson');
 const _mainSchema = /*#__PURE__*/ v.record(
-  /*#__PURE__*/ v.tidString(),
-  /*#__PURE__*/ v.object({
-    $type: /*#__PURE__*/ v.literal("community.lexicon.calendar.event"),
-    /**
-     * Client-declared timestamp when the event was created.
-     */
-    createdAt: /*#__PURE__*/ v.datetimeString(),
-    /**
-     * The description of the event.
-     */
-    description: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-    /**
-     * Client-declared timestamp when the event ends.
-     */
-    endsAt: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
-    /**
-     * The locations where the event takes place.
-     */
-    get locations() {
-      return /*#__PURE__*/ v.optional(
-        /*#__PURE__*/ v.array(
-          /*#__PURE__*/ v.variant([
-            uriSchema,
-            CommunityLexiconLocationAddress.mainSchema,
-            CommunityLexiconLocationFsq.mainSchema,
-            CommunityLexiconLocationGeo.mainSchema,
-            CommunityLexiconLocationHthree.mainSchema,
-          ]),
-        ),
-      );
-    },
-    /**
-     * The attendance mode of the event.
-     */
-    get mode() {
-      return /*#__PURE__*/ v.optional(modeSchema);
-    },
-    /**
-     * The name of the event.
-     */
-    name: /*#__PURE__*/ v.string(),
-    /**
-     * Client-declared timestamp when the event starts.
-     */
-    startsAt: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
-    /**
-     * The status of the event.
-     */
-    get status() {
-      return /*#__PURE__*/ v.optional(statusSchema);
-    },
-    /**
-     * URIs associated with the event.
-     */
-    get uris() {
-      return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(uriSchema));
-    },
-  }),
+	/*#__PURE__*/ v.tidString(),
+	/*#__PURE__*/ v.object({
+		$type: /*#__PURE__*/ v.literal('community.lexicon.calendar.event'),
+		/**
+		 * Client-declared timestamp when the event was created.
+		 */
+		createdAt: /*#__PURE__*/ v.datetimeString(),
+		/**
+		 * The description of the event.
+		 */
+		description: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		/**
+		 * Client-declared timestamp when the event ends.
+		 */
+		endsAt: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
+		/**
+		 * The locations where the event takes place.
+		 */
+		get locations() {
+			return /*#__PURE__*/ v.optional(
+				/*#__PURE__*/ v.array(
+					/*#__PURE__*/ v.variant([
+						uriSchema,
+						CommunityLexiconLocationAddress.mainSchema,
+						CommunityLexiconLocationFsq.mainSchema,
+						CommunityLexiconLocationGeo.mainSchema,
+						CommunityLexiconLocationHthree.mainSchema
+					])
+				)
+			);
+		},
+		/**
+		 * The attendance mode of the event.
+		 */
+		get mode() {
+			return /*#__PURE__*/ v.optional(modeSchema);
+		},
+		/**
+		 * The name of the event.
+		 */
+		name: /*#__PURE__*/ v.string(),
+		/**
+		 * Client-declared timestamp when the event starts.
+		 */
+		startsAt: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
+		/**
+		 * The status of the event.
+		 */
+		get status() {
+			return /*#__PURE__*/ v.optional(statusSchema);
+		},
+		/**
+		 * URIs associated with the event.
+		 */
+		get uris() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(uriSchema));
+		}
+	})
 );
 const _modeSchema = /*#__PURE__*/ v.optional(
-  /*#__PURE__*/ v.string<
-    | "community.lexicon.calendar.event#hybrid"
-    | "community.lexicon.calendar.event#inperson"
-    | "community.lexicon.calendar.event#virtual"
-    | (string & {})
-  >(),
-  "community.lexicon.calendar.event#inperson",
+	/*#__PURE__*/ v.string<
+		| 'community.lexicon.calendar.event#hybrid'
+		| 'community.lexicon.calendar.event#inperson'
+		| 'community.lexicon.calendar.event#virtual'
+		| (string & {})
+	>(),
+	'community.lexicon.calendar.event#inperson'
 );
-const _plannedSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#planned",
-);
-const _postponedSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#postponed",
-);
-const _rescheduledSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#rescheduled",
-);
-const _scheduledSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#scheduled",
-);
+const _plannedSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#planned');
+const _postponedSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#postponed');
+const _rescheduledSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#rescheduled');
+const _scheduledSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#scheduled');
 const _statusSchema = /*#__PURE__*/ v.optional(
-  /*#__PURE__*/ v.string<
-    | "community.lexicon.calendar.event#cancelled"
-    | "community.lexicon.calendar.event#planned"
-    | "community.lexicon.calendar.event#postponed"
-    | "community.lexicon.calendar.event#rescheduled"
-    | "community.lexicon.calendar.event#scheduled"
-    | (string & {})
-  >(),
-  "community.lexicon.calendar.event#scheduled",
+	/*#__PURE__*/ v.string<
+		| 'community.lexicon.calendar.event#cancelled'
+		| 'community.lexicon.calendar.event#planned'
+		| 'community.lexicon.calendar.event#postponed'
+		| 'community.lexicon.calendar.event#rescheduled'
+		| 'community.lexicon.calendar.event#scheduled'
+		| (string & {})
+	>(),
+	'community.lexicon.calendar.event#scheduled'
 );
 const _uriSchema = /*#__PURE__*/ v.object({
-  $type: /*#__PURE__*/ v.optional(
-    /*#__PURE__*/ v.literal("community.lexicon.calendar.event#uri"),
-  ),
-  /**
-   * The display name of the URI.
-   */
-  name: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-  uri: /*#__PURE__*/ v.genericUriString(),
+	$type: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal('community.lexicon.calendar.event#uri')),
+	/**
+	 * The display name of the URI.
+	 */
+	name: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+	uri: /*#__PURE__*/ v.genericUriString()
 });
-const _virtualSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.event#virtual",
-);
+const _virtualSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.event#virtual');
 
 type cancelled$schematype = typeof _cancelledSchema;
 type hybrid$schematype = typeof _hybridSchema;
@@ -173,8 +155,8 @@ export type Status = v.InferInput<typeof statusSchema>;
 export interface Uri extends v.InferInput<typeof uriSchema> {}
 export type Virtual = v.InferInput<typeof virtualSchema>;
 
-declare module "@atcute/lexicons/ambient" {
-  interface Records {
-    "community.lexicon.calendar.event": mainSchema;
-  }
+declare module '@atcute/lexicons/ambient' {
+	interface Records {
+		'community.lexicon.calendar.event': mainSchema;
+	}
 }

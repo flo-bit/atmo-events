@@ -222,10 +222,6 @@
         "time_us": {
           "type": "integer"
         },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; its value is the `ats://` space URI."
-        },
         "rsvpsCount": {
           "type": "integer",
           "description": "Total rsvps count"
@@ -286,10 +282,6 @@
         "time_us": {
           "type": "integer"
         },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; its value is the `ats://` space URI."
-        },
         "event": {
           "type": "ref",
           "ref": "#refEventRecord"
@@ -330,10 +322,6 @@
         },
         "time_us": {
           "type": "integer"
-        },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; `ats://` URI."
         }
       }
     },
@@ -404,10 +392,6 @@
         },
         "time_us": {
           "type": "integer"
-        },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; `ats://` URI."
         }
       }
     },

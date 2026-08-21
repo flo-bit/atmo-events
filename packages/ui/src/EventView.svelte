@@ -26,7 +26,6 @@
 	import EventHostedBy from './event-view/EventHostedBy.svelte';
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
-	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
 	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
 
@@ -255,22 +254,10 @@
 					{/if}
 					{#if isOwner}
 						<Button href="./{rkey}/edit" class="mt-9 w-full">Edit Event</Button>
-						{#if isConference && !data.spaceUri}
+						{#if isConference}
 							<Button href="./{rkey}/talks" variant="secondary" class="mt-2 w-full">
 								Manage talks
 							</Button>
-						{/if}
-						{#if data.spaceUri}
-							<InviteShareFlow
-								spaceUri={data.spaceUri}
-								spaceKey={data.spaceKey}
-								{did}
-								{rkey}
-								eventName={eventData.name}
-								{hostProfile}
-								{adapter}
-								{viewer}
-							/>
 						{/if}
 					{/if}
 				</div>
@@ -321,7 +308,6 @@
 							eventCid={eventData.cid ?? null}
 							initialRsvpStatus={data.viewerRsvpStatus}
 							initialRsvpRkey={data.viewerRsvpRkey}
-							spaceUri={data.spaceUri ?? null}
 							{adapter}
 							{viewer}
 							onrsvp={handleRsvp}

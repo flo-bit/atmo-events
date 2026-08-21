@@ -72,16 +72,6 @@ declare global {
 				OAUTH_PUBLIC_URL: string;
 				DB: D1Database;
 				CRON_SECRET: string;
-				/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
-				BOT_IDENTIFIER?: string;
-				/** App password for the bot account (set via `wrangler secret put`). */
-				BOT_APP_PASSWORD?: string;
-				/** PDS the bot authenticates against; defaults to bsky.social. */
-				BOT_PDS_URL?: string;
-				/** P-256 private key (multikey) used to sign atmo.pub app tokens and
-				 *  publish the `did:web` DID document. Set via `wrangler secret put`.
-				 *  When unset, notifications are disabled (the feature no-ops). */
-				ATMO_NOTIFY_PRIVATE_KEY?: string;
 				/** Meilisearch base url for the search read path (search/near-me).
 				 *  When either var is unset, search falls back to the D1 path and
 				 *  near-me is unavailable. */

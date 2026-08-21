@@ -9,7 +9,6 @@
 		eventCid,
 		initialRsvpStatus = null,
 		initialRsvpRkey = null,
-		spaceUri = null,
 		adapter,
 		viewer,
 		onrsvp,
@@ -20,8 +19,6 @@
 		eventCid: string | null;
 		initialRsvpStatus?: 'going' | 'interested' | 'notgoing' | null;
 		initialRsvpRkey?: string | null;
-		/** If set, RSVPs write into this space instead of the user's public PDS. */
-		spaceUri?: string | null;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
 		onrsvp?: (status: 'going' | 'interested', rkey: string) => void;
@@ -55,32 +52,16 @@
 			};
 
 			let ok = false;
-			if (spaceUri) {
-				if (!adapter.putSpaceRecord) {
-					console.error('putSpaceRecord not supported by this adapter');
-					return;
-				}
-				const result = await adapter.putSpaceRecord({
-					spaceUri,
+			try {
+				await adapter.putRecord({
 					collection: 'community.lexicon.calendar.rsvp',
 					rkey: key,
 					record
 				});
-				ok = result.ok;
-			} else {
-				try {
-					await adapter.putRecord({
-						collection: 'community.lexicon.calendar.rsvp',
-						rkey: key,
-						record
-					});
-					ok = true;
-					adapter.notifyUpdate?.(
-						`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`
-					);
-				} catch (e) {
-					console.error('RSVP putRecord failed:', e);
-				}
+				ok = true;
+				adapter.notifyUpdate?.(`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`);
+			} catch (e) {
+				console.error('RSVP putRecord failed:', e);
 			}
 
 			if (ok) {
@@ -100,25 +81,13 @@
 		if (!viewer.isLoggedIn || !viewer.did || !rsvpRkey) return;
 		rsvpSubmitting = true;
 		try {
-			if (spaceUri) {
-				if (!adapter.deleteSpaceRecord) {
-					console.error('deleteSpaceRecord not supported by this adapter');
-					return;
-				}
-				await adapter.deleteSpaceRecord({
-					spaceUri,
-					collection: 'community.lexicon.calendar.rsvp',
-					rkey: rsvpRkey
-				});
-			} else {
-				await adapter.deleteRecord({
-					collection: 'community.lexicon.calendar.rsvp',
-					rkey: rsvpRkey
-				});
-				adapter.notifyUpdate?.(
-					`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
-				);
-			}
+			await adapter.deleteRecord({
+				collection: 'community.lexicon.calendar.rsvp',
+				rkey: rsvpRkey
+			});
+			adapter.notifyUpdate?.(
+				`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
+			);
 			rsvpStatusOverride = null;
 			rsvpRkeyOverride = null;
 			oncancel?.();

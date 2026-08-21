@@ -7,9 +7,6 @@
 // standalone indexer.
 //
 // Constraints inherited from the seam:
-//   - sinks only ever observe PUBLIC records (space-scoped/private records
-//     never reach applyEvents), so there's no `space` to skip — unlike the old
-//     realtime-pubsub masquerade this supersedes;
 //   - a thrown sink is caught and logged by contrail and never blocks ingest,
 //     so a Meilisearch outage degrades to "search index falls behind", not
 //     "ingest stops".

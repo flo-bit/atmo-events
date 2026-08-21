@@ -8,27 +8,14 @@ import {
 } from '$lib/contrail';
 import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
 import { hasEnded } from '$lib/past-events';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params, platform, locals }) {
-	// Authenticated viewer + spaces configured → service-auth client so contrail
-	// unions public events with private events from spaces the viewer is in.
-	// Profile pages show another user's events; the viewer only sees the private
-	// ones where *they* are a member (filtered server-side by caller DID).
-	const client =
-		locals.client && locals.did && spacesAvailable()
-			? getSpacesClient(locals.client, platform!.env.DB)
-			: getServerClient(platform!.env.DB);
-	// `listAuthored` is a public pipelineQuery, not a declared lexicon method, so
-	// the service-auth spaces client can't mint a JWT for it (the PDS 403s). Route
-	// the public event listings through the in-process server client instead —
-	// matching the hosting/past-events pages, which already use it.
+export async function load({ params, platform }) {
 	const publicClient = getServerClient(platform!.env.DB);
+	const client = publicClient;
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;

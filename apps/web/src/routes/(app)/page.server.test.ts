@@ -25,8 +25,6 @@ vi.mock('$lib/contrail/ongoing', async () => {
 vi.mock('$lib/server/edge-cache', () => ({
 	cachedRead: vi.fn((_key: string, _ttl: number, fn: () => unknown) => fn())
 }));
-vi.mock('$lib/spaces/config', () => ({ spacesAvailable: vi.fn(() => false) }));
-vi.mock('$lib/spaces/server/client', () => ({ getSpacesClient: vi.fn(() => ({})) }));
 vi.mock('$lib/dedupe-by-uri', () => ({ dedupeByUri: vi.fn((e: unknown[]) => e) }));
 
 import { load } from './+page.server';

@@ -1,38 +1,32 @@
-import type {} from "@atcute/lexicons";
-import * as v from "@atcute/lexicons/validations";
-import type {} from "@atcute/lexicons/ambient";
-import * as ComAtprotoRepoStrongRef from "@atcute/atproto/types/repo/strongRef";
+import type {} from '@atcute/lexicons';
+import * as v from '@atcute/lexicons/validations';
+import type {} from '@atcute/lexicons/ambient';
+import * as ComAtprotoRepoStrongRef from '@atcute/atproto/types/repo/strongRef';
 
-const _goingSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.rsvp#going",
-);
-const _interestedSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.rsvp#interested",
-);
+const _goingSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.rsvp#going');
+const _interestedSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.rsvp#interested');
 const _mainSchema = /*#__PURE__*/ v.record(
-  /*#__PURE__*/ v.tidString(),
-  /*#__PURE__*/ v.object({
-    $type: /*#__PURE__*/ v.literal("community.lexicon.calendar.rsvp"),
-    /**
-     * @default "community.lexicon.calendar.rsvp#going"
-     */
-    status: /*#__PURE__*/ v.optional(
-      /*#__PURE__*/ v.string<
-        | "community.lexicon.calendar.rsvp#going"
-        | "community.lexicon.calendar.rsvp#interested"
-        | "community.lexicon.calendar.rsvp#notgoing"
-        | (string & {})
-      >(),
-      "community.lexicon.calendar.rsvp#going",
-    ),
-    get subject() {
-      return ComAtprotoRepoStrongRef.mainSchema;
-    },
-  }),
+	/*#__PURE__*/ v.tidString(),
+	/*#__PURE__*/ v.object({
+		$type: /*#__PURE__*/ v.literal('community.lexicon.calendar.rsvp'),
+		/**
+		 * @default "community.lexicon.calendar.rsvp#going"
+		 */
+		status: /*#__PURE__*/ v.optional(
+			/*#__PURE__*/ v.string<
+				| 'community.lexicon.calendar.rsvp#going'
+				| 'community.lexicon.calendar.rsvp#interested'
+				| 'community.lexicon.calendar.rsvp#notgoing'
+				| (string & {})
+			>(),
+			'community.lexicon.calendar.rsvp#going'
+		),
+		get subject() {
+			return ComAtprotoRepoStrongRef.mainSchema;
+		}
+	})
 );
-const _notgoingSchema = /*#__PURE__*/ v.literal(
-  "community.lexicon.calendar.rsvp#notgoing",
-);
+const _notgoingSchema = /*#__PURE__*/ v.literal('community.lexicon.calendar.rsvp#notgoing');
 
 type going$schematype = typeof _goingSchema;
 type interested$schematype = typeof _interestedSchema;
@@ -54,8 +48,8 @@ export type Interested = v.InferInput<typeof interestedSchema>;
 export interface Main extends v.InferInput<typeof mainSchema> {}
 export type Notgoing = v.InferInput<typeof notgoingSchema>;
 
-declare module "@atcute/lexicons/ambient" {
-  interface Records {
-    "community.lexicon.calendar.rsvp": mainSchema;
-  }
+declare module '@atcute/lexicons/ambient' {
+	interface Records {
+		'community.lexicon.calendar.rsvp': mainSchema;
+	}
 }

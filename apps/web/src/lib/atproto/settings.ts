@@ -14,22 +14,13 @@ export const allowedCollections = [...collections, 'app.bsky.feed.post'];
 
 export type AllowedCollection = (typeof allowedCollections)[number];
 
-// OAuth scopes. `include:rsvp.atmo.permissionSet?aud=*` bundles every rpc method
-// the deployment exposes; `aud=*` lets the same consent cover dev (tunnel DID)
-// and prod (published DID) without re-consenting. Repo writes and blob uploads
-// live as standalone scopes since they reference NSIDs (or resource kinds)
-// outside the `rsvp.atmo` namespace.
+// OAuth scopes for the records the web app writes. Contrail RPC permissions
+// will be added separately with its exact service audience.
 export const scopes = [
 	'atproto',
 	scope.repo({ collection: [...collections] }),
 	scope.blob({ accept: ['image/*'] }),
-	'include:rsvp.atmo.permissionSet',
-	'include:app.bsky.authCreatePosts',
-	// atmo.pub notifications: lets us mint user tokens (via
-	// com.atproto.server.getServiceAuth) to ask for/revoke notification consent.
-	// `send` itself needs no user scope (it's signed with our app key).
-	'rpc?lxm=pub.atmo.notify.requestPermission&aud=*',
-	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*'
+	'include:app.bsky.authCreatePosts'
 ];
 
 // set to false to disable signup

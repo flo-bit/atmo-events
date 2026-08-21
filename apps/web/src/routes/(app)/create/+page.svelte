@@ -1,14 +1,11 @@
 <script lang="ts">
 	import { EventEditor, type EventEditorPrefill } from '@atmo-dev/events-ui';
-	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { user } from '$lib/atproto/auth.svelte';
 	import { createInAppAdapter } from '$lib/components/editor/adapter';
 	import { readPendingImportPrefill } from '$lib/components/CreateEventModal.svelte';
 
 	let { data } = $props();
-	let privateMode = $derived(page.url.searchParams.get('private') === '1');
-
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
 		did: user.did ?? null,
@@ -64,7 +61,6 @@
 		eventData={null}
 		actorDid={data.actorDid}
 		rkey={data.rkey}
-		{privateMode}
 		{adapter}
 		{viewer}
 		{prefill}

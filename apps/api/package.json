@@ -1,0 +1,30 @@
+{
+	"name": "api",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "contrail dev",
+		"build": "wrangler deploy --dry-run --outdir dist",
+		"deploy": "node -e \"console.error('Deployment blocked until bounded scheduled ingestion lands'); process.exit(1)\"",
+		"backfill": "contrail backfill --only records",
+		"backfill:remote": "contrail backfill --only records --remote",
+		"lexicons": "contrail lexicons generate --public",
+		"lexicons:all": "contrail lexicons all --public",
+		"lexicons:check": "contrail lexicons check --public",
+		"typecheck": "contrail lexicons check --public && tsc --noEmit",
+		"check": "pnpm typecheck",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@atmo-dev/contrail": "0.19.0"
+	},
+	"devDependencies": {
+		"@atcute/lex-cli": "^3.2.1",
+		"@atcute/lexicons": "^2.0.3",
+		"@cloudflare/workers-types": "^4.20260317.1",
+		"typescript": "^6.0.2",
+		"vitest": "^4.1.7",
+		"wrangler": "^4.77.0"
+	}
+}

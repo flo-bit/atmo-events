@@ -7,7 +7,6 @@
 		ToggleGroupItem
 	} from '@foxui/core';
 	import { onMount } from 'svelte';
-	import { DEV as dev } from 'esm-env';
 	import { PlainTextEditor } from '@foxui/text';
 	import DateTimePicker from './DateTimePicker.svelte';
 	import TimezonePicker from './TimezonePicker.svelte';
@@ -42,7 +41,6 @@
 		eventData = null,
 		actorDid,
 		rkey,
-		privateMode = false,
 		adapter,
 		viewer,
 		initialTheme,
@@ -51,8 +49,6 @@
 		eventData: FlatEventRecord | null;
 		actorDid: string;
 		rkey: string;
-		/** If true, save writes into a permissioned space instead of the user's public PDS. */
-		privateMode?: boolean;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
 		/** Override default theme for new events (e.g. inherit embedder's palette). */
@@ -93,7 +89,7 @@
 	// svelte-ignore state_referenced_locally
 	let mode: EventMode = $state(initialPrefill?.mode ?? 'inperson');
 	// svelte-ignore state_referenced_locally
-	let visibility: Visibility = $state(privateMode && dev ? 'private' : 'public');
+	let visibility: Visibility = $state('public');
 	// svelte-ignore state_referenced_locally
 	let eventTheme: EventTheme = $state(
 		eventData === null
@@ -179,8 +175,7 @@
 		mode = eventData.mode ? stripModePrefix(eventData.mode) : 'inperson';
 		const prefs = (eventData as unknown as { preferences?: { showInDiscovery?: boolean } })
 			.preferences;
-		if (privateMode && dev) visibility = 'private';
-		else if (prefs && prefs.showInDiscovery === false) visibility = 'unlisted';
+		if (prefs && prefs.showInDiscovery === false) visibility = 'unlisted';
 		else visibility = 'public';
 		links = eventData.uris ? eventData.uris.map((l) => ({ uri: l.uri, name: l.name || '' })) : [];
 		if (eventData.theme) eventTheme = { ...eventData.theme };
@@ -283,28 +278,6 @@
 			if (isNew && prefill?.additionalData) {
 				const existing = (record.additionalData ?? {}) as Record<string, unknown>;
 				record.additionalData = { ...existing, ...prefill.additionalData };
-			}
-
-			if (visibility === 'private') {
-				if (!adapter.createPrivateEvent) {
-					error = 'Private events are not supported here.';
-					return;
-				}
-				const {
-					spaceUri,
-					rkey: eventRkey,
-					spaceKey
-				} = await adapter.createPrivateEvent({
-					key: rkey,
-					record
-				});
-				adapter.onSaved({
-					uri: spaceUri,
-					rkey: eventRkey,
-					isNew: true,
-					spaceKey
-				});
-				return;
 			}
 
 			const result = await adapter.putRecord({
@@ -437,19 +410,13 @@
 								}
 								class="w-fit"
 								size="xs"
-								disabled={!isNew && visibility === 'private'}
 							>
 								<ToggleGroupItem value="public">Public</ToggleGroupItem>
-								{#if dev && adapter.features.privateMode}
-									<ToggleGroupItem value="private">Private</ToggleGroupItem>
-								{/if}
 								<ToggleGroupItem value="unlisted">Unlisted</ToggleGroupItem>
 							</ToggleGroup>
 							<div class="text-base-500 dark:text-base-400 mt-1.5 text-xs">
 								{#if visibility === 'public'}
 									Anyone can view and it appears in discovery.
-								{:else if visibility === 'private'}
-									Only people you add (or who redeem an invite link) can see it.
 								{:else}
 									Public to anyone with the link, but hidden from discovery.
 								{/if}
