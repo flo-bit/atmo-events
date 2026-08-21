@@ -11,8 +11,6 @@ import {
 	type HostProfile
 } from '$lib/contrail';
 import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
 import { cachedRead } from '$lib/server/edge-cache';
 import { dedupeByUri } from '$lib/dedupe-by-uri';
 import type { PageServerLoad } from './$types';
@@ -41,10 +39,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		if (!locals.did) return { upcoming: [], past: [] };
 		const did = locals.did;
 
-		const client =
-			locals.client && spacesAvailable()
-				? getSpacesClient(locals.client, platform!.env.DB)
-				: publicClient;
+		const client = publicClient;
 
 		const cutoff = new Date(Date.now() - SEVEN_DAYS_MS);
 		const cutoffIso = cutoff.toISOString();

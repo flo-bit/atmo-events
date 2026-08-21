@@ -16,10 +16,7 @@
 		}
 	},
 	"vars": {
-		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
-		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
-		"BOT_IDENTIFIER": "going.atmo.rsvp",
-		"BOT_PDS_URL": "https://eurosky.social"
+		"OAUTH_PUBLIC_URL": "https://atmo.rsvp"
 	},
 	"d1_databases": [
 		{

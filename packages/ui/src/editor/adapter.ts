@@ -26,7 +26,6 @@ export type EditorAdapter = {
 	features: {
 		delete: boolean;
 		recurring: boolean;
-		privateMode: boolean;
 	};
 	putRecord(opts: {
 		collection: string;
@@ -46,31 +45,8 @@ export type EditorAdapter = {
 		rkey: string;
 	}): Promise<{ value: Record<string, unknown> }>;
 	resolveHandle(handle: string): Promise<string>;
-	onSaved(result: { uri: string; rkey: string; isNew: boolean; spaceKey?: string }): void;
+	onSaved(result: { uri: string; rkey: string; isNew: boolean }): void;
 	onDeleted?(): void;
 	requestLogin(): void;
 	notifyUpdate?(uri: string): Promise<void>;
-	createPrivateEvent?(opts: {
-		key: string;
-		record: Record<string, unknown>;
-	}): Promise<{ spaceUri: string; rkey: string; spaceKey: string }>;
-	/** Put a record inside a permissioned space. Required for RSVPs to private events. */
-	putSpaceRecord?(opts: {
-		spaceUri: string;
-		collection: string;
-		rkey: string;
-		record: Record<string, unknown>;
-	}): Promise<{ ok: boolean }>;
-	deleteSpaceRecord?(opts: {
-		spaceUri: string;
-		collection: string;
-		rkey: string;
-	}): Promise<void>;
-	/** Mint an invite token for a private space. */
-	createSpaceInvite?(opts: {
-		spaceUri: string;
-		kind: 'read-join' | 'join';
-		maxUses?: number;
-		expiresAt?: number;
-	}): Promise<{ token: string }>;
 };

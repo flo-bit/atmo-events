@@ -18,8 +18,6 @@ vi.mock('$lib/contrail/ongoing', async () => {
 	return { EMPTY_ONGOING: actual.EMPTY_ONGOING, ongoingQuery: vi.fn() };
 });
 vi.mock('$lib/actor', () => ({ getActor: vi.fn(async () => 'did:plc:alice') }));
-vi.mock('$lib/spaces/config', () => ({ spacesAvailable: vi.fn(() => false) }));
-vi.mock('$lib/spaces/server/client', () => ({ getSpacesClient: vi.fn(() => ({})) }));
 vi.mock('$lib/past-events', () => ({ hasEnded: vi.fn(() => true) }));
 
 import { load } from './+page.server';

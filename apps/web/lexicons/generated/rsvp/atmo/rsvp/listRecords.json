@@ -26,19 +26,6 @@
             "type": "boolean",
             "description": "Include profile + identity info keyed by DID"
           },
-          "spaceUri": {
-            "type": "string",
-            "description": "If set, query records inside this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI."
-          },
-          "byUser": {
-            "type": "string",
-            "format": "did",
-            "description": "Only used with spaceUri — filter to records authored by this DID."
-          },
-          "inviteToken": {
-            "type": "string",
-            "description": "Read-grant invite token for anonymous bearer access. Replaces JWT auth when supplied."
-          },
           "status": {
             "type": "string",
             "description": "Filter by status"
@@ -145,10 +132,6 @@
         "time_us": {
           "type": "integer"
         },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; its value is the `ats://` space URI."
-        },
         "event": {
           "type": "ref",
           "ref": "#refEventRecord"
@@ -189,10 +172,6 @@
         },
         "time_us": {
           "type": "integer"
-        },
-        "space": {
-          "type": "string",
-          "description": "Present when the record was read from a permissioned space; `ats://` URI."
         }
       }
     },

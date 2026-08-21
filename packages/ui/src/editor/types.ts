@@ -1,5 +1,5 @@
 export type EventMode = 'inperson' | 'virtual' | 'hybrid';
-export type Visibility = 'public' | 'private' | 'unlisted';
+export type Visibility = 'public' | 'unlisted';
 
 export interface EventLocation {
 	street?: string;

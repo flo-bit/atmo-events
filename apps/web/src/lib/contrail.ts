@@ -134,7 +134,6 @@ export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRec
 		did: record.did,
 		rkey: record.rkey,
 		uri: record.uri,
-		...('space' in record && typeof record.space === 'string' ? { space: record.space } : {}),
 		...('rsvps' in record ? { rsvps: record.rsvps } : {}),
 		...('rsvpsCount' in record ? { rsvpsCount: record.rsvpsCount } : {}),
 		...('rsvpsGoingCount' in record ? { rsvpsGoingCount: record.rsvpsGoingCount } : {}),
@@ -151,18 +150,8 @@ export function flattenEventRecords(records: EventListRecord[]): FlatEventRecord
 		.filter((record): record is FlatEventRecord => record !== null);
 }
 
-/** Build the canonical path for an event. Private events (those with a `space`
- *  field from contrail's union) live under `/p/<actor>/e/<rkey>/s/<skey>` so
- *  the page knows both which event to show and which space to look in. Public
- *  events use `/p/<actor>/e/<rkey>`. */
 export function eventUrl(event: FlatEventRecord, actor?: string): string {
-	const who = actor || event.did;
-	if (event.space) {
-		const m = event.space.match(/^ats?:\/\/[^/]+\/[^/]+\/([^/]+)$/);
-		const skey = m?.[1];
-		if (skey) return `/p/${who}/e/${event.rkey}/s/${skey}`;
-	}
-	return `/p/${who}/e/${event.rkey}`;
+	return `/p/${actor || event.did}/e/${event.rkey}`;
 }
 
 export function getHostProfile(did: string, profiles?: AttendeeProfileEntry[]): HostProfile | null {

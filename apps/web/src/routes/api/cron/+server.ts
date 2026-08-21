@@ -1,6 +1,4 @@
 import { contrail, ensureInit } from '$lib/contrail/index';
-import { processBotMentions } from '$lib/bot/process-mentions';
-import { runNotifications } from '$lib/notify/process';
 import { runGeocodeDrip } from '$lib/geocode/process';
 import type { RequestHandler } from './$types';
 
@@ -12,18 +10,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 
 	const db = platform!.env.DB;
 
-	// Reply bot runs first and is fully isolated: it must not be starved or
-	// aborted by the heavier ingest below, which can throw (e.g. D1 CPU limits
-	// while catching up a backlog). The bot relies on its own queries +
-	// notifyOfUpdate, so it works even when firehose ingest is behind.
-	try {
-		await processBotMentions(platform!.env, db);
-	} catch (e) {
-		console.error('[bot] processBotMentions failed:', e);
-	}
-
-	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick
-	// (which previously also took the bot down with it).
+	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick.
 	try {
 		// Two deliberately-split budgets. contrail saves the jetstream cursor LAST in
 		// runIngestCycle — after the drain, applyEvents, and the per-DID
@@ -47,7 +34,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		// tick past the cron interval and overlap the next one. Racing arming +
 		// ingest together bounds the RACED SECTION by HARD, so a stalling search
 		// endpoint can no longer push that section past the interval. (The whole
-		// tick also spans the un-raced stages below — bot/notify/drip — so this
+		// tick also spans the un-raced geocode stage below, so this
 		// bounds the search-endpoint hazard, not the tick's total duration.)
 		const DRAIN_TIMEOUT_MS = 20_000;
 		const HARD_TIMEOUT_MS = 55_000;
@@ -62,15 +49,6 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		]);
 	} catch (e) {
 		console.error('[cron] ingest cycle failed:', e);
-	}
-
-	// atmo.pub notifications: event reminders + host RSVP alerts. Runs after
-	// ingest so it sees the freshest records; isolated so a failure can't 500
-	// the tick. No-ops when notifications aren't configured.
-	try {
-		await runNotifications(platform!.env, db);
-	} catch (e) {
-		console.error('[cron] runNotifications failed:', e);
 	}
 
 	// Address→_geo geocode drip: resolves coordinates for newly-ingested
