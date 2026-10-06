@@ -1,5 +1,6 @@
 import { getActor } from '$lib/actor';
-import { getProfileFromContrail, getServerClient } from '$lib/contrail';
+import { getProfileFromContrail } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { pastEventsQuery } from '$lib/contrail/queries';
 import { rawForQuery } from '$lib/contrail/cursor';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';

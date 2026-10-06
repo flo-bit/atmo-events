@@ -1,4 +1,4 @@
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { happeningNowMeiliQuery, happeningNowQuery } from '$lib/contrail/queries';
 import { rawForQuery } from '$lib/contrail/cursor';
 import { searchBackendFromEnv } from '$lib/search/server/query';

@@ -5,10 +5,10 @@ import {
 	flattenEventRecord,
 	getProfileFromContrail,
 	getProfileBlobUrl,
-	getServerClient,
 	type FlatEventRecord,
 	type HostProfile
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { getPrivateSpace } from '$lib/spaces/server/spaces.remote';
 import { SPACE_TYPE } from '$lib/spaces/config';
 

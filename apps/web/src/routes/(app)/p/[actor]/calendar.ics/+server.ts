@@ -5,9 +5,9 @@ import { isActorIdentifier, type ActorIdentifier } from '@atcute/lexicons/syntax
 import {
 	flattenEventRecord,
 	flattenEventRecords,
-	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { dedupeByUri } from '$lib/dedupe-by-uri';
 
 export async function GET({ params, platform }) {

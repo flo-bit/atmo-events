@@ -5,9 +5,9 @@ import {
 	flattenEventRecord,
 	flattenEventRecords,
 	getEventRecordFromContrail,
-	getServerClient,
 	listConferenceTalksFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { isConferenceEvent } from '@atmo-dev/events-ui/conference';
 
 export async function load({ params, locals, platform }) {

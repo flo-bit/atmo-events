@@ -8,11 +8,11 @@ import {
 	getProfileBlobUrl,
 	getProfileFromContrail,
 	getRsvpStatus,
-	getServerClient,
 	getViewerRsvpFromContrail,
 	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { vodFromAtUri } from '$lib/vods';
 
 export async function load({ params, url, platform }) {

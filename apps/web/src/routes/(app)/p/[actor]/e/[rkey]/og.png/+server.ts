@@ -3,7 +3,8 @@ import { ImageResponse } from '@ethercorps/sveltekit-og';
 import { error } from '@sveltejs/kit';
 import EventOgImage from './EventOgImage.svelte';
 import { getActor } from '$lib/actor';
-import { flattenEventRecord, getEventRecordFromContrail, getServerClient } from '$lib/contrail';
+import { flattenEventRecord, getEventRecordFromContrail } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
 
