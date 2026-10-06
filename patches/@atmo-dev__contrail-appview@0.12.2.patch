@@ -1,8 +1,20 @@
 diff --git a/dist/index.d.ts b/dist/index.d.ts
-index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..2ba9f66ddc176a27a68b7fd9fdf98c298946fbe3 100644
+index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..272643e3b18e559f04d903c37ee6b3039169088c 100644
 --- a/dist/index.d.ts
 +++ b/dist/index.d.ts
-@@ -226,8 +226,10 @@ declare function refresh(db: Database, config: ContrailConfig, options?: Refresh
+@@ -62,6 +62,11 @@ declare function buildRecordSyncSchema(dialect: SqlDialect): string[];
+ /** SchemaModule-shaped helper for `initSchema({ extraSchemas: [...] })`. */
+ declare function applyRecordSyncSchema(db: Database): Promise<void>;
+ 
++/** A hot backlog can deliver tens of thousands of events during the drain
++ * window, leaving no time to apply them and persist the cursor before the
++ * caller's hard timeout. Bound each cycle so apply + save always make forward
++ * progress; subsequent cron ticks resume from the persisted safe cursor. */
++declare const MAX_INGEST_EVENTS_PER_CYCLE = 250;
+ /** Distinct actors pruned per ingest tick by the rolling feed sweep. Each
+  *  actor costs a handful of index-backed O(cap) deletes, so this bounds the
+  *  prune's per-tick CPU regardless of how large feed_items grows. */
+@@ -226,8 +231,10 @@ declare function refresh(db: Database, config: ContrailConfig, options?: Refresh
   * Returns null if search is disabled or no fields found.
   */
  declare function getSearchableFields(collection: string, colConfig: CollectionConfig): string[] | null;
@@ -14,7 +26,7 @@ index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..2ba9f66ddc176a27a68b7fd9fdf98c29
  /** Extract searchable field values from a record and join them into a single string. */
  declare function buildFtsContent(record: unknown, fields: string[]): string | null;
  
-@@ -241,7 +243,7 @@ declare function backfillFollowersFromConstellation(db: Database, config: Contra
+@@ -241,7 +248,7 @@ declare function backfillFollowersFromConstellation(db: Database, config: Contra
   *  table shapes (their DDL isn't all enumerated into the fingerprint). Pure
   *  config-driven changes (collections, feeds, indexes, migrations) bust the
   *  fingerprint automatically and don't need a bump. */
@@ -23,17 +35,25 @@ index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..2ba9f66ddc176a27a68b7fd9fdf98c29
  interface BuilderOpts {
      /** Emit tables for the spaces variant (spaces_records_<short> with space_uri column). */
      forSpaces?: boolean;
-@@ -794,4 +796,4 @@ declare function resetLabelerCursor(db: Database, did: string): Promise<void>;
+@@ -794,4 +801,4 @@ declare function resetLabelerCursor(db: Database, did: string): Promise<void>;
   *  per-labeler. */
  declare function buildLabelsSchema(dialect: SqlDialect): string[];
  
 -export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
-+export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
++export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, MAX_INGEST_EVENTS_PER_CYCLE, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
 diff --git a/dist/index.js b/dist/index.js
-index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d033f56f068 100644
+index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c1879123244 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -56,6 +56,7 @@ __export(index_exports, {
+@@ -28,6 +28,7 @@ __export(index_exports, {
+   FEED_PRUNE_SWEEP_ACTORS: () => FEED_PRUNE_SWEEP_ACTORS,
+   HostedAdapter: () => HostedAdapter,
+   InMemoryPubSub: () => in_memory_exports.InMemoryPubSub,
++  MAX_INGEST_EVENTS_PER_CYCLE: () => MAX_INGEST_EVENTS_PER_CYCLE,
+   OPTIMIZE_LAST_MS_KEY: () => OPTIMIZE_LAST_MS_KEY,
+   RealtimePubSubDO: () => durable_object_exports.RealtimePubSubDO,
+   TicketSigner: () => ticket_exports.TicketSigner,
+@@ -56,6 +57,7 @@ __export(index_exports, {
    discoverDIDs: () => discoverDIDs,
    fieldToParam: () => fieldToParam,
    formatRecord: () => formatRecord,
@@ -41,7 +61,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
    ftsTableName: () => ftsTableName,
    getFeedPruneCursor: () => getFeedPruneCursor,
    getLabelerState: () => getLabelerState,
-@@ -273,8 +274,14 @@ function getSearchableFields(collection, colConfig) {
+@@ -273,8 +275,14 @@ function getSearchableFields(collection, colConfig) {
    if (!Array.isArray(colConfig.searchable)) return null;
    return colConfig.searchable.length > 0 ? colConfig.searchable : null;
  }
@@ -57,7 +77,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
  }
  function buildFtsContent(record, fields) {
    const parts = [];
-@@ -284,7 +291,8 @@ function buildFtsContent(record, fields) {
+@@ -284,7 +292,8 @@ function buildFtsContent(record, fields) {
        parts.push(value);
      }
    }
@@ -67,7 +87,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
  }
  
  // src/core/spaces/schema.ts
-@@ -396,7 +404,7 @@ async function getMetaNumber(db, key) {
+@@ -396,7 +405,7 @@ async function getMetaNumber(db, key) {
  }
  
  // src/core/db/schema.ts
@@ -76,7 +96,20 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
  var SCHEMA_FINGERPRINT_KEY = "schema_fingerprint";
  function getResolved(config) {
    return config._resolved ?? (0, types_exports.resolveConfig)(config)._resolved;
-@@ -664,6 +672,172 @@ function buildFtsTables(config, dialect, opts = {}) {
+@@ -434,6 +443,12 @@ CREATE TABLE IF NOT EXISTS identities (
+   resolved_at ${dialect.bigintType} NOT NULL
+ );
+ CREATE INDEX IF NOT EXISTS idx_identities_handle ON identities(handle);
++CREATE TABLE IF NOT EXISTS profile_misses (
++  did TEXT NOT NULL,
++  collection TEXT NOT NULL,
++  retry_after ${dialect.bigintType} NOT NULL,
++  PRIMARY KEY (did, collection)
++);
+ `;
+ }
+ function sanitizeName(name) {
+@@ -664,6 +679,172 @@ function buildFtsTables(config, dialect, opts = {}) {
    }
    return stmts;
  }
@@ -249,7 +282,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
  var MIGRATIONS = [
    { table: "backfills", column: "retries", columnDef: "INTEGER NOT NULL DEFAULT 0" },
    { table: "backfills", column: "last_error", columnDef: "TEXT" },
-@@ -699,13 +873,6 @@ async function applySpacesSchema(target, config, dialect) {
+@@ -699,13 +880,6 @@ async function applySpacesSchema(target, config, dialect) {
    for (const stmt of [...base, ...perCollection, ...indexes]) {
      await runIdempotentDdl(target, stmt);
    }
@@ -263,7 +296,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
    await applyCountColumns(target, config, { forSpaces: true });
  }
  function hashStrings(parts) {
-@@ -773,12 +940,7 @@ async function initSchema(db, config, options = {}) {
+@@ -773,12 +947,7 @@ async function initSchema(db, config, options = {}) {
        await runIdempotentDdl(db, stmt);
      }
    }
@@ -277,7 +310,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
    const hasSpaces = !!(config.spaces?.authority || config.spaces?.recordHost);
    const hasFeeds = !!(config.feeds && Object.keys(config.feeds).length > 0);
    await runMigrations(db, spacesSharesMainDb ? void 0 : spacesDb, hasSpaces, hasFeeds);
-@@ -881,21 +1043,29 @@ function buildFtsStatements(db, event, config) {
+@@ -881,21 +1050,29 @@ function buildFtsStatements(db, event, config) {
    const fields = getSearchableFields(short, colConfig);
    if (!fields || fields.length === 0) return [];
    const table = ftsTableName(short);
@@ -320,49 +353,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..eaf0a84a8a988422489087843f975d03
  }
  function buildFeedStatements(db, event, config, existingRecords) {
    if (!config.feeds) return [];
-@@ -5596,6 +5766,7 @@ export {
-   discoverDIDs,
-   fieldToParam,
-   formatRecord,
-+  ftsRowTableName,
-   ftsTableName,
-   getFeedPruneCursor,
-   getLabelerState,
-diff --git a/dist/index.d.ts b/dist/index.d.ts
-index 2ba9f66..272643e 100644
---- a/dist/index.d.ts
-+++ b/dist/index.d.ts
-@@ -62,6 +62,11 @@ declare function buildRecordSyncSchema(dialect: SqlDialect): string[];
- /** SchemaModule-shaped helper for `initSchema({ extraSchemas: [...] })`. */
- declare function applyRecordSyncSchema(db: Database): Promise<void>;
- 
-+/** A hot backlog can deliver tens of thousands of events during the drain
-+ * window, leaving no time to apply them and persist the cursor before the
-+ * caller's hard timeout. Bound each cycle so apply + save always make forward
-+ * progress; subsequent cron ticks resume from the persisted safe cursor. */
-+declare const MAX_INGEST_EVENTS_PER_CYCLE = 250;
- /** Distinct actors pruned per ingest tick by the rolling feed sweep. Each
-  *  actor costs a handful of index-backed O(cap) deletes, so this bounds the
-  *  prune's per-tick CPU regardless of how large feed_items grows. */
-@@ -796,4 +801,4 @@ declare function resetLabelerCursor(db: Database, did: string): Promise<void>;
-  *  per-labeler. */
- declare function buildLabelsSchema(dialect: SqlDialect): string[];
- 
--export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
-+export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, MAX_INGEST_EVENTS_PER_CYCLE, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
-diff --git a/dist/index.js b/dist/index.js
-index eaf0a84..4e42d8f 100644
---- a/dist/index.js
-+++ b/dist/index.js
-@@ -28,6 +28,7 @@ __export(index_exports, {
-   FEED_PRUNE_SWEEP_ACTORS: () => FEED_PRUNE_SWEEP_ACTORS,
-   HostedAdapter: () => HostedAdapter,
-   InMemoryPubSub: () => in_memory_exports.InMemoryPubSub,
-+  MAX_INGEST_EVENTS_PER_CYCLE: () => MAX_INGEST_EVENTS_PER_CYCLE,
-   OPTIMIZE_LAST_MS_KEY: () => OPTIMIZE_LAST_MS_KEY,
-   RealtimePubSubDO: () => durable_object_exports.RealtimePubSubDO,
-   TicketSigner: () => ticket_exports.TicketSigner,
-@@ -1720,6 +1721,7 @@ async function backfillFollowersFromConstellation(db, config, subjectDid) {
+@@ -1550,6 +1727,7 @@ async function backfillFollowersFromConstellation(db, config, subjectDid) {
  
  // src/core/jetstream.ts
  var BATCH_SIZE = 50;
@@ -370,7 +361,7 @@ index eaf0a84..4e42d8f 100644
  var FEED_PRUNE_SWEEP_ACTORS = 500;
  var FEED_PRUNE_RECOVERY_INTERVAL_MS = 6 * 60 * 60 * 1e3;
  var FEED_PRUNE_LAST_FULL_PASS_META = "feed_prune_last_full_pass_ms";
-@@ -1800,8 +1802,8 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1630,8 +1808,8 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
    let lastYieldedTimeUs = null;
    let firstYieldedTimeUs = null;
    let connectCount = 0;
@@ -381,7 +372,7 @@ index eaf0a84..4e42d8f 100644
    const newlyKnownDids = /* @__PURE__ */ new Set();
    const identityUpdates = /* @__PURE__ */ new Map();
    const subscription = new JetstreamSubscription({
-@@ -1858,15 +1860,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1688,15 +1866,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
          }
          if (!keep) return;
        }
@@ -402,7 +393,7 @@ index eaf0a84..4e42d8f 100644
        const now = Date.now();
        collected.push({
          uri,
-@@ -1879,9 +1878,6 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1709,9 +1884,6 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
          record: commit.operation === "delete" ? null : JSON.stringify(commit.record),
          indexed_at: now * 1e3
        });
@@ -412,7 +403,7 @@ index eaf0a84..4e42d8f 100644
        if (knownDids && !dependentCollections.has(commit.collection)) {
          if (!knownDids.has(event.did)) {
            knownDids.add(event.did);
-@@ -1911,6 +1907,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1741,6 +1913,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
      if (firstYieldedTimeUs === null) firstYieldedTimeUs = event.time_us;
      lastYieldedTimeUs = event.time_us;
      handleEvent(event);
@@ -425,7 +416,7 @@ index eaf0a84..4e42d8f 100644
      if (event.time_us >= startTimeUs) {
        log.log(
          `[ingest] caught up to present, stopping (last time_us=${event.time_us}, startTimeUs=${startTimeUs})`
-@@ -1926,11 +1928,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1756,11 +1934,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
        `[ingest] ${filteredUnknownDid} events filtered (unknown did). sample dids: ${sample}`
      );
    }
@@ -441,7 +432,80 @@ index eaf0a84..4e42d8f 100644
    );
    if (cursorGap !== null && cursorGap > 1e3) {
      log.warn(
-@@ -5738,6 +5741,7 @@ export {
+@@ -2935,26 +3114,48 @@ async function resolveProfiles(db, config, dids) {
+   }
+   return result;
+ }
++var PROFILE_NOT_FOUND_RETRY_MS = 24 * 60 * 60 * 1e3;
++var PROFILE_ERROR_RETRY_MS = 60 * 60 * 1e3;
++var PROFILE_FETCH_TIMEOUT_MS = 3e3;
+ async function fetchMissingProfiles(db, config, dids) {
+   const result = {};
+   const profileConfigs = config.profiles.map(types_exports.normalizeProfileConfig);
++  const recentMisses = await batchedInQuery(
++    db,
++    `SELECT did, collection FROM profile_misses WHERE retry_after > ? AND did IN (__IN__)`,
++    [Date.now()],
++    dids
++  );
++  const skip = new Set(recentMisses.map((row) => `${row.did}\0${row.collection}`));
++  const misses = [];
+   await Promise.all(
+     dids.flatMap(
+       (did) => profileConfigs.map(async (pc) => {
+         const { collection, rkey: configRkey, shortName } = pc;
++        if (skip.has(`${did}\0${collection}`)) return;
++        const miss = (retryMs) => misses.push({ did, collection, retryAfter: Date.now() + retryMs });
+         const rkey = configRkey ?? "self";
+         const table = (0, types_exports.recordsTableName)(shortName ?? collection);
++        let data;
+         try {
+           const pds = await (0, client_exports.getPDS)(did, db, config);
+-          if (!pds) return;
++          if (!pds) return miss(PROFILE_ERROR_RETRY_MS);
+           const url = new URL("/xrpc/com.atproto.repo.getRecord", pds);
+           url.searchParams.set("repo", did);
+           url.searchParams.set("collection", collection);
+           url.searchParams.set("rkey", rkey);
+-          const res = await fetch(url.toString());
+-          if (!res.ok) return;
+-          const data = await res.json();
+-          if (!data.value || !data.cid) return;
++          const res = await fetch(url.toString(), {
++            signal: AbortSignal.timeout(PROFILE_FETCH_TIMEOUT_MS)
++          });
++          if (!res.ok) {
++            return miss(res.status === 400 || res.status === 404 ? PROFILE_NOT_FOUND_RETRY_MS : PROFILE_ERROR_RETRY_MS);
++          }
++          data = await res.json();
++        } catch {
++          return miss(PROFILE_ERROR_RETRY_MS);
++        }
++        if (!data?.value || !data.cid) return miss(PROFILE_NOT_FOUND_RETRY_MS);
++        try {
+           const uri = data.uri ?? `at://${did}/${collection}/${rkey}`;
+           const record = data.value;
+           const cid = data.cid;
+@@ -2976,6 +3177,18 @@ async function fetchMissingProfiles(db, config, dids) {
+       })
+     )
+   );
++  if (misses.length > 0) {
++    try {
++      await db.batch(
++        misses.map(
++          (m) => db.prepare(
++            "INSERT INTO profile_misses (did, collection, retry_after) VALUES (?, ?, ?) ON CONFLICT(did, collection) DO UPDATE SET retry_after = excluded.retry_after"
++          ).bind(m.did, m.collection, m.retryAfter)
++        )
++      );
++    } catch {
++    }
++  }
+   return result;
+ }
+ 
+@@ -5568,6 +5781,7 @@ export {
    FEED_PRUNE_SWEEP_ACTORS,
    HostedAdapter,
    export_InMemoryPubSub as InMemoryPubSub,
@@ -449,3 +513,11 @@ index eaf0a84..4e42d8f 100644
    OPTIMIZE_LAST_MS_KEY,
    export_RealtimePubSubDO as RealtimePubSubDO,
    export_TicketSigner as TicketSigner,
+@@ -5596,6 +5810,7 @@ export {
+   discoverDIDs,
+   fieldToParam,
+   formatRecord,
++  ftsRowTableName,
+   ftsTableName,
+   getFeedPruneCursor,
+   getLabelerState,
