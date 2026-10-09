@@ -10,8 +10,6 @@ import type {
 import type { Client } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
-export { getServerClient } from '$lib/contrail/index';
-
 export const RSVP_HYDRATE_LIMIT = 20;
 export const RSVP_GOING = 'community.lexicon.calendar.rsvp#going';
 export const RSVP_INTERESTED = 'community.lexicon.calendar.rsvp#interested';

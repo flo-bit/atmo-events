@@ -1,9 +1,9 @@
 import {
 	flattenEventRecord,
 	flattenEventRecords,
-	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';
 import { dedupeByUri } from '$lib/dedupe-by-uri';

@@ -3,13 +3,13 @@ import {
 	flattenEventRecord,
 	flattenEventRecords,
 	getHostProfile,
-	getServerClient,
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail,
 	withD1Retry,
 	type ActivityCluster,
 	type HostProfile
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
 import { getSpacesClient } from '$lib/spaces/server/client';
 import { spacesAvailable } from '$lib/spaces/config';

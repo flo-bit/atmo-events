@@ -1,5 +1,6 @@
 import type { Did } from '@atcute/lexicons';
-import { getProfileFromContrail, getProfileBlobUrl, getServerClient } from '$lib/contrail';
+import { getProfileFromContrail, getProfileBlobUrl } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 
 export async function loadProfile(did: Did, db: D1Database) {
 	try {

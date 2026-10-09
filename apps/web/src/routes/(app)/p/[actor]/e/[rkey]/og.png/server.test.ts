@@ -11,8 +11,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // ImageResponse renderer -- the 200 path builds a real PNG response so we're
 // asserting the library's actual header-spread behaviour. Precedent:
 // src/routes/(app)/topics/[slug]/page.server.test.ts.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	getEventRecordFromContrail: vi.fn(),
 	flattenEventRecord: vi.fn()
 }));

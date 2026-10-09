@@ -1,4 +1,4 @@
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { eventsQuery } from '$lib/contrail/queries';
 import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
 import { rawForQuery } from '$lib/contrail/cursor';

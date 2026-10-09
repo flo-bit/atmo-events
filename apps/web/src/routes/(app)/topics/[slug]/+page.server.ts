@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { getTopicBySlug, orQueryFromSlug } from '$lib/topics';
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { topicQuery } from '$lib/contrail/queries';
 import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
 import { rawForQuery } from '$lib/contrail/cursor';

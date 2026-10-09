@@ -8,8 +8,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('$lib/actor', () => ({
 	getActor: vi.fn(async () => 'did:plc:alice')
 }));
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	getProfileFromContrail: vi.fn(async () => ({})),
 	listAuthoredEventsFromContrail: vi.fn(),

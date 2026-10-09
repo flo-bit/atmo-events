@@ -2,10 +2,10 @@ import { getActor } from '$lib/actor';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
-	getServerClient,
 	listAttendingEventsFromContrail,
 	listAuthoredEventsFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
 import { hasEnded } from '$lib/past-events';
 import { getSpacesClient } from '$lib/spaces/server/client';

@@ -1,6 +1,7 @@
 import { json, error } from '@sveltejs/kit';
 import { getActor } from '$lib/actor';
-import { getEventRecordFromContrail, getServerClient } from '$lib/contrail';
+import { getEventRecordFromContrail } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 
 export async function GET({ params, platform }) {
 	const client = getServerClient(platform!.env.DB);
