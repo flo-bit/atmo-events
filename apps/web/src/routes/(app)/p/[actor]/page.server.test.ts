@@ -5,8 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // so a band failure must degrade to an empty band rather than reject and turn a
 // valid profile into an error page. The band's own query body is pinned in
 // lib/contrail/ongoing.test.ts.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	getProfileFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn(),
 	listAttendingEventsFromContrail: vi.fn(),

@@ -1,9 +1,9 @@
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
-	getServerClient,
 	listEventRecordsFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { vodFromAtUri, type VodRecord } from '$lib/vods';
 
 export async function load({ locals, platform }) {

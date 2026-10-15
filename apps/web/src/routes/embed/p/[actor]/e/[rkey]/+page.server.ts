@@ -5,9 +5,9 @@ import {
 	getEventRecordFromContrail,
 	getHostProfile,
 	getRsvpStatus,
-	getServerClient,
 	getViewerRsvpFromContrail
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
 export async function load({ params, url, platform }) {

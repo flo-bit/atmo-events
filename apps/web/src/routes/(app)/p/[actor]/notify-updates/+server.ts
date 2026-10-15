@@ -2,7 +2,7 @@ import { error, json } from '@sveltejs/kit';
 import { getActor } from '$lib/actor';
 import { isActorIdentifier, type ResourceUri } from '@atcute/lexicons/syntax';
 import type { Did } from '@atcute/lexicons';
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { listRecords } from '$lib/atproto/methods';
 
 export async function GET({ params, platform }) {

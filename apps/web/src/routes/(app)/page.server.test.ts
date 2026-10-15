@@ -5,8 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // degrade to an empty band rather than reject and take the whole home page down.
 // The route already states the converse — the band survives a failed discovery
 // read — and this pins the other direction.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({ get: vi.fn(async () => ({ ok: false })) }))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({ get: vi.fn(async () => ({ ok: false })) })),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listEventRecordsFromContrail: vi.fn(),
 	getHostProfile: vi.fn(),

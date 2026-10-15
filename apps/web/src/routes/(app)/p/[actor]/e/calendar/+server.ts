@@ -7,10 +7,10 @@ import {
 	buildEventAttendees,
 	flattenEventRecords,
 	getHostProfile,
-	getServerClient,
 	listEventRecordsFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 
 export async function GET({ params, platform }) {
 	if (!isActorIdentifier(params.actor)) {

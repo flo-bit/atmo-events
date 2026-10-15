@@ -5,8 +5,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // an inbound ?cursor= may be resumed. This page is the destination every capped
 // "happening now" block links to, so the property that matters most is that it
 // caps NOTHING: no per-host limit, no ceiling, just a page of the whole set.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()

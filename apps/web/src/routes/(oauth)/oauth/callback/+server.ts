@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { createOAuthClient } from '$lib/atproto/server/oauth';
 import { setSignedCookie } from '$lib/atproto/server/signed-cookie';
 import { scopes } from '$lib/atproto/settings';
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { dev } from '$app/environment';
 import type { RequestHandler } from './$types';
 

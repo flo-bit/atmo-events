@@ -1,5 +1,6 @@
 import { getActor } from '$lib/actor';
-import { getProfileFromContrail, getServerClient } from '$lib/contrail';
+import { getProfileFromContrail } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { hostingQuery } from '$lib/contrail/queries';
 import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
 import { rawForQuery } from '$lib/contrail/cursor';

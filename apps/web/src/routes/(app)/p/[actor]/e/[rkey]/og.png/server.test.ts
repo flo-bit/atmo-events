@@ -2,8 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { testBucket, testDb } from '$lib/server/og/testing';
 
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	getEventRecordFromContrail: vi.fn(),
 	flattenEventRecord: vi.fn()
 }));

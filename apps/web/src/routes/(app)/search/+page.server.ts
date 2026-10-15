@@ -1,4 +1,4 @@
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { EMPTY_PAGE, searchD1Query, searchMeiliQuery } from '$lib/contrail/queries';
 import {
 	ongoingQuery,

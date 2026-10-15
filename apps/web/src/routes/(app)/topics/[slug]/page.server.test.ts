@@ -4,8 +4,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // query it runs, the slug it records in the emitted envelope, and whether an
 // inbound ?cursor= may be resumed. $lib/topics is left REAL so the OR-search is
 // derived from the slug for real rather than stubbed.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()

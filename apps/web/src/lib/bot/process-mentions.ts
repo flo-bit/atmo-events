@@ -1,5 +1,5 @@
 import type { Did } from '@atcute/lexicons';
-import { getServerClient } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import { MAX_MENTIONS_PER_RUN, NOTIF_LIMIT, REPLIES } from './config';
 import { getBotHandle, type BotHandle } from './session';
 import {

@@ -6,8 +6,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // pin which backend serves the page, that the emitted envelope names it, and that
 // no inbound ?cursor= is ever resumed here (the term rides ?q=, not the
 // envelope).
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn()
 }));

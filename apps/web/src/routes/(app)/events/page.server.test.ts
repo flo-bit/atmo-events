@@ -4,8 +4,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // from ?filter= and records in the emitted envelope, and whether an inbound
 // ?cursor= may be resumed. The query body it calls — discoverable, upcoming, asc
 // — is pinned in lib/contrail/events-load-more.test.ts.
+vi.mock('$lib/contrail/index', () => ({
+	getServerClient: vi.fn(() => ({}))
+}));
 vi.mock('$lib/contrail', () => ({
-	getServerClient: vi.fn(() => ({})),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()

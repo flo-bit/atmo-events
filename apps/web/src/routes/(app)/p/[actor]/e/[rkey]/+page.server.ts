@@ -8,13 +8,13 @@ import {
 	getProfileBlobUrl,
 	getProfileFromContrail,
 	getRsvpStatus,
-	getServerClient,
 	getViewerRsvpFromContrail,
 	listConferenceTalksFromContrail,
 	listEventAttendeesFromContrail,
 	withD1Retry,
 	RSVP_HYDRATE_LIMIT
 } from '$lib/contrail';
+import { getServerClient } from '$lib/contrail/index';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '$lib/vods';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/events-ui/conference';
