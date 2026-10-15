@@ -71,6 +71,11 @@ declare global {
 				COOKIE_SECRET: string;
 				OAUTH_PUBLIC_URL: string;
 				DB: D1Database;
+				ASSETS?: Fetcher;
+				OG_IMAGES?: R2Bucket;
+				OG_DAILY_GENERATION_LIMIT?: string;
+				OG_CYCLE_GENERATION_LIMIT?: string;
+				OG_BILLING_CYCLE_START_DAY?: string;
 				CRON_SECRET: string;
 				/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
 				BOT_IDENTIFIER?: string;
