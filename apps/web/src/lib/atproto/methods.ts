@@ -370,11 +370,13 @@ export async function getBlobURL({
 
 /**
  * Constructs a Bluesky CDN URL for an image blob.
+ * `feed_thumbnail` is at most 1000px; `avatar_thumbnail` is a 128px square crop.
  */
 export function getCDNImageBlobUrl({
 	did,
 	blob,
-	format = 'webp'
+	format = 'webp',
+	preset = 'feed_thumbnail'
 }: {
 	did?: string;
 	blob: {
@@ -384,10 +386,11 @@ export function getCDNImageBlobUrl({
 		};
 	};
 	format?: 'webp' | 'jpeg' | 'png';
+	preset?: 'feed_thumbnail' | 'avatar_thumbnail';
 }) {
 	did ??= user.did ?? undefined;
 
-	return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${blob.ref.$link}@${format}`;
+	return `https://cdn.bsky.app/img/${preset}/plain/${did}/${blob.ref.$link}@${format}`;
 }
 
 /**

@@ -5,23 +5,24 @@
 		name,
 		dateStr,
 		thumbnailUrl,
+		backgroundUrl = null,
 		rkey
 	}: {
 		name: string;
 		dateStr: string;
 		thumbnailUrl: string | null;
+		/** Smaller source for the blurred backdrop; defaults to the thumbnail. */
+		backgroundUrl?: string | null;
 		rkey: string;
 	} = $props();
 </script>
 
-<div
-	class="relative flex h-full w-full p-0 bg-black"
->
+<div class="relative flex h-full w-full bg-black p-0">
 	{#if thumbnailUrl}
 		<img
-			src={thumbnailUrl}
+			src={backgroundUrl ?? thumbnailUrl}
 			alt=""
-			class="absolute inset-0 w-full h-full bg-black"
+			class="absolute inset-0 h-full w-full bg-black"
 			style="object-fit: cover; filter: blur(64px);"
 			width="400"
 			height="210"
