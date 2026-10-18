@@ -14,6 +14,14 @@ The public URL remains `/p/[actor]/e/[rkey]/og.png`. Both blur effects are uncha
 
 The public event image retains `max-age=300, s-maxage=3600, stale-while-revalidate=86400`. The internal versioned edge entry has a 24-hour TTL. Static fallbacks have a 60-second TTL and **no event ETag**. Social platforms may maintain their own caches beyond these headers.
 
+## Rendering performance
+
+Never put image data URIs into the markup string. `satori-html` (used by `@ethercorps/sveltekit-og` to parse markup) is superlinear in markup length. Inline thumbnails made parsing alone take 1–35+ s of CPU, and large PNG thumbnails exceeded the 30 s Worker CPU limit. Those invocations died silently: no log, no stored image, a stale lease, and a spent quota attempt.
+
+`markup.ts` renders the template with short placeholder `src` values, parses it, then inserts the data URIs into the parsed tree. HTML entities are decoded after parsing, so event text can never become markup. `ImageResponse` accepts the pre-built tree through `patches/@ethercorps__sveltekit-og@4.2.1.patch`; re-check that patch when upgrading the library.
+
+Thumbnails are fetched as JPEG `feed_thumbnail` (≤1000px). The blurred backdrop uses the 128px `avatar_thumbnail` (a center crop, invisible under the 64px blur) and falls back to the thumbnail. Locally, a 1000×1000 thumbnail card takes ~1.3 s CPU, down from ~38 s.
+
 ## Quotas and failure handling
 
 Configured in `wrangler.jsonc`:

@@ -9,6 +9,7 @@ import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
 import { imageVersion, serveOgImage } from '$lib/server/og/cache';
 import { ogFonts } from '$lib/server/og/fonts';
+import { buildOgTree, IMAGE_PLACEHOLDERS } from '$lib/server/og/markup';
 import { loadThumbnail } from '$lib/server/og/thumbnail';
 import type { RequestHandler } from './$types';
 
@@ -63,29 +64,36 @@ export const GET: RequestHandler = async ({ params, platform, request, fetch: lo
 		},
 		render: async () => {
 			const dateStr = formatDate(eventData.startsAt, eventData.timezone);
-			let thumbnailUrl: string | null = null;
-			if (eventData.media && eventData.media.length > 0) {
-				const media =
-					eventData.media.find((m) => m.role === 'thumbnail') ??
-					eventData.media.find((m) => m.role === 'header');
-				if (media?.content) {
-					const url = getCDNImageBlobUrl({ did, blob: media.content, format: 'png' });
-					if (url) thumbnailUrl = await loadThumbnail(url);
-				}
+			const images: Record<string, string> = {};
+			const media =
+				eventData.media?.find((m) => m.role === 'thumbnail') ??
+				eventData.media?.find((m) => m.role === 'header');
+			if (media?.content) {
+				// JPEG, not PNG: PNG thumbnails are several times larger for no visible
+				// gain. The blurred backdrop only needs the 128px preset.
+				const blob = media.content;
+				const [thumbnail, background] = await Promise.all([
+					loadThumbnail(getCDNImageBlobUrl({ did, blob, format: 'jpeg' })),
+					loadThumbnail(
+						getCDNImageBlobUrl({ did, blob, format: 'jpeg', preset: 'avatar_thumbnail' })
+					).catch(() => null)
+				]);
+				images[IMAGE_PLACEHOLDERS.thumbnail] = thumbnail;
+				images[IMAGE_PLACEHOLDERS.background] = background ?? thumbnail;
 			}
+			const hasImage = IMAGE_PLACEHOLDERS.thumbnail in images;
 			const { body } = render(EventOgImage, {
-				props: { name: eventData.name.slice(0, 280), dateStr, thumbnailUrl, rkey }
+				props: {
+					name: eventData.name.slice(0, 280),
+					dateStr,
+					thumbnailUrl: hasImage ? IMAGE_PLACEHOLDERS.thumbnail : null,
+					backgroundUrl: hasImage ? IMAGE_PLACEHOLDERS.background : null,
+					rkey
+				}
 			});
-			// satori-html doesn't decode the entities escaped by Svelte SSR.
-			const decoded = body
-				.replace(/&amp;/g, '&')
-				.replace(/&lt;/g, '<')
-				.replace(/&gt;/g, '>')
-				.replace(/&quot;/g, '"')
-				.replace(/&#39;/g, "'");
 			// Consume the stream: generation and persistence must finish BEFORE we
 			// serve the response or release the global generation lease.
-			return new ImageResponse(decoded, {
+			return new ImageResponse(buildOgTree(body, images), {
 				width: 1200,
 				height: 630,
 				debug: false,

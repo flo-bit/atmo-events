@@ -128,6 +128,32 @@ describe('event OG route', () => {
 		).toBe(1);
 	}, 30000);
 
+	it('renders a large thumbnail quickly from JPEG CDN variants', async () => {
+		// ~190 KB of base64 per image. Inlined into the parsed markup (as before),
+		// the thumbnail + backdrop took tens of seconds of CPU to parse.
+		const jpeg = readFileSync('static/topics/sustainability.jpg');
+		const cdn = vi
+			.spyOn(globalThis, 'fetch')
+			.mockImplementation(
+				async () => new Response(jpeg, { headers: { 'Content-Type': 'image/jpeg' } })
+			);
+		mockFlatten.mockReturnValue(
+			flat({
+				media: [{ role: 'thumbnail', content: { $type: 'blob', ref: { $link: 'bafkthumb' } } }]
+			})
+		);
+		const started = performance.now();
+		const res = await GET(evt());
+		const png = await res.arrayBuffer();
+		expect(performance.now() - started).toBeLessThan(10000);
+		expect(res.headers.get('x-og-fallback')).toBeNull();
+		expect([...new Uint8Array(png).slice(0, 4)]).toEqual([137, 80, 78, 71]);
+		expect(cdn.mock.calls.map(([url]) => String(url)).sort()).toEqual([
+			'https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:alice/bafkthumb@jpeg',
+			'https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:alice/bafkthumb@jpeg'
+		]);
+	}, 30000);
+
 	it('returns 304 for matching validators without rendering or spending budget', async () => {
 		const { etag } = await imageVersion('did:plc:alice', flat());
 		for (const validator of [etag, etag.replace('W/', ''), '"old", ' + etag, '*']) {
