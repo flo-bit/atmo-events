@@ -26,19 +26,19 @@ Thumbnails are fetched as JPEG `feed_thumbnail` (≤1000px). The blurred backdro
 
 Configured in `wrangler.jsonc`:
 
-- `OG_DAILY_GENERATION_LIMIT=20` (UTC day).
-- `OG_CYCLE_GENERATION_LIMIT=300` (billing cycle, not calendar month).
+- `OG_DAILY_GENERATION_LIMIT=40` (UTC day).
+- `OG_CYCLE_GENERATION_LIMIT=600` (billing cycle, not calendar month).
 - `OG_BILLING_CYCLE_START_DAY=13` (UTC; supported range 1–28).
 
 Attempts, including failed rendering/PUTs, consume quota. Set either limit to `0` to disable **new generation**, while keeping cached images available. Invalid settings fail closed. Do not reset/delete the budget row in production or during deployment; the schema setup is idempotent and preserves counters.
 
-At the audit's 10-second/render example, 300 attempts correspond to roughly 3 million CPU-ms. This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
+At the audit's 10-second/render example, 600 attempts correspond to roughly 6 million CPU-ms (20% of the 30M monthly allowance). This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
 
 ## Storage and fonts
 
 R2 keys are `og/v2/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
 
-Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. At 300 successful attempts/cycle and 2 MiB/PNG, three cycles of payloads are approximately 1.8 GiB; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
+Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. At 600 successful attempts/cycle and 2 MiB/PNG, three cycles of payloads are at most approximately 3.6 GiB; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
 
 The bundled Noto Sans files are the same regular/bold fonts previously downloaded by `@ethercorps/sveltekit-og` on each render. `fonts.ts` decodes the inline assets once per isolate; no font requests are needed in production. Source: `https://cdn-sveltekit-og.ethercorps.io/NotoSans-{Regular,Bold}.ttf`. Their SIL Open Font License is in `fonts/LICENSE`.
 
