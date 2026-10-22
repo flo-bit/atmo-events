@@ -7,7 +7,7 @@ afterEach(() => {
 });
 
 describe('bounded thumbnail loading', () => {
-	it('hands a data URI to Satori so the renderer does not refetch the image', async () => {
+	it('returns the image bytes so the renderer does not refetch the image', async () => {
 		const fetch = vi.fn(
 			async () =>
 				new Response(Uint8Array.from([1, 2, 3]), {
@@ -15,8 +15,8 @@ describe('bounded thumbnail loading', () => {
 				})
 		);
 		vi.stubGlobal('fetch', fetch);
-		expect(await loadThumbnail('https://cdn.bsky.app/image.png')).toBe(
-			'data:image/png;base64,AQID'
+		expect(await loadThumbnail('https://cdn.bsky.app/image.png')).toEqual(
+			Uint8Array.from([1, 2, 3])
 		);
 		expect(fetch).toHaveBeenCalledTimes(1);
 	});

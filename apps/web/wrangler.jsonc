@@ -20,8 +20,8 @@
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social",
-		"OG_DAILY_GENERATION_LIMIT": "40",
-		"OG_CYCLE_GENERATION_LIMIT": "600",
+		"OG_DAILY_GENERATION_LIMIT": "200",
+		"OG_CYCLE_GENERATION_LIMIT": "3000",
 		"OG_BILLING_CYCLE_START_DAY": "13"
 	},
 	"d1_databases": [

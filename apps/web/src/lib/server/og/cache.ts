@@ -1,7 +1,7 @@
 import { claimGeneration, pruneExpiredLeases, releaseGeneration, type OgBudgetEnv } from './budget';
 
 // Bump whenever layout, fonts, date formatting or image selection changes.
-export const OG_TEMPLATE_VERSION = 'v2';
+export const OG_TEMPLATE_VERSION = 'v3';
 export const OG_CACHE_CONTROL = 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400';
 export const MAX_PNG_BYTES = 2 * 1024 * 1024;
 

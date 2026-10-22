@@ -111,7 +111,7 @@ describe('event OG route', () => {
 		expect(res.headers.get('cache-control')).toBe(
 			'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400'
 		);
-		expect(res.headers.get('etag')).toMatch(/^W\/"v2-/);
+		expect(res.headers.get('etag')).toMatch(/^W\/"v3-/);
 		// Unlike the old test, await the renderer's entire stream and inspect PNG.
 		const png = await res.arrayBuffer();
 		expect([...new Uint8Array(png).slice(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -129,8 +129,8 @@ describe('event OG route', () => {
 	}, 30000);
 
 	it('renders a large thumbnail quickly from JPEG CDN variants', async () => {
-		// ~190 KB of base64 per image. Inlined into the parsed markup (as before),
-		// the thumbnail + backdrop took tens of seconds of CPU to parse.
+		// Inlined as base64 into the old Satori markup, an image this size took
+		// tens of seconds of CPU to parse. Takumi receives the raw bytes.
 		const jpeg = readFileSync('static/topics/sustainability.jpg');
 		const cdn = vi
 			.spyOn(globalThis, 'fetch')
@@ -145,13 +145,32 @@ describe('event OG route', () => {
 		const started = performance.now();
 		const res = await GET(evt());
 		const png = await res.arrayBuffer();
-		expect(performance.now() - started).toBeLessThan(10000);
+		expect(performance.now() - started).toBeLessThan(5000);
 		expect(res.headers.get('x-og-fallback')).toBeNull();
 		expect([...new Uint8Array(png).slice(0, 4)]).toEqual([137, 80, 78, 71]);
 		expect(cdn.mock.calls.map(([url]) => String(url)).sort()).toEqual([
 			'https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:alice/bafkthumb@jpeg',
 			'https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:alice/bafkthumb@jpeg'
 		]);
+	}, 30000);
+
+	it('renders the generated-avatar card without network access', async () => {
+		const network = vi.spyOn(globalThis, 'fetch');
+		const res = await GET(evt());
+		const png = await res.arrayBuffer();
+		expect(res.headers.get('x-og-fallback')).toBeNull();
+		const view = new DataView(png);
+		expect([view.getUint32(16), view.getUint32(20)]).toEqual([1200, 630]);
+		expect(network).not.toHaveBeenCalled();
+	}, 30000);
+
+	it('renders HTML in an event name as text, never as markup', async () => {
+		const network = vi.spyOn(globalThis, 'fetch');
+		mockFlatten.mockReturnValue(flat({ name: '<img src="https://evil.test/x"> & <b>bold</b>' }));
+		const res = await GET(evt());
+		await res.arrayBuffer();
+		expect(res.headers.get('x-og-fallback')).toBeNull();
+		expect(network).not.toHaveBeenCalled();
 	}, 30000);
 
 	it('returns 304 for matching validators without rendering or spending budget', async () => {
