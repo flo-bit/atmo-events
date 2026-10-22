@@ -1,6 +1,6 @@
 {
 	"name": "@atmo-dev/events-ui",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Svelte components for atmo events (EventView, EventEditor, EventCard).",
 	"license": "MIT",
 	"type": "module",
