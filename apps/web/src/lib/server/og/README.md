@@ -14,33 +14,38 @@ The public URL remains `/p/[actor]/e/[rkey]/og.png`. Both blur effects are uncha
 
 The public event image retains `max-age=300, s-maxage=3600, stale-while-revalidate=86400`. The internal versioned edge entry has a 24-hour TTL. Static fallbacks have a 60-second TTL and **no event ETag**. Social platforms may maintain their own caches beyond these headers.
 
-## Rendering performance
+## Rendering
 
-Never put image data URIs into the markup string. `satori-html` (used by `@ethercorps/sveltekit-og` to parse markup) is superlinear in markup length. Inline thumbnails made parsing alone take 1–35+ s of CPU, and large PNG thumbnails exceeded the 30 s Worker CPU limit. Those invocations died silently: no log, no stored image, a stale lease, and a spent quota attempt.
+Cards are rendered by [Takumi](https://takumi.kane.tw) (`@takumi-rs/wasm` + `@takumi-rs/helpers`, both pinned to an exact version) in `takumi.ts`. The template is Svelte SSR markup; Tailwind classes are mapped to Takumi's `tw` attribute. Images are passed to the renderer as raw bytes keyed by short placeholder `src` values, never inlined as base64 (the previous Satori pipeline's HTML parser was superlinear in markup length, and large inline thumbnails exceeded the 30 s Worker CPU limit, dying silently).
 
-`markup.ts` renders the template with short placeholder `src` values, parses it, then inserts the data URIs into the parsed tree. HTML entities are decoded after parsing, so event text can never become markup. `ImageResponse` accepts the pre-built tree through `patches/@ethercorps__sveltekit-og@4.2.1.patch`; re-check that patch when upgrading the library.
+- **Thumbnails:** JPEG `feed_thumbnail` (≤1000px) for the card, the 128px `avatar_thumbnail` for the backdrop, blurred natively.
+- **No thumbnail:** the generated avatar SVG is rasterized once at 128px and stretched for both the backdrop and the card. Its built-in SVG blur costs ~10× more at card size.
+- **Memory:** a renderer keeps every distinct SVG it rasterizes, so `withOgRenderer` creates a fresh one per card and frees it. The exported `Renderer` ignores constructor options, so its cache can't be disabled instead.
+- **Untrusted text:** keep event text out of HTML attributes. Takumi's parser ends a tag at the first `>` even inside quotes, and Svelte doesn't escape `>` in attribute values. `template.test.ts` guards this.
+- **Text:** HTML characters (`&`, `<`, quotes) render as typed. Noto Sans covers Latin, Greek and Cyrillic. Emoji become Twemoji SVGs (jsDelivr), fetched with the thumbnail bounds, at most 16 per card. An emoji Twemoji doesn't have (404) is left blank; any other failure fails the render, so the static fallback is served and a later request retries rather than storing a card with a missing emoji. CJK, Arabic and other scripts have no font and render as boxes (as with the old renderer); about 30 of ~93,000 event names are affected.
+- **Loading:** in workerd the WASM is imported as a module (`takumi-wasm.workerd.ts`, emitted by `unwasm` in `vite.config.ts`); in Node (dev, tests) it is read from the package.
 
-Thumbnails are fetched as JPEG `feed_thumbnail` (≤1000px). The blurred backdrop uses the 128px `avatar_thumbnail` (a center crop, invisible under the 64px blur) and falls back to the thumbnail. Locally, a 1000×1000 thumbnail card takes ~1.3 s CPU, down from ~38 s.
+Locally, a card takes ~60–90 ms CPU warm and ~0.2–0.3 s cold, down from ~1.3–1.9 s with Satori.
 
 ## Quotas and failure handling
 
 Configured in `wrangler.jsonc`:
 
-- `OG_DAILY_GENERATION_LIMIT=40` (UTC day).
-- `OG_CYCLE_GENERATION_LIMIT=600` (billing cycle, not calendar month).
+- `OG_DAILY_GENERATION_LIMIT=200` (UTC day).
+- `OG_CYCLE_GENERATION_LIMIT=3000` (billing cycle, not calendar month).
 - `OG_BILLING_CYCLE_START_DAY=13` (UTC; supported range 1–28).
 
 Attempts, including failed rendering/PUTs, consume quota. Set either limit to `0` to disable **new generation**, while keeping cached images available. Invalid settings fail closed. Do not reset/delete the budget row in production or during deployment; the schema setup is idempotent and preserves counters.
 
-At the audit's 10-second/render example, 600 attempts correspond to roughly 6 million CPU-ms (20% of the 30M monthly allowance). This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
+At an estimated 0.2–0.8 s CPU per Takumi render (measured locally; check production analytics), 3,000 attempts correspond to roughly 0.6–2.4 million CPU-ms (2–8% of the 30M monthly allowance). Real demand was ~40 new cards/day in October 2026. This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
 
 ## Storage and fonts
 
-R2 keys are `og/v2/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
+R2 keys are `og/v3/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
 
-Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. At 600 successful attempts/cycle and 2 MiB/PNG, three cycles of payloads are at most approximately 3.6 GiB; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
+Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. Cards average ~150–350 KB (capped at 2 MiB), so a fully used 3,000-render cycle is ~1 GB and 90 days of retention ~3 GB, within R2's 10 GB allowance shared with other buckets; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
 
-The bundled Noto Sans files are the same regular/bold fonts previously downloaded by `@ethercorps/sveltekit-og` on each render. `fonts.ts` decodes the inline assets once per isolate; no font requests are needed in production. Source: `https://cdn-sveltekit-og.ethercorps.io/NotoSans-{Regular,Bold}.ttf`. Their SIL Open Font License is in `fonts/LICENSE`.
+The bundled Noto Sans regular/bold fonts are registered with each renderer. `fonts.ts` decodes the inline assets once per isolate; no font requests are needed in production. Source: `https://cdn-sveltekit-og.ethercorps.io/NotoSans-{Regular,Bold}.ttf`. Their SIL Open Font License is in `fonts/LICENSE`.
 
 ## Infrastructure setup after review
 

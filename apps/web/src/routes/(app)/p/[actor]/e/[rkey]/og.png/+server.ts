@@ -1,17 +1,22 @@
 import { getCDNImageBlobUrl } from '$lib/atproto/methods.js';
-import { ImageResponse } from '@ethercorps/sveltekit-og';
 import { error } from '@sveltejs/kit';
 import EventOgImage from './EventOgImage.svelte';
+import Avatar from './avatars';
 import { getActor } from '$lib/actor';
 import { flattenEventRecord, getEventRecordFromContrail } from '$lib/contrail';
 import { getServerClient } from '$lib/contrail/index';
 import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
 import { imageVersion, serveOgImage } from '$lib/server/og/cache';
-import { ogFonts } from '$lib/server/og/fonts';
-import { buildOgTree, IMAGE_PLACEHOLDERS } from '$lib/server/og/markup';
+import { IMAGE_PLACEHOLDERS, withOgRenderer } from '$lib/server/og/takumi';
 import { loadThumbnail } from '$lib/server/og/thumbnail';
 import type { RequestHandler } from './$types';
+
+const CARD = { width: 1200, height: 630 };
+// The avatar is mostly SVG blur, which costs ~10x more at card size. Rasterize
+// it small once and let the card stretch it; blurred shapes upscale invisibly.
+const AVATAR_PX = 128;
+const AVATAR_COLORS = ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'];
 
 function formatDate(dateStr: string, tz: string | undefined): string {
 	const weekday = formatInTz(dateStr, tz, { weekday: 'long' });
@@ -64,42 +69,63 @@ export const GET: RequestHandler = async ({ params, platform, request, fetch: lo
 		},
 		render: async () => {
 			const dateStr = formatDate(eventData.startsAt, eventData.timezone);
-			const images: Record<string, string> = {};
 			const media =
 				eventData.media?.find((m) => m.role === 'thumbnail') ??
 				eventData.media?.find((m) => m.role === 'header');
-			if (media?.content) {
-				// JPEG, not PNG: PNG thumbnails are several times larger for no visible
-				// gain. The blurred backdrop only needs the 128px preset.
-				const blob = media.content;
-				const [thumbnail, background] = await Promise.all([
-					loadThumbnail(getCDNImageBlobUrl({ did, blob, format: 'jpeg' })),
-					loadThumbnail(
-						getCDNImageBlobUrl({ did, blob, format: 'jpeg', preset: 'avatar_thumbnail' })
-					).catch(() => null)
-				]);
-				images[IMAGE_PLACEHOLDERS.thumbnail] = thumbnail;
-				images[IMAGE_PLACEHOLDERS.background] = background ?? thumbnail;
-			}
-			const hasImage = IMAGE_PLACEHOLDERS.thumbnail in images;
-			const { body } = render(EventOgImage, {
-				props: {
-					name: eventData.name.slice(0, 280),
-					dateStr,
-					thumbnailUrl: hasImage ? IMAGE_PLACEHOLDERS.thumbnail : null,
-					backgroundUrl: hasImage ? IMAGE_PLACEHOLDERS.background : null,
-					rkey
+			// JPEG, not PNG: PNG thumbnails are several times larger for no visible
+			// gain. The blurred backdrop only needs the 128px preset.
+			const photo = media?.content
+				? await Promise.all([
+						loadThumbnail(getCDNImageBlobUrl({ did, blob: media.content, format: 'jpeg' })),
+						loadThumbnail(
+							getCDNImageBlobUrl({
+								did,
+								blob: media.content,
+								format: 'jpeg',
+								preset: 'avatar_thumbnail'
+							})
+						).catch(() => null)
+					])
+				: null;
+			const png = await withOgRenderer(async (renderer) => {
+				let images: Record<string, Uint8Array>;
+				if (photo) {
+					const [card, background] = photo;
+					images = {
+						[IMAGE_PLACEHOLDERS.card]: card,
+						[IMAGE_PLACEHOLDERS.background]: background ?? card
+					};
+				} else {
+					const svg = render(Avatar, {
+						props: {
+							size: AVATAR_PX,
+							name: rkey,
+							variant: 'marble',
+							colors: AVATAR_COLORS,
+							square: true
+						}
+					}).body.replace(/<!--.*?-->/g, '');
+					const avatar = await renderer.renderHtml(
+						`<img src="${IMAGE_PLACEHOLDERS.avatar}" style="width:${AVATAR_PX}px;height:${AVATAR_PX}px" />`,
+						{ width: AVATAR_PX, height: AVATAR_PX },
+						{ [IMAGE_PLACEHOLDERS.avatar]: new TextEncoder().encode(svg) }
+					);
+					images = { [IMAGE_PLACEHOLDERS.card]: avatar, [IMAGE_PLACEHOLDERS.background]: avatar };
 				}
+				const { body } = render(EventOgImage, {
+					props: {
+						name: eventData.name.slice(0, 280),
+						dateStr,
+						cardImage: IMAGE_PLACEHOLDERS.card,
+						backgroundImage: IMAGE_PLACEHOLDERS.background,
+						blurBackground: Boolean(photo)
+					}
+				});
+				return renderer.renderHtml(body, CARD, images);
 			});
-			// Consume the stream: generation and persistence must finish BEFORE we
-			// serve the response or release the global generation lease.
-			return new ImageResponse(buildOgTree(body, images), {
-				width: 1200,
-				height: 630,
-				debug: false,
-				format: 'png',
-				fonts: ogFonts()
-			}).arrayBuffer();
+			// Rendering and persistence finish BEFORE we serve the response or
+			// release the global generation lease.
+			return png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) as ArrayBuffer;
 		}
 	});
 };
