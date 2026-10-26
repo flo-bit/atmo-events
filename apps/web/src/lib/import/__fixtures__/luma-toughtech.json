@@ -1,0 +1,49 @@
+{
+	"event": {
+		"cover_url": "https://images.lumacdn.com/uploads/50/f44875b4-827e-411d-b6eb-f2ace58e5d56.png",
+		"end_at": "2026-10-26T23:00:00.000Z",
+		"location_type": "offline",
+		"name": "Tough Tech Week Kickoff",
+		"start_at": "2026-10-26T20:00:00.000Z",
+		"timezone": "America/New_York",
+		"url": "toughtech-6pg5",
+		"geo_address_info": {
+			"mode": "obfuscated",
+			"city": "Boston",
+			"city_state": "Boston, MA",
+			"sublocality": "Downtown",
+			"country": "United States",
+			"country_code": "US",
+			"region": "Massachusetts",
+			"region_short": "MA"
+		}
+	},
+	"description_mirror": {
+		"type": "doc",
+		"content": [
+			{
+				"type": "paragraph",
+				"content": [
+					{
+						"text": "Join us for the official kick off to Tough Tech Week, hosted by Wolf & Company and Foley Hoag! Enjoy drinks, light refreshments, and an evening of networking with founders, innovators, investors, and members of the greater Tough Tech community. Connect with others across the ecosystem, exchange ideas, and build new relationships as we raise a glass to an exciting week ahead.",
+						"type": "text"
+					}
+				]
+			},
+			{
+				"type": "paragraph",
+				"content": [
+					{
+						"text": "*Confirmed registration is required for entry*",
+						"type": "text",
+						"marks": [
+							{
+								"type": "bold"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

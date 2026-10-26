@@ -3,6 +3,22 @@ export const FETCH_HEADERS = {
 	Accept: 'text/html,text/calendar,application/json;q=0.9,*/*;q=0.8'
 };
 
+/** Preserve upstream failures so the API can distinguish blocking from parsing errors. */
+export class UpstreamHttpError extends Error {
+	readonly status: number;
+	readonly hostname: string;
+	readonly retryAfter: string | null;
+
+	constructor(url: string, res: Response) {
+		const hostname = new URL(url).hostname;
+		super(`upstream ${res.status} (${hostname})`);
+		this.name = 'UpstreamHttpError';
+		this.status = res.status;
+		this.hostname = hostname;
+		this.retryAfter = res.headers.get('retry-after');
+	}
+}
+
 export const MAX_BYTES = 2 * 1024 * 1024;
 // 3 MB raw cap → ~4 MB base64. Most event cover images are well under this; we
 // stash the result in sessionStorage on the client, which has its own limits.

@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { fetchImageAsDataUrl, importFromUrl } from '$lib/import';
+import { UpstreamHttpError } from '$lib/import/http';
 
 export async function POST({ request, locals }) {
 	if (!locals.did) {
@@ -42,6 +43,25 @@ export async function POST({ request, locals }) {
 		return json(result);
 	} catch (err) {
 		console.error('import-event failed:', sourceUrl, err);
+		if (err instanceof UpstreamHttpError && err.status === 429) {
+			return json(
+				{
+					error: 'The event provider is temporarily rate-limiting imports. Please try again later.'
+				},
+				{
+					status: 503,
+					headers: err.retryAfter ? { 'retry-after': err.retryAfter } : undefined
+				}
+			);
+		}
+		if (err instanceof UpstreamHttpError && err.status === 403) {
+			return json(
+				{
+					error: 'The event provider blocked the import request. Try a calendar (.ics) URL instead.'
+				},
+				{ status: 502 }
+			);
+		}
 		return json({ error: 'Failed to fetch or parse that URL.' }, { status: 502 });
 	}
 }
