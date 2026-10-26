@@ -1,10 +1,11 @@
 import type { EventImportPrefill } from '$lib/import-event';
 import type { EventImporter, FetchedPage, ImportContext } from './types';
-import { FETCH_HEADERS, MAX_BYTES, readLimited } from './http';
+import { FETCH_HEADERS, MAX_BYTES, readLimited, UpstreamHttpError } from './http';
 import { racoImporter } from './raco';
 import { icalImporter } from './ical';
 import { webpageImporter } from './webpage';
 import { guildImporter } from './guild';
+import { lumaImporter } from './luma';
 
 /**
  * Registry of source-specific importers, tried in order. Put the most specific
@@ -14,6 +15,7 @@ import { guildImporter } from './guild';
 export const importers: EventImporter[] = [
 	racoImporter,
 	guildImporter,
+	lumaImporter,
 	icalImporter,
 	webpageImporter
 ];
@@ -46,7 +48,7 @@ function createImportContext(url: string): ImportContext {
 
 async function fetchPage(url: string): Promise<FetchedPage> {
 	const res = await fetch(url, { headers: FETCH_HEADERS, redirect: 'follow' });
-	if (!res.ok) throw new Error(`upstream ${res.status}`);
+	if (!res.ok) throw new UpstreamHttpError(url, res);
 	const contentType = (res.headers.get('content-type') || '').toLowerCase();
 	const text = await readLimited(res, MAX_BYTES);
 	return { finalUrl: res.url || url, contentType, text };
