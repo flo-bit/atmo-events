@@ -1,12 +1,13 @@
+import { env } from 'cloudflare:workers';
 import { error, json } from '@sveltejs/kit';
-import { getActor } from '$lib/actor';
+import { getActor } from '#lib/actor.js';
 import { isActorIdentifier, type ResourceUri } from '@atcute/lexicons/syntax';
 import type { Did } from '@atcute/lexicons';
-import { getServerClient } from '$lib/contrail/index';
-import { listRecords } from '$lib/atproto/methods';
+import { getServerClient } from '#lib/contrail/index.js';
+import { listRecords } from '@svelte-atproto/oauth/helper';
 
-export async function GET({ params, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function GET({ params }) {
+	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}

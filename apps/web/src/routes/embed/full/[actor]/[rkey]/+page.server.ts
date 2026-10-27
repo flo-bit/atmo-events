@@ -1,6 +1,7 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
-import { getActor } from '$lib/actor';
+import { getActor } from '#lib/actor.js';
 import {
 	flattenEventRecord,
 	getEventRecordFromContrail,
@@ -11,12 +12,12 @@ import {
 	getViewerRsvpFromContrail,
 	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { vodFromAtUri } from '$lib/vods';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { vodFromAtUri } from '#lib/vods.js';
 
-export async function load({ params, url, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params, url }) {
+	const client = getServerClient(env.DB);
 	const { rkey } = params;
 	const did = await getActor(params.actor);
 
@@ -42,8 +43,9 @@ export async function load({ params, url, platform }) {
 			((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
 				| Array<{ id: string; name: string }>
 				| undefined) ?? [];
-		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)
-			?.vodAtUri as string | undefined;
+		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
+			| string
+			| undefined;
 		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 		const viewerDid = url.searchParams.get('did') ?? null;

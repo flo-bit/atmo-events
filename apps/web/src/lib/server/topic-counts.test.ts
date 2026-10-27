@@ -1,6 +1,6 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { TOPICS } from '$lib/topics';
+import { TOPICS } from '#lib/topics.js';
 import { readTopicCounts, refreshTopicCounts, TOPIC_COUNTS_INTERVAL_MS } from './topic-counts';
 
 const NOW = Date.parse('2026-10-28T12:00:00.000Z');

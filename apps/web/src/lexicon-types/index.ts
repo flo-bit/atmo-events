@@ -1,5 +1,3 @@
-export * as AppBskyActorProfile from "./types/app/bsky/actor/profile.js";
-export * as AppBskyGraphFollow from "./types/app/bsky/graph/follow.js";
 export * as CommunityLexiconCalendarEvent from "./types/community/lexicon/calendar/event.js";
 export * as CommunityLexiconCalendarRsvp from "./types/community/lexicon/calendar/rsvp.js";
 export * as CommunityLexiconLocationAddress from "./types/community/lexicon/location/address.js";

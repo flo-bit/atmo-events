@@ -1,15 +1,16 @@
-import { getCDNImageBlobUrl } from '$lib/atproto/methods.js';
+import { env, waitUntil } from 'cloudflare:workers';
+import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
 import { error } from '@sveltejs/kit';
 import EventOgImage from './EventOgImage.svelte';
 import Avatar from './avatars';
-import { getActor } from '$lib/actor';
-import { flattenEventRecord, getEventRecordFromContrail } from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+import { getActor } from '#lib/actor.js';
+import { flattenEventRecord, getEventRecordFromContrail } from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
-import { imageVersion, serveOgImage } from '$lib/server/og/cache';
-import { IMAGE_PLACEHOLDERS, withOgRenderer } from '$lib/server/og/takumi';
-import { loadThumbnail } from '$lib/server/og/thumbnail';
+import { imageVersion, serveOgImage } from '#lib/server/og/cache.js';
+import { IMAGE_PLACEHOLDERS, withOgRenderer } from '#lib/server/og/takumi.js';
+import { loadThumbnail } from '#lib/server/og/thumbnail.js';
 import type { RequestHandler } from './$types';
 
 const CARD = { width: 1200, height: 630 };
@@ -25,14 +26,14 @@ function formatDate(dateStr: string, tz: string | undefined): string {
 	return `${weekday}, ${month} ${day}`;
 }
 
-export const GET: RequestHandler = async ({ params, platform, request, fetch: localFetch }) => {
+export const GET: RequestHandler = async ({ params, request, fetch: localFetch }) => {
 	const { rkey } = params;
 	const did = await getActor(params.actor);
 	if (!did || !rkey) throw error(404, 'Event not found');
 
 	let eventData;
 	try {
-		const client = getServerClient(platform!.env.DB);
+		const client = getServerClient(env.DB);
 		const eventRecord = await getEventRecordFromContrail(client, { did, rkey });
 		eventData = eventRecord ? flattenEventRecord(eventRecord) : null;
 	} catch (e) {
@@ -43,19 +44,19 @@ export const GET: RequestHandler = async ({ params, platform, request, fetch: lo
 
 	const { key, etag } = await imageVersion(did, eventData);
 	return serveOgImage({
-		env: platform!.env,
+		env: env,
 		key,
 		etag,
 		request,
-		waitUntil: platform?.ctx ? (promise) => platform.ctx!.waitUntil(promise) : undefined,
+		waitUntil: waitUntil,
 		fallback: async () => {
 			// Use asset-first delivery, never recurse through the event renderer.
 			// Do not forward the event's conditional headers to the static asset.
 			const assetRequest = new Request(new URL('/og.png', request.url), {
 				method: request.method === 'HEAD' ? 'HEAD' : 'GET'
 			});
-			const asset = platform?.env.ASSETS
-				? await platform.env.ASSETS.fetch(assetRequest)
+			const asset = env.ASSETS
+				? await env.ASSETS.fetch(assetRequest)
 				: await localFetch(assetRequest);
 			if (!asset.ok) throw error(503, 'Preview temporarily unavailable');
 			const headers = new Headers(asset.headers);
@@ -72,18 +73,19 @@ export const GET: RequestHandler = async ({ params, platform, request, fetch: lo
 			const media =
 				eventData.media?.find((m) => m.role === 'thumbnail') ??
 				eventData.media?.find((m) => m.role === 'header');
-			// JPEG, not PNG: PNG thumbnails are several times larger for no visible
-			// gain. The blurred backdrop only needs the 128px preset.
+			// Keep Takumi's JPEG fast path; the library CDN helper defaults to WebP.
+			// The blurred backdrop only needs the 128px preset.
 			const photo = media?.content
 				? await Promise.all([
-						loadThumbnail(getCDNImageBlobUrl({ did, blob: media.content, format: 'jpeg' })),
+						loadThumbnail(
+							getCDNImageBlobUrl({ did, blob: media.content }).replace(/@webp$/, '@jpeg')
+						),
 						loadThumbnail(
 							getCDNImageBlobUrl({
 								did,
 								blob: media.content,
-								format: 'jpeg',
 								preset: 'avatar_thumbnail'
-							})
+							}).replace(/@webp$/, '@jpeg')
 						).catch(() => null)
 					])
 				: null;

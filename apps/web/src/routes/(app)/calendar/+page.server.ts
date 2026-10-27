@@ -1,17 +1,18 @@
+import { env } from 'cloudflare:workers';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
 	listEventRecordsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { dedupeByUri } from '$lib/dedupe-by-uri';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.did) {
 		return { pageTitle: 'Calendar', upcoming: [], past: [], loggedIn: false };
 	}
-	const client = getServerClient(platform!.env.DB);
+	const client = getServerClient(env.DB);
 
 	const [rsvpResponse, hostingResponse] = await Promise.all([
 		client.get('rsvp.atmo.rsvp.listRecords', {

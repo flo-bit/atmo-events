@@ -161,7 +161,9 @@ describe('decodeCursor fail-safe (never throws, returns null on anything bad)', 
 
 	it('returns null for mistyped args', () => {
 		expect(decodeCursor(craft({ v: 1, q: 'events', args: 'nope', raw: 'x' }))).toBeNull();
-		expect(decodeCursor(craft({ v: 1, q: 'events', args: { popular: 'yes' }, raw: 'x' }))).toBeNull();
+		expect(
+			decodeCursor(craft({ v: 1, q: 'events', args: { popular: 'yes' }, raw: 'x' }))
+		).toBeNull();
 		expect(decodeCursor(craft({ v: 1, q: 'hosting', args: { actor: 42 }, raw: 'x' }))).toBeNull();
 	});
 

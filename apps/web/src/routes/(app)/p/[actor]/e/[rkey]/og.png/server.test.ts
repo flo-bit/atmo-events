@@ -1,15 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { testBucket, testDb } from '$lib/server/og/testing';
+import { env } from 'cloudflare:workers';
+import { testBucket, testDb } from '#lib/server/og/testing.js';
 
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	getEventRecordFromContrail: vi.fn(),
 	flattenEventRecord: vi.fn()
 }));
-vi.mock('$lib/actor', () => ({ getActor: vi.fn() }));
+vi.mock('#lib/actor.js', () => ({ getActor: vi.fn() }));
 vi.mock('@atmo-dev/events-ui', () => ({
 	formatInTz: (date: string, _tz: string | undefined, opts: Intl.DateTimeFormatOptions) =>
 		new Intl.DateTimeFormat('en-US', { ...opts, timeZone: 'UTC' }).format(new Date(date)),
@@ -22,9 +23,9 @@ vi.mock('@atmo-dev/events-ui', () => ({
 }));
 
 import { GET, HEAD } from './+server';
-import { getActor } from '$lib/actor';
-import { getEventRecordFromContrail, flattenEventRecord } from '$lib/contrail';
-import { imageVersion } from '$lib/server/og/cache';
+import { getActor } from '#lib/actor.js';
+import { getEventRecordFromContrail, flattenEventRecord } from '#lib/contrail.js';
+import { imageVersion } from '#lib/server/og/cache.js';
 
 const mockGetActor = vi.mocked(getActor);
 const mockGetEventRecord = vi.mocked(getEventRecordFromContrail);
@@ -61,30 +62,23 @@ function evt(
 		method: opts.method ?? 'GET',
 		headers: opts.ifNoneMatch ? { 'If-None-Match': opts.ifNoneMatch } : undefined
 	});
-	return {
-		params: { actor, rkey },
-		url,
-		request,
-		platform: {
-			env: {
-				DB: database.db,
-				OG_IMAGES: storage.bucket,
-				OG_DAILY_GENERATION_LIMIT: opts.disabled ? '0' : '20',
-				ASSETS: {
-					fetch: vi.fn(
-						async (request: Request) =>
-							new Response(request.method === 'HEAD' ? null : staticPng, {
-								headers: {
-									'Content-Type': 'image/png',
-									ETag: '"static"',
-									'Cache-Control': 'immutable'
-								}
-							})
-					)
-				}
-			}
+	Object.assign(env, {
+		DB: database.db,
+		OG_IMAGES: storage.bucket,
+		OG_DAILY_GENERATION_LIMIT: opts.disabled ? '0' : '20',
+		ASSETS: {
+			fetch: vi.fn(async (request: Request) =>
+				new Response(request.method === 'HEAD' ? null : staticPng, {
+					headers: {
+						'Content-Type': 'image/png',
+						ETag: '"static"',
+						'Cache-Control': 'immutable'
+					}
+				})
+			)
 		}
-	} as unknown as Parameters<typeof GET>[0];
+	});
+	return { params: { actor, rkey }, url, request } as unknown as Parameters<typeof GET>[0];
 }
 
 beforeEach(() => {

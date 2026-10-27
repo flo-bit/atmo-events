@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { POST } from './+server';
-import { blockRealFetch, stubFetch, textReply } from '$lib/import/test-support';
+import { blockRealFetch, stubFetch, textReply } from '#lib/import/test-support.js';
 
 blockRealFetch();
 afterEach(() => vi.restoreAllMocks());

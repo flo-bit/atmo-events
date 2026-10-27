@@ -4,7 +4,11 @@
 
 <svelte:head>
 	<style>
-		html, body { height: 100%; margin: 0; }
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+		}
 	</style>
 </svelte:head>
 

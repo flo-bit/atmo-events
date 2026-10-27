@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getProfileBlobUrl } from '$lib/contrail';
-	import { user, logout } from '$lib/atproto/auth.svelte';
-	import UserProfile from '$lib/components/UserProfile.svelte';
+	import { getProfileBlobUrl } from '#lib/contrail.js';
+	import { user, logout } from '#lib/atproto/auth.svelte.js';
+	import UserProfile from '#lib/components/UserProfile.svelte';
 	import { ArrowDown } from '@sketchyicons/svelte';
 	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import DaySchedule from './DaySchedule.svelte';

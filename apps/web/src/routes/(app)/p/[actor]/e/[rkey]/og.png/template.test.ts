@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
-import { IMAGE_PLACEHOLDERS, parseOgHtml } from '$lib/server/og/takumi';
+import { IMAGE_PLACEHOLDERS, parseOgHtml } from '#lib/server/og/takumi.js';
 import EventOgImage from './EventOgImage.svelte';
 
 type TakumiNode = { type: string; text?: string; tw?: string; children?: TakumiNode[] };

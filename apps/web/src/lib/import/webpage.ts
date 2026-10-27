@@ -1,4 +1,4 @@
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 import type { EventImporter } from './types';
 import { FETCH_HEADERS, MAX_BYTES, readLimited } from './http';
 import { extractJsonLdEvent, mapJsonLdEvent } from './jsonld';

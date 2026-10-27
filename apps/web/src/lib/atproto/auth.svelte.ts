@@ -1,7 +1,13 @@
-import { AppBskyActorDefs } from '@atcute/bluesky';
-import type { ActorIdentifier, Did } from '@atcute/lexicons';
+import type { AppBskyActorDefs } from '@atcute/bluesky';
+import type { Did } from '@atcute/lexicons';
 import { page } from '$app/state';
+import {
+	login as oauthLogin,
+	signup as oauthSignup,
+	logout as oauthLogout
+} from '@svelte-atproto/oauth/client';
 import { ALLOW_SIGNUP, REDIRECT_TO_LAST_PAGE_ON_LOGIN } from './settings';
+import { getLoginScopes } from './permissions';
 
 export const user = {
 	get profile() {
@@ -12,64 +18,31 @@ export const user = {
 	},
 	get did() {
 		return (page.data?.did as Did | null) ?? null;
+	},
+	get canPostToBluesky() {
+		return page.data?.canPostToBluesky === true;
 	}
 };
 
-function saveReturnTo() {
-	if (REDIRECT_TO_LAST_PAGE_ON_LOGIN) {
-		document.cookie = `oauth_return_to=${encodeURIComponent(window.location.pathname + window.location.search)};path=/;max-age=600;samesite=lax`;
+export function login(handle: string, options?: { scopes: readonly string[] }) {
+	let normalized = handle.trim().replace(/^@/, '');
+	if (!normalized.startsWith('did:') && !normalized.includes('.') && normalized.length > 3) {
+		normalized += '.bsky.social';
 	}
-}
-
-export async function login(handle: string) {
-	if (handle.startsWith('did:')) {
-		if (handle.length < 6) throw new Error('DID must be at least 6 characters');
-	} else if (handle.includes('.') && handle.length > 3) {
-		handle = (handle.startsWith('@') ? handle.slice(1) : handle) as ActorIdentifier;
-		if (handle.length < 4) throw new Error('Handle must be at least 4 characters');
-	} else if (handle.length > 3) {
-		handle = ((handle.startsWith('@') ? handle.slice(1) : handle) +
-			'.bsky.social') as ActorIdentifier;
-	} else {
-		throw new Error('Please provide a valid handle or DID.');
-	}
-
-	const { oauthLogin } = await import('./server/oauth.remote');
-	const { url } = await oauthLogin({ handle });
-	saveReturnTo();
-	window.location.assign(url);
-
-	// Wait for navigation (prevents UI flash)
-	await new Promise((_resolve, reject) => {
-		window.addEventListener('pageshow', () => reject(new Error('user aborted the login request')), {
-			once: true
-		});
+	return oauthLogin(normalized, {
+		scope: getLoginScopes(options?.scopes),
+		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }
 
-export async function signup() {
+export function signup(options?: { scopes: readonly string[] }) {
 	if (!ALLOW_SIGNUP) throw new Error('Signup is not enabled');
-
-	const { oauthLogin } = await import('./server/oauth.remote');
-	const { url } = await oauthLogin({ signup: true });
-	saveReturnTo();
-	window.location.assign(url);
-
-	await new Promise((_resolve, reject) => {
-		window.addEventListener('pageshow', () => reject(new Error('user aborted the signup request')), {
-			once: true
-		});
+	return oauthSignup({
+		scope: getLoginScopes(options?.scopes),
+		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }
 
-export async function logout() {
-	try {
-		const { oauthLogout } = await import('./server/oauth.remote');
-		await oauthLogout();
-	} catch (e) {
-		console.error('Error logging out:', e);
-	}
-
-	// Full reload to clear server session state
-	window.location.href = '/';
+export function logout() {
+	return oauthLogout();
 }

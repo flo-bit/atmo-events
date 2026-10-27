@@ -9,7 +9,7 @@ import {
 	Volume2,
 	VolumeX
 } from '@sketchyicons/svelte';
-import type { Options } from 'plyr';
+import type Plyr from 'plyr';
 
 const prefix = 'atmo-sketchy-plyr';
 const icons = {
@@ -25,7 +25,7 @@ const icons = {
 };
 
 /** Called in the browser before constructing either video player. */
-export function sketchyPlyrIcons(): Pick<Options, 'iconPrefix' | 'iconUrl' | 'loadSprite'> {
+export function sketchyPlyrIcons(): Pick<Plyr.Options, 'iconPrefix' | 'iconUrl' | 'loadSprite'> {
 	// One local sprite serves every player, without fetching Plyr's stock CDN icons.
 	if (!document.getElementById(prefix)) {
 		const ns = 'http://www.w3.org/2000/svg';

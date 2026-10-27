@@ -4,25 +4,25 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // query it runs, the slug it records in the emitted envelope, and whether an
 // inbound ?cursor= may be resumed. $lib/topics is left REAL so the OR-search is
 // derived from the slug for real rather than stubbed.
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
 // queries.ts imports the search module at load time; the topic query never hits
 // it, so a null-backend stub keeps the import deterministic.
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
 	runEventSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
-import { orQueryFromSlug } from '$lib/topics';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
+import { orQueryFromSlug } from '#lib/topics.js';
 
 const mockListDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
@@ -51,7 +51,7 @@ const bandCall = () =>
 function event(slug: string, cursor?: string) {
 	const url = new URL(`https://atmo.test/topics/${slug}`);
 	if (cursor) url.searchParams.set('cursor', cursor);
-	return { params: { slug }, url, platform: { env: {} } } as unknown as Parameters<typeof load>[0];
+	return { params: { slug }, url } as unknown as Parameters<typeof load>[0];
 }
 
 const run = async (slug: string, cursor?: string) =>

@@ -1,6 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
-
-vi.mock('$app/environment', () => ({ dev: false }));
+import { describe, expect, it } from 'vitest';
 
 import { allowedCollections, collections, scopes } from './settings';
 

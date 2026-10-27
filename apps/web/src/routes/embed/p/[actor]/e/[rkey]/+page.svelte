@@ -4,7 +4,7 @@
 	import { Check, Star, X } from '@sketchyicons/svelte';
 	import { resolve } from '$app/paths';
 	import Avatar from 'svelte-boring-avatars';
-	import { notifyContrailOfUpdate } from '$lib/contrail';
+	import { notifyContrailOfUpdate } from '#lib/contrail.js';
 
 	let { data } = $props();
 

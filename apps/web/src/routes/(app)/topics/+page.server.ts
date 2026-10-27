@@ -1,11 +1,12 @@
-import { dev } from '$app/environment';
-import { ensureInit } from '$lib/contrail/index';
-import { readTopicCounts, refreshTopicCounts } from '$lib/server/topic-counts';
+import { env } from 'cloudflare:workers';
+import { dev } from '$app/env';
+import { ensureInit } from '#lib/contrail/index.js';
+import { readTopicCounts, refreshTopicCounts } from '#lib/server/topic-counts.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ platform }) => {
+export const load: PageServerLoad = async () => {
 	try {
-		const db = platform?.env.DB;
+		const db = env.DB;
 		if (!db) return { pageTitle: 'Browse Topics', topicCounts: null };
 		// Vite does not run scheduled Workers. Bootstrap the local schema/cache
 		// here; the persisted daily gate still prevents repeated calculations.

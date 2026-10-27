@@ -4,11 +4,11 @@ import { render } from 'svelte/server';
 const { user } = vi.hoisted(() => ({
 	user: { isLoggedIn: true, did: 'did:plc:host' }
 }));
-vi.mock('$lib/atproto/auth.svelte', () => ({ user, logout: vi.fn() }));
-vi.mock('$lib/components/CreateEventModal.svelte', () => ({
+vi.mock('#lib/atproto/auth.svelte.js', () => ({ user, logout: vi.fn() }));
+vi.mock('#lib/components/CreateEventModal.svelte', () => ({
 	createEventModalState: { show: vi.fn() }
 }));
-vi.mock('$lib/contrail', () => ({ getProfileBlobUrl: vi.fn() }));
+vi.mock('#lib/contrail.js', () => ({ getProfileBlobUrl: vi.fn() }));
 
 import ProfilePage from './+page.svelte';
 
@@ -17,6 +17,7 @@ function markup() {
 		props: {
 			data: {
 				pageTitle: 'Test Host - Events',
+				canPostToBluesky: false,
 				did: null,
 				profile: null,
 				actor: 'host.example.com',

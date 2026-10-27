@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import {
 	buildAttendee,
 	flattenEventRecord,
@@ -7,10 +8,10 @@ import {
 	listEventRecordsFromContrail,
 	withD1Retry,
 	type ActivityCluster
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { cachedRead } from '$lib/server/edge-cache';
-import { dedupeByUri } from '$lib/dedupe-by-uri';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { cachedRead } from '#lib/server/edge-cache.js';
+import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 import type { PageServerLoad } from './$types';
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -29,8 +30,8 @@ const GLOBAL_CACHE_TTL_S = 60;
  *  social signal). */
 const ACTIVITY_RECENT_EVENT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
-	const publicClient = getServerClient(platform!.env.DB);
+export const load: PageServerLoad = async ({ locals }) => {
+	const publicClient = getServerClient(env.DB);
 	const nowIso = new Date().toISOString();
 
 	const myEventsPromise = (async () => {

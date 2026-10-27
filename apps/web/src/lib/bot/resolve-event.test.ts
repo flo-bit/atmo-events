@@ -5,8 +5,8 @@ const { getEventRecordFromContrail, getPDS } = vi.hoisted(() => ({
 	getEventRecordFromContrail: vi.fn(),
 	getPDS: vi.fn(async () => 'https://pds.example')
 }));
-vi.mock('$lib/contrail', () => ({ getEventRecordFromContrail }));
-vi.mock('$lib/atproto/methods', () => ({ getPDS }));
+vi.mock('#lib/contrail.js', () => ({ getEventRecordFromContrail }));
+vi.mock('@svelte-atproto/oauth/helper', () => ({ getPDS }));
 import { loadEvent } from './resolve-event';
 
 afterEach(() => {

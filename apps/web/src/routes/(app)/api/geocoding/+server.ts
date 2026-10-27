@@ -1,5 +1,6 @@
+import { env } from 'cloudflare:workers';
 import { json } from '@sveltejs/kit';
-import { createGeocoder } from '$lib/search/server/geocoder';
+import { createGeocoder } from '#lib/search/server/geocoder.js';
 
 // Forward-geocode the address-entry form's free-text query. Server-only (auth-
 // gated on the signed-in DID) and routed through the ONE shared createGeocoder
@@ -8,7 +9,7 @@ import { createGeocoder } from '$lib/search/server/geocoder';
 // UA literal here. Returns a normalized { lat, lng, label, address, ... } shape
 // (never the raw upstream object): the key, when configured, is appended inside
 // the Worker and never reaches the browser.
-export async function GET({ url, locals, platform, fetch }) {
+export async function GET({ url, locals, fetch }) {
 	if (!locals.did) {
 		return json({ error: 'You must be signed in.' }, { status: 401 });
 	}
@@ -19,7 +20,7 @@ export async function GET({ url, locals, platform, fetch }) {
 	}
 
 	try {
-		const point = await createGeocoder(platform?.env ?? {}, fetch).geocode(q);
+		const point = await createGeocoder(env ?? {}, fetch).geocode(q);
 		if (!point) {
 			return json({ error: 'No results' }, { status: 404 });
 		}

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ActivityCluster } from '$lib/contrail';
-	import { eventUrl } from '$lib/contrail';
-	import type { AttendeeInfo } from '$lib/contrail';
+	import type { ActivityCluster } from '#lib/contrail.js';
+	import { eventUrl } from '#lib/contrail.js';
+	import type { AttendeeInfo } from '#lib/contrail.js';
 
 	let { activities }: { activities: ActivityCluster[] } = $props();
 

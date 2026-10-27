@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { TOPICS } from '$lib/topics';
-	import TopicIcon from '$lib/components/TopicIcon.svelte';
+	import { TOPICS } from '#lib/topics.js';
+	import TopicIcon from '#lib/components/TopicIcon.svelte';
 
 	let { data } = $props();
 </script>

@@ -43,7 +43,7 @@
 	import { ArrowLeft, ArrowRight, CalendarPlus, Link } from '@sketchyicons/svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import type { EventImportPrefill } from '$lib/import-event';
+	import type { EventImportPrefill } from '#lib/import-event.js';
 
 	type Step = 'choose' | 'import';
 	let step: Step = $state('choose');
@@ -65,7 +65,7 @@
 	function openCreate() {
 		createEventModalState.hide();
 		reset();
-		goto(resolve('/create'));
+		goto(resolve('create'));
 	}
 
 	async function openImport() {
@@ -118,7 +118,7 @@
 			window.sessionStorage.setItem(IMPORT_STORAGE_KEY, JSON.stringify(pending));
 			createEventModalState.hide();
 			reset();
-			await goto(resolve('/create'));
+			await goto(resolve('create'));
 		} catch (err) {
 			console.error('import-event request failed:', err);
 			importError = 'Could not reach the import service.';

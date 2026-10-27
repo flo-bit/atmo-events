@@ -11,7 +11,7 @@ const mocks = vi.hoisted(() => ({
 	replyToPost: vi.fn(),
 	recordOutcome: vi.fn()
 }));
-vi.mock('$lib/contrail/index', () => ({ getServerClient: mocks.getServerClient }));
+vi.mock('#lib/contrail/index.js', () => ({ getServerClient: mocks.getServerClient }));
 vi.mock('./session', () => ({ getBotHandle: mocks.getBotHandle }));
 vi.mock('./resolve-event', () => ({
 	findEventLink: mocks.findEventLink,
@@ -68,7 +68,7 @@ describe('reply bot RSVP requests', () => {
 				externalOnly,
 				externalRsvpUrl: 'https://example.com/event'
 			});
-			await processBotMentions({} as App.Platform['env'], {} as D1Database);
+			await processBotMentions({} as Cloudflare.Env, {} as D1Database);
 			expect(mocks.rsvpOnBehalf).not.toHaveBeenCalled();
 			expect(mocks.likePost).not.toHaveBeenCalled();
 			expect(mocks.replyToPost).toHaveBeenCalledWith(
@@ -96,7 +96,7 @@ describe('reply bot RSVP requests', () => {
 			externalOnly: false,
 			externalRsvpUrl: null
 		});
-		await processBotMentions({} as App.Platform['env'], {} as D1Database);
+		await processBotMentions({} as Cloudflare.Env, {} as D1Database);
 		expect(mocks.rsvpOnBehalf).toHaveBeenCalledOnce();
 		expect(mocks.likePost).toHaveBeenCalledOnce();
 		expect(mocks.replyToPost).not.toHaveBeenCalled();

@@ -1,7 +1,17 @@
 import { error } from '@sveltejs/kit';
 import { command, getRequestEvent } from '$app/server';
 import * as v from 'valibot';
-import { allowedCollections } from '../settings';
+import { allowedCollections } from './settings';
+import { getAuth } from './server/oauth';
+
+async function assertWritePermission(collection: string, action: 'create' | 'update' | 'delete') {
+	if (
+		collection === 'app.bsky.feed.post' &&
+		!(await getAuth().api.can({ type: 'repo', collection, action }))
+	) {
+		error(403, 'Bluesky posting permission is required');
+	}
+}
 
 // Validate collection format and check against allowed list from settings
 const collectionSchema = v.pipe(
@@ -26,6 +36,7 @@ export const putRecord = command(
 		const { locals } = getRequestEvent();
 		if (!locals.client || !locals.did) error(401, 'Not authenticated');
 
+		await assertWritePermission(input.collection, 'update');
 		const response = await locals.client.post('com.atproto.repo.putRecord', {
 			input: {
 				collection: input.collection as `${string}.${string}.${string}`,
@@ -35,6 +46,7 @@ export const putRecord = command(
 			}
 		});
 
+		if (!response.ok) error(response.status, 'Saving record failed');
 		return response.data;
 	}
 );
@@ -49,6 +61,7 @@ export const createRecord = command(
 		const { locals } = getRequestEvent();
 		if (!locals.client || !locals.did) error(401, 'Not authenticated');
 
+		await assertWritePermission(input.collection, 'create');
 		const response = await locals.client.post('com.atproto.repo.createRecord', {
 			input: {
 				collection: input.collection as `${string}.${string}.${string}`,
@@ -58,6 +71,7 @@ export const createRecord = command(
 			}
 		});
 
+		if (!response.ok) error(response.status, 'Creating record failed');
 		return response.data;
 	}
 );
@@ -71,6 +85,7 @@ export const deleteRecord = command(
 		const { locals } = getRequestEvent();
 		if (!locals.client || !locals.did) error(401, 'Not authenticated');
 
+		await assertWritePermission(input.collection, 'delete');
 		const response = await locals.client.post('com.atproto.repo.deleteRecord', {
 			input: {
 				collection: input.collection as `${string}.${string}.${string}`,
@@ -79,7 +94,8 @@ export const deleteRecord = command(
 			}
 		});
 
-		return { ok: response.ok };
+		if (!response.ok) error(response.status, 'Deleting record failed');
+		return { ok: true };
 	}
 );
 

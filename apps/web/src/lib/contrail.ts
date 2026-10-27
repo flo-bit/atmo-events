@@ -1,6 +1,6 @@
 import '../lexicon-types/index.js';
 import { getProfileUrl } from '@atmo-dev/events-ui';
-import type { EventData } from '$lib/event-types';
+import type { EventData } from '#lib/event-types.js';
 import type {
 	RsvpAtmoGetProfile,
 	RsvpAtmoEventGetRecord,

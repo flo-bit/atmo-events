@@ -65,64 +65,60 @@ declare global {
 			pageTitle?: string;
 		}
 		// interface PageState {}
-		interface Platform {
-			env: {
-				OAUTH_SESSIONS: KVNamespace;
-				OAUTH_STATES: KVNamespace;
-				CLIENT_ASSERTION_KEY: string;
-				COOKIE_SECRET: string;
-				OAUTH_PUBLIC_URL: string;
-				DB: D1Database;
-				ASSETS?: Fetcher;
-				OG_IMAGES?: R2Bucket;
-				OG_DAILY_GENERATION_LIMIT?: string;
-				OG_CYCLE_GENERATION_LIMIT?: string;
-				OG_BILLING_CYCLE_START_DAY?: string;
-				CRON_SECRET: string;
-				/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
-				BOT_IDENTIFIER?: string;
-				/** App password for the bot account (set via `wrangler secret put`). */
-				BOT_APP_PASSWORD?: string;
-				/** PDS the bot authenticates against; defaults to bsky.social. */
-				BOT_PDS_URL?: string;
-				/** Meilisearch base url for the search read path (search/near-me).
-				 *  When either var is unset, search falls back to the D1 path and
-				 *  near-me is unavailable. */
-				SEARCH_URL?: string;
-				/** Read-only Default Search API Key (set via `wrangler secret put`).
-				 *  Never the admin or root key. */
-				SEARCH_API_KEY?: string;
-				/** Search index uid; defaults to `events`. Shared by the read path
-				 *  and the write sink (one index, written and read), so there is no
-				 *  separate write-side index var. */
-				SEARCH_INDEX?: string;
-				/** Meilisearch base url for the WRITE path (the search sink). Kept
-				 *  distinct from SEARCH_URL so the writer can use the admin key while
-				 *  the read path stays on the search-only key. When unset, the cron
-				 *  ingest runs without feeding search (D1 fallback still serves). */
-				SEARCH_SINK_URL?: string;
-				/** Default Admin API Key for the write path (set via
-				 *  `wrangler secret put`). Never the instance root key. */
-				SEARCH_SINK_API_KEY?: string;
-				/** Forward-geocoder endpoint for the address→_geo drip (the cron job
-				 *  that resolves coordinates for newly-ingested address-only events).
-				 *  Nominatim-compatible /search; LocationIQ = `https://us1.locationiq.com/v1/search`.
-				 *  Reuses the SEARCH_SINK_* Meili write creds + the DB binding, so this
-				 *  plus GEOCODER_KEY are the only drip-specific config. */
-				GEOCODER_URL?: string;
-				/** Geocoder API key (LocationIQ), set via `wrangler secret put`. When
-				 *  unset, the drip no-ops (it won't fall back to public Nominatim). */
-				GEOCODER_KEY?: string;
-				/** Optional User-Agent for geocoder requests. */
-				GEOCODER_USER_AGENT?: string;
-				/** Min ms between geocoder calls in the drip — the rate limiter. Set to
-				 *  the ceiling the geocoder tier allows; defaults to DEFAULT_GEOCODE_SLEEP_MS. */
-				GEOCODE_SLEEP_MS?: string;
-			};
-			/** Cloudflare Worker execution context. Use `ctx.waitUntil(promise)` to
-			 *  let the worker keep a fire-and-forget task alive after the response
-			 *  has been sent. Optional in dev (wrangler proxy may not provide it). */
-			ctx?: { waitUntil(promise: Promise<unknown>): void };
+	}
+	namespace Cloudflare {
+		interface Env {
+			OAUTH_SESSIONS: KVNamespace;
+			OAUTH_STATES: KVNamespace;
+			CLIENT_ASSERTION_KEY: string;
+			COOKIE_SECRET: string;
+			OAUTH_PUBLIC_URL: string;
+			DB: D1Database;
+			ASSETS?: Fetcher;
+			OG_IMAGES?: R2Bucket;
+			OG_DAILY_GENERATION_LIMIT?: string;
+			OG_CYCLE_GENERATION_LIMIT?: string;
+			OG_BILLING_CYCLE_START_DAY?: string;
+			CRON_SECRET: string;
+			/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
+			BOT_IDENTIFIER?: string;
+			/** App password for the bot account (set via `wrangler secret put`). */
+			BOT_APP_PASSWORD?: string;
+			/** PDS the bot authenticates against; defaults to bsky.social. */
+			BOT_PDS_URL?: string;
+			/** Meilisearch base url for the search read path (search/near-me).
+			 *  When either var is unset, search falls back to the D1 path and
+			 *  near-me is unavailable. */
+			SEARCH_URL?: string;
+			/** Read-only Default Search API Key (set via `wrangler secret put`).
+			 *  Never the admin or root key. */
+			SEARCH_API_KEY?: string;
+			/** Search index uid; defaults to `events`. Shared by the read path
+			 *  and the write sink (one index, written and read), so there is no
+			 *  separate write-side index var. */
+			SEARCH_INDEX?: string;
+			/** Meilisearch base url for the WRITE path (the search sink). Kept
+			 *  distinct from SEARCH_URL so the writer can use the admin key while
+			 *  the read path stays on the search-only key. When unset, the cron
+			 *  ingest runs without feeding search (D1 fallback still serves). */
+			SEARCH_SINK_URL?: string;
+			/** Default Admin API Key for the write path (set via
+			 *  `wrangler secret put`). Never the instance root key. */
+			SEARCH_SINK_API_KEY?: string;
+			/** Forward-geocoder endpoint for the address→_geo drip (the cron job
+			 *  that resolves coordinates for newly-ingested address-only events).
+			 *  Nominatim-compatible /search; LocationIQ = `https://us1.locationiq.com/v1/search`.
+			 *  Reuses the SEARCH_SINK_* Meili write creds + the DB binding, so this
+			 *  plus GEOCODER_KEY are the only drip-specific config. */
+			GEOCODER_URL?: string;
+			/** Geocoder API key (LocationIQ), set via `wrangler secret put`. When
+			 *  unset, the drip no-ops (it won't fall back to public Nominatim). */
+			GEOCODER_KEY?: string;
+			/** Optional User-Agent for geocoder requests. */
+			GEOCODER_USER_AGENT?: string;
+			/** Min ms between geocoder calls in the drip — the rate limiter. Set to
+			 *  the ceiling the geocoder tier allows; defaults to DEFAULT_GEOCODE_SLEEP_MS. */
+			GEOCODE_SLEEP_MS?: string;
 		}
 	}
 }

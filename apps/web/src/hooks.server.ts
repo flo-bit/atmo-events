@@ -1,12 +1,7 @@
-import type { Handle } from '@sveltejs/kit';
-import { restoreSession } from '$lib/atproto/server/session';
+import { building } from '$app/env';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { getAuth } from '#lib/atproto/server/oauth.js';
 
-export const handle: Handle = async ({ event, resolve }) => {
-	const { session, client, did } = await restoreSession(event.cookies, event.platform?.env);
-
-	event.locals.session = session;
-	event.locals.client = client;
-	event.locals.did = did;
-
-	return resolve(event);
-};
+// The library owns OAuth routes, signed cookies, restoration, and revocation.
+export const handle: Handle = (input) =>
+	building ? input.resolve(input.event) : getAuth().handle(input);

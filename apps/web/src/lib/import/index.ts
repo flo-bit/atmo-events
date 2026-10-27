@@ -1,4 +1,4 @@
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 import type { EventImporter, FetchedPage, ImportContext } from './types';
 import { FETCH_HEADERS, MAX_BYTES, readLimited, UpstreamHttpError } from './http';
 import { racoImporter } from './raco';

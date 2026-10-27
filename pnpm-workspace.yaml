@@ -7,6 +7,7 @@ verifyDepsBeforeRun: false
 allowBuilds:
   core-js: true
   esbuild: true
+  plyr: false
   sharp: true
   workerd: true
 # First-party packages we publish ourselves — exempt from the minimum-release-age
@@ -15,6 +16,7 @@ allowBuilds:
 # just-published contrail for ~24h). Scope glob so we don't re-add per version.
 minimumReleaseAgeExclude:
   - '@atmo-dev/*'
+  - '@svelte-atproto/*'
   - svelte@5.57.3
 patchedDependencies:
   '@atmo-dev/contrail-appview@0.12.2': patches/@atmo-dev__contrail-appview@0.12.2.patch

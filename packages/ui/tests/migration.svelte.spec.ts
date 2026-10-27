@@ -129,7 +129,7 @@ describe('Atmo Kit migration', () => {
 		});
 		await expect
 			.element(page.getByRole('combobox', { name: 'Post text' }))
-			.toHaveTextContent('Join @host.example.com');
+			.toHaveTextContent('Join @host.example.com for #smallweb https://example.com');
 		await page.getByRole('button', { name: 'Post', exact: true }).click();
 		await expect.poll(() => adapter.createRecord).toHaveBeenCalled();
 		expect(adapter.createRecord).toHaveBeenCalledWith(

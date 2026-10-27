@@ -14,21 +14,23 @@ const { ensureInit, ingest, processBotMentions, runGeocodeDrip, refreshTopicCoun
 	})
 );
 
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	ensureInit,
 	contrail: { ingest }
 }));
-vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
-vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
-vi.mock('$lib/server/topic-counts', () => ({ refreshTopicCounts }));
+vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
+vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
+vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts }));
 
 import { POST } from './+server';
+
+import { env as bindings } from 'cloudflare:workers';
 
 const CRON_SECRET = 'cron-secret';
 const DB = { __brand: 'D1' };
 
 // Minimal RequestEvent shape the handler actually reads: request headers +
-// platform.env (CRON_SECRET, DB, and the sink creds ensureInit reads).
+// Worker bindings (CRON_SECRET, DB, and the sink creds ensureInit reads).
 function event(opts: { secret?: string | null } = {}) {
 	const headers = new Headers();
 	if (opts.secret != null) headers.set('X-Cron-Secret', opts.secret);
@@ -38,9 +40,9 @@ function event(opts: { secret?: string | null } = {}) {
 		SEARCH_SINK_URL: 'https://search.example',
 		SEARCH_SINK_API_KEY: 'sink-key'
 	};
+	Object.assign(bindings, env);
 	return {
-		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers }),
-		platform: { env }
+		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers })
 	} as unknown as Parameters<typeof POST>[0];
 }
 

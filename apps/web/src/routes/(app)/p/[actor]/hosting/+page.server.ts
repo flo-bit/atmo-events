@@ -1,14 +1,15 @@
-import { getActor } from '$lib/actor';
-import { getProfileFromContrail } from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { hostingQuery } from '$lib/contrail/queries';
-import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
-import { rawForQuery } from '$lib/contrail/cursor';
+import { env } from 'cloudflare:workers';
+import { getActor } from '#lib/actor.js';
+import { getProfileFromContrail } from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { hostingQuery } from '#lib/contrail/queries.js';
+import { ongoingQuery, withOngoing } from '#lib/contrail/ongoing.js';
+import { rawForQuery } from '#lib/contrail/cursor.js';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
 
-export async function load({ params, url, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params, url }) {
+	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;

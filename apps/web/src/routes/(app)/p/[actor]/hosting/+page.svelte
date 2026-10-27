@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getProfileBlobUrl } from '$lib/contrail';
-	import EventList from '$lib/components/EventList.svelte';
+	import { getProfileBlobUrl } from '#lib/contrail.js';
+	import EventList from '#lib/components/EventList.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();

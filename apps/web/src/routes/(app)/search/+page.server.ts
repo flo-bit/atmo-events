@@ -1,19 +1,20 @@
-import { getServerClient } from '$lib/contrail/index';
-import { EMPTY_PAGE, searchD1Query, searchMeiliQuery } from '$lib/contrail/queries';
+import { env } from 'cloudflare:workers';
+import { getServerClient } from '#lib/contrail/index.js';
+import { EMPTY_PAGE, searchD1Query, searchMeiliQuery } from '#lib/contrail/queries.js';
 import {
 	ongoingQuery,
 	ongoingSearchQuery,
 	withOngoing,
 	EMPTY_ONGOING
-} from '$lib/contrail/ongoing';
-import { searchBackendFromEnv } from '$lib/search/server/query';
+} from '#lib/contrail/ongoing.js';
+import { searchBackendFromEnv } from '#lib/search/server/query.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ url, platform }) => {
-	const client = getServerClient(platform!.env.DB);
+export const load: PageServerLoad = async ({ url }) => {
+	const client = getServerClient(env.DB);
 	const term = url.searchParams.get('q')?.trim() || '';
 	// Geo search has no D1 fallback; use the same availability gate as /near-me.
-	const locationSearchAvailable = searchBackendFromEnv(platform?.env) !== null;
+	const locationSearchAvailable = searchBackendFromEnv(env) !== null;
 
 	if (!term)
 		return {
@@ -52,14 +53,14 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	// running that same D1 query, which therefore could not contain them. Measured
 	// on testnet: a band of 2 linking to a page of 1. D1 remains the fallback when
 	// the backend is unconfigured or down, exactly as the list's own path does.
-	const ongoingPromise = ongoingSearchQuery(platform?.env, client, { term })
+	const ongoingPromise = ongoingSearchQuery(env, client, { term })
 		.then((band) => band ?? ongoingQuery(client, { search: term }))
 		.catch(() => EMPTY_ONGOING);
 
 	const pagePromise = (async () => {
 		if (locationSearchAvailable) {
 			try {
-				return await searchMeiliQuery(platform?.env, client, { term }, null);
+				return await searchMeiliQuery(env, client, { term }, null);
 			} catch (err) {
 				console.error('search backend failed, falling back to D1 search:', err);
 			}

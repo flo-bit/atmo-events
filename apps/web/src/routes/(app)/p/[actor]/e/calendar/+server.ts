@@ -1,7 +1,8 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getCDNImageBlobUrl } from '$lib/atproto/methods.js';
-import { getActor } from '$lib/actor';
-import { generateICalFeed, type ICalAttendee, type ICalEvent } from '$lib/cal/ical';
+import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
+import { getActor } from '#lib/actor.js';
+import { generateICalFeed, type ICalAttendee, type ICalEvent } from '#lib/cal/ical.js';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import {
 	buildEventAttendees,
@@ -9,10 +10,10 @@ import {
 	getHostProfile,
 	listEventRecordsFromContrail,
 	RSVP_HYDRATE_LIMIT
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 
-export async function GET({ params, platform }) {
+export async function GET({ params }) {
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}
@@ -24,7 +25,7 @@ export async function GET({ params, platform }) {
 	}
 
 	try {
-		const client = getServerClient(platform!.env.DB);
+		const client = getServerClient(env.DB);
 		const response = await listEventRecordsFromContrail(client, {
 			actor: params.actor,
 			hydrateRsvps: RSVP_HYDRATE_LIMIT,

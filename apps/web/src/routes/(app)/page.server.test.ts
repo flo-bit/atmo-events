@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({ get: vi.fn(async () => ({ ok: false })) }))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listEventRecordsFromContrail: vi.fn(),
 	getHostProfile: vi.fn(),
@@ -13,16 +13,16 @@ vi.mock('$lib/contrail', () => ({
 	withD1Retry: vi.fn((fn: () => unknown) => fn())
 }));
 // Keep a spy to guard against reintroducing the unused homepage query.
-vi.mock('$lib/contrail/ongoing', () => ({ ongoingQuery: vi.fn() }));
-vi.mock('$lib/server/edge-cache', () => ({
+vi.mock('#lib/contrail/ongoing.js', () => ({ ongoingQuery: vi.fn() }));
+vi.mock('#lib/server/edge-cache.js', () => ({
 	cachedRead: vi.fn((_key: string, _ttl: number, fn: () => unknown) => fn())
 }));
-vi.mock('$lib/dedupe-by-uri', () => ({ dedupeByUri: vi.fn((e: unknown[]) => e) }));
+vi.mock('#lib/dedupe-by-uri.js', () => ({ dedupeByUri: vi.fn((e: unknown[]) => e) }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
-import { ongoingQuery } from '$lib/contrail/ongoing';
-import { cachedRead } from '$lib/server/edge-cache';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
+import { ongoingQuery } from '#lib/contrail/ongoing.js';
+import { cachedRead } from '#lib/server/edge-cache.js';
 
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
@@ -43,7 +43,7 @@ const event = {
 	createdAt: '2026-06-01T00:00:00Z'
 };
 const request = () =>
-	({ locals: {}, platform: { env: { DB: {} } } }) as unknown as Parameters<typeof load>[0];
+	({ locals: {} }) as unknown as Parameters<typeof load>[0];
 
 beforeEach(() => {
 	vi.clearAllMocks();

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-	import { user } from '$lib/atproto/auth.svelte';
+	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
+	import { user } from '#lib/atproto/auth.svelte.js';
 	import { IconRail, IconButton, Icon, Avatar, Button } from '@atmo-dev/kit';
 	import {
 		House,
@@ -16,12 +16,18 @@
 	import { afterNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { ModeWatcher } from 'mode-watcher';
-	import LoginModal from '$lib/components/LoginModal.svelte';
-	import CreateEventModal, { createEventModalState } from '$lib/components/CreateEventModal.svelte';
+	import LoginModal from '#lib/components/LoginModal.svelte';
+	import CreateEventModal, { createEventModalState } from '#lib/components/CreateEventModal.svelte';
 
 	let { children } = $props();
 	let navigationOpen = $state(false);
-	afterNavigate(() => (navigationOpen = false));
+
+	afterNavigate(({ shallow, type }) => {
+		if (shallow && type === 'goto') return;
+
+		return (navigationOpen = false);
+	});
+
 	let path = $derived(page.url.pathname);
 	function createEvent() {
 		if (user.isLoggedIn) createEventModalState.show();
@@ -49,9 +55,28 @@
 			active:
 				path.startsWith('/events') || path.startsWith('/near-me') || /\/p\/[^/]+\/e\//.test(path)
 		},
-		{ label: 'Calendar', icon: CalendarDays, href: '/calendar', active: path === '/calendar' },
-		{ label: 'Topics', icon: Hash, href: '/topics', active: path.startsWith('/topics') },
-		{ label: 'Search events', icon: Search, href: '/search', active: path === '/search' },
+
+		{
+			label: 'Calendar',
+			icon: CalendarDays,
+			href: '/calendar',
+			active: path === '/calendar'
+		},
+
+		{
+			label: 'Topics',
+			icon: Hash,
+			href: '/topics',
+			active: path.startsWith('/topics')
+		},
+
+		{
+			label: 'Search events',
+			icon: Search,
+			href: '/search',
+			active: path === '/search'
+		},
+
 		{
 			label: 'Create event',
 			icon: Plus,
@@ -65,7 +90,7 @@
 		<div class={expanded ? 'grid gap-1' : 'flex flex-col items-center gap-3'}>
 			{#if user.isLoggedIn}
 				<Button
-					href={resolve(`/p/${user.profile?.handle || user.did || ''}`)}
+					href={resolve(`p/${user.profile?.handle || user.did || ''}`)}
 					variant="ghost"
 					title={user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
 					onclick={close}
@@ -109,12 +134,12 @@
 				class="sm:hidden"><Icon img={Menu} size={24} /></IconButton
 			>
 			<a
-				href={resolve('/')}
+				href={resolve('/(app)')}
 				aria-label="atmo.rsvp home"
 				class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
 			>
 				<Icon img={CalendarDays} size={26} />
-				<span class="font-handwritten text-[2rem] leading-none font-semibold"
+				<span class="text-2xl leading-none font-semibold tracking-tight"
 					>atmo<span class="text-muted">.rsvp</span></span
 				>
 			</a>

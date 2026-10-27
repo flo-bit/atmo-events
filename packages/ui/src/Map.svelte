@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { MapLibre, Projection, Marker, AttributionControl } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type { Map as MapLibreMap } from 'maplibre-gl';
 
 	let { lat, lng, zoom = 11 }: { lat: number; lng: number; zoom?: number } = $props();
 
-	let map: maplibregl.Map | undefined = $state();
+	let map: MapLibreMap | undefined = $state();
 </script>
 
 <MapLibre

@@ -91,7 +91,7 @@
 	}
 
 	async function handlePost() {
-		if (!viewer.did || posting) return;
+		if (!viewer.did || !viewer.isLoggedIn || viewer.canPostToBluesky !== true || posting) return;
 
 		const liveJson = editor?.getJSON() ?? textToDoc(text);
 
@@ -146,6 +146,8 @@
 			};
 			if (facets.length > 0) postRecord.facets = facets;
 
+			// The grant may have changed while resolving facets or uploading a thumb.
+			if (viewer.canPostToBluesky !== true) return;
 			const postResp = await adapter.createRecord({
 				collection: 'app.bsky.feed.post',
 				record: postRecord
@@ -231,7 +233,12 @@
 		<Button
 			class="w-full"
 			onclick={handlePost}
-			disabled={posting || !text.trim() || graphemeLength(text) > 300}
+			disabled={posting ||
+				!viewer.isLoggedIn ||
+				!viewer.did ||
+				viewer.canPostToBluesky !== true ||
+				!text.trim() ||
+				graphemeLength(text) > 300}
 		>
 			{posting ? 'Posting…' : 'Post'}
 		</Button>

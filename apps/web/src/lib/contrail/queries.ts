@@ -19,15 +19,15 @@ import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail
-} from '$lib/contrail';
+} from '#lib/contrail.js';
 import {
 	runEventSearchPage,
 	runOngoingSearchPage,
 	searchBackendFromEnv
-} from '$lib/search/server/query';
-import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
-import { orQueryFromSlug } from '$lib/topics';
-import { hasEnded } from '$lib/past-events';
+} from '#lib/search/server/query.js';
+import { SEARCH_PAGE_SIZE } from '#lib/search/constants.js';
+import { orQueryFromSlug } from '#lib/topics.js';
+import { hasEnded } from '#lib/past-events.js';
 import { nextCursor, type CursorArgs, type CursorQuery } from './cursor';
 
 export const PAGE_SIZE = 20;
@@ -96,7 +96,7 @@ export async function eventsQuery(
  * only honest if the events it holds back are reachable, so this page carries no
  * per-host cap and pages to the end like any other list.
  *
- * `$lib/contrail/ongoing.ts` runs the same two bounds WITHOUT a cursor, because a
+ * `#lib/contrail/ongoing.ts` runs the same two bounds WITHOUT a cursor, because a
  * preview merged into another list must not touch that list's keyset. Here the
  * band IS the list, so it takes the ordinary keyset and belongs in this file with
  * the rest of them.
@@ -157,7 +157,7 @@ export async function happeningNowQuery(
  * the other backend with a keyset that backend cannot read.
  */
 export async function happeningNowMeiliQuery(
-	env: App.Platform['env'] | undefined,
+	env: Cloudflare.Env | undefined,
 	client: Client,
 	args: { term: string },
 	cursor: string | null | undefined
@@ -283,7 +283,7 @@ export async function searchD1Query(
  * other backend with a keyset that backend can't read.
  */
 export async function searchMeiliQuery(
-	env: App.Platform['env'] | undefined,
+	env: Cloudflare.Env | undefined,
 	client: Client,
 	args: { term: string },
 	cursor: string | null | undefined

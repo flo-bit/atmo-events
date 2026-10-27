@@ -1,17 +1,18 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getActor } from '$lib/actor';
+import { getActor } from '#lib/actor.js';
 import {
 	flattenEventRecord,
 	getEventRecordFromContrail,
 	getHostProfile,
 	getRsvpStatus,
 	getViewerRsvpFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 import type { ActorIdentifier } from '@atcute/lexicons';
 
-export async function load({ params, url, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params, url }) {
+	const client = getServerClient(env.DB);
 	const { rkey } = params;
 	const did = await getActor(params.actor);
 

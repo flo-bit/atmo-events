@@ -16,6 +16,8 @@ export type EditorBlobRef = {
 
 export type EditorViewer = {
 	isLoggedIn: boolean;
+	/** Explicit capability from the host's token grant; absent means denied. */
+	canPostToBluesky?: boolean;
 	did: string | null;
 	handle?: string;
 	displayName?: string;

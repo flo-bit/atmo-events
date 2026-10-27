@@ -45,16 +45,18 @@ vi.mock('@atmo-dev/contrail/server', () => ({ createHandler: () => () => new Res
 // The real ensureInit calls applyMeiliSettings from this module on the arming
 // path; force that one call to reject. Everything else stays real (notably
 // meiliSinkBackendFromEnv, which must return a backend from the env below).
-vi.mock('$lib/search/server/meili-sink', async (importActual) => {
-	const actual = await importActual<typeof import('$lib/search/server/meili-sink')>();
+vi.mock('#lib/search/server/meili-sink.js', async (importActual) => {
+	const actual = await importActual<typeof import('#lib/search/server/meili-sink.js')>();
 	return { ...actual, applyMeiliSettings };
 });
 
-vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
-vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
-vi.mock('$lib/server/topic-counts', () => ({ refreshTopicCounts: vi.fn(async () => {}) }));
+vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
+vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
+vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts: vi.fn(async () => {}) }));
 
 import { POST } from './+server';
+
+import { env as bindings } from 'cloudflare:workers';
 
 const CRON_SECRET = 'cron-secret';
 const DB = { __brand: 'D1' };
@@ -70,9 +72,9 @@ function event(opts: { secret?: string | null } = {}) {
 		SEARCH_SINK_URL: 'https://search.example',
 		SEARCH_SINK_API_KEY: 'sink-key'
 	};
+	Object.assign(bindings, env);
 	return {
-		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers }),
-		platform: { env }
+		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers })
 	} as unknown as Parameters<typeof POST>[0];
 }
 

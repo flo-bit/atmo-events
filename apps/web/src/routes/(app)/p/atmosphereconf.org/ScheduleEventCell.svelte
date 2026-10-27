@@ -11,11 +11,12 @@
 	import { Modal, Button, Icon } from '@atmo-dev/kit';
 	import { EventRsvp } from '@atmo-dev/events-ui';
 	import { VodPlayer } from '@atmo-dev/events-ui';
-	import { user } from '$lib/atproto/auth.svelte';
-	import { createInAppAdapter } from '$lib/components/editor/adapter';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
 
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
+		canPostToBluesky: user.canPostToBluesky,
 		did: user.did ?? null,
 		handle: user.profile?.handle,
 		displayName: user.profile?.displayName,

@@ -1,20 +1,21 @@
-import { getActor } from '$lib/actor';
+import { env } from 'cloudflare:workers';
+import { getActor } from '#lib/actor.js';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
 	listAttendingEventsFromContrail,
 	listAuthoredEventsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
-import { hasEnded } from '$lib/past-events';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { EMPTY_ONGOING, ongoingQuery } from '#lib/contrail/ongoing.js';
+import { hasEnded } from '#lib/past-events.js';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params }) {
+	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;

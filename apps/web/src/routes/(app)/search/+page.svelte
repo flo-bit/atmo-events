@@ -1,5 +1,5 @@
 <script lang="ts">
-	import EventList from '$lib/components/EventList.svelte';
+	import EventList from '#lib/components/EventList.svelte';
 	import { ArrowRight } from '@sketchyicons/svelte';
 	import { Input, Button, Icon } from '@atmo-dev/kit';
 	import { goto } from '$app/navigation';
@@ -21,7 +21,7 @@
 		e.preventDefault();
 		const q = query.trim();
 		if (q) {
-			const target = new URL(resolve('/search'), window.location.origin);
+			const target = new URL(resolve('search'), window.location.origin);
 			target.searchParams.set('q', q);
 			// resolve() covers the base path; the query string can't go through it,
 			// so the rule can't see the route is resolved. The URL is built from
@@ -48,7 +48,7 @@
 	{#if data.locationSearchAvailable}
 		<p class="mb-8">
 			<a
-				href={resolve('/near-me')}
+				href={resolve('near-me')}
 				class="text-muted hover:text-ink inline-flex items-center gap-1 text-sm"
 				>Events near me <Icon img={ArrowRight} size={16} /></a
 			>

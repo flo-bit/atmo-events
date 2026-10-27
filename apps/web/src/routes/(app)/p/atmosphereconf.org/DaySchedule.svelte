@@ -10,7 +10,7 @@
 		getNowGridRow
 	} from './schedule-utils';
 
-	import type { VodRecord } from '$lib/vods';
+	import type { VodRecord } from '#lib/vods.js';
 
 	let {
 		grid,

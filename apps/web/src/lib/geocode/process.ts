@@ -3,14 +3,14 @@ import {
 	isPublicNominatimHost,
 	PUBLIC_NOMINATIM_DRIP_MAX,
 	PUBLIC_NOMINATIM_MIN_SLEEP_MS
-} from '$lib/search/server/geocoder';
-import { MeiliEventIndex, meiliSinkBackendFromEnv } from '$lib/search/server/meili-sink';
-import { nativeD1Client } from '$lib/search/server/d1-native';
-import { runGeocodeJob } from '$lib/search/server/geocode-job';
+} from '#lib/search/server/geocoder.js';
+import { MeiliEventIndex, meiliSinkBackendFromEnv } from '#lib/search/server/meili-sink.js';
+import { nativeD1Client } from '#lib/search/server/d1-native.js';
+import { runGeocodeJob } from '#lib/search/server/geocode-job.js';
 import { GEOCODE_DRIP_INTERVAL_MS, MAX_GEOCODE_PER_TICK, DEFAULT_GEOCODE_SLEEP_MS } from './config';
 import { ensureGeocodeDripSchema, claimDripSlot } from './db';
 
-type Env = App.Platform['env'];
+type Env = Cloudflare.Env;
 
 /** Configured when the Meili write path (the sink creds, reused) is present —
  *  that's the only hard requirement, since the drip just needs somewhere to write

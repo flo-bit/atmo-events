@@ -1,8 +1,8 @@
 import type { Client } from '@atcute/client';
 import type { Did } from '@atcute/lexicons';
 import type { Handle, ResourceUri } from '@atcute/lexicons/syntax';
-import { getEventRecordFromContrail } from '$lib/contrail';
-import { getPDS } from '$lib/atproto/methods';
+import { getEventRecordFromContrail } from '#lib/contrail.js';
+import { getPDS } from '@svelte-atproto/oauth/helper';
 import { ATMO_HOSTS, EVENT_COLLECTION } from './config';
 
 /** The fields of a Bluesky post record we care about for link extraction. */

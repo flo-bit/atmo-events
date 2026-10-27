@@ -1,4 +1,4 @@
-import type { FlatEventRecord } from '$lib/contrail';
+import type { FlatEventRecord } from '#lib/contrail.js';
 
 export interface ScheduleEvent {
 	rkey: string;

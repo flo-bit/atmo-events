@@ -5,26 +5,26 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // may be resumed. Plus the one result-shaping rule that is easy to get wrong —
 // the upper time bound admits an event that is still running, so the query
 // excludes it.
-vi.mock('$lib/actor', () => ({
+vi.mock('#lib/actor.js', () => ({
 	getActor: vi.fn(async () => 'did:plc:alice')
 }));
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	getProfileFromContrail: vi.fn(async () => ({})),
 	listAuthoredEventsFromContrail: vi.fn(),
 	listDiscoverableEventsFromContrail: vi.fn()
 }));
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
 	runEventSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listAuthoredEventsFromContrail } from '$lib/contrail';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
+import { listAuthoredEventsFromContrail } from '#lib/contrail.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
 
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);
 
@@ -37,8 +37,7 @@ function event(actor: string, cursor?: string) {
 	if (cursor) url.searchParams.set('cursor', cursor);
 	return {
 		params: { actor },
-		url,
-		platform: { env: { DB: {} } }
+		url
 	} as unknown as Parameters<typeof load>[0];
 }
 

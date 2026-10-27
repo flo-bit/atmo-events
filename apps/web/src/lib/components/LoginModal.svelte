@@ -11,9 +11,12 @@
 </script>
 
 <script lang="ts">
-	import { login, signup } from '$lib/atproto';
+	import { login } from '#lib/atproto/auth.svelte.js';
+	import SignupPermissions from './SignupPermissions.svelte';
+	let signupOpen = $state(false);
 
 	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
+	import { loginPermissions } from '#lib/atproto/permissions.js';
 	const searchActors = createActorSearch();
 </script>
 
@@ -21,12 +24,18 @@
 	bind:open={atProtoLoginModalState.open}
 	{searchActors}
 	persistRecentAccounts
-	login={async (handle) => {
-		await login(handle);
+	permissions={loginPermissions}
+	login={async (handle, _actor, options) => {
+		await login(handle, options);
 		return true;
 	}}
-	signup={async () => {
-		signup();
-		return true;
+	signup={() => {
+		atProtoLoginModalState.hide();
+		signupOpen = true;
+		return false;
 	}}
 />
+
+{#if signupOpen}
+	<SignupPermissions bind:open={signupOpen} />
+{/if}

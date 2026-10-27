@@ -7,8 +7,8 @@ import {
 	TokenRevokedError,
 	AuthMethodUnsatisfiableError
 } from '@atcute/oauth-node-client';
-import { createOAuthClient } from '$lib/atproto/server/oauth';
-import { getRsvpStatus, getViewerRsvpFromContrail } from '$lib/contrail';
+import { restoreRsvpSession } from './oauth';
+import { getRsvpStatus, getViewerRsvpFromContrail } from '#lib/contrail.js';
 import { RSVP_COLLECTION, RSVP_GOING_STATUS } from './config';
 import type { ResolvedEvent } from './resolve-event';
 
@@ -37,7 +37,7 @@ function isSessionGone(e: unknown): boolean {
  * interested/notgoing we flip the existing record to going.
  */
 export async function rsvpOnBehalf(
-	env: App.Platform['env'],
+	env: Cloudflare.Env,
 	serverClient: Client,
 	userDid: Did,
 	event: ResolvedEvent
@@ -47,7 +47,7 @@ export async function rsvpOnBehalf(
 
 	let session;
 	try {
-		session = await createOAuthClient(env).restore(userDid);
+		session = await restoreRsvpSession(userDid);
 	} catch (e) {
 		if (isSessionGone(e)) return 'no-token';
 		console.error('[bot] session restore failed (transient):', e);

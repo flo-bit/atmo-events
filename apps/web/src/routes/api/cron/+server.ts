@@ -1,23 +1,24 @@
-import { contrail, ensureInit } from '$lib/contrail/index';
-import { processBotMentions } from '$lib/bot/process-mentions';
-import { runGeocodeDrip } from '$lib/geocode/process';
-import { refreshTopicCounts } from '$lib/server/topic-counts';
+import { env } from 'cloudflare:workers';
+import { contrail, ensureInit } from '#lib/contrail/index.js';
+import { processBotMentions } from '#lib/bot/process-mentions.js';
+import { runGeocodeDrip } from '#lib/geocode/process.js';
+import { refreshTopicCounts } from '#lib/server/topic-counts.js';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({ request, platform }) => {
+export const POST: RequestHandler = async ({ request }) => {
 	const secret = request.headers.get('X-Cron-Secret');
-	if (secret !== platform!.env.CRON_SECRET) {
+	if (secret !== env.CRON_SECRET) {
 		return new Response('Unauthorized', { status: 401 });
 	}
 
-	const db = platform!.env.DB;
+	const db = env.DB;
 
 	// Reply bot runs first and is fully isolated: it must not be starved or
 	// aborted by the heavier ingest below, which can throw (e.g. D1 CPU limits
 	// while catching up a backlog). The bot relies on its own queries +
 	// notifyOfUpdate, so it works even when firehose ingest is behind.
 	try {
-		await processBotMentions(platform!.env, db);
+		await processBotMentions(env, db);
 	} catch (e) {
 		console.error('[bot] processBotMentions failed:', e);
 	}
@@ -53,7 +54,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		const HARD_TIMEOUT_MS = 55_000;
 		await Promise.race([
 			(async () => {
-				await ensureInit(db, platform!.env);
+				await ensureInit(db, env);
 				await contrail.ingest({ timeoutMs: DRAIN_TIMEOUT_MS }, db);
 			})(),
 			new Promise((_, reject) =>
@@ -69,7 +70,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	// via a D1 gate (rides this every-minute cron); no-ops when the geocoder/sink
 	// isn't configured. Isolated so a geocoder/Meili hiccup can't 500 the tick.
 	try {
-		await runGeocodeDrip(platform!.env, db);
+		await runGeocodeDrip(env, db);
 	} catch (e) {
 		console.error('[cron] runGeocodeDrip failed:', e);
 	}

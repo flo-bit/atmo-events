@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { assembleSearchPage } from './page';
 
-const hit = (uri: string, distanceMeters?: number) => ({ uri, ...(distanceMeters !== undefined ? { distanceMeters } : {}) });
+const hit = (uri: string, distanceMeters?: number) => ({
+	uri,
+	...(distanceMeters !== undefined ? { distanceMeters } : {})
+});
 const rec = (uri: string) => ({ uri, name: `event ${uri}` });
 
 describe('assembleSearchPage', () => {

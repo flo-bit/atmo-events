@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { FlatEventRecord } from '$lib/contrail';
+	import type { FlatEventRecord } from '#lib/contrail.js';
 	import { resolve } from '$app/paths';
 	import { EventCard } from '@atmo-dev/events-ui';
 

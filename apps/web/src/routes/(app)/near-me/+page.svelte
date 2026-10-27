@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Button, Input } from '@atmo-dev/kit';
 	import { EventCard } from '@atmo-dev/events-ui';
-	import type { FlatEventRecord } from '$lib/contrail';
-	import { loadNearMeEvents } from '$lib/search/near-me.remote';
-	import { geocodeQuery } from '$lib/search/geocode.remote';
+	import type { FlatEventRecord } from '#lib/contrail.js';
+	import { loadNearMeEvents } from '#lib/search/near-me.remote.js';
+	import { geocodeQuery } from '#lib/search/geocode.remote.js';
 
 	let { data } = $props();
 

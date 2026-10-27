@@ -58,14 +58,24 @@
 
 	let blueskyButton = $state<HTMLButtonElement | HTMLAnchorElement | null>(null);
 
-	let canPostDirectly = $derived(!!eventDid && !!eventRkey && !!eventName && viewer.isLoggedIn);
+	let canPostDirectly = $derived(
+		!!eventDid &&
+			!!eventRkey &&
+			!!eventName &&
+			viewer.isLoggedIn &&
+			viewer.canPostToBluesky === true
+	);
+
+	$effect(() => {
+		if (!canPostDirectly) showPostModal = false;
+	});
 
 	let blueskyIntentUrl = $derived(
 		`https://bsky.app/intent/compose?text=${encodeURIComponent(shareText || url)}`
 	);
 
 	function handleBlueskyClick() {
-		showPostModal = true;
+		if (canPostDirectly) showPostModal = true;
 	}
 
 	function handlePostedFromInner(ref: { uri: string; cid: string; showComments: boolean }) {

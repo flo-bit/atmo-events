@@ -1,20 +1,23 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const environment = vi.hoisted(() => ({ dev: false }));
-vi.mock('$app/environment', () => environment);
-vi.mock('$lib/contrail/index', () => ({ ensureInit: vi.fn() }));
-vi.mock('$lib/server/topic-counts', () => ({
+vi.mock('$app/env', () => environment);
+vi.mock('#lib/contrail/index.js', () => ({ ensureInit: vi.fn() }));
+vi.mock('#lib/server/topic-counts.js', () => ({
 	readTopicCounts: vi.fn(),
 	refreshTopicCounts: vi.fn()
 }));
-import { ensureInit } from '$lib/contrail/index';
-import { readTopicCounts, refreshTopicCounts } from '$lib/server/topic-counts';
+import { ensureInit } from '#lib/contrail/index.js';
+import { readTopicCounts, refreshTopicCounts } from '#lib/server/topic-counts.js';
 import { load } from './+page.server';
+import { env } from 'cloudflare:workers';
 
 const read = vi.mocked(readTopicCounts);
 const db = {} as D1Database;
-const event = (platform = { env: { DB: db } }) =>
-	({ platform }) as unknown as Parameters<typeof load>[0];
+const event = () => {
+	env.DB = db;
+	return {} as Parameters<typeof load>[0];
+};
 
 afterEach(() => {
 	environment.dev = false;

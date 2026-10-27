@@ -16,8 +16,8 @@ import {
 	flattenEventRecords,
 	listDiscoverableEventsByUrisFromContrail,
 	type FlatEventRecord
-} from '$lib/contrail';
-import { parseCursor, tagCursor } from '$lib/contrail/cursor';
+} from '#lib/contrail.js';
+import { parseCursor, tagCursor } from '#lib/contrail/cursor.js';
 
 export interface SearchPageResult {
 	events: FlatEventRecord[];

@@ -10,7 +10,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // (3) no cursor is ever minted, so no keyset can drift, (4) the per-actor cap
 // withholds and COUNTS rather than silently dropping.
 
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: { value: unknown; did: string }[]) =>
 		records.map((r) => ({ ...(r.value as object), did: r.did }))
 	),
@@ -19,7 +19,10 @@ vi.mock('$lib/contrail', () => ({
 }));
 
 import { capPerActor, ongoingQuery, ONGOING_PER_ACTOR, ONGOING_SCOPED_MAX } from './ongoing';
-import { listAuthoredEventsFromContrail, listDiscoverableEventsFromContrail } from '$lib/contrail';
+import {
+	listAuthoredEventsFromContrail,
+	listDiscoverableEventsFromContrail
+} from '#lib/contrail.js';
 import type { FlatEventRecord } from '@atmo-dev/events-ui';
 
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);

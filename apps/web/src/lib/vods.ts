@@ -1,4 +1,5 @@
-const VOD_PLAYBACK_BASE = 'https://vod-beta.stream.place/xrpc/place.stream.playback.getVideoPlaylist';
+const VOD_PLAYBACK_BASE =
+	'https://vod-beta.stream.place/xrpc/place.stream.playback.getVideoPlaylist';
 
 export interface VodRecord {
 	atUri: string;

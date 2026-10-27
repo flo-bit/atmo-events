@@ -1,19 +1,9 @@
 import { goto } from '$app/navigation';
-import {
-	putRecord,
-	createRecord,
-	deleteRecord,
-	uploadBlob,
-	getRecord,
-	resolveHandle
-} from '$lib/atproto/methods';
-import { notifyContrailOfUpdate } from '$lib/contrail';
-import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-import type {
-	EditorAdapter,
-	EditorBlobRef,
-	EditorViewer
-} from '@atmo-dev/events-ui';
+import { getRecord, resolveHandle } from '@svelte-atproto/oauth/helper';
+import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/repo.remote.js';
+import { notifyContrailOfUpdate } from '#lib/contrail.js';
+import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
+import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/events-ui';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };
 
@@ -32,9 +22,7 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 				rkey,
 				record
 			});
-			if (!response.ok) throw new Error('putRecord failed');
-			if (!viewer.did) throw new Error('Not logged in');
-			return { uri: `at://${viewer.did}/${collection}/${rkey}` };
+			return { uri: response.uri };
 		},
 		async createRecord({ collection, rkey, record }) {
 			const response = await createRecord({
@@ -42,9 +30,7 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 				rkey,
 				record
 			});
-			if (!response.ok) throw new Error('createRecord failed');
-			const data = response.data as { uri: string; cid?: string };
-			return { uri: data.uri, cid: data.cid };
+			return { uri: response.uri, cid: response.cid };
 		},
 		async deleteRecord({ collection, rkey }) {
 			await deleteRecord({
@@ -53,12 +39,10 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			});
 		},
 		async uploadBlob(blob) {
-			const result = await uploadBlob({ blob });
-			if (!result) throw new Error('uploadBlob failed');
-			const { aspectRatio: _ar, ...rest } = result as Record<string, unknown> & {
-				aspectRatio?: unknown;
-			};
-			return rest as unknown as EditorBlobRef;
+			return uploadBlob({
+				bytes: Array.from(new Uint8Array(await blob.arrayBuffer())),
+				mimeType: blob.type || 'application/octet-stream'
+			});
 		},
 		async getRecord({ did, collection, rkey }) {
 			const fresh = await getRecord({
@@ -148,7 +132,7 @@ export function createBlentoAdapter(opts: {
 			} catch {
 				// Blento not present; swallow.
 			}
-		},
+		}
 		// no onDeleted — delete is disabled in features
 	};
 	return adapter;

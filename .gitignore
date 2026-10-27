@@ -12,6 +12,7 @@ dist/
 # Browser-test artifacts
 **/__screenshots__/
 **/.vitest-attachments/
+**/.vitest/
 
 # OS
 .DS_Store

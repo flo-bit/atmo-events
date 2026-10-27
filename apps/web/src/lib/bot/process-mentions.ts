@@ -1,5 +1,5 @@
 import type { Did } from '@atcute/lexicons';
-import { getServerClient } from '$lib/contrail/index';
+import { getServerClient } from '#lib/contrail/index.js';
 import { MAX_MENTIONS_PER_RUN, NOTIF_LIMIT, REPLIES } from './config';
 import { getBotHandle, type BotHandle } from './session';
 import {
@@ -27,7 +27,7 @@ type Mention = {
  * their post, or reply with a hint. Wrapped per-mention so one failure can't
  * stall the batch; unrecorded failures are retried on the next tick.
  */
-export async function processBotMentions(env: App.Platform['env'], db: D1Database): Promise<void> {
+export async function processBotMentions(env: Cloudflare.Env, db: D1Database): Promise<void> {
 	const bot = await getBotHandle(env);
 	if (!bot) return;
 
@@ -67,7 +67,7 @@ export async function processBotMentions(env: App.Platform['env'], db: D1Databas
 }
 
 async function handleMention(
-	env: App.Platform['env'],
+	env: Cloudflare.Env,
 	db: D1Database,
 	bot: BotHandle,
 	mention: Mention

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { getProfileBlobUrl, type FlatEventRecord } from '$lib/contrail';
-	import { user, logout } from '$lib/atproto/auth.svelte';
-	import UserProfile from '$lib/components/UserProfile.svelte';
+	import { getProfileBlobUrl, type FlatEventRecord } from '#lib/contrail.js';
+	import { user, logout } from '#lib/atproto/auth.svelte.js';
+	import UserProfile from '#lib/components/UserProfile.svelte';
 	import { Button } from '@atmo-dev/kit';
 	import { EventCard } from '@atmo-dev/events-ui';
-	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
-	import HappeningNow from '$lib/components/HappeningNow.svelte';
+	import { createEventModalState } from '#lib/components/CreateEventModal.svelte';
+	import HappeningNow from '#lib/components/HappeningNow.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();

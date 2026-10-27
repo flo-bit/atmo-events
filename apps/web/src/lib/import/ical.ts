@@ -1,4 +1,4 @@
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 import type { EventImporter } from './types';
 import { offsetForZone } from './util';
 

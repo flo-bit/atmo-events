@@ -1,22 +1,23 @@
 <script lang="ts">
 	import { ArrowLeft } from '@sketchyicons/svelte';
 	import { Button, Checkbox, Icon } from '@atmo-dev/kit';
-	import { user } from '$lib/atproto/auth.svelte';
-	import { createInAppAdapter } from '$lib/components/editor/adapter';
-	import { invalidateAll } from '$app/navigation';
-	import { parseFile, type ParsedFile } from '$lib/conference-import/parse';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
+	import { refreshAll } from '$app/navigation';
+	import { parseFile, type ParsedFile } from '#lib/conference-import/parse.js';
 	import {
 		buildTalk,
 		autoDetect,
 		EVENT_COLLECTION,
 		type FieldMapping,
 		type BuiltTalk
-	} from '$lib/conference-import/transform';
+	} from '#lib/conference-import/transform.js';
 
 	let { data } = $props();
 
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
+		canPostToBluesky: user.canPostToBluesky,
 		did: user.did ?? null,
 		handle: user.profile?.handle,
 		displayName: user.profile?.displayName,
@@ -82,7 +83,7 @@
 			if (!record.timezone) record.timezone = tzInput.trim();
 			await adapter.putRecord({ collection: EVENT_COLLECTION, rkey: data.rkey, record });
 			await adapter.notifyUpdate?.(data.uri);
-			await invalidateAll();
+			await refreshAll();
 		} catch (e) {
 			alert(`Failed to set up conference: ${(e as Error).message}`);
 		} finally {
@@ -190,7 +191,7 @@
 		await notifyBatch(uris);
 		committing = false;
 		result = { created: uris.length, failed };
-		await invalidateAll();
+		await refreshAll();
 	}
 
 	// --- existing talks --------------------------------------------------------
@@ -202,7 +203,7 @@
 		try {
 			await adapter.deleteRecord({ collection: EVENT_COLLECTION, rkey });
 			await adapter.notifyUpdate?.(uri);
-			await invalidateAll();
+			await refreshAll();
 		} finally {
 			busyRkey = null;
 		}
@@ -217,7 +218,7 @@
 				await adapter.deleteRecord({ collection: EVENT_COLLECTION, rkey: t.rkey }).catch(() => {});
 			}
 			await notifyBatch(data.talks.map((t) => t.uri));
-			await invalidateAll();
+			await refreshAll();
 		} finally {
 			clearing = false;
 		}

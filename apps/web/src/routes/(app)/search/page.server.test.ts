@@ -6,27 +6,27 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // pin which backend serves the page, that the emitted envelope names it, and that
 // no inbound ?cursor= is ever resumed here (the term rides ?q=, not the
 // envelope).
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn()
 }));
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(),
 	runEventSearchPage: vi.fn(),
 	runOngoingSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
 import {
 	runEventSearchPage,
 	runOngoingSearchPage,
 	searchBackendFromEnv
-} from '$lib/search/server/query';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
+} from '#lib/search/server/query.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
 
 const mockSearchBackendFromEnv = vi.mocked(searchBackendFromEnv);
 const mockRunEventSearchPage = vi.mocked(runEventSearchPage);
@@ -63,9 +63,9 @@ function event(q: string, cursor?: string) {
 	const url = new URL('https://atmo.test/search');
 	if (q) url.searchParams.set('q', q);
 	if (cursor) url.searchParams.set('cursor', cursor);
-	// platform.env is opaque here; the query module is mocked, so its contents
+	// Worker bindings are opaque here; the query module is mocked, so its contents
 	// only matter to the (mocked) searchBackendFromEnv.
-	return { url, platform: { env: {} } } as unknown as Parameters<typeof load>[0];
+	return { url } as unknown as Parameters<typeof load>[0];
 }
 
 afterEach(() => vi.clearAllMocks());

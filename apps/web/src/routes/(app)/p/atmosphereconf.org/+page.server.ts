@@ -1,13 +1,14 @@
+import { env } from 'cloudflare:workers';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
 	listEventRecordsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { vodFromAtUri, type VodRecord } from '$lib/vods';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { vodFromAtUri, type VodRecord } from '#lib/vods.js';
 
-export async function load({ locals, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ locals }) {
+	const client = getServerClient(env.DB);
 	const actor = 'atmosphereconf.org';
 
 	const [profile, response, rsvpResponse] = await Promise.all([
@@ -45,7 +46,9 @@ export async function load({ locals, platform }) {
 	// Build event URI → VOD map from additionalData.vodAtUri
 	const eventVods: Record<string, VodRecord> = {};
 	for (const event of events) {
-		const vodAtUri = (event.additionalData as Record<string, unknown> | undefined)?.vodAtUri as string | undefined;
+		const vodAtUri = (event.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
+			| string
+			| undefined;
 		if (vodAtUri) eventVods[event.uri] = vodFromAtUri(vodAtUri);
 	}
 

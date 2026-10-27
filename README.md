@@ -18,6 +18,8 @@ features:
 
 ## development
 
+Requires Node.js **22.17+** and the pinned pnpm version. The app uses SvelteKit 3 and `@svelte-atproto/oauth`; see [OAuth and migration notes](docs/sveltekit-3-oauth.md) for permissions, configuration, and compatibility details.
+
 The UI uses the published `@atmo-dev/kit@0.0.2`. A normal install or CI build needs no sibling kit checkout:
 
 ```sh

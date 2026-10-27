@@ -3,6 +3,7 @@ import type { EditorAdapter, EditorViewer } from '../src/editor/adapter.js';
 import type { FlatEventRecord } from '../src/contrail.js';
 export const viewer: EditorViewer = {
 	isLoggedIn: true,
+	canPostToBluesky: true,
 	did: 'did:plc:abcdefghijklmnopqrstuvwx',
 	handle: 'host.example.com',
 	displayName: 'Test Host'

@@ -1,4 +1,5 @@
-// Adapt the native Worker D1 binding (platform.env.DB) to the D1Client interface
+import { env } from 'cloudflare:workers';
+// Adapt the native Worker D1 binding (env.DB) to the D1Client interface
 // the geocode job uses. Lets the same core run in-Worker (the cron drip) over the
 // native binding — no REST endpoint, no CLOUDFLARE_API_TOKEN — while the off-box
 // CLI keeps the HTTP client in d1-http.ts. One parameterized-query method, the

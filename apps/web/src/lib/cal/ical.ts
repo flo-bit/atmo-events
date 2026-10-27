@@ -1,4 +1,4 @@
-import type { EventData } from '$lib/event-types';
+import type { EventData } from '#lib/event-types.js';
 
 /**
  * Escape text for iCal fields (RFC 5545 Section 3.3.11).
@@ -172,9 +172,7 @@ function generateVEvent(event: ICalEvent): string | null {
 	if (organizer) {
 		const organizerUrl = toAbsoluteUrl(`/${organizer}`, url) ?? url;
 
-		lines.push(
-			`ORGANIZER;CN=${escapeText(organizer)}:${organizerUrl}`
-		);
+		lines.push(`ORGANIZER;CN=${escapeText(organizer)}:${organizerUrl}`);
 	}
 
 	// Attendees
@@ -185,9 +183,7 @@ function generateVEvent(event: ICalEvent): string | null {
 
 			if (!attendeeUrl) continue;
 
-			lines.push(
-				`ATTENDEE;CN=${escapeText(attendee.name)};PARTSTAT=${partstat}:${attendeeUrl}`
-			);
+			lines.push(`ATTENDEE;CN=${escapeText(attendee.name)};PARTSTAT=${partstat}:${attendeeUrl}`);
 		}
 	}
 

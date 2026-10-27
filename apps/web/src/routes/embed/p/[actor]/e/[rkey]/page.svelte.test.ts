@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'svelte/server';
-vi.mock('$lib/contrail', () => ({ notifyContrailOfUpdate: vi.fn() }));
+vi.mock('#lib/contrail.js', () => ({ notifyContrailOfUpdate: vi.fn() }));
 import EmbedPage from './+page.svelte';
 
 function markup(
@@ -11,6 +11,10 @@ function markup(
 	return render(EmbedPage, {
 		props: {
 			data: {
+				canPostToBluesky: false,
+				did: null,
+				profile: null,
+				pageTitle: 'Meetup',
 				eventData: {
 					name: 'Meetup',
 					startsAt: '2099-10-24T18:00:00Z',

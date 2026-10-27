@@ -9,7 +9,7 @@ import { discoverableSql } from './search/server/discoverability';
 // process.env (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected by
 // the operator at runtime so no secret is committed; an unset SEARCH_SINK_URL
 // omits the sink, keeping `pnpm generate` clean. The runtime Worker
-// (`$lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
+// (`#lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
 // sink, so this one runs only under the CLI.
 const searchSinks: NonNullable<ContrailConfig['sinks']> =
 	typeof process !== 'undefined' && process.env?.SEARCH_SINK_URL

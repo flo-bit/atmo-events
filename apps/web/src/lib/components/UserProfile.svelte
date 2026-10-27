@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Avatar, cn } from '@atmo-dev/kit';
-	import { sanitize } from '$lib/cal/sanitize';
+	import { sanitize } from '#lib/cal/sanitize.js';
 	import type { Snippet } from 'svelte';
 
 	let {

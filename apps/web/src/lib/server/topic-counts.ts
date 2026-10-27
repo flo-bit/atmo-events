@@ -1,6 +1,6 @@
 import { ftsQueryClause, sqliteDialect } from '@atmo-dev/contrail-appview';
-import { TOPICS, orQueryFromSlug } from '$lib/topics';
-import { discoverableSql } from '$lib/search/server/discoverability';
+import { TOPICS, orQueryFromSlug } from '#lib/topics.js';
+import { discoverableSql } from '#lib/search/server/discoverability.js';
 
 export const TOPIC_COUNTS_INTERVAL_MS = 24 * 60 * 60 * 1000;
 const REFRESH_LEASE_MS = 5 * 60 * 1000;

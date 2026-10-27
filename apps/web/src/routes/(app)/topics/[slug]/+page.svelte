@@ -1,6 +1,6 @@
 <script lang="ts">
-	import EventList from '$lib/components/EventList.svelte';
-	import TopicIcon from '$lib/components/TopicIcon.svelte';
+	import EventList from '#lib/components/EventList.svelte';
+	import TopicIcon from '#lib/components/TopicIcon.svelte';
 	import { resolve } from '$app/paths';
 	import { Icon } from '@atmo-dev/kit';
 	import { ChevronLeft } from '@sketchyicons/svelte';

@@ -1,99 +1,55 @@
+import { env } from 'cloudflare:workers';
+import { dev } from '$app/env';
 import {
-	OAuthClient,
-	MemoryStore,
-	type ClientAssertionPrivateJwk,
-	type OAuthClientStores,
-	type OAuthSession,
-	type StoredSession,
-	type StoredState
-} from '@atcute/oauth-node-client';
-import type { Did } from '@atcute/lexicons';
+	createAtprotoAuth,
+	type AtprotoAuth,
+	type RequestLock
+} from '@svelte-atproto/oauth/server';
+import { cloudflareKV } from '@svelte-atproto/oauth/server/stores/cloudflare';
 import {
-	CompositeDidDocumentResolver,
-	CompositeHandleResolver,
-	DohJsonHandleResolver,
-	LocalActorResolver,
-	PlcDidDocumentResolver,
-	WebDidDocumentResolver,
-	WellKnownHandleResolver
-} from '@atcute/identity-resolver';
-import { KVStore } from './kv-store';
-import { DOH_RESOLVER, REDIRECT_PATH, scopes } from '../settings';
-import { DEV_PORT } from '../port';
-import { dev } from '$app/environment';
+	ALLOW_SIGNUP,
+	DEV_PORT,
+	DOH_RESOLVER,
+	REDIRECT_PATH,
+	scopes,
+	signUpPDS
+} from '../settings';
+const pending = new Map<string, Promise<unknown>>();
 
-function createActorResolver() {
-	return new LocalActorResolver({
-		handleResolver: new CompositeHandleResolver({
-			methods: {
-				dns: new DohJsonHandleResolver({ dohUrl: DOH_RESOLVER }),
-				http: new WellKnownHandleResolver()
-			}
-		}),
-		didDocumentResolver: new CompositeDidDocumentResolver({
-			methods: {
-				plc: new PlcDidDocumentResolver(),
-				web: new WebDidDocumentResolver()
-			}
-		})
-	});
+/** Serialize interactive and bot refreshes in this process, as the library's
+ * default lock does. This is not a distributed lock across Workers. */
+export const oauthRequestLock: RequestLock = async (name, operation) => {
+	const previous = pending.get(name);
+	const current = (async () => {
+		if (previous) await previous.catch(() => {});
+		return operation();
+	})();
+	pending.set(name, current);
+	try {
+		return await current;
+	} finally {
+		if (pending.get(name) === current) pending.delete(name);
+	}
+};
+
+let auth: AtprotoAuth | undefined;
+
+/** Construct lazily: Worker bindings are unavailable during prerender/build. */
+export function getAuth(): AtprotoAuth {
+	return (auth ??= createAtprotoAuth({
+		origin: env.OAUTH_PUBLIC_URL,
+		cookieSecret: env.COOKIE_SECRET,
+		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
+		scope: scopes,
+		signupPDS: ALLOW_SIGNUP ? signUpPDS[dev ? 'development' : 'production'] : undefined,
+		redirectPath: REDIRECT_PATH,
+		devPort: DEV_PORT,
+		doh: DOH_RESOLVER,
+		requestLock: oauthRequestLock,
+		// Pass bindings directly: the library's name-based adapter still reads
+		// event.platform, which was removed in SvelteKit 3. Preserve KV keys and
+		// the 10-minute state TTL; missing local bindings fall back to memory.
+		sessions: () => (env.OAUTH_SESSIONS ? cloudflareKV(env.OAUTH_SESSIONS) : undefined),
+		states: () => (env.OAUTH_STATES ? cloudflareKV(env.OAUTH_STATES, { ttl: 600 }) : undefined)
+	}));
 }
-
-function createStores(env?: App.Platform['env']): OAuthClientStores {
-	if (env?.OAUTH_SESSIONS && env?.OAUTH_STATES) {
-		return {
-			sessions: new KVStore<Did, StoredSession>(env.OAUTH_SESSIONS),
-			states: new KVStore<string, StoredState>(env.OAUTH_STATES, { expirationTtl: 600 })
-		};
-	}
-	// Fallback to in-memory stores (dev without wrangler)
-	return {
-		sessions: new MemoryStore<Did, StoredSession>(),
-		states: new MemoryStore<string, StoredState>({ ttl: 600_000 })
-	};
-}
-
-let cachedClient: OAuthClient | null = null;
-
-export function createOAuthClient(env?: App.Platform['env']): OAuthClient {
-	if (cachedClient) return cachedClient;
-
-	const actorResolver = createActorResolver();
-	const stores = createStores(env);
-
-	if (dev && !env?.OAUTH_PUBLIC_URL) {
-		cachedClient = new OAuthClient({
-			metadata: {
-				redirect_uris: [`http://127.0.0.1:${DEV_PORT}${REDIRECT_PATH}`],
-				scope: scopes
-			},
-			actorResolver,
-			stores
-		});
-		return cachedClient;
-	}
-
-	if (!env?.OAUTH_PUBLIC_URL) {
-		throw new Error('OAUTH_PUBLIC_URL is not set');
-	}
-	if (!env.CLIENT_ASSERTION_KEY) {
-		throw new Error('CLIENT_ASSERTION_KEY secret is not set. Run: pnpm env:generate-key');
-	}
-	const site = env.OAUTH_PUBLIC_URL;
-	const key: ClientAssertionPrivateJwk = JSON.parse(env.CLIENT_ASSERTION_KEY);
-
-	cachedClient = new OAuthClient({
-		metadata: {
-			client_id: site + '/oauth-client-metadata.json',
-			redirect_uris: [site + REDIRECT_PATH],
-			scope: scopes,
-			jwks_uri: site + '/oauth/jwks.json'
-		},
-		keyset: [key],
-		actorResolver,
-		stores
-	});
-	return cachedClient;
-}
-
-export type { OAuthSession };
