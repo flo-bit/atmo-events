@@ -5,7 +5,6 @@
 	import ShareModal from './ShareModal.svelte';
 	import EventComments from './EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
-	import EventRsvp from './EventRsvp.svelte';
 	import EventCard from './EventCard.svelte';
 	import EventAttendees from './EventAttendees.svelte';
 	import VodPlayer, { type VodPlayerApi } from './VodPlayer.svelte';
@@ -27,8 +26,19 @@
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
-	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
-	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
+	import EventAttendanceActions from './event-view/EventAttendanceActions.svelte';
+	import {
+		getTicketActionState,
+		getTicketSalesEndTimestamp,
+		resolveTicketPresentation,
+		shouldShowRsvpPanel
+	} from './event-view/tickets.js';
+	import {
+		buildDescriptionHtml,
+		getLocationData,
+		resolveGeoLocation,
+		type GeoLocation
+	} from './event-view/format';
 
 	let {
 		data,
@@ -86,9 +96,7 @@
 	// root, even when the RSVPer is the host.
 	let canSetEventComments = $state(false);
 	let isHost = $derived(!!viewer.did && viewer.did === did);
-	let hasComments = $derived(
-		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
-	);
+	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
 	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
 	onMount(async () => {
@@ -129,7 +137,43 @@
 	let isBannerOnly = $derived(!thumbnailImage && !!bannerImage);
 
 	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
+	// Preserve the existing RSVP behavior: this clock is evaluated when the
+	// derived value runs and is not driven by the ticket boundary timer.
 	let isPast = $derived(endDate ? endDate < new Date() : false);
+	// Ticket timing is separate from the existing RSVP clock. A missing endsAt
+	// remains open, matching atmo's longstanding no-end event semantics, while
+	// malformed dates fall back to ordinary RSVP presentation.
+	let ticketNow = $state(Date.now());
+	let ticketSalesEnd = $derived(getTicketSalesEndTimestamp(eventData.startsAt, eventData.endsAt));
+	let ticketActionState = $derived(
+		getTicketActionState({
+			startsAt: eventData.startsAt,
+			endsAt: eventData.endsAt,
+			status: eventData.status,
+			now: ticketNow
+		})
+	);
+	let isTicketCtaEligible = $derived(ticketActionState === 'open');
+
+	$effect(() => {
+		// Reading the derived boundary here makes navigation to another event
+		// cancel the old timer and immediately refresh the clock for the new one.
+		const boundary = ticketSalesEnd;
+		let timeout: number | undefined;
+		const refreshAndSchedule = () => {
+			const current = Date.now();
+			ticketNow = current;
+			if (boundary === null) return;
+			const millisecondsUntilBoundary = boundary - current;
+			if (millisecondsUntilBoundary <= 0) return;
+			timeout = window.setTimeout(
+				refreshAndSchedule,
+				Math.min(millisecondsUntilBoundary + 250, 86_400_000)
+			);
+		};
+		refreshAndSchedule();
+		return () => window.clearTimeout(timeout);
+	});
 
 	let streamPlaceHandle = $derived.by(() => {
 		const uris = eventData.uris;
@@ -141,9 +185,34 @@
 		return null;
 	});
 
-	let descriptionHtml = $derived(
-		buildDescriptionHtml(eventData.description, eventData.facets)
+	// Only verified protocol discovery can produce the special Atmosphere
+	// Tickets CTA. Organizer-supplied URLs remain untouched in the Links list.
+	let ticketUrl = $derived(
+		resolveTicketPresentation({
+			protocolTicketUrl: data.protocolTicketUrl,
+			eventDid: did,
+			eventRkey: rkey,
+			showCta: isTicketCtaEligible
+		})
 	);
+	// This is configured separately from discovery. During the pilot it comes
+	// from an exact deployment allowlist; a ticketedEvent alone is not policy,
+	// and a clean no-record result restores baseline RSVP presentation.
+	let ticketAdmissionRequired = $derived(data.ticketAdmissionRequired === true);
+	let ticketDiscoveryState = $derived.by(() => {
+		const state = data.protocolTicketDiscoveryState;
+		return state === 'found' || state === 'unavailable' ? state : 'none';
+	});
+	let showRsvpPanel = $derived(
+		shouldShowRsvpPanel({
+			isLoggedIn: viewer.isLoggedIn,
+			ticketAdmissionRequired,
+			ticketActionState,
+			ticketDiscoveryState
+		})
+	);
+
+	let descriptionHtml = $derived(buildDescriptionHtml(eventData.description, eventData.facets));
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -312,23 +381,24 @@
 					</div>
 				{/if}
 
-				{#if !isPast}
-					{#if rsvpExternalOnly && externalSource?.url}
-						<ExternalRsvpNotice url={externalSource.url} />
-					{:else}
-						<EventRsvp
-							{eventUri}
-							eventCid={eventData.cid ?? null}
-							initialRsvpStatus={data.viewerRsvpStatus}
-							initialRsvpRkey={data.viewerRsvpRkey}
-							spaceUri={data.spaceUri ?? null}
-							{adapter}
-							{viewer}
-							onrsvp={handleRsvp}
-							oncancel={handleRsvpCancel}
-						/>
-					{/if}
-				{/if}
+				<EventAttendanceActions
+					ticketUrl={ticketUrl ?? undefined}
+					{ticketAdmissionRequired}
+					{ticketActionState}
+					{ticketDiscoveryState}
+					showRsvpPanel={!isPast && (showRsvpPanel || rsvpExternalOnly)}
+					{rsvpExternalOnly}
+					externalSourceUrl={externalSource?.url}
+					{eventUri}
+					eventCid={eventData.cid ?? null}
+					initialRsvpStatus={data.viewerRsvpStatus}
+					initialRsvpRkey={data.viewerRsvpRkey}
+					spaceUri={data.spaceUri ?? null}
+					{adapter}
+					{viewer}
+					onrsvp={handleRsvp}
+					oncancel={handleRsvpCancel}
+				/>
 
 				<!-- Live stream -->
 				{#if isOngoing && streamPlaceHandle}
