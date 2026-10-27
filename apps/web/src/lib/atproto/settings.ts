@@ -1,4 +1,9 @@
-// Pure configuration, shared with Vite (no SvelteKit/runtime imports).
+import type { LoginPermission } from '@atmo-dev/kit';
+import Calendar from '@sketchyicons/svelte/icons/calendar';
+import MessageCircle from '@sketchyicons/svelte/icons/message-circle';
+import type { Capability } from '@svelte-atproto/oauth/permissions';
+
+// Shared with Vite: import only types and icon data, not Kit/Svelte components.
 export const DEV_PORT = 5454;
 
 // Writable calendar collections for the server-side record allowlist.
@@ -8,9 +13,7 @@ export const collections = [
 	'community.lexicon.calendar.rsvp'
 ] as const;
 
-export const allowedCollections = [...collections, 'app.bsky.feed.post'];
-
-export type AllowedCollection = (typeof allowedCollections)[number];
+export const allowedCollections = [...collections, 'app.bsky.feed.post'] as const;
 
 // Request only the permissions needed for publishing.
 // Event RPCs are public; the old rsvp.atmo.permissionSet include also grants
@@ -27,6 +30,39 @@ export const blueskyPostingScope = 'include:app.bsky.authCreatePosts';
 // Metadata declares all supported permissions. Each login explicitly requests
 // only requiredScopes plus the optional permissions selected by the user.
 export const scopes = [...requiredScopes, blueskyPostingScope];
+
+export const loginPermissions: readonly LoginPermission[] = [
+	{
+		id: 'calendar',
+		icon: Calendar,
+		label: 'Events and RSVPs',
+		description: 'Create and edit events and RSVPs.',
+		scopes: requiredScopes.slice(1),
+		required: true
+	},
+	{
+		id: 'bluesky',
+		icon: MessageCircle,
+		label: 'Post to Bluesky',
+		description: 'Share events directly from your account.',
+		scopes: [blueskyPostingScope],
+		defaultSelected: true
+	}
+];
+
+/** Always retain required permissions, including for signup and direct callers. */
+export function getLoginScopes(selected: readonly string[] = []): string[] {
+	return [
+		...requiredScopes,
+		...(selected.includes(blueskyPostingScope) ? [blueskyPostingScope] : [])
+	];
+}
+
+export const blueskyPostCapability = {
+	type: 'repo',
+	collection: 'app.bsky.feed.post',
+	action: 'create'
+} as const satisfies Capability;
 
 // set to false to disable signup
 export const ALLOW_SIGNUP = true;

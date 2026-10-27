@@ -16,7 +16,7 @@
 	let signupOpen = $state(false);
 
 	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
-	import { loginPermissions } from '#lib/atproto/permissions.js';
+	import { loginPermissions } from '#lib/atproto/settings.js';
 	const searchActors = createActorSearch();
 </script>
 

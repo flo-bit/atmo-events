@@ -1,13 +1,9 @@
 import type { AppBskyActorDefs } from '@atcute/bluesky';
 import type { Did } from '@atcute/lexicons';
 import { page } from '$app/state';
-import {
-	login as oauthLogin,
-	signup as oauthSignup,
-	logout as oauthLogout
-} from '@svelte-atproto/oauth/client';
-import { ALLOW_SIGNUP, REDIRECT_TO_LAST_PAGE_ON_LOGIN } from './settings';
-import { getLoginScopes } from './permissions';
+import { login as oauthLogin, signup as oauthSignup } from '@svelte-atproto/oauth/client';
+export { logout } from '@svelte-atproto/oauth/client';
+import { ALLOW_SIGNUP, REDIRECT_TO_LAST_PAGE_ON_LOGIN, getLoginScopes } from './settings';
 
 export const user = {
 	get profile() {
@@ -41,8 +37,4 @@ export function signup(options?: { scopes: readonly string[] }) {
 		scope: getLoginScopes(options?.scopes),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
-}
-
-export function logout() {
-	return oauthLogout();
 }

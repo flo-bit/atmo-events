@@ -18,7 +18,7 @@ features:
 
 ## development
 
-Requires Node.js **22.17+** and the pinned pnpm version. The app uses SvelteKit 3 and `@svelte-atproto/oauth`; see [OAuth and migration notes](docs/sveltekit-3-oauth.md) for permissions, configuration, and compatibility details.
+Requires Node.js **22.17+** and the pinned pnpm version. The app uses SvelteKit 3 and `@svelte-atproto/oauth`.
 
 The UI uses the published `@atmo-dev/kit@0.0.2`. A normal install or CI build needs no sibling kit checkout:
 
@@ -27,7 +27,7 @@ corepack pnpm install --frozen-lockfile
 corepack pnpm dev
 ```
 
-For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile. See [local kit development](docs/local-kit.md) for setup, custom checkout paths, and the release workflow.
+For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
 
 Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`.
 

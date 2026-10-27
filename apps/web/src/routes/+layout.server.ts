@@ -1,8 +1,8 @@
 import { env, waitUntil } from 'cloudflare:workers';
 import type { LayoutServerLoad } from './$types';
-import { loadProfile } from '#lib/atproto/server/profile.js';
+import { getViewerProfileFromContrail } from '#lib/contrail.js';
 import { getAuth } from '#lib/atproto/server/oauth.js';
-import { blueskyPostCapability } from '#lib/atproto/permissions.js';
+import { blueskyPostCapability } from '#lib/atproto/settings.js';
 import { getServerClient } from '#lib/contrail/index.js';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
@@ -13,7 +13,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	// Warm the first authenticated page after login. This keeps the network-feed
 	// bootstrap out of the response path without replacing the library callback.
 	if (env.DB) waitUntil(prewarmNetworkFeed(locals.did));
-	const profile = await loadProfile(locals.did, env.DB);
+	const profile = await getViewerProfileFromContrail(getServerClient(env.DB), locals.did);
 	let canPostToBluesky = false;
 	try {
 		canPostToBluesky = await getAuth().api.can(blueskyPostCapability);

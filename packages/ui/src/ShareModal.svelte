@@ -110,7 +110,7 @@
 				</div>
 			{/if}
 			{#if textBeforeUrl}
-				<p class="text-base-700 dark:text-base-200 text-md font-semibold">{textBeforeUrl}</p>
+				<p class="text-base-700 dark:text-base-200 text-md mb-3 font-semibold">{textBeforeUrl}</p>
 			{/if}
 			{#if eventName}
 				<LinkCard

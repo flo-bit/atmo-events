@@ -8,7 +8,7 @@ import type {
 	RsvpAtmoRsvpListRecords
 } from '../lexicon-types';
 import type { Client } from '@atcute/client';
-import type { ActorIdentifier } from '@atcute/lexicons';
+import type { ActorIdentifier, Did } from '@atcute/lexicons';
 
 export const RSVP_HYDRATE_LIMIT = 20;
 export const RSVP_GOING = 'community.lexicon.calendar.rsvp#going';
@@ -252,6 +252,25 @@ export async function getProfileFromContrail(
 
 	if (!response.ok) return null;
 	return response.data.profiles?.[0] ?? null;
+}
+
+/** Viewer identity from the local appview, not a second Bluesky profile fetch. */
+export async function getViewerProfileFromContrail(client: Client, did: Did) {
+	try {
+		const profile = await getProfileFromContrail(client, did);
+		if (!profile) return { did, handle: did };
+		return {
+			did: profile.did,
+			handle: profile.handle && profile.handle !== 'handle.invalid' ? profile.handle : did,
+			displayName: profile.value?.displayName,
+			avatar: profile.value?.avatar
+				? getProfileBlobUrl(profile.did, profile.value.avatar)
+				: undefined
+		};
+	} catch (error) {
+		console.error('Failed to load profile:', error);
+		return undefined;
+	}
 }
 
 export async function listEventRecordsFromContrail(

@@ -64,7 +64,11 @@ describe('Bluesky write enforcement', () => {
 	});
 	it('propagates PDS write failures instead of returning a successful-looking result', async () => {
 		mocks.post.mockResolvedValue({ ok: false, status: 409, data: { error: 'InvalidSwap' } });
-		const input = { collection: 'community.lexicon.calendar.event', rkey: 'event', record: {} };
+		const input = {
+			collection: 'community.lexicon.calendar.event',
+			rkey: 'event',
+			record: {}
+		} as const;
 		await expect(createRecord(input)).rejects.toMatchObject({ status: 409 });
 		await expect(putRecord(input)).rejects.toMatchObject({ status: 409 });
 		await expect(deleteRecord(input)).rejects.toMatchObject({ status: 409 });

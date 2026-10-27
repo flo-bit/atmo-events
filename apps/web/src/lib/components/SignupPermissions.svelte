@@ -3,10 +3,11 @@
 		Modal,
 		Button,
 		Checkbox,
+		Icon,
 		isPermissionSelected,
 		resolveLoginOptions
 	} from '@atmo-dev/kit';
-	import { loginPermissions } from '#lib/atproto/permissions.js';
+	import { loginPermissions } from '#lib/atproto/settings.js';
 	import { signup } from '#lib/atproto/auth.svelte.js';
 
 	let { open = $bindable(false) }: { open: boolean } = $props();
@@ -33,20 +34,27 @@
 	<div class="space-y-5">
 		{#each loginPermissions as permission (permission.id)}
 			<div class="flex items-start gap-3">
+				{#if permission.icon}
+					<Icon
+						img={permission.icon}
+						size={20}
+						class="text-base-500 dark:text-base-400 mt-1 shrink-0"
+					/>
+				{/if}
+				<div class="min-w-0 flex-1">
+					<label for={`${uid}-${permission.id}`} class="text-sm font-medium">
+						{permission.label}{permission.required ? ' (required)' : ''}
+					</label>
+					<p class="text-base-500 dark:text-base-400 mt-1 text-sm">{permission.description}</p>
+				</div>
 				<Checkbox
 					id={`${uid}-${permission.id}`}
 					checked={isPermissionSelected(permission, choices)}
 					disabled={permission.required || busy}
 					onchange={(event) =>
 						(choices = { ...choices, [permission.id]: event.currentTarget.checked })}
-					class="mt-0.5"
+					class="mt-1"
 				/>
-				<div>
-					<label for={`${uid}-${permission.id}`} class="text-sm font-medium">
-						{permission.label}{permission.required ? ' (required)' : ''}
-					</label>
-					<p class="text-base-500 dark:text-base-400 mt-1 text-sm">{permission.description}</p>
-				</div>
 			</div>
 		{/each}
 		{#if error}<p role="alert" class="text-sm">{error}</p>{/if}

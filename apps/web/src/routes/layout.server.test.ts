@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({ can: vi.fn(), profile: vi.fn(), get: vi.fn() }));
 vi.mock('#lib/atproto/server/oauth.js', () => ({ getAuth: () => ({ api: { can: mocks.can } }) }));
-vi.mock('#lib/atproto/server/profile.js', () => ({ loadProfile: mocks.profile }));
+vi.mock('#lib/contrail.js', () => ({ getViewerProfileFromContrail: mocks.profile }));
 vi.mock('#lib/contrail/index.js', () => ({ getServerClient: () => ({ get: mocks.get }) }));
 import { load } from './+layout.server';
 

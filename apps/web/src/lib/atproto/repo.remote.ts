@@ -13,15 +13,7 @@ async function assertWritePermission(collection: string, action: 'create' | 'upd
 	}
 }
 
-// Validate collection format and check against allowed list from settings
-const collectionSchema = v.pipe(
-	v.string(),
-	v.regex(/^[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z][a-zA-Z0-9-]*){2,}$/),
-	v.check(
-		(c) => allowedCollections.includes(c as (typeof allowedCollections)[number]),
-		'Collection not in allowed list'
-	)
-);
+const collectionSchema = v.picklist(allowedCollections);
 
 // AT Protocol rkey: TID, 'self', or other valid record keys (alphanumeric, dash, underscore, dot)
 const rkeySchema = v.optional(v.pipe(v.string(), v.regex(/^[a-zA-Z0-9._:~-]{1,512}$/)));
@@ -39,7 +31,7 @@ export const putRecord = command(
 		await assertWritePermission(input.collection, 'update');
 		const response = await locals.client.post('com.atproto.repo.putRecord', {
 			input: {
-				collection: input.collection as `${string}.${string}.${string}`,
+				collection: input.collection,
 				repo: locals.did,
 				rkey: input.rkey || 'self',
 				record: input.record
@@ -64,7 +56,7 @@ export const createRecord = command(
 		await assertWritePermission(input.collection, 'create');
 		const response = await locals.client.post('com.atproto.repo.createRecord', {
 			input: {
-				collection: input.collection as `${string}.${string}.${string}`,
+				collection: input.collection,
 				repo: locals.did,
 				...(input.rkey ? { rkey: input.rkey } : {}),
 				record: input.record
@@ -88,7 +80,7 @@ export const deleteRecord = command(
 		await assertWritePermission(input.collection, 'delete');
 		const response = await locals.client.post('com.atproto.repo.deleteRecord', {
 			input: {
-				collection: input.collection as `${string}.${string}.${string}`,
+				collection: input.collection,
 				repo: locals.did,
 				rkey: input.rkey || 'self'
 			}

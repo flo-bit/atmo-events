@@ -61,7 +61,7 @@
 				{#if isOwnProfile}
 					<div class="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
 						<Button onclick={() => createEventModalState.show()}>Create Event</Button>
-						<Button onclick={logout} variant="ghost">Log out</Button>
+						<Button onclick={() => logout()} variant="ghost">Log out</Button>
 					</div>
 				{/if}
 			{/snippet}
