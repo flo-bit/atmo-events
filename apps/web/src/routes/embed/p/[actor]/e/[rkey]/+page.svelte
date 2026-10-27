@@ -82,7 +82,7 @@
 	);
 
 	async function submitRsvp(status: 'going' | 'interested') {
-		if (!window.Blento || !data.viewerDid) return;
+		if (data.eventData.rsvpExpected === false || !window.Blento || !data.viewerDid) return;
 		submitting = true;
 		try {
 			await window.Blento.ready;
@@ -210,83 +210,87 @@
 		<div class="embed-info">
 			<a href={eventUrl} target="_blank" rel="noopener noreferrer" class="embed-meta">
 				<h2 class="embed-title">{data.eventData.name}</h2>
-				<p class="embed-line text-base-500 dark:text-base-400">
+				<p class="embed-line text-muted">
 					{formatDate(startDate)}, {formatTime(startDate)}{#if endDate && isSameDay}
 						- {formatTime(endDate)}{/if}
 				</p>
 				{#if location}
-					<p class="embed-line text-base-500 dark:text-base-400">{location}</p>
+					<p class="embed-line text-muted">{location}</p>
 				{/if}
 			</a>
 
-			{#if !data.viewerDid}
-				<div class="embed-rsvp-wrap">
-					<button
-						onclick={handleLogin}
-						class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
-						>Log in to RSVP</button
+			{#if data.eventData.rsvpExpected !== false || (data.viewerDid && rsvpStatus)}
+				{#if !data.viewerDid}
+					<div class="embed-rsvp-wrap">
+						<button
+							onclick={handleLogin}
+							class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
+							>Log in to RSVP</button
+						>
+					</div>
+				{:else}
+					<div
+						class="embed-rsvp-card border-base-300 dark:border-base-800 bg-base-100 dark:bg-base-900/50"
 					>
-				</div>
-			{:else}
-				<div
-					class="embed-rsvp-card border-base-300 dark:border-base-800 bg-base-100 dark:bg-base-900/50"
-				>
-					{#if rsvpStatus === 'going'}
-						<div class="embed-status-row">
-							<div class="embed-status-left">
-								<div class="embed-status-icon bg-accent-soft">
-									<Icon img={Check} class="text-action" />
+						{#if rsvpStatus === 'going'}
+							<div class="embed-status-row">
+								<div class="embed-status-left">
+									<div class="embed-status-icon bg-accent-soft">
+										<Icon img={Check} class="text-action" />
+									</div>
+									<span class="embed-status-label text-base-900 dark:text-base-50"
+										>You're Going</span
+									>
 								</div>
-								<span class="embed-status-label text-base-900 dark:text-base-50">You're Going</span>
-							</div>
-							<button
-								onclick={cancelRsvp}
-								disabled={submitting}
-								aria-label="Cancel RSVP"
-								class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
-							>
-								<Icon img={X} />
-							</button>
-						</div>
-					{:else if rsvpStatus === 'interested'}
-						<div class="embed-status-row">
-							<div class="embed-status-left">
-								<div class="embed-status-icon bg-accent-soft">
-									<Icon img={Star} class="text-action" />
-								</div>
-								<span class="embed-status-label text-base-900 dark:text-base-50"
-									>You're Interested</span
+								<button
+									onclick={cancelRsvp}
+									disabled={submitting}
+									aria-label="Cancel RSVP"
+									class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
 								>
+									<Icon img={X} />
+								</button>
 							</div>
-							<button
-								onclick={cancelRsvp}
-								disabled={submitting}
-								aria-label="Cancel RSVP"
-								class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
-							>
-								<Icon img={X} />
-							</button>
-						</div>
-					{:else}
-						<div class="embed-btn-row">
-							<button
-								onclick={() => submitRsvp('going')}
-								disabled={submitting}
-								class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
-								>Going</button
-							>
-							<button
-								onclick={() => submitRsvp('interested')}
-								disabled={submitting}
-								aria-label="Interested"
-								class="embed-btn embed-btn-secondary bg-base-300 dark:bg-base-800 hover:bg-base-400 dark:hover:bg-base-700 text-base-700 dark:text-base-300"
-							>
-								<Icon img={Star} class="embed-btn-icon" />
-								<span class="embed-btn-text">Interested</span>
-							</button>
-						</div>
-					{/if}
-				</div>
+						{:else if rsvpStatus === 'interested' || rsvpStatus === 'notgoing'}
+							<div class="embed-status-row">
+								<div class="embed-status-left">
+									<div class="embed-status-icon bg-accent-soft">
+										<Icon img={rsvpStatus === 'interested' ? Star : X} class="text-action" />
+									</div>
+									<span class="embed-status-label text-base-900 dark:text-base-50"
+										>{rsvpStatus === 'interested' ? "You're Interested" : 'Not Going'}</span
+									>
+								</div>
+								<button
+									onclick={cancelRsvp}
+									disabled={submitting}
+									aria-label="Cancel RSVP"
+									class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
+								>
+									<Icon img={X} />
+								</button>
+							</div>
+						{:else}
+							<div class="embed-btn-row">
+								<button
+									onclick={() => submitRsvp('going')}
+									disabled={submitting}
+									class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
+									>Going</button
+								>
+								<button
+									onclick={() => submitRsvp('interested')}
+									disabled={submitting}
+									aria-label="Interested"
+									class="embed-btn embed-btn-secondary bg-base-300 dark:bg-base-800 hover:bg-base-400 dark:hover:bg-base-700 text-base-700 dark:text-base-300"
+								>
+									<Icon img={Star} class="embed-btn-icon" />
+									<span class="embed-btn-text">Interested</span>
+								</button>
+							</div>
+						{/if}
+					</div>
+				{/if}
 			{/if}
 		</div>
 	</div>

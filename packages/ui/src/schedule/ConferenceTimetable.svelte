@@ -44,9 +44,9 @@
 		loggedIn?: boolean;
 	} = $props();
 
-	// Own a mutable copy so RSVPs made from the grid reflect immediately.
-	let rsvpStatuses = $state({ ...initialRsvpStatuses });
-	let rsvpRkeys = $state({ ...initialRsvpRkeys });
+	// Writable so RSVPs made from the grid reflect immediately; resets when the props change.
+	let rsvpStatuses = $derived({ ...initialRsvpStatuses });
+	let rsvpRkeys = $derived({ ...initialRsvpRkeys });
 
 	let filterMode = $state('all');
 	let selectedDay = $state('all');
@@ -201,7 +201,7 @@
 		{/if}
 	</div>
 
-	<p class="text-base-500 dark:text-base-400 mb-4 text-sm">All times shown in {tzLabel}.</p>
+	<p class="text-muted mb-4 text-sm">All times shown in {tzLabel}.</p>
 
 	{#if upNextAll.length > 0}
 		<div class="mb-8">
@@ -231,7 +231,7 @@
 										{ev.title}
 									</p>
 									{#if subtitle(ev)}
-										<p class="text-base-500 dark:text-base-400 mt-0.5 truncate text-xs">
+										<p class="text-muted mt-0.5 truncate text-xs">
 											{subtitle(ev)}
 										</p>
 									{/if}
@@ -239,7 +239,7 @@
 								<span
 									class="flex shrink-0 items-center gap-1.5 text-xs whitespace-nowrap {w.soon
 										? 'text-accent-600 dark:text-accent-400 font-semibold'
-										: 'text-base-500 dark:text-base-400'}"
+										: 'text-muted'}"
 								>
 									{#if rsvpStatuses[ev.uri] === 'going'}
 										<Icon img={Check} size={14} class="text-action" />
@@ -269,7 +269,7 @@
 		<div class="mb-6 space-y-3">
 			{#if dayGroups.length > 1}
 				<div class="flex items-center gap-3">
-					<span class="text-base-500 dark:text-base-400 w-14 text-xs">Days</span>
+					<span class="text-muted w-14 text-xs">Days</span>
 					<ToggleGroup
 						type="single"
 						bind:value={
@@ -289,7 +289,7 @@
 			{/if}
 			{#if loggedIn}
 				<div class="flex items-center gap-3">
-					<span class="text-base-500 dark:text-base-400 w-14 text-xs">Events</span>
+					<span class="text-muted w-14 text-xs">Events</span>
 					<ToggleGroup
 						type="single"
 						bind:value={

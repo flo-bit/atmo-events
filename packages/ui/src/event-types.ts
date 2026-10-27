@@ -27,6 +27,8 @@ export interface EventLexiconMain {
 	locations?: EventLocationVariant[];
 	mode?: EventMode;
 	status?: EventStatus;
+	/** Whether a response is requested from attendees. Only explicit false opts out. */
+	rsvpExpected?: boolean;
 }
 
 export type EventData = EventLexiconMain & {

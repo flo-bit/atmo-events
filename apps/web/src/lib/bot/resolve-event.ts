@@ -131,9 +131,12 @@ export type ResolvedEvent = {
 	externalOnly: boolean;
 	/** The off-platform RSVP URL, when known. */
 	externalRsvpUrl: string | null;
+	/** Missing on older records; only explicit false opts out. */
+	rsvpExpected?: boolean;
 };
 
 type EventValue = {
+	rsvpExpected?: boolean;
 	additionalData?: { externalSource?: { rsvpMode?: string; url?: string } };
 };
 
@@ -143,6 +146,7 @@ function toResolvedEvent(uri: string, cid: string, value: EventValue | undefined
 	return {
 		uri,
 		cid,
+		rsvpExpected: value?.rsvpExpected,
 		externalOnly,
 		externalRsvpUrl: externalOnly ? (externalSource?.url ?? null) : null
 	};

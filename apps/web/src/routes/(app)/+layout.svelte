@@ -10,13 +10,11 @@
 		Search,
 		Plus,
 		LogIn,
-		Settings,
 		Menu
 	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { dev } from '$app/environment';
 	import { ModeWatcher } from 'mode-watcher';
 	import LoginModal from '$lib/components/LoginModal.svelte';
 	import CreateEventModal, { createEventModalState } from '$lib/components/CreateEventModal.svelte';
@@ -34,7 +32,7 @@
 <ModeWatcher />
 <a
 	href="#app-main"
-	class="rounded-ui bg-page text-action sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only min-[601px]:left-20"
+	class="rounded-ui bg-page text-action sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only sm:left-20"
 	>Skip to content</a
 >
 <IconRail
@@ -66,18 +64,6 @@
 	{#snippet footer({ expanded, close })}
 		<div class={expanded ? 'grid gap-1' : 'flex flex-col items-center gap-3'}>
 			{#if user.isLoggedIn}
-				{#if dev}
-					<Button
-						href={resolve('/settings')}
-						variant="ghost"
-						title="Settings"
-						onclick={close}
-						class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
-					>
-						<Icon img={Settings} size={21} />
-						<span class={expanded ? '' : 'sr-only'}>Settings</span>
-					</Button>
-				{/if}
 				<Button
 					href={resolve(`/p/${user.profile?.handle || user.did || ''}`)}
 					variant="ghost"
@@ -112,7 +98,7 @@
 	{/snippet}
 </IconRail>
 
-<div class="min-h-dvh min-[601px]:ml-18">
+<div class="min-h-dvh sm:ml-18">
 	<header class="mx-auto flex max-w-3xl items-center justify-between px-6 pt-7 pb-1">
 		<div class="flex items-center gap-3">
 			<IconButton
@@ -120,7 +106,7 @@
 				aria-expanded={navigationOpen}
 				aria-controls="event-navigation"
 				onclick={() => (navigationOpen = true)}
-				class="min-[601px]:hidden"><Icon img={Menu} size={24} /></IconButton
+				class="sm:hidden"><Icon img={Menu} size={24} /></IconButton
 			>
 			<a
 				href={resolve('/')}

@@ -38,6 +38,7 @@ export const REPLIES = {
 		"To RSVP I need you to sign in once at https://atmo.rsvp — then tag me again and I'll add you 🎟️",
 	noEvent:
 		"I couldn't find an atmo.rsvp event in this thread. Reply to a post that links to one and tag me again 👋",
+	notExpected: 'The host isn’t requesting RSVPs for this event.',
 	external: (url: string) => `RSVPs for this event are handled on the original site: ${url}`
 } as const;
 
@@ -47,5 +48,6 @@ export type BotOutcome =
 	| 'replied_no_token'
 	| 'replied_no_event'
 	| 'replied_external'
+	| 'replied_not_expected'
 	| 'skipped_cooldown'
 	| 'error';

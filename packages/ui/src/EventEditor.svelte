@@ -25,6 +25,7 @@
 		type Visibility
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
+	import { LocationValidationError } from './editor/location';
 	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter';
 
@@ -78,6 +79,7 @@
 	// svelte-ignore state_referenced_locally
 	let mode: EventMode = $state(initialPrefill?.mode ?? 'inperson');
 	let visibility: Visibility = $state('public');
+	let rsvpExpected = $derived(initialPrefill?.rsvpExpected ?? eventData?.rsvpExpected ?? true);
 	// svelte-ignore state_referenced_locally
 	let eventTheme: EventTheme = $state(
 		eventData === null
@@ -257,6 +259,7 @@
 				timezone,
 				mode,
 				visibility,
+				rsvpExpected,
 				theme: eventTheme,
 				links,
 				location,
@@ -280,7 +283,10 @@
 			adapter.onSaved({ uri: result.uri, rkey, isNew });
 		} catch (e) {
 			console.error(`Failed to ${isNew ? 'create' : 'save'} event:`, e);
-			error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
+			error =
+				e instanceof LocationValidationError
+					? e.message
+					: `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
 		} finally {
 			submitting = false;
 		}
@@ -427,11 +433,7 @@
 
 						<!-- About Event -->
 						<div class="mt-8 mb-8">
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								About
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
 							<textarea
 								aria-label="Event description"
 								bind:value={description}
@@ -475,11 +477,7 @@
 
 					<!-- Hosted By -->
 					<div class="order-3 md:order-0 md:col-start-1">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Hosted By
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Hosted By</p>
 						<div class="flex items-center gap-2.5">
 							<Avatar src={viewer.avatar} name={hostName} class="size-8 shrink-0" />
 							<span class="text-base-900 dark:text-base-100 truncate text-sm font-medium">
@@ -540,6 +538,7 @@
 	{startsAt}
 	{endsAt}
 	{mode}
+	{rsvpExpected}
 	{timezone}
 	{description}
 	{links}

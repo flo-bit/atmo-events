@@ -1,5 +1,5 @@
 // Address→_geo geocode drip — shared constants for the in-cron backfill of
-// coordinates for newly-ingested address-only events. Mirrors lib/notify/config.
+// coordinates for newly-ingested address-only events.
 
 /** Cadence gate: the drip body runs at most once per this interval. It rides the
  *  every-minute cron (routes/api/cron) via a D1 timestamp, so a new address-only

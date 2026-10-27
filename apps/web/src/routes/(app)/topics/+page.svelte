@@ -13,9 +13,7 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8">
 		<h1 class="text-base-900 dark:text-base-50 text-3xl font-bold sm:text-4xl">Browse Topics</h1>
-		<p class="text-base-500 dark:text-base-400 mt-3 text-lg">
-			Find events about the things you care about.
-		</p>
+		<p class="text-muted mt-3 text-lg">Find events about the things you care about.</p>
 	</div>
 
 	<div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -35,7 +33,7 @@
 							class="text-muted mt-1 text-xs tabular-nums"
 							title="Upcoming and ongoing events · updated daily"
 						>
-							{data.topicCounts[topic.slug]}
+							{data.topicCounts[topic.slug]} upcoming
 							{data.topicCounts[topic.slug] === 1 ? 'event' : 'events'}
 						</p>
 					{/if}

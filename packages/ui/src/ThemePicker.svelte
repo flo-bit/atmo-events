@@ -45,7 +45,7 @@
 <div class="flex flex-col gap-6">
 	<!-- Theme background -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Background style</p>
+		<p class="text-muted mb-2 text-xs font-medium">Background style</p>
 		<div class="flex flex-wrap gap-2">
 			{#each bgKeys as key}
 				<button
@@ -66,7 +66,7 @@
 
 	<!-- Accent color -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Accent color</p>
+		<p class="text-muted mb-2 text-xs font-medium">Accent color</p>
 		<div class="flex flex-wrap gap-2">
 			{#each accentColors as color}
 				<button
@@ -85,7 +85,7 @@
 
 	<!-- Base color -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Base color</p>
+		<p class="text-muted mb-2 text-xs font-medium">Base color</p>
 		<div class="flex flex-wrap gap-2">
 			{#each baseColors as color}
 				<button

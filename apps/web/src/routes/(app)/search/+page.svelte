@@ -7,7 +7,7 @@
 
 	let { data } = $props();
 
-	let query = $state(data.query);
+	let query = $derived(data.query);
 
 	// The live band's "See all" carries this page's TERM to /events/now, so the
 	// count it shows and the page it opens describe the same set. Built through

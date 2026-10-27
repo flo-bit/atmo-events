@@ -31,6 +31,7 @@ export interface ScheduleEvent {
 	did: string;
 	uri: string;
 	cid?: string | null;
+	rsvpExpected?: boolean;
 }
 
 /** Talk types that link through to their own event page (vs. static info rows). */
@@ -98,7 +99,8 @@ export function toScheduleEvents(
 				description: e.description,
 				did: e.did,
 				uri: e.uri,
-				cid: e.cid
+				cid: e.cid,
+				rsvpExpected: e.rsvpExpected
 			} satisfies ScheduleEvent;
 		})
 		.sort((a, b) => a.start.localeCompare(b.start));

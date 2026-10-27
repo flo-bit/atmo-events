@@ -1,10 +1,8 @@
 import { dev } from '$app/environment';
 import { scope } from '@atcute/oauth-node-client';
 
-// writable collections — declared as a standalone scope because their NSIDs
-// (`community.lexicon.*`) sit outside our namespace, so they can't go in
-// `rsvp.atmo.permissionSet` (permission sets can only reference NSIDs in their
-// own namespace).
+// Writable calendar collections for the server-side record allowlist.
+// OAuth access is granted by community.lexicon.calendar.authFull below.
 export const collections = [
 	'community.lexicon.calendar.event',
 	'community.lexicon.calendar.rsvp'
@@ -14,22 +12,15 @@ export const allowedCollections = [...collections, 'app.bsky.feed.post'];
 
 export type AllowedCollection = (typeof allowedCollections)[number];
 
-// OAuth scopes. `include:rsvp.atmo.permissionSet?aud=*` bundles every rpc method
-// the deployment exposes; `aud=*` lets the same consent cover dev (tunnel DID)
-// and prod (published DID) without re-consenting. Repo writes and blob uploads
-// live as standalone scopes since they reference NSIDs (or resource kinds)
-// outside the `rsvp.atmo` namespace.
+// Request only the permissions needed for publishing.
+// Event RPCs are public; the old rsvp.atmo.permissionSet include also grants
+// obsolete private Spaces methods and must not be requested.
 export const scopes = [
 	'atproto',
-	scope.repo({ collection: [...collections] }),
+	// No audience: we need the repo grants, not the set's inherited RPC grants.
+	'include:community.lexicon.calendar.authFull',
 	scope.blob({ accept: ['image/*'] }),
-	'include:rsvp.atmo.permissionSet',
-	'include:app.bsky.authCreatePosts',
-	// atmo.pub notifications: lets us mint user tokens (via
-	// com.atproto.server.getServiceAuth) to ask for/revoke notification consent.
-	// `send` itself needs no user scope (it's signed with our app key).
-	'rpc?lxm=pub.atmo.notify.requestPermission&aud=*',
-	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*'
+	'include:app.bsky.authCreatePosts'
 ];
 
 // set to false to disable signup

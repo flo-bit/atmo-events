@@ -30,7 +30,7 @@
 				- {formatWeekday(endDate)}, {formatFullDate(endDate)}
 			{/if}
 		</p>
-		<p class="text-base-500 dark:text-base-400 flex flex-wrap items-center gap-2 text-sm">
+		<p class="text-muted flex flex-wrap items-center gap-2 text-sm">
 			<span>
 				{formatTime(startDate)}
 				{#if endDate && isSameDay}

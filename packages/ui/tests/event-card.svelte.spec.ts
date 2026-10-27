@@ -27,7 +27,9 @@ it('shows decorative calendar and location icons beside event metadata', async (
 	expect(date.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
 	const location = page.getByText('Berlin', { exact: true });
 	await expect.element(location).toBeVisible();
-	expect(location.element().querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+	expect(location.element().parentElement!.querySelector('svg')?.getAttribute('aria-hidden')).toBe(
+		'true'
+	);
 	expect(location.element().textContent?.trim()).toBe('Berlin');
 	expect(card.element().textContent).not.toContain('Germany');
 });
@@ -68,6 +70,33 @@ for (const [mode, label] of [
 		expect(badge.element().classList.contains('border')).toBe(true);
 		expect(getComputedStyle(badge.element()).fontSize).toBe('10px');
 		expect(badge.element().parentElement!.querySelector('svg')).toBeNull();
+	});
+}
+
+for (const [location, label] of [
+	[
+		{ $type: 'community.lexicon.location.geo', latitude: '52.52', longitude: '13.405' },
+		'52.52000, 13.40500'
+	],
+	[
+		{ $type: 'community.lexicon.location.fsq', fsq_place_id: 'venue-123', name: 'Comedy Club' },
+		'Comedy Club'
+	],
+	[{ $type: 'community.lexicon.location.hthree', value: '872681a33ffffff' }, 'H3: 872681a33ffffff'],
+	[
+		{
+			$type: 'community.lexicon.calendar.event#uri',
+			uri: 'https://example.com/join',
+			name: 'Join online'
+		},
+		'Join online'
+	]
+] as const) {
+	it(`shows ${location.$type} on event cards without nesting location links`, async () => {
+		render(EventCard, { event: { ...event, mode: undefined, locations: [location] } });
+		const card = page.getByRole('link', { name: /Small web, big ideas/ });
+		await expect.element(page.getByText(label, { exact: true })).toBeVisible();
+		expect(card.element().querySelector('a')).toBeNull();
 	});
 }
 

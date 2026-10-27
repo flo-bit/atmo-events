@@ -58,6 +58,10 @@ const _mainSchema = /*#__PURE__*/ v.record(
      */
     name: /*#__PURE__*/ v.string(),
     /**
+     * Whether a response is requested from attendees.
+     */
+    rsvpExpected: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
+    /**
      * Client-declared timestamp when the event starts.
      */
     startsAt: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),

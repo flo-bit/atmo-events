@@ -12,6 +12,7 @@ export interface ScheduleEvent {
 	did: string;
 	uri: string;
 	cid?: string | null;
+	rsvpExpected?: boolean;
 }
 
 export interface GridEvent extends ScheduleEvent {
@@ -122,9 +123,7 @@ export function durationMinutes(start: string, end?: string): number {
 export function getScheduleEvents(events: FlatEventRecord[]): ScheduleEvent[] {
 	return events
 		.filter(
-			(e) =>
-				e.additionalData &&
-				(e.additionalData as Record<string, unknown>).isAtmosphereconf
+			(e) => e.additionalData && (e.additionalData as Record<string, unknown>).isAtmosphereconf
 		)
 		.map((e) => {
 			const ad = (e.additionalData ?? {}) as Record<string, unknown>;
@@ -139,7 +138,8 @@ export function getScheduleEvents(events: FlatEventRecord[]): ScheduleEvent[] {
 				description: e.description,
 				did: e.did,
 				uri: e.uri,
-				cid: e.cid
+				cid: e.cid,
+				rsvpExpected: e.rsvpExpected
 			};
 		})
 		.sort((a, b) => a.start.localeCompare(b.start));
@@ -174,10 +174,16 @@ export function buildGrid(events: ScheduleEvent[], rooms: string[]): GridData {
 	// Remove "Doors Open" events that share a start time with another info event
 	const infoStartTimes = new Map<number, number>();
 	for (const e of gridRelevant) {
-		if (e.type === 'info') infoStartTimes.set(e.startMin, (infoStartTimes.get(e.startMin) ?? 0) + 1);
+		if (e.type === 'info')
+			infoStartTimes.set(e.startMin, (infoStartTimes.get(e.startMin) ?? 0) + 1);
 	}
 	const filteredRelevant = gridRelevant.filter((e) => {
-		if (e.type === 'info' && /doors\s*open/i.test(e.title) && (infoStartTimes.get(e.startMin) ?? 0) > 1) return false;
+		if (
+			e.type === 'info' &&
+			/doors\s*open/i.test(e.title) &&
+			(infoStartTimes.get(e.startMin) ?? 0) > 1
+		)
+			return false;
 		return true;
 	});
 

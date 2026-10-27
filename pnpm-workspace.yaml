@@ -1,6 +1,9 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+# pnpm 11's automatic pre-script install would undo opt-in local kit links.
+# Installs stay explicit; CI installs the committed lockfile with --frozen-lockfile.
+verifyDepsBeforeRun: false
 allowBuilds:
   core-js: true
   esbuild: true

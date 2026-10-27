@@ -1,6 +1,5 @@
 import { contrail, ensureInit } from '$lib/contrail/index';
 import { processBotMentions } from '$lib/bot/process-mentions';
-import { runNotifications } from '$lib/notify/process';
 import { runGeocodeDrip } from '$lib/geocode/process';
 import { refreshTopicCounts } from '$lib/server/topic-counts';
 import type { RequestHandler } from './$types';
@@ -48,7 +47,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		// tick past the cron interval and overlap the next one. Racing arming +
 		// ingest together bounds the RACED SECTION by HARD, so a stalling search
 		// endpoint can no longer push that section past the interval. (The whole
-		// tick also spans the un-raced stages below — bot/notify/drip — so this
+		// tick also spans the un-raced bot, geocode, and topic stages, so this
 		// bounds the search-endpoint hazard, not the tick's total duration.)
 		const DRAIN_TIMEOUT_MS = 20_000;
 		const HARD_TIMEOUT_MS = 55_000;
@@ -63,15 +62,6 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		]);
 	} catch (e) {
 		console.error('[cron] ingest cycle failed:', e);
-	}
-
-	// atmo.pub notifications: event reminders + host RSVP alerts. Runs after
-	// ingest so it sees the freshest records; isolated so a failure can't 500
-	// the tick. No-ops when notifications aren't configured.
-	try {
-		await runNotifications(platform!.env, db);
-	} catch (e) {
-		console.error('[cron] runNotifications failed:', e);
 	}
 
 	// Address→_geo geocode drip: resolves coordinates for newly-ingested

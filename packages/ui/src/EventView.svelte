@@ -27,12 +27,8 @@
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
-	import {
-		buildDescriptionHtml,
-		getLocationData,
-		resolveGeoLocation,
-		type GeoLocation
-	} from './event-view/format';
+	import { buildDescriptionHtml } from './event-view/format';
+	import { getLocations, resolveGeoLocation, type GeoLocation } from './event-view/locations.js';
 
 	let {
 		data,
@@ -78,8 +74,19 @@
 	let startDate = $derived(new Date(eventData.startsAt));
 	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
 
-	let locationData = $derived(getLocationData(eventData.locations));
+	let locations = $derived(getLocations(eventData.locations));
 	let geoLocation: GeoLocation | null = $state(null);
+
+	$effect(() => {
+		let active = true;
+		geoLocation = null;
+		void resolveGeoLocation(locations).then((resolved) => {
+			if (active) geoLocation = resolved;
+		});
+		return () => {
+			active = false;
+		};
+	});
 
 	let showShareModal = $state(false);
 	let shareModalTitle = $state('Event created!');
@@ -93,9 +100,7 @@
 	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
 	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
-	onMount(async () => {
-		geoLocation = await resolveGeoLocation(eventData.locations, locationData);
-
+	onMount(() => {
 		const url = new URL(window.location.href);
 		if (url.searchParams.has('created')) {
 			url.searchParams.delete('created');
@@ -298,7 +303,7 @@
 
 				<EventDateBlock {startDate} {endDate} />
 
-				<EventLocationBlock {locationData} />
+				<EventLocationBlock {locations} />
 
 				<!-- Part of: link back to the parent conference -->
 				{#if data.parentEvent}
@@ -306,11 +311,7 @@
 					<div
 						class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 mt-8 mb-2 justify-center rounded-2xl border p-4"
 					>
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Part of
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Part of</p>
 						<EventCard event={data.parentEvent} actor={parentActor} />
 						<Button
 							href={data.parentScheduleUrl ?? `/p/${parentActor}/e/${data.parentEvent.rkey}`}
@@ -323,12 +324,13 @@
 				{/if}
 
 				{#if !isPast}
-					{#if rsvpExternalOnly && externalSource?.url}
+					{#if eventData.rsvpExpected !== false && rsvpExternalOnly && externalSource?.url}
 						<ExternalRsvpNotice url={externalSource.url} />
 					{:else}
 						<EventRsvp
 							{eventUri}
 							eventCid={eventData.cid ?? null}
+							rsvpExpected={eventData.rsvpExpected}
 							initialRsvpStatus={data.viewerRsvpStatus}
 							initialRsvpRkey={data.viewerRsvpRkey}
 							{adapter}
@@ -342,11 +344,7 @@
 				<!-- Live stream -->
 				{#if isOngoing && streamPlaceHandle}
 					<div class="mt-8 mb-8">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Live now
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Live now</p>
 						<StreamPlacePlayer handle={streamPlaceHandle} title={eventData.name} />
 					</div>
 				{/if}
@@ -380,22 +378,14 @@
 								<EventComments postUri={eventData.bskyPostRef.uri} />
 							{/if}
 						{:else if descriptionHtml}
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								About
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
 							<div
 								class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
 							>
 								{@html descriptionHtml}
 							</div>
 						{:else if eventData.bskyPostRef?.uri}
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								Comments
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Comments</p>
 							<EventComments postUri={eventData.bskyPostRef.uri} />
 						{/if}
 					</div>
@@ -404,11 +394,7 @@
 				<!-- Recording -->
 				{#if data.vod}
 					<div class="mt-8 mb-8">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Recording
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Recording</p>
 						<VodPlayer
 							playlistUrl={data.vod.playlistUrl}
 							title={eventData.name}
@@ -419,7 +405,7 @@
 					</div>
 				{/if}
 
-				<EventLocationMap {locationData} {geoLocation} />
+				<EventLocationMap {geoLocation} />
 			</div>
 
 			<!-- Left column: sidebar info -->

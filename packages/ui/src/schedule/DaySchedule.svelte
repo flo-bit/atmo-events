@@ -209,7 +209,7 @@
 				>
 					{#each rooms as room}
 						<div
-							class="text-base-500 dark:text-base-400 px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
+							class="text-muted px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
 						>
 							{room}
 						</div>

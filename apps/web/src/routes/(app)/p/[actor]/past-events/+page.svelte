@@ -17,16 +17,14 @@
 		<div class="mb-6">
 			<a
 				href="/p/{data.actor}"
-				class="text-sm font-medium text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transition-colors"
+				class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 			>
 				&larr; Back to profile
 			</a>
 		</div>
 
-		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">
-			Past Events
-		</h1>
-		<a href="/p/{data.actor}" class="mt-4 mb-6 flex items-center gap-2 text-sm text-base-500 dark:text-base-400">
+		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Past Events</h1>
+		<a href="/p/{data.actor}" class="text-muted mt-4 mb-6 flex items-center gap-2 text-sm">
 			by
 			{#if hostAvatar}
 				<img src={hostAvatar} alt="" class="h-5 w-5 rounded-full object-cover" />
@@ -46,9 +44,7 @@
 				gridClass="space-y-3"
 			/>
 		{:else}
-			<p class="text-base-500 dark:text-base-400 py-12 text-center">
-				No past events found.
-			</p>
+			<p class="text-muted py-12 text-center">No past events found.</p>
 		{/if}
 	</div>
 </div>

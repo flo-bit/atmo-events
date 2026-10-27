@@ -19,7 +19,7 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-2 flex flex-wrap items-center justify-between gap-4">
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">
-			Happening Now{#if data.scopeLabel}<span class="text-base-500 dark:text-base-400 font-normal"
+			Happening Now{#if data.scopeLabel}<span class="text-muted font-normal"
 					>&nbsp;&middot; {data.scopeLabel}</span
 				>{/if}
 		</h1>
@@ -37,9 +37,7 @@
 	</div>
 	<!-- The counted lists elsewhere show one event per host and point here for the
 	     rest, so this page carries no cap of any kind. -->
-	<p class="text-base-500 dark:text-base-400 mb-8 text-sm">
-		Every event under way right now, soonest to finish first.
-	</p>
+	<p class="text-muted mb-8 text-sm">Every event under way right now, soonest to finish first.</p>
 
 	{#if data.events.length === 0}
 		<p class="text-base-500 text-center text-lg">Nothing is happening right now.</p>

@@ -4,6 +4,7 @@
 	import * as TID from '@atcute/tid';
 	import type { FlatEventRecord } from '../contrail.js';
 	import type { EventLocation, EventMode } from './types';
+	import { LocationValidationError, normalizeAddressLocation } from './location';
 	import { buildThumbnailMedia, renderPresetThumbnail } from './save';
 	import { hashSeed } from '../thumbnails/designs.js';
 	import type { EditorAdapter, EditorViewer } from './adapter';
@@ -17,6 +18,7 @@
 		startsAt,
 		endsAt,
 		mode,
+		rsvpExpected = eventData?.rsvpExpected ?? true,
 		timezone,
 		description,
 		links,
@@ -37,6 +39,7 @@
 		startsAt: string;
 		endsAt: string;
 		mode: EventMode;
+		rsvpExpected?: boolean;
 		timezone: string;
 		description: string;
 		links: Array<{ uri: string; name: string }>;
@@ -91,6 +94,7 @@
 		created = 0;
 
 		try {
+			const normalizedLocation = location ? normalizeAddressLocation(location) : null;
 			// Recurring instances advance by wall-clock duration (e.g. "every week
 			// at 10am"), so operate on CalendarDateTime — not absolute instants —
 			// to preserve the wall time across DST transitions.
@@ -162,6 +166,7 @@
 				const record: Record<string, unknown> = {
 					$type: 'community.lexicon.calendar.event',
 					createdWith: 'https://atmo.rsvp',
+					rsvpExpected,
 					name: eventName,
 					mode: `community.lexicon.calendar.event#${mode}`,
 					status: 'community.lexicon.calendar.event#scheduled',
@@ -176,11 +181,11 @@
 				if (eventEndIso) record.endsAt = eventEndIso;
 				if (media) record.media = media;
 				if (links.length > 0) record.uris = links;
-				if (location) {
+				if (normalizedLocation) {
 					record.locations = [
 						{
 							$type: 'community.lexicon.location.address',
-							...location
+							...normalizedLocation
 						}
 					];
 				}
@@ -202,7 +207,10 @@
 			open = false;
 		} catch (e) {
 			console.error('Failed to create recurring events:', e);
-			errorMsg = 'Failed to create recurring events. Please try again.';
+			errorMsg =
+				e instanceof LocationValidationError
+					? e.message
+					: 'Failed to create recurring events. Please try again.';
 		} finally {
 			creating = false;
 		}
@@ -210,9 +218,7 @@
 </script>
 
 <Modal bind:open title="Recurring events" dismissible={!creating}>
-	<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
-		Create multiple copies of this event at regular intervals.
-	</p>
+	<p class="text-muted mt-1 text-sm">Create multiple copies of this event at regular intervals.</p>
 
 	<div class="mt-4 space-y-4">
 		<div>
@@ -269,7 +275,7 @@
 				<Checkbox bind:checked={numberInTitle} disabled={creating} aria-label="Number in title" />
 				<span class="text-base-700 dark:text-base-300 text-sm font-medium">Number in title</span>
 			</div>
-			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
+			<p class="text-muted mt-1 text-xs">
 				{#if numberInTitle && detectedStartNumber !== null}
 					Titles will count up from #{detectedStartNumber + 1}
 				{:else if numberInTitle}
@@ -286,7 +292,7 @@
 	{/if}
 
 	{#if creating && created > 0}
-		<p class="text-base-500 dark:text-base-400 mt-4 text-sm">
+		<p class="text-muted mt-4 text-sm">
 			Created {created} of {count} events...
 		</p>
 	{/if}

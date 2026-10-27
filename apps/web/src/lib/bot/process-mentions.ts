@@ -98,6 +98,18 @@ async function handleMention(
 	const event = did ? await loadEvent(serverClient, did, link.rkey) : null;
 	if (!event) return replyNoEvent();
 
+	// An explicit opt-out takes precedence over both local and external RSVPs.
+	if (event.rsvpExpected === false) {
+		await reply(REPLIES.notExpected);
+		await recordOutcome(db, {
+			notifUri: mention.uri,
+			authorDid,
+			outcome: 'replied_not_expected',
+			eventUri: event.uri
+		});
+		return;
+	}
+
 	// 3. External-only events can't be RSVP'd here — point them at the source.
 	if (event.externalOnly) {
 		await reply(

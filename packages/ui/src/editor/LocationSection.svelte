@@ -37,7 +37,7 @@
 			const locality =
 				addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || '';
 			const region = addr.state || addr.county || '';
-			const country = addr.country || '';
+			const country = addr.country_code || addr.country || '';
 
 			result = {
 				displayName: (data.label as string) || q,
@@ -136,7 +136,7 @@
 					<p class="text-base-900 dark:text-base-50 font-medium">
 						{getLocationDisplayString(result.location)}
 					</p>
-					<p class="text-base-500 dark:text-base-400 mt-0.5 truncate text-xs">
+					<p class="text-muted mt-0.5 truncate text-xs">
 						{result.displayName}
 					</p>
 				</div>

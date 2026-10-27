@@ -18,26 +18,14 @@ features:
 
 ## development
 
-The UI uses the unpublished `@atmo-dev/kit` package through relative local links in both `apps/web` and `packages/ui`. Keep the sibling directories in this layout:
-
-```text
-11-atproto/
-  00-atmo-kit/kit/
-  02-atmo-rsvp/
-```
-
-Build the kit first, then install and start RSVP:
+The UI uses the published `@atmo-dev/kit@0.0.2`. A normal install or CI build needs no sibling kit checkout:
 
 ```sh
-cd ../00-atmo-kit/kit
-pnpm install
-pnpm prepack
-cd ../../02-atmo-rsvp
-pnpm install
-pnpm dev
+corepack pnpm install --frozen-lockfile
+corepack pnpm dev
 ```
 
-When editing shared components, run `pnpm exec svelte-package --watch` in `00-atmo-kit/kit` alongside RSVP's dev server. The consumer uses the kit's packaged `dist` exports and bundled theme/font assets. There is no global `pnpm link` setup and no package publishing step.
+For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile. See [local kit development](docs/local-kit.md) for setup, custom checkout paths, and the release workflow.
 
 Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`.
 
@@ -56,7 +44,7 @@ pnpm package:ui
 
 For a fresh browser-test installation, run `pnpm --filter @atmo-dev/events-ui exec playwright install chromium` once. The UI tests use in-memory adapters: they never publish events, posts or RSVPs. `VITE_REVIEW_SCREENSHOTS=1 pnpm --filter @atmo-dev/events-ui test` also captures event editor/detail screenshots in both themes and at mobile/desktop sizes.
 
-The shared kit is named `@atmo-dev/kit` and licensed under MIT. Publish a compatible kit version before publishing `@atmo-dev/events-ui`; the event UI peer dependency currently targets `^0.0.1`. Development links remain local until the release is available.
+The shared kit is MIT-licensed. Publish a compatible kit version before updating the app dependency/lockfile or publishing `@atmo-dev/events-ui`; its kit peer dependency currently targets `^0.0.2`. CI always uses the committed registry dependency graph.
 
 set remote to false in `wrangler.jsonc` L22:
 

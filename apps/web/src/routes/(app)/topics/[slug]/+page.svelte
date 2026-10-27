@@ -50,7 +50,7 @@
 
 	{#if data.events.length === 0 && data.ongoing.length === 0}
 		<div class="py-16 text-center">
-			<p class="text-base-500 dark:text-base-400 text-lg">No events found for this topic yet.</p>
+			<p class="text-muted text-lg">No events found for this topic yet.</p>
 			<p class="text-base-400 dark:text-base-500 mt-2 text-sm">
 				Try posting an event with {data.topic.hashtags[0]} to be the first!
 			</p>

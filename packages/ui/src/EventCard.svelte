@@ -4,6 +4,7 @@
 	import Avatar from 'svelte-boring-avatars';
 	import { Badge, Icon } from '@atmo-dev/kit';
 	import { CalendarDays, MapPin } from '@sketchyicons/svelte';
+	import { getLocations, getLocationSummary } from './event-view/locations.js';
 
 	let {
 		event,
@@ -60,16 +61,6 @@
 		return 'Event';
 	}
 
-	function getLocationString(locations: FlatEventRecord['locations']): string | undefined {
-		if (!locations?.length) return undefined;
-
-		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { locality?: string }
-			| undefined;
-
-		return loc?.locality?.trim() || undefined;
-	}
-
 	function getThumbnail(event: FlatEventRecord): { url: string; alt: string } | null {
 		const media = event.media?.find((m) => m.role === 'thumbnail');
 		if (media?.content) {
@@ -87,7 +78,7 @@
 	}
 
 	let thumbnail = $derived(getThumbnail(event));
-	let location = $derived(getLocationString(event.locations));
+	let location = $derived(getLocationSummary(getLocations(event.locations)));
 	let mode = $derived(getModeLabel(event.mode));
 	let isOngoing = $derived(isEventOngoing(event.startsAt, event.endsAt));
 </script>
@@ -120,7 +111,7 @@
 	</div>
 
 	<div class="min-w-0 self-center">
-		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
+		<p class="text-muted flex items-center gap-1.5 text-xs font-medium">
 			<Icon img={CalendarDays} size={14} class="shrink-0" />
 			{#if isOngoing && event.endsAt}
 				Ends {formatEndsAt(event.endsAt)}
@@ -140,13 +131,11 @@
 			<span class="line-clamp-2">{event.name}</span>
 		</h3>
 		{#if location || mode}
-			<p
-				class="text-base-500 dark:text-base-400 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs"
-			>
+			<p class="text-muted mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
 				{#if location}
-					<span class="inline-flex min-w-0 items-center gap-1.5">
+					<span class="inline-flex max-w-full min-w-0 items-center gap-1.5" title={location}>
 						<Icon img={MapPin} size={14} class="shrink-0" />
-						{location}
+						<span class="truncate">{location}</span>
 					</span>
 				{/if}
 				{#if mode}

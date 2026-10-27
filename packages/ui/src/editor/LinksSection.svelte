@@ -40,9 +40,7 @@
 </script>
 
 <div>
-	<p class="text-base-500 dark:text-base-400 mb-4 text-xs font-semibold tracking-wider uppercase">
-		Links
-	</p>
+	<p class="text-muted mb-4 text-xs font-semibold tracking-wider uppercase">Links</p>
 	<div class="space-y-3">
 		{#each links as link, i (i)}
 			<div class="group flex items-center gap-1.5">

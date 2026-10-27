@@ -144,7 +144,7 @@
 			<div
 				class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
 			>
-				<p class="text-base-500 dark:text-base-400 py-12 text-center">
+				<p class="text-muted py-12 text-center">
 					{isOwnProfile
 						? "You haven't created or attended any events yet."
 						: "This person hasn't created or attended any events yet."}

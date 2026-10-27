@@ -11,7 +11,17 @@
 @source '../node_modules/@atmo-dev/events-ui/dist';
 @source '../../../packages/ui/src';
 
-@custom-variant dark (&:is(.dark *));
+/* Match the kit: follow the OS unless an ancestor sets .light or .dark. */
+@custom-variant dark {
+	&:is(.dark, .dark *) {
+		@slot;
+	}
+	@media (prefers-color-scheme: dark) {
+		&:not(.light, .light *) {
+			@slot;
+		}
+	}
+}
 
 @layer base {
 	body {

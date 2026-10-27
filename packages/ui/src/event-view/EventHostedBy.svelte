@@ -18,9 +18,7 @@
 </script>
 
 <div>
-	<p class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase">
-		Hosted By
-	</p>
+	<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Hosted By</p>
 	<a
 		href={hostUrl}
 		class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
@@ -38,9 +36,7 @@
 
 {#if speakers.length > 0}
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase">
-			Speakers
-		</p>
+		<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Speakers</p>
 		<div class="space-y-2">
 			{#each speakers as speaker, i (speaker.id || i)}
 				{#if speaker.handle}

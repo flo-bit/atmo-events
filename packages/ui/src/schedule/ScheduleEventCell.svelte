@@ -89,7 +89,7 @@
 	<Modal bind:open={modalOpen} title={event.title}>
 		<div class="overflow-hidden">
 			{#if event.start}
-				<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
+				<p class="text-muted mt-1 text-sm">
 					{formatTime(event.start, tz)}{event.end ? ` – ${formatTime(event.end, tz)}` : ''}
 				</p>
 			{/if}
@@ -107,7 +107,7 @@
 			{/if}
 
 			{#if event.description}
-				<p class="text-base-500 dark:text-base-400 mt-3 line-clamp-3 text-sm break-words">
+				<p class="text-muted mt-3 line-clamp-3 text-sm break-words">
 					{event.description}
 				</p>
 			{/if}
@@ -116,6 +116,7 @@
 				<EventRsvp
 					eventUri={event.uri}
 					eventCid={event.cid ?? null}
+					rsvpExpected={event.rsvpExpected}
 					{initialRsvpStatus}
 					{initialRsvpRkey}
 					{adapter}

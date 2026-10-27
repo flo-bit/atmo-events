@@ -115,7 +115,7 @@
 					{data.recentActivityIsPersonalized ? 'From people you follow' : 'Recent activity'}
 				</h2>
 				{#if data.recentActivityIsPersonalized}
-					<p class="text-base-500 dark:text-base-400 mb-4 text-sm">
+					<p class="text-muted mb-4 text-sm">
 						Events your Bluesky follows are hosting or going to.
 					</p>
 				{/if}
@@ -155,7 +155,7 @@
 			</section>
 		{/if}
 
-		<footer class="text-base-500 dark:text-base-400 mt-24 text-center text-sm">
+		<footer class="text-muted mt-24 text-center text-sm">
 			<a
 				href="https://github.com/flo-bit/atmo-events"
 				target="_blank"

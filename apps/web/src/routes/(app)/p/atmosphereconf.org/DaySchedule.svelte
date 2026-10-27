@@ -75,7 +75,7 @@
 				class="flex-1 px-3 py-2 text-xs font-semibold tracking-wide uppercase transition-colors
 					{activeRoom === i
 					? 'bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300'
-					: 'text-base-500 dark:text-base-400'}"
+					: 'text-muted'}"
 				onclick={() => (activeRoom = i)}
 			>
 				{room}
@@ -114,10 +114,21 @@
 					>
 						{#each roomEvents as event}
 							<li
-								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
+								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event)
+									? linkableTypes.has(event.type) && event.rkey
+										? 'opacity-30 hover:opacity-80'
+										: 'opacity-30'
+									: ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: 1; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} vodPlaylistUrl={eventVods[event.uri]?.playlistUrl} {onrsvpchange} />
+								<ScheduleEventCell
+									{event}
+									{rsvpStatuses}
+									{rsvpRkeys}
+									{loggedIn}
+									vodPlaylistUrl={eventVods[event.uri]?.playlistUrl}
+									{onrsvpchange}
+								/>
 							</li>
 						{/each}
 						{#if nowRow}
@@ -126,7 +137,10 @@
 								class="pointer-events-none relative"
 								style="z-index: 9999; grid-row: {nowRow.row}; grid-column: 1"
 							>
-								<div class="absolute inset-x-0 flex items-center" style="top: {nowRow.offsetPercent}%">
+								<div
+									class="absolute inset-x-0 flex items-center"
+									style="top: {nowRow.offsetPercent}%"
+								>
 									<div class="size-2 rounded-full bg-red-500"></div>
 									<div class="h-0.5 flex-1 bg-red-500"></div>
 								</div>
@@ -151,7 +165,7 @@
 				>
 					{#each rooms as room}
 						<div
-							class="text-base-500 dark:text-base-400 px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
+							class="text-muted px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
 						>
 							{room}
 						</div>
@@ -196,10 +210,21 @@
 					>
 						{#each grid.gridEvents as event}
 							<li
-								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event) ? (linkableTypes.has(event.type) && event.rkey ? 'opacity-30 hover:opacity-80' : 'opacity-30') : ''}"
+								class="relative flex min-h-5 p-0.5 transition-opacity {isDimmed(event)
+									? linkableTypes.has(event.type) && event.rkey
+										? 'opacity-30 hover:opacity-80'
+										: 'opacity-30'
+									: ''}"
 								style="grid-row: {event.startRow} / span {event.spanRows}; grid-column: {event.colStart} / span {event.colSpan}; z-index: {event.zIndex}"
 							>
-								<ScheduleEventCell {event} {rsvpStatuses} {rsvpRkeys} {loggedIn} vodPlaylistUrl={eventVods[event.uri]?.playlistUrl} {onrsvpchange} />
+								<ScheduleEventCell
+									{event}
+									{rsvpStatuses}
+									{rsvpRkeys}
+									{loggedIn}
+									vodPlaylistUrl={eventVods[event.uri]?.playlistUrl}
+									{onrsvpchange}
+								/>
 							</li>
 						{/each}
 						{#if nowRow}
@@ -208,7 +233,10 @@
 								class="pointer-events-none relative"
 								style="z-index: 9999; grid-row: {nowRow.row}; grid-column: 1 / span {rooms.length}"
 							>
-								<div class="absolute inset-x-0 flex items-center" style="top: {nowRow.offsetPercent}%">
+								<div
+									class="absolute inset-x-0 flex items-center"
+									style="top: {nowRow.offsetPercent}%"
+								>
 									<div class="size-2 rounded-full bg-red-500"></div>
 									<div class="h-0.5 flex-1 bg-red-500"></div>
 								</div>

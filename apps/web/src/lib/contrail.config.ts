@@ -39,9 +39,9 @@ export const config: ContrailConfig = {
 		title: 'Atmo Events',
 		description: 'Manage your events and RSVPs.'
 		// NOTE: permission-set lexicons can only reference NSIDs under their own
-		// namespace (`rsvp.atmo.*`). Repo writes for `community.lexicon.*` and
-		// blob uploads are declared as standalone `scope.repo(...)` /
-		// `scope.blob(...)` entries in `atproto/settings.ts`, not here.
+		// namespace (`rsvp.atmo.*`). Calendar writes use the community calendar
+		// permission set; blob uploads use a standalone scope. Both are declared
+		// in `atproto/settings.ts`, not here.
 	},
 	...(searchSinks.length ? { sinks: searchSinks } : {}),
 	collections: {
