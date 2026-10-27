@@ -14,17 +14,23 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 //   - the Contrail engine (init/ingest): stubbed so no real D1 / firehose I/O
 //     runs, and so we can assert ingest was still invoked after arming failed;
 //   - the sibling cron stages (bot / notify / drip): no-op spies.
-const { ingest, contrailInit, processBotMentions, runNotifications, runGeocodeDrip, applyMeiliSettings } =
-	vi.hoisted(() => ({
-		ingest: vi.fn(async () => {}),
-		contrailInit: vi.fn(async () => {}),
-		processBotMentions: vi.fn(async () => {}),
-		runNotifications: vi.fn(async () => {}),
-		runGeocodeDrip: vi.fn(async () => {}),
-		applyMeiliSettings: vi.fn(async () => {
-			throw new Error('search endpoint unreachable');
-		})
-	}));
+const {
+	ingest,
+	contrailInit,
+	processBotMentions,
+	runNotifications,
+	runGeocodeDrip,
+	applyMeiliSettings
+} = vi.hoisted(() => ({
+	ingest: vi.fn(async () => {}),
+	contrailInit: vi.fn(async () => {}),
+	processBotMentions: vi.fn(async () => {}),
+	runNotifications: vi.fn(async () => {}),
+	runGeocodeDrip: vi.fn(async () => {}),
+	applyMeiliSettings: vi.fn(async () => {
+		throw new Error('search endpoint unreachable');
+	})
+}));
 
 // Stub the Contrail engine so the REAL $lib/contrail/index can load and its real
 // ensureInit run without touching a live DB or jetstream. The real module builds
@@ -53,6 +59,7 @@ vi.mock('$lib/search/server/meili-sink', async (importActual) => {
 vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
 vi.mock('$lib/notify/process', () => ({ runNotifications }));
 vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
+vi.mock('$lib/server/topic-counts', () => ({ refreshTopicCounts: vi.fn(async () => {}) }));
 
 import { POST } from './+server';
 

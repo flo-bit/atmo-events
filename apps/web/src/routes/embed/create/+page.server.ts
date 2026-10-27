@@ -1,5 +1,5 @@
 import { now as tidNow } from '@atcute/tid';
 
 export function load() {
-	return { rkey: tidNow() };
+	return { pageTitle: 'Create Event', rkey: tidNow() };
 }

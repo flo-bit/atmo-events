@@ -19,6 +19,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	]);
 
 	return {
+		pageTitle: 'Manage private event',
 		spaceUri,
 		actor: params.actor,
 		rkey: params.rkey,

@@ -18,11 +18,45 @@ features:
 
 ## development
 
-clone repo
+The UI uses the unpublished `@atmo-dev/kit` package through relative local links in both `apps/web` and `packages/ui`. Keep the sibling directories in this layout:
 
+```text
+11-atproto/
+  00-atmo-kit/kit/
+  02-atmo-rsvp/
 ```
+
+Build the kit first, then install and start RSVP:
+
+```sh
+cd ../00-atmo-kit/kit
 pnpm install
+pnpm prepack
+cd ../../02-atmo-rsvp
+pnpm install
+pnpm dev
 ```
+
+When editing shared components, run `pnpm exec svelte-package --watch` in `00-atmo-kit/kit` alongside RSVP's dev server. The consumer uses the kit's packaged `dist` exports and bundled theme/font assets. There is no global `pnpm link` setup and no package publishing step.
+
+Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`.
+
+The app defaults to zinc + pink. Existing event-specific colors/backgrounds are retained. The event-specific UI stays in `packages/ui`; reusable controls, login, inline editing, post composition and comment presentation live in Atmo Kit.
+
+Regenerate the favicon assets with `pnpm generate:favicons`. The script at `apps/web/scripts/generate-favicons.mjs` uses the logo's Sketchy Icons `CalendarDays` geometry on a pink-600 background. It writes the SVG, multi-size ICO (16/32/48), PNG fallback, Apple touch icon (180), web-app icons (192/512), maskable icon (512) and manifest to `apps/web/static/`. These generated files are committed; no image tooling runs in production. If changing the background color, also update `theme-color` in `apps/web/src/app.html`. Run `pnpm --filter web test:favicons` to check the assets.
+
+Checks:
+
+```sh
+pnpm check
+pnpm test       # app tests + Chromium event UI / accessibility tests
+pnpm build
+pnpm package:ui
+```
+
+For a fresh browser-test installation, run `pnpm --filter @atmo-dev/events-ui exec playwright install chromium` once. The UI tests use in-memory adapters: they never publish events, posts or RSVPs. `VITE_REVIEW_SCREENSHOTS=1 pnpm --filter @atmo-dev/events-ui test` also captures event editor/detail screenshots in both themes and at mobile/desktop sizes.
+
+The shared kit is named `@atmo-dev/kit` and licensed under MIT. Publish a compatible kit version before publishing `@atmo-dev/events-ui`; the event UI peer dependency currently targets `^0.0.1`. Development links remain local until the release is available.
 
 set remote to false in `wrangler.jsonc` L22:
 
@@ -69,7 +103,7 @@ Many events carry only a street address, no coordinates — so they never surfac
 
 **How it runs.** The cron already calls a geocode "drip" every minute; it self-throttles to once per ~30 min via a D1 marker, resolves up to 50 new addresses per run (25 on public Nominatim), and `PATCH`es `_geo` into Meilisearch. Every result is cached — including negative results, so an ungeocodable address isn't retried every run. There is nothing to set up: like the app's other D1 tables, the geocode cache and its cadence marker are defined in code and self-heal on first run. The drip no-ops entirely until the **write sink** above is configured, so enabling search is the only switch.
 
-**Picking a geocoder.** The default is keyless public OSM Nominatim — fine for the steady-state drip's low volume. Set `GEOCODER_USER_AGENT` to a string identifying your deployment (Nominatim's [usage policy](https://operations.osmfoundation.org/policies/nominatim/) requires a real contact; on the public host the per-run cap is held to 25 and the throttle floored to ≥1 req/s). For real volume — and for the bulk backfill below — use [LocationIQ](https://locationiq.com/) (an API-compatible hosted Nominatim): set `GEOCODER_URL=https://us1.locationiq.com/v1/search` and `GEOCODER_KEY`, which lifts the per-run cap to 50 and honors your `GEOCODE_SLEEP_MS` (minimum ms between calls, default 1100). A key with an unset or public `GEOCODER_URL` is *ignored* — you stay on public Nominatim — so always set the URL too.
+**Picking a geocoder.** The default is keyless public OSM Nominatim — fine for the steady-state drip's low volume. Set `GEOCODER_USER_AGENT` to a string identifying your deployment (Nominatim's [usage policy](https://operations.osmfoundation.org/policies/nominatim/) requires a real contact; on the public host the per-run cap is held to 25 and the throttle floored to ≥1 req/s). For real volume — and for the bulk backfill below — use [LocationIQ](https://locationiq.com/) (an API-compatible hosted Nominatim): set `GEOCODER_URL=https://us1.locationiq.com/v1/search` and `GEOCODER_KEY`, which lifts the per-run cap to 50 and honors your `GEOCODE_SLEEP_MS` (minimum ms between calls, default 1100). A key with an unset or public `GEOCODER_URL` is _ignored_ — you stay on public Nominatim — so always set the URL too.
 
 **Backfilling an existing corpus.** The drip only trickles, so to resolve a backlog run the off-Cloudflare CLI against the deployed D1: `pnpm -C apps/web geocode:backfill --limit 50`. It reaches D1 over the REST API, so it needs `CLOUDFLARE_ACCOUNT_ID` / `CLOUDFLARE_API_TOKEN` / `D1_DATABASE_ID` and `MEILI_URL` / `MEILI_KEY` (plus `SEARCH_INDEX` if not `events`), and a LocationIQ `GEOCODER_URL` / `GEOCODER_KEY`. It refuses a bulk or uncapped run against public Nominatim (keyless is capped to `--limit 1..25`). Useful flags: `--limit N` (`0` = no cap), `--dry-run`, `--retry-negative` (re-attempt negatively-cached addresses), and `--allow-public-nominatim` (override the public-host guard). Like search itself, geocoding only helps once the sink is feeding the index, so run this after the rollout steps above.
 

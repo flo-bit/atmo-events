@@ -1,6 +1,6 @@
 <script lang="ts">
 	import EventList from '$lib/components/EventList.svelte';
-	import { ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
@@ -16,10 +16,6 @@
 		goto(url, { keepFocus: true, noScroll: true });
 	}
 </script>
-
-<svelte:head>
-	<title>All Upcoming Events</title>
-</svelte:head>
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8 flex flex-wrap items-center justify-between gap-4">

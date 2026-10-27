@@ -2,7 +2,7 @@
 	import { getProfileBlobUrl, type FlatEventRecord } from '$lib/contrail';
 	import { user, logout } from '$lib/atproto/auth.svelte';
 	import UserProfile from '$lib/components/UserProfile.svelte';
-	import { Button } from '@foxui/core';
+	import { Button } from '@atmo-dev/kit';
 	import { EventCard } from '@atmo-dev/events-ui';
 	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
 	import HappeningNow from '$lib/components/HappeningNow.svelte';
@@ -37,7 +37,6 @@
 </script>
 
 <svelte:head>
-	<title>{hostName} - Events</title>
 	<meta name="description" content="Events hosted by {hostName}" />
 	<meta property="og:title" content="{hostName} - Events" />
 	<meta property="og:description" content="Events hosted by {hostName}" />
@@ -60,16 +59,13 @@
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} variant="primary" class="rose">Logout</Button>
+					<div class="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
+						<Button onclick={() => createEventModalState.show()}>Create Event</Button>
+						<Button onclick={logout} variant="ghost">Log out</Button>
+					</div>
 				{/if}
 			{/snippet}
 		</UserProfile>
-
-		{#if isOwnProfile}
-			<Button onclick={() => createEventModalState.show()} class="-mt-6 mb-6" size="lg">
-				Create Event
-			</Button>
-		{/if}
 
 		<!-- Its own section, as on every other surface. Interleaving the two under one
 		     heading made this the one page where a reader had to read a badge to tell

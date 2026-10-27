@@ -55,10 +55,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Create Event</title>
-</svelte:head>
-
 {#if ready}
 	<EventEditor
 		eventData={null}

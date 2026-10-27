@@ -1,50 +1,26 @@
 <script lang="ts">
-	import { BROWSER as browser } from 'esm-env';
-
-	let {
-		accentColor = 'cyan',
-		baseColor = 'mist'
-	}: {
-		accentColor?: string;
-		baseColor?: string;
-	} = $props();
-
-	const allAccentColors = [
-		'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald',
-		'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple',
-		'fuchsia', 'pink', 'rose'
-	];
-	const allBaseColors = [
-		'gray', 'stone', 'zinc', 'neutral', 'slate', 'mist', 'sand',
-		'olive', 'mauve', 'sage'
-	];
-
-	const allColors = [...allAccentColors, ...allBaseColors];
-
-	const safeJson = (v: string) => JSON.stringify(v).replace(/</g, '\\u003c');
-
-	// SSR: inline script that removes all color classes then adds the correct ones before paint
-	const allColorsJson = JSON.stringify(allColors);
-
+	import { accentColors, baseColors } from '@atmo-dev/kit';
+	let { accentColor = 'pink', baseColor = 'zinc' }: { accentColor?: string; baseColor?: string } =
+		$props();
+	const bases: readonly string[] = [...baseColors, 'sand', 'sage'];
+	const accents: readonly string[] = accentColors;
+	const allColors = [...bases, ...accents];
+	let accent = $derived(accents.includes(accentColor) ? accentColor : 'pink');
+	let base = $derived(bases.includes(baseColor) ? baseColor : 'zinc');
+	// Values are chosen from the kit's palette names, never interpolated user HTML.
 	let script = $derived(
-		`<script>(function(){var e=document.documentElement,r=${allColorsJson};r.forEach(function(c){e.classList.remove(c)});e.classList.add(${safeJson(accentColor)},${safeJson(baseColor)});})()<` +
+		`<script>(function(){var e=document.documentElement,r=${JSON.stringify(allColors)};r.forEach(function(c){e.classList.remove(c)});e.classList.add(${JSON.stringify(accent)},${JSON.stringify(base)});})()<` +
 			'/script>'
 	);
-
-	// Client: reactive effect for client-side navigations
 	$effect(() => {
-		if (!browser) return;
-		const el = document.documentElement;
-		el.classList.remove(...allColors);
-		el.classList.add(accentColor, baseColor);
-
+		const element = document.documentElement;
+		element.classList.remove(...allColors);
+		element.classList.add(accent, base);
 		return () => {
-			el.classList.remove(...allColors);
-			el.classList.add('cyan', 'mist');
+			element.classList.remove(...allColors);
+			element.classList.add('pink', 'zinc');
 		};
 	});
 </script>
 
-<svelte:head>
-	{@html script}
-</svelte:head>
+<svelte:head>{@html script}</svelte:head>

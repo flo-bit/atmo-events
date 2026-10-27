@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Icon } from '@atmo-dev/kit';
+	import { CalendarDays } from '@sketchyicons/svelte';
+
 	let {
 		name,
 		dateStr,
@@ -42,22 +45,7 @@
 		</h1>
 
 		<div class="mt-8 flex items-center">
-			<svg
-				width="28"
-				height="28"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M8 2v3M16 2v3M3.5 9.09h17M21 8.5v8c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5v-8c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z"
-					stroke="#a3a3a3"
-					stroke-width="1.5"
-					stroke-miterlimit="10"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
+			<Icon img={CalendarDays} size={28} stroke="#a3a3a3" />
 			<span class="ml-3 text-2xl text-neutral-300">{dateStr}</span>
 		</div>
 	</div>

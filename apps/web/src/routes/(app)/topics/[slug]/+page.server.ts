@@ -1,4 +1,5 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { resolve } from '$app/paths';
 import { getTopicBySlug, orQueryFromSlug } from '$lib/topics';
 import { getServerClient } from '$lib/contrail/index';
 import { topicQuery } from '$lib/contrail/queries';
@@ -9,6 +10,9 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ params, url, platform }) => {
 	const topic = getTopicBySlug(params.slug);
 	if (!topic) error(404, 'Topic not found');
+	if (topic.slug !== params.slug) {
+		redirect(308, resolve('/(app)/topics/[slug]', { slug: topic.slug }));
+	}
 
 	const client = getServerClient(platform!.env.DB);
 
@@ -26,6 +30,7 @@ export const load: PageServerLoad = async ({ params, url, platform }) => {
 		{
 			topic,
 			...page,
+			pageTitle: `${topic.name} Events`,
 			// Shown in the UI; topicQuery derives the query it runs from the slug
 			// with this same helper.
 			query: search

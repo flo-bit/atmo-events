@@ -53,6 +53,7 @@ export async function load({ params, locals, platform }) {
 		did,
 		rkey,
 		uri,
+		pageTitle: `Manage talks — ${eventData.name}`,
 		eventName: eventData.name,
 		timezone: eventData.timezone ?? null,
 		isConference,

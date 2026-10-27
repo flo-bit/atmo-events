@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@foxui/core';
+	import { Button } from '@atmo-dev/kit';
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { enableNotifications, disableNotifications } from '$lib/notify/settings.remote';
 

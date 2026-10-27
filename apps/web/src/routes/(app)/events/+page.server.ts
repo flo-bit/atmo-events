@@ -19,8 +19,11 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	//
 	// Page 1 only. A deep-linked continuation is resuming the upcoming keyset
 	// mid-list, where re-sending the band would repeat events already seen above.
-	return withOngoing(
-		await eventsQuery(client, { popular: isPopular }, cursor),
-		cursor ? null : ongoingQuery(client)
-	);
+	return {
+		...(await withOngoing(
+			await eventsQuery(client, { popular: isPopular }, cursor),
+			cursor ? null : ongoingQuery(client)
+		)),
+		pageTitle: 'All Upcoming Events'
+	};
 };

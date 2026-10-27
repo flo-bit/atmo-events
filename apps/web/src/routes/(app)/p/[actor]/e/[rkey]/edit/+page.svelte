@@ -15,10 +15,6 @@
 	let adapter = $derived(createInAppAdapter({ viewer }));
 </script>
 
-<svelte:head>
-	<title>Edit Event</title>
-</svelte:head>
-
 <EventEditor
 	eventData={data.eventData}
 	actorDid={data.actorDid}

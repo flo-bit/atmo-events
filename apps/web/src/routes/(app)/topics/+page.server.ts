@@ -1,0 +1,30 @@
+import { dev } from '$app/environment';
+import { ensureInit } from '$lib/contrail/index';
+import { readTopicCounts, refreshTopicCounts } from '$lib/server/topic-counts';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ platform }) => {
+	try {
+		const db = platform?.env.DB;
+		if (!db) return { pageTitle: 'Browse Topics', topicCounts: null };
+		// Vite does not run scheduled Workers. Bootstrap the local schema/cache
+		// here; the persisted daily gate still prevents repeated calculations.
+		// Production remains a single cache read, with refreshes owned by cron.
+		if (dev) {
+			try {
+				await ensureInit(db);
+				await refreshTopicCounts(db);
+			} catch (error) {
+				console.warn('[topics] local counts refresh failed:', error);
+				// Still try the last successful snapshot, just as production does.
+			}
+		}
+		const snapshot = await readTopicCounts(db);
+		return { pageTitle: 'Browse Topics', topicCounts: snapshot?.counts ?? null };
+	} catch (error) {
+		// Includes first deployment before cron creates the cache. Browsing must
+		// still work; unknown counts are omitted, never presented as zero.
+		console.warn('[topics] cached counts unavailable:', error);
+		return { pageTitle: 'Browse Topics', topicCounts: null };
+	}
+};

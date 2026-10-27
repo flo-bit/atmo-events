@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { Icon } from '@atmo-dev/kit';
+	import { ArrowRight } from '@sketchyicons/svelte';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
 	import { EventView } from '@atmo-dev/events-ui';
@@ -48,9 +50,7 @@
 {#if data.authState === 'anon'}
 	<div class="mx-auto max-w-md px-4 pt-16 text-center">
 		<h1 class="mb-2 text-xl font-semibold">Login to see event</h1>
-		<p class="text-base-500 mb-4 text-sm">
-			This is a private event. Sign in with atproto to view.
-		</p>
+		<p class="text-base-500 mb-4 text-sm">This is a private event. Sign in with atproto to view.</p>
 		<button
 			class="bg-base-900 dark:bg-base-50 dark:text-base-900 rounded-md px-4 py-2 text-sm font-medium text-white"
 			onclick={() => atProtoLoginModalState.show()}
@@ -86,7 +86,8 @@
 		<div class="mx-auto max-w-3xl px-4 pb-12">
 			<a
 				href="/p/{data.hostProfile?.handle || data.ownerDid}/e/{data.rkey}/s/{data.spaceKey}/admin"
-				class="text-base-500 text-sm underline">Manage members & invites →</a
+				class="text-base-500 inline-flex items-center gap-1 text-sm underline"
+				>Manage members & invites <Icon img={ArrowRight} size={16} /></a
 			>
 		</div>
 	{/if}

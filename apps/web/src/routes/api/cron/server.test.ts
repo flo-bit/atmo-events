@@ -4,15 +4,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // wiring: which functions it calls, and — the key regression — that it arms the
 // Meili search sink by passing env to ensureInit. vi.hoisted keeps the spies
 // available to the hoisted vi.mock factories below.
-const { ensureInit, ingest, processBotMentions, runNotifications, runGeocodeDrip } = vi.hoisted(
-	() => ({
-		ensureInit: vi.fn(async (_db: unknown, _env?: unknown) => {}),
-		ingest: vi.fn(async () => {}),
-		processBotMentions: vi.fn(async () => {}),
-		runNotifications: vi.fn(async () => {}),
-		runGeocodeDrip: vi.fn(async () => {})
-	})
-);
+const {
+	ensureInit,
+	ingest,
+	processBotMentions,
+	runNotifications,
+	runGeocodeDrip,
+	refreshTopicCounts
+} = vi.hoisted(() => ({
+	ensureInit: vi.fn<(db: unknown, env?: unknown) => Promise<void>>(async () => {}),
+	ingest: vi.fn(async () => {}),
+	processBotMentions: vi.fn(async () => {}),
+	runNotifications: vi.fn(async () => {}),
+	runGeocodeDrip: vi.fn(async () => {}),
+	refreshTopicCounts: vi.fn<(db: unknown) => Promise<void>>(async () => {})
+}));
 
 vi.mock('$lib/contrail/index', () => ({
 	ensureInit,
@@ -21,6 +27,7 @@ vi.mock('$lib/contrail/index', () => ({
 vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
 vi.mock('$lib/notify/process', () => ({ runNotifications }));
 vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
+vi.mock('$lib/server/topic-counts', () => ({ refreshTopicCounts }));
 
 import { POST } from './+server';
 
@@ -54,6 +61,7 @@ describe('POST /api/cron', () => {
 		expect(res.status).toBe(401);
 		expect(ensureInit).not.toHaveBeenCalled();
 		expect(ingest).not.toHaveBeenCalled();
+		expect(refreshTopicCounts).not.toHaveBeenCalled();
 	});
 
 	it('arms the Meili sink by passing env to ensureInit', async () => {
@@ -76,6 +84,15 @@ describe('POST /api/cron', () => {
 		expect(ingest).toHaveBeenCalledTimes(1);
 		expect(runNotifications).toHaveBeenCalledTimes(1);
 		expect(runGeocodeDrip).toHaveBeenCalledTimes(1);
+	});
+
+	it('refreshes topic counts on a valid tick, isolated from failures', async () => {
+		refreshTopicCounts.mockRejectedValueOnce(new Error('count query failed'));
+		const res = await POST(event({ secret: CRON_SECRET }));
+		expect(res.status).toBe(200);
+		expect(refreshTopicCounts).toHaveBeenCalledExactlyOnceWith(DB);
+		expect(ingest).toHaveBeenCalledTimes(1);
+		expect(runNotifications).toHaveBeenCalledTimes(1);
 	});
 
 	it('bounds arming + ingest under ONE hard budget: a slow arm + stalling ingest still settles under the cron interval and reaches notify/drip', async () => {
@@ -104,7 +121,7 @@ describe('POST /api/cron', () => {
 		} finally {
 			ensureInit.mockReset();
 			ingest.mockReset();
-			ensureInit.mockImplementation(async (_db: unknown, _env?: unknown) => {});
+			ensureInit.mockImplementation(async () => {});
 			ingest.mockImplementation(async () => {});
 			vi.useRealTimers();
 		}

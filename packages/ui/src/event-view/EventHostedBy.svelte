@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar as FoxAvatar } from '@foxui/core';
+	import { Avatar } from '@atmo-dev/kit';
 	import type { HostProfile } from '../contrail.js';
 
 	type Speaker = { id?: string; handle?: string; name: string; avatar?: string };
@@ -25,9 +25,9 @@
 		href={hostUrl}
 		class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
 	>
-		<FoxAvatar
+		<Avatar
 			src={hostProfile?.avatar}
-			alt={hostProfile?.displayName || hostProfile?.handle || did}
+			name={hostProfile?.displayName || hostProfile?.handle || did}
 			class="size-8 shrink-0"
 		/>
 		<span class="truncate text-sm">
@@ -50,12 +50,12 @@
 						rel="noopener noreferrer"
 						class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium transition-opacity hover:opacity-80"
 					>
-						<FoxAvatar src={speaker.avatar} alt={speaker.name} class="size-8 shrink-0" />
+						<Avatar src={speaker.avatar} name={speaker.name} class="size-8 shrink-0" />
 						<span class="truncate text-sm">{speaker.name}</span>
 					</a>
 				{:else}
 					<div class="text-base-900 dark:text-base-100 flex items-center gap-2.5 font-medium">
-						<FoxAvatar alt={speaker.name} class="size-8 shrink-0" />
+						<Avatar name={speaker.name} class="size-8 shrink-0" />
 						<span class="truncate text-sm">{speaker.name}</span>
 					</div>
 				{/if}

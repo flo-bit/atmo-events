@@ -34,8 +34,7 @@ export function getModeLabel(mode: string): string {
 	return 'Event';
 }
 
-/** Foxui accent-color class — applied alongside `variant="primary"` on a Badge
- *  to override its `--accent-*` CSS variables (see @foxui/core/dist/theme.css). */
+/** Optional local accent class for an event mode. */
 export function getModeColor(mode: string): string {
 	if (mode.includes('virtual')) return 'cyan';
 	if (mode.includes('hybrid')) return 'purple';
@@ -152,9 +151,7 @@ function renderDescription(text: string, facets?: Facet[]): string {
 			if (!feature) continue;
 			if (facet.index.byteStart < cursor) continue;
 
-			const segmentText = decoder.decode(
-				encoded.slice(facet.index.byteStart, facet.index.byteEnd)
-			);
+			const segmentText = decoder.decode(encoded.slice(facet.index.byteStart, facet.index.byteEnd));
 
 			let mdLink: string | null = null;
 			switch (feature.$type) {

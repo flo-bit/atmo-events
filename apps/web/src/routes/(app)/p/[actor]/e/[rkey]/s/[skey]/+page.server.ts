@@ -15,7 +15,7 @@ import { SPACE_TYPE } from '$lib/spaces/config';
 export const load: PageServerLoad = async ({ params, locals, platform, url }) => {
 	const ownerDid = await getActor(params.actor);
 	if (!ownerDid) {
-		return { authState: 'not-found' as const };
+		return { pageTitle: 'Event not found', authState: 'not-found' as const };
 	}
 
 	const spaceUri = `ats://${ownerDid}/${SPACE_TYPE}/${params.skey}`;
@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 	// success we render the event in read-only mode; on failure we drop back to
 	// the standard auth flow (anon prompt or pending-invite redeem).
 	if (!locals.did) {
-		if (!hasInvite) return { authState: 'anon' as const };
+		if (!hasInvite) return { pageTitle: 'Private event', authState: 'anon' as const };
 		const anon = await loadByInviteToken(
 			platform!.env.DB,
 			spaceUri,
@@ -37,7 +37,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 			params.rkey
 		);
 		if (anon) return anon;
-		return { authState: 'anon' as const };
+		return { pageTitle: 'Private event', authState: 'anon' as const };
 	}
 
 	const spaceResult = await getPrivateSpace({ spaceUri }).catch((e) => {
@@ -45,8 +45,8 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 		return { ok: false as const, status: 500 };
 	});
 	if (!spaceResult.ok) {
-		if (hasInvite) return { authState: 'pending-invite' as const };
-		return { authState: 'no-access' as const };
+		if (hasInvite) return { pageTitle: 'Redeeming invite', authState: 'pending-invite' as const };
+		return { pageTitle: 'Event not found', authState: 'no-access' as const };
 	}
 	const spaceData = spaceResult;
 
@@ -55,7 +55,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 	// links when a space has a single event.
 	const stored = spaceData.events.find((e) => e.rkey === params.rkey);
 	if (!stored) {
-		return { authState: 'no-access' as const };
+		return { pageTitle: 'Event not found', authState: 'no-access' as const };
 	}
 
 	const synthesizedRecord = {
@@ -68,7 +68,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 	};
 	const eventData = flattenEventRecord(synthesizedRecord as never) as FlatEventRecord | null;
 	if (!eventData) {
-		return { authState: 'no-access' as const };
+		return { pageTitle: 'Event not found', authState: 'no-access' as const };
 	}
 
 	const client = getServerClient(platform!.env.DB);
@@ -143,6 +143,7 @@ export const load: PageServerLoad = async ({ params, locals, platform, url }) =>
 	};
 
 	return {
+		pageTitle: eventData.name,
 		authState: 'member' as const,
 		ownerDid: ownerDid as Did,
 		spaceUri,
@@ -277,6 +278,7 @@ async function loadByInviteToken(
 	}
 
 	return {
+		pageTitle: eventData.name,
 		authState: 'member' as const,
 		ownerDid: ownerDid as Did,
 		spaceUri,

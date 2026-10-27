@@ -3,16 +3,20 @@
 	import { DatePicker } from 'bits-ui';
 	import { CalendarDate, type DateValue } from '@internationalized/date';
 	import { untrack } from 'svelte';
+	import { Icon } from '@atmo-dev/kit';
+	import { ChevronLeft, ChevronRight } from '@sketchyicons/svelte';
 
 	let {
 		value = $bindable(''),
 		required = false,
+		label = 'Date',
 		minValue = '',
 		locale = 'en',
 		onSelect
 	}: {
 		value: string;
 		required?: boolean;
+		label?: string;
 		minValue?: string;
 		locale?: string;
 		onSelect?: () => void;
@@ -89,15 +93,21 @@
 		}
 	}
 
-	let displayText = $derived.by(() => {
+	function formatDisplayDate(compact: boolean) {
 		if (!internalValue) return '';
 		const date = new Date(internalValue.year, internalValue.month - 1, internalValue.day);
-		const opts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+		const opts: Intl.DateTimeFormatOptions = {
+			...(compact ? {} : { weekday: 'short' }),
+			month: 'short',
+			day: 'numeric'
+		};
 		if (internalValue.year !== currentYear) {
 			opts.year = 'numeric';
 		}
 		return date.toLocaleDateString(locale, opts);
-	});
+	}
+	let displayText = $derived(formatDisplayDate(false));
+	let compactText = $derived(formatDisplayDate(true));
 </script>
 
 <DatePicker.Root
@@ -113,11 +123,13 @@
 	{required}
 >
 	<DatePicker.Trigger
-		class="border-base-300 bg-base-100 text-base-900 focus-within:border-accent-500 dark:border-base-700 dark:bg-base-800 dark:text-base-100 dark:focus-within:border-accent-400 flex w-full min-w-[8.5rem] cursor-pointer items-center rounded-xl border px-2.5 py-1.5 text-sm transition-colors"
+		aria-label={`${label}: ${displayText || 'Select date'}`}
+		class="rounded-ui border-line bg-recess text-ink hover:border-control-hover focus-visible:outline-focus flex h-11 min-w-0 flex-1 cursor-pointer items-center border px-2 text-xs shadow-(--ui-recess-shadow) transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 min-[360px]:px-3 min-[360px]:text-sm"
 	>
-		<span class="select-none">
+		<span class="truncate select-none">
 			{#if displayText}
-				{displayText}
+				<span class="min-[360px]:hidden">{compactText}</span>
+				<span class="hidden min-[360px]:inline">{displayText}</span>
 			{:else}
 				<span class="text-base-400 dark:text-base-500">Select date</span>
 			{/if}
@@ -126,7 +138,7 @@
 
 	<DatePicker.Content
 		sideOffset={8}
-		class="border-base-200 bg-base-50 dark:border-base-700 dark:bg-base-900 z-50 rounded-2xl border p-4 shadow-lg"
+		class="rounded-panel border-line bg-page text-ink z-50 max-w-[calc(100vw-2rem)] border p-3"
 	>
 		<DatePicker.Calendar>
 			{#snippet children({ months, weekdays })}
@@ -134,18 +146,7 @@
 					<DatePicker.PrevButton
 						class="text-base-500 hover:bg-base-200 dark:text-base-400 dark:hover:bg-base-700 inline-flex size-8 items-center justify-center rounded-lg"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							class="size-5"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-								clip-rule="evenodd"
-							/>
-						</svg>
+						<Icon img={ChevronLeft} size={20} />
 					</DatePicker.PrevButton>
 
 					<div class="flex items-center gap-1.5">
@@ -162,18 +163,7 @@
 					<DatePicker.NextButton
 						class="text-base-500 hover:bg-base-200 dark:text-base-400 dark:hover:bg-base-700 inline-flex size-8 items-center justify-center rounded-lg"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							class="size-5"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-								clip-rule="evenodd"
-							/>
-						</svg>
+						<Icon img={ChevronRight} size={20} />
 					</DatePicker.NextButton>
 				</DatePicker.Header>
 
@@ -201,7 +191,7 @@
 													<div
 														class="relative flex size-9 items-center justify-center rounded-lg text-sm
 														{selected
-															? 'bg-accent-500 font-medium text-white'
+															? 'bg-accent-400 text-base-950 font-medium'
 															: disabled
 																? 'text-base-300 dark:text-base-600 pointer-events-none'
 																: day.month !== month.value.month
@@ -211,8 +201,9 @@
 														{dayText}
 														{#if day.day === todayDay && day.month === todayMonth && day.year === todayYear}
 															<span
-																class="bg-accent-500 absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full"
-																class:bg-white={selected}
+																class="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full {selected
+																	? 'bg-base-950'
+																	: 'bg-accent-500'}"
 															></span>
 														{/if}
 													</div>

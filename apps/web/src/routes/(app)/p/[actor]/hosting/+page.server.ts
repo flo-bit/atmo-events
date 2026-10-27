@@ -33,7 +33,13 @@ export async function load({ params, url, platform }) {
 	]);
 
 	return withOngoing(
-		{ ...page, actorProfile: profile, actor, actorDid: did },
+		{
+			...page,
+			pageTitle: `Upcoming Events - ${profile?.value?.displayName || profile?.handle || did}`,
+			actorProfile: profile,
+			actor,
+			actorDid: did
+		},
 		cursor ? null : ongoingQuery(client, { actor })
 	);
 }

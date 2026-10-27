@@ -7,6 +7,7 @@
 	"scripts": {
 		"dev": "pnpm --filter web dev",
 		"build": "pnpm --filter web build",
+		"generate:favicons": "pnpm --filter web generate:favicons",
 		"check": "pnpm -r check",
 		"test": "pnpm -r test",
 		"lint": "pnpm -r lint",

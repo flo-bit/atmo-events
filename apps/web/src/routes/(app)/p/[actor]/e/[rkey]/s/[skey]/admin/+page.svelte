@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Icon } from '@atmo-dev/kit';
+	import { ArrowLeft } from '@sketchyicons/svelte';
 	import { invalidateAll } from '$app/navigation';
 	import {
 		addMember,
@@ -78,21 +80,18 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Manage private event</title>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-4 pt-6 pb-12">
 	<div class="mb-4">
 		<a
 			href="/p/{data.actor}/e/{data.rkey}/s/{data.spaceKey}"
-			class="text-base-500 text-sm">← back to event</a
+			class="text-base-500 inline-flex items-center gap-1 text-sm"
+			><Icon img={ArrowLeft} size={16} /> back to event</a
 		>
 	</div>
 
 	<h1 class="mb-4 text-2xl font-semibold">Manage private event</h1>
 
-	<nav class="mb-4 flex gap-4 border-b border-base-200 dark:border-base-800">
+	<nav class="border-base-200 dark:border-base-800 mb-4 flex gap-4 border-b">
 		{#each ['members', 'invites'] as t (t)}
 			<button
 				class:border-b-2={tab === t}

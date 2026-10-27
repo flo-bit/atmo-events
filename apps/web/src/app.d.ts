@@ -61,7 +61,9 @@ declare global {
 			client: Client | null;
 			did: Did | null;
 		}
-		// interface PageData {}
+		interface PageData {
+			pageTitle?: string;
+		}
 		// interface PageState {}
 		interface Platform {
 			env: {

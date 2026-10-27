@@ -19,6 +19,7 @@ export async function load({ params, platform }) {
 
 		if (!eventData) {
 			return {
+				pageTitle: 'Edit Event',
 				eventData: null,
 				actorDid: did,
 				rkey
@@ -26,6 +27,7 @@ export async function load({ params, platform }) {
 		}
 
 		return {
+			pageTitle: 'Edit Event',
 			eventData,
 			actorDid: did,
 			rkey

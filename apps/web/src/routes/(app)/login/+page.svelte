@@ -8,7 +8,5 @@
 </script>
 
 <svelte:head>
-	<title>Log In</title>
 	<meta name="description" content="Log in with your Bluesky account" />
 </svelte:head>
-

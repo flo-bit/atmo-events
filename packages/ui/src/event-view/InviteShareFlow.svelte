@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Checkbox, Input, Label, Modal } from '@foxui/core';
+	import { Button, Checkbox, Input, Label, Modal } from '@atmo-dev/kit';
 	import DateTimePicker from '../DateTimePicker.svelte';
 	import ShareModal from '../ShareModal.svelte';
 	import { datetimeLocalToISO } from '../date-format.js';
@@ -91,13 +91,9 @@
 	}
 </script>
 
-<Button variant="secondary" class="mt-3 w-full" onclick={openInviteForm}>
-	Share invite link
-</Button>
+<Button variant="secondary" class="mt-3 w-full" onclick={openInviteForm}>Share invite link</Button>
 
-<Modal bind:open={showInviteForm} interactOutsideBehavior={inviteBusy ? 'ignore' : 'close'}>
-	<h2 class="mb-4 text-lg font-semibold">Create invite link</h2>
-
+<Modal bind:open={showInviteForm} title="Create invite link" dismissible={!inviteBusy}>
 	<form
 		class="space-y-4"
 		onsubmit={(e) => {

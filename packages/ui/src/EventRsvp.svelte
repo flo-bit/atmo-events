@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as TID from '@atcute/tid';
-	import { Avatar, Button } from '@foxui/core';
-	import { launchConfetti } from '@foxui/visual';
+	import { Check, Star, X } from '@sketchyicons/svelte';
+	import { Avatar, Button, Icon, launchConfetti } from '@atmo-dev/kit';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
 
 	let {
@@ -29,13 +29,14 @@
 		onlogin?: () => void;
 	} = $props();
 
-	let rsvpStatusOverride: 'going' | 'interested' | 'notgoing' | null | undefined = $state(
-		undefined
-	);
+	let rsvpStatusOverride: 'going' | 'interested' | 'notgoing' | null | undefined =
+		$state(undefined);
 	let rsvpRkeyOverride: string | null | undefined = $state(undefined);
 	let rsvpSubmitting = $state(false);
 
-	let rsvpStatus = $derived(rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus);
+	let rsvpStatus = $derived(
+		rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus
+	);
 	let rsvpRkey = $derived(rsvpRkeyOverride !== undefined ? rsvpRkeyOverride : initialRsvpRkey);
 
 	async function submitRsvp(status: 'going' | 'interested') {
@@ -75,9 +76,7 @@
 						record
 					});
 					ok = true;
-					adapter.notifyUpdate?.(
-						`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`
-					);
+					adapter.notifyUpdate?.(`at://${viewer.did}/community.lexicon.calendar.rsvp/${key}`);
 				} catch (e) {
 					console.error('RSVP putRecord failed:', e);
 				}
@@ -115,9 +114,7 @@
 					collection: 'community.lexicon.calendar.rsvp',
 					rkey: rsvpRkey
 				});
-				adapter.notifyUpdate?.(
-					`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`
-				);
+				adapter.notifyUpdate?.(`at://${viewer.did}/community.lexicon.calendar.rsvp/${rsvpRkey}`);
 			}
 			rsvpStatusOverride = null;
 			rsvpRkeyOverride = null;
@@ -131,32 +128,24 @@
 </script>
 
 <div
-	class="border-base-200 dark:border-base-800 bg-base-100 items-between dark:bg-base-950/50 mt-8 mb-2 flex h-25 flex-col justify-center rounded-2xl border p-4"
+	class="rounded-panel bg-recess mt-7 mb-2 flex min-h-25 flex-col justify-center p-4 [box-shadow:var(--ui-recess-shadow)]"
 >
 	{#if !viewer.isLoggedIn}
 		<div class="flex items-center justify-between gap-4">
 			<p class="text-base-600 dark:text-base-400 text-sm">Log in to RSVP to this event</p>
 
-			<Button onclick={() => { onlogin?.(); adapter.requestLogin(); }}>Log in to RSVP</Button>
+			<Button
+				onclick={() => {
+					onlogin?.();
+					adapter.requestLogin();
+				}}>Log in to RSVP</Button
+			>
 		</div>
 	{:else if rsvpStatus === 'going'}
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-3">
-				<div
-					class="flex size-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						class="size-4 text-green-600 dark:text-green-400"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
+				<div class="bg-accent-soft flex size-8 items-center justify-center rounded-full">
+					<Icon img={Check} size={16} class="text-action" />
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">You're Going</p>
 			</div>
@@ -165,21 +154,8 @@
 	{:else if rsvpStatus === 'interested'}
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-3">
-				<div
-					class="flex size-8 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/30"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						class="size-4 text-amber-600 dark:text-amber-400"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
+				<div class="bg-accent-soft flex size-8 items-center justify-center rounded-full">
+					<Icon img={Star} size={16} class="text-action" />
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">You're Interested</p>
 			</div>
@@ -191,16 +167,7 @@
 				<div
 					class="flex size-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						class="size-4 text-red-600 dark:text-red-400"
-					>
-						<path
-							d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
-						/>
-					</svg>
+					<Icon img={X} size={16} class="text-red-600 dark:text-red-400" />
 				</div>
 				<p class="text-base-900 dark:text-base-50 font-semibold">Not Going</p>
 			</div>
@@ -209,10 +176,10 @@
 	{:else}
 		{#if viewer.isLoggedIn}
 			<div class="mb-4 flex items-center gap-2">
-				<span class="text-base-500 dark:text-base-400 text-sm">Attend as</span>
+				<span class="text-muted text-sm">Attend as</span>
 				<Avatar
 					src={viewer.avatar}
-					alt={viewer.displayName || viewer.handle || viewer.did || ''}
+					name={viewer.displayName || viewer.handle || viewer.did || 'Account'}
 					class="size-5"
 				/>
 				<span class="text-base-700 dark:text-base-300 truncate text-sm font-medium">

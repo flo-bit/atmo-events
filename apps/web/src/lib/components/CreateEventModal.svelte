@@ -38,7 +38,9 @@
 </script>
 
 <script lang="ts">
-	import { Button, Checkbox, Input, Modal } from '@foxui/core';
+	import { tick } from 'svelte';
+	import { Button, Checkbox, Icon, Input, Modal } from '@atmo-dev/kit';
+	import { ArrowLeft, ArrowRight, CalendarPlus, Link } from '@sketchyicons/svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { EventImportPrefill } from '$lib/import-event';
@@ -49,6 +51,8 @@
 	let allowAtmoRsvps = $state(true);
 	let importing = $state(false);
 	let importError: string | null = $state(null);
+	const id = $props.id();
+	let importButton: HTMLButtonElement | undefined = $state();
 
 	function reset() {
 		step = 'choose';
@@ -64,13 +68,21 @@
 		goto(resolve('/create'));
 	}
 
-	function openImport() {
+	async function openImport() {
 		step = 'import';
+		await tick();
+		document.getElementById(`${id}-url`)?.focus();
+	}
+
+	async function backToChoices() {
+		step = 'choose';
+		await tick();
+		importButton?.focus();
 	}
 
 	async function submitImport(e: Event) {
 		e.preventDefault();
-		if (!url.trim()) return;
+		if (importing || !url.trim()) return;
 		importing = true;
 		importError = null;
 		try {
@@ -150,99 +162,90 @@
 	}
 </script>
 
-<Modal bind:open={() => createEventModalState.open, handleOpenChange}>
-	<div class="space-y-5">
-		{#if step === 'choose'}
-			<div class="space-y-1">
-				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Create event</h2>
-				<p class="text-base-600 dark:text-base-400 text-sm">
-					Start from scratch or pull details from another platform.
+<Modal
+	bind:open={() => createEventModalState.open, handleOpenChange}
+	title={step === 'choose' ? 'Create event' : 'Import event'}
+	description={step === 'import' ? 'Import the details, then review before publishing.' : undefined}
+	dismissible={!importing}
+	class="max-w-md [&>header]:mb-4"
+>
+	{#if step === 'choose'}
+		<div class="-mx-2">
+			<button
+				type="button"
+				class="group hover:bg-accent-soft rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors"
+				onclick={openCreate}
+			>
+				<Icon img={CalendarPlus} size={24} class="text-action shrink-0" />
+				<span class="min-w-0 flex-1">
+					<span class="text-ink block text-sm font-medium">Start from scratch</span>
+					<span class="text-muted mt-1 block text-[.8125rem] leading-relaxed">
+						Add your event details.
+					</span>
+				</span>
+				<Icon img={ArrowRight} size={18} class="text-muted group-hover:text-action shrink-0" />
+			</button>
+
+			<div class="border-line mx-3 my-1 border-t"></div>
+
+			<button
+				bind:this={importButton}
+				type="button"
+				class="group hover:bg-recess rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors"
+				onclick={openImport}
+			>
+				<Icon img={Link} size={24} class="text-muted shrink-0" />
+				<span class="min-w-0 flex-1">
+					<span class="text-ink block text-sm font-medium">Import from a link</span>
+					<span class="text-muted mt-1 block text-[.8125rem] leading-relaxed">
+						Luma, Meetup, Eventbrite, and more.
+					</span>
+				</span>
+				<Icon img={ArrowRight} size={18} class="text-muted group-hover:text-ink shrink-0" />
+			</button>
+		</div>
+	{:else}
+		<form class="space-y-6" onsubmit={submitImport} aria-busy={importing}>
+			<div class="space-y-2">
+				<label for={`${id}-url`} class="text-ink block text-sm font-medium">Event link</label>
+				<Input
+					id={`${id}-url`}
+					type="url"
+					placeholder="https://lu.ma/..."
+					bind:value={url}
+					required
+					disabled={importing}
+					aria-describedby={`${id}-platforms`}
+					class="w-full"
+				/>
+				<p id={`${id}-platforms`} class="text-muted text-xs leading-relaxed">
+					Works with Luma, Meetup, Eventbrite, Partiful, guild.host, and Resident Advisor.
 				</p>
 			</div>
 
-			<div class="grid gap-3">
-				<button
-					type="button"
-					class="border-base-200 dark:border-base-700 bg-base-50 dark:bg-base-900 hover:border-base-300 dark:hover:border-base-600 hover:bg-base-200 dark:hover:bg-base-950 cursor-pointer rounded-xl border p-4 text-left transition-colors"
-					onclick={openCreate}
-				>
-					<div class="text-base-900 dark:text-base-50 text-sm font-medium">Create new event</div>
-					<div class="text-base-600 dark:text-base-400 mt-1 text-xs">
-						Fill in the details yourself.
-					</div>
-				</button>
-
-				<button
-					type="button"
-					class="border-base-200 dark:border-base-700 bg-base-50 dark:bg-base-900 hover:border-base-300 dark:hover:border-base-600 hover:bg-base-200 dark:hover:bg-base-950 cursor-pointer rounded-xl border p-4 text-left transition-colors"
-					onclick={openImport}
-				>
-					<div class="text-base-900 dark:text-base-50 text-sm font-medium">
-						Import event from somewhere else
-					</div>
-					<div class="text-base-600 dark:text-base-400 mt-1 text-xs">
-						Paste a Luma, Meetup, Eventbrite, Partiful, guild.host or Resident Advisor link.
-					</div>
-				</button>
-			</div>
-		{:else}
-			<form class="space-y-4" onsubmit={submitImport}>
-				<div class="space-y-1">
-					<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Import event</h2>
-					<p class="text-base-600 dark:text-base-400 text-sm">
-						We'll try to autofill the title, date, location and description.
-					</p>
-				</div>
-
-				<div class="space-y-2">
-					<label
-						for="import-url"
-						class="text-base-800 dark:text-base-200 block text-sm font-medium"
-					>
-						Event URL
-					</label>
-					<Input
-						id="import-url"
-						type="url"
-						placeholder="https://lu.ma/..."
-						bind:value={url}
-						required
-						autofocus
-						disabled={importing}
-						class="w-full"
-					/>
-				</div>
-
-				<label class="flex items-start gap-3">
-					<Checkbox bind:checked={allowAtmoRsvps} disabled={importing} class="mt-0.5" />
-					<span class="text-sm">
-						<span class="text-base-900 dark:text-base-50 block font-medium">
-							Also accept RSVPs on atmo
-						</span>
-						<span class="text-base-600 dark:text-base-400 mt-0.5 block text-xs">
-							If off, we'll just list the event and link out to the original page.
-						</span>
+			<label class="flex cursor-pointer items-start gap-3">
+				<Checkbox bind:checked={allowAtmoRsvps} disabled={importing} class="mt-0.5" />
+				<span>
+					<span class="text-ink block text-sm font-medium">Also accept RSVPs on atmo</span>
+					<span class="text-muted mt-1 block text-xs leading-relaxed">
+						Turn off to send guests to the original event to RSVP.
 					</span>
-				</label>
+				</span>
+			</label>
 
-				{#if importError}
-					<p class="text-sm text-red-600 dark:text-red-400">{importError}</p>
-				{/if}
+			{#if importError}
+				<p role="alert" class="text-sm text-red-600 dark:text-red-400">{importError}</p>
+			{/if}
 
-				<div class="flex justify-end gap-2 pt-2">
-					<Button
-						type="button"
-						variant="secondary"
-						onclick={() => (step = 'choose')}
-						disabled={importing}
-					>
-						Back
-					</Button>
-					<Button type="submit" disabled={importing || !url.trim()}>
-						{importing ? 'Importing...' : 'Import'}
-					</Button>
-				</div>
-			</form>
-		{/if}
-	</div>
+			<div class="flex items-center justify-between gap-3">
+				<Button type="button" variant="ghost" onclick={backToChoices} disabled={importing}>
+					<Icon img={ArrowLeft} size={16} />
+					Back
+				</Button>
+				<Button type="submit" loading={importing} disabled={!url.trim()}>
+					{importing ? 'Importing…' : 'Import event'}
+				</Button>
+			</div>
+		</form>
+	{/if}
 </Modal>

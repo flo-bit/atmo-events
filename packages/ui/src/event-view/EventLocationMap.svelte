@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '@foxui/core';
+	import { Badge } from '@atmo-dev/kit';
 	import Map from '../Map.svelte';
 	import type { LocationData, GeoLocation } from './format';
 
@@ -37,10 +37,8 @@
 				title="Copy coordinates"
 				aria-label="Copy coordinates"
 			>
-				<Badge size="sm" variant="secondary" class="font-mono">
-					{copied
-						? 'Copied!'
-						: `${geoLocation.lat.toFixed(5)}, ${geoLocation.lng.toFixed(5)}`}
+				<Badge variant="outline" class="font-mono">
+					{copied ? 'Copied!' : `${geoLocation.lat.toFixed(5)}, ${geoLocation.lng.toFixed(5)}`}
 				</Badge>
 			</button>
 		</div>

@@ -12,9 +12,19 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ url, platform }) => {
 	const client = getServerClient(platform!.env.DB);
 	const term = url.searchParams.get('q')?.trim() || '';
+	// Geo search has no D1 fallback; use the same availability gate as /near-me.
+	const locationSearchAvailable = searchBackendFromEnv(platform?.env) !== null;
 
 	if (!term)
-		return { ...EMPTY_PAGE, ongoing: [], ongoingTotal: 0, ongoingTotalIsFloor: false, query: '' };
+		return {
+			...EMPTY_PAGE,
+			pageTitle: 'Search Events',
+			ongoing: [],
+			ongoingTotal: 0,
+			ongoingTotalIsFloor: false,
+			query: '',
+			locationSearchAvailable
+		};
 
 	// Search page 1 does NOT resume from ?cursor=: the term rides ?q=, not the
 	// envelope, so an inbound cursor can't be proven to match this route's term.
@@ -47,7 +57,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 		.catch(() => EMPTY_ONGOING);
 
 	const pagePromise = (async () => {
-		if (searchBackendFromEnv(platform?.env)) {
+		if (locationSearchAvailable) {
 			try {
 				return await searchMeiliQuery(platform?.env, client, { term }, null);
 			} catch (err) {
@@ -58,5 +68,10 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	})();
 
 	const [page, ongoing] = await Promise.all([pagePromise, ongoingPromise]);
-	return { ...(await withOngoing(page, Promise.resolve(ongoing))), query: term };
+	return {
+		...(await withOngoing(page, Promise.resolve(ongoing))),
+		pageTitle: `"${term}" - Search`,
+		query: term,
+		locationSearchAvailable
+	};
 };

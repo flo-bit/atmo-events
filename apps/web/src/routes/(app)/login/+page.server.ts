@@ -6,5 +6,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		redirect(303, '/p');
 	}
 
-	return {};
+	return { pageTitle: 'Log In' };
 };

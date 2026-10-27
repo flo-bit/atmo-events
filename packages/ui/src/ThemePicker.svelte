@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { themeBackgrounds, type EventTheme } from './theme.js';
+	import { defaultTheme, themeBackgrounds, type EventTheme } from './theme.js';
 
 	let {
-		theme = $bindable<EventTheme>({ name: 'minimal', accentColor: 'cyan', baseColor: 'mist' })
+		theme = $bindable<EventTheme>({ ...defaultTheme })
 	}: {
 		theme: EventTheme;
 	} = $props();
@@ -72,10 +72,11 @@
 				<button
 					type="button"
 					aria-label="Accent color {color.label}"
+					aria-pressed={theme.accentColor === color.label}
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.accentColor === color.label
-						? 'border-white scale-110 ring-2 ring-base-400'
-						: 'border-transparent hover:scale-105'}"
+						? 'ring-control-line border-white ring-2'
+						: 'hover:border-control-line border-transparent'}"
 					onclick={() => (theme = { ...theme, accentColor: color.label })}
 				></button>
 			{/each}
@@ -90,10 +91,11 @@
 				<button
 					type="button"
 					aria-label="Base color {color.label}"
+					aria-pressed={theme.baseColor === color.label}
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.baseColor === color.label
-						? 'border-white scale-110 ring-2 ring-base-400'
-						: 'border-transparent hover:scale-105'}"
+						? 'ring-control-line border-white ring-2'
+						: 'hover:border-control-line border-transparent'}"
 					onclick={() => (theme = { ...theme, baseColor: color.label })}
 				></button>
 			{/each}

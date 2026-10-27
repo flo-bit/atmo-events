@@ -12,10 +12,6 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Past Events - {hostName}</title>
-</svelte:head>
-
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-2xl">
 		<div class="mb-6">

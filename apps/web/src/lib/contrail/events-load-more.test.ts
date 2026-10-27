@@ -41,6 +41,7 @@ import {
 	searchBackendFromEnv
 } from '$lib/search/server/query';
 import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
+import { orQueryFromSlug } from '$lib/topics';
 
 const mockRecords = vi.mocked(listEventRecordsFromContrail);
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
@@ -178,7 +179,7 @@ describe('runLoadMoreEvents registry dispatch', () => {
 
 		const params = mockDiscoverable.mock.calls[0][1];
 		// orQueryFromSlug('technology') — the SAME helper the topic page load uses.
-		expect(params.search).toBe('tech OR technology');
+		expect(params.search).toBe(orQueryFromSlug('technology'));
 		expect(params).toMatchObject({ order: 'asc', limit: 20, cursor: 'raw1' });
 		expect(decodeCursor(result.cursor)).toEqual({
 			v: 1,

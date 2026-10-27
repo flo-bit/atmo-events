@@ -8,11 +8,13 @@
 	let {
 		value = $bindable(''),
 		required = false,
+		label = '',
 		minValue = '',
 		referenceTime = ''
 	}: {
 		value: string;
 		required?: boolean;
+		label?: string;
 		minValue?: string;
 		referenceTime?: string;
 	} = $props();
@@ -87,15 +89,22 @@
 	}
 </script>
 
-<div class="flex items-center gap-1.5">
+<div class="flex min-w-0 flex-1 items-center gap-2">
 	<DatePickerField
 		bind:value={datePart}
+		label={label ? `${label} date` : 'Date'}
 		{required}
 		minValue={minDatePart}
 		{locale}
 		onSelect={focusTime}
 	/>
-	<div bind:this={timeEl}>
-		<TimePicker bind:value={timePart} {locale} referenceTime={refTimePart} />
+	<div bind:this={timeEl} class="shrink-0">
+		<TimePicker
+			bind:value={timePart}
+			label={label ? `${label} time` : 'Time'}
+			{required}
+			{locale}
+			referenceTime={refTimePart}
+		/>
 	</div>
 </div>

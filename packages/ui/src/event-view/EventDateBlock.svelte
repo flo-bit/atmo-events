@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '@foxui/core';
+	import { Badge } from '@atmo-dev/kit';
 	import { formatDay, formatFullDate, formatMonth, formatTime, formatWeekday } from './format';
 
 	let { startDate, endDate }: { startDate: Date; endDate: Date | null } = $props();
@@ -14,9 +14,9 @@
 
 <div class="mb-4 flex items-center gap-4">
 	<div
-		class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border"
+		class="rounded-ui bg-recess flex size-12 shrink-0 flex-col items-center justify-center overflow-hidden [box-shadow:var(--ui-recess-shadow)]"
 	>
-		<span class="text-base-500 dark:text-base-400 text-[9px] leading-none font-semibold">
+		<span class="text-muted text-[9px] leading-none font-semibold">
 			{formatMonth(startDate)}
 		</span>
 		<span class="text-base-900 dark:text-base-50 text-lg leading-tight font-bold">
@@ -37,7 +37,7 @@
 					- {formatTime(endDate)}
 				{/if}
 			</span>
-			<Badge size="sm" variant="secondary">local time</Badge>
+			<Badge variant="outline">local time</Badge>
 		</p>
 	</div>
 </div>

@@ -27,6 +27,7 @@ export async function load({ params, url, platform }) {
 
 	return {
 		...page,
+		pageTitle: `Past Events - ${profile?.value?.displayName || profile?.handle || did}`,
 		actorProfile: profile,
 		actor,
 		actorDid: did

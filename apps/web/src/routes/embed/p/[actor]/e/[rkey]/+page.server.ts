@@ -53,6 +53,7 @@ export async function load({ params, url, platform }) {
 		}
 
 		return {
+			pageTitle: eventData.name,
 			eventData,
 			actorDid: did,
 			rkey,

@@ -13,11 +13,14 @@
 <script lang="ts">
 	import { login, signup } from '$lib/atproto';
 
-	import { AtprotoLoginModal } from '@foxui/social';
+	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
+	const searchActors = createActorSearch();
 </script>
 
-<AtprotoLoginModal
+<LoginDialog
 	bind:open={atProtoLoginModalState.open}
+	{searchActors}
+	persistRecentAccounts
 	login={async (handle) => {
 		await login(handle);
 		return true;

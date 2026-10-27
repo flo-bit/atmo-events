@@ -222,6 +222,7 @@ export async function load({ params, locals, url, platform }) {
 	}
 
 	return {
+		pageTitle: eventData.name,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
 		actorDid: did,

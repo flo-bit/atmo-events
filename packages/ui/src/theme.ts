@@ -5,15 +5,29 @@ export interface EventTheme {
 }
 
 export const accentColors = [
-	'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald',
-	'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple',
-	'fuchsia', 'pink', 'rose'
+	'red',
+	'orange',
+	'amber',
+	'yellow',
+	'lime',
+	'green',
+	'emerald',
+	'teal',
+	'cyan',
+	'sky',
+	'blue',
+	'indigo',
+	'violet',
+	'purple',
+	'fuchsia',
+	'pink',
+	'rose'
 ] as const;
 
 export const defaultTheme: EventTheme = {
 	name: 'minimal',
-	accentColor: 'cyan',
-	baseColor: 'mist'
+	accentColor: 'pink',
+	baseColor: 'zinc'
 };
 
 export function randomAccentColor(): string {

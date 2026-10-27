@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Checkbox, Input, Modal, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { Button, Checkbox, Input, Modal, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { parseDateTime } from '@internationalized/date';
 	import * as TID from '@atcute/tid';
 	import type { FlatEventRecord } from '../contrail.js';
@@ -57,6 +57,14 @@
 	let creating = $state(false);
 	let errorMsg: string | null = $state(null);
 	let created = $state(0);
+	let validRecurrence = $derived(
+		Number.isInteger(count) &&
+			count >= 1 &&
+			count <= 52 &&
+			Number.isInteger(interval) &&
+			interval >= 1 &&
+			interval <= 99
+	);
 
 	let titleNumberMatch = $derived(name.match(/#?(\d+)\s*$/));
 	let detectedStartNumber = $derived(titleNumberMatch ? parseInt(titleNumberMatch[1]) : null);
@@ -66,7 +74,17 @@
 	});
 
 	async function handleCreate() {
-		if (!name.trim() || !startsAt || !viewer.isLoggedIn || !viewer.did) return;
+		if (
+			creating ||
+			!validRecurrence ||
+			!name.trim() ||
+			!startsAt ||
+			!viewer.isLoggedIn ||
+			!viewer.did
+		)
+			return;
+		const copies = count;
+		const period = interval;
 
 		creating = true;
 		errorMsg = null;
@@ -82,9 +100,7 @@
 				? baseEnd.toDate(timezone).getTime() - baseStart.toDate(timezone).getTime()
 				: 0;
 			const baseName =
-				numberInTitle && titleNumberMatch
-					? name.replace(/#?\d+\s*$/, '').trimEnd()
-					: name.trim();
+				numberInTitle && titleNumberMatch ? name.replace(/#?\d+\s*$/, '').trimEnd() : name.trim();
 			const startNum = detectedStartNumber ?? 1;
 			const hasHash = titleNumberMatch ? titleNumberMatch[0].includes('#') : false;
 
@@ -117,9 +133,9 @@
 
 			const parentUri = `at://${viewer.did}/community.lexicon.calendar.event/${rkey}`;
 
-			for (let i = 0; i < count; i++) {
+			for (let i = 0; i < copies; i++) {
 				const offset = i + 1;
-				const step = offset * interval;
+				const step = offset * period;
 				const eventStart =
 					unit === 'days'
 						? baseStart.add({ days: step })
@@ -193,8 +209,7 @@
 	}
 </script>
 
-<Modal bind:open>
-	<p class="text-base-900 dark:text-base-50 text-lg font-semibold">Add recurring events</p>
+<Modal bind:open title="Recurring events" dismissible={!creating}>
 	<p class="text-base-500 dark:text-base-400 mt-1 text-sm">
 		Create multiple copies of this event at regular intervals.
 	</p>
@@ -205,7 +220,15 @@
 			<label class="text-base-700 dark:text-base-300 mb-1 block text-sm font-medium">
 				Number of events to create
 			</label>
-			<Input type="number" bind:value={count} min={1} max={52} class="w-24" />
+			<Input
+				type="number"
+				aria-label="Number of events to create"
+				bind:value={count}
+				disabled={creating}
+				min={1}
+				max={52}
+				class="w-24"
+			/>
 		</div>
 
 		<div>
@@ -214,8 +237,25 @@
 				Repeat every
 			</label>
 			<div class="flex items-center gap-2">
-				<Input type="number" bind:value={interval} min={1} max={99} class="w-20" />
-				<ToggleGroup type="single" bind:value={unit}>
+				<Input
+					type="number"
+					aria-label="Repeat interval"
+					bind:value={interval}
+					disabled={creating}
+					min={1}
+					max={99}
+					class="w-20"
+				/>
+				<ToggleGroup
+					type="single"
+					disabled={creating}
+					bind:value={
+						() => unit,
+						(value) => {
+							if (value) unit = value as typeof unit;
+						}
+					}
+				>
 					<ToggleGroupItem value="days">days</ToggleGroupItem>
 					<ToggleGroupItem value="weeks">weeks</ToggleGroupItem>
 					<ToggleGroupItem value="months">months</ToggleGroupItem>
@@ -226,7 +266,7 @@
 
 		<div>
 			<div class="flex items-center gap-2">
-				<Checkbox bind:checked={numberInTitle} sizeVariant="sm" />
+				<Checkbox bind:checked={numberInTitle} disabled={creating} aria-label="Number in title" />
 				<span class="text-base-700 dark:text-base-300 text-sm font-medium">Number in title</span>
 			</div>
 			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
@@ -242,7 +282,7 @@
 	</div>
 
 	{#if errorMsg}
-		<p class="mt-4 text-sm text-red-600 dark:text-red-400">{errorMsg}</p>
+		<p role="alert" class="mt-4 text-sm text-red-600 dark:text-red-400">{errorMsg}</p>
 	{/if}
 
 	{#if creating && created > 0}
@@ -252,7 +292,7 @@
 	{/if}
 
 	{#if created > 0 && !creating}
-		<p class="mt-4 text-sm text-green-600 dark:text-green-400">
+		<p class="text-action mt-4 text-sm">
 			Successfully created {created} recurring events!
 		</p>
 	{/if}
@@ -262,7 +302,7 @@
 			{created > 0 && !creating ? 'Close' : 'Cancel'}
 		</Button>
 		{#if !created || creating}
-			<Button onclick={handleCreate} disabled={creating || count < 1}>
+			<Button onclick={handleCreate} disabled={creating || !validRecurrence}>
 				{creating ? `Creating...` : `Create ${count} event${count === 1 ? '' : 's'}`}
 			</Button>
 		{/if}

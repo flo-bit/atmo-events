@@ -27,10 +27,6 @@
 	let profileActor = $derived(data.actor ?? hostDid);
 </script>
 
-<svelte:head>
-	<title>Upcoming Events - {hostName}</title>
-</svelte:head>
-
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-2xl">
 		<div class="mb-6">

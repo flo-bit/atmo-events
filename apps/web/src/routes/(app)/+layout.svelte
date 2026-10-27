@@ -1,154 +1,150 @@
 <script lang="ts">
 	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
 	import { user } from '$lib/atproto/auth.svelte';
-	import { Head, Navbar, Button, Avatar } from '@foxui/core';
-	import { resolve } from '$app/paths';
+	import { IconRail, IconButton, Icon, Avatar, Button } from '@atmo-dev/kit';
+	import {
+		House,
+		Compass,
+		CalendarDays,
+		Hash,
+		Search,
+		Plus,
+		LogIn,
+		Settings,
+		Menu
+	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
+	import { afterNavigate } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { dev } from '$app/environment';
 	import { ModeWatcher } from 'mode-watcher';
 	import LoginModal from '$lib/components/LoginModal.svelte';
 	import CreateEventModal, { createEventModalState } from '$lib/components/CreateEventModal.svelte';
 
 	let { children } = $props();
+	let navigationOpen = $state(false);
+	afterNavigate(() => (navigationOpen = false));
+	let path = $derived(page.url.pathname);
+	function createEvent() {
+		if (user.isLoggedIn) createEventModalState.show();
+		else atProtoLoginModalState.show();
+	}
 </script>
 
 <ModeWatcher />
-
-<Navbar class="top-2 right-2 left-2 mx-auto max-w-3xl rounded-full! pr-3 pl-6">
-	<div class="flex items-center gap-6">
-		<a
-			href={resolve('/')}
-			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 text-sm font-medium transition-colors"
-			>events</a
-		>
-		<a
-			href="/calendar"
-			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 text-sm font-medium transition-colors"
-			>calendar</a
-		>
-		<a
-			href="/topics"
-			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 text-sm font-medium transition-colors"
-			>topics</a
-		>
-	</div>
-	<div class="flex items-center gap-4">
-		<a
-			href="/search"
-			class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 transition-colors"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="2"
-				stroke="currentColor"
-				class="size-5"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-				/>
-			</svg>
-			<span class="sr-only">search for events</span>
-		</a>
-		{#if user.isLoggedIn}
-			{#if !page.url.pathname.startsWith('/create')}
-				<Button onclick={() => createEventModalState.show()} class="hidden sm:inline-flex">
-					Create Event
-				</Button>
-				<Button onclick={() => createEventModalState.show()} size="icon" class="sm:hidden">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						class="size-5"
+<a
+	href="#app-main"
+	class="rounded-ui bg-page text-action sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only min-[601px]:left-20"
+	>Skip to content</a
+>
+<IconRail
+	id="event-navigation"
+	label="Event navigation"
+	mobile="drawer"
+	bind:open={navigationOpen}
+	items={[
+		{ label: 'Home', icon: House, href: '/', active: path === '/' },
+		{
+			label: 'Events',
+			icon: Compass,
+			href: '/events',
+			active:
+				path.startsWith('/events') || path.startsWith('/near-me') || /\/p\/[^/]+\/e\//.test(path)
+		},
+		{ label: 'Calendar', icon: CalendarDays, href: '/calendar', active: path === '/calendar' },
+		{ label: 'Topics', icon: Hash, href: '/topics', active: path.startsWith('/topics') },
+		{ label: 'Search events', icon: Search, href: '/search', active: path === '/search' },
+		{
+			label: 'Create event',
+			icon: Plus,
+			onclick: createEvent,
+			active: path === '/create',
+			primary: true
+		}
+	]}
+>
+	{#snippet footer({ expanded, close })}
+		<div class={expanded ? 'grid gap-1' : 'flex flex-col items-center gap-3'}>
+			{#if user.isLoggedIn}
+				{#if dev}
+					<Button
+						href={resolve('/settings')}
+						variant="ghost"
+						title="Settings"
+						onclick={close}
+						class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
 					>
-						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-					</svg>
-					<span class="sr-only">create event</span>
-				</Button>
-			{/if}
-			<!-- Settings entry point is dev-only for now: deploy without surfacing
-			     notifications to users yet. The /settings route still exists. -->
-			{#if dev}
-				<a
-					href="/settings"
-					aria-label="Settings"
-					class="text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 transition-colors"
+						<Icon img={Settings} size={21} />
+						<span class={expanded ? '' : 'sr-only'}>Settings</span>
+					</Button>
+				{/if}
+				<Button
+					href={resolve(`/p/${user.profile?.handle || user.did || ''}`)}
+					variant="ghost"
+					title={user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
+					onclick={close}
+					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						class="size-5"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.241.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.991l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
-						/>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-						/>
-					</svg>
-				</a>
+					<Avatar
+						src={user.profile?.avatar}
+						name={user.profile?.displayName || user.profile?.handle || user.did || 'Account'}
+						size={30}
+					/>
+					<span class={expanded ? 'min-w-0 truncate' : 'sr-only'}>
+						{user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
+					</span>
+				</Button>
+			{:else}
+				<Button
+					variant="ghost"
+					title="Log in"
+					onclick={() => {
+						close();
+						atProtoLoginModalState.show();
+					}}
+					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
+				>
+					<Icon img={LogIn} size={22} />
+					<span class={expanded ? '' : 'sr-only'}>Log in</span>
+				</Button>
 			{/if}
-			<a href="/p/{user.profile?.handle || user.did}" class="shrink-0">
-				<Avatar
-					src={user.profile?.avatar}
-					alt=""
-					fallback={(user.profile?.handle || user.did || '?').charAt(0).toUpperCase()}
-					class="size-10 rounded-full object-cover"
-				/>
+		</div>
+	{/snippet}
+</IconRail>
+
+<div class="min-h-dvh min-[601px]:ml-18">
+	<header class="mx-auto flex max-w-3xl items-center justify-between px-6 pt-7 pb-1">
+		<div class="flex items-center gap-3">
+			<IconButton
+				label="Open navigation"
+				aria-expanded={navigationOpen}
+				aria-controls="event-navigation"
+				onclick={() => (navigationOpen = true)}
+				class="min-[601px]:hidden"><Icon img={Menu} size={24} /></IconButton
+			>
+			<a
+				href={resolve('/')}
+				aria-label="atmo.rsvp home"
+				class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
+			>
+				<Icon img={CalendarDays} size={26} />
+				<span class="font-handwritten text-[2rem] leading-none font-semibold"
+					>atmo<span class="text-muted">.rsvp</span></span
+				>
 			</a>
-		{:else}
-			<Button
-				onclick={() => atProtoLoginModalState.show()}
-				variant="ghost"
-				class="hidden sm:inline-flex"
-			>
-				Create Event</Button
-			>
-			<Button
-				onclick={() => atProtoLoginModalState.show()}
-				variant="ghost"
-				size="icon"
-				class="sm:hidden"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="2"
-					stroke="currentColor"
-					class="size-5"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-				</svg>
-				<span class="sr-only">create event</span>
-			</Button>
-			<Button onclick={() => atProtoLoginModalState.show()}>Login</Button>
-		{/if}
-	</div>
-</Navbar>
-
-<main class="pt-14">
-	{@render children()}
-</main>
-
+		</div>
+	</header>
+	<main id="app-main" tabindex="-1" class="outline-none">{@render children()}</main>
+</div>
 <LoginModal />
 <CreateEventModal />
 
-<Head
-	title="atmo.rsvp"
-	description="discover and attend events"
-	image={page.data?.ogImage ?? '/og.png'}
-/>
+<svelte:head>
+	<meta name="description" content="Discover and attend events for the open social web." />
+	<meta property="og:title" content="atmo.rsvp" />
+	<meta property="og:description" content="Discover and attend events for the open social web." />
+	<meta property="og:image" content={page.data?.ogImage ?? `${page.url.origin}/og.png`} />
+	<meta property="og:site_name" content="atmo.rsvp" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content={page.data?.ogImage ?? `${page.url.origin}/og.png`} />
+</svelte:head>

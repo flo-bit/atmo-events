@@ -50,6 +50,7 @@ export async function load({ locals, platform }) {
 	}
 
 	return {
+		pageTitle: profile?.value?.displayName || profile?.handle || 'ATmosphereConf',
 		hostProfile: profile,
 		events,
 		actor,

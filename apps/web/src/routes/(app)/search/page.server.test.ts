@@ -34,10 +34,12 @@ const mockRunOngoingSearchPage = vi.mocked(runOngoingSearchPage);
 const mockListDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
 type LoadResult = {
+	pageTitle: string;
 	events: unknown[];
 	handles: Record<string, string>;
 	cursor: string | null;
 	query: string;
+	locationSearchAvailable: boolean;
 };
 
 const runLoad = async (q: string, cursor?: string) => (await load(event(q, cursor))) as LoadResult;
@@ -69,20 +71,33 @@ function event(q: string, cursor?: string) {
 afterEach(() => vi.clearAllMocks());
 
 describe('search page load', () => {
-	it('returns early for an empty query without touching any backend', async () => {
+	it('returns early for an empty query without querying either backend', async () => {
+		mockSearchBackendFromEnv.mockReturnValue(null);
 		const result = await load(event(''));
 		// No term means no band either — "happening now" here is scoped to what was
 		// searched for, so with nothing searched there is nothing to scope to.
 		expect(result).toEqual({
+			pageTitle: 'Search Events',
 			events: [],
 			handles: {},
 			cursor: null,
 			ongoing: [],
 			ongoingTotal: 0,
 			ongoingTotalIsFloor: false,
-			query: ''
+			query: '',
+			locationSearchAvailable: false
 		});
-		expect(mockSearchBackendFromEnv).not.toHaveBeenCalled();
+		expect(mockSearchBackendFromEnv).toHaveBeenCalledOnce();
+		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
+		expect(mockRunOngoingSearchPage).not.toHaveBeenCalled();
+		expect(mockListDiscoverable).not.toHaveBeenCalled();
+	});
+
+	it('offers location search on the empty search page when a geo backend is configured', async () => {
+		mockSearchBackendFromEnv.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+		const result = await runLoad('');
+		expect(result.locationSearchAvailable).toBe(true);
+		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
 		expect(mockListDiscoverable).not.toHaveBeenCalled();
 	});
 
@@ -103,6 +118,7 @@ describe('search page load', () => {
 		} as unknown as Awaited<ReturnType<typeof runOngoingSearchPage>>);
 
 		const result = await runLoad('kite');
+		expect(result.pageTitle).toBe('"kite" - Search');
 
 		// The offset rides inside a self-describing envelope, so load-more re-runs
 		// the Meili path (not D1 listRecords) with the term from ?q=/input.
@@ -146,6 +162,7 @@ describe('search page load', () => {
 		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
 
 		const result = await runLoad('kite');
+		expect(result.locationSearchAvailable).toBe(false);
 
 		// First batch is the discoverable, upcoming-only, desc D1 query...
 		const params = d1SearchCall()!;

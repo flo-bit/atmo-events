@@ -11,7 +11,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.did) {
-		return { upcoming: [], past: [], loggedIn: false };
+		return { pageTitle: 'Calendar', upcoming: [], past: [], loggedIn: false };
 	}
 	const client =
 		locals.client && spacesAvailable()
@@ -53,5 +53,5 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		.filter((e) => new Date(e.endsAt || e.startsAt).getTime() < nowMs)
 		.sort((a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime());
 
-	return { upcoming, past, loggedIn: true, did: locals.did };
+	return { pageTitle: 'Calendar', upcoming, past, loggedIn: true, did: locals.did };
 };

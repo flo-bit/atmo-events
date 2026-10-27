@@ -1,5 +1,6 @@
 import { compressImage } from '../atproto-helpers.js';
 import { tokenize, type Token } from '@atcute/bluesky-richtext-parser';
+import type { Facet } from '@atmo-dev/kit';
 import { datetimeLocalToISO } from '../date-format.js';
 import { designs, resolveAccentColor } from '../thumbnails/designs.js';
 import type { FlatEventRecord } from '../contrail.js';
@@ -9,9 +10,9 @@ import type { EventLocation, EventMode, Visibility } from './types.js';
 export async function tokensToFacets(
 	tokens: Token[],
 	resolveHandle: (handle: string) => Promise<string>
-): Promise<Record<string, unknown>[]> {
+): Promise<Facet[]> {
 	const encoder = new TextEncoder();
-	const facets: Record<string, unknown>[] = [];
+	const facets: Facet[] = [];
 	let byteOffset = 0;
 
 	for (const token of tokens) {

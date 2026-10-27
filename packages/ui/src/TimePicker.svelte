@@ -1,114 +1,66 @@
 <script lang="ts">
-	// @ts-nocheck
-	import { Popover } from 'bits-ui';
 	import { TimeField } from 'bits-ui';
 	import { Time } from '@internationalized/date';
-	import { untrack, tick } from 'svelte';
+	import { untrack } from 'svelte';
+	import { Icon, IconButton, Popover } from '@atmo-dev/kit';
+	import { Clock } from '@sketchyicons/svelte';
 
 	let {
 		value = $bindable(''),
 		required = false,
+		label = 'Time',
 		locale = 'en',
 		referenceTime = ''
 	}: {
 		value: string;
 		required?: boolean;
+		label?: string;
 		locale?: string;
 		referenceTime?: string;
 	} = $props();
-
 	let isOpen = $state(false);
-	let listEl: HTMLDivElement | undefined = $state(undefined);
-	let internalValue: Time | undefined = $state(undefined);
-
-	function parseTimeStr(str: string): Time | undefined {
-		if (!str) return undefined;
-		const [hourStr, minuteStr] = str.split(':');
-		const hour = parseInt(hourStr, 10);
-		const minute = parseInt(minuteStr, 10);
-		if (isNaN(hour) || isNaN(minute)) return undefined;
-		return new Time(hour, minute);
-	}
-
-	function formatTimeStr(t: Time): string {
-		const h = String(t.hour).padStart(2, '0');
-		const m = String(t.minute).padStart(2, '0');
-		return `${h}:${m}`;
-	}
-
+	let listEl = $state<HTMLDivElement>();
+	let internalValue = $state<Time>();
 	$effect(() => {
-		const parsed = parseTimeStr(value);
+		const [hour, minute] = value.split(':').map(Number);
 		untrack(() => {
-			if (parsed) {
-				if (
-					!internalValue ||
-					parsed.hour !== internalValue.hour ||
-					parsed.minute !== internalValue.minute
-				) {
-					internalValue = parsed;
-				}
-			} else {
-				internalValue = undefined;
-			}
+			if (!value || !Number.isFinite(hour) || !Number.isFinite(minute)) internalValue = undefined;
+			else if (internalValue?.hour !== hour || internalValue?.minute !== minute)
+				internalValue = new Time(hour, minute);
 		});
 	});
-
-	function handleValueChange(newVal: Time | undefined) {
-		if (newVal && newVal instanceof Time) {
-			internalValue = newVal;
-			value = formatTimeStr(newVal);
-		}
+	function handleValueChange(next: Time | undefined) {
+		if (next)
+			value = `${String(next.hour).padStart(2, '0')}:${String(next.minute).padStart(2, '0')}`;
 	}
-
-	// Generate 48 half-hour slots
-	const slots = Array.from({ length: 48 }, (_, i) => {
-		const h = Math.floor(i / 2);
-		const m = i % 2 === 0 ? 0 : 30;
-		const key = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-		const date = new Date(2000, 0, 1, h, m);
-		const label = date.toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' });
-		return { key, label };
-	});
-
-	function durationLabel(slotKey: string): string {
+	let slots = $derived(
+		Array.from({ length: 48 }, (_, i) => {
+			const h = Math.floor(i / 2),
+				m = i % 2 === 0 ? 0 : 30;
+			return {
+				key: `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`,
+				label: new Date(2000, 0, 1, h, m).toLocaleTimeString(locale, {
+					hour: 'numeric',
+					minute: '2-digit'
+				})
+			};
+		})
+	);
+	function durationLabel(key: string) {
 		if (!referenceTime) return '';
-		const [rh, rm] = referenceTime.split(':').map(Number);
-		const [sh, sm] = slotKey.split(':').map(Number);
-		let diff = (sh * 60 + sm) - (rh * 60 + rm);
+		const [rh, rm] = referenceTime.split(':').map(Number),
+			[h, m] = key.split(':').map(Number);
+		const diff = h * 60 + m - rh * 60 - rm;
 		if (diff <= 0) return '';
-		const hours = Math.floor(diff / 60);
-		const mins = diff % 60;
-		if (hours === 0) return `${mins}m`;
-		if (mins === 0) return `${hours}h`;
-		return `${hours}h ${mins}m`;
+		const hours = Math.floor(diff / 60),
+			minutes = diff % 60;
+		return hours ? (minutes ? `${hours}h ${minutes}m` : `${hours}h`) : `${minutes}m`;
 	}
-
-	function selectSlot(key: string) {
-		value = key;
-		isOpen = false;
-	}
-
-	// Scroll to selected/closest slot when popover opens
-	$effect(() => {
-		if (isOpen && listEl) {
-			tick().then(() => {
-				if (!listEl) return;
-				const selected = listEl.querySelector('[data-selected]');
-				if (selected) {
-					selected.scrollIntoView({ block: 'center' });
-				} else if (value) {
-					const [hStr, mStr] = value.split(':');
-					const totalMin = parseInt(hStr, 10) * 60 + parseInt(mStr, 10);
-					const closestIdx = Math.min(Math.round(totalMin / 30), 47);
-					const el = listEl.children[closestIdx];
-					if (el) el.scrollIntoView({ block: 'center' });
-				}
-			});
-		}
-	});
 </script>
 
-<div class="relative">
+<div
+	class="rounded-ui border-line bg-recess text-ink hover:border-control-hover focus-within:outline-focus flex h-11 items-center gap-1 border px-2 text-sm shadow-(--ui-recess-shadow) focus-within:outline-2 focus-within:outline-offset-2"
+>
 	<TimeField.Root
 		bind:value={internalValue}
 		onValueChange={handleValueChange}
@@ -116,73 +68,50 @@
 		{locale}
 		{required}
 	>
-		<!-- svelte-ignore a11y_click_events_have_key_events -->
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div
-			class="border-base-300 bg-base-100 text-base-900 focus-within:border-accent-500 dark:border-base-700 dark:bg-base-800 dark:text-base-100 dark:focus-within:border-accent-400 flex shrink-0 cursor-pointer items-center whitespace-nowrap rounded-xl border px-2.5 py-1.5 text-sm min-w-[7.5rem] transition-colors"
-			onfocusin={() => (isOpen = true)}
-		>
-			<TimeField.Input>
-				{#snippet children({ segments })}
-					{#each segments as segment, i (segment.part + i)}
-						{#if segment.part === 'literal'}
-							<span class="text-base-400 dark:text-base-500">{segment.value}</span>
-						{:else}
-							<TimeField.Segment
-								part={segment.part}
-								class="hover:bg-base-200 focus:bg-base-200 dark:hover:bg-base-700 dark:focus:bg-base-700 rounded px-0.5 focus:outline-none"
-							>
-								{segment.value}
-							</TimeField.Segment>
-						{/if}
-					{/each}
-				{/snippet}
-			</TimeField.Input>
-
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="text-base-400 dark:text-base-500 ml-auto size-4 pl-0.5"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-				/>
-			</svg>
-		</div>
+		<TimeField.Label class="sr-only">{label}</TimeField.Label>
+		<TimeField.Input class="whitespace-nowrap">
+			{#snippet children({ segments })}{#each segments as segment, i (segment.part + i)}
+					{#if segment.part === 'literal'}<span class="text-muted">{segment.value}</span
+						>{:else}<TimeField.Segment
+							part={segment.part}
+							class="hover:bg-recess focus:bg-accent-soft rounded px-0.5 focus:outline-none"
+							>{segment.value}</TimeField.Segment
+						>{/if}
+				{/each}{/snippet}
+		</TimeField.Input>
 	</TimeField.Root>
-
-	{#if isOpen}
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div
-			class="fixed inset-0 z-40"
-			onclick={() => (isOpen = false)}
-			onkeydown={(e) => { if (e.key === 'Escape') isOpen = false; }}
-		></div>
-		<div
-			bind:this={listEl}
-			class="border-base-200 bg-base-50 dark:border-base-700 dark:bg-base-900 absolute left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border p-2 shadow-lg"
-		>
-			{#each slots as slot (slot.key)}
-				<button
+	<Popover
+		bind:open={isOpen}
+		class="max-h-60 overflow-y-auto p-2"
+		aria-label={`Choose ${label.toLowerCase()}`}
+		onOpenAutoFocus={(event) => {
+			const selected = listEl?.querySelector<HTMLButtonElement>('[data-selected]');
+			if (selected) {
+				event.preventDefault();
+				selected.focus();
+				selected.scrollIntoView({ block: 'center' });
+			}
+		}}
+	>
+		{#snippet trigger({ props })}<IconButton
+				{...props}
+				label={`Choose ${label.toLowerCase()}`}
+				class="size-7"><Icon img={Clock} size={15} /></IconButton
+			>{/snippet}
+		<div bind:this={listEl}>
+			{#each slots as slot (slot.key)}<button
 					type="button"
-					class="w-full rounded-lg px-4 py-1.5 text-left text-sm whitespace-nowrap transition-colors
-						{value === slot.key
-						? 'bg-accent-100 dark:bg-accent-900 font-medium text-accent-900 dark:text-accent-100'
-						: 'text-base-700 hover:bg-base-200 dark:text-base-300 dark:hover:bg-base-700'}"
+					class="rounded-ui text-ink hover:bg-recess aria-pressed:bg-accent-soft aria-pressed:text-action flex w-full items-center justify-between gap-4 px-3 py-1.5 text-left text-sm"
+					aria-pressed={value === slot.key}
 					data-selected={value === slot.key ? '' : undefined}
-					onclick={() => selectSlot(slot.key)}
-				>
-					{slot.label}
-					{#if durationLabel(slot.key)}
-						<span class="ml-2 opacity-50">{durationLabel(slot.key)}</span>
-					{/if}
-				</button>
-			{/each}
+					onclick={() => {
+						value = slot.key;
+						isOpen = false;
+					}}
+					>{slot.label}{#if durationLabel(slot.key)}<span class="text-muted text-xs"
+							>{durationLabel(slot.key)}</span
+						>{/if}</button
+				>{/each}
 		</div>
-	{/if}
+	</Popover>
 </div>

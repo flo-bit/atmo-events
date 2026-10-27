@@ -2,7 +2,8 @@
 	import { getProfileBlobUrl } from '$lib/contrail';
 	import { user, logout } from '$lib/atproto/auth.svelte';
 	import UserProfile from '$lib/components/UserProfile.svelte';
-	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { ArrowDown } from '@sketchyicons/svelte';
+	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import DaySchedule from './DaySchedule.svelte';
 	import Countdown from './Countdown.svelte';
 	import {
@@ -40,7 +41,10 @@
 			const key = getDayKey(event.start);
 			if (!groups.has(key)) {
 				const label = getDayLabel(event.start);
-				const shortLabel = new Date(event.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Vancouver' });
+				const shortLabel = new Date(event.start).toLocaleDateString('en-US', {
+					weekday: 'short',
+					timeZone: 'America/Vancouver'
+				});
 				groups.set(key, { key, label, shortLabel, events: [] });
 			}
 			groups.get(key)!.events.push(event);
@@ -102,10 +106,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{hostName}</title>
-</svelte:head>
-
 <div class="px-6 py-1 sm:py-2">
 	<div class="mx-auto max-w-3xl px-0 sm:px-4">
 		<UserProfile
@@ -119,7 +119,7 @@
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} variant="secondary" class="rose">Logout</Button>
+					<Button onclick={logout} variant="ghost">Log out</Button>
 				{/if}
 			{/snippet}
 		</UserProfile>
@@ -143,20 +143,7 @@
 			<h2 class="text-base-900 dark:text-base-50 text-2xl font-bold">Schedule</h2>
 			{#if isNowDuringConference}
 				<Button onclick={scrollToNow} size="sm">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						class="size-4"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
-						/>
-					</svg>
+					<Icon img={ArrowDown} size={16} />
 					Jump to now
 				</Button>
 			{/if}

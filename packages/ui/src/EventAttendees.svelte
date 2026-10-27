@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { AttendeeInfo } from './contrail.js';
-	import { Avatar as FoxAvatar } from '@foxui/core';
+	import { Avatar } from '@atmo-dev/kit';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	import { Modal } from '@foxui/core';
+	import { Modal } from '@atmo-dev/kit';
 
 	let {
 		going = [],
@@ -103,16 +103,16 @@
 								in:scale={{ duration: 300, start: 0.5 }}
 								out:scale={{ duration: 200, start: 0.5 }}
 							>
-								<FoxAvatar
+								<Avatar
 									src={thumbnail(person.avatar)}
-									alt={person.name}
-									class="border-base-100 dark:border-base-900 size-12 border-2"
+									name={person.name}
+									class="size-12 border-2"
 								/>
 							</div>
 						{/each}
 						{#if goingOverflow > 0}
 							<span
-								class="bg-base-200 dark:bg-base-800 text-base-950 dark:text-base-100 border-base-100 dark:border-base-900 z-10 inline-flex size-12 items-center justify-center rounded-full border-2 text-sm font-semibold"
+								class="bg-base-200 dark:bg-base-800 text-base-950 dark:text-base-100 border-base-100 dark:border-base-800 z-10 inline-flex size-12 items-center justify-center rounded-full border-2 text-sm font-semibold"
 							>
 								+{goingOverflow}
 							</span>
@@ -143,16 +143,16 @@
 								in:scale={{ duration: 300, start: 0.5 }}
 								out:scale={{ duration: 200, start: 0.5 }}
 							>
-								<FoxAvatar
+								<Avatar
 									src={thumbnail(person.avatar)}
-									alt={person.name}
-									class="border-base-100 dark:border-base-900 size-12 border-2"
+									name={person.name}
+									class="size-12 border-2"
 								/>
 							</div>
 						{/each}
 						{#if interestedOverflow > 0}
 							<span
-								class="bg-base-200 dark:bg-base-800 text-base-950 dark:text-base-100 border-base-100 dark:border-base-900 z-10 inline-flex size-12 items-center justify-center rounded-full border-2 text-sm font-semibold"
+								class="bg-base-200 dark:bg-base-800 text-base-950 dark:text-base-100 border-base-100 dark:border-base-800 z-10 inline-flex size-12 items-center justify-center rounded-full border-2 text-sm font-semibold"
 							>
 								+{interestedOverflow}
 							</span>
@@ -164,18 +164,7 @@
 	</div>
 {/if}
 
-<Modal
-	bind:open={modalOpen}
-	closeButton
-	onOpenAutoFocus={(e: Event) => e.preventDefault()}
-	class="p-0"
->
-	<p class="text-base-900 dark:text-base-50 px-4 pt-4 text-lg font-semibold">
-		{modalTitle}
-		<span class="text-base-500 dark:text-base-400 text-sm font-normal">
-			({modalAttendees.length})
-		</span>
-	</p>
+<Modal bind:open={modalOpen} title={`${modalTitle} (${modalAttendees.length})`}>
 	<div
 		class="dark:bg-base-900/50 bg-base-200/30 mx-4 mb-4 max-h-80 space-y-1 overflow-y-auto rounded-xl p-2"
 	>
@@ -186,7 +175,7 @@
 				rel={person.url?.startsWith('/') ? undefined : 'noopener noreferrer'}
 				class="hover:bg-base-200 dark:hover:bg-base-900 flex items-center gap-3 rounded-xl px-2 py-2 transition-colors"
 			>
-				<FoxAvatar src={thumbnail(person.avatar)} alt={person.name} class="size-10 shrink-0" />
+				<Avatar src={thumbnail(person.avatar)} name={person.name} class="size-10 shrink-0" />
 				<div class="min-w-0">
 					<p class="text-base-900 dark:text-base-50 truncate text-sm font-medium">
 						{person.name}

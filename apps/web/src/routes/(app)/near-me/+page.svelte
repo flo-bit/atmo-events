@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Input } from '@foxui/core';
+	import { Button, Input } from '@atmo-dev/kit';
 	import { EventCard } from '@atmo-dev/events-ui';
 	import type { FlatEventRecord } from '$lib/contrail';
 	import { loadNearMeEvents } from '$lib/search/near-me.remote';
@@ -109,10 +109,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Events Near Me</title>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<h1 class="text-base-900 dark:text-base-50 mb-6 text-2xl font-bold">Events Near Me</h1>
 
@@ -124,11 +120,7 @@
 		<div class="mb-8 space-y-3">
 			<div class="flex flex-wrap items-center gap-3">
 				<Button onclick={locate} disabled={status === 'locating' || status === 'loading'}>
-					{status === 'locating'
-						? 'Locating…'
-						: coords
-							? 'Update my location'
-							: 'Use my location'}
+					{status === 'locating' ? 'Locating…' : coords ? 'Update my location' : 'Use my location'}
 				</Button>
 				<span class="text-base-500 text-sm">or</span>
 				<form onsubmit={lookupPlace} class="flex min-w-64 flex-1 gap-2">

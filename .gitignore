@@ -9,6 +9,10 @@ node_modules
 build/
 dist/
 
+# Browser-test artifacts
+**/__screenshots__/
+**/.vitest-attachments/
+
 # OS
 .DS_Store
 Thumbs.db

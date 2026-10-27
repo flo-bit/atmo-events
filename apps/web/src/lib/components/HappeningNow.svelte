@@ -15,7 +15,7 @@
 		seeAllHref = undefined,
 		handles = {},
 		actor = undefined,
-		gridClass = 'grid gap-6 sm:grid-cols-2',
+		gridClass = 'grid gap-x-6 gap-y-4 sm:grid-cols-2',
 		headingClass = 'text-lg font-semibold',
 		sectionClass = 'mb-12',
 		headerClass = 'mb-4'

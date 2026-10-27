@@ -51,6 +51,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	//    by and the list ends at page 1.
 	return {
 		...page,
+		pageTitle: 'Happening Now',
 		scopeLabel: topic?.name ?? term,
 		term,
 		slug: topic ? slug : undefined

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Icon } from '@atmo-dev/kit';
+	import { Check, ChevronDown } from '@sketchyicons/svelte';
 	import ScheduleEventCell from './ScheduleEventCell.svelte';
 	import {
 		type ScheduleEvent,
@@ -80,18 +82,11 @@
 			</span>
 			<span class="text-base-400 dark:text-base-500 flex shrink-0 items-center gap-2">
 				<span class="text-xs tabular-nums">{activeRoom + 1}/{rooms.length}</span>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-					class="size-4 transition-transform {roomMenuOpen ? 'rotate-180' : ''}"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-						clip-rule="evenodd"
-					/>
-				</svg>
+				<Icon
+					img={ChevronDown}
+					size={16}
+					class="transition-transform {roomMenuOpen ? 'rotate-180' : ''}"
+				/>
 			</span>
 		</button>
 		{#if roomMenuOpen}
@@ -102,7 +97,7 @@
 				onclick={() => (roomMenuOpen = false)}
 			></button>
 			<ul
-				class="border-base-200 dark:border-base-800 bg-base-50 dark:bg-base-900 absolute inset-x-0 top-full z-[10000] max-h-64 overflow-auto border-b shadow-lg"
+				class="border-line bg-page absolute inset-x-0 top-full z-[10000] max-h-64 overflow-auto border-b"
 			>
 				{#each rooms as room, i (room)}
 					<li>
@@ -119,18 +114,7 @@
 						>
 							<span class="truncate">{room}</span>
 							{#if activeRoom === i}
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="size-4 shrink-0"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-										clip-rule="evenodd"
-									/>
-								</svg>
+								<Icon img={Check} size={16} class="shrink-0" />
 							{/if}
 						</button>
 					</li>
@@ -197,7 +181,10 @@
 								class="pointer-events-none relative"
 								style="z-index: 9999; grid-row: {nowRow.row}; grid-column: 1"
 							>
-								<div class="absolute inset-x-0 flex items-center" style="top: {nowRow.offsetPercent}%">
+								<div
+									class="absolute inset-x-0 flex items-center"
+									style="top: {nowRow.offsetPercent}%"
+								>
 									<div class="size-2 rounded-full bg-red-500"></div>
 									<div class="h-0.5 flex-1 bg-red-500"></div>
 								</div>
@@ -294,7 +281,10 @@
 								class="pointer-events-none relative"
 								style="z-index: 9999; grid-row: {nowRow.row}; grid-column: 1 / span {rooms.length}"
 							>
-								<div class="absolute inset-x-0 flex items-center" style="top: {nowRow.offsetPercent}%">
+								<div
+									class="absolute inset-x-0 flex items-center"
+									style="top: {nowRow.offsetPercent}%"
+								>
 									<div class="size-2 rounded-full bg-red-500"></div>
 									<div class="h-0.5 flex-1 bg-red-500"></div>
 								</div>

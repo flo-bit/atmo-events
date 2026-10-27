@@ -2,6 +2,7 @@ import { contrail, ensureInit } from '$lib/contrail/index';
 import { processBotMentions } from '$lib/bot/process-mentions';
 import { runNotifications } from '$lib/notify/process';
 import { runGeocodeDrip } from '$lib/geocode/process';
+import { refreshTopicCounts } from '$lib/server/topic-counts';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
@@ -81,6 +82,14 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		await runGeocodeDrip(platform!.env, db);
 	} catch (e) {
 		console.error('[cron] runGeocodeDrip failed:', e);
+	}
+
+	// Daily topic aggregates share this tick but use their own persisted cadence
+	// and overlap lease. A failed refresh keeps the last good snapshot readable.
+	try {
+		await refreshTopicCounts(db);
+	} catch (e) {
+		console.error('[cron] refreshTopicCounts failed:', e);
 	}
 
 	return new Response('OK');

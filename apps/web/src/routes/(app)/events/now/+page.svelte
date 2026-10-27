@@ -16,10 +16,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Happening Now</title>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-2 flex flex-wrap items-center justify-between gap-4">
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">

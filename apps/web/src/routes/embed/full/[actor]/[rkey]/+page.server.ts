@@ -80,6 +80,7 @@ export async function load({ params, url, platform }) {
 		]);
 
 		return {
+			pageTitle: eventData.name,
 			ogImage: `${url.origin}/p/${params.actor}/e/${rkey}/og.png`,
 			eventData,
 			actorDid: did,

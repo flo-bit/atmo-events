@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Modal, Button, Avatar } from '@foxui/core';
-	import { LinkCard } from '@foxui/social';
+	import { Modal, Button, Avatar, LinkCard } from '@atmo-dev/kit';
 	import PostToBlueskyModal from './PostToBlueskyModal.svelte';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
 
@@ -57,11 +56,9 @@
 		} catch {}
 	}
 
-	let blueskyButton: HTMLElement | null = $state(null);
+	let blueskyButton = $state<HTMLButtonElement | HTMLAnchorElement | null>(null);
 
-	let canPostDirectly = $derived(
-		!!eventDid && !!eventRkey && !!eventName && viewer.isLoggedIn
-	);
+	let canPostDirectly = $derived(!!eventDid && !!eventRkey && !!eventName && viewer.isLoggedIn);
 
 	let blueskyIntentUrl = $derived(
 		`https://bsky.app/intent/compose?text=${encodeURIComponent(shareText || url)}`
@@ -79,21 +76,24 @@
 
 <Modal
 	bind:open
+	{title}
+	description="Share it with others."
 	onOpenAutoFocus={(e) => {
 		e.preventDefault();
 		blueskyButton?.focus();
 	}}
 >
 	<div>
-		<h2 class="text-base-900 dark:text-base-50 mb-2 text-xl font-bold">{title}</h2>
-		<p class="text-base-500 dark:text-base-400 mb-4 text-sm">Share it with others!</p>
-
 		<div
 			class="bg-base-200 dark:bg-base-950/30 border-base-400/40 dark:border-base-700 mb-6 overflow-hidden rounded-xl border px-4 py-3 text-left"
 		>
 			{#if viewer.isLoggedIn}
 				<div class="flex items-center gap-2 pb-4">
-					<Avatar src={viewer.avatar} alt="" class="size-6" />
+					<Avatar
+						src={viewer.avatar}
+						name={viewer.displayName || viewer.handle || viewer.did || 'Account'}
+						class="size-6"
+					/>
 					<span class="text-base-700 dark:text-base-200 text-sm font-medium"
 						>{viewer.handle ?? viewer.did}</span
 					>

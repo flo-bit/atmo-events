@@ -1,16 +1,43 @@
 @import 'tailwindcss';
+@import '@atmo-dev/kit/theme.css';
+@import '@fontsource-variable/caveat';
+
+@theme {
+	--font-handwritten: 'Caveat Variable', cursive;
+}
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
-@source "../node_modules/@foxui";
-@source "../node_modules/@atmo-dev/events-ui/dist";
-@source "../../../packages/ui/src";
+@source '../node_modules/@atmo-dev/events-ui/dist';
+@source '../../../packages/ui/src';
 
 @custom-variant dark (&:is(.dark *));
 
-@import '@foxui/core/theme.css';
-
-@source "../node_modules/@foxui";
+@layer base {
+	body {
+		margin: 0;
+	}
+	button,
+	a,
+	input,
+	textarea,
+	select {
+		-webkit-tap-highlight-color: transparent;
+	}
+	:focus-visible {
+		outline: 2px solid var(--ui-focus);
+		outline-offset: 3px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+}
 
 .maplibregl-ctrl-bottom-left > .maplibregl-ctrl.maplibregl-ctrl-attrib {
 	font: 7px / 10px monospace;

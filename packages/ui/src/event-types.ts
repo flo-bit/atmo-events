@@ -37,6 +37,7 @@ export type EventData = EventLexiconMain & {
 	media?: Array<{
 		role: string;
 		alt?: string;
+		aspect_ratio?: { width: number; height: number };
 		content: {
 			$type: 'blob';
 			ref: { $link: string };

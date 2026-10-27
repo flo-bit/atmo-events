@@ -97,6 +97,7 @@ export async function load({ params, platform, locals }) {
 		pastEvents: pastEvents.slice(0, PREVIEW_LIMIT),
 		hasMorePast: pastEvents.length > PREVIEW_LIMIT,
 		attendingEvents,
+		pageTitle: `${profile?.value?.displayName || profile?.handle || did} - Events`,
 		actorProfile: profile,
 		actor,
 		actorDid: did

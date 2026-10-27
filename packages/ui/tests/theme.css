@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+@import '@atmo-dev/kit/theme.css';
+@plugin '@tailwindcss/typography';
+@source '../src';
+@custom-variant dark (&:is(.dark *));
+body {
+	margin: 0;
+	background: var(--ui-page);
+	font-family: var(--atmo-font-sans);
+}
