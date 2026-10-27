@@ -107,10 +107,6 @@ const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(CommunityLexiconCalendarRsvp.mainSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; `ats://` URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });
@@ -120,10 +116,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.listRecords", {
      * Filter by DID or handle (triggers on-demand backfill)
      */
     actor: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.actorIdentifierString()),
-    /**
-     * Only used with spaceUri — filter to records authored by this DID.
-     */
-    byUser: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.didString()),
     /**
      * Maximum value for createdAt
      */
@@ -155,10 +147,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.listRecords", {
         /*#__PURE__*/ v.integerRange(1, 50),
       ]),
     ),
-    /**
-     * Read-grant invite token for anonymous bearer access. Replaces JWT auth when supplied.
-     */
-    inviteToken: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * @minimum 1
      * @maximum 200
@@ -237,10 +225,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.listRecords", {
       >(),
     ),
     /**
-     * If set, query records inside this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI.
-     */
-    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-    /**
      * Maximum value for startsAt
      */
     startsAtMax: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
@@ -309,10 +293,6 @@ const _recordSchema = /*#__PURE__*/ v.object({
    * rsvps count where status = notgoing
    */
   rsvpsNotgoingCount: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
-  /**
-   * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
   get value() {

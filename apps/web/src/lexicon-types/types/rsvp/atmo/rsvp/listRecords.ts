@@ -78,10 +78,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.rsvp.listRecords", {
      */
     actor: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.actorIdentifierString()),
     /**
-     * Only used with spaceUri — filter to records authored by this DID.
-     */
-    byUser: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.didString()),
-    /**
      * Maximum value for createdAt
      */
     createdAtMax: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
@@ -94,10 +90,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.rsvp.listRecords", {
      * Embed the referenced event record
      */
     hydrateEvent: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
-    /**
-     * Read-grant invite token for anonymous bearer access. Replaces JWT auth when supplied.
-     */
-    inviteToken: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * @minimum 1
      * @maximum 200
@@ -127,10 +119,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.rsvp.listRecords", {
         "createdAt" | "status" | "subjectUri" | (string & {})
       >(),
     ),
-    /**
-     * If set, query records inside this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI.
-     */
-    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * Filter by status
      */
@@ -180,10 +168,6 @@ const _recordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(refEventRecordSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
   get value() {
@@ -201,10 +185,6 @@ const _refEventRecordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(CommunityLexiconCalendarEvent.mainSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; `ats://` URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });

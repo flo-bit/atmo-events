@@ -22,7 +22,7 @@ export const event: FlatEventRecord = {
 };
 export function createAdapter(): EditorAdapter {
 	return {
-		features: { delete: true, recurring: true, privateMode: true },
+		features: { delete: true, recurring: true },
 		putRecord: vi.fn(async () => ({ uri: event.uri })),
 		createRecord: vi.fn(async () => ({
 			uri: `at://${viewer.did}/app.bsky.feed.post/test-post`,

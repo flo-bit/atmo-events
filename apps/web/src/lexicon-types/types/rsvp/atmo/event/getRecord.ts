@@ -107,10 +107,6 @@ const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(CommunityLexiconCalendarRsvp.mainSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; `ats://` URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });
@@ -127,17 +123,9 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.getRecord", {
       ]),
     ),
     /**
-     * Read-grant invite token for anonymous bearer access. Replaces JWT auth when supplied.
-     */
-    inviteToken: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-    /**
      * Include profile + identity info keyed by DID
      */
     profiles: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
-    /**
-     * If set, fetch from this permissioned space (requires service-auth JWT or a read-grant invite token). `ats://` URI.
-     */
-    spaceUri: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
     /**
      * AT URI of the record
      */
@@ -174,10 +162,6 @@ const _mainSchema = /*#__PURE__*/ v.query("rsvp.atmo.event.getRecord", {
        * rsvps count where status = notgoing
        */
       rsvpsNotgoingCount: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
-      /**
-       * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
-       */
-      space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
       time_us: /*#__PURE__*/ v.integer(),
       uri: /*#__PURE__*/ v.resourceUriString(),
       get value() {

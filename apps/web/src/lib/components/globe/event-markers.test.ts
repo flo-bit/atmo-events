@@ -98,10 +98,8 @@ describe('homepage event markers', () => {
 		expect(markers[0]).toMatchObject({ lat: 45, lon: 10 });
 	});
 
-	it('keeps private-event routes and falls back to the host DID', () => {
-		const [marker] = eventMarkers([
-			event({ space: 'at://did:plc:host/app.bsky.authSpace/secret' })
-		]);
-		expect(marker.events?.[0].href).toBe('/p/did:plc:host/e/one/s/secret');
+	it('falls back to the host DID for event links', () => {
+		const [marker] = eventMarkers([event()]);
+		expect(marker.events?.[0].href).toBe('/p/did:plc:host/e/one');
 	});
 });

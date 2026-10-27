@@ -31,8 +31,7 @@ export function parseAtmoEventUrl(raw: string): AtmoEventLink | null {
 		return null;
 	}
 	if (!ATMO_HOSTS.includes(url.hostname.toLowerCase())) return null;
-	// Public event path only. Space URLs (`/p/.../e/.../s/...`) won't match the
-	// `$` anchor, so private-space RSVP is intentionally out of scope for v1.
+	// Match only the canonical event path, not its subroutes.
 	const m = url.pathname.match(/^\/p\/([^/]+)\/e\/([^/]+)\/?$/);
 	if (!m) return null;
 	return { actor: decodeURIComponent(m[1]), rkey: m[2] };

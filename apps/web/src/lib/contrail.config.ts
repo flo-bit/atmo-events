@@ -1,5 +1,4 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
-import { SPACE_TYPE } from './spaces/config';
 import { MAX_HYDRATION_URIS } from './search/constants';
 import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
 import { discoverableSql } from './search/server/discoverability';
@@ -36,13 +35,9 @@ export const config: ContrailConfig = {
 	// to once/24h via a persisted timestamp, bounded by PRAGMA analysis_limit so
 	// it can't blow D1's per-query CPU budget. Defaults are fine.
 	maintenance: { optimize: true },
-	// `spaces` is declared statically so `pnpm generate` emits the `rsvp.atmo.space.*`
-	// lexicons. The real serviceDid is injected at runtime in `$lib/contrail/index.ts`
-	// via `getSpacesConfig()` — generate doesn't serialize it.
-	spaces: { authority: { type: SPACE_TYPE, serviceDid: 'did:web:placeholder' }, recordHost: {} },
 	permissionSet: {
 		title: 'Atmo Events',
-		description: 'Manage your private events and rsvps.'
+		description: 'Manage your events and RSVPs.'
 		// NOTE: permission-set lexicons can only reference NSIDs under their own
 		// namespace (`rsvp.atmo.*`). Repo writes for `community.lexicon.*` and
 		// blob uploads are declared as standalone `scope.repo(...)` /

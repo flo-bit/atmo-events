@@ -98,10 +98,6 @@ const _feedRecord_eventSchema = /*#__PURE__*/ v.object({
    * rsvps count where status = notgoing
    */
   rsvpsNotgoingCount: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
-  /**
-   * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
   get value() {
@@ -119,10 +115,6 @@ const _feedRecord_rsvpSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(refEventRecordSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; its value is the `ats://` space URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
   get value() {
@@ -165,10 +157,6 @@ const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(CommunityLexiconCalendarRsvp.mainSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; `ats://` URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });
@@ -367,10 +355,6 @@ const _refEventRecordSchema = /*#__PURE__*/ v.object({
     return /*#__PURE__*/ v.optional(CommunityLexiconCalendarEvent.mainSchema);
   },
   rkey: /*#__PURE__*/ v.string(),
-  /**
-   * Present when the record was read from a permissioned space; `ats://` URI.
-   */
-  space: /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
   time_us: /*#__PURE__*/ v.integer(),
   uri: /*#__PURE__*/ v.resourceUriString(),
 });

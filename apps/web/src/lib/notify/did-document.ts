@@ -1,5 +1,4 @@
 import { getPublicMultikey, getSenderDid, notifyConfigured } from './keypair';
-import { SERVICE_URL } from '../spaces/config';
 
 type Env = App.Platform['env'];
 
@@ -18,11 +17,6 @@ export async function buildDidDocument(env: Env): Promise<Record<string, unknown
 	const service: Record<string, unknown>[] = [
 		{ id: '#atmo_notify', type: 'AtmoNotifsSender', serviceEndpoint: origin }
 	];
-	// Keep the spaces service entry when this origin is also the spaces host
-	// (e.g. a dev tunnel), so publishing the DID doc here doesn't drop it.
-	if (SERVICE_URL && new URL(SERVICE_URL).host === new URL(origin).host) {
-		service.push({ id: '#event_space', type: 'AtmoSpaceService', serviceEndpoint: SERVICE_URL });
-	}
 
 	return {
 		'@context': ['https://www.w3.org/ns/did/v1', 'https://w3id.org/security/multikey/v1'],

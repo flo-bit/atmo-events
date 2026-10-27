@@ -15,7 +15,7 @@
 	<h1 class="mb-6 text-2xl font-semibold tracking-tight">Upcoming events</h1>
 	<div class="grid gap-x-6 gap-y-4 sm:grid-cols-2">
 		{#each names as name, i (name)}<EventCard
-				event={{ ...event, name, rkey: `test-${i}`, space: undefined }}
+				event={{ ...event, name, rkey: `test-${i}` }}
 				actor="host.example.com"
 			/>{/each}
 	</div>

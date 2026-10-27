@@ -2,7 +2,6 @@ import { Contrail } from '@atmo-dev/contrail';
 import { createHandler } from '@atmo-dev/contrail/server';
 import { Client } from '@atcute/client';
 import { config } from '../contrail.config';
-import { getSpacesConfig, spacesAvailable } from '../spaces/config';
 import {
 	createMeiliSink,
 	meiliSinkBackendFromEnv,
@@ -10,13 +9,6 @@ import {
 	type MeiliSinkBackend,
 	type MeiliSinkEnv
 } from '../search/server/meili-sink';
-
-const spaces = getSpacesConfig();
-if (!spacesAvailable()) {
-	console.warn(
-		'[contrail/spaces] No service DID configured — spaces features will be inactive. Run `pnpm tunnel` in dev to enable.'
-	);
-}
 
 // The Meili search sink reads its backend from this module-level holder rather
 // than construction-time config: in a Cloudflare Worker the env
@@ -35,7 +27,6 @@ let geocodeCacheDb: D1Database | null = null;
 
 export const contrail = new Contrail({
 	...config,
-	...(spaces ? { spaces } : {}),
 	sinks: [
 		createMeiliSink(
 			() => searchSinkBackend,

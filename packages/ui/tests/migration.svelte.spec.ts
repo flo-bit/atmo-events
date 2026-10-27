@@ -47,6 +47,41 @@ describe('Atmo Kit migration', () => {
 		);
 	});
 
+	it('offers only public and unlisted visibility and preserves unlisted saves', async () => {
+		const adapter = createAdapter();
+		render(EventEditor, {
+			eventData: { ...event, preferences: { showInDiscovery: false } },
+			actorDid: event.did,
+			rkey: event.rkey,
+			adapter,
+			viewer
+		});
+		await expect
+			.element(page.getByRole('textbox', { name: 'Event name', exact: true }))
+			.toHaveTextContent(event.name);
+		await expect
+			.element(page.getByRole('radio', { name: 'Private', exact: true }))
+			.not.toBeInTheDocument();
+		await expect.element(page.getByRole('radio', { name: 'Public', exact: true })).toBeVisible();
+		await expect.element(page.getByRole('radio', { name: 'Unlisted', exact: true })).toBeChecked();
+		await page.getByRole('button', { name: 'Save Changes', exact: true }).click();
+		await expect
+			.poll(() => adapter.putRecord)
+			.toHaveBeenCalledWith(
+				expect.objectContaining({
+					collection: 'community.lexicon.calendar.event',
+					record: expect.objectContaining({ preferences: { showInDiscovery: false } })
+				})
+			);
+		await expect
+			.poll(() => adapter.onSaved)
+			.toHaveBeenCalledWith({
+				uri: event.uri,
+				rkey: event.rkey,
+				isNew: false
+			});
+	});
+
 	it('preserves RSVP and cancellation actions and updates the attendee preview', async () => {
 		const adapter = createAdapter();
 		render(EventView, {
@@ -200,13 +235,13 @@ describe('Atmo Kit migration', () => {
 		]);
 	});
 
-	it('keeps compact event links and private-event routing', async () => {
+	it('keeps compact canonical event links', async () => {
 		render(EventCard, {
-			event: { ...event, space: 'at://did:plc:host/space/secret' },
+			event,
 			actor: 'host.example.com'
 		});
 		await expect
 			.element(page.getByRole('link', { name: /Small web, big ideas/ }))
-			.toHaveAttribute('href', '/p/host.example.com/e/test-event/s/secret');
+			.toHaveAttribute('href', '/p/host.example.com/e/test-event');
 	});
 });

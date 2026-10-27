@@ -4,8 +4,6 @@ import {
 	listEventRecordsFromContrail
 } from '$lib/contrail';
 import { getServerClient } from '$lib/contrail/index';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
 import { dedupeByUri } from '$lib/dedupe-by-uri';
 import type { PageServerLoad } from './$types';
 
@@ -13,10 +11,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.did) {
 		return { pageTitle: 'Calendar', upcoming: [], past: [], loggedIn: false };
 	}
-	const client =
-		locals.client && spacesAvailable()
-			? getSpacesClient(locals.client, platform!.env.DB)
-			: getServerClient(platform!.env.DB);
+	const client = getServerClient(platform!.env.DB);
 
 	const [rsvpResponse, hostingResponse] = await Promise.all([
 		client.get('rsvp.atmo.rsvp.listRecords', {

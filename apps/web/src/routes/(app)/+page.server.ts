@@ -9,8 +9,6 @@ import {
 	type ActivityCluster
 } from '$lib/contrail';
 import { getServerClient } from '$lib/contrail/index';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
 import { cachedRead } from '$lib/server/edge-cache';
 import { dedupeByUri } from '$lib/dedupe-by-uri';
 import type { PageServerLoad } from './$types';
@@ -39,20 +37,15 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		if (!locals.did) return { upcoming: [], past: [] };
 		const did = locals.did;
 
-		const client =
-			locals.client && spacesAvailable()
-				? getSpacesClient(locals.client, platform!.env.DB)
-				: publicClient;
-
 		const cutoff = new Date(Date.now() - SEVEN_DAYS_MS);
 		const cutoffIso = cutoff.toISOString();
 
 		const [rsvpResponse, hostingResponse] = await withD1Retry(() =>
 			Promise.all([
-				client.get('rsvp.atmo.rsvp.listRecords', {
+				publicClient.get('rsvp.atmo.rsvp.listRecords', {
 					params: { actor: did, hydrateEvent: true, limit: 100 }
 				}),
-				listEventRecordsFromContrail(client, {
+				listEventRecordsFromContrail(publicClient, {
 					actor: did,
 					startsAtMin: cutoffIso,
 					sort: 'startsAt',

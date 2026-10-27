@@ -3,7 +3,7 @@
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import Avatar from 'svelte-boring-avatars';
 	import { Badge, Icon } from '@atmo-dev/kit';
-	import { CalendarDays, LockKeyhole, MapPin } from '@sketchyicons/svelte';
+	import { CalendarDays, MapPin } from '@sketchyicons/svelte';
 
 	let {
 		event,
@@ -137,9 +137,6 @@
 		<h3
 			class="text-base-900 dark:text-base-50 group-hover:text-base-700 dark:group-hover:text-base-200 mt-0.5 flex items-start gap-1.5 text-sm leading-snug font-semibold transition-colors sm:text-base"
 		>
-			{#if event.space}
-				<Icon img={LockKeyhole} size={14} class="text-muted mt-1 shrink-0" label="Private event" />
-			{/if}
 			<span class="line-clamp-2">{event.name}</span>
 		</h3>
 		{#if location || mode}
