@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@atmo-dev/contrail-appview@0.12.2': 6f9c80a051e9e07c3668edd12c912190196f26394e6ec22f8326a1b5acc2d8f9
+  '@atmo-dev/contrail-appview@0.12.2': 181d95eaaf6dea0f64bf960a5bfebf826e8006c37baefe69b4629f5d0a26a878
   '@atmo-dev/contrail-base@0.12.2': f13888cab253afcb9fe4fa92ace590d94e28ba71a58fea3919d6c2284daffa22
 
 importers:
@@ -78,6 +78,9 @@ importers:
       hls.js:
         specifier: ^1.7.3
         version: 1.7.3
+      i18n-iso-countries:
+        specifier: ^7.14.0
+        version: 7.14.0
       maplibre-gl:
         specifier: ^6.16.0
         version: 6.16.0
@@ -129,7 +132,7 @@ importers:
         version: 1.1.4
       '@atmo-dev/contrail-appview':
         specifier: 0.12.2
-        version: 0.12.2(patch_hash=6f9c80a051e9e07c3668edd12c912190196f26394e6ec22f8326a1b5acc2d8f9)
+        version: 0.12.2(patch_hash=181d95eaaf6dea0f64bf960a5bfebf826e8006c37baefe69b4629f5d0a26a878)
       '@atmo-dev/contrail-lexicons':
         specifier: ^0.4.15
         version: 0.4.15(@atcute/cbor@2.3.8(@atcute/cid@2.4.1))(@atcute/cid@2.4.1)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))
@@ -3458,7 +3461,7 @@ snapshots:
       '@badrap/valita': 0.4.6
       nanoid: 5.1.16
 
-  '@atmo-dev/contrail-appview@0.12.2(patch_hash=6f9c80a051e9e07c3668edd12c912190196f26394e6ec22f8326a1b5acc2d8f9)':
+  '@atmo-dev/contrail-appview@0.12.2(patch_hash=181d95eaaf6dea0f64bf960a5bfebf826e8006c37baefe69b4629f5d0a26a878)':
     dependencies:
       '@atcute/atproto': 3.1.12(@atcute/lexicons@1.3.1)
       '@atcute/cbor': 2.3.2
@@ -3527,7 +3530,7 @@ snapshots:
       '@atcute/jetstream': 1.1.3(@atcute/lexicons@1.3.1)
       '@atcute/lexicons': 1.3.1
       '@atcute/xrpc-server': 0.1.12
-      '@atmo-dev/contrail-appview': 0.12.2(patch_hash=6f9c80a051e9e07c3668edd12c912190196f26394e6ec22f8326a1b5acc2d8f9)
+      '@atmo-dev/contrail-appview': 0.12.2(patch_hash=181d95eaaf6dea0f64bf960a5bfebf826e8006c37baefe69b4629f5d0a26a878)
       '@atmo-dev/contrail-authority': 0.12.2
       '@atmo-dev/contrail-base': 0.12.2(patch_hash=f13888cab253afcb9fe4fa92ace590d94e28ba71a58fea3919d6c2284daffa22)
       '@atmo-dev/contrail-record-host': 0.12.2

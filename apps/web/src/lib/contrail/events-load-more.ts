@@ -4,6 +4,7 @@ import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { getServerClient } from './index';
 import {
 	EMPTY_PAGE,
+	cityQuery,
 	eventsQuery,
 	happeningNowMeiliQuery,
 	happeningNowQuery,
@@ -91,6 +92,12 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 		const slug = args?.slug;
 		if (!slug) return EMPTY;
 		return topicQuery(client, { slug }, raw);
+	},
+
+	city: async (_env, client, { args, raw }) => {
+		if (args?.city === undefined || args.country === undefined || args.region === undefined)
+			return EMPTY;
+		return cityQuery(client, { city: args.city, country: args.country, region: args.region }, raw);
 	},
 
 	// Search is the one query whose defining input is not in the envelope: the

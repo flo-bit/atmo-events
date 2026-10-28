@@ -89,6 +89,7 @@
 		"dompurify": "^3.4.17",
 		"h3-js": "^4.5.0",
 		"hls.js": "^1.7.3",
+		"i18n-iso-countries": "^7.14.0",
 		"maplibre-gl": "^6.16.0",
 		"marked": "^18.1.2",
 		"mode-watcher": "^1.1.0",

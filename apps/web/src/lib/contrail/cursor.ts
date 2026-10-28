@@ -27,8 +27,7 @@ export function tagCursor(backend: CursorBackend, raw: string | null | undefined
 }
 
 export type ParsedCursor =
-	| { backend: CursorBackend; raw: string }
-	| { backend: null; raw: string | null };
+	{ backend: CursorBackend; raw: string } | { backend: null; raw: string | null };
 
 /**
  * Split a client cursor back into { backend, raw }.
@@ -87,6 +86,7 @@ export const CURSOR_QUERIES = [
 	'hosting',
 	'past-events',
 	'topic',
+	'city',
 	'search-d1',
 	'search-meili'
 ] as const;
@@ -99,6 +99,10 @@ export type CursorArgs = {
 	actor?: string;
 	/** Public topic slug (topic). */
 	slug?: string;
+	/** Publisher-supplied city scope; qualifiers may legitimately be empty. */
+	city?: string;
+	country?: string;
+	region?: string;
 	/** Public "popular" toggle (events). */
 	popular?: boolean;
 };
@@ -146,6 +150,9 @@ function cleanArgs(args: CursorArgs): CursorArgs | undefined {
 	if (typeof args.actor === 'string') out.actor = args.actor;
 	if (typeof args.slug === 'string') out.slug = args.slug;
 	if (typeof args.popular === 'boolean') out.popular = args.popular;
+	for (const field of ['city', 'country', 'region'] as const) {
+		if (typeof args[field] === 'string') out[field] = args[field];
+	}
 	return Object.keys(out).length > 0 ? out : undefined;
 }
 
@@ -226,6 +233,12 @@ export function decodeCursor(token: string | null | undefined): CursorEnvelope |
 			if (typeof a.popular !== 'boolean') return null;
 			built.popular = a.popular;
 		}
+		for (const field of ['city', 'country', 'region'] as const) {
+			if (a[field] !== undefined) {
+				if (typeof a[field] !== 'string' || a[field].length > 256) return null;
+				built[field] = a[field];
+			}
+		}
 		args = Object.keys(built).length > 0 ? built : undefined;
 	}
 
@@ -241,7 +254,14 @@ export function decodeCursor(token: string | null | undefined): CursorEnvelope |
 function argsEqual(a: CursorArgs | undefined, b: CursorArgs | undefined): boolean {
 	const x = a ? cleanArgs(a) : undefined;
 	const y = b ? cleanArgs(b) : undefined;
-	return x?.actor === y?.actor && x?.slug === y?.slug && x?.popular === y?.popular;
+	return (
+		x?.actor === y?.actor &&
+		x?.slug === y?.slug &&
+		x?.popular === y?.popular &&
+		x?.city === y?.city &&
+		x?.country === y?.country &&
+		x?.region === y?.region
+	);
 }
 
 /**
@@ -254,7 +274,8 @@ const DEEP_LINKABLE: readonly CursorQuery[] = [
 	'happening-now',
 	'hosting',
 	'past-events',
-	'topic'
+	'topic',
+	'city'
 ];
 
 /**

@@ -18,6 +18,7 @@ import type { ActorIdentifier } from '@atcute/lexicons';
 import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
+	listCityEventsFromContrail,
 	listDiscoverableEventsFromContrail
 } from '#lib/contrail.js';
 import {
@@ -27,6 +28,7 @@ import {
 } from '#lib/search/server/query.js';
 import { SEARCH_PAGE_SIZE } from '#lib/search/constants.js';
 import { orQueryFromSlug } from '#lib/topics.js';
+import { cityScope, type CityScope } from '#lib/cities.js';
 import { hasEnded } from '#lib/past-events.js';
 import { nextCursor, type CursorArgs, type CursorQuery } from './cursor';
 
@@ -250,6 +252,26 @@ export async function topicQuery(
 		cursor: cursor ?? undefined
 	});
 	return toPage('topic', { slug: args.slug }, response);
+}
+
+/** Upcoming events with an explicit matching locality, soonest first. */
+export async function cityQuery(
+	client: Client,
+	args: CityScope,
+	cursor: string | null | undefined
+): Promise<EventsPage> {
+	const scope = cityScope(args);
+	if (!scope) return EMPTY_PAGE;
+	const response = await listCityEventsFromContrail(client, {
+		...scope,
+		startsAtMin: now(),
+		sort: 'startsAt',
+		order: 'asc',
+		profiles: true,
+		limit: PAGE_SIZE,
+		cursor: cursor ?? undefined
+	});
+	return toPage('city', scope, response);
 }
 
 /**

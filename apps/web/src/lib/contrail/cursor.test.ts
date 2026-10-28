@@ -167,6 +167,24 @@ describe('decodeCursor fail-safe (never throws, returns null on anything bad)', 
 		expect(decodeCursor(craft({ v: 1, q: 'hosting', args: { actor: 42 }, raw: 'x' }))).toBeNull();
 	});
 
+	it.each(['city', 'country', 'region'])(
+		'rejects mistyped and overlong city scope field %s',
+		(field) => {
+			for (const value of [42, null, [], {}, 'x'.repeat(257)]) {
+				expect(
+					decodeCursor(
+						craft({
+							v: 1,
+							q: 'city',
+							args: { city: 'berlin', country: 'de', region: '', [field]: value },
+							raw: 'x'
+						})
+					)
+				).toBeNull();
+			}
+		}
+	);
+
 	it('returns null for an oversized token (> ~1500 chars)', () => {
 		const huge = encodeCursor({ v: 1, q: 'events', raw: 'x'.repeat(4000) });
 		expect(huge.length).toBeGreaterThan(1500);
