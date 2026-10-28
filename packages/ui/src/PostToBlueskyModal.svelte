@@ -1,15 +1,19 @@
 <script lang="ts">
-	import { Modal, Button, Checkbox, Label } from '@foxui/core';
 	import {
-		MicrobloggingPostCreator,
+		Modal,
+		Button,
+		Checkbox,
+		Label,
+		PostComposer,
 		editorJsonToBlueskyPost,
-		createBlueskyMentionSearch,
+		createActorSearch,
 		LinkCard,
-		type MicrobloggingPostContent
-	} from '@foxui/social';
-	import type { JSONContent, SvelteTiptap } from '@foxui/text';
-	import type { Readable } from 'svelte/store';
-	import { get } from 'svelte/store';
+		textToDoc,
+		graphemeLength,
+		type Editor
+	} from '@atmo-dev/kit';
+	import { tokenize } from '@atcute/bluesky-richtext-parser';
+	import { tokensToFacets } from './editor/save.js';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
 
 	let {
@@ -40,35 +44,15 @@
 		onPosted?: (ref: { uri: string; cid: string; showComments: boolean }) => void;
 	} = $props();
 
-	function textToDoc(text: string): JSONContent {
-		const lines = text.split('\n');
-		const content = lines.map((line) =>
-			line.length > 0
-				? { type: 'paragraph', content: [{ type: 'text', text: line }] }
-				: { type: 'paragraph' }
-		);
-		return { type: 'doc', content } as JSONContent;
-	}
-
-	const searchMentions = createBlueskyMentionSearch();
-
-	// Seed from the initial prop; the $effect below re-pushes it into the editor
-	// each time the modal opens, so only capturing the initial value is intentional.
-	// svelte-ignore state_referenced_locally
-	let postContent = $state<MicrobloggingPostContent>({
-		text: initialText,
-		json: textToDoc(initialText)
-	});
-	let editorStore = $state<Readable<SvelteTiptap.Editor> | undefined>();
+	const searchActors = createActorSearch();
+	let text = $state('');
+	let editor = $state<Editor | null>(null);
 	let prefilledForOpen = $state(false);
 	let showComments = $state(true);
 	let posting = $state(false);
 	let errorMessage = $state<string | null>(null);
 
-	// Each time the modal opens, push the initial text into the editor once it's
-	// ready. The editor instance arrives via a readable store after PlainTextEditor
-	// has mounted internally, so we subscribe and write content on the first
-	// non-null value we see for this open cycle.
+	// Seed once per opening, after the lazy editor has mounted.
 	$effect(() => {
 		if (!open) {
 			prefilledForOpen = false;
@@ -76,13 +60,10 @@
 			errorMessage = null;
 			return;
 		}
-		if (!editorStore || prefilledForOpen) return;
-		const unsub = editorStore.subscribe((ed) => {
-			if (!ed || prefilledForOpen) return;
-			ed.commands.setContent(textToDoc(initialText));
-			prefilledForOpen = true;
-		});
-		return unsub;
+		if (!editor || prefilledForOpen) return;
+		text = initialText;
+		editor.commands.setContent(textToDoc(initialText));
+		prefilledForOpen = true;
 	});
 
 	// Bluesky's external embed accepts a thumb blob up to ~1MB. Fetch the OG
@@ -110,19 +91,33 @@
 	}
 
 	async function handlePost() {
-		if (!viewer.did || posting) return;
+		if (!viewer.did || !viewer.isLoggedIn || viewer.canPostToBluesky !== true || posting) return;
 
-		// Read the editor's live JSON directly — postContent only updates on the
-		// editor's onupdate callback and can lag behind setContent prefills.
-		const editor = editorStore ? get(editorStore) : undefined;
-		const liveJson: JSONContent = editor
-			? (editor.getJSON() as JSONContent)
-			: postContent.json;
+		const liveJson = editor?.getJSON() ?? textToDoc(text);
 
 		posting = true;
 		errorMessage = null;
 		try {
 			const { text, facets } = editorJsonToBlueskyPost(liveJson);
+			if (graphemeLength(text) > 300 || new TextEncoder().encode(text).length > 3000) {
+				errorMessage = 'Posts must be 300 characters or fewer.';
+				return;
+			}
+			// Also recognize handles typed or pasted without selecting a suggestion.
+			const detected = await tokensToFacets(tokenize(text), (handle) =>
+				adapter.resolveHandle(handle)
+			);
+			for (const facet of detected) {
+				const index = facet.index;
+				if (
+					!facets.some(
+						(existing) =>
+							index.byteStart < existing.index.byteEnd && index.byteEnd > existing.index.byteStart
+					)
+				)
+					facets.push(facet);
+			}
+			facets.sort((a, b) => a.index.byteStart - b.index.byteStart);
 
 			if (!text.trim()) {
 				errorMessage = 'Post text cannot be empty';
@@ -151,6 +146,8 @@
 			};
 			if (facets.length > 0) postRecord.facets = facets;
 
+			// The grant may have changed while resolving facets or uploading a thumb.
+			if (viewer.canPostToBluesky !== true) return;
 			const postResp = await adapter.createRecord({
 				collection: 'app.bsky.feed.post',
 				record: postRecord
@@ -200,19 +197,17 @@
 	}
 </script>
 
-<Modal bind:open>
+<Modal bind:open title="Share to Bluesky" dismissible={!posting}>
 	<div class="space-y-4">
-		<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Share to Bluesky</h2>
-
 		<div
 			class="border-base-200 dark:border-base-800 bg-base-50 dark:bg-base-950/30 space-y-3 rounded-xl border p-3"
 		>
-			<MicrobloggingPostCreator
-				bind:editor={editorStore}
-				bind:content={postContent}
-				{searchMentions}
+			<PostComposer
+				bind:editor
+				bind:value={text}
+				{searchActors}
+				disabled={posting}
 				maxLength={300}
-				textEditorClass="max-h-48 overflow-y-auto"
 			/>
 			<LinkCard
 				href={eventUrl}
@@ -226,18 +221,25 @@
 
 		{#if canSetEventComments}
 			<Label class="flex items-center gap-2">
-				<Checkbox bind:checked={showComments} />
-				<span class="text-base-700 dark:text-base-300 text-sm">
-					Show comments on event page
-				</span>
+				<Checkbox bind:checked={showComments} disabled={posting} />
+				<span class="text-base-700 dark:text-base-300 text-sm"> Show comments on event page </span>
 			</Label>
 		{/if}
 
 		{#if errorMessage}
-			<p class="text-red-600 dark:text-red-400 text-sm">{errorMessage}</p>
+			<p role="alert" class="text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
 		{/if}
 
-		<Button class="w-full" onclick={handlePost} disabled={posting}>
+		<Button
+			class="w-full"
+			onclick={handlePost}
+			disabled={posting ||
+				!viewer.isLoggedIn ||
+				!viewer.did ||
+				viewer.canPostToBluesky !== true ||
+				!text.trim() ||
+				graphemeLength(text) > 300}
+		>
 			{posting ? 'Posting…' : 'Post'}
 		</Button>
 	</div>

@@ -1,11 +1,12 @@
-import { getServerClient } from '$lib/contrail/index';
-import { eventsQuery } from '$lib/contrail/queries';
-import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
-import { rawForQuery } from '$lib/contrail/cursor';
+import { env } from 'cloudflare:workers';
+import { getServerClient } from '#lib/contrail/index.js';
+import { eventsQuery } from '#lib/contrail/queries.js';
+import { ongoingQuery, withOngoing } from '#lib/contrail/ongoing.js';
+import { rawForQuery } from '#lib/contrail/cursor.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ url, platform }) => {
-	const client = getServerClient(platform!.env.DB);
+export const load: PageServerLoad = async ({ url }) => {
+	const client = getServerClient(env.DB);
 	const isPopular = url.searchParams.get('filter') !== 'all';
 
 	// Deep-link ?cursor= resumes only an 'events' cursor minted for the same
@@ -19,8 +20,11 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	//
 	// Page 1 only. A deep-linked continuation is resuming the upcoming keyset
 	// mid-list, where re-sending the band would repeat events already seen above.
-	return withOngoing(
-		await eventsQuery(client, { popular: isPopular }, cursor),
-		cursor ? null : ongoingQuery(client)
-	);
+	return {
+		...(await withOngoing(
+			await eventsQuery(client, { popular: isPopular }, cursor),
+			cursor ? null : ongoingQuery(client)
+		)),
+		pageTitle: 'All Upcoming Events'
+	};
 };

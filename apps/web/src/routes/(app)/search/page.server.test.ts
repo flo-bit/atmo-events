@@ -6,27 +6,27 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // pin which backend serves the page, that the emitted envelope names it, and that
 // no inbound ?cursor= is ever resumed here (the term rides ?q=, not the
 // envelope).
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn()
 }));
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(),
 	runEventSearchPage: vi.fn(),
 	runOngoingSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
 import {
 	runEventSearchPage,
 	runOngoingSearchPage,
 	searchBackendFromEnv
-} from '$lib/search/server/query';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
+} from '#lib/search/server/query.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
 
 const mockSearchBackendFromEnv = vi.mocked(searchBackendFromEnv);
 const mockRunEventSearchPage = vi.mocked(runEventSearchPage);
@@ -34,10 +34,12 @@ const mockRunOngoingSearchPage = vi.mocked(runOngoingSearchPage);
 const mockListDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
 type LoadResult = {
+	pageTitle: string;
 	events: unknown[];
 	handles: Record<string, string>;
 	cursor: string | null;
 	query: string;
+	locationSearchAvailable: boolean;
 };
 
 const runLoad = async (q: string, cursor?: string) => (await load(event(q, cursor))) as LoadResult;
@@ -61,28 +63,41 @@ function event(q: string, cursor?: string) {
 	const url = new URL('https://atmo.test/search');
 	if (q) url.searchParams.set('q', q);
 	if (cursor) url.searchParams.set('cursor', cursor);
-	// platform.env is opaque here; the query module is mocked, so its contents
+	// Worker bindings are opaque here; the query module is mocked, so its contents
 	// only matter to the (mocked) searchBackendFromEnv.
-	return { url, platform: { env: {} } } as unknown as Parameters<typeof load>[0];
+	return { url } as unknown as Parameters<typeof load>[0];
 }
 
 afterEach(() => vi.clearAllMocks());
 
 describe('search page load', () => {
-	it('returns early for an empty query without touching any backend', async () => {
+	it('returns early for an empty query without querying either backend', async () => {
+		mockSearchBackendFromEnv.mockReturnValue(null);
 		const result = await load(event(''));
 		// No term means no band either — "happening now" here is scoped to what was
 		// searched for, so with nothing searched there is nothing to scope to.
 		expect(result).toEqual({
+			pageTitle: 'Search Events',
 			events: [],
 			handles: {},
 			cursor: null,
 			ongoing: [],
 			ongoingTotal: 0,
 			ongoingTotalIsFloor: false,
-			query: ''
+			query: '',
+			locationSearchAvailable: false
 		});
-		expect(mockSearchBackendFromEnv).not.toHaveBeenCalled();
+		expect(mockSearchBackendFromEnv).toHaveBeenCalledOnce();
+		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
+		expect(mockRunOngoingSearchPage).not.toHaveBeenCalled();
+		expect(mockListDiscoverable).not.toHaveBeenCalled();
+	});
+
+	it('offers location search on the empty search page when a geo backend is configured', async () => {
+		mockSearchBackendFromEnv.mockReturnValue({ url: 'https://meili.test', apiKey: 'k' });
+		const result = await runLoad('');
+		expect(result.locationSearchAvailable).toBe(true);
+		expect(mockRunEventSearchPage).not.toHaveBeenCalled();
 		expect(mockListDiscoverable).not.toHaveBeenCalled();
 	});
 
@@ -103,6 +118,7 @@ describe('search page load', () => {
 		} as unknown as Awaited<ReturnType<typeof runOngoingSearchPage>>);
 
 		const result = await runLoad('kite');
+		expect(result.pageTitle).toBe('"kite" - Search');
 
 		// The offset rides inside a self-describing envelope, so load-more re-runs
 		// the Meili path (not D1 listRecords) with the term from ?q=/input.
@@ -146,6 +162,7 @@ describe('search page load', () => {
 		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
 
 		const result = await runLoad('kite');
+		expect(result.locationSearchAvailable).toBe(false);
 
 		// First batch is the discoverable, upcoming-only, desc D1 query...
 		const params = d1SearchCall()!;

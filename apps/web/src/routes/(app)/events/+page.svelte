@@ -1,6 +1,6 @@
 <script lang="ts">
-	import EventList from '$lib/components/EventList.svelte';
-	import { ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import EventList from '#lib/components/EventList.svelte';
+	import { ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
@@ -9,17 +9,13 @@
 	let filter = $derived(page.url.searchParams.get('filter') === 'all' ? 'all' : 'popular');
 
 	function setFilter(val: string) {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		if (val === 'all') url.searchParams.set('filter', 'all');
 		else url.searchParams.delete('filter');
 		url.searchParams.delete('cursor');
-		goto(url, { keepFocus: true, noScroll: true });
+		goto(url, { reset: false });
 	}
 </script>
-
-<svelte:head>
-	<title>All Upcoming Events</title>
-</svelte:head>
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8 flex flex-wrap items-center justify-between gap-4">

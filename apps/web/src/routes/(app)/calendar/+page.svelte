@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { EventCard } from '@atmo-dev/events-ui';
-	import { Button, Modal } from '@foxui/core';
-	import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-	import { createEventModalState } from '$lib/components/CreateEventModal.svelte';
-	import { user } from '$lib/atproto/auth.svelte';
+	import { Button, Icon, Modal } from '@atmo-dev/kit';
+	import { CalendarPlus } from '@sketchyicons/svelte';
+	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
+	import { createEventModalState } from '#lib/components/CreateEventModal.svelte';
+	import { user } from '#lib/atproto/auth.svelte.js';
 
 	let { data } = $props();
 
@@ -31,32 +32,17 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Calendar</title>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-2 flex items-center justify-between">
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Calendar</h1>
 		{#if data.loggedIn && hasEvents}
-			<Button variant="secondary" onclick={copyAndShowModal}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-					class="h-4 w-4 sm:mr-1.5"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
-						clip-rule="evenodd"
-					/>
-				</svg>
+			<Button variant="secondary" onclick={copyAndShowModal} aria-label="Add to your calendar">
+				<Icon img={CalendarPlus} size={18} />
 				<span class="hidden sm:inline">Add to your calendar</span>
 			</Button>
 		{/if}
 	</div>
-	<p class="text-base-700 dark:text-base-300 mb-8 mt-4 text-sm">
+	<p class="text-base-700 dark:text-base-300 mt-4 mb-8 text-sm">
 		Events you're hosting, attending or interested in
 	</p>
 
@@ -85,9 +71,7 @@
 		<div class="space-y-10">
 			{#if data.upcoming.length > 0}
 				<div>
-					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
-						Upcoming events
-					</h3>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">Upcoming events</h3>
 					<div class="grid gap-6 sm:grid-cols-2">
 						{#each data.upcoming as event (event.uri)}
 							<EventCard {event} />
@@ -98,9 +82,7 @@
 
 			{#if data.past.length > 0}
 				<div>
-					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">
-						Past events
-					</h3>
+					<h3 class="text-base-600 dark:text-base-400 mb-4 text-sm font-medium">Past events</h3>
 					<div class="grid gap-6 sm:grid-cols-2">
 						{#each data.past as event (event.uri)}
 							<EventCard {event} />
@@ -110,14 +92,11 @@
 			{/if}
 		</div>
 
-		<Modal bind:open={calendarModalOpen}>
+		<Modal bind:open={calendarModalOpen} title="Add to your calendar">
 			<div class="min-w-0 space-y-4 overflow-hidden">
-				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">
-					Add to your calendar
-				</h2>
 				<p class="text-base-600 dark:text-base-400 text-sm">
-					Subscribe to your events calendar using the URL below. Your calendar will stay in
-					sync automatically as you RSVP to new events.
+					Subscribe to your events calendar using the URL below. Your calendar will stay in sync
+					automatically as you RSVP to new events.
 				</p>
 
 				<button
@@ -144,9 +123,7 @@
 
 				<div class="space-y-3 pt-2">
 					<div>
-						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">
-							Apple Calendar
-						</h3>
+						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">Apple Calendar</h3>
 						<ol
 							class="text-base-600 dark:text-base-400 mt-1 list-inside list-decimal space-y-0.5 text-sm"
 						>
@@ -157,9 +134,7 @@
 					</div>
 
 					<div>
-						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">
-							Google Calendar
-						</h3>
+						<h3 class="text-base-800 dark:text-base-200 text-sm font-medium">Google Calendar</h3>
 						<ol
 							class="text-base-600 dark:text-base-400 mt-1 list-inside list-decimal space-y-0.5 text-sm"
 						>

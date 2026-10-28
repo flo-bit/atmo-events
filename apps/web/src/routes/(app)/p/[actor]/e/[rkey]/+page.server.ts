@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
@@ -13,11 +14,15 @@ import {
 	listEventAttendeesFromContrail,
 	withD1Retry,
 	RSVP_HYDRATE_LIMIT
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 import type { Client } from '@atcute/client';
-import { vodFromAtUri } from '$lib/vods';
-import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/events-ui/conference';
+import { vodFromAtUri } from '#lib/vods.js';
+import {
+	isConferenceEvent,
+	getParentEventRef,
+	parseEventUri
+} from '@atmo-dev/events-ui/conference';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -68,8 +73,8 @@ async function loadEventRecordResilient(
 	}
 }
 
-export async function load({ params, locals, url, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params, locals, url }) {
+	const client = getServerClient(env.DB);
 	const { rkey } = params;
 
 	if (!rkey) {
@@ -222,6 +227,8 @@ export async function load({ params, locals, url, platform }) {
 	}
 
 	return {
+		pageTitle: eventData.name,
+		pageDescription: eventData.description || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
 		actorDid: did,

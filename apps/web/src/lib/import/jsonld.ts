@@ -1,4 +1,4 @@
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 import { asString, normalizeIso, stripHtml } from './util';
 
 type JsonLdEvent = Record<string, unknown>;

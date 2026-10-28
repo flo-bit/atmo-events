@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getProfileBlobUrl } from '$lib/contrail';
-	import EventList from '$lib/components/EventList.svelte';
+	import { getProfileBlobUrl } from '#lib/contrail.js';
+	import EventList from '#lib/components/EventList.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
@@ -27,10 +27,6 @@
 	let profileActor = $derived(data.actor ?? hostDid);
 </script>
 
-<svelte:head>
-	<title>Upcoming Events - {hostName}</title>
-</svelte:head>
-
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-2xl">
 		<div class="mb-6">
@@ -47,7 +43,7 @@
 		</h1>
 		<a
 			href={resolve('/(app)/p/[actor]', { actor: profileActor })}
-			class="text-base-500 dark:text-base-400 mt-4 mb-6 flex items-center gap-2 text-sm"
+			class="text-muted mt-4 mb-6 flex items-center gap-2 text-sm"
 		>
 			by
 			{#if hostAvatar}
@@ -69,7 +65,7 @@
 				gridClass="space-y-3"
 			/>
 		{:else}
-			<p class="text-base-500 dark:text-base-400 py-12 text-center">No upcoming events found.</p>
+			<p class="text-muted py-12 text-center">No upcoming events found.</p>
 		{/if}
 	</div>
 </div>

@@ -2,6 +2,9 @@
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import Avatar from 'svelte-boring-avatars';
+	import { Badge, Icon } from '@atmo-dev/kit';
+	import { CalendarDays, MapPin } from '@sketchyicons/svelte';
+	import { getLocations, getLocationSummary } from './event-view/locations.js';
 
 	let {
 		event,
@@ -58,17 +61,6 @@
 		return 'Event';
 	}
 
-	function getLocationString(locations: FlatEventRecord['locations']): string | undefined {
-		if (!locations?.length) return undefined;
-
-		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { locality?: string; region?: string }
-			| undefined;
-		if (!loc) return undefined;
-
-		return [loc.locality, loc.region].filter(Boolean).join(', ') || undefined;
-	}
-
 	function getThumbnail(event: FlatEventRecord): { url: string; alt: string } | null {
 		const media = event.media?.find((m) => m.role === 'thumbnail');
 		if (media?.content) {
@@ -86,28 +78,29 @@
 	}
 
 	let thumbnail = $derived(getThumbnail(event));
-	let location = $derived(getLocationString(event.locations));
+	let location = $derived(getLocationSummary(getLocations(event.locations)));
 	let mode = $derived(getModeLabel(event.mode));
 	let isOngoing = $derived(isEventOngoing(event.startsAt, event.endsAt));
 </script>
 
 <a
 	href={eventUrl(event, actor)}
-	class="group grid grid-cols-[4rem_1fr] gap-3 transition-colors sm:grid-cols-[5rem_1fr] sm:gap-4"
+	class="group rounded-ui focus-visible:outline-focus grid grid-cols-[5rem_minmax(0,1fr)] gap-3 outline-offset-4 transition-colors focus-visible:outline-2 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-3.5"
 >
 	<div class="w-full">
 		{#if thumbnail}
 			<img
 				src={thumbnail.url}
 				alt={thumbnail.alt}
-				class="border-base-200 dark:border-base-800 aspect-square w-full rounded-2xl border object-cover"
+				loading="lazy"
+				class="border-line block aspect-square w-full rounded-[14px_12px_15px_13px] border object-cover"
 			/>
 		{:else}
 			<div
-				class="border-base-200 dark:border-base-800 aspect-square w-full overflow-hidden rounded-2xl border [&>svg]:h-full [&>svg]:w-full"
+				class="border-line aspect-square w-full overflow-hidden rounded-[14px_12px_15px_13px] border [&>svg]:h-full [&>svg]:w-full"
 			>
 				<Avatar
-					size={80}
+					size={96}
 					name={event.rkey}
 					variant="marble"
 					colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
@@ -118,48 +111,36 @@
 	</div>
 
 	<div class="min-w-0 self-center">
-		<p class="text-base-500 dark:text-base-400 flex items-center gap-1.5 text-xs font-medium">
+		<p class="text-muted flex items-center gap-1.5 text-xs font-medium">
+			<Icon img={CalendarDays} size={14} class="shrink-0" />
 			{#if isOngoing && event.endsAt}
 				Ends {formatEndsAt(event.endsAt)}
 			{:else}
 				{formatDateTime(event.startsAt)}
 			{/if}
 			{#if isOngoing}
-				<span
-					class="bg-accent-100 text-accent-700 dark:bg-accent-900/30 dark:text-accent-400 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
-				>
+				<Badge class="gap-1 px-1.5 py-0 text-[10px]">
 					<span class="bg-accent-500 size-1.5 animate-pulse rounded-full"></span>
 					Live
-				</span>
+				</Badge>
 			{/if}
 		</p>
 		<h3
 			class="text-base-900 dark:text-base-50 group-hover:text-base-700 dark:group-hover:text-base-200 mt-0.5 flex items-start gap-1.5 text-sm leading-snug font-semibold transition-colors sm:text-base"
 		>
-			{#if event.space}
-				<svg
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="text-base-500 dark:text-base-400 mt-1 size-3.5 shrink-0"
-					aria-label="Private event"
-				>
-					<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-					<path d="M7 11V7a5 5 0 0 1 10 0v4" />
-				</svg>
-			{/if}
 			<span class="line-clamp-2">{event.name}</span>
 		</h3>
 		{#if location || mode}
-			<p class="text-base-500 dark:text-base-400 mt-1 text-xs">
-				{#if location}{location}{/if}
-				{#if location && mode}
-					<span class="mx-1">&middot;</span>
+			<p class="text-muted mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+				{#if location}
+					<span class="inline-flex max-w-full min-w-0 items-center gap-1.5" title={location}>
+						<Icon img={MapPin} size={14} class="shrink-0" />
+						<span class="truncate">{location}</span>
+					</span>
 				{/if}
-				{#if mode}{mode}{/if}
+				{#if mode}
+					<Badge variant="outline" class="shrink-0 px-1.5 py-0 text-[10px]">{mode}</Badge>
+				{/if}
 			</p>
 		{/if}
 	</div>

@@ -49,7 +49,7 @@
 </script>
 
 <div class="flex flex-col gap-3">
-	<p class="text-base-500 dark:text-base-400 text-xs font-medium">Preset thumbnails</p>
+	<p class="text-muted text-xs font-medium">Preset thumbnails</p>
 	<div class="grid grid-cols-3 gap-2" bind:this={containerEl}>
 		{#each presetKeys as key}
 			<button
@@ -59,7 +59,10 @@
 					{selected === key
 					? 'border-accent-500'
 					: 'border-base-200 dark:border-base-700 hover:border-accent-400 dark:hover:border-accent-500'}"
-				onclick={() => { selected = key; onselect?.(); }}
+				onclick={() => {
+					selected = key;
+					onselect?.();
+				}}
 			>
 				<canvas data-key={key} class="h-full w-full"></canvas>
 			</button>

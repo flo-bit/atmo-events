@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { fetchImageAsDataUrl, importFromUrl } from '$lib/import';
-import { UpstreamHttpError } from '$lib/import/http';
+import { fetchImageAsDataUrl, importFromUrl } from '#lib/import/index.js';
+import { UpstreamHttpError } from '#lib/import/http.js';
 
 export async function POST({ request, locals }) {
 	if (!locals.did) {

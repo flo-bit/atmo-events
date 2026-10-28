@@ -1,10 +1,11 @@
+import { env } from 'cloudflare:workers';
 import { json, error } from '@sveltejs/kit';
-import { getActor } from '$lib/actor';
-import { getEventRecordFromContrail } from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+import { getActor } from '#lib/actor.js';
+import { getEventRecordFromContrail } from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 
-export async function GET({ params, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function GET({ params }) {
+	const client = getServerClient(env.DB);
 	const did = await getActor(params.actor);
 
 	if (!did || !params.rkey) {

@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { getProfileBlobUrl } from '$lib/contrail';
-	import { user, logout } from '$lib/atproto/auth.svelte';
-	import UserProfile from '$lib/components/UserProfile.svelte';
-	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { getProfileBlobUrl } from '#lib/contrail.js';
+	import { user, logout } from '#lib/atproto/auth.svelte.js';
+	import UserProfile from '#lib/components/UserProfile.svelte';
+	import { ArrowDown } from '@sketchyicons/svelte';
+	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import DaySchedule from './DaySchedule.svelte';
 	import Countdown from './Countdown.svelte';
 	import {
@@ -25,8 +26,8 @@
 	);
 
 	let scheduleEvents = $derived(getScheduleEvents(data.events));
-	let rsvpStatuses: Record<string, string> = $state(data.rsvpStatuses ?? {});
-	let rsvpRkeys: Record<string, string> = $state(data.rsvpRkeys ?? {});
+	let rsvpStatuses: Record<string, string> = $derived(data.rsvpStatuses ?? {});
+	let rsvpRkeys: Record<string, string> = $derived(data.rsvpRkeys ?? {});
 	let eventVods = $derived(data.eventVods ?? {});
 	let filterMode: string = $state('all');
 	let selectedDay: string = $state('all');
@@ -40,7 +41,10 @@
 			const key = getDayKey(event.start);
 			if (!groups.has(key)) {
 				const label = getDayLabel(event.start);
-				const shortLabel = new Date(event.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Vancouver' });
+				const shortLabel = new Date(event.start).toLocaleDateString('en-US', {
+					weekday: 'short',
+					timeZone: 'America/Vancouver'
+				});
 				groups.set(key, { key, label, shortLabel, events: [] });
 			}
 			groups.get(key)!.events.push(event);
@@ -102,10 +106,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{hostName}</title>
-</svelte:head>
-
 <div class="px-6 py-1 sm:py-2">
 	<div class="mx-auto max-w-3xl px-0 sm:px-4">
 		<UserProfile
@@ -119,12 +119,12 @@
 		>
 			{#snippet actions()}
 				{#if isOwnProfile}
-					<Button onclick={logout} variant="secondary" class="rose">Logout</Button>
+					<Button onclick={() => logout()} variant="ghost">Log out</Button>
 				{/if}
 			{/snippet}
 		</UserProfile>
 
-		<p class="text-base-500 dark:text-base-400 mb-2 text-sm">
+		<p class="text-muted mb-2 text-sm">
 			See all info on the <a
 				href="https://atmosphereconf.org/"
 				target="_blank"
@@ -143,20 +143,7 @@
 			<h2 class="text-base-900 dark:text-base-50 text-2xl font-bold">Schedule</h2>
 			{#if isNowDuringConference}
 				<Button onclick={scrollToNow} size="sm">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						class="size-4"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
-						/>
-					</svg>
+					<Icon img={ArrowDown} size={16} />
 					Jump to now
 				</Button>
 			{/if}
@@ -164,7 +151,7 @@
 
 		<div class="mb-6 space-y-3">
 			<div class="flex items-center gap-3">
-				<span class="text-base-500 dark:text-base-400 w-14 text-xs">Days</span>
+				<span class="text-muted w-14 text-xs">Days</span>
 				<ToggleGroup
 					type="single"
 					bind:value={
@@ -182,7 +169,7 @@
 				</ToggleGroup>
 			</div>
 			<div class="flex items-center gap-3">
-				<span class="text-base-500 dark:text-base-400 w-14 text-xs">Events</span>
+				<span class="text-muted w-14 text-xs">Events</span>
 				<ToggleGroup
 					type="single"
 					bind:value={

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { EventView } from '@atmo-dev/events-ui';
 	import { onMount } from 'svelte';
-	import { createBlentoAdapter, type EditorViewer } from '$lib/components/editor/adapter';
+	import { createBlentoAdapter, type EditorViewer } from '#lib/components/editor/adapter.js';
 	import { page } from '$app/state';
 
 	let { data } = $props();
@@ -63,10 +63,52 @@
 	<script>
 		var p = new URLSearchParams(location.search);
 		var h = document.documentElement;
+		var bases = [
+			'gray',
+			'zinc',
+			'neutral',
+			'stone',
+			'slate',
+			'mist',
+			'olive',
+			'mauve',
+			'taupe',
+			'sand',
+			'sage'
+		];
+		var accents = [
+			'red',
+			'orange',
+			'amber',
+			'yellow',
+			'lime',
+			'green',
+			'emerald',
+			'teal',
+			'cyan',
+			'sky',
+			'blue',
+			'indigo',
+			'violet',
+			'purple',
+			'fuchsia',
+			'pink',
+			'rose'
+		];
 		var b = p.get('base');
-		if (b) h.classList.add(b);
+		if (b && bases.includes(b)) {
+			bases.forEach(function (c) {
+				h.classList.remove(c);
+			});
+			h.classList.add(b);
+		}
 		var a = p.get('accent');
-		if (a) h.classList.add(a);
+		if (a && accents.includes(a)) {
+			accents.forEach(function (c) {
+				h.classList.remove(c);
+			});
+			h.classList.add(a);
+		}
 		if (p.get('dark') === '1') h.classList.add('dark');
 	</script>
 	<script src="https://blento.app/embed/v0/sdk.js"></script>
@@ -79,5 +121,5 @@
 		></div>
 	</div>
 {:else}
-	<EventView {data} {adapter} {viewer} pageUrl={page.url} embedMode {shareUrlOverride} />
+	<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)} embedMode {shareUrlOverride} />
 {/if}

@@ -4,31 +4,33 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // wiring: which functions it calls, and — the key regression — that it arms the
 // Meili search sink by passing env to ensureInit. vi.hoisted keeps the spies
 // available to the hoisted vi.mock factories below.
-const { ensureInit, ingest, processBotMentions, runNotifications, runGeocodeDrip } = vi.hoisted(
+const { ensureInit, ingest, processBotMentions, runGeocodeDrip, refreshTopicCounts } = vi.hoisted(
 	() => ({
-		ensureInit: vi.fn(async (_db: unknown, _env?: unknown) => {}),
+		ensureInit: vi.fn<(db: unknown, env?: unknown) => Promise<void>>(async () => {}),
 		ingest: vi.fn(async () => {}),
 		processBotMentions: vi.fn(async () => {}),
-		runNotifications: vi.fn(async () => {}),
-		runGeocodeDrip: vi.fn(async () => {})
+		runGeocodeDrip: vi.fn(async () => {}),
+		refreshTopicCounts: vi.fn<(db: unknown) => Promise<void>>(async () => {})
 	})
 );
 
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	ensureInit,
 	contrail: { ingest }
 }));
-vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
-vi.mock('$lib/notify/process', () => ({ runNotifications }));
-vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
+vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
+vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
+vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts }));
 
 import { POST } from './+server';
+
+import { env as bindings } from 'cloudflare:workers';
 
 const CRON_SECRET = 'cron-secret';
 const DB = { __brand: 'D1' };
 
 // Minimal RequestEvent shape the handler actually reads: request headers +
-// platform.env (CRON_SECRET, DB, and the sink creds ensureInit reads).
+// Worker bindings (CRON_SECRET, DB, and the sink creds ensureInit reads).
 function event(opts: { secret?: string | null } = {}) {
 	const headers = new Headers();
 	if (opts.secret != null) headers.set('X-Cron-Secret', opts.secret);
@@ -38,9 +40,9 @@ function event(opts: { secret?: string | null } = {}) {
 		SEARCH_SINK_URL: 'https://search.example',
 		SEARCH_SINK_API_KEY: 'sink-key'
 	};
+	Object.assign(bindings, env);
 	return {
-		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers }),
-		platform: { env }
+		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers })
 	} as unknown as Parameters<typeof POST>[0];
 }
 
@@ -54,6 +56,7 @@ describe('POST /api/cron', () => {
 		expect(res.status).toBe(401);
 		expect(ensureInit).not.toHaveBeenCalled();
 		expect(ingest).not.toHaveBeenCalled();
+		expect(refreshTopicCounts).not.toHaveBeenCalled();
 	});
 
 	it('arms the Meili sink by passing env to ensureInit', async () => {
@@ -70,15 +73,22 @@ describe('POST /api/cron', () => {
 		expect(ensureInit.mock.calls[0][1]).toBeDefined();
 	});
 
-	it('still runs ingest and the isolated bot/notify/drip stages on a valid tick', async () => {
+	it('still runs ingest and the isolated bot/geocode stages on a valid tick', async () => {
 		await POST(event({ secret: CRON_SECRET }));
 		expect(processBotMentions).toHaveBeenCalledTimes(1);
 		expect(ingest).toHaveBeenCalledTimes(1);
-		expect(runNotifications).toHaveBeenCalledTimes(1);
 		expect(runGeocodeDrip).toHaveBeenCalledTimes(1);
 	});
 
-	it('bounds arming + ingest under ONE hard budget: a slow arm + stalling ingest still settles under the cron interval and reaches notify/drip', async () => {
+	it('refreshes topic counts on a valid tick, isolated from failures', async () => {
+		refreshTopicCounts.mockRejectedValueOnce(new Error('count query failed'));
+		const res = await POST(event({ secret: CRON_SECRET }));
+		expect(res.status).toBe(200);
+		expect(refreshTopicCounts).toHaveBeenCalledExactlyOnceWith(DB);
+		expect(ingest).toHaveBeenCalledTimes(1);
+	});
+
+	it('bounds arming + ingest under ONE hard budget: a slow arm + stalling ingest still settles under the cron interval and reaches geocoding', async () => {
 		vi.useFakeTimers();
 		// Arming resolves only after a delay, then ingest hangs forever. The tick can
 		// end ONLY via the handler's hard backstop. Because arming now runs INSIDE
@@ -99,12 +109,11 @@ describe('POST /api/cron', () => {
 			// Arming ran first (it resolved), then ingest was reached and hung; once
 			// the backstop fired, the isolated post-ingest stages still ran.
 			expect(ingest).toHaveBeenCalledTimes(1);
-			expect(runNotifications).toHaveBeenCalledTimes(1);
 			expect(runGeocodeDrip).toHaveBeenCalledTimes(1);
 		} finally {
 			ensureInit.mockReset();
 			ingest.mockReset();
-			ensureInit.mockImplementation(async (_db: unknown, _env?: unknown) => {});
+			ensureInit.mockImplementation(async () => {});
 			ingest.mockImplementation(async () => {});
 			vi.useRealTimers();
 		}

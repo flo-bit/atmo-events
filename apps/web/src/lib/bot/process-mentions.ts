@@ -1,5 +1,5 @@
 import type { Did } from '@atcute/lexicons';
-import { getServerClient } from '$lib/contrail/index';
+import { getServerClient } from '#lib/contrail/index.js';
 import { MAX_MENTIONS_PER_RUN, NOTIF_LIMIT, REPLIES } from './config';
 import { getBotHandle, type BotHandle } from './session';
 import {
@@ -27,7 +27,7 @@ type Mention = {
  * their post, or reply with a hint. Wrapped per-mention so one failure can't
  * stall the batch; unrecorded failures are retried on the next tick.
  */
-export async function processBotMentions(env: App.Platform['env'], db: D1Database): Promise<void> {
+export async function processBotMentions(env: Cloudflare.Env, db: D1Database): Promise<void> {
 	const bot = await getBotHandle(env);
 	if (!bot) return;
 
@@ -67,7 +67,7 @@ export async function processBotMentions(env: App.Platform['env'], db: D1Databas
 }
 
 async function handleMention(
-	env: App.Platform['env'],
+	env: Cloudflare.Env,
 	db: D1Database,
 	bot: BotHandle,
 	mention: Mention
@@ -97,6 +97,18 @@ async function handleMention(
 	const did = await resolveActorDid(bot.client, link.actor);
 	const event = did ? await loadEvent(serverClient, did, link.rkey) : null;
 	if (!event) return replyNoEvent();
+
+	// An explicit opt-out takes precedence over both local and external RSVPs.
+	if (event.rsvpExpected === false) {
+		await reply(REPLIES.notExpected);
+		await recordOutcome(db, {
+			notifUri: mention.uri,
+			authorDid,
+			outcome: 'replied_not_expected',
+			eventUri: event.uri
+		});
+		return;
+	}
 
 	// 3. External-only events can't be RSVP'd here — point them at the source.
 	if (event.externalOnly) {

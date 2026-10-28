@@ -1,16 +1,17 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getActor } from '$lib/actor';
-import { generateICalFeed, type ICalEvent } from '$lib/cal/ical';
+import { getActor } from '#lib/actor.js';
+import { generateICalFeed, type ICalEvent } from '#lib/cal/ical.js';
 import { isActorIdentifier, type ActorIdentifier } from '@atcute/lexicons/syntax';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
 	listEventRecordsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { dedupeByUri } from '$lib/dedupe-by-uri';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 
-export async function GET({ params, platform }) {
+export async function GET({ params }) {
 	if (!isActorIdentifier(params.actor)) {
 		throw error(404, 'Not found');
 	}
@@ -22,7 +23,7 @@ export async function GET({ params, platform }) {
 	}
 
 	try {
-		const client = getServerClient(platform!.env.DB);
+		const client = getServerClient(env.DB);
 		const now = new Date().toISOString();
 
 		const actorId = did as ActorIdentifier;

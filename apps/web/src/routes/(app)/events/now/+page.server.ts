@@ -1,12 +1,13 @@
-import { getServerClient } from '$lib/contrail/index';
-import { happeningNowMeiliQuery, happeningNowQuery } from '$lib/contrail/queries';
-import { rawForQuery } from '$lib/contrail/cursor';
-import { searchBackendFromEnv } from '$lib/search/server/query';
-import { getTopicBySlug } from '$lib/topics';
+import { env } from 'cloudflare:workers';
+import { getServerClient } from '#lib/contrail/index.js';
+import { happeningNowMeiliQuery, happeningNowQuery } from '#lib/contrail/queries.js';
+import { rawForQuery } from '#lib/contrail/cursor.js';
+import { searchBackendFromEnv } from '#lib/search/server/query.js';
+import { getTopicBySlug } from '#lib/topics.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ url, platform }) => {
-	const client = getServerClient(platform!.env.DB);
+export const load: PageServerLoad = async ({ url }) => {
+	const client = getServerClient(env.DB);
 
 	// SCOPE, so a "See all N" offered beside a scoped band lands on the same N.
 	// Unscoped (from home / /events) this is the whole live list, as before.
@@ -29,8 +30,8 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	// such choice — its search is re-derived from the slug on both sides, so both
 	// stay on D1. Page 1 may fall back to D1; a continuation may not.
 	const page =
-		term && searchBackendFromEnv(platform?.env)
-			? ((await happeningNowMeiliQuery(platform?.env, client, { term }, cursor).catch((err) => {
+		term && searchBackendFromEnv(env)
+			? ((await happeningNowMeiliQuery(env, client, { term }, cursor).catch((err) => {
 					console.error('happening-now search backend failed, falling back to D1:', err);
 					return null;
 				})) ?? (await happeningNowQuery(client, cursor, { search: term })))
@@ -51,6 +52,7 @@ export const load: PageServerLoad = async ({ url, platform }) => {
 	//    by and the list ends at page 1.
 	return {
 		...page,
+		pageTitle: 'Happening Now',
 		scopeLabel: topic?.name ?? term,
 		term,
 		slug: topic ? slug : undefined

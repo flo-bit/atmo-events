@@ -4,29 +4,31 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // query it runs, the slug it records in the emitted envelope, and whether an
 // inbound ?cursor= may be resumed. $lib/topics is left REAL so the OR-search is
 // derived from the slug for real rather than stubbed.
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
 // queries.ts imports the search module at load time; the topic query never hits
 // it, so a null-backend stub keeps the import deterministic.
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
 	runEventSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
+import { orQueryFromSlug } from '#lib/topics.js';
 
 const mockListDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
 type LoadResult = {
-	topic: { slug: string };
+	pageTitle: string;
+	topic: { slug: string; name: string };
 	events: unknown[];
 	handles: Record<string, string>;
 	cursor: string | null;
@@ -49,7 +51,7 @@ const bandCall = () =>
 function event(slug: string, cursor?: string) {
 	const url = new URL(`https://atmo.test/topics/${slug}`);
 	if (cursor) url.searchParams.set('cursor', cursor);
-	return { params: { slug }, url, platform: { env: {} } } as unknown as Parameters<typeof load>[0];
+	return { params: { slug }, url } as unknown as Parameters<typeof load>[0];
 }
 
 const run = async (slug: string, cursor?: string) =>
@@ -66,13 +68,14 @@ describe('topic page load', () => {
 		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
 
 		const result = await run('technology');
+		expect(result.pageTitle).toBe(`${result.topic.name} Events`);
 
 		const params = listCall()!;
 		// orQueryFromSlug('technology') — the SAME helper the load-more registry uses.
-		expect(params.search).toBe('tech OR technology');
+		expect(params.search).toBe(orQueryFromSlug('technology'));
 		expect(params).toMatchObject({ order: 'asc', limit: 20, profiles: true });
 		expect(typeof params.startsAtMin).toBe('string');
-		expect(result.query).toBe('tech OR technology');
+		expect(result.query).toBe(orQueryFromSlug('technology'));
 		// A resumable envelope, not cursor:null.
 		expect(decodeCursor(result.cursor)).toEqual({
 			v: 1,
@@ -131,12 +134,29 @@ describe('topic page load', () => {
 			cursor: null
 		} as unknown as Awaited<ReturnType<typeof listDiscoverableEventsFromContrail>>);
 
-		// A 'technology' keyset deep-linked into /topics/ai names the same query but
+		// A 'technology' keyset deep-linked into /topics/design names the same query but
 		// indexes a different OR-search result set — must not resume.
 		const otherSlug = encodeCursor({ v: 1, q: 'topic', args: { slug: 'technology' }, raw: 'nope' });
-		await run('ai', otherSlug);
+		await run('design', otherSlug);
 
 		expect(listCall()!.cursor).toBeUndefined();
+	});
+
+	it.each([
+		['ai', 'technology'],
+		['web-development', 'technology'],
+		['open-source', 'technology'],
+		['crypto', 'technology'],
+		['cooking', 'food-drink'],
+		['wellness', 'fitness'],
+		['photography', 'arts-culture'],
+		['film', 'arts-culture']
+	])('redirects merged topic %s to %s before touching D1', async (legacy, canonical) => {
+		await expect(run(legacy)).rejects.toMatchObject({
+			status: 308,
+			location: `/topics/${canonical}`
+		});
+		expect(mockListDiscoverable).not.toHaveBeenCalled();
 	});
 
 	it('404s for an unknown slug before touching D1', async () => {
@@ -159,7 +179,7 @@ describe('topic ongoing band', () => {
 
 		const band = bandCall()!;
 		// Server-derived from the slug by the same helper — never caller-supplied.
-		expect(band.search).toBe('tech OR technology');
+		expect(band.search).toBe(orQueryFromSlug('technology'));
 		expect(band).toMatchObject({ sort: 'endsAt', order: 'asc' });
 		expect(band.startsAtMax).toBe(band.endsAtMin);
 		expect(band.startsAtMin).toBeUndefined();

@@ -7,9 +7,11 @@ function fakeFetch(status: number, body: unknown) {
 }
 
 const louisville = [
-	{ lat: '38.2542',
+	{
+		lat: '38.2542',
 		lon: '-85.7594',
-		display_name: 'Louisville, Jefferson County, Kentucky, United States' }
+		display_name: 'Louisville, Jefferson County, Kentucky, United States'
+	}
 ];
 
 describe('geocodeLocation', () => {
@@ -48,7 +50,9 @@ describe('geocodeLocation', () => {
 		});
 
 		const [, init] = fetchImpl.mock.calls[0] as unknown as [URL | string, RequestInit];
-		expect(new Headers(init.headers).get('user-agent')).toBe('custom-agent/9.9 (https://example.test)');
+		expect(new Headers(init.headers).get('user-agent')).toBe(
+			'custom-agent/9.9 (https://example.test)'
+		);
 	});
 
 	it('honors a configured GEOCODER_URL/KEY (the shared client appends the key server-side)', async () => {

@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 import type { EventImporter } from './types';
 import { FETCH_HEADERS, MAX_BYTES, readLimited, UpstreamHttpError } from './http';
 import { stripHtml } from './util';

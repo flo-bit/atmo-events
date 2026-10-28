@@ -5,32 +5,30 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // so a band failure must degrade to an empty band rather than reject and turn a
 // valid profile into an error page. The band's own query body is pinned in
 // lib/contrail/ongoing.test.ts.
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	getProfileFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn(),
 	listAttendingEventsFromContrail: vi.fn(),
 	flattenEventRecords: vi.fn((records: unknown[]) => records)
 }));
-vi.mock('$lib/contrail/ongoing', async () => {
+vi.mock('#lib/contrail/ongoing.js', async () => {
 	const actual =
-		await vi.importActual<typeof import('$lib/contrail/ongoing')>('$lib/contrail/ongoing');
+		await vi.importActual<typeof import('#lib/contrail/ongoing.js')>('#lib/contrail/ongoing.js');
 	return { EMPTY_ONGOING: actual.EMPTY_ONGOING, ongoingQuery: vi.fn() };
 });
-vi.mock('$lib/actor', () => ({ getActor: vi.fn(async () => 'did:plc:alice') }));
-vi.mock('$lib/spaces/config', () => ({ spacesAvailable: vi.fn(() => false) }));
-vi.mock('$lib/spaces/server/client', () => ({ getSpacesClient: vi.fn(() => ({})) }));
-vi.mock('$lib/past-events', () => ({ hasEnded: vi.fn(() => true) }));
+vi.mock('#lib/actor', () => ({ getActor: vi.fn(async () => 'did:plc:alice') }));
+vi.mock('#lib/past-events.js', () => ({ hasEnded: vi.fn(() => true) }));
 
 import { load } from './+page.server';
 import {
 	getProfileFromContrail,
 	listAttendingEventsFromContrail,
 	listAuthoredEventsFromContrail
-} from '$lib/contrail';
-import { ongoingQuery } from '$lib/contrail/ongoing';
+} from '#lib/contrail.js';
+import { ongoingQuery } from '#lib/contrail/ongoing.js';
 
 const mockProfile = vi.mocked(getProfileFromContrail);
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);
@@ -58,7 +56,6 @@ const event = (uri: string, rkey = '1') => ({
 function request() {
 	return {
 		params: { actor: 'alice.test' },
-		platform: { env: { DB: {} } },
 		locals: {}
 	} as unknown as Parameters<typeof load>[0];
 }

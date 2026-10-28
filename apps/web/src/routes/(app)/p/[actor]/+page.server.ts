@@ -1,34 +1,21 @@
-import { getActor } from '$lib/actor';
+import { env } from 'cloudflare:workers';
+import { getActor } from '#lib/actor.js';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
 	listAttendingEventsFromContrail,
 	listAuthoredEventsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
-import { hasEnded } from '$lib/past-events';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { EMPTY_ONGOING, ongoingQuery } from '#lib/contrail/ongoing.js';
+import { hasEnded } from '#lib/past-events.js';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
 import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params, platform, locals }) {
-	// Authenticated viewer + spaces configured → service-auth client so contrail
-	// unions public events with private events from spaces the viewer is in.
-	// Profile pages show another user's events; the viewer only sees the private
-	// ones where *they* are a member (filtered server-side by caller DID).
-	const client =
-		locals.client && locals.did && spacesAvailable()
-			? getSpacesClient(locals.client, platform!.env.DB)
-			: getServerClient(platform!.env.DB);
-	// `listAuthored` is a public pipelineQuery, not a declared lexicon method, so
-	// the service-auth spaces client can't mint a JWT for it (the PDS 403s). Route
-	// the public event listings through the in-process server client instead —
-	// matching the hosting/past-events pages, which already use it.
-	const publicClient = getServerClient(platform!.env.DB);
+export async function load({ params }) {
+	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
 	const actor = params.actor;
@@ -40,7 +27,7 @@ export async function load({ params, platform, locals }) {
 
 	const [profile, upcomingResponse, pastResponse, attendingEvents, ongoing] = await Promise.all([
 		getProfileFromContrail(client, actor),
-		listAuthoredEventsFromContrail(publicClient, {
+		listAuthoredEventsFromContrail(client, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',
@@ -49,7 +36,7 @@ export async function load({ params, platform, locals }) {
 			actor,
 			limit: PREVIEW_LIMIT + 1
 		}),
-		listAuthoredEventsFromContrail(publicClient, {
+		listAuthoredEventsFromContrail(client, {
 			hydrateRsvps: 5,
 			profiles: true,
 			sort: 'startsAt',
@@ -68,7 +55,7 @@ export async function load({ params, platform, locals }) {
 		// Promise.all above alongside the reads a profile genuinely cannot render
 		// without, and an optional section must not be able to fail the page. The
 		// same guarantee `withOngoing` gives the routes that use it.
-		ongoingQuery(publicClient, { actor }).catch(() => EMPTY_ONGOING)
+		ongoingQuery(client, { actor }).catch(() => EMPTY_ONGOING)
 	]);
 
 	const upcomingEvents = upcomingResponse ? flattenEventRecords(upcomingResponse.records) : [];
@@ -88,6 +75,7 @@ export async function load({ params, platform, locals }) {
 	// otherwise render 21 cards above everything else.
 	const ongoingEvents = ongoing.events.slice(0, PREVIEW_LIMIT);
 
+	const hostName = profile?.value?.displayName || profile?.handle || did;
 	return {
 		ongoingEvents,
 		ongoingTotal: ongoing.total,
@@ -97,6 +85,8 @@ export async function load({ params, platform, locals }) {
 		pastEvents: pastEvents.slice(0, PREVIEW_LIMIT),
 		hasMorePast: pastEvents.length > PREVIEW_LIMIT,
 		attendingEvents,
+		pageTitle: `${hostName} - Events`,
+		pageDescription: `Events hosted by ${hostName}`,
 		actorProfile: profile,
 		actor,
 		actorDid: did

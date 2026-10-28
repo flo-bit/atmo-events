@@ -25,8 +25,8 @@ import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail
-} from '$lib/contrail';
-import { runOngoingSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+} from '#lib/contrail.js';
+import { runOngoingSearchPage, searchBackendFromEnv } from '#lib/search/server/query.js';
 
 /**
  * How many ongoing events one actor may contribute to a merged list.
@@ -196,7 +196,7 @@ export async function ongoingQuery(
  * continuation may not.
  */
 export async function ongoingSearchQuery(
-	env: App.Platform['env'] | undefined,
+	env: Cloudflare.Env | undefined,
 	client: Client,
 	args: { term: string }
 ): Promise<OngoingEvents | null> {

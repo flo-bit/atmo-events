@@ -12,42 +12,33 @@ export const TOPICS: Topic[] = [
 	{
 		slug: 'technology',
 		name: 'Technology',
-		byline: 'Hardware, software, and everything in between.',
-		hashtags: ['#tech', '#technology'],
+		byline: 'Hardware, software, AI, open source, and decentralized technology.',
+		hashtags: [
+			'#tech',
+			'#technology',
+			'#ai',
+			'#machinelearning',
+			'#ml',
+			'#artificialintelligence',
+			'#llm',
+			'#webdev',
+			'#webdevelopment',
+			'#frontend',
+			'#backend',
+			'#fullstack',
+			'#opensource',
+			'#foss',
+			'#oss',
+			'#freesoftware',
+			'#crypto',
+			'#web3',
+			'#blockchain',
+			'#ethereum',
+			'#bitcoin',
+			'#defi'
+		],
 		image: '/topics/technology.jpg',
-		icon: 'tabler:device-laptop'
-	},
-	{
-		slug: 'ai',
-		name: 'AI & Machine Learning',
-		byline: 'The minds we are building.',
-		hashtags: ['#ai', '#machinelearning', '#ml', '#artificialintelligence', '#llm'],
-		image: '/topics/ai.png',
-		icon: 'tabler:brain'
-	},
-	{
-		slug: 'web-development',
-		name: 'Web Development',
-		byline: 'Building the open web, one commit at a time.',
-		hashtags: ['#webdev', '#webdevelopment', '#frontend', '#backend', '#fullstack'],
-		image: '/topics/web-development.png',
-		icon: 'tabler:code'
-	},
-	{
-		slug: 'open-source',
-		name: 'Open Source',
-		byline: 'Code that belongs to everyone.',
-		hashtags: ['#opensource', '#foss', '#oss', '#freesoftware'],
-		image: '/topics/open-source.jpg',
-		icon: 'tabler:brand-open-source'
-	},
-	{
-		slug: 'crypto',
-		name: 'Crypto & Web3',
-		byline: 'Decentralized money, protocols, and communities.',
-		hashtags: ['#crypto', '#web3', '#blockchain', '#ethereum', '#bitcoin', '#defi'],
-		image: '/topics/crypto.jpg',
-		icon: 'tabler:currency-bitcoin'
+		icon: 'tabler:cpu'
 	},
 	{
 		slug: 'design',
@@ -76,42 +67,68 @@ export const TOPICS: Topic[] = [
 	{
 		slug: 'arts-culture',
 		name: 'Arts & Culture',
-		byline: 'Galleries, performances, and creative gatherings.',
-		hashtags: ['#art', '#culture', '#arts', '#gallery', '#exhibition', '#theatre'],
+		byline: 'Galleries, performances, photowalks, and film screenings.',
+		hashtags: [
+			'#art',
+			'#culture',
+			'#arts',
+			'#gallery',
+			'#exhibition',
+			'#theatre',
+			'#photography',
+			'#photo',
+			'#photowalk',
+			'#camera',
+			'#film',
+			'#cinema',
+			'#movies',
+			'#filmmaking',
+			'#documentary',
+			'#shorts'
+		],
 		image: '/topics/arts-culture.jpg',
 		icon: 'tabler:theater'
 	},
 	{
-		slug: 'photography',
-		name: 'Photography',
-		byline: 'Workshops, photowalks, and critique nights.',
-		hashtags: ['#photography', '#photo', '#photowalk', '#camera'],
-		image: '/topics/photography.jpg',
-		icon: 'tabler:camera'
-	},
-	{
 		slug: 'food-drink',
-		name: 'Food & Drink',
-		byline: 'Tastings, dinners, and food markets.',
-		hashtags: ['#food', '#foodie', '#drinks', '#wine', '#beer', '#foodanddrink', '#dinner'],
+		name: 'Food & Cooking',
+		byline: 'Tastings, dinners, cooking classes, and supper clubs.',
+		hashtags: [
+			'#food',
+			'#foodie',
+			'#drinks',
+			'#wine',
+			'#beer',
+			'#foodanddrink',
+			'#dinner',
+			'#cooking',
+			'#baking',
+			'#culinary',
+			'#chef',
+			'#recipe'
+		],
 		image: '/topics/food-drink.jpg',
 		icon: 'tabler:tools-kitchen-2'
 	},
 	{
 		slug: 'fitness',
-		name: 'Fitness',
-		byline: 'Group workouts, runs, and sports meetups.',
-		hashtags: ['#fitness', '#workout', '#gym', '#exercise', '#running', '#crossfit'],
+		name: 'Fitness & Wellness',
+		byline: 'Group workouts, yoga, meditation, and wellbeing.',
+		hashtags: [
+			'#fitness',
+			'#workout',
+			'#gym',
+			'#exercise',
+			'#running',
+			'#crossfit',
+			'#wellness',
+			'#yoga',
+			'#meditation',
+			'#mindfulness',
+			'#mentalhealth'
+		],
 		image: '/topics/fitness.jpg',
 		icon: 'tabler:barbell'
-	},
-	{
-		slug: 'wellness',
-		name: 'Wellness',
-		byline: 'Yoga, meditation, and mindful living.',
-		hashtags: ['#wellness', '#yoga', '#meditation', '#mindfulness', '#mentalhealth'],
-		image: '/topics/wellness.jpg',
-		icon: 'tabler:leaf'
 	},
 	{
 		slug: 'outdoors',
@@ -141,7 +158,14 @@ export const TOPICS: Topic[] = [
 		slug: 'entrepreneurship',
 		name: 'Entrepreneurship',
 		byline: 'Founders, startups, and building things.',
-		hashtags: ['#startup', '#entrepreneurship', '#founder', '#business', '#venture', '#solofounder'],
+		hashtags: [
+			'#startup',
+			'#entrepreneurship',
+			'#founder',
+			'#business',
+			'#venture',
+			'#solofounder'
+		],
 		image: '/topics/entrepreneurship.jpg',
 		icon: 'tabler:rocket'
 	},
@@ -163,7 +187,7 @@ export const TOPICS: Topic[] = [
 	},
 	{
 		slug: 'sustainability',
-		name: 'Climate & Sustainability',
+		name: 'Sustainability',
 		byline: 'Working toward a livable planet.',
 		hashtags: ['#sustainability', '#climate', '#environment', '#climatechange', '#green', '#eco'],
 		image: '/topics/sustainability.jpg',
@@ -178,28 +202,12 @@ export const TOPICS: Topic[] = [
 		icon: 'tabler:plane'
 	},
 	{
-		slug: 'cooking',
-		name: 'Cooking',
-		byline: 'Cooking classes, supper clubs, and pop-ups.',
-		hashtags: ['#cooking', '#baking', '#culinary', '#chef', '#recipe', '#foodie'],
-		image: '/topics/cooking.jpg',
-		icon: 'tabler:chef-hat'
-	},
-	{
 		slug: 'sports',
 		name: 'Sports',
 		byline: 'Watch parties, leagues, and pickup games.',
 		hashtags: ['#sports', '#football', '#basketball', '#soccer', '#tennis', '#cycling'],
 		image: '/topics/sports.jpg',
 		icon: 'tabler:ball-football'
-	},
-	{
-		slug: 'film',
-		name: 'Film & Cinema',
-		byline: 'Screenings, festivals, and film discussions.',
-		hashtags: ['#film', '#cinema', '#movies', '#filmmaking', '#documentary', '#shorts'],
-		image: '/topics/film.jpg',
-		icon: 'tabler:movie'
 	},
 	{
 		slug: 'activism',
@@ -211,8 +219,21 @@ export const TOPICS: Topic[] = [
 	}
 ];
 
+// Keep old links and slug-based event queries working after topic merges.
+const TOPIC_ALIASES: Record<string, string> = {
+	ai: 'technology',
+	'web-development': 'technology',
+	'open-source': 'technology',
+	crypto: 'technology',
+	cooking: 'food-drink',
+	wellness: 'fitness',
+	photography: 'arts-culture',
+	film: 'arts-culture'
+};
+
 export function getTopicBySlug(slug: string): Topic | undefined {
-	return TOPICS.find((t) => t.slug === slug);
+	const canonicalSlug = Object.hasOwn(TOPIC_ALIASES, slug) ? TOPIC_ALIASES[slug] : slug;
+	return TOPICS.find((t) => t.slug === canonicalSlug);
 }
 
 /**

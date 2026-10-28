@@ -13,7 +13,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 vi.mock('./index', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	// Exported so the no-leak assertion can prove it is NEVER called — it has no
 	// registry entry, so no decoded envelope can reach it.
@@ -21,7 +21,7 @@ vi.mock('$lib/contrail', () => ({
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
 	runEventSearchPage: vi.fn(),
 	runOngoingSearchPage: vi.fn()
@@ -34,13 +34,14 @@ import {
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail
-} from '$lib/contrail';
+} from '#lib/contrail.js';
 import {
 	runEventSearchPage,
 	runOngoingSearchPage,
 	searchBackendFromEnv
-} from '$lib/search/server/query';
-import { SEARCH_PAGE_SIZE } from '$lib/search/constants';
+} from '#lib/search/server/query.js';
+import { SEARCH_PAGE_SIZE } from '#lib/search/constants.js';
+import { orQueryFromSlug } from '#lib/topics.js';
 
 const mockRecords = vi.mocked(listEventRecordsFromContrail);
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
@@ -49,7 +50,7 @@ const mockSearchBackend = vi.mocked(searchBackendFromEnv);
 const mockRunSearch = vi.mocked(runEventSearchPage);
 const mockRunOngoingSearch = vi.mocked(runOngoingSearchPage);
 
-const env = { DB: {} } as unknown as App.Platform['env'];
+const env = { DB: {} } as unknown as Cloudflare.Env;
 
 const call = (cursor: string | undefined, q?: string) => runLoadMoreEvents(env, { cursor, q });
 
@@ -178,7 +179,7 @@ describe('runLoadMoreEvents registry dispatch', () => {
 
 		const params = mockDiscoverable.mock.calls[0][1];
 		// orQueryFromSlug('technology') — the SAME helper the topic page load uses.
-		expect(params.search).toBe('tech OR technology');
+		expect(params.search).toBe(orQueryFromSlug('technology'));
 		expect(params).toMatchObject({ order: 'asc', limit: 20, cursor: 'raw1' });
 		expect(decodeCursor(result.cursor)).toEqual({
 			v: 1,

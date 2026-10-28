@@ -27,6 +27,8 @@ export interface EventLexiconMain {
 	locations?: EventLocationVariant[];
 	mode?: EventMode;
 	status?: EventStatus;
+	/** Whether a response is requested from attendees. Only explicit false opts out. */
+	rsvpExpected?: boolean;
 }
 
 export type EventData = EventLexiconMain & {
@@ -37,6 +39,7 @@ export type EventData = EventLexiconMain & {
 	media?: Array<{
 		role: string;
 		alt?: string;
+		aspect_ratio?: { width: number; height: number };
 		content: {
 			$type: 'blob';
 			ref: { $link: string };

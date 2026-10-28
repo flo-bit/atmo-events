@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import {
 	buildAttendee,
 	flattenEventRecord,
@@ -6,15 +7,11 @@ import {
 	listDiscoverableEventsFromContrail,
 	listEventRecordsFromContrail,
 	withD1Retry,
-	type ActivityCluster,
-	type HostProfile
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { EMPTY_ONGOING, ongoingQuery } from '$lib/contrail/ongoing';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
-import { cachedRead } from '$lib/server/edge-cache';
-import { dedupeByUri } from '$lib/dedupe-by-uri';
+	type ActivityCluster
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { cachedRead } from '#lib/server/edge-cache.js';
+import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 import type { PageServerLoad } from './$types';
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -33,28 +30,23 @@ const GLOBAL_CACHE_TTL_S = 60;
  *  social signal). */
 const ACTIVITY_RECENT_EVENT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
-	const publicClient = getServerClient(platform!.env.DB);
+export const load: PageServerLoad = async ({ locals }) => {
+	const publicClient = getServerClient(env.DB);
 	const nowIso = new Date().toISOString();
 
 	const myEventsPromise = (async () => {
 		if (!locals.did) return { upcoming: [], past: [] };
 		const did = locals.did;
 
-		const client =
-			locals.client && spacesAvailable()
-				? getSpacesClient(locals.client, platform!.env.DB)
-				: publicClient;
-
 		const cutoff = new Date(Date.now() - SEVEN_DAYS_MS);
 		const cutoffIso = cutoff.toISOString();
 
 		const [rsvpResponse, hostingResponse] = await withD1Retry(() =>
 			Promise.all([
-				client.get('rsvp.atmo.rsvp.listRecords', {
+				publicClient.get('rsvp.atmo.rsvp.listRecords', {
 					params: { actor: did, hydrateEvent: true, limit: 100 }
 				}),
-				listEventRecordsFromContrail(client, {
+				listEventRecordsFromContrail(publicClient, {
 					actor: did,
 					startsAtMin: cutoffIso,
 					sort: 'startsAt',
@@ -106,23 +98,6 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			})
 		)
 	);
-
-	// Events happening RIGHT NOW. Global and non-personalized like the discovery
-	// list above, so it takes the same edge cache; a hit means the band is up to
-	// one TTL stale, which for a 60s TTL can only mean an event that just ended
-	// lingers briefly — the same tradeoff already accepted for `startsAtMin`.
-	//
-	// Deliberately NOT filtered by rsvpsCountMin: the discovery list below is
-	// "popular upcoming", but something happening right now is worth surfacing on
-	// its own terms, and popularity would filter out most of the band.
-	//
-	// Failure yields an EMPTY band rather than rejecting, because this promise is
-	// gathered by a Promise.all below: an optional section that throws would take
-	// the whole home page with it. `withOngoing` makes the same guarantee for the
-	// routes that use it; home builds its payload by hand, so it states it here.
-	const ongoingPromise = cachedRead('home:ongoing', GLOBAL_CACHE_TTL_S, () =>
-		withD1Retry(() => ongoingQuery(publicClient))
-	).catch(() => EMPTY_ONGOING);
 
 	// listRecords and getFeed return structurally identical rsvp records, but TS
 	// sees them as nominally-distinct lex types. Cast inputs to the structural
@@ -302,24 +277,18 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		return { activity: await fetchGlobalActivity(), isPersonalized: false };
 	})();
 
-	const [myEvents, response, recentActivityResult, ongoing] = await Promise.all([
+	const [myEvents, response, recentActivityResult] = await Promise.all([
 		myEventsPromise,
 		globalPromise,
-		recentActivityPromise,
-		ongoingPromise
+		recentActivityPromise
 	]);
 	const { activity: recentActivity, isPersonalized: recentActivityIsPersonalized } =
 		recentActivityResult;
 
-	// The band survives a failed discovery read: "what's on right now" is the more
-	// time-critical half, and it comes from an independent query.
 	if (!response) {
 		return {
 			events: [],
-			handles: ongoing.handles,
-			ongoing: ongoing.events,
-			ongoingTotal: ongoing.total,
-			ongoingTotalIsFloor: ongoing.totalIsFloor,
+			handles: {} as Record<string, string>,
 			myUpcoming: myEvents.upcoming,
 			myPast: myEvents.past,
 			recentActivity,
@@ -327,7 +296,7 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		};
 	}
 
-	const handles: Record<string, string> = { ...ongoing.handles };
+	const handles: Record<string, string> = {};
 	for (const p of response.profiles ?? []) {
 		if (p.handle) handles[p.did] = p.handle;
 	}
@@ -335,9 +304,6 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 	return {
 		events: flattenEventRecords(response.records),
 		handles,
-		ongoing: ongoing.events,
-		ongoingTotal: ongoing.total,
-		ongoingTotalIsFloor: ongoing.totalIsFloor,
 		myUpcoming: myEvents.upcoming,
 		myPast: myEvents.past,
 		recentActivity,

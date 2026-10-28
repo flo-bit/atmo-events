@@ -1,16 +1,21 @@
-import { error } from '@sveltejs/kit';
-import { getTopicBySlug, orQueryFromSlug } from '$lib/topics';
-import { getServerClient } from '$lib/contrail/index';
-import { topicQuery } from '$lib/contrail/queries';
-import { ongoingQuery, withOngoing } from '$lib/contrail/ongoing';
-import { rawForQuery } from '$lib/contrail/cursor';
+import { env } from 'cloudflare:workers';
+import { error, redirect } from '@sveltejs/kit';
+import { resolve } from '$app/paths';
+import { getTopicBySlug, orQueryFromSlug } from '#lib/topics.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { topicQuery } from '#lib/contrail/queries.js';
+import { ongoingQuery, withOngoing } from '#lib/contrail/ongoing.js';
+import { rawForQuery } from '#lib/contrail/cursor.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params, url, platform }) => {
+export const load: PageServerLoad = async ({ params, url }) => {
 	const topic = getTopicBySlug(params.slug);
 	if (!topic) error(404, 'Topic not found');
+	if (topic.slug !== params.slug) {
+		redirect(308, resolve('/(app)/topics/[slug]', { slug: topic.slug }));
+	}
 
-	const client = getServerClient(platform!.env.DB);
+	const client = getServerClient(env.DB);
 
 	// Deep-link ?cursor= resumes only a 'topic' cursor for this slug; else fresh page 1.
 	const cursor = rawForQuery(url.searchParams.get('cursor'), 'topic', { slug: params.slug });
@@ -26,6 +31,8 @@ export const load: PageServerLoad = async ({ params, url, platform }) => {
 		{
 			topic,
 			...page,
+			pageTitle: `${topic.name} Events`,
+			pageDescription: topic.byline ?? `Find ${topic.name} events on the open social web.`,
 			// Shown in the UI; topicQuery derives the query it runs from the slug
 			// with this same helper.
 			query: search

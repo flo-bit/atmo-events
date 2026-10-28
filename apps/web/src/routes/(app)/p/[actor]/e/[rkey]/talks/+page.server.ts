@@ -1,17 +1,18 @@
+import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
 import type { Did } from '@atcute/lexicons';
-import { actorToDid } from '$lib/atproto/methods';
+import { actorToDid } from '#lib/actor.js';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
 	getEventRecordFromContrail,
 	listConferenceTalksFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
 import { isConferenceEvent } from '@atmo-dev/events-ui/conference';
 
-export async function load({ params, locals, platform }) {
-	const client = getServerClient(platform!.env.DB);
+export async function load({ params, locals }) {
+	const client = getServerClient(env.DB);
 	const { rkey } = params;
 
 	let did: Did;
@@ -33,7 +34,9 @@ export async function load({ params, locals, platform }) {
 	const isConference = isConferenceEvent(eventData);
 
 	const talksResp = isConference
-		? await listConferenceTalksFromContrail(client, { parentUri: uri, actor: did }).catch(() => null)
+		? await listConferenceTalksFromContrail(client, { parentUri: uri, actor: did }).catch(
+				() => null
+			)
 		: null;
 	const talks = (talksResp ? flattenEventRecords(talksResp.records) : []).map((t) => {
 		const ad = (t.additionalData ?? {}) as Record<string, unknown>;
@@ -53,6 +56,7 @@ export async function load({ params, locals, platform }) {
 		did,
 		rkey,
 		uri,
+		pageTitle: `Manage talks — ${eventData.name}`,
 		eventName: eventData.name,
 		timezone: eventData.timezone ?? null,
 		isConference,

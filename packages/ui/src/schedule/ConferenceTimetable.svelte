@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { ArrowDown, Check, Star } from '@sketchyicons/svelte';
+	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { onMount } from 'svelte';
 	import DaySchedule from './DaySchedule.svelte';
 	import ScheduleEventCell from './ScheduleEventCell.svelte';
@@ -43,9 +44,9 @@
 		loggedIn?: boolean;
 	} = $props();
 
-	// Own a mutable copy so RSVPs made from the grid reflect immediately.
-	let rsvpStatuses = $state({ ...initialRsvpStatuses });
-	let rsvpRkeys = $state({ ...initialRsvpRkeys });
+	// Writable so RSVPs made from the grid reflect immediately; resets when the props change.
+	let rsvpStatuses = $derived({ ...initialRsvpStatuses });
+	let rsvpRkeys = $derived({ ...initialRsvpRkeys });
 
 	let filterMode = $state('all');
 	let selectedDay = $state('all');
@@ -136,7 +137,10 @@
 	// (the layout fields are unused; only the start/end-minute span matters).
 	function toGridEvent(ev: ScheduleEvent): GridEvent {
 		const durMin = ev.end
-			? Math.max(0, Math.round((new Date(ev.end).getTime() - new Date(ev.start).getTime()) / 60_000))
+			? Math.max(
+					0,
+					Math.round((new Date(ev.end).getTime() - new Date(ev.start).getTime()) / 60_000)
+				)
 			: 30;
 		return {
 			...ev,
@@ -191,22 +195,13 @@
 		<h2 class="text-base-900 dark:text-base-50 text-2xl font-bold">Schedule</h2>
 		{#if isDuringConference}
 			<Button onclick={scrollToNow} size="sm">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="2"
-					stroke="currentColor"
-					class="size-4"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
-				</svg>
+				<Icon img={ArrowDown} size={16} />
 				Jump to now
 			</Button>
 		{/if}
 	</div>
 
-	<p class="text-base-500 dark:text-base-400 mb-4 text-sm">All times shown in {tzLabel}.</p>
+	<p class="text-muted mb-4 text-sm">All times shown in {tzLabel}.</p>
 
 	{#if upNextAll.length > 0}
 		<div class="mb-8">
@@ -236,7 +231,7 @@
 										{ev.title}
 									</p>
 									{#if subtitle(ev)}
-										<p class="text-base-500 dark:text-base-400 mt-0.5 truncate text-xs">
+										<p class="text-muted mt-0.5 truncate text-xs">
 											{subtitle(ev)}
 										</p>
 									{/if}
@@ -244,34 +239,12 @@
 								<span
 									class="flex shrink-0 items-center gap-1.5 text-xs whitespace-nowrap {w.soon
 										? 'text-accent-600 dark:text-accent-400 font-semibold'
-										: 'text-base-500 dark:text-base-400'}"
+										: 'text-muted'}"
 								>
 									{#if rsvpStatuses[ev.uri] === 'going'}
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-											class="size-3.5 text-green-500"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-												clip-rule="evenodd"
-											/>
-										</svg>
+										<Icon img={Check} size={14} class="text-action" />
 									{:else}
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-											class="size-3.5 text-amber-500"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
-												clip-rule="evenodd"
-											/>
-										</svg>
+										<Icon img={Star} size={14} class="text-action" />
 									{/if}
 									{w.text}
 								</span>
@@ -293,36 +266,46 @@
 	{/if}
 
 	{#if dayGroups.length > 1 || loggedIn}
-	<div class="mb-6 space-y-3">
-		{#if dayGroups.length > 1}
-			<div class="flex items-center gap-3">
-				<span class="text-base-500 dark:text-base-400 w-14 text-xs">Days</span>
-				<ToggleGroup
-					type="single"
-					bind:value={() => selectedDay, (v) => { if (v) selectedDay = v; }}
-					class="w-fit"
-				>
-					<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
-					{#each dayGroups as day (day.key)}
-						<ToggleGroupItem value={day.key} size="sm">{day.shortLabel}</ToggleGroupItem>
-					{/each}
-				</ToggleGroup>
-			</div>
-		{/if}
-		{#if loggedIn}
-			<div class="flex items-center gap-3">
-				<span class="text-base-500 dark:text-base-400 w-14 text-xs">Events</span>
-				<ToggleGroup
-					type="single"
-					bind:value={() => filterMode, (v) => { if (v) filterMode = v; }}
-					class="w-fit"
-				>
-					<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
-					<ToggleGroupItem value="attending" size="sm">Attending</ToggleGroupItem>
-				</ToggleGroup>
-			</div>
-		{/if}
-	</div>
+		<div class="mb-6 space-y-3">
+			{#if dayGroups.length > 1}
+				<div class="flex items-center gap-3">
+					<span class="text-muted w-14 text-xs">Days</span>
+					<ToggleGroup
+						type="single"
+						bind:value={
+							() => selectedDay,
+							(v) => {
+								if (v) selectedDay = v;
+							}
+						}
+						class="w-fit"
+					>
+						<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
+						{#each dayGroups as day (day.key)}
+							<ToggleGroupItem value={day.key} size="sm">{day.shortLabel}</ToggleGroupItem>
+						{/each}
+					</ToggleGroup>
+				</div>
+			{/if}
+			{#if loggedIn}
+				<div class="flex items-center gap-3">
+					<span class="text-muted w-14 text-xs">Events</span>
+					<ToggleGroup
+						type="single"
+						bind:value={
+							() => filterMode,
+							(v) => {
+								if (v) filterMode = v;
+							}
+						}
+						class="w-fit"
+					>
+						<ToggleGroupItem value="all" size="sm">All</ToggleGroupItem>
+						<ToggleGroupItem value="attending" size="sm">Attending</ToggleGroupItem>
+					</ToggleGroup>
+				</div>
+			{/if}
+		</div>
 	{/if}
 
 	{#each filteredDayGroups as day, dayIndex (day.key)}

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '@foxui/core';
+	import { ArrowUpRight } from '@sketchyicons/svelte';
+	import { Button, Icon } from '@atmo-dev/kit';
 
 	// Shown in place of the RSVP controls for imported events whose host opted out
 	// of atmo RSVPs (additionalData.externalSource.rsvpMode === 'external_only').
@@ -28,17 +29,6 @@
 	</div>
 	<Button href={url} target="_blank" rel="noopener noreferrer" class="shrink-0">
 		{host ? `RSVP on ${host}` : 'Open original event'}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 20 20"
-			fill="currentColor"
-			aria-hidden="true"
-		>
-			<path
-				fill-rule="evenodd"
-				d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
-				clip-rule="evenodd"
-			/>
-		</svg>
+		<Icon img={ArrowUpRight} size={16} class="shrink-0" />
 	</Button>
 </div>

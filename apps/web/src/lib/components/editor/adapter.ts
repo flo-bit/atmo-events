@@ -1,19 +1,9 @@
 import { goto } from '$app/navigation';
-import {
-	putRecord,
-	createRecord,
-	deleteRecord,
-	uploadBlob,
-	getRecord,
-	resolveHandle
-} from '$lib/atproto/methods';
-import { notifyContrailOfUpdate } from '$lib/contrail';
-import { atProtoLoginModalState } from '$lib/components/LoginModal.svelte';
-import type {
-	EditorAdapter,
-	EditorBlobRef,
-	EditorViewer
-} from '@atmo-dev/events-ui';
+import { getRecord, resolveHandle } from '@svelte-atproto/oauth/helper';
+import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/repo.remote.js';
+import { notifyContrailOfUpdate } from '#lib/contrail.js';
+import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
+import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/events-ui';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };
 
@@ -25,16 +15,14 @@ function handleOrDid(viewer: EditorViewer): string {
 export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapter {
 	const { viewer } = opts;
 	return {
-		features: { delete: true, recurring: true, privateMode: true },
+		features: { delete: true, recurring: true },
 		async putRecord({ collection, rkey, record }) {
 			const response = await putRecord({
 				collection: collection as Parameters<typeof putRecord>[0]['collection'],
 				rkey,
 				record
 			});
-			if (!response.ok) throw new Error('putRecord failed');
-			if (!viewer.did) throw new Error('Not logged in');
-			return { uri: `at://${viewer.did}/${collection}/${rkey}` };
+			return { uri: response.uri };
 		},
 		async createRecord({ collection, rkey, record }) {
 			const response = await createRecord({
@@ -42,9 +30,7 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 				rkey,
 				record
 			});
-			if (!response.ok) throw new Error('createRecord failed');
-			const data = response.data as { uri: string; cid?: string };
-			return { uri: data.uri, cid: data.cid };
+			return { uri: response.uri, cid: response.cid };
 		},
 		async deleteRecord({ collection, rkey }) {
 			await deleteRecord({
@@ -53,12 +39,10 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			});
 		},
 		async uploadBlob(blob) {
-			const result = await uploadBlob({ blob });
-			if (!result) throw new Error('uploadBlob failed');
-			const { aspectRatio: _ar, ...rest } = result as Record<string, unknown> & {
-				aspectRatio?: unknown;
-			};
-			return rest as unknown as EditorBlobRef;
+			return uploadBlob({
+				bytes: Array.from(new Uint8Array(await blob.arrayBuffer())),
+				mimeType: blob.type || 'application/octet-stream'
+			});
 		},
 		async getRecord({ did, collection, rkey }) {
 			const fresh = await getRecord({
@@ -72,14 +56,10 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 		async resolveHandle(handle: string) {
 			return resolveHandle({ handle: handle as Parameters<typeof resolveHandle>[0]['handle'] });
 		},
-		onSaved({ rkey, isNew, spaceKey }) {
+		onSaved({ rkey, isNew }) {
 			const handle = handleOrDid(viewer);
 			const created = isNew ? '?created=true' : '';
-			if (spaceKey) {
-				goto(`/p/${handle}/e/${rkey}/s/${spaceKey}${created}`);
-			} else {
-				goto(`/p/${handle}/e/${rkey}${created}`);
-			}
+			goto(`/p/${handle}/e/${rkey}${created}`);
 		},
 		onDeleted() {
 			goto(`/p/${handleOrDid(viewer)}`);
@@ -89,68 +69,6 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 		},
 		async notifyUpdate(uri) {
 			await notifyContrailOfUpdate(uri);
-		},
-		async createPrivateEvent({ key, record }) {
-			const { createPrivateEvent } = await import('$lib/spaces/server/spaces.remote');
-			const result = await createPrivateEvent({ key, record });
-			const spaceKey = result.spaceUri.split('/').pop() ?? '';
-			return { spaceUri: result.spaceUri, rkey: result.rkey, spaceKey };
-		},
-		async putSpaceRecord({
-			spaceUri,
-			collection,
-			rkey,
-			record
-		}: {
-			spaceUri: string;
-			collection: string;
-			rkey: string;
-			record: Record<string, unknown>;
-		}) {
-			const { putSpaceRecord } = await import('$lib/spaces/server/spaces.remote');
-			const result = await putSpaceRecord({
-				spaceUri,
-				collection: collection as Parameters<typeof putSpaceRecord>[0]['collection'],
-				rkey,
-				record
-			});
-			return { ok: !!result };
-		},
-		async deleteSpaceRecord({
-			spaceUri,
-			collection,
-			rkey
-		}: {
-			spaceUri: string;
-			collection: string;
-			rkey: string;
-		}) {
-			const { deleteSpaceRecord } = await import('$lib/spaces/server/spaces.remote');
-			await deleteSpaceRecord({
-				spaceUri,
-				collection: collection as Parameters<typeof deleteSpaceRecord>[0]['collection'],
-				rkey
-			});
-		},
-		async createSpaceInvite({
-			spaceUri,
-			kind,
-			maxUses,
-			expiresAt
-		}: {
-			spaceUri: string;
-			kind: 'read-join' | 'join';
-			maxUses?: number;
-			expiresAt?: number;
-		}) {
-			const { createInvite } = await import('$lib/spaces/server/spaces.remote');
-			const result = await createInvite({
-				spaceUri,
-				kind,
-				...(maxUses != null ? { maxUses } : {}),
-				...(expiresAt != null ? { expiresAt } : {})
-			});
-			return { token: result.token };
 		}
 	};
 }
@@ -166,7 +84,7 @@ export function createBlentoAdapter(opts: {
 		return b;
 	}
 	const adapter: EditorAdapter = {
-		features: { delete: false, recurring: true, privateMode: false },
+		features: { delete: false, recurring: true },
 		async putRecord({ collection, rkey, record }) {
 			const plain = JSON.parse(JSON.stringify(record)) as Record<string, unknown>;
 			const result = await blento().putRecord({ collection, rkey, record: plain });
@@ -214,8 +132,7 @@ export function createBlentoAdapter(opts: {
 			} catch {
 				// Blento not present; swallow.
 			}
-		},
-		// no createPrivateEvent — privateMode disabled in features
+		}
 		// no onDeleted — delete is disabled in features
 	};
 	return adapter;

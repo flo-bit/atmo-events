@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 // Lightweight regex-based sanitizer for SSR in Cloudflare Workers
 // where DOMPurify is not available. Strips common XSS vectors.

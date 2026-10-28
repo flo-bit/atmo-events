@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
-	import { Button, ToggleGroup, ToggleGroupItem } from '@foxui/core';
+	import { Button, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import ShareModal from './ShareModal.svelte';
 	import EventComments from './EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
@@ -10,7 +10,7 @@
 	import EventAttendees from './EventAttendees.svelte';
 	import VodPlayer, { type VodPlayerApi } from './VodPlayer.svelte';
 	import StreamPlacePlayer from './event-view/StreamPlacePlayer.svelte';
-	import { launchConfetti } from '@foxui/visual';
+	import { launchConfetti } from '@atmo-dev/kit';
 	import ThemeBackground from './ThemeBackground.svelte';
 	import ThemeApply from './ThemeApply.svelte';
 	import { defaultTheme, type EventTheme } from './theme.js';
@@ -26,9 +26,9 @@
 	import EventHostedBy from './event-view/EventHostedBy.svelte';
 	import EventLinksList from './event-view/EventLinksList.svelte';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
-	import InviteShareFlow from './event-view/InviteShareFlow.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
-	import { buildDescriptionHtml, getLocationData, resolveGeoLocation, type GeoLocation } from './event-view/format';
+	import { buildDescriptionHtml } from './event-view/format';
+	import { getLocations, resolveGeoLocation, type GeoLocation } from './event-view/locations.js';
 
 	let {
 		data,
@@ -74,8 +74,19 @@
 	let startDate = $derived(new Date(eventData.startsAt));
 	let endDate = $derived(eventData.endsAt ? new Date(eventData.endsAt) : null);
 
-	let locationData = $derived(getLocationData(eventData.locations));
+	let locations = $derived(getLocations(eventData.locations));
 	let geoLocation: GeoLocation | null = $state(null);
+
+	$effect(() => {
+		let active = true;
+		geoLocation = null;
+		void resolveGeoLocation(locations).then((resolved) => {
+			if (active) geoLocation = resolved;
+		});
+		return () => {
+			active = false;
+		};
+	});
 
 	let showShareModal = $state(false);
 	let shareModalTitle = $state('Event created!');
@@ -86,14 +97,10 @@
 	// root, even when the RSVPer is the host.
 	let canSetEventComments = $state(false);
 	let isHost = $derived(!!viewer.did && viewer.did === did);
-	let hasComments = $derived(
-		!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri
-	);
+	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
 	let aboutCommentsTab = $state<'about' | 'comments'>('about');
 
-	onMount(async () => {
-		geoLocation = await resolveGeoLocation(eventData.locations, locationData);
-
+	onMount(() => {
 		const url = new URL(window.location.href);
 		if (url.searchParams.has('created')) {
 			url.searchParams.delete('created');
@@ -112,7 +119,7 @@
 		if (!media?.content) return null;
 		const url = getCDNImageBlobUrl({ did, blob: media.content });
 		if (!url) return null;
-		return { url, alt: media.alt || eventData.name };
+		return { url, alt: media.alt || eventData.name, aspectRatio: media.aspect_ratio };
 	});
 
 	let bannerImage = $derived.by(() => {
@@ -121,12 +128,27 @@
 		if (!media?.content) return null;
 		const url = getCDNImageBlobUrl({ did, blob: media.content });
 		if (!url) return null;
-		return { url, alt: media.alt || eventData.name };
+		return { url, alt: media.alt || eventData.name, aspectRatio: media.aspect_ratio };
 	});
 
-	// Prefer thumbnail; fall back to header/banner image
+	// Prefer thumbnail; fall back to header/banner image.
 	let displayImage = $derived(thumbnailImage ?? bannerImage);
-	let isBannerOnly = $derived(!thumbnailImage && !!bannerImage);
+	let imageAspectRatio = $derived.by(() => {
+		const ratio = displayImage?.aspectRatio;
+		if (!ratio || ratio.width <= 0 || ratio.height <= 0) return null;
+		const value = ratio.width / ratio.height;
+		return Number.isFinite(value) && value > 0 ? value : null;
+	});
+	let showBanner = $derived(
+		(!thumbnailImage && !!bannerImage) || (imageAspectRatio !== null && imageAspectRatio >= 2)
+	);
+	let frameAspectRatio = $derived.by(() => {
+		if (imageAspectRatio === null) return showBanner ? 3 : 1;
+		// Keep natural proportions near each layout; crop extreme shapes to a capped frame.
+		return showBanner
+			? Math.min(4, Math.max(2, imageAspectRatio))
+			: Math.min(1.5, Math.max(0.75, imageAspectRatio));
+	});
 
 	let isOngoing = $derived(isEventOngoing(eventData.startsAt, eventData.endsAt));
 	let isPast = $derived(endDate ? endDate < new Date() : false);
@@ -141,9 +163,7 @@
 		return null;
 	});
 
-	let descriptionHtml = $derived(
-		buildDescriptionHtml(eventData.description, eventData.facets)
-	);
+	let descriptionHtml = $derived(buildDescriptionHtml(eventData.description, eventData.facets));
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -165,8 +185,7 @@
 	// In that case we hide the RSVP controls and link out to the original event page.
 	let externalSource = $derived(
 		(eventData.additionalData as Record<string, unknown> | undefined)?.externalSource as
-			| { url?: string; rsvpMode?: 'external_only' | 'atmo_too' }
-			| undefined
+			{ url?: string; rsvpMode?: 'external_only' | 'atmo_too' } | undefined
 	);
 	let rsvpExternalOnly = $derived(
 		externalSource?.rsvpMode === 'external_only' && !!externalSource?.url
@@ -200,17 +219,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{eventData.name}</title>
-	<meta name="description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta property="og:title" content={eventData.name} />
-	<meta property="og:description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={eventData.name} />
-	<meta name="twitter:description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta name="twitter:image" content={ogImageUrl} />
-</svelte:head>
-
 <ThemeApply accentColor={theme.accentColor} baseColor={theme.baseColor} />
 <div class="motion-reduce:hidden">
 	<ThemeBackground {theme} />
@@ -218,12 +226,14 @@
 
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-3xl">
-		<!-- Banner image (full width, only when no thumbnail) -->
-		{#if isBannerOnly && displayImage}
+		<!-- Full-width banner for headers and wide thumbnails -->
+		{#if showBanner && displayImage}
 			<img
 				src={displayImage.url}
 				alt={displayImage.alt}
-				class="border-base-200 dark:border-base-800 mb-8 aspect-3/1 w-full rounded-2xl border object-cover"
+				loading="eager"
+				class="rounded-panel border-line mb-8 block w-full border object-cover"
+				style:aspect-ratio={frameAspectRatio}
 			/>
 		{/if}
 
@@ -231,18 +241,20 @@
 		<div
 			class="grid grid-cols-1 gap-8 md:grid-cols-[14rem_1fr] md:grid-rows-[auto_1fr] md:gap-x-10 md:gap-y-6 lg:grid-cols-[16rem_1fr]"
 		>
-			<!-- Thumbnail image (left column) -->
-			{#if !isBannerOnly}
+			<!-- Thumbnail image and owner controls (left column) -->
+			{#if !showBanner || isOwner}
 				<div class="order-1 max-w-sm md:order-0 md:col-start-1 md:max-w-none">
-					{#if displayImage}
+					{#if displayImage && !showBanner}
 						<img
 							src={displayImage.url}
 							alt={displayImage.alt}
-							class="border-base-200 dark:border-base-800 bg-base-200 dark:bg-base-950/50 aspect-square w-full rounded-2xl border object-cover"
+							loading="eager"
+							class="rounded-panel border-line block w-full border object-cover"
+							style:aspect-ratio={frameAspectRatio}
 						/>
-					{:else}
+					{:else if !showBanner}
 						<div
-							class="border-base-200 dark:border-base-800 aspect-square w-full overflow-hidden rounded-2xl border [&>svg]:h-full [&>svg]:w-full"
+							class="rounded-panel border-line aspect-square w-full overflow-hidden border [&>svg]:h-full [&>svg]:w-full"
 						>
 							<Avatar
 								size={256}
@@ -254,23 +266,13 @@
 						</div>
 					{/if}
 					{#if isOwner}
-						<Button href="./{rkey}/edit" class="mt-9 w-full">Edit Event</Button>
-						{#if isConference && !data.spaceUri}
+						<Button href="./{rkey}/edit" class={showBanner ? 'w-full' : 'mt-9 w-full'}>
+							Edit Event
+						</Button>
+						{#if isConference}
 							<Button href="./{rkey}/talks" variant="secondary" class="mt-2 w-full">
 								Manage talks
 							</Button>
-						{/if}
-						{#if data.spaceUri}
-							<InviteShareFlow
-								spaceUri={data.spaceUri}
-								spaceKey={data.spaceKey}
-								{did}
-								{rkey}
-								eventName={eventData.name}
-								{hostProfile}
-								{adapter}
-								{viewer}
-							/>
 						{/if}
 					{/if}
 				</div>
@@ -279,7 +281,9 @@
 			<!-- Right column: event details -->
 			<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
 				<div class="mb-2">
-					<h1 class="text-base-900 dark:text-base-50 text-3xl leading-tight font-bold sm:text-4xl">
+					<h1
+						class="text-base-900 dark:text-base-50 text-3xl leading-tight font-semibold tracking-tight sm:text-4xl"
+					>
 						{eventData.name}
 					</h1>
 				</div>
@@ -288,7 +292,7 @@
 
 				<EventDateBlock {startDate} {endDate} />
 
-				<EventLocationBlock {locationData} />
+				<EventLocationBlock {locations} />
 
 				<!-- Part of: link back to the parent conference -->
 				{#if data.parentEvent}
@@ -296,11 +300,7 @@
 					<div
 						class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 mt-8 mb-2 justify-center rounded-2xl border p-4"
 					>
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Part of
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Part of</p>
 						<EventCard event={data.parentEvent} actor={parentActor} />
 						<Button
 							href={data.parentScheduleUrl ?? `/p/${parentActor}/e/${data.parentEvent.rkey}`}
@@ -313,15 +313,15 @@
 				{/if}
 
 				{#if !isPast}
-					{#if rsvpExternalOnly && externalSource?.url}
+					{#if eventData.rsvpExpected !== false && rsvpExternalOnly && externalSource?.url}
 						<ExternalRsvpNotice url={externalSource.url} />
 					{:else}
 						<EventRsvp
 							{eventUri}
 							eventCid={eventData.cid ?? null}
+							rsvpExpected={eventData.rsvpExpected}
 							initialRsvpStatus={data.viewerRsvpStatus}
 							initialRsvpRkey={data.viewerRsvpRkey}
-							spaceUri={data.spaceUri ?? null}
 							{adapter}
 							{viewer}
 							onrsvp={handleRsvp}
@@ -333,11 +333,7 @@
 				<!-- Live stream -->
 				{#if isOngoing && streamPlaceHandle}
 					<div class="mt-8 mb-8">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Live now
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Live now</p>
 						<StreamPlacePlayer handle={streamPlaceHandle} title={eventData.name} />
 					</div>
 				{/if}
@@ -371,22 +367,14 @@
 								<EventComments postUri={eventData.bskyPostRef.uri} />
 							{/if}
 						{:else if descriptionHtml}
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								About
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
 							<div
 								class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
 							>
 								{@html descriptionHtml}
 							</div>
 						{:else if eventData.bskyPostRef?.uri}
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								Comments
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Comments</p>
 							<EventComments postUri={eventData.bskyPostRef.uri} />
 						{/if}
 					</div>
@@ -395,11 +383,7 @@
 				<!-- Recording -->
 				{#if data.vod}
 					<div class="mt-8 mb-8">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Recording
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Recording</p>
 						<VodPlayer
 							playlistUrl={data.vod.playlistUrl}
 							title={eventData.name}
@@ -410,7 +394,7 @@
 					</div>
 				{/if}
 
-				<EventLocationMap {locationData} {geoLocation} />
+				<EventLocationMap {geoLocation} />
 			</div>
 
 			<!-- Left column: sidebar info -->

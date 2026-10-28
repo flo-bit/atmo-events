@@ -11,19 +11,20 @@
 </script>
 
 <script lang="ts">
-	import { login, signup } from '$lib/atproto';
-
-	import { AtprotoLoginModal } from '@foxui/social';
+	import { login, signup } from '#lib/atproto/auth.svelte.js';
+	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
+	import { loginPermissions } from '#lib/atproto/settings.js';
+	const searchActors = createActorSearch();
 </script>
 
-<AtprotoLoginModal
+<LoginDialog
 	bind:open={atProtoLoginModalState.open}
-	login={async (handle) => {
-		await login(handle);
+	{searchActors}
+	persistRecentAccounts
+	permissions={loginPermissions}
+	login={async (handle, _actor, options) => {
+		await login(handle, options);
 		return true;
 	}}
-	signup={async () => {
-		signup();
-		return true;
-	}}
+	{signup}
 />

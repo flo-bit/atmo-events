@@ -1,5 +1,6 @@
+import { env } from 'cloudflare:workers';
 import { createHandler } from '@atmo-dev/contrail/server';
-import { contrail, ensureInit } from '$lib/contrail/index';
+import { contrail, ensureInit } from '#lib/contrail/index.js';
 import type { RequestHandler } from './$types';
 
 const handle = createHandler(contrail);
@@ -17,18 +18,18 @@ function withCors(res: Response): Response {
 	return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
 }
 
-async function handler(request: Request, platform: App.Platform | undefined) {
-	const db = platform!.env.DB;
+async function handler(request: Request) {
+	const db = env.DB;
 	// Pass env so the search sink is configured here too: the notify endpoint
 	// (rsvp.atmo.notifyOfUpdate) re-ingests a just-written record through
 	// applyEvents, which fires the sink — so a new/edited event lands in search
 	// immediately on write, not only on the next cron tick.
-	await ensureInit(db, platform!.env);
+	await ensureInit(db, env);
 	const res = (await handle(request, db)) as Response;
 	return withCors(res);
 }
 
-export const GET: RequestHandler = async ({ request, platform }) => handler(request, platform);
-export const POST: RequestHandler = async ({ request, platform }) => handler(request, platform);
+export const GET: RequestHandler = async ({ request }) => handler(request);
+export const POST: RequestHandler = async ({ request }) => handler(request);
 export const OPTIONS: RequestHandler = async () =>
 	new Response(null, { status: 204, headers: CORS_HEADERS });

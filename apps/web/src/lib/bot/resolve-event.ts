@@ -1,8 +1,8 @@
 import type { Client } from '@atcute/client';
 import type { Did } from '@atcute/lexicons';
 import type { Handle, ResourceUri } from '@atcute/lexicons/syntax';
-import { getEventRecordFromContrail } from '$lib/contrail';
-import { getPDS } from '$lib/atproto/methods';
+import { getEventRecordFromContrail } from '#lib/contrail.js';
+import { getPDS } from '@svelte-atproto/oauth/helper';
 import { ATMO_HOSTS, EVENT_COLLECTION } from './config';
 
 /** The fields of a Bluesky post record we care about for link extraction. */
@@ -31,8 +31,7 @@ export function parseAtmoEventUrl(raw: string): AtmoEventLink | null {
 		return null;
 	}
 	if (!ATMO_HOSTS.includes(url.hostname.toLowerCase())) return null;
-	// Public event path only. Space URLs (`/p/.../e/.../s/...`) won't match the
-	// `$` anchor, so private-space RSVP is intentionally out of scope for v1.
+	// Match only the canonical event path, not its subroutes.
 	const m = url.pathname.match(/^\/p\/([^/]+)\/e\/([^/]+)\/?$/);
 	if (!m) return null;
 	return { actor: decodeURIComponent(m[1]), rkey: m[2] };
@@ -132,9 +131,12 @@ export type ResolvedEvent = {
 	externalOnly: boolean;
 	/** The off-platform RSVP URL, when known. */
 	externalRsvpUrl: string | null;
+	/** Missing on older records; only explicit false opts out. */
+	rsvpExpected?: boolean;
 };
 
 type EventValue = {
+	rsvpExpected?: boolean;
 	additionalData?: { externalSource?: { rsvpMode?: string; url?: string } };
 };
 
@@ -144,6 +146,7 @@ function toResolvedEvent(uri: string, cid: string, value: EventValue | undefined
 	return {
 		uri,
 		cid,
+		rsvpExpected: value?.rsvpExpected,
 		externalOnly,
 		externalRsvpUrl: externalOnly ? (externalSource?.url ?? null) : null
 	};

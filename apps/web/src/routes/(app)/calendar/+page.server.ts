@@ -1,22 +1,18 @@
+import { env } from 'cloudflare:workers';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
 	listEventRecordsFromContrail
-} from '$lib/contrail';
-import { getServerClient } from '$lib/contrail/index';
-import { getSpacesClient } from '$lib/spaces/server/client';
-import { spacesAvailable } from '$lib/spaces/config';
-import { dedupeByUri } from '$lib/dedupe-by-uri';
+} from '#lib/contrail.js';
+import { getServerClient } from '#lib/contrail/index.js';
+import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.did) {
-		return { upcoming: [], past: [], loggedIn: false };
+		return { pageTitle: 'Calendar', upcoming: [], past: [], loggedIn: false };
 	}
-	const client =
-		locals.client && spacesAvailable()
-			? getSpacesClient(locals.client, platform!.env.DB)
-			: getServerClient(platform!.env.DB);
+	const client = getServerClient(env.DB);
 
 	const [rsvpResponse, hostingResponse] = await Promise.all([
 		client.get('rsvp.atmo.rsvp.listRecords', {
@@ -53,5 +49,5 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 		.filter((e) => new Date(e.endsAt || e.startsAt).getTime() < nowMs)
 		.sort((a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime());
 
-	return { upcoming, past, loggedIn: true, did: locals.did };
+	return { pageTitle: 'Calendar', upcoming, past, loggedIn: true, did: locals.did };
 };

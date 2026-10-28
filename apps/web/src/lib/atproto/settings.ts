@@ -1,44 +1,77 @@
-import { dev } from '$app/environment';
-import { scope } from '@atcute/oauth-node-client';
+import type { LoginPermission } from '@atmo-dev/kit';
+import Calendar from '@sketchyicons/svelte/icons/calendar';
+import MessageCircle from '@sketchyicons/svelte/icons/message-circle';
+import type { Capability } from '@svelte-atproto/oauth/permissions';
 
-// writable collections — declared as a standalone scope because their NSIDs
-// (`community.lexicon.*`) sit outside our namespace, so they can't go in
-// `rsvp.atmo.permissionSet` (permission sets can only reference NSIDs in their
-// own namespace).
+// Shared with Vite: import only types and icon data, not Kit/Svelte components.
+export const DEV_PORT = 5454;
+
+// Writable calendar collections for the server-side record allowlist.
+// OAuth access is granted by community.lexicon.calendar.authFull below.
 export const collections = [
 	'community.lexicon.calendar.event',
 	'community.lexicon.calendar.rsvp'
 ] as const;
 
-export const allowedCollections = [...collections, 'app.bsky.feed.post'];
+export const allowedCollections = [...collections, 'app.bsky.feed.post'] as const;
 
-export type AllowedCollection = (typeof allowedCollections)[number];
-
-// OAuth scopes. `include:rsvp.atmo.permissionSet?aud=*` bundles every rpc method
-// the deployment exposes; `aud=*` lets the same consent cover dev (tunnel DID)
-// and prod (published DID) without re-consenting. Repo writes and blob uploads
-// live as standalone scopes since they reference NSIDs (or resource kinds)
-// outside the `rsvp.atmo` namespace.
-export const scopes = [
+// Request only the permissions needed for publishing.
+// Event RPCs are public; the old rsvp.atmo.permissionSet include also grants
+// obsolete private Spaces methods and must not be requested.
+export const requiredScopes = [
 	'atproto',
-	scope.repo({ collection: [...collections] }),
-	scope.blob({ accept: ['image/*'] }),
-	'include:rsvp.atmo.permissionSet',
-	'include:app.bsky.authCreatePosts',
-	// atmo.pub notifications: lets us mint user tokens (via
-	// com.atproto.server.getServiceAuth) to ask for/revoke notification consent.
-	// `send` itself needs no user scope (it's signed with our app key).
-	'rpc?lxm=pub.atmo.notify.requestPermission&aud=*',
-	'rpc?lxm=pub.atmo.notify.revokeSelf&aud=*'
+	// No audience: we need the repo grants, not the set's inherited RPC grants.
+	'include:community.lexicon.calendar.authFull',
+	'blob?accept=image/*'
 ];
+
+export const blueskyPostingScope = 'include:app.bsky.authCreatePosts';
+
+// Metadata declares all supported permissions. Each login explicitly requests
+// only requiredScopes plus the optional permissions selected by the user.
+export const scopes = [...requiredScopes, blueskyPostingScope];
+
+export const loginPermissions: readonly LoginPermission[] = [
+	{
+		id: 'calendar',
+		icon: Calendar,
+		label: 'Events and RSVPs',
+		description: 'Create and edit events and RSVPs.',
+		scopes: requiredScopes.slice(1),
+		required: true
+	},
+	{
+		id: 'bluesky',
+		icon: MessageCircle,
+		label: 'Post to Bluesky',
+		description: 'Share events directly from your account.',
+		scopes: [blueskyPostingScope],
+		defaultSelected: true
+	}
+];
+
+/** Always retain required permissions, including for signup and direct callers. */
+export function getLoginScopes(selected: readonly string[] = []): string[] {
+	return [
+		...requiredScopes,
+		...(selected.includes(blueskyPostingScope) ? [blueskyPostingScope] : [])
+	];
+}
+
+export const blueskyPostCapability = {
+	type: 'repo',
+	collection: 'app.bsky.feed.post',
+	action: 'create'
+} as const satisfies Capability;
 
 // set to false to disable signup
 export const ALLOW_SIGNUP = true;
 
 // which PDS to use for signup (change to your preferred PDS)
-const devPDS = 'https://pds.rip/';
-const prodPDS = 'https://selfhosted.social/';
-export const signUpPDS = dev ? devPDS : prodPDS;
+export const signUpPDS = {
+	development: 'https://pds.rip/',
+	production: 'https://selfhosted.social/'
+};
 
 // where to redirect after oauth login/signup
 export const REDIRECT_PATH = '/oauth/callback';

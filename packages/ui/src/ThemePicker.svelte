@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { themeBackgrounds, type EventTheme } from './theme.js';
+	import { defaultTheme, themeBackgrounds, type EventTheme } from './theme.js';
 
 	let {
-		theme = $bindable<EventTheme>({ name: 'minimal', accentColor: 'cyan', baseColor: 'mist' })
+		theme = $bindable<EventTheme>({ ...defaultTheme })
 	}: {
 		theme: EventTheme;
 	} = $props();
@@ -45,7 +45,7 @@
 <div class="flex flex-col gap-6">
 	<!-- Theme background -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Background style</p>
+		<p class="text-muted mb-2 text-xs font-medium">Background style</p>
 		<div class="flex flex-wrap gap-2">
 			{#each bgKeys as key}
 				<button
@@ -66,16 +66,17 @@
 
 	<!-- Accent color -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Accent color</p>
+		<p class="text-muted mb-2 text-xs font-medium">Accent color</p>
 		<div class="flex flex-wrap gap-2">
 			{#each accentColors as color}
 				<button
 					type="button"
 					aria-label="Accent color {color.label}"
+					aria-pressed={theme.accentColor === color.label}
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.accentColor === color.label
-						? 'border-white scale-110 ring-2 ring-base-400'
-						: 'border-transparent hover:scale-105'}"
+						? 'ring-control-line border-white ring-2'
+						: 'hover:border-control-line border-transparent'}"
 					onclick={() => (theme = { ...theme, accentColor: color.label })}
 				></button>
 			{/each}
@@ -84,16 +85,17 @@
 
 	<!-- Base color -->
 	<div>
-		<p class="text-base-500 dark:text-base-400 mb-2 text-xs font-medium">Base color</p>
+		<p class="text-muted mb-2 text-xs font-medium">Base color</p>
 		<div class="flex flex-wrap gap-2">
 			{#each baseColors as color}
 				<button
 					type="button"
 					aria-label="Base color {color.label}"
+					aria-pressed={theme.baseColor === color.label}
 					class="size-7 cursor-pointer rounded-full border-2 transition-all {color.cls}
 						{theme.baseColor === color.label
-						? 'border-white scale-110 ring-2 ring-base-400'
-						: 'border-transparent hover:scale-105'}"
+						? 'ring-control-line border-white ring-2'
+						: 'hover:border-control-line border-transparent'}"
 					onclick={() => (theme = { ...theme, baseColor: color.label })}
 				></button>
 			{/each}

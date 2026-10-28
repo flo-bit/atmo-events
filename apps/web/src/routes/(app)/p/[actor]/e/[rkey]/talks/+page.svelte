@@ -1,21 +1,23 @@
 <script lang="ts">
-	import { Button } from '@foxui/core';
-	import { user } from '$lib/atproto/auth.svelte';
-	import { createInAppAdapter } from '$lib/components/editor/adapter';
-	import { invalidateAll } from '$app/navigation';
-	import { parseFile, type ParsedFile } from '$lib/conference-import/parse';
+	import { ArrowLeft } from '@sketchyicons/svelte';
+	import { Button, Checkbox, Icon } from '@atmo-dev/kit';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
+	import { refreshAll } from '$app/navigation';
+	import { parseFile, type ParsedFile } from '#lib/conference-import/parse.js';
 	import {
 		buildTalk,
 		autoDetect,
 		EVENT_COLLECTION,
 		type FieldMapping,
 		type BuiltTalk
-	} from '$lib/conference-import/transform';
+	} from '#lib/conference-import/transform.js';
 
 	let { data } = $props();
 
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
+		canPostToBluesky: user.canPostToBluesky,
 		did: user.did ?? null,
 		handle: user.profile?.handle,
 		displayName: user.profile?.displayName,
@@ -26,22 +28,42 @@
 	const TYPE_OPTIONS = ['talk', 'workshop', 'lightning-talk', 'panel', 'info', 'activity'];
 
 	const FIELDS: { key: string; label: string; required?: boolean; candidates: string[] }[] = [
-		{ key: 'name', label: 'Name', required: true, candidates: ['name', 'title', 'talk', 'session'] },
-		{ key: 'start', label: 'Start', required: true, candidates: ['start', 'starttime', 'starts', 'begin', 'time'] },
+		{
+			key: 'name',
+			label: 'Name',
+			required: true,
+			candidates: ['name', 'title', 'talk', 'session']
+		},
+		{
+			key: 'start',
+			label: 'Start',
+			required: true,
+			candidates: ['start', 'starttime', 'starts', 'begin', 'time']
+		},
 		{ key: 'end', label: 'End', candidates: ['end', 'endtime', 'ends', 'finish'] },
-		{ key: 'duration', label: 'Duration (min)', candidates: ['duration', 'length', 'minutes', 'mins'] },
+		{
+			key: 'duration',
+			label: 'Duration (min)',
+			candidates: ['duration', 'length', 'minutes', 'mins']
+		},
 		{ key: 'date', label: 'Date', candidates: ['date', 'day'] },
 		{ key: 'type', label: 'Type', candidates: ['type', 'kind', 'category', 'format'] },
 		{ key: 'room', label: 'Room', candidates: ['room', 'track', 'stage', 'location', 'venue'] },
-		{ key: 'speakers', label: 'Speakers', candidates: ['speakers', 'speaker', 'presenters', 'presenter', 'authors', 'author'] },
-		{ key: 'description', label: 'Description', candidates: ['description', 'desc', 'abstract', 'summary'] },
+		{
+			key: 'speakers',
+			label: 'Speakers',
+			candidates: ['speakers', 'speaker', 'presenters', 'presenter', 'authors', 'author']
+		},
+		{
+			key: 'description',
+			label: 'Description',
+			candidates: ['description', 'desc', 'abstract', 'summary']
+		},
 		{ key: 'id', label: 'ID (for updates)', candidates: ['id', 'slug', 'key', 'uid'] }
 	];
 
 	// --- setup-as-conference ---------------------------------------------------
-	let tzInput = $state(
-		data.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone
-	);
+	let tzInput = $derived(data.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone);
 	let setupBusy = $state(false);
 	let needsSetup = $derived(!data.isConference || !data.timezone);
 
@@ -53,12 +75,15 @@
 				collection: EVENT_COLLECTION,
 				rkey: data.rkey
 			});
-			const ad = { ...((value.additionalData as Record<string, unknown>) ?? {}), type: 'conference' };
+			const ad = {
+				...((value.additionalData as Record<string, unknown>) ?? {}),
+				type: 'conference'
+			};
 			const record: Record<string, unknown> = { ...value, additionalData: ad };
 			if (!record.timezone) record.timezone = tzInput.trim();
 			await adapter.putRecord({ collection: EVENT_COLLECTION, rkey: data.rkey, record });
 			await adapter.notifyUpdate?.(data.uri);
-			await invalidateAll();
+			await refreshAll();
 		} catch (e) {
 			alert(`Failed to set up conference: ${(e as Error).message}`);
 		} finally {
@@ -151,7 +176,11 @@
 		for (const t of valid) {
 			try {
 				const res = t.rkey
-					? await adapter.putRecord({ collection: EVENT_COLLECTION, rkey: t.rkey, record: t.record })
+					? await adapter.putRecord({
+							collection: EVENT_COLLECTION,
+							rkey: t.rkey,
+							record: t.record
+						})
 					: await adapter.createRecord({ collection: EVENT_COLLECTION, record: t.record });
 				uris.push(res.uri);
 			} catch {
@@ -162,7 +191,7 @@
 		await notifyBatch(uris);
 		committing = false;
 		result = { created: uris.length, failed };
-		await invalidateAll();
+		await refreshAll();
 	}
 
 	// --- existing talks --------------------------------------------------------
@@ -174,7 +203,7 @@
 		try {
 			await adapter.deleteRecord({ collection: EVENT_COLLECTION, rkey });
 			await adapter.notifyUpdate?.(uri);
-			await invalidateAll();
+			await refreshAll();
 		} finally {
 			busyRkey = null;
 		}
@@ -189,7 +218,7 @@
 				await adapter.deleteRecord({ collection: EVENT_COLLECTION, rkey: t.rkey }).catch(() => {});
 			}
 			await notifyBatch(data.talks.map((t) => t.uri));
-			await invalidateAll();
+			await refreshAll();
 		} finally {
 			clearing = false;
 		}
@@ -199,14 +228,13 @@
 		'border-base-300 dark:border-base-700 bg-base-50 dark:bg-base-900 rounded-lg border px-2 py-1.5 text-sm';
 </script>
 
-<svelte:head><title>Manage talks — {data.eventName}</title></svelte:head>
-
 <div class="mx-auto max-w-4xl px-6 py-10">
 	<a
 		href="/p/{data.actor}/e/{data.rkey}"
-		class="text-base-500 dark:text-base-400 hover:text-base-700 dark:hover:text-base-200 text-sm"
+		class="text-muted hover:text-base-700 dark:hover:text-base-200 inline-flex items-center gap-1 text-sm"
 	>
-		← {data.eventName}
+		<Icon img={ArrowLeft} size={16} />
+		{data.eventName}
 	</a>
 	<h1 class="text-base-900 dark:text-base-50 mt-2 mb-8 text-3xl font-bold">Manage talks</h1>
 
@@ -214,12 +242,13 @@
 		<!-- Step 1: designate the event as a conference -->
 		<div class="border-base-200 dark:border-base-800 mb-8 rounded-2xl border p-6">
 			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Set up as conference</h2>
-			<p class="text-base-500 dark:text-base-400 mt-1 mb-4 text-sm">
-				This marks <strong>{data.eventName}</strong> as a conference so talks can be attached to it
-				and shown as a timetable. Talks are laid out in the conference's timezone.
+			<p class="text-muted mt-1 mb-4 text-sm">
+				This marks <strong>{data.eventName}</strong> as a conference so talks can be attached to it and
+				shown as a timetable. Talks are laid out in the conference's timezone.
 			</p>
 			<label class="mb-4 block">
-				<span class="text-base-600 dark:text-base-300 mb-1 block text-sm font-medium">Timezone</span>
+				<span class="text-base-600 dark:text-base-300 mb-1 block text-sm font-medium">Timezone</span
+				>
 				<input
 					bind:value={tzInput}
 					placeholder="America/New_York"
@@ -241,7 +270,7 @@
 				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upload talks</h2>
 				<span class="text-base-400 text-xs">Times in {data.timezone}</span>
 			</div>
-			<p class="text-base-500 dark:text-base-400 mb-4 text-sm">
+			<p class="text-muted mb-4 text-sm">
 				Upload a CSV, JSON or YAML file, then map its columns to talk fields. Rows with an
 				<em>ID</em> update existing talks; rows without one are created new.
 			</p>
@@ -256,7 +285,7 @@
 			{/if}
 
 			{#if parsed}
-				<p class="text-base-500 dark:text-base-400 mt-4 text-sm">
+				<p class="text-muted mt-4 text-sm">
 					{parsed.rows.length} rows · {parsed.columns.length} columns ({parsed.format.toUpperCase()})
 				</p>
 
@@ -278,7 +307,9 @@
 				</div>
 
 				<!-- Options -->
-				<div class="border-base-200 dark:border-base-800 mt-4 flex flex-wrap items-center gap-4 border-t pt-4">
+				<div
+					class="border-base-200 dark:border-base-800 mt-4 flex flex-wrap items-center gap-4 border-t pt-4"
+				>
 					<label class="flex items-center gap-2">
 						<span class="text-base-600 dark:text-base-300 text-sm">Default type</span>
 						<select bind:value={typeDefault} class={selectClass}>
@@ -291,8 +322,10 @@
 							<input bind:value={speakerDelimiter} class="{selectClass} w-16" />
 						</label>
 						<label class="flex items-center gap-2">
-							<input type="checkbox" bind:checked={extractHandles} />
-							<span class="text-base-600 dark:text-base-300 text-sm">Parse <code>&lt;handle&gt;</code></span>
+							<Checkbox bind:checked={extractHandles} />
+							<span class="text-base-600 dark:text-base-300 text-sm"
+								>Parse <code>&lt;handle&gt;</code></span
+							>
 						</label>
 					{/if}
 				</div>
@@ -301,13 +334,15 @@
 				<div class="mt-6">
 					<div class="mb-2 flex items-center justify-between">
 						<h3 class="text-base-700 dark:text-base-200 text-sm font-semibold">Preview</h3>
-						<span class="text-base-500 dark:text-base-400 text-xs">
+						<span class="text-muted text-xs">
 							{validCount} ready{invalidCount ? ` · ${invalidCount} with errors` : ''}
 						</span>
 					</div>
-					<div class="border-base-200 dark:border-base-800 max-h-96 overflow-auto rounded-xl border">
+					<div
+						class="border-base-200 dark:border-base-800 max-h-96 overflow-auto rounded-xl border"
+					>
 						<table class="w-full text-left text-sm">
-							<thead class="text-base-500 dark:text-base-400 bg-base-100 dark:bg-base-900 sticky top-0 text-xs uppercase">
+							<thead class="text-muted bg-base-100 dark:bg-base-900 sticky top-0 text-xs uppercase">
 								<tr>
 									<th class="px-3 py-2 font-medium">Name</th>
 									<th class="px-3 py-2 font-medium">Type</th>
@@ -323,14 +358,24 @@
 										<td class="text-base-900 dark:text-base-100 px-3 py-2">
 											{t.preview.name || '—'}
 											{#if t.errors.length}
-												<span class="mt-0.5 block text-xs text-red-600 dark:text-red-400">{t.errors.join('; ')}</span>
+												<span class="mt-0.5 block text-xs text-red-600 dark:text-red-400"
+													>{t.errors.join('; ')}</span
+												>
 											{/if}
 										</td>
 										<td class="text-base-600 dark:text-base-300 px-3 py-2">{t.preview.type}</td>
-										<td class="text-base-600 dark:text-base-300 px-3 py-2">{t.preview.room ?? '—'}</td>
-										<td class="text-base-600 dark:text-base-300 px-3 py-2 whitespace-nowrap">{fmt(t.preview.startsAt)}</td>
-										<td class="text-base-600 dark:text-base-300 px-3 py-2 whitespace-nowrap">{fmt(t.preview.endsAt)}</td>
-										<td class="text-base-600 dark:text-base-300 px-3 py-2">{t.preview.speakers.map((s) => s.name).join(', ') || '—'}</td>
+										<td class="text-base-600 dark:text-base-300 px-3 py-2"
+											>{t.preview.room ?? '—'}</td
+										>
+										<td class="text-base-600 dark:text-base-300 px-3 py-2 whitespace-nowrap"
+											>{fmt(t.preview.startsAt)}</td
+										>
+										<td class="text-base-600 dark:text-base-300 px-3 py-2 whitespace-nowrap"
+											>{fmt(t.preview.endsAt)}</td
+										>
+										<td class="text-base-600 dark:text-base-300 px-3 py-2"
+											>{t.preview.speakers.map((s) => s.name).join(', ') || '—'}</td
+										>
 									</tr>
 								{/each}
 							</tbody>
@@ -339,11 +384,15 @@
 
 					<div class="mt-4 flex items-center gap-3">
 						<Button onclick={commit} disabled={committing || validCount === 0}>
-							{committing ? `Saving… ${progress}/${validCount}` : `Save ${validCount} talk${validCount === 1 ? '' : 's'}`}
+							{committing
+								? `Saving… ${progress}/${validCount}`
+								: `Save ${validCount} talk${validCount === 1 ? '' : 's'}`}
 						</Button>
 						{#if result}
 							<span class="text-sm text-green-600 dark:text-green-400">
-								Saved {result.created}{result.failed.length ? `, ${result.failed.length} failed` : ''}.
+								Saved {result.created}{result.failed.length
+									? `, ${result.failed.length} failed`
+									: ''}.
 							</span>
 						{/if}
 					</div>
@@ -364,7 +413,7 @@
 				{/if}
 			</div>
 			{#if data.talks.length === 0}
-				<p class="text-base-500 dark:text-base-400 text-sm">No talks yet.</p>
+				<p class="text-muted text-sm">No talks yet.</p>
 			{:else}
 				<div class="divide-base-200 dark:divide-base-800 divide-y">
 					{#each data.talks as t (t.rkey)}
@@ -383,7 +432,7 @@
 							<button
 								onclick={() => removeTalk(t.rkey, t.uri)}
 								disabled={busyRkey === t.rkey}
-								class="text-base-400 hover:text-red-600 dark:hover:text-red-400 shrink-0 text-xs"
+								class="text-base-400 shrink-0 text-xs hover:text-red-600 dark:hover:text-red-400"
 							>
 								{busyRkey === t.rkey ? '…' : 'Remove'}
 							</button>

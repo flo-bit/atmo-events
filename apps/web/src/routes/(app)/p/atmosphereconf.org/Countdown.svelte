@@ -23,9 +23,7 @@
 
 {#if remaining > 0}
 	<div class="text-center">
-		<p class="text-base-500 dark:text-base-400 mb-3 text-sm font-medium uppercase tracking-wider">
-			Doors open in
-		</p>
+		<p class="text-muted mb-3 text-sm font-medium tracking-wider uppercase">Doors open in</p>
 		<NumberFlowGroup>
 			<div
 				class="flex w-full justify-center gap-4 sm:gap-6"
@@ -36,26 +34,48 @@
 						<div class="text-base-900 dark:text-base-100 text-5xl font-bold sm:text-7xl">
 							<NumberFlow value={dd} trend={-1} format={{ minimumIntegerDigits: 2 }} />
 						</div>
-						<span class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium uppercase tracking-wider">days</span>
+						<span
+							class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium tracking-wider uppercase"
+							>days</span
+						>
 					</div>
 				{/if}
 				<div class="flex flex-col items-center">
 					<div class="text-base-900 dark:text-base-100 text-5xl font-bold sm:text-7xl">
 						<NumberFlow value={hh} trend={-1} format={{ minimumIntegerDigits: 2 }} />
 					</div>
-					<span class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium uppercase tracking-wider">hours</span>
+					<span
+						class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium tracking-wider uppercase"
+						>hours</span
+					>
 				</div>
 				<div class="flex flex-col items-center">
 					<div class="text-base-900 dark:text-base-100 text-5xl font-bold sm:text-7xl">
-						<NumberFlow value={mm} trend={-1} format={{ minimumIntegerDigits: 2 }} digits={{ 1: { max: 5 } }} />
+						<NumberFlow
+							value={mm}
+							trend={-1}
+							format={{ minimumIntegerDigits: 2 }}
+							digits={{ 1: { max: 5 } }}
+						/>
 					</div>
-					<span class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium uppercase tracking-wider">mins</span>
+					<span
+						class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium tracking-wider uppercase"
+						>mins</span
+					>
 				</div>
 				<div class="flex flex-col items-center">
 					<div class="text-base-900 dark:text-base-100 text-5xl font-bold sm:text-7xl">
-						<NumberFlow value={ss} trend={-1} format={{ minimumIntegerDigits: 2 }} digits={{ 1: { max: 5 } }} />
+						<NumberFlow
+							value={ss}
+							trend={-1}
+							format={{ minimumIntegerDigits: 2 }}
+							digits={{ 1: { max: 5 } }}
+						/>
 					</div>
-					<span class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium uppercase tracking-wider">secs</span>
+					<span
+						class="text-base-400 dark:text-base-500 mt-1 text-xs font-medium tracking-wider uppercase"
+						>secs</span
+					>
 				</div>
 			</div>
 		</NumberFlowGroup>

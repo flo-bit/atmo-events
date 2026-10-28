@@ -9,6 +9,7 @@
 	import 'plyr/dist/plyr.css';
 	import type HlsType from 'hls.js';
 	import type PlyrType from 'plyr';
+	import { sketchyPlyrIcons } from './event-view/plyr-icons.js';
 
 	let {
 		playlistUrl,
@@ -79,7 +80,18 @@
 			}
 
 			plyr = new Plyr(videoEl, {
-				controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+				...sketchyPlyrIcons(),
+				controls: [
+					'play-large',
+					'play',
+					'progress',
+					'current-time',
+					'mute',
+					'volume',
+					'captions',
+					'settings',
+					'fullscreen'
+				],
 				settings: ['captions', 'speed'],
 				speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
 				captions: { active: !!subtitlesUrl, language: 'en', update: true },
@@ -121,12 +133,17 @@
 </script>
 
 {#if error}
-	<div class="bg-base-100 dark:bg-base-900 border-base-200 dark:border-base-800 flex aspect-video w-full items-center justify-center rounded-xl border">
-		<p class="text-base-500 dark:text-base-400 text-sm">Failed to load video</p>
+	<div
+		class="bg-base-100 dark:bg-base-900 border-base-200 dark:border-base-800 flex aspect-video w-full items-center justify-center rounded-xl border"
+	>
+		<p class="text-muted text-sm">Failed to load video</p>
 	</div>
 {:else}
-	<div class="border-base-300 dark:border-base-400/40 aspect-video w-full max-w-full overflow-hidden rounded-xl border">
-		<video bind:this={videoEl} class="h-full w-full" aria-label={title} crossorigin="anonymous"></video>
+	<div
+		class="border-base-300 dark:border-base-400/40 aspect-video w-full max-w-full overflow-hidden rounded-xl border"
+	>
+		<video bind:this={videoEl} class="h-full w-full" aria-label={title} crossorigin="anonymous"
+		></video>
 	</div>
 {/if}
 

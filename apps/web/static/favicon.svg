@@ -1,12 +1,15 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<style>
-  path { stroke: #090B0C; }
-  @media (prefers-color-scheme: dark) {
-    path { stroke: #F9FBFB; }
-  }
-</style>
-<path d="M8 2V6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 2V6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M3 10H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+	<rect width="64" height="64" rx="14" fill="#e60076" />
+	<svg x="10" y="10" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M8.02 2.14Q8.4 4 8.1 6.12" />
+		<path d="M15.93 1.83Q15.71 4 15.87 5.95" />
+		<path d="M5.48 3.51Q12 3.1 19.05 4.19C20.33 3.74 20.92 4.41 21.54 6.43Q21.17 13 21.29 19.42C21.14 20.78 19.82 21.75 18.87 21.42Q12 22.88 4.67 22.52C4.18 22.27 3.33 21.62 2.8 19.97Q4.45 13 3.23 5.78C3.31 4.92 3.63 4.15 5.37 4.57Q5.58 4.16 4.78 3.75" />
+		<path d="M3.02 10.17Q12 10.98 21.05 9.81" />
+		<path d="M7.99 14.01Q8 14 8 13.99" />
+		<path d="M12 13.99Q12.01 14 12 14.01" />
+		<path d="M16 14Q16.01 14 16.01 14" />
+		<path d="M8 18Q8 18 8.01 18" />
+		<path d="M12 17.99Q12.01 18 12.02 18.01" />
+		<path d="M16 17.99Q16.01 18 16 18.01" />
+	</svg>
 </svg>

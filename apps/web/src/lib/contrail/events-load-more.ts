@@ -44,7 +44,7 @@ const EMPTY = EMPTY_PAGE;
  * never throws and never falls through to another query.
  */
 type Resumer = (
-	env: App.Platform['env'],
+	env: Cloudflare.Env,
 	client: Client,
 	envelope: CursorEnvelope,
 	searchTerm: string | undefined
@@ -117,7 +117,7 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
  * that fails to decode yields null and ends pagination cleanly.
  */
 export async function runLoadMoreEvents(
-	env: App.Platform['env'],
+	env: Cloudflare.Env,
 	input: LoadMoreEventsInput
 ): Promise<LoadMoreEventsResult> {
 	// Two different `q`s meet in this file: `input.q` is the free-text search TERM

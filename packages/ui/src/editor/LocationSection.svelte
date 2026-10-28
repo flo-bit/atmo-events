@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button, Input, Modal } from '@foxui/core';
+	import { MapPin, X } from '@sketchyicons/svelte';
+	import { Button, Icon, Input, Modal } from '@atmo-dev/kit';
 	import { getLocationDisplayString, type EventLocation } from './types';
 
 	let {
@@ -36,7 +37,7 @@
 			const locality =
 				addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || '';
 			const region = addr.state || addr.county || '';
-			const country = addr.country || '';
+			const country = addr.country_code || addr.country || '';
 
 			result = {
 				displayName: (data.label as string) || q,
@@ -76,71 +77,31 @@
 		<div
 			class="border-base-200 dark:border-base-700 bg-base-100 dark:bg-base-950/30 flex size-12 shrink-0 items-center justify-center rounded-xl border"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="text-base-900 dark:text-base-200 size-5"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-				/>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-				/>
-			</svg>
+			<Icon img={MapPin} size={20} class="text-base-900 dark:text-base-200" />
 		</div>
 		<p class="text-base-900 dark:text-base-50 flex-1 font-semibold">
 			{getLocationDisplayString(location)}
 		</p>
-		<Button variant="ghost" size="iconSm" onclick={remove} class="shrink-0">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-				class="size-3.5"
-			>
-				<path
-					d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
-				/>
-			</svg>
+		<Button
+			variant="ghost"
+			size="icon"
+			aria-label="Remove location"
+			onclick={remove}
+			class="shrink-0"
+		>
+			<Icon img={X} size={14} />
 		</Button>
 	</div>
 {:else}
 	<div class="mb-6">
 		<Button variant="secondary" onclick={() => (showModal = true)}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="size-4"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-				/>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-				/>
-			</svg>
+			<Icon img={MapPin} size={16} />
 			Add location
 		</Button>
 	</div>
 {/if}
 
-<Modal bind:open={showModal}>
-	<p class="text-base-900 dark:text-base-50 text-lg font-semibold">Add location</p>
+<Modal bind:open={showModal} title="Event location">
 	<form
 		onsubmit={(e) => {
 			e.preventDefault();
@@ -149,7 +110,12 @@
 		class="mt-2"
 	>
 		<div class="flex gap-2">
-			<Input type="text" class="flex-1" bind:value={searchText} />
+			<Input
+				type="text"
+				aria-label="Search location"
+				class="min-w-0 flex-1"
+				bind:value={searchText}
+			/>
 			<Button type="submit" disabled={searching || !searchText.trim()}>
 				{searching ? 'Searching...' : 'Search'}
 			</Button>
@@ -165,30 +131,12 @@
 			class="border-base-200 dark:border-base-700 bg-base-50 dark:bg-base-900 mt-4 overflow-hidden rounded-xl border p-4"
 		>
 			<div class="flex items-start gap-3">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					class="text-base-500 mt-0.5 size-5 shrink-0"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-					/>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-					/>
-				</svg>
+				<Icon img={MapPin} size={20} class="text-base-500 mt-0.5 shrink-0" />
 				<div class="min-w-0 flex-1">
 					<p class="text-base-900 dark:text-base-50 font-medium">
 						{getLocationDisplayString(result.location)}
 					</p>
-					<p class="text-base-500 dark:text-base-400 mt-0.5 truncate text-xs">
+					<p class="text-muted mt-0.5 truncate text-xs">
 						{result.displayName}
 					</p>
 				</div>

@@ -1,9 +1,5 @@
 <script lang="ts">
-	import {
-		NestedComments,
-		blueskyPostToPostData,
-		type PostData
-	} from '@foxui/social';
+	import { NestedComments, blueskyPostToPostData, type PostData } from '@atmo-dev/kit';
 
 	let { postUri }: { postUri: string } = $props();
 
@@ -15,10 +11,9 @@
 		return (replies as Array<{ $type?: string; post?: unknown; replies?: unknown[] }>)
 			.filter((r) => r.$type === 'app.bsky.feed.defs#threadViewPost' && r.post)
 			.map((r) => {
-				const { postData, embeds } = blueskyPostToPostData(
+				const postData = blueskyPostToPostData(
 					r.post as Parameters<typeof blueskyPostToPostData>[0]
 				);
-				postData.embeds = embeds;
 				if (r.replies?.length) {
 					postData.replies = threadToComments(r.replies);
 				}
@@ -32,38 +27,37 @@
 		return `https://bsky.app/profile/${m[1]}/post/${m[2]}`;
 	}
 
-	async function loadThread(uri: string) {
+	async function loadThread(uri: string, signal: AbortSignal) {
 		loading = true;
 		errorMessage = null;
 		try {
 			const res = await fetch(
-				`https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}&depth=6`
+				`https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${encodeURIComponent(uri)}&depth=6`,
+				{ signal }
 			);
 			if (!res.ok) throw new Error(`Failed to load thread (${res.status})`);
 			const data = (await res.json()) as { thread?: { replies?: unknown[] } };
 			const thread = data.thread;
-			comments = thread?.replies?.length ? threadToComments(thread.replies) : [];
+			if (!signal.aborted)
+				comments = thread?.replies?.length ? threadToComments(thread.replies) : [];
 		} catch (err) {
+			if (signal.aborted) return;
 			console.error('EventComments: load failed', err);
 			errorMessage = err instanceof Error ? err.message : 'Failed to load comments';
 			comments = [];
 		} finally {
-			loading = false;
+			if (!signal.aborted) loading = false;
 		}
 	}
 
 	$effect(() => {
-		if (postUri) loadThread(postUri);
+		const controller = new AbortController();
+		if (postUri) loadThread(postUri, controller.signal);
+		return () => controller.abort();
 	});
 
 	let replyUrl = $derived(bskyWebUrl(postUri));
 </script>
-
-<style>
-	.comments-no-divider :global(> div) {
-		border-top-width: 0;
-	}
-</style>
 
 <div>
 	{#if replyUrl}
@@ -80,20 +74,20 @@
 	{/if}
 
 	{#if loading}
-		<p class="text-base-500 dark:text-base-400 text-sm">Loading comments…</p>
+		<p class="text-muted text-sm">Loading comments…</p>
 	{:else if errorMessage}
-		<p class="text-base-500 dark:text-base-400 text-sm">{errorMessage}</p>
+		<p class="text-muted text-sm">{errorMessage}</p>
 	{:else if comments.length === 0}
-		<p class="text-base-500 dark:text-base-400 text-sm">No comments yet.</p>
+		<p class="text-muted text-sm">No comments yet.</p>
 	{:else}
 		<div class="not-prose comments-no-divider">
-			<NestedComments
-				{comments}
-				actions={(comment) => ({
-					reply: { count: comment.replyCount, href: comment.href },
-					like: { count: comment.likeCount, href: comment.href }
-				})}
-			/>
+			<NestedComments {comments} />
 		</div>
 	{/if}
 </div>
+
+<style>
+	.comments-no-divider :global(> div) {
+		border-top-width: 0;
+	}
+</style>

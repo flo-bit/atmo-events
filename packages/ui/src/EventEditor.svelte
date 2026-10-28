@@ -1,14 +1,8 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
-	import {
-		Avatar as FoxAvatar,
-		Button,
-		ToggleGroup,
-		ToggleGroupItem
-	} from '@foxui/core';
+	import { Avatar, Button, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { onMount } from 'svelte';
-	import { DEV as dev } from 'esm-env';
-	import { PlainTextEditor } from '@foxui/text';
+	import { InlineEditor, type Editor } from '@atmo-dev/kit';
 	import DateTimePicker from './DateTimePicker.svelte';
 	import TimezonePicker from './TimezonePicker.svelte';
 	import { parseDateTime } from '@internationalized/date';
@@ -16,11 +10,7 @@
 	import type { FlatEventRecord } from './contrail.js';
 	import ThemeApply from './ThemeApply.svelte';
 	import ThemeBackground from './ThemeBackground.svelte';
-	import { defaultTheme, randomAccentColor, type EventTheme } from './theme.js';
-
-	import type { Readable } from 'svelte/store';
-	import { get } from 'svelte/store';
-	import type { Editor } from 'svelte-tiptap';
+	import { defaultTheme, type EventTheme } from './theme.js';
 
 	import ThumbnailSection from './editor/ThumbnailSection.svelte';
 	import LocationSection from './editor/LocationSection.svelte';
@@ -35,6 +25,7 @@
 		type Visibility
 	} from './editor/types';
 	import { buildEventRecord, buildThumbnailMedia, renderPresetThumbnail } from './editor/save';
+	import { LocationValidationError } from './editor/location';
 	import { DEFAULT_PRESET, hashSeed } from './thumbnails/designs';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter';
 
@@ -42,7 +33,6 @@
 		eventData = null,
 		actorDid,
 		rkey,
-		privateMode = false,
 		adapter,
 		viewer,
 		initialTheme,
@@ -51,8 +41,6 @@
 		eventData: FlatEventRecord | null;
 		actorDid: string;
 		rkey: string;
-		/** If true, save writes into a permissioned space instead of the user's public PDS. */
-		privateMode?: boolean;
 		adapter: EditorAdapter;
 		viewer: EditorViewer;
 		/** Override default theme for new events (e.g. inherit embedder's palette). */
@@ -64,9 +52,7 @@
 	let isNew = $derived(eventData === null);
 
 	// svelte-ignore state_referenced_locally
-	let thumbnailChanged = $state(
-		eventData === null && (prefill?.thumbnailFile ?? null) !== null
-	);
+	let thumbnailChanged = $state(eventData === null && (prefill?.thumbnailFile ?? null) !== null);
 
 	// Initial values: prefer prefill (only honored for brand-new events) so the
 	// title editor and date inputs see the imported values on their first render
@@ -92,14 +78,13 @@
 	let timezone = $state(initialTimezone);
 	// svelte-ignore state_referenced_locally
 	let mode: EventMode = $state(initialPrefill?.mode ?? 'inperson');
-	// svelte-ignore state_referenced_locally
-	let visibility: Visibility = $state(privateMode && dev ? 'private' : 'public');
+	let visibility: Visibility = $state('public');
 	// svelte-ignore state_referenced_locally
 	let eventTheme: EventTheme = $state(
 		eventData === null
 			? {
 					...defaultTheme,
-					accentColor: initialTheme?.accentColor ?? randomAccentColor(),
+					accentColor: initialTheme?.accentColor ?? defaultTheme.accentColor,
 					...(initialTheme?.baseColor ? { baseColor: initialTheme.baseColor } : {})
 				}
 			: { ...defaultTheme }
@@ -117,10 +102,12 @@
 	);
 	let submitting = $state(false);
 	let error: string | null = $state(null);
-	let titleEditor: Readable<Editor> | undefined = $state(undefined);
+	let titleEditor = $state<Editor | null>(null);
 
 	// svelte-ignore state_referenced_locally
-	let location: EventLocation | null = $state(initialPrefill?.location ? { ...initialPrefill.location } : null);
+	let location: EventLocation | null = $state(
+		initialPrefill?.location ? { ...initialPrefill.location } : null
+	);
 	// svelte-ignore state_referenced_locally
 	let locationChanged = $state(initialPrefill?.location != null);
 
@@ -179,8 +166,7 @@
 		mode = eventData.mode ? stripModePrefix(eventData.mode) : 'inperson';
 		const prefs = (eventData as unknown as { preferences?: { showInDiscovery?: boolean } })
 			.preferences;
-		if (privateMode && dev) visibility = 'private';
-		else if (prefs && prefs.showInDiscovery === false) visibility = 'unlisted';
+		if (prefs && prefs.showInDiscovery === false) visibility = 'unlisted';
 		else visibility = 'public';
 		links = eventData.uris ? eventData.uris.map((l) => ({ uri: l.uri, name: l.name || '' })) : [];
 		if (eventData.theme) eventTheme = { ...eventData.theme };
@@ -190,7 +176,7 @@
 
 	onMount(() => {
 		if (!isNew) populateFromEventData();
-		if (titleEditor) get(titleEditor)?.commands.focus();
+		titleEditor?.commands.focus();
 	});
 
 	let hostName = $derived(viewer.displayName || viewer.handle || viewer.did || '');
@@ -285,28 +271,6 @@
 				record.additionalData = { ...existing, ...prefill.additionalData };
 			}
 
-			if (visibility === 'private') {
-				if (!adapter.createPrivateEvent) {
-					error = 'Private events are not supported here.';
-					return;
-				}
-				const {
-					spaceUri,
-					rkey: eventRkey,
-					spaceKey
-				} = await adapter.createPrivateEvent({
-					key: rkey,
-					record
-				});
-				adapter.onSaved({
-					uri: spaceUri,
-					rkey: eventRkey,
-					isNew: true,
-					spaceKey
-				});
-				return;
-			}
-
 			const result = await adapter.putRecord({
 				collection: 'community.lexicon.calendar.event',
 				rkey,
@@ -317,7 +281,10 @@
 			adapter.onSaved({ uri: result.uri, rkey, isNew });
 		} catch (e) {
 			console.error(`Failed to ${isNew ? 'create' : 'save'} event:`, e);
-			error = `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
+			error =
+				e instanceof LocationValidationError
+					? e.message
+					: `Failed to ${isNew ? 'create' : 'save'} event. Please try again.`;
 		} finally {
 			submitting = false;
 		}
@@ -347,7 +314,7 @@
 </script>
 
 <ThemeApply accentColor={eventTheme.accentColor} baseColor={eventTheme.baseColor} />
-<ThemeBackground theme={eventTheme} />
+<div class="motion-reduce:hidden"><ThemeBackground theme={eventTheme} /></div>
 
 <div class="px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-3xl">
@@ -386,23 +353,13 @@
 					<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-5 md:row-start-1">
 						<!-- Name -->
 						<div class="mb-2 min-h-14">
-							<PlainTextEditor
-								content={name}
+							<InlineEditor
+								bind:value={name}
 								bind:editor={titleEditor}
+								label="Event name"
+								singleLine
 								placeholder="Event name"
-								onupdate={() => {
-									if (titleEditor) {
-										const text = get(titleEditor)?.getText() ?? '';
-										if (text.includes('\n')) {
-											const cleaned = text.replace(/\n/g, ' ');
-											get(titleEditor)?.commands.setContent(cleaned);
-											name = cleaned;
-										} else {
-											name = text;
-										}
-									}
-								}}
-								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full text-3xl leading-tight font-bold focus:outline-none sm:text-4xl"
+								class="text-base-900 dark:text-base-50 placeholder:text-base-500 dark:placeholder:text-base-500 w-full text-3xl leading-tight font-semibold tracking-tight focus-within:outline-none focus:outline-none sm:text-4xl"
 							/>
 						</div>
 
@@ -437,19 +394,13 @@
 								}
 								class="w-fit"
 								size="xs"
-								disabled={!isNew && visibility === 'private'}
 							>
 								<ToggleGroupItem value="public">Public</ToggleGroupItem>
-								{#if dev && adapter.features.privateMode}
-									<ToggleGroupItem value="private">Private</ToggleGroupItem>
-								{/if}
 								<ToggleGroupItem value="unlisted">Unlisted</ToggleGroupItem>
 							</ToggleGroup>
-							<div class="text-base-500 dark:text-base-400 mt-1.5 text-xs">
+							<div class="text-muted mt-1.5 text-xs">
 								{#if visibility === 'public'}
 									Anyone can view and it appears in discovery.
-								{:else if visibility === 'private'}
-									Only people you add (or who redeem an invite link) can see it.
 								{:else}
 									Public to anyone with the link, but hidden from discovery.
 								{/if}
@@ -457,18 +408,21 @@
 						</div>
 
 						<!-- Date row -->
-						<div class="mb-4 flex items-stretch gap-3">
-							<div class="flex flex-col gap-2">
-								<div class="flex items-center gap-2">
-									<span class="text-base-500 dark:text-base-400 w-9 text-sm">Start</span>
-									<DateTimePicker bind:value={startsAt} required />
-								</div>
-								<div class="flex items-center gap-2">
-									<span class="text-base-500 dark:text-base-400 w-9 text-sm">End</span>
-									<DateTimePicker bind:value={endsAt} minValue={startsAt} referenceTime={startsAt} />
-								</div>
+						<div class="mb-5 grid min-w-0 gap-2">
+							<div class="flex min-w-0 items-center gap-2">
+								<span class="text-muted w-9 shrink-0 text-sm">Start</span>
+								<DateTimePicker bind:value={startsAt} label="Start" required />
 							</div>
-							<div class="hidden sm:flex">
+							<div class="flex min-w-0 items-center gap-2">
+								<span class="text-muted w-9 shrink-0 text-sm">End</span>
+								<DateTimePicker
+									bind:value={endsAt}
+									label="End"
+									minValue={startsAt}
+									referenceTime={startsAt}
+								/>
+							</div>
+							<div class="min-w-0 pl-11">
 								<TimezonePicker bind:value={timezone} />
 							</div>
 						</div>
@@ -477,20 +431,19 @@
 
 						<!-- About Event -->
 						<div class="mt-8 mb-8">
-							<p
-								class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-							>
-								About
-							</p>
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
 							<textarea
+								aria-label="Event description"
 								bind:value={description}
 								rows={4}
 								placeholder="What's this event about? @mentions, #hashtags and links will be detected automatically."
 								class="text-base-700 dark:text-base-300 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 leading-relaxed focus:border-0 focus:ring-0 focus:outline-none"
-								style="field-sizing: content;"
-							></textarea>
-							<p class="text-base-400 dark:text-base-500 mt-2 text-xs">
-								Add a hashtag like <span class="font-medium">#webdev</span> or <span class="font-medium">#music</span> to have this event appear under a <a href="/topics" class="text-accent-600 dark:text-accent-400 hover:underline">topic</a>.
+								style="field-sizing: content;"></textarea>
+							<p class="text-muted mt-2 text-xs">
+								Add a hashtag like <span class="font-medium">#webdev</span> or
+								<span class="font-medium">#music</span>
+								to have this event appear under a
+								<a href="/topics" class="text-action underline underline-offset-2">topic</a>.
 							</p>
 						</div>
 
@@ -521,13 +474,9 @@
 
 					<!-- Hosted By -->
 					<div class="order-3 md:order-0 md:col-start-1">
-						<p
-							class="text-base-500 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
-						>
-							Hosted By
-						</p>
+						<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Hosted By</p>
 						<div class="flex items-center gap-2.5">
-							<FoxAvatar src={viewer.avatar} alt={hostName} class="size-8 shrink-0" />
+							<Avatar src={viewer.avatar} name={hostName} class="size-8 shrink-0" />
 							<span class="text-base-900 dark:text-base-100 truncate text-sm font-medium">
 								{hostName}
 							</span>
@@ -555,12 +504,20 @@
 								>
 									Cancel
 								</Button>
-								<Button size="sm" onclick={handleDelete} disabled={deleting} variant="primary" class="red">
+								<Button
+									size="sm"
+									onclick={handleDelete}
+									disabled={deleting}
+									variant="primary"
+									class="red"
+								>
 									{deleting ? 'Deleting...' : 'Delete'}
 								</Button>
 							</div>
 						{:else}
-							<Button variant="primary" class="red" onclick={() => (showDeleteConfirm = true)}>Delete event</Button>
+							<Button variant="primary" class="red" onclick={() => (showDeleteConfirm = true)}
+								>Delete event</Button
+							>
 						{/if}
 					</div>
 				{/if}

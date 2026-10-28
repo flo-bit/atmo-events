@@ -5,24 +5,24 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // an inbound ?cursor= may be resumed. This page is the destination every capped
 // "happening now" block links to, so the property that matters most is that it
 // caps NOTHING: no per-host limit, no ceiling, just a page of the whole set.
-vi.mock('$lib/contrail/index', () => ({
+vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
-vi.mock('$lib/contrail', () => ({
+vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
-vi.mock('$lib/search/server/query', () => ({
+vi.mock('#lib/search/server/query.js', () => ({
 	searchBackendFromEnv: vi.fn(() => null),
 	runEventSearchPage: vi.fn(),
 	runOngoingSearchPage: vi.fn()
 }));
 
 import { load } from './+page.server';
-import { listDiscoverableEventsFromContrail } from '$lib/contrail';
-import { decodeCursor, encodeCursor } from '$lib/contrail/cursor';
-import { runOngoingSearchPage, searchBackendFromEnv } from '$lib/search/server/query';
+import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
+import { decodeCursor, encodeCursor } from '#lib/contrail/cursor.js';
+import { runOngoingSearchPage, searchBackendFromEnv } from '#lib/search/server/query.js';
 
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 const mockBackend = vi.mocked(searchBackendFromEnv);
@@ -32,7 +32,7 @@ function event(cursor?: string, scope?: Record<string, string>) {
 	const url = new URL('https://atmo.test/events/now');
 	if (cursor) url.searchParams.set('cursor', cursor);
 	for (const [k, v] of Object.entries(scope ?? {})) url.searchParams.set(k, v);
-	return { url, platform: { env: { DB: {} } } } as unknown as Parameters<typeof load>[0];
+	return { url } as unknown as Parameters<typeof load>[0];
 }
 
 const page = (cursor: string | null) =>

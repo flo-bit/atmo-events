@@ -1,4 +1,4 @@
-import type { EventImportPrefill } from '$lib/import-event';
+import type { EventImportPrefill } from '#lib/import-event.js';
 
 /** A URL fetched once and shared across importers for a single import run. */
 export type FetchedPage = {

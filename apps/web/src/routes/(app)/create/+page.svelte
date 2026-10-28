@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { EventEditor, type EventEditorPrefill } from '@atmo-dev/events-ui';
-	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { user } from '$lib/atproto/auth.svelte';
-	import { createInAppAdapter } from '$lib/components/editor/adapter';
-	import { readPendingImportPrefill } from '$lib/components/CreateEventModal.svelte';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
+	import { readPendingImportPrefill } from '#lib/components/CreateEventModal.svelte';
 
 	let { data } = $props();
-	let privateMode = $derived(page.url.searchParams.get('private') === '1');
 
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
+		canPostToBluesky: user.canPostToBluesky,
 		did: user.did ?? null,
 		handle: user.profile?.handle,
 		displayName: user.profile?.displayName,
@@ -55,16 +54,11 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Create Event</title>
-</svelte:head>
-
 {#if ready}
 	<EventEditor
 		eventData={null}
 		actorDid={data.actorDid}
 		rkey={data.rkey}
-		{privateMode}
 		{adapter}
 		{viewer}
 		{prefill}

@@ -102,11 +102,7 @@ function normalizeTime(s: string): string | null {
 }
 
 /** Parse a (date, time) pair into a UTC ISO instant, interpreted in `tz`. */
-function parseWhen(
-	dateRaw: string,
-	timeRaw: string,
-	tz: string
-): { iso?: string; error?: string } {
+function parseWhen(dateRaw: string, timeRaw: string, tz: string): { iso?: string; error?: string } {
 	const raw = timeRaw.trim();
 	if (!raw && !dateRaw) return { error: 'missing time' };
 
@@ -219,7 +215,11 @@ export function buildTalk(
 	}
 
 	const speakers = mapping.speakers
-		? parseSpeakers(cell(row, mapping.speakers), mapping.speakerDelimiter ?? ';', mapping.extractHandles ?? true)
+		? parseSpeakers(
+				cell(row, mapping.speakers),
+				mapping.speakerDelimiter ?? ';',
+				mapping.extractHandles ?? true
+			)
 		: [];
 
 	const additionalData: Record<string, unknown> = {

@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
+	import { Icon } from '@atmo-dev/kit';
+	import { Check, Star, X } from '@sketchyicons/svelte';
 	import { resolve } from '$app/paths';
 	import Avatar from 'svelte-boring-avatars';
-	import { notifyContrailOfUpdate } from '$lib/contrail';
+	import { notifyContrailOfUpdate } from '#lib/contrail.js';
 
 	let { data } = $props();
 
-	let rsvpStatus: 'going' | 'interested' | 'notgoing' | null = $state(untrack(() => data.viewerRsvpStatus));
+	let rsvpStatus: 'going' | 'interested' | 'notgoing' | null = $state(
+		untrack(() => data.viewerRsvpStatus)
+	);
 	let rsvpRkey: string | null = $state(untrack(() => data.viewerRsvpRkey));
 	let submitting = $state(false);
+	let rsvpError: string | null = $state(null);
 
 	onMount(() => {
 		if (!window.Blento) return;
@@ -60,8 +65,7 @@
 		const locations = data.eventData.locations;
 		if (!locations || locations.length === 0) return null;
 		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { name?: string; street?: string; locality?: string; region?: string }
-			| undefined;
+			{ name?: string; street?: string; locality?: string; region?: string } | undefined;
 		if (!loc) return null;
 		if (loc.name) return loc.name;
 		const parts = [loc.locality, loc.region].filter(Boolean);
@@ -72,15 +76,15 @@
 
 	let isSameDay = $derived(
 		endDate &&
-		startDate.getFullYear() === endDate.getFullYear() &&
-		startDate.getMonth() === endDate.getMonth() &&
-		startDate.getDate() === endDate.getDate()
+			startDate.getFullYear() === endDate.getFullYear() &&
+			startDate.getMonth() === endDate.getMonth() &&
+			startDate.getDate() === endDate.getDate()
 	);
 
-
 	async function submitRsvp(status: 'going' | 'interested') {
-		if (!window.Blento || !data.viewerDid) return;
+		if (data.eventData.rsvpExpected === false || !window.Blento || !data.viewerDid) return;
 		submitting = true;
+		rsvpError = null;
 		try {
 			await window.Blento.ready;
 			const result = await window.Blento.createRecord({
@@ -104,6 +108,7 @@
 			}
 		} catch (e) {
 			console.error('RSVP failed:', e);
+			rsvpError = 'Couldn’t save your RSVP. Please try again.';
 		} finally {
 			submitting = false;
 		}
@@ -112,6 +117,7 @@
 	async function cancelRsvp() {
 		if (!window.Blento || !rsvpRkey || !data.viewerDid) return;
 		submitting = true;
+		rsvpError = null;
 		const rsvpUri = `at://${data.viewerDid}/community.lexicon.calendar.rsvp/${rsvpRkey}`;
 		try {
 			await window.Blento.ready;
@@ -124,6 +130,7 @@
 			rsvpRkey = null;
 		} catch (e) {
 			console.error('Cancel RSVP failed:', e);
+			rsvpError = 'Couldn’t remove your RSVP. Please try again.';
 		} finally {
 			submitting = false;
 		}
@@ -135,12 +142,52 @@
 	<script>
 		var p = new URLSearchParams(location.search);
 		var h = document.documentElement;
-		var bases = ['gray','zinc','neutral','stone','slate','mist','olive','mauve','taupe'];
-		var accents = ['red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];
+		var bases = [
+			'gray',
+			'zinc',
+			'neutral',
+			'stone',
+			'slate',
+			'mist',
+			'olive',
+			'mauve',
+			'taupe',
+			'sand',
+			'sage'
+		];
+		var accents = [
+			'red',
+			'orange',
+			'amber',
+			'yellow',
+			'lime',
+			'green',
+			'emerald',
+			'teal',
+			'cyan',
+			'sky',
+			'blue',
+			'indigo',
+			'violet',
+			'purple',
+			'fuchsia',
+			'pink',
+			'rose'
+		];
 		var b = p.get('base');
-		if (b) { bases.forEach(function (c) { h.classList.remove(c); }); h.classList.add(b); }
+		if (b && bases.includes(b)) {
+			bases.forEach(function (c) {
+				h.classList.remove(c);
+			});
+			h.classList.add(b);
+		}
 		var a = p.get('accent');
-		if (a) { accents.forEach(function (c) { h.classList.remove(c); }); h.classList.add(a); }
+		if (a && accents.includes(a)) {
+			accents.forEach(function (c) {
+				h.classList.remove(c);
+			});
+			h.classList.add(a);
+		}
 		if (p.get('dark') === '1') h.classList.add('dark');
 	</script>
 	<script src="https://blento.app/embed/v0/sdk.js"></script>
@@ -150,11 +197,7 @@
 	<div class="embed-frame">
 		<a href={eventUrl} target="_blank" rel="noopener noreferrer" class="embed-thumb">
 			{#if data.thumbnailUrl}
-				<img
-					src={data.thumbnailUrl}
-					alt={data.eventData.name}
-					class="size-full object-cover"
-				/>
+				<img src={data.thumbnailUrl} alt={data.eventData.name} class="size-full object-cover" />
 			{:else}
 				<div class="size-full [&>svg]:size-full">
 					<Avatar
@@ -171,75 +214,90 @@
 		<div class="embed-info">
 			<a href={eventUrl} target="_blank" rel="noopener noreferrer" class="embed-meta">
 				<h2 class="embed-title">{data.eventData.name}</h2>
-				<p class="embed-line text-base-500 dark:text-base-400">
-					{formatDate(startDate)}, {formatTime(startDate)}{#if endDate && isSameDay} - {formatTime(endDate)}{/if}
+				<p class="embed-line text-muted">
+					{formatDate(startDate)}, {formatTime(startDate)}{#if endDate && isSameDay}
+						- {formatTime(endDate)}{/if}
 				</p>
 				{#if location}
-					<p class="embed-line text-base-500 dark:text-base-400">{location}</p>
+					<p class="embed-line text-muted">{location}</p>
 				{/if}
 			</a>
 
-			{#if !data.viewerDid}
-				<div class="embed-rsvp-wrap">
-					<button
-						onclick={handleLogin}
-						class="embed-btn embed-btn-primary bg-accent-600 hover:bg-accent-700 text-white"
-					>Log in to RSVP</button>
-				</div>
-			{:else}
-				<div class="embed-rsvp-card border-base-300 dark:border-base-800 bg-base-100 dark:bg-base-900/50">
-					{#if rsvpStatus === 'going'}
-						<div class="embed-status-row">
-							<div class="embed-status-left">
-								<div class="embed-status-icon bg-green-100 dark:bg-green-900/30">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-green-600 dark:text-green-400">
-										<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-									</svg>
+			{#if data.eventData.rsvpExpected !== false || (data.viewerDid && rsvpStatus)}
+				{#if !data.viewerDid}
+					<div class="embed-rsvp-wrap">
+						<button
+							onclick={handleLogin}
+							class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
+							>Log in to RSVP</button
+						>
+					</div>
+				{:else}
+					<div
+						class="embed-rsvp-card border-base-300 dark:border-base-800 bg-base-100 dark:bg-base-900/50"
+					>
+						{#if rsvpStatus === 'going'}
+							<div class="embed-status-row">
+								<div class="embed-status-left">
+									<div class="embed-status-icon bg-accent-soft">
+										<Icon img={Check} class="text-action" />
+									</div>
+									<span class="embed-status-label text-base-900 dark:text-base-50"
+										>You're Going</span
+									>
 								</div>
-								<span class="embed-status-label text-base-900 dark:text-base-50">You're Going</span>
+								<button
+									onclick={cancelRsvp}
+									disabled={submitting}
+									aria-label="Cancel RSVP"
+									class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
+								>
+									<Icon img={X} />
+								</button>
 							</div>
-							<button onclick={cancelRsvp} disabled={submitting} aria-label="Cancel RSVP" class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-									<path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-								</svg>
-							</button>
-						</div>
-					{:else if rsvpStatus === 'interested'}
-						<div class="embed-status-row">
-							<div class="embed-status-left">
-								<div class="embed-status-icon bg-amber-100 dark:bg-amber-900/30">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-amber-600 dark:text-amber-400">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-									</svg>
+						{:else if rsvpStatus === 'interested' || rsvpStatus === 'notgoing'}
+							<div class="embed-status-row">
+								<div class="embed-status-left">
+									<div class="embed-status-icon bg-accent-soft">
+										<Icon img={rsvpStatus === 'interested' ? Star : X} class="text-action" />
+									</div>
+									<span class="embed-status-label text-base-900 dark:text-base-50"
+										>{rsvpStatus === 'interested' ? "You're Interested" : 'Not Going'}</span
+									>
 								</div>
-								<span class="embed-status-label text-base-900 dark:text-base-50">You're Interested</span>
+								<button
+									onclick={cancelRsvp}
+									disabled={submitting}
+									aria-label="Cancel RSVP"
+									class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300"
+								>
+									<Icon img={X} />
+								</button>
 							</div>
-							<button onclick={cancelRsvp} disabled={submitting} aria-label="Cancel RSVP" class="embed-cancel text-base-400 hover:text-base-600 dark:text-base-500 dark:hover:text-base-300">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-									<path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-								</svg>
-							</button>
-						</div>
-					{:else}
-						<div class="embed-btn-row">
-							<button
-								onclick={() => submitRsvp('going')}
-								disabled={submitting}
-								class="embed-btn embed-btn-primary bg-accent-600 hover:bg-accent-700 text-white"
-							>Going</button>
-							<button
-								onclick={() => submitRsvp('interested')}
-								disabled={submitting}
-								class="embed-btn embed-btn-secondary bg-base-300 dark:bg-base-800 hover:bg-base-400 dark:hover:bg-base-700 text-base-700 dark:text-base-300"
-							>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="embed-btn-icon">
-									<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-								</svg>
-								<span class="embed-btn-text">Interested</span>
-							</button>
-						</div>
-					{/if}
-				</div>
+						{:else}
+							<div class="embed-btn-row">
+								<button
+									onclick={() => submitRsvp('going')}
+									disabled={submitting}
+									class="embed-btn embed-btn-primary bg-accent-400 text-base-950 hover:bg-accent-300 active:bg-accent-400"
+									>Going</button
+								>
+								<button
+									onclick={() => submitRsvp('interested')}
+									disabled={submitting}
+									aria-label="Interested"
+									class="embed-btn embed-btn-secondary bg-base-300 dark:bg-base-800 hover:bg-base-400 dark:hover:bg-base-700 text-base-700 dark:text-base-300"
+								>
+									<Icon img={Star} class="embed-btn-icon" />
+									<span class="embed-btn-text">Interested</span>
+								</button>
+							</div>
+						{/if}
+						{#if rsvpError}
+							<p role="alert" class="embed-line text-red-600 dark:text-red-400">{rsvpError}</p>
+						{/if}
+					</div>
+				{/if}
 			{/if}
 		</div>
 	</div>
@@ -356,7 +414,7 @@
 		cursor: default;
 	}
 
-	.embed-btn-icon {
+	.embed-btn :global(.embed-btn-icon) {
 		display: none;
 		width: clamp(0.875rem, 3.2cqmin, 1.125rem);
 		height: clamp(0.875rem, 3.2cqmin, 1.125rem);
@@ -370,7 +428,7 @@
 		.embed-btn-text {
 			display: none;
 		}
-		.embed-btn-icon {
+		.embed-btn :global(.embed-btn-icon) {
 			display: inline-block;
 		}
 	}
@@ -401,7 +459,7 @@
 		justify-content: center;
 	}
 
-	.embed-status-icon svg {
+	.embed-status-icon :global(svg) {
 		width: 60%;
 		height: 60%;
 	}
@@ -427,7 +485,7 @@
 		padding: 0.125rem;
 	}
 
-	.embed-cancel svg {
+	.embed-cancel :global(svg) {
 		width: clamp(0.875rem, 3.2cqmin, 1.125rem);
 		height: clamp(0.875rem, 3.2cqmin, 1.125rem);
 	}

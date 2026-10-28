@@ -1,17 +1,20 @@
 import { compressImage } from '../atproto-helpers.js';
 import { tokenize, type Token } from '@atcute/bluesky-richtext-parser';
+import type { Facet } from '@atmo-dev/kit';
 import { datetimeLocalToISO } from '../date-format.js';
 import { designs, resolveAccentColor } from '../thumbnails/designs.js';
 import type { FlatEventRecord } from '../contrail.js';
 import type { EventTheme } from '../theme.js';
 import type { EventLocation, EventMode, Visibility } from './types.js';
+import { normalizeEventLocations } from './location.js';
+import type { EventData } from '../event-types.js';
 
 export async function tokensToFacets(
 	tokens: Token[],
 	resolveHandle: (handle: string) => Promise<string>
-): Promise<Record<string, unknown>[]> {
+): Promise<Facet[]> {
 	const encoder = new TextEncoder();
-	const facets: Record<string, unknown>[] = [];
+	const facets: Facet[] = [];
 	let byteOffset = 0;
 
 	for (const token of tokens) {
@@ -195,6 +198,7 @@ export async function buildEventRecord(args: {
 	if (links.length > 0) record.uris = links;
 
 	if (isNew || locationChanged) {
+		delete record.locations;
 		if (location) {
 			record.locations = [
 				{
@@ -206,6 +210,14 @@ export async function buildEventRecord(args: {
 		// If changed/new but no location, locations stays undefined (removed/absent)
 	} else if (eventData?.locations && eventData.locations.length > 0) {
 		record.locations = eventData.locations;
+	}
+
+	// Normalize every address, including unchanged legacy locations and imported
+	// names. Preserve other location variants and address metadata as-is.
+	if (Array.isArray(record.locations)) {
+		record.locations = normalizeEventLocations(
+			record.locations as NonNullable<EventData['locations']>
+		);
 	}
 
 	const existingPrefs = ((record.preferences as Record<string, unknown> | undefined) ??

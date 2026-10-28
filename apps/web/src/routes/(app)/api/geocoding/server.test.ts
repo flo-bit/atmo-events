@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { GET } from './+server';
-import { DEFAULT_GEOCODER_URL, DEFAULT_GEOCODER_USER_AGENT } from '$lib/search/server/geocoder';
+import { env } from 'cloudflare:workers';
+import { DEFAULT_GEOCODER_URL, DEFAULT_GEOCODER_USER_AGENT } from '#lib/search/server/geocoder.js';
 
 const louisville = [
 	{
@@ -35,10 +36,10 @@ function event(opts: {
 }) {
 	const url = new URL('https://atmo.rsvp/api/geocoding');
 	if (opts.q != null) url.searchParams.set('q', opts.q);
+	Object.assign(env, opts.env);
 	return {
 		url,
 		locals: { did: opts.did ?? null },
-		platform: { env: opts.env ?? {} },
 		fetch: opts.fetch
 	} as unknown as Parameters<typeof GET>[0];
 }

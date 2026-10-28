@@ -1,5 +1,4 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
-import { SPACE_TYPE } from './spaces/config';
 import { MAX_HYDRATION_URIS } from './search/constants';
 import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
 import { discoverableSql } from './search/server/discoverability';
@@ -10,7 +9,7 @@ import { discoverableSql } from './search/server/discoverability';
 // process.env (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected by
 // the operator at runtime so no secret is committed; an unset SEARCH_SINK_URL
 // omits the sink, keeping `pnpm generate` clean. The runtime Worker
-// (`$lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
+// (`#lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
 // sink, so this one runs only under the CLI.
 const searchSinks: NonNullable<ContrailConfig['sinks']> =
 	typeof process !== 'undefined' && process.env?.SEARCH_SINK_URL
@@ -36,17 +35,13 @@ export const config: ContrailConfig = {
 	// to once/24h via a persisted timestamp, bounded by PRAGMA analysis_limit so
 	// it can't blow D1's per-query CPU budget. Defaults are fine.
 	maintenance: { optimize: true },
-	// `spaces` is declared statically so `pnpm generate` emits the `rsvp.atmo.space.*`
-	// lexicons. The real serviceDid is injected at runtime in `$lib/contrail/index.ts`
-	// via `getSpacesConfig()` — generate doesn't serialize it.
-	spaces: { authority: { type: SPACE_TYPE, serviceDid: 'did:web:placeholder' }, recordHost: {} },
 	permissionSet: {
 		title: 'Atmo Events',
-		description: 'Manage your private events and rsvps.'
+		description: 'Manage your events and RSVPs.'
 		// NOTE: permission-set lexicons can only reference NSIDs under their own
-		// namespace (`rsvp.atmo.*`). Repo writes for `community.lexicon.*` and
-		// blob uploads are declared as standalone `scope.repo(...)` /
-		// `scope.blob(...)` entries in `atproto/settings.ts`, not here.
+		// namespace (`rsvp.atmo.*`). Calendar writes use the community calendar
+		// permission set; blob uploads use a standalone scope. Both are declared
+		// in `atproto/settings.ts`, not here.
 	},
 	...(searchSinks.length ? { sinks: searchSinks } : {}),
 	collections: {

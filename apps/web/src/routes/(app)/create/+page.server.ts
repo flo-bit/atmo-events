@@ -7,6 +7,7 @@ export async function load({ locals }) {
 	}
 
 	return {
+		pageTitle: 'Create Event',
 		actorDid: locals.did,
 		rkey: tidNow()
 	};

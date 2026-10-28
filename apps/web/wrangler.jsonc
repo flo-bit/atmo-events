@@ -1,7 +1,9 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "atmo-events",
-	"main": ".svelte-kit/cloudflare/_worker.js",
+	// The adapter generates this file; build-worker.mjs wraps its default export with cron.
+	// Keep both Worker modules outside the public assets directory.
+	"main": ".svelte-kit/worker.js",
 	"compatibility_date": "2025-12-25",
 	"compatibility_flags": ["nodejs_compat_v2"],
 	"assets": {

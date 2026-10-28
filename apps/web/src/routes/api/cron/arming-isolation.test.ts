@@ -13,18 +13,18 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 //     in for an unreachable/stalling search endpoint on the arming path;
 //   - the Contrail engine (init/ingest): stubbed so no real D1 / firehose I/O
 //     runs, and so we can assert ingest was still invoked after arming failed;
-//   - the sibling cron stages (bot / notify / drip): no-op spies.
-const { ingest, contrailInit, processBotMentions, runNotifications, runGeocodeDrip, applyMeiliSettings } =
-	vi.hoisted(() => ({
+//   - the sibling cron stages (bot / geocode / topics): no-op spies.
+const { ingest, contrailInit, processBotMentions, runGeocodeDrip, applyMeiliSettings } = vi.hoisted(
+	() => ({
 		ingest: vi.fn(async () => {}),
 		contrailInit: vi.fn(async () => {}),
 		processBotMentions: vi.fn(async () => {}),
-		runNotifications: vi.fn(async () => {}),
 		runGeocodeDrip: vi.fn(async () => {}),
 		applyMeiliSettings: vi.fn(async () => {
 			throw new Error('search endpoint unreachable');
 		})
-	}));
+	})
+);
 
 // Stub the Contrail engine so the REAL $lib/contrail/index can load and its real
 // ensureInit run without touching a live DB or jetstream. The real module builds
@@ -45,16 +45,18 @@ vi.mock('@atmo-dev/contrail/server', () => ({ createHandler: () => () => new Res
 // The real ensureInit calls applyMeiliSettings from this module on the arming
 // path; force that one call to reject. Everything else stays real (notably
 // meiliSinkBackendFromEnv, which must return a backend from the env below).
-vi.mock('$lib/search/server/meili-sink', async (importActual) => {
-	const actual = await importActual<typeof import('$lib/search/server/meili-sink')>();
+vi.mock('#lib/search/server/meili-sink.js', async (importActual) => {
+	const actual = await importActual<typeof import('#lib/search/server/meili-sink.js')>();
 	return { ...actual, applyMeiliSettings };
 });
 
-vi.mock('$lib/bot/process-mentions', () => ({ processBotMentions }));
-vi.mock('$lib/notify/process', () => ({ runNotifications }));
-vi.mock('$lib/geocode/process', () => ({ runGeocodeDrip }));
+vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
+vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
+vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts: vi.fn(async () => {}) }));
 
 import { POST } from './+server';
+
+import { env as bindings } from 'cloudflare:workers';
 
 const CRON_SECRET = 'cron-secret';
 const DB = { __brand: 'D1' };
@@ -70,9 +72,9 @@ function event(opts: { secret?: string | null } = {}) {
 		SEARCH_SINK_URL: 'https://search.example',
 		SEARCH_SINK_API_KEY: 'sink-key'
 	};
+	Object.assign(bindings, env);
 	return {
-		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers }),
-		platform: { env }
+		request: new Request('https://atmo.rsvp/api/cron', { method: 'POST', headers })
 	} as unknown as Parameters<typeof POST>[0];
 }
 
@@ -81,7 +83,7 @@ describe('POST /api/cron — arming-failure isolation (real ensureInit)', () => 
 		vi.clearAllMocks();
 	});
 
-	it('still returns 200 and still runs ingest + notify/drip when sink arming rejects', async () => {
+	it('still returns 200 and still runs ingest + geocoding when sink arming rejects', async () => {
 		const res = await POST(event({ secret: CRON_SECRET }));
 
 		// Arming was actually attempted and failed (real ensureInit -> real
@@ -94,7 +96,6 @@ describe('POST /api/cron — arming-failure isolation (real ensureInit)', () => 
 		// assertion is what catches that regression.
 		expect(res.status).toBe(200);
 		expect(ingest).toHaveBeenCalledTimes(1);
-		expect(runNotifications).toHaveBeenCalledTimes(1);
 		expect(runGeocodeDrip).toHaveBeenCalledTimes(1);
 	});
 });

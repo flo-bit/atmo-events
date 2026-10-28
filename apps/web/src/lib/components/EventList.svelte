@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { FlatEventRecord } from '$lib/contrail';
+	import type { FlatEventRecord } from '#lib/contrail.js';
 	import HappeningNow from './HappeningNow.svelte';
-	import { loadMoreEvents } from '$lib/contrail/events.remote';
-	import { dedupeByUri } from '$lib/dedupe-by-uri';
+	import { loadMoreEvents } from '#lib/contrail/events.remote.js';
+	import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 	// Soonest-ending first, the order the band itself is sorted in — by instant,
 	// not by text, since these records carry timestamps exactly as written.
-	import { bySoonestEnding } from '$lib/live-order';
+	import { bySoonestEnding } from '#lib/live-order.js';
 	import { EventCard, isEventOngoing } from '@atmo-dev/events-ui';
 	import type { Snippet } from 'svelte';
 
@@ -21,7 +21,7 @@
 		ongoingSeeAllHref = undefined,
 		separateOngoing = true,
 		upcomingHeader = undefined,
-		gridClass = 'grid gap-6 sm:grid-cols-2'
+		gridClass = 'grid gap-x-6 gap-y-4 sm:grid-cols-2'
 	}: {
 		events: FlatEventRecord[];
 		cursor: string | null;

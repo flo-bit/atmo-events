@@ -1,12 +1,13 @@
 <script lang="ts">
-	import EventList from '$lib/components/EventList.svelte';
-	import { Input, Button } from '@foxui/core';
+	import EventList from '#lib/components/EventList.svelte';
+	import { ArrowRight } from '@sketchyicons/svelte';
+	import { Input, Button, Icon } from '@atmo-dev/kit';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 
-	let query = $state(data.query);
+	let query = $derived(data.query);
 
 	// The live band's "See all" carries this page's TERM to /events/now, so the
 	// count it shows and the page it opens describe the same set. Built through
@@ -20,7 +21,7 @@
 		e.preventDefault();
 		const q = query.trim();
 		if (q) {
-			const target = new URL(resolve('/search'), window.location.origin);
+			const target = new URL(resolve('search'), window.location.origin);
 			target.searchParams.set('q', q);
 			// resolve() covers the base path; the query string can't go through it,
 			// so the rule can't see the route is resolved. The URL is built from
@@ -31,14 +32,10 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{data.query ? `"${data.query}" - Search` : 'Search Events'}</title>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<h1 class="text-base-900 dark:text-base-50 mb-6 text-2xl font-bold">Search Events</h1>
 
-	<form onsubmit={handleSearch} class="mb-2 flex gap-2">
+	<form onsubmit={handleSearch} class="flex gap-2 {data.locationSearchAvailable ? 'mb-2' : 'mb-8'}">
 		<Input
 			type="text"
 			bind:value={query}
@@ -48,14 +45,15 @@
 		<Button type="submit" disabled={!query.trim()}>Search</Button>
 	</form>
 
-	<p class="mb-8">
-		<a
-			href={resolve('/near-me')}
-			class="text-base-500 hover:text-base-700 dark:hover:text-base-300 text-sm"
-		>
-			Events near me →
-		</a>
-	</p>
+	{#if data.locationSearchAvailable}
+		<p class="mb-8">
+			<a
+				href={resolve('near-me')}
+				class="text-muted hover:text-ink inline-flex items-center gap-1 text-sm"
+				>Events near me <Icon img={ArrowRight} size={16} /></a
+			>
+		</p>
+	{/if}
 
 	{#if data.query}
 		{#if data.events.length === 0 && data.ongoing.length === 0}
