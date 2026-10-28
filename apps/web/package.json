@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && contrail append-scheduled",
+		"build": "vite build && node scripts/build-worker.mjs",
 		"generate": "contrail-lex generate",
 		"generate:favicons": "node scripts/generate-favicons.mjs",
 		"generate:globe": "tsx scripts/bake-globe.ts",
@@ -20,7 +20,7 @@
 		"meili:reindex:remote": "npx tsx src/lib/search/server/reindex-cli.ts --remote",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"test": "vitest run",
+		"test": "node --test scripts/test-build-worker.mjs && vitest run",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"env:generate-key": "atproto-oauth keygen",
