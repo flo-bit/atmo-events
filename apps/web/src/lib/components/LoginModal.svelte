@@ -11,10 +11,7 @@
 </script>
 
 <script lang="ts">
-	import { login } from '#lib/atproto/auth.svelte.js';
-	import SignupPermissions from './SignupPermissions.svelte';
-	let signupOpen = $state(false);
-
+	import { login, signup } from '#lib/atproto/auth.svelte.js';
 	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
 	import { loginPermissions } from '#lib/atproto/settings.js';
 	const searchActors = createActorSearch();
@@ -29,13 +26,5 @@
 		await login(handle, options);
 		return true;
 	}}
-	signup={() => {
-		atProtoLoginModalState.hide();
-		signupOpen = true;
-		return false;
-	}}
+	{signup}
 />
-
-{#if signupOpen}
-	<SignupPermissions bind:open={signupOpen} />
-{/if}

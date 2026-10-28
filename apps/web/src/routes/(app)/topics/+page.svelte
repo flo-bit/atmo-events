@@ -6,10 +6,6 @@
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<meta name="description" content="Find events by topic on the open social web." />
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8">
 		<h1 class="text-base-900 dark:text-base-50 text-3xl font-bold sm:text-4xl">Browse Topics</h1>

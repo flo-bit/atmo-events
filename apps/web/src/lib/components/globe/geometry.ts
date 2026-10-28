@@ -1,49 +1,20 @@
-import { geoGraticule, geoOrthographic, geoPath } from 'd3-geo';
-import type { FeatureCollection, MultiPolygon } from 'geojson';
-import land from './data/land.json';
-import { makeSurfaceStrokes, projectSurfaceRibbons, projectSurfaceStrokes } from './surface';
-import { makeCoastGestures, makeCoastPressure, makeCoastRetraces, sketchCoast } from './pen';
+import { projectSurfacePoint } from './surface';
 
 export const SIZE = 640;
 export const RADIUS = 259;
 export const CENTER = SIZE / 2;
 export const TILT = 14;
 export const ROLL = -8;
-let surfaceStrokes: Float32Array[] | undefined;
 const RAD = Math.PI / 180;
 
-// Three pressure weights, stable between frames. Geography is local Natural Earth 110m data.
-const polygons = (land as unknown as FeatureCollection<MultiPolygon>).features[0].geometry.coordinates;
-const drawnPolygons = polygons.map((polygon) => polygon.map(sketchCoast));
-const coastGroups = [0, 1, 2].map((group) => drawnPolygons
-  .filter((_, i) => i % 3 === group)
-  .flatMap((polygon) => polygon.flatMap(makeCoastGestures)));
-const grid = geoGraticule().step([45, 30]).precision(6)();
-
-const pressure = makeCoastPressure(drawnPolygons);
-const retraces = makeCoastRetraces(drawnPolygons);
-
-export function makeProjection(longitude: number) {
-  return geoOrthographic()
-    .translate([CENTER, CENTER])
-    .scale(RADIUS)
-    .rotate([-longitude, -TILT, ROLL])
-    .clipAngle(90)
-    .precision(0.65);
+export function makeCamera(longitude: number) {
+  return { longitude, tilt: TILT, roll: ROLL, radius: RADIUS, center: CENTER };
 }
 
-export function makeFrame(longitude: number, showGrid = true, showFill = true) {
-  const projection = makeProjection(longitude);
-  const path = geoPath(projection).digits(1);
-  const camera = { longitude, tilt: TILT, roll: ROLL, radius: RADIUS, center: CENTER };
-  return {
-    projection,
-    coasts: coastGroups.map((group) => projectSurfaceStrokes(group, camera)),
-    pressure: projectSurfaceRibbons(pressure, camera),
-    retrace: projectSurfaceStrokes(retraces, camera),
-    scribble: showFill ? projectSurfaceStrokes(surfaceStrokes ??= makeSurfaceStrokes(), camera) : '',
-    grid: showGrid ? path(grid) ?? '' : '',
-  };
+/** Screen position in the 640×640 view box and depth (negative is the back of the globe). */
+export function projectPoint(lon: number, lat: number, longitude: number) {
+  const vector = [Math.cos(lon * RAD) * Math.cos(lat * RAD), Math.sin(lon * RAD) * Math.cos(lat * RAD), Math.sin(lat * RAD)];
+  return projectSurfacePoint(vector, makeCamera(longitude));
 }
 
 /** Dot product of the point and camera direction; negative means the back of the globe. */
@@ -65,4 +36,3 @@ export function penCircle(radius = RADIUS, phase = 0) {
     return `${i === 0 ? 'M' : 'L'}${(CENTER + Math.cos(a) * r).toFixed(2)},${(CENTER + Math.sin(a) * r).toFixed(2)}`;
   }).join('') + 'Z';
 }
-

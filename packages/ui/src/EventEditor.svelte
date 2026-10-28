@@ -79,7 +79,6 @@
 	// svelte-ignore state_referenced_locally
 	let mode: EventMode = $state(initialPrefill?.mode ?? 'inperson');
 	let visibility: Visibility = $state('public');
-	let rsvpExpected = $derived(initialPrefill?.rsvpExpected ?? eventData?.rsvpExpected ?? true);
 	// svelte-ignore state_referenced_locally
 	let eventTheme: EventTheme = $state(
 		eventData === null
@@ -259,7 +258,6 @@
 				timezone,
 				mode,
 				visibility,
-				rsvpExpected,
 				theme: eventTheme,
 				links,
 				location,
@@ -440,8 +438,7 @@
 								rows={4}
 								placeholder="What's this event about? @mentions, #hashtags and links will be detected automatically."
 								class="text-base-700 dark:text-base-300 placeholder:text-base-500 dark:placeholder:text-base-500 w-full resize-none border-0 bg-transparent px-0 leading-relaxed focus:border-0 focus:ring-0 focus:outline-none"
-								style="field-sizing: content;"
-							></textarea>
+								style="field-sizing: content;"></textarea>
 							<p class="text-muted mt-2 text-xs">
 								Add a hashtag like <span class="font-medium">#webdev</span> or
 								<span class="font-medium">#music</span>
@@ -538,7 +535,6 @@
 	{startsAt}
 	{endsAt}
 	{mode}
-	{rsvpExpected}
 	{timezone}
 	{description}
 	{links}

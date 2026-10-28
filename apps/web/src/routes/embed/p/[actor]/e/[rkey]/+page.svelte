@@ -13,6 +13,7 @@
 	);
 	let rsvpRkey: string | null = $state(untrack(() => data.viewerRsvpRkey));
 	let submitting = $state(false);
+	let rsvpError: string | null = $state(null);
 
 	onMount(() => {
 		if (!window.Blento) return;
@@ -64,8 +65,7 @@
 		const locations = data.eventData.locations;
 		if (!locations || locations.length === 0) return null;
 		const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-			| { name?: string; street?: string; locality?: string; region?: string }
-			| undefined;
+			{ name?: string; street?: string; locality?: string; region?: string } | undefined;
 		if (!loc) return null;
 		if (loc.name) return loc.name;
 		const parts = [loc.locality, loc.region].filter(Boolean);
@@ -84,6 +84,7 @@
 	async function submitRsvp(status: 'going' | 'interested') {
 		if (data.eventData.rsvpExpected === false || !window.Blento || !data.viewerDid) return;
 		submitting = true;
+		rsvpError = null;
 		try {
 			await window.Blento.ready;
 			const result = await window.Blento.createRecord({
@@ -107,6 +108,7 @@
 			}
 		} catch (e) {
 			console.error('RSVP failed:', e);
+			rsvpError = 'Couldn’t save your RSVP. Please try again.';
 		} finally {
 			submitting = false;
 		}
@@ -115,6 +117,7 @@
 	async function cancelRsvp() {
 		if (!window.Blento || !rsvpRkey || !data.viewerDid) return;
 		submitting = true;
+		rsvpError = null;
 		const rsvpUri = `at://${data.viewerDid}/community.lexicon.calendar.rsvp/${rsvpRkey}`;
 		try {
 			await window.Blento.ready;
@@ -127,6 +130,7 @@
 			rsvpRkey = null;
 		} catch (e) {
 			console.error('Cancel RSVP failed:', e);
+			rsvpError = 'Couldn’t remove your RSVP. Please try again.';
 		} finally {
 			submitting = false;
 		}
@@ -288,6 +292,9 @@
 									<span class="embed-btn-text">Interested</span>
 								</button>
 							</div>
+						{/if}
+						{#if rsvpError}
+							<p role="alert" class="embed-line text-red-600 dark:text-red-400">{rsvpError}</p>
 						{/if}
 					</div>
 				{/if}

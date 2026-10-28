@@ -29,6 +29,10 @@
 	});
 
 	let path = $derived(page.url.pathname);
+	let description = $derived(
+		page.data.pageDescription ?? 'Discover and attend events for the open social web.'
+	);
+	let ogImage = $derived(page.data.ogImage ?? `${page.url.origin}/og.png`);
 	function createEvent() {
 		if (user.isLoggedIn) createEventModalState.show();
 		else atProtoLoginModalState.show();
@@ -150,12 +154,13 @@
 <LoginModal />
 <CreateEventModal />
 
+<!-- The only owner of description/social tags; routes return pageDescription and ogImage. -->
 <svelte:head>
-	<meta name="description" content="Discover and attend events for the open social web." />
-	<meta property="og:title" content="atmo.rsvp" />
-	<meta property="og:description" content="Discover and attend events for the open social web." />
-	<meta property="og:image" content={page.data?.ogImage ?? `${page.url.origin}/og.png`} />
+	<meta name="description" content={description} />
+	<meta property="og:title" content={page.data.pageTitle ?? 'atmo.rsvp'} />
+	<meta property="og:description" content={description} />
+	<meta property="og:image" content={ogImage} />
 	<meta property="og:site_name" content="atmo.rsvp" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content={page.data?.ogImage ?? `${page.url.origin}/og.png`} />
+	<meta name="twitter:image" content={ogImage} />
 </svelte:head>

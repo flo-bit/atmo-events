@@ -1,3 +1,25 @@
+<script lang="ts" module>
+	import globeData from './data/globe.bin?url';
+	import { decodeLayers, type GlobeLayers } from './layers';
+
+	let loading: Promise<GlobeLayers> | undefined;
+
+	/** Pen geometry is a lazily fetched static asset, shared by every globe on the page. */
+	function loadLayers() {
+		loading ??= fetch(globeData)
+			.then((response) => {
+				if (!response.ok) throw new Error(`Globe data: ${response.status}`);
+				return response.arrayBuffer();
+			})
+			.then((buffer) => decodeLayers(new Uint8Array(buffer)))
+			.catch((error) => {
+				loading = undefined;
+				throw error;
+			});
+		return loading;
+	}
+</script>
+
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
@@ -6,13 +28,14 @@
 	import { ArrowUpRight, X } from '@sketchyicons/svelte';
 	import {
 		CENTER,
-		makeFrame,
 		penCircle,
 		pointDepth,
+		projectPoint,
 		shortestRotation,
 		RADIUS,
 		SIZE
 	} from './geometry';
+	import { drawGlobe } from './draw';
 	import type { GlobeMarker, MarkerMode } from './types';
 	import { rimPressure } from './pen';
 	import { createFrameGate } from './timing';
@@ -64,6 +87,10 @@
 	const thirdRim = penCircle(257.5, 0.7);
 	const rimInk = rimPressure(RADIUS, CENTER);
 	let element: HTMLDivElement;
+	let canvas: HTMLCanvasElement;
+	let width = $state(0);
+	let layers = $state.raw<GlobeLayers>();
+	let theme = $state(0);
 	let longitude = $state(untrack(() => initialLongitude));
 	let clock = $state(Date.now());
 	let mounted = $state(false);
@@ -89,11 +116,10 @@
 
 	const candidates = $derived(visibleMarkers(markers, mode, now ?? clock, daysAhead));
 	const selected = $derived(candidates.find((marker) => marker.id === selectedMarkerId));
-	const frame = $derived(makeFrame(longitude, showGrid, showFill));
 	const points = $derived(
 		candidates
 			.map((marker) => {
-				const [x, y] = frame.projection([marker.lon, marker.lat]) ?? [CENTER, CENTER];
+				const [x, y] = projectPoint(marker.lon, marker.lat, longitude);
 				const depth = pointDepth(marker.lon, marker.lat, longitude);
 				return { marker, x, y, depth, opacity: Math.min(1, Math.max(0, depth / 0.16)) };
 			})
@@ -180,6 +206,28 @@
 				?.focus({ preventScroll: true });
 	}
 
+	$effect(() => {
+		if (inViewport && !layers) loadLayers().then((loaded) => (layers = loaded), console.error);
+	});
+
+	$effect(() => {
+		if (!layers || !width) return;
+		void theme;
+		const pixels = Math.round(width * Math.min(devicePixelRatio, 2));
+		if (canvas.width !== pixels) canvas.width = canvas.height = pixels;
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+		// Resolved theme colors; the canvas' outline itself is never drawn.
+		const style = getComputedStyle(canvas);
+		drawGlobe(
+			ctx,
+			layers,
+			longitude,
+			{ ink: style.color, fill: style.outlineColor },
+			{ showFill, showGrid }
+		);
+	});
+
 	// A list outside the globe can also select a city via bind:selectedMarkerId.
 	$effect(() => {
 		const marker = candidates.find((candidate) => candidate.id === selectedMarkerId);
@@ -264,15 +312,26 @@
 		updateVisibility();
 		motion.addEventListener('change', updateMotion);
 		document.addEventListener('visibilitychange', updateVisibility);
-		const observer = new IntersectionObserver(([entry]) => {
-			inViewport = entry.isIntersecting;
-		});
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				inViewport = entry.isIntersecting;
+			},
+			{ rootMargin: '200px' }
+		);
 		observer.observe(element);
+		// Canvas colors don't follow CSS on their own, so redraw on theme changes.
+		const scheme = matchMedia('(prefers-color-scheme: dark)');
+		const updateTheme = () => theme++;
+		scheme.addEventListener('change', updateTheme);
+		const themeObserver = new MutationObserver(updateTheme);
+		themeObserver.observe(document.documentElement, { attributeFilter: ['class', 'style'] });
 		const minute = setInterval(() => {
 			clock = Date.now();
 		}, 60_000);
 		return () => {
 			observer.disconnect();
+			themeObserver.disconnect();
+			scheme.removeEventListener('change', updateTheme);
 			motion.removeEventListener('change', updateMotion);
 			document.removeEventListener('visibilitychange', updateVisibility);
 			clearInterval(minute);
@@ -295,15 +354,18 @@
 	}}
 />
 
+<!-- Without selectable markers the globe is decorative. -->
 <div
 	class="globe"
-	role="group"
-	aria-label="Globe and event locations"
-	aria-busy={turning}
+	role={interactive ? 'group' : 'presentation'}
+	aria-label={interactive ? 'Globe and event locations' : undefined}
+	aria-hidden={interactive ? undefined : 'true'}
+	aria-busy={interactive ? turning : undefined}
 	class:interactive
 	class:draggable
 	class:dragging
 	bind:this={element}
+	bind:clientWidth={width}
 	onpointerdown={beginDrag}
 	onpointermove={moveDrag}
 	onpointerup={endDrag}
@@ -332,45 +394,29 @@
 		if (!element.contains(event.relatedTarget as Node)) keyboardFocus = false;
 	}}
 >
+	<canvas class="ink" class:ready={layers} bind:this={canvas}></canvas>
 	<svg
 		class="earth"
 		viewBox="0 0 640 640"
 		fill="none"
 		role="group"
-		aria-labelledby={`${uid}-title ${uid}-desc`}
+		aria-labelledby={interactive ? `${uid}-title ${uid}-desc` : undefined}
 	>
-		<title id={`${uid}-title`}>A hand-drawn globe</title>
-		<desc id={`${uid}-desc`}
-			>Rotating Earth. {draggable
-				? 'Swipe horizontally or drag to turn the globe. Vertical swipes scroll the page.'
-				: ''}
-			{interactive
-				? 'Choose a city marker to see local events. The event list also provides access to locations on the far side.'
-				: 'Event locations are marked on the visible hemisphere.'}</desc
-		>
-		<defs>
-			{#each frame.coasts as coast, index}
-				<path id={`${uid}-coast-${index}`} d={coast} />
-			{/each}
-		</defs>
+		{#if interactive}
+			<title id={`${uid}-title`}>A hand-drawn globe</title>
+			<desc id={`${uid}-desc`}
+				>Rotating Earth. {draggable
+					? 'Swipe horizontally or drag to turn the globe. Vertical swipes scroll the page.'
+					: ''}
+				Choose a city marker to see local events. The event list also provides access to locations on
+				the far side.</desc
+			>
+		{/if}
 		<g aria-hidden="true" stroke-linecap="round" stroke-linejoin="round">
-			{#if showFill}
-				<path d={frame.scribble} class="land-fill" />
-			{/if}
-			{#if showGrid}<path d={frame.grid} class="grid" />{/if}
 			<path d={secondRim} class="rim-echo" />
 			<path d={thirdRim} class="rim-retrace" />
 			<path d={rim} class="rim" />
 			<path d={rimInk} class="rim-pressure" />
-			{#each frame.coasts as _, index}
-				<use
-					href={`#${uid}-coast-${index}`}
-					class="coast"
-					style:stroke-width={`${[1.1, 1.4, 1.0][index]}px`}
-				/>
-			{/each}
-			<path d={frame.pressure} class="coast-pressure" />
-			<path d={frame.retrace} class="coast-retrace" />
 		</g>
 		{#each points as point (point.marker.id)}
 			<g
@@ -497,15 +543,27 @@
 		cursor: grabbing;
 	}
 	.earth {
+		position: relative;
 		display: block;
 		width: 100%;
 		height: 100%;
 		overflow: visible;
 	}
-	.grid {
-		stroke: var(--globe-ink);
-		stroke-width: 0.65;
-		opacity: 0.14;
+	.ink {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		color: var(--globe-ink);
+		outline-color: light-dark(
+			color-mix(in srgb, var(--globe-ink) 38%, transparent),
+			color-mix(in srgb, var(--globe-ink) 58%, transparent)
+		);
+		opacity: 0;
+		transition: opacity 0.4s ease-out;
+	}
+	.ink.ready {
+		opacity: 1;
 	}
 	.rim {
 		stroke: var(--globe-ink);
@@ -526,27 +584,6 @@
 		stroke-width: 0.85;
 		opacity: 0.6;
 		stroke-dasharray: 110 70 230 100 55 280;
-	}
-	.coast {
-		stroke: var(--globe-ink);
-		opacity: 0.98;
-	}
-	.coast-retrace {
-		stroke: var(--globe-ink);
-		stroke-width: 0.85;
-		opacity: 0.65;
-	}
-	.coast-pressure {
-		fill: var(--globe-ink);
-		opacity: 0.9;
-	}
-	.land-fill {
-		stroke: light-dark(
-			color-mix(in srgb, var(--globe-ink) 38%, transparent),
-			color-mix(in srgb, var(--globe-ink) 58%, transparent)
-		);
-		stroke-width: 1.2;
-		fill: none;
 	}
 	.marker {
 		outline: none;
@@ -724,6 +761,9 @@
 		.pin,
 		.popup {
 			animation: none;
+		}
+		.ink {
+			transition: none;
 		}
 	}
 </style>

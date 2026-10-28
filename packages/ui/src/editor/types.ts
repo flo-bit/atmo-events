@@ -24,7 +24,6 @@ export interface EventEditorPrefill {
 	endsAt?: string;
 	timezone?: string;
 	mode?: EventMode;
-	rsvpExpected?: boolean;
 	location?: EventLocation;
 	links?: Array<{ uri: string; name: string }>;
 	additionalData?: Record<string, unknown>;

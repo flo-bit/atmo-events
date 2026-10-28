@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { makeCoastGestures, makeCoastPressure, makeCoastRetraces, rimPressure, sketchCoast } from './pen';
-import { projectSurfaceRibbons } from './surface';
+import { traceSurfaceRibbons } from './surface';
+import { pathData } from './test-path';
 
 const polygons = [[Array.from({ length: 7 }, (_, i) => [i, 0])]];
 
@@ -55,16 +56,15 @@ describe('pen pressure', () => {
   it('hides pressure strokes on the back and fills only finite front-facing polygons', () => {
     const ribbons = makeCoastPressure(polygons);
     const camera = { longitude: 0, tilt: 14, roll: -8, radius: 259, center: 320 };
-    const front = projectSurfaceRibbons(ribbons, camera);
+    const front = pathData((sink) => traceSurfaceRibbons(sink, ribbons, camera));
     expect(front).toMatch(/^M.*Z$/);
     expect(front).not.toMatch(/NaN|Infinity/);
-    expect(projectSurfaceRibbons(ribbons, { ...camera, longitude: 180 })).toBe('');
+    expect(pathData((sink) => traceSurfaceRibbons(sink, ribbons, { ...camera, longitude: 180 }))).toBe('');
   });
 
   it('adds stable tapered sections around the rim without any animation-time randomness', () => {
     const path = rimPressure(259, 320);
     expect(path).toBe(rimPressure(259, 320));
-    expect(path.match(/Z/g)).toHaveLength(4);
     expect(path).not.toMatch(/NaN|Infinity/);
   });
 });

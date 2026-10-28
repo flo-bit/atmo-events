@@ -123,38 +123,6 @@
 			</section>
 		{/if}
 
-		{#if !user.isLoggedIn}
-			<section
-				class="border-base-200 dark:border-base-800 mt-20 grid gap-10 border-t pt-12 sm:grid-cols-3 sm:gap-8"
-			>
-				<div>
-					<h3 class="text-base-900 dark:text-base-50 mb-2 text-base font-semibold">
-						Sign in with Bluesky.
-					</h3>
-					<p class="text-base-600 dark:text-base-400 text-sm">
-						Your network is already here. RSVP with the people you actually follow.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-base-900 dark:text-base-50 mb-2 text-base font-semibold">
-						Works across apps.
-					</h3>
-					<p class="text-base-600 dark:text-base-400 text-sm">
-						See events from any app on the open social web. Your RSVPs travel with you.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-base-900 dark:text-base-50 mb-2 text-base font-semibold">
-						Your stuff stays yours.
-					</h3>
-					<p class="text-base-600 dark:text-base-400 text-sm">
-						Events live on your account, not ours. atmo.rsvp is just a view — take everything
-						anywhere.
-					</p>
-				</div>
-			</section>
-		{/if}
-
 		<footer class="text-muted mt-24 text-center text-sm">
 			<a
 				href="https://github.com/flo-bit/atmo-events"

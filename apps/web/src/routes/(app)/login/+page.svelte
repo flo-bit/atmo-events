@@ -6,7 +6,3 @@
 		atProtoLoginModalState.show();
 	});
 </script>
-
-<svelte:head>
-	<meta name="description" content="Log in with your Bluesky account" />
-</svelte:head>

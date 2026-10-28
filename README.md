@@ -29,7 +29,7 @@ corepack pnpm dev
 
 For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
 
-Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`.
+Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`. Likewise, `apps/web/src/routes/(app)/+layout.svelte` owns the description and social meta tags: return `pageDescription` and `ogImage` from the route load instead of adding `<meta>` tags to pages, so link previews never see a generic tag before the page's own.
 
 The app defaults to zinc + pink. Existing event-specific colors/backgrounds are retained. The event-specific UI stays in `packages/ui`; reusable controls, login, inline editing, post composition and comment presentation live in Atmo Kit.
 

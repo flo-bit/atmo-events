@@ -6,5 +6,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		redirect(303, '/p');
 	}
 
-	return { pageTitle: 'Log In' };
+	return { pageTitle: 'Log In', pageDescription: 'Log in with your Bluesky account' };
 };

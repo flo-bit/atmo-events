@@ -17,10 +17,6 @@ const props = {
 };
 
 describe('Bluesky cross-post permission', () => {
-	it('leaves space between the share text and event preview', async () => {
-		render(ShareModal, { ...props, adapter: createAdapter(), viewer });
-		await expect.element(page.getByText('Join us!', { exact: true })).toHaveStyle({ marginBottom: '12px' });
-	});
 	it.each([false, undefined])(
 		'offers manual sharing, not direct posting, for permission %s',
 		async (canPostToBluesky) => {

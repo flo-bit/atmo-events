@@ -15,13 +15,6 @@
 	);
 </script>
 
-<svelte:head>
-	<meta
-		name="description"
-		content={data.topic.byline ?? `Find ${data.topic.name} events on the open social web.`}
-	/>
-</svelte:head>
-
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<header class="mb-10">
 		<a

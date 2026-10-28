@@ -75,6 +75,7 @@ export async function load({ params }) {
 	// otherwise render 21 cards above everything else.
 	const ongoingEvents = ongoing.events.slice(0, PREVIEW_LIMIT);
 
+	const hostName = profile?.value?.displayName || profile?.handle || did;
 	return {
 		ongoingEvents,
 		ongoingTotal: ongoing.total,
@@ -84,7 +85,8 @@ export async function load({ params }) {
 		pastEvents: pastEvents.slice(0, PREVIEW_LIMIT),
 		hasMorePast: pastEvents.length > PREVIEW_LIMIT,
 		attendingEvents,
-		pageTitle: `${profile?.value?.displayName || profile?.handle || did} - Events`,
+		pageTitle: `${hostName} - Events`,
+		pageDescription: `Events hosted by ${hostName}`,
 		actorProfile: profile,
 		actor,
 		actorDid: did

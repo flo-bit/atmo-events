@@ -25,11 +25,17 @@ afterEach(() => {
 	vi.restoreAllMocks();
 });
 
+const meta = {
+	pageTitle: 'Browse Topics',
+	pageDescription: 'Find events by topic on the open social web.'
+};
+
 describe('topic index counts', () => {
 	it('loads the cached snapshot, preserving genuine zero counts', async () => {
 		read.mockResolvedValue({ counts: { technology: 12, music: 0 }, updatedAt: 123 });
 		expect(await load(event())).toEqual({
 			pageTitle: 'Browse Topics',
+			pageDescription: 'Find events by topic on the open social web.',
 			topicCounts: { technology: 12, music: 0 }
 		});
 		expect(read).toHaveBeenCalledExactlyOnceWith(db);
@@ -40,7 +46,7 @@ describe('topic index counts', () => {
 	it('bootstraps the local schema and daily-gated snapshot in dev before reading', async () => {
 		environment.dev = true;
 		read.mockResolvedValue({ counts: { music: 3 }, updatedAt: 123 });
-		expect(await load(event())).toEqual({ pageTitle: 'Browse Topics', topicCounts: { music: 3 } });
+		expect(await load(event())).toEqual({ ...meta, topicCounts: { music: 3 } });
 		expect(ensureInit).toHaveBeenCalledExactlyOnceWith(db);
 		expect(refreshTopicCounts).toHaveBeenCalledExactlyOnceWith(db);
 		expect(vi.mocked(ensureInit).mock.invocationCallOrder[0]).toBeLessThan(
@@ -56,17 +62,17 @@ describe('topic index counts', () => {
 		vi.spyOn(console, 'warn').mockImplementation(() => {});
 		vi.mocked(refreshTopicCounts).mockRejectedValue(new Error('local D1 unavailable'));
 		read.mockResolvedValue({ counts: { music: 3 }, updatedAt: 123 });
-		expect(await load(event())).toEqual({ pageTitle: 'Browse Topics', topicCounts: { music: 3 } });
+		expect(await load(event())).toEqual({ ...meta, topicCounts: { music: 3 } });
 	});
 
 	it('omits unknown counts before the first refresh', async () => {
 		read.mockResolvedValue(null);
-		expect(await load(event())).toEqual({ pageTitle: 'Browse Topics', topicCounts: null });
+		expect(await load(event())).toEqual({ ...meta, topicCounts: null });
 	});
 
 	it('still renders topics when the cache table is missing or D1 is unavailable', async () => {
 		vi.spyOn(console, 'warn').mockImplementation(() => {});
 		read.mockRejectedValue(new Error('no such table: topic_counts_cache'));
-		expect(await load(event())).toEqual({ pageTitle: 'Browse Topics', topicCounts: null });
+		expect(await load(event())).toEqual({ ...meta, topicCounts: null });
 	});
 });

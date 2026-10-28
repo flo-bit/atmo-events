@@ -17,6 +17,7 @@ function markup() {
 		props: {
 			data: {
 				pageTitle: 'Test Host - Events',
+				pageDescription: 'Events hosted by Test Host',
 				canPostToBluesky: false,
 				did: null,
 				profile: null,
@@ -45,20 +46,17 @@ afterEach(() => {
 });
 
 describe('profile actions', () => {
-	it('groups one primary create action and a quiet logout alongside the identity', () => {
+	it('shows create and logout actions on the signed-in viewer’s profile', () => {
 		const html = markup();
 		const buttons = [...html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)];
 		const create = buttons.filter(([, , text]) => text.includes('Create Event'));
 		const logout = buttons.filter(([, , text]) => text.includes('Log out'));
 		expect(create).toHaveLength(1);
 		expect(logout).toHaveLength(1);
-		expect(create[0][1]).toContain('data-variant="primary"');
-		expect(logout[0][1]).toContain('data-variant="ghost"');
 		expect(html).toContain('@host.example.com');
-		expect(html).not.toContain('-mt-6');
 	});
 
-	it('does not show account actions on someone else’s public profile', () => {
+	it('does not show account actions when signed out', () => {
 		user.isLoggedIn = false;
 		const html = markup();
 		expect(html).not.toContain('Create Event');

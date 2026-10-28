@@ -96,7 +96,7 @@ describe('rsvpExpected', () => {
 	);
 
 	it.each([undefined, false, true])(
-		'preserves the RSVP setting without an editor control: %s',
+		'preserves an existing RSVP setting without writing a default: %s',
 		async (rsvpExpected) => {
 			const adapter = createAdapter();
 			render(EventEditor, {
@@ -110,18 +110,14 @@ describe('rsvpExpected', () => {
 				.element(page.getByRole('checkbox', { name: 'Request RSVPs', exact: true }))
 				.not.toBeInTheDocument();
 			await page.getByRole('button', { name: 'Save Changes', exact: true }).click();
-			await expect
-				.poll(() => adapter.putRecord)
-				.toHaveBeenCalledWith(
-					expect.objectContaining({
-						record: expect.objectContaining({ rsvpExpected: rsvpExpected ?? true })
-					})
-				);
+			await expect.poll(() => adapter.putRecord.mock.calls.length).toBe(1);
+			const [{ record }] = adapter.putRecord.mock.calls[0];
+			expect(record.rsvpExpected).toBe(rsvpExpected);
 		}
 	);
 
 	it.each([false, true])(
-		'persists the setting on new records and recurring copies: %s',
+		'does not write the setting on new records or recurring copies: %s',
 		async (rsvpExpected) => {
 			const record = await buildEventRecord({
 				eventData: null,
@@ -133,7 +129,6 @@ describe('rsvpExpected', () => {
 				timezone: 'UTC',
 				mode: 'inperson',
 				visibility: 'public',
-				rsvpExpected,
 				theme: event.theme!,
 				links: [],
 				location: null,
@@ -141,7 +136,7 @@ describe('rsvpExpected', () => {
 				media: undefined,
 				resolveHandle: async () => viewer.did!
 			});
-			expect(record.rsvpExpected).toBe(rsvpExpected);
+			expect(record).not.toHaveProperty('rsvpExpected');
 			const adapter = createAdapter();
 			render(RecurringModal, {
 				open: true,
@@ -168,7 +163,7 @@ describe('rsvpExpected', () => {
 			await page.getByRole('button', { name: 'Create 2 events', exact: true }).click();
 			await expect.poll(() => adapter.putRecord.mock.calls.length).toBe(2);
 			for (const [args] of adapter.putRecord.mock.calls)
-				expect(args.record.rsvpExpected).toBe(rsvpExpected);
+				expect(args.record).not.toHaveProperty('rsvpExpected');
 		}
 	);
 

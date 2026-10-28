@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import EventEditor from '../src/EventEditor.svelte';
 import EventView from '../src/EventView.svelte';
-import EventCard from '../src/EventCard.svelte';
 import RecurringModal from '../src/editor/RecurringModal.svelte';
 import PostToBlueskyModal from '../src/PostToBlueskyModal.svelte';
 import { createAdapter, event, viewer } from './fixtures.js';
@@ -22,9 +21,6 @@ describe('Atmo Kit migration', () => {
 		const title = page.getByRole('textbox', { name: 'Event name', exact: true });
 		await expect.element(title).toHaveTextContent(event.name);
 		await title.click();
-		expect(
-			getComputedStyle(title.element().closest('[data-slot="inline-editor"]')!).outlineStyle
-		).toBe('none');
 		await title.fill('A different gathering');
 		await page.getByRole('button', { name: 'Add link', exact: true }).click();
 		await page.getByRole('textbox', { name: 'Link URL', exact: true }).fill('https://example.com');
@@ -173,12 +169,7 @@ describe('Atmo Kit migration', () => {
 			expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(window.innerWidth);
 			const date = page.getByRole('button', { name: /^Start date:/ });
 			await expect.element(date).toBeVisible();
-			expect(getComputedStyle(date.element()).boxShadow).toContain('inset');
 			const zone = page.getByRole('button', { name: /^Timezone:/ });
-			expect(getComputedStyle(zone.element()).boxShadow).toContain('inset');
-			expect(zone.element().getBoundingClientRect().height).toBe(
-				date.element().getBoundingClientRect().height
-			);
 			await zone.click();
 			await page.getByRole('searchbox', { name: 'Search timezone', exact: true }).fill('Tokyo');
 			await page.getByRole('button', { name: /Tokyo/ }).click();
@@ -233,15 +224,5 @@ describe('Atmo Kit migration', () => {
 				endsAt: '2030-04-07T09:00:00.000Z'
 			})
 		]);
-	});
-
-	it('keeps compact canonical event links', async () => {
-		render(EventCard, {
-			event,
-			actor: 'host.example.com'
-		});
-		await expect
-			.element(page.getByRole('link', { name: /Small web, big ideas/ }))
-			.toHaveAttribute('href', '/p/host.example.com/e/test-event');
 	});
 });

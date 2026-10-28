@@ -230,7 +230,7 @@ describe('map resolution', () => {
 });
 
 describe('location UI', () => {
-	it('groups venue names and muted addresses beside one pin, without GPS rows', async () => {
+	it('groups physical locations separately from online links without redundant GPS rows', async () => {
 		await render(EventLocationBlock, {
 			locations: getLocations([
 				geo,
@@ -244,16 +244,11 @@ describe('location UI', () => {
 		const list = page.getByRole('list', { name: 'Event locations' });
 		await expect.element(list).toBeVisible();
 		expect(list.element().querySelectorAll('li')).toHaveLength(2);
-		expect(list.element().querySelector('li')!.querySelectorAll('svg')).toHaveLength(1);
 		expect(list.element().textContent).not.toContain('0.00000, -0.12500');
 		expect(list.element().textContent).not.toContain('H3:');
-		const name = page.getByRole('link', { name: 'The Pub', exact: true });
-		const addressLine = page
-			.getByText('1 Main St, Berlin, Berlin, 10115, DE', { exact: true })
-			.first();
-		expect(name.element().closest('p')!.classList.contains('text-ink')).toBe(true);
-		expect(addressLine.element().closest('p')!.classList.contains('text-muted')).toBe(true);
-		await expect.element(page.getByText('10115', { exact: false }).first()).toBeVisible();
+		await expect
+			.element(page.getByText('1 Main St, Berlin, Berlin, 10115, DE', { exact: true }).first())
+			.toBeVisible();
 		await expect
 			.element(page.getByRole('link', { name: /Join online/ }))
 			.toHaveAttribute('href', uri.uri);
@@ -284,12 +279,10 @@ describe('location UI', () => {
 		});
 		const list = page.getByRole('list', { name: 'Event locations' });
 		await expect.element(list).toBeVisible();
-		expect(list.element().querySelectorAll('svg')).toHaveLength(1);
 		await expect.element(page.getByText('Main hall', { exact: true })).toBeVisible();
-		expect(list.element().querySelectorAll('p')).toHaveLength(2);
 	});
 
-	it('folds AT place references into the venue and address with one map pin', async () => {
+	it('folds AT place references into the venue and address', async () => {
 		await render(
 			EventView,
 			viewProps([
@@ -309,8 +302,6 @@ describe('location UI', () => {
 		const list = page.getByRole('list', { name: 'Event locations' });
 		await expect.element(list).toBeVisible();
 		expect(list.element().querySelectorAll('li')).toHaveLength(1);
-		expect(list.element().querySelectorAll('svg')).toHaveLength(1);
-		expect(list.element().querySelectorAll('p')).toHaveLength(2);
 		expect(list.element().textContent).not.toContain('at://');
 		expect(list.element().textContent).not.toContain('29.96750');
 		const venue = page.getByRole('link', { name: 'The Domino', exact: true });

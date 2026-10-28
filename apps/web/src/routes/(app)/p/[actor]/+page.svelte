@@ -36,15 +36,6 @@
 	);
 </script>
 
-<svelte:head>
-	<meta name="description" content="Events hosted by {hostName}" />
-	<meta property="og:title" content="{hostName} - Events" />
-	<meta property="og:description" content="Events hosted by {hostName}" />
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="{hostName} - Events" />
-	<meta name="twitter:description" content="Events hosted by {hostName}" />
-</svelte:head>
-
 <div class="px-6 py-1 sm:py-2">
 	<div class="mx-auto max-w-2xl">
 		<!-- Header -->

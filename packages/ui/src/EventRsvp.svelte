@@ -32,6 +32,7 @@
 		$state(undefined);
 	let rsvpRkeyOverride: string | null | undefined = $state(undefined);
 	let rsvpSubmitting = $state(false);
+	let rsvpError: string | null = $state(null);
 
 	let rsvpStatus = $derived(
 		rsvpStatusOverride !== undefined ? rsvpStatusOverride : initialRsvpStatus
@@ -41,6 +42,7 @@
 	async function submitRsvp(status: 'going' | 'interested') {
 		if (rsvpExpected === false || !viewer.isLoggedIn || !viewer.did) return;
 		rsvpSubmitting = true;
+		rsvpError = null;
 		try {
 			const key = rsvpRkey ?? TID.now();
 			const record = {
@@ -66,6 +68,7 @@
 			onrsvp?.(status, key);
 		} catch (e) {
 			console.error('Failed to submit RSVP:', e);
+			rsvpError = 'Couldn’t save your RSVP. Please try again.';
 		} finally {
 			rsvpSubmitting = false;
 		}
@@ -74,6 +77,7 @@
 	async function cancelRsvp() {
 		if (!viewer.isLoggedIn || !viewer.did || !rsvpRkey) return;
 		rsvpSubmitting = true;
+		rsvpError = null;
 		try {
 			await adapter.deleteRecord({
 				collection: 'community.lexicon.calendar.rsvp',
@@ -85,6 +89,7 @@
 			oncancel?.();
 		} catch (e) {
 			console.error('Failed to cancel RSVP:', e);
+			rsvpError = 'Couldn’t remove your RSVP. Please try again.';
 		} finally {
 			rsvpSubmitting = false;
 		}
@@ -165,6 +170,9 @@
 					{rsvpSubmitting ? '...' : 'Interested'}
 				</Button>
 			</div>
+		{/if}
+		{#if rsvpError}
+			<p role="alert" class="mt-3 text-sm text-red-600 dark:text-red-400">{rsvpError}</p>
 		{/if}
 	</div>
 {/if}

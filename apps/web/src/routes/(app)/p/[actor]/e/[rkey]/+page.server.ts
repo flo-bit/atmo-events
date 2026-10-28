@@ -228,6 +228,7 @@ export async function load({ params, locals, url }) {
 
 	return {
 		pageTitle: eventData.name,
+		pageDescription: eventData.description || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
 		actorDid: did,

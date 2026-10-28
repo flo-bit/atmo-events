@@ -32,6 +32,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
 			topic,
 			...page,
 			pageTitle: `${topic.name} Events`,
+			pageDescription: topic.byline ?? `Find ${topic.name} events on the open social web.`,
 			// Shown in the UI; topicQuery derives the query it runs from the slug
 			// with this same helper.
 			query: search

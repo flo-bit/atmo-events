@@ -185,8 +185,7 @@
 	// In that case we hide the RSVP controls and link out to the original event page.
 	let externalSource = $derived(
 		(eventData.additionalData as Record<string, unknown> | undefined)?.externalSource as
-			| { url?: string; rsvpMode?: 'external_only' | 'atmo_too' }
-			| undefined
+			{ url?: string; rsvpMode?: 'external_only' | 'atmo_too' } | undefined
 	);
 	let rsvpExternalOnly = $derived(
 		externalSource?.rsvpMode === 'external_only' && !!externalSource?.url
@@ -219,16 +218,6 @@
 		attendeesRef?.removeAttendee(viewer.did);
 	}
 </script>
-
-<svelte:head>
-	<meta name="description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta property="og:title" content={eventData.name} />
-	<meta property="og:description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={eventData.name} />
-	<meta name="twitter:description" content={eventData.description || `Event: ${eventData.name}`} />
-	<meta name="twitter:image" content={ogImageUrl} />
-</svelte:head>
 
 <ThemeApply accentColor={theme.accentColor} baseColor={theme.baseColor} />
 <div class="motion-reduce:hidden">

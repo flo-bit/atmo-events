@@ -63,6 +63,8 @@ declare global {
 		}
 		interface PageData {
 			pageTitle?: string;
+			pageDescription?: string;
+			ogImage?: string;
 		}
 		// interface PageState {}
 	}

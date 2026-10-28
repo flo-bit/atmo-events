@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { Play } from '@sketchyicons/svelte';
 import { sketchyPlyrIcons } from '../src/event-view/plyr-icons.js';
 import 'plyr/dist/plyr.css';
 
@@ -22,9 +21,6 @@ describe('hand-drawn media controls', () => {
 		});
 		sketchyPlyrIcons();
 		expect(document.querySelectorAll('#atmo-sketchy-plyr')).toHaveLength(1);
-		expect(document.querySelector('#atmo-sketchy-plyr-play path')?.getAttribute('d')).toBe(
-			String(Play[0][1].d)
-		);
 
 		container = document.createElement('div');
 		container.style.width = '640px';

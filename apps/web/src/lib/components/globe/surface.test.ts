@@ -1,19 +1,24 @@
 import { describe, expect, it } from 'vitest';
-import { CENTER, makeFrame, makeProjection, RADIUS, ROLL, TILT } from './geometry';
-import { makeGeographicStroke, makeSurfaceStrokes, projectSurfacePoint, projectSurfaceStrokes } from './surface';
+import { geoOrthographic } from 'd3-geo';
+import { makeSurfaceStrokes } from './bake';
+import { CENTER, RADIUS, ROLL, TILT } from './geometry';
+import { makeGeographicStroke, projectSurfacePoint, traceSurfaceStrokes } from './surface';
+import { pathData } from './test-path';
 
 const camera = (longitude: number) => ({ longitude, tilt: TILT, roll: ROLL, radius: RADIUS, center: CENTER });
+const projectSurfaceStrokes = (strokes: Float32Array[], view: ReturnType<typeof camera>) =>
+  pathData((sink) => traceSurfaceStrokes(sink, strokes, view));
 const vector = (lon: number, lat: number) => {
   const r = Math.PI / 180;
   return [Math.cos(lon * r) * Math.cos(lat * r), Math.sin(lon * r) * Math.cos(lat * r), Math.sin(lat * r)];
 };
 
 describe('surface-attached pen shading', () => {
-  it('uses exactly the same projection as the continents at all rotations', () => {
+  it('matches d3\'s orthographic projection at all rotations', () => {
     for (const longitude of [-180, -90, -25, 0, 75, 180]) {
       for (const [lon, lat] of [[13, 52], [-74, 40], [139, 35], [18, -34], [179, 70], [0, -89]]) {
         const projected = projectSurfacePoint(vector(lon, lat), camera(longitude));
-        const geographic = makeProjection(longitude)([lon, lat])!;
+        const geographic = geoOrthographic().translate([CENTER, CENTER]).scale(RADIUS).rotate([-longitude, -TILT, ROLL])([lon, lat])!;
         expect(projected[0]).toBeCloseTo(geographic[0], 8);
         expect(projected[1]).toBeCloseTo(geographic[1], 8);
       }
@@ -30,17 +35,6 @@ describe('surface-attached pen shading', () => {
         expect(Math.hypot(stroke[i], stroke[i + 1], stroke[i + 2])).toBeCloseTo(1, 6);
       }
     }
-  });
-
-  it('keeps the denser fill and longer pen strokes', () => {
-    const strokes = makeSurfaceStrokes();
-    expect(strokes.length).toBeGreaterThan(2500);
-    const longStrokes = strokes.filter((stroke) => {
-      const end = stroke.length - 3;
-      const dot = stroke[0] * stroke[end] + stroke[1] * stroke[end + 1] + stroke[2] * stroke[end + 2];
-      return Math.acos(Math.max(-1, Math.min(1, dot))) > 8.5 * Math.PI / 180;
-    });
-    expect(longStrokes.length).toBeGreaterThan(50);
   });
 
   it('rotates the strokes with the land and returns them to the same place', () => {
@@ -84,10 +78,5 @@ describe('surface-attached pen shading', () => {
       expect(dot).toBeGreaterThanOrEqual(Math.cos(6 * Math.PI / 180) - 0.000001);
     }
     expect(makeGeographicStroke([])).toHaveLength(0);
-  });
-
-  it('skips all fill projection work when disabled', () => {
-    expect(makeFrame(0, true, false).scribble).toBe('');
-    expect(makeFrame(0, true, true).scribble).not.toBe('');
   });
 });

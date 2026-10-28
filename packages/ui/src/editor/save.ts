@@ -128,7 +128,6 @@ export async function buildEventRecord(args: {
 	timezone: string;
 	mode: EventMode;
 	visibility: Visibility;
-	rsvpExpected?: boolean;
 	theme: EventTheme;
 	links: Array<{ uri: string; name: string }>;
 	location: EventLocation | null;
@@ -146,7 +145,6 @@ export async function buildEventRecord(args: {
 		timezone,
 		mode,
 		visibility,
-		rsvpExpected = eventData?.rsvpExpected ?? true,
 		theme,
 		links,
 		location,
@@ -164,7 +162,6 @@ export async function buildEventRecord(args: {
 		...(eventData ? { ...eventData } : {}),
 		$type: 'community.lexicon.calendar.event',
 		createdWith: 'https://atmo.rsvp',
-		rsvpExpected,
 		name: name.trim(),
 		mode: `community.lexicon.calendar.event#${mode}`,
 		status: 'community.lexicon.calendar.event#scheduled',

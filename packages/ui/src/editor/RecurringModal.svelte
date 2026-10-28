@@ -18,7 +18,6 @@
 		startsAt,
 		endsAt,
 		mode,
-		rsvpExpected = eventData?.rsvpExpected ?? true,
 		timezone,
 		description,
 		links,
@@ -39,7 +38,6 @@
 		startsAt: string;
 		endsAt: string;
 		mode: EventMode;
-		rsvpExpected?: boolean;
 		timezone: string;
 		description: string;
 		links: Array<{ uri: string; name: string }>;
@@ -166,7 +164,6 @@
 				const record: Record<string, unknown> = {
 					$type: 'community.lexicon.calendar.event',
 					createdWith: 'https://atmo.rsvp',
-					rsvpExpected,
 					name: eventName,
 					mode: `community.lexicon.calendar.event#${mode}`,
 					status: 'community.lexicon.calendar.event#scheduled',
