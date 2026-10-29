@@ -1,92 +1,14 @@
 import type {} from '@atcute/lexicons';
 import * as v from '@atcute/lexicons/validations';
 import type {} from '@atcute/lexicons/ambient';
-import * as ComAtprotoLabelDefs from "@atcute/atproto/types/label/defs";
-import * as ComAtprotoRepoStrongRef from "@atcute/atproto/types/repo/strongRef";
+import * as AppBskyActorProfile from "@atcute/bluesky/types/app/actor/profile";
+import * as ComAtprotoLabelDefs from "../../com/atproto/label/defs.js";
 import * as CommunityLexiconCalendarEvent from "../../community/lexicon/calendar/event.js";
 import * as CommunityLexiconCalendarRsvp from "../../community/lexicon/calendar/rsvp.js";
 
-const _appBskyActorProfileSchema = /*#__PURE__*/ v.object(
+const _feedRecordEventSchema = /*#__PURE__*/ v.object(
 	{
-		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#appBskyActorProfile")),
-		/**
-		 * Small image to be displayed next to posts from account. AKA, 'profile picture'
-		 * @accept image/png, image/jpeg
-		 * @maxSize 1000000
-		 */
-		"avatar": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.blob(),
-			[
-				/*#__PURE__*/ v.blobSize(1000000),
-				/*#__PURE__*/ v.blobAccept(["image/png", "image/jpeg"])
-			]
-		)),
-		/**
-		 * Larger horizontal image to display behind profile view.
-		 * @accept image/png, image/jpeg
-		 * @maxSize 1000000
-		 */
-		"banner": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.blob(),
-			[
-				/*#__PURE__*/ v.blobSize(1000000),
-				/*#__PURE__*/ v.blobAccept(["image/png", "image/jpeg"])
-			]
-		)),
-		"createdAt": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
-		/**
-		 * Free-form profile description text.
-		 * @maxLength 2560
-		 * @maxGraphemes 256
-		 */
-		"description": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 2560),
-				/*#__PURE__*/ v.stringGraphemes(0, 256)
-			]
-		)),
-		/**
-		 * @maxLength 640
-		 * @maxGraphemes 64
-		 */
-		"displayName": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 640),
-				/*#__PURE__*/ v.stringGraphemes(0, 64)
-			]
-		)),
-		get "joinedViaStarterPack"() {
-			return /*#__PURE__*/ v.optional(ComAtprotoRepoStrongRef.mainSchema)
-		},
-		/**
-		 * Self-label values, specific to the Bluesky application, on the overall account.
-		 */
-		get "labels"() {
-			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.variant([ComAtprotoLabelDefs.selfLabelsSchema]))
-		},
-		get "pinnedPost"() {
-			return /*#__PURE__*/ v.optional(ComAtprotoRepoStrongRef.mainSchema)
-		},
-		/**
-		 * Free-form pronouns text.
-		 * @maxLength 200
-		 * @maxGraphemes 20
-		 */
-		"pronouns": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 200),
-				/*#__PURE__*/ v.stringGraphemes(0, 20)
-			]
-		)),
-		"website": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.genericUriString()),
-	}
-);
-const _feedRecord_eventSchema = /*#__PURE__*/ v.object(
-	{
-		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#feedRecord_event")),
+		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#feedRecordEvent")),
 		"cid": /*#__PURE__*/ v.cidString(),
 		"collection": /*#__PURE__*/ v.nsidString(),
 		"did": /*#__PURE__*/ v.didString(),
@@ -110,6 +32,16 @@ const _feedRecord_eventSchema = /*#__PURE__*/ v.object(
 		 * rsvps count where status = notgoing
 		 */
 		"rsvpsNotgoingCount": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
 		get "value"() {
@@ -117,9 +49,9 @@ const _feedRecord_eventSchema = /*#__PURE__*/ v.object(
 		},
 	}
 );
-const _feedRecord_rsvpSchema = /*#__PURE__*/ v.object(
+const _feedRecordRsvpSchema = /*#__PURE__*/ v.object(
 	{
-		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#feedRecord_rsvp")),
+		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#feedRecordRsvp")),
 		"cid": /*#__PURE__*/ v.cidString(),
 		"collection": /*#__PURE__*/ v.nsidString(),
 		"did": /*#__PURE__*/ v.didString(),
@@ -127,6 +59,16 @@ const _feedRecord_rsvpSchema = /*#__PURE__*/ v.object(
 			return /*#__PURE__*/ v.optional(refEventRecordSchema)
 		},
 		"rkey": /*#__PURE__*/ v.string(),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
 		get "value"() {
@@ -154,15 +96,25 @@ const _hydrateRsvpsSchema = /*#__PURE__*/ v.object(
 const _hydrateRsvpsRecordSchema = /*#__PURE__*/ v.object(
 	{
 		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#hydrateRsvpsRecord")),
-		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
 		"collection": /*#__PURE__*/ v.nsidString(),
 		"did": /*#__PURE__*/ v.didString(),
-		get "record"() {
-			return /*#__PURE__*/ v.optional(CommunityLexiconCalendarRsvp.mainSchema)
-		},
 		"rkey": /*#__PURE__*/ v.string(),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
+		get "value"() {
+			return CommunityLexiconCalendarRsvp.mainSchema
+		},
 	}
 );
 const _mainSchema = /*#__PURE__*/ v.query(
@@ -171,12 +123,9 @@ const _mainSchema = /*#__PURE__*/ v.query(
 		"params": /*#__PURE__*/ v.object(
 			{
 				/**
-				 * DID or handle of the requesting user
+				 * DID or handle whose feed should be queried
 				 */
 				"actor": /*#__PURE__*/ v.actorIdentifierString(),
-				/**
-				 * Filter by target collection (defaults to first target)
-				 */
 				"collection": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string<"community.lexicon.calendar.event" | "community.lexicon.calendar.rsvp" | (string & {})>()),
 				/**
 				 * Maximum value for createdAt
@@ -199,16 +148,13 @@ const _mainSchema = /*#__PURE__*/ v.query(
 				 * Minimum value for endsAt
 				 */
 				"endsAtMin": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-				/**
-				 * Feed name
-				 */
 				"feed": /*#__PURE__*/ v.string<"network" | (string & {})>(),
 				/**
 				 * Embed the referenced event record
 				 */
 				"hydrateEvent": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
 				/**
-				 * Number of rsvps records to embed per record
+				 * Number of rsvps records to embed
 				 * @minimum 1
 				 * @maximum 50
 				 */
@@ -244,9 +190,6 @@ const _mainSchema = /*#__PURE__*/ v.query(
 				 * Filter by preferences.showInDiscovery
 				 */
 				"preferencesShowInDiscovery": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
-				/**
-				 * Include profile + identity info keyed by DID
-				 */
 				"profiles": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
 				/**
 				 * Minimum total rsvps count
@@ -265,7 +208,7 @@ const _mainSchema = /*#__PURE__*/ v.query(
 				 */
 				"rsvpsNotgoingCountMin": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.integer()),
 				/**
-				 * Full-text search
+				 * Full-text search across: mode, name, status, description
 				 */
 				"search": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
 				/**
@@ -300,8 +243,8 @@ const _mainSchema = /*#__PURE__*/ v.query(
 					},
 					get "records"() {
 						return /*#__PURE__*/ v.array(/*#__PURE__*/ v.variant([
-							feedRecord_eventSchema,
-							feedRecord_rsvpSchema
+							feedRecordEventSchema,
+							feedRecordRsvpSchema
 						]))
 					},
 				}
@@ -317,40 +260,57 @@ const _profileEntrySchema = /*#__PURE__*/ v.object(
 		"did": /*#__PURE__*/ v.didString(),
 		"handle": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
 		"rkey": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"uri": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
 		get "value"() {
-			return /*#__PURE__*/ v.optional(appBskyActorProfileSchema)
+			return /*#__PURE__*/ v.optional(AppBskyActorProfile.mainSchema)
 		},
 	}
 );
 const _refEventRecordSchema = /*#__PURE__*/ v.object(
 	{
 		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.getFeed#refEventRecord")),
-		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
 		"collection": /*#__PURE__*/ v.nsidString(),
 		"did": /*#__PURE__*/ v.didString(),
-		get "record"() {
-			return /*#__PURE__*/ v.optional(CommunityLexiconCalendarEvent.mainSchema)
-		},
 		"rkey": /*#__PURE__*/ v.string(),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
+		get "value"() {
+			return CommunityLexiconCalendarEvent.mainSchema
+		},
 	}
 );
-type appBskyActorProfile$schematype = typeof _appBskyActorProfileSchema;
-type feedRecord_event$schematype = typeof _feedRecord_eventSchema;
-type feedRecord_rsvp$schematype = typeof _feedRecord_rsvpSchema;
+type feedRecordEvent$schematype = typeof _feedRecordEventSchema;
+type feedRecordRsvp$schematype = typeof _feedRecordRsvpSchema;
 type hydrateRsvps$schematype = typeof _hydrateRsvpsSchema;
 type hydrateRsvpsRecord$schematype = typeof _hydrateRsvpsRecordSchema;
 type main$schematype = typeof _mainSchema;
 type profileEntry$schematype = typeof _profileEntrySchema;
 type refEventRecord$schematype = typeof _refEventRecordSchema;
 
-export interface appBskyActorProfileSchema extends appBskyActorProfile$schematype {}
+export interface feedRecordEventSchema extends feedRecordEvent$schematype {}
 
-export interface feedRecord_eventSchema extends feedRecord_event$schematype {}
-
-export interface feedRecord_rsvpSchema extends feedRecord_rsvp$schematype {}
+export interface feedRecordRsvpSchema extends feedRecordRsvp$schematype {}
 
 export interface hydrateRsvpsSchema extends hydrateRsvps$schematype {}
 
@@ -361,20 +321,17 @@ export interface mainSchema extends main$schematype {}
 export interface profileEntrySchema extends profileEntry$schematype {}
 
 export interface refEventRecordSchema extends refEventRecord$schematype {}
-export const appBskyActorProfileSchema = _appBskyActorProfileSchema as appBskyActorProfileSchema;
-export const feedRecord_eventSchema = _feedRecord_eventSchema as feedRecord_eventSchema;
-export const feedRecord_rsvpSchema = _feedRecord_rsvpSchema as feedRecord_rsvpSchema;
+export const feedRecordEventSchema = _feedRecordEventSchema as feedRecordEventSchema;
+export const feedRecordRsvpSchema = _feedRecordRsvpSchema as feedRecordRsvpSchema;
 export const hydrateRsvpsSchema = _hydrateRsvpsSchema as hydrateRsvpsSchema;
 export const hydrateRsvpsRecordSchema = _hydrateRsvpsRecordSchema as hydrateRsvpsRecordSchema;
 export const mainSchema = _mainSchema as mainSchema;
 export const profileEntrySchema = _profileEntrySchema as profileEntrySchema;
 export const refEventRecordSchema = _refEventRecordSchema as refEventRecordSchema;
 
-export interface AppBskyActorProfile extends v.InferInput<typeof appBskyActorProfileSchema> {}
+export interface FeedRecordEvent extends v.InferInput<typeof feedRecordEventSchema> {}
 
-export interface FeedRecord_event extends v.InferInput<typeof feedRecord_eventSchema> {}
-
-export interface FeedRecord_rsvp extends v.InferInput<typeof feedRecord_rsvpSchema> {}
+export interface FeedRecordRsvp extends v.InferInput<typeof feedRecordRsvpSchema> {}
 
 export interface HydrateRsvps extends v.InferInput<typeof hydrateRsvpsSchema> {}
 

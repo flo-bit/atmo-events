@@ -1,11 +1,11 @@
 import { env } from 'cloudflare:workers';
 import { json } from '@sveltejs/kit';
-import { createGeocoder } from '#lib/search/server/geocoder.js';
+import { createGeocoder } from '#lib/server/geocoder.js';
 
 // Forward-geocode the address-entry form's free-text query. Server-only (auth-
 // gated on the signed-in DID) and routed through the ONE shared createGeocoder
 // client, so it shares the single Nominatim/LocationIQ URL, User-Agent and key
-// handling with the near-me search box and the bulk drip — no local endpoint or
+// handling in one server-side client — no local endpoint or
 // UA literal here. Returns a normalized { lat, lng, label, address, ... } shape
 // (never the raw upstream object): the key, when configured, is appended inside
 // the Worker and never reaches the browser.

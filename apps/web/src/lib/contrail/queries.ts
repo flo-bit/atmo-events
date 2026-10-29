@@ -20,15 +20,10 @@ import {
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail
 } from '#lib/contrail.js';
-import {
-	runEventSearchPage,
-	runOngoingSearchPage,
-	searchBackendFromEnv
-} from '#lib/search/server/query.js';
-import { SEARCH_PAGE_SIZE } from '#lib/search/constants.js';
 import { orQueryFromSlug } from '#lib/topics.js';
 import { hasEnded } from '#lib/past-events.js';
 import { nextCursor, type CursorArgs, type CursorQuery } from './cursor';
+import { literalSearch } from './search';
 
 export const PAGE_SIZE = 20;
 
@@ -122,7 +117,7 @@ export async function happeningNowQuery(
 	args?: { slug?: string; search?: string }
 ): Promise<EventsPage> {
 	const asOf = now();
-	const search = args?.slug ? orQueryFromSlug(args.slug) : args?.search;
+	const search = args?.slug ? orQueryFromSlug(args.slug) : literalSearch(args?.search ?? '');
 	if (args?.slug && !search) return EMPTY_PAGE;
 	const response = await listDiscoverableEventsFromContrail(client, {
 		...(search ? { search } : {}),
@@ -137,45 +132,6 @@ export async function happeningNowQuery(
 		cursor: cursor ?? undefined
 	});
 	return toPage('happening-now', args?.slug ? { slug: args.slug } : undefined, response);
-}
-
-/**
- * Happening now, free-text term, Meilisearch path — the term-scoped twin of
- * `happeningNowQuery`, standing in the same relation to it as `searchMeiliQuery`
- * does to `searchD1Query`.
- *
- * WHY A TERM NEEDS ITS OWN BACKEND AND A TOPIC DOES NOT. A topic slug is
- * re-derived to a search server-side on BOTH sides of the "see all", so both run
- * D1 and agree by construction. A free-text term does not have that luxury: the
- * list it scopes is ranked by Meili, `EventList` promotes any live event out of
- * that list into the band, and D1 and Meili do not agree on what matches a term.
- * A D1-only destination therefore could not contain what the band was already
- * showing — measured on testnet, a band of 2 linking to a page of 1.
- *
- * An empty term or unconfigured backend yields an empty page. Page 1 may fall
- * back to D1 on failure; a CONTINUATION must not, or it would restart page 1 on
- * the other backend with a keyset that backend cannot read.
- */
-export async function happeningNowMeiliQuery(
-	env: Cloudflare.Env | undefined,
-	client: Client,
-	args: { term: string },
-	cursor: string | null | undefined
-): Promise<EventsPage> {
-	const term = args.term.trim();
-	const backend = term ? searchBackendFromEnv(env) : null;
-	if (!term || !backend) return EMPTY_PAGE;
-	// Omit `cursor` entirely on a fresh page rather than passing null, so page 1
-	// and the resumer issue byte-identical calls apart from the offset itself.
-	const page = await runOngoingSearchPage(backend, client, {
-		q: term,
-		...(cursor ? { cursor } : {})
-	});
-	return {
-		events: page.events,
-		handles: page.handles,
-		cursor: nextCursor('happening-now-meili', page.cursor)
-	};
 }
 
 /** A profile's upcoming events: authored by this actor, soonest first. */
@@ -252,11 +208,7 @@ export async function topicQuery(
 	return toPage('topic', { slug: args.slug }, response);
 }
 
-/**
- * Free-text search, D1 LIKE path — the degraded backend used when Meilisearch
- * is unconfigured or down. Upcoming-only, matching the Meili path; an empty term
- * yields an empty page rather than an unfiltered list.
- */
+/** Upcoming full-text search through Contrail. An empty term matches nothing. */
 export async function searchD1Query(
 	client: Client,
 	args: { term: string },
@@ -265,41 +217,13 @@ export async function searchD1Query(
 	const term = args.term.trim();
 	if (!term) return EMPTY_PAGE;
 	const response = await listDiscoverableEventsFromContrail(client, {
-		search: term,
+		search: literalSearch(term),
 		startsAtMin: now(),
 		sort: 'startsAt',
 		order: 'desc',
 		profiles: true,
-		limit: SEARCH_PAGE_SIZE,
+		limit: PAGE_SIZE,
 		cursor: cursor ?? undefined
 	});
 	return toPage('search-d1', undefined, response);
-}
-
-/**
- * Free-text search, Meilisearch path: Meili ranks, D1 supplies the records. An
- * empty term or unconfigured backend yields an empty page — page 1 falls back to
- * D1 on failure, but a CONTINUATION must not, or it would restart page 1 on the
- * other backend with a keyset that backend can't read.
- */
-export async function searchMeiliQuery(
-	env: Cloudflare.Env | undefined,
-	client: Client,
-	args: { term: string },
-	cursor: string | null | undefined
-): Promise<EventsPage> {
-	const term = args.term.trim();
-	const backend = term ? searchBackendFromEnv(env) : null;
-	if (!term || !backend) return EMPTY_PAGE;
-	// Omit `cursor` entirely on a fresh page rather than passing null: page 1 and
-	// the resumer then issue byte-identical calls apart from the keyset itself.
-	const page = await runEventSearchPage(backend, client, {
-		q: term,
-		...(cursor ? { cursor } : {})
-	});
-	return {
-		events: page.events,
-		handles: page.handles,
-		cursor: nextCursor('search-meili', page.cursor)
-	};
 }

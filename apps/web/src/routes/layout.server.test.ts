@@ -18,7 +18,8 @@ describe('viewer permission state', () => {
 		expect(await load(request(null))).toEqual({
 			did: null,
 			profile: null,
-			canPostToBluesky: false
+			canPostToBluesky: false,
+			isModerator: false
 		});
 		expect(mocks.can).not.toHaveBeenCalled();
 	});

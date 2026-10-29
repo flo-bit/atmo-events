@@ -59,7 +59,6 @@
 	"dependencies": {
 		"@atcute/bluesky-richtext-parser": "^2.1.2",
 		"@atcute/tid": "^1.1.4",
-		"@atmo-dev/contrail-lexicons": "^0.4.15",
 		"@internationalized/date": "^3.12.4",
 		"@number-flow/svelte": "^0.4.2",
 		"dompurify": "^3.4.17",

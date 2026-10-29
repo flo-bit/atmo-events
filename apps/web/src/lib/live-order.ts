@@ -24,10 +24,8 @@ function endsAtInstant(event: { endsAt?: string | null }): number {
  * hour — so the band would name the wrong event as finishing first, in a
  * section whose only ordering claim is that one.
  *
- * The search index avoids this by normalizing at write time (see
- * search/server/normalize.ts), but nothing normalizes the records that reach the
- * browser: the search path indexes normalized timestamps and then hydrates the
- * ORIGINALS for display. This is where that gap is closed.
+ * Records reach the browser with their original offsets, so compare parsed
+ * instants here rather than assuming their timestamp text has been normalized.
  */
 export function bySoonestEnding(
 	a: { endsAt?: string | null },

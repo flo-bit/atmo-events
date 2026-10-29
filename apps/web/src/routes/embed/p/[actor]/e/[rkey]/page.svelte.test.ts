@@ -12,6 +12,7 @@ function markup(
 		props: {
 			data: {
 				canPostToBluesky: false,
+				isModerator: false,
 				did: null,
 				profile: null,
 				pageTitle: 'Meetup',

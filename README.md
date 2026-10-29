@@ -1,114 +1,150 @@
 # atmo.rsvp
 
-events for the open social web, built on atproto.
+Events for the open social web, built on AT Protocol.
 
 https://atmo.rsvp
 
-uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
+Uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
+Create events, RSVP, subscribe to calendars, share previews and see what people
+you follow are attending.
 
-features:
+## Development
 
-- event creation
-- rsvp to events
-- add your events to any ical compatible calendar
-  (go to calendar/ when signed in and click "Add to your calendar")
-- post your events/rsvps to bluesky or anywhere else with nice open-graph images
-- display comments
-- show what events your bsky follows are going to
-
-## development
-
-Requires Node.js **22.17+** and the pinned pnpm version. The app uses SvelteKit 3 and `@svelte-atproto/oauth`.
-
-The UI uses the published `@atmo-dev/kit@0.0.2`. A normal install or CI build needs no sibling kit checkout:
+Requires Node.js **22.17+** and the pinned pnpm version. The app uses SvelteKit 3,
+`@svelte-atproto/oauth`, and Contrail in the **same Cloudflare Worker**. Server
+queries call Contrail in-process; no separate API Worker is needed.
 
 ```sh
 corepack pnpm install --frozen-lockfile
 corepack pnpm dev
 ```
 
-For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
-
-Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`. Likewise, `apps/web/src/routes/(app)/+layout.svelte` owns the description and social meta tags: return `pageDescription` and `ogImage` from the route load instead of adding `<meta>` tags to pages, so link previews never see a generic tag before the page's own.
-
-The app defaults to zinc + pink. Existing event-specific colors/backgrounds are retained. The event-specific UI stays in `packages/ui`; reusable controls, login, inline editing, post composition and comment presentation live in Atmo Kit.
-
-Regenerate the favicon assets with `pnpm generate:favicons`. The script at `apps/web/scripts/generate-favicons.mjs` uses the logo's Sketchy Icons `CalendarDays` geometry on a pink-600 background. It writes the SVG, multi-size ICO (16/32/48), PNG fallback, Apple touch icon (180), web-app icons (192/512), maskable icon (512) and manifest to `apps/web/static/`. These generated files are committed; no image tooling runs in production. If changing the background color, also update `theme-color` in `apps/web/src/app.html`. Run `pnpm --filter web test:favicons` to check the assets.
-
-Checks:
+The UI uses published `@atmo-dev/kit@0.1.0`; no sibling kit checkout is required.
+For co-development, run the kit's `svelte-package --watch` and use `pnpm kit:local`;
+`pnpm kit:registry` restores the registry version without changing manifests.
 
 ```sh
 pnpm check
-pnpm test       # app tests + Chromium event UI / accessibility tests
+pnpm test
 pnpm build
 pnpm package:ui
 ```
 
-For a fresh browser-test installation, run `pnpm --filter @atmo-dev/events-ui exec playwright install chromium` once. The UI tests use in-memory adapters: they never publish events, posts or RSVPs. `VITE_REVIEW_SCREENSHOTS=1 pnpm --filter @atmo-dev/events-ui test` also captures event editor/detail screenshots in both themes and at mobile/desktop sizes.
+For browser tests, install Chromium once:
+`pnpm --filter @atmo-dev/events-ui exec playwright install chromium`.
+Tests use in-memory adapters and never publish records.
 
-The shared kit is MIT-licensed. Publish a compatible kit version before updating the app dependency/lockfile or publishing `@atmo-dev/events-ui`; its kit peer dependency currently targets `^0.0.2`. CI always uses the committed registry dependency graph.
+Page titles belong to the root `+layout.svelte`; return `pageTitle` from loads.
+The app layout owns description/social tags; return `pageDescription` and
+`ogImage`, rather than adding duplicate tags to individual pages.
+Event-specific UI is in `packages/ui`; shared controls live in Atmo Kit.
 
-set remote to false in `wrangler.jsonc` L22:
+## Contrail and search
 
-```
-"remote": false
-```
+Contrail indexes records in `DB`. The existing one-minute cron handles bounded
+Jetstream v2 ingestion, due backfill retries, the reply bot and topic aggregates.
+Text search uses Contrail's D1 full-text search. User-entered terms are escaped
+as literal, all-terms FTS queries; topic expressions retain their server-owned OR
+semantics. There is no external search service, near-you search, geocode drip or
+search reindex job. Interactive event
+address entry/maps still use the optional Nominatim-compatible geocoder.
 
-optionally if you want all current events to be displayed run this: (will take a few minutes)
-
-```
-pnpm backfill
-```
-
-start dev server:
-
-```
-pnpm run dev
-```
-
-## search (optional)
-
-text search and "near me" are an opt-in feature backed by [meilisearch](https://www.meilisearch.com/). when it's not configured the app falls back to a d1 `LIKE` query for search and hides near-me, so you can skip this entirely.
-
-to enable it locally, run a meili instance:
-
-```
-docker run -p 7700:7700 getmeili/meilisearch:v1.10
+```sh
+pnpm --filter web generate          # query Lexicons + Atcute types, offline
+pnpm --filter web backfill          # local D1
+pnpm --filter web backfill:remote   # operator-run production backfill
 ```
 
-then set the search vars in `.env` (see `.env.example`):
+Custom event pipelines have checked-in contracts under `lexicons/custom/`.
+Generated method and record types are committed. Ordinary browser read queries
+are public. Browser update notifications require the existing session,
+same-origin requests and records owned by that session DID; no service JWT is
+needed. Internal bot/SSR calls stay in-process.
 
-- `SEARCH_URL` / `SEARCH_API_KEY` — the read path (search + near-me). use a read-only key. `SEARCH_INDEX` defaults to `events` and is the single index var shared by both paths.
-- `SEARCH_SINK_URL` / `SEARCH_SINK_API_KEY` — the write path; the cron ingest forwards event records into the index. use the admin key. the index is `SEARCH_INDEX` (the sink writes the same index the read path reads).
+### Contrail release
 
-the read and write keys are kept separate on purpose so the browser-facing read path never holds the admin key. the index is populated by the same cron ingest that fills d1, so once configured a `pnpm backfill` (or normal ingest) will fill it.
+The app pins published `@atmo-dev/contrail@0.27.0`, including session-backed
+reporting and the profile-miss cache. No review tarball or sibling checkout is
+required. The prepared records database was built with the preceding review
+build; release compatibility is checked before deployment.
 
-**rollout order on an existing deployment.** the sink only indexes records applied _after_ it's enabled, so don't turn on the read path first or existing upcoming events vanish from search until they're next touched. instead: (1) set the write vars and let the sink arm, (2) populate the index (see below) and confirm the meili `events` index count looks right, then (3) set the read vars (`SEARCH_URL` / `SEARCH_API_KEY`). until step 3 the app keeps using the d1 fallback, so search stays working throughout.
+## Private reports and moderation
 
-**populating the index.** backfill and refresh now feed the sink, so `pnpm backfill` fills meili as it walks each user's pds. on an existing deployment the event records are usually already in d1, so `pnpm meili:reindex` is faster: it replays the stored `community.lexicon.calendar.event` rows straight from d1 into the index with no network walk and no d1 writes. both paths apply the same discoverable filter as live ingest, and the sink applies the index settings on its first write, so a fresh index gets the right filterable fields and re-running either is idempotent. `pnpm meili:reindex:remote` targets the deployed d1 and needs the same wrangler `env.production` that `pnpm backfill:remote` uses.
+`REPORTS_DB` is a **separate, stable D1 database** containing reports, resolution
+notes and reporter quotas. It must never alias `DB` or follow projection rebuilds.
+Missing report storage fails closed; there is no fallback to the projection.
+The schema initializes lazily. Back up this database independently.
 
-### Near-me geocoding (optional)
+Reports use the existing OAuth session through SvelteKit remote commands.
+Reporter identity comes only from server-side `locals.did`; no new RPC OAuth
+grants, service audiences or `getServiceAuth` calls are required. Contrail's
+public report XRPC routes are disabled. Private responses use `no-store`.
 
-Many events carry only a street address, no coordinates — so they never surface in near-me, which filters on the Meilisearch document's `_geo`. This resolves those addresses to coordinates and writes `_geo` back into the same index, making address-only events near-me-visible. It layers on top of the sink above: no extra service — it rides the existing cron and writes the same index. Leave it untouched and it runs keyless against public [Nominatim](https://nominatim.org/) at a safe trickle; until an address resolves, that event simply stays out of near-me.
+Set `MODERATOR_DIDS` to a comma-separated list of trusted `did:plc`/`did:web`
+identifiers. Empty means nobody has moderator access. Use the same setting for
+operator CLI commands. No moderator identity is preselected in this checkout.
 
-**How it runs.** The cron already calls a geocode "drip" every minute; it self-throttles to once per ~30 min via a D1 marker, resolves up to 50 new addresses per run (25 on public Nominatim), and `PATCH`es `_geo` into Meilisearch. Every result is cached — including negative results, so an ungeocodable address isn't retried every run. There is nothing to set up: like the app's other D1 tables, the geocode cache and its cadence marker are defined in code and self-heal on first run. The drip no-ops entirely until the **write sink** above is configured, so enabling search is the only switch.
+Event/account report submission is implemented, but its public buttons are
+currently hidden. Configured moderators can open
+`/mod` (also linked from their own profile) to review, resolve and paginate reports.
+The inbox can authorize the optional **repository create/delete** permission for
+`tools.atmo.moderation.action`. That grant is not requested during normal
+login/signup and is not necessary for reporting or resolving reports.
 
-**Picking a geocoder.** The default is keyless public OSM Nominatim — fine for the steady-state drip's low volume. Set `GEOCODER_USER_AGENT` to a string identifying your deployment (Nominatim's [usage policy](https://operations.osmfoundation.org/policies/nominatim/) requires a real contact; on the public host the per-run cap is held to 25 and the throttle floored to ≥1 req/s). For real volume — and for the bulk backfill below — use [LocationIQ](https://locationiq.com/) (an API-compatible hosted Nominatim): set `GEOCODER_URL=https://us1.locationiq.com/v1/search` and `GEOCODER_KEY`, which lifts the per-run cap to 50 and honors your `GEOCODE_SLEEP_MS` (minimum ms between calls, default 1100). A key with an unset or public `GEOCODER_URL` is _ignored_ — you stay on public Nominatim — so always set the URL too.
+Hide actions are **public PDS records**, trusted globally by instances configured
+with that moderator DID. Reasons and notes stay in `REPORTS_DB` and are never
+copied into public action records. The app reserves each report's action URI and
+public record in `REPORTS_DB.report_actions` before publication, independently of
+resolution. Reloads retain the association; pending publications can retry the
+same record without creating duplicate hides. Moderators can undo their own
+associated actions from either inbox; other applicable hide reasons can remain.
+PDS writes are indexed immediately when possible, with scheduled reconciliation
+as recovery. An indexing failure is shown as pending, not a failed PDS write.
+External labelers are not enabled implicitly.
 
-**Backfilling an existing corpus.** The drip only trickles, so to resolve a backlog run the off-Cloudflare CLI against the deployed D1: `pnpm -C apps/web geocode:backfill --limit 50`. It reaches D1 over the REST API, so it needs `CLOUDFLARE_ACCOUNT_ID` / `CLOUDFLARE_API_TOKEN` / `D1_DATABASE_ID` and `MEILI_URL` / `MEILI_KEY` (plus `SEARCH_INDEX` if not `events`), and a LocationIQ `GEOCODER_URL` / `GEOCODER_KEY`. It refuses a bulk or uncapped run against public Nominatim (keyless is capped to `--limit 1..25`). Useful flags: `--limit N` (`0` = no cap), `--dry-run`, `--retry-negative` (re-attempt negatively-cached addresses), and `--allow-public-nominatim` (override the public-host guard). Like search itself, geocoding only helps once the sink is feeding the index, so run this after the rollout steps above.
+Public content is checked against current Contrail visibility. Public OG/JSON/
+calendar responses use `no-store`; R2 and private versioned OG caching still avoid
+rerendering. The old stale event-cache fallback was removed so database failures
+cannot resurrect hidden content. Topic counts exclude hidden subjects when
+refreshed, but the daily snapshot can lag visibility changes.
+
+## Production migration — review before deploying
+
+A separate reports database and a fresh, backfilled records candidate have been
+provisioned and connected in `apps/web/wrangler.jsonc`. **The Worker has not been
+deployed to these bindings.** The old production database remains untouched.
+See [database preparation and cutover](docs/database-generation-20261029.md) for
+IDs, acquisition/verification evidence and the final app-state transfer.
+
+The Worker dry-run bundle is approximately **3.25 MiB gzipped**, above Cloudflare's
+3 MiB free-tier limit; confirm a paid Workers plan (10 MiB limit) before deployment.
+
+Before deployment:
+
+1. Keep the tested Contrail release pinned. Configure trusted moderator DIDs only
+   when moderator access is intentionally enabled.
+2. Verify the imported projection and run a recent catch-up with its pinned source
+   service and continuity epoch. Keep the old Worker/database tuple for rollback.
+3. Stop old ingestion/writers for cutover and refresh non-rebuildable app state
+   (bot deduplication records, OG billing counters and active leases). Old code
+   must never write to the new projection. Creating a new DB does not transfer this
+   state automatically.
+4. Deploy the reviewed Worker, verify queries, reports and ingestion progress, and
+   purge old public OG/CDN caches once so prior long-lived responses cannot bypass
+   the new visibility checks. Previously returned bytes cannot be recalled.
+5. Keep `REPORTS_DB` fixed across future projection swaps. Do not roll old code back
+   onto an already migrated projection; restore a matching backup/Worker tuple.
 
 ## Load-more pagination
 
-Every paginated list — the home feed, a profile's hosting and past events, a topic, and search — is defined once in `queries.ts` and continued by one shared mechanism.
+Each list is defined once in `contrail/queries.ts`, used by its route load and the
+shared load-more command. The cursor is `base64url(JSON { v, q, args?, raw })`:
+`q` names a server-owned query, `args` contains public scope (actor/topic/popular),
+and `raw` is Contrail's opaque keyset. Filters stay server-owned; a forged token
+cannot reach a private/unlisted-inclusive pipeline. Invalid or retired-backend
+cursors end pagination. Deep links resume only the same query/scope; search terms
+ride separately in `?q=` and are not resumed from inbound deep-link cursors.
 
-**One definition, two entry points.** Page 1 runs in a route's `load()`, which has `url`/`params`; load-more runs in a remote command, which has only a cursor. A keyset is specific to the query that produced it, so page 2 is adjacent to page 1 only while every filter, sort, bound and limit agrees. Both entry points therefore call the same definition, which also owns any post-filter and mints the envelope that continues it.
+## Contributing
 
-**The envelope.** The continuation cursor is an opaque `base64url(JSON { v, q, args?, raw })`. `q` names the server-side query (`events`, `hosting`, `past-events`, `topic`, `search-d1`, `search-meili`); `args` carries only public-safe scope (profile actor, topic slug, popular toggle); `raw` is the backend-native cursor — a D1 keyset, or a Meilisearch offset that `tagCursor` prefixes as `meili:<n>`. The client echoes the whole token back unchanged and supplies no filters of its own. Naming the query is what keeps a cursor with its backend: read a D1 keyset as a Meili offset and `Number(base64url)` is `NaN`, which collapses to offset 0 — page 1 again, silently.
-
-**Why that's safe.** Every filter value lives in the query definition, so a tampered token can only name another already-public query or fail to decode; the unlisted-inclusive plain `listRecords` pipeline has no registry entry, so no cursor reaches it. `decodeCursor` never throws — anything malformed, including a pre-envelope `meili:`/`d1:` cursor, just ends pagination. A deep-linked `?cursor=` resumes only when the envelope was minted for the same `q` **and** the same scope, since a `/topics/ai` keyset indexes a different result set than a `/topics/technology` one. Search never resumes a deep link at all: its term rides `?q=`, not the envelope, so an inbound cursor can't be proven to match the route's term.
-
-**The pieces.** `queries.ts` defines each list and mints its envelope. `cursor.ts` encodes/decodes envelopes and tags backend cursors. `events-load-more.ts` holds the resumer registry: it validates a decoded envelope's args and names which query to continue. Each route's `+page.server.ts` calls its query for page 1 and adds whatever else that page renders; `EventList.svelte` echoes the token on "load more" — keyed on the cursor, not on the page having events, since a query with a post-filter (`past-events`) can return a short or empty page while more pages remain. Adding a list means defining its query and registering it.
-
-## contributing
-
-open for contributions by all :)
+Open for contributions.

@@ -3,7 +3,12 @@ import type { Did } from '@atcute/lexicons';
 import { page } from '$app/state';
 import { login as oauthLogin, signup as oauthSignup } from '@svelte-atproto/oauth/client';
 export { logout } from '@svelte-atproto/oauth/client';
-import { ALLOW_SIGNUP, REDIRECT_TO_LAST_PAGE_ON_LOGIN, getLoginScopes, scopes } from './settings';
+import {
+	ALLOW_SIGNUP,
+	REDIRECT_TO_LAST_PAGE_ON_LOGIN,
+	getLoginScopes,
+	blueskyPostingScope
+} from './settings';
 
 export const user = {
 	get profile() {
@@ -34,7 +39,7 @@ export function login(handle: string, options?: { scopes: readonly string[] }) {
 export function signup() {
 	if (!ALLOW_SIGNUP) throw new Error('Signup is not enabled');
 	return oauthSignup({
-		scope: scopes,
+		scope: getLoginScopes([blueskyPostingScope]),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }

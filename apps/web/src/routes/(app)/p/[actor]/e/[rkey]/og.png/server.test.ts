@@ -67,14 +67,15 @@ function evt(
 		OG_IMAGES: storage.bucket,
 		OG_DAILY_GENERATION_LIMIT: opts.disabled ? '0' : '20',
 		ASSETS: {
-			fetch: vi.fn(async (request: Request) =>
-				new Response(request.method === 'HEAD' ? null : staticPng, {
-					headers: {
-						'Content-Type': 'image/png',
-						ETag: '"static"',
-						'Cache-Control': 'immutable'
-					}
-				})
+			fetch: vi.fn(
+				async (request: Request) =>
+					new Response(request.method === 'HEAD' ? null : staticPng, {
+						headers: {
+							'Content-Type': 'image/png',
+							ETag: '"static"',
+							'Cache-Control': 'immutable'
+						}
+					})
 			)
 		}
 	});
@@ -102,9 +103,7 @@ describe('event OG route', () => {
 		const res = await GET(evt());
 		expect(res.status).toBe(200);
 		expect(res.headers.get('content-type')).toBe('image/png');
-		expect(res.headers.get('cache-control')).toBe(
-			'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400'
-		);
+		expect(res.headers.get('cache-control')).toBe('no-store');
 		expect(res.headers.get('etag')).toMatch(/^W\/"v3-/);
 		// Unlike the old test, await the renderer's entire stream and inspect PNG.
 		const png = await res.arrayBuffer();

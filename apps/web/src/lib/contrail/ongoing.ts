@@ -21,12 +21,12 @@
 import type { Client } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import type { FlatEventRecord } from '@atmo-dev/events-ui';
+import { literalSearch } from './search';
 import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail
 } from '#lib/contrail.js';
-import { runOngoingSearchPage, searchBackendFromEnv } from '#lib/search/server/query.js';
 
 /**
  * How many ongoing events one actor may contribute to a merged list.
@@ -131,10 +131,15 @@ export async function ongoingQuery(
 	client: Client,
 	args: {
 		actor?: ActorIdentifier;
+		/** Trusted server-generated FTS expression (topics). */
 		search?: string;
+		/** User-entered text, escaped before querying FTS. */
+		term?: string;
 	} = {}
 ): Promise<OngoingEvents> {
 	const now = new Date().toISOString();
+	const search = args.term !== undefined ? literalSearch(args.term) : args.search;
+	if (args.term !== undefined && !search) return EMPTY_ONGOING;
 	const params = {
 		startsAtMax: now,
 		endsAtMin: now,
@@ -144,10 +149,8 @@ export async function ongoingQuery(
 		order: 'asc' as const,
 		profiles: true,
 		limit: ONGOING_FETCH_LIMIT,
-		// Topics and search scope the band to what the reader is looking at. Always
-		// derived SERVER-side (a slug via orQueryFromSlug, or a validated search
-		// term), never echoed from a cursor.
-		...(args.search ? { search: args.search } : {})
+		// Topics supply trusted expressions; user-entered terms are escaped above.
+		...(search ? { search } : {})
 	};
 
 	const response = args.actor
@@ -167,7 +170,7 @@ export async function ongoingQuery(
 	// Scoped by something the reader chose (a profile, a term, a topic) => show the
 	// matches, bounded. Unscoped (home, /events) => one card per host, so the block
 	// is a roll-call of who is live rather than a ranking of events.
-	const scoped = Boolean(args.actor || args.search);
+	const scoped = Boolean(args.actor || search);
 	const capped = scoped
 		? flattened.slice(0, args.actor ? flattened.length : ONGOING_SCOPED_MAX)
 		: capPerActor(flattened, ONGOING_PER_ACTOR);
@@ -178,48 +181,6 @@ export async function ongoingQuery(
 		total: records.length,
 		totalIsFloor: records.length >= ONGOING_FETCH_LIMIT
 	};
-}
-
-/**
- * The band for a FREE-TEXT term, ranked by the search backend rather than D1.
- *
- * `/search` is the one surface whose list does not come from D1, and a band that
- * disagrees with the list beside it is not a cosmetic difference: `EventList`
- * promotes any live event out of that list into the band, so the band can show
- * events this query never returned — and the "see all" destination, running the
- * same backend as the band, then could not contain them. Measured on testnet: a
- * band of 2 linking to a page of 1, the missing one a year-long event Meili
- * ranked for the term and D1 did not.
- *
- * Returns null when the backend is unconfigured or the query fails, which is the
- * caller's signal to fall back to the D1 band — page 1 may switch backends, a
- * continuation may not.
- */
-export async function ongoingSearchQuery(
-	env: Cloudflare.Env | undefined,
-	client: Client,
-	args: { term: string }
-): Promise<OngoingEvents | null> {
-	const term = args.term.trim();
-	const backend = term ? searchBackendFromEnv(env) : null;
-	if (!backend) return null;
-
-	try {
-		const page = await runOngoingSearchPage(backend, client, { q: term });
-		// A term is a scope the reader chose, so no per-host cap — same rule the D1
-		// band follows. The ceiling still applies: the band sits above the list it
-		// introduces.
-		return {
-			events: page.events.slice(0, ONGOING_SCOPED_MAX),
-			handles: page.handles,
-			total: page.events.length,
-			// One page of hits, so a full page means "at least this many".
-			totalIsFloor: page.cursor !== null
-		};
-	} catch (err) {
-		console.error('ongoing band search backend failed, falling back to D1:', err);
-		return null;
-	}
 }
 
 /** Merge a band into a list page's payload. One helper so the six routes that show

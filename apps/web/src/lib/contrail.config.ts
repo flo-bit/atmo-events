@@ -1,20 +1,6 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
-import { MAX_HYDRATION_URIS } from './search/constants';
-import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
-import { discoverableSql } from './search/server/discoverability';
-
-// The `contrail` CLI (`pnpm backfill` / `contrail refresh`) fires `config.sinks`
-// on the backfill/refresh paths, so a fresh or re-synced install gets full search
-// coverage, not just what flowed through live ingest. The backend is read from
-// process.env (SEARCH_SINK_URL / SEARCH_SINK_API_KEY / SEARCH_INDEX), injected by
-// the operator at runtime so no secret is committed; an unset SEARCH_SINK_URL
-// omits the sink, keeping `pnpm generate` clean. The runtime Worker
-// (`#lib/contrail/index.ts`) replaces `sinks` with its own per-invocation-env
-// sink, so this one runs only under the CLI.
-const searchSinks: NonNullable<ContrailConfig['sinks']> =
-	typeof process !== 'undefined' && process.env?.SEARCH_SINK_URL
-		? [createMeiliSink(() => meiliSinkBackendFromEnv(process.env))]
-		: [];
+import { discoverableSql } from './contrail/discoverability';
+import { moderatorDids } from './moderation/config';
 
 // Events hidden from discovery (a falsey preferences.showInDiscovery) are
 // excluded; a missing field defaults to discoverable so pre-existing records
@@ -24,6 +10,8 @@ const DISCOVERABLE_CONDITION = discoverableSql('r.record');
 
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',
+	// Pin this projection generation to its captured Jetstream continuity epoch.
+	orderedSource: { source: 'jetstream', epoch: 'atmo-events-records-g20261028' },
 	// Enable the rsvp.atmo.notifyOfUpdate endpoint. The client calls it after
 	// writing records to the PDS so contrail re-fetches and indexes them
 	// immediately instead of waiting for the jetstream.
@@ -35,15 +23,13 @@ export const config: ContrailConfig = {
 	// to once/24h via a persisted timestamp, bounded by PRAGMA analysis_limit so
 	// it can't blow D1's per-query CPU budget. Defaults are fine.
 	maintenance: { optimize: true },
-	permissionSet: {
-		title: 'Atmo Events',
-		description: 'Manage your events and RSVPs.'
-		// NOTE: permission-set lexicons can only reference NSIDs under their own
-		// namespace (`rsvp.atmo.*`). Calendar writes use the community calendar
-		// permission set; blob uploads use a standalone scope. Both are declared
-		// in `atproto/settings.ts`, not here.
+	// Reports use the app's authenticated sessions, not public report XRPCs.
+	moderation: {
+		moderators: moderatorDids(
+			typeof process !== 'undefined' ? process.env.MODERATOR_DIDS : undefined
+		),
+		reports: false
 	},
-	...(searchSinks.length ? { sinks: searchSinks } : {}),
 	collections: {
 		event: {
 			collection: 'community.lexicon.calendar.event',
@@ -75,26 +61,6 @@ export const config: ContrailConfig = {
 				listDiscoverable: async () => ({
 					conditions: [DISCOVERABLE_CONDITION]
 				}),
-				// Endpoint: rsvp.atmo.event.listDiscoverableByUris?uris=at://…,at://…
-				// Hydration half of the Meilisearch read path: search
-				// returns ranked uris only; this fetches those records from D1 so
-				// display data (rsvp counts, profiles) stays consistent and uris we
-				// never ingested drop out. Keeps the discoverability filter — the
-				// search surface must not leak unlisted events. Accepts repeated
-				// and/or comma-separated `uris` (AT-URIs contain no commas).
-				listDiscoverableByUris: async (_db, params) => {
-					const uris = params
-						.getAll('uris')
-						.flatMap((v) => v.split(','))
-						.map((u) => u.trim())
-						.filter(Boolean)
-						.slice(0, MAX_HYDRATION_URIS);
-					if (uris.length === 0) return { conditions: ['0 = 1'] };
-					return {
-						conditions: [`r.uri IN (${uris.map(() => '?').join(', ')})`, DISCOVERABLE_CONDITION],
-						params: uris
-					};
-				},
 				// Endpoint: rsvp.atmo.event.listTalks?parentUri=at://…
 				// Returns the talk events belonging to a conference, i.e. those
 				// whose additionalData.parentEvent.uri matches `parentUri`. Composes

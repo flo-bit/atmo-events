@@ -12,12 +12,6 @@ vi.mock('#lib/contrail.js', () => ({
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
-// queries.ts imports the search module at load time; the events query never hits
-// it, so a null-backend stub keeps the import deterministic.
-vi.mock('#lib/search/server/query.js', () => ({
-	searchBackendFromEnv: vi.fn(() => null),
-	runEventSearchPage: vi.fn()
-}));
 
 import { load } from './+page.server';
 import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';

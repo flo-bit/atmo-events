@@ -1,6 +1,6 @@
-import { ftsQueryClause, sqliteDialect } from '@atmo-dev/contrail-appview';
+import { ftsQueryClause, sqliteDialect, visibleRecordSql } from '@atmo-dev/contrail';
 import { TOPICS, orQueryFromSlug } from '#lib/topics.js';
-import { discoverableSql } from '#lib/search/server/discoverability.js';
+import { discoverableSql } from '#lib/contrail/discoverability.js';
 
 export const TOPIC_COUNTS_INTERVAL_MS = 24 * 60 * 60 * 1000;
 const REFRESH_LEASE_MS = 5 * 60 * 1000;
@@ -68,7 +68,7 @@ export async function refreshTopicCounts(db: D1Database, now = Date.now()): Prom
 				db
 					.prepare(
 						`SELECT COUNT(*) AS count FROM records_event r ${fts.join}
-					WHERE ${fts.condition} AND ${discoverableSql('r.record')}
+					WHERE ${fts.condition} AND ${discoverableSql('r.record')} AND ${visibleRecordSql('r')}
 					AND (json_extract(r.record, '$.startsAt') >= ?
 						OR (json_extract(r.record, '$.startsAt') <= ?
 							AND json_extract(r.record, '$.endsAt') >= ?))`

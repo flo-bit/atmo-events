@@ -1,96 +1,18 @@
 import type {} from '@atcute/lexicons';
 import * as v from '@atcute/lexicons/validations';
 import type {} from '@atcute/lexicons/ambient';
-import * as ComAtprotoLabelDefs from "@atcute/atproto/types/label/defs";
-import * as ComAtprotoRepoStrongRef from "@atcute/atproto/types/repo/strongRef";
+import * as AppBskyActorProfile from "@atcute/bluesky/types/app/actor/profile";
+import * as ComAtprotoLabelDefs from "../../../com/atproto/label/defs.js";
 import * as CommunityLexiconCalendarEvent from "../../../community/lexicon/calendar/event.js";
 import * as CommunityLexiconCalendarRsvp from "../../../community/lexicon/calendar/rsvp.js";
 
-const _appBskyActorProfileSchema = /*#__PURE__*/ v.object(
-	{
-		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.rsvp.listRecords#appBskyActorProfile")),
-		/**
-		 * Small image to be displayed next to posts from account. AKA, 'profile picture'
-		 * @accept image/png, image/jpeg
-		 * @maxSize 1000000
-		 */
-		"avatar": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.blob(),
-			[
-				/*#__PURE__*/ v.blobSize(1000000),
-				/*#__PURE__*/ v.blobAccept(["image/png", "image/jpeg"])
-			]
-		)),
-		/**
-		 * Larger horizontal image to display behind profile view.
-		 * @accept image/png, image/jpeg
-		 * @maxSize 1000000
-		 */
-		"banner": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.blob(),
-			[
-				/*#__PURE__*/ v.blobSize(1000000),
-				/*#__PURE__*/ v.blobAccept(["image/png", "image/jpeg"])
-			]
-		)),
-		"createdAt": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.datetimeString()),
-		/**
-		 * Free-form profile description text.
-		 * @maxLength 2560
-		 * @maxGraphemes 256
-		 */
-		"description": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 2560),
-				/*#__PURE__*/ v.stringGraphemes(0, 256)
-			]
-		)),
-		/**
-		 * @maxLength 640
-		 * @maxGraphemes 64
-		 */
-		"displayName": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 640),
-				/*#__PURE__*/ v.stringGraphemes(0, 64)
-			]
-		)),
-		get "joinedViaStarterPack"() {
-			return /*#__PURE__*/ v.optional(ComAtprotoRepoStrongRef.mainSchema)
-		},
-		/**
-		 * Self-label values, specific to the Bluesky application, on the overall account.
-		 */
-		get "labels"() {
-			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.variant([ComAtprotoLabelDefs.selfLabelsSchema]))
-		},
-		get "pinnedPost"() {
-			return /*#__PURE__*/ v.optional(ComAtprotoRepoStrongRef.mainSchema)
-		},
-		/**
-		 * Free-form pronouns text.
-		 * @maxLength 200
-		 * @maxGraphemes 20
-		 */
-		"pronouns": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
-			/*#__PURE__*/ v.string(),
-			[
-				/*#__PURE__*/ v.stringLength(0, 200),
-				/*#__PURE__*/ v.stringGraphemes(0, 20)
-			]
-		)),
-		"website": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.genericUriString()),
-	}
-);
 const _mainSchema = /*#__PURE__*/ v.query(
 	"rsvp.atmo.rsvp.listRecords",
 	{
 		"params": /*#__PURE__*/ v.object(
 			{
 				/**
-				 * Filter by DID or handle (triggers on-demand backfill)
+				 * Filter by DID or handle
 				 */
 				"actor": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.actorIdentifierString()),
 				/**
@@ -119,11 +41,11 @@ const _mainSchema = /*#__PURE__*/ v.query(
 					50
 				),
 				/**
-				 * Sort direction (default: desc for dates/numbers/counts, asc for strings)
+				 * Sort direction
 				 */
 				"order": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string<"asc" | "desc" | (string & {})>()),
 				/**
-				 * Include profile + identity info keyed by DID
+				 * Include indexed profile and identity information
 				 */
 				"profiles": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.boolean()),
 				/**
@@ -164,9 +86,19 @@ const _profileEntrySchema = /*#__PURE__*/ v.object(
 		"did": /*#__PURE__*/ v.didString(),
 		"handle": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
 		"rkey": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"uri": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
 		get "value"() {
-			return /*#__PURE__*/ v.optional(appBskyActorProfileSchema)
+			return /*#__PURE__*/ v.optional(AppBskyActorProfile.mainSchema)
 		},
 	}
 );
@@ -180,6 +112,16 @@ const _recordSchema = /*#__PURE__*/ v.object(
 			return /*#__PURE__*/ v.optional(refEventRecordSchema)
 		},
 		"rkey": /*#__PURE__*/ v.string(),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
 		get "value"() {
@@ -190,24 +132,31 @@ const _recordSchema = /*#__PURE__*/ v.object(
 const _refEventRecordSchema = /*#__PURE__*/ v.object(
 	{
 		"$type": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.literal("rsvp.atmo.rsvp.listRecords#refEventRecord")),
-		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.string()),
+		"cid": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.cidString()),
 		"collection": /*#__PURE__*/ v.nsidString(),
 		"did": /*#__PURE__*/ v.didString(),
-		get "record"() {
-			return /*#__PURE__*/ v.optional(CommunityLexiconCalendarEvent.mainSchema)
-		},
 		"rkey": /*#__PURE__*/ v.string(),
+		/**
+		 * Author declarations on this record version, not trusted labeler claims
+		 * @maxLength 10
+		 */
+		get "selfLabels"() {
+			return /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
+				/*#__PURE__*/ v.array(ComAtprotoLabelDefs.selfLabelSchema),
+				[/*#__PURE__*/ v.arrayLength(0, 10)]
+			))
+		},
 		"time_us": /*#__PURE__*/ v.integer(),
 		"uri": /*#__PURE__*/ v.resourceUriString(),
+		get "value"() {
+			return CommunityLexiconCalendarEvent.mainSchema
+		},
 	}
 );
-type appBskyActorProfile$schematype = typeof _appBskyActorProfileSchema;
 type main$schematype = typeof _mainSchema;
 type profileEntry$schematype = typeof _profileEntrySchema;
 type record$schematype = typeof _recordSchema;
 type refEventRecord$schematype = typeof _refEventRecordSchema;
-
-export interface appBskyActorProfileSchema extends appBskyActorProfile$schematype {}
 
 export interface mainSchema extends main$schematype {}
 
@@ -216,13 +165,10 @@ export interface profileEntrySchema extends profileEntry$schematype {}
 export interface recordSchema extends record$schematype {}
 
 export interface refEventRecordSchema extends refEventRecord$schematype {}
-export const appBskyActorProfileSchema = _appBskyActorProfileSchema as appBskyActorProfileSchema;
 export const mainSchema = _mainSchema as mainSchema;
 export const profileEntrySchema = _profileEntrySchema as profileEntrySchema;
 export const recordSchema = _recordSchema as recordSchema;
 export const refEventRecordSchema = _refEventRecordSchema as refEventRecordSchema;
-
-export interface AppBskyActorProfile extends v.InferInput<typeof appBskyActorProfileSchema> {}
 
 export interface ProfileEntry extends v.InferInput<typeof profileEntrySchema> {}
 

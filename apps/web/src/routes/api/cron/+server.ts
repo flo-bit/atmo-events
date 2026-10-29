@@ -1,87 +1,40 @@
 import { env } from 'cloudflare:workers';
-import { contrail, ensureInit } from '#lib/contrail/index.js';
+import { ensureInit } from '#lib/contrail/index.js';
 import { processBotMentions } from '#lib/bot/process-mentions.js';
-import { runGeocodeDrip } from '#lib/geocode/process.js';
 import { refreshTopicCounts } from '#lib/server/topic-counts.js';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
-	const secret = request.headers.get('X-Cron-Secret');
-	if (secret !== env.CRON_SECRET) {
+	if (!env.CRON_SECRET || request.headers.get('X-Cron-Secret') !== env.CRON_SECRET) {
 		return new Response('Unauthorized', { status: 401 });
 	}
-
 	const db = env.DB;
-
-	// Reply bot runs first and is fully isolated: it must not be starved or
-	// aborted by the heavier ingest below, which can throw (e.g. D1 CPU limits
-	// while catching up a backlog). The bot relies on its own queries +
-	// notifyOfUpdate, so it works even when firehose ingest is behind.
 	try {
 		await processBotMentions(env, db);
-	} catch (e) {
-		console.error('[bot] processBotMentions failed:', e);
+	} catch (error) {
+		console.error('[bot] processBotMentions failed:', error);
 	}
 
-	// Firehose ingest — guarded so an over-budget cycle can't 500 the whole tick
-	// (which previously also took the bot down with it).
+	let contrail: Awaited<ReturnType<typeof ensureInit>> | undefined;
 	try {
-		// Two deliberately-split budgets. contrail saves the jetstream cursor LAST in
-		// runIngestCycle — after the drain, applyEvents, and the per-DID
-		// refreshStaleIdentities network tail. If this handler aborts before that
-		// save runs, the cursor never advances and the next tick re-replays the same
-		// window forever (the "redoing the same work" loop). A backlogged stream made
-		// this certain: a 30s drain consumed the whole budget, leaving no room for a
-		// tail that needs more, so the cursor was never persisted.
-		//   DRAIN — contrail's internal deadline; how long we pull from jetstream.
-		//           Kept well under the hard cap so the tail (incl. saveCursor) fits.
-		//   HARD  — backstop only, for a genuine hang (e.g. a DID resolution that
-		//           never returns). Sized never to pre-empt the cursor save in a
-		//           normal cycle, and under the cron interval so ticks don't overlap.
-		//           Scheduled invocations get ~15min wall-clock and this is I/O-bound,
-		//           so the tail has ample room.
-		// The HARD budget covers ARMING too: ensureInit runs INSIDE the race, ahead
-		// of ingest (the sink must be armed before ingest upserts — see the ordering
-		// rationale in $lib/contrail/index.ts). ensureInit's own settings fetch is
-		// separately time-bounded, but that bound would be ADDITIVE to HARD if arming
-		// were awaited before the race — a stalling search endpoint could then push a
-		// tick past the cron interval and overlap the next one. Racing arming +
-		// ingest together bounds the RACED SECTION by HARD, so a stalling search
-		// endpoint can no longer push that section past the interval. (The whole
-		// tick also spans the un-raced bot, geocode, and topic stages, so this
-		// bounds the search-endpoint hazard, not the tick's total duration.)
-		const DRAIN_TIMEOUT_MS = 20_000;
-		const HARD_TIMEOUT_MS = 55_000;
-		await Promise.race([
-			(async () => {
-				await ensureInit(db, env);
-				await contrail.ingest({ timeoutMs: DRAIN_TIMEOUT_MS }, db);
-			})(),
-			new Promise((_, reject) =>
-				setTimeout(() => reject(new Error('ingest hard timeout')), HARD_TIMEOUT_MS)
-			)
-		]);
-	} catch (e) {
-		console.error('[cron] ingest cycle failed:', e);
+		contrail = await ensureInit(db);
+		// Contrail bounds retained records, identity updates, bytes and drain time,
+		// and commits projection/checkpoints transactionally. No uncancelled race.
+		await contrail.ingest({ maxDrainMs: 20_000, maxCandidates: 250 }, db);
+	} catch (error) {
+		console.error('[cron] ingest cycle failed:', error);
 	}
-
-	// Address→_geo geocode drip: resolves coordinates for newly-ingested
-	// address-only events so they appear in /near-me. Self-throttled to ~30 min
-	// via a D1 gate (rides this every-minute cron); no-ops when the geocoder/sink
-	// isn't configured. Isolated so a geocoder/Meili hiccup can't 500 the tick.
-	try {
-		await runGeocodeDrip(env, db);
-	} catch (e) {
-		console.error('[cron] runGeocodeDrip failed:', e);
+	if (contrail) {
+		try {
+			await contrail.retryBackfill({ maxAccounts: 5 }, db);
+		} catch (error) {
+			console.error('[cron] backfill retries failed:', error);
+		}
 	}
-
-	// Daily topic aggregates share this tick but use their own persisted cadence
-	// and overlap lease. A failed refresh keeps the last good snapshot readable.
 	try {
 		await refreshTopicCounts(db);
-	} catch (e) {
-		console.error('[cron] refreshTopicCounts failed:', e);
+	} catch (error) {
+		console.error('[cron] refreshTopicCounts failed:', error);
 	}
-
 	return new Response('OK');
 };

@@ -5,12 +5,10 @@ import { getServerClient } from './index';
 import {
 	EMPTY_PAGE,
 	eventsQuery,
-	happeningNowMeiliQuery,
 	happeningNowQuery,
 	hostingQuery,
 	pastEventsQuery,
 	searchD1Query,
-	searchMeiliQuery,
 	topicQuery,
 	type EventsPage
 } from './queries';
@@ -64,15 +62,6 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 	'happening-now': async (_env, client, { args, raw }, searchTerm) =>
 		happeningNowQuery(client, raw, { slug: args?.slug, search: searchTerm }),
 
-	// The Meili-ranked twin, used when the band is scoped by a free-text TERM so
-	// that it and the list beside it run the same backend. Like the search
-	// resumers the term rides ?q=/input rather than the envelope, so a lost term
-	// ends pagination cleanly rather than continuing an unscoped live list.
-	'happening-now-meili': async (env, client, { raw }, searchTerm) => {
-		if (!searchTerm?.trim()) return EMPTY;
-		return happeningNowMeiliQuery(env, client, { term: searchTerm }, raw);
-	},
-
 	hosting: async (_env, client, { args, raw }) => {
 		const actor = args?.actor;
 		if (!actor || !isActorIdentifier(actor)) return EMPTY;
@@ -99,11 +88,6 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 	'search-d1': async (_env, client, { raw }, searchTerm) => {
 		if (!searchTerm?.trim()) return EMPTY;
 		return searchD1Query(client, { term: searchTerm }, raw);
-	},
-
-	'search-meili': async (env, client, { raw }, searchTerm) => {
-		if (!searchTerm?.trim()) return EMPTY;
-		return searchMeiliQuery(env, client, { term: searchTerm }, raw);
 	}
 };
 

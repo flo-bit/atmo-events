@@ -58,6 +58,8 @@ export async function load({ params }) {
 		ongoingQuery(client, { actor }).catch(() => EMPTY_ONGOING)
 	]);
 
+	// Contrail deliberately returns the same absence for missing and hidden profiles.
+	if (!profile) throw error(404, 'Actor not found');
 	const upcomingEvents = upcomingResponse ? flattenEventRecords(upcomingResponse.records) : [];
 	// Was an inlined copy of this predicate; call the shared one so the "is it
 	// over" rule has a single definition across past-events and this preview.

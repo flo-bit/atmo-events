@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "tools.atmo.moderation.action",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "subject",
+          "action",
+          "createdAt"
+        ],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "maxLength": 8192
+          },
+          "subjectCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "labels": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 128,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          "src": {
+            "type": "string",
+            "format": "did"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

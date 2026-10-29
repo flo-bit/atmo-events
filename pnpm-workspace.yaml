@@ -18,6 +18,3 @@ minimumReleaseAgeExclude:
   - '@atmo-dev/*'
   - '@svelte-atproto/*'
   - svelte@5.57.3
-patchedDependencies:
-  '@atmo-dev/contrail-appview@0.12.2': patches/@atmo-dev__contrail-appview@0.12.2.patch
-  '@atmo-dev/contrail-base@0.12.2': patches/@atmo-dev__contrail-base@0.12.2.patch

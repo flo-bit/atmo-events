@@ -9,7 +9,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock('@svelte-atproto/oauth/client', () => mocks);
 vi.mock('$app/state', () => ({ page: mocks.page }));
 import { login, signup, logout, user } from './auth.svelte';
-import { blueskyPostingScope, requiredScopes, scopes } from './settings';
+import { blueskyPostingScope, getLoginScopes, requiredScopes } from './settings';
 
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -31,9 +31,12 @@ describe('OAuth client integration', () => {
 			saveReturnTo: true
 		});
 	});
-	it('requests all supported scopes directly for signup', async () => {
+	it('requests ordinary signup scopes without the optional moderator grant', async () => {
 		await signup();
-		expect(mocks.signup).toHaveBeenCalledExactlyOnceWith({ scope: scopes, saveReturnTo: true });
+		expect(mocks.signup).toHaveBeenCalledExactlyOnceWith({
+			scope: getLoginScopes([blueskyPostingScope]),
+			saveReturnTo: true
+		});
 	});
 	it('does not infer posting permission from login', () => {
 		mocks.page.data = { did: 'did:plc:alice' };

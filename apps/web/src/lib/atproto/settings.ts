@@ -29,7 +29,11 @@ export const blueskyPostingScope = 'include:app.bsky.authCreatePosts';
 
 // Metadata declares all supported permissions. Each login explicitly requests
 // only requiredScopes plus the optional permissions selected by the user.
-export const scopes = [...requiredScopes, blueskyPostingScope];
+// Declared in metadata, requested only by moderators from /mod. Reporting itself
+// needs no additional OAuth permissions and never writes to the reporter's PDS.
+export const moderationActionScope =
+	'repo:tools.atmo.moderation.action?action=create&action=delete';
+export const scopes = [...requiredScopes, blueskyPostingScope, moderationActionScope];
 
 export const loginPermissions: readonly LoginPermission[] = [
 	{

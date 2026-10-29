@@ -74,7 +74,7 @@ export async function GET({ params }) {
 		return new Response(ical, {
 			headers: {
 				'Content-Type': 'text/calendar; charset=utf-8',
-				'Cache-Control': 'public, max-age=3600'
+				'Cache-Control': 'no-store'
 			}
 		});
 	} catch (e) {

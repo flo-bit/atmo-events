@@ -19,6 +19,8 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
+		// Set trusted moderator DIDs before enabling moderator access.
+		"MODERATOR_DIDS": "",
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social",
@@ -29,8 +31,15 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "atmo-events-v5",
-			"database_id": "3f862040-84ee-4216-8ba7-ef3146058de4"
+			// Backfilled candidate; the old production DB is retained for rollback.
+			"database_name": "atmo-events-records-g20261028",
+			"database_id": "2e4b6ea4-6c67-444a-b37d-73594c5b2c01"
+		},
+		{
+			"binding": "REPORTS_DB",
+			"database_name": "atmo-events-reports",
+			// Stable private storage; never replace during projection rebuilds.
+			"database_id": "451dce30-46b2-4e2d-a09c-f7ed4ccdfc4c"
 		}
 	],
 	"r2_buckets": [

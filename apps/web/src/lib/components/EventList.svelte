@@ -77,16 +77,8 @@
 	// WHICH SECTION AN EVENT BELONGS IN IS DECIDED BY ONE PREDICATE — the same
 	// isEventOngoing that draws the "Live" badge — never by which query returned it.
 	//
-	// Membership of the band is not that predicate. The band is a D1 query and the
-	// list beside it can come from Meilisearch, and the two do not agree on what
-	// matches a term: searching "town" ranked a year-long event that is genuinely
-	// under way (started 2026-07-19, ends 2027-07-04), which the band's D1 query
-	// did not return. It therefore escaped the band, failed the old
-	// "is it in `ongoing`?" test, and rendered under "Upcoming" wearing a Live
-	// badge — the heading and the badge contradicting each other on one card.
-	//
-	// Promoting it here fixes that by construction, and keeps working whatever the
-	// two queries disagree about next.
+	// The bounded preview may omit a live record returned by a later page. Promote
+	// it here so a genuinely ongoing event never sits under an Upcoming heading.
 	let liveEvents = $derived(
 		separateOngoing
 			? dedupeByUri([

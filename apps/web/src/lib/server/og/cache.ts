@@ -2,7 +2,9 @@ import { claimGeneration, pruneExpiredLeases, releaseGeneration, type OgBudgetEn
 
 // Bump whenever layout, fonts, date formatting or image selection changes.
 export const OG_TEMPLATE_VERSION = 'v3';
-export const OG_CACHE_CONTROL = 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400';
+// Every public request must pass the route's current visibility check. Private
+// R2/internal versioned caching still avoids rendering the same image twice.
+export const OG_CACHE_CONTROL = 'no-store';
 export const MAX_PNG_BYTES = 2 * 1024 * 1024;
 
 export interface OgCacheEnv extends OgBudgetEnv {

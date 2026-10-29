@@ -26,51 +26,21 @@ import {
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
-/**
- * Fetch the event record with resilience: retry transient D1 errors, cache
- * successes briefly (Cloudflare Cache API), and fall back to the cached copy
- * when D1 is momentarily unavailable — so a DB hiccup serves slightly-stale
- * data instead of a misleading 404.
- */
+/** Retry transient reads, but never serve stale content without checking current
+ * moderation. A database outage must fail closed rather than resurrect a hide. */
 async function loadEventRecordResilient(
 	client: Client,
 	actor: string,
 	rkey: string
 ): Promise<EventRecord> {
-	// `caches.default` is a Cloudflare extension not in the DOM `CacheStorage`
-	// type, and is absent in dev (vite/node) — guard + cast.
-	const cache =
-		typeof caches !== 'undefined' && 'default' in caches
-			? (caches as unknown as { default: Cache }).default
-			: null;
-	const cacheKey = new Request(`https://event-cache.internal/${actor}/${rkey}`);
-
-	try {
-		// `actor` may be a handle or DID — contrail's getRecord resolves a handle
-		// authority in the URI (from its local identities table), so we skip the
-		// app's own network handle resolution entirely.
-		const record = await withD1Retry(() =>
-			getEventRecordFromContrail(client, {
-				did: actor,
-				rkey,
-				hydrateRsvps: RSVP_HYDRATE_LIMIT,
-				profiles: true
-			})
-		);
-		if (record && cache) {
-			await cache.put(
-				cacheKey,
-				new Response(JSON.stringify(record), { headers: { 'cache-control': 'max-age=120' } })
-			);
-		}
-		return record;
-	} catch (e) {
-		if (cache) {
-			const cached = await cache.match(cacheKey);
-			if (cached) return (await cached.json()) as EventRecord;
-		}
-		throw e;
-	}
+	return withD1Retry(() =>
+		getEventRecordFromContrail(client, {
+			did: actor,
+			rkey,
+			hydrateRsvps: RSVP_HYDRATE_LIMIT,
+			profiles: true
+		})
+	);
 }
 
 export async function load({ params, locals, url }) {
@@ -83,7 +53,7 @@ export async function load({ params, locals, url }) {
 
 	// Fetch the event by actor (handle or DID) — contrail resolves a handle in
 	// the URI authority server-side, so there's no separate app-side resolution
-	// step. Retry + cache fallback distinguishes a transient index/D1 error (503)
+	// step. Retrying distinguishes a transient index/D1 error (503)
 	// from a genuinely-missing event (404).
 	let eventRecord: EventRecord;
 	try {
@@ -121,12 +91,10 @@ export async function load({ params, locals, url }) {
 
 	const speakers =
 		((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
-			| Array<{ id: string; name: string }>
-			| undefined) ?? [];
+			Array<{ id: string; name: string }> | undefined) ?? [];
 
 	const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
-		| string
-		| undefined;
+		string | undefined;
 	const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 	// Secondary hydration is best-effort: the event already loaded, so a hiccup
@@ -217,8 +185,7 @@ export async function load({ params, locals, url }) {
 	const conferenceVods: Record<string, { playlistUrl: string; subtitlesUrl?: string }> = {};
 	for (const talk of conferenceTalks) {
 		const talkVod = (talk.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
-			| string
-			| undefined;
+			string | undefined;
 		if (talkVod)
 			conferenceVods[talk.uri] = {
 				...vodFromAtUri(talkVod),

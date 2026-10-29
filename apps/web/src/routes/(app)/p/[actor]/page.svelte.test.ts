@@ -19,6 +19,7 @@ function markup() {
 				pageTitle: 'Test Host - Events',
 				pageDescription: 'Events hosted by Test Host',
 				canPostToBluesky: false,
+				isModerator: false,
 				did: null,
 				profile: null,
 				actor: 'host.example.com',
@@ -26,7 +27,7 @@ function markup() {
 				actorProfile: {
 					did: 'did:plc:host',
 					handle: 'host.example.com',
-					value: { displayName: 'Test Host' }
+					value: { $type: 'app.bsky.actor.profile', displayName: 'Test Host' }
 				},
 				ongoingEvents: [],
 				ongoingTotal: 0,
@@ -43,6 +44,7 @@ function markup() {
 
 afterEach(() => {
 	user.isLoggedIn = true;
+	user.did = 'did:plc:host';
 });
 
 describe('profile actions', () => {
@@ -54,6 +56,14 @@ describe('profile actions', () => {
 		expect(create).toHaveLength(1);
 		expect(logout).toHaveLength(1);
 		expect(html).toContain('@host.example.com');
+	});
+
+	it('keeps reporting hidden on another account’s profile', () => {
+		user.did = 'did:plc:viewer';
+		const html = markup();
+		expect(html).not.toContain('Report account');
+		expect(html).not.toContain('Create Event');
+		expect(html).not.toContain('Log out');
 	});
 
 	it('does not show account actions when signed out', () => {
