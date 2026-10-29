@@ -11,9 +11,17 @@ export default {
 	scheduled(_event, env, ctx) {
 		const request = new Request('http://localhost/api/cron', {
 			method: 'POST',
-			headers: { 'X-Cron-Secret': env.CRON_SECRET || '' }
+			// SvelteKit 3 also CSRF-checks POSTs with no content type. This is a
+			// secret-authenticated server request, not a browser form submission.
+			headers: {
+				'X-Cron-Secret': env.CRON_SECRET || '',
+				'Content-Type': 'application/json'
+			}
 		});
-		ctx.waitUntil(app.fetch(request, env, ctx));
+		ctx.waitUntil(app.fetch(request, env, ctx).then((response) => {
+			if (!response.ok) throw new Error('Scheduled cron failed: HTTP ' + response.status);
+			return response;
+		}));
 	}
 };
 `;

@@ -24,6 +24,7 @@ const app = `export default {
 			url: request.url,
 			method: request.method,
 			secret: request.headers.get('X-Cron-Secret'),
+			contentType: request.headers.get('Content-Type'),
 			binding: env.binding,
 			context: ctx.marker
 		}));
@@ -41,6 +42,7 @@ test('loads an anonymous adapter export and preserves its fetch handler', async 
 		url: 'https://example.com/event',
 		method: 'GET',
 		secret: null,
+		contentType: null,
 		binding: 'db',
 		context: 'ctx'
 	});
@@ -60,10 +62,52 @@ test('forwards scheduled events to authenticated cron using the same bindings an
 		url: 'http://localhost/api/cron',
 		method: 'POST',
 		secret: 'test-secret',
+		contentType: 'application/json',
 		binding: 'db',
 		context: 'scheduled'
 	});
 });
+
+test('scheduled POST passes the installed SvelteKit production CSRF guard', async (t) => {
+	const csrf = new URL(
+		'./src/runtime/server/csrf.js',
+		import.meta.resolve('@sveltejs/kit/package.json')
+	);
+	const { worker } = await fixture(
+		t,
+		`
+		import { is_csrf_forbidden } from ${JSON.stringify(csrf.href)};
+		export default {
+			async fetch(request) {
+				const forbidden = is_csrf_forbidden({
+					request,
+					request_origin: request.headers.get('origin'),
+					self_origin: new URL(request.url).origin,
+					trusted_origins: []
+				});
+				return new Response(forbidden ? 'CSRF rejected' : 'OK', { status: forbidden ? 403 : 200 });
+			}
+		}
+	`
+	);
+	const pending = [];
+	worker.scheduled({}, { CRON_SECRET: 'test-secret' }, { waitUntil: (p) => pending.push(p) });
+	assert.equal((await pending[0]).status, 200);
+});
+
+for (const status of [401, 403, 500, 503]) {
+	test(`rejects HTTP ${status} from cron in the waitUntil promise`, async (t) => {
+		const { worker } = await fixture(
+			t,
+			`export default {
+			async fetch() { return new Response('failed', { status: ${status} }); }
+		};`
+		);
+		const pending = [];
+		worker.scheduled({}, { CRON_SECRET: 'test-secret' }, { waitUntil: (p) => pending.push(p) });
+		await assert.rejects(pending[0], new RegExp('Scheduled cron failed: HTTP ' + status));
+	});
+}
 
 test('preserves cron failures in the waitUntil promise', async (t) => {
 	const { worker } = await fixture(t, app);
