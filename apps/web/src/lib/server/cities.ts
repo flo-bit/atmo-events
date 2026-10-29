@@ -1,6 +1,6 @@
-import type { Database } from '@atmo-dev/contrail';
+import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
 import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
-import { discoverableSql } from '#lib/search/server/discoverability.js';
+import { discoverableSql } from '#lib/contrail/discoverability.js';
 import { normalizeCityAddress } from './city-normalization';
 import { cachedRead } from './edge-cache';
 
@@ -39,7 +39,7 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 		${text('locality')} AS city, ${text('country')} AS country, ${text('region')} AS region,
 		json_group_array(DISTINCT json_array(r.uri, json_extract(r.record, '$.startsAt'))) AS events
 		FROM records_event r, ${LOCATIONS}
-		WHERE ${discoverableSql('r.record')} AND ${PHYSICAL}
+		WHERE ${discoverableSql('r.record')} AND ${visibleRecordSql('r')} AND ${PHYSICAL}
 			AND json_extract(r.record, '$.startsAt') >= ? AND ${ADDRESS_CONDITION}
 		GROUP BY ${text('locality')}, ${text('country')}, ${text('region')}
 		ORDER BY city, country, region`

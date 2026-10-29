@@ -32,7 +32,7 @@ export async function GET({ params }) {
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Methods': 'GET',
-				'Cache-Control': 'public, max-age=60, s-maxage=60'
+				'Cache-Control': 'no-store'
 			}
 		}
 	);

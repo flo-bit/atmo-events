@@ -14,7 +14,7 @@
 	import ThemeBackground from './ThemeBackground.svelte';
 	import ThemeApply from './ThemeApply.svelte';
 	import { defaultTheme, type EventTheme } from './theme.js';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import type { EditorAdapter, EditorViewer } from './editor/adapter.js';
 	import ConferenceTimetable from './schedule/ConferenceTimetable.svelte';
 	import { isConferenceEvent, toScheduleEvents, getConferenceRooms } from './conference.js';
@@ -36,7 +36,8 @@
 		viewer,
 		pageUrl,
 		embedMode = false,
-		shareUrlOverride
+		shareUrlOverride,
+		extraActions
 	}: {
 		data: any;
 		adapter: EditorAdapter;
@@ -48,6 +49,8 @@
 		 *  of the canonical atmo.rsvp event URL. Useful for embedders that want
 		 *  share links to point at their own event page. */
 		shareUrlOverride?: string;
+		/** App-owned actions such as private reporting; omitted in embeds. */
+		extraActions?: Snippet;
 	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
@@ -404,6 +407,7 @@
 				<EventLinksList uris={eventData.uris} />
 
 				<AddToCalendarButton {eventData} {eventUri} pageHref={pageUrl.href} />
+				{@render extraActions?.()}
 
 				<EventAttendees
 					bind:this={attendeesRef}

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get a single community.lexicon.calendar.rsvp record by AT URI",
+      "description": "Get a community.lexicon.calendar.rsvp record by AT URI",
       "parameters": {
         "type": "params",
         "required": [
@@ -18,7 +18,7 @@
           },
           "profiles": {
             "type": "boolean",
-            "description": "Include profile + identity info keyed by DID"
+            "description": "Include indexed profile and identity information"
           },
           "hydrateEvent": {
             "type": "boolean",
@@ -65,6 +65,15 @@
             "time_us": {
               "type": "integer"
             },
+            "selfLabels": {
+              "type": "array",
+              "maxLength": 10,
+              "description": "Author declarations on this record version, not trusted labeler claims",
+              "items": {
+                "type": "ref",
+                "ref": "com.atproto.label.defs#selfLabel"
+              }
+            },
             "event": {
               "type": "ref",
               "ref": "#refEventRecord"
@@ -84,6 +93,7 @@
       "type": "object",
       "required": [
         "uri",
+        "value",
         "did",
         "collection",
         "rkey",
@@ -93,6 +103,14 @@
         "uri": {
           "type": "string",
           "format": "at-uri"
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid"
+        },
+        "value": {
+          "type": "ref",
+          "ref": "community.lexicon.calendar.event#main"
         },
         "did": {
           "type": "string",
@@ -105,15 +123,17 @@
         "rkey": {
           "type": "string"
         },
-        "cid": {
-          "type": "string"
-        },
-        "record": {
-          "type": "ref",
-          "ref": "community.lexicon.calendar.event#main"
-        },
         "time_us": {
           "type": "integer"
+        },
+        "selfLabels": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Author declarations on this record version, not trusted labeler claims",
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.label.defs#selfLabel"
+          }
         }
       }
     },
@@ -140,7 +160,7 @@
         },
         "value": {
           "type": "ref",
-          "ref": "#appBskyActorProfile"
+          "ref": "app.bsky.actor.profile#main"
         },
         "collection": {
           "type": "string",
@@ -148,69 +168,15 @@
         },
         "rkey": {
           "type": "string"
-        }
-      }
-    },
-    "appBskyActorProfile": {
-      "type": "object",
-      "properties": {
-        "avatar": {
-          "type": "blob",
-          "accept": [
-            "image/png",
-            "image/jpeg"
-          ],
-          "maxSize": 1000000,
-          "description": "Small image to be displayed next to posts from account. AKA, 'profile picture'"
         },
-        "banner": {
-          "type": "blob",
-          "accept": [
-            "image/png",
-            "image/jpeg"
-          ],
-          "maxSize": 1000000,
-          "description": "Larger horizontal image to display behind profile view."
-        },
-        "labels": {
-          "refs": [
-            "com.atproto.label.defs#selfLabels"
-          ],
-          "type": "union",
-          "description": "Self-label values, specific to the Bluesky application, on the overall account."
-        },
-        "website": {
-          "type": "string",
-          "format": "uri"
-        },
-        "pronouns": {
-          "type": "string",
-          "maxLength": 200,
-          "description": "Free-form pronouns text.",
-          "maxGraphemes": 20
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "datetime"
-        },
-        "pinnedPost": {
-          "ref": "com.atproto.repo.strongRef",
-          "type": "ref"
-        },
-        "description": {
-          "type": "string",
-          "maxLength": 2560,
-          "description": "Free-form profile description text.",
-          "maxGraphemes": 256
-        },
-        "displayName": {
-          "type": "string",
-          "maxLength": 640,
-          "maxGraphemes": 64
-        },
-        "joinedViaStarterPack": {
-          "ref": "com.atproto.repo.strongRef",
-          "type": "ref"
+        "selfLabels": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Author declarations on this record version, not trusted labeler claims",
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.label.defs#selfLabel"
+          }
         }
       }
     }

@@ -10,12 +10,8 @@ const _mainSchema = /*#__PURE__*/ v.procedure(
 			"type": "lex",
 			"schema": /*#__PURE__*/ v.object(
 				{
-					/**
-					 * Single AT URI to fetch and index
-					 */
 					"uri": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.resourceUriString()),
 					/**
-					 * Batch of AT URIs to fetch and index (max 25)
 					 * @maxLength 25
 					 */
 					"uris": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.constrain(
@@ -30,15 +26,12 @@ const _mainSchema = /*#__PURE__*/ v.procedure(
 			"schema": /*#__PURE__*/ v.object(
 				{
 					/**
-					 * Number of records deleted (not found on PDS)
+					 * @minimum 0
 					 */
 					"deleted": /*#__PURE__*/ v.integer(),
-					/**
-					 * Errors for individual URIs that could not be processed
-					 */
 					"errors": /*#__PURE__*/ v.optional(/*#__PURE__*/ v.array(/*#__PURE__*/ v.string())),
 					/**
-					 * Number of records created or updated
+					 * @minimum 0
 					 */
 					"indexed": /*#__PURE__*/ v.integer(),
 				}

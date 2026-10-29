@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Query community.lexicon.calendar.event records with filters",
+      "description": "Query community.lexicon.calendar.event records",
       "parameters": {
         "type": "params",
         "properties": {
@@ -20,15 +20,35 @@
           "actor": {
             "type": "string",
             "format": "at-identifier",
-            "description": "Filter by DID or handle (triggers on-demand backfill)"
+            "description": "Filter by DID or handle"
           },
           "profiles": {
             "type": "boolean",
-            "description": "Include profile + identity info keyed by DID"
+            "description": "Include indexed profile and identity information"
           },
           "search": {
             "type": "string",
             "description": "Full-text search across: mode, name, status, description"
+          },
+          "createdAtMin": {
+            "type": "string",
+            "description": "Minimum value for createdAt"
+          },
+          "createdAtMax": {
+            "type": "string",
+            "description": "Maximum value for createdAt"
+          },
+          "description": {
+            "type": "string",
+            "description": "Filter by description"
+          },
+          "endsAtMin": {
+            "type": "string",
+            "description": "Minimum value for endsAt"
+          },
+          "endsAtMax": {
+            "type": "string",
+            "description": "Maximum value for endsAt"
           },
           "mode": {
             "type": "string",
@@ -37,14 +57,6 @@
           "name": {
             "type": "string",
             "description": "Filter by name"
-          },
-          "status": {
-            "type": "string",
-            "description": "Filter by status"
-          },
-          "description": {
-            "type": "string",
-            "description": "Filter by description"
           },
           "preferencesShowInDiscovery": {
             "type": "string",
@@ -58,59 +70,47 @@
             "type": "string",
             "description": "Maximum value for startsAt"
           },
-          "endsAtMin": {
+          "status": {
             "type": "string",
-            "description": "Minimum value for endsAt"
-          },
-          "endsAtMax": {
-            "type": "string",
-            "description": "Maximum value for endsAt"
-          },
-          "createdAtMin": {
-            "type": "string",
-            "description": "Minimum value for createdAt"
-          },
-          "createdAtMax": {
-            "type": "string",
-            "description": "Maximum value for createdAt"
+            "description": "Filter by status"
           },
           "rsvpsCountMin": {
             "type": "integer",
             "description": "Minimum total rsvps count"
           },
-          "hydrateRsvps": {
+          "rsvpsGoingCountMin": {
             "type": "integer",
-            "minimum": 1,
-            "maximum": 50,
-            "description": "Number of rsvps records to embed per record"
+            "description": "Minimum rsvps count where status = going"
           },
           "rsvpsInterestedCountMin": {
             "type": "integer",
             "description": "Minimum rsvps count where status = interested"
           },
-          "rsvpsGoingCountMin": {
-            "type": "integer",
-            "description": "Minimum rsvps count where status = going"
-          },
           "rsvpsNotgoingCountMin": {
             "type": "integer",
             "description": "Minimum rsvps count where status = notgoing"
           },
+          "hydrateRsvps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Number of rsvps records to embed"
+          },
           "sort": {
             "type": "string",
             "knownValues": [
+              "createdAt",
+              "description",
+              "endsAt",
               "mode",
               "name",
-              "status",
-              "description",
               "preferencesShowInDiscovery",
-              "startsAt",
-              "endsAt",
-              "createdAt",
               "rsvpsCount",
-              "rsvpsInterestedCount",
               "rsvpsGoingCount",
-              "rsvpsNotgoingCount"
+              "rsvpsInterestedCount",
+              "rsvpsNotgoingCount",
+              "startsAt",
+              "status"
             ],
             "description": "Field to sort by (default: time_us)"
           },
@@ -120,7 +120,7 @@
               "asc",
               "desc"
             ],
-            "description": "Sort direction (default: desc for dates/numbers/counts, asc for strings)"
+            "description": "Sort direction"
           }
         }
       },
@@ -191,17 +191,26 @@
         "time_us": {
           "type": "integer"
         },
+        "selfLabels": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Author declarations on this record version, not trusted labeler claims",
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.label.defs#selfLabel"
+          }
+        },
         "rsvpsCount": {
           "type": "integer",
           "description": "Total rsvps count"
         },
-        "rsvpsInterestedCount": {
-          "type": "integer",
-          "description": "rsvps count where status = interested"
-        },
         "rsvpsGoingCount": {
           "type": "integer",
           "description": "rsvps count where status = going"
+        },
+        "rsvpsInterestedCount": {
+          "type": "integer",
+          "description": "rsvps count where status = interested"
         },
         "rsvpsNotgoingCount": {
           "type": "integer",
@@ -217,6 +226,7 @@
       "type": "object",
       "required": [
         "uri",
+        "value",
         "did",
         "collection",
         "rkey",
@@ -226,6 +236,14 @@
         "uri": {
           "type": "string",
           "format": "at-uri"
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid"
+        },
+        "value": {
+          "type": "ref",
+          "ref": "community.lexicon.calendar.rsvp#main"
         },
         "did": {
           "type": "string",
@@ -238,29 +256,31 @@
         "rkey": {
           "type": "string"
         },
-        "cid": {
-          "type": "string"
-        },
-        "record": {
-          "type": "ref",
-          "ref": "community.lexicon.calendar.rsvp#main"
-        },
         "time_us": {
           "type": "integer"
+        },
+        "selfLabels": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Author declarations on this record version, not trusted labeler claims",
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.label.defs#selfLabel"
+          }
         }
       }
     },
     "hydrateRsvps": {
       "type": "object",
       "properties": {
-        "interested": {
+        "going": {
           "type": "array",
           "items": {
             "type": "ref",
             "ref": "#hydrateRsvpsRecord"
           }
         },
-        "going": {
+        "interested": {
           "type": "array",
           "items": {
             "type": "ref",
@@ -306,7 +326,7 @@
         },
         "value": {
           "type": "ref",
-          "ref": "#appBskyActorProfile"
+          "ref": "app.bsky.actor.profile#main"
         },
         "collection": {
           "type": "string",
@@ -314,69 +334,15 @@
         },
         "rkey": {
           "type": "string"
-        }
-      }
-    },
-    "appBskyActorProfile": {
-      "type": "object",
-      "properties": {
-        "avatar": {
-          "type": "blob",
-          "accept": [
-            "image/png",
-            "image/jpeg"
-          ],
-          "maxSize": 1000000,
-          "description": "Small image to be displayed next to posts from account. AKA, 'profile picture'"
         },
-        "banner": {
-          "type": "blob",
-          "accept": [
-            "image/png",
-            "image/jpeg"
-          ],
-          "maxSize": 1000000,
-          "description": "Larger horizontal image to display behind profile view."
-        },
-        "labels": {
-          "refs": [
-            "com.atproto.label.defs#selfLabels"
-          ],
-          "type": "union",
-          "description": "Self-label values, specific to the Bluesky application, on the overall account."
-        },
-        "website": {
-          "type": "string",
-          "format": "uri"
-        },
-        "pronouns": {
-          "type": "string",
-          "maxLength": 200,
-          "description": "Free-form pronouns text.",
-          "maxGraphemes": 20
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "datetime"
-        },
-        "pinnedPost": {
-          "ref": "com.atproto.repo.strongRef",
-          "type": "ref"
-        },
-        "description": {
-          "type": "string",
-          "maxLength": 2560,
-          "description": "Free-form profile description text.",
-          "maxGraphemes": 256
-        },
-        "displayName": {
-          "type": "string",
-          "maxLength": 640,
-          "maxGraphemes": 64
-        },
-        "joinedViaStarterPack": {
-          "ref": "com.atproto.repo.strongRef",
-          "type": "ref"
+        "selfLabels": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Author declarations on this record version, not trusted labeler claims",
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.label.defs#selfLabel"
+          }
         }
       }
     }

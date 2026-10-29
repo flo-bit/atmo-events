@@ -1,7 +1,6 @@
 <script lang="ts">
 	import EventList from '#lib/components/EventList.svelte';
-	import { ArrowRight } from '@sketchyicons/svelte';
-	import { Input, Button, Icon } from '@atmo-dev/kit';
+	import { Input, Button } from '@atmo-dev/kit';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 
@@ -35,7 +34,7 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<h1 class="text-base-900 dark:text-base-50 mb-6 text-2xl font-bold">Search Events</h1>
 
-	<form onsubmit={handleSearch} class="flex gap-2 {data.locationSearchAvailable ? 'mb-2' : 'mb-8'}">
+	<form onsubmit={handleSearch} class="mb-8 flex gap-2">
 		<Input
 			type="text"
 			bind:value={query}
@@ -44,16 +43,6 @@
 		/>
 		<Button type="submit" disabled={!query.trim()}>Search</Button>
 	</form>
-
-	{#if data.locationSearchAvailable}
-		<p class="mb-8">
-			<a
-				href={resolve('near-me')}
-				class="text-muted hover:text-ink inline-flex items-center gap-1 text-sm"
-				>Events near me <Icon img={ArrowRight} size={16} /></a
-			>
-		</p>
-	{/if}
 
 	{#if data.query}
 		{#if data.events.length === 0 && data.ongoing.length === 0}

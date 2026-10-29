@@ -16,6 +16,7 @@ describe('city links', () => {
 						did: null,
 						profile: null,
 						canPostToBluesky: false,
+						isModerator: false,
 						pageTitle: 'Browse Cities',
 						pageDescription: 'Find upcoming events by city on the open social web.',
 						cities: [{ city, country, region, count: 1 }]

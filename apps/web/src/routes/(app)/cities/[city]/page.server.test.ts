@@ -14,10 +14,6 @@ vi.mock('#lib/contrail.js', () => ({
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listAuthoredEventsFromContrail: vi.fn()
 }));
-vi.mock('#lib/search/server/query.js', () => ({
-	searchBackendFromEnv: vi.fn(() => null),
-	runEventSearchPage: vi.fn()
-}));
 
 import { load } from './+page.server';
 import { listCityEventsFromContrail, listDiscoverableEventsFromContrail } from '#lib/contrail.js';

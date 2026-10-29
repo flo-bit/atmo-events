@@ -6,7 +6,7 @@ import {
 	sqliteDialect,
 	type Database,
 	type Statement
-} from '@atmo-dev/contrail-appview';
+} from '@atmo-dev/contrail';
 import { cityConditions, readTopCities, refreshCitySnapshot } from '#lib/server/cities.js';
 
 // Regression found by walking all 657 Boulder events: the old keyset skipped
@@ -16,7 +16,8 @@ function setup() {
 	sqlite.exec(`CREATE TABLE records_event (
 		uri TEXT PRIMARY KEY, did TEXT, rkey TEXT, cid TEXT, record TEXT,
 		time_us INTEGER, indexed_at INTEGER
-	)`);
+	);
+	CREATE TABLE moderation_hidden (subject TEXT, cid TEXT, starts_at INTEGER, exp INTEGER)`);
 	function prepare(sql: string, params: SQLInputValue[] = []): Statement {
 		return {
 			bind: (...values: unknown[]) => prepare(sql, values as SQLInputValue[]),
@@ -122,7 +123,7 @@ describe('Contrail record-field keyset URI tie-breaker', () => {
 		}
 	);
 
-	it('still accepts an in-flight legacy field cursor without a URI', async () => {
+	it('restarts legacy field cursors without the URI required by published Contrail', async () => {
 		const { sqlite, db, config } = setup();
 		try {
 			const cursor = Buffer.from(
@@ -134,8 +135,12 @@ describe('Contrail record-field keyset URI tie-breaker', () => {
 				limit: 100,
 				cursor
 			});
-			expect(page.records.length).toBeGreaterThan(0);
-			expect(page.records.length).toBeLessThan(45);
+			const fresh = await queryRecords(db, config, {
+				collection: 'event',
+				sort: { recordField: 'startsAt', direction: 'asc' },
+				limit: 100
+			});
+			expect(page.records.map(({ uri }) => uri)).toEqual(fresh.records.map(({ uri }) => uri));
 		} finally {
 			sqlite.close();
 		}

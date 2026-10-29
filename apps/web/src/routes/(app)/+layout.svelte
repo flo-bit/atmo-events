@@ -57,8 +57,7 @@
 			label: 'Events',
 			icon: Compass,
 			href: '/events',
-			active:
-				path.startsWith('/events') || path.startsWith('/near-me') || /\/p\/[^/]+\/e\//.test(path)
+			active: path.startsWith('/events') || /\/p\/[^/]+\/e\//.test(path)
 		},
 
 		{

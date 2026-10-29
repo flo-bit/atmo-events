@@ -6,17 +6,19 @@ import {
 	scopes,
 	requiredScopes,
 	blueskyPostingScope,
+	moderationActionScope,
 	loginPermissions,
 	getLoginScopes
 } from './settings';
 
 describe('OAuth permissions', () => {
-	it('requests only event/RSVP publishing, images, and Bluesky posts', () => {
+	it('declares optional moderator repository writes but no service RPC permissions', () => {
 		expect(scopes).toEqual([
 			'atproto',
 			'include:community.lexicon.calendar.authFull',
 			'blob?accept=image/*',
-			'include:app.bsky.authCreatePosts'
+			'include:app.bsky.authCreatePosts',
+			moderationActionScope
 		]);
 	});
 	it('allows writes only to calendar records and Bluesky posts', () => {

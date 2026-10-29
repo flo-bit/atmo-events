@@ -35,7 +35,11 @@ const address = (locality: unknown, country: unknown = 'DE', region: unknown = '
 function setup() {
 	const sqlite = new DatabaseSync(':memory:');
 	databases.push(sqlite);
-	sqlite.exec('CREATE TABLE records_event (uri TEXT PRIMARY KEY, record TEXT NOT NULL)');
+	sqlite.exec(`
+		CREATE TABLE records_event (uri TEXT PRIMARY KEY, record TEXT NOT NULL,
+			did TEXT NOT NULL DEFAULT 'did:plc:test', cid TEXT DEFAULT 'cid');
+		CREATE TABLE moderation_hidden (subject TEXT, cid TEXT, starts_at INTEGER, exp INTEGER);
+	`);
 	const bound = new WeakMap<D1PreparedStatement, { sql: string; params: SQLInputValue[] }>();
 	function execute(sql: string, params: SQLInputValue[]) {
 		const statement = sqlite.prepare(sql);
@@ -74,7 +78,7 @@ function setup() {
 	function add(record: Record<string, unknown>) {
 		const uri = `at://did:plc:test/community.lexicon.calendar.event/${++sequence}`;
 		sqlite
-			.prepare('INSERT INTO records_event VALUES (?, ?)')
+			.prepare('INSERT INTO records_event (uri, record) VALUES (?, ?)')
 			.run(uri, JSON.stringify({ startsAt: FUTURE, ...record }));
 		return uri;
 	}
@@ -101,6 +105,21 @@ function setup() {
 }
 
 describe('existing-field city discovery', () => {
+	it('excludes hidden records and accounts from city aggregates', async () => {
+		const { db, sqlite, add } = setup();
+		add({ locations: [address('Berlin')] });
+		const hidden = add({ locations: [address('Hidden City')] });
+		const hiddenAccount = add({ locations: [address('Hidden Host City')] });
+		sqlite
+			.prepare('UPDATE records_event SET did = ? WHERE uri = ?')
+			.run('did:plc:hidden', hiddenAccount);
+		const hide = sqlite.prepare('INSERT INTO moderation_hidden (subject, cid) VALUES (?, ?)');
+		hide.run(hidden, '');
+		hide.run('did:plc:hidden', '');
+		expect(await readTopCities(db, NOW)).toEqual([
+			{ city: 'Berlin', country: 'DE', region: '', count: 1 }
+		]);
+	});
 	it('counts only upcoming, discoverable, non-virtual events; needs no endsAt', async () => {
 		const { db, add } = setup();
 		add({ locations: [address('Berlin')] });
@@ -440,6 +459,6 @@ describe('existing-field city discovery', () => {
 				.prepare("SELECT name FROM sqlite_master WHERE type='table'")
 				.all()
 				.map(({ name }) => name)
-		).toEqual(['records_event']);
+		).toEqual(['records_event', 'moderation_hidden']);
 	});
 });

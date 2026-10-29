@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { GET } from './+server';
 import { env } from 'cloudflare:workers';
-import { DEFAULT_GEOCODER_URL, DEFAULT_GEOCODER_USER_AGENT } from '#lib/search/server/geocoder.js';
+import { DEFAULT_GEOCODER_URL, DEFAULT_GEOCODER_USER_AGENT } from '#lib/server/geocoder.js';
 
 const louisville = [
 	{

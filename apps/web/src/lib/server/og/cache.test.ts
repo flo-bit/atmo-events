@@ -154,7 +154,7 @@ describe('versioned OG read-through storage', () => {
 		vi.spyOn(options.env.OG_IMAGES!, 'get').mockRejectedValue(new Error('should not read R2'));
 		const fromEdge = await serveOgImage(options);
 		expect(await fromEdge.arrayBuffer()).toEqual(tinyPng);
-		expect(fromEdge.headers.get('cache-control')).toContain('max-age=300');
+		expect(fromEdge.headers.get('cache-control')).toBe('no-store');
 		expect(fromEdge.headers.get('cache-control')).not.toContain('max-age=86400');
 		expect(options.render).toHaveBeenCalledTimes(1);
 	});

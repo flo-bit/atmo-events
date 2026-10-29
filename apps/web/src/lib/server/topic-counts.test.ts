@@ -19,7 +19,9 @@ function setup() {
 	const sqlite = new DatabaseSync(':memory:');
 	databases.push(sqlite);
 	sqlite.exec(`
-		CREATE TABLE records_event (uri TEXT PRIMARY KEY, record TEXT NOT NULL);
+		CREATE TABLE records_event (uri TEXT PRIMARY KEY, record TEXT NOT NULL,
+			did TEXT NOT NULL DEFAULT 'did:plc:test', cid TEXT);
+		CREATE TABLE moderation_hidden (subject TEXT, cid TEXT, starts_at INTEGER, exp INTEGER);
 		CREATE TABLE fts_event_rows (id INTEGER PRIMARY KEY, uri TEXT NOT NULL UNIQUE);
 		CREATE VIRTUAL TABLE fts_event USING fts5(content);
 	`);
@@ -65,7 +67,9 @@ function setup() {
 	let sequence = 0;
 	function add(record: Record<string, unknown>) {
 		const uri = `at://did:plc:test/community.lexicon.calendar.event/${++sequence}`;
-		sqlite.prepare('INSERT INTO records_event VALUES (?, ?)').run(uri, JSON.stringify(record));
+		sqlite
+			.prepare('INSERT INTO records_event (uri, record) VALUES (?, ?)')
+			.run(uri, JSON.stringify(record));
 		const mapping = sqlite.prepare('INSERT INTO fts_event_rows (uri) VALUES (?)').run(uri);
 		sqlite
 			.prepare('INSERT INTO fts_event (rowid, content) VALUES (?, ?)')
@@ -78,6 +82,13 @@ function setup() {
 }
 
 describe('daily topic counts', () => {
+	it('excludes moderated records from aggregates', async () => {
+		const { db, sqlite, add } = setup();
+		add({ name: '#tech', startsAt: FUTURE });
+		sqlite.prepare("INSERT INTO moderation_hidden VALUES (?, '', NULL, NULL)").run('did:plc:test');
+		await refreshTopicCounts(db, NOW);
+		expect((await readTopicCounts(db))!.counts.technology).toBe(0);
+	});
 	it('counts the union of upcoming and ongoing public matches, once per event per topic', async () => {
 		const { db, add } = setup();
 		add({ name: '#tech #technology', startsAt: FUTURE }); // no endsAt is valid

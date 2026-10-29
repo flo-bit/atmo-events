@@ -5,6 +5,9 @@ node_modules
 .vercel
 .netlify
 .wrangler
+
+# Local projection builds, SQL import chunks and operational state
+/.contrail/
 .svelte-kit/
 build/
 dist/
