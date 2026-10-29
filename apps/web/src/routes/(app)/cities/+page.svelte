@@ -22,7 +22,7 @@
 					<!-- The path is resolved; its scope query string must be appended separately. -->
 					<!-- eslint-disable svelte/no-navigation-without-resolve -->
 					<a
-						href={`${resolve('/(app)/cities/[city]', { city: city.city })}?${citySearchParams(city)}`}
+						href={`${resolve('/(app)/cities/[city]', { city: encodeURIComponent(city.city) })}?${citySearchParams(city)}`}
 						class="rounded-ui border-line bg-recess text-ink hover:border-accent-400 dark:hover:border-accent-600 flex h-full items-center justify-between gap-4 border p-4 inset-shadow-sm transition-colors"
 					>
 						<div class="min-w-0">

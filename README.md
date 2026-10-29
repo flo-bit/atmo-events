@@ -35,6 +35,8 @@ The app defaults to zinc + pink. Existing event-specific colors/backgrounds are 
 
 Regenerate the favicon assets with `pnpm generate:favicons`. The script at `apps/web/scripts/generate-favicons.mjs` uses the logo's Sketchy Icons `CalendarDays` geometry on a pink-600 background. It writes the SVG, multi-size ICO (16/32/48), PNG fallback, Apple touch icon (180), web-app icons (192/512), maskable icon (512) and manifest to `apps/web/static/`. These generated files are committed; no image tooling runs in production. If changing the background color, also update `theme-color` in `apps/web/src/app.html`. Run `pnpm --filter web test:favicons` to check the assets.
 
+Regenerate the default Open Graph image with `pnpm generate:og`. The script at `apps/web/scripts/generate-og.ts` combines the header's calendar icon and Figtree wordmark, the homepage's baked globe artwork, and its tagline into `apps/web/static/og.png` (1200 × 630). The PNG is committed and served statically; event-specific previews are unchanged. Install the generation browser once with `pnpm --filter web exec playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to an existing Chrome/Chromium executable.
+
 Checks:
 
 ```sh

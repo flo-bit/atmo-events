@@ -117,6 +117,28 @@ describe('city page and load-more share one query', () => {
 		});
 	});
 
+	it('continues long Unicode scopes through load-more and deep links', async () => {
+		const city = '東'.repeat(256);
+		const region = '南'.repeat(256);
+		const raw = Buffer.from(
+			JSON.stringify({
+				t: 1793000000000000,
+				v: '2050-01-01T12:00:00.000Z',
+				k: 'field:startsAt',
+				u: 'at://did:plc:abcdefghijklmnopqrstuvwx/community.lexicon.calendar.event/3abcdefghi123'
+			})
+		).toString('base64url');
+		list.mockResolvedValue({ ...page(), cursor: raw } as never);
+		const result = (await load(event(undefined, 'CN', region, city))) as { cursor: string };
+		expect(result.cursor.length).toBeGreaterThan(1500);
+		expect(decodeCursor(result.cursor)?.args).toEqual({ city, country: 'cn', region });
+		await runLoadMoreEvents(env, { cursor: result.cursor });
+		expect(list).toHaveBeenCalledTimes(2);
+		expect(list.mock.lastCall![1]).toMatchObject({ city, country: 'cn', region, cursor: raw });
+		await load(event(result.cursor, 'CN', region, city));
+		expect(list.mock.lastCall![1].cursor).toBe(raw);
+	});
+
 	it('ends only when the backend ends; no matching events can still carry a continuation', async () => {
 		list.mockResolvedValue({ records: [], cursor: null } as never);
 		const result = (await load(event())) as { cursor: string | null };

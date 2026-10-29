@@ -119,11 +119,11 @@ export type CursorEnvelope = {
 };
 
 /**
- * Defensive upper bound on a decoded token's length. The real envelope is
- * ~150-250 chars; anything far larger is malformed or hostile, so we refuse to
- * decode it (end pagination) rather than parse an over-long URL/body.
+ * Bound the encoded token before decoding. Leave room for three 256-code-unit
+ * city fields (including UTF-8/JSON escaping) plus a native keyset carrying a
+ * URI tie-breaker, all wrapped in base64url.
  */
-const MAX_CURSOR_LEN = 1500;
+const MAX_CURSOR_LEN = 16 * 1024;
 
 /** base64url alphabet only — no '+' '/' '=' padding, no other characters. */
 const BASE64URL_RE = /^[A-Za-z0-9_-]+$/;

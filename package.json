@@ -11,6 +11,7 @@
 		"test:kit-dev": "node --test scripts/kit-dev.test.mjs",
 		"build": "pnpm --filter web build",
 		"generate:favicons": "pnpm --filter web generate:favicons",
+		"generate:og": "pnpm --filter web generate:og",
 		"check": "pnpm -r check",
 		"test": "pnpm test:kit-dev && pnpm -r test",
 		"lint": "pnpm -r lint",
