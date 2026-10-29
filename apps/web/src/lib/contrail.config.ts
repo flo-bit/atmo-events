@@ -2,6 +2,7 @@ import type { ContrailConfig } from '@atmo-dev/contrail';
 import { MAX_HYDRATION_URIS } from './search/constants';
 import { createMeiliSink, meiliSinkBackendFromEnv } from './search/server/meili-sink';
 import { discoverableSql } from './search/server/discoverability';
+import { cityConditions } from './server/cities';
 
 // The `contrail` CLI (`pnpm backfill` / `contrail refresh`) fires `config.sinks`
 // on the backfill/refresh paths, so a fresh or re-synced install gets full search
@@ -75,6 +76,14 @@ export const config: ContrailConfig = {
 				listDiscoverable: async () => ({
 					conditions: [DISCOVERABLE_CONDITION]
 				}),
+				// Same paginated/hydrated pipeline, scoped to supplied address fields.
+				// Missing city matches nothing; all values remain bound SQL params.
+				listDiscoverableInCity: async (db, params) =>
+					cityConditions(db, {
+						city: params.get('city') ?? '',
+						country: params.get('country') ?? '',
+						region: params.get('region') ?? ''
+					}),
 				// Endpoint: rsvp.atmo.event.listDiscoverableByUris?uris=at://…,at://…
 				// Hydration half of the Meilisearch read path: search
 				// returns ranked uris only; this fetches those records from D1 so

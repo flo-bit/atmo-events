@@ -42,7 +42,7 @@ index 5642d1065975c910c29fe4fc7a9a1b6151cf40ed..272643e3b18e559f04d903c37ee6b303
 -export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
 +export { type BackfillAllOptions, type BackfillOptions, type BackfillProgress, CONTRAIL_SCHEMA_VERSION, type CollectionStats, type CreateAppOptions, type ExistingRecordInfo, FEED_PRUNE_RECOVERY_INTERVAL_MS, FEED_PRUNE_SWEEP_ACTORS, type FeedSweepResult, type FormattedRecord, HostedAdapter, type HydrateResult, type HydratedLabel, type IncomingLabel, type IngestState, type InitSchemaOptions, type LabelerResolveOverrides, type LabelerState, MAX_INGEST_EVENTS_PER_CYCLE, type NotifyResult, OPTIMIZE_LAST_MS_KEY, type PersistentIngestOptions, type PersistentLabelsOptions, type ProfileEntry, type QueryOptions, type RealtimeRoutesOptions, type RecordHostSyncOptions, type RecordHostSyncSource, type ReferenceResult, type RefreshOptions, type RefreshProgress, type RefreshResult, type SchemaModule, type SelectedLabelers, type SortOption, type SpacesContext, type SpacesRoutesOptions, type TopicResolution, type TopicResolutionContext, type TopicResolutionError, addColumnIfNotExists, applyCountColumns, applyEvents, applyLabels, applyRecordSyncSchema, backfillFollowersFromConstellation, backfillPending, backfillUser, batchedInQuery, buildCollectionTables, buildCountColumns, buildDynamicIndexes, buildFtsContent, buildFtsTables, buildLabelsSchema, buildRecordSyncSchema, collectDids, createApp, createIngestState, discoverDIDs, fieldToParam, formatRecord, ftsRowTableName, ftsTableName, getFeedPruneCursor, getLabelerState, getLastCursor, getMeta, getMetaNumber, getSearchableFields, hydrateLabels, ingestEvents, initSchema, lookupExistingRecords, maybeOptimize, optimizeDatabase, parseAtUri, parseHydrateParams, parseIntParam, processNotifyUris, pruneActorFeed, pruneFeedItems, queryAcrossSources, queryRecords, refresh, registerAdminRoutes, registerCollectionRoutes, registerFeedRoutes, registerNotifyRoute, registerRealtimeRoutes, registerSpacesRoutes, resetLabelerCursor, resolveHydrates, resolveLabelerEndpoint, resolveProfiles, resolveReferences, resolveTopicForCaller, runFeedPruneSlice, runGatedFeedPrune, runIngestCycle, runLabelIngestCycle, runPersistent, runPersistentLabels, runPipeline, runRecordHostSync, saveCursor, saveFeedPruneCursor, saveLabelerCursor, selectAcceptedLabelers, setMeta, sweepFeedItems, validateEndpointUrl, wrapWithPublishing };
 diff --git a/dist/index.js b/dist/index.js
-index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c1879123244 100644
+index c97302002b9f1b701366b70ee8bb30881623f2df..bad945e4db619be540c28a76b39c2d989e0d3976 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -28,6 +28,7 @@ __export(index_exports, {
@@ -353,7 +353,44 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
  }
  function buildFeedStatements(db, event, config, existingRecords) {
    if (!config.feeds) return [];
-@@ -1550,6 +1727,7 @@ async function backfillFollowersFromConstellation(db, config, subjectDid) {
+@@ -1276,9 +1453,16 @@ async function queryRecords(db, config, options) {
+       if (sort?.recordField) {
+         const sortExpr = (0, dialect_exports.getDialect)(db).jsonExtract("r.record", sort.recordField);
+         const cmp = sort.direction === "desc" ? "<" : ">";
+-        conditions.push(`(${sortExpr} ${cmp} ? OR (${sortExpr} = ? AND r.time_us < ?))`);
+         const v = payload.v ?? "";
+-        bindings.push(v, v, payload.t);
++        // Backfills can give several records the same field value AND time_us.
++        // New cursors carry the URI tie-breaker; old in-flight cursors still work.
++        if (typeof payload.u === "string") {
++          conditions.push(`(${sortExpr} ${cmp} ? OR (${sortExpr} = ? AND (r.time_us < ? OR (r.time_us = ? AND r.uri > ?))))`);
++          bindings.push(v, v, payload.t, payload.t, payload.u);
++        } else {
++          conditions.push(`(${sortExpr} ${cmp} ? OR (${sortExpr} = ? AND r.time_us < ?))`);
++          bindings.push(v, v, payload.t);
++        }
+       } else if (sort?.countType) {
+         const sortCol = countColumnForType(config, collection, sort.countType);
+         if (!sortCol) throw new Error(`Unknown countType: ${sort.countType}`);
+@@ -1331,7 +1515,7 @@ async function queryRecords(db, config, options) {
+   let orderBy;
+   if (sort?.recordField) {
+     const dir = sort.direction === "desc" ? "DESC" : "ASC";
+-    orderBy = `${(0, dialect_exports.getDialect)(db).jsonExtract("r.record", sort.recordField)} ${dir}, r.time_us DESC`;
++    orderBy = `${(0, dialect_exports.getDialect)(db).jsonExtract("r.record", sort.recordField)} ${dir}, r.time_us DESC, r.uri ASC`;
+   } else if (sort?.countType) {
+     const dir = sort.direction === "desc" ? "DESC" : "ASC";
+     const sortCol = countColumnForType(config, collection, sort.countType);
+@@ -1379,7 +1563,7 @@ function buildCursor(row, sort, kind) {
+   if (sort?.recordField) {
+     const parsed = row.record ? JSON.parse(row.record) : null;
+     const v = parsed ? (0, types_exports.getNestedValue)(parsed, sort.recordField) : void 0;
+-    return encodeCursor({ t, v: v == null ? "" : String(v), k: kind });
++    return encodeCursor({ t, v: v == null ? "" : String(v), k: kind, u: row.uri });
+   }
+   if (sort?.countType) {
+     const v = row.counts?.[sort.countType] ?? 0;
+@@ -1550,6 +1734,7 @@ async function backfillFollowersFromConstellation(db, config, subjectDid) {
  
  // src/core/jetstream.ts
  var BATCH_SIZE = 50;
@@ -361,7 +398,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
  var FEED_PRUNE_SWEEP_ACTORS = 500;
  var FEED_PRUNE_RECOVERY_INTERVAL_MS = 6 * 60 * 60 * 1e3;
  var FEED_PRUNE_LAST_FULL_PASS_META = "feed_prune_last_full_pass_ms";
-@@ -1630,8 +1808,8 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1630,8 +1815,8 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
    let lastYieldedTimeUs = null;
    let firstYieldedTimeUs = null;
    let connectCount = 0;
@@ -372,7 +409,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
    const newlyKnownDids = /* @__PURE__ */ new Set();
    const identityUpdates = /* @__PURE__ */ new Map();
    const subscription = new JetstreamSubscription({
-@@ -1688,15 +1866,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1688,15 +1873,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
          }
          if (!keep) return;
        }
@@ -393,7 +430,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
        const now = Date.now();
        collected.push({
          uri,
-@@ -1709,9 +1884,6 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1709,9 +1891,6 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
          record: commit.operation === "delete" ? null : JSON.stringify(commit.record),
          indexed_at: now * 1e3
        });
@@ -403,7 +440,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
        if (knownDids && !dependentCollections.has(commit.collection)) {
          if (!knownDids.has(event.did)) {
            knownDids.add(event.did);
-@@ -1741,6 +1913,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1741,6 +1920,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
      if (firstYieldedTimeUs === null) firstYieldedTimeUs = event.time_us;
      lastYieldedTimeUs = event.time_us;
      handleEvent(event);
@@ -416,7 +453,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
      if (event.time_us >= startTimeUs) {
        log.log(
          `[ingest] caught up to present, stopping (last time_us=${event.time_us}, startTimeUs=${startTimeUs})`
-@@ -1756,11 +1934,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
+@@ -1756,11 +1941,12 @@ async function ingestEvents(config, cursor, safetyTimeoutMs = 25e3, knownDids) {
        `[ingest] ${filteredUnknownDid} events filtered (unknown did). sample dids: ${sample}`
      );
    }
@@ -432,7 +469,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
    );
    if (cursorGap !== null && cursorGap > 1e3) {
      log.warn(
-@@ -2935,26 +3114,48 @@ async function resolveProfiles(db, config, dids) {
+@@ -2935,26 +3121,48 @@ async function resolveProfiles(db, config, dids) {
    }
    return result;
  }
@@ -486,7 +523,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
            const uri = data.uri ?? `at://${did}/${collection}/${rkey}`;
            const record = data.value;
            const cid = data.cid;
-@@ -2976,6 +3177,18 @@ async function fetchMissingProfiles(db, config, dids) {
+@@ -2976,6 +3184,18 @@ async function fetchMissingProfiles(db, config, dids) {
        })
      )
    );
@@ -505,7 +542,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
    return result;
  }
  
-@@ -5568,6 +5781,7 @@ export {
+@@ -5568,6 +5788,7 @@ export {
    FEED_PRUNE_SWEEP_ACTORS,
    HostedAdapter,
    export_InMemoryPubSub as InMemoryPubSub,
@@ -513,7 +550,7 @@ index c97302002b9f1b701366b70ee8bb30881623f2df..a944350b309c1a27a8d6fc62133e8c18
    OPTIMIZE_LAST_MS_KEY,
    export_RealtimePubSubDO as RealtimePubSubDO,
    export_TicketSigner as TicketSigner,
-@@ -5596,6 +5810,7 @@ export {
+@@ -5596,6 +5817,7 @@ export {
    discoverDIDs,
    fieldToParam,
    formatRecord,

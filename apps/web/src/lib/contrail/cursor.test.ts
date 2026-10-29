@@ -97,6 +97,27 @@ describe('encodeCursor / decodeCursor round-trip', () => {
 		expect(decodeCursor(encodeCursor(envelope))).toEqual(envelope);
 	});
 
+	it.each(['東'.repeat(256), '\u0000'.repeat(256)])(
+		'round-trips maximum-length city fields with UTF-8 or JSON escaping (%#)',
+		(value) => {
+			const envelope: CursorEnvelope = {
+				v: 1,
+				q: 'city',
+				args: { city: value, country: value, region: value },
+				raw: craft({
+					t: 1793000000000000,
+					v: '2050-01-01T12:00:00.000Z',
+					k: 'field:startsAt',
+					u: `at://did:plc:abcdefghijklmnopqrstuvwx/community.lexicon.calendar.event/${'x'.repeat(512)}`
+				})
+			};
+			const token = nextCursor('city', envelope.raw, envelope.args)!;
+			expect(token.length).toBeGreaterThan(1500);
+			expect(decodeCursor(token)).toEqual(envelope);
+			expect(rawForQuery(token, 'city', envelope.args)).toBe(envelope.raw);
+		}
+	);
+
 	it('round-trips the popular boolean arg', () => {
 		const envelope: CursorEnvelope = { v: 1, q: 'events', args: { popular: true }, raw: 'k' };
 		expect(decodeCursor(encodeCursor(envelope))).toEqual(envelope);
@@ -167,9 +188,27 @@ describe('decodeCursor fail-safe (never throws, returns null on anything bad)', 
 		expect(decodeCursor(craft({ v: 1, q: 'hosting', args: { actor: 42 }, raw: 'x' }))).toBeNull();
 	});
 
-	it('returns null for an oversized token (> ~1500 chars)', () => {
-		const huge = encodeCursor({ v: 1, q: 'events', raw: 'x'.repeat(4000) });
-		expect(huge.length).toBeGreaterThan(1500);
+	it.each(['city', 'country', 'region'])(
+		'rejects mistyped and overlong city scope field %s',
+		(field) => {
+			for (const value of [42, null, [], {}, 'x'.repeat(257)]) {
+				expect(
+					decodeCursor(
+						craft({
+							v: 1,
+							q: 'city',
+							args: { city: 'berlin', country: 'de', region: '', [field]: value },
+							raw: 'x'
+						})
+					)
+				).toBeNull();
+			}
+		}
+	);
+
+	it('returns null for an oversized token (> 16 KiB)', () => {
+		const huge = encodeCursor({ v: 1, q: 'events', raw: 'x'.repeat(16 * 1024) });
+		expect(huge.length).toBeGreaterThan(16 * 1024);
 		expect(decodeCursor(huge)).toBeNull();
 	});
 
