@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 vi.mock('#lib/contrail/index.js', () => ({ ensureInit: vi.fn() }));
-vi.mock('#lib/server/cities.js', () => ({ readTopCities: vi.fn() }));
+vi.mock('#lib/server/cities.js', () => ({ readTopCities: vi.fn(), refreshCitySnapshot: vi.fn() }));
 
 import { load } from './+page.server';
 import { ensureInit } from '#lib/contrail/index.js';

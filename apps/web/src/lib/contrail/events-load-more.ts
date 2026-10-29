@@ -54,7 +54,7 @@ type Resumer = (
 // The query-name -> resumer REGISTRY. Adding a paginated list means defining its
 // query in `queries.ts` and registering it here. The plain, unlisted-inclusive
 // listRecords pipeline deliberately has NO entry, so no decoded envelope can
-// reach it. (See README → "Load-more pagination".)
+// reach it. (See docs/development.md → "Load-more pagination".)
 const REGISTRY: Record<CursorQuery, Resumer> = {
 	events: async (_env, client, { args, raw }) =>
 		eventsQuery(client, { popular: args?.popular === true }, raw),
@@ -94,10 +94,15 @@ const REGISTRY: Record<CursorQuery, Resumer> = {
 		return topicQuery(client, { slug }, raw);
 	},
 
-	city: async (_env, client, { args, raw }) => {
+	city: async (env, client, { args, raw }) => {
 		if (args?.city === undefined || args.country === undefined || args.region === undefined)
 			return EMPTY;
-		return cityQuery(client, { city: args.city, country: args.country, region: args.region }, raw);
+		return cityQuery(
+			client,
+			{ city: args.city, country: args.country, region: args.region },
+			raw,
+			env.DB
+		);
 	},
 
 	// Search is the one query whose defining input is not in the envelope: the

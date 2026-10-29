@@ -7,7 +7,7 @@ import {
 	type Database,
 	type Statement
 } from '@atmo-dev/contrail-appview';
-import { cityConditions, readTopCities } from '#lib/server/cities.js';
+import { cityConditions, readTopCities, refreshCitySnapshot } from '#lib/server/cities.js';
 
 // Regression found by walking all 657 Boulder events: the old keyset skipped
 // one record at a page boundary when startsAt AND time_us were identical.
@@ -22,13 +22,25 @@ function setup() {
 			bind: (...values: unknown[]) => prepare(sql, values as SQLInputValue[]),
 			all: async <T>() => ({ results: sqlite.prepare(sql).all(...params) as T[] }),
 			first: async <T>() => (sqlite.prepare(sql).get(...params) as T) ?? null,
-			run: async () => {
-				sqlite.prepare(sql).run(...params);
-				return {};
-			}
+			run: async () => ({ meta: { changes: Number(sqlite.prepare(sql).run(...params).changes) } })
 		};
 	}
-	const db: Database = { prepare, batch: async () => [], dialect: sqliteDialect };
+	const db: Database = {
+		prepare,
+		batch: async (statements) => {
+			sqlite.exec('BEGIN');
+			try {
+				const results = [];
+				for (const statement of statements) results.push(await statement.run());
+				sqlite.exec('COMMIT');
+				return results;
+			} catch (error) {
+				sqlite.exec('ROLLBACK');
+				throw error;
+			}
+		},
+		dialect: sqliteDialect
+	};
 	const config = resolveConfig({
 		namespace: 'rsvp.atmo',
 		collections: {
@@ -74,6 +86,10 @@ describe('Contrail record-field keyset URI tie-breaker', () => {
 			try {
 				const cities = await readTopCities(db, '2049-01-01T00:00:00.000Z');
 				expect(cities).toEqual([{ city: 'Boulder', country: 'US', region: 'Colorado', count: 45 }]);
+				await refreshCitySnapshot(
+					db as unknown as D1Database,
+					Date.parse('2049-01-01T00:00:00.000Z')
+				);
 				const source = await cityConditions(db, cities[0]);
 				const actual: string[] = [];
 				let cursor: string | undefined;

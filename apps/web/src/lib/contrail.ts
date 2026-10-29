@@ -305,14 +305,18 @@ export async function listDiscoverableEventsFromContrail(
 	return response.data;
 }
 
-/** City filtering happens in SQL BEFORE keyset pagination and hydration. */
+/** Hydrate a snapshot page by existing primary keys, with live city/visibility checks. */
 export async function listCityEventsFromContrail(
 	client: Client,
-	params: Omit<ListEventsParams, 'preferencesShowInDiscovery'> & CityScope
+	params: Omit<ListEventsParams, 'preferencesShowInDiscovery'> &
+		CityScope & {
+			uris: string[];
+			snapshot: string;
+		}
 ): Promise<EventListOutput | null> {
 	const response = await client.get(
 		'rsvp.atmo.event.listDiscoverableInCity' as 'rsvp.atmo.event.listRecords',
-		{ params }
+		{ params: { ...params, uris: params.uris.join(',') } as unknown as ListEventsParams }
 	);
 	return response.ok ? response.data : null;
 }

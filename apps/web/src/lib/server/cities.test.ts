@@ -2,7 +2,13 @@ import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { config } from '#lib/contrail.config.js';
 import { TOP_CITIES_LIMIT } from '#lib/cities.js';
-import { cityConditions, readTopCities } from './cities';
+import {
+	cityConditions,
+	readTopCities,
+	readCitySnapshot,
+	refreshCitySnapshot,
+	CITY_SNAPSHOT_INTERVAL_MS
+} from './cities';
 
 const NOW = '2026-10-28T12:00:00.000Z';
 const FUTURE = '2026-11-15T12:00:00.000Z';
@@ -30,13 +36,40 @@ function setup() {
 	const sqlite = new DatabaseSync(':memory:');
 	databases.push(sqlite);
 	sqlite.exec('CREATE TABLE records_event (uri TEXT PRIMARY KEY, record TEXT NOT NULL)');
-	function prepare(sql: string, params: SQLInputValue[] = []): D1PreparedStatement {
-		return {
-			bind: (...values: SQLInputValue[]) => prepare(sql, values),
-			all: async () => ({ success: true, results: sqlite.prepare(sql).all(...params) })
-		} as unknown as D1PreparedStatement;
+	const bound = new WeakMap<D1PreparedStatement, { sql: string; params: SQLInputValue[] }>();
+	function execute(sql: string, params: SQLInputValue[]) {
+		const statement = sqlite.prepare(sql);
+		return statement.columns().length
+			? { success: true, results: statement.all(...params), meta: { changes: 0 } }
+			: { success: true, results: [], meta: { changes: Number(statement.run(...params).changes) } };
 	}
-	const db = { prepare } as D1Database;
+	function prepare(sql: string, params: SQLInputValue[] = []): D1PreparedStatement {
+		const statement = {
+			bind: (...values: SQLInputValue[]) => prepare(sql, values),
+			all: async () => execute(sql, params),
+			run: async () => execute(sql, params),
+			first: async () => sqlite.prepare(sql).get(...params) ?? null
+		} as unknown as D1PreparedStatement;
+		bound.set(statement, { sql, params });
+		return statement;
+	}
+	const db = {
+		prepare,
+		batch: async (statements: D1PreparedStatement[]) => {
+			sqlite.exec('BEGIN');
+			try {
+				const results = statements.map((statement) => {
+					const { sql, params } = bound.get(statement)!;
+					return execute(sql, params);
+				});
+				sqlite.exec('COMMIT');
+				return results;
+			} catch (error) {
+				sqlite.exec('ROLLBACK');
+				throw error;
+			}
+		}
+	} as unknown as D1Database;
 	let sequence = 0;
 	function add(record: Record<string, unknown>) {
 		const uri = `at://did:plc:test/community.lexicon.calendar.event/${++sequence}`;
@@ -45,9 +78,17 @@ function setup() {
 			.run(uri, JSON.stringify({ startsAt: FUTURE, ...record }));
 		return uri;
 	}
-	async function matching(scope: { city: string; country: string; region: string }) {
+	async function matching(
+		scope: { city: string; country: string; region: string },
+		uris?: string[],
+		snapshot?: string
+	) {
+		await refreshCitySnapshot(db);
 		const handler = config.collections!.event.pipelineQueries!.listDiscoverableInCity;
-		const source = await handler(db, new URLSearchParams(scope), config);
+		const params = new URLSearchParams(scope);
+		if (uris) params.set('uris', uris.join(','));
+		if (snapshot) params.set('snapshot', snapshot);
+		const source = await handler(db, params, config);
 		return sqlite
 			.prepare(
 				`SELECT r.uri FROM records_event r WHERE ${source.conditions!.join(' AND ')}
@@ -231,30 +272,156 @@ describe('existing-field city discovery', () => {
 		expect(cities[0]).toMatchObject({ city: 'Boulder', count: 3 });
 	});
 
-	it('shares one compact read cache between ranking and listings; does not cache event URIs', async () => {
+	it('shares the global daily snapshot at the edge and refreshes only through cron', async () => {
 		const { db, add, matching } = setup();
-		const memory = new Map<string, Response>();
+		const memory = new Map<string, { response: Response; expiresAt: number }>();
 		vi.stubGlobal('caches', {
 			default: {
-				match: async (key: Request) => memory.get(key.url)?.clone(),
+				match: async (key: Request) => {
+					const entry = memory.get(key.url);
+					return entry && entry.expiresAt > Date.now() ? entry.response.clone() : undefined;
+				},
 				put: async (key: Request, value: Response) => {
-					memory.set(key.url, value.clone());
+					const ttl = Number(value.headers.get('cache-control')?.match(/max-age=(\d+)/)?.[1]);
+					memory.set(key.url, { response: value.clone(), expiresAt: Date.now() + ttl * 1000 });
 				}
 			}
 		});
 		add({ locations: [address('Boulder', 'US', 'CO')] });
+		await refreshCitySnapshot(db);
 		const prepare = vi.spyOn(db, 'prepare');
 		const cities = await readTopCities(db);
-		expect(await matching(cities[0])).toHaveLength(1);
-		expect(prepare).toHaveBeenCalledTimes(1); // pipeline reused ranking's catalog
-		const cached = [...memory.values()][0];
-		expect(cached.headers.get('cache-control')).toBe('max-age=300');
+		expect(prepare).toHaveBeenCalledTimes(2); // head + compact catalog
+		const cached = [...memory.values()][1].response;
+		expect(cached.headers.get('cache-control')).toBe('max-age=86400');
 		expect(await cached.clone().text()).not.toContain('at://');
+		// New records using a known address appear immediately, even while the
+		// ranking stays stale. A previously unseen variant waits for the refresh.
+		add({ locations: [address('Boulder', 'US', 'CO')] });
 		add({ locations: [address('Boulder, Colorado, 80302', 'USA')] });
+		vi.setSystemTime(new Date(Date.parse(NOW) + 5 * 60 * 1000));
 		expect((await readTopCities(db))[0].count).toBe(1);
-		memory.clear(); // next miss sees the new publisher variant, no backfill
-		expect((await readTopCities(db))[0].count).toBe(2);
 		expect(await matching(cities[0])).toHaveLength(2);
+		vi.setSystemTime(new Date(Date.parse(NOW) + 24 * 60 * 60 * 1000 - 1));
+		expect((await readTopCities(db))[0].count).toBe(1);
+		vi.setSystemTime(new Date(Date.parse(NOW) + 24 * 60 * 60 * 1000));
+		expect((await readTopCities(db))[0].count).toBe(1); // no request-time rebuild
+		await refreshCitySnapshot(db);
+		memory.clear(); // another location gets the published global snapshot
+		expect((await readTopCities(db))[0].count).toBe(3);
+		expect(await matching(cities[0])).toHaveLength(3);
+		expect(
+			prepare.mock.calls.filter(([sql]) => sql.includes('FROM records_event r,'))
+		).toHaveLength(1);
+	});
+
+	it('hydrates only supplied primary keys and rechecks hidden, moved, virtual, past and deleted events live', async () => {
+		const { db, add, sqlite, matching } = setup();
+		const scope = { city: 'Berlin', country: 'DE', region: '' };
+		const live = add({ locations: [address('Berlin')] });
+		const hidden = add({ locations: [address('Berlin')] });
+		const moved = add({ locations: [address('Berlin')] });
+		const virtual = add({ locations: [address('Berlin')] });
+		const past = add({ locations: [address('Berlin')] });
+		const deleted = add({ locations: [address('Berlin')] });
+		const outsidePage = add({ locations: [address('Berlin')] });
+		const otherCity = add({ locations: [address('Paris', 'FR')] });
+		await refreshCitySnapshot(db);
+		const snapshot = (await readCitySnapshot(db, scope))!;
+		const update = (uri: string, record: Record<string, unknown>) =>
+			sqlite
+				.prepare('UPDATE records_event SET record = ? WHERE uri = ?')
+				.run(JSON.stringify({ startsAt: FUTURE, locations: [address('Berlin')], ...record }), uri);
+		update(hidden, { preferences: { showInDiscovery: false } });
+		update(moved, { locations: [address('Paris', 'FR')] });
+		update(virtual, { mode: 'virtual' });
+		update(past, { startsAt: PAST });
+		sqlite.prepare('DELETE FROM records_event WHERE uri = ?').run(deleted);
+		const uris = snapshot.events.map(([uri]) => uri).filter((uri) => uri !== outsidePage);
+		expect(await matching(scope, [...uris, otherCity], snapshot.version)).toEqual([live]);
+		expect(await matching(scope, [], snapshot.version)).toEqual([]);
+		expect(await matching(scope, [live], 'invalid')).toEqual([]);
+		const handler = config.collections!.event.pipelineQueries!.listDiscoverableInCity;
+		const source = await handler(
+			db,
+			new URLSearchParams({ ...scope, uris: uris.join(','), snapshot: snapshot.version }),
+			config
+		);
+		const plan = sqlite
+			.prepare(
+				`EXPLAIN QUERY PLAN SELECT r.uri FROM records_event r WHERE ${source.conditions!.join(' AND ')}`
+			)
+			.all(...(source.params as SQLInputValue[]));
+		expect(plan.some((row) => String(row.detail).includes('(uri=?)'))).toBe(true);
+	});
+
+	it('builds once globally per day, including overlapping cron ticks and reads without an edge cache', async () => {
+		const { db, add } = setup();
+		add({ locations: [address('Berlin')] });
+		const prepare = vi.spyOn(db, 'prepare');
+		await Promise.all([refreshCitySnapshot(db), refreshCitySnapshot(db)]);
+		await readTopCities(db);
+		await readTopCities(db); // another colo / an eviction still reads persisted data
+		await refreshCitySnapshot(db, Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS - 1);
+		expect(
+			prepare.mock.calls.filter(([sql]) => sql.includes('FROM records_event r,'))
+		).toHaveLength(1);
+		await refreshCitySnapshot(db, Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS);
+		expect(
+			prepare.mock.calls.filter(([sql]) => sql.includes('FROM records_event r,'))
+		).toHaveLength(2);
+	});
+
+	it('never scans events on a request before the first cron has published', async () => {
+		const { db } = setup();
+		const prepare = vi.spyOn(db, 'prepare');
+		await expect(readTopCities(db)).rejects.toThrow('not available');
+		expect(await readCitySnapshot(db, { city: 'Berlin', country: 'DE', region: '' })).toBeNull();
+		expect(prepare.mock.calls.every(([sql]) => !sql.includes('records_event'))).toBe(true);
+	});
+
+	it('keeps immutable ordered membership for old cursors, deduplicates aliases and chunks large cities', async () => {
+		const { db, add, sqlite } = setup();
+		for (let i = 0; i < 1001; i++) add({ locations: [address('Berlin'), address('BERLIN')] });
+		await refreshCitySnapshot(db);
+		const scope = { city: 'Berlin', country: 'DE', region: '' };
+		const old = (await readCitySnapshot(db, scope))!;
+		expect(old.events).toHaveLength(1001);
+		expect(old.events).toEqual([...old.events].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+		expect(
+			sqlite.prepare("SELECT count(*) AS n FROM city_snapshot_data WHERE city_key != ''").get()?.n
+		).toBe(2);
+		add({ locations: [address('Berlin')] });
+		await refreshCitySnapshot(db, Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS);
+		expect((await readCitySnapshot(db, scope))!.events).toHaveLength(1002);
+		expect(await readCitySnapshot(db, scope, old.version)).toEqual(old);
+		expect(await readCitySnapshot(db, scope, 'invalid')).toBeNull();
+		await refreshCitySnapshot(db, Date.parse(NOW) + 4 * CITY_SNAPSHOT_INTERVAL_MS);
+		expect(await readCitySnapshot(db, scope, old.version)).toBeNull();
+	});
+
+	it('preserves the published snapshot on failure and retries after releasing the lease', async () => {
+		const { db, add, sqlite } = setup();
+		add({ locations: [address('Berlin')] });
+		await refreshCitySnapshot(db);
+		const before = await readCitySnapshot(db, { city: 'Berlin', country: 'DE', region: '' });
+		add({ locations: [address('Paris', 'FR')] });
+		// Fail publication AFTER all new payloads have been written. Readers
+		// must still see the old version, never an incomplete/unpublished build.
+		sqlite.exec(
+			"CREATE TRIGGER fail_city BEFORE UPDATE OF version ON city_snapshot_state BEGIN SELECT RAISE(ABORT, 'snapshot failure'); END"
+		);
+		const later = Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS;
+		await expect(refreshCitySnapshot(db, later)).rejects.toThrow('snapshot failure');
+		expect(await readCitySnapshot(db, { city: 'Berlin', country: 'DE', region: '' })).toEqual(
+			before
+		);
+		expect(sqlite.prepare('SELECT lease_until FROM city_snapshot_state').get()?.lease_until).toBe(
+			0
+		);
+		sqlite.exec('DROP TRIGGER fail_city');
+		await refreshCitySnapshot(db, later + 60_000);
+		expect((await readTopCities(db)).map(({ city }) => city)).toEqual(['Berlin', 'Paris']);
 	});
 
 	it('reflects updates, deletes and time passing without a backfill or enrichment writes', async () => {

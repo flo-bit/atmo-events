@@ -1,8 +1,10 @@
 import { env } from 'cloudflare:workers';
+import { dev } from '$app/env';
+import { refreshCitySnapshot } from '#lib/server/cities.js';
 import { error } from '@sveltejs/kit';
 import { cityScope } from '#lib/cities.js';
 import { normalizeCityAddress } from '#lib/server/city-normalization.js';
-import { getServerClient } from '#lib/contrail/index.js';
+import { getServerClient, ensureInit } from '#lib/contrail/index.js';
 import { cityQuery } from '#lib/contrail/queries.js';
 import { rawForQuery } from '#lib/contrail/cursor.js';
 import type { PageServerLoad } from './$types';
@@ -17,7 +19,11 @@ export const load: PageServerLoad = async ({ params, url }) => {
 	const city = normalized.label;
 	const scope = cityScope(city)!;
 	const cursor = rawForQuery(url.searchParams.get('cursor'), 'city', scope);
-	const page = await cityQuery(getServerClient(env.DB), scope, cursor);
+	if (dev) {
+		await ensureInit(env.DB);
+		await refreshCitySnapshot(env.DB);
+	}
+	const page = await cityQuery(getServerClient(env.DB), scope, cursor, env.DB);
 	return {
 		...page,
 		city,

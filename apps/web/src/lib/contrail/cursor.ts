@@ -8,7 +8,7 @@
 // it, and the `:` separator can't collide (base64url excludes ':', a Meili
 // offset is decimal digits).
 //
-// See README → "Load-more pagination" for the model and the cross-backend bug
+// See docs/development.md → "Load-more pagination" for the model and the cross-backend bug
 // that motivated it.
 
 export type CursorBackend = 'meili' | 'd1';
@@ -68,13 +68,13 @@ export function parseCursor(cursor: string | null | undefined): ParsedCursor {
 // in `args`. The search TERM stays out of the envelope; it rides the ?q= URL
 // param / remote input.
 //
-// See README → "Load-more pagination" for the full model + why a tampered token
+// See docs/development.md → "Load-more pagination" for the full model + why a tampered token
 // can't widen visibility.
 // ---------------------------------------------------------------------------
 
 /**
  * The server-side query that issued a page. The name implies the backend
- * (search-meili -> Meili offset; everything else -> a D1 keyset), so no separate
+ * (search-meili -> Meili offset; city -> snapshot ID/offset; otherwise a D1 keyset), so no separate
  * `backend` field is needed. Every value is a query whose result set is
  * public-safe: the unlisted-inclusive plain listRecords pipeline is deliberately
  * absent, so no decoded envelope can reach it.
@@ -114,7 +114,7 @@ export type CursorEnvelope = {
 	q: CursorQuery;
 	/** Public-safe scope choices; omitted when empty. */
 	args?: CursorArgs;
-	/** Opaque backend-native cursor (D1 keyset, or a meili-tagged offset). */
+	/** Opaque continuation (D1 keyset, city snapshot/offset, or meili-tagged offset). */
 	raw: string;
 };
 

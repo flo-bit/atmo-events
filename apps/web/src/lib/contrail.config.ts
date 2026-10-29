@@ -76,14 +76,31 @@ export const config: ContrailConfig = {
 				listDiscoverable: async () => ({
 					conditions: [DISCOVERABLE_CONDITION]
 				}),
-				// Same paginated/hydrated pipeline, scoped to supplied address fields.
-				// Missing city matches nothing; all values remain bound SQL params.
-				listDiscoverableInCity: async (db, params) =>
-					cityConditions(db, {
-						city: params.get('city') ?? '',
-						country: params.get('country') ?? '',
-						region: params.get('region') ?? ''
-					}),
+				// Snapshot pages pass at most 60 candidate URIs. Existing primary keys
+				// narrow the live address/visibility check to those records, not the
+				// upcoming corpus. The no-URI form remains for older API consumers.
+				listDiscoverableInCity: async (db, params) => {
+					const source = await cityConditions(
+						db,
+						{
+							city: params.get('city') ?? '',
+							country: params.get('country') ?? '',
+							region: params.get('region') ?? ''
+						},
+						params.get('snapshot') ?? undefined
+					);
+					if (params.has('uris')) {
+						const uris = params
+							.getAll('uris')
+							.flatMap((value) => value.split(','))
+							.filter(Boolean)
+							.slice(0, MAX_HYDRATION_URIS);
+						if (!uris.length) return { conditions: ['0 = 1'] };
+						source.conditions.unshift(`r.uri IN (${uris.map(() => '?').join(', ')})`);
+						source.params.unshift(...uris);
+					}
+					return source;
+				},
 				// Endpoint: rsvp.atmo.event.listDiscoverableByUris?uris=at://…,at://…
 				// Hydration half of the Meilisearch read path: search
 				// returns ranked uris only; this fetches those records from D1 so
