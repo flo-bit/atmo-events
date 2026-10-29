@@ -2,6 +2,8 @@
 
 For local setup, see the [README](../README.md#development). The app uses SvelteKit 3 and `@svelte-atproto/oauth`.
 
+Contrail runs in the same Cloudflare Worker as the app. Server queries call it in-process; no separate API Worker is needed. See [operations](operations.md) for ingestion, moderation, and deployment notes.
+
 The UI uses the published `@atmo-dev/kit`. A normal install or CI build needs no sibling kit checkout.
 
 For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
