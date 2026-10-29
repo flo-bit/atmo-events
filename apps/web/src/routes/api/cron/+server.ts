@@ -3,6 +3,7 @@ import { contrail, ensureInit } from '#lib/contrail/index.js';
 import { processBotMentions } from '#lib/bot/process-mentions.js';
 import { runGeocodeDrip } from '#lib/geocode/process.js';
 import { refreshTopicCounts } from '#lib/server/topic-counts.js';
+import { refreshCitySnapshot } from '#lib/server/cities.js';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -81,6 +82,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		await refreshTopicCounts(db);
 	} catch (e) {
 		console.error('[cron] refreshTopicCounts failed:', e);
+	}
+
+	// Daily global city membership/catalog; failures preserve the previous version.
+	try {
+		await refreshCitySnapshot(db);
+	} catch (e) {
+		console.error('[cron] refreshCitySnapshot failed:', e);
 	}
 
 	return new Response('OK');

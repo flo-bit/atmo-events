@@ -4,15 +4,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // wiring: which functions it calls, and — the key regression — that it arms the
 // Meili search sink by passing env to ensureInit. vi.hoisted keeps the spies
 // available to the hoisted vi.mock factories below.
-const { ensureInit, ingest, processBotMentions, runGeocodeDrip, refreshTopicCounts } = vi.hoisted(
-	() => ({
-		ensureInit: vi.fn<(db: unknown, env?: unknown) => Promise<void>>(async () => {}),
-		ingest: vi.fn(async () => {}),
-		processBotMentions: vi.fn(async () => {}),
-		runGeocodeDrip: vi.fn(async () => {}),
-		refreshTopicCounts: vi.fn<(db: unknown) => Promise<void>>(async () => {})
-	})
-);
+const {
+	ensureInit,
+	ingest,
+	processBotMentions,
+	runGeocodeDrip,
+	refreshTopicCounts,
+	refreshCitySnapshot
+} = vi.hoisted(() => ({
+	ensureInit: vi.fn<(db: unknown, env?: unknown) => Promise<void>>(async () => {}),
+	ingest: vi.fn(async () => {}),
+	processBotMentions: vi.fn(async () => {}),
+	runGeocodeDrip: vi.fn(async () => {}),
+	refreshTopicCounts: vi.fn<(db: unknown) => Promise<void>>(async () => {}),
+	refreshCitySnapshot: vi.fn<(db: unknown) => Promise<void>>(async () => {})
+}));
 
 vi.mock('#lib/contrail/index.js', () => ({
 	ensureInit,
@@ -21,6 +27,7 @@ vi.mock('#lib/contrail/index.js', () => ({
 vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
 vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
 vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts }));
+vi.mock('#lib/server/cities.js', () => ({ refreshCitySnapshot }));
 
 import { POST } from './+server';
 
@@ -57,6 +64,7 @@ describe('POST /api/cron', () => {
 		expect(ensureInit).not.toHaveBeenCalled();
 		expect(ingest).not.toHaveBeenCalled();
 		expect(refreshTopicCounts).not.toHaveBeenCalled();
+		expect(refreshCitySnapshot).not.toHaveBeenCalled();
 	});
 
 	it('arms the Meili sink by passing env to ensureInit', async () => {
@@ -86,6 +94,14 @@ describe('POST /api/cron', () => {
 		expect(res.status).toBe(200);
 		expect(refreshTopicCounts).toHaveBeenCalledExactlyOnceWith(DB);
 		expect(ingest).toHaveBeenCalledTimes(1);
+	});
+
+	it('refreshes the city snapshot on valid ticks and isolates failures', async () => {
+		refreshCitySnapshot.mockRejectedValueOnce(new Error('city snapshot failed'));
+		const res = await POST(event({ secret: CRON_SECRET }));
+		expect(res.status).toBe(200);
+		expect(refreshCitySnapshot).toHaveBeenCalledExactlyOnceWith(DB);
+		expect(refreshTopicCounts).toHaveBeenCalledTimes(1);
 	});
 
 	it('bounds arming + ingest under ONE hard budget: a slow arm + stalling ingest still settles under the cron interval and reaches geocoding', async () => {

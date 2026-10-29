@@ -53,6 +53,10 @@ vi.mock('#lib/search/server/meili-sink.js', async (importActual) => {
 vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions }));
 vi.mock('#lib/geocode/process.js', () => ({ runGeocodeDrip }));
 vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts: vi.fn(async () => {}) }));
+vi.mock('#lib/server/cities.js', async (importOriginal) => ({
+	...(await importOriginal<typeof import('#lib/server/cities.js')>()),
+	refreshCitySnapshot: vi.fn(async () => {})
+}));
 
 import { POST } from './+server';
 

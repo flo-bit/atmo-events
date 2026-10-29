@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers';
+import { dev } from '$app/env';
 import { ensureInit } from '#lib/contrail/index.js';
-import { readTopCities } from '#lib/server/cities.js';
+import { readTopCities, refreshCitySnapshot } from '#lib/server/cities.js';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -9,7 +10,10 @@ export const load: PageServerLoad = async () => {
 		pageDescription: 'Find upcoming events by city on the open social web.'
 	};
 	try {
-		await ensureInit(env.DB);
+		if (dev) {
+			await ensureInit(env.DB);
+			await refreshCitySnapshot(env.DB);
+		}
 		const cities = await readTopCities(env.DB);
 		return { ...meta, cities };
 	} catch (error) {
