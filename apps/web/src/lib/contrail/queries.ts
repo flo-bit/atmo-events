@@ -11,16 +11,20 @@
 // Each query owns its filter values, any post-filter, and the envelope that
 // continues it. Args arrive already validated — the trust boundary is
 // `decodeCursor` for load-more and route `params` for page 1 — so a query
-// receives values, never client input. See README → "Load-more pagination".
+// receives values, never client input. See docs/development.md → "Load-more pagination".
 
 import type { Client } from '@atcute/client';
+import type { Database } from '@atmo-dev/contrail';
+import { readCitySnapshot } from '#lib/server/cities.js';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
 	flattenEventRecords,
 	listAuthoredEventsFromContrail,
+	listCityEventsFromContrail,
 	listDiscoverableEventsFromContrail
 } from '#lib/contrail.js';
 import { orQueryFromSlug } from '#lib/topics.js';
+import { cityScope, type CityScope } from '#lib/cities.js';
 import { hasEnded } from '#lib/past-events.js';
 import { nextCursor, type CursorArgs, type CursorQuery } from './cursor';
 import { literalSearch } from './search';
@@ -206,6 +210,70 @@ export async function topicQuery(
 		cursor: cursor ?? undefined
 	});
 	return toPage('topic', { slug: args.slug }, response);
+}
+
+/** Daily ordered membership, live cards. Snapshot ID + offset are deliberately
+ * distinct from Contrail keysets: a refresh must never shift an in-flight walk.
+ * Old/malformed/expired cursors end cleanly, never restart on a different set. */
+export async function cityQuery(
+	client: Client,
+	args: CityScope,
+	cursor: string | null | undefined,
+	db: Database
+): Promise<EventsPage> {
+	const scope = cityScope(args);
+	if (!scope) return EMPTY_PAGE;
+	let version: string | undefined;
+	let offset = 0;
+	if (cursor) {
+		const match = /^city-snapshot:([0-9a-f-]{36}):(0|[1-9][0-9]{0,8})$/.exec(cursor);
+		if (!match) return EMPTY_PAGE;
+		version = match[1];
+		offset = Number(match[2]);
+	}
+	const snapshot = await readCitySnapshot(db, scope, version);
+	if (!snapshot || offset > snapshot.events.length) return EMPTY_PAGE;
+	const asOf = now();
+	const events: EventsPage['events'] = [];
+	const handles: Record<string, string> = {};
+	// Refill holes from deleted/hidden/moved records, but bound work to 60
+	// candidates per request. A short/empty page may still have a continuation.
+	for (let attempt = 0; attempt < 3 && events.length < PAGE_SIZE; attempt++) {
+		const uris: string[] = [];
+		while (offset < snapshot.events.length && uris.length < PAGE_SIZE - events.length) {
+			const [uri, startsAt] = snapshot.events[offset++];
+			if (startsAt >= asOf) uris.push(uri);
+		}
+		if (!uris.length) break;
+		const response = await listCityEventsFromContrail(client, {
+			...scope,
+			uris,
+			snapshot: snapshot.version,
+			startsAtMin: asOf,
+			profiles: true,
+			limit: uris.length
+		});
+		// Never advance past a failed hydration: let the client retry its cursor.
+		if (!response) throw new Error('City event hydration failed');
+		const records = new Map(
+			flattenEventRecords(response.records ?? []).map((event) => [event.uri, event])
+		);
+		for (const uri of uris) {
+			const event = records.get(uri);
+			if (event) events.push(event);
+		}
+		for (const profile of response.profiles ?? [])
+			if (profile.handle) handles[profile.did] = profile.handle;
+	}
+	return {
+		events,
+		handles,
+		cursor: nextCursor(
+			'city',
+			offset < snapshot.events.length ? `city-snapshot:${snapshot.version}:${offset}` : null,
+			scope
+		)
+	};
 }
 
 /** Upcoming full-text search through Contrail. An empty term matches nothing. */

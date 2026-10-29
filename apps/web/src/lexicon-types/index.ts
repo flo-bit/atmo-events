@@ -8,6 +8,7 @@ export * as CommunityLexiconLocationHthree from "./types/community/lexicon/locat
 export * as RsvpAtmoEventGetRecord from "./types/rsvp/atmo/event/getRecord.js";
 export * as RsvpAtmoEventListAuthored from "./types/rsvp/atmo/event/listAuthored.js";
 export * as RsvpAtmoEventListDiscoverable from "./types/rsvp/atmo/event/listDiscoverable.js";
+export * as RsvpAtmoEventListDiscoverableInCity from "./types/rsvp/atmo/event/listDiscoverableInCity.js";
 export * as RsvpAtmoEventListRecords from "./types/rsvp/atmo/event/listRecords.js";
 export * as RsvpAtmoEventListTalks from "./types/rsvp/atmo/event/listTalks.js";
 export * as RsvpAtmoGetCursor from "./types/rsvp/atmo/getCursor.js";

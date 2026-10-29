@@ -74,6 +74,9 @@ importers:
       hls.js:
         specifier: ^1.7.3
         version: 1.7.3
+      i18n-iso-countries:
+        specifier: ^7.14.0
+        version: 7.14.0
       maplibre-gl:
         specifier: ^6.16.0
         version: 6.16.0
@@ -171,6 +174,9 @@ importers:
       globals:
         specifier: ^17.13.0
         version: 17.13.0
+      playwright:
+        specifier: ^1.64.1
+        version: 1.64.1
       sharp:
         specifier: ^0.35.5
         version: 0.35.5(@types/node@24.19.2)

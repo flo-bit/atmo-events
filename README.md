@@ -38,11 +38,14 @@ Page titles belong to the root `+layout.svelte`; return `pageTitle` from loads.
 The app layout owns description/social tags; return `pageDescription` and
 `ogImage`, rather than adding duplicate tags to individual pages.
 Event-specific UI is in `packages/ui`; shared controls live in Atmo Kit.
+See [development notes](docs/development.md) for asset generation, cities,
+caching and pagination.
 
 ## Contrail and search
 
 Contrail indexes records in `DB`. The existing one-minute cron handles bounded
-Jetstream v2 ingestion, due backfill retries, the reply bot and topic aggregates.
+Jetstream v2 ingestion, due backfill retries, the reply bot, topic aggregates
+and daily city snapshots.
 Text search uses Contrail's D1 full-text search. User-entered terms are escaped
 as literal, all-terms FTS queries; topic expressions retain their server-owned OR
 semantics. There is no external search service, near-you search, geocode drip or
@@ -139,8 +142,9 @@ Before deployment:
 
 Each list is defined once in `contrail/queries.ts`, used by its route load and the
 shared load-more command. The cursor is `base64url(JSON { v, q, args?, raw })`:
-`q` names a server-owned query, `args` contains public scope (actor/topic/popular),
-and `raw` is Contrail's opaque keyset. Filters stay server-owned; a forged token
+`q` names a server-owned query, `args` contains public scope
+(actor/topic/popular/city/country/region), and `raw` is Contrail's opaque keyset
+or a city snapshot ID/offset. Filters stay server-owned; a forged token
 cannot reach a private/unlisted-inclusive pipeline. Invalid or retired-backend
 cursors end pagination. Deep links resume only the same query/scope; search terms
 ride separately in `?q=` and are not resumed from inbound deep-link cursors.

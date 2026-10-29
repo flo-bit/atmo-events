@@ -1,11 +1,12 @@
 import type { ContrailConfig } from '@atmo-dev/contrail';
 import { discoverableSql } from './contrail/discoverability';
 import { moderatorDids } from './moderation/config';
+import { cityConditions } from './server/cities';
 
-// Events hidden from discovery (a falsey preferences.showInDiscovery) are
-// excluded; a missing field defaults to discoverable so pre-existing records
-// without `preferences` are included. The predicate is the single source of
-// truth shared with the sink's in-memory filter and the geocode worklist.
+const MAX_CITY_HYDRATION_URIS = 60;
+
+// Missing preferences default to discoverable. All discovery pipelines share
+// this predicate; Contrail additionally applies current moderation visibility.
 const DISCOVERABLE_CONDITION = discoverableSql('r.record');
 
 export const config: ContrailConfig = {
@@ -61,6 +62,31 @@ export const config: ContrailConfig = {
 				listDiscoverable: async () => ({
 					conditions: [DISCOVERABLE_CONDITION]
 				}),
+				// Snapshot pages pass at most 60 candidate URIs. Existing primary keys
+				// narrow the live address/visibility check to those records, not the
+				// upcoming corpus. The no-URI form remains for older API consumers.
+				listDiscoverableInCity: async (db, params) => {
+					const source = await cityConditions(
+						db,
+						{
+							city: params.get('city') ?? '',
+							country: params.get('country') ?? '',
+							region: params.get('region') ?? ''
+						},
+						params.get('snapshot') ?? undefined
+					);
+					if (params.has('uris')) {
+						const uris = params
+							.getAll('uris')
+							.flatMap((value) => value.split(','))
+							.filter(Boolean)
+							.slice(0, MAX_CITY_HYDRATION_URIS);
+						if (!uris.length) return { conditions: ['0 = 1'] };
+						source.conditions.unshift(`r.uri IN (${uris.map(() => '?').join(', ')})`);
+						source.params.unshift(...uris);
+					}
+					return source;
+				},
 				// Endpoint: rsvp.atmo.event.listTalks?parentUri=at://…
 				// Returns the talk events belonging to a conference, i.e. those
 				// whose additionalData.parentEvent.uri matches `parentUri`. Composes

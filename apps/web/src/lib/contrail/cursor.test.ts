@@ -18,6 +18,35 @@ describe('query-bound continuation cursors', () => {
 			slug: '音楽'
 		});
 	});
+	it.each(['東'.repeat(256), '\u0000'.repeat(256)])(
+		'round trips maximum-length Unicode or escaped city fields (%#)',
+		(value) => {
+			const args = { city: value, country: value, region: value };
+			const token = nextCursor('city', 'city-snapshot:version:20', args)!;
+			expect(token.length).toBeGreaterThan(1500);
+			expect(decodeCursor(token)?.args).toEqual(args);
+			expect(rawForQuery(token, 'city', args)).toBe('city-snapshot:version:20');
+		}
+	);
+	it.each(['city', 'country', 'region'] as const)('validates city field %s', (field) => {
+		for (const value of [42, null, [], {}, 'x'.repeat(257)]) {
+			expect(
+				decodeCursor(encode({ v: 1, q: 'city', args: { [field]: value }, raw: 'k' }))
+			).toBeNull();
+		}
+	});
+	it('resumes a city deep link only for identical city, country and region', () => {
+		const args = { city: 'berlin', country: 'de', region: '' };
+		const token = nextCursor('city', 'city-snapshot:version:20', args);
+		expect(rawForQuery(token, 'city', args)).toBe('city-snapshot:version:20');
+		for (const field of ['city', 'country', 'region'] as const) {
+			expect(rawForQuery(token, 'city', { ...args, [field]: 'different' })).toBeUndefined();
+		}
+		expect(rawForQuery(token, 'city')).toBeUndefined();
+	});
+	it('rejects oversized tokens', () => {
+		expect(decodeCursor(nextCursor('events', 'x'.repeat(16 * 1024)))).toBeNull();
+	});
 	it.each([null, undefined, ''])('does not manufacture a continuation from %s', (raw) => {
 		expect(nextCursor('events', raw)).toBeNull();
 	});

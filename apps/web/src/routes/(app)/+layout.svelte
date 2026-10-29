@@ -7,6 +7,7 @@
 		Compass,
 		CalendarDays,
 		Hash,
+		MapPin,
 		Search,
 		Plus,
 		LogIn,
@@ -71,6 +72,13 @@
 			icon: Hash,
 			href: '/topics',
 			active: path.startsWith('/topics')
+		},
+
+		{
+			label: 'Cities',
+			icon: MapPin,
+			href: '/cities',
+			active: path.startsWith('/cities')
 		},
 
 		{

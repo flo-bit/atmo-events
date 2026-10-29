@@ -4,16 +4,43 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get the current Jetstream live cursor",
+      "description": "Get the committed primary ordered-source position",
       "output": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
           "properties": {
-            "cursor": {
+            "position": {
+              "type": "ref",
+              "ref": "#sourcePosition"
+            },
+            "updatedAt": {
               "type": "integer"
+            },
+            "updatedAtDate": {
+              "type": "string",
+              "format": "datetime"
             }
           }
+        }
+      }
+    },
+    "sourcePosition": {
+      "type": "object",
+      "required": [
+        "source",
+        "epoch",
+        "cursor"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "epoch": {
+          "type": "string"
+        },
+        "cursor": {
+          "type": "string"
         }
       }
     }

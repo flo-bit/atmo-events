@@ -1,6 +1,7 @@
 import '../lexicon-types/index.js';
 import { getProfileUrl } from '@atmo-dev/events-ui';
 import type { EventData } from '#lib/event-types.js';
+import type { CityScope } from '#lib/cities.js';
 import type {
 	RsvpAtmoGetProfile,
 	RsvpAtmoEventGetRecord,
@@ -302,6 +303,22 @@ export async function listDiscoverableEventsFromContrail(
 
 	if (!response.ok) return null;
 	return response.data;
+}
+
+/** Hydrate a snapshot page by existing primary keys, with live city/visibility checks. */
+export async function listCityEventsFromContrail(
+	client: Client,
+	params: Omit<ListEventsParams, 'preferencesShowInDiscovery'> &
+		CityScope & {
+			uris: string[];
+			snapshot: string;
+		}
+): Promise<EventListOutput | null> {
+	const response = await client.get(
+		'rsvp.atmo.event.listDiscoverableInCity' as 'rsvp.atmo.event.listRecords',
+		{ params: { ...params, uris: params.uris.join(',') } as unknown as ListEventsParams }
+	);
+	return response.ok ? response.data : null;
 }
 
 /**
