@@ -1,3 +1,12 @@
+<script lang="ts" module>
+	import { setWorkerUrl } from 'maplibre-gl';
+	import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
+
+	// Vite moves MapLibre's main module when optimizing dependencies, so its
+	// default relative worker URL breaks. Emit the worker as an explicit asset.
+	setWorkerUrl(workerUrl);
+</script>
+
 <script lang="ts">
 	import { MapLibre, Projection, Marker, AttributionControl } from 'svelte-maplibre-gl';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
