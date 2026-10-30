@@ -1,9 +1,11 @@
 # Event starter packs
 
-The **Starter pack** button above attendees creates a Bluesky pack on first click
-and opens the same pack thereafter. Anyone can click it: no login, attendee
-opt-in or organizer OAuth grant. The button is shown when `BOT_IDENTIFIER` and
-`BOT_APP_PASSWORD` are configured. It reuses the reply bot and `BOT_PDS_URL`.
+The **Starter pack** text link below the Going/Interested lists creates a Bluesky
+pack on first click and opens the same pack thereafter. “Follow attendees on
+Bluesky.” explains the link. It appears only when Going + Interested exceeds five
+people, and updates with RSVP changes. Anyone can click it: no login, attendee
+opt-in or organizer OAuth grant. It also requires `BOT_IDENTIFIER` and
+`BOT_APP_PASSWORD` to be configured. It reuses the reply bot and `BOT_PDS_URL`.
 
 ## Membership
 

@@ -8,6 +8,8 @@
 		"build": "vite build && node scripts/build-worker.mjs",
 		"generate": "contrail lexicons generate --config src/lib/contrail.config.ts --no-atcute-config && lex-cli generate",
 		"generate:favicons": "node scripts/generate-favicons.mjs",
+		"legal:draft": "tsx scripts/generate-legal.ts",
+		"legal:check": "tsx scripts/check-legal.ts",
 		"generate:og": "tsx scripts/generate-og.ts",
 		"generate:globe": "tsx scripts/bake-globe.ts",
 		"test:favicons": "node --test scripts/test-favicons.mjs",

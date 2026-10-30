@@ -43,15 +43,23 @@ The schema initializes lazily. Back up this database independently.
 Reports use the existing OAuth session through SvelteKit remote commands.
 Reporter identity comes only from server-side `locals.did`; no new RPC OAuth
 grants, service audiences or `getServiceAuth` calls are required. Contrail's
-public report XRPC routes are disabled. Private responses use `no-store`.
+public report XRPC routes are disabled. SvelteKit automatically marks remote
+responses `private, no-store`; do not call `setHeaders` inside a remote function.
 
 Set `MODERATOR_DIDS` to a comma-separated list of trusted `did:plc`/`did:web`
 identifiers. Empty means nobody has moderator access. Use the same setting for
 operator CLI commands. No moderator identity is preselected in this checkout.
 
-Event/account report submission is implemented, but its public buttons are
-currently hidden. Configured moderators can open
-`/mod` (also linked from their own profile) to review, resolve and paginate reports.
+Viewers can open reporting from the profile footer and the event-page footer
+(when the indexed record has a CID). Signed-in viewers submit directly; signed-out
+viewers can sign in or email `reports@atmo.social`, with the subject link prefilled.
+Failed direct submissions also offer email with the entered details. Report buttons
+are not shown on your own content while signed in, or in embeds. Direct submissions
+still require an authenticated session. The shared Kit `ReportDialog` owns the
+form and its UI states; the app's `ReportButton` supplies auth, the canonical link,
+mailbox, and session-backed submission/error mapping.
+Configured moderators can open `/mod` (also linked from their own profile) to
+review, resolve and paginate reports.
 The inbox can authorize the optional **repository create/delete** permission for
 `tools.atmo.moderation.action`. That grant is not requested during normal
 login/signup and is not necessary for reporting or resolving reports.

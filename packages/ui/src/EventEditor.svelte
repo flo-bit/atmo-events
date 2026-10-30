@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
+	import { getEventThumbnail } from './event-media.js';
 	import { Avatar, Button, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import { onMount } from 'svelte';
 	import { InlineEditor, type Editor } from '@atmo-dev/kit';
@@ -143,7 +144,7 @@
 	function populateThumbnailFromEventData() {
 		if (!eventData) return;
 		if (eventData.media && eventData.media.length > 0) {
-			const media = eventData.media.find((m) => m.role === 'thumbnail');
+			const media = getEventThumbnail(eventData.media);
 			if (media?.content) {
 				const url = getCDNImageBlobUrl({ did: actorDid, blob: media.content });
 				if (url) {

@@ -8,6 +8,16 @@ The UI uses the published `@atmo-dev/kit`. A normal install or CI build needs no
 
 For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
 
+The report-dialog and legal-page integrations currently use unpublished Kit APIs. From this
+nested checkout, select it with
+`ATMO_KIT_PATH=../../00-atmo-kit/kit corepack pnpm kit:local` after building Kit.
+Before merging the RSVP consumer change, release Kit with `ReportDialog`,
+`LegalDocument`, `LegalFooter`, and the `@atmo-dev/kit/legal` authoring entry, then
+update RSVP's published dependency and lockfile and verify in registry mode.
+A frozen registry install cannot use the new components until that release is adopted.
+See [legal pages](legal.md) for footer switches, app-owned policy snapshots, and
+publication checks. The current policy pages are unpublished drafts.
+
 Page titles have one owner: the root `apps/web/src/routes/+layout.svelte` uses the kit's `PageTitle` with `page.data.pageTitle` and `siteName="atmo.rsvp"`. Return `pageTitle` alongside existing route load data for a custom title; omit it for the site-name fallback (as on home). The root also selects error titles from `page.error`. Do not add `<title>` or `PageTitle` to individual pages, nested layouts, or `EventView`. Likewise, `apps/web/src/routes/(app)/+layout.svelte` owns the description and social meta tags: return `pageDescription` and `ogImage` from the route load instead of adding `<meta>` tags to pages, so link previews never see a generic tag before the page's own.
 
 The app defaults to zinc + pink. Existing event-specific colors/backgrounds are retained. The event-specific UI stays in `packages/ui`; reusable controls, login, inline editing, post composition and comment presentation live in Atmo Kit.

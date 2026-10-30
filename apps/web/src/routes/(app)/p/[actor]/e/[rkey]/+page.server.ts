@@ -195,6 +195,13 @@ export async function load({ params, locals, url }) {
 
 	return {
 		pageTitle: eventData.name,
+		reportSubject: eventData.cid
+			? {
+					$type: 'com.atproto.repo.strongRef' as const,
+					uri: eventData.uri,
+					cid: eventData.cid
+				}
+			: undefined,
 		starterPacksEnabled: !!env.BOT_IDENTIFIER && !!env.BOT_APP_PASSWORD,
 		pageDescription: eventData.description || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,

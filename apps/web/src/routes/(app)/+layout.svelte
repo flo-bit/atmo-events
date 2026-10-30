@@ -19,6 +19,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import LoginModal from '#lib/components/LoginModal.svelte';
 	import CreateEventModal, { createEventModalState } from '#lib/components/CreateEventModal.svelte';
+	import AppFooter from '#lib/components/AppFooter.svelte';
 
 	let { children } = $props();
 	let navigationOpen = $state(false);
@@ -134,8 +135,8 @@
 	{/snippet}
 </IconRail>
 
-<div class="min-h-dvh sm:ml-18">
-	<header class="mx-auto flex max-w-3xl items-center justify-between px-6 pt-7 pb-1">
+<div class="flex min-h-dvh flex-col sm:ml-18">
+	<header class="mx-auto flex w-full max-w-3xl items-center justify-between px-6 pt-7 pb-1">
 		<div class="flex items-center gap-3">
 			<IconButton
 				label="Open navigation"
@@ -156,7 +157,8 @@
 			</a>
 		</div>
 	</header>
-	<main id="app-main" tabindex="-1" class="outline-none">{@render children()}</main>
+	<main id="app-main" tabindex="-1" class="flex-1 outline-none">{@render children()}</main>
+	<AppFooter subject={page.data.reportSubject} />
 </div>
 <LoginModal />
 <CreateEventModal />

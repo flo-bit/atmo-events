@@ -19,8 +19,8 @@
 </script>
 
 <EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)}>
-	{#snippet attendeeActions()}
-		{#if data.starterPacksEnabled}
+	{#snippet attendeeActions({ goingCount, interestedCount })}
+		{#if data.starterPacksEnabled && goingCount + interestedCount > 5}
 			{#key data.eventData.uri}
 				<StarterPackButton
 					eventUri={data.eventData.uri}

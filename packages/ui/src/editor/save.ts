@@ -8,6 +8,7 @@ import type { EventTheme } from '../theme.js';
 import type { EventLocation, EventMode, Visibility } from './types.js';
 import { normalizeEventLocations } from './location.js';
 import type { EventData } from '../event-types.js';
+import { getEventThumbnail } from '../event-media.js';
 
 export async function tokensToFacets(
 	tokens: Token[],
@@ -96,8 +97,11 @@ export async function buildThumbnailMedia(args: {
 		return existingMedia.length > 0 ? existingMedia : undefined;
 	}
 
+	// Editing a flyer should preserve its role and leave other media untouched.
+	const role = getEventThumbnail(existingMedia)?.role ?? 'thumbnail';
+
 	if (!thumbnailFile) {
-		const remaining = existingMedia.filter((m) => m.role !== 'thumbnail');
+		const remaining = existingMedia.filter((m) => m.role !== role);
 		return remaining.length > 0 ? remaining : undefined;
 	}
 
@@ -106,9 +110,9 @@ export async function buildThumbnailMedia(args: {
 	if (!blobRef) return existingMedia.length > 0 ? existingMedia : undefined;
 
 	return [
-		...existingMedia.filter((m) => m.role !== 'thumbnail'),
+		...existingMedia.filter((m) => m.role !== role),
 		{
-			role: 'thumbnail',
+			role,
 			content: blobRef,
 			aspect_ratio: {
 				width: compressed.aspectRatio.width,
@@ -195,6 +199,7 @@ export async function buildEventRecord(args: {
 
 	if (endsAt) record.endsAt = datetimeLocalToISO(endsAt, timezone);
 	if (media) record.media = media;
+	else delete record.media;
 	if (links.length > 0) record.uris = links;
 
 	if (isNew || locationChanged) {

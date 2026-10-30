@@ -4,6 +4,7 @@ import { render } from 'vitest-browser-svelte';
 import axe from 'axe-core';
 import StarterPackButton from '../src/StarterPackButton.svelte';
 import StarterPackPlacementFixture from './StarterPackPlacementFixture.svelte';
+import StarterPackCountsFixture from './StarterPackCountsFixture.svelte';
 import { event } from './fixtures.js';
 import './theme.css';
 
@@ -34,11 +35,15 @@ describe('starter pack button', () => {
 		await expect.element(page.getByRole('button', { name: 'Opening…' })).toBeDisabled();
 		expect(openPack).toHaveBeenCalledExactlyOnceWith(event.uri);
 		finish(url);
-		await expect.element(page.getByRole('button', { name: 'Starter pack ↗' })).toBeEnabled();
+		await expect
+			.element(page.getByRole('link', { name: 'Starter pack ↗' }))
+			.toHaveAttribute('href', url);
+		await expect
+			.element(page.getByRole('link', { name: 'Starter pack ↗' }))
+			.toHaveAttribute('target', '_blank');
 		expect(opened.replace).toHaveBeenCalledWith(url);
-		await page.getByRole('button', { name: 'Starter pack ↗' }).click();
 		expect(openPack).toHaveBeenCalledTimes(1);
-		expect(opened.open).toHaveBeenLastCalledWith(url, '_blank', 'noopener,noreferrer');
+		expect(opened.open).toHaveBeenCalledTimes(1);
 	});
 	it('closes the blank tab on failure and allows retry', async () => {
 		const opened = tab();
@@ -53,14 +58,50 @@ describe('starter pack button', () => {
 		await expect.element(page.getByRole('alert')).not.toBeInTheDocument();
 		expect(opened.replace).toHaveBeenCalledWith(url);
 	});
-	it('renders above attendees and remains accessible on the event page', async () => {
+	it.each([
+		[0, 0],
+		[3, 2],
+		[5, 0],
+		[0, 5]
+	])('hides the pack for %s going and %s interested', async (goingCount, interestedCount) => {
+		render(StarterPackPlacementFixture, { goingCount, interestedCount });
+		await expect
+			.element(page.getByRole('button', { name: 'Starter pack ↗' }))
+			.not.toBeInTheDocument();
+		await expect.element(page.getByText('Follow attendees on Bluesky.')).not.toBeInTheDocument();
+	});
+	it.each([
+		[6, 0],
+		[0, 6],
+		[3, 3]
+	])('shows the pack for %s going and %s interested', async (goingCount, interestedCount) => {
+		render(StarterPackPlacementFixture, { goingCount, interestedCount });
+		await expect.element(page.getByRole('button', { name: 'Starter pack ↗' })).toBeVisible();
+	});
+	it('updates the threshold on RSVP changes without replacing totals with hydrated list lengths', async () => {
+		render(StarterPackCountsFixture);
+		const pack = page.getByRole('button', { name: 'Starter pack ↗' });
+		await expect.element(pack).not.toBeInTheDocument();
+		await page.getByRole('button', { name: 'Join', exact: true }).click();
+		await expect.element(pack).toBeVisible();
+		await expect.element(page.getByRole('button', { name: /^5\s*Going/i })).toBeVisible();
+		await page.getByRole('button', { name: 'Switch to interested', exact: true }).click();
+		await expect.element(pack).toBeVisible();
+		await expect.element(page.getByRole('button', { name: /^4\s*Going/i })).toBeVisible();
+		await expect.element(page.getByRole('button', { name: /^2\s*Interested/i })).toBeVisible();
+		await page.getByRole('button', { name: 'Cancel RSVP', exact: true }).click();
+		await expect.element(pack).not.toBeInTheDocument();
+	});
+	it('renders below Interested with link styling and remains accessible', async () => {
 		render(StarterPackPlacementFixture);
 		const pack = page.getByRole('button', { name: 'Starter pack ↗' });
-		const attendees = page.getByRole('button', { name: /^1\s*Going/i });
+		const attendees = page.getByRole('button', { name: /^2\s*Interested/i });
 		await expect.element(pack).toBeVisible();
+		await expect.element(pack).toHaveAttribute('data-variant', 'link');
+		await expect.element(page.getByText('Follow attendees on Bluesky.')).toBeVisible();
 		await expect.element(attendees).toBeVisible();
 		expect(
-			pack.element().compareDocumentPosition(attendees.element()) & Node.DOCUMENT_POSITION_FOLLOWING
+			attendees.element().compareDocumentPosition(pack.element()) & Node.DOCUMENT_POSITION_FOLLOWING
 		).toBeTruthy();
 		const audit = await axe.run(document.body, {
 			runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] }

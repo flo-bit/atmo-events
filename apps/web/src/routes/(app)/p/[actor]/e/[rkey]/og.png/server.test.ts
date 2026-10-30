@@ -11,7 +11,9 @@ vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecord: vi.fn()
 }));
 vi.mock('#lib/actor.js', () => ({ getActor: vi.fn() }));
-vi.mock('@atmo-dev/events-ui', () => ({
+vi.mock('@atmo-dev/events-ui', async () => ({
+	getEventThumbnail: (await import('../../../../../../../../../../packages/ui/src/event-media.js'))
+		.getEventThumbnail,
 	formatInTz: (date: string, _tz: string | undefined, opts: Intl.DateTimeFormatOptions) =>
 		new Intl.DateTimeFormat('en-US', { ...opts, timeZone: 'UTC' }).format(new Date(date)),
 	partsInTz: (date: string, _tz: string | undefined, opts: Intl.DateTimeFormatOptions) =>
@@ -104,7 +106,7 @@ describe('event OG route', () => {
 		expect(res.status).toBe(200);
 		expect(res.headers.get('content-type')).toBe('image/png');
 		expect(res.headers.get('cache-control')).toBe('no-store');
-		expect(res.headers.get('etag')).toMatch(/^W\/"v3-/);
+		expect(res.headers.get('etag')).toMatch(/^W\/"v4-/);
 		// Unlike the old test, await the renderer's entire stream and inspect PNG.
 		const png = await res.arrayBuffer();
 		expect([...new Uint8Array(png).slice(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -121,31 +123,38 @@ describe('event OG route', () => {
 		).toBe(1);
 	}, 30000);
 
-	it('renders a large thumbnail quickly from JPEG CDN variants', async () => {
-		// Inlined as base64 into the old Satori markup, an image this size took
-		// tens of seconds of CPU to parse. Takumi receives the raw bytes.
-		const jpeg = readFileSync('static/topics/sustainability.jpg');
-		const cdn = vi
-			.spyOn(globalThis, 'fetch')
-			.mockImplementation(
-				async () => new Response(jpeg, { headers: { 'Content-Type': 'image/jpeg' } })
+	it.each(['thumbnail', 'flyer'])(
+		'renders a large %s quickly from JPEG CDN variants',
+		async (role) => {
+			// Inlined as base64 into the old Satori markup, an image this size took
+			// tens of seconds of CPU to parse. Takumi receives the raw bytes.
+			const jpeg = readFileSync('static/topics/sustainability.jpg');
+			const cdn = vi
+				.spyOn(globalThis, 'fetch')
+				.mockImplementation(
+					async () => new Response(jpeg, { headers: { 'Content-Type': 'image/jpeg' } })
+				);
+			mockFlatten.mockReturnValue(
+				flat({
+					media: [
+						{ role: 'header', content: { $type: 'blob', ref: { $link: 'unused-header' } } },
+						{ role, content: { $type: 'blob', ref: { $link: 'bafkthumb' } } }
+					]
+				})
 			);
-		mockFlatten.mockReturnValue(
-			flat({
-				media: [{ role: 'thumbnail', content: { $type: 'blob', ref: { $link: 'bafkthumb' } } }]
-			})
-		);
-		const started = performance.now();
-		const res = await GET(evt());
-		const png = await res.arrayBuffer();
-		expect(performance.now() - started).toBeLessThan(5000);
-		expect(res.headers.get('x-og-fallback')).toBeNull();
-		expect([...new Uint8Array(png).slice(0, 4)]).toEqual([137, 80, 78, 71]);
-		expect(cdn.mock.calls.map(([url]) => String(url)).sort()).toEqual([
-			'https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:alice/bafkthumb@jpeg',
-			'https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:alice/bafkthumb@jpeg'
-		]);
-	}, 30000);
+			const started = performance.now();
+			const res = await GET(evt());
+			const png = await res.arrayBuffer();
+			expect(performance.now() - started).toBeLessThan(5000);
+			expect(res.headers.get('x-og-fallback')).toBeNull();
+			expect([...new Uint8Array(png).slice(0, 4)]).toEqual([137, 80, 78, 71]);
+			expect(cdn.mock.calls.map(([url]) => String(url)).sort()).toEqual([
+				'https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:alice/bafkthumb@jpeg',
+				'https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:alice/bafkthumb@jpeg'
+			]);
+		},
+		30000
+	);
 
 	it('renders the generated-avatar card without network access', async () => {
 		const network = vi.spyOn(globalThis, 'fetch');

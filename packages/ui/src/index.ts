@@ -43,6 +43,7 @@ export type { EventTheme } from './theme.js';
 export { defaultTheme, themeBackgrounds, randomAccentColor, accentColors } from './theme.js';
 
 // Event helpers
+export { getEventThumbnail } from './event-media.js';
 export { eventUrl, isEventOngoing, RSVP_GOING, RSVP_INTERESTED } from './contrail.js';
 
 // Atproto helpers (browser-safe, no client/session state)

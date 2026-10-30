@@ -65,6 +65,7 @@ declare global {
 			pageTitle?: string;
 			pageDescription?: string;
 			ogImage?: string;
+			reportSubject?: import('./lib/moderation/reporting').ReportSubject;
 		}
 		// interface PageState {}
 	}

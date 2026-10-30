@@ -15,10 +15,6 @@
 
 	async function open() {
 		if (pending) return;
-		if (packUrl) {
-			window.open(packUrl, '_blank', 'noopener,noreferrer');
-			return;
-		}
 		// Open synchronously with the click so async creation doesn't hit popup blockers.
 		const tab = window.open('about:blank', '_blank');
 		if (tab) tab.opener = null;
@@ -39,10 +35,27 @@
 	}
 </script>
 
-<div>
-	<Button variant="secondary" onclick={open} disabled={pending}>
-		{pending ? 'Opening…' : 'Starter pack ↗'}
-	</Button>
+<div class="mt-4">
+	<p class="text-muted mb-1 text-xs">Follow attendees on Bluesky.</p>
+	{#if packUrl}
+		<a
+			href={packUrl}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-action focus-visible:outline-focus rounded text-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
+			>Starter pack ↗</a
+		>
+	{:else}
+		<Button
+			variant="link"
+			size="sm"
+			class="min-h-0 p-0 text-sm font-normal"
+			onclick={open}
+			disabled={pending}
+		>
+			{pending ? 'Opening…' : 'Starter pack ↗'}
+		</Button>
+	{/if}
 	{#if message}
 		<p role="alert" class="text-muted mt-2 text-sm">{message}</p>
 	{/if}

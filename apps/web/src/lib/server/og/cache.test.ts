@@ -162,7 +162,7 @@ describe('versioned OG read-through storage', () => {
 	it('versions by DID/rkey/CID/template, and uses complete content when CID is absent', async () => {
 		const event = { cid: 'cid-A', rkey: 'one', name: 'Meetup', startsAt: '2026-10-12T12:00:00Z' };
 		const first = await imageVersion('did:plc:alice', event);
-		expect(first.key).toMatch(/^og\/v3\/[0-9a-f]{64}\.png$/);
+		expect(first.key).toMatch(/^og\/v4\/[0-9a-f]{64}\.png$/);
 		expect(await imageVersion('did:plc:alice', event)).toEqual(first);
 		for (const changed of [
 			{ ...event, cid: 'cid-B' },
