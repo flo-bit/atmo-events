@@ -6,7 +6,8 @@ https://atmo.rsvp
 
 Uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
 Create events, RSVP, subscribe to calendars, share previews and see what people
-you follow are attending.
+you follow are attending. Create automatically updated Bluesky starter packs from
+an event's attendees, host and description mentions; see [starter packs](docs/starter-packs.md).
 
 ## Development
 

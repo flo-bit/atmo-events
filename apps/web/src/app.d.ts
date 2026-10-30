@@ -92,6 +92,8 @@ declare global {
 			BOT_APP_PASSWORD?: string;
 			/** PDS the bot authenticates against; defaults to bsky.social. */
 			BOT_PDS_URL?: string;
+			/** Public starter-pack creation is limited per client IP, without a DB table. */
+			STARTER_PACK_RATE_LIMITER?: RateLimit;
 			/** Optional geocoder for event address entry/maps, not location search. */
 			GEOCODER_URL?: string;
 			/** Geocoder API key (LocationIQ), set via `wrangler secret put`. When

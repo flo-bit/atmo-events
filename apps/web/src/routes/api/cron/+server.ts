@@ -3,6 +3,7 @@ import { ensureInit } from '#lib/contrail/index.js';
 import { processBotMentions } from '#lib/bot/process-mentions.js';
 import { refreshTopicCounts } from '#lib/server/topic-counts.js';
 import { refreshCitySnapshot } from '#lib/server/cities.js';
+import { syncEventStarterPacks } from '#lib/starter-packs/runtime.js';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -31,6 +32,12 @@ export const POST: RequestHandler = async ({ request }) => {
 		} catch (error) {
 			console.error('[cron] backfill retries failed:', error);
 		}
+	}
+	// Public bot-owned packs reconcile after ingestion, independently of other jobs.
+	try {
+		await syncEventStarterPacks(env, db);
+	} catch (error) {
+		console.error('[starter-packs] sync failed:', error);
 	}
 	try {
 		await refreshTopicCounts(db);

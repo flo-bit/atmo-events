@@ -37,7 +37,8 @@
 		pageUrl,
 		embedMode = false,
 		shareUrlOverride,
-		extraActions
+		extraActions,
+		attendeeActions
 	}: {
 		data: any;
 		adapter: EditorAdapter;
@@ -51,6 +52,8 @@
 		shareUrlOverride?: string;
 		/** App-owned actions such as private reporting; omitted in embeds. */
 		extraActions?: Snippet;
+		/** App-owned actions immediately above the attendee list; omitted in embeds. */
+		attendeeActions?: Snippet;
 	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
@@ -409,6 +412,7 @@
 				<AddToCalendarButton {eventData} {eventUri} pageHref={pageUrl.href} />
 				{@render extraActions?.()}
 
+				{@render attendeeActions?.()}
 				<EventAttendees
 					bind:this={attendeesRef}
 					going={attendees.going}

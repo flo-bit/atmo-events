@@ -31,11 +31,21 @@ export async function getBotHandle(env: Cloudflare.Env): Promise<BotHandle | nul
 		{ session: saved ? { ...saved, service: saved.service || service } : undefined }
 	);
 
-	await saveSession(kv, key, manager.session);
+	// Resuming a session (or refreshing its profile metadata) is not a credential
+	// change. In particular, a read-only public click must not write KV twice.
+	let persisted = credentials(saved);
+	const flush = async () => {
+		const snapshot = { ...manager.session };
+		const next = credentials(snapshot);
+		if (next === persisted) return;
+		await saveSession(kv, key, snapshot);
+		persisted = next;
+	};
+	await flush();
 	return {
 		client: new Client({ handler: manager }),
 		did: manager.did,
-		flush: () => saveSession(kv, key, manager.session)
+		flush
 	};
 }
 
@@ -49,10 +59,58 @@ async function loadSession(kv: KVNamespace, key: string): Promise<PasswordSessio
 	}
 }
 
+function credentials(session: PasswordSessionData | undefined): string | undefined {
+	if (!session) return undefined;
+	return JSON.stringify([
+		session.did,
+		session.service,
+		session.pdsUri,
+		session.accessJwt,
+		session.refreshJwt
+	]);
+}
+
+type Writer = { pending: Promise<void>; lastWriteAt: number; credentials?: string };
+const writers = new WeakMap<KVNamespace, Map<string, Writer>>();
+const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
 async function saveSession(
 	kv: KVNamespace,
 	key: string,
 	session: PasswordSessionData
 ): Promise<void> {
-	await kv.put(key, JSON.stringify(session));
+	let namespace = writers.get(kv);
+	if (!namespace) writers.set(kv, (namespace = new Map()));
+	let writer = namespace.get(key);
+	if (!writer) {
+		writer = { pending: Promise.resolve(), lastWriteAt: -Infinity };
+		namespace.set(key, writer);
+	}
+	const state = writer;
+	const next = credentials(session);
+	// Serialize/deduplicate writes within this isolate. Other isolates can still
+	// hit the same key, so retry KV's per-key 429 with bounded, jittered backoff.
+	const pending = state.pending.then(async () => {
+		if (state.credentials === next) return;
+		const wait = state.lastWriteAt + 1_000 - Date.now();
+		if (wait > 0) await delay(wait);
+		for (let attempt = 0; ; attempt++) {
+			try {
+				await kv.put(key, JSON.stringify(session));
+				state.lastWriteAt = Date.now();
+				state.credentials = next;
+				return;
+			} catch (cause) {
+				if (
+					attempt >= 3 ||
+					!(cause instanceof Error) ||
+					!/\b429\b|too many requests|rate.?limit/i.test(cause.message)
+				)
+					throw cause;
+				await delay(1_000 * 2 ** attempt + Math.floor(Math.random() * 250));
+			}
+		}
+	});
+	state.pending = pending.catch(() => {});
+	await pending;
 }

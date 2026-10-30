@@ -6,8 +6,8 @@ status against the deployed Worker and bindings before acting on it.
 ## Contrail and search
 
 Contrail indexes records in `DB`. The existing one-minute cron handles bounded
-Jetstream v2 ingestion, due backfill retries, the reply bot, topic aggregates
-and daily city snapshots.
+Jetstream v2 ingestion, due backfill retries, the reply bot, topic aggregates,
+daily city snapshots and [event starter-pack refreshes](starter-packs.md).
 Text search uses Contrail's D1 full-text search. User-entered terms are escaped
 as literal, all-terms FTS queries; topic expressions retain their server-owned OR
 semantics. There is no external search service, near-you search, geocode drip or

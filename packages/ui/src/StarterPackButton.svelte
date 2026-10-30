@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { Button } from '@atmo-dev/kit';
+
+	let {
+		eventUri,
+		openPack
+	}: {
+		eventUri: string;
+		/** The host owns account access and creation; this component never writes records. */
+		openPack: (eventUri: string) => Promise<string>;
+	} = $props();
+	let pending = $state(false);
+	let message: string | null = $state(null);
+	let packUrl: string | null = $state(null);
+
+	async function open() {
+		if (pending) return;
+		if (packUrl) {
+			window.open(packUrl, '_blank', 'noopener,noreferrer');
+			return;
+		}
+		// Open synchronously with the click so async creation doesn't hit popup blockers.
+		const tab = window.open('about:blank', '_blank');
+		if (tab) tab.opener = null;
+		pending = true;
+		message = null;
+		try {
+			const url = await openPack(eventUri);
+			packUrl = url;
+			if (tab) {
+				if (!tab.closed) tab.location.replace(url);
+			} else window.location.assign(url);
+		} catch {
+			tab?.close();
+			message = 'Couldn’t open the starter pack. Please try again.';
+		} finally {
+			pending = false;
+		}
+	}
+</script>
+
+<div>
+	<Button variant="secondary" onclick={open} disabled={pending}>
+		{pending ? 'Opening…' : 'Starter pack ↗'}
+	</Button>
+	{#if message}
+		<p role="alert" class="text-muted mt-2 text-sm">{message}</p>
+	{/if}
+</div>

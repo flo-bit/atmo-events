@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { EventView } from '@atmo-dev/events-ui';
+	import { EventView, StarterPackButton } from '@atmo-dev/events-ui';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
 	import { page } from '$app/state';
+	import { openStarterPack } from '#lib/starter-packs/packs.remote.js';
 
 	let { data } = $props();
 
@@ -17,4 +18,15 @@
 	let adapter = $derived(createInAppAdapter({ viewer }));
 </script>
 
-<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)} />
+<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)}>
+	{#snippet attendeeActions()}
+		{#if data.starterPacksEnabled}
+			{#key data.eventData.uri}
+				<StarterPackButton
+					eventUri={data.eventData.uri}
+					openPack={async (eventUri) => (await openStarterPack({ eventUri })).url}
+				/>
+			{/key}
+		{/if}
+	{/snippet}
+</EventView>

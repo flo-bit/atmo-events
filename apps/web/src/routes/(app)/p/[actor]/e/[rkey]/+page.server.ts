@@ -195,6 +195,7 @@ export async function load({ params, locals, url }) {
 
 	return {
 		pageTitle: eventData.name,
+		starterPacksEnabled: !!env.BOT_IDENTIFIER && !!env.BOT_APP_PASSWORD,
 		pageDescription: eventData.description || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
