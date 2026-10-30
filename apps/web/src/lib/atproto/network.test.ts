@@ -34,7 +34,73 @@ describe('network settings', () => {
 		});
 		expect(validate('PUBLIC_PLC_URL', 'plc.test')).toHaveProperty('issues');
 		expect(validate('PUBLIC_PLC_URL', 'wss://plc.test')).toHaveProperty('issues');
-		expect(validate('PUBLIC_JETSTREAM_URL', 'https://jetstream.test')).toHaveProperty('issues');
+		expect(validate('PUBLIC_JETSTREAM_URL', 'ftp://jetstream.test')).toHaveProperty('issues');
+	});
+
+	it('refuse a user, password or #fragment', () => {
+		expect(validate('PUBLIC_PLC_URL', 'https://plc.test/#top')).toHaveProperty('issues');
+		expect(validate('PUBLIC_PLC_URL', 'https://me:pw@plc.test')).toHaveProperty('issues');
+		expect(validate('PUBLIC_DOH_URL', 'https://dns.test/dns-query')).toEqual({
+			value: 'https://dns.test/dns-query'
+		});
+	});
+
+	it('refuse an address not written scheme://host, a backslash, and an empty ? or #', () => {
+		for (const value of ['https:cdn.test', 'https:/cdn.test', 'https:\\\\cdn.test']) {
+			expect(validate('PUBLIC_CDN_URL', value)).toHaveProperty('issues');
+		}
+		// The URL parser reads a backslash as a slash, but text built from the address keeps it.
+		expect(validate('PUBLIC_APPVIEW_URL', 'https://appview.test\\')).toHaveProperty('issues');
+		expect(validate('PUBLIC_CDN_URL', 'https://cdn.test\\img')).toHaveProperty('issues');
+		expect(validate('PUBLIC_CDN_URL', 'HTTPS://cdn.test')).toEqual({ value: 'HTTPS://cdn.test' });
+		expect(validate('PUBLIC_PLC_URL', 'https://plc.test/#')).toHaveProperty('issues');
+		expect(validate('PUBLIC_APPVIEW_URL', 'https://appview.test/?')).toHaveProperty('issues');
+		expect(validate('PUBLIC_CDN_URL', 'https://cdn.test/?')).toHaveProperty('issues');
+	});
+
+	it('take Jetstream as an origin, over HTTP or WebSocket', () => {
+		for (const value of ['https://jetstream.test', 'wss://jetstream.test/']) {
+			expect(validate('PUBLIC_JETSTREAM_URL', value)).toEqual({ value });
+		}
+		expect(validate('PUBLIC_JETSTREAM_URL', 'wss://jetstream.test/subscribe')).toHaveProperty(
+			'issues'
+		);
+		expect(validate('PUBLIC_JETSTREAM_URL', 'wss://jetstream.test?compress=true')).toHaveProperty(
+			'issues'
+		);
+	});
+
+	it('take a service that adds its own path as an origin', () => {
+		const services = [
+			'PUBLIC_PLC_URL',
+			'PUBLIC_CONSTELLATION_URL',
+			'PUBLIC_APPVIEW_URL',
+			'PUBLIC_SIGNUP_PDS_URL'
+		] as const;
+		for (const name of services) {
+			expect(validate(name, 'https://a.test/')).toEqual({ value: 'https://a.test/' });
+			expect(validate(name, 'https://a.test/api')).toHaveProperty('issues');
+			expect(validate(name, 'https://a.test?v=1')).toHaveProperty('issues');
+		}
+		expect(validate('PUBLIC_RELAY_URLS', 'https://a.test,https://b.test/api')).toHaveProperty(
+			'issues'
+		);
+	});
+
+	it('take the image CDN and Slingshot with a path, but no ?query', () => {
+		for (const name of ['PUBLIC_CDN_URL', 'PUBLIC_SLINGSHOT_URL'] as const) {
+			expect(validate(name, 'https://a.test/base')).toEqual({ value: 'https://a.test/base' });
+			expect(validate(name, 'https://a.test?v=1')).toHaveProperty('issues');
+		}
+	});
+
+	it('take the sign-up PDS over HTTPS only', () => {
+		expect(validate('PUBLIC_SIGNUP_PDS_URL', 'https://pds.test')).toEqual({
+			value: 'https://pds.test'
+		});
+		expect(validate('PUBLIC_SIGNUP_PDS_URL', 'http://pds.test')).toHaveProperty('issues');
+		// The others take http, for a test network on this machine.
+		expect(validate('PUBLIC_PLC_URL', 'http://plc.test')).toEqual({ value: 'http://plc.test' });
 	});
 
 	it('take relays as a comma-separated list', () => {
