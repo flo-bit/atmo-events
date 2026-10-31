@@ -8,9 +8,12 @@ export function starterPackClientUrl(
 	try {
 		const url = new URL(canonicalUrl);
 		if (
-			url.origin !== 'https://bsky.app' || url.username || url.password ||
+			url.origin !== 'https://bsky.app' ||
+			url.username ||
+			url.password ||
 			!/^\/starter-pack\/[^/]+\/[^/]+$/.test(url.pathname)
-		) return null;
+		)
+			return null;
 		return `${socialClientInfo(socialClient).url}${url.pathname}${url.search}${url.hash}`;
 	} catch {
 		return null;

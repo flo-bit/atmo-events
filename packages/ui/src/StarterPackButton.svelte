@@ -16,7 +16,9 @@
 	let pending = $state(false);
 	let message: string | null = $state(null);
 	let canonicalPackUrl: string | null = $state(null);
-	let packUrl = $derived(canonicalPackUrl ? starterPackClientUrl(canonicalPackUrl, socialClient) : null);
+	let packUrl = $derived(
+		canonicalPackUrl ? starterPackClientUrl(canonicalPackUrl, socialClient) : null
+	);
 	let clientLabel = $derived(socialClientInfo(socialClient).label);
 
 	async function open() {
