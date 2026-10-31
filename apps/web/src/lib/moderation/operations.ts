@@ -6,6 +6,7 @@ import { getAuth } from '#lib/atproto/server/oauth.js';
 import { ensureInit } from '#lib/contrail/index.js';
 import { getReports, isModerator } from './server';
 import { publishReportAction, withActionLinks } from './actions';
+import { enrichInboxReports } from './profiles.server';
 
 export function requireReporter(locals: Pick<App.Locals, 'did'>) {
 	if (!locals.did) error(401, 'Sign in to report content');
@@ -37,7 +38,16 @@ export async function listForSession(
 	const did = requireModerator(locals);
 	return reportOperation(async () => {
 		const page = await (await getReports()).list(did, input);
-		return { ...page, reports: await withActionLinks(env.REPORTS_DB, page.reports) };
+		const reports = await withActionLinks(env.REPORTS_DB, page.reports);
+		const { config } = await ensureInit(env.DB);
+		const count = await env.REPORTS_DB.prepare(
+			"SELECT COUNT(*) AS count FROM moderation_reports WHERE status = 'open'"
+		).first<{ count: number }>();
+		return {
+			...page,
+			openCount: Number(count?.count ?? 0),
+			reports: await enrichInboxReports(env.DB, config, reports)
+		};
 	});
 }
 export async function resolveForSession(locals: Pick<App.Locals, 'did'>, input: unknown) {

@@ -8,13 +8,12 @@ The UI uses the published `@atmo-dev/kit`. A normal install or CI build needs no
 
 For co-development, run the kit's `svelte-package --watch` and use `corepack pnpm kit:local` here before starting the app. `corepack pnpm kit:registry` restores the published version. Neither command changes manifests or the committed lockfile.
 
-The report-dialog and legal-page integrations currently use unpublished Kit APIs. From this
-nested checkout, select it with
-`ATMO_KIT_PATH=../../00-atmo-kit/kit corepack pnpm kit:local` after building Kit.
-Before merging the RSVP consumer change, release Kit with `ReportDialog`,
-`LegalDocument`, `LegalFooter`, and the `@atmo-dev/kit/legal` authoring entry, then
-update RSVP's published dependency and lockfile and verify in registry mode.
-A frozen registry install cannot use the new components until that release is adopted.
+The app pins published Kit `0.2.1`, including `ReportDialog`, `LegalDocument`,
+`LegalFooter`, the `@atmo-dev/kit/legal` authoring entry, and the Bluesky DID-link
+fix. The event UI requires Kit `^0.2.1`. Normal frozen installs use this registry
+release; no local override is needed. For further Kit co-development from this
+nested checkout, build Kit and select it with
+`ATMO_KIT_PATH=../../00-atmo-kit/kit corepack pnpm kit:local`.
 See [legal pages](legal.md) for footer switches, app-owned policy snapshots, and
 publication checks. The current policy pages are unpublished drafts.
 

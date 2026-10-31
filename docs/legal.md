@@ -39,5 +39,6 @@ Do not deploy these drafts as if they were final legal notices or acceptance ter
 Kit's framework-free authoring helpers come from `@atmo-dev/kit/legal`; rendering
 uses `LegalDocument` and `LegalFooter` from the main entry. The app owns routes,
 page/social titles, draft indexing, auth, contact channels, and enforcement.
-The new Kit APIs are currently available through the local Kit override. Publish
-Kit and adopt its registry release before merging/deploying the consumer change.
+These Kit APIs are available in the app's published `@atmo-dev/kit@0.2.1`
+dependency. Normal frozen registry installs include them; a local Kit override
+is only needed for further co-development.

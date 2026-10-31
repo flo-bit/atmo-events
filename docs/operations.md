@@ -59,7 +59,13 @@ still require an authenticated session. The shared Kit `ReportDialog` owns the
 form and its UI states; the app's `ReportButton` supplies auth, the canonical link,
 mailbox, and session-backed submission/error mapping.
 Configured moderators can open `/mod` (also linked from their own profile) to
-review, resolve and paginate reports.
+review, resolve and paginate reports. The Open tab shows the total open count,
+independent of pagination. Reports show locally indexed reporter/subject profiles,
+readable reasons, and direct event/account links; missing profile metadata falls
+back to the DID without blocking review. These lookups stay behind moderator
+checks and do not make additional remote profile requests. Private notes are
+collapsed by default. Hide/undo actions require explicit confirmation; resolving
+a report never implicitly hides its subject.
 The inbox can authorize the optional **repository create/delete** permission for
 `tools.atmo.moderation.action`. That grant is not requested during normal
 login/signup and is not necessary for reporting or resolving reports.
