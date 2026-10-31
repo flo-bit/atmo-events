@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
 import { getEventThumbnail } from '@atmo-dev/events-ui';
 import { getActor } from '#lib/actor.js';
+import { serviceUrl } from '#lib/atproto/network.js';
 import {
 	flattenEventRecord,
 	getEventRecordFromContrail,
@@ -50,7 +51,7 @@ export async function load({ params, url }) {
 		if (eventData.media && eventData.media.length > 0) {
 			const thumb = getEventThumbnail(eventData.media);
 			if (thumb?.content?.ref?.$link) {
-				thumbnailUrl = `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${thumb.content.ref.$link}@webp`;
+				thumbnailUrl = `${serviceUrl('cdn')}/img/feed_thumbnail/plain/${did}/${thumb.content.ref.$link}@webp`;
 			}
 		}
 

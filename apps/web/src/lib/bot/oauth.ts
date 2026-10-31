@@ -15,7 +15,8 @@ import { createActorResolver } from '@svelte-atproto/oauth/network';
 import { cloudflareKV } from '@svelte-atproto/oauth/server/stores/cloudflare';
 import type { SessionWithHistory } from '@svelte-atproto/oauth/server';
 import { getAuth, oauthRequestLock } from '#lib/atproto/server/oauth.js';
-import { DEV_PORT, DOH_RESOLVER, REDIRECT_PATH } from '#lib/atproto/settings.js';
+import { DEV_PORT, REDIRECT_PATH } from '#lib/atproto/settings.js';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 
 /** Preserve the library's request history and login generation on bot refreshes. */
 export function backgroundSessions(store: Store<Did, StoredSession>): Store<Did, StoredSession> {
@@ -56,7 +57,7 @@ export async function restoreRsvpSession(did: Did) {
 			? `${env.OAUTH_PUBLIC_URL}/oauth-client-metadata.json`
 			: `loopback:${DEV_PORT}${REDIRECT_PATH}`;
 		const common = {
-			actorResolver: createActorResolver({ doh: DOH_RESOLVER }),
+			actorResolver: createActorResolver({ network: atprotoNetwork() }),
 			stores: {
 				sessions: backgroundSessions(cloudflareKV<Did, StoredSession>(env.OAUTH_SESSIONS)),
 				states: cloudflareKV<string, StoredState>(env.OAUTH_STATES, { ttl: 600 })

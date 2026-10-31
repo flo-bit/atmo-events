@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
 import { getEventThumbnail } from '@atmo-dev/events-ui';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 import { getActor } from '#lib/actor.js';
 import { generateICalFeed, type ICalAttendee, type ICalEvent } from '#lib/cal/ical.js';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
@@ -45,7 +46,7 @@ export async function GET({ params }) {
 			records.map(async (r) => {
 				const thumbnail = getEventThumbnail(r.media);
 				const imageUrl = thumbnail?.content
-					? getCDNImageBlobUrl({ did, blob: thumbnail.content })
+					? getCDNImageBlobUrl({ did, blob: thumbnail.content, network: atprotoNetwork() })
 					: undefined;
 				const attendeeGroups = buildEventAttendees(
 					r.rsvps as Parameters<typeof buildEventAttendees>[0],

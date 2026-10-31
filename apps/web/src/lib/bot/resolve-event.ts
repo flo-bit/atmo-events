@@ -3,6 +3,7 @@ import type { Did } from '@atcute/lexicons';
 import type { Handle, ResourceUri } from '@atcute/lexicons/syntax';
 import { getEventRecordFromContrail } from '#lib/contrail.js';
 import { getPDS } from '@svelte-atproto/oauth/helper';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 import { ATMO_HOSTS, EVENT_COLLECTION } from './config';
 
 /** The fields of a Bluesky post record we care about for link extraction. */
@@ -178,7 +179,7 @@ export async function loadEvent(
 /** Direct public read of the event record from its owner's PDS (no auth needed). */
 async function loadEventFromPds(did: Did, rkey: string): Promise<ResolvedEvent | null> {
 	try {
-		const pds = await getPDS(did);
+		const pds = await getPDS(did, { network: atprotoNetwork() });
 		if (!pds) return null;
 		const url =
 			`${pds.replace(/\/$/, '')}/xrpc/com.atproto.repo.getRecord` +

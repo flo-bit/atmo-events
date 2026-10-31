@@ -19,6 +19,7 @@ vi.mock('#lib/components/LoginModal.svelte', () => ({
 }));
 vi.mock('#lib/contrail.js', () => ({ notifyContrailOfUpdate: mocks.notify }));
 import { createInAppAdapter } from './adapter';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 
 const did = 'did:plc:abcdefghijklmnopqrstuvwx';
 const adapter = createInAppAdapter({ viewer: { did, isLoggedIn: true } });
@@ -62,9 +63,15 @@ describe('editor integration without the methods facade', () => {
 		mocks.resolveHandle.mockResolvedValue(did);
 		const input = { did, collection: 'community.lexicon.calendar.event', rkey: 'event' };
 		expect(await adapter.getRecord(input)).toEqual({ value: { name: 'Meetup' } });
-		expect(mocks.getRecord).toHaveBeenCalledExactlyOnceWith(input);
+		expect(mocks.getRecord).toHaveBeenCalledExactlyOnceWith({
+			...input,
+			network: atprotoNetwork()
+		});
 		expect(await adapter.resolveHandle('alice.test')).toBe(did);
-		expect(mocks.resolveHandle).toHaveBeenCalledExactlyOnceWith({ handle: 'alice.test' });
+		expect(mocks.resolveHandle).toHaveBeenCalledExactlyOnceWith({
+			handle: 'alice.test',
+			network: atprotoNetwork()
+		});
 	});
 
 	it('surfaces rejected writes instead of wrapping every response as ok', async () => {
