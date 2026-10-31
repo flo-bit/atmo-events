@@ -2,6 +2,7 @@
 	"terms": {
 		"title": "Terms of service",
 		"status": "draft",
+		"updated": "2026-10-31",
 		"sections": [
 			{
 				"id": "service",
@@ -77,6 +78,7 @@
 	"privacy": {
 		"title": "Privacy policy",
 		"status": "draft",
+		"updated": "2026-10-31",
 		"sections": [
 			{
 				"id": "overview",
@@ -158,6 +160,7 @@
 	"imprint": {
 		"title": "Imprint",
 		"status": "draft",
+		"updated": "2026-10-31",
 		"sections": [
 			{
 				"id": "operator",

@@ -21,7 +21,8 @@ describe('RSVP legal document snapshots', () => {
 		(_kind, document) => {
 			const { body, head } = render(PolicyPage, { props: { document } });
 			expect(document.status).toBe('draft');
-			expect(document.updated).toBeUndefined();
+			expect(document.updated).toBe('2026-10-31');
+			expect(body).toContain('2026-10-31');
 			expect(body).toContain(document.title);
 			expect(body).not.toContain('Draft — not yet published.');
 			expect(body).not.toMatch(

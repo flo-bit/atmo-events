@@ -19,8 +19,8 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
-		// Set trusted moderator DIDs before enabling moderator access.
-		"MODERATOR_DIDS": "",
+		// Official moderator: @atmo.rsvp. Trust stable DIDs, not mutable handles.
+		"MODERATOR_DIDS": "did:plc:b63bmauox6z5rbibwrhxrdnw",
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social",
