@@ -120,6 +120,12 @@ describe('event comment client', () => {
 });
 
 describe('event starter pack visibility', () => {
+	it('passes the viewer’s preferred client to the starter pack button', () => {
+		user.preferredSocialClient = { client: 'blacksky' };
+		const html = markup('bafytest', { enabled: true, going: 4, interested: 2 });
+		expect(html).toContain('Follow attendees on Blacksky.');
+		expect(html).not.toContain('Follow attendees on Bluesky.');
+	});
 	it.each([
 		[true, 3, 2, false],
 		[true, 3, 3, true],

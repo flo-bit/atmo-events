@@ -1,17 +1,25 @@
 <script lang="ts">
 	import { Button } from '@atmo-dev/kit';
+	import { socialClientInfo, type PreferredSocialClient } from '@atmo-dev/kit/social';
+	import { starterPackClientUrl } from './starter-pack-url.js';
 
 	let {
 		eventUri,
-		openPack
+		openPack,
+		socialClient
 	}: {
 		eventUri: string;
+		socialClient?: PreferredSocialClient | null;
 		/** The host owns account access and creation; this component never writes records. */
 		openPack: (eventUri: string) => Promise<string>;
 	} = $props();
 	let pending = $state(false);
 	let message: string | null = $state(null);
-	let packUrl: string | null = $state(null);
+	let canonicalPackUrl: string | null = $state(null);
+	let packUrl = $derived(
+		canonicalPackUrl ? starterPackClientUrl(canonicalPackUrl, socialClient) : null
+	);
+	let clientLabel = $derived(socialClientInfo(socialClient).label);
 
 	async function open() {
 		if (pending) return;
@@ -21,8 +29,10 @@
 		pending = true;
 		message = null;
 		try {
-			const url = await openPack(eventUri);
-			packUrl = url;
+			const canonicalUrl = await openPack(eventUri);
+			const url = starterPackClientUrl(canonicalUrl, socialClient);
+			if (!url) throw new Error('Invalid starter pack URL');
+			canonicalPackUrl = canonicalUrl;
 			if (tab) {
 				if (!tab.closed) tab.location.replace(url);
 			} else window.location.assign(url);
@@ -36,7 +46,7 @@
 </script>
 
 <div class="mt-4">
-	<p class="text-muted mb-1 text-xs">Follow attendees on Bluesky.</p>
+	<p class="text-muted mb-1 text-xs">Follow attendees on {clientLabel}.</p>
 	{#if packUrl}
 		<a
 			href={packUrl}
