@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
+	import { getEventThumbnail } from './event-media.js';
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import Avatar from 'svelte-boring-avatars';
 	import { Badge, Icon } from '@atmo-dev/kit';
@@ -62,7 +63,7 @@
 	}
 
 	function getThumbnail(event: FlatEventRecord): { url: string; alt: string } | null {
-		const media = event.media?.find((m) => m.role === 'thumbnail');
+		const media = getEventThumbnail(event.media);
 		if (media?.content) {
 			const url = getCDNImageBlobUrl({ did: event.did, blob: media.content });
 			if (url) return { url, alt: media.alt || event.name };

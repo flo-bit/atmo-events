@@ -18,18 +18,15 @@ const subject = v.variant('$type', [
 		cid: bounded(256)
 	})
 ]);
-function event() {
-	const event = getRequestEvent();
-	event.setHeaders({ 'cache-control': 'no-store' });
-	return event;
-}
+// SvelteKit marks remote responses private, no-store. setHeaders() is forbidden
+// inside remote functions; use the request only to read the authenticated locals.
 export const submitReport = command(
 	v.object({
 		subject,
 		reasonType: v.picklist(REPORT_REASON_TYPES),
 		reason: v.optional(bounded(20_000))
 	}),
-	(input) => submitForSession(event().locals, input)
+	(input) => submitForSession(getRequestEvent().locals, input)
 );
 
 // A command rather than a query: no shared query cache contains private reports.
@@ -39,7 +36,7 @@ export const loadReports = command(
 		limit: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(100))),
 		cursor: v.optional(bounded(1024))
 	}),
-	(input) => listForSession(event().locals, input)
+	(input) => listForSession(getRequestEvent().locals, input)
 );
 export const resolveReport = command(
 	v.object({
@@ -47,12 +44,12 @@ export const resolveReport = command(
 		resolution: v.optional(bounded(4000)),
 		actionUri: v.optional(bounded(4096))
 	}),
-	(input) => resolveForSession(event().locals, input)
+	(input) => resolveForSession(getRequestEvent().locals, input)
 );
 export const hideSubject = command(
 	v.object({ id: v.pipe(v.number(), v.integer(), v.minValue(0)) }),
-	(input) => hideForSession(event().locals, input)
+	(input) => hideForSession(getRequestEvent().locals, input)
 );
 export const undoAction = command(v.object({ uri: bounded(4096) }), (input) =>
-	undoForSession(event().locals, input.uri)
+	undoForSession(getRequestEvent().locals, input.uri)
 );

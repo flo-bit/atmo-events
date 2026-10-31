@@ -1,0 +1,188 @@
+{
+	"terms": {
+		"title": "Terms of service",
+		"status": "draft",
+		"updated": "2026-10-31",
+		"sections": [
+			{
+				"id": "service",
+				"title": "About the service",
+				"paragraphs": [
+					"atmo.rsvp is an app for discovering, publishing, and responding to events on the AT Protocol."
+				]
+			},
+			{
+				"id": "account",
+				"title": "Your account",
+				"paragraphs": [
+					"Keep your account secure and only grant permissions you are comfortable with. Your account provider has its own terms."
+				]
+			},
+			{
+				"id": "content",
+				"title": "Your content",
+				"paragraphs": [
+					"You own your content and must have the right to publish it. Public AT Protocol records can be copied by other services. Hiding content here does not remove those copies."
+				]
+			},
+			{
+				"id": "guidelines",
+				"title": "Community guidelines",
+				"items": [
+					"Do not publish illegal content or violate copyright, privacy, or other rights.",
+					"Do not harass, threaten, impersonate deceptively, or promote violence.",
+					"Do not use events for scams, spam, phishing, or malicious software."
+				]
+			},
+			{
+				"id": "reporting",
+				"title": "How to report",
+				"paragraphs": [
+					"Use the report button on an event or profile, or email us with the content link and your reason. You do not need an account to report by email.",
+					"For illegal content, explain why you believe it is illegal. Do not attach or redistribute illegal imagery."
+				],
+				"links": [
+					{
+						"label": "reports@atmo.social",
+						"href": "mailto:reports@atmo.social"
+					}
+				]
+			},
+			{
+				"id": "actions",
+				"title": "Restrictions in this app",
+				"paragraphs": [
+					"Moderators may hide events or accounts from this app. Restrictions can be public, but report details stay private. This does not delete content from its account provider or other apps.",
+					"If you think a restriction is wrong, email us with the content link and your explanation."
+				]
+			},
+			{
+				"id": "availability",
+				"title": "Availability and ending use",
+				"paragraphs": [
+					"The service may change or be unavailable. You can stop using it and revoke its permissions through your account provider. We may restrict access to address misuse or legal requirements. Your statutory rights remain unaffected."
+				]
+			},
+			{
+				"id": "contact",
+				"title": "Contact",
+				"links": [
+					{
+						"label": "reports@atmo.social",
+						"href": "mailto:reports@atmo.social"
+					}
+				]
+			}
+		]
+	},
+	"privacy": {
+		"title": "Privacy policy",
+		"status": "draft",
+		"updated": "2026-10-31",
+		"sections": [
+			{
+				"id": "overview",
+				"title": "About this policy",
+				"paragraphs": [
+					"This policy covers data handled by atmo.rsvp. Your account provider and other AT Protocol services have their own policies."
+				]
+			},
+			{
+				"id": "operator",
+				"title": "Operator",
+				"address": ["Florian Killius"],
+				"links": [
+					{
+						"label": "atmo.rsvp",
+						"href": "https://atmo.rsvp"
+					}
+				]
+			},
+			{
+				"id": "authentication",
+				"title": "Signing in",
+				"paragraphs": [
+					"We use AT Protocol OAuth and store your account identifier and session tokens to keep you signed in. We do not receive your password during sign-in. You choose whether to allow optional Bluesky posting."
+				]
+			},
+			{
+				"id": "public-records",
+				"title": "Public data",
+				"paragraphs": [
+					"We index public events, RSVPs, profiles, follows, and moderation records to display and find events. We also cache previews and share images. Events and RSVPs are public, not private invitations.",
+					"Changes and deletions are reflected as the index updates; this may not be immediate. Other services can retain their own copies."
+				]
+			},
+			{
+				"id": "reports",
+				"title": "Reports and moderation",
+				"paragraphs": [
+					"Reports include your account identifier or email address, the reported content, and your explanation. Reports and case notes are available to moderators and are not published.",
+					"Moderation actions may publicly identify the affected event or account, but do not include private report text or notes."
+				]
+			},
+			{
+				"id": "external-services",
+				"title": "Hosting and external services",
+				"paragraphs": [
+					"Cloudflare hosts the app and stores its data. Hosting can process request metadata, such as IP addresses, for delivery and security.",
+					"Maps, images, and embedded media can connect to external providers, which may receive your IP address. Address searches go to a geocoding provider; event imports fetch their source page.",
+					"Opening an event starter pack can create or update a public Bluesky list through our service bot."
+				]
+			},
+			{
+				"id": "device-storage",
+				"title": "Cookies and browser storage",
+				"paragraphs": [
+					"We use cookies to keep you signed in and browser storage to remember your theme and recent accounts."
+				]
+			},
+			{
+				"id": "rights",
+				"title": "Your choices and rights",
+				"paragraphs": [
+					"Contact us to request access, correction, deletion, or restriction of your personal data, or to object to processing. You can also complain to a data-protection authority where applicable.",
+					"Delete public records or revoke app access through your account provider. We cannot remove copies held by other services."
+				]
+			},
+			{
+				"id": "contact",
+				"title": "Contact",
+				"links": [
+					{
+						"label": "reports@atmo.social",
+						"href": "mailto:reports@atmo.social"
+					}
+				]
+			}
+		]
+	},
+	"imprint": {
+		"title": "Imprint",
+		"status": "draft",
+		"updated": "2026-10-31",
+		"sections": [
+			{
+				"id": "operator",
+				"title": "Operator",
+				"address": ["Florian Killius"],
+				"links": [
+					{
+						"label": "atmo.rsvp",
+						"href": "https://atmo.rsvp"
+					}
+				]
+			},
+			{
+				"id": "contact",
+				"title": "Contact",
+				"links": [
+					{
+						"label": "reports@atmo.social",
+						"href": "mailto:reports@atmo.social"
+					}
+				]
+			}
+		]
+	}
+}

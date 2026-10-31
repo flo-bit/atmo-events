@@ -68,6 +68,18 @@ describe('session-backed moderation', () => {
 			(await listForSession({ did: moderator }, { status: 'resolved' })).reports[0].resolution
 		).toBe('Private note');
 	});
+	it('returns the total open count independently of pagination and selected inbox', async () => {
+		const first = await submitForSession({ did: reporter }, report);
+		await submitForSession({ did: reporter }, report);
+		await submitForSession({ did: reporter }, report);
+		const page = await listForSession({ did: moderator }, { limit: 1 });
+		expect(page.reports).toHaveLength(1);
+		expect(page.openCount).toBe(3);
+		await resolveForSession({ did: moderator }, { id: first.id });
+		const resolved = await listForSession({ did: moderator }, { status: 'resolved' });
+		expect(resolved.reports).toHaveLength(1);
+		expect(resolved.openCount).toBe(2);
+	});
 	it('fails closed when private storage is missing or aliases the projection', async () => {
 		Object.assign(env, { REPORTS_DB: undefined });
 		await expect(getReports()).rejects.toThrow('separate');

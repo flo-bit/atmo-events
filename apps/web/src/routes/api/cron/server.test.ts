@@ -3,11 +3,15 @@ const mocks = vi.hoisted(() => ({
 	ingest: vi.fn(async () => {}),
 	retryBackfill: vi.fn(async () => {}),
 	processBotMentions: vi.fn(async () => {}),
+	syncEventStarterPacks: vi.fn(async () => {}),
 	refreshTopicCounts: vi.fn(async () => {}),
 	refreshCitySnapshot: vi.fn(async () => {})
 }));
 vi.mock('#lib/contrail/index.js', () => ({ ensureInit: vi.fn(async () => mocks) }));
 vi.mock('#lib/bot/process-mentions.js', () => ({ processBotMentions: mocks.processBotMentions }));
+vi.mock('#lib/starter-packs/runtime.js', () => ({
+	syncEventStarterPacks: mocks.syncEventStarterPacks
+}));
 vi.mock('#lib/server/topic-counts.js', () => ({ refreshTopicCounts: mocks.refreshTopicCounts }));
 vi.mock('#lib/server/cities.js', () => ({ refreshCitySnapshot: mocks.refreshCitySnapshot }));
 import { env } from 'cloudflare:workers';
@@ -30,6 +34,7 @@ describe('scheduled ingestion', () => {
 	it('rejects unauthenticated ticks without doing work', async () => {
 		expect((await POST(event('bad'))).status).toBe(401);
 		expect(mocks.ingest).not.toHaveBeenCalled();
+		expect(mocks.syncEventStarterPacks).not.toHaveBeenCalled();
 		expect(mocks.refreshTopicCounts).not.toHaveBeenCalled();
 		expect(mocks.refreshCitySnapshot).not.toHaveBeenCalled();
 	});
@@ -38,6 +43,7 @@ describe('scheduled ingestion', () => {
 		expect(mocks.ingest).toHaveBeenCalledWith({ maxDrainMs: 20_000, maxCandidates: 250 }, DB);
 		expect(mocks.retryBackfill).toHaveBeenCalledWith({ maxAccounts: 5 }, DB);
 		expect(mocks.processBotMentions).toHaveBeenCalledTimes(1);
+		expect(mocks.syncEventStarterPacks).toHaveBeenCalledExactlyOnceWith(env, DB);
 		expect(mocks.refreshTopicCounts).toHaveBeenCalledTimes(1);
 		expect(mocks.refreshCitySnapshot).toHaveBeenCalledExactlyOnceWith(DB);
 	});
@@ -46,6 +52,13 @@ describe('scheduled ingestion', () => {
 		mocks.ingest.mockRejectedValueOnce(new Error('DB unavailable'));
 		expect((await POST(event())).status).toBe(200);
 		expect(mocks.retryBackfill).toHaveBeenCalledTimes(1);
+		expect(mocks.refreshTopicCounts).toHaveBeenCalledTimes(1);
+		expect(mocks.refreshCitySnapshot).toHaveBeenCalledExactlyOnceWith(DB);
+	});
+	it('isolates starter-pack failure from other jobs', async () => {
+		vi.spyOn(console, 'error').mockImplementation(() => {});
+		mocks.syncEventStarterPacks.mockRejectedValueOnce(new Error('PDS unavailable'));
+		expect((await POST(event())).status).toBe(200);
 		expect(mocks.refreshTopicCounts).toHaveBeenCalledTimes(1);
 		expect(mocks.refreshCitySnapshot).toHaveBeenCalledExactlyOnceWith(DB);
 	});

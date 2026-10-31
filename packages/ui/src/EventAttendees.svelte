@@ -1,4 +1,12 @@
+<script lang="ts" module>
+	export interface AttendeeCounts {
+		goingCount: number;
+		interestedCount: number;
+	}
+</script>
+
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import type { AttendeeInfo } from './contrail.js';
 	import { Avatar } from '@atmo-dev/kit';
 	import { scale } from 'svelte/transition';
@@ -9,12 +17,14 @@
 		going = [],
 		interested = [],
 		goingCount: initialGoingCount = going.length,
-		interestedCount: initialInterestedCount = interested.length
+		interestedCount: initialInterestedCount = interested.length,
+		footer
 	}: {
 		going?: AttendeeInfo[];
 		interested?: AttendeeInfo[];
 		goingCount?: number;
 		interestedCount?: number;
+		footer?: Snippet<[AttendeeCounts]>;
 	} = $props();
 
 	let goingCountOverride: number | null = $state(null);
@@ -49,6 +59,8 @@
 	}
 
 	export function addAttendee(attendee: AttendeeInfo) {
+		const wasGoing = goingAttendees.some((a) => a.did === attendee.did);
+		const wasInterested = interestedAttendees.some((a) => a.did === attendee.did);
 		const nextGoing = goingAttendees.filter((a) => a.did !== attendee.did);
 		const nextInterested = interestedAttendees.filter((a) => a.did !== attendee.did);
 
@@ -56,13 +68,13 @@
 		if (attendee.status === 'going') {
 			goingAttendeesOverride = [attendee, ...nextGoing];
 			interestedAttendeesOverride = nextInterested;
-			goingCountOverride = goingAttendeesOverride.length;
-			interestedCountOverride = interestedAttendeesOverride.length;
+			goingCountOverride = goingCount + (wasGoing ? 0 : 1);
+			interestedCountOverride = interestedCount - (wasInterested ? 1 : 0);
 		} else if (attendee.status === 'interested') {
 			goingAttendeesOverride = nextGoing;
 			interestedAttendeesOverride = [attendee, ...nextInterested];
-			goingCountOverride = goingAttendeesOverride.length;
-			interestedCountOverride = interestedAttendeesOverride.length;
+			goingCountOverride = goingCount - (wasGoing ? 1 : 0);
+			interestedCountOverride = interestedCount + (wasInterested ? 0 : 1);
 		}
 	}
 
@@ -75,8 +87,8 @@
 		const wasInterested = interestedAttendees.some((a) => a.did === did);
 		goingAttendeesOverride = goingAttendees.filter((a) => a.did !== did);
 		interestedAttendeesOverride = interestedAttendees.filter((a) => a.did !== did);
-		if (wasGoing) goingCountOverride = goingAttendeesOverride.length;
-		if (wasInterested) interestedCountOverride = interestedAttendeesOverride.length;
+		if (wasGoing) goingCountOverride = goingCount - 1;
+		if (wasInterested) interestedCountOverride = interestedCount - 1;
 	}
 </script>
 
@@ -155,6 +167,7 @@
 				</div>
 			</button>
 		{/if}
+		{@render footer?.({ goingCount, interestedCount })}
 	</div>
 {/if}
 

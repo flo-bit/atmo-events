@@ -2,7 +2,7 @@ import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 import { loadEnv, searchForWorkspaceRoot } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
@@ -38,7 +38,10 @@ export default defineConfig(({ mode }) => {
 			},
 			dedupe: ['svelte', 'bits-ui', '@internationalized/date']
 		},
-		test: { setupFiles: ['./src/test/setup.ts'] },
+		test: {
+			setupFiles: ['./src/test/setup.ts'],
+			exclude: [...configDefaults.exclude, '**/*.browser.spec.ts']
+		},
 		// Transform the country helper's JSON datasets during SSR (including Vitest).
 		// The helper intentionally does not import this package's CommonJS runtime.
 		ssr: { noExternal: ['i18n-iso-countries'] },

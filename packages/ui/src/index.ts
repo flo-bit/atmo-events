@@ -5,6 +5,7 @@ export { default as EventCard } from './EventCard.svelte';
 export { default as EventRsvp } from './EventRsvp.svelte';
 export { default as EventComments } from './EventComments.svelte';
 export { default as EventAttendees } from './EventAttendees.svelte';
+export { default as StarterPackButton } from './StarterPackButton.svelte';
 export { default as VodPlayer } from './VodPlayer.svelte';
 export { default as VodTranscript } from './VodTranscript.svelte';
 export { default as ConferenceTimetable } from './schedule/ConferenceTimetable.svelte';
@@ -22,21 +23,13 @@ export {
 export type { ScheduleEvent, ParentEventRef } from './conference.js';
 
 // Adapter contract
-export type {
-	EditorAdapter,
-	EditorBlobRef,
-	EditorViewer
-} from './editor/adapter.js';
+export type { EditorAdapter, EditorBlobRef, EditorViewer } from './editor/adapter.js';
 
 // Editor inputs
 export type { EventEditorPrefill } from './editor/types.js';
 
 // Domain types
-export type {
-	FlatEventRecord,
-	HostProfile,
-	AttendeeInfo
-} from './contrail.js';
+export type { FlatEventRecord, HostProfile, AttendeeInfo } from './contrail.js';
 export type {
 	EventData,
 	EventLexiconMain,
@@ -47,14 +40,10 @@ export type {
 export type { EventTheme } from './theme.js';
 
 // Theme values
-export {
-	defaultTheme,
-	themeBackgrounds,
-	randomAccentColor,
-	accentColors
-} from './theme.js';
+export { defaultTheme, themeBackgrounds, randomAccentColor, accentColors } from './theme.js';
 
 // Event helpers
+export { getEventThumbnail } from './event-media.js';
 export { eventUrl, isEventOngoing, RSVP_GOING, RSVP_INTERESTED } from './contrail.js';
 
 // Atproto helpers (browser-safe, no client/session state)

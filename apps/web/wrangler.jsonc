@@ -19,12 +19,12 @@
 	},
 	"vars": {
 		"OAUTH_PUBLIC_URL": "https://atmo.rsvp",
-		// Set trusted moderator DIDs before enabling moderator access.
-		"MODERATOR_DIDS": "",
+		// Official moderator: @atmo.rsvp. Trust stable DIDs, not mutable handles.
+		"MODERATOR_DIDS": "did:plc:b63bmauox6z5rbibwrhxrdnw",
 		// Reply bot. BOT_APP_PASSWORD is a secret: `wrangler secret put BOT_APP_PASSWORD`.
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social",
-		"OG_DAILY_GENERATION_LIMIT": "200",
+		"OG_DAILY_GENERATION_LIMIT": "300",
 		"OG_CYCLE_GENERATION_LIMIT": "3000",
 		"OG_BILLING_CYCLE_START_DAY": "13"
 	},
@@ -46,6 +46,13 @@
 		{
 			"binding": "OG_IMAGES",
 			"bucket_name": "atmo-events-og-images"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "STARTER_PACK_RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": { "limit": 10, "period": 60 }
 		}
 	],
 	"triggers": {

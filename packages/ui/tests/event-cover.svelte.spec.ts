@@ -40,7 +40,13 @@ const cases = [
 	}
 ];
 
-for (const { name, ratio, banner, frame, role = 'thumbnail' } of cases) {
+const coverCases = cases.flatMap((cover) =>
+	cover.role
+		? [cover]
+		: [cover, { ...cover, name: cover.name.replace('thumbnail', 'flyer'), role: 'flyer' }]
+);
+
+for (const { name, ratio, banner, frame, role = 'thumbnail' } of coverCases) {
 	it(`displays ${name} in a ${frame}:1 ${banner ? 'banner' : 'side-column frame'}`, async () => {
 		const media: NonNullable<EventData['media']> = [
 			{
@@ -50,8 +56,8 @@ for (const { name, ratio, banner, frame, role = 'thumbnail' } of cases) {
 				content: { $type: 'blob', ref: { $link: 'test-cover' } }
 			}
 		];
-		// A header must not override the selected thumbnail or its layout.
-		if (role === 'thumbnail') {
+		// A header must not override the selected thumbnail/flyer or its layout.
+		if (role !== 'header') {
 			media.push({
 				role: 'header',
 				alt: 'Unused header',
@@ -88,13 +94,13 @@ for (const { name, ratio, banner, frame, role = 'thumbnail' } of cases) {
 	});
 }
 
-it('keeps event card thumbnails square and cropped', async () => {
+it.each(['thumbnail', 'flyer'])('keeps event card %s images square and cropped', async (role) => {
 	render(EventCard, {
 		event: {
 			...event,
 			media: [
 				{
-					role: 'thumbnail',
+					role,
 					alt: 'Card cover',
 					aspect_ratio: { width: 1500, height: 500 },
 					content: { $type: 'blob', ref: { $link: 'test-cover' } }

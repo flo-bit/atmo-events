@@ -91,6 +91,7 @@ export async function load({ params }) {
 		pageDescription: `Events hosted by ${hostName}`,
 		actorProfile: profile,
 		actor,
-		actorDid: did
+		actorDid: did,
+		reportSubject: { $type: 'com.atproto.admin.defs#repoRef' as const, did }
 	};
 }

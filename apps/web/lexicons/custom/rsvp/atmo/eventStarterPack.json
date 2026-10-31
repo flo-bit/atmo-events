@@ -1,0 +1,23 @@
+{
+	"lexicon": 1,
+	"id": "rsvp.atmo.eventStarterPack",
+	"defs": {
+		"main": {
+			"type": "record",
+			"key": "any",
+			"description": "Bot-owned event starter-pack registry. The record key is the lowercase hex SHA-256 of the canonical DID-based event AT URI.",
+			"record": {
+				"type": "object",
+				"required": ["event", "starterPack", "list", "createdAt"],
+				"properties": {
+					"event": { "type": "string", "format": "at-uri" },
+					"starterPack": { "type": "string", "format": "at-uri" },
+					"list": { "type": "string", "format": "at-uri" },
+					"createdAt": { "type": "string", "format": "datetime" },
+					"lastAttemptAt": { "type": "string", "format": "datetime" },
+					"lastSyncedAt": { "type": "string", "format": "datetime" }
+				}
+			}
+		}
+	}
+}

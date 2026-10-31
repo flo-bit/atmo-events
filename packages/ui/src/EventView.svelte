@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
 	import { getCDNImageBlobUrl } from './atproto-helpers.js';
+	import { getEventThumbnail } from './event-media.js';
 	import { Button, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import ShareModal from './ShareModal.svelte';
 	import EventComments from './EventComments.svelte';
 	import Avatar from 'svelte-boring-avatars';
 	import EventRsvp from './EventRsvp.svelte';
 	import EventCard from './EventCard.svelte';
-	import EventAttendees from './EventAttendees.svelte';
+	import EventAttendees, { type AttendeeCounts } from './EventAttendees.svelte';
 	import VodPlayer, { type VodPlayerApi } from './VodPlayer.svelte';
 	import StreamPlacePlayer from './event-view/StreamPlacePlayer.svelte';
 	import { launchConfetti } from '@atmo-dev/kit';
@@ -37,7 +38,8 @@
 		pageUrl,
 		embedMode = false,
 		shareUrlOverride,
-		extraActions
+		extraActions,
+		attendeeActions
 	}: {
 		data: any;
 		adapter: EditorAdapter;
@@ -51,6 +53,8 @@
 		shareUrlOverride?: string;
 		/** App-owned actions such as private reporting; omitted in embeds. */
 		extraActions?: Snippet;
+		/** App-owned actions below the attendee lists, with current RSVP counts. */
+		attendeeActions?: Snippet<[AttendeeCounts]>;
 	} = $props();
 
 	let eventData: FlatEventRecord = $derived(data.eventData);
@@ -118,7 +122,7 @@
 
 	let thumbnailImage = $derived.by(() => {
 		if (!eventData.media || eventData.media.length === 0) return null;
-		const media = eventData.media.find((m) => m.role === 'thumbnail');
+		const media = getEventThumbnail(eventData.media);
 		if (!media?.content) return null;
 		const url = getCDNImageBlobUrl({ did, blob: media.content });
 		if (!url) return null;
@@ -134,7 +138,7 @@
 		return { url, alt: media.alt || eventData.name, aspectRatio: media.aspect_ratio };
 	});
 
-	// Prefer thumbnail; fall back to header/banner image.
+	// Prefer thumbnail, then flyer; fall back to header/banner image.
 	let displayImage = $derived(thumbnailImage ?? bannerImage);
 	let imageAspectRatio = $derived.by(() => {
 		const ratio = displayImage?.aspectRatio;
@@ -415,6 +419,7 @@
 					interested={attendees.interested}
 					goingCount={attendees.goingCount}
 					interestedCount={attendees.interestedCount}
+					footer={embedMode ? undefined : attendeeActions}
 				/>
 			</div>
 		</div>

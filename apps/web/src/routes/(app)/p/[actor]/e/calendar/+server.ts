@@ -1,5 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
+import { getEventThumbnail } from '@atmo-dev/events-ui';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
 import { getActor } from '#lib/actor.js';
 import { generateICalFeed, type ICalAttendee, type ICalEvent } from '#lib/cal/ical.js';
@@ -42,7 +43,7 @@ export async function GET({ params }) {
 		const actor = hostProfile?.handle || did;
 		const events: ICalEvent[] = await Promise.all(
 			records.map(async (r) => {
-				const thumbnail = r.media?.find((m) => m.role === 'thumbnail');
+				const thumbnail = getEventThumbnail(r.media);
 				const imageUrl = thumbnail?.content
 					? getCDNImageBlobUrl({ did, blob: thumbnail.content })
 					: undefined;

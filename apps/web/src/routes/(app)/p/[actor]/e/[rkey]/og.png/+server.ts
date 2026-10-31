@@ -6,7 +6,7 @@ import Avatar from './avatars';
 import { getActor } from '#lib/actor.js';
 import { flattenEventRecord, getEventRecordFromContrail } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
-import { formatInTz, partsInTz } from '@atmo-dev/events-ui';
+import { formatInTz, partsInTz, getEventThumbnail } from '@atmo-dev/events-ui';
 import { render } from 'svelte/server';
 import { imageVersion, serveOgImage } from '#lib/server/og/cache.js';
 import { IMAGE_PLACEHOLDERS, withOgRenderer } from '#lib/server/og/takumi.js';
@@ -71,8 +71,7 @@ export const GET: RequestHandler = async ({ params, request, fetch: localFetch }
 		render: async () => {
 			const dateStr = formatDate(eventData.startsAt, eventData.timezone);
 			const media =
-				eventData.media?.find((m) => m.role === 'thumbnail') ??
-				eventData.media?.find((m) => m.role === 'header');
+				getEventThumbnail(eventData.media) ?? eventData.media?.find((m) => m.role === 'header');
 			// Keep Takumi's JPEG fast path; the library CDN helper defaults to WebP.
 			// The blurred backdrop only needs the 128px preset.
 			const photo = media?.content
