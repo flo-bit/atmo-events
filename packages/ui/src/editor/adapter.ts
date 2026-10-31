@@ -7,6 +7,8 @@
  * hosts (e.g. blento) provide their own.
  */
 
+import type { PreferredSocialClient } from '@atmo-dev/kit/social';
+
 export type EditorBlobRef = {
 	$type: 'blob';
 	ref: { $link: string };
@@ -18,6 +20,8 @@ export type EditorViewer = {
 	isLoggedIn: boolean;
 	/** Explicit capability from the host's token grant; absent means denied. */
 	canPostToBluesky?: boolean;
+	/** The viewer's public social-client selection; absent defaults to Bluesky. */
+	preferredSocialClient?: PreferredSocialClient | null;
 	did: string | null;
 	handle?: string;
 	displayName?: string;

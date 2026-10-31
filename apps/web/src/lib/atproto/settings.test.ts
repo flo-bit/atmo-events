@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { resolveLoginOptions } from '@atmo-dev/kit';
+import { PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import {
 	allowedCollections,
 	collections,
@@ -18,7 +19,8 @@ describe('OAuth permissions', () => {
 			'include:community.lexicon.calendar.authFull',
 			'blob?accept=image/*',
 			'include:app.bsky.authCreatePosts',
-			moderationActionScope
+			moderationActionScope,
+			PREFERRED_CLIENT_SCOPE
 		]);
 	});
 	it('allows writes only to calendar records and Bluesky posts', () => {
@@ -31,6 +33,12 @@ describe('OAuth permissions', () => {
 });
 
 describe('permission selection', () => {
+	it('declares client-selection access but never requests it at login or signup', () => {
+		expect(scopes).toContain(PREFERRED_CLIENT_SCOPE);
+		expect(requiredScopes).not.toContain(PREFERRED_CLIENT_SCOPE);
+		expect(resolveLoginOptions(loginPermissions, {}).scopes).not.toContain(PREFERRED_CLIENT_SCOPE);
+		expect(getLoginScopes([PREFERRED_CLIENT_SCOPE])).not.toContain(PREFERRED_CLIENT_SCOPE);
+	});
 	it('requires calendar access and selects optional Bluesky posting by default', () => {
 		const options = resolveLoginOptions(loginPermissions, {});
 		expect(options.permissionIds).toEqual(['calendar', 'bluesky']);

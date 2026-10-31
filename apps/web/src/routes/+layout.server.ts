@@ -5,16 +5,36 @@ import { getAuth } from '#lib/atproto/server/oauth.js';
 import { blueskyPostCapability } from '#lib/atproto/settings.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { isModerator } from '#lib/moderation/server.js';
+import { getPreferredClientRecord } from '#lib/atproto/preferred-client.server.js';
+import { parsePreferredSocialClient, type PreferredSocialClient } from '@atmo-dev/kit/social';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.did || !locals.client) {
-		return { did: null, profile: null, canPostToBluesky: false, isModerator: false };
+		return {
+			did: null,
+			profile: null,
+			preferredSocialClient: null,
+			preferredClientLoadFailed: false,
+			canPostToBluesky: false,
+			isModerator: false
+		};
 	}
 
 	// Warm the first authenticated page after login. This keeps the network-feed
 	// bootstrap out of the response path without replacing the library callback.
 	if (env.DB) waitUntil(prewarmNetworkFeed(locals.did));
-	const profile = await getViewerProfileFromContrail(getServerClient(env.DB), locals.did);
+	const [profile, preferredClient] = await Promise.all([
+		getViewerProfileFromContrail(getServerClient(env.DB), locals.did),
+		getPreferredClientRecord(locals.client, locals.did)
+			.then((value) => ({
+				preferredSocialClient: parsePreferredSocialClient(value?.record),
+				preferredClientLoadFailed: false
+			}))
+			.catch(() => ({
+				preferredSocialClient: null as PreferredSocialClient | null,
+				preferredClientLoadFailed: true
+			}))
+	]);
 	let canPostToBluesky = false;
 	try {
 		canPostToBluesky = await getAuth().api.can(blueskyPostCapability);
@@ -22,7 +42,13 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		// An unavailable token is not permission to write. Retry on the next load.
 		console.warn('[oauth] permission check temporarily unavailable');
 	}
-	return { did: locals.did, profile, canPostToBluesky, isModerator: isModerator(locals.did) };
+	return {
+		did: locals.did,
+		profile,
+		...preferredClient,
+		canPostToBluesky,
+		isModerator: isModerator(locals.did)
+	};
 };
 
 async function prewarmNetworkFeed(did: `did:${string}:${string}`): Promise<void> {

@@ -1,5 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { getActor } from '#lib/actor.js';
+import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
+import { getProfileCounts } from '#lib/server/profile-counts.js';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
@@ -14,7 +16,7 @@ import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params }) {
+export async function load({ params, fetch }) {
 	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
@@ -60,6 +62,12 @@ export async function load({ params }) {
 
 	// Contrail deliberately returns the same absence for missing and hidden profiles.
 	if (!profile) throw error(404, 'Actor not found');
+	// Hydrate only after the local moderation gate. Do not resurrect hidden accounts
+	// through a public Bluesky request or resolve arbitrary profile-link destinations.
+	const [blueskyProfile, eventCounts] = await Promise.all([
+		getBlueskyProfile(did, fetch),
+		getProfileCounts(env.DB, did)
+	]);
 	const upcomingEvents = upcomingResponse ? flattenEventRecords(upcomingResponse.records) : [];
 	// Was an inlined copy of this predicate; call the shared one so the "is it
 	// over" rule has a single definition across past-events and this preview.
@@ -90,6 +98,8 @@ export async function load({ params }) {
 		pageTitle: `${hostName} - Events`,
 		pageDescription: `Events hosted by ${hostName}`,
 		actorProfile: profile,
+		blueskyProfile,
+		eventCounts,
 		actor,
 		actorDid: did,
 		reportSubject: { $type: 'com.atproto.admin.defs#repoRef' as const, did }

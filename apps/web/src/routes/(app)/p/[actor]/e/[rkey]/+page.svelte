@@ -10,6 +10,7 @@
 	let viewer = $derived({
 		isLoggedIn: user.isLoggedIn,
 		canPostToBluesky: user.canPostToBluesky,
+		preferredSocialClient: user.preferredSocialClient,
 		did: user.did ?? null,
 		handle: user.profile?.handle,
 		displayName: user.profile?.displayName,

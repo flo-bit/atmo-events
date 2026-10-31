@@ -15,6 +15,8 @@ describe('city links', () => {
 					data: {
 						did: null,
 						profile: null,
+						preferredSocialClient: null,
+						preferredClientLoadFailed: false,
 						canPostToBluesky: false,
 						isModerator: false,
 						pageTitle: 'Browse Cities',

@@ -1,7 +1,16 @@
 import type { AppBskyActorDefs } from '@atcute/bluesky';
 import type { Did } from '@atcute/lexicons';
+import {
+	PREFERRED_CLIENT_COLLECTION,
+	PREFERRED_CLIENT_SCOPE,
+	type PreferredSocialClient
+} from '@atmo-dev/kit/social';
 import { page } from '$app/state';
-import { login as oauthLogin, signup as oauthSignup } from '@svelte-atproto/oauth/client';
+import {
+	login as oauthLogin,
+	signup as oauthSignup,
+	requestPermissions
+} from '@svelte-atproto/oauth/client';
 export { logout } from '@svelte-atproto/oauth/client';
 import {
 	ALLOW_SIGNUP,
@@ -20,6 +29,9 @@ export const user = {
 	get did() {
 		return (page.data?.did as Did | null) ?? null;
 	},
+	get preferredSocialClient(): PreferredSocialClient | null {
+		return page.data?.preferredSocialClient ?? null;
+	},
 	get canPostToBluesky() {
 		return page.data?.canPostToBluesky === true;
 	}
@@ -33,6 +45,17 @@ export function login(handle: string, options?: { scopes: readonly string[] }) {
 	return oauthLogin(normalized, {
 		scope: getLoginScopes(options?.scopes),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
+	});
+}
+
+/** Incrementally authorize this setting without dropping any prior request tokens. */
+export function authorizePreferredSocialClient() {
+	return requestPermissions(PREFERRED_CLIENT_SCOPE, {
+		requirements: [
+			{ type: 'repo', collection: PREFERRED_CLIENT_COLLECTION, action: 'create' },
+			{ type: 'repo', collection: PREFERRED_CLIENT_COLLECTION, action: 'update' }
+		],
+		saveReturnTo: true
 	});
 }
 

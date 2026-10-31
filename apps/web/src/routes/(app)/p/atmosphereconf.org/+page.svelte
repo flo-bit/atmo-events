@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { getProfileBlobUrl } from '#lib/contrail.js';
-	import { user, logout } from '#lib/atproto/auth.svelte.js';
-	import UserProfile from '#lib/components/UserProfile.svelte';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { UserProfile, blueskyProfileToProfileData } from '@atmo-dev/kit';
+	import { getLocalProfileUrl } from '@atmo-dev/events-ui';
 	import { ArrowDown } from '@sketchyicons/svelte';
 	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import DaySchedule from './DaySchedule.svelte';
@@ -20,9 +21,20 @@
 
 	let hostProfile = $derived(data.hostProfile);
 	let hostDid = $derived(hostProfile?.did ?? '');
-	let isOwnProfile = $derived(user.isLoggedIn && !!hostDid && user.did === hostDid);
-	let hostName = $derived(
-		hostProfile?.value?.displayName || hostProfile?.handle || 'ATmosphereConf'
+	let profile = $derived(
+		blueskyProfileToProfileData({
+			...data.blueskyProfile,
+			...hostProfile?.value,
+			did: hostDid,
+			handle: hostProfile?.handle || data.blueskyProfile?.handle,
+			links: data.blueskyProfile?.links,
+			avatar:
+				getProfileBlobUrl(hostDid, hostProfile?.value?.avatar, 'avatar') ??
+				data.blueskyProfile?.avatar,
+			banner:
+				getProfileBlobUrl(hostDid, hostProfile?.value?.banner, 'banner') ??
+				data.blueskyProfile?.banner
+		})
 	);
 
 	let scheduleEvents = $derived(getScheduleEvents(data.events));
@@ -108,21 +120,20 @@
 
 <div class="px-6 py-1 sm:py-2">
 	<div class="mx-auto max-w-3xl px-0 sm:px-4">
-		<UserProfile
-			profile={{
-				handle: hostProfile?.handle,
-				displayName: hostName,
-				avatar: hostProfile?.value?.avatar
-					? getProfileBlobUrl(hostDid, hostProfile.value.avatar)
-					: undefined
-			}}
-		>
-			{#snippet actions()}
-				{#if isOwnProfile}
-					<Button onclick={() => logout()} variant="ghost">Log out</Button>
-				{/if}
-			{/snippet}
-		</UserProfile>
+		{#if hostProfile && profile}
+			<UserProfile
+				{profile}
+				socialClient={user.preferredSocialClient}
+				mentionUrl={getLocalProfileUrl}
+				metrics={data.eventCounts
+					? [
+							{ label: 'events created', value: data.eventCounts.created },
+							{ label: 'events RSVP’d', value: data.eventCounts.rsvpd }
+						]
+					: []}
+				class="mb-10 pt-6 sm:pt-8"
+			/>
+		{/if}
 
 		<p class="text-muted mb-2 text-sm">
 			See all info on the <a

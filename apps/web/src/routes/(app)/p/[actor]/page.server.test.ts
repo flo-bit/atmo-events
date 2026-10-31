@@ -5,6 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // so a band failure must degrade to an empty band rather than reject and turn a
 // valid profile into an error page. The band's own query body is pinned in
 // lib/contrail/ongoing.test.ts.
+vi.mock('#lib/server/bluesky-profile.js', () => ({ getBlueskyProfile: vi.fn() }));
+vi.mock('#lib/server/profile-counts.js', () => ({
+	getProfileCounts: vi.fn(async () => ({ created: 130, rsvpd: 42 }))
+}));
 vi.mock('#lib/contrail/index.js', () => ({
 	getServerClient: vi.fn(() => ({}))
 }));
@@ -15,14 +19,17 @@ vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records)
 }));
 vi.mock('#lib/contrail/ongoing.js', async () => {
-	const actual =
-		await vi.importActual<typeof import('#lib/contrail/ongoing.js')>('#lib/contrail/ongoing.js');
+	const actual = await vi.importActual<typeof import('#lib/contrail/ongoing.js')>(
+		'#lib/contrail/ongoing.js'
+	);
 	return { EMPTY_ONGOING: actual.EMPTY_ONGOING, ongoingQuery: vi.fn() };
 });
 vi.mock('#lib/actor', () => ({ getActor: vi.fn(async () => 'did:plc:alice') }));
 vi.mock('#lib/past-events.js', () => ({ hasEnded: vi.fn(() => true) }));
 
 import { load } from './+page.server';
+import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
+import { getProfileCounts } from '#lib/server/profile-counts.js';
 import {
 	getProfileFromContrail,
 	listAttendingEventsFromContrail,
@@ -74,6 +81,24 @@ beforeEach(() => {
 });
 
 describe('profile page load', () => {
+	it('does not request public enrichment for a locally hidden profile', async () => {
+		mockProfile.mockResolvedValue(null);
+		await expect(load(request())).rejects.toMatchObject({ status: 404 });
+		expect(getBlueskyProfile).not.toHaveBeenCalled();
+		expect(getProfileCounts).not.toHaveBeenCalled();
+	});
+
+	it('includes optional modern profile data after the moderation gate', async () => {
+		vi.mocked(getBlueskyProfile).mockResolvedValueOnce({
+			did: 'did:plc:alice',
+			pronouns: 'they/them',
+			links: [{ url: 'https://work.test/' }]
+		});
+		const data = await load(request());
+		expect(data?.blueskyProfile?.pronouns).toBe('they/them');
+		expect(data?.eventCounts).toEqual({ created: 130, rsvpd: 42 });
+		expect(data?.blueskyProfile?.links).toEqual([{ url: 'https://work.test/' }]);
+	});
 	it('returns the band when the band read succeeds', async () => {
 		const data = (await load(request())) as unknown as LoadResult;
 

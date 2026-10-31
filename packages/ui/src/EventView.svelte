@@ -170,7 +170,9 @@
 		return null;
 	});
 
-	let descriptionHtml = $derived(buildDescriptionHtml(eventData.description, eventData.facets));
+	let descriptionHtml = $derived(
+		buildDescriptionHtml(eventData.description, eventData.facets, viewer.preferredSocialClient)
+	);
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -211,7 +213,7 @@
 			avatar: viewer.avatar,
 			name: viewer.displayName || viewer.handle || viewer.did,
 			handle: viewer.handle,
-			url: `/${viewer.handle || viewer.did}`
+			url: `/p/${encodeURIComponent(viewer.handle || viewer.did)}`
 		});
 		if (status === 'interested') return;
 		shareModalTitle = "You're going!";
@@ -371,7 +373,10 @@
 									{@html descriptionHtml}
 								</div>
 							{:else if eventData.bskyPostRef?.uri}
-								<EventComments postUri={eventData.bskyPostRef.uri} />
+								<EventComments
+									postUri={eventData.bskyPostRef.uri}
+									socialClient={viewer.preferredSocialClient}
+								/>
 							{/if}
 						{:else if descriptionHtml}
 							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
@@ -382,7 +387,10 @@
 							</div>
 						{:else if eventData.bskyPostRef?.uri}
 							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Comments</p>
-							<EventComments postUri={eventData.bskyPostRef.uri} />
+							<EventComments
+								postUri={eventData.bskyPostRef.uri}
+								socialClient={viewer.preferredSocialClient}
+							/>
 						{/if}
 					</div>
 				{/if}

@@ -15,6 +15,8 @@ function markup(
 				isModerator: false,
 				did: null,
 				profile: null,
+				preferredSocialClient: null,
+				preferredClientLoadFailed: false,
 				pageTitle: 'Meetup',
 				eventData: {
 					name: 'Meetup',

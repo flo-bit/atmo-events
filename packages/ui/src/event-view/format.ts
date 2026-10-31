@@ -1,6 +1,8 @@
 import { marked } from 'marked';
+import { tokenize } from '@atcute/bluesky-richtext-parser';
 import { sanitize } from '../cal/sanitize.js';
-import { getProfileUrl } from '../profile-url.js';
+import { getLocalProfileUrl } from '../profile-url.js';
+import { socialHashtagUrl, type PreferredSocialClient } from '@atmo-dev/kit/social';
 
 export function formatMonth(date: Date): string {
 	return date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
@@ -42,16 +44,38 @@ export function getModeColor(mode: string): string {
 }
 
 const renderer = new marked.Renderer();
-renderer.link = ({ href, text }) =>
-	`<a target="_blank" rel="noopener noreferrer nofollow" href="${href}" class="text-accent-600 dark:text-accent-400 hover:underline">${text}</a>`;
+renderer.link = ({ href, text }) => {
+	const attributes = href.startsWith('/')
+		? ''
+		: ' target="_blank" rel="noopener noreferrer nofollow"';
+	const safeHref = href.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+	return `<a${attributes} href="${safeHref}" class="text-accent-600 dark:text-accent-400 hover:underline">${text}</a>`;
+};
 
 type Facet = {
 	index: { byteStart: number; byteEnd: number };
 	features: { $type: string; did?: string; uri?: string; tag?: string }[];
 };
 
-function renderDescription(text: string, facets?: Facet[]): string {
+function renderDescription(
+	text: string,
+	facets?: Facet[],
+	socialClient?: PreferredSocialClient | null
+): string {
 	let result = text;
+
+	// Imported descriptions may have no facets. Keep existing Markdown links and
+	// code intact; only turn detected standalone mentions and hashtags into links.
+	if (!facets?.length) {
+		result = tokenize(text)
+			.map((token) => {
+				if (token.type === 'mention') return `[${token.raw}](${getLocalProfileUrl(token.handle)})`;
+				if (token.type === 'topic')
+					return `[${token.raw}](<${socialHashtagUrl(token.name, socialClient)}>)`;
+				return token.raw;
+			})
+			.join('');
+	}
 
 	if (facets && facets.length > 0) {
 		const encoded = new TextEncoder().encode(text);
@@ -73,14 +97,15 @@ function renderDescription(text: string, facets?: Facet[]): string {
 			switch (feature.$type) {
 				case 'app.bsky.richtext.facet#mention': {
 					const handle = segmentText.startsWith('@') ? segmentText.slice(1) : segmentText;
-					mdLink = `[${segmentText}](${getProfileUrl(handle || feature.did || '')})`;
+					mdLink = `[${segmentText}](${getLocalProfileUrl(feature.did || handle)})`;
 					break;
 				}
 				case 'app.bsky.richtext.facet#link':
 					mdLink = `[${segmentText}](${feature.uri})`;
 					break;
 				case 'app.bsky.richtext.facet#tag':
-					mdLink = `[${segmentText}](https://bsky.app/hashtag/${feature.tag})`;
+					if (feature.tag)
+						mdLink = `[${segmentText}](<${socialHashtagUrl(feature.tag, socialClient)}>)`;
 					break;
 			}
 
@@ -100,10 +125,11 @@ function renderDescription(text: string, facets?: Facet[]): string {
 
 export function buildDescriptionHtml(
 	description: string | undefined,
-	facets: unknown
+	facets: unknown,
+	socialClient?: PreferredSocialClient | null
 ): string | null {
 	if (!description) return null;
-	return sanitize(renderDescription(description, facets as Facet[] | undefined), {
+	return sanitize(renderDescription(description, facets as Facet[] | undefined, socialClient), {
 		ADD_ATTR: ['target']
 	});
 }

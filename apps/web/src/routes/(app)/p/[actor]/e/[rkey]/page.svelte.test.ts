@@ -1,8 +1,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'svelte/server';
+import type { PreferredSocialClient } from '@atmo-dev/kit/social';
 
 const { user } = vi.hoisted(() => ({
-	user: { isLoggedIn: true, did: 'did:plc:viewer', canPostToBluesky: false, profile: null }
+	user: {
+		isLoggedIn: true,
+		did: 'did:plc:viewer',
+		canPostToBluesky: false,
+		profile: null,
+		preferredSocialClient: null as PreferredSocialClient | null
+	}
 }));
 vi.mock('#lib/atproto/auth.svelte.js', () => ({ user }));
 vi.mock('#lib/components/editor/adapter.js', () => ({ createInAppAdapter: () => ({}) }));
@@ -15,7 +22,8 @@ import AppFooter from '#lib/components/AppFooter.svelte';
 
 function markup(
 	cid: string | undefined = 'bafytest',
-	packs = { enabled: false, going: 0, interested: 0 }
+	packs = { enabled: false, going: 0, interested: 0 },
+	showComments = false
 ) {
 	return (
 		render(EventPage, {
@@ -25,6 +33,8 @@ function markup(
 					isModerator: false,
 					did: null,
 					profile: null,
+					preferredSocialClient: null,
+					preferredClientLoadFailed: false,
 					pageTitle: 'Meetup',
 					pageDescription: 'A meetup',
 					ogImage: 'https://atmo.rsvp/og.png',
@@ -36,6 +46,15 @@ function markup(
 						did: 'did:plc:host',
 						rkey: 'event',
 						uri: 'at://did:plc:host/community.lexicon.calendar.event/event',
+						...(showComments
+							? {
+									bskyPostRef: {
+										uri: 'at://did:plc:host/app.bsky.feed.post/root',
+										cid: 'post-cid',
+										showComments: true
+									}
+								}
+							: {}),
 						cid
 					},
 					actorDid: 'did:plc:host',
@@ -88,6 +107,16 @@ function markup(
 afterEach(() => {
 	user.isLoggedIn = true;
 	user.did = 'did:plc:viewer';
+	user.preferredSocialClient = null;
+});
+
+describe('event comment client', () => {
+	it('forwards the signed-in viewer’s preferred client to the comments', () => {
+		user.preferredSocialClient = { client: 'blacksky' };
+		const html = markup('bafytest', undefined, true);
+		expect(html).toContain('Add a comment on Blacksky');
+		expect(html).toContain('href="https://blacksky.community/profile/did:plc:host/post/root"');
+	});
 });
 
 describe('event starter pack visibility', () => {

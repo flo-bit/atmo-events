@@ -1,5 +1,4 @@
 import '../lexicon-types/index.js';
-import { getProfileUrl } from '@atmo-dev/events-ui';
 import type { EventData } from '#lib/event-types.js';
 import type { CityScope } from '#lib/cities.js';
 import type {
@@ -113,10 +112,16 @@ function getBlobCid(blob: unknown): string | null {
 	return null;
 }
 
-export function getProfileBlobUrl(did: string, blob: unknown) {
+export function getProfileBlobUrl(
+	did: string,
+	blob: unknown,
+	preset: 'feed_thumbnail' | 'avatar' | 'banner' = 'feed_thumbnail'
+) {
 	const cid = getBlobCid(blob);
 	if (!cid) return undefined;
-	return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${cid}@webp`;
+	// Avatars need JPEG; banners and feed thumbnails support the smaller WebP variant.
+	const format = preset === 'avatar' ? 'jpeg' : 'webp';
+	return `https://cdn.bsky.app/img/${preset}/plain/${did}/${cid}@${format}`;
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {
@@ -190,7 +195,7 @@ export function buildAttendee(
 		avatar: getProfileBlobUrl(did, profile?.value?.avatar),
 		name: profile?.value?.displayName || handle || did,
 		handle,
-		url: getProfileUrl(handle || did)
+		url: `/p/${encodeURIComponent(handle || did)}`
 	};
 }
 

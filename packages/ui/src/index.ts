@@ -48,7 +48,7 @@ export { eventUrl, isEventOngoing, RSVP_GOING, RSVP_INTERESTED } from './contrai
 
 // Atproto helpers (browser-safe, no client/session state)
 export { getCDNImageBlobUrl, compressImage } from './atproto-helpers.js';
-export { getProfileUrl } from './profile-url.js';
+export { getProfileUrl, getLocalProfileUrl } from './profile-url.js';
 
 // Date/time helpers
 export {
