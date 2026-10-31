@@ -25,6 +25,7 @@
 			{#key data.eventData.uri}
 				<StarterPackButton
 					eventUri={data.eventData.uri}
+					socialClient={user.preferredSocialClient}
 					openPack={async (eventUri) => (await openStarterPack({ eventUri })).url}
 				/>
 			{/key}

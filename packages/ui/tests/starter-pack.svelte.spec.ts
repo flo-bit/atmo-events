@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import axe from 'axe-core';
+import { socialClients, type PreferredSocialClient } from '@atmo-dev/kit/social';
+import { starterPackClientUrl } from '../src/starter-pack-url.js';
 import StarterPackButton from '../src/StarterPackButton.svelte';
 import StarterPackPlacementFixture from './StarterPackPlacementFixture.svelte';
 import StarterPackCountsFixture from './StarterPackCountsFixture.svelte';
@@ -19,6 +21,48 @@ function tab() {
 }
 
 describe('starter pack button', () => {
+	const clients: { selection: PreferredSocialClient | null; label: string; base: string }[] = [
+		...socialClients.map(({ id, label, url }) => ({ selection: { client: id }, label, base: url })),
+		{ selection: { client: 'custom', customUrl: 'https://client.test/app' }, label: 'Custom client', base: 'https://client.test/app' },
+		{ selection: null, label: 'Bluesky', base: 'https://bsky.app' }
+	];
+	it.each(clients)('opens the starter pack in $label', async ({ selection, label, base }) => {
+		const opened = tab();
+		const openPack = vi.fn().mockResolvedValue(url);
+		render(StarterPackButton, { eventUri: event.uri, openPack, socialClient: selection });
+		await expect.element(page.getByText(`Follow attendees on ${label}.`, { exact: true })).toBeVisible();
+		await page.getByRole('button', { name: 'Starter pack ↗' }).click();
+		const expected = `${base}/starter-pack/did:plc:bot/pack`;
+		await expect.element(page.getByRole('link', { name: 'Starter pack ↗' })).toHaveAttribute('href', expected);
+		expect(opened.replace).toHaveBeenCalledExactlyOnceWith(expected);
+		expect(openPack).toHaveBeenCalledExactlyOnceWith(event.uri);
+	});
+	it('updates a resolved pack link when the viewer changes clients, without creating another pack', async () => {
+		const opened = tab();
+		const openPack = vi.fn().mockResolvedValue(url);
+		const { rerender } = await render(StarterPackButton, { eventUri: event.uri, openPack, socialClient: { client: 'mu' } });
+		await page.getByRole('button', { name: 'Starter pack ↗' }).click();
+		await expect.element(page.getByRole('link', { name: 'Starter pack ↗' }))
+			.toHaveAttribute('href', 'https://mu.social/starter-pack/did:plc:bot/pack');
+		await rerender({ socialClient: { client: 'blacksky' } });
+		await expect.element(page.getByRole('link', { name: 'Starter pack ↗' }))
+			.toHaveAttribute('href', 'https://blacksky.community/starter-pack/did:plc:bot/pack');
+		await expect.element(page.getByText('Follow attendees on Blacksky.')).toBeVisible();
+		expect(openPack).toHaveBeenCalledTimes(1);
+		expect(opened.replace).toHaveBeenCalledTimes(1);
+	});
+	it.each(['javascript:alert(1)', 'https://evil.test/starter-pack/bot/pack', 'https://bsky.app/profile/bot'])('rejects invalid service links: %s', async (badUrl) => {
+		const opened = tab();
+		render(StarterPackButton, { eventUri: event.uri, openPack: async () => badUrl });
+		await page.getByRole('button', { name: 'Starter pack ↗' }).click();
+		await expect.element(page.getByRole('alert')).toBeVisible();
+		expect(opened.close).toHaveBeenCalledOnce();
+		expect(opened.replace).not.toHaveBeenCalled();
+	});
+	it('preserves the pack identity and query when using a custom base path', () => {
+		expect(starterPackClientUrl(`${url}?view=members#list`, { client: 'custom', customUrl: 'https://client.test/app/' }))
+			.toBe('https://client.test/app/starter-pack/did:plc:bot/pack?view=members#list');
+	});
 	it('opens a tab synchronously, prevents duplicate submissions, then reuses the pack URL', async () => {
 		const opened = tab();
 		let finish!: (value: string) => void;
