@@ -104,6 +104,11 @@ describe('Atmo Kit migration', () => {
 		await expect
 			.element(page.getByRole('dialog', { name: 'Interested (1)', exact: true }))
 			.toBeVisible();
+		const profile = page
+			.getByRole('dialog', { name: 'Interested (1)', exact: true })
+			.getByRole('link', { name: /Test Host/ });
+		await expect.element(profile).toHaveAttribute('href', '/p/host.example.com');
+		expect(profile.element().getAttribute('target')).toBeNull();
 		await page.getByRole('button', { name: 'Close dialog' }).click();
 		await page.getByRole('button', { name: 'Remove', exact: true }).click();
 		await expect.element(page.getByRole('button', { name: 'Going', exact: true })).toBeVisible();

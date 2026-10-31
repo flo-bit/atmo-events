@@ -80,7 +80,7 @@
 		"@atcute/password-session": "^1.0.2",
 		"@atmo-dev/contrail": "0.27.0",
 		"@atmo-dev/events-ui": "workspace:*",
-		"@atmo-dev/kit": "0.2.1",
+		"@atmo-dev/kit": "0.3.0",
 		"@internationalized/date": "^3.12.4",
 		"@number-flow/svelte": "^0.4.2",
 		"@sketchyicons/svelte": "^0.5.0",

@@ -11,6 +11,7 @@
 		Search,
 		Plus,
 		LogIn,
+		Settings,
 		Menu
 	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
@@ -31,6 +32,8 @@
 	});
 
 	let path = $derived(page.url.pathname);
+	// Profile and event detail routes already have their own visual header.
+	let hideBrand = $derived(path.startsWith('/p/'));
 	let description = $derived(
 		page.data.pageDescription ?? 'Discover and attend events for the open social web.'
 	);
@@ -102,6 +105,17 @@
 		<div class={expanded ? 'grid gap-1' : 'flex flex-col items-center gap-3'}>
 			{#if user.isLoggedIn}
 				<Button
+					href={resolve('/(app)/settings')}
+					variant="ghost"
+					title="Settings"
+					aria-current={path === '/settings' ? 'page' : undefined}
+					onclick={close}
+					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
+				>
+					<Icon img={Settings} size={22} />
+					<span class={expanded ? '' : 'sr-only'}>Settings</span>
+				</Button>
+				<Button
 					href={resolve(`p/${user.profile?.handle || user.did || ''}`)}
 					variant="ghost"
 					title={user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
@@ -136,7 +150,11 @@
 </IconRail>
 
 <div class="flex min-h-dvh flex-col sm:ml-18">
-	<header class="mx-auto flex w-full max-w-3xl items-center justify-between px-6 pt-7 pb-1">
+	<header
+		class={hideBrand
+			? 'mx-auto flex w-full max-w-3xl items-center px-6 pt-3 sm:hidden'
+			: 'mx-auto flex w-full max-w-3xl items-center justify-between px-6 pt-7 pb-1'}
+	>
 		<div class="flex items-center gap-3">
 			<IconButton
 				label="Open navigation"
@@ -145,16 +163,18 @@
 				onclick={() => (navigationOpen = true)}
 				class="sm:hidden"><Icon img={Menu} size={24} /></IconButton
 			>
-			<a
-				href={resolve('/(app)')}
-				aria-label="atmo.rsvp home"
-				class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
-			>
-				<Icon img={CalendarDays} size={26} />
-				<span class="text-2xl leading-none font-semibold tracking-tight"
-					>atmo<span class="text-muted">.rsvp</span></span
+			{#if !hideBrand}
+				<a
+					href={resolve('/(app)')}
+					aria-label="atmo.rsvp home"
+					class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
 				>
-			</a>
+					<Icon img={CalendarDays} size={26} />
+					<span class="text-2xl leading-none font-semibold tracking-tight"
+						>atmo<span class="text-muted">.rsvp</span></span
+					>
+				</a>
+			{/if}
 		</div>
 	</header>
 	<main id="app-main" tabindex="-1" class="flex-1 outline-none">{@render children()}</main>

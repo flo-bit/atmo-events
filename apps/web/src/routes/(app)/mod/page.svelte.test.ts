@@ -44,6 +44,8 @@ function markup(
 				}),
 				did: moderatorDid,
 				profile: null,
+				preferredSocialClient: null,
+				preferredClientLoadFailed: false,
 				isModerator: true,
 				pageTitle: 'Reports',
 				canPostToBluesky: false
@@ -69,6 +71,8 @@ describe('moderator inbox rendering', () => {
 					...inboxData({ reports: [eventReport] }),
 					did: moderatorDid,
 					profile: null,
+					preferredSocialClient: null,
+					preferredClientLoadFailed: false,
 					isModerator: true,
 					pageTitle: 'Reports',
 					canPostToBluesky: false

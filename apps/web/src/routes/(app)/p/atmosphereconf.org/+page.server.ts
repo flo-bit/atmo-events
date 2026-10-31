@@ -1,4 +1,6 @@
 import { env } from 'cloudflare:workers';
+import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
+import { getProfileCounts } from '#lib/server/profile-counts.js';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
@@ -7,7 +9,7 @@ import {
 import { getServerClient } from '#lib/contrail/index.js';
 import { vodFromAtUri, type VodRecord } from '#lib/vods.js';
 
-export async function load({ locals }) {
+export async function load({ locals, fetch }) {
 	const client = getServerClient(env.DB);
 	const actor = 'atmosphereconf.org';
 
@@ -47,14 +49,22 @@ export async function load({ locals }) {
 	const eventVods: Record<string, VodRecord> = {};
 	for (const event of events) {
 		const vodAtUri = (event.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
-			| string
-			| undefined;
+			string | undefined;
 		if (vodAtUri) eventVods[event.uri] = vodFromAtUri(vodAtUri);
 	}
+
+	const [blueskyProfile, eventCounts] = profile
+		? await Promise.all([
+				getBlueskyProfile(profile.did, fetch),
+				getProfileCounts(env.DB, profile.did)
+			])
+		: [undefined, undefined];
 
 	return {
 		pageTitle: profile?.value?.displayName || profile?.handle || 'ATmosphereConf',
 		hostProfile: profile,
+		blueskyProfile,
+		eventCounts,
 		events,
 		actor,
 		rsvpStatuses,

@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { getProfileBlobUrl, type FlatEventRecord } from '#lib/contrail.js';
-	import { user, logout } from '#lib/atproto/auth.svelte.js';
-	import UserProfile from '#lib/components/UserProfile.svelte';
-	import { Button } from '@atmo-dev/kit';
-	import { EventCard } from '@atmo-dev/events-ui';
-	import { createEventModalState } from '#lib/components/CreateEventModal.svelte';
+	import { user } from '#lib/atproto/auth.svelte.js';
+	import { Button, UserProfile, blueskyProfileToProfileData } from '@atmo-dev/kit';
+	import { EventCard, getLocalProfileUrl } from '@atmo-dev/events-ui';
 	import HappeningNow from '#lib/components/HappeningNow.svelte';
 	import { resolve } from '$app/paths';
 
@@ -14,7 +12,22 @@
 
 	let hostProfile = $derived(data.actorProfile);
 	let hostDid = $derived(data.actorDid as string);
-	let hostName = $derived(hostProfile?.value?.displayName || hostProfile?.handle || hostDid);
+	let profile = $derived(
+		blueskyProfileToProfileData({
+			...data.blueskyProfile,
+			...hostProfile?.value,
+			did: hostDid,
+			handle: hostProfile?.handle || data.blueskyProfile?.handle,
+			// Contrail's profile is the locally moderated source. Bluesky only enriches it.
+			links: data.blueskyProfile?.links,
+			avatar:
+				getProfileBlobUrl(hostDid, hostProfile?.value?.avatar, 'avatar') ??
+				data.blueskyProfile?.avatar,
+			banner:
+				getProfileBlobUrl(hostDid, hostProfile?.value?.banner, 'banner') ??
+				data.blueskyProfile?.banner
+		})
+	);
 
 	// `data.actor` is OPTIONAL in the load's return type: an invalid route param
 	// returns early and leaves the page with no data at all. The DID names the same
@@ -39,27 +52,26 @@
 <div class="px-6 py-1 sm:py-2">
 	<div class="mx-auto max-w-2xl">
 		<!-- Header -->
-		<UserProfile
-			profile={{
-				handle: hostProfile?.handle,
-				displayName: hostName,
-				avatar: hostProfile?.value?.avatar
-					? getProfileBlobUrl(hostDid, hostProfile.value.avatar)
-					: undefined
-			}}
-		>
-			{#snippet actions()}
-				{#if isOwnProfile}
-					<div class="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
-						<Button onclick={() => createEventModalState.show()}>Create Event</Button>
-						{#if data.isModerator}<Button href={resolve('/(app)/mod')} variant="ghost"
-								>Reports</Button
-							>{/if}
-						<Button onclick={() => logout()} variant="ghost">Log out</Button>
-					</div>
-				{/if}
-			{/snippet}
-		</UserProfile>
+		{#if profile}
+			<UserProfile
+				{profile}
+				socialClient={user.preferredSocialClient}
+				mentionUrl={getLocalProfileUrl}
+				metrics={data.eventCounts
+					? [
+							{ label: 'events created', value: data.eventCounts.created },
+							{ label: 'events RSVP’d', value: data.eventCounts.rsvpd }
+						]
+					: []}
+				class="mb-10 pt-6 sm:pt-8"
+			>
+				{#snippet actions()}
+					{#if isOwnProfile && data.isModerator}
+						<Button href={resolve('/(app)/mod')} variant="ghost">Reports</Button>
+					{/if}
+				{/snippet}
+			</UserProfile>
+		{/if}
 
 		<!-- Its own section, as on every other surface. Interleaving the two under one
 		     heading made this the one page where a reader had to read a badge to tell

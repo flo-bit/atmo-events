@@ -1,7 +1,19 @@
 <script lang="ts">
 	import { NestedComments, blueskyPostToPostData, type PostData } from '@atmo-dev/kit';
 
-	let { postUri }: { postUri: string } = $props();
+	import {
+		socialClientInfo,
+		socialPostUrl,
+		type PreferredSocialClient
+	} from '@atmo-dev/kit/social';
+
+	let {
+		postUri,
+		socialClient
+	}: {
+		postUri: string;
+		socialClient?: PreferredSocialClient | null;
+	} = $props();
 
 	let comments = $state<PostData[]>([]);
 	let loading = $state(true);
@@ -19,12 +31,6 @@
 				}
 				return postData;
 			});
-	}
-
-	function bskyWebUrl(atUri: string): string | null {
-		const m = atUri.match(/^at:\/\/([^/]+)\/app\.bsky\.feed\.post\/(.+)$/);
-		if (!m) return null;
-		return `https://bsky.app/profile/${m[1]}/post/${m[2]}`;
 	}
 
 	async function loadThread(uri: string, signal: AbortSignal) {
@@ -50,13 +56,16 @@
 		}
 	}
 
+	// Only a new thread URI should refetch; changing the viewer's client just changes links.
+	let threadUri = $derived(postUri);
 	$effect(() => {
 		const controller = new AbortController();
-		if (postUri) loadThread(postUri, controller.signal);
+		if (threadUri) loadThread(threadUri, controller.signal);
 		return () => controller.abort();
 	});
 
-	let replyUrl = $derived(bskyWebUrl(postUri));
+	let replyUrl = $derived(socialPostUrl(postUri, socialClient));
+	let clientLabel = $derived(socialClientInfo(socialClient).label);
 </script>
 
 <div>
@@ -65,10 +74,10 @@
 			<a
 				href={replyUrl}
 				target="_blank"
-				rel="noopener"
+				rel="noopener noreferrer"
 				class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium"
 			>
-				Add a comment on bluesky &rarr;
+				Add a comment on {clientLabel} &rarr;
 			</a>
 		</div>
 	{/if}
@@ -81,7 +90,7 @@
 		<p class="text-muted text-sm">No comments yet.</p>
 	{:else}
 		<div class="not-prose comments-no-divider">
-			<NestedComments {comments} />
+			<NestedComments {comments} {socialClient} />
 		</div>
 	{/if}
 </div>

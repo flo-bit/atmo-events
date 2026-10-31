@@ -11,7 +11,7 @@ export const openStarterPack = command(
 	v.object({ eventUri: v.pipe(v.string(), v.maxLength(2048)) }),
 	async ({ eventUri }) => {
 		const request = getRequestEvent();
-		request.setHeaders({ 'cache-control': 'no-store' });
+		// SvelteKit commands already use private, no-store responses; setHeaders is forbidden.
 		try {
 			parseEventUri(eventUri);
 		} catch {

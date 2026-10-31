@@ -39,8 +39,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@atmo-dev/kit':
-        specifier: 0.2.1
-        version: 0.2.1(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)
+        specifier: 0.3.0
+        version: 0.3.0(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)
       '@internationalized/date':
         specifier: ^3.12.4
         version: 3.12.4
@@ -257,8 +257,8 @@ importers:
         version: 1.5.0(typescript@6.0.2)
     devDependencies:
       '@atmo-dev/kit':
-        specifier: ^0.2.1
-        version: 0.2.1(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)
+        specifier: ^0.3.0
+        version: 0.3.0(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)
       '@sketchyicons/svelte':
         specifier: ^0.5.0
         version: 0.5.0(svelte@5.57.3(@typescript-eslint/types@8.72.1))
@@ -496,8 +496,8 @@ packages:
       wrangler:
         optional: true
 
-  '@atmo-dev/kit@0.2.1':
-    resolution: {integrity: sha512-aa+hjEyWhKmD91JQq24e6mIj7UYz1sqRic+fb4InMKRQEmdmwv5wSOZIRANrmJLI06iQYx4zAwVNBT66hij3QQ==}
+  '@atmo-dev/kit@0.3.0':
+    resolution: {integrity: sha512-FCp5ZJvfhrDXLjCSm0PFHs+eeyHvFcOo3EefczLB6+MBqYgHsOHRcdeAtRTcjE5MiLf0AZ0S/mA+dm4xvmiL+A==}
     peerDependencies:
       svelte: '>=5.48.0 <6'
       tailwindcss: ^4.0.0
@@ -3522,7 +3522,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@atmo-dev/kit@0.2.1(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)':
+  '@atmo-dev/kit@0.3.0(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)':
     dependencies:
       '@atcute/bluesky-richtext-parser': 2.1.2
       '@atcute/lexicons': 2.1.1

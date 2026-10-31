@@ -1,9 +1,10 @@
 import type { LoginPermission } from '@atmo-dev/kit';
+import { PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import Calendar from '@sketchyicons/svelte/icons/calendar';
 import MessageCircle from '@sketchyicons/svelte/icons/message-circle';
 import type { Capability } from '@svelte-atproto/oauth/permissions';
 
-// Shared with Vite: import only types and icon data, not Kit/Svelte components.
+// Shared with Vite: import only framework-free helpers, types and icon data.
 export const DEV_PORT = 5454;
 
 // Writable calendar collections for the server-side record allowlist.
@@ -33,7 +34,13 @@ export const blueskyPostingScope = 'include:app.bsky.authCreatePosts';
 // needs no additional OAuth permissions and never writes to the reporter's PDS.
 export const moderationActionScope =
 	'repo:tools.atmo.moderation.action?action=create&action=delete';
-export const scopes = [...requiredScopes, blueskyPostingScope, moderationActionScope];
+// Client-selection writes are requested progressively from /settings, never at login/signup.
+export const scopes = [
+	...requiredScopes,
+	blueskyPostingScope,
+	moderationActionScope,
+	PREFERRED_CLIENT_SCOPE
+];
 
 export const loginPermissions: readonly LoginPermission[] = [
 	{

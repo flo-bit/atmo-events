@@ -13,9 +13,11 @@ import { openStarterPack } from './packs.remote';
 
 const eventUri = 'at://did:plc:host/community.lexicon.calendar.event/event';
 const limit = vi.fn();
-const headers = vi.fn();
+const headers = vi.fn(() => {
+	throw new Error('setHeaders is not allowed in remote functions');
+});
 beforeEach(() => {
-	vi.resetAllMocks();
+	vi.clearAllMocks();
 	Object.assign(env, { STARTER_PACK_RATE_LIMITER: { limit } });
 	limit.mockResolvedValue({ success: true });
 	mocks.getRequestEvent.mockReturnValue({
@@ -26,13 +28,13 @@ beforeEach(() => {
 });
 
 describe('public starter-pack command', () => {
-	it('allows anonymous clicks, supplies only the event URI, and disables shared caching', async () => {
+	it('allows anonymous clicks with only the event URI and without forbidden response headers', async () => {
 		expect(await openStarterPack({ eventUri })).toEqual({
 			url: 'https://bsky.app/starter-pack/did:plc:bot/pack'
 		});
 		expect(mocks.getEventStarterPack).toHaveBeenCalledExactlyOnceWith(env, eventUri);
 		expect(limit).toHaveBeenCalledExactlyOnceWith({ key: '192.0.2.1' });
-		expect(headers).toHaveBeenCalledWith({ 'cache-control': 'no-store' });
+		expect(headers).not.toHaveBeenCalled();
 	});
 	it('rejects arbitrary URLs and records before using the bot', async () => {
 		await expect(openStarterPack({ eventUri: 'https://attacker.test/' })).rejects.toMatchObject({
