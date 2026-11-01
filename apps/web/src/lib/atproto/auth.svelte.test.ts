@@ -9,7 +9,15 @@ const mocks = vi.hoisted(() => ({
 }));
 vi.mock('@svelte-atproto/oauth/client', () => mocks);
 vi.mock('$app/state', () => ({ page: mocks.page }));
-import { login, signup, logout, user, authorizePreferredSocialClient } from './auth.svelte';
+import {
+	login,
+	signup,
+	logout,
+	user,
+	authorizePreferredSocialClient,
+	authorizeMeetings
+} from './auth.svelte';
+import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import { PREFERRED_CLIENT_COLLECTION, PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import { blueskyPostingScope, getLoginScopes, requiredScopes } from './settings';
 
@@ -19,6 +27,35 @@ beforeEach(() => {
 });
 
 describe('OAuth client integration', () => {
+	it('includes meeting permission in the initial login and preserves the scanned return URL flow', async () => {
+		await login('alice.test', { meetings: true, scopes: [blueskyPostingScope, CONNECTION_SCOPE] });
+		expect(mocks.login).toHaveBeenCalledExactlyOnceWith('alice.test', {
+			scope: [...requiredScopes, blueskyPostingScope, CONNECTION_SCOPE],
+			saveReturnTo: true
+		});
+		expect(mocks.requestPermissions).not.toHaveBeenCalled();
+	});
+	it('retains meeting permission even if optional Bluesky posting is turned off', async () => {
+		await login('alice.test', { meetings: true, scopes: [] });
+		expect(mocks.login).toHaveBeenCalledExactlyOnceWith('alice.test', {
+			scope: [...requiredScopes, CONNECTION_SCOPE],
+			saveReturnTo: true
+		});
+	});
+	it('also includes meeting permission when creating an account from Meet', async () => {
+		await signup({ meetings: true });
+		expect(mocks.signup).toHaveBeenCalledExactlyOnceWith({
+			scope: [...requiredScopes, blueskyPostingScope, CONNECTION_SCOPE],
+			saveReturnTo: true
+		});
+	});
+	it('progressively requests only permission to create meeting records', async () => {
+		await authorizeMeetings();
+		expect(mocks.requestPermissions).toHaveBeenCalledExactlyOnceWith(CONNECTION_SCOPE, {
+			requirements: [connectionCapability],
+			saveReturnTo: true
+		});
+	});
 	it('requests only the additional client-selection permission using the incremental flow', async () => {
 		await authorizePreferredSocialClient();
 		expect(mocks.requestPermissions).toHaveBeenCalledExactlyOnceWith(PREFERRED_CLIENT_SCOPE, {

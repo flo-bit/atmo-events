@@ -26,6 +26,8 @@
 	import EventLocationMap from './event-view/EventLocationMap.svelte';
 	import EventHostedBy from './event-view/EventHostedBy.svelte';
 	import EventLinksList from './event-view/EventLinksList.svelte';
+	import { GrainAlbumView } from '@atmo-dev/kit';
+	import { eventStreamLink, parseGrainLink } from './linked-records.js';
 	import AddToCalendarButton from './event-view/AddToCalendarButton.svelte';
 	import ExternalRsvpNotice from './event-view/ExternalRsvpNotice.svelte';
 	import { buildDescriptionHtml } from './event-view/format';
@@ -105,7 +107,25 @@
 	let canSetEventComments = $state(false);
 	let isHost = $derived(!!viewer.did && viewer.did === did);
 	let hasComments = $derived(!!eventData.bskyPostRef?.showComments && !!eventData.bskyPostRef?.uri);
-	let aboutCommentsTab = $state<'about' | 'comments'>('about');
+	let descriptionHtml = $derived(
+		buildDescriptionHtml(eventData.description, eventData.facets, viewer.preferredSocialClient)
+	);
+	let aboutCommentsTab = $state<string>('about');
+	let photoLinks = $derived(eventData.uris?.filter((link) => parseGrainLink(link.uri)) ?? []);
+	let contentTabs = $derived([
+		...(descriptionHtml ? [{ value: 'about', label: 'About' }] : []),
+		...(hasComments ? [{ value: 'comments', label: 'Comments' }] : []),
+		...(photoLinks.length ? [{ value: 'photos', label: 'Photos' }] : [])
+	]);
+	let activeTab = $derived(
+		contentTabs.some((tab) => tab.value === aboutCommentsTab)
+			? aboutCommentsTab
+			: contentTabs[0]?.value
+	);
+	let photosOpened = $state(false);
+	$effect(() => {
+		if (activeTab === 'photos') photosOpened = true;
+	});
 
 	onMount(() => {
 		const url = new URL(window.location.href);
@@ -164,15 +184,11 @@
 		const uris = eventData.uris;
 		if (!uris) return null;
 		for (const { uri } of uris) {
-			const m = uri.match(/^https?:\/\/stream\.place\/([^/?#]+)/i);
-			if (m) return m[1];
+			const stream = eventStreamLink(uri);
+			if (stream) return stream.actor;
 		}
 		return null;
 	});
-
-	let descriptionHtml = $derived(
-		buildDescriptionHtml(eventData.description, eventData.facets, viewer.preferredSocialClient)
-	);
 
 	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
 
@@ -347,50 +363,51 @@
 					</div>
 				{/if}
 
-				<!-- About + Comments -->
-				{#if descriptionHtml || hasComments}
+				<!-- About, comments and linked photo albums -->
+				{#if contentTabs.length}
 					<div class="mt-8 mb-8">
-						{#if descriptionHtml && hasComments}
+						{#if contentTabs.length > 1}
 							<ToggleGroup
 								type="single"
 								bind:value={
-									() => aboutCommentsTab,
-									(val) => {
-										if (val === 'about' || val === 'comments') aboutCommentsTab = val;
+									() => activeTab ?? '',
+									(value) => {
+										if (contentTabs.some((tab) => tab.value === value)) aboutCommentsTab = value;
 									}
 								}
 								class="mb-4 w-fit"
 								size="xs"
+								aria-label="Event content"
 							>
-								<ToggleGroupItem value="about">About</ToggleGroupItem>
-								<ToggleGroupItem value="comments">Comments</ToggleGroupItem>
+								{#each contentTabs as tab (tab.value)}<ToggleGroupItem value={tab.value}
+										>{tab.label}</ToggleGroupItem
+									>{/each}
 							</ToggleGroup>
-
-							{#if aboutCommentsTab === 'about'}
-								<div
-									class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
-								>
-									{@html descriptionHtml}
-								</div>
-							{:else if eventData.bskyPostRef?.uri}
-								<EventComments
-									postUri={eventData.bskyPostRef.uri}
-									socialClient={viewer.preferredSocialClient}
-								/>
-							{/if}
-						{:else if descriptionHtml}
-							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">About</p>
+						{:else}
+							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">
+								{contentTabs[0].label}
+							</p>
+						{/if}
+						{#if activeTab === 'about'}
 							<div
 								class="text-base-700 dark:text-base-300 prose dark:prose-invert prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:hover:underline prose-a:no-underline max-w-none leading-relaxed wrap-break-word"
 							>
 								{@html descriptionHtml}
 							</div>
-						{:else if eventData.bskyPostRef?.uri}
-							<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">Comments</p>
+						{:else if activeTab === 'comments' && eventData.bskyPostRef?.uri}
 							<EventComments
 								postUri={eventData.bskyPostRef.uri}
 								socialClient={viewer.preferredSocialClient}
 							/>
+						{/if}
+						{#if photosOpened && photoLinks.length}
+							<div hidden={activeTab !== 'photos'} class="space-y-8">
+								{#each photoLinks as link, i (`${link.uri}-${i}`)}<GrainAlbumView
+										reference={link.uri}
+										title={link.name}
+										loadAlbum={adapter.linkedRecords?.getGrainGallery}
+									/>{/each}
+							</div>
 						{/if}
 					</div>
 				{/if}
@@ -416,7 +433,7 @@
 			<div class="order-3 space-y-6 md:order-0 md:col-start-1">
 				<EventHostedBy {hostProfile} {hostUrl} {did} {speakers} />
 
-				<EventLinksList uris={eventData.uris} />
+				<EventLinksList uris={eventData.uris?.filter((link) => !parseGrainLink(link.uri))} />
 
 				<AddToCalendarButton {eventData} {eventUri} pageHref={pageUrl.href} />
 				{@render extraActions?.()}

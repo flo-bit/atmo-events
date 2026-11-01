@@ -8,6 +8,7 @@
  */
 
 import type { PreferredSocialClient } from '@atmo-dev/kit/social';
+import type { LinkedRecordsClient } from '../linked-records.js';
 
 export type EditorBlobRef = {
 	$type: 'blob';
@@ -29,6 +30,8 @@ export type EditorViewer = {
 };
 
 export type EditorAdapter = {
+	/** Optional public read transport, supplied by the host (also used in embeds). */
+	linkedRecords?: LinkedRecordsClient;
 	features: {
 		delete: boolean;
 		recurring: boolean;

@@ -14,6 +14,8 @@ import {
 	scopes,
 	signUpPDS
 } from '../settings';
+import { oauthOrigin } from './origin';
+
 const pending = new Map<string, Promise<unknown>>();
 
 /** Serialize interactive and bot refreshes in this process, as the library's
@@ -37,7 +39,7 @@ let auth: AtprotoAuth | undefined;
 /** Construct lazily: Worker bindings are unavailable during prerender/build. */
 export function getAuth(): AtprotoAuth {
 	return (auth ??= createAtprotoAuth({
-		origin: env.OAUTH_PUBLIC_URL,
+		origin: oauthOrigin(env.OAUTH_PUBLIC_URL),
 		cookieSecret: env.COOKIE_SECRET,
 		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
 		scope: scopes,

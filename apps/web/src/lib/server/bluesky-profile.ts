@@ -7,7 +7,9 @@ export async function getBlueskyProfile(did: string, fetcher: typeof fetch = fet
 		url.searchParams.set('actor', did);
 		const response = await fetcher(url, {
 			signal: AbortSignal.timeout(2500),
-			redirect: 'error',
+			// Workers supports only follow/manual. A 3xx fails response.ok below,
+			// so manual preserves the no-redirect boundary without throwing here.
+			redirect: 'manual',
 			credentials: 'omit'
 		});
 		if (!response.ok) return undefined;

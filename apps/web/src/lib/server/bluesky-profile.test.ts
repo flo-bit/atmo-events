@@ -27,11 +27,12 @@ describe('optional Bluesky profile hydration', () => {
 		expect(String(url)).toBe(
 			`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(did)}`
 		);
-		expect(options).toMatchObject({ redirect: 'error', credentials: 'omit' });
+		expect(options).toMatchObject({ redirect: 'manual', credentials: 'omit' });
 	});
 
 	it('ignores failures, malformed data and mismatched accounts', async () => {
 		for (const response of [
+			new Response('', { status: 302, headers: { location: 'https://other.test/profile' } }),
 			new Response('', { status: 503 }),
 			Response.json(null),
 			Response.json({ did: 'did:plc:other' })

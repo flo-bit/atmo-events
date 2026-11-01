@@ -2,6 +2,7 @@
 	import { EventCard } from '@atmo-dev/events-ui';
 	import RecentActivity from '#lib/components/RecentActivity.svelte';
 	import HeroGlobe from '#lib/components/HeroGlobe.svelte';
+	import AtmosphereFeatures from '#lib/components/AtmosphereFeatures.svelte';
 	import { Button } from '@atmo-dev/kit';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
@@ -48,10 +49,10 @@
 				<div class="mb-8 flex items-baseline justify-between">
 					<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Your events</h2>
 					<a
-						href="/calendar"
+						href={`/p/${user.profile?.handle || user.did}`}
 						class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 					>
-						Open calendar &rarr;
+						Your profile &rarr;
 					</a>
 				</div>
 
@@ -122,6 +123,8 @@
 				<RecentActivity activities={data.recentActivity} />
 			</section>
 		{/if}
+
+		<AtmosphereFeatures />
 	</div>
 </div>
 

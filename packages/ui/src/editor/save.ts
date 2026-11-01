@@ -201,6 +201,7 @@ export async function buildEventRecord(args: {
 	if (media) record.media = media;
 	else delete record.media;
 	if (links.length > 0) record.uris = links;
+	else delete record.uris;
 
 	if (isNew || locationChanged) {
 		delete record.locations;

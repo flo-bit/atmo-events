@@ -137,10 +137,18 @@ function formatLocation(value: unknown): LocationData | null {
 	}
 }
 
-/** Preserve record order and every supported location, including unnamed variants. */
+/** Preserve record order and supported variants, keeping only the first entry for each URI. */
 export function getLocations(locations: EventLocationVariant[] | undefined): LocationData[] {
 	if (!Array.isArray(locations)) return [];
-	return locations.map(formatLocation).filter((location) => location !== null);
+	const seenUris = new Set<string>();
+	return locations.map(formatLocation).filter((location): location is LocationData => {
+		if (!location) return false;
+		if (location.kind !== 'uri') return true;
+		const uri = location.href ?? location.detail ?? location.label;
+		if (seenUris.has(uri)) return false;
+		seenUris.add(uri);
+		return true;
+	});
 }
 
 export type LocationLine = { label: string; href?: string; muted: boolean };

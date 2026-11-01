@@ -6,6 +6,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // valid profile into an error page. The band's own query body is pinned in
 // lib/contrail/ongoing.test.ts.
 vi.mock('#lib/server/bluesky-profile.js', () => ({ getBlueskyProfile: vi.fn() }));
+vi.mock('#lib/server/personal-events.js', () => ({
+	getPersonalEvents: vi.fn(async () => ({ upcoming: [], past: [] }))
+}));
 vi.mock('#lib/server/profile-counts.js', () => ({
 	getProfileCounts: vi.fn(async () => ({ created: 130, rsvpd: 42 }))
 }));
@@ -30,6 +33,7 @@ vi.mock('#lib/past-events.js', () => ({ hasEnded: vi.fn(() => true) }));
 import { load } from './+page.server';
 import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
 import { getProfileCounts } from '#lib/server/profile-counts.js';
+import { getPersonalEvents } from '#lib/server/personal-events.js';
 import {
 	getProfileFromContrail,
 	listAttendingEventsFromContrail,
@@ -60,10 +64,10 @@ const event = (uri: string, rkey = '1') => ({
 	createdAt: '2026-06-01T00:00:00Z'
 });
 
-function request() {
+function request(did?: string) {
 	return {
 		params: { actor: 'alice.test' },
-		locals: {}
+		locals: { did }
 	} as unknown as Parameters<typeof load>[0];
 }
 
@@ -81,11 +85,29 @@ beforeEach(() => {
 });
 
 describe('profile page load', () => {
+	it('loads the combined calendar only for the authenticated profile owner', async () => {
+		const personalEvents = { upcoming: [event('at://interested/1')], past: [] };
+		vi.mocked(getPersonalEvents).mockResolvedValueOnce(personalEvents as never);
+		const data = await load(request('did:plc:alice'));
+		expect(data?.personalEvents).toEqual(personalEvents);
+		expect(getPersonalEvents).toHaveBeenCalledWith(expect.anything(), 'did:plc:alice');
+	});
+
+	it.each([undefined, 'did:plc:viewer'])(
+		'does not load a personal calendar for viewer %s',
+		async (did) => {
+			const data = await load(request(did));
+			expect(data?.personalEvents).toBeNull();
+			expect(getPersonalEvents).not.toHaveBeenCalled();
+		}
+	);
+
 	it('does not request public enrichment for a locally hidden profile', async () => {
 		mockProfile.mockResolvedValue(null);
 		await expect(load(request())).rejects.toMatchObject({ status: 404 });
 		expect(getBlueskyProfile).not.toHaveBeenCalled();
 		expect(getProfileCounts).not.toHaveBeenCalled();
+		expect(getPersonalEvents).not.toHaveBeenCalled();
 	});
 
 	it('includes optional modern profile data after the moderation gate', async () => {

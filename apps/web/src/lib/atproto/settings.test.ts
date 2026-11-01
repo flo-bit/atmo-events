@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { resolveLoginOptions } from '@atmo-dev/kit';
 import { PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
+import { CONNECTION_SCOPE } from '../meet/connection';
 import {
 	allowedCollections,
 	collections,
@@ -9,6 +10,7 @@ import {
 	blueskyPostingScope,
 	moderationActionScope,
 	loginPermissions,
+	getLoginPermissions,
 	getLoginScopes
 } from './settings';
 
@@ -20,7 +22,8 @@ describe('OAuth permissions', () => {
 			'blob?accept=image/*',
 			'include:app.bsky.authCreatePosts',
 			moderationActionScope,
-			PREFERRED_CLIENT_SCOPE
+			PREFERRED_CLIENT_SCOPE,
+			CONNECTION_SCOPE
 		]);
 	});
 	it('allows writes only to calendar records and Bluesky posts', () => {
@@ -33,6 +36,30 @@ describe('OAuth permissions', () => {
 });
 
 describe('permission selection', () => {
+	it('includes required meeting permission in the first grant when logging in from Meet', () => {
+		const context = { meetings: true };
+		const permissions = getLoginPermissions(context);
+		const options = resolveLoginOptions(permissions, { meetings: false, bluesky: false });
+		expect(options.permissionIds).toEqual(['calendar', 'meetings']);
+		expect(options.scopes).toContain(CONNECTION_SCOPE);
+		expect(getLoginScopes(options.scopes, context)).toEqual([...requiredScopes, CONNECTION_SCOPE]);
+		expect(permissions.find((p) => p.id === 'meetings')).toMatchObject({ required: true });
+	});
+	it('keeps normal login permissions unchanged and tool grants scoped to their context', () => {
+		expect(getLoginPermissions()).toEqual(loginPermissions);
+		expect(getLoginPermissions({ meetings: false })).toEqual(loginPermissions);
+		expect(getLoginScopes([CONNECTION_SCOPE])).toEqual(requiredScopes);
+		expect(getLoginScopes([CONNECTION_SCOPE, blueskyPostingScope], { meetings: true })).toEqual([
+			...requiredScopes,
+			blueskyPostingScope,
+			CONNECTION_SCOPE
+		]);
+	});
+	it('does not request meeting access in ordinary login/signup', () => {
+		expect(scopes).toContain(CONNECTION_SCOPE);
+		expect(requiredScopes).not.toContain(CONNECTION_SCOPE);
+		expect(getLoginScopes([CONNECTION_SCOPE])).not.toContain(CONNECTION_SCOPE);
+	});
 	it('declares client-selection access but never requests it at login or signup', () => {
 		expect(scopes).toContain(PREFERRED_CLIENT_SCOPE);
 		expect(requiredScopes).not.toContain(PREFERRED_CLIENT_SCOPE);

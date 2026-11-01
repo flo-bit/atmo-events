@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import { getActor } from '#lib/actor.js';
 import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
 import { getProfileCounts } from '#lib/server/profile-counts.js';
+import { getPersonalEvents } from '#lib/server/personal-events.js';
 import {
 	flattenEventRecords,
 	getProfileFromContrail,
@@ -16,7 +17,7 @@ import { error } from '@sveltejs/kit';
 
 const PREVIEW_LIMIT = 6;
 
-export async function load({ params, fetch }) {
+export async function load({ params, fetch, locals }) {
 	const client = getServerClient(env.DB);
 	if (!isActorIdentifier(params.actor)) return;
 
@@ -64,9 +65,10 @@ export async function load({ params, fetch }) {
 	if (!profile) throw error(404, 'Actor not found');
 	// Hydrate only after the local moderation gate. Do not resurrect hidden accounts
 	// through a public Bluesky request or resolve arbitrary profile-link destinations.
-	const [blueskyProfile, eventCounts] = await Promise.all([
+	const [blueskyProfile, eventCounts, personalEvents] = await Promise.all([
 		getBlueskyProfile(did, fetch),
-		getProfileCounts(env.DB, did)
+		getProfileCounts(env.DB, did),
+		locals.did === did ? getPersonalEvents(client, did) : null
 	]);
 	const upcomingEvents = upcomingResponse ? flattenEventRecords(upcomingResponse.records) : [];
 	// Was an inlined copy of this predicate; call the shared one so the "is it
@@ -87,6 +89,7 @@ export async function load({ params, fetch }) {
 
 	const hostName = profile?.value?.displayName || profile?.handle || did;
 	return {
+		personalEvents,
 		ongoingEvents,
 		ongoingTotal: ongoing.total,
 		ongoingTotalIsFloor: ongoing.totalIsFloor,

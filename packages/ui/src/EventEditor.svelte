@@ -485,7 +485,7 @@
 					</div>
 
 					<div class="order-4 space-y-6 md:order-0 md:col-start-1">
-						<LinksSection bind:links />
+						<LinksSection bind:links {adapter} {viewer} />
 						<ThemeSection bind:theme={eventTheme} />
 					</div>
 				</div>

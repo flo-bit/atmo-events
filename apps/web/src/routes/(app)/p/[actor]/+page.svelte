@@ -4,6 +4,7 @@
 	import { Button, UserProfile, blueskyProfileToProfileData } from '@atmo-dev/kit';
 	import { EventCard, getLocalProfileUrl } from '@atmo-dev/events-ui';
 	import HappeningNow from '#lib/components/HappeningNow.svelte';
+	import ProfileEvents from '#lib/components/ProfileEvents.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
@@ -73,89 +74,97 @@
 			</UserProfile>
 		{/if}
 
-		<!-- Its own section, as on every other surface. Interleaving the two under one
+		{#if isOwnProfile && data.personalEvents}
+			<ProfileEvents
+				upcoming={data.personalEvents.upcoming}
+				past={data.personalEvents.past}
+				actor={profileActor}
+			/>
+		{:else}
+			<!-- Its own section, as on every other surface. Interleaving the two under one
 		     heading made this the one page where a reader had to read a badge to tell
 		     "under way" from "not started yet" — the distinction the section exists to
 		     draw. "See all" leads to this host's hosting list, which runs the same
 		     band uncapped. -->
-		<HappeningNow
-			events={data.ongoingEvents ?? []}
-			total={data.ongoingTotal}
-			totalIsFloor={data.ongoingTotalIsFloor}
-			actor={data.actor}
-			seeAllHref={resolve('/(app)/p/[actor]/hosting', { actor: profileActor })}
-			sectionClass="mb-10"
-			gridClass="space-y-5"
-		/>
+			<HappeningNow
+				events={data.ongoingEvents ?? []}
+				total={data.ongoingTotal}
+				totalIsFloor={data.ongoingTotalIsFloor}
+				actor={data.actor}
+				seeAllHref={resolve('/(app)/p/[actor]/hosting', { actor: profileActor })}
+				sectionClass="mb-10"
+				gridClass="space-y-5"
+			/>
 
-		{#if (data.upcomingEvents?.length ?? 0) > 0}
-			<section class="mb-10">
-				<div class="mb-4 flex items-baseline justify-between">
-					<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upcoming Events</h2>
-					{#if data.hasMoreUpcoming}
-						<a
-							href="/p/{data.actor}/hosting"
-							class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
-						>
-							See all &rarr;
-						</a>
-					{/if}
-				</div>
-				<div class="space-y-5">
-					{#each data.upcomingEvents as event (event.uri)}
-						<EventCard {event} actor={data.actor} />
-					{/each}
-				</div>
-			</section>
-		{/if}
+			{#if (data.upcomingEvents?.length ?? 0) > 0}
+				<section class="mb-10">
+					<div class="mb-4 flex items-baseline justify-between">
+						<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upcoming Events</h2>
+						{#if data.hasMoreUpcoming}
+							<a
+								href="/p/{data.actor}/hosting"
+								class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
+							>
+								See all &rarr;
+							</a>
+						{/if}
+					</div>
+					<div class="space-y-5">
+						{#each data.upcomingEvents as event (event.uri)}
+							<EventCard {event} actor={data.actor} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 
-		<!-- Attending -->
-		{#if upcomingAttendingEvents.length > 0}
-			<section class="mb-10">
-				<h2 class="text-base-900 dark:text-base-50 mb-4 text-lg font-semibold">Attending</h2>
-				<div class="space-y-5">
-					{#each upcomingAttendingEvents as event (event.uri)}
-						<EventCard {event} />
-					{/each}
-				</div>
-			</section>
-		{/if}
+			<!-- Attending -->
+			{#if upcomingAttendingEvents.length > 0}
+				<section class="mb-10">
+					<h2 class="text-base-900 dark:text-base-50 mb-4 text-lg font-semibold">Attending</h2>
+					<div class="space-y-5">
+						{#each upcomingAttendingEvents as event (event.uri)}
+							<EventCard {event} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 
-		<!-- Past Events -->
-		{#if (data.pastEvents?.length ?? 0) > 0}
-			<section class="mb-10">
-				<div class="mb-4 flex items-baseline justify-between">
-					<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Past Events</h2>
-					{#if data.hasMorePast}
-						<a
-							href="/p/{data.actor}/past-events"
-							class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
-						>
-							See all &rarr;
-						</a>
-					{/if}
-				</div>
-				<div class="space-y-5">
-					{#each data.pastEvents as event (event.uri)}
-						<EventCard {event} actor={data.actor} />
-					{/each}
-				</div>
-			</section>
-		{/if}
+			<!-- Past Events -->
+			{#if (data.pastEvents?.length ?? 0) > 0}
+				<section class="mb-10">
+					<div class="mb-4 flex items-baseline justify-between">
+						<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Past Events</h2>
+						{#if data.hasMorePast}
+							<a
+								href="/p/{data.actor}/past-events"
+								class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
+							>
+								See all &rarr;
+							</a>
+						{/if}
+					</div>
+					<div class="space-y-5">
+						{#each data.pastEvents as event (event.uri)}
+							<EventCard {event} actor={data.actor} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 
-		<!-- `ongoingEvents` counts here too. A host whose only event is running RIGHT
+			<!-- `ongoingEvents` counts here too. A host whose only event is running RIGHT
 		     NOW has cards on the page, and claiming underneath them that they have
 		     never created an event contradicts what the reader can see. -->
-		{#if !data.ongoingEvents?.length && !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !data.pastEvents?.length}
-			<div
-				class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
-			>
-				<p class="text-muted py-12 text-center">
-					{isOwnProfile
-						? "You haven't created or attended any events yet."
-						: "This person hasn't created or attended any events yet."}
-				</p>
-			</div>
+			{#if !data.ongoingEvents?.length && !data.upcomingEvents?.length && !upcomingAttendingEvents.length && !data.pastEvents?.length}
+				<div
+					class="border-base-200 dark:border-base-800 bg-base-100 dark:bg-base-950/50 rounded-2xl border p-8 text-center"
+				>
+					<p class="text-muted py-12 text-center">
+						{isOwnProfile
+							? "You haven't created or attended any events yet."
+							: "This person hasn't created or attended any events yet."}
+					</p>
+				</div>
+			{/if}
 		{/if}
 	</div>
 </div>

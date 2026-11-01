@@ -4,6 +4,7 @@ import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/
 import { notifyContrailOfUpdate } from '#lib/contrail.js';
 import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
 import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/events-ui';
+import { createLinkedRecordsClient } from './linked-records.js';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };
 
@@ -16,6 +17,7 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 	const { viewer } = opts;
 	return {
 		features: { delete: true, recurring: true },
+		linkedRecords: createLinkedRecordsClient(),
 		async putRecord({ collection, rkey, record }) {
 			const response = await putRecord({
 				collection: collection as Parameters<typeof putRecord>[0]['collection'],
@@ -85,6 +87,7 @@ export function createBlentoAdapter(opts: {
 	}
 	const adapter: EditorAdapter = {
 		features: { delete: false, recurring: true },
+		linkedRecords: createLinkedRecordsClient(),
 		async putRecord({ collection, rkey, record }) {
 			const plain = JSON.parse(JSON.stringify(record)) as Record<string, unknown>;
 			const result = await blento().putRecord({ collection, rkey, record: plain });

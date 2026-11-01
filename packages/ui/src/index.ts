@@ -25,6 +25,16 @@ export type { ScheduleEvent, ParentEventRef } from './conference.js';
 // Adapter contract
 export type { EditorAdapter, EditorBlobRef, EditorViewer } from './editor/adapter.js';
 
+// Linked records
+export { parseGrainLink, parseStreamplaceLink } from './linked-records.js';
+export type {
+	LinkedRecordsClient,
+	GrainAlbum,
+	GrainGallery,
+	GrainPhoto,
+	GrainAlbumPage
+} from './linked-records.js';
+
 // Editor inputs
 export type { EventEditorPrefill } from './editor/types.js';
 

@@ -32,11 +32,15 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
+		},
+		"./linked-records": {
+			"types": "./dist/linked-records.d.ts",
+			"default": "./dist/linked-records.js"
 		}
 	},
 	"svelte": "./dist/index.js",
 	"peerDependencies": {
-		"@atmo-dev/kit": "^0.3.0",
+		"@atmo-dev/kit": "^0.4.0",
 		"@sketchyicons/svelte": "^0.5.0",
 		"bits-ui": "^2.16.0",
 		"svelte": "^5.0.0",
@@ -70,7 +74,7 @@
 		"valibot": "^1.5.0"
 	},
 	"devDependencies": {
-		"@atmo-dev/kit": "^0.3.0",
+		"@atmo-dev/kit": "^0.4.0",
 		"@sketchyicons/svelte": "^0.5.0",
 		"@sveltejs/package": "^3.0.1",
 		"@sveltejs/vite-plugin-svelte": "^7.3.1",
