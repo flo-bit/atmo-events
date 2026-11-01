@@ -5,7 +5,11 @@ import { dev } from '$app/env';
 import { oauthRequestLock } from './oauth';
 
 const mocks = vi.hoisted(() => ({
-	create: vi.fn((_config: AtprotoAuthConfig) => ({ api: {}, handlers: {}, handle: () => {} }))
+	create: vi.fn<(config: AtprotoAuthConfig) => unknown>(() => ({
+		api: {},
+		handlers: {},
+		handle: () => {}
+	}))
 }));
 vi.mock('@svelte-atproto/oauth/server', () => ({ createAtprotoAuth: mocks.create }));
 beforeEach(() => {
@@ -34,6 +38,15 @@ describe('OAuth library configuration', () => {
 				devPort: 5454,
 				redirectPath: '/oauth/callback'
 			})
+		);
+	});
+	it('normalizes a tunnel URL with a trailing slash before configuring OAuth', async () => {
+		const { env } = await import('cloudflare:workers');
+		env.OAUTH_PUBLIC_URL = 'https://atmo.example/';
+		const { getAuth } = await import('./oauth');
+		getAuth();
+		expect(mocks.create).toHaveBeenCalledWith(
+			expect.objectContaining({ origin: 'https://atmo.example' })
 		);
 	});
 	it('uses direct Worker bindings and retains state TTL and session keys', async () => {

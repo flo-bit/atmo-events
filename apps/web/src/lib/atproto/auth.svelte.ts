@@ -6,6 +6,7 @@ import {
 	type PreferredSocialClient
 } from '@atmo-dev/kit/social';
 import { page } from '$app/state';
+import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import {
 	login as oauthLogin,
 	signup as oauthSignup,
@@ -16,7 +17,8 @@ import {
 	ALLOW_SIGNUP,
 	REDIRECT_TO_LAST_PAGE_ON_LOGIN,
 	getLoginScopes,
-	blueskyPostingScope
+	blueskyPostingScope,
+	type LoginContext
 } from './settings';
 
 export const user = {
@@ -37,13 +39,13 @@ export const user = {
 	}
 };
 
-export function login(handle: string, options?: { scopes: readonly string[] }) {
+export function login(handle: string, options?: LoginContext & { scopes?: readonly string[] }) {
 	let normalized = handle.trim().replace(/^@/, '');
 	if (!normalized.startsWith('did:') && !normalized.includes('.') && normalized.length > 3) {
 		normalized += '.bsky.social';
 	}
 	return oauthLogin(normalized, {
-		scope: getLoginScopes(options?.scopes),
+		scope: getLoginScopes(options?.scopes, options),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }
@@ -59,10 +61,18 @@ export function authorizePreferredSocialClient() {
 	});
 }
 
-export function signup() {
+/** Existing sessions can add meeting writes without another ordinary login. */
+export function authorizeMeetings() {
+	return requestPermissions(CONNECTION_SCOPE, {
+		requirements: [connectionCapability],
+		saveReturnTo: true
+	});
+}
+
+export function signup(context?: LoginContext) {
 	if (!ALLOW_SIGNUP) throw new Error('Signup is not enabled');
 	return oauthSignup({
-		scope: getLoginScopes([blueskyPostingScope]),
+		scope: getLoginScopes([blueskyPostingScope], context),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }

@@ -94,6 +94,31 @@ describe('location formatting', () => {
 		expect(input).toEqual(original);
 	});
 
+	it('deduplicates URI locations by URL, keeping the first label and record order', () => {
+		const otherLink = { ...uri, name: 'Register', uri: 'https://example.com/register' };
+		const input = [
+			uri,
+			address,
+			{ ...uri },
+			otherLink,
+			{ ...uri, name: 'Watch online', uri: ` ${uri.uri} ` },
+			{ ...address, name: 'Second hall' },
+			{ ...otherLink, name: 'Sign up' }
+		];
+		const original = structuredClone(input);
+		expect(getLocations(input).map((location) => location.label)).toEqual([
+			'Join online',
+			'Main hall',
+			'Register',
+			'Second hall'
+		]);
+		expect(input).toEqual(original);
+	});
+
+	it('keeps different URLs even when they share a label', () => {
+		expect(getLocations([uri, { ...uri, uri: 'https://example.com/other' }])).toHaveLength(2);
+	});
+
 	it('keeps city summaries compact, but supports every non-address variant on cards', () => {
 		expect(getLocationSummary(getLocations([geo, address, fsq, uri]))).toBe('Berlin · Join online');
 		expect(getLocationSummary(getLocations([geo, { ...fsq, name: 'The Pub' }]))).toBe('The Pub');
@@ -259,6 +284,24 @@ describe('location UI', () => {
 			expect(link.target).toBe('_blank');
 			expect(link.rel).toContain('noopener');
 		}
+	});
+
+	it('renders repeated online locations only once per URL', async () => {
+		await render(EventLocationBlock, {
+			locations: getLocations([
+				uri,
+				{ ...uri },
+				{ ...uri, name: 'Watch online' },
+				{ ...uri, name: 'Register', uri: 'https://example.com/register' },
+				{ ...uri }
+			])
+		});
+		const list = page.getByRole('list', { name: 'Event locations' });
+		await expect.element(list).toBeVisible();
+		expect(list.element().querySelectorAll('li')).toHaveLength(2);
+		await expect.element(page.getByRole('link', { name: /Join online/ })).toBeVisible();
+		await expect.element(page.getByRole('link', { name: /Register/ })).toBeVisible();
+		await expect.element(page.getByText('Watch online', { exact: true })).not.toBeInTheDocument();
 	});
 
 	it('uses coordinates only as a fallback and hides them when a venue name is available', async () => {

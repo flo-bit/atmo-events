@@ -119,9 +119,7 @@ export function getProfileBlobUrl(
 ) {
 	const cid = getBlobCid(blob);
 	if (!cid) return undefined;
-	// Avatars need JPEG; banners and feed thumbnails support the smaller WebP variant.
-	const format = preset === 'avatar' ? 'jpeg' : 'webp';
-	return `https://cdn.bsky.app/img/${preset}/plain/${did}/${cid}@${format}`;
+	return `https://cdn.bsky.app/img/${preset}/plain/${did}/${cid}@webp`;
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {

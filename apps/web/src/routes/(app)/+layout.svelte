@@ -12,6 +12,7 @@
 		Plus,
 		LogIn,
 		Settings,
+		Wrench,
 		Menu
 	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
@@ -32,8 +33,10 @@
 	});
 
 	let path = $derived(page.url.pathname);
-	// Profile and event detail routes already have their own visual header.
-	let hideBrand = $derived(path.startsWith('/p/'));
+	// Profiles, event details and tools use their own page heading.
+	let hideBrand = $derived(
+		path.startsWith('/p/') || path === '/tools' || path.startsWith('/tools/')
+	);
 	let description = $derived(
 		page.data.pageDescription ?? 'Discover and attend events for the open social web.'
 	);
@@ -65,13 +68,6 @@
 		},
 
 		{
-			label: 'Calendar',
-			icon: CalendarDays,
-			href: '/calendar',
-			active: path === '/calendar'
-		},
-
-		{
 			label: 'Topics',
 			icon: Hash,
 			href: '/topics',
@@ -90,6 +86,13 @@
 			icon: Search,
 			href: '/search',
 			active: path === '/search'
+		},
+
+		{
+			label: 'Tools',
+			icon: Wrench,
+			href: '/tools',
+			active: path.startsWith('/tools')
 		},
 
 		{

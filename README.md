@@ -8,6 +8,10 @@ Uses `community.lexicon.calendar.event` and `community.lexicon.calendar.rsvp`.
 Create events, RSVP, subscribe to calendars, share previews and see what people
 you follow are attending. Create automatically updated Bluesky starter packs from
 an event's attendees, host and description mentions; see [starter packs](docs/starter-packs.md).
+Attach Grain photo albums and Streamplace streams through the dedicated
+[linked-record pickers](docs/linked-records.md).
+Use [Meet](docs/meet.md) under Tools to exchange QR codes and save public,
+reciprocal meeting records compatible with You & Me.
 
 ## Development
 

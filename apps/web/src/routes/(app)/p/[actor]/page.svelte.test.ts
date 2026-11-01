@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'svelte/server';
 import type { PreferredSocialClient } from '@atmo-dev/kit/social';
+import type { FlatEventRecord } from '#lib/contrail.js';
 
 const { user } = vi.hoisted(() => ({
 	user: {
@@ -16,7 +17,21 @@ vi.mock('#lib/moderation/reports.remote', () => ({ submitReport: vi.fn() }));
 import ProfilePage from './+page.svelte';
 import AppFooter from '#lib/components/AppFooter.svelte';
 
-function markup() {
+const personalEvent = (rkey: string, name: string): FlatEventRecord => ({
+	uri: `at://did:plc:host/community.lexicon.calendar.event/${rkey}`,
+	did: 'did:plc:host',
+	rkey,
+	name,
+	startsAt: '2027-07-01T12:00:00Z',
+	createdAt: '2026-06-01T00:00:00Z'
+});
+
+function markup(
+	personalEvents: { upcoming: FlatEventRecord[]; past: FlatEventRecord[] } = {
+		upcoming: [],
+		past: []
+	}
+) {
 	return (
 		render(ProfilePage, {
 			props: {
@@ -51,6 +66,7 @@ function markup() {
 								'Hello <img src=x onerror=alert(1)>\n@alice.test #events https://example.com'
 						}
 					},
+					personalEvents,
 					ongoingEvents: [],
 					ongoingTotal: 0,
 					ongoingTotalIsFloor: false,
@@ -75,6 +91,34 @@ afterEach(() => {
 });
 
 describe('profile actions', () => {
+	it('shows your combined events and discovery actions on your own profile', () => {
+		const html = markup();
+		expect(html).toContain('Your events');
+		expect(html).toContain('Join events');
+		expect(html).toContain('Create event');
+		expect(html).toContain("You haven't created or attended any events yet.");
+		expect(html).not.toContain('This person hasn');
+	});
+	it('renders upcoming and past calendar events with a subscription action for the owner', () => {
+		const html = markup({
+			upcoming: [personalEvent('upcoming', 'An interested event')],
+			past: [personalEvent('past', 'A past attended event')]
+		});
+		expect(html).toContain('An interested event');
+		expect(html).toContain('A past attended event');
+		expect(html).toContain('Upcoming events');
+		expect(html).toContain('Past events');
+		expect(html).toContain('Add to your calendar');
+	});
+
+	it('does not show personal calendar data or subscription actions on another profile', () => {
+		user.did = 'did:plc:viewer';
+		const html = markup({ upcoming: [personalEvent('upcoming', 'Personal event')], past: [] });
+		expect(html).not.toContain('Personal event');
+		expect(html).not.toContain('Your events');
+		expect(html).not.toContain('Add to your calendar');
+	});
+
 	it('routes bio mentions locally and hashtags to the viewer’s client', () => {
 		user.preferredSocialClient = { client: 'blacksky' };
 		const html = markup();
@@ -115,6 +159,8 @@ describe('profile actions', () => {
 		expect(html).toMatch(/<footer\b[^>]*>[\s\S]*Report account[\s\S]*<\/footer>/);
 		expect(html.slice(0, html.indexOf('<footer'))).toContain('This person hasn');
 		expect(html).not.toContain('Create Event');
+		expect(html).not.toContain('Your events');
+		expect(html).not.toContain('Add to your calendar');
 		expect(html).not.toContain('Log out');
 	});
 

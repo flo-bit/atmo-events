@@ -1,25 +1,20 @@
-import { env } from 'cloudflare:workers';
+import type { Client } from '@atcute/client';
+import type { ActorIdentifier } from '@atcute/lexicons/syntax';
 import {
 	flattenEventRecord,
 	flattenEventRecords,
 	listEventRecordsFromContrail
 } from '#lib/contrail.js';
-import { getServerClient } from '#lib/contrail/index.js';
 import { dedupeByUri } from '#lib/dedupe-by-uri.js';
-import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	if (!locals.did) {
-		return { pageTitle: 'Calendar', upcoming: [], past: [], loggedIn: false };
-	}
-	const client = getServerClient(env.DB);
-
+/** Hosted events plus going/interested RSVPs, as previously shown on /calendar. */
+export async function getPersonalEvents(client: Client, did: ActorIdentifier) {
 	const [rsvpResponse, hostingResponse] = await Promise.all([
 		client.get('rsvp.atmo.rsvp.listRecords', {
-			params: { actor: locals.did, hydrateEvent: true, limit: 100 }
+			params: { actor: did, hydrateEvent: true, limit: 100 }
 		}),
 		listEventRecordsFromContrail(client, {
-			actor: locals.did,
+			actor: did,
 			sort: 'startsAt',
 			order: 'desc',
 			limit: 100
@@ -49,5 +44,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.filter((e) => new Date(e.endsAt || e.startsAt).getTime() < nowMs)
 		.sort((a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime());
 
-	return { pageTitle: 'Calendar', upcoming, past, loggedIn: true, did: locals.did };
-};
+	return { upcoming, past };
+}

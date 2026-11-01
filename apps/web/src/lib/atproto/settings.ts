@@ -1,7 +1,9 @@
 import type { LoginPermission } from '@atmo-dev/kit';
 import { PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
+import { CONNECTION_SCOPE } from '../meet/connection.ts';
 import Calendar from '@sketchyicons/svelte/icons/calendar';
 import MessageCircle from '@sketchyicons/svelte/icons/message-circle';
+import Handshake from '@sketchyicons/svelte/icons/handshake';
 import type { Capability } from '@svelte-atproto/oauth/permissions';
 
 // Shared with Vite: import only framework-free helpers, types and icon data.
@@ -39,7 +41,8 @@ export const scopes = [
 	...requiredScopes,
 	blueskyPostingScope,
 	moderationActionScope,
-	PREFERRED_CLIENT_SCOPE
+	PREFERRED_CLIENT_SCOPE,
+	CONNECTION_SCOPE
 ];
 
 export const loginPermissions: readonly LoginPermission[] = [
@@ -61,11 +64,38 @@ export const loginPermissions: readonly LoginPermission[] = [
 	}
 ];
 
-/** Always retain required permissions, including for signup and direct callers. */
-export function getLoginScopes(selected: readonly string[] = []): string[] {
+export interface LoginContext {
+	meetings?: boolean;
+}
+
+/** Meeting-page sign-in requests its tool permission in the first OAuth grant. */
+export function getLoginPermissions({
+	meetings = false
+}: LoginContext = {}): readonly LoginPermission[] {
+	return meetings
+		? [
+				...loginPermissions,
+				{
+					id: 'meetings',
+					icon: Handshake,
+					label: 'Meetings',
+					description: 'Save public connections to people you meet.',
+					scopes: [CONNECTION_SCOPE],
+					required: true
+				}
+			]
+		: loginPermissions;
+}
+
+/** Always retain required permissions; tool permissions need an explicit context. */
+export function getLoginScopes(
+	selected: readonly string[] = [],
+	{ meetings = false }: LoginContext = {}
+): string[] {
 	return [
 		...requiredScopes,
-		...(selected.includes(blueskyPostingScope) ? [blueskyPostingScope] : [])
+		...(selected.includes(blueskyPostingScope) ? [blueskyPostingScope] : []),
+		...(meetings ? [CONNECTION_SCOPE] : [])
 	];
 }
 
