@@ -3,9 +3,10 @@
 # through its network settings (apps/web/src/env.ts), which the env below sets.
 #
 #   pnpm install
-#   pnpm test:e2e   # starts the network if need be, then the tests in apps/web/e2e
-#   pnpm e2e:dev    # atmo on the network, at http://127.0.0.1:5454, to try it by hand
-#   pnpm e2e:down   # stops the network, keeping its accounts
+#   pnpm test:e2e       # starts the network if need be, then the tests in apps/web/e2e
+#   pnpm e2e:dev        # atmo on the network, at http://127.0.0.1:5454, to try it by hand
+#   pnpm e2e:backfill   # backfills that atmo's database from the network, as `pnpm backfill` does
+#   pnpm e2e:down       # stops the network, keeping its accounts
 #
 # On this network, atmo keeps its local database in apps/web/.wrangler/snowglobe, apart from plain
 # `pnpm dev`'s, and `pnpm test:e2e` empties it before each run. `snowglobe down -v` wipes the

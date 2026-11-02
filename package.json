@@ -17,6 +17,7 @@
 		"lint": "pnpm -r lint",
 		"test:e2e": "snowglobe up && snowglobe run --app e2e -- pnpm --filter web exec vitest run --config vitest.e2e.config.ts",
 		"e2e:dev": "snowglobe up && snowglobe run --app atmo -- pnpm --filter web dev --strictPort",
+		"e2e:backfill": "snowglobe up && snowglobe run --app atmo -- pnpm --filter web backfill:local",
 		"e2e:down": "snowglobe down",
 		"format": "prettier --write .",
 		"package:ui": "pnpm --filter @atmo-dev/events-ui package",
