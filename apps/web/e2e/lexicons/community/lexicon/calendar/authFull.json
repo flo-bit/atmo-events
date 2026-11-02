@@ -1,0 +1,29 @@
+{
+	"id": "community.lexicon.calendar.authFull",
+	"defs": {
+		"main": {
+			"type": "permission-set",
+			"title": "Full Lexicon Community Calendar Permissions",
+			"description": "Full auth permission Lexicon Community Calendar types and functions",
+			"permissions": [
+				{
+					"lxm": [
+						"community.lexicon.calendar.getEvent",
+						"community.lexicon.calendar.getRSVP",
+						"community.lexicon.calendar.searchEvents"
+					],
+					"type": "permission",
+					"resource": "rpc",
+					"inheritAud": true
+				},
+				{
+					"type": "permission",
+					"action": ["create", "update", "delete"],
+					"resource": "repo",
+					"collection": ["community.lexicon.calendar.event", "community.lexicon.calendar.rsvp"]
+				}
+			]
+		}
+	},
+	"lexicon": 1
+}

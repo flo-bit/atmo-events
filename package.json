@@ -15,6 +15,9 @@
 		"check": "pnpm -r check",
 		"test": "pnpm test:kit-dev && pnpm -r test",
 		"lint": "pnpm -r lint",
+		"test:e2e": "snowglobe up && snowglobe run --app e2e -- pnpm --filter web exec vitest run --config vitest.e2e.config.ts",
+		"e2e:dev": "snowglobe up && snowglobe run --app atmo -- pnpm --filter web dev --strictPort",
+		"e2e:down": "snowglobe down",
 		"format": "prettier --write .",
 		"package:ui": "pnpm --filter @atmo-dev/events-ui package",
 		"changeset": "changeset",
@@ -27,6 +30,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^3.0.3",
+		"@openmeet/snowglobe": "^0.6.0",
 		"prettier": "^3.9.10",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.1"

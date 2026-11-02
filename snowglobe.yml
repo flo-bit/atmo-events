@@ -1,0 +1,69 @@
+# A private atproto network on this machine, for atmo's end-to-end tests (@openmeet/snowglobe, in
+# Docker): a PDS, a relay, Jetstream, Slingshot, an image CDN and a PLC directory. atmo reaches it
+# through its network settings (apps/web/src/env.ts), which the env below sets.
+#
+#   pnpm install
+#   pnpm test:e2e   # starts the network if need be, then the tests in apps/web/e2e
+#   pnpm e2e:dev    # atmo on the network, at http://127.0.0.1:5454, to try it by hand
+#   pnpm e2e:down   # stops the network, keeping its accounts
+#
+# On this network, atmo keeps its local database in apps/web/.wrangler/snowglobe, apart from plain
+# `pnpm dev`'s, and `pnpm test:e2e` empties it before each run. `snowglobe down -v` wipes the
+# network; delete that folder with it before the next `pnpm e2e:dev`, because the database
+# remembers how far it read the old network's Jetstream, and a new one counts from 1.
+
+globe: atmoe2e # every name below is under atmoe2e.local.snowglobe.at
+
+pds:
+  - name: regular # a current PDS release; handles <name>.regular.atmoe2e.local.snowglobe.at
+    image: ghcr.io/bluesky-social/pds:0.4.5037
+
+services:
+  jetstream: true
+  slingshot: true
+  pdsls: false
+  cdn: true # event pictures and avatars, in the shape of Bluesky's image CDN
+
+lexicons:
+  # Every PDS here resolves lexicons from this one: the permission sets atmo's sign-in asks for.
+  authority: regular
+  publish: apps/web/e2e/lexicons
+
+# atmo's bot, which makes events' starter packs. The tests make their own people.
+accounts:
+  - atmobot@regular
+
+apps:
+  - name: atmo
+    env:
+      # atmo's server reads its Worker env from wrangler.jsonc and .env. This adds the process
+      # environment, so the settings below reach it. With an apps/web/.dev.vars, wrangler reads
+      # only that file, so the tests refuse to start while one is there.
+      CLOUDFLARE_INCLUDE_PROCESS_ENV: 'true'
+      # atmo's local database for this network, apart from plain `pnpm dev`'s .wrangler/state
+      # (vite.config.ts). Relative to apps/web.
+      LOCAL_STATE_DIR: &atmo-state .wrangler/snowglobe
+      # Empty: atmo's loopback OAuth client at http://127.0.0.1:5454, which needs no keys.
+      OAUTH_PUBLIC_URL: ''
+      PUBLIC_PLC_URL: ${services.plc.url}
+      PUBLIC_SLINGSHOT_URL: ${services.slingshot.url}
+      PUBLIC_JETSTREAM_URL: ${services.jetstream.url}
+      PUBLIC_RELAY_URLS: ${services.relay.url}
+      PUBLIC_SIGNUP_PDS_URL: ${pds.regular.url}
+      BOT_IDENTIFIER: ${accounts.atmobot.handle}
+      BOT_APP_PASSWORD: ${accounts.atmobot.password}
+      BOT_PDS_URL: ${pds.regular.url}
+      # The public image CDN cannot reach this network's PDS, so event pictures come from its own.
+      PUBLIC_CDN_URL: ${services.cdn.url}
+      # Nothing here stands in for DNS-over-HTTPS, Constellation or the Bluesky API, so those stay
+      # public.
+
+  # The tests in apps/web/e2e.
+  - name: e2e
+    env:
+      E2E_PDS: ${pds.regular.url}
+      E2E_BOT_HANDLE: ${accounts.atmobot.handle}
+      # Where event pictures must come from (PUBLIC_CDN_URL above).
+      E2E_CDN: ${services.cdn.url}
+      # The setup empties atmo's local database before each run.
+      E2E_ATMO_STATE_DIR: *atmo-state
