@@ -6,6 +6,7 @@ import {
 	incomingConnectionRkey,
 	type Connection
 } from '#lib/meet/connection.js';
+import { serviceUrl } from '#lib/atproto/network.js';
 
 /** Read the public source record, not a browser-supplied timestamp or backlink hint. */
 export async function incomingMeetingDate(
@@ -16,8 +17,9 @@ export async function incomingMeetingDate(
 ): Promise<string> {
 	const rkey = incomingConnectionRkey(uri, owner);
 	if (!rkey) throw new Error('Invalid original meeting');
-	// A fixed public repo gateway avoids fetching user-controlled PDS URLs or sending OAuth credentials.
-	const url = new URL('https://slingshot.microcosm.blue/xrpc/com.atproto.repo.getRecord');
+	// The network's repo gateway (Slingshot, a deployment setting) avoids fetching user-controlled
+	// PDS URLs or sending OAuth credentials.
+	const url = new URL(`${serviceUrl('slingshot')}/xrpc/com.atproto.repo.getRecord`);
 	url.search = new URLSearchParams({
 		repo: owner,
 		collection: CONNECTION_COLLECTION,
@@ -84,9 +86,7 @@ export async function listIncomingConnections(
 	let cursor: string | undefined;
 	const seen = new Set<string>();
 	for (let page = 0; page < 50; page++) {
-		const url = new URL(
-			'https://constellation.microcosm.blue/xrpc/blue.microcosm.links.getBacklinks'
-		);
+		const url = new URL(`${serviceUrl('constellation')}/xrpc/blue.microcosm.links.getBacklinks`);
 		url.search = new URLSearchParams({
 			subject: did,
 			source: `${CONNECTION_COLLECTION}:subject`,

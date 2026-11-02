@@ -104,7 +104,8 @@ export const variables = defineEnvVars({
 	PUBLIC_JETSTREAM_URL: {
 		public: true,
 		schema: origin('https:', 'http:', 'wss:', 'ws:'),
-		description: 'Jetstream that contrail ingests from, as an origin (no /subscribe).'
+		description:
+			'Jetstream that contrail ingests from and the Meet tool watches, as an origin (no /subscribe).'
 	},
 	PUBLIC_RELAY_URLS: {
 		public: true,
