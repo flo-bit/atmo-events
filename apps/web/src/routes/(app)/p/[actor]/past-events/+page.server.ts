@@ -28,6 +28,7 @@ export async function load({ params, url }) {
 
 	return {
 		...page,
+		atTags: profile ? { me: [`at://${profile.did}`] } : undefined,
 		pageTitle: `Past Events - ${profile?.value?.displayName || profile?.handle || did}`,
 		actorProfile: profile,
 		actor,

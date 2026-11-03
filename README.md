@@ -12,6 +12,7 @@ Attach Grain photo albums and Streamplace streams through the dedicated
 [linked-record pickers](docs/linked-records.md).
 Use [Meet](docs/meet.md) under Tools to exchange QR codes and save public,
 reciprocal meeting records compatible with You & Me.
+Public event and profile pages expose [AT Tags](docs/at-tags.md) for AT record and identity discovery.
 
 ## Development
 
@@ -26,7 +27,7 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
 
-Installs use the published `@atmo-dev/kit@0.5.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
+Installs use the published `@atmo-dev/kit@0.6.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
 ## Contributing
 

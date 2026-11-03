@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
@@ -190,6 +191,10 @@ export async function load({ params, locals, url }) {
 	}
 
 	return {
+		atTags: recordAtTags(fullEventRecord, [
+			...(parentEvent ? [parentEvent] : []),
+			...conferenceTalks
+		]),
 		pageTitle: eventData.name,
 		reportSubject: eventData.cid
 			? {

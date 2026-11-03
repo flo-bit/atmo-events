@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import { getEventThumbnail } from '@atmo-dev/kit/events-data';
 import { getActor } from '#lib/actor.js';
@@ -55,6 +56,7 @@ export async function load({ params, url }) {
 		}
 
 		return {
+			atTags: recordAtTags(eventRecord!),
 			pageTitle: eventData.name,
 			eventData,
 			actorDid: did,

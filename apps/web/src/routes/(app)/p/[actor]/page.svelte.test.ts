@@ -36,6 +36,7 @@ function markup(
 		render(ProfilePage, {
 			props: {
 				data: {
+					atTags: { me: ['at://did:plc:host'] },
 					pageTitle: 'Test Host - Events',
 					pageDescription: 'Events hosted by Test Host',
 					canPostToBluesky: false,

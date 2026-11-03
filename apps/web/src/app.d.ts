@@ -62,6 +62,7 @@ declare global {
 			did: Did | null;
 		}
 		interface PageData {
+			atTags?: import('@atmo-dev/kit/at-tags').AtTagMetadata;
 			pageTitle?: string;
 			pageDescription?: string;
 			ogImage?: string;

@@ -16,6 +16,7 @@ vi.mock('#lib/contrail.js', () => ({
 	listEventAttendeesFromContrail: vi.fn()
 }));
 import { load } from './+page.server';
+import { flattenEventRecord, listEventAttendeesFromContrail } from '#lib/contrail.js';
 const event = {
 	params: { actor: 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa', rkey: 'event' },
 	locals: { did: null },
@@ -26,6 +27,24 @@ afterEach(() => {
 	vi.unstubAllGlobals();
 });
 describe('event visibility fails closed', () => {
+	it('uses the resolved record URI, not the route handle or viewer, for AT metadata', async () => {
+		const uri = 'at://did:plc:aaaaaaaaaaaaaaaaaaaaaaaa/community.lexicon.calendar.event/event';
+		mocks.getRecord.mockResolvedValueOnce({ uri });
+		vi.mocked(flattenEventRecord).mockReturnValueOnce({
+			uri,
+			did: 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa',
+			name: 'Meetup',
+			startsAt: '2026-11-03T12:00:00Z'
+		} as never);
+		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
+		const data = await load({ ...event, params: { actor: 'host.test', rkey: 'event' } });
+		expect(data.atTags).toEqual({
+			canonical: [uri],
+			author: ['at://did:plc:aaaaaaaaaaaaaaaaaaaaaaaa'],
+			alternate: []
+		});
+	});
+
 	it('does not resurrect a hidden/missing event from the legacy cache', async () => {
 		vi.stubGlobal('caches', { default: { match: mocks.match } });
 		mocks.match.mockResolvedValue(Response.json({ value: { name: 'Old hidden event' } }));

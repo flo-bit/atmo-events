@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import { profileAtTags } from '#lib/at-tags.js';
 import { getActor } from '#lib/actor.js';
 import { getBlueskyProfile } from '#lib/server/bluesky-profile.js';
 import { getProfileCounts } from '#lib/server/profile-counts.js';
@@ -89,6 +90,7 @@ export async function load({ params, fetch, locals }) {
 
 	const hostName = profile?.value?.displayName || profile?.handle || did;
 	return {
+		atTags: profileAtTags(profile),
 		personalEvents,
 		ongoingEvents,
 		ongoingTotal: ongoing.total,

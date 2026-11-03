@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import { PageTitle } from '@atmo-dev/kit';
+	import { AtTags, PageTitle } from '@atmo-dev/kit';
 	let { children } = $props();
 </script>
 
@@ -9,5 +9,7 @@
 	title={page.error ? `${page.status} — ${page.error.message}` : page.data.pageTitle}
 	siteName="atmo.rsvp"
 />
+
+<AtTags tags={page.error ? undefined : page.data.atTags} />
 
 {@render children()}

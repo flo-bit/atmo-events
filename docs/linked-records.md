@@ -23,7 +23,7 @@ Only these fixed upstream endpoints are fetched. Responses are normalized, image
 
 ## Coordinated Kit development
 
-RSVP uses the published `@atmo-dev/kit@0.5.0` release. For local iteration, build and use the packaged checkout without changing the committed dependency:
+RSVP uses the published `@atmo-dev/kit@0.6.0` release. For local iteration, build and use the packaged checkout without changing the committed dependency:
 
 ```sh
 # From 11-atproto/
