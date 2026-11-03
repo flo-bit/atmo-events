@@ -1,4 +1,4 @@
-import { eventUrl, type FlatEventRecord } from '@atmo-dev/events-ui';
+import { eventUrl, type FlatEventRecord } from '@atmo-dev/kit/events-data';
 import type { GlobeMarker } from './types';
 
 function coordinate(value: unknown): number | null {

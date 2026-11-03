@@ -20,7 +20,7 @@
 
 import type { Client } from '@atcute/client';
 import type { ActorIdentifier } from '@atcute/lexicons';
-import type { FlatEventRecord } from '@atmo-dev/events-ui';
+import type { FlatEventRecord } from '@atmo-dev/kit/events-data';
 import { literalSearch } from './search';
 import {
 	flattenEventRecords,

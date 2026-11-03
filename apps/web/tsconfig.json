@@ -3,10 +3,6 @@
 	"compilerOptions": {
 		"sourceMap": true,
 		"strict": true,
-		"paths": {
-			"@atmo-dev/events-ui": ["../../packages/ui/src/index.ts"],
-			"@atmo-dev/events-ui/*": ["../../packages/ui/src/*"]
-		},
 		"types": ["$app/types", "@cloudflare/workers-types", "node"]
 	},
 	"include": ["src", "vite.config.ts"]

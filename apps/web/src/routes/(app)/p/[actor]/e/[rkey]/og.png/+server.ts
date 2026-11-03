@@ -6,7 +6,7 @@ import Avatar from './avatars';
 import { getActor } from '#lib/actor.js';
 import { flattenEventRecord, getEventRecordFromContrail } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
-import { formatInTz, partsInTz, getEventThumbnail } from '@atmo-dev/events-ui';
+import { formatInTz, partsInTz, getEventThumbnail } from '@atmo-dev/kit/events-data';
 import { render } from 'svelte/server';
 import { imageVersion, serveOgImage } from '#lib/server/og/cache.js';
 import { IMAGE_PLACEHOLDERS, withOgRenderer } from '#lib/server/og/takumi.js';

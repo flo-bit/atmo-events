@@ -11,8 +11,8 @@ vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecord: vi.fn()
 }));
 vi.mock('#lib/actor.js', () => ({ getActor: vi.fn() }));
-vi.mock('@atmo-dev/events-ui', async () => ({
-	getEventThumbnail: (await import('../../../../../../../../../../packages/ui/src/event-media.js'))
+vi.mock('@atmo-dev/kit/events-data', async (importOriginal) => ({
+	getEventThumbnail: (await importOriginal<typeof import('@atmo-dev/kit/events-data')>())
 		.getEventThumbnail,
 	formatInTz: (date: string, _tz: string | undefined, opts: Intl.DateTimeFormatOptions) =>
 		new Intl.DateTimeFormat('en-US', { ...opts, timeZone: 'UTC' }).format(new Date(date)),

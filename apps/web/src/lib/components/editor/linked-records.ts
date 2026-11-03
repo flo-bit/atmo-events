@@ -1,5 +1,5 @@
 import type { GrainAlbumPage, GrainGallery } from '@atmo-dev/kit/grain';
-import type { LinkedRecordsClient } from '@atmo-dev/events-ui/linked-records';
+import type { LinkedRecordsClient } from '@atmo-dev/kit/events-data';
 
 /** RSVP's same-origin transport; shared components know nothing about this route. */
 export function createLinkedRecordsClient(fetchImpl: typeof fetch = fetch): LinkedRecordsClient {

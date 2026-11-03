@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
 
 test('country normalization loads in Vite dev SSR without CommonJS globals', async () => {
@@ -12,9 +11,7 @@ test('country normalization loads in Vite dev SSR without CommonJS globals', asy
 		optimizeDeps: { noDiscovery: true, include: [] }
 	});
 	try {
-		const { normalizeCountryCode } = await server.ssrLoadModule(
-			fileURLToPath(new URL('../../../packages/ui/src/editor/location.ts', import.meta.url))
-		);
+		const { normalizeCountryCode } = await server.ssrLoadModule('@atmo-dev/kit/events-data');
 		for (const [input, expected] of [
 			['United States', 'US'],
 			['us', 'US'],

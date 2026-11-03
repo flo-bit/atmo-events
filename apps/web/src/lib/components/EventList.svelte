@@ -6,7 +6,7 @@
 	// Soonest-ending first, the order the band itself is sorted in — by instant,
 	// not by text, since these records carry timestamps exactly as written.
 	import { bySoonestEnding } from '#lib/live-order.js';
-	import { EventCard, isEventOngoing } from '@atmo-dev/events-ui';
+	import { EventCard, isEventOngoing } from '@atmo-dev/kit/events';
 	import type { Snippet } from 'svelte';
 
 	let {

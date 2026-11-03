@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { FlatEventRecord } from '@atmo-dev/events-ui';
+import type { FlatEventRecord } from '@atmo-dev/kit/events-data';
 import { eventMarkers } from './event-markers';
 
 function event(overrides: Partial<FlatEventRecord> = {}): FlatEventRecord {

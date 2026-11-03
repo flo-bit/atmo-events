@@ -27,7 +27,6 @@ export default defineConfig(({ mode }) => {
 			alias: {
 				// OAuth 0.4.1 supports Kit 3 but its bundle retains this Kit 2 import.
 				'$app/environment': '$app/env',
-				'@atmo-dev/events-ui': fileURLToPath(new URL('../../packages/ui/src', import.meta.url)),
 				...(process.env.VITEST
 					? {
 							'cloudflare:workers': fileURLToPath(

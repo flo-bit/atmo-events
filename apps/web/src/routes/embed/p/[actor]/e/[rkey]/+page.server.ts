@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getEventThumbnail } from '@atmo-dev/events-ui';
+import { getEventThumbnail } from '@atmo-dev/kit/events-data';
 import { getActor } from '#lib/actor.js';
 import {
 	flattenEventRecord,

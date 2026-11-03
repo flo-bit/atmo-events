@@ -24,7 +24,9 @@ pnpm dev
 
 D1 runs locally by default. Optionally fetch events with `pnpm --filter web backfill`.
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
-See [development notes](docs/development.md) and [operations](docs/operations.md) for details.
+Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
+
+Installs use the published `@atmo-dev/kit@0.5.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
 ## Contributing
 

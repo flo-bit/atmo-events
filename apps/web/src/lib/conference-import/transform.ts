@@ -6,7 +6,7 @@
  * explicit offset is present. Returns validation errors per row so the UI can
  * preview before anything is written.
  */
-import { datetimeLocalToISO } from '@atmo-dev/events-ui/date-format';
+import { datetimeLocalToISO } from '@atmo-dev/kit/events-data';
 
 export const EVENT_COLLECTION = 'community.lexicon.calendar.event';
 

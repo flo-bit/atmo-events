@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FlatEventRecord } from '#lib/contrail.js';
 	import { resolve } from '$app/paths';
-	import { EventCard } from '@atmo-dev/events-ui';
+	import { EventCard } from '@atmo-dev/kit/events';
 
 	// The "Happening Now" section, as ONE component. Home and EventList both show
 	// it, and hand-copying it between them is how the copies drift: the first copy

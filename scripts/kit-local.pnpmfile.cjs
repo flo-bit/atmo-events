@@ -7,7 +7,7 @@ function localKitPath() {
 	}
 
 	const root = resolve(__dirname, '..');
-	const directory = resolve(root, process.env.ATMO_KIT_PATH || '../00-atmo-kit/kit');
+	const directory = resolve(root, process.env.ATMO_KIT_PATH || '../../00-atmo-kit/kit');
 	let manifest;
 	try {
 		manifest = JSON.parse(readFileSync(join(directory, 'package.json'), 'utf8'));
@@ -17,7 +17,14 @@ function localKitPath() {
 	if (manifest.name !== '@atmo-dev/kit') {
 		throw new Error(`${directory} is not an @atmo-dev/kit package.`);
 	}
-	for (const file of ['dist/index.js', 'dist/index.d.ts', 'dist/theme.css']) {
+	for (const file of [
+		'dist/index.js',
+		'dist/index.d.ts',
+		'dist/theme.css',
+		'dist/events.js',
+		'dist/events-data.js',
+		'dist/events-editor.js'
+	]) {
 		if (!existsSync(join(directory, file))) {
 			throw new Error(
 				`Missing ${file} in ${directory}. Run pnpm install and pnpm prepack there first.`

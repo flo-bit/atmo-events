@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EventEditor, type EventEditorPrefill } from '@atmo-dev/events-ui';
+	import { EventEditor, type EventEditorPrefill } from '@atmo-dev/kit/events';
 	import { onMount } from 'svelte';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';

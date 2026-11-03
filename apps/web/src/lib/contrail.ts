@@ -52,8 +52,8 @@ type FlattenableEventRecord = EventListRecord | EventGetOutput | HydratedEventRe
 type EventProfiles = EventProfileEntry[] | EventGetProfileEntry[] | undefined;
 type EventRsvps = EventListRecord['rsvps'] | EventGetOutput['rsvps'];
 
-export type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/events-ui';
-import type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/events-ui';
+export type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/kit/events-data';
+import type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/kit/events-data';
 
 export type EventAttendeesResult = {
 	going: AttendeeInfo[];
