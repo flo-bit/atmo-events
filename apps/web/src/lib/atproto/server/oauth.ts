@@ -1,19 +1,14 @@
 import { env } from 'cloudflare:workers';
 import { dev } from '$app/env';
+import { PUBLIC_SIGNUP_PDS_URL } from '$app/env/public';
 import {
 	createAtprotoAuth,
 	type AtprotoAuth,
 	type RequestLock
 } from '@svelte-atproto/oauth/server';
 import { cloudflareKV } from '@svelte-atproto/oauth/server/stores/cloudflare';
-import {
-	ALLOW_SIGNUP,
-	DEV_PORT,
-	DOH_RESOLVER,
-	REDIRECT_PATH,
-	scopes,
-	signUpPDS
-} from '../settings';
+import { ALLOW_SIGNUP, DEV_PORT, REDIRECT_PATH, scopes, signUpPDS } from '../settings';
+import { atprotoNetwork } from '../network';
 import { oauthOrigin } from './origin';
 
 const pending = new Map<string, Promise<unknown>>();
@@ -43,10 +38,12 @@ export function getAuth(): AtprotoAuth {
 		cookieSecret: env.COOKIE_SECRET,
 		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
 		scope: scopes,
-		signupPDS: ALLOW_SIGNUP ? signUpPDS[dev ? 'development' : 'production'] : undefined,
+		signupPDS: ALLOW_SIGNUP
+			? (PUBLIC_SIGNUP_PDS_URL ?? signUpPDS[dev ? 'development' : 'production'])
+			: undefined,
 		redirectPath: REDIRECT_PATH,
 		devPort: DEV_PORT,
-		doh: DOH_RESOLVER,
+		network: atprotoNetwork(),
 		requestLock: oauthRequestLock,
 		// Pass bindings directly: the library's name-based adapter still reads
 		// event.platform, which was removed in SvelteKit 3. Preserve KV keys and

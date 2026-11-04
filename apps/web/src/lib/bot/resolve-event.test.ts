@@ -8,6 +8,7 @@ const { getEventRecordFromContrail, getPDS } = vi.hoisted(() => ({
 vi.mock('#lib/contrail.js', () => ({ getEventRecordFromContrail }));
 vi.mock('@svelte-atproto/oauth/helper', () => ({ getPDS }));
 import { loadEvent } from './resolve-event';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 
 afterEach(() => {
 	vi.clearAllMocks();
@@ -45,6 +46,6 @@ describe('bot event RSVP preference', () => {
 		);
 		const result = await loadEvent({} as Client, 'did:plc:host', 'event');
 		expect(result?.rsvpExpected).toBe(false);
-		expect(getPDS).toHaveBeenCalledWith('did:plc:host');
+		expect(getPDS).toHaveBeenCalledWith('did:plc:host', { network: atprotoNetwork() });
 	});
 });

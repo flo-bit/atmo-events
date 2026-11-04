@@ -1,4 +1,5 @@
 import { blueskyProfileToProfileData, type ProfileData } from '@atmo-dev/kit';
+import { serviceUrl } from '#lib/atproto/network.js';
 
 const profiles = new Map<string, Promise<ProfileData | undefined>>();
 
@@ -8,7 +9,7 @@ export function meetingProfile(did: string) {
 	if (!profile) {
 		profile = (async () => {
 			try {
-				const url = new URL('https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile');
+				const url = new URL(`${serviceUrl('appview')}/xrpc/app.bsky.actor.getProfile`);
 				url.searchParams.set('actor', did);
 				const response = await fetch(url, {
 					signal: AbortSignal.timeout(5000),

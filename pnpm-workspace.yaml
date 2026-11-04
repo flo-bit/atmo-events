@@ -17,3 +17,8 @@ minimumReleaseAgeExclude:
   - '@atmo-dev/*'
   - '@svelte-atproto/*'
   - svelte@5.57.3
+  # Runs the e2e tests' local network. Exempt so a new release can be tested as
+  # soon as it is published.
+  - '@openmeet/snowglobe'
+patchedDependencies:
+  '@atmo-dev/kit@0.5.0': patches/@atmo-dev__kit@0.5.0.patch
