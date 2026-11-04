@@ -3,6 +3,26 @@
  * on any session/client state — those flow through the EditorAdapter.
  */
 
+const services = {
+	appview: 'https://public.api.bsky.app',
+	cdn: 'https://cdn.bsky.app'
+};
+
+/**
+ * Point the components at another atproto network's Bluesky API (comments,
+ * handle search) and image CDN. Call once, before any component renders, on
+ * the server and in the browser alike. Unset, both are the public network's.
+ */
+export function configureAtproto(options: { appview?: string; cdn?: string }) {
+	if (options.appview) services.appview = options.appview.replace(/\/+$/, '');
+	if (options.cdn) services.cdn = options.cdn.replace(/\/+$/, '');
+}
+
+/** The Bluesky API address the components read from. */
+export function appviewUrl(): string {
+	return services.appview;
+}
+
 export function getCDNImageBlobUrl({
 	did,
 	blob,
@@ -15,7 +35,7 @@ export function getCDNImageBlobUrl({
 	};
 	format?: 'webp' | 'jpeg' | 'png';
 }) {
-	return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${blob.ref.$link}@${format}`;
+	return `${services.cdn}/img/feed_thumbnail/plain/${did}/${blob.ref.$link}@${format}`;
 }
 
 export function compressImage(

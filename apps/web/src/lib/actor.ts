@@ -1,7 +1,7 @@
 import type { Did, Handle } from '@atcute/lexicons';
 import { isDid } from '@atcute/lexicons/syntax';
 import { resolveHandle } from '@svelte-atproto/oauth/helper';
-import { DOH_RESOLVER } from '#lib/atproto/settings.js';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 
 const HANDLE_CACHE_TTL_MS = 60 * 60 * 1000;
 const handleCache = new Map<string, { did: Did; at: number }>();
@@ -17,7 +17,7 @@ export async function actorToDid(actor: string): Promise<Did> {
 		try {
 			const did = await resolveHandle({
 				handle: actor as Handle,
-				doh: DOH_RESOLVER,
+				network: atprotoNetwork(),
 				slingshot: false
 			});
 			handleCache.set(actor, { did, at: Date.now() });

@@ -4,6 +4,7 @@ import { createHandler } from '@atmo-dev/contrail/server';
 import { Client } from '@atcute/client';
 import { config } from '../contrail.config';
 import { moderatorDids } from '../moderation/config';
+import { contrailNetwork } from '../atproto/network';
 
 // Bind lazily: runtime bindings are unavailable during build/prerender. Cache by
 // database rather than a global boolean, and share concurrent initialization.
@@ -21,6 +22,7 @@ function instance(db: D1Database) {
 	if (!state) {
 		const contrail = new Contrail({
 			...config,
+			...contrailNetwork(),
 			moderation: { moderators: moderatorDids(env.MODERATOR_DIDS), reports: false }
 		});
 		state = { contrail, handle: createHandler(contrail) };

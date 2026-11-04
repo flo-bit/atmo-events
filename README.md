@@ -26,6 +26,11 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 See [development notes](docs/development.md) and [operations](docs/operations.md) for details.
 
+`pnpm test:e2e` runs atmo end to end on a private atproto network on your machine, in Docker.
+A new person signs up at the network's PDS, publishes an event and shares it to Bluesky, others
+RSVP, and the event's starter pack lists them. The network is described in
+[snowglobe.yml](snowglobe.yml); the tests are in `apps/web/e2e`.
+
 ## Contributing
 
 Open for contributions.

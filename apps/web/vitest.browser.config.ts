@@ -9,6 +9,9 @@ import { searchForWorkspaceRoot } from 'vite';
 
 const kitRoot = dirname(dirname(createRequire(import.meta.url).resolve('@atmo-dev/kit/theme.css')));
 const appFixture = fileURLToPath(new URL('./src/lib/meet/test-app.ts', import.meta.url));
+const publicEnvFixture = fileURLToPath(
+	new URL('./src/lib/atproto/test-env-public.ts', import.meta.url)
+);
 
 export default defineConfig({
 	plugins: [svelte(), tailwindcss()],
@@ -27,7 +30,8 @@ export default defineConfig({
 			'$app/state': appFixture,
 			'$app/forms': appFixture,
 			'$app/navigation': appFixture,
-			'$app/paths': appFixture
+			'$app/paths': appFixture,
+			'$app/env/public': publicEnvFixture
 		}
 	},
 	test: {

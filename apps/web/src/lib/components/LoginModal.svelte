@@ -14,8 +14,9 @@
 	import { login, signup } from '#lib/atproto/auth.svelte.js';
 	import { LoginDialog, createActorSearch } from '@atmo-dev/kit';
 	import { getLoginPermissions } from '#lib/atproto/settings.js';
+	import { serviceUrl } from '#lib/atproto/network.js';
 	import { page } from '$app/state';
-	const searchActors = createActorSearch();
+	const searchActors = createActorSearch({ host: serviceUrl('appview') });
 	let meetingLogin = $derived(page.url.pathname === '/tools/meet');
 </script>
 

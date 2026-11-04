@@ -15,6 +15,7 @@
 	} from '@atmo-dev/kit';
 	import { ScanQrCode } from '@sketchyicons/svelte';
 	import { user, authorizeMeetings } from '#lib/atproto/auth.svelte.js';
+	import { serviceUrl } from '#lib/atproto/network.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
 	import QrCode from '#lib/meet/QrCode.svelte';
 	import QrScanner from '#lib/meet/QrScanner.svelte';
@@ -139,7 +140,7 @@
 		return () => clearTimeout(timer);
 	});
 
-	const accountSearch = createActorSearch();
+	const accountSearch = createActorSearch({ host: serviceUrl('appview') });
 	const searchActors: ActorSearch = (query, signal) => {
 		// Links and DIDs remain valid input, but must never be sent to account search.
 		return /[:/?#]/.test(query) ? Promise.resolve([]) : accountSearch(query, signal);

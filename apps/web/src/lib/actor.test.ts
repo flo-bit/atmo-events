@@ -21,11 +21,12 @@ describe('app actor resolution', () => {
 	it('uses the library while keeping successful handle lookups cached', async () => {
 		mocks.resolveHandle.mockResolvedValue(did);
 		const { actorToDid } = await import('./actor');
+		const { atprotoNetwork } = await import('#lib/atproto/network.js');
 		expect(await actorToDid('alice.test')).toBe(did);
 		expect(await actorToDid('alice.test')).toBe(did);
 		expect(mocks.resolveHandle).toHaveBeenCalledExactlyOnceWith({
 			handle: 'alice.test',
-			doh: 'https://mozilla.cloudflare-dns.com/dns-query',
+			network: atprotoNetwork(),
 			slingshot: false
 		});
 		vi.advanceTimersByTime(60 * 60 * 1000 + 1);

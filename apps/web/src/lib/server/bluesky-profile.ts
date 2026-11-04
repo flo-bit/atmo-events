@@ -1,9 +1,10 @@
 import { blueskyProfileToProfileData } from '@atmo-dev/kit';
+import { serviceUrl } from '#lib/atproto/network.js';
 
 /** Optional hydration for modern profile links and Bluesky metrics. Never fetch link destinations. */
 export async function getBlueskyProfile(did: string, fetcher: typeof fetch = fetch) {
 	try {
-		const url = new URL('https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile');
+		const url = new URL(`${serviceUrl('appview')}/xrpc/app.bsky.actor.getProfile`);
 		url.searchParams.set('actor', did);
 		const response = await fetcher(url, {
 			signal: AbortSignal.timeout(2500),

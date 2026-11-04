@@ -1,8 +1,22 @@
+import { PUBLIC_JETSTREAM_URL } from '$app/env/public';
 import { isDid } from '@atcute/lexicons/syntax';
 import { CONNECTION_COLLECTION, type Connection } from './connection';
 
 export type StreamStatus = 'connecting' | 'live' | 'reconnecting';
 export type ConnectionChange = { uri: string; connection: Connection | null };
+
+/** Jetstream's /subscribe at the Jetstream a setting names (src/env.ts), else the public one. */
+function subscribeUrl() {
+	const url = new URL(
+		'/subscribe',
+		PUBLIC_JETSTREAM_URL ?? 'wss://jetstream2.us-east.bsky.network'
+	);
+	// The setting may be http(s), as contrail reads it on the server. A browser WebSocket takes
+	// ws(s); only newer browsers turn an http(s) address into one themselves.
+	if (url.protocol === 'https:') url.protocol = 'wss:';
+	if (url.protocol === 'http:') url.protocol = 'ws:';
+	return url;
+}
 
 export function parseConnectionEvent(input: unknown): ConnectionChange | null {
 	if (!input || typeof input !== 'object') return null;
@@ -62,7 +76,7 @@ export function watchConnections(options: {
 	function connect() {
 		if (stopped) return;
 		options.onStatus?.(opened ? 'reconnecting' : 'connecting');
-		const url = new URL('wss://jetstream2.us-east.bsky.network/subscribe');
+		const url = subscribeUrl();
 		url.searchParams.set('wantedCollections', CONNECTION_COLLECTION);
 		url.searchParams.set('cursor', String(Math.max(0, cursor - 1_000_000)));
 		try {
