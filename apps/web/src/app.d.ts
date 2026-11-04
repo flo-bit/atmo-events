@@ -85,6 +85,7 @@ declare global {
 			ASSETS?: Fetcher;
 			OG_IMAGES?: R2Bucket;
 			OG_DAILY_GENERATION_LIMIT?: string;
+			OG_DAILY_NEW_EVENT_RESERVE?: string;
 			OG_CYCLE_GENERATION_LIMIT?: string;
 			OG_BILLING_CYCLE_START_DAY?: string;
 			CRON_SECRET: string;

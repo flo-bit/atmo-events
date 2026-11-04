@@ -87,6 +87,65 @@ describe('versioned OG read-through storage', () => {
 		expect(options.render).toHaveBeenCalledTimes(1);
 	});
 
+	it('never spends budget for a crawler miss, including on a newly created event', async () => {
+		const { options, objects, sqlite } = setup();
+		options.createdAt = new Date().toISOString();
+		options.request = new Request(options.request, { headers: { 'User-Agent': 'PetalBot/1.0' } });
+		expect((await serveOgImage(options)).headers.get('x-og-fallback')).toBe('1');
+		expect(options.render).not.toHaveBeenCalled();
+		expect(
+			sqlite.prepare('SELECT daily_attempts FROM og_generation_budget').get()?.daily_attempts
+		).toBe(0);
+		expect(sqlite.prepare('SELECT COUNT(*) AS n FROM og_generation_leases').get()?.n).toBe(0);
+
+		// Cache hits remain usable by crawlers, at both storage layers.
+		objects.set(options.key, tinyPng);
+		const entries = new Map<string, Response>();
+		vi.stubGlobal('caches', {
+			default: {
+				match: async (key: Request) => entries.get(key.url)?.clone(),
+				put: async (key: Request, value: Response) => {
+					entries.set(key.url, value.clone());
+				}
+			}
+		});
+		expect(await (await serveOgImage(options)).arrayBuffer()).toEqual(tinyPng);
+		expect(entries.size).toBe(1);
+		vi.spyOn(options.env.OG_IMAGES!, 'get').mockRejectedValue(new Error('should hit edge'));
+		expect(await (await serveOgImage(options)).arrayBuffer()).toEqual(tinyPng);
+		expect(options.render).not.toHaveBeenCalled();
+	});
+
+	it('passes record creation time to the protected daily allowance', async () => {
+		const { options, sqlite } = setup();
+		vi.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-10-13T12:00:00Z'));
+		options.env.OG_DAILY_GENERATION_LIMIT = '2';
+		options.env.OG_DAILY_NEW_EVENT_RESERVE = '1';
+		await serveOgImage(options);
+		expect((await serveOgImage({ ...options, key: 'old' })).headers.get('x-og-fallback')).toBe('1');
+		expect(
+			(
+				await serveOgImage({
+					...options,
+					key: 'fresh',
+					createdAt: '2026-10-13T01:00:00Z'
+				})
+			).headers.get('x-og-fallback')
+		).toBeNull();
+		expect(
+			(
+				await serveOgImage({
+					...options,
+					key: 'over-cap',
+					createdAt: '2026-10-13T01:00:00Z'
+				})
+			).headers.get('x-og-fallback')
+		).toBe('1');
+		expect(
+			sqlite.prepare('SELECT daily_attempts FROM og_generation_budget').get()?.daily_attempts
+		).toBe(2);
+	});
+
 	it('falls back without rendering for missing bindings/schema and cache outages', async () => {
 		const { options, bucket, sqlite } = setup();
 		vi.spyOn(console, 'error').mockImplementation(() => {});

@@ -1,6 +1,7 @@
 export interface OgBudgetEnv {
 	DB: D1Database;
 	OG_DAILY_GENERATION_LIMIT?: string;
+	OG_DAILY_NEW_EVENT_RESERVE?: string;
 	OG_CYCLE_GENERATION_LIMIT?: string;
 	OG_BILLING_CYCLE_START_DAY?: string;
 }
@@ -11,7 +12,7 @@ export const LEASE_MS = 10 * 60 * 1000;
 
 function limit(value: string | undefined, fallback: number): number {
 	if (value === undefined) return fallback;
-	return /^\d+$/.test(value) && Number.isSafeInteger(Number(value)) ? Number(value) : 0;
+	return /^\d+$/.test(value) && Number.isSafeInteger(Number(value)) ? Number(value) : -1;
 }
 
 export function budgetPeriods(now: number, startDay: number) {
@@ -31,12 +32,36 @@ export function budgetPeriods(now: number, startDay: number) {
  * A denied attempt writes neither a quota row nor a new per-image lease.
  * Counters are monotonically perioded: a delayed old request cannot reset them.
  */
-export async function claimGeneration(env: OgBudgetEnv, key: string, now = Date.now()) {
+export async function claimGeneration(
+	env: OgBudgetEnv,
+	key: string,
+	now = Date.now(),
+	createdAt?: string | null
+) {
 	const dailyLimit = limit(env.OG_DAILY_GENERATION_LIMIT, 20);
 	const cycleLimit = limit(env.OG_CYCLE_GENERATION_LIMIT, 300);
+	const reserve = limit(env.OG_DAILY_NEW_EVENT_RESERVE, 0);
 	const startDay = limit(env.OG_BILLING_CYCLE_START_DAY, 13);
-	if (!dailyLimit || !cycleLimit || startDay < 1 || startDay > 28) return null;
+	if (
+		dailyLimit <= 0 ||
+		cycleLimit <= 0 ||
+		reserve < 0 ||
+		reserve > dailyLimit ||
+		startDay < 1 ||
+		startDay > 28
+	)
+		return null;
 	const { day, cycle } = budgetPeriods(now, startDay);
+	const created = createdAt ? Date.parse(createdAt) : NaN;
+	const createdToday =
+		Number.isFinite(created) &&
+		created <= now &&
+		new Date(created).toISOString().slice(0, 10) === day;
+	// Protect the final slots, not an extra allowance. New events can also use
+	// the shared slots. Record creation time (not startsAt/indexing/edit time)
+	// determines eligibility; absent/invalid/future timestamps get no reserve.
+	const dailyAllowance = createdToday ? dailyLimit : dailyLimit - reserve;
+	if (!dailyAllowance) return null;
 	const token = crypto.randomUUID();
 	const results = await env.DB.batch([
 		env.DB.prepare(
@@ -53,7 +78,21 @@ export async function claimGeneration(env: OgBudgetEnv, key: string, now = Date.
 					SELECT 1 FROM og_generation_leases WHERE image_key = ? AND expires_at > ?
 				)
 		`
-		).bind(day, cycle, day, cycle, token, day, cycle, day, dailyLimit, cycle, cycleLimit, key, now),
+		).bind(
+			day,
+			cycle,
+			day,
+			cycle,
+			token,
+			day,
+			cycle,
+			day,
+			dailyAllowance,
+			cycle,
+			cycleLimit,
+			key,
+			now
+		),
 		env.DB.prepare(
 			`
 			INSERT INTO og_generation_leases (image_key, token, expires_at)

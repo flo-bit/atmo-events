@@ -55,6 +55,8 @@ function evt(
 		ifNoneMatch?: string;
 		method?: string;
 		disabled?: boolean;
+		reserve?: string;
+		userAgent?: string;
 	} = {}
 ) {
 	const actor = opts.actor ?? 'alice.test';
@@ -62,12 +64,16 @@ function evt(
 	const url = new URL(`https://atmo.test/p/${actor}/e/${rkey}/og.png`);
 	const request = new Request(url, {
 		method: opts.method ?? 'GET',
-		headers: opts.ifNoneMatch ? { 'If-None-Match': opts.ifNoneMatch } : undefined
+		headers: {
+			...(opts.ifNoneMatch ? { 'If-None-Match': opts.ifNoneMatch } : {}),
+			...(opts.userAgent ? { 'User-Agent': opts.userAgent } : {})
+		}
 	});
 	Object.assign(env, {
 		DB: database.db,
 		OG_IMAGES: storage.bucket,
 		OG_DAILY_GENERATION_LIMIT: opts.disabled ? '0' : '20',
+		OG_DAILY_NEW_EVENT_RESERVE: opts.reserve ?? '0',
 		ASSETS: {
 			fetch: vi.fn(
 				async (request: Request) =>
@@ -197,6 +203,36 @@ describe('event OG route', () => {
 		expect(res.headers.get('cache-control')).toBe('public, max-age=60, s-maxage=60');
 		expect(Buffer.from(await res.arrayBuffer())).toEqual(staticPng);
 		expect(storage.objects.size).toBe(0);
+	});
+
+	it('uses creation date, not event date, to admit a reserved generation', async () => {
+		vi.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-10-13T12:00:00Z'));
+		mockFlatten.mockReturnValue(
+			flat({
+				createdAt: '2026-10-12T12:00:00Z',
+				startsAt: '2026-10-13T18:00:00Z'
+			})
+		);
+		expect((await GET(evt({ reserve: '20' }))).headers.get('x-og-fallback')).toBe('1');
+		mockFlatten.mockReturnValue(
+			flat({
+				createdAt: '2026-10-13T01:00:00Z',
+				startsAt: '2027-05-01T18:00:00Z'
+			})
+		);
+		expect((await GET(evt({ reserve: '20' }))).headers.get('x-og-fallback')).toBeNull();
+		expect(storage.objects.size).toBe(1);
+	}, 30000);
+
+	it('does not let a crawler generate even a record created today', async () => {
+		mockFlatten.mockReturnValue(flat({ createdAt: new Date().toISOString() }));
+		const res = await GET(evt({ userAgent: 'PetalBot/1.0' }));
+		expect(res.headers.get('x-og-fallback')).toBe('1');
+		expect(storage.objects.size).toBe(0);
+		expect(
+			database.sqlite.prepare('SELECT daily_attempts FROM og_generation_budget').get()
+				?.daily_attempts
+		).toBe(0);
 	});
 
 	it('HEAD does not generate a PNG on a miss', async () => {

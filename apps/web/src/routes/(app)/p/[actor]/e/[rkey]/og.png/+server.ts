@@ -49,6 +49,7 @@ export const GET: RequestHandler = async ({ params, request, fetch: localFetch }
 		key,
 		etag,
 		request,
+		createdAt: eventData.createdAt,
 		waitUntil: waitUntil,
 		fallback: async () => {
 			// Use asset-first delivery, never recurse through the event renderer.
