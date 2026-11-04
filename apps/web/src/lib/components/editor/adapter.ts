@@ -1,5 +1,6 @@
 import { goto } from '$app/navigation';
 import { getRecord, resolveHandle } from '@svelte-atproto/oauth/helper';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/repo.remote.js';
 import { notifyContrailOfUpdate } from '#lib/contrail.js';
 import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
@@ -50,13 +51,17 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			const fresh = await getRecord({
 				did: did as `did:${string}:${string}`,
 				collection: collection as Parameters<typeof getRecord>[0]['collection'],
-				rkey
+				rkey,
+				network: atprotoNetwork()
 			});
 			const value = (fresh as { value?: Record<string, unknown> }).value ?? {};
 			return { value };
 		},
 		async resolveHandle(handle: string) {
-			return resolveHandle({ handle: handle as Parameters<typeof resolveHandle>[0]['handle'] });
+			return resolveHandle({
+				handle: handle as Parameters<typeof resolveHandle>[0]['handle'],
+				network: atprotoNetwork()
+			});
 		},
 		onSaved({ rkey, isNew }) {
 			const handle = handleOrDid(viewer);

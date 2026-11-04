@@ -1,5 +1,6 @@
 import { env, waitUntil } from 'cloudflare:workers';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
+import { atprotoNetwork } from '#lib/atproto/network.js';
 import { error } from '@sveltejs/kit';
 import EventOgImage from './EventOgImage.svelte';
 import Avatar from './avatars';
@@ -77,13 +78,18 @@ export const GET: RequestHandler = async ({ params, request, fetch: localFetch }
 			const photo = media?.content
 				? await Promise.all([
 						loadThumbnail(
-							getCDNImageBlobUrl({ did, blob: media.content }).replace(/@webp$/, '@jpeg')
+							getCDNImageBlobUrl({
+								did,
+								blob: media.content,
+								network: atprotoNetwork()
+							}).replace(/@webp$/, '@jpeg')
 						),
 						loadThumbnail(
 							getCDNImageBlobUrl({
 								did,
 								blob: media.content,
-								preset: 'avatar_thumbnail'
+								preset: 'avatar_thumbnail',
+								network: atprotoNetwork()
 							}).replace(/@webp$/, '@jpeg')
 						).catch(() => null)
 					])

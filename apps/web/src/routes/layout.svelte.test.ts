@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createRawSnippet } from 'svelte';
 import { render } from 'svelte/server';
+import { configureAtproto, getCDNImageBlobUrl } from '@atmo-dev/kit/events-data';
 import Layout from './+layout.svelte';
 import type { AtTagMetadata } from '@atmo-dev/kit/at-tags';
 
@@ -12,6 +13,9 @@ const { page } = vi.hoisted(() => ({
 	}
 }));
 vi.mock('$app/state', () => ({ page }));
+vi.mock('$app/env/public', async () =>
+	(await import('../test/public-env')).publicEnv({ PUBLIC_CDN_URL: 'https://cdn.test/' })
+);
 
 function head() {
 	return render(Layout, {
@@ -23,6 +27,7 @@ beforeEach(() => {
 	page.data = {};
 	page.error = null;
 	page.status = 200;
+	configureAtproto({ appview: 'https://public.api.bsky.app', cdn: 'https://cdn.bsky.app' });
 });
 
 describe('page AT metadata', () => {
@@ -44,5 +49,24 @@ describe('page AT metadata', () => {
 
 	it('leaves discovery and other non-record pages untagged', () => {
 		expect(head()).not.toContain('name="at:');
+	});
+});
+
+describe('root layout', () => {
+	it('points the shared components at the image CDN a setting names', () => {
+		const image = () =>
+			getCDNImageBlobUrl({
+				did: 'did:plc:alice',
+				blob: { $type: 'blob', ref: { $link: 'image-cid' } }
+			});
+		expect(image()).not.toMatch(/^https:\/\/cdn\.test\//);
+
+		// render() is lazy: the layout runs when its body is read.
+		const { body } = render(Layout, {
+			props: { children: createRawSnippet(() => ({ render: () => '<main></main>' })) }
+		});
+		expect(body).toContain('<main></main>');
+
+		expect(image()).toMatch(/^https:\/\/cdn\.test\/img\//);
 	});
 });

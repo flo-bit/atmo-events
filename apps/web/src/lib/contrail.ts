@@ -1,4 +1,5 @@
 import '../lexicon-types/index.js';
+import { serviceUrl } from '#lib/atproto/network.js';
 import type { EventData } from '#lib/event-types.js';
 import type { CityScope } from '#lib/cities.js';
 import type {
@@ -119,7 +120,7 @@ export function getProfileBlobUrl(
 ) {
 	const cid = getBlobCid(blob);
 	if (!cid) return undefined;
-	return `https://cdn.bsky.app/img/${preset}/plain/${did}/${cid}@webp`;
+	return `${serviceUrl('cdn')}/img/${preset}/plain/${did}/${cid}@webp`;
 }
 
 export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRecord | null {

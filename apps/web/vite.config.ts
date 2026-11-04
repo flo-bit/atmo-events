@@ -6,23 +6,37 @@ import { configDefaults, defineConfig } from 'vitest/config';
 import { loadEnv, searchForWorkspaceRoot } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { DEV_PORT } from './src/lib/atproto/settings.ts';
 import { unwasm } from 'unwasm/plugin';
 
 const kitRoot = dirname(dirname(createRequire(import.meta.url).resolve('@atmo-dev/kit/theme.css')));
+const webRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig(({ mode }) => {
-	const { OAUTH_PUBLIC_URL } = loadEnv(mode, process.cwd(), 'OAUTH_PUBLIC_URL');
+	const { OAUTH_PUBLIC_URL, LOCAL_STATE_DIR } = loadEnv(mode, process.cwd(), [
+		'OAUTH_PUBLIC_URL',
+		'LOCAL_STATE_DIR'
+	]);
 	return {
 		plugins: [
 			sveltekit({
 				preprocess: vitePreprocess(),
-				adapter: adapter(),
+				// LOCAL_STATE_DIR, relative to apps/web, keeps the dev server's local D1, KV and R2
+				// somewhere other than .wrangler/state; wrangler's --local --persist-to <it> reads them.
+				// snowglobe.yml sets it, because contrail ties a database to the first Jetstream it
+				// reads, so another atproto network needs a database of its own.
+				adapter: adapter(
+					LOCAL_STATE_DIR
+						? { platformProxy: { persist: { path: resolve(webRoot, LOCAL_STATE_DIR, 'v3') } } }
+						: {}
+				),
 				experimental: { remoteFunctions: true }
 			}),
 			tailwindcss()
 		],
+		// Both entries share the same runtime network settings during development.
+		optimizeDeps: { exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'] },
 		resolve: {
 			alias: {
 				// OAuth 0.4.1 supports Kit 3 but its bundle retains this Kit 2 import.
