@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import { getActor } from '#lib/actor.js';
@@ -41,11 +42,9 @@ export async function load({ params, url }) {
 			?.isAtmosphereconf;
 		const speakers =
 			((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
-				| Array<{ id: string; name: string }>
-				| undefined) ?? [];
+				Array<{ id: string; name: string }> | undefined) ?? [];
 		const vodAtUri = (eventData.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
-			| string
-			| undefined;
+			string | undefined;
 		const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
 		const viewerDid = url.searchParams.get('did') ?? null;
@@ -82,6 +81,7 @@ export async function load({ params, url }) {
 		]);
 
 		return {
+			atTags: recordAtTags(fullEventRecord, parentEvent ? [parentEvent] : []),
 			pageTitle: eventData.name,
 			ogImage: `${url.origin}/p/${params.actor}/e/${rkey}/og.png`,
 			eventData,

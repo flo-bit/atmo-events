@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EventCard } from '@atmo-dev/events-ui';
+	import { EventCard } from '@atmo-dev/kit/events';
 	import { Button, Icon, Modal } from '@atmo-dev/kit';
 	import { CalendarPlus } from '@sketchyicons/svelte';
 	import { createEventModalState } from '#lib/components/CreateEventModal.svelte';

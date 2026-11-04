@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EventCard } from '@atmo-dev/events-ui';
+	import { EventCard } from '@atmo-dev/kit/events';
 	import RecentActivity from '#lib/components/RecentActivity.svelte';
 	import HeroGlobe from '#lib/components/HeroGlobe.svelte';
 	import AtmosphereFeatures from '#lib/components/AtmosphereFeatures.svelte';

@@ -16,6 +16,8 @@ const publicEnvFixture = fileURLToPath(
 export default defineConfig({
 	plugins: [svelte(), tailwindcss()],
 	optimizeDeps: {
+		// Keep shared network settings in one module; Vite also handles MapLibre's worker ?url.
+		exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'],
 		include: [
 			'@sketchyicons/svelte/icons/calendar',
 			'@sketchyicons/svelte/icons/message-circle',

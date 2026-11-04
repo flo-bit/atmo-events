@@ -4,7 +4,7 @@ import { atprotoNetwork } from '#lib/atproto/network.js';
 import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/repo.remote.js';
 import { notifyContrailOfUpdate } from '#lib/contrail.js';
 import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
-import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/events-ui';
+import type { EditorAdapter, EditorBlobRef, EditorViewer } from '@atmo-dev/kit/events-data';
 import { createLinkedRecordsClient } from './linked-records.js';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };

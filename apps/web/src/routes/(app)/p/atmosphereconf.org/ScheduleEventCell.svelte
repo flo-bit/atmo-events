@@ -9,8 +9,8 @@
 	} from './schedule-utils';
 	import { Check, Star, Video } from '@sketchyicons/svelte';
 	import { Modal, Button, Icon } from '@atmo-dev/kit';
-	import { EventRsvp } from '@atmo-dev/events-ui';
-	import { VodPlayer } from '@atmo-dev/events-ui';
+	import { EventRsvp } from '@atmo-dev/kit/events';
+	import { VodPlayer } from '@atmo-dev/kit/events';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
 

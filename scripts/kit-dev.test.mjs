@@ -63,6 +63,9 @@ function kit(directory, source) {
 	write(join(directory, 'dist/index.js'), `export const source = '${source}';\n`);
 	write(join(directory, 'dist/index.d.ts'), 'export declare const source: string;\n');
 	write(join(directory, 'dist/theme.css'), '/* fixture theme */\n');
+	for (const file of ['events.js', 'events-data.js', 'events-editor.js']) {
+		write(join(directory, 'dist', file), 'export {};\n');
+	}
 }
 
 test(
@@ -70,10 +73,10 @@ test(
 	{ timeout: 120_000 },
 	async (t) => {
 		const directory = mkdtempSync(join(tmpdir(), 'atmo-kit-dev-'));
-		const root = join(directory, '02-app');
+		const root = join(directory, '02-app/app');
 		const checkout = join(directory, '00-atmo-kit/kit');
 		const packedKit = join(directory, 'packed-kit');
-		const consumers = ['apps/web', 'packages/ui'];
+		const consumers = ['apps/web', 'packages/auxiliary'];
 		const run = (args, env) => success(args, root, env);
 		try {
 			const version = success(['--version'], directory).trim();
@@ -104,10 +107,10 @@ test(
 			manifest(join(root, 'apps/web/package.json'), {
 				name: '@fixture/web',
 				private: true,
-				dependencies: { '@atmo-dev/kit': dependency, '@fixture/ui': 'workspace:*' }
+				dependencies: { '@atmo-dev/kit': dependency, '@fixture/auxiliary': 'workspace:*' }
 			});
-			manifest(join(root, 'packages/ui/package.json'), {
-				name: '@fixture/ui',
+			manifest(join(root, 'packages/auxiliary/package.json'), {
+				name: '@fixture/auxiliary',
 				version: '1.0.0',
 				devDependencies: { '@atmo-dev/kit': dependency },
 				peerDependencies: { '@atmo-dev/kit': '^0.0.2' }
@@ -180,11 +183,11 @@ test(
 			await t.test('ATMO_KIT_PATH supports relative paths with spaces', () => {
 				const alternate = join(directory, 'another kit checkout');
 				kit(alternate, 'alternate');
-				run(['kit:local'], { ATMO_KIT_PATH: '../another kit checkout' });
+				run(['kit:local'], { ATMO_KIT_PATH: '../../another kit checkout' });
 				local(alternate);
 			});
 			await t.test('both the command and direct hook invocation refuse local mode in CI', () => {
-				const env = { CI: 'true', ATMO_KIT_PATH: '../another kit checkout' };
+				const env = { CI: 'true', ATMO_KIT_PATH: '../../another kit checkout' };
 				failure(['kit:local'], root, /disabled in CI/, env);
 				failure(
 					['install', '--pnpmfile=./scripts/kit-local.pnpmfile.cjs'],

@@ -36,6 +36,7 @@ export async function load({ params, url }) {
 	return withOngoing(
 		{
 			...page,
+			atTags: profile ? { me: [`at://${profile.did}`] } : undefined,
 			pageTitle: `Upcoming Events - ${profile?.value?.displayName || profile?.handle || did}`,
 			actorProfile: profile,
 			actor,

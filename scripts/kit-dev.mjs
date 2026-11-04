@@ -19,7 +19,7 @@ try {
 		console.log(`Using local kit: ${localHook.localKitPath()}`);
 		args.push(`--pnpmfile=${join(root, 'scripts/kit-local.pnpmfile.cjs')}`);
 	} else {
-		console.log('Restoring the published kit from pnpm-lock.yaml.');
+		console.log('Restoring the committed kit dependency from pnpm-lock.yaml.');
 		args.push('--frozen-lockfile');
 	}
 

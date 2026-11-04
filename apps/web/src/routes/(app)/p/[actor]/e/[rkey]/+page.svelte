@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EventView, StarterPackButton } from '@atmo-dev/events-ui';
+	import { EventView, StarterPackButton } from '@atmo-dev/kit/events';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
 	import { page } from '$app/state';

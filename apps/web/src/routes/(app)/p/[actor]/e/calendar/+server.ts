@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getEventThumbnail } from '@atmo-dev/events-ui';
+import { getEventThumbnail } from '@atmo-dev/kit/events-data';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
 import { atprotoNetwork } from '#lib/atproto/network.js';
 import { getActor } from '#lib/actor.js';

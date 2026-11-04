@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
@@ -18,11 +19,7 @@ import {
 import { getServerClient } from '#lib/contrail/index.js';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '#lib/vods.js';
-import {
-	isConferenceEvent,
-	getParentEventRef,
-	parseEventUri
-} from '@atmo-dev/events-ui/conference';
+import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -194,6 +191,10 @@ export async function load({ params, locals, url }) {
 	}
 
 	return {
+		atTags: recordAtTags(fullEventRecord, [
+			...(parentEvent ? [parentEvent] : []),
+			...conferenceTalks
+		]),
 		pageTitle: eventData.name,
 		reportSubject: eventData.cid
 			? {

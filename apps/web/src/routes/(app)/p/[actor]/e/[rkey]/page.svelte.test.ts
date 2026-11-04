@@ -29,6 +29,10 @@ function markup(
 		render(EventPage, {
 			props: {
 				data: {
+					atTags: {
+						canonical: ['at://did:plc:host/community.lexicon.calendar.event/event'],
+						author: ['at://did:plc:host']
+					},
 					canPostToBluesky: false,
 					isModerator: false,
 					did: null,

@@ -61,6 +61,10 @@ export async function load({ locals, fetch }) {
 		: [undefined, undefined];
 
 	return {
+		atTags: {
+			me: profile ? [`at://${profile.did}`] : [],
+			alternate: events.map((event) => event.uri)
+		},
 		pageTitle: profile?.value?.displayName || profile?.handle || 'ATmosphereConf',
 		hostProfile: profile,
 		blueskyProfile,

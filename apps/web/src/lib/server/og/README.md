@@ -31,19 +31,19 @@ Locally, a card takes ~60–90 ms CPU warm and ~0.2–0.3 s cold, down from ~1.3
 
 Configured in `wrangler.jsonc`:
 
-- `OG_DAILY_GENERATION_LIMIT=200` (UTC day).
-- `OG_CYCLE_GENERATION_LIMIT=3000` (billing cycle, not calendar month).
+- `OG_DAILY_GENERATION_LIMIT=500` (UTC day).
+- `OG_CYCLE_GENERATION_LIMIT=6000` (billing cycle, not calendar month).
 - `OG_BILLING_CYCLE_START_DAY=13` (UTC; supported range 1–28).
 
 Attempts, including failed rendering/PUTs, consume quota. Set either limit to `0` to disable **new generation**, while keeping cached images available. Invalid settings fail closed. Do not reset/delete the budget row in production or during deployment; the schema setup is idempotent and preserves counters.
 
-At an estimated 0.2–0.8 s CPU per Takumi render (measured locally; check production analytics), 3,000 attempts correspond to roughly 0.6–2.4 million CPU-ms (2–8% of the 30M monthly allowance). Real demand was ~40 new cards/day in October 2026. This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
+At an estimated 0.2–0.8 s CPU per Takumi render (measured locally; check production analytics), 6,000 attempts correspond to roughly 1.2–4.8 million CPU-ms (4–16% of the 30M monthly allowance). Real demand was ~40 new cards/day in October 2026. This is an attempt limit, **not a CPU/billing cap**. Requests, actor resolution, D1/R2 operations and other account workloads still count. The 10-minute lease prevents ordinary concurrent generation and backs off crashed/failed attempts; expired leases allow recovery. A render exceeding that lease can overlap a retry, but both still consume global quota. Successful admissions prune expired leases; denied distinct URLs do not insert lease rows.
 
 ## Storage and fonts
 
 R2 keys are `og/v3/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
 
-Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. Cards average ~150–350 KB (capped at 2 MiB), so a fully used 3,000-render cycle is ~1 GB and 90 days of retention ~3 GB, within R2's 10 GB allowance shared with other buckets; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
+Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. Cards average ~150–350 KB (capped at 2 MiB), so a fully used 6,000-render cycle is ~2 GB and 90 days of retention ~6 GB, within R2's 10 GB allowance shared with other buckets; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
 
 The bundled Noto Sans regular/bold fonts are registered with each renderer. `fonts.ts` decodes the inline assets once per isolate; no font requests are needed in production. Source: `https://cdn-sveltekit-og.ethercorps.io/NotoSans-{Regular,Bold}.ttf`. Their SIL Open Font License is in `fonts/LICENSE`.
 

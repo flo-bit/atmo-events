@@ -23,7 +23,7 @@ import {
 	listAuthoredEventsFromContrail,
 	listDiscoverableEventsFromContrail
 } from '#lib/contrail.js';
-import type { FlatEventRecord } from '@atmo-dev/events-ui';
+import type { FlatEventRecord } from '@atmo-dev/kit/events-data';
 
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 const mockAuthored = vi.mocked(listAuthoredEventsFromContrail);

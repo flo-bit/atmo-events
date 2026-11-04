@@ -5,4 +5,4 @@ export {
 	randomAccentColor,
 	themeBackgrounds,
 	type EventTheme
-} from '@atmo-dev/events-ui';
+} from '@atmo-dev/kit/events-data';

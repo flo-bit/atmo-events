@@ -2,7 +2,7 @@
 	import { getProfileBlobUrl, type FlatEventRecord } from '#lib/contrail.js';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { Button, UserProfile, blueskyProfileToProfileData } from '@atmo-dev/kit';
-	import { EventCard, getLocalProfileUrl } from '@atmo-dev/events-ui';
+	import { EventCard, getLocalProfileUrl } from '@atmo-dev/kit/events';
 	import HappeningNow from '#lib/components/HappeningNow.svelte';
 	import ProfileEvents from '#lib/components/ProfileEvents.svelte';
 	import { resolve } from '$app/paths';

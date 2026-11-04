@@ -85,6 +85,13 @@ beforeEach(() => {
 });
 
 describe('profile page load', () => {
+	it('returns DID-based AT metadata for a handle-addressed profile', async () => {
+		const uri = 'at://did:plc:alice/app.bsky.actor.profile/self';
+		mockProfile.mockResolvedValueOnce({ did: 'did:plc:alice', uri } as never);
+		const data = await load(request());
+		expect(data?.atTags).toEqual({ alternate: [uri], me: ['at://did:plc:alice'] });
+	});
+
 	it('loads the combined calendar only for the authenticated profile owner', async () => {
 		const personalEvents = { upcoming: [event('at://interested/1')], past: [] };
 		vi.mocked(getPersonalEvents).mockResolvedValueOnce(personalEvents as never);

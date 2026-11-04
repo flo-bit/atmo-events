@@ -2,7 +2,7 @@
 	import { getProfileBlobUrl } from '#lib/contrail.js';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { UserProfile, blueskyProfileToProfileData } from '@atmo-dev/kit';
-	import { getLocalProfileUrl } from '@atmo-dev/events-ui';
+	import { getLocalProfileUrl } from '@atmo-dev/kit/events';
 	import { ArrowDown } from '@sketchyicons/svelte';
 	import { Button, Icon, ToggleGroup, ToggleGroupItem } from '@atmo-dev/kit';
 	import DaySchedule from './DaySchedule.svelte';

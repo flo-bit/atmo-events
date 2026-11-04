@@ -4,8 +4,8 @@ import {
 	isLinkedRecord,
 	parseGrainLink,
 	parseStreamplaceLink
-} from '@atmo-dev/events-ui/linked-records';
-import { buildEventRecord } from '@atmo-dev/events-ui/editor/save';
+} from '@atmo-dev/kit/events-data';
+import { buildEventRecord } from '@atmo-dev/kit/events/editor';
 
 const did = 'did:plc:abcdefghijklmnopqrstuvwx';
 describe('linked record URLs', () => {

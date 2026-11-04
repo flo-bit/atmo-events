@@ -9,7 +9,7 @@ import {
 	listConferenceTalksFromContrail
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
-import { isConferenceEvent } from '@atmo-dev/events-ui/conference';
+import { isConferenceEvent } from '@atmo-dev/kit/events-data';
 
 export async function load({ params, locals }) {
 	const client = getServerClient(env.DB);

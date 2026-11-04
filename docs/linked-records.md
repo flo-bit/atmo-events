@@ -12,7 +12,7 @@ The event page places albums in **Photos**, alongside About and Comments. Galler
 
 `@atmo-dev/kit` owns the reusable PhotoGrid, PhotoLightbox, GrainAlbumPicker, GrainAlbumView and StreamplacePicker. Components take data/callbacks and never import event types, EditorAdapter, app routes or Cloudflare code. Grain parsing, normalized data types and the current XRPC adapter live in Kit’s framework-free `@atmo-dev/kit/grain` entry point.
 
-RSVP owns the linked-record menu, event `uris` updates, deduplication, one-stream replacement, tab composition and `EditorAdapter.linkedRecords`. The web app’s `createLinkedRecordsClient` calls its own `/api/linked-records` route. That route wraps Kit’s `createGrainXrpcClient` with Cloudflare caching. Both the signed-in app and Blento embed use this HTTP adapter; other event-UI hosts can supply their own reads.
+`@atmo-dev/kit/events` owns the linked-record menu, event `uris` updates, deduplication, one-stream replacement and tab composition. Its adapter contract is exported from `@atmo-dev/kit/events-data`. RSVP supplies `EditorAdapter.linkedRecords`: the web app’s `createLinkedRecordsClient` calls its own `/api/linked-records` route. That route wraps Kit’s `createGrainXrpcClient` with Cloudflare caching. Both the signed-in app and Blento embed use this HTTP adapter; other event-UI hosts can supply their own reads.
 
 The shared `GrainClient` contract uses `getGallery(reference)` and `listAlbums(actor, cursor?)`. It is independent of Grain.social’s wire format: atmo.pics can supply a Contrail-backed implementation later without changing the UI or event records. For now, reads still use Grain.social’s public XRPC endpoints:
 
@@ -23,7 +23,7 @@ Only these fixed upstream endpoints are fetched. Responses are normalized, image
 
 ## Coordinated Kit development
 
-These new Kit APIs require a coordinated Kit release before switching RSVP back to registry dependencies. Until published, build and use the packaged local checkout (no source aliases or committed file dependencies):
+RSVP uses the published `@atmo-dev/kit@0.6.0` release. For local iteration, build and use the packaged checkout without changing the committed dependency:
 
 ```sh
 # From 11-atproto/
@@ -32,4 +32,4 @@ cd 08-atmo-rsvp/atmo-rsvp
 ATMO_KIT_PATH=../../00-atmo-kit/kit corepack pnpm kit:local
 ```
 
-Restart any running RSVP dev server after changing Kit mode. Local mode changes `node_modules` only and preserves the registry lockfile. After Kit publication, update the app dependency and events-ui peer range to that published version, then use `corepack pnpm kit:registry`.
+Restart any running RSVP dev server after changing Kit mode. Local mode changes `node_modules` only and preserves the committed lockfile. `corepack pnpm kit:registry` restores the published version from the lockfile. There is no separate events-ui package or peer range to maintain.

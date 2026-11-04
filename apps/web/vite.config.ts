@@ -35,11 +35,12 @@ export default defineConfig(({ mode }) => {
 			}),
 			tailwindcss()
 		],
+		// Both entries share the same runtime network settings during development.
+		optimizeDeps: { exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'] },
 		resolve: {
 			alias: {
 				// OAuth 0.4.1 supports Kit 3 but its bundle retains this Kit 2 import.
 				'$app/environment': '$app/env',
-				'@atmo-dev/events-ui': fileURLToPath(new URL('../../packages/ui/src', import.meta.url)),
 				...(process.env.VITEST
 					? {
 							'cloudflare:workers': fileURLToPath(
