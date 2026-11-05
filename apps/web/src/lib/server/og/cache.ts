@@ -1,4 +1,5 @@
 import { claimGeneration, pruneExpiredLeases, releaseGeneration, type OgBudgetEnv } from './budget';
+import { canGenerateForRequest } from './request-policy';
 
 // Bump whenever layout, fonts, date formatting or image selection changes.
 export const OG_TEMPLATE_VERSION = 'v4';
@@ -68,6 +69,8 @@ export interface OgImageOptions {
 	key: string;
 	etag: string;
 	request: Request;
+	/** Event record creation time; never startsAt or request-supplied data. */
+	createdAt?: string | null;
 	render: () => Promise<ArrayBuffer>;
 	fallback: () => Promise<Response>;
 	waitUntil?: (promise: Promise<unknown>) => void;
@@ -131,8 +134,9 @@ export async function serveOgImage(options: OgImageOptions): Promise<Response> {
 		console.error('[og] cache read failed; using static preview', cause);
 		return fallback();
 	}
-	// HEAD requests must not generate images.
-	if (request.method === 'HEAD') return fallback();
+	// HEAD and bulk crawlers must not generate or join a pending render.
+	// Keep this AFTER cache reads so stored previews remain available to both.
+	if (request.method === 'HEAD' || !canGenerateForRequest(request)) return fallback();
 
 	let pending = pendingByBucket.get(bucket);
 	if (!pending) pendingByBucket.set(bucket, (pending = new Map()));
@@ -149,7 +153,7 @@ export async function serveOgImage(options: OgImageOptions): Promise<Response> {
 async function generate(options: OgImageOptions, bucket: R2Bucket): Promise<ArrayBuffer | null> {
 	const { env, key, render } = options;
 	try {
-		const token = await claimGeneration(env, key);
+		const token = await claimGeneration(env, key, Date.now(), options.createdAt);
 		if (!token) return null;
 		// Another isolate could have completed its PUT between our first GET and
 		// the claim. R2 is strongly consistent; recheck before expensive rendering.

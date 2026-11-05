@@ -25,6 +25,7 @@
 		"BOT_IDENTIFIER": "going.atmo.rsvp",
 		"BOT_PDS_URL": "https://eurosky.social",
 		"OG_DAILY_GENERATION_LIMIT": "500",
+		"OG_DAILY_NEW_EVENT_RESERVE": "100",
 		"OG_CYCLE_GENERATION_LIMIT": "6000",
 		"OG_BILLING_CYCLE_START_DAY": "13"
 	},

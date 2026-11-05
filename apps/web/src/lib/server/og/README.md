@@ -8,11 +8,11 @@ The public URL remains `/p/[actor]/e/[rkey]/og.png`. Both blur effects are uncha
 2. Compute a SHA-256 version from template version, DID, rkey, and event CID. When CID is absent, use all image-dependent content instead. Handle/DID aliases share stored images.
 3. A matching event ETag returns 304 without rendering. HEAD never generates an image.
 4. Read immutable versioned PNG bytes from the local edge cache, then R2.
-5. On a miss, coalesce locally and atomically claim a **global** quota slot and per-image lease using D1 `batch()`. A different isolate with an active lease serves a short-lived static preview rather than duplicating rendering.
+5. On a miss, identifiable bulk/AI/search crawlers get the static preview without rendering, spending quota, or acquiring a lease. Other clients coalesce locally and atomically claim a **global** quota slot and per-image lease using D1 `batch()`. The final daily slots are reserved for records created that UTC day. A different isolate with an active lease serves a short-lived static preview rather than duplicating rendering.
 6. Recheck R2, generate if still missing, consume the complete PNG stream, and **await R2 PUT before responding/releasing the lease**. PNG payloads are capped at 2 MiB. Remote thumbnails have a 5-second deadline and 2 MiB cap; title layout input is limited to 280 UTF-16 code units.
 7. Missing bindings/schema, denied quota, thumbnail/render failures, and R2 errors serve the existing `/og.png`. There is **no uncapped rendering bypass**, including in local development.
 
-The public event image retains `max-age=300, s-maxage=3600, stale-while-revalidate=86400`. The internal versioned edge entry has a 24-hour TTL. Static fallbacks have a 60-second TTL and **no event ETag**. Social platforms may maintain their own caches beyond these headers.
+The public event image uses `no-store` so every request passes the current visibility check. The internal versioned edge entry has a 24-hour TTL. Static fallbacks have a 60-second TTL and **no event ETag**. Social platforms may maintain their own caches beyond these headers.
 
 ## Rendering
 
@@ -32,8 +32,13 @@ Locally, a card takes ~60–90 ms CPU warm and ~0.2–0.3 s cold, down from ~1.3
 Configured in `wrangler.jsonc`:
 
 - `OG_DAILY_GENERATION_LIMIT=500` (UTC day).
+- `OG_DAILY_NEW_EVENT_RESERVE=100` (part of the daily total, not extra; defaults to `0` when omitted).
 - `OG_CYCLE_GENERATION_LIMIT=6000` (billing cycle, not calendar month).
 - `OG_BILLING_CYCLE_START_DAY=13` (UTC; supported range 1–28).
+
+Once the total daily counter reaches 400, only events with a valid record `createdAt` on the current UTC day, not later than the request, can generate. New events may also use the shared first 400 slots; 500 remains the absolute daily maximum. This uses **creation time**, not the scheduled event date, edit time, or indexing time. Missing/invalid/future creation timestamps are ineligible for the reserve. The timestamp is public author-supplied record data, not an abuse-proof creation attestation. The billing-cycle cap still applies to all generations; there is no extra cycle reserve. A reserve outside `0..daily limit` or invalid configuration fails closed.
+
+Crawler policy in `request-policy.ts` uses Cloudflare's verified category when available and user-agent detection otherwise. Known bulk/AI/search crawlers cannot trigger **any** generation, including reserved generations, but still receive existing edge/R2 images. Social preview clients (Bluesky, Mastodon, Twitter, Discord, Slack, etc.) and browsers can generate within the same budgets. Detection is best-effort, not authentication: disguised crawlers can get through, and the atomic limits remain the protection. No extra headers or query parameters can opt a request into the reserve.
 
 Attempts, including failed rendering/PUTs, consume quota. Set either limit to `0` to disable **new generation**, while keeping cached images available. Invalid settings fail closed. Do not reset/delete the budget row in production or during deployment; the schema setup is idempotent and preserves counters.
 
@@ -41,7 +46,7 @@ At an estimated 0.2–0.8 s CPU per Takumi render (measured locally; check produ
 
 ## Storage and fonts
 
-R2 keys are `og/v3/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
+R2 keys are `og/v4/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
 
 Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. Cards average ~150–350 KB (capped at 2 MiB), so a fully used 6,000-render cycle is ~2 GB and 90 days of retention ~6 GB, within R2's 10 GB allowance shared with other buckets; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
 
@@ -78,6 +83,8 @@ pnpm check
 pnpm build
 ```
 
-Tests cover full PNG consumption/signature/dimensions, repeat reads, conditional GET, HEAD, changed event versions, local and global concurrency, many distinct misses, UTC daily/cycle rollover, atomic transaction rollback, failure cooldowns, disabled/missing infrastructure and internal-vs-public cache headers.
+Tests cover full PNG consumption/signature/dimensions, repeat reads, conditional GET, HEAD, changed event versions, local and global concurrency, many distinct misses, UTC daily/cycle rollover, creation-date reservation, crawler misses versus cache hits, social-preview clients, atomic transaction rollback, failure cooldowns, disabled/missing infrastructure and internal-vs-public cache headers.
+
+This admission-policy change needs no D1 migration or template-version bump: deploy the Worker with the new reserve variable, preserving all existing counters and cached images. If today's 500 slots have already been spent, the reserve cannot recover them retroactively; it takes effect with the next UTC daily rollover.
 
 After deployment, test real requests at multiple Cloudflare locations and inspect D1 counters and several complete UTC days of account CPU/R2/request usage. Cached social previews must remain usable after quotas are exhausted. Existing event pages and cron behavior are unchanged.

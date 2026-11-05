@@ -43,6 +43,89 @@ describe('atomic global generation budget', () => {
 		expect(sqlite.prepare('SELECT COUNT(*) AS n FROM og_generation_leases').get()?.n).toBe(3);
 	});
 
+	it('atomically reserves the last 100 of 500 daily slots for records created today', async () => {
+		const { db, sqlite } = setup();
+		const env = {
+			DB: db,
+			OG_DAILY_GENERATION_LIMIT: '500',
+			OG_DAILY_NEW_EVENT_RESERVE: '100',
+			OG_CYCLE_GENERATION_LIMIT: '6000'
+		};
+		const old = await Promise.all(
+			Array.from({ length: 450 }, (_, i) =>
+				claimGeneration(env, `old-${i}`, now, '2026-10-12T12:00:00Z')
+			)
+		);
+		expect(old.filter(Boolean)).toHaveLength(400);
+		const fresh = await Promise.all(
+			Array.from({ length: 150 }, (_, i) =>
+				claimGeneration(env, `new-${i}`, now, '2026-10-13T01:00:00Z')
+			)
+		);
+		expect(fresh.filter(Boolean)).toHaveLength(100);
+		expect(
+			sqlite.prepare('SELECT daily_attempts FROM og_generation_budget').get()?.daily_attempts
+		).toBe(500);
+		expect(sqlite.prepare('SELECT COUNT(*) AS n FROM og_generation_leases').get()?.n).toBe(500);
+	});
+
+	it('allows new events to use shared slots too, without raising the total or cycle cap', async () => {
+		const { db } = setup();
+		const env = {
+			DB: db,
+			OG_DAILY_GENERATION_LIMIT: '5',
+			OG_DAILY_NEW_EVENT_RESERVE: '2',
+			OG_CYCLE_GENERATION_LIMIT: '4'
+		};
+		expect(await claimGeneration(env, 'fresh-first', now, '2026-10-13T00:00:00Z')).toBeTruthy();
+		expect(await claimGeneration(env, 'old-1', now)).toBeTruthy();
+		expect(await claimGeneration(env, 'old-2', now)).toBeTruthy();
+		expect(await claimGeneration(env, 'old-3', now)).toBeNull();
+		expect(await claimGeneration(env, 'fresh-reserved', now, '2026-10-13T00:00:00Z')).toBeTruthy();
+		expect(await claimGeneration(env, 'cycle-full', now, '2026-10-13T00:00:00Z')).toBeNull();
+	});
+
+	it('uses UTC record creation time and rejects absent, invalid and future reserve timestamps', async () => {
+		const { db } = setup();
+		const env = { DB: db, OG_DAILY_GENERATION_LIMIT: '2', OG_DAILY_NEW_EVENT_RESERVE: '2' };
+		for (const createdAt of [
+			undefined,
+			null,
+			'',
+			'bad',
+			'2026-10-12T23:59:59Z',
+			'2026-10-13T23:00:00Z',
+			'2026-10-13T00:30:00+02:00'
+		]) {
+			expect(await claimGeneration(env, String(createdAt), now, createdAt)).toBeNull();
+		}
+		expect(await claimGeneration(env, 'UTC-today', now, '2026-10-12T23:30:00-02:00')).toBeTruthy();
+		expect(await claimGeneration(env, 'midnight', now, '2026-10-13T00:00:00Z')).toBeTruthy();
+		const tomorrow = now + 86400000;
+		expect(
+			await claimGeneration(env, 'yesterday-now', tomorrow, '2026-10-13T01:00:00Z')
+		).toBeNull();
+		expect(await claimGeneration(env, 'tomorrow', tomorrow, '2026-10-14T01:00:00Z')).toBeTruthy();
+	});
+
+	it.each(['-1', 'bad', '1.2', '9007199254740992', '21'])(
+		'fails closed on invalid reserve %s',
+		async (reserve) => {
+			const { db, sqlite } = setup();
+			expect(
+				await claimGeneration(
+					{ DB: db, OG_DAILY_NEW_EVENT_RESERVE: reserve },
+					'new',
+					now,
+					'2026-10-13T00:00:00Z'
+				)
+			).toBeNull();
+			expect(
+				sqlite.prepare('SELECT daily_attempts FROM og_generation_budget').get()?.daily_attempts
+			).toBe(0);
+		}
+	);
+
 	it('retains failed/crashed attempts in the quota, with an expiring lease', async () => {
 		const { db, sqlite } = setup();
 		expect(await claimGeneration({ DB: db }, 'failed', now)).toBeTruthy();
