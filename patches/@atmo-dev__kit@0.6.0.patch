@@ -1,5 +1,5 @@
 diff --git a/dist/events/EventCard.svelte b/dist/events/EventCard.svelte
-index 6743267686cdd245163d2740f268ad30f3b040f6..04b5ec1092252088032d61e733d761a3b2b652df 100644
+index 6743267686cdd245163d2740f268ad30f3b040f6..747187b915476e0b5b78ffe023312fa26937eeb8 100644
 --- a/dist/events/EventCard.svelte
 +++ b/dist/events/EventCard.svelte
 @@ -1,6 +1,6 @@
@@ -10,7 +10,22 @@ index 6743267686cdd245163d2740f268ad30f3b040f6..04b5ec1092252088032d61e733d761a3
  	import { eventUrl, isEventOngoing, type FlatEventRecord } from './contrail.js';
  	import Avatar from 'svelte-boring-avatars';
  	import { Badge, Icon } from '../index.js';
-@@ -75,7 +75,7 @@
+@@ -9,10 +9,13 @@
+ 
+ 	let {
+ 		event,
+-		actor
++		actor,
++		href
+ 	}: {
+ 		event: FlatEventRecord;
+ 		actor?: string;
++		/** Where the card links, for an event whose page is not its creator's. */
++		href?: string;
+ 	} = $props();
+ 
+ 	function formatDateTime(dateStr: string): string {
+@@ -75,7 +78,7 @@
  			if (url) return { url, alt: banner.alt || event.name };
  		}
  
@@ -19,6 +34,28 @@ index 6743267686cdd245163d2740f268ad30f3b040f6..04b5ec1092252088032d61e733d761a3
  	}
  
  	let thumbnail = $derived(getThumbnail(event));
+@@ -85,7 +88,7 @@
+ </script>
+ 
+ <a
+-	href={eventUrl(event, actor)}
++	href={href ?? eventUrl(event, actor)}
+ 	class="group grid grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-ui outline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-focus sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-3.5"
+ >
+ 	<div class="w-full">
+diff --git a/dist/events/EventCard.svelte.d.ts b/dist/events/EventCard.svelte.d.ts
+index 87e8baa6026ed52c9ca4f1f25579de5686d76e12..f919451309b4611575e49ea0ea9d55ffbf1ba105 100644
+--- a/dist/events/EventCard.svelte.d.ts
++++ b/dist/events/EventCard.svelte.d.ts
+@@ -2,6 +2,8 @@ import { type FlatEventRecord } from './contrail.js';
+ type $$ComponentProps = {
+     event: FlatEventRecord;
+     actor?: string;
++    /** Where the card links, for an event whose page is not its creator's. */
++    href?: string;
+ };
+ declare const EventCard: import("svelte").Component<$$ComponentProps, {}, "">;
+ type EventCard = ReturnType<typeof EventCard>;
 diff --git a/dist/events/EventComments.svelte b/dist/events/EventComments.svelte
 index 3781751f9ea2c4296760e5f9d798e334af4ae034..4abae2802e3d03ffb152b0cee9d70a774b58d4f2 100644
 --- a/dist/events/EventComments.svelte
@@ -39,8 +76,110 @@ index 3781751f9ea2c4296760e5f9d798e334af4ae034..4abae2802e3d03ffb152b0cee9d70a77
  				{ signal }
  			);
  			if (!res.ok) throw new Error(`Failed to load thread (${res.status})`);
+diff --git a/dist/events/EventEditor.svelte b/dist/events/EventEditor.svelte
+index 38dfdf6e0995131ce1b1fa84bca533eba9e7d9c3..5de230a30e98423db26d8f97f34c497f6bf9558a 100644
+--- a/dist/events/EventEditor.svelte
++++ b/dist/events/EventEditor.svelte
+@@ -94,6 +94,7 @@
+ 	let selectedPreset: string | null = $state(
+ 		initialThumbnailFile ? null : eventData === null ? DEFAULT_PRESET : null
+ 	);
++	let images = $derived(adapter.features.images !== false);
+ 	let submitting = $state(false);
+ 	let error: string | null = $state(null);
+ 	let titleEditor = $state<Editor | null>(null);
+@@ -132,7 +133,7 @@
+ 	}
+ 
+ 	function populateThumbnailFromEventData() {
+-		if (!eventData) return;
++		if (!eventData || !images) return;
+ 		if (eventData.media && eventData.media.length > 0) {
+ 			const media = getEventThumbnail(eventData.media);
+ 			if (media?.content) {
+@@ -215,7 +216,7 @@
+ 
+ 		try {
+ 			// Generate thumbnail from preset if selected and no custom upload
+-			if (selectedPreset && !thumbnailFile) {
++			if (images && selectedPreset && !thumbnailFile) {
+ 				const rendered = await renderPresetThumbnail({
+ 					design: selectedPreset,
+ 					seed: hashSeed(rkey),
+@@ -230,14 +231,18 @@
+ 			}
+ 
+ 			const existingMedia = (eventData?.media ?? []) as Array<Record<string, unknown>>;
+-			const media = await buildThumbnailMedia({
+-				isNew,
+-				thumbnailChanged,
+-				thumbnailFile,
+-				existingMedia,
+-				uploadBlob: (blob) =>
+-					adapter.uploadBlob(blob) as unknown as Promise<Record<string, unknown>>
+-			});
++			const media = images
++				? await buildThumbnailMedia({
++						isNew,
++						thumbnailChanged,
++						thumbnailFile,
++						existingMedia,
++						uploadBlob: (blob) =>
++							adapter.uploadBlob(blob) as unknown as Promise<Record<string, unknown>>
++					})
++				: existingMedia.length > 0
++					? existingMedia
++					: undefined;
+ 
+ 			const record = await buildEventRecord({
+ 				eventData,
+@@ -329,16 +334,18 @@
+ 				<div
+ 					class="grid grid-cols-1 gap-8 md:grid-cols-[14rem_1fr] md:gap-x-10 md:gap-y-6 lg:grid-cols-[16rem_1fr]"
+ 				>
+-					<ThumbnailSection
+-						{rkey}
+-						{name}
+-						dateStr={thumbnailDateStr}
+-						accent={eventTheme.accentColor}
+-						bind:thumbnailFile
+-						bind:thumbnailPreview
+-						bind:thumbnailChanged
+-						bind:selectedPreset
+-					/>
++					{#if images}
++						<ThumbnailSection
++							{rkey}
++							{name}
++							dateStr={thumbnailDateStr}
++							accent={eventTheme.accentColor}
++							bind:thumbnailFile
++							bind:thumbnailPreview
++							bind:thumbnailChanged
++							bind:selectedPreset
++						/>
++					{/if}
+ 
+ 					<!-- Right column: event details -->
+ 					<div class="order-2 min-w-0 md:order-0 md:col-start-2 md:row-span-5 md:row-start-1">
+@@ -374,6 +381,7 @@
+ 						</div>
+ 
+ 						<!-- Visibility toggle -->
++						{#if adapter.features.visibility !== false}
+ 						<div class="mb-8">
+ 							<ToggleGroup
+ 								type="single"
+@@ -397,6 +405,7 @@
+ 								{/if}
+ 							</div>
+ 						</div>
++						{/if}
+ 
+ 						<!-- Date row -->
+ 						<div class="mb-5 grid min-w-0 gap-2">
 diff --git a/dist/events/EventView.svelte b/dist/events/EventView.svelte
-index 72574d6ebe421f58002ac79c348771cef617da0a..a41d99d000757c11e170dc300c0733c0a9ec2592 100644
+index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f99addd93 100644
 --- a/dist/events/EventView.svelte
 +++ b/dist/events/EventView.svelte
 @@ -2,7 +2,7 @@
@@ -52,7 +191,25 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a41d99d000757c11e170dc300c0733c0
  	import { Button, ToggleGroup, ToggleGroupItem } from '../index.js';
  	import ShareModal from './ShareModal.svelte';
  	import EventComments from './EventComments.svelte';
-@@ -159,8 +159,8 @@
+@@ -65,6 +65,8 @@
+ 	let rkey: string = $derived(data.rkey);
+ 	let hostProfile = $derived(data.hostProfile);
+ 	let attendees = $derived(data.attendees);
++	/** False for an event with no public page to share, such as one only a group's members see. */
++	let shareable = $derived(data.shareable !== false);
+ 
+ 	let theme: EventTheme = $derived(eventData.theme ?? defaultTheme);
+ 
+@@ -130,7 +132,7 @@
+ 
+ 	onMount(() => {
+ 		const url = new URL(window.location.href);
+-		if (url.searchParams.has('created')) {
++		if (shareable && url.searchParams.has('created')) {
+ 			url.searchParams.delete('created');
+ 			history.replaceState({}, '', url.pathname);
+ 			launchConfetti();
+@@ -159,8 +161,8 @@
  		return { url, alt: media.alt || eventData.name, aspectRatio: media.aspect_ratio };
  	});
  
@@ -63,6 +220,25 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a41d99d000757c11e170dc300c0733c0
  	let imageAspectRatio = $derived.by(() => {
  		const ratio = displayImage?.aspectRatio;
  		if (!ratio || ratio.width <= 0 || ratio.height <= 0) return null;
+@@ -191,7 +193,8 @@
+ 		return null;
+ 	});
+ 
+-	let eventUri = $derived(`at://${did}/community.lexicon.calendar.event/${rkey}`);
++	// A page whose event is not in its creator's repo, such as a record in a space, names it.
++	let eventUri = $derived(data.eventUri ?? `at://${did}/community.lexicon.calendar.event/${rkey}`);
+ 
+ 	let ogImageUrl = $derived(data.ogImage ?? `${pageUrl.origin}${pageUrl.pathname}/og.png`);
+ 
+@@ -232,7 +235,7 @@
+ 			handle: viewer.handle,
+ 			url: `/p/${encodeURIComponent(viewer.handle || viewer.did)}`
+ 		});
+-		if (status === 'interested') return;
++		if (status === 'interested' || !shareable) return;
+ 		shareModalTitle = "You're going!";
+ 		shareModalText = `I'm going to "${eventData.name}".\n\n${shareUrl}`;
+ 		canSetEventComments = false;
 diff --git a/dist/events/PostToBlueskyModal.svelte b/dist/events/PostToBlueskyModal.svelte
 index d7da07533fe4cc855bba7d016c70d560839ae1fa..756e749cd65461b7904edb480076891d07b219f9 100644
 --- a/dist/events/PostToBlueskyModal.svelte
@@ -124,6 +300,21 @@ index 3573a138af7a8d4fd4d4dafb56156fa5011b46c1..18ae3c692ff54fa3da9046eb1b7f0f8c
  }
  export function compressImage(file, maxSize = 900 * 1024, maxDimension = 2048) {
      return new Promise((resolve, reject) => {
+diff --git a/dist/events/editor/adapter.d.ts b/dist/events/editor/adapter.d.ts
+index f24fa9a15be71e64749398d706515589cf7672e5..28281198c84f39cb99e5904a9734089e3540bcb6 100644
+--- a/dist/events/editor/adapter.d.ts
++++ b/dist/events/editor/adapter.d.ts
+@@ -33,6 +33,10 @@ export type EditorAdapter = {
+     features: {
+         delete: boolean;
+         recurring: boolean;
++        /** False for an event whose page can't show an image, such as one that isn't public. */
++        images?: boolean;
++        /** False for an event with no public listing to appear in, so no Public / Unlisted switch. */
++        visibility?: boolean;
+     };
+     putRecord(opts: {
+         collection: string;
 diff --git a/dist/events/event-media.d.ts b/dist/events/event-media.d.ts
 index c7f3c2c49baad12364a856590fc1d64d56b4cbe5..4a1be920f9096bf5d854bb674adfbec32322a0b8 100644
 --- a/dist/events/event-media.d.ts
@@ -214,6 +405,21 @@ index 55b5938e233fdc33b4c997734aa652aba25d76c7..a28325b8d8eac53b3247a9512eb010f2
      media?: Array<{
          role: string;
          alt?: string;
+diff --git a/dist/events/view-data.d.ts b/dist/events/view-data.d.ts
+index fa0d4082c5314d7697ed7cbd3a6a5d650f97f9b9..2ab5d90c3d050c7fdffe9cffa6e8ea7900806687 100644
+--- a/dist/events/view-data.d.ts
++++ b/dist/events/view-data.d.ts
+@@ -13,6 +13,10 @@ export interface EventViewData {
+     };
+     viewerRsvpStatus?: 'going' | 'interested' | 'notgoing' | null;
+     viewerRsvpRkey?: string | null;
++    /** The event's URI when it is not in its creator's public repo, such as a record in a space. */
++    eventUri?: string;
++    /** False for an event with no public page to share. */
++    shareable?: boolean;
+     ogImage?: string;
+     speakerProfiles?: Array<{
+         id?: string;
 diff --git a/dist/events-data.d.ts b/dist/events-data.d.ts
 index 0e1a98263d796e2dd43738847f4da756e8e84473..5bede3208a73a93e2f267db3d39a456145ba9001 100644
 --- a/dist/events-data.d.ts
