@@ -10,6 +10,7 @@ import { cloudflareKV } from '@svelte-atproto/oauth/server/stores/cloudflare';
 import { ALLOW_SIGNUP, DEV_PORT, REDIRECT_PATH, scopes, signUpPDS } from '../settings';
 import { atprotoNetwork } from '../network';
 import { oauthOrigin } from './origin';
+import { PRIVATE_EVENT_SCOPES } from '../../private-events/scopes';
 
 const pending = new Map<string, Promise<unknown>>();
 
@@ -37,7 +38,8 @@ export function getAuth(): AtprotoAuth {
 		origin: oauthOrigin(env.OAUTH_PUBLIC_URL),
 		cookieSecret: env.COOKIE_SECRET,
 		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
-		scope: scopes,
+		// Declared when a deployment offers them; requested only when someone first hosts or opens one.
+		scope: env.PRIVATE_EVENTS === 'true' ? [...scopes, ...PRIVATE_EVENT_SCOPES] : scopes,
 		signupPDS: ALLOW_SIGNUP
 			? (PUBLIC_SIGNUP_PDS_URL ?? signUpPDS[dev ? 'development' : 'production'])
 			: undefined,
