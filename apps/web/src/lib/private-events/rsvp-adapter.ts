@@ -1,3 +1,4 @@
+import { invalidateAll } from '$app/navigation';
 import {
 	createInAppAdapter,
 	type EditorAdapter,
@@ -7,13 +8,17 @@ import { spaceRecordUri } from '#lib/spaces/uri.js';
 import { privateEventSpace, RSVP_COLLECTION, RSVP_STATUSES, type RsvpStatus } from './ids';
 import { cancelPrivateRsvp, rsvpToPrivateEvent } from './private-events.remote';
 
+const isRefusal = (e: unknown) => (e as { status?: unknown } | null)?.status === 409;
+
 function nothingElse(): never {
 	throw new Error('a private event page writes only RSVPs');
 }
 
 /** For a private event's page: the RSVP the view writes goes to the server, which puts it in the
  *  person's own repo in the event's space. A refusal throws, so the view never shows an RSVP that
- *  was not saved. The page's own key for it is ignored, since the event's is the RSVP's. */
+ *  was not saved, and fetches the page again: an event that changed since it loaded refuses the
+ *  version this page holds until the page has the new one. The page's own key for it is ignored,
+ *  since the event's is the RSVP's. */
 export function createPrivateRsvpAdapter(
 	host: string,
 	rkey: string,
@@ -29,7 +34,10 @@ export function createPrivateRsvpAdapter(
 			if (!RSVP_STATUSES.includes(status)) throw new Error(`unknown RSVP ${record.status}`);
 			const subject = record.subject as { cid?: unknown } | undefined;
 			const cid = typeof subject?.cid === 'string' ? subject.cid : null;
-			await rsvpToPrivateEvent({ host, rkey, status, cid });
+			await rsvpToPrivateEvent({ host, rkey, status, cid }).catch(async (e) => {
+				if (isRefusal(e)) await invalidateAll();
+				throw e;
+			});
 			return {
 				uri: spaceRecordUri(privateEventSpace(host, rkey), viewer.did ?? '', collection, rkey)
 			};

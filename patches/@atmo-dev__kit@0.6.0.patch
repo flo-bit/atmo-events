@@ -179,7 +179,7 @@ index 38dfdf6e0995131ce1b1fa84bca533eba9e7d9c3..5de230a30e98423db26d8f97f34c497f
  						<!-- Date row -->
  						<div class="mb-5 grid min-w-0 gap-2">
 diff --git a/dist/events/EventView.svelte b/dist/events/EventView.svelte
-index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f99addd93 100644
+index 72574d6ebe421f58002ac79c348771cef617da0a..33986a557e51c1e419d4577e9da44cd240ed52f4 100644
 --- a/dist/events/EventView.svelte
 +++ b/dist/events/EventView.svelte
 @@ -2,7 +2,7 @@
@@ -195,12 +195,22 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f
  	let rkey: string = $derived(data.rkey);
  	let hostProfile = $derived(data.hostProfile);
  	let attendees = $derived(data.attendees);
-+	/** False for an event with no public page to share, such as one only a group's members see. */
++	/** False for an event with no public page to share, such as a private one. */
 +	let shareable = $derived(data.shareable !== false);
  
  	let theme: EventTheme = $derived(eventData.theme ?? defaultTheme);
  
-@@ -130,7 +132,7 @@
+@@ -90,6 +92,9 @@
+ 	$effect(() => {
+ 		let active = true;
+ 		geoLocation = null;
++		// The geocoder and the map's tiles are other people's servers, and neither gets told where an
++		// event is that only its guests may know about. The address still shows and links out.
++		if (!shareable) return;
+ 		void resolveGeoLocation(locations).then((resolved) => {
+ 			if (active) geoLocation = resolved;
+ 		});
+@@ -130,7 +135,7 @@
  
  	onMount(() => {
  		const url = new URL(window.location.href);
@@ -209,7 +219,7 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f
  			url.searchParams.delete('created');
  			history.replaceState({}, '', url.pathname);
  			launchConfetti();
-@@ -159,8 +161,8 @@
+@@ -159,8 +164,8 @@
  		return { url, alt: media.alt || eventData.name, aspectRatio: media.aspect_ratio };
  	});
  
@@ -220,7 +230,7 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f
  	let imageAspectRatio = $derived.by(() => {
  		const ratio = displayImage?.aspectRatio;
  		if (!ratio || ratio.width <= 0 || ratio.height <= 0) return null;
-@@ -191,7 +193,8 @@
+@@ -191,7 +196,8 @@
  		return null;
  	});
  
@@ -230,7 +240,7 @@ index 72574d6ebe421f58002ac79c348771cef617da0a..a03f32784839a0d7db83aff98789a87f
  
  	let ogImageUrl = $derived(data.ogImage ?? `${pageUrl.origin}${pageUrl.pathname}/og.png`);
  
-@@ -232,7 +235,7 @@
+@@ -232,7 +238,7 @@
  			handle: viewer.handle,
  			url: `/p/${encodeURIComponent(viewer.handle || viewer.did)}`
  		});

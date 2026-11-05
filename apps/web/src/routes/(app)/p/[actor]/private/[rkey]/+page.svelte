@@ -27,12 +27,18 @@
 	{@const adapter = createPrivateRsvpAdapter(data.actorDid, data.rkey, viewer)}
 	<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)}>
 		{#snippet extraActions()}
+			{#if data.answersUnread}
+				<p class="text-muted text-sm" role="status" data-testid="answers-unread">
+					Some answers couldn't be read just now, so this may not show everyone's. Try again
+					shortly.
+				</p>
+			{/if}
 			{#if data.guests}
 				<GuestList rkey={data.rkey} guests={data.guests} />
 			{:else}
 				<p class="text-muted text-sm" data-testid="private-note">
 					Private event. Only people the host added can see it.
-					{#if !data.viewerRsvpStatus}Answer to let the host know you saw it.{/if}
+					{#if !data.viewerRsvpStatus && !data.answersUnread}Answer to let the host know you saw it.{/if}
 				</p>
 			{/if}
 		{/snippet}
@@ -43,6 +49,14 @@
 		{#if data.view === 'signed-out'}
 			<p class="text-muted mt-2">Sign in to see whether you were invited.</p>
 			<Button class="mt-4" onclick={() => atProtoLoginModalState.show()}>Sign in</Button>
+		{:else if data.view === 'open'}
+			<p class="text-muted mt-2" data-testid="open-first">
+				Only the host's server knows whether you're on this event's guest list. Opening it asks that
+				server, which tells it who you are.
+			</p>
+			<form method="POST" action="?/open" class="mt-4">
+				<Button type="submit">Open this event</Button>
+			</form>
 		{:else}
 			<PrivateEventAccessNotice
 				access={data.access}

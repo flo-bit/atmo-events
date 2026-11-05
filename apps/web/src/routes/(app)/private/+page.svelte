@@ -26,20 +26,28 @@
 			label="Allow atmo to open private events"
 			spacesServer={data.spacesServer}
 		/>
-	{:else if data.events.length === 0}
+	{:else if data.events.length === 0 && !data.incomplete}
 		<p class="text-muted mt-4">None yet. Events you host show here, and ones you've answered.</p>
 		{@render linkIsTheInvitation()}
 	{:else}
-		<ul class="mt-6 space-y-4" data-testid="private-events">
-			{#each data.events as item (item.href)}
-				<li>
-					<EventCard event={item.event} href={item.href} />
-					<p class="text-muted mt-1 text-xs">
-						{item.hosting ? 'You are hosting' : `Hosted by ${item.hostHandle ?? item.event.did}`}
-					</p>
-				</li>
-			{/each}
-		</ul>
+		{#if data.incomplete}
+			<p class="text-muted mt-4 text-sm" role="status" data-testid="private-events-incomplete">
+				Some of your private events couldn't be read just now, so there may be more than these. Try
+				again shortly.
+			</p>
+		{/if}
+		{#if data.events.length > 0}
+			<ul class="mt-6 space-y-4" data-testid="private-events">
+				{#each data.events as item (item.href)}
+					<li>
+						<EventCard event={item.event} href={item.href} />
+						<p class="text-muted mt-1 text-xs">
+							{item.hosting ? 'You are hosting' : `Hosted by ${item.hostHandle ?? item.event.did}`}
+						</p>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 		{@render linkIsTheInvitation()}
 	{/if}
 </div>

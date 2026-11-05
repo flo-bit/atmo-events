@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { P256PrivateKeyExportable } from '@atcute/crypto';
+import type { AtprotoNetwork } from '@svelte-atproto/oauth/network';
 import {
 	clearSpaceCredentials,
+	didSpaceHosts,
 	exchangeSpaceCredential,
 	isSpaceAccessDenied,
 	SpaceAccessDenied,
@@ -15,6 +17,14 @@ import { credentialSpaceReader } from './space-read';
 import { fakeKemHost, type FakeKemHost } from './__fixtures__/space-mac-host';
 import { recordCid } from './space-mac';
 import { spaceRecordUri, spaceUri } from '../uri';
+
+// The network object keeps the fetch it is made with, and these tests stub a new one each time.
+const net = vi.hoisted(() => ({ current: null as AtprotoNetwork | null }));
+vi.mock('#lib/atproto/network.js', async () => {
+	const { createAtprotoNetwork } = await import('@svelte-atproto/oauth/network');
+	const standard = createAtprotoNetwork({ fetch: (input, init) => globalThis.fetch(input, init) });
+	return { atprotoNetwork: () => net.current ?? standard };
+});
 
 const GROUP_DID = 'did:plc:jcwgw6fcnb5vyoid7nz7sl26';
 const BOB = 'did:plc:hkymspvcjhy6sbujuydfj7sv';
@@ -479,5 +489,141 @@ describe('a record read with a credential', () => {
 		const shares = net.reads.map((r) => r.headers.get('atproto-space-want-mac'));
 		expect(shares).toHaveLength(2);
 		expect(shares[0]).not.toBe(shares[1]);
+	});
+});
+
+describe('calls to servers other people chose', () => {
+	const realTimeout = AbortSignal.timeout.bind(AbortSignal);
+	/** Never answers, and stops when told to, as a real fetch does. */
+	const neverAnswers = (_input: unknown, init?: RequestInit) =>
+		new Promise<Response>((_resolve, reject) => {
+			init?.signal?.addEventListener('abort', () => reject(init.signal?.reason));
+		});
+	/** Only the first step answers, so what stalls is the step after it. */
+	const onlyExchanges = () => {
+		const exchange = globalThis.fetch;
+		vi.stubGlobal('fetch', (input: URL | string, init?: RequestInit) =>
+			String(input).includes('getSpaceCredential')
+				? exchange(input, init)
+				: neverAnswers(input, init)
+		);
+	};
+
+	beforeEach(() => {
+		vi.spyOn(AbortSignal, 'timeout').mockImplementation(() => realTimeout(5));
+	});
+	afterEach(() => {
+		vi.restoreAllMocks();
+		net.current = null;
+	});
+
+	it('gives up on a host that never answers the exchange', { timeout: 1000 }, async () => {
+		const { holder } = network({});
+		vi.stubGlobal('fetch', neverAnswers);
+		await expect(exchangeSpaceCredential(holder, MEMBERS, GROUP_HOST)).rejects.toBeDefined();
+	});
+
+	it('gives up on a server that never answers a read', { timeout: 1000 }, async () => {
+		const { holder } = network({});
+		onlyExchanges();
+		const reader = credentialSpaceReader(holder, hosts, { keepCredential: false });
+		await expect(reader.get(READ)).rejects.toBeDefined();
+	});
+
+	it('gives up on a host that never lists who has written', { timeout: 1000 }, async () => {
+		const { holder } = network({});
+		onlyExchanges();
+		const reader = credentialSpaceReader(holder, hosts, { keepCredential: false });
+		await expect(reader.writers(MEMBERS)).rejects.toBeDefined();
+	});
+
+	it('gives up on a did:web that never answers', { timeout: 1000 }, async () => {
+		vi.stubGlobal('fetch', neverAnswers);
+		await expect(didSpaceHosts.repoHost('did:web:stalled.test')).rejects.toBeDefined();
+	});
+
+	it('finds a PDS in the DID document, and asks once', async () => {
+		const lookup = vi.fn(async () =>
+			json(200, {
+				'@context': ['https://www.w3.org/ns/did/v1'],
+				id: 'did:web:someone.test',
+				service: [
+					{
+						id: '#atproto_pds',
+						type: 'AtprotoPersonalDataServer',
+						serviceEndpoint: 'https://pds.someone.test'
+					}
+				]
+			})
+		);
+		vi.stubGlobal('fetch', lookup);
+		const first = await didSpaceHosts.repoHost('did:web:someone.test');
+		const again = await didSpaceHosts.repoHost('did:web:someone.test');
+		expect(new URL(first).origin).toBe('https://pds.someone.test');
+		expect(again).toBe(first);
+		expect(lookup).toHaveBeenCalledOnce();
+	});
+
+	it('does not follow a redirect, which would take the delegation token elsewhere', async () => {
+		const { holder } = network({});
+		const reached: string[] = [];
+		const redirecting = async (input: URL | string, init?: RequestInit): Promise<Response> => {
+			const url = new URL(String(input));
+			reached.push(url.origin);
+			if (url.origin === 'https://elsewhere.test') return json(200, { credential: 'stolen' });
+			if (init?.redirect === 'manual') {
+				return new Response(null, {
+					status: 302,
+					headers: { location: 'https://elsewhere.test/' }
+				});
+			}
+			return redirecting('https://elsewhere.test/', init);
+		};
+		vi.stubGlobal('fetch', redirecting);
+		await expect(exchangeSpaceCredential(holder, MEMBERS, GROUP_HOST)).rejects.toBeDefined();
+		expect(reached).toEqual([GROUP_HOST]);
+	});
+
+	it.each(['http://plain.test', 'https://name:word@pds.test'])(
+		'sends no delegation token to %s',
+		async (host) => {
+			const { holder } = network({});
+			const sent = vi.fn();
+			vi.stubGlobal('fetch', sent);
+			await expect(exchangeSpaceCredential(holder, MEMBERS, host)).rejects.toBeDefined();
+			expect(sent).not.toHaveBeenCalled();
+		}
+	);
+
+	it('sends no signed read to a repo whose server is not https', async () => {
+		const { holder, reads } = network({});
+		const mixed: SpaceHosts = {
+			repoHost: async (did) => (did === GROUP_DID ? GROUP_HOST : 'http://plain.test'),
+			kemKey: async () => kem.did
+		};
+		const reader = credentialSpaceReader(holder, mixed, { keepCredential: false });
+		await expect(reader.get({ ...READ, repo: BOB })).rejects.toBeDefined();
+		expect(reads).toHaveLength(0);
+	});
+
+	it('keeps to an isolated network, which may use http', async () => {
+		const { createAtprotoNetwork } = await import('@svelte-atproto/oauth/network');
+		const sent = vi.fn(async () => json(200, { credential: jwt({ exp: 9999999999 }) }));
+		net.current = createAtprotoNetwork({
+			mode: 'isolated',
+			namespace: 'test',
+			allowedOrigins: ['http://inside.test'],
+			plc: 'http://inside.test',
+			doh: 'http://inside.test',
+			sandbox: { httpOrigins: ['http://inside.test'], fetch: sent }
+		});
+		const { holder } = network({});
+		await expect(
+			exchangeSpaceCredential(holder, MEMBERS, 'http://inside.test')
+		).resolves.toBeDefined();
+		await expect(
+			exchangeSpaceCredential(holder, MEMBERS, 'http://outside.test')
+		).rejects.toBeDefined();
+		expect(sent).toHaveBeenCalledOnce();
 	});
 });

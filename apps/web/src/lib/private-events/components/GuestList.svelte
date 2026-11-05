@@ -5,7 +5,12 @@
 	import type { RsvpStatus } from '../ids';
 	import { addGuest, removeGuest } from '../private-events.remote';
 
-	type Guest = { did: string; handle: string | null; answer: RsvpStatus | null };
+	type Guest = {
+		did: string;
+		handle: string | null;
+		answer: RsvpStatus | null;
+		answerUnread: boolean;
+	};
 
 	const ANSWER_WORDS: Record<RsvpStatus, string> = {
 		going: 'Going',
@@ -19,6 +24,11 @@
 	let busy = $state(false);
 	let failure: string | null = $state(null);
 	let copied = $state(false);
+
+	function answerWords(guest: Guest): string {
+		if (guest.answer) return ANSWER_WORDS[guest.answer];
+		return guest.answerUnread ? "Their answer couldn't be read" : "Added, hasn't answered";
+	}
 
 	function refusal(e: unknown): string {
 		const message = (e as { body?: { message?: unknown } } | null)?.body?.message;
@@ -90,9 +100,7 @@
 						<span class="text-base-900 dark:text-base-50 block truncate font-medium"
 							>{guest.handle ?? guest.did}</span
 						>
-						<span class="text-muted block text-xs"
-							>{guest.answer ? ANSWER_WORDS[guest.answer] : "Added, hasn't answered"}</span
-						>
+						<span class="text-muted block text-xs">{answerWords(guest)}</span>
 					</span>
 					<Button size="sm" variant="ghost" disabled={busy} onclick={() => remove(guest.did)}
 						>Remove</Button

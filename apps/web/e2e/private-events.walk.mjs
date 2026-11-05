@@ -210,6 +210,13 @@ const open = async (page, target = EVENT_PATH) => {
 	await settle(page);
 	return res?.status();
 };
+// Opening one tells the host's server who is asking, so a guest chooses to, on an ordinary POST.
+const openFirst = (page) => page.locator('[data-testid=open-first]').waitFor({ timeout: 30000 });
+const chooseToOpen = async (page) => {
+	await page.getByRole('button', { name: /^open this event$/i }).click({ timeout: 30000 });
+	await page.waitForLoadState('load');
+	await settle(page);
+};
 const guestRow = (page, name) => page.locator(`[data-guest="${C[name].did}"]`);
 const addGuest = async (page, who) => {
 	await page.locator('input[name=guest-handle]').fill(who);
@@ -346,7 +353,16 @@ await step('6. bob opens the link, signs in, allows it, sees the event', async (
 	await p.locator('[data-testid=grant-notice]').waitFor({ timeout: 30000 });
 	await shot(p, '05-guest-ask');
 	await allow(p, /allow atmo to open/i, P.bob);
+	await openFirst(p);
+	await shot(p, '05b-guest-open-first');
+	check('asked before anything is read', !(await text(p, 'main')).includes(NAME));
+	await chooseToOpen(p);
 	await p.getByRole('heading', { name: NAME }).first().waitFor({ timeout: 30000 });
+	const again = await open(p);
+	check(
+		'and not asked again',
+		again === 200 && !(await text(p, 'main')).includes('Open this event')
+	);
 	check(
 		'tells him to answer',
 		/Answer to let the host know/.test(await text(p, '[data-testid=private-note]'))
@@ -385,6 +401,8 @@ await step('8. dana on another PDS answers interested', async () => {
 	await signIn(p, P.dana);
 	await open(p);
 	await allow(p, /allow atmo to open/i, P.dana);
+	await openFirst(p);
+	await chooseToOpen(p);
 	await p.getByRole('heading', { name: NAME }).first().waitFor({ timeout: 30000 });
 	check('her answer is in her own repo', await answer(p, /^interested$/i, 'dana', 'interested'));
 	const a = pages.alice;
@@ -402,10 +420,16 @@ await step('9. mallory, not invited, gets what a made-up address gets', async ()
 	await signIn(p, P.mallory);
 	await open(p);
 	await allow(p, /allow atmo to open/i, P.mallory);
-	await sleep(800);
-	const real = await text(p, 'main');
+	await openFirst(p);
+	const madeUp = EVENT_PATH.replace(KEY, '3kzzzzzzzzzzz');
+	const askedHere = await text(p, 'main');
+	await chooseToOpen(p);
 	const realStatus = await open(p);
-	const made = await open(p, EVENT_PATH.replace(KEY, '3kzzzzzzzzzzz'));
+	const real = await text(p, 'main');
+	await open(p, madeUp);
+	check('asked the same words at either address', (await text(p, 'main')) === askedHere);
+	await chooseToOpen(p);
+	const made = await open(p, madeUp);
 	const madeText = await text(p, 'main');
 	check('both 404', realStatus === 404 && made === 404, `${realStatus} ${made}`);
 	check('the same words', real === madeText, real.slice(0, 120));
@@ -501,9 +525,14 @@ await step('12. alice removes dana, who loses it at once, then lets her back', a
 	);
 });
 
-await step('13. alice edits the event', async () => {
+await step('13. alice edits the event, under a page open from before the edit', async () => {
 	const a = pages.alice;
 	await open(a);
+	await addGuest(a, P.mallory.handle);
+	await guestRow(a, 'mallory').waitFor({ timeout: 20000 });
+	const stale = pages.mallory;
+	await open(stale);
+	await stale.getByRole('heading', { name: NAME }).first().waitFor({ timeout: 20000 });
 	await a.getByRole('link', { name: /edit/i }).first().click({ timeout: 20000 });
 	await a.waitForURL((u) => u.pathname.endsWith('/edit'), { timeout: 30000 });
 	const name = a.locator('main [contenteditable=true]').first();
@@ -520,9 +549,19 @@ await step('13. alice edits the event', async () => {
 	await a.waitForLoadState('load');
 	await open(pages.bob);
 	await pages.bob.getByRole('heading', { name: RENAMED }).first().waitFor({ timeout: 20000 });
-	check('bob sees the new name', true);
+	check('bob sees the new name', (await text(pages.bob, 'main')).includes(RENAMED));
 	check('bob’s answer still stands', (await ownRsvp('bob')) === 'going');
 	check('still 0 events in her public repo', (await publicCount('alice', EVENT)) === 0);
+	await stale
+		.getByRole('button', { name: /^going$/i })
+		.first()
+		.click({ timeout: 20000 });
+	await stale.getByRole('heading', { name: RENAMED }).first().waitFor({ timeout: 20000 });
+	check('the old page’s answer was refused', (await ownRsvp('mallory')) === null);
+	check(
+		'and she can answer without reloading',
+		await answer(stale, /^going$/i, 'mallory', 'going')
+	);
 });
 
 await step('14. a plain login in a second browser, then alice’s own page', async () => {
@@ -559,7 +598,7 @@ await step('15. alice cancels, and a guest gets the same page as anyone', async 
 	check('bob gets a 404, not a 500', status === 404, `${status}`);
 	check('in the same words', (await text(pages.bob, 'main')).includes(NOT_AVAILABLE));
 	await shot(pages.bob, '12-guest-after-cancel');
-	check('his record stays in his repo', true);
+	check('his record stays in his repo', (await ownRsvp('bob')) === 'going');
 	await open(pages.bob, '/private');
 	check('off bob’s list', !(await text(pages.bob, 'main')).includes(NAME));
 });

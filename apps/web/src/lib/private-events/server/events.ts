@@ -123,18 +123,20 @@ export async function cancelPrivateEvent(caller: CallerSession, rkey: string): P
 }
 
 /** As the event components take it: the record whole, its address beside it, and no image, since a
- *  page would build a public CDN URL from it. Null with no start, which every page needs. */
+ *  page would build a public CDN URL from it. Null for what isn't an event, since a PDS doesn't
+ *  validate a space record and any host could write one that breaks their guests' pages, and with
+ *  no start, which every page needs. */
 function flatEvent(host: string, record: SpaceRecord): FlatEventRecord | null {
-	if (typeof record.value.startsAt !== 'string') return null;
-	const event = {
-		...(record.value as unknown as FlatEventRecord),
+	const value = { ...record.value };
+	delete value.media;
+	if (typeof value.startsAt !== 'string' || !v.safeParse(eventSchema, value).ok) return null;
+	return {
+		...(value as unknown as FlatEventRecord),
 		cid: record.cid,
 		did: host,
 		rkey: record.rkey,
 		uri: record.uri
 	};
-	delete event.media;
-	return event;
 }
 
 /** Null for an event that isn't there and for a caller kept out alike, so a page can't tell one
@@ -169,6 +171,8 @@ export interface Guest {
 	handle: string | null;
 	/** What they answered, so a record of theirs is in the space; null until they do. */
 	answer: RsvpStatus | null;
+	/** An answer may be there that could not be read, so null above says nothing about them. */
+	answerUnread: boolean;
 }
 
 export interface PrivateEventPage {
@@ -181,6 +185,8 @@ export interface PrivateEventPage {
 		interestedCount: number;
 	};
 	viewerStatus: RsvpStatus | null;
+	/** A server didn't answer, so the answers above may not be all of them. */
+	answersUnread: boolean;
 	/** The host's own view of who was added; null for anyone else. */
 	guests: Guest[] | null;
 }
@@ -221,18 +227,20 @@ export async function readPrivateEventPage(
 	const space = privateEventSpace(host, rkey);
 	const writers = await reader.writers(space).catch((e) => {
 		console.error(`[private-events] ${host}: writers of ${rkey} unread for ${caller.did}:`, e);
-		return [] as string[];
+		return null;
 	});
+	const unread = new Set<string>();
 	const answers = new Map<string, RsvpStatus>();
 	const going: AttendeeInfo[] = [];
 	const interested: AttendeeInfo[] = [];
 	let viewerStatus: RsvpStatus | null = null;
 	await Promise.all(
-		writers.map(async (did) => {
+		(writers ?? []).map(async (did) => {
 			const found = await reader
 				.get({ space, repo: did, collection: RSVP_COLLECTION, rkey })
 				.catch((e) => {
 					console.info(`[private-events] ${did}'s answer to ${rkey} unread:`, e);
+					unread.add(did);
 					return null;
 				});
 			const status = found ? rsvpStatus(host, rkey, found.value) : null;
@@ -259,7 +267,8 @@ export async function readPrivateEventPage(
 			members.map(async (did) => ({
 				did,
 				handle: await verifiedHandle(did),
-				answer: answers.get(did) ?? null
+				answer: answers.get(did) ?? null,
+				answerUnread: writers === null || unread.has(did)
 			}))
 		);
 	}
@@ -274,6 +283,7 @@ export async function readPrivateEventPage(
 			interestedCount: interested.length
 		},
 		viewerStatus,
+		answersUnread: writers === null || unread.size > 0,
 		guests
 	};
 }
@@ -373,7 +383,7 @@ export async function addGuest(
 		console.error(`[private-events] ${caller.did}: guest not added to ${input.rkey}:`, e);
 		throw new PrivateEventRefused('refused');
 	}
-	return { did, handle: await verifiedHandle(did), answer: null };
+	return { did, handle: await verifiedHandle(did), answer: null, answerUnread: false };
 }
 
 export async function removeGuest(
@@ -398,11 +408,18 @@ export interface MyPrivateEvent {
 	href: string;
 }
 
+export interface MyPrivateEvents {
+	events: MyPrivateEvent[];
+	/** A server didn't answer, or there were too many to list, so there may be more than these. */
+	incomplete: boolean;
+}
+
 /** Events they host or have answered, by their own PDS. It keeps spaces they were taken off or never
  *  let into, and misses ones they haven't written in, so each is read before it is listed. */
-export async function myPrivateEvents(caller: CallerSession): Promise<MyPrivateEvent[]> {
+export async function myPrivateEvents(caller: CallerSession): Promise<MyPrivateEvents> {
 	const spaces: string[] = [];
 	let cursor: string | undefined;
+	let cutOff = true;
 	for (let page = 0; page < MAX_PAGES; page++) {
 		const found = await xrpc(caller.handle, 'com.atproto.space.listSpaces', {
 			query: {
@@ -419,16 +436,21 @@ export async function myPrivateEvents(caller: CallerSession): Promise<MyPrivateE
 			if (typeof uri === 'string') spaces.push(uri);
 		}
 		cursor = typeof found.cursor === 'string' ? found.cursor : undefined;
-		if (!cursor || listed.length === 0) break;
+		if (!cursor || listed.length === 0) {
+			cutOff = false;
+			break;
+		}
 	}
 
 	const reader = readerFor(caller);
+	let unread = 0;
 	const events = await Promise.all(
 		spaces.map(async (uri): Promise<MyPrivateEvent | null> => {
 			const parsed = parseSpaceUri(uri);
 			if (!parsed) return null;
 			const event = await readEvent(reader, parsed.authority, parsed.key).catch((e) => {
 				console.info(`[private-events] ${uri} unread for ${caller.did}:`, e);
+				unread++;
 				return null;
 			});
 			if (!event) return null;
@@ -441,7 +463,10 @@ export async function myPrivateEvents(caller: CallerSession): Promise<MyPrivateE
 			};
 		})
 	);
-	return events
-		.filter((event): event is MyPrivateEvent => event !== null)
-		.sort((a, b) => Date.parse(a.event.startsAt) - Date.parse(b.event.startsAt));
+	return {
+		events: events
+			.filter((event): event is MyPrivateEvent => event !== null)
+			.sort((a, b) => Date.parse(a.event.startsAt) - Date.parse(b.event.startsAt)),
+		incomplete: cutOff || unread > 0
+	};
 }

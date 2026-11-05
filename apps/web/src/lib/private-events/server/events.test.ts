@@ -272,6 +272,71 @@ describe('readPrivateEventPage', () => {
 		await expect(readPrivateEventPage(caller(GUEST, GUEST_SCOPE), HOST, RKEY)).rejects.toThrow();
 	});
 
+	it.each([
+		['a mode that is not a string', { mode: 7 }],
+		['a name that is not a string', { name: 7 }],
+		['a start that is not a date', { startsAt: 'soon' }],
+		['no start', { startsAt: undefined }]
+	])(
+		'treats a record with %s as no event, since a PDS does not validate one',
+		async (_, broken) => {
+			theSpaceHolds({}, { ...RECORD, ...broken } as typeof RECORD);
+			expect(await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), HOST, RKEY)).toBeNull();
+			expect(reader.writers).not.toHaveBeenCalled();
+		}
+	);
+
+	it('keeps an event whose stored image is malformed, since the image is never shown', async () => {
+		theSpaceHolds({}, { ...RECORD, media: 'not-media' } as unknown as typeof RECORD);
+		reader.writers.mockResolvedValue([]);
+		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), HOST, RKEY);
+		expect(page?.event.name).toBe(RECORD.name);
+		expect(page?.event).not.toHaveProperty('media');
+	});
+
+	it('says the answers are unread when who wrote could not be read', async () => {
+		theSpaceHolds({});
+		reader.writers.mockRejectedValue(new Error('503'));
+		const host = caller(HOST, HOST_SCOPE, {
+			'com.atproto.memberspace.listMembers': () => Response.json({ members: [{ did: GUEST }] })
+		});
+		const page = await readPrivateEventPage(host, HOST, RKEY);
+		expect(page?.answersUnread).toBe(true);
+		expect(page?.guests).toMatchObject([{ did: GUEST, answer: null, answerUnread: true }]);
+	});
+
+	it('names the one answer it could not read, and keeps the others', async () => {
+		theSpaceHolds({ [OTHER]: rsvp('going') });
+		const fromSpace = reader.get.getMockImplementation()!;
+		reader.get.mockImplementation(async (query: { repo: string; collection: string }) => {
+			if (query.repo === GUEST && query.collection === RSVP_COLLECTION) throw new Error('503');
+			return fromSpace(query);
+		});
+		reader.writers.mockResolvedValue([GUEST, OTHER]);
+		const host = caller(HOST, HOST_SCOPE, {
+			'com.atproto.memberspace.listMembers': () =>
+				Response.json({ members: [{ did: GUEST }, { did: OTHER }] })
+		});
+		const page = await readPrivateEventPage(host, HOST, RKEY);
+		expect(page?.answersUnread).toBe(true);
+		expect(page?.attendees.going.map((a) => a.did)).toEqual([OTHER]);
+		expect(page?.guests).toMatchObject([
+			{ did: GUEST, answer: null, answerUnread: true },
+			{ did: OTHER, answer: 'going', answerUnread: false }
+		]);
+	});
+
+	it('does not call someone who has not answered unread', async () => {
+		theSpaceHolds({});
+		reader.writers.mockResolvedValue([]);
+		const host = caller(HOST, HOST_SCOPE, {
+			'com.atproto.memberspace.listMembers': () => Response.json({ members: [{ did: GUEST }] })
+		});
+		const page = await readPrivateEventPage(host, HOST, RKEY);
+		expect(page?.answersUnread).toBe(false);
+		expect(page?.guests).toMatchObject([{ did: GUEST, answer: null, answerUnread: false }]);
+	});
+
 	it('shows no image, which would hand a public CDN the host’s DID', async () => {
 		theSpaceHolds({}, { ...RECORD, media: [{ image: 'x' }] } as typeof RECORD);
 		reader.writers.mockResolvedValue([]);
@@ -329,8 +394,8 @@ describe('readPrivateEventPage', () => {
 		};
 		const host = await readPrivateEventPage(caller(HOST, HOST_SCOPE, answers), HOST, RKEY);
 		expect(host?.guests).toEqual([
-			{ did: GUEST, handle: expect.any(String), answer: 'going' },
-			{ did: OTHER, handle: expect.any(String), answer: null }
+			{ did: GUEST, handle: expect.any(String), answer: 'going', answerUnread: false },
+			{ did: OTHER, handle: expect.any(String), answer: null, answerUnread: false }
 		]);
 
 		const guest = caller(GUEST, GUEST_SCOPE, answers);
@@ -409,8 +474,9 @@ describe('myPrivateEvents', () => {
 			'com.atproto.space.listSpaces': () =>
 				Response.json({ spaces: [{ uri: later }, { uri: KEPT_OUT }, { uri: SPACE }] })
 		});
-		const events = await myPrivateEvents(guest);
+		const { events, incomplete } = await myPrivateEvents(guest);
 		expect(events.map((e) => e.event.rkey)).toEqual([RKEY, '3lbbbbbbbbbbb']);
+		expect(incomplete).toBe(false);
 		expect(events[0]).toMatchObject({ hosting: false, href: expect.stringContaining('/private/') });
 		expect(guest.sent[0].query.get('spaceType')).toBe('rsvp.atmo.calendarSpace');
 		expect(guest.sent[0].query.has('did')).toBe(false);
@@ -422,5 +488,31 @@ describe('myPrivateEvents', () => {
 		});
 		await myPrivateEvents(host);
 		expect(host.sent[0].query.get('did')).toBe(HOST);
+	});
+
+	it('says the list is incomplete when an event could not be read', async () => {
+		const down = privateEventSpace(OTHER, '3laaaaaaaaaaa');
+		reader.get.mockImplementation(async ({ space }: { space: string }) => {
+			if (space === down) throw new Error('503');
+			return spaceRecord(HOST, EVENT_COLLECTION, RECORD);
+		});
+		const guest = caller(GUEST, GUEST_SCOPE, {
+			'com.atproto.space.listSpaces': () =>
+				Response.json({ spaces: [{ uri: down }, { uri: SPACE }] })
+		});
+		const { events, incomplete } = await myPrivateEvents(guest);
+		expect(events).toHaveLength(1);
+		expect(incomplete).toBe(true);
+	});
+
+	it('says the list is incomplete at the page limit, rather than stopping there quietly', async () => {
+		reader.get.mockResolvedValue(spaceRecord(HOST, EVENT_COLLECTION, RECORD));
+		const guest = caller(GUEST, GUEST_SCOPE, {
+			'com.atproto.space.listSpaces': () =>
+				Response.json({ spaces: [{ uri: SPACE }], cursor: 'more' })
+		});
+		const { incomplete } = await myPrivateEvents(guest);
+		expect(guest.sent).toHaveLength(10);
+		expect(incomplete).toBe(true);
 	});
 });

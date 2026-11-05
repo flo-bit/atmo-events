@@ -5,8 +5,9 @@ import { callerSession } from '#lib/private-events/server/caller.js';
 import { privateEventsEnabled, spacesServer } from '#lib/private-events/server/enabled.js';
 import { myPrivateEvents } from '#lib/private-events/server/events.js';
 
-export async function load({ locals, cookies }) {
+export async function load({ locals, cookies, setHeaders }) {
 	if (!privateEventsEnabled()) error(404, 'Not found');
+	setHeaders({ 'cache-control': 'no-store' });
 	const caller = await callerSession(locals.session ?? null);
 	if (!caller) redirect(303, '/login');
 	const base = { pageTitle: 'Private events', did: caller.did };
@@ -14,14 +15,15 @@ export async function load({ locals, cookies }) {
 		return {
 			...base,
 			events: null,
+			incomplete: false,
 			access: privateEventAccess(cookies, caller.did),
 			spacesServer: spacesServer()
 		};
 	}
 	forgetAsked(cookies);
-	const events = await myPrivateEvents(caller).catch((e) => {
+	const { events, incomplete } = await myPrivateEvents(caller).catch((e) => {
 		console.error(`[private-events] ${caller.did}: private events unread:`, e);
 		error(503, 'Your private events could not be read right now. Try again shortly.');
 	});
-	return { ...base, events, access: null, spacesServer: null };
+	return { ...base, events, incomplete, access: null, spacesServer: null };
 }

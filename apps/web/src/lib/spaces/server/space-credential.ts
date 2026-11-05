@@ -3,9 +3,9 @@
 // which signs every request (RFC 9421). A record read also checks the MAC (./space-mac.ts).
 import { P256PrivateKeyExportable, type P256PrivateKey } from '@atcute/crypto';
 import type { Did } from '@atcute/lexicons';
-import { createDidDocumentResolver } from '@svelte-atproto/oauth/network';
-import { atprotoNetwork } from '#lib/atproto/network.js';
+import { createActorResolver, createDidDocumentResolver } from '@svelte-atproto/oauth/network';
 import { spaceRecordUri } from '../uri';
+import { fetchOtherServer, timeLimitedNetwork } from './other-servers';
 import { answerError, readXrpc, type XrpcAnswer, type XrpcHandle } from './xrpc';
 import { MAC_HEADER, recordCid, recordMacCheck, WANT_MAC_HEADER } from './space-mac';
 
@@ -141,11 +141,14 @@ export async function exchangeSpaceCredential(
 
 	const key = await P256PrivateKeyExportable.createKeypair();
 	const signer: SpaceSigningKey = { key, keyId: await key.exportPublicKey('did') };
-	const res = await fetch(new URL('/xrpc/com.atproto.space.getSpaceCredential', authorityHost), {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({ space, credentialKid: signer.keyId, delegationToken: token })
-	});
+	const res = await fetchOtherServer(
+		new URL('/xrpc/com.atproto.space.getSpaceCredential', authorityHost),
+		{
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ space, credentialKid: signer.keyId, delegationToken: token })
+		}
+	);
 	const issued = await readXrpc(res);
 	if (!issued.ok) {
 		throw refusal(space, issued) ?? answerError('com.atproto.space.getSpaceCredential', issued);
@@ -205,6 +208,7 @@ export async function spaceCredential(
 export function clearSpaceCredentials() {
 	kept.clear();
 	spent = new WeakSet();
+	identities.clear();
 	resolved.clear();
 }
 
@@ -228,13 +232,13 @@ async function fetchWithCredential(
 ): Promise<Response> {
 	const url = new URL(`/xrpc/${call.nsid}?${new URLSearchParams(call.query)}`, call.host);
 	const headers = await spaceSigHeaders(cred.signer, `${AUTH_SCHEME} ${cred.token}`, call.audience);
-	if (call.nsid !== GET_RECORD) return fetch(url, { method: 'GET', headers });
+	if (call.nsid !== GET_RECORD) return fetchOtherServer(url, { method: 'GET', headers });
 
 	const { space, repo, collection, rkey } = call.query;
 	const uri = spaceRecordUri(space, repo, collection, rkey);
 	for (let attempt = 0; ; attempt++) {
 		const mac = await recordMacCheck(await hosts.kemKey(repo, attempt > 0));
-		const res = await fetch(url, {
+		const res = await fetchOtherServer(url, {
 			method: 'GET',
 			headers: { ...headers, [WANT_MAC_HEADER]: mac.header }
 		});
@@ -275,27 +279,30 @@ export async function credentialRequest(
 }
 
 const RESOLVED_TTL_MS = 10 * 60 * 1000;
+let actorResolver: ReturnType<typeof createActorResolver> | undefined;
 let didResolver: ReturnType<typeof createDidDocumentResolver> | undefined;
 const resolveDid = (did: string) =>
-	(didResolver ??= createDidDocumentResolver({ network: atprotoNetwork() })).resolve(
+	(didResolver ??= createDidDocumentResolver({ network: timeLimitedNetwork() })).resolve(
 		did as Did<'plc'> | Did<'web'>
 	);
+const identities = new Map<string, { value: SpaceIdentity; at: number }>();
 const resolved = new Map<string, { value: string; at: number }>();
 
-async function serviceEndpoint(did: string, ids: readonly `#${string}`[]): Promise<string> {
-	const cacheKey = `${did}|${ids.join(',')}`;
-	const hit = resolved.get(cacheKey);
+export interface SpaceIdentity {
+	pds: string;
+	/** `handle.invalid` unless the handle points back at the DID. */
+	handle: string;
+}
+
+export async function spaceIdentity(did: string): Promise<SpaceIdentity> {
+	const hit = identities.get(did);
 	if (hit && Date.now() - hit.at < RESOLVED_TTL_MS) return hit.value;
 
-	const doc = await resolveDid(did);
-	for (const id of ids) {
-		const service = doc.service?.find((s) => s.id === id || s.id === `${doc.id}${id}`);
-		if (service && typeof service.serviceEndpoint === 'string') {
-			resolved.set(cacheKey, { value: service.serviceEndpoint, at: Date.now() });
-			return service.serviceEndpoint;
-		}
-	}
-	throw new Error(`${did} names no ${ids.join(' or ')} service`);
+	actorResolver ??= createActorResolver({ network: timeLimitedNetwork() });
+	const { pds, handle } = await actorResolver.resolve(did as Did<'plc'> | Did<'web'>);
+	const value = { pds, handle };
+	identities.set(did, { value, at: Date.now() });
+	return value;
 }
 
 async function kemKey(did: string, fresh = false): Promise<string> {
@@ -315,6 +322,6 @@ async function kemKey(did: string, fresh = false): Promise<string> {
 }
 
 export const didSpaceHosts: SpaceHosts = {
-	repoHost: (did) => serviceEndpoint(did, ['#atproto_pds']),
+	repoHost: async (did) => (await spaceIdentity(did)).pds,
 	kemKey
 };

@@ -24,3 +24,22 @@ export type PrivateEventAccess = 'ask' | 'refused';
 export function privateEventAccess(cookies: Pick<Cookies, 'get'>, did: string): PrivateEventAccess {
 	return cookies.get(ASKED_COOKIE) === did ? 'refused' : 'ask';
 }
+
+const OPENED_COOKIE = 'atmo_private_event_opened';
+const OPENED_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+
+/** Reading an event tells the host's server who is asking, so a guest chooses to. Only a POST marks
+ *  it, so a link, a prefetch or an image can't. It stays on that event's address and names who chose. */
+export function markOpened(cookies: Pick<Cookies, 'set'>, url: URL, did: string): void {
+	cookies.set(OPENED_COOKIE, did, {
+		path: url.pathname,
+		maxAge: OPENED_MAX_AGE_SECONDS,
+		httpOnly: true,
+		sameSite: 'lax',
+		secure: url.protocol === 'https:'
+	});
+}
+
+export function hasOpened(cookies: Pick<Cookies, 'get'>, did: string): boolean {
+	return cookies.get(OPENED_COOKIE) === did;
+}
