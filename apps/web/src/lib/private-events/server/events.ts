@@ -5,7 +5,11 @@ import * as v from '@atcute/lexicons/validations';
 import type { AttendeeInfo, FlatEventRecord } from '#lib/contrail.js';
 import { actorToDid } from '#lib/actor.js';
 import { isSpaceAccessDenied } from '#lib/spaces/server/space-credential.js';
-import { credentialSpaceReader, type SpaceRecord } from '#lib/spaces/server/space-read.js';
+import {
+	credentialSpaceReader,
+	type SpaceReader,
+	type SpaceRecord
+} from '#lib/spaces/server/space-read.js';
 import { isRecordNotFound, xrpc, XrpcError } from '#lib/spaces/server/xrpc.js';
 import { parseSpaceUri } from '#lib/spaces/uri.js';
 import { mainSchema as eventSchema } from '../../../lexicon-types/types/community/lexicon/calendar/event';
@@ -41,12 +45,6 @@ export class PrivateEventRefused extends Error {
 		super(REFUSALS[reason]);
 		this.name = 'PrivateEventRefused';
 	}
-}
-
-/** Credentials held only for this request: the guest list is all that says who may read, so
- *  someone taken off it must lose the event at once, not when a held credential expires. */
-function readerFor(caller: CallerSession) {
-	return credentialSpaceReader(caller, undefined, { keepCredential: false });
 }
 
 function requireHost(caller: CallerSession): void {
@@ -142,7 +140,7 @@ function flatEvent(host: string, record: SpaceRecord): FlatEventRecord | null {
 /** Null for an event that isn't there and for a caller kept out alike, so a page can't tell one
  *  from the other. Any other failure throws, so "could not read" never passes for "none". */
 async function readEvent(
-	reader: ReturnType<typeof readerFor>,
+	reader: SpaceReader,
 	host: string,
 	rkey: string
 ): Promise<FlatEventRecord | null> {
@@ -220,7 +218,7 @@ export async function readPrivateEventPage(
 	host: string,
 	rkey: string
 ): Promise<PrivateEventPage | null> {
-	const reader = readerFor(caller);
+	const reader = credentialSpaceReader(caller);
 	const event = await readEvent(reader, host, rkey);
 	if (!event) return null;
 
@@ -294,7 +292,7 @@ export async function readPrivateEventForEdit(
 	rkey: string
 ): Promise<FlatEventRecord | null> {
 	requireHost(caller);
-	return readEvent(readerFor(caller), caller.did, rkey);
+	return readEvent(credentialSpaceReader(caller), caller.did, rkey);
 }
 
 function requireAccess(caller: CallerSession, host: string): void {
@@ -322,7 +320,7 @@ export async function putPrivateRsvp(
 	input: { rkey: string; status: RsvpStatus; cid: string | null }
 ): Promise<void> {
 	requireAccess(caller, host);
-	const event = await readEvent(readerFor(caller), host, input.rkey).catch((e) => {
+	const event = await readEvent(credentialSpaceReader(caller), host, input.rkey).catch((e) => {
 		console.error(`[private-events] ${host}: event ${input.rkey} unread for ${caller.did}:`, e);
 		throw new PrivateEventRefused('unchecked');
 	});
@@ -442,7 +440,7 @@ export async function myPrivateEvents(caller: CallerSession): Promise<MyPrivateE
 		}
 	}
 
-	const reader = readerFor(caller);
+	const reader = credentialSpaceReader(caller);
 	let unread = 0;
 	const events = await Promise.all(
 		spaces.map(async (uri): Promise<MyPrivateEvent | null> => {

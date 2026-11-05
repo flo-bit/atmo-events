@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { isAuthRefused, isRecordNotFound, xrpc, XrpcError, type XrpcHandle } from './xrpc';
+import { isRecordNotFound, xrpc, XrpcError, type XrpcHandle } from './xrpc';
 
 const answering = (status: number, body: unknown) =>
 	vi.fn<XrpcHandle>(async () => new Response(JSON.stringify(body), { status }));
@@ -36,19 +36,11 @@ describe('xrpc', () => {
 		});
 		expect((failure as Error).message).not.toContain('secret');
 		expect(isRecordNotFound(failure)).toBe(true);
-		expect(isAuthRefused(failure)).toBe(false);
 	});
 
 	it('does not read a 5xx or a body without an error name as absent', async () => {
 		const outage = await xrpc(answering(502, {}), 'x.y', { query: {} }).catch((e: unknown) => e);
 		expect(isRecordNotFound(outage)).toBe(false);
 		expect(outage).toMatchObject({ status: 502, error: null });
-	});
-
-	it('names a refused token so the caller can ask to link again', async () => {
-		const refused = await xrpc(answering(401, { error: 'InvalidToken' }), 'x.y', {
-			query: {}
-		}).catch((e: unknown) => e);
-		expect(isAuthRefused(refused)).toBe(true);
 	});
 });

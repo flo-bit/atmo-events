@@ -2,14 +2,11 @@ import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
 import {
 	createInAppAdapter,
+	handleOrDid,
 	type EditorAdapter,
 	type EditorViewer
 } from '#lib/components/editor/adapter.js';
 import { cancelPrivateEvent, savePrivateEvent } from './private-events.remote';
-
-function handleOrDid(viewer: EditorViewer): string {
-	return viewer.handle && viewer.handle !== 'handle.invalid' ? viewer.handle : (viewer.did ?? '');
-}
 
 /** The in-app adapter, with every write sent to the event's space. It takes no image, since atmo
  *  can't show a private one yet, and nothing about it reaches the index. */

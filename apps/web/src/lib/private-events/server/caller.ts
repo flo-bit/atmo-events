@@ -3,6 +3,7 @@ import type { OAuthSession } from '@atcute/oauth-node-client';
 import type { SpaceHolder } from '#lib/spaces/server/space-credential.js';
 
 export interface CallerSession extends SpaceHolder {
+	did: string;
 	scope: string;
 }
 

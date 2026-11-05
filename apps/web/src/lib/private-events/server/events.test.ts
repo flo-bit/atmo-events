@@ -4,7 +4,7 @@ import { HOST_SCOPE, GUEST_SCOPE } from '../scopes';
 import { EVENT_COLLECTION, privateEventSpace, privateEventUri, RSVP_COLLECTION } from '../ids';
 import type { CallerSession } from './caller';
 
-const reader = { get: vi.fn(), list: vi.fn(), writers: vi.fn() };
+const reader = { get: vi.fn(), writers: vi.fn() };
 const credentialSpaceReader = vi.fn<(...args: unknown[]) => typeof reader>(() => reader);
 vi.mock('#lib/spaces/server/space-read.js', () => ({
 	credentialSpaceReader: (...args: unknown[]) => credentialSpaceReader(...args)
@@ -75,7 +75,6 @@ function spaceRecord(repo: string, collection: string, value: Record<string, unk
 	return {
 		uri: `${SPACE}/${repo}/${collection}/${RKEY}`,
 		cid: `cid-of-${repo}`,
-		collection,
 		rkey: RKEY,
 		value
 	};
@@ -230,7 +229,7 @@ describe('putPrivateRsvp', () => {
 	});
 
 	it('refuses someone the space turns away, and writes nothing', async () => {
-		reader.get.mockRejectedValue(new SpaceAccessDenied(SPACE, '400 SpaceNotFound', true));
+		reader.get.mockRejectedValue(new SpaceAccessDenied(SPACE, '400 SpaceNotFound'));
 		const stranger = caller(OTHER, GUEST_SCOPE);
 		await expect(putPrivateRsvp(stranger, HOST, answer)).rejects.toMatchObject({
 			reason: 'no-event'
@@ -255,12 +254,14 @@ describe('readPrivateEventPage', () => {
 	it('reads with credentials held for this request only', async () => {
 		theSpaceHolds({});
 		reader.writers.mockResolvedValue([]);
-		await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), HOST, RKEY);
-		expect(credentialSpaceReader.mock.calls[0][2]).toEqual({ keepCredential: false });
+		const guest = caller(GUEST, GUEST_SCOPE);
+		await readPrivateEventPage(guest, HOST, RKEY);
+		await readPrivateEventPage(guest, HOST, RKEY);
+		expect(credentialSpaceReader).toHaveBeenCalledTimes(2);
 	});
 
 	it.each([
-		['refused', new SpaceAccessDenied(SPACE, '400 SpaceNotFound', true)],
+		['refused', new SpaceAccessDenied(SPACE, '400 SpaceNotFound')],
 		['cancelled', new SpaceAccessDenied(SPACE, '400 SpaceDeleted')]
 	])('reads as nothing there when %s', async (_name, denial) => {
 		reader.get.mockRejectedValue(denial);
@@ -466,7 +467,7 @@ describe('myPrivateEvents', () => {
 	it('lists only what the person can still read, soonest first', async () => {
 		const later = privateEventSpace(HOST, '3lbbbbbbbbbbb');
 		reader.get.mockImplementation(async ({ space, rkey }: { space: string; rkey: string }) => {
-			if (space === KEPT_OUT) throw new SpaceAccessDenied(space, '400 SpaceNotFound', true);
+			if (space === KEPT_OUT) throw new SpaceAccessDenied(space, '400 SpaceNotFound');
 			const startsAt = space === later ? '2026-12-01T00:00:00.000Z' : RECORD.startsAt;
 			return { ...spaceRecord(HOST, EVENT_COLLECTION, { ...RECORD, startsAt }), rkey };
 		});

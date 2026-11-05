@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { clearSpaceCredentials } from '#lib/spaces/server/space-credential.js';
+import { clearSpaceLookups } from '#lib/spaces/server/space-credential.js';
 import { verifiedHandle } from './people';
 
 // The network object keeps the fetch it is made with, and these tests stub a new one each time.
@@ -36,7 +36,7 @@ function people(pointsAt: string) {
 }
 
 beforeEach(() => {
-	clearSpaceCredentials();
+	clearSpaceLookups();
 	vi.spyOn(console, 'info').mockImplementation(() => {});
 });
 afterEach(() => {

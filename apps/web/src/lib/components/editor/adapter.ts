@@ -9,7 +9,7 @@ import { createLinkedRecordsClient } from './linked-records.js';
 
 export type { EditorAdapter, EditorBlobRef, EditorViewer };
 
-function handleOrDid(viewer: EditorViewer): string {
+export function handleOrDid(viewer: EditorViewer): string {
 	if (viewer.handle && viewer.handle !== 'handle.invalid') return viewer.handle;
 	return viewer.did ?? '';
 }

@@ -3,8 +3,7 @@
 
 export type XrpcHandle = (pathname: string, init: RequestInit) => Promise<Response>;
 
-export type XrpcRequest =
-	{ body: Record<string, unknown> } | { blob: Blob } | { query: Record<string, string> };
+export type XrpcRequest = { body: Record<string, unknown> } | { query: Record<string, string> };
 
 export class XrpcError extends Error {
 	constructor(
@@ -43,16 +42,14 @@ export async function xrpc(
 	nsid: string,
 	request: XrpcRequest
 ): Promise<Record<string, unknown>> {
-	let res: Response;
-	if ('query' in request) {
-		res = await handle(`/xrpc/${nsid}?${new URLSearchParams(request.query)}`, { method: 'GET' });
-	} else {
-		const sent =
-			'blob' in request
-				? { headers: { 'content-type': request.blob.type }, body: request.blob }
-				: { headers: { 'content-type': 'application/json' }, body: JSON.stringify(request.body) };
-		res = await handle(`/xrpc/${nsid}`, { method: 'POST', ...sent });
-	}
+	const res =
+		'query' in request
+			? await handle(`/xrpc/${nsid}?${new URLSearchParams(request.query)}`, { method: 'GET' })
+			: await handle(`/xrpc/${nsid}`, {
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify(request.body)
+				});
 	const answer = await readXrpc(res);
 	if (answer.ok) return answer.data;
 	throw answerError(nsid, answer);
@@ -66,18 +63,4 @@ export function answerIsRecordNotFound(answer: XrpcAnswer): boolean {
 /** The only answer that proves a record absent; a 5xx is not "absent". */
 export function isRecordNotFound(e: unknown): boolean {
 	return e instanceof XrpcError && e.status === 400 && e.error === 'RecordNotFound';
-}
-
-/** The session was revoked or expired at the PDS, so only signing in again fixes it. */
-export function isAuthRefused(e: unknown): boolean {
-	return e instanceof XrpcError && e.status === 401;
-}
-
-/** The session is sound, but the roles it carries no longer allow the call. */
-export function isRoleRefused(e: unknown): boolean {
-	return (
-		e instanceof XrpcError &&
-		e.status === 403 &&
-		(e.error === 'ScopeMissingError' || e.error === 'Forbidden')
-	);
 }

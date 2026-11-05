@@ -4,7 +4,7 @@ import { EVENT_COLLECTION, privateEventSpace } from '#lib/private-events/ids.js'
 import { GUEST_SCOPE } from '#lib/private-events/scopes.js';
 
 const setHeaders = vi.fn();
-const reader = { get: vi.fn(), list: vi.fn(), writers: vi.fn() };
+const reader = { get: vi.fn(), writers: vi.fn() };
 vi.mock('#lib/spaces/server/space-read.js', () => ({ credentialSpaceReader: () => reader }));
 vi.mock('#lib/actor.js', () => ({ actorToDid: vi.fn() }));
 vi.mock('#lib/private-events/server/people.js', () => ({
@@ -72,7 +72,6 @@ describe('/private when a host’s server is down', () => {
 			return {
 				uri: `${space}/${HOST}/${EVENT_COLLECTION}/${rkey}`,
 				cid: `cid-of-${rkey}`,
-				collection: EVENT_COLLECTION,
 				rkey,
 				value: RECORD
 			};
@@ -86,7 +85,6 @@ describe('/private when a host’s server is down', () => {
 		reader.get.mockImplementation(async ({ space, rkey }: { space: string; rkey: string }) => ({
 			uri: `${space}/${HOST}/${EVENT_COLLECTION}/${rkey}`,
 			cid: `cid-of-${rkey}`,
-			collection: EVENT_COLLECTION,
 			rkey,
 			value: RECORD
 		}));
@@ -104,7 +102,6 @@ describe('/private with a record a host wrote badly', () => {
 		reader.get.mockImplementation(async ({ space, rkey }: { space: string; rkey: string }) => ({
 			uri: `${space}/${HOST}/${EVENT_COLLECTION}/${rkey}`,
 			cid: `cid-of-${rkey}`,
-			collection: EVENT_COLLECTION,
 			rkey,
 			value: space === BROKEN ? { ...RECORD, name: 'Broken', ...broken } : RECORD
 		}));

@@ -15,15 +15,6 @@ export function spaceRecordUri(
 	return `${space}/${repo}/${collection}/${rkey}`;
 }
 
-/** Collection and rkey are the last two segments of a plain and a space record URI alike. */
-export function splitRecordUri(uri: string): { collection: string; rkey: string } {
-	const segments = uri.split('/');
-	return {
-		collection: segments[segments.length - 2] ?? '',
-		rkey: segments[segments.length - 1] ?? ''
-	};
-}
-
 /** The authority and key of a space URI; null for anything else. */
 export function parseSpaceUri(
 	uri: string
