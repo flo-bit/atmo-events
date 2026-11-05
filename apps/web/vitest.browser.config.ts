@@ -19,7 +19,11 @@ export default defineConfig({
 		// Keep shared network settings in one module; Vite also handles MapLibre's worker ?url.
 		exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'],
 		include: [
+			'@atcute/atproto/types/repo/strongRef',
+			'@atcute/bluesky/types/app/actor/profile',
+			'@atcute/lexicons/validations',
 			'@sketchyicons/svelte/icons/calendar',
+			'@sketchyicons/svelte/icons/compass',
 			'@sketchyicons/svelte/icons/message-circle',
 			'@sketchyicons/svelte/icons/handshake'
 		]

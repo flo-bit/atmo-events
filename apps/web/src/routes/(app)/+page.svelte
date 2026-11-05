@@ -86,6 +86,36 @@
 			</section>
 		{/if}
 
+		{#if user.isLoggedIn}
+			{#await data.recommendedEvents then events}
+				{#if events.length >= 2}
+					<section class="mb-16" aria-labelledby="recommended-events-heading">
+						<div class="mb-8 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+							<h2
+								id="recommended-events-heading"
+								class="text-base-900 dark:text-base-50 text-xl font-bold"
+							>
+								Events you might be interested in
+							</h2>
+							<a
+								href="https://foryou.club/atmosphere"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-muted text-sm hover:underline"
+							>
+								Powered by For You
+							</a>
+						</div>
+						<div class="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+							{#each events as event (event.uri)}
+								<EventCard {event} />
+							{/each}
+						</div>
+					</section>
+				{/if}
+			{/await}
+		{/if}
+
 		<div class="mb-8 flex items-baseline justify-between">
 			<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Upcoming Popular Events</h2>
 			<a
