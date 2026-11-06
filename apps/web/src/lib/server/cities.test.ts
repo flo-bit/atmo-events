@@ -1,10 +1,12 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { latLngToCell } from 'h3-js';
 import { config } from '#lib/contrail.config.js';
 import { TOP_CITIES_LIMIT } from '#lib/cities.js';
 import {
 	cityConditions,
 	readTopCities,
+	readCitySuggestions,
 	readCitySnapshot,
 	refreshCitySnapshot,
 	CITY_SNAPSHOT_INTERVAL_MS
@@ -197,6 +199,139 @@ describe('existing-field city discovery', () => {
 			{ city: 'Known City', country: '', region: '', count: 1 },
 			{ city: 'Legacy City', country: '', region: '', count: 1 }
 		]);
+	});
+
+	it('finds nearby cities across borders and falls back to unlocated cities in the country', async () => {
+		const { db, add } = setup();
+		const geo = (latitude: unknown, longitude: unknown) => ({
+			$type: 'community.lexicon.location.geo',
+			latitude,
+			longitude
+		});
+		add({ locations: [address('Berlin'), geo('52.52', '13.405')] });
+		add({ locations: [address('Berlin'), geo('52.52', '13.405')] });
+		add({ locations: [address('Szczecin', 'PL'), geo('53.43', '14.55')] });
+		add({ locations: [address('Munich'), geo('48.14', '11.58')] });
+		add({ locations: [address('Sampletown'), geo('', '13')] });
+		add({ locations: [address('Ambiguous'), address('Other'), geo('52.52', '13.405')] });
+		await refreshCitySnapshot(db);
+		const result = await readCitySuggestions(db, {
+			latitude: '52.52',
+			longitude: '13.405',
+			country: 'DE'
+		});
+		expect(result.nearby.map((city) => city.city)).toEqual(['Berlin', 'Szczecin']);
+		expect(result.inCountry.map((city) => city.city)).toEqual(['Ambiguous', 'Other', 'Sampletown']);
+		const fallback = await readCitySuggestions(db, { latitude: '', longitude: '', country: 'DE' });
+		expect(fallback.nearby).toEqual([]);
+		expect(fallback.inCountry.map((city) => city.city)).toEqual([
+			'Berlin',
+			'Ambiguous',
+			'Munich',
+			'Other',
+			'Sampletown'
+		]);
+	});
+
+	it('does not guess coordinates for multiple locations or conflicting city points', async () => {
+		const { db, add } = setup();
+		const geo = (latitude: string, longitude: string) => ({
+			$type: 'community.lexicon.location.geo',
+			latitude,
+			longitude
+		});
+		add({ locations: [address('Multi Geo'), geo('52.52', '13.405'), geo('48.14', '11.58')] });
+		add({ locations: [address('Multi Address'), address(''), geo('52.52', '13.405')] });
+		add({ locations: [address('Conflicting'), geo('52.52', '13.405')] });
+		add({ locations: [address('Conflicting'), geo('40.713', '-74.006')] });
+		add({ locations: [address('Agreement'), geo('52.52', '13.405')] });
+		add({ locations: [address('Agreement'), geo('52.53', '13.41')] });
+		await refreshCitySnapshot(db);
+		const result = await readCitySuggestions(db, {
+			latitude: '52.52',
+			longitude: '13.405',
+			country: 'DE'
+		});
+		expect(result.nearby.map((city) => city.city)).toEqual(['Agreement']);
+		expect(result.inCountry.map((city) => city.city)).toEqual([
+			'Conflicting',
+			'Multi Address',
+			'Multi Geo'
+		]);
+	});
+
+	it('uses sufficiently precise H3 cells but not malformed, coarse, or ambiguous locations', async () => {
+		const { db, add } = setup();
+		const h3 = (value: string) => ({ $type: 'community.lexicon.location.hthree', value });
+		add({ locations: [address('Precise'), h3(latLngToCell(52.52, 13.405, 7))] });
+		add({ locations: [address('Coarse'), h3(latLngToCell(52.52, 13.405, 2))] });
+		add({ locations: [address('Invalid'), h3('not-a-cell')] });
+		add({
+			locations: [
+				address('Ambiguous Formats'),
+				h3(latLngToCell(52.52, 13.405, 7)),
+				{
+					$type: 'community.lexicon.location.geo',
+					latitude: '52.52',
+					longitude: '13.405'
+				}
+			]
+		});
+		await refreshCitySnapshot(db);
+		const result = await readCitySuggestions(db, {
+			latitude: '52.52',
+			longitude: '13.405',
+			country: 'DE'
+		});
+		expect(result.nearby.map((city) => city.city)).toEqual(['Precise']);
+		expect(result.inCountry.map((city) => city.city)).toEqual([
+			'Ambiguous Formats',
+			'Coarse',
+			'Invalid'
+		]);
+	});
+
+	it('calculates the 500 km boundary and wraps across the date line', async () => {
+		const { db, add } = setup();
+		const addPoint = (city: string, latitude: string, longitude: string) =>
+			add({
+				locations: [address(city), { $type: 'community.lexicon.location.geo', latitude, longitude }]
+			});
+		addPoint('Inside', '0', '4.49');
+		addPoint('Outside', '0', '4.50');
+		addPoint('Date Line', '0', '-179');
+		await refreshCitySnapshot(db);
+		expect(
+			(await readCitySuggestions(db, { latitude: '0', longitude: '0' })).nearby.map(
+				(city) => city.city
+			)
+		).toEqual(['Inside']);
+		expect(
+			(await readCitySuggestions(db, { latitude: '0', longitude: '179' })).nearby.map(
+				(city) => city.city
+			)
+		).toEqual(['Date Line']);
+	});
+
+	it('searches the entire catalog for nearby cities rather than only the worldwide top 20', async () => {
+		const { db, add } = setup();
+		for (let i = 0; i < 21; i++) {
+			add({ locations: [address(`Popular ${i}`, 'US')] });
+			add({ locations: [address(`Popular ${i}`, 'US')] });
+		}
+		add({
+			locations: [
+				address('Local', 'DE'),
+				{ $type: 'community.lexicon.location.geo', latitude: '52.5', longitude: '13.4' }
+			]
+		});
+		await refreshCitySnapshot(db);
+		expect((await readTopCities(db)).some((city) => city.city === 'Local')).toBe(false);
+		expect(
+			(await readCitySuggestions(db, { latitude: '52.5', longitude: '13.4' })).nearby.map(
+				(city) => city.city
+			)
+		).toEqual(['Local']);
 	});
 
 	it('returns only the top 20 with stable tie-breaking and no zero-count cities', async () => {

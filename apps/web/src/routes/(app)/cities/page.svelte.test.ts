@@ -21,7 +21,9 @@ describe('city links', () => {
 						isModerator: false,
 						pageTitle: 'Browse Cities',
 						pageDescription: 'Find upcoming events by city on the open social web.',
-						cities: [{ city, country, region, count: 1 }]
+						cities: [{ city, country, region, count: 1 }],
+						nearby: [],
+						inCountry: []
 					}
 				}
 			}).body;

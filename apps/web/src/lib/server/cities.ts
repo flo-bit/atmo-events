@@ -1,7 +1,8 @@
 import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
+import { cellToLatLng, getResolution, isValidCell } from 'h3-js';
 import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
 import { discoverableSql } from '#lib/contrail/discoverability.js';
-import { normalizeCityAddress } from './city-normalization';
+import { countryCode, normalizeCityAddress } from './city-normalization';
 import { cachedRead } from './edge-cache';
 
 export const CITY_SNAPSHOT_INTERVAL_MS = 24 * 60 * 60 * 1000;
@@ -21,15 +22,59 @@ const ADDRESS_CONDITION = `(${field('$type')} = 'community.lexicon.location.addr
 	AND ${text('locality')} != ''
 	AND length(${text('locality')}) <= 256
 	AND length(${text('country')}) <= 256 AND length(${text('region')}) <= 256`;
+// A city's venue points farther apart than this are not reliable evidence of
+// one location (e.g. conflicting publisher data or homonymous localities).
+const MAX_CITY_POINT_SPREAD_KM = 100;
 const PHYSICAL = `COALESCE(json_extract(r.record, '$.mode'), '')
 	NOT IN ('community.lexicon.calendar.event#virtual', 'virtual')`;
 const scopeKey = (scope: CityScope) => JSON.stringify([scope.city, scope.country, scope.region]);
 type Variant = [city: string, country: string, region: string];
-type CatalogCity = City & { scope: CityScope; variants: Variant[] };
+type Point = { latitude: number; longitude: number };
+type CatalogCity = City & { scope: CityScope; variants: Variant[]; point?: Point };
 /** Ordering/membership only. Event bodies and RSVP/profile data are never cached. */
 export type CityMember = [uri: string, startsAt: string];
 type BuiltCity = CatalogCity & { events: CityMember[] };
 type Head = { version: string; updated_at: number };
+
+function validPoint(value: unknown): Point | undefined {
+	if (!value || typeof value !== 'object') return undefined;
+	const { latitude, longitude } = value as Record<string, unknown>;
+	const coordinate = (v: unknown) =>
+		typeof v === 'number' || (typeof v === 'string' && v.trim()) ? Number(v) : NaN;
+	const lat = coordinate(latitude);
+	const lon = coordinate(longitude);
+	return Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180
+		? { latitude: lat, longitude: lon }
+		: undefined;
+}
+
+// H3 cells coarser than resolution 4 cover too large an area for a useful
+// 500 km proximity estimate. Use the center; this is not an exact venue.
+function eventPoint(value: unknown): Point | undefined {
+	if (!value || typeof value !== 'object') return undefined;
+	const location = value as Record<string, unknown>;
+	if (location.type === 'community.lexicon.location.geo') return validPoint(location);
+	if (
+		location.type === 'community.lexicon.location.hthree' &&
+		typeof location.value === 'string' &&
+		isValidCell(location.value) &&
+		getResolution(location.value) >= 4
+	) {
+		const [latitude, longitude] = cellToLatLng(location.value);
+		return validPoint({ latitude, longitude });
+	}
+	return undefined;
+}
+
+function distanceKm(a: Point, b: Point): number {
+	const rad = Math.PI / 180;
+	const dLat = (b.latitude - a.latitude) * rad;
+	const dLon = (b.longitude - a.longitude) * rad;
+	const h =
+		Math.sin(dLat / 2) ** 2 +
+		Math.cos(a.latitude * rad) * Math.cos(b.latitude * rad) * Math.sin(dLon / 2) ** 2;
+	return 12742 * Math.asin(Math.sqrt(Math.min(1, h)));
+}
 
 /** The only events-wide city query. Cron runs it once per daily global snapshot. */
 async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
@@ -37,7 +82,22 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 		.prepare(
 			`SELECT
 		${text('locality')} AS city, ${text('country')} AS country, ${text('region')} AS region,
-		json_group_array(DISTINCT json_array(r.uri, json_extract(r.record, '$.startsAt'))) AS events
+		json_group_array(DISTINCT json_array(r.uri, json_extract(r.record, '$.startsAt'))) AS events,
+		json_group_array(DISTINCT CASE WHEN (SELECT count(*) FROM ${LOCATIONS}
+			WHERE ${field('$type')} = 'community.lexicon.location.address'
+			OR ((${field('$type')} IS NULL OR ${field('$type')} = '') AND ${text('locality')} != '')) = 1
+			AND (SELECT count(*) FROM json_each(r.record, '$.locations') g
+			WHERE g.type = 'object' AND json_extract(g.value, '$.$type') IN
+				('community.lexicon.location.geo', 'community.lexicon.location.hthree')) = 1
+			THEN (SELECT json_object(
+				'type', json_extract(g.value, '$.$type'),
+				'latitude', json_extract(g.value, '$.latitude'),
+				'longitude', json_extract(g.value, '$.longitude'),
+				'value', json_extract(g.value, '$.value'))
+			FROM json_each(r.record, '$.locations') g
+			WHERE g.type = 'object' AND json_extract(g.value, '$.$type') IN
+				('community.lexicon.location.geo', 'community.lexicon.location.hthree')
+			LIMIT 1) END) AS points
 		FROM records_event r, ${LOCATIONS}
 		WHERE ${discoverableSql('r.record')} AND ${visibleRecordSql('r')} AND ${PHYSICAL}
 			AND json_extract(r.record, '$.startsAt') >= ? AND ${ADDRESS_CONDITION}
@@ -45,7 +105,7 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 		ORDER BY city, country, region`
 		)
 		.bind(asOf)
-		.all<CityScope & { events: string }>();
+		.all<CityScope & { events: string; points: string }>();
 	const rows = result.results.flatMap((raw) => {
 		const normalized = normalizeCityAddress(raw);
 		return normalized ? [{ raw, ...normalized }] : [];
@@ -60,7 +120,10 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 		regions.set(scope.region, label.region);
 		knownRegions.set(key, regions);
 	}
-	const groups = new Map<string, { entry: CatalogCity; events: Map<string, string> }>();
+	const groups = new Map<
+		string,
+		{ entry: CatalogCity; events: Map<string, string>; pointConflict: boolean }
+	>();
 	for (const { raw, scope, label } of rows) {
 		const regions = knownRegions.get(JSON.stringify([scope.city, scope.country]));
 		if (!scope.region && regions?.size === 1) {
@@ -71,12 +134,32 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 		const key = scopeKey(scope);
 		let group = groups.get(key);
 		if (!group) {
-			group = { entry: { ...label, count: 0, scope, variants: [] }, events: new Map() };
+			group = {
+				entry: { ...label, count: 0, scope, variants: [] },
+				events: new Map(),
+				pointConflict: false
+			};
 			groups.set(key, group);
 		}
 		const readable = (name: string) => name !== name.toUpperCase() && name !== name.toLowerCase();
 		if (!readable(group.entry.city) && readable(label.city)) group.entry.city = label.city;
 		group.entry.variants.push([raw.city, raw.country, raw.region]);
+		for (const value of JSON.parse(raw.points) as unknown[]) {
+			if (group.pointConflict) break;
+			try {
+				const geo = typeof value === 'string' ? JSON.parse(value) : value;
+				const point = eventPoint(geo);
+				if (!point) continue;
+				if (group.entry.point && distanceKm(group.entry.point, point) > MAX_CITY_POINT_SPREAD_KM) {
+					delete group.entry.point;
+					group.pointConflict = true;
+				} else {
+					group.entry.point ??= point;
+				}
+			} catch {
+				// Ignore malformed publisher-supplied coordinates.
+			}
+		}
 		for (const [uri, startsAt] of JSON.parse(raw.events) as CityMember[])
 			group.events.set(uri, startsAt);
 	}
@@ -120,13 +203,14 @@ export async function refreshCitySnapshot(db: D1Database, now = Date.now()): Pro
 	if (!(claim.meta.changes > 0)) return;
 	try {
 		const cities = await buildCatalog(db, new Date(now).toISOString());
-		const catalog = cities.map(({ city, country, region, count, scope, variants }) => ({
+		const catalog = cities.map(({ city, country, region, count, scope, variants, point }) => ({
 			city,
 			country,
 			region,
 			count,
 			scope,
-			variants
+			variants,
+			point
 		}));
 		const statements: D1PreparedStatement[] = [];
 		const append = (key: string, value: unknown) => {
@@ -264,6 +348,38 @@ export async function cityConditions(
 				AND ${text('region')} = json_extract(v.value, '$[2]'))`
 		],
 		params: [JSON.stringify(city.variants)]
+	};
+}
+
+/** Select from the complete cached catalog, not just the worldwide top 20.
+ * Coordinates come only from events with one address and one geo or precise H3 point; cities
+ * with widely conflicting event coordinates fall back to country matching. */
+export async function readCitySuggestions(
+	db: Database,
+	location?: { latitude?: unknown; longitude?: unknown; country?: unknown },
+	asOf?: string
+): Promise<{ cities: City[]; nearby: City[]; inCountry: City[] }> {
+	const cities = asOf ? await buildCatalog(db, asOf) : await catalog(db);
+	if (!cities) throw new Error('City snapshot is not available yet');
+	const visitor = validPoint(location);
+	const country = typeof location?.country === 'string' ? countryCode(location.country) : undefined;
+	const nearby: City[] = [];
+	const inCountry: City[] = [];
+	for (const { city, country: cityCountry, region, count, point } of cities) {
+		const result = { city, country: cityCountry, region, count };
+		if (visitor && point && distanceKm(visitor, point) <= 500) nearby.push(result);
+		else if ((!visitor || !point) && country && countryCode(cityCountry) === country)
+			inCountry.push(result);
+	}
+	return {
+		cities: cities.slice(0, TOP_CITIES_LIMIT).map(({ city, country, region, count }) => ({
+			city,
+			country,
+			region,
+			count
+		})),
+		nearby: nearby.slice(0, TOP_CITIES_LIMIT),
+		inCountry: inCountry.slice(0, TOP_CITIES_LIMIT)
 	};
 }
 
