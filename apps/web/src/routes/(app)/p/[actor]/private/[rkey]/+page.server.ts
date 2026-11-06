@@ -11,6 +11,7 @@ import { holdsGuestGrant, holdsHostGrant } from '#lib/private-events/scopes.js';
 import { callerSession } from '#lib/private-events/server/caller.js';
 import { privateEventsEnabled, spacesServer } from '#lib/private-events/server/enabled.js';
 import { readPrivateEventPage } from '#lib/private-events/server/events.js';
+import { timeLimitedNetwork } from '#lib/spaces/server/other-servers.js';
 
 /** Byte for byte, so someone kept out can't tell an event that exists from one that doesn't, or from
  *  one that was cancelled. */
@@ -21,7 +22,7 @@ const EVENT_NOT_AVAILABLE =
 export async function load({ params, locals, cookies, setHeaders }) {
 	if (!privateEventsEnabled()) error(404, 'Not found');
 	setHeaders({ 'cache-control': 'no-store' });
-	const host = await getActor(params.actor);
+	const host = await getActor(params.actor, timeLimitedNetwork());
 	if (!host) error(404, EVENT_NOT_AVAILABLE);
 
 	const caller = await callerSession(locals.session ?? null);

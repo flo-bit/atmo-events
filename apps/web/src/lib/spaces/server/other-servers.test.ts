@@ -6,8 +6,13 @@ import { fetchOtherServer, timeLimitedNetwork } from './other-servers';
 // showed this. This stands in for it, held directly, with no wrapper to hide the call.
 const runtimeFetch = vi.hoisted(
 	() =>
-		function (this: unknown): Promise<Response> {
+		function (this: unknown, input?: unknown, init?: RequestInit): Promise<Response> {
 			if (this !== undefined && this !== globalThis) throw new TypeError('Illegal invocation');
+			if (String(input).includes('stalled')) {
+				return new Promise((_resolve, reject) => {
+					init?.signal?.addEventListener('abort', () => reject(init.signal?.reason));
+				});
+			}
 			return Promise.resolve(new Response('answered'));
 		}
 );
@@ -26,5 +31,13 @@ describe('calls to the runtime fetch', () => {
 	it('the identity lookups get an answer', async () => {
 		const res = await timeLimitedNetwork().fetch('https://plc.test/did:plc:abc');
 		expect(await res.text()).toBe('answered');
+	});
+
+	// The library stops the loser of its DNS and https race this way.
+	it('an identity lookup still stops when its own signal does', { timeout: 1000 }, async () => {
+		const own = new AbortController();
+		const lookup = timeLimitedNetwork().fetch('https://stalled.test/', { signal: own.signal });
+		own.abort();
+		await expect(lookup).rejects.toBeDefined();
 	});
 });

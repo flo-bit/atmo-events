@@ -4,6 +4,7 @@
 import * as v from '@atcute/lexicons/validations';
 import type { AttendeeInfo, FlatEventRecord } from '#lib/contrail.js';
 import { actorToDid } from '#lib/actor.js';
+import { timeLimitedNetwork } from '#lib/spaces/server/other-servers.js';
 import { isSpaceAccessDenied } from '#lib/spaces/server/space-credential.js';
 import {
 	credentialSpaceReader,
@@ -370,7 +371,7 @@ export async function addGuest(
 ): Promise<Guest> {
 	requireHost(caller);
 	const actor = input.handleOrDid.trim().replace(/^@/, '');
-	const did = await actorToDid(actor).catch(() => null);
+	const did = await actorToDid(actor, timeLimitedNetwork()).catch(() => null);
 	if (!did) throw new PrivateEventRefused('no-such-person');
 	if (did === caller.did) throw new PrivateEventRefused('own-event');
 	try {

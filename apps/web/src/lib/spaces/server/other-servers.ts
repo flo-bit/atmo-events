@@ -25,13 +25,17 @@ export async function fetchOtherServer(url: URL, init: RequestInit): Promise<Res
 	});
 }
 
-/** This deployment's network with the same time limit, for the library's identity lookups. */
+/** This deployment's network with the same time limit, for the library's identity lookups. The
+ *  library races DNS against https with a signal of its own, so the limit joins that signal. */
 export function timeLimitedNetwork(): AtprotoNetwork {
 	const network = atprotoNetwork();
 	const { fetch: send } = network;
 	return {
 		...network,
-		fetch: (input, init) =>
-			send(input, { ...init, signal: init?.signal ?? AbortSignal.timeout(TIME_LIMIT_MS) })
+		fetch: (input, init) => {
+			const limit = AbortSignal.timeout(TIME_LIMIT_MS);
+			const signal = init?.signal ? AbortSignal.any([init.signal, limit]) : limit;
+			return send(input, { ...init, signal });
+		}
 	};
 }
