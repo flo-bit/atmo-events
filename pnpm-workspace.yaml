@@ -21,4 +21,4 @@ minimumReleaseAgeExclude:
   # soon as it is published.
   - '@openmeet/snowglobe'
 patchedDependencies:
-  '@atmo-dev/kit@0.6.0': patches/@atmo-dev__kit@0.6.0.patch
+  '@atmo-dev/kit@0.7.1': patches/@atmo-dev__kit@0.7.1.patch

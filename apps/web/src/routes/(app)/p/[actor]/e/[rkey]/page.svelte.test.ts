@@ -1,5 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'svelte/server';
+import { chromium } from 'playwright';
+import type { Facet } from '@atmo-dev/kit';
 import type { PreferredSocialClient } from '@atmo-dev/kit/social';
 
 const { user } = vi.hoisted(() => ({
@@ -23,7 +25,8 @@ import AppFooter from '#lib/components/AppFooter.svelte';
 function markup(
 	cid: string | undefined = 'bafytest',
 	packs = { enabled: false, going: 0, interested: 0 },
-	showComments = false
+	showComments = false,
+	description?: { description: string; facets?: Facet[] }
 ) {
 	return (
 		render(EventPage, {
@@ -57,7 +60,8 @@ function markup(
 									}
 								}
 							: {}),
-						cid
+						cid,
+						...description
 					},
 					actorDid: 'did:plc:host',
 					reportSubject: cid
@@ -110,6 +114,77 @@ afterEach(() => {
 	user.isLoggedIn = true;
 	user.did = 'did:plc:viewer';
 	user.preferredSocialClient = null;
+});
+
+describe('event description security', () => {
+	const payload = '<script>window.__atmoSecurityProbe = 1</script x>';
+
+	it.each([true, false])(
+		'escapes descriptions in the actual event page; signed in: %s',
+		(signedIn) => {
+			user.isLoggedIn = signedIn;
+			const html = markup('bafytest', undefined, false, { description: payload });
+			expect(html).toContain('&lt;script>window.__atmoSecurityProbe = 1&lt;/script x>');
+			expect(html).not.toContain(payload);
+		}
+	);
+
+	it('keeps Markdown literal and only renders validated facet links', () => {
+		user.preferredSocialClient = { client: 'blacksky' };
+		const description = '👋 @alice.test #café **bold** [click](javascript:alert(1))';
+		const feature = (label: string, value: Facet['features'][number]): Facet => {
+			const offset = description.indexOf(label);
+			return {
+				index: {
+					byteStart: new TextEncoder().encode(description.slice(0, offset)).length,
+					byteEnd: new TextEncoder().encode(description.slice(0, offset + label.length)).length
+				},
+				features: [value]
+			};
+		};
+		const html = markup('bafytest', undefined, false, {
+			description,
+			facets: [
+				feature('@alice.test', {
+					$type: 'app.bsky.richtext.facet#mention',
+					did: 'did:web:alice.test'
+				}),
+				feature('#café', { $type: 'app.bsky.richtext.facet#tag', tag: 'café' }),
+				feature('click', { $type: 'app.bsky.richtext.facet#link', uri: 'javascript:alert(1)' })
+			]
+		});
+		expect(html).toContain('href="/p/did%3Aweb%3Aalice.test"');
+		expect(html).toContain('href="https://blacksky.community/hashtag/caf%C3%A9"');
+		expect(html).toContain('**bold** [');
+		expect(html).not.toContain('<strong>bold</strong>');
+		expect(html).not.toMatch(/<a\b[^>]*href="javascript:/i);
+	});
+
+	it('does not execute the reported payload when the server-rendered event page is first parsed', async () => {
+		const browser = await chromium.launch({ headless: true });
+		try {
+			for (const signedIn of [false, true]) {
+				user.isLoggedIn = signedIn;
+				const html = markup('bafytest', undefined, false, { description: payload });
+				const page = await browser.newPage();
+				await page.addInitScript(() => Object.assign(window, { __atmoSecurityProbe: 0 }));
+				await page.route('**/*', (route) =>
+					route.request().url() === 'https://event-page.invalid/'
+						? route.fulfill({
+								contentType: 'text/html',
+								body: `<!doctype html><html><body>${html}</body></html>`
+							})
+						: route.abort()
+				);
+				await page.goto('https://event-page.invalid/');
+				expect(await page.getByText(payload, { exact: true }).count()).toBe(1);
+				expect(await page.evaluate(() => Reflect.get(window, '__atmoSecurityProbe'))).toBe(0);
+				await page.close();
+			}
+		} finally {
+			await browser.close();
+		}
+	});
 });
 
 describe('event comment client', () => {

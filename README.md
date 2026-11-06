@@ -27,9 +27,11 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
 
-Installs use the published `@atmo-dev/kit@0.6.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
+Installs use the published `@atmo-dev/kit@0.7.1` security release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
-`patches/@atmo-dev__kit@0.6.0.patch` preserves configurable AppView/CDN URLs and adds external event poster compatibility until these changes are published in Kit. pnpm applies it automatically on install. Remove the corresponding patch sections once a published Kit release includes them; local Kit checkouts also need `configureAtproto` exported from `events-data`.
+`patches/@atmo-dev__kit@0.7.1.patch` preserves configurable AppView/CDN URLs until these changes are published in Kit. pnpm applies it automatically on install. External event poster support is now upstream and no longer patched. Remove the remaining patch once a published Kit release includes network configuration; local Kit checkouts also need `configureAtproto` exported from `events-data`.
+
+Event descriptions are plain text with validated AT Protocol facet links, rendered by Kit without HTML or Markdown interpretation. Existing HTML/Markdown syntax is displayed literally; line breaks are preserved. Descriptions without facets detect plain-text links, mentions and hashtags. This fixes the former server-side sanitizer bypass. No record migration or backfill is needed.
 
 Preferred social-app selections are cached per DID in browser `localStorage` for seven days, with an in-memory fallback when storage is blocked. Ordinary pages render without a PDS preference read; missing/expired entries refresh in the background, retaining stale values on failure. Settings always reads fresh data and updates the browser cache after a successful save. Changes made in another app appear after expiry or when opening Settings. Only the public preference is cached, never OAuth/session data; `/api/preferred-client` responses are private and `no-store`.
 
