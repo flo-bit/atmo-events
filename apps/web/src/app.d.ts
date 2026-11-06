@@ -77,9 +77,13 @@ declare global {
 			CLIENT_ASSERTION_KEY: string;
 			COOKIE_SECRET: string;
 			OAUTH_PUBLIC_URL: string;
+			/** True opts local dev into public For You calls; false disables them everywhere. */
+			FOR_YOU_ENABLED?: string;
 			DB: D1Database;
 			/** Stable private report storage; never swap with projection generations. */
 			REPORTS_DB: D1Database;
+			/** Private daily recommendation cache; separate from reports/index. */
+			RECOMMENDATIONS_DB?: D1Database;
 			/** Comma-separated trusted moderator DIDs; empty grants nobody access. */
 			MODERATOR_DIDS?: string;
 			ASSETS?: Fetcher;

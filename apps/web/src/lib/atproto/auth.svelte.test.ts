@@ -20,6 +20,7 @@ import {
 import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import { PREFERRED_CLIENT_COLLECTION, PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import { blueskyPostingScope, getLoginScopes, requiredScopes } from './settings';
+import { FOR_YOU_SCOPE } from './recommendations';
 
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -45,7 +46,7 @@ describe('OAuth client integration', () => {
 	it('also includes meeting permission when creating an account from Meet', async () => {
 		await signup({ meetings: true });
 		expect(mocks.signup).toHaveBeenCalledExactlyOnceWith({
-			scope: [...requiredScopes, blueskyPostingScope, CONNECTION_SCOPE],
+			scope: [...requiredScopes, blueskyPostingScope, FOR_YOU_SCOPE, CONNECTION_SCOPE],
 			saveReturnTo: true
 		});
 	});
@@ -88,7 +89,7 @@ describe('OAuth client integration', () => {
 		expect(getLoginScopes([blueskyPostingScope])).not.toContain(PREFERRED_CLIENT_SCOPE);
 		expect(mocks.requestPermissions).not.toHaveBeenCalled();
 		expect(mocks.signup).toHaveBeenCalledExactlyOnceWith({
-			scope: getLoginScopes([blueskyPostingScope]),
+			scope: getLoginScopes([blueskyPostingScope, FOR_YOU_SCOPE]),
 			saveReturnTo: true
 		});
 	});

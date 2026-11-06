@@ -30,6 +30,13 @@ export const legalDraftConfig: LegalDraftConfig = {
 			]
 		},
 		{
+			id: 'recommendations',
+			title: 'Event recommendations',
+			paragraphs: [
+				'If you authorize event recommendations, we send For You (foryou.club) a short-lived token identifying your AT Protocol account. For You uses public activity to recommend events. We privately cache the recommended event identifiers and normally refresh them at most once a day. Your OAuth session tokens are not sent to For You. You can leave this permission unselected when signing in.'
+			]
+		},
+		{
 			id: 'reports',
 			title: 'Reports and moderation',
 			paragraphs: [

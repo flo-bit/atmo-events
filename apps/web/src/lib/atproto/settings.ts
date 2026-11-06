@@ -2,9 +2,11 @@ import type { LoginPermission } from '@atmo-dev/kit';
 import { PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import { CONNECTION_SCOPE } from '../meet/connection.ts';
 import Calendar from '@sketchyicons/svelte/icons/calendar';
+import Compass from '@sketchyicons/svelte/icons/compass';
 import MessageCircle from '@sketchyicons/svelte/icons/message-circle';
 import Handshake from '@sketchyicons/svelte/icons/handshake';
 import type { Capability } from '@svelte-atproto/oauth/permissions';
+import { FOR_YOU_SCOPE } from './recommendations.js';
 
 // Shared with Vite: import only framework-free helpers, types and icon data.
 export const DEV_PORT = 5454;
@@ -42,7 +44,8 @@ export const scopes = [
 	blueskyPostingScope,
 	moderationActionScope,
 	PREFERRED_CLIENT_SCOPE,
-	CONNECTION_SCOPE
+	CONNECTION_SCOPE,
+	FOR_YOU_SCOPE
 ];
 
 export const loginPermissions: readonly LoginPermission[] = [
@@ -60,6 +63,14 @@ export const loginPermissions: readonly LoginPermission[] = [
 		label: 'Post to Bluesky',
 		description: 'Share events directly from your account.',
 		scopes: [blueskyPostingScope],
+		defaultSelected: true
+	},
+	{
+		id: 'recommendations',
+		icon: Compass,
+		label: 'Event recommendations',
+		description: 'Let For You suggest events based on your public activity.',
+		scopes: [FOR_YOU_SCOPE],
 		defaultSelected: true
 	}
 ];
@@ -95,6 +106,7 @@ export function getLoginScopes(
 	return [
 		...requiredScopes,
 		...(selected.includes(blueskyPostingScope) ? [blueskyPostingScope] : []),
+		...(selected.includes(FOR_YOU_SCOPE) ? [FOR_YOU_SCOPE] : []),
 		...(meetings ? [CONNECTION_SCOPE] : [])
 	];
 }
