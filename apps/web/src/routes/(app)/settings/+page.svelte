@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { untrack } from 'svelte';
+	import { parsePreferredSocialClient } from '@atmo-dev/kit/social';
+	import { preferredClientCache } from '#lib/atproto/preferred-client.svelte.js';
 	import { Button, SocialClientPicker } from '@atmo-dev/kit';
 	import { user, authorizePreferredSocialClient, logout } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
@@ -10,6 +13,12 @@
 	let saving = $state(false);
 	let authorizing = $state(false);
 	let authorizationError = $state('');
+	$effect(() => {
+		const { did, preferredSocialClient, preferredClientLoadFailed } = data;
+		if (did && !preferredClientLoadFailed) {
+			untrack(() => preferredClientCache.remember(did, preferredSocialClient));
+		}
+	});
 	async function authorize() {
 		authorizing = true;
 		authorizationError = '';
@@ -50,8 +59,17 @@
 			method="POST"
 			use:enhance={() => {
 				saving = true;
-				return async ({ update }) => {
+				return async ({ result, update }) => {
 					try {
+						if (
+							result.type === 'success' &&
+							result.data?.saved &&
+							typeof result.data.did === 'string' &&
+							result.data.did === user.did
+						) {
+							const value = parsePreferredSocialClient(result.data.preferredSocialClient);
+							if (value) preferredClientCache.remember(result.data.did, value);
+						}
 						await update({ reset: false });
 					} finally {
 						saving = false;

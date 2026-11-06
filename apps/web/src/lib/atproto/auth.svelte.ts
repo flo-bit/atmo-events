@@ -6,6 +6,7 @@ import {
 	type PreferredSocialClient
 } from '@atmo-dev/kit/social';
 import { page } from '$app/state';
+import { preferredClientCache } from './preferred-client.svelte';
 import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import {
 	login as oauthLogin,
@@ -32,7 +33,7 @@ export const user = {
 		return (page.data?.did as Did | null) ?? null;
 	},
 	get preferredSocialClient(): PreferredSocialClient | null {
-		return page.data?.preferredSocialClient ?? null;
+		return preferredClientCache.value(user.did);
 	},
 	get canPostToBluesky() {
 		return page.data?.canPostToBluesky === true;
