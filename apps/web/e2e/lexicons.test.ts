@@ -10,6 +10,13 @@ const permissionSets = scopes
 	.map((scope) => scope.slice('include:'.length).split('?')[0]);
 
 describe('the e2e network’s lexicons', () => {
+	it('publish the space type private events use, as atmo defines it', () => {
+		const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8'));
+		expect(read('./lexicons/rsvp/atmo/calendarSpace.json')).toEqual(
+			read('../lexicons/spaces/rsvp/atmo/calendarSpace.json')
+		);
+	});
+
 	it('cover every permission set atmo can ask for', () => {
 		expect(permissionSets.length).toBeGreaterThan(0);
 		for (const nsid of permissionSets) {

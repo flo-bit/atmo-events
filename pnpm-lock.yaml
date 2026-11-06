@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@atmo-dev/kit@0.6.0': 3cc740f1db4f473fe512490ed3f9bc232e882082492aa56abf7e4b3114c03f9c
+  '@atmo-dev/kit@0.6.0': cfb09b06c1a5ca066a943f0387bb40fa089847cba82b21b9853d82ac9a3db139
 
 importers:
 
@@ -29,6 +29,15 @@ importers:
       '@atcute/bluesky-richtext-parser':
         specifier: ^2.1.2
         version: 2.1.2
+      '@atcute/cbor':
+        specifier: ^2.3.8
+        version: 2.3.8(@atcute/cid@2.5.0)
+      '@atcute/cid':
+        specifier: ^2.5.0
+        version: 2.5.0
+      '@atcute/crypto':
+        specifier: ^2.4.4
+        version: 2.4.4
       '@atcute/jetstream':
         specifier: ^2.2.0
         version: 2.2.0(@atcute/cid@2.5.0)(@atcute/lexicons@2.1.1)(typescript@6.0.2)
@@ -40,7 +49,7 @@ importers:
         version: 0.27.0(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))
       '@atmo-dev/kit':
         specifier: 0.6.0
-        version: 0.6.0(patch_hash=3cc740f1db4f473fe512490ed3f9bc232e882082492aa56abf7e4b3114c03f9c)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
+        version: 0.6.0(patch_hash=cfb09b06c1a5ca066a943f0387bb40fa089847cba82b21b9853d82ac9a3db139)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
       '@internationalized/date':
         specifier: ^3.12.4
         version: 3.12.4
@@ -3469,7 +3478,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@atmo-dev/kit@0.6.0(patch_hash=3cc740f1db4f473fe512490ed3f9bc232e882082492aa56abf7e4b3114c03f9c)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
+  '@atmo-dev/kit@0.6.0(patch_hash=cfb09b06c1a5ca066a943f0387bb40fa089847cba82b21b9853d82ac9a3db139)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
     dependencies:
       '@atcute/bluesky-richtext-parser': 2.1.2
       '@atcute/lexicons': 2.1.1

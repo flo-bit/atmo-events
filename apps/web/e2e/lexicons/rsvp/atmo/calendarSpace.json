@@ -1,0 +1,13 @@
+{
+	"lexicon": 1,
+	"id": "rsvp.atmo.calendarSpace",
+	"defs": {
+		"main": {
+			"type": "space",
+			"description": "A private calendar: events and the RSVPs to them, for whoever the space lets in. A person's private event has one of its own, keyed by the event's record key.",
+			"key": "any",
+			"name": "Private events",
+			"collections": ["community.lexicon.calendar.event", "community.lexicon.calendar.rsvp"]
+		}
+	}
+}

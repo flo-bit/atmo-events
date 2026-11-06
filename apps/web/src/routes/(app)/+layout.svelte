@@ -13,7 +13,8 @@
 		LogIn,
 		Settings,
 		Wrench,
-		Menu
+		Menu,
+		LockKeyhole
 	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
@@ -23,7 +24,7 @@
 	import CreateEventModal, { createEventModalState } from '#lib/components/CreateEventModal.svelte';
 	import AppFooter from '#lib/components/AppFooter.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 	let navigationOpen = $state(false);
 
 	afterNavigate(({ shallow, type }) => {
@@ -87,6 +88,17 @@
 			href: '/search',
 			active: path === '/search'
 		},
+
+		...(data.privateEventsEnabled && user.isLoggedIn
+			? [
+					{
+						label: 'Private events',
+						icon: LockKeyhole,
+						href: '/private',
+						active: path === '/private' || /\/p\/[^/]+\/private\//.test(path)
+					}
+				]
+			: []),
 
 		{
 			label: 'Tools',
