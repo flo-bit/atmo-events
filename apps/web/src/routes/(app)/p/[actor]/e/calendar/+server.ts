@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { error } from '@sveltejs/kit';
-import { getEventThumbnail } from '@atmo-dev/kit/events-data';
+import { getEventThumbnail, getEventExternalImage } from '@atmo-dev/kit/events-data';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
 import { atprotoNetwork } from '#lib/atproto/network.js';
 import { getActor } from '#lib/actor.js';
@@ -47,7 +47,7 @@ export async function GET({ params }) {
 				const thumbnail = getEventThumbnail(r.media);
 				const imageUrl = thumbnail?.content
 					? getCDNImageBlobUrl({ did, blob: thumbnail.content, network: atprotoNetwork() })
-					: undefined;
+					: getEventExternalImage(r)?.url;
 				const attendeeGroups = buildEventAttendees(
 					r.rsvps as Parameters<typeof buildEventAttendees>[0],
 					response.profiles,

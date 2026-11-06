@@ -29,7 +29,9 @@ Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev
 
 Installs use the published `@atmo-dev/kit@0.6.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
-`patches/@atmo-dev__kit@0.6.0.patch` preserves the configurable AppView and CDN URLs added before the event UI moved to Kit. pnpm applies it automatically on install. Remove it once a published Kit release includes this API; local Kit checkouts also need `configureAtproto` exported from `events-data`.
+`patches/@atmo-dev__kit@0.6.0.patch` preserves configurable AppView/CDN URLs and adds external event poster compatibility until these changes are published in Kit. pnpm applies it automatically on install. Remove the corresponding patch sections once a published Kit release includes them; local Kit checkouts also need `configureAtproto` exported from `events-data`.
+
+Event images prefer native `media`, then an HTTPS `poster.url`, then a URI named `Event Image` (used by laugh.town). The shared Kit helper validates external display URLs; OG rendering additionally limits server-side fetches to known laugh.town poster CDN paths without redirects. No scrape or backfill is required for records already containing these fields.
 
 `pnpm test:e2e` runs atmo end to end on a private atproto network on your machine, in Docker.
 A new person signs up at the network's PDS, publishes an event and shares it to Bluesky, others

@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
-import { getEventThumbnail } from '@atmo-dev/kit/events-data';
+import { getEventThumbnail, getEventExternalImage } from '@atmo-dev/kit/events-data';
 import { getCDNImageBlobUrl } from '@svelte-atproto/oauth/bsky';
 import { getActor } from '#lib/actor.js';
 import { atprotoNetwork } from '#lib/atproto/network.js';
@@ -60,6 +60,8 @@ export async function load({ params, url }) {
 				});
 			}
 		}
+
+		thumbnailUrl ??= getEventExternalImage(eventData)?.url ?? null;
 
 		return {
 			atTags: recordAtTags(eventRecord!),

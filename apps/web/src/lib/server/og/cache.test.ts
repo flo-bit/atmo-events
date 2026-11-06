@@ -221,7 +221,7 @@ describe('versioned OG read-through storage', () => {
 	it('versions by DID/rkey/CID/template, and uses complete content when CID is absent', async () => {
 		const event = { cid: 'cid-A', rkey: 'one', name: 'Meetup', startsAt: '2026-10-12T12:00:00Z' };
 		const first = await imageVersion('did:plc:alice', event);
-		expect(first.key).toMatch(/^og\/v4\/[0-9a-f]{64}\.png$/);
+		expect(first.key).toMatch(/^og\/v5\/[0-9a-f]{64}\.png$/);
 		expect(await imageVersion('did:plc:alice', event)).toEqual(first);
 		for (const changed of [
 			{ ...event, cid: 'cid-B' },
@@ -236,7 +236,9 @@ describe('versioned OG read-through storage', () => {
 			{ ...noCid, name: 'Renamed' },
 			{ ...noCid, timezone: 'Asia/Tokyo' },
 			{ ...noCid, startsAt: '2026-10-13T12:00:00Z' },
-			{ ...noCid, media: [{ content: 'new' }] }
+			{ ...noCid, media: [{ content: 'new' }] },
+			{ ...noCid, poster: { url: 'https://laugh.town/new.webp' } },
+			{ ...noCid, uris: [{ uri: 'https://laugh.town/new.webp', name: 'Event Image' }] }
 		])
 			expect(await imageVersion('did:plc:alice', changed)).not.toEqual(version);
 	});
