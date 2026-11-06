@@ -27,6 +27,35 @@ beforeEach(() => {
 });
 
 describe('social-client settings', () => {
+	it('reads a fresh preference on Settings, with a bounded PDS request', async () => {
+		mocks.get.mockResolvedValue({
+			ok: true,
+			data: { cid: 'cid', value: { client: 'blacksky' } }
+		});
+		expect(await load(event() as never)).toMatchObject({
+			preferredSocialClient: { client: 'blacksky' },
+			preferredClientLoadFailed: false
+		});
+		expect(mocks.get).toHaveBeenCalledWith(
+			'com.atproto.repo.getRecord',
+			expect.objectContaining({ signal: expect.any(AbortSignal) })
+		);
+	});
+	it('does not confuse a failed Settings read with an absent preference', async () => {
+		mocks.get.mockRejectedValue(new Error('PDS unavailable'));
+		expect(await load(event() as never)).toMatchObject({
+			preferredSocialClient: null,
+			preferredClientLoadFailed: true
+		});
+	});
+	it('does not read preferences for signed-out Settings', async () => {
+		expect(await load(event(undefined, false) as never)).toMatchObject({
+			canSaveClient: false,
+			preferredSocialClient: null,
+			preferredClientLoadFailed: false
+		});
+		expect(mocks.get).not.toHaveBeenCalled();
+	});
 	it('requires authentication', async () => {
 		expect(await actions.default!(event(undefined, false))).toMatchObject({ status: 401 });
 		expect(mocks.post).not.toHaveBeenCalled();
@@ -38,7 +67,11 @@ describe('social-client settings', () => {
 		expect(mocks.post).not.toHaveBeenCalled();
 	});
 	it('creates the singleton in the authenticated viewer’s repo', async () => {
-		expect(await actions.default!(event())).toEqual({ saved: true });
+		expect(await actions.default!(event())).toEqual({
+			saved: true,
+			did: 'did:plc:alice',
+			preferredSocialClient: { client: 'mu' }
+		});
 		expect(mocks.post).toHaveBeenCalledWith('com.atproto.repo.putRecord', {
 			input: {
 				repo: 'did:plc:alice',

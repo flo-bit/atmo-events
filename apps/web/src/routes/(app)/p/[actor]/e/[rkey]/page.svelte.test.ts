@@ -37,8 +37,6 @@ function markup(
 					isModerator: false,
 					did: null,
 					profile: null,
-					preferredSocialClient: null,
-					preferredClientLoadFailed: false,
 					pageTitle: 'Meetup',
 					pageDescription: 'A meetup',
 					ogImage: 'https://atmo.rsvp/og.png',

@@ -25,11 +25,27 @@ async function canSaveClient() {
 	}
 }
 
-export const load: PageServerLoad = async ({ locals }) => ({
-	pageTitle: 'Settings · atmo.rsvp',
-	pageDescription: 'Choose your preferred social app.',
-	canSaveClient: !!locals.did && !!locals.client && (await canSaveClient())
-});
+export const load: PageServerLoad = async ({ locals }) => {
+	// Settings alone reads fresh data, so a preference changed in another app
+	// is visible here and a failed read cannot silently present a blank picker.
+	const [canSave, preference] = await Promise.all([
+		locals.did && locals.client ? canSaveClient() : false,
+		locals.did && locals.client
+			? getPreferredClientRecord(locals.client, locals.did, AbortSignal.timeout(5_000))
+					.then((record) => ({
+						preferredSocialClient: parsePreferredSocialClient(record?.record),
+						preferredClientLoadFailed: false
+					}))
+					.catch(() => ({ preferredSocialClient: null, preferredClientLoadFailed: true }))
+			: { preferredSocialClient: null, preferredClientLoadFailed: false }
+	]);
+	return {
+		pageTitle: 'Settings · atmo.rsvp',
+		pageDescription: 'Choose your preferred social app.',
+		canSaveClient: !!canSave,
+		...preference
+	};
+};
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
@@ -70,7 +86,7 @@ export const actions: Actions = {
 					? fail(409, { message: 'Your selection changed elsewhere. Reload and try again.' })
 					: fail(502, { message: 'Could not save your selection. Try again.' });
 			}
-			return { saved: true };
+			return { saved: true, did: locals.did, preferredSocialClient: preference };
 		} catch {
 			return fail(502, { message: 'Could not reach your data server. Try again.' });
 		}

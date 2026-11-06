@@ -31,6 +31,8 @@ Installs use the published `@atmo-dev/kit@0.6.0` release. For local changes, bui
 
 `patches/@atmo-dev__kit@0.6.0.patch` preserves configurable AppView/CDN URLs and adds external event poster compatibility until these changes are published in Kit. pnpm applies it automatically on install. Remove the corresponding patch sections once a published Kit release includes them; local Kit checkouts also need `configureAtproto` exported from `events-data`.
 
+Preferred social-app selections are cached per DID in browser `localStorage` for seven days, with an in-memory fallback when storage is blocked. Ordinary pages render without a PDS preference read; missing/expired entries refresh in the background, retaining stale values on failure. Settings always reads fresh data and updates the browser cache after a successful save. Changes made in another app appear after expiry or when opening Settings. Only the public preference is cached, never OAuth/session data; `/api/preferred-client` responses are private and `no-store`.
+
 Event images prefer native `media`, then an HTTPS `poster.url`, then a URI named `Event Image` (used by laugh.town). The shared Kit helper validates external display URLs; OG rendering additionally limits server-side fetches to known laugh.town poster CDN paths without redirects. No scrape or backfill is required for records already containing these fields.
 
 `pnpm test:e2e` runs atmo end to end on a private atproto network on your machine, in Docker.
