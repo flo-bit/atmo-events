@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
-	import { user } from '#lib/atproto/auth.svelte.js';
-	import { IconRail, IconButton, Icon, Avatar, Button } from '@atmo-dev/kit';
+	import { user, logout } from '#lib/atproto/auth.svelte.js';
+	import { AccountMenu, IconRail, IconButton, Icon, Button } from '@atmo-dev/kit';
 	import {
 		House,
 		Compass,
@@ -118,22 +118,20 @@
 					<Icon img={Settings} size={22} />
 					<span class={expanded ? '' : 'sr-only'}>Settings</span>
 				</Button>
-				<Button
-					href={resolve(`p/${user.profile?.handle || user.did || ''}`)}
-					variant="ghost"
-					title={user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
-					onclick={close}
-					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
-				>
-					<Avatar
-						src={user.profile?.avatar}
-						name={user.profile?.displayName || user.profile?.handle || user.did || 'Account'}
-						size={30}
-					/>
-					<span class={expanded ? 'min-w-0 truncate' : 'sr-only'}>
-						{user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
-					</span>
-				</Button>
+				<AccountMenu
+					name={user.profile?.displayName || user.profile?.handle || user.did || 'Account'}
+					handle={user.profile?.handle}
+					avatar={user.profile?.avatar}
+					profileHref={resolve('/(app)/p/[actor]', {
+						actor: user.profile?.handle || user.did || ''
+					})}
+					{expanded}
+					onprofile={close}
+					onsignout={() => {
+						close();
+						void logout();
+					}}
+				/>
 			{:else}
 				<Button
 					variant="ghost"

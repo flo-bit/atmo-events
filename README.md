@@ -12,7 +12,6 @@ Attach Grain photo albums and Streamplace streams through the dedicated
 [linked-record pickers](docs/linked-records.md).
 Use [Meet](docs/meet.md) under Tools to exchange QR codes and save public,
 reciprocal meeting records compatible with You & Me.
-Public event and profile pages expose [AT Tags](docs/at-tags.md) for AT record and identity discovery.
 
 ## Development
 
@@ -27,20 +26,7 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
 
-Installs use the published `@atmo-dev/kit@0.8.0` release without local patches. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
-
-Kit's `configureAtproto` uses the app's configured AppView/CDN URLs on the server and client; no package patch is needed.
-
-Event descriptions support Markdown and validated AT Protocol facets. `src/lib/server/event-description.ts` parses descriptions in server loaders for event pages and full embeds; the serializable document is rendered by Kit without shipping the Markdown parser to visitors. Metadata, calendars and conference previews use plain-text extraction. Raw HTML is displayed literally, images become links, and unsafe link destinations are rejected. Without facets, links, mentions and hashtags are detected using Kit's bounded detector. Descriptions over 10,000 characters, with more than 1,000 Markdown delimiters, or with deeply nested containers fall back to plain text with validated links. No record migration or backfill is needed.
-
-Preferred social-app selections are cached per DID in browser `localStorage` for seven days, with an in-memory fallback when storage is blocked. Ordinary pages render without a PDS preference read; missing/expired entries refresh in the background, retaining stale values on failure. Settings always reads fresh data and updates the browser cache after a successful save. Changes made in another app appear after expiry or when opening Settings. Only the public preference is cached, never OAuth/session data; `/api/preferred-client` responses are private and `no-store`.
-
-Event images prefer native `media`, then an HTTPS `poster.url`, then a URI named `Event Image` (used by laugh.town). The shared Kit helper validates external display URLs; OG rendering additionally limits server-side fetches to known laugh.town poster CDN paths without redirects. No scrape or backfill is required for records already containing these fields.
-
-`pnpm test:e2e` runs atmo end to end on a private atproto network on your machine, in Docker.
-A new person signs up at the network's PDS, publishes an event and shares it to Bluesky, others
-RSVP, and the event's starter pack lists them. The network is described in
-[snowglobe.yml](snowglobe.yml); the tests are in `apps/web/e2e`.
+Installs use the published `@atmo-dev/kit@0.9.0` release without local patches. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
 ## Contributing
 
