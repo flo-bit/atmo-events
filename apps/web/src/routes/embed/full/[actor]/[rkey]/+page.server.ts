@@ -16,6 +16,7 @@ import {
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { vodFromAtUri } from '#lib/vods.js';
+import { parseEventDescription } from '#lib/server/event-description.js';
 
 export async function load({ params, url }) {
 	const client = getServerClient(env.DB);
@@ -85,6 +86,7 @@ export async function load({ params, url }) {
 			pageTitle: eventData.name,
 			ogImage: `${url.origin}/p/${params.actor}/e/${rkey}/og.png`,
 			eventData,
+			description: parseEventDescription(eventData),
 			actorDid: did,
 			rkey,
 			hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,

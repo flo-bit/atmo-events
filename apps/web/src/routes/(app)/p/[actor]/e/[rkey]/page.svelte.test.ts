@@ -3,6 +3,7 @@ import { render } from 'svelte/server';
 import { chromium } from 'playwright';
 import type { Facet } from '@atmo-dev/kit';
 import type { PreferredSocialClient } from '@atmo-dev/kit/social';
+import { parseEventDescription } from '#lib/server/event-description.js';
 
 const { user } = vi.hoisted(() => ({
 	user: {
@@ -26,7 +27,8 @@ function markup(
 	cid: string | undefined = 'bafytest',
 	packs = { enabled: false, going: 0, interested: 0 },
 	showComments = false,
-	description?: { description: string; facets?: Facet[] }
+	description?: { description: string; facets?: Facet[] },
+	parsed = false
 ) {
 	return (
 		render(EventPage, {
@@ -63,6 +65,7 @@ function markup(
 						cid,
 						...description
 					},
+					description: parsed && description ? parseEventDescription(description) : null,
 					actorDid: 'did:plc:host',
 					reportSubject: cid
 						? {
@@ -87,6 +90,7 @@ function markup(
 					vod: null,
 					isConference: false,
 					conferenceTalks: [],
+					conferenceTalkDescriptions: {},
 					conferenceTimezone: 'UTC',
 					conferenceRsvpStatuses: {},
 					conferenceRsvpRkeys: {},
@@ -160,31 +164,60 @@ describe('event description security', () => {
 		expect(html).not.toMatch(/<a\b[^>]*href="javascript:/i);
 	});
 
-	it('does not execute the reported payload when the server-rendered event page is first parsed', async () => {
-		const browser = await chromium.launch({ headless: true });
-		try {
-			for (const signedIn of [false, true]) {
-				user.isLoggedIn = signedIn;
-				const html = markup('bafytest', undefined, false, { description: payload });
-				const page = await browser.newPage();
-				await page.addInitScript(() => Object.assign(window, { __atmoSecurityProbe: 0 }));
-				await page.route('**/*', (route) =>
-					route.request().url() === 'https://event-page.invalid/'
-						? route.fulfill({
-								contentType: 'text/html',
-								body: `<!doctype html><html><body>${html}</body></html>`
-							})
-						: route.abort()
-				);
-				await page.goto('https://event-page.invalid/');
-				expect(await page.getByText(payload, { exact: true }).count()).toBe(1);
-				expect(await page.evaluate(() => Reflect.get(window, '__atmoSecurityProbe'))).toBe(0);
-				await page.close();
-			}
-		} finally {
-			await browser.close();
-		}
+	it('renders server-parsed Markdown with validated facet links', () => {
+		const description =
+			'## Plan\n\n**@alice.test** <script>x</script> [click](javascript:alert(1))';
+		const offset = new TextEncoder().encode('## Plan\n\n**').length;
+		const html = markup(
+			'bafytest',
+			undefined,
+			false,
+			{
+				description,
+				facets: [
+					{
+						index: { byteStart: offset, byteEnd: offset + '@alice.test'.length },
+						features: [{ $type: 'app.bsky.richtext.facet#mention', did: 'did:web:alice.test' }]
+					}
+				]
+			},
+			true
+		).replace(/<!--.*?-->/g, '');
+		expect(html).toMatch(/<h3[^>]*>Plan<\/h3>/);
+		expect(html).toMatch(/<strong[^>]*><a href="\/p\/did%3Aweb%3Aalice.test"/);
+		expect(html).toContain('&lt;script>x&lt;/script>');
+		expect(html).not.toMatch(/<a\b[^>]*href="javascript:/i);
+		expect(html).toContain('click');
 	});
+
+	it.each([false, true])(
+		'does not execute the payload on initial page load; parsed Markdown: %s',
+		async (parsed) => {
+			const browser = await chromium.launch({ headless: true });
+			try {
+				for (const signedIn of [false, true]) {
+					user.isLoggedIn = signedIn;
+					const html = markup('bafytest', undefined, false, { description: payload }, parsed);
+					const page = await browser.newPage();
+					await page.addInitScript(() => Object.assign(window, { __atmoSecurityProbe: 0 }));
+					await page.route('**/*', (route) =>
+						route.request().url() === 'https://event-page.invalid/'
+							? route.fulfill({
+									contentType: 'text/html',
+									body: `<!doctype html><html><body>${html}</body></html>`
+								})
+							: route.abort()
+					);
+					await page.goto('https://event-page.invalid/');
+					expect(await page.getByText(payload, { exact: true }).count()).toBe(1);
+					expect(await page.evaluate(() => Reflect.get(window, '__atmoSecurityProbe'))).toBe(0);
+					await page.close();
+				}
+			} finally {
+				await browser.close();
+			}
+		}
+	);
 });
 
 describe('event comment client', () => {
