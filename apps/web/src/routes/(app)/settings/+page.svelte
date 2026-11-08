@@ -5,7 +5,7 @@
 	import { parsePreferredSocialClient } from '@atmo-dev/kit/social';
 	import { preferredClientCache } from '#lib/atproto/preferred-client.svelte.js';
 	import { Button, SocialClientPicker } from '@atmo-dev/kit';
-	import { user, authorizePreferredSocialClient, logout } from '#lib/atproto/auth.svelte.js';
+	import { user, authorizePreferredSocialClient } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
 	import type { PageProps } from './$types';
 
@@ -85,13 +85,5 @@
 			{#if form?.message}<p role="alert" class="text-ink text-sm">{form.message}</p>
 			{:else if form?.saved}<p role="status" class="text-muted text-sm">Saved.</p>{/if}
 		</form>
-	{/if}
-	{#if user.isLoggedIn}
-		<Button
-			variant="secondary"
-			onclick={() => logout()}
-			disabled={saving || authorizing}
-			class="mt-10">Sign out</Button
-		>
 	{/if}
 </div>
