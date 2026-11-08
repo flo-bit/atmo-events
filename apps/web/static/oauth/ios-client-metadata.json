@@ -1,0 +1,14 @@
+{
+  "client_id": "https://atmo.rsvp/oauth/ios-client-metadata.json",
+  "client_name": "atmo.rsvp for iOS",
+  "client_uri": "https://atmo.rsvp",
+  "application_type": "native",
+  "redirect_uris": ["rsvp.atmo.ios:/oauth"],
+  "scope": "atproto repo:community.lexicon.calendar.event repo:community.lexicon.calendar.rsvp",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "dpop_bound_access_tokens": true,
+  "policy_uri": "https://atmo.rsvp/privacy",
+  "tos_uri": "https://atmo.rsvp/terms"
+}
