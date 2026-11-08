@@ -45,6 +45,40 @@ describe('event visibility fails closed', () => {
 		});
 	});
 
+	it('parses the description on the server and uses plain text for the meta description', async () => {
+		const uri = 'at://did:plc:aaaaaaaaaaaaaaaaaaaaaaaa/community.lexicon.calendar.event/event';
+		mocks.getRecord.mockResolvedValueOnce({ uri });
+		vi.mocked(flattenEventRecord).mockReturnValueOnce({
+			uri,
+			did: 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa',
+			name: 'Meetup',
+			startsAt: '2026-11-03T12:00:00Z',
+			description: '# Plan\n\nBring **snacks** <b>now</b>'
+		} as never);
+		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
+		const data = await load(event);
+		expect(data.description?.markdown).toBe(true);
+		expect(data.description?.children[0]).toMatchObject({ type: 'heading', depth: 1 });
+		expect(data.pageDescription).toBe('Plan\n\nBring snacks <b>now</b>');
+		expect(data.conferenceTalkDescriptions).toEqual({});
+	});
+
+	it('falls back to the event name without a description', async () => {
+		const uri = 'at://did:plc:aaaaaaaaaaaaaaaaaaaaaaaa/community.lexicon.calendar.event/event';
+		mocks.getRecord.mockResolvedValueOnce({ uri });
+		vi.mocked(flattenEventRecord).mockReturnValueOnce({
+			uri,
+			did: 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa',
+			name: 'Meetup',
+			startsAt: '2026-11-03T12:00:00Z',
+			description: '  '
+		} as never);
+		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
+		const data = await load(event);
+		expect(data.description).toBeNull();
+		expect(data.pageDescription).toBe('Event: Meetup');
+	});
+
 	it('does not resurrect a hidden/missing event from the legacy cache', async () => {
 		vi.stubGlobal('caches', { default: { match: mocks.match } });
 		mocks.match.mockResolvedValue(Response.json({ value: { name: 'Old hidden event' } }));

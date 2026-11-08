@@ -19,6 +19,8 @@ import {
 import { getServerClient } from '#lib/contrail/index.js';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '#lib/vods.js';
+import { eventDescriptionTexts, parseEventDescription } from '#lib/server/event-description.js';
+import { richTextToPlainText } from '@atmo-dev/kit/richtext';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
@@ -190,6 +192,8 @@ export async function load({ params, locals, url }) {
 			};
 	}
 
+	const description = parseEventDescription(eventData);
+
 	return {
 		atTags: recordAtTags(fullEventRecord, [
 			...(parentEvent ? [parentEvent] : []),
@@ -204,9 +208,11 @@ export async function load({ params, locals, url }) {
 				}
 			: undefined,
 		starterPacksEnabled: !!env.BOT_IDENTIFIER && !!env.BOT_APP_PASSWORD,
-		pageDescription: eventData.description || `Event: ${eventData.name}`,
+		pageDescription:
+			(description && richTextToPlainText(description)) || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
+		description,
 		actorDid: did,
 		rkey,
 		hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
@@ -219,6 +225,7 @@ export async function load({ params, locals, url }) {
 		vod,
 		isConference,
 		conferenceTalks,
+		conferenceTalkDescriptions: eventDescriptionTexts(conferenceTalks),
 		conferenceTimezone: eventData.timezone ?? 'UTC',
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,

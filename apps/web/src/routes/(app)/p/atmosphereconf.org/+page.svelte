@@ -37,7 +37,7 @@
 		})
 	);
 
-	let scheduleEvents = $derived(getScheduleEvents(data.events));
+	let scheduleEvents = $derived(getScheduleEvents(data.events, data.eventDescriptions));
 	let rsvpStatuses: Record<string, string> = $derived(data.rsvpStatuses ?? {});
 	let rsvpRkeys: Record<string, string> = $derived(data.rsvpRkeys ?? {});
 	let eventVods = $derived(data.eventVods ?? {});
