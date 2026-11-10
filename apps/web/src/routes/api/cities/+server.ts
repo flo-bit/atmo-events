@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	try {
 		const result = await readNearbyPage(env.DB, undefined, query);
 		return json(
-			{ cities: result.cities.slice(0, 8) },
+			{ cities: result.cities.slice(0, 30) },
 			{
 				headers: { 'cache-control': 'public, max-age=60' }
 			}

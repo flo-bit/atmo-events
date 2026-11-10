@@ -4,8 +4,8 @@
 
 `/cities` shows **upcoming events in one city**, not a combined radius feed.
 
-- A city explicitly selected in the picker takes precedence over Cloudflare's approximate IP location. The selected city is remembered on this device for 90 days in an HttpOnly, SameSite=Lax cookie scoped to `/cities`. The picker changes this preference; browser settings can clear it. Neither the IP coordinates nor this preference is published to ATProto. Selection links disable SvelteKit data preloading so hovering never changes the preference.
-- Without a usable location, show the searchable picker. Its initial suggestions are event cities, ranked by snapshot event count. Suggestions update as you type, using a debounced server lookup; searches also include the bundled GeoNames cities. Arrow keys and Enter select a suggestion. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
+- `/cities` uses Cloudflare's approximate IP location. Picking a city sets it in the URL for that visit, not a persistent preference. Opening `/cities` again uses IP location. Legacy `nearby-city` cookies are cleared.
+- Without a usable location, show the searchable picker. It shows the city cards immediately, ranked by snapshot event count. Typing filters the cards using a debounced server lookup; clearing the field restores them. Searches also include the bundled GeoNames cities. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
 - Show the matched city's live upcoming events first. If it has no live results and no continuation, check at most five other city candidates, ordered by approximate straight-line distance, within **100 km**. Borders do not restrict proximity. Stop at the first candidate with results or a continuation.
 - A continuation on an empty page means there are still candidates to check, not that the city is empty. Retain “Load more”.
 - If none of the bounded candidates qualify, show an empty state and let the user choose another city. Do not call a distant city “nearby.” Distances are approximate, not travel distances.
@@ -42,6 +42,6 @@ pnpm --filter web exec vitest run --config vitest.browser.config.ts 'src/routes/
 pnpm --filter web build
 ```
 
-Regression coverage includes offset timestamps, cancellation, rescheduling, periodic freshness and immutable cursors, missing/ambiguous regions, scoped name aliases, incomplete-address picker selections, bounded cross-border candidates, stale fallback cities, preference cookies and private caching.
+Regression coverage includes offset timestamps, cancellation, rescheduling, periodic freshness and immutable cursors, missing/ambiguous regions, scoped name aliases, incomplete-address picker selections, bounded cross-border candidates, stale fallback cities, legacy-cookie cleanup and private caching.
 
-After deployment, verify a successful v4 snapshot, an IP-detected visit (including a VPN/missing-location case), live city suggestions, selecting and remembering a city, fallback distance/empty states, and pagination. Local geolocation alone is not proof that production Cloudflare metadata is available.
+After deployment, verify a successful v4 snapshot, an IP-detected visit (including a VPN/missing-location case), live city filtering, explicit city selection, a fresh visit using IP location, fallback distance/empty states, and pagination. Local geolocation alone is not proof that production Cloudflare metadata is available.

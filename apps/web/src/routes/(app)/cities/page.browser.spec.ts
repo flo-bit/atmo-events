@@ -48,22 +48,22 @@ afterEach(async () => {
 });
 
 describe('nearby events UI', () => {
-	it('suggests cities while typing and supports keyboard selection without preloading', async () => {
+	it('shows the city cards immediately, filters while typing and restores them when cleared', async () => {
 		await page.viewport(390, 844);
-		await render(CitiesPage, {
-			data: {
-				...base,
-				mode: 'choose',
-				search: '',
-				cities: [{ city: 'Berlin', country: 'DE', region: 'Berlin' }]
-			}
-		});
-		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		const cities = Array.from({ length: 12 }, (_, i) => ({
+			city: `City ${i}`,
+			country: 'DE',
+			region: ''
+		}));
+		await render(CitiesPage, { data: { ...base, mode: 'choose', search: '', cities } });
+		const cards = page.getByRole('list', { name: 'Cities' });
+		expect(cards.getByRole('link').elements()).toHaveLength(12);
+		const input = page.getByRole('textbox', { name: 'City', exact: true });
 		await input.fill('München');
 		await expect
 			.element(page.getByRole('button', { name: 'Search', exact: true }))
 			.not.toBeInTheDocument();
-		const choice = page.getByRole('option', { name: 'Munich Bavaria, Germany' });
+		const choice = page.getByRole('link', { name: 'Munich Bavaria, Germany' });
 		await expect.element(choice).toHaveAttribute('data-sveltekit-preload-data', 'off');
 		await expect
 			.element(choice)
@@ -73,8 +73,12 @@ describe('nearby events UI', () => {
 		});
 		const select = vi.fn((event: Event) => event.preventDefault());
 		choice.element().addEventListener('click', select, { once: true });
-		await userEvent.keyboard('{ArrowDown}{Enter}');
+		await userEvent.keyboard('{Tab}{Enter}');
 		expect(select).toHaveBeenCalledOnce();
+		await input.fill('');
+		await expect.poll(() => cards.getByRole('link').elements().length).toBe(12);
+		await page.getByRole('heading', { name: 'Choose a city' }).click();
+		expect(cards.getByRole('link').elements()).toHaveLength(12);
 	});
 	it('ignores an outdated search response after the query changes', async () => {
 		let finish!: (response: Response) => void;
@@ -87,37 +91,27 @@ describe('nearby events UI', () => {
 				Response.json({ cities: [{ city: 'Berlin', country: 'DE', region: 'Berlin' }] })
 			);
 		await render(CitiesPage, { data: { ...base, mode: 'choose', search: '', cities: [] } });
-		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		const input = page.getByRole('textbox', { name: 'City', exact: true });
 		await input.fill('par');
 		await expect.poll(() => mocks.search.mock.calls.length).toBe(1);
 		const signal = mocks.search.mock.calls[0][1]?.signal;
 		await input.fill('ber');
-		await expect
-			.element(page.getByRole('option', { name: 'Berlin Berlin, Germany' }))
-			.toBeVisible();
+		await expect.element(page.getByRole('link', { name: 'Berlin Berlin, Germany' })).toBeVisible();
 		expect(signal?.aborted).toBe(true);
 		finish(Response.json({ cities: [{ city: 'Paris', country: 'FR', region: '' }] }));
 		await pending;
-		await expect
-			.element(page.getByRole('option', { name: 'Paris France' }))
-			.not.toBeInTheDocument();
-		await expect
-			.element(page.getByRole('option', { name: 'Berlin Berlin, Germany' }))
-			.toBeVisible();
+		await expect.element(page.getByRole('link', { name: 'Paris France' })).not.toBeInTheDocument();
+		await expect.element(page.getByRole('link', { name: 'Berlin Berlin, Germany' })).toBeVisible();
 	});
-	it('allows retrying failed searches and closing suggestions with Escape', async () => {
+	it('allows retrying failed searches without hiding city cards on blur', async () => {
 		mocks.search.mockResolvedValueOnce(new Response(null, { status: 503 }));
 		await render(CitiesPage, { data: { ...base, mode: 'choose', search: '', cities: [] } });
-		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		const input = page.getByRole('textbox', { name: 'City', exact: true });
 		await input.fill('mun');
 		await page.getByRole('button', { name: 'Retry', exact: true }).click();
-		await expect
-			.element(page.getByRole('option', { name: 'Munich Bavaria, Germany' }))
-			.toBeVisible();
-		await input.click();
-		await userEvent.keyboard('{Escape}');
-		await expect.element(input).toHaveAttribute('aria-expanded', 'false');
-		await expect.element(page.getByRole('listbox', { includeHidden: true })).not.toBeVisible();
+		await expect.element(page.getByRole('link', { name: 'Munich Bavaria, Germany' })).toBeVisible();
+		await page.getByRole('heading', { name: 'Choose a city' }).click();
+		await expect.element(page.getByRole('link', { name: 'Munich Bavaria, Germany' })).toBeVisible();
 	});
 	it('keeps the empty state brief with only the city-change control', async () => {
 		await render(CitiesPage, { data: { ...local, shown: null, noLocalEvents: true } });

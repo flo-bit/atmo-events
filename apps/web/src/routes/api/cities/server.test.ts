@@ -10,8 +10,8 @@ const request = (query = '') =>
 beforeEach(() => vi.resetAllMocks());
 
 describe('city suggestions', () => {
-	it('returns at most eight choices without reading or saving a visitor location', async () => {
-		const cities = Array.from({ length: 10 }, (_, i) => ({
+	it('returns up to thirty city cards without reading or saving a visitor location', async () => {
+		const cities = Array.from({ length: 40 }, (_, i) => ({
 			city: `City ${i}`,
 			country: 'DE',
 			region: ''
@@ -24,7 +24,7 @@ describe('city suggestions', () => {
 		});
 		const response = await request('mün');
 		expect(response.status).toBe(200);
-		expect(await response.json()).toEqual({ cities: cities.slice(0, 8) });
+		expect(await response.json()).toEqual({ cities: cities.slice(0, 30) });
 		expect(readNearbyPage).toHaveBeenCalledExactlyOnceWith(expect.anything(), undefined, 'mün');
 		expect(response.headers.get('set-cookie')).toBeNull();
 	});

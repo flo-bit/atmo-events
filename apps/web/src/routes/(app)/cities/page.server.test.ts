@@ -105,7 +105,7 @@ describe('events nearby', () => {
 		expect(await run()).toMatchObject({ shown: null, noLocalEvents: true, ...empty });
 		expect(cityQuery).not.toHaveBeenCalled();
 	});
-	it('remembers an explicit city instead of using the IP location', async () => {
+	it('uses an explicit city for this URL without saving it', async () => {
 		const cookies = jar();
 		await run('?city=Berlin&country=DE&region=Berlin', cf, vi.fn(), cookies);
 		expect(readNearbyPage).toHaveBeenCalledWith(
@@ -114,42 +114,30 @@ describe('events nearby', () => {
 			'',
 			{ explicit: true }
 		);
-		expect(cookies.set).toHaveBeenCalledWith(
-			'nearby-city',
-			JSON.stringify(berlin),
-			expect.objectContaining({
-				path: '/cities',
-				httpOnly: true,
-				sameSite: 'lax',
-				maxAge: 90 * 24 * 60 * 60
-			})
+		expect(cookies.set).not.toHaveBeenCalled();
+	});
+	it('allows an explicit countryless catalog choice', async () => {
+		await run('?city=Legacy+City&country=&region=');
+		expect(readNearbyPage).toHaveBeenCalledWith(
+			expect.anything(),
+			{ city: 'Legacy City', country: '', region: '' },
+			'',
+			{ explicit: true }
 		);
 	});
-	it('uses a saved choice, including a countryless catalog choice', async () => {
-		const selected = { city: 'Legacy City', country: '', region: '' };
-		expect(await run('', cf, vi.fn(), jar(JSON.stringify(selected)))).toMatchObject({
-			locationSource: 'selected'
-		});
-		expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), selected, '', {
-			explicit: true
-		});
-	});
-	it.each([
-		'not json',
-		'null',
-		'{"city":42}',
-		JSON.stringify({ city: 'x'.repeat(257), country: '', region: '' })
-	])('ignores an invalid stored choice: %s', async (value) => {
-		await run('', cf, vi.fn(), jar(value));
-		expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
-	});
-	it('lets the user clear their choice and use approximate IP location', async () => {
-		const cookies = jar(JSON.stringify(potsdam));
-		expect(await run('?locate=1', cf, vi.fn(), cookies)).toMatchObject({ locationSource: 'ip' });
-		expect(cookies.delete).toHaveBeenCalledWith('nearby-city', { path: '/cities' });
-		expect(cookies.set).not.toHaveBeenCalled();
-		expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
-	});
+	it.each([JSON.stringify({ city: 'Munich', country: 'DE', region: 'Bavaria' }), 'not json'])(
+		'uses IP location and removes an old saved choice: %s',
+		async (value) => {
+			const cookies = jar(value);
+			expect(await run('', cf, vi.fn(), cookies)).toMatchObject({
+				locationSource: 'ip',
+				detected: berlin
+			});
+			expect(cookies.delete).toHaveBeenCalledWith('nearby-city', { path: '/cities' });
+			expect(cookies.set).not.toHaveBeenCalled();
+			expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
+		}
+	);
 	it('offers a picker when location is unavailable or another city is requested', async () => {
 		vi.mocked(readNearbyPage).mockResolvedValue({
 			detected: null,
@@ -173,17 +161,6 @@ describe('events nearby', () => {
 		});
 		const cookies = jar();
 		expect(await run('?city=unknown', cf, vi.fn(), cookies)).toMatchObject({ mode: 'choose' });
-		expect(cookies.set).not.toHaveBeenCalled();
-	});
-	it('does not write an oversized Unicode cookie', async () => {
-		vi.mocked(readNearbyPage).mockResolvedValue({
-			detected: { city: '東'.repeat(256), country: 'JP', region: '南'.repeat(256) },
-			matched: null,
-			nearby: [],
-			cities: []
-		});
-		const cookies = jar();
-		await run('?city=Tokyo&country=JP', cf, vi.fn(), cookies);
 		expect(cookies.set).not.toHaveBeenCalled();
 	});
 	it('shows an error when the catalog is unavailable', async () => {
