@@ -54,11 +54,15 @@ describe('lightweight supplied-city normalization', () => {
 		expect(address('Indianapolis, IN')?.scope.country).toBe('us');
 	});
 
-	it('preserves real regional distinctions and does not invent city-name aliases', () => {
+	it('preserves real regional distinctions and limits aliases to explicit country-scoped names', () => {
 		expect(address('Springfield', 'US', 'IL')?.scope).not.toEqual(
 			address('Springfield', 'US', 'MA')?.scope
 		);
-		expect(address('Munich', 'DE')?.scope).not.toEqual(address('München', 'DE')?.scope);
+		expect(address('Munich', 'DE')?.scope).toEqual(address('München', 'DE')?.scope);
+		expect(address('München', 'DE')?.label.city).toBe('München');
+		expect(address('Munich', 'US')?.scope).not.toEqual(address('München', 'US')?.scope);
+		expect(address('Munich', '')?.scope).not.toEqual(address('München', '')?.scope);
+		expect(address('Bengaluru', 'IN')?.scope).not.toEqual(address('Bangalore', 'IN')?.scope);
 		expect(address('Berlin', '', '')?.scope.country).toBe('');
 	});
 

@@ -4,7 +4,7 @@ import CitiesPage from './+page.svelte';
 
 // City names and qualifiers must survive query-string encoding.
 describe('city links', () => {
-	it('shows the empty city and the closest city without extra explanatory text', () => {
+	it('explains approximate location and the nearby fallback', () => {
 		const html = render(CitiesPage, {
 			props: {
 				data: {
@@ -15,6 +15,9 @@ describe('city links', () => {
 					pageTitle: 'Events nearby',
 					pageDescription: 'Find events near you.',
 					mode: 'events',
+					locationSource: 'ip',
+					radiusKm: 100,
+					distanceKm: 28,
 					detected: { city: 'Potsdam', country: 'DE', region: '' },
 					shown: { city: 'Berlin', country: 'DE', region: '', count: 1 },
 					noLocalEvents: true,
@@ -25,12 +28,14 @@ describe('city links', () => {
 			}
 		}).body;
 		expect(html).toContain('Events in Potsdam');
-		expect(html).toContain('No events in Potsdam');
+		expect(html).toContain('No upcoming events matched this location.');
 		expect(html).toContain('Events in Berlin');
-		expect(html).not.toContain('approximate IP location');
+		expect(html).toContain('approximate IP location');
+		expect(html).toContain('About 28 km away');
+		expect(html).toContain('within 100 km');
 	});
 	it.each(['Biel/Bienne', 'A?B', 'A#B', 'A%2FB', '/', '/Berlin', 'Berlin/', 'São Paulo'])(
-		'preserves %s as one encoded path component without breaking rendering',
+		'preserves %s in the city-selection query without breaking rendering',
 		(city) => {
 			const country = 'CH';
 			const region = 'A&B / C?';

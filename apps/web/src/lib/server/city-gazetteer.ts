@@ -1,17 +1,16 @@
 import data from './geonames/cities.json';
 import { normalizeCityField, type CityScope } from '#lib/cities.js';
-import { countryCode, normalizeCityAddress } from './city-normalization';
+import { cityNameKey, countryCode, normalizeCityAddress } from './city-normalization';
 
 type Entry = [string, string, string, string, string, string, number, number];
 export type CityPoint = { latitude: number; longitude: number };
 const index = new Map<string, Entry[]>();
 let initialized = false;
-const key = (country: string, name: string) => `${country}:${normalizeCityField(name)}`;
+const key = (country: string, name: string) => `${country}:${cityNameKey(name, country)}`;
 function initialize() {
 	if (initialized) return;
 	for (const entry of data as Entry[]) {
-		for (const name of new Set([entry[0], entry[1]])) {
-			const k = key(entry[2], name);
+		for (const k of new Set([key(entry[2], entry[0]), key(entry[2], entry[1])])) {
 			const matches = index.get(k) ?? [];
 			matches.push(entry);
 			index.set(k, matches);
@@ -25,10 +24,21 @@ export function searchCityGazetteer(query: string, limit = 30): CityScope[] {
 	if (!term) return [];
 	const matches: CityScope[] = [];
 	const seen = new Set<string>();
-	for (const startsWith of [true, false]) {
+	// Exact matches first, then prefixes, then substrings. Source-file order is
+	// not a relevance ranking (e.g. Boulder City must not outrank Boulder).
+	for (const match of ['exact', 'prefix', 'substring'] as const) {
 		for (const [name, ascii, country, , region] of data as Entry[]) {
-			const names = [normalizeCityField(name), normalizeCityField(ascii)];
-			if (!names.some((value) => (startsWith ? value.startsWith(term) : value.includes(term))))
+			const names = [cityNameKey(name, country), cityNameKey(ascii, country)];
+			const canonicalTerm = cityNameKey(term, country);
+			if (
+				!names.some((value) =>
+					match === 'exact'
+						? value === canonicalTerm
+						: match === 'prefix'
+							? value.startsWith(canonicalTerm)
+							: value.includes(canonicalTerm)
+				)
+			)
 				continue;
 			const city = { city: name, country, region };
 			const id = JSON.stringify([normalizeCityField(name), country, normalizeCityField(region)]);

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cityPoint } from './city-gazetteer';
+import { cityPoint, searchCityGazetteer } from './city-gazetteer';
 
 describe('city gazetteer', () => {
 	it('finds a city by name and country', () => {
@@ -7,6 +7,24 @@ describe('city gazetteer', () => {
 			latitude: expect.closeTo(52.5, 0),
 			longitude: expect.closeTo(13.4, 0)
 		});
+	});
+	it('recognizes explicitly supported local names and administrative codes', () => {
+		const munich = cityPoint({ city: 'Munich', country: 'DE', region: 'Bavaria' });
+		expect(munich).toBeDefined();
+		for (const name of ['München', 'Muenchen']) {
+			expect(cityPoint({ city: name, country: 'DE', region: 'BY' })).toEqual(munich);
+			expect(searchCityGazetteer(name)[0]).toMatchObject({ city: 'Munich', country: 'DE' });
+		}
+		expect(cityPoint({ city: 'Berlin', country: 'DE', region: 'BE' })).toEqual(
+			cityPoint({ city: 'Berlin', country: 'DE', region: 'Berlin' })
+		);
+	});
+	it('prioritizes exact search results before prefixes', () => {
+		expect(searchCityGazetteer('boulder')[0]).toMatchObject({
+			city: 'Boulder',
+			region: 'Colorado'
+		});
+		expect(searchCityGazetteer('')).toEqual([]);
 	});
 	it('does not guess between cities or countries', () => {
 		expect(cityPoint({ city: 'Springfield', country: 'US', region: '' })).toBeUndefined();

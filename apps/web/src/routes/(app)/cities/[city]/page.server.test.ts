@@ -62,7 +62,6 @@ describe('snapshot city page and live load-more', () => {
 			...scope,
 			uris: members.slice(0, 20).map(([uri]) => uri),
 			snapshot: version,
-			startsAtMin: expect.any(String),
 			profiles: true,
 			limit: 20
 		});
@@ -158,13 +157,14 @@ describe('snapshot city page and live load-more', () => {
 		expect(decodeCursor(result.cursor)?.raw).toBe(raw(30));
 	});
 
-	it('skips elapsed snapshot dates before hydration', async () => {
+	it('hydrates elapsed snapshot dates so rescheduled records can be checked live', async () => {
 		read.mockResolvedValue({
 			version,
 			events: [['at://past', '2020-01-01T00:00:00.000Z'], ...members]
 		});
 		await load(event());
-		expect(list.mock.lastCall![1].uris).not.toContain('at://past');
+		expect(list.mock.lastCall![1].uris).toContain('at://past');
+		expect(list.mock.lastCall![1]).not.toHaveProperty('startsAtMin');
 	});
 
 	it.each([

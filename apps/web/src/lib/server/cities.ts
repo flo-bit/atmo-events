@@ -2,15 +2,17 @@ import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
 import { cellToLatLng, getResolution, isValidCell } from 'h3-js';
 import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
 import { discoverableSql } from '#lib/contrail/discoverability.js';
-import { countryCode, normalizeCityAddress } from './city-normalization';
+import { cityNameKey, countryCode, normalizeCityAddress } from './city-normalization';
 import { cachedRead } from './edge-cache';
 import { normalizeCityField } from '#lib/cities.js';
 
-export const CITY_SNAPSHOT_INTERVAL_MS = 24 * 60 * 60 * 1000;
+export const CITY_SNAPSHOT_INTERVAL_MS = 15 * 60 * 1000;
+export const CITY_SNAPSHOT_RETENTION_MS = 24 * 60 * 60 * 1000;
+export const NEARBY_RADIUS_KM = 100;
+export const NEARBY_CANDIDATE_LIMIT = 5;
 const LEASE_MS = 5 * 60 * 1000;
-const RETENTION_MS = 3 * CITY_SNAPSHOT_INTERVAL_MS;
 const CHUNK_CHARACTERS = 64 * 1024; // At most 256 KB UTF-8, below D1's 2 MB value limit.
-const DEFINITION = 'cities:v3';
+const DEFINITION = 'cities:v4';
 const VERSION = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const LOCATIONS = `json_each(CASE WHEN json_type(r.record, '$.locations') = 'array'
 	THEN json_extract(r.record, '$.locations') ELSE '[]' END) l`;
@@ -28,6 +30,9 @@ const ADDRESS_CONDITION = `(${field('$type')} = 'community.lexicon.location.addr
 const MAX_CITY_POINT_SPREAD_KM = 100;
 const PHYSICAL = `COALESCE(json_extract(r.record, '$.mode'), '')
 	NOT IN ('community.lexicon.calendar.event#virtual', 'virtual')`;
+const ACTIVE = `COALESCE(json_extract(r.record, '$.status'), '')
+	NOT IN ('community.lexicon.calendar.event#cancelled', 'cancelled', 'canceled')`;
+const UPCOMING = `julianday(json_extract(r.record, '$.startsAt')) >= julianday(?)`;
 const scopeKey = (scope: CityScope) => JSON.stringify([scope.city, scope.country, scope.region]);
 type Variant = [city: string, country: string, region: string];
 type Point = { latitude: number; longitude: number };
@@ -77,7 +82,7 @@ function distanceKm(a: Point, b: Point): number {
 	return 12742 * Math.asin(Math.sqrt(Math.min(1, h)));
 }
 
-/** The only events-wide city query. Cron runs it once per daily global snapshot. */
+/** The only events-wide city query. Cron runs it once per global refresh interval. */
 async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 	const result = await db
 		.prepare(
@@ -101,7 +106,7 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 			LIMIT 1) END) AS points
 		FROM records_event r, ${LOCATIONS}
 		WHERE ${discoverableSql('r.record')} AND ${visibleRecordSql('r')} AND ${PHYSICAL}
-			AND json_extract(r.record, '$.startsAt') >= ? AND ${ADDRESS_CONDITION}
+			AND ${ACTIVE} AND ${UPCOMING} AND ${ADDRESS_CONDITION}
 		GROUP BY ${text('locality')}, ${text('country')}, ${text('region')}
 		ORDER BY city, country, region`
 		)
@@ -161,8 +166,12 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 				// Ignore malformed publisher-supplied coordinates.
 			}
 		}
-		for (const [uri, startsAt] of JSON.parse(raw.events) as CityMember[])
-			group.events.set(uri, startsAt);
+		for (const [uri, startsAt] of JSON.parse(raw.events) as CityMember[]) {
+			// ATProto datetimes may carry an offset. Only this derived index is
+			// normalized; the author's record is never modified.
+			const instant = Date.parse(startsAt);
+			if (Number.isFinite(instant)) group.events.set(uri, new Date(instant).toISOString());
+		}
 	}
 	return [...groups.values()]
 		.map(({ entry, events }) => ({
@@ -172,6 +181,7 @@ async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 				at < bt ? -1 : at > bt ? 1 : a < b ? -1 : a > b ? 1 : 0
 			)
 		}))
+		.filter((city) => city.count > 0)
 		.sort((a, b) => b.count - a.count || scopeKey(a.scope).localeCompare(scopeKey(b.scope), 'en'));
 }
 
@@ -245,7 +255,7 @@ export async function refreshCitySnapshot(db: D1Database, now = Date.now()): Pro
 			.run();
 		await db
 			.prepare('DELETE FROM city_snapshot_data WHERE created_at < ?')
-			.bind(now - RETENTION_MS)
+			.bind(now - CITY_SNAPSHOT_RETENTION_MS)
 			.run();
 	} finally {
 		await db
@@ -258,7 +268,7 @@ export async function refreshCitySnapshot(db: D1Database, now = Date.now()): Pro
 }
 
 async function currentVersion(db: Database): Promise<string | null> {
-	const head = await cachedRead('cities:head:v3', 300, async () => {
+	const head = await cachedRead('cities:head:v4', 60, async () => {
 		try {
 			return await db
 				.prepare(
@@ -277,7 +287,7 @@ async function currentVersion(db: Database): Promise<string | null> {
 
 async function readParts<T>(db: Database, version: string, key: string): Promise<T[] | null> {
 	if (!VERSION.test(version)) return null;
-	return cachedRead(`cities:data:v3/${version}/${encodeURIComponent(key)}`, 86400, async () => {
+	return cachedRead(`cities:data:v4/${version}/${encodeURIComponent(key)}`, 86400, async () => {
 		const result = await db
 			.prepare(
 				'SELECT data FROM city_snapshot_data WHERE version = ? AND city_key = ? ORDER BY part'
@@ -342,13 +352,15 @@ export async function cityConditions(
 		conditions: [
 			discoverableSql('r.record'),
 			PHYSICAL,
+			ACTIVE,
+			UPCOMING,
 			`EXISTS (SELECT 1 FROM ${LOCATIONS}, json_each(?) v
 				WHERE ${ADDRESS_CONDITION}
 				AND ${text('locality')} = json_extract(v.value, '$[0]')
 				AND ${text('country')} = json_extract(v.value, '$[1]')
 				AND ${text('region')} = json_extract(v.value, '$[2]'))`
 		],
-		params: [JSON.stringify(city.variants)]
+		params: [new Date().toISOString(), JSON.stringify(city.variants)]
 	};
 }
 
@@ -384,7 +396,10 @@ export async function readCitySuggestions(
 	};
 }
 
-/** Resolve the IP city and, if necessary, the closest event city from one snapshot. */
+export type NearbyCity = { city: City; distanceKm: number };
+
+/** Resolve a location conservatively; return a bounded list for live fallback
+ * checks. No external geocoder or request-time scan of event records. */
 export async function readNearbyPage(
 	db: Database,
 	location?: {
@@ -395,11 +410,12 @@ export async function readNearbyPage(
 		latitude?: unknown;
 		longitude?: unknown;
 	},
-	search = ''
+	search = '',
+	options: { explicit?: boolean } = {}
 ): Promise<{
 	detected: CityScope | null;
 	matched: City | null;
-	nearest: City | null;
+	nearby: NearbyCity[];
 	cities: CityScope[];
 }> {
 	const entries = await catalog(db);
@@ -413,7 +429,15 @@ export async function readNearbyPage(
 	});
 	const query = normalizeCityField(search.slice(0, 256));
 	const eventCities = entries
-		.filter((entry) => !query || normalizeCityField(entry.city).includes(query))
+		.filter(
+			(entry) =>
+				!query || cityNameKey(entry.city, entry.country).includes(cityNameKey(query, entry.country))
+		)
+		.sort(
+			(a, b) =>
+				Number(b.scope.city === cityNameKey(query, b.country)) -
+				Number(a.scope.city === cityNameKey(query, a.country))
+		)
 		.slice(0, 30)
 		.map(display);
 	const cities: CityScope[] = [];
@@ -431,48 +455,60 @@ export async function readNearbyPage(
 		city: typeof location?.city === 'string' ? location.city : '',
 		country: typeof location?.country === 'string' ? location.country : '',
 		region:
-			typeof location?.region === 'string'
+			typeof location?.region === 'string' && location.region.trim()
 				? location.region
 				: typeof location?.regionCode === 'string'
 					? location.regionCode
 					: ''
 	});
-	if (!detected || !countryCode(detected.label.country))
-		return { detected: null, matched: null, nearest: null, cities };
+	if (
+		!detected ||
+		(!countryCode(detected.label.country) &&
+			!(options.explicit && resolveCity(entries, detected.label)))
+	)
+		return { detected: null, matched: null, nearby: [], cities };
 	const candidates = entries.filter(
 		(entry) =>
 			entry.scope.city === detected.scope.city && entry.scope.country === detected.scope.country
 	);
 	const exact = candidates.filter((entry) => entry.scope.region === detected.scope.region);
-	const withoutRegion = candidates.filter((entry) => !entry.scope.region);
-	const matched =
-		exact.length === 1
+	// A regionless Springfield is not an identified place just because it is
+	// the only Springfield with events. Explicit catalog selections may still
+	// browse its published address, but do not manufacture coordinates for it.
+	const unambiguous = cityPoint({ ...detected.label, region: '' });
+	let matched: CatalogCity | null =
+		exact.length === 1 && (options.explicit || detected.scope.region || unambiguous)
 			? exact[0]
-			: exact.length === 0 &&
-				  candidates.length === 1 &&
-				  withoutRegion.length === 1 &&
-				  cityPoint(detected.label)
-				? withoutRegion[0]
-				: null;
+			: null;
+	if (!matched && candidates.length === 1) {
+		const candidate = candidates[0];
+		if (
+			(!candidate.scope.region || !detected.scope.region) &&
+			unambiguous &&
+			cityPoint(candidate) &&
+			cityPoint(detected.label)
+		)
+			matched = candidate;
+	}
 	const visitor = validPoint(location) ?? cityPoint(detected.label);
-	let closest: CatalogCity | null = null;
-	let distance = Infinity;
+	const nearby: NearbyCity[] = [];
 	if (visitor) {
 		for (const entry of entries) {
 			if (entry === matched) continue;
-			const point = entry.point ?? cityPoint(entry);
+			// Prefer a resolved city's center over untrusted publisher coordinates.
+			const point = cityPoint(entry) ?? entry.point;
 			if (!point) continue;
 			const km = distanceKm(visitor, point);
-			if (km < distance) {
-				distance = km;
-				closest = entry;
-			}
+			if (km <= NEARBY_RADIUS_KM) nearby.push({ city: display(entry), distanceKm: km });
 		}
 	}
+	nearby.sort(
+		(a, b) => a.distanceKm - b.distanceKm || scopeKey(a.city).localeCompare(scopeKey(b.city), 'en')
+	);
 	return {
 		detected: detected.label,
 		matched: matched ? display(matched) : null,
-		nearest: closest ? display(closest) : null,
+		nearby: nearby.slice(0, NEARBY_CANDIDATE_LIMIT),
 		cities
 	};
 }

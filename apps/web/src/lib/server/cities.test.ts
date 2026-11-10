@@ -10,7 +10,10 @@ import {
 	readNearbyPage,
 	readCitySnapshot,
 	refreshCitySnapshot,
-	CITY_SNAPSHOT_INTERVAL_MS
+	CITY_SNAPSHOT_INTERVAL_MS,
+	CITY_SNAPSHOT_RETENTION_MS,
+	NEARBY_RADIUS_KM,
+	NEARBY_CANDIDATE_LIMIT
 } from './cities';
 
 const NOW = '2026-10-28T12:00:00.000Z';
@@ -98,10 +101,9 @@ function setup() {
 		const source = await handler(db, params, config);
 		return sqlite
 			.prepare(
-				`SELECT r.uri FROM records_event r WHERE ${source.conditions!.join(' AND ')}
-			AND json_extract(r.record, '$.startsAt') >= ? ORDER BY r.uri`
+				`SELECT r.uri FROM records_event r WHERE ${source.conditions!.join(' AND ')} ORDER BY r.uri`
 			)
-			.all(...((source.params ?? []) as SQLInputValue[]), NOW)
+			.all(...((source.params ?? []) as SQLInputValue[]))
 			.map((row) => row.uri);
 	}
 	return { db, sqlite, add, matching };
@@ -139,6 +141,38 @@ describe('existing-field city discovery', () => {
 		expect(await readTopCities(db, NOW)).toEqual([
 			{ city: 'Berlin', country: 'DE', region: '', count: 4 }
 		]);
+	});
+
+	it('compares instants with offsets, normalizes snapshot ordering and excludes cancelled events', async () => {
+		const { db, add, matching } = setup();
+		const later = add({ locations: [address('Berlin')], startsAt: '2026-10-28T08:00:00-05:00' });
+		const sooner = add({ locations: [address('Berlin')], startsAt: '2026-10-28T14:30:00+02:00' });
+		add({ locations: [address('Berlin')], startsAt: '2026-10-28T13:00:00+02:00' });
+		add({ locations: [address('Berlin')], startsAt: 'invalid' });
+		for (const status of ['community.lexicon.calendar.event#cancelled', 'cancelled', 'canceled'])
+			add({ locations: [address('Berlin')], status });
+		await refreshCitySnapshot(db);
+		expect(await matching({ city: 'Berlin', country: 'DE', region: '' })).toEqual([later, sooner]);
+		expect(
+			(await readCitySnapshot(db, { city: 'Berlin', country: 'DE', region: '' }))?.events
+		).toEqual([
+			[sooner, '2026-10-28T12:30:00.000Z'],
+			[later, '2026-10-28T13:00:00.000Z']
+		]);
+	});
+
+	it('publishes newly indexed membership within one refresh interval without changing old cursors', async () => {
+		const { db, add } = setup();
+		const scope = { city: 'Berlin', country: 'DE', region: '' };
+		add({ locations: [address('Berlin')] });
+		await refreshCitySnapshot(db);
+		const original = (await readCitySnapshot(db, scope))!;
+		const added = add({ locations: [address('Berlin')] });
+		await refreshCitySnapshot(db, Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS - 1);
+		expect((await readCitySnapshot(db, scope))?.events).toHaveLength(1);
+		await refreshCitySnapshot(db, Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS);
+		expect((await readCitySnapshot(db, scope))?.events.map(([uri]) => uri)).toContain(added);
+		expect(await readCitySnapshot(db, scope, original.version)).toEqual(original);
 	});
 
 	it('normalizes basic case and spaces, counts an event once per city, and agrees with the pipeline', async () => {
@@ -328,7 +362,7 @@ describe('existing-field city discovery', () => {
 			longitude: '13.405'
 		});
 		expect(berlin.matched?.city).toBe('Berlin');
-		expect(berlin.nearest?.city).toBe('Leipzig');
+		expect(berlin.nearby).toEqual([]); // Leipzig is beyond the nearby radius.
 		const potsdam = await readNearbyPage(db, {
 			city: 'Potsdam',
 			country: 'DE',
@@ -337,7 +371,7 @@ describe('existing-field city discovery', () => {
 			longitude: '13.06'
 		});
 		expect(potsdam.matched).toBeNull();
-		expect(potsdam.nearest?.city).toBe('Berlin');
+		expect(potsdam.nearby[0].city.city).toBe('Berlin');
 		expect((await readNearbyPage(db, undefined, 'leip')).cities.map((c) => c.city)).toContain(
 			'Leipzig'
 		);
@@ -345,6 +379,135 @@ describe('existing-field city discovery', () => {
 		expect((await readNearbyPage(db, undefined, 'potsdam')).cities.map((c) => c.city)).toContain(
 			'Potsdam'
 		);
+	});
+
+	it('matches unambiguous missing regions and known local names without inventing a place', async () => {
+		const { db, add } = setup();
+		add({ locations: [address('Berlin', 'DE', 'Berlin')] });
+		add({ locations: [address('München', 'DE', 'Bayern')] });
+		add({ locations: [address('Munich', 'DE', 'Bavaria')] });
+		add({ locations: [address('Springfield', 'US')] });
+		await refreshCitySnapshot(db);
+		expect((await readNearbyPage(db, { city: 'Berlin', country: 'DE' })).matched?.city).toBe(
+			'Berlin'
+		);
+		expect(
+			(await readNearbyPage(db, { city: 'Berlin', country: 'DE', regionCode: 'BE' })).matched?.city
+		).toBe('Berlin');
+		const munich = await readNearbyPage(db, { city: 'Munich', country: 'DE', region: 'Bavaria' });
+		expect(munich.matched?.count).toBe(2);
+		expect((await readNearbyPage(db, undefined, 'münchen')).cities).toContainEqual(
+			expect.objectContaining({ count: 2 })
+		);
+		expect(
+			(await readNearbyPage(db, { city: 'Springfield', country: 'US', region: 'MA' })).matched
+		).toBeNull();
+		expect((await readNearbyPage(db, { city: 'Springfield', country: 'US' })).matched).toBeNull();
+	});
+
+	it('allows explicit countryless catalog choices but never infers an IP location from them', async () => {
+		const { db, add } = setup();
+		const scope = { city: 'Legacy City', country: '', region: '' };
+		add({ locations: [address(scope.city, '')] });
+		await refreshCitySnapshot(db);
+		expect((await readNearbyPage(db, scope)).detected).toBeNull();
+		const selected = await readNearbyPage(db, scope, '', { explicit: true });
+		expect(selected.detected).toEqual(scope);
+		expect(selected.matched?.count).toBe(1);
+		expect(selected.nearby).toEqual([]);
+		expect(
+			(await readNearbyPage(db, { ...scope, city: 'Invented' }, '', { explicit: true })).detected
+		).toBeNull();
+	});
+
+	it('returns only a bounded distance-ordered set of nearby candidates, including across borders', async () => {
+		const { db, add } = setup();
+		for (let i = 7; i >= 1; i--)
+			add({
+				locations: [
+					address(`Nearby ${i}`, i === 1 ? 'PL' : 'DE'),
+					{ $type: 'community.lexicon.location.geo', latitude: '0', longitude: String(i / 10) }
+				]
+			});
+		await refreshCitySnapshot(db);
+		const result = await readNearbyPage(db, {
+			city: 'Origin',
+			country: 'DE',
+			latitude: '0',
+			longitude: '0'
+		});
+		expect(result.nearby.map(({ city }) => city.city)).toEqual([
+			'Nearby 1',
+			'Nearby 2',
+			'Nearby 3',
+			'Nearby 4',
+			'Nearby 5'
+		]);
+		expect(result.nearby).toHaveLength(NEARBY_CANDIDATE_LIMIT);
+		expect(result.nearby.every(({ distanceKm }) => distanceKm <= NEARBY_RADIUS_KM)).toBe(true);
+	});
+
+	it('enforces the radius boundary and wraps distance across the date line', async () => {
+		const { db, add } = setup();
+		for (const [city, longitude] of [
+			['Inside', '0.89'],
+			['Outside', '0.91'],
+			['Date Line', '-179.8']
+		]) {
+			add({
+				locations: [
+					address(city),
+					{ $type: 'community.lexicon.location.geo', latitude: '0', longitude }
+				]
+			});
+		}
+		await refreshCitySnapshot(db);
+		const location = { city: 'Origin', country: 'DE', latitude: '0', longitude: '0' };
+		expect((await readNearbyPage(db, location)).nearby.map(({ city }) => city.city)).toEqual([
+			'Inside'
+		]);
+		expect(
+			(await readNearbyPage(db, { ...location, longitude: '179.8' })).nearby.map(
+				({ city }) => city.city
+			)
+		).toEqual(['Date Line']);
+	});
+
+	it('prefers a known city center over misleading publisher coordinates', async () => {
+		const { db, add } = setup();
+		add({
+			locations: [
+				address('Berlin'),
+				{ $type: 'community.lexicon.location.geo', latitude: '40.7', longitude: '-74' }
+			]
+		});
+		await refreshCitySnapshot(db);
+		expect(
+			(
+				await readNearbyPage(db, {
+					city: 'New York City',
+					country: 'US',
+					latitude: '40.7',
+					longitude: '-74'
+				})
+			).nearby
+		).toEqual([]);
+	});
+
+	it('does not describe a distant event city as nearby', async () => {
+		const { db, add } = setup();
+		add({ locations: [address('Berlin')] });
+		await refreshCitySnapshot(db);
+		expect(
+			(
+				await readNearbyPage(db, {
+					city: 'New York City',
+					country: 'US',
+					latitude: '40.7',
+					longitude: '-74'
+				})
+			).nearby
+		).toEqual([]);
 	});
 
 	it('does not confuse same-named cities in different regions', async () => {
@@ -360,6 +523,16 @@ describe('existing-field city discovery', () => {
 			longitude: '-72.6'
 		});
 		expect(massachusetts.matched?.region).toBe('Massachusetts');
+		expect(
+			(
+				await readNearbyPage(db, {
+					city: 'Springfield',
+					country: 'US',
+					region: '',
+					regionCode: 'MA'
+				})
+			).matched?.region
+		).toBe('Massachusetts');
 		const ambiguous = await readNearbyPage(db, { city: 'Springfield', country: 'US' });
 		expect(ambiguous.matched).toBeNull();
 	});
@@ -406,7 +579,7 @@ describe('existing-field city discovery', () => {
 		expect(await matching({ city, country: 'US', region: 'IL' })).toEqual([uri]);
 		const source = await cityConditions(db, { city, country: 'US', region: 'IL' });
 		expect(source.conditions.join(' ')).not.toContain(city);
-		expect(JSON.parse(source.params[0])).toEqual([[city, 'US', 'IL']]);
+		expect(JSON.parse(source.params[1])).toEqual([[city, 'US', 'IL']]);
 		expect(await matching({ city: ' ', country: 'US', region: '' })).toEqual([]);
 	});
 
@@ -477,7 +650,7 @@ describe('existing-field city discovery', () => {
 		expect(cities[0]).toMatchObject({ city: 'Boulder', count: 3 });
 	});
 
-	it('shares the global daily snapshot at the edge and refreshes only through cron', async () => {
+	it('shares the global snapshot at the edge and refreshes only through cron', async () => {
 		const { db, add, matching } = setup();
 		const memory = new Map<string, { response: Response; expiresAt: number }>();
 		vi.stubGlobal('caches', {
@@ -500,16 +673,16 @@ describe('existing-field city discovery', () => {
 		const cached = [...memory.values()][1].response;
 		expect(cached.headers.get('cache-control')).toBe('max-age=86400');
 		expect(await cached.clone().text()).not.toContain('at://');
-		// New records using a known address appear immediately, even while the
-		// ranking stays stale. A previously unseen variant waits for the refresh.
+		// The legacy live pipeline can find new records using a known address.
+		// Snapshot membership (used by the page) waits for the bounded refresh.
 		add({ locations: [address('Boulder', 'US', 'CO')] });
 		add({ locations: [address('Boulder, Colorado, 80302', 'USA')] });
 		vi.setSystemTime(new Date(Date.parse(NOW) + 5 * 60 * 1000));
 		expect((await readTopCities(db))[0].count).toBe(1);
 		expect(await matching(cities[0])).toHaveLength(2);
-		vi.setSystemTime(new Date(Date.parse(NOW) + 24 * 60 * 60 * 1000 - 1));
+		vi.setSystemTime(new Date(Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS - 1));
 		expect((await readTopCities(db))[0].count).toBe(1);
-		vi.setSystemTime(new Date(Date.parse(NOW) + 24 * 60 * 60 * 1000));
+		vi.setSystemTime(new Date(Date.parse(NOW) + CITY_SNAPSHOT_INTERVAL_MS));
 		expect((await readTopCities(db))[0].count).toBe(1); // no request-time rebuild
 		await refreshCitySnapshot(db);
 		memory.clear(); // another location gets the published global snapshot
@@ -560,7 +733,7 @@ describe('existing-field city discovery', () => {
 		expect(plan.some((row) => String(row.detail).includes('(uri=?)'))).toBe(true);
 	});
 
-	it('builds once globally per day, including overlapping cron ticks and reads without an edge cache', async () => {
+	it('builds once globally per interval, including overlapping cron ticks and reads without an edge cache', async () => {
 		const { db, add } = setup();
 		add({ locations: [address('Berlin')] });
 		const prepare = vi.spyOn(db, 'prepare');
@@ -601,7 +774,10 @@ describe('existing-field city discovery', () => {
 		expect((await readCitySnapshot(db, scope))!.events).toHaveLength(1002);
 		expect(await readCitySnapshot(db, scope, old.version)).toEqual(old);
 		expect(await readCitySnapshot(db, scope, 'invalid')).toBeNull();
-		await refreshCitySnapshot(db, Date.parse(NOW) + 4 * CITY_SNAPSHOT_INTERVAL_MS);
+		await refreshCitySnapshot(
+			db,
+			Date.parse(NOW) + CITY_SNAPSHOT_RETENTION_MS + CITY_SNAPSHOT_INTERVAL_MS
+		);
 		expect(await readCitySnapshot(db, scope, old.version)).toBeNull();
 	});
 

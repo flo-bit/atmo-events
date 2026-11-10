@@ -19,12 +19,18 @@ export default defineConfig({
 		// Keep shared network settings in one module; Vite also handles MapLibre's worker ?url.
 		exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'],
 		include: [
+			'mode-watcher',
 			'@sketchyicons/svelte/icons/calendar',
 			'@sketchyicons/svelte/icons/message-circle',
 			'@sketchyicons/svelte/icons/handshake'
 		]
 	},
-	server: { fs: { allow: [searchForWorkspaceRoot(process.cwd()), kitRoot] } },
+	server: {
+		fs: { allow: [searchForWorkspaceRoot(process.cwd()), kitRoot] },
+		// Let browser mocks intercept remote functions before Vite speculatively
+		// transforms their server-only Cloudflare/SvelteKit dependencies.
+		preTransformRequests: false
+	},
 	resolve: {
 		dedupe: ['svelte', 'bits-ui', '@internationalized/date'],
 		alias: {
