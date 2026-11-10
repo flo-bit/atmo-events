@@ -20,8 +20,10 @@ vi.mock('#lib/spaces/server/space-read.js', () => ({
 }));
 const actorToDid = vi.fn();
 vi.mock('#lib/actor.js', () => ({ actorToDid: (actor: string) => actorToDid(actor) }));
+const publicProfile = vi.fn<(did: string) => Promise<{ displayName?: string } | null>>();
 vi.mock('./people', () => ({
-	verifiedHandle: async (did: string) => `${did.split(':').at(-1)}.example.com`
+	verifiedHandle: async (did: string) => `${did.split(':').at(-1)}.example.com`,
+	publicProfile: (did: string) => publicProfile(did)
 }));
 
 const {
@@ -109,6 +111,8 @@ function theSpaceHolds(answers: Record<string, ReturnType<typeof rsvp>>, event =
 }
 
 beforeEach(() => {
+	publicProfile.mockReset();
+	publicProfile.mockResolvedValue(null);
 	reader.get.mockReset();
 	reader.writers.mockReset();
 	actorToDid.mockReset();
@@ -442,6 +446,29 @@ describe('readPrivateEventPage', () => {
 		reader.writers.mockResolvedValue([GUEST]);
 		const page = await readPrivateEventPage(caller(HOST, HOST_SCOPE), EVENT);
 		expect(page?.attendees.goingCount).toBe(0);
+	});
+
+	it('names people by their public name where they have one, and by handle where not', async () => {
+		const names: Record<string, string> = { [GUEST]: 'Guest Person', [HOST]: 'Host Person' };
+		publicProfile.mockImplementation(async (did) =>
+			names[did] ? { displayName: names[did] } : null
+		);
+		reader.writers.mockResolvedValue([GUEST, OTHER]);
+		theSpaceHolds({ [GUEST]: rsvp('going'), [OTHER]: rsvp('going') });
+
+		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);
+
+		expect(page?.attendees.going).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					did: GUEST,
+					name: 'Guest Person',
+					handle: 'guestguestguestguestgues.example.com'
+				}),
+				expect.objectContaining({ did: OTHER, name: 'otherotherotherotherothe.example.com' })
+			])
+		);
+		expect(page?.host).toMatchObject({ did: HOST, value: { displayName: 'Host Person' } });
 	});
 
 	it('tells the host who said no, though they are on neither attendee list', async () => {

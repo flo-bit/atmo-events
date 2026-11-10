@@ -54,7 +54,7 @@ export async function loadEventPage(
 	});
 	if (!found) error(404, notAvailable);
 
-	const { event, hostHandle, viewerStatus, ...rest } = found;
+	const { event, host: hostPerson, viewerStatus, ...rest } = found;
 	return {
 		...base,
 		view: 'event' as const,
@@ -63,7 +63,11 @@ export async function loadEventPage(
 		description: parseEventDescription(event),
 		actorDid: host,
 		rkey: params.rkey,
-		hostProfile: { did: host, handle: hostHandle ?? undefined },
+		hostProfile: {
+			did: host,
+			handle: hostPerson.handle,
+			displayName: hostPerson.value?.displayName
+		},
 		viewerRsvpStatus: viewerStatus,
 		viewerRsvpRkey: viewerStatus ? params.rkey : null,
 		loggedIn: true,

@@ -15,7 +15,10 @@ vi.mock('#lib/actor.js', () => ({
 	getActor: async (actor: string) => (actor === 'no-one.example.com' ? null : actor),
 	actorToDid: vi.fn()
 }));
-vi.mock('#lib/private-events/server/people.js', () => ({ verifiedHandle: async () => null }));
+vi.mock('#lib/private-events/server/people.js', () => ({
+	verifiedHandle: async () => null,
+	publicProfile: async () => null
+}));
 vi.mock('#lib/private-events/server/enabled.js', () => ({
 	privateEventsEnabled: () => true,
 	spacesServer: () => null

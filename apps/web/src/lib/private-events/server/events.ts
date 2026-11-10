@@ -3,7 +3,7 @@
 // or a public URL. A single event has a space of its own, under the event's key, so each one has
 // its own guest list.
 import * as v from '@atcute/lexicons/validations';
-import type { AttendeeInfo, FlatEventRecord } from '#lib/contrail.js';
+import { buildAttendee, type AttendeeInfo, type FlatEventRecord } from '#lib/contrail.js';
 import { actorToDid } from '#lib/actor.js';
 import { timeLimitedNetwork } from '#lib/spaces/server/other-servers.js';
 import { isSpaceAccessDenied } from '#lib/spaces/server/space-credential.js';
@@ -30,7 +30,7 @@ import {
 } from '../ids';
 import { holdsGuestGrant, holdsHostGrant } from '../scopes';
 import type { CallerSession } from './caller';
-import { verifiedHandle } from './people';
+import { publicProfile, verifiedHandle } from './people';
 
 const REFUSALS = {
 	'no-grant': "atmo doesn't have your permission for this yet, so nothing changed.",
@@ -249,7 +249,7 @@ export interface Guest {
 
 export interface PrivateEventPage {
 	event: FlatEventRecord;
-	hostHandle: string | null;
+	host: Person;
 	attendees: {
 		going: AttendeeInfo[];
 		interested: AttendeeInfo[];
@@ -263,6 +263,22 @@ export interface PrivateEventPage {
 	guests: Guest[] | null;
 	/** The host's list stopped at the page limit, so there may be more guests than these. */
 	guestsCapped: boolean;
+}
+
+/** Someone the page shows: the handle only once it points back at them, and their public name. */
+export interface Person {
+	did: string;
+	handle?: string;
+	value?: { displayName?: string };
+}
+
+async function person(did: string): Promise<Person> {
+	const [handle, profile] = await Promise.all([verifiedHandle(did), publicProfile(did)]);
+	return {
+		did,
+		...(handle ? { handle } : {}),
+		...(profile?.displayName ? { value: { displayName: profile.displayName } } : {})
+	};
 }
 
 const LIST_LIMIT = 100;
@@ -326,14 +342,7 @@ export async function readPrivateEventPage(
 			answers.set(did, status);
 			if (did === caller.did) viewerStatus = status;
 			if (status === 'notgoing') return;
-			const handle = await verifiedHandle(did);
-			const attendee: AttendeeInfo = {
-				did,
-				status,
-				name: handle ?? did,
-				...(handle ? { handle } : {}),
-				url: `/p/${encodeURIComponent(handle ?? did)}`
-			};
+			const attendee = buildAttendee(did, status, [await person(did)]);
 			(status === 'going' ? going : interested).push(attendee);
 		})
 	);
@@ -355,7 +364,7 @@ export async function readPrivateEventPage(
 
 	return {
 		event,
-		hostHandle: await verifiedHandle(host),
+		host: await person(host),
 		attendees: {
 			going,
 			interested,
