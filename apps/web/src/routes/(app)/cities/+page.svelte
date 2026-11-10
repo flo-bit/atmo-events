@@ -28,8 +28,12 @@
 				</h1>
 				{#if data.locationSource === 'ip'}
 					<p class="text-base-600 dark:text-base-400 mt-2 text-sm">
-						Your location is estimated from your internet connection. Learn more in our
-						<a class="underline" href={resolve('/(app)/privacy')}>privacy policy</a>.
+						Your location is estimated from your internet connection.
+						<span class="block"
+							>Learn more in our <a class="underline" href={resolve('/(app)/privacy')}
+								>privacy policy</a
+							>.</span
+						>
 					</p>
 				{/if}
 			</div>
