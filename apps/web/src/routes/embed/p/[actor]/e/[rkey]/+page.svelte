@@ -214,12 +214,12 @@
 		<div class="embed-info">
 			<a href={eventUrl} target="_blank" rel="noopener noreferrer" class="embed-meta">
 				<h2 class="embed-title">{data.eventData.name}</h2>
-				<p class="embed-line text-muted">
+				<p class="embed-line text-base-600 dark:text-base-400">
 					{formatDate(startDate)}, {formatTime(startDate)}{#if endDate && isSameDay}
 						- {formatTime(endDate)}{/if}
 				</p>
 				{#if location}
-					<p class="embed-line text-muted">{location}</p>
+					<p class="embed-line text-base-600 dark:text-base-400">{location}</p>
 				{/if}
 			</a>
 
@@ -239,8 +239,10 @@
 						{#if rsvpStatus === 'going'}
 							<div class="embed-status-row">
 								<div class="embed-status-left">
-									<div class="embed-status-icon bg-accent-soft">
-										<Icon img={Check} class="text-action" />
+									<div
+										class="embed-status-icon bg-accent-50 dark:bg-[color-mix(in_srgb,var(--accent-950)_65%,var(--base-950))]"
+									>
+										<Icon img={Check} class="text-accent-700 dark:text-accent-300" />
 									</div>
 									<span class="embed-status-label text-base-900 dark:text-base-50"
 										>You're Going</span
@@ -258,8 +260,13 @@
 						{:else if rsvpStatus === 'interested' || rsvpStatus === 'notgoing'}
 							<div class="embed-status-row">
 								<div class="embed-status-left">
-									<div class="embed-status-icon bg-accent-soft">
-										<Icon img={rsvpStatus === 'interested' ? Star : X} class="text-action" />
+									<div
+										class="embed-status-icon bg-accent-50 dark:bg-[color-mix(in_srgb,var(--accent-950)_65%,var(--base-950))]"
+									>
+										<Icon
+											img={rsvpStatus === 'interested' ? Star : X}
+											class="text-accent-700 dark:text-accent-300"
+										/>
 									</div>
 									<span class="embed-status-label text-base-900 dark:text-base-50"
 										>{rsvpStatus === 'interested' ? "You're Interested" : 'Not Going'}</span

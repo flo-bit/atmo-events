@@ -135,7 +135,7 @@
 			/>
 		{/if}
 
-		<p class="text-muted mb-2 text-sm">
+		<p class="text-base-600 dark:text-base-400 mb-2 text-sm">
 			See all info on the <a
 				href="https://atmosphereconf.org/"
 				target="_blank"
@@ -162,7 +162,7 @@
 
 		<div class="mb-6 space-y-3">
 			<div class="flex items-center gap-3">
-				<span class="text-muted w-14 text-xs">Days</span>
+				<span class="text-base-600 dark:text-base-400 w-14 text-xs">Days</span>
 				<ToggleGroup
 					type="single"
 					bind:value={
@@ -180,7 +180,7 @@
 				</ToggleGroup>
 			</div>
 			<div class="flex items-center gap-3">
-				<span class="text-muted w-14 text-xs">Events</span>
+				<span class="text-base-600 dark:text-base-400 w-14 text-xs">Events</span>
 				<ToggleGroup
 					type="single"
 					bind:value={

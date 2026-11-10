@@ -57,8 +57,10 @@
 </script>
 
 <div class="mx-auto max-w-3xl px-6 pt-8 pb-12 sm:pt-10">
-	<header class="border-line flex flex-wrap items-center justify-between gap-4 border-b pb-5">
-		<h1 class="text-ink text-2xl font-medium tracking-tight">Reports</h1>
+	<header
+		class="border-base-300 flex flex-wrap items-center justify-between gap-4 border-b pb-5 dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
+	>
+		<h1 class="text-base-950 dark:text-base-50 text-2xl font-medium tracking-tight">Reports</h1>
 		<nav aria-label="Report status" class="flex gap-1 text-sm">
 			<a
 				href={basePath}
@@ -66,10 +68,12 @@
 				aria-current={data.status === 'open' ? 'page' : undefined}
 				class={[
 					'inline-flex items-center gap-2 rounded-lg px-3 py-2 transition-colors',
-					data.status === 'open' ? 'bg-recess text-ink font-medium' : 'text-muted hover:text-ink'
+					data.status === 'open'
+						? 'dark:bg-base-950 text-base-950 dark:text-base-50 bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))] font-medium'
+						: 'text-base-600 dark:text-base-400 hover:text-base-950 dark:hover:text-base-50'
 				]}
 				>Open <span
-					class="border-line text-muted rounded-md border px-1.5 py-0.5 text-xs tabular-nums"
+					class="border-base-300 text-base-600 dark:text-base-400 rounded-md border px-1.5 py-0.5 text-xs tabular-nums dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
 					aria-hidden="true">{openCount}</span
 				></a
 			>
@@ -79,17 +83,19 @@
 				class={[
 					'rounded-lg px-3 py-2 transition-colors',
 					data.status === 'resolved'
-						? 'bg-recess text-ink font-medium'
-						: 'text-muted hover:text-ink'
+						? 'dark:bg-base-950 text-base-950 dark:text-base-50 bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))] font-medium'
+						: 'text-base-600 dark:text-base-400 hover:text-base-950 dark:hover:text-base-50'
 				]}>Resolved</a
 			>
 		</nav>
 	</header>
 
 	{#if !data.canPublishActions}
-		<div class="border-line mt-6 flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3">
-			<Icon img={EyeOff} size={19} class="text-muted shrink-0" />
-			<p class="text-muted min-w-40 flex-1 text-xs leading-relaxed">
+		<div
+			class="border-base-300 mt-6 flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3 dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
+		>
+			<Icon img={EyeOff} size={19} class="text-base-600 dark:text-base-400 shrink-0" />
+			<p class="text-base-600 dark:text-base-400 min-w-40 flex-1 text-xs leading-relaxed">
 				To hide content, allow public moderation actions from your account. Reviewing and resolving
 				reports needs no extra permission.
 			</p>
@@ -97,7 +103,9 @@
 		</div>
 	{/if}
 
-	{#if notice}<p role="status" class="text-muted mt-5 text-sm">{notice}</p>{/if}
+	{#if notice}<p role="status" class="text-base-600 dark:text-base-400 mt-5 text-sm">
+			{notice}
+		</p>{/if}
 	<div class="mt-5 grid gap-3">
 		{#key data.status}
 			{#each reports as report (report.id)}
@@ -110,11 +118,15 @@
 					onResolved={resolved}
 				/>
 			{:else}
-				<p class="text-muted py-16 text-center text-sm">No {data.status} reports.</p>
+				<p class="text-base-600 dark:text-base-400 py-16 text-center text-sm">
+					No {data.status} reports.
+				</p>
 			{/each}
 		{/key}
 	</div>
-	{#if failure}<p role="alert" class="text-ink mt-5 text-sm">{failure}</p>{/if}
+	{#if failure}<p role="alert" class="text-base-950 dark:text-base-50 mt-5 text-sm">
+			{failure}
+		</p>{/if}
 	{#if cursor}<div class="mt-6">
 			<Button variant="secondary" {loading} onclick={more}
 				>{loading ? 'Loading…' : 'Load more reports'}</Button

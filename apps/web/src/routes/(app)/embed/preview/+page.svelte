@@ -120,7 +120,9 @@
 		<!-- Preview -->
 		{#if embedSrc}
 			<div class="mb-4">
-				<p class="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">
+				<p
+					class="text-base-600 dark:text-base-400 mb-3 text-xs font-semibold tracking-wider uppercase"
+				>
 					Preview ({selectedSize.label})
 				</p>
 				<div class="border-base-300 dark:border-base-700 inline-block rounded-xl border p-1">
@@ -136,7 +138,11 @@
 			</div>
 
 			<div class="mb-4">
-				<p class="text-muted mb-2 text-xs font-semibold tracking-wider uppercase">Embed URL</p>
+				<p
+					class="text-base-600 dark:text-base-400 mb-2 text-xs font-semibold tracking-wider uppercase"
+				>
+					Embed URL
+				</p>
 				<code
 					class="text-base-600 dark:text-base-400 bg-base-100 dark:bg-base-800 block rounded-lg p-3 text-xs break-all"
 				>

@@ -57,7 +57,7 @@
 		></video>
 	</div>
 	{#if error}<p role="alert" class="text-sm">{error}</p>
-	{:else}<p class="text-muted text-center text-sm" role="status">
+	{:else}<p class="text-base-600 dark:text-base-400 text-center text-sm" role="status">
 			{starting ? 'Opening camera…' : 'Scan their QR code.'}
 		</p>{/if}
 </div>

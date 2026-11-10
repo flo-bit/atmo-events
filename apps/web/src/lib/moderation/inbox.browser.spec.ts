@@ -24,6 +24,7 @@ function actions(): InboxActions {
 afterEach(async () => {
 	vi.restoreAllMocks();
 	document.documentElement.classList.remove('dark', 'light');
+	document.body.classList.remove('atmo');
 	await page.viewport(1280, 1000);
 });
 
@@ -45,7 +46,10 @@ describe('moderation review', () => {
 	it('keeps the inset report in reporter, reason, text, subject, note, actions order', async () => {
 		await render(ReportInbox, { data: inboxData({ reports: [eventReport] }), actions: actions() });
 		const report = document.querySelector('article')!;
-		expect(report.classList.contains('bg-recess/60')).toBe(true);
+		expect(report.classList).toContain(
+			'bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))]/60'
+		);
+		expect(report.classList).toContain('dark:bg-base-950/60');
 		const content = report.textContent!;
 		const ordered = [
 			'Mika Chen',
@@ -230,6 +234,8 @@ describe('moderation review', () => {
 	it.each(['light', 'dark'])(
 		'is accessible in %s mode, including the confirmation dialog',
 		async (theme) => {
+			// Like app.html: Kit paints the page background on .atmo.
+			document.body.classList.add('atmo');
 			document.documentElement.classList.add(theme);
 			await render(ReportInbox, {
 				data: inboxData({ reports: [eventReport] }),

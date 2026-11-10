@@ -116,7 +116,7 @@
 					{data.recentActivityIsPersonalized ? 'From people you follow' : 'Recent activity'}
 				</h2>
 				{#if data.recentActivityIsPersonalized}
-					<p class="text-muted mb-4 text-sm">
+					<p class="text-base-600 dark:text-base-400 mb-4 text-sm">
 						Events your Bluesky follows are hosting or going to.
 					</p>
 				{/if}

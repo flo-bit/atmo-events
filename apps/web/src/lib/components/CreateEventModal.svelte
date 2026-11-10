@@ -173,41 +173,57 @@
 		<div class="-mx-2">
 			<button
 				type="button"
-				class="group hover:bg-accent-soft rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors"
+				class="group hover:bg-accent-50 rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors dark:hover:bg-[color-mix(in_srgb,var(--accent-950)_65%,var(--base-950))]"
 				onclick={openCreate}
 			>
-				<Icon img={CalendarPlus} size={24} class="text-action shrink-0" />
+				<Icon img={CalendarPlus} size={24} class="text-accent-700 dark:text-accent-300 shrink-0" />
 				<span class="min-w-0 flex-1">
-					<span class="text-ink block text-sm font-medium">Start from scratch</span>
-					<span class="text-muted mt-1 block text-[.8125rem] leading-relaxed">
+					<span class="text-base-950 dark:text-base-50 block text-sm font-medium"
+						>Start from scratch</span
+					>
+					<span class="text-base-600 dark:text-base-400 mt-1 block text-[.8125rem] leading-relaxed">
 						Add your event details.
 					</span>
 				</span>
-				<Icon img={ArrowRight} size={18} class="text-muted group-hover:text-action shrink-0" />
+				<Icon
+					img={ArrowRight}
+					size={18}
+					class="text-base-600 dark:text-base-400 group-hover:text-accent-700 dark:group-hover:text-accent-300 shrink-0"
+				/>
 			</button>
 
-			<div class="border-line mx-3 my-1 border-t"></div>
+			<div
+				class="border-base-300 mx-3 my-1 border-t dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
+			></div>
 
 			<button
 				bind:this={importButton}
 				type="button"
-				class="group hover:bg-recess rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors"
+				class="group dark:hover:bg-base-950 rounded-ui flex w-full cursor-pointer items-center gap-4 px-3 py-4 text-left transition-colors hover:bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))]"
 				onclick={openImport}
 			>
-				<Icon img={Link} size={24} class="text-muted shrink-0" />
+				<Icon img={Link} size={24} class="text-base-600 dark:text-base-400 shrink-0" />
 				<span class="min-w-0 flex-1">
-					<span class="text-ink block text-sm font-medium">Import from a link</span>
-					<span class="text-muted mt-1 block text-[.8125rem] leading-relaxed">
+					<span class="text-base-950 dark:text-base-50 block text-sm font-medium"
+						>Import from a link</span
+					>
+					<span class="text-base-600 dark:text-base-400 mt-1 block text-[.8125rem] leading-relaxed">
 						Luma, Meetup, Eventbrite, and more.
 					</span>
 				</span>
-				<Icon img={ArrowRight} size={18} class="text-muted group-hover:text-ink shrink-0" />
+				<Icon
+					img={ArrowRight}
+					size={18}
+					class="text-base-600 dark:text-base-400 group-hover:text-base-950 dark:group-hover:text-base-50 shrink-0"
+				/>
 			</button>
 		</div>
 	{:else}
 		<form class="space-y-6" onsubmit={submitImport} aria-busy={importing}>
 			<div class="space-y-2">
-				<label for={`${id}-url`} class="text-ink block text-sm font-medium">Event link</label>
+				<label for={`${id}-url`} class="text-base-950 dark:text-base-50 block text-sm font-medium"
+					>Event link</label
+				>
 				<Input
 					id={`${id}-url`}
 					type="url"
@@ -218,7 +234,7 @@
 					aria-describedby={`${id}-platforms`}
 					class="w-full"
 				/>
-				<p id={`${id}-platforms`} class="text-muted text-xs leading-relaxed">
+				<p id={`${id}-platforms`} class="text-base-600 dark:text-base-400 text-xs leading-relaxed">
 					Works with Luma, Meetup, Eventbrite, Partiful, guild.host, and Resident Advisor.
 				</p>
 			</div>
@@ -226,8 +242,10 @@
 			<label class="flex cursor-pointer items-start gap-3">
 				<Checkbox bind:checked={allowAtmoRsvps} disabled={importing} class="mt-0.5" />
 				<span>
-					<span class="text-ink block text-sm font-medium">Also accept RSVPs on atmo</span>
-					<span class="text-muted mt-1 block text-xs leading-relaxed">
+					<span class="text-base-950 dark:text-base-50 block text-sm font-medium"
+						>Also accept RSVPs on atmo</span
+					>
+					<span class="text-base-600 dark:text-base-400 mt-1 block text-xs leading-relaxed">
 						Turn off to send guests to the original event to RSVP.
 					</span>
 				</span>

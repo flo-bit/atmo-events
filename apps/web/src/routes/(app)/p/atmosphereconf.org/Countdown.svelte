@@ -23,7 +23,9 @@
 
 {#if remaining > 0}
 	<div class="text-center">
-		<p class="text-muted mb-3 text-sm font-medium tracking-wider uppercase">Doors open in</p>
+		<p class="text-base-600 dark:text-base-400 mb-3 text-sm font-medium tracking-wider uppercase">
+			Doors open in
+		</p>
 		<NumberFlowGroup>
 			<div
 				class="flex w-full justify-center gap-4 sm:gap-6"
