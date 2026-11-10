@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { createBlentoAdapter, type EditorViewer } from '#lib/components/editor/adapter.js';
 	import { page } from '$app/state';
+	import { loadEventAttendees } from '#lib/contrail/attendees.remote.js';
 
 	let { data } = $props();
 
@@ -121,12 +122,15 @@
 		></div>
 	</div>
 {:else}
-	<EventView
-		{data}
-		{adapter}
-		{viewer}
-		pageUrl={new URL(page.url.href)}
-		embedMode
-		{shareUrlOverride}
-	/>
+	{#key data.eventData.uri}
+		<EventView
+			{data}
+			{adapter}
+			{viewer}
+			pageUrl={new URL(page.url.href)}
+			embedMode
+			{shareUrlOverride}
+			loadAttendees={() => loadEventAttendees({ eventUri: data.eventData.uri })}
+		/>
+	{/key}
 {/if}

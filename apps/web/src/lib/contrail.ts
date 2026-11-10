@@ -198,24 +198,49 @@ export function buildAttendee(
 	};
 }
 
+/** Keep the first RSVP per DID; an account can hold several records for one event. */
+function uniqueByDid<T extends { did: string }>(records: T[]): T[] {
+	const seen = new Set<string>();
+	return records.filter((record) => {
+		if (seen.has(record.did)) return false;
+		seen.add(record.did);
+		return true;
+	});
+}
+
 export function buildEventAttendees(
 	rsvps?: EventRsvps,
 	profiles?: EventProfiles,
 	counts?: { goingCount?: number; interestedCount?: number }
 ): EventAttendeesResult {
-	const going = (rsvps?.going ?? []).map((attendee) =>
+	// The list/get hydration shapes differ only in `$type`; both carry `did`.
+	const going = uniqueByDid<{ did: string }>(rsvps?.going ?? []).map((attendee) =>
 		buildAttendee(attendee.did, 'going', profiles)
 	);
-	const interested = (rsvps?.interested ?? []).map((attendee) =>
+	const interested = uniqueByDid<{ did: string }>(rsvps?.interested ?? []).map((attendee) =>
 		buildAttendee(attendee.did, 'interested', profiles)
 	);
 
 	return {
 		going,
 		interested,
-		goingCount: counts?.goingCount ?? going.length,
-		interestedCount: counts?.interestedCount ?? interested.length
+		goingCount: Math.max(counts?.goingCount ?? 0, going.length),
+		interestedCount: Math.max(counts?.interestedCount ?? 0, interested.length)
 	};
+}
+
+/**
+ * Attendee groups from the RSVPs already hydrated onto an event record. This
+ * covers the avatar strip without a second, much slower 200-row profile
+ * hydration per group; totals come from the index counts rather than the
+ * hydrated sample. Kit's `EventView` fetches the complete lists through
+ * `loadAttendees` when someone opens one.
+ */
+export function eventAttendeesFromRecord(record: EventGetOutput): EventAttendeesResult {
+	return buildEventAttendees(record.rsvps, record.profiles, {
+		goingCount: record.rsvpsGoingCount,
+		interestedCount: record.rsvpsInterestedCount
+	});
 }
 
 export function getRsvpStatus(status?: string): 'going' | 'interested' | 'notgoing' | null {
@@ -440,24 +465,19 @@ export async function listEventAttendeesFromContrail(
 		})
 	]);
 
-	const goingRecords = goingResponse.ok ? (goingResponse.data.records ?? []) : [];
-	const interestedRecords = interestedResponse.ok ? (interestedResponse.data.records ?? []) : [];
-	const goingProfiles = goingResponse.ok ? (goingResponse.data.profiles ?? []) : [];
-	const interestedProfiles = interestedResponse.ok ? (interestedResponse.data.profiles ?? []) : [];
+	// Treat both groups as one load. Kit preserves the preview and permits a
+	// retry when this rejects; resolving a partial result would cache it as final.
+	if (!goingResponse.ok || !interestedResponse.ok) {
+		throw new Error('Unable to load attendees. Please try again.');
+	}
 
-	// Deduplicate by DID (keep first occurrence)
-	const seenGoing = new Set<string>();
-	const uniqueGoing = goingRecords.filter((r) => {
-		if (seenGoing.has(r.did)) return false;
-		seenGoing.add(r.did);
-		return true;
-	});
-	const seenInterested = new Set<string>();
-	const uniqueInterested = interestedRecords.filter((r) => {
-		if (seenInterested.has(r.did)) return false;
-		seenInterested.add(r.did);
-		return true;
-	});
+	const goingRecords = goingResponse.data.records ?? [];
+	const interestedRecords = interestedResponse.data.records ?? [];
+	const goingProfiles = goingResponse.data.profiles ?? [];
+	const interestedProfiles = interestedResponse.data.profiles ?? [];
+
+	const uniqueGoing = uniqueByDid(goingRecords);
+	const uniqueInterested = uniqueByDid(interestedRecords);
 
 	return {
 		going: uniqueGoing.map((record) => buildAttendee(record.did, 'going', goingProfiles)),

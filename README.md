@@ -26,7 +26,7 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
 
-Installs use the published `@atmo-dev/kit@0.10.0` release without local patches. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
+Installs use the published `@atmo-dev/kit@0.11.1` and `@atmo-dev/contrail@0.29.1` releases without local patches. Event pages render the hydrated attendee preview and load the larger lists only when a list is opened. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
 ## Contributing
 
