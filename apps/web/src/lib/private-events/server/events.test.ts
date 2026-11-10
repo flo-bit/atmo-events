@@ -20,7 +20,8 @@ vi.mock('#lib/spaces/server/space-read.js', () => ({
 }));
 const actorToDid = vi.fn();
 vi.mock('#lib/actor.js', () => ({ actorToDid: (actor: string) => actorToDid(actor) }));
-const publicProfile = vi.fn<(did: string) => Promise<{ displayName?: string } | null>>();
+const publicProfile =
+	vi.fn<(did: string) => Promise<{ displayName?: string; avatar?: unknown } | null>>();
 vi.mock('./people', () => ({
 	verifiedHandle: async (did: string) => `${did.split(':').at(-1)}.example.com`,
 	publicProfile: (did: string) => publicProfile(did)
@@ -469,6 +470,24 @@ describe('readPrivateEventPage', () => {
 			])
 		);
 		expect(page?.host).toMatchObject({ did: HOST, value: { displayName: 'Host Person' } });
+	});
+
+	it('shows the avatar a person set in their public profile', async () => {
+		const avatar = {
+			$type: 'blob',
+			ref: { $link: 'bafkreiavatar' },
+			mimeType: 'image/jpeg',
+			size: 1
+		};
+		publicProfile.mockImplementation(async (did) => (did === GUEST ? { avatar } : null));
+		reader.writers.mockResolvedValue([GUEST, OTHER]);
+		theSpaceHolds({ [GUEST]: rsvp('going'), [OTHER]: rsvp('going') });
+
+		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);
+
+		const going = Object.fromEntries((page?.attendees.going ?? []).map((a) => [a.did, a.avatar]));
+		expect(going[GUEST]).toContain(`${GUEST}/bafkreiavatar`);
+		expect(going[OTHER]).toBeUndefined();
 	});
 
 	it('tells the host who said no, though they are on neither attendee list', async () => {

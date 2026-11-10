@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { getActor } from '#lib/actor.js';
+import { getProfileBlobUrl } from '#lib/contrail.js';
 import { parseEventDescription } from '#lib/server/event-description.js';
 import { timeLimitedNetwork } from '#lib/spaces/server/other-servers.js';
 import { errorKind } from '#lib/spaces/server/xrpc.js';
@@ -66,7 +67,8 @@ export async function loadEventPage(
 		hostProfile: {
 			did: host,
 			handle: hostPerson.handle,
-			displayName: hostPerson.value?.displayName
+			displayName: hostPerson.value?.displayName,
+			avatar: getProfileBlobUrl(host, hostPerson.value?.avatar)
 		},
 		viewerRsvpStatus: viewerStatus,
 		viewerRsvpRkey: viewerStatus ? params.rkey : null,
