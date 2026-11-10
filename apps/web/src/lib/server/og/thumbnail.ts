@@ -14,12 +14,16 @@ const RASTER_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 /** Bound remote image I/O before handing the bytes to the renderer. */
 export async function loadThumbnail(
 	url: string,
-	{ types = RASTER_TYPES, maxBytes = MAX_THUMBNAIL_BYTES } = {}
+	{
+		types = RASTER_TYPES,
+		maxBytes = MAX_THUMBNAIL_BYTES,
+		redirect = 'follow'
+	}: { types?: string[]; maxBytes?: number; redirect?: RequestRedirect } = {}
 ): Promise<Uint8Array> {
 	const controller = new AbortController();
 	const timeout = setTimeout(() => controller.abort(), 5000);
 	try {
-		const response = await fetch(url, { signal: controller.signal });
+		const response = await fetch(url, { signal: controller.signal, redirect });
 		const type = response.headers.get('content-type')?.split(';')[0].trim();
 		if (!response.ok || !response.body || !types.includes(type ?? '')) {
 			await response.body?.cancel();

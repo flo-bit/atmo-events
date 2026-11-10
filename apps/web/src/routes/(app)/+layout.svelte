@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
-	import { user } from '#lib/atproto/auth.svelte.js';
-	import { IconRail, IconButton, Icon, Avatar, Button } from '@atmo-dev/kit';
+	import { user, logout } from '#lib/atproto/auth.svelte.js';
+	import { AccountMenu, IconRail, IconButton, Icon, Button } from '@atmo-dev/kit';
 	import {
 		House,
 		Compass,
@@ -50,7 +50,7 @@
 <ModeWatcher />
 <a
 	href="#app-main"
-	class="rounded-ui bg-page text-action sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only sm:left-20"
+	class="rounded-ui bg-base-50 dark:bg-base-925 text-accent-700 dark:text-accent-300 sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only sm:left-20"
 	>Skip to content</a
 >
 <IconRail
@@ -118,22 +118,20 @@
 					<Icon img={Settings} size={22} />
 					<span class={expanded ? '' : 'sr-only'}>Settings</span>
 				</Button>
-				<Button
-					href={resolve(`p/${user.profile?.handle || user.did || ''}`)}
-					variant="ghost"
-					title={user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
-					onclick={close}
-					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
-				>
-					<Avatar
-						src={user.profile?.avatar}
-						name={user.profile?.displayName || user.profile?.handle || user.did || 'Account'}
-						size={30}
-					/>
-					<span class={expanded ? 'min-w-0 truncate' : 'sr-only'}>
-						{user.profile?.handle ? `@${user.profile.handle}` : 'Your profile'}
-					</span>
-				</Button>
+				<AccountMenu
+					name={user.profile?.displayName || user.profile?.handle || user.did || 'Account'}
+					handle={user.profile?.handle}
+					avatar={user.profile?.avatar}
+					profileHref={resolve('/(app)/p/[actor]', {
+						actor: user.profile?.handle || user.did || ''
+					})}
+					{expanded}
+					onprofile={close}
+					onsignout={() => {
+						close();
+						void logout();
+					}}
+				/>
 			{:else}
 				<Button
 					variant="ghost"
@@ -170,11 +168,11 @@
 				<a
 					href={resolve('/(app)')}
 					aria-label="atmo.rsvp home"
-					class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
+					class="text-base-950 dark:text-base-50 focus-visible:outline-accent-700 dark:focus-visible:outline-accent-300 inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
 				>
 					<Icon img={CalendarDays} size={26} />
 					<span class="text-2xl leading-none font-semibold tracking-tight"
-						>atmo<span class="text-muted">.rsvp</span></span
+						>atmo<span class="text-base-600 dark:text-base-400">.rsvp</span></span
 					>
 				</a>
 			{/if}

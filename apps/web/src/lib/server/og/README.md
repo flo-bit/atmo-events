@@ -19,6 +19,7 @@ The public event image uses `no-store` so every request passes the current visib
 Cards are rendered by [Takumi](https://takumi.kane.tw) (`@takumi-rs/wasm` + `@takumi-rs/helpers`, both pinned to an exact version) in `takumi.ts`. The template is Svelte SSR markup; Tailwind classes are mapped to Takumi's `tw` attribute. Images are passed to the renderer as raw bytes keyed by short placeholder `src` values, never inlined as base64 (the previous Satori pipeline's HTML parser was superlinear in markup length, and large inline thumbnails exceeded the 30 s Worker CPU limit, dying silently).
 
 - **Thumbnails:** JPEG `feed_thumbnail` (≤1000px) for the card, the 128px `avatar_thumbnail` for the backdrop, blurred natively.
+- **External posters:** after native media, use `poster.url` or an `Event Image` URI. Server rendering only fetches known `https://laugh.town/cdn/{p,img}/posters/<hash>.webp` paths, with redirects disabled and the same size/time bounds. Untrusted URLs or failed posters use the generated avatar.
 - **No thumbnail:** the generated avatar SVG is rasterized once at 128px and stretched for both the backdrop and the card. Its built-in SVG blur costs ~10× more at card size.
 - **Memory:** a renderer keeps every distinct SVG it rasterizes, so `withOgRenderer` creates a fresh one per card and frees it. The exported `Renderer` ignores constructor options, so its cache can't be disabled instead.
 - **Untrusted text:** keep event text out of HTML attributes. Takumi's parser ends a tag at the first `>` even inside quotes, and Svelte doesn't escape `>` in attribute values. `template.test.ts` guards this.
@@ -46,7 +47,7 @@ At an estimated 0.2–0.8 s CPU per Takumi render (measured locally; check produ
 
 ## Storage and fonts
 
-R2 keys are `og/v4/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
+R2 keys are `og/v5/<sha256>.png`. Increase `OG_TEMPLATE_VERSION` in `cache.ts` after any template/font/formatting/selection change. Event edits create new keys; public URLs are deliberately **not immutable**.
 
 Use a dedicated **private Standard** bucket, `atmo-events-og-images`, with the checked-in 90-day `og/` expiration policy. This retains old versions only for a bounded period. Expired images regenerate only within quota. Cards average ~150–350 KB (capped at 2 MiB), so a fully used 6,000-render cycle is ~2 GB and 90 days of retention ~6 GB, within R2's 10 GB allowance shared with other buckets; lifecycle deletion is not instantaneous. R2 operations remain metered. Do not attach this policy to Alluvium or other application-data buckets.
 

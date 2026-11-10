@@ -8,6 +8,7 @@ import {
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { vodFromAtUri, type VodRecord } from '#lib/vods.js';
+import { eventDescriptionTexts } from '#lib/server/event-description.js';
 
 export async function load({ locals, fetch }) {
 	const client = getServerClient(env.DB);
@@ -70,6 +71,7 @@ export async function load({ locals, fetch }) {
 		blueskyProfile,
 		eventCounts,
 		events,
+		eventDescriptions: eventDescriptionTexts(events),
 		actor,
 		rsvpStatuses,
 		rsvpRkeys,

@@ -12,7 +12,6 @@ Attach Grain photo albums and Streamplace streams through the dedicated
 [linked-record pickers](docs/linked-records.md).
 Use [Meet](docs/meet.md) under Tools to exchange QR codes and save public,
 reciprocal meeting records compatible with You & Me.
-Public event and profile pages expose [AT Tags](docs/at-tags.md) for AT record and identity discovery.
 
 ## Development
 
@@ -27,14 +26,7 @@ D1 runs locally by default. Optionally fetch events with `pnpm --filter web back
 Run `pnpm check`, `pnpm test`, and `pnpm build` to validate changes.
 Shared event UI, types and helpers live in `@atmo-dev/kit/events` and `@atmo-dev/kit/events-data`, maintained in `00-atmo-kit/kit`. This repo owns the web app, adapters, routes and backend integrations; it no longer publishes a UI package.
 
-Installs use the published `@atmo-dev/kit@0.6.0` release. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
-
-`patches/@atmo-dev__kit@0.6.0.patch` preserves the configurable AppView and CDN URLs added before the event UI moved to Kit. pnpm applies it automatically on install. Remove it once a published Kit release includes this API; local Kit checkouts also need `configureAtproto` exported from `events-data`.
-
-`pnpm test:e2e` runs atmo end to end on a private atproto network on your machine, in Docker.
-A new person signs up at the network's PDS, publishes an event and shares it to Bluesky, others
-RSVP, and the event's starter pack lists them. The network is described in
-[snowglobe.yml](snowglobe.yml); the tests are in `apps/web/e2e`.
+Installs use the published `@atmo-dev/kit@0.11.1` and `@atmo-dev/contrail@0.29.1` releases without local patches. Event pages render the hydrated attendee preview and load the larger lists only when a list is opened. For local changes, build Kit with `pnpm prepack`, then run `pnpm kit:local` here. `pnpm kit:registry` restores the published version from the lockfile. Restart the dev server after switching modes.
 
 ## Contributing
 

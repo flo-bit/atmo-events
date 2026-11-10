@@ -299,7 +299,7 @@
 			<Person did={selectedTarget.did} initial={selectedTarget.profile} />
 			{#if error || form?.message}<p role="alert" class="text-sm">{error || form?.message}</p>{/if}
 			{#if targetMeeting?.outgoing}
-				<p class="text-muted text-sm" role="status">
+				<p class="text-base-600 dark:text-base-400 text-sm" role="status">
 					{targetMeeting.incoming
 						? 'You both saved this meeting.'
 						: 'Meeting saved. Waiting for them to meet you back.'}
@@ -331,21 +331,25 @@
 {#if feedback && !selectedTarget}
 	<p
 		role={error || form?.message ? 'alert' : 'status'}
-		class="border-line bg-page fixed bottom-4 left-1/2 z-40 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-xl border px-4 py-2 text-sm shadow-sm"
+		class="border-base-300 bg-base-50 dark:bg-base-925 fixed bottom-4 left-1/2 z-40 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-xl border px-4 py-2 text-sm shadow-sm dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
 	>
 		{feedback}
 	</p>
 {/if}
 
 <div class="mx-auto max-w-3xl px-4 py-3 sm:px-6 sm:py-6">
-	<a href={resolve('/(app)/tools')} class="text-muted text-sm hover:underline">← Tools</a>
+	<a href={resolve('/(app)/tools')} class="text-base-600 dark:text-base-400 text-sm hover:underline"
+		>← Tools</a
+	>
 	<h1 class="mt-1 mb-2 text-xl font-semibold tracking-tight sm:mb-3 sm:text-2xl">Meet</h1>
 
 	{#if !user.isLoggedIn}
-		<p class="text-muted mb-4">Log in to show your QR code and save public meeting records.</p>
+		<p class="text-base-600 dark:text-base-400 mb-4">
+			Log in to show your QR code and save public meeting records.
+		</p>
 		<Button onclick={() => atProtoLoginModalState.show()}>Log in</Button>
 	{:else if !data.canMeet}
-		<p class="text-muted mb-4 text-sm">
+		<p class="text-base-600 dark:text-base-400 mb-4 text-sm">
 			Allow this tool to create public meeting records on your account. It won’t follow people or
 			post to Bluesky.
 		</p>
@@ -375,7 +379,7 @@
 										href={resolve(
 											`/(app)/tools/meet?${isHandle(shareActor) ? 'actor' : 'did'}=${encodeURIComponent(shareActor)}`
 										)}
-										class="text-muted max-w-full truncate text-sm underline"
+										class="text-base-600 dark:text-base-400 max-w-full truncate text-sm underline"
 										>{isHandle(shareActor) ? `@${shareActor}` : 'Your meeting link'}</a
 									>
 								</div>
@@ -428,7 +432,7 @@
 								class="min-h-11">{opening ? 'Opening…' : 'Open'}</Button
 							>
 						</form>
-						<p class="text-muted text-center text-xs">
+						<p class="text-base-600 dark:text-base-400 text-center text-xs">
 							Public connections · Compatible with <a href="https://youandme.at/" class="underline"
 								>You & Me</a
 							>
@@ -448,10 +452,13 @@
 					{#if pending.length}
 						<section aria-labelledby="incoming-heading" class="mb-8">
 							<h2 id="incoming-heading" class="mb-2 font-semibold">Did you meet?</h2>
-							<p class="text-muted mb-2 text-sm">
+							<p class="text-base-600 dark:text-base-400 mb-2 text-sm">
 								Confirm to save your side with their original meeting date.
 							</p>
-							<ul class="divide-line divide-y" aria-live="polite">
+							<ul
+								class="divide-base-300 divide-y dark:divide-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
+								aria-live="polite"
+							>
 								{#each pending as person (person.did)}
 									<li class="grid gap-3 py-4">
 										<Person did={person.did} />
@@ -477,17 +484,19 @@
 						<h2 id="met-heading" class="mb-2 font-semibold">
 							People you met{met.length ? ` · ${met.length}` : ''}
 						</h2>
-						{#if !met.length}<p class="text-muted text-sm">
+						{#if !met.length}<p class="text-base-600 dark:text-base-400 text-sm">
 								{data.outgoingFailed
 									? 'Your meetings could not be loaded.'
 									: 'No meetings saved yet.'}
 							</p>
 						{:else}
-							<ul class="divide-line divide-y">
+							<ul
+								class="divide-base-300 divide-y dark:divide-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
+							>
 								{#each met as person (person.did)}
 									<li class="flex flex-wrap items-center justify-between gap-3 py-4">
 										<Person did={person.did} />
-										<div class="text-muted grid gap-1 text-xs sm:text-right">
+										<div class="text-base-600 dark:text-base-400 grid gap-1 text-xs sm:text-right">
 											{#if meetingDate(person.createdAt)}<time datetime={person.createdAt}
 													>{meetingDate(person.createdAt)}</time
 												>{/if}

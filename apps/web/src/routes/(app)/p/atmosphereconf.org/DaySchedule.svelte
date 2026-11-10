@@ -75,7 +75,7 @@
 				class="flex-1 px-3 py-2 text-xs font-semibold tracking-wide uppercase transition-colors
 					{activeRoom === i
 					? 'bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300'
-					: 'text-muted'}"
+					: 'text-base-600 dark:text-base-400'}"
 				onclick={() => (activeRoom = i)}
 			>
 				{room}
@@ -165,7 +165,7 @@
 				>
 					{#each rooms as room}
 						<div
-							class="text-muted px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
+							class="text-base-600 dark:text-base-400 px-2 py-2.5 text-center text-xs font-semibold tracking-wide uppercase"
 						>
 							{room}
 						</div>

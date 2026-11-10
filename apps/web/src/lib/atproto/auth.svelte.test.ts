@@ -20,6 +20,7 @@ import {
 import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import { PREFERRED_CLIENT_COLLECTION, PREFERRED_CLIENT_SCOPE } from '@atmo-dev/kit/social';
 import { blueskyPostingScope, getLoginScopes, requiredScopes } from './settings';
+import { preferredClientCache } from './preferred-client.svelte';
 
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -98,6 +99,16 @@ describe('OAuth client integration', () => {
 		expect(user.canPostToBluesky).toBe(false);
 		mocks.page.data.canPostToBluesky = true;
 		expect(user.canPostToBluesky).toBe(true);
+	});
+	it('uses the browser preference only for its owning account', async () => {
+		preferredClientCache.remember('did:plc:alice', { client: 'mu' });
+		await preferredClientCache.load('did:plc:alice');
+		mocks.page.data = { did: 'did:plc:alice' };
+		expect(user.preferredSocialClient).toEqual({ client: 'mu' });
+		mocks.page.data = { did: 'did:plc:bob' };
+		expect(user.preferredSocialClient).toBeNull();
+		mocks.page.data = {};
+		expect(user.preferredSocialClient).toBeNull();
 	});
 	it('delegates revocation and cookie cleanup to the library', async () => {
 		await logout();

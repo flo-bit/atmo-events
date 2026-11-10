@@ -3,6 +3,7 @@ import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
+	eventAttendeesFromRecord,
 	flattenEventRecord,
 	flattenEventRecords,
 	getEventRecordFromContrail,
@@ -12,13 +13,14 @@ import {
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
 	listConferenceTalksFromContrail,
-	listEventAttendeesFromContrail,
 	withD1Retry,
 	RSVP_HYDRATE_LIMIT
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '#lib/vods.js';
+import { eventDescriptionTexts, parseEventDescription } from '#lib/server/event-description.js';
+import { richTextToPlainText } from '@atmo-dev/kit/richtext';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
@@ -94,23 +96,20 @@ export async function load({ params, locals, url }) {
 		string | undefined;
 	const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
+	// The avatar strip renders from the RSVPs hydrated onto the record above. The
+	// full list (two 200-row profile hydrations, seconds on large events) is
+	// fetched by `loadAttendees` only when someone opens a list.
+	const attendees = eventAttendeesFromRecord(fullEventRecord);
+
 	// Secondary hydration is best-effort: the event already loaded, so a hiccup
-	// fetching attendees/rsvp/parent/talks/speakers must not take down (or 404)
-	// the page.
+	// fetching rsvp/parent/talks/speakers must not take down (or 404) the page.
 	const [
-		attendees,
 		viewerRsvpRecord,
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
 		...speakerProfiles
 	] = await Promise.all([
-		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
-			going: [],
-			interested: [],
-			goingCount: 0,
-			interestedCount: 0
-		})),
 		locals.did
 			? getViewerRsvpFromContrail(client, {
 					eventUri,
@@ -190,6 +189,8 @@ export async function load({ params, locals, url }) {
 			};
 	}
 
+	const description = parseEventDescription(eventData);
+
 	return {
 		atTags: recordAtTags(fullEventRecord, [
 			...(parentEvent ? [parentEvent] : []),
@@ -204,9 +205,11 @@ export async function load({ params, locals, url }) {
 				}
 			: undefined,
 		starterPacksEnabled: !!env.BOT_IDENTIFIER && !!env.BOT_APP_PASSWORD,
-		pageDescription: eventData.description || `Event: ${eventData.name}`,
+		pageDescription:
+			(description && richTextToPlainText(description)) || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
+		description,
 		actorDid: did,
 		rkey,
 		hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
@@ -219,6 +222,7 @@ export async function load({ params, locals, url }) {
 		vod,
 		isConference,
 		conferenceTalks,
+		conferenceTalkDescriptions: eventDescriptionTexts(conferenceTalks),
 		conferenceTimezone: eventData.timezone ?? 'UTC',
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,

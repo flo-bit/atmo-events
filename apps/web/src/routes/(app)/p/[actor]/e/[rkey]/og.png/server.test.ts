@@ -12,6 +12,8 @@ vi.mock('#lib/contrail.js', () => ({
 }));
 vi.mock('#lib/actor.js', () => ({ getActor: vi.fn() }));
 vi.mock('@atmo-dev/kit/events-data', async (importOriginal) => ({
+	getEventExternalImage: (await importOriginal<typeof import('@atmo-dev/kit/events-data')>())
+		.getEventExternalImage,
 	getEventThumbnail: (await importOriginal<typeof import('@atmo-dev/kit/events-data')>())
 		.getEventThumbnail,
 	formatInTz: (date: string, _tz: string | undefined, opts: Intl.DateTimeFormatOptions) =>
@@ -112,7 +114,7 @@ describe('event OG route', () => {
 		expect(res.status).toBe(200);
 		expect(res.headers.get('content-type')).toBe('image/png');
 		expect(res.headers.get('cache-control')).toBe('no-store');
-		expect(res.headers.get('etag')).toMatch(/^W\/"v4-/);
+		expect(res.headers.get('etag')).toMatch(/^W\/"v5-/);
 		// Unlike the old test, await the renderer's entire stream and inspect PNG.
 		const png = await res.arrayBuffer();
 		expect([...new Uint8Array(png).slice(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -158,6 +160,35 @@ describe('event OG route', () => {
 				'https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:alice/bafkthumb@jpeg',
 				'https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:alice/bafkthumb@jpeg'
 			]);
+		},
+		30000
+	);
+
+	it.each(['poster', 'uri'])(
+		'renders a laugh.town %s image in the preview',
+		async (source) => {
+			const url = 'https://laugh.town/cdn/p/posters/47fee09eaa4c3fab.webp';
+			const cdn = vi.spyOn(globalThis, 'fetch').mockImplementation(
+				async () =>
+					new Response(readFileSync('static/topics/sustainability.jpg'), {
+						headers: { 'Content-Type': 'image/jpeg' }
+					})
+			);
+			mockFlatten.mockReturnValue(
+				flat(
+					source === 'poster'
+						? { poster: { url, width: 600, height: 600 } }
+						: { uris: [{ uri: url, name: 'Event Image' }] }
+				)
+			);
+			const res = await GET(evt());
+			const png = await res.arrayBuffer();
+			expect(res.headers.get('x-og-fallback')).toBeNull();
+			expect([...new Uint8Array(png).slice(0, 4)]).toEqual([137, 80, 78, 71]);
+			expect(cdn).toHaveBeenCalledExactlyOnceWith(
+				url,
+				expect.objectContaining({ redirect: 'error' })
+			);
 		},
 		30000
 	);

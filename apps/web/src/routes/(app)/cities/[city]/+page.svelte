@@ -12,19 +12,23 @@
 	<header class="mb-8">
 		<a
 			href={resolve('/(app)/cities')}
-			class="text-muted hover:text-ink mb-6 inline-flex items-center gap-1 text-sm transition-colors"
+			class="text-base-600 dark:text-base-400 hover:text-base-950 dark:hover:text-base-50 mb-6 inline-flex items-center gap-1 text-sm transition-colors"
 		>
 			<Icon img={ChevronLeft} size={16} />
 			All cities
 		</a>
-		<h1 class="text-ink text-3xl font-bold sm:text-4xl">Events in {data.city.city}</h1>
+		<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">
+			Events in {data.city.city}
+		</h1>
 		{#if cityContext(data.city)}
-			<p class="text-muted mt-3">{cityContext(data.city)}</p>
+			<p class="text-base-600 dark:text-base-400 mt-3">{cityContext(data.city)}</p>
 		{/if}
 	</header>
 
 	{#if data.events.length === 0 && !data.cursor}
-		<p class="text-muted py-12 text-center">No upcoming events in this city.</p>
+		<p class="text-base-600 dark:text-base-400 py-12 text-center">
+			No upcoming events in this city.
+		</p>
 	{:else}
 		<EventList
 			events={data.events}

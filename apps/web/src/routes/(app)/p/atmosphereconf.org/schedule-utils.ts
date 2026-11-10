@@ -120,7 +120,11 @@ export function durationMinutes(start: string, end?: string): number {
 	return isoToMinutes(end) - isoToMinutes(start);
 }
 
-export function getScheduleEvents(events: FlatEventRecord[]): ScheduleEvent[] {
+/** `descriptions` holds plain-text previews keyed by event URI, without Markdown syntax. */
+export function getScheduleEvents(
+	events: FlatEventRecord[],
+	descriptions: Record<string, string> = {}
+): ScheduleEvent[] {
 	return events
 		.filter(
 			(e) => e.additionalData && (e.additionalData as Record<string, unknown>).isAtmosphereconf
@@ -135,7 +139,7 @@ export function getScheduleEvents(events: FlatEventRecord[]): ScheduleEvent[] {
 				start: e.startsAt,
 				end: e.endsAt,
 				room: ad.room as string | undefined,
-				description: e.description,
+				description: descriptions[e.uri] ?? e.description,
 				did: e.did,
 				uri: e.uri,
 				cid: e.cid,

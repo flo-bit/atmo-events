@@ -4,6 +4,7 @@ import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import { getActor } from '#lib/actor.js';
 import {
+	eventAttendeesFromRecord,
 	flattenEventRecord,
 	getEventRecordFromContrail,
 	getHostProfile,
@@ -11,11 +12,11 @@ import {
 	getProfileFromContrail,
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
-	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { vodFromAtUri } from '#lib/vods.js';
+import { parseEventDescription } from '#lib/server/event-description.js';
 
 export async function load({ params, url }) {
 	const client = getServerClient(env.DB);
@@ -49,8 +50,10 @@ export async function load({ params, url }) {
 
 		const viewerDid = url.searchParams.get('did') ?? null;
 
-		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
-			listEventAttendeesFromContrail(client, fullEventRecord.uri),
+		// Rendered from the hydrated sample; the full list loads when a list is opened.
+		const attendees = eventAttendeesFromRecord(fullEventRecord);
+
+		const [viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			viewerDid
 				? getViewerRsvpFromContrail(client, {
 						eventUri: fullEventRecord.uri,
@@ -85,6 +88,7 @@ export async function load({ params, url }) {
 			pageTitle: eventData.name,
 			ogImage: `${url.origin}/p/${params.actor}/e/${rkey}/og.png`,
 			eventData,
+			description: parseEventDescription(eventData),
 			actorDid: did,
 			rkey,
 			hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,

@@ -2,7 +2,7 @@ import { claimGeneration, pruneExpiredLeases, releaseGeneration, type OgBudgetEn
 import { canGenerateForRequest } from './request-policy';
 
 // Bump whenever layout, fonts, date formatting or image selection changes.
-export const OG_TEMPLATE_VERSION = 'v4';
+export const OG_TEMPLATE_VERSION = 'v5';
 // Every public request must pass the route's current visibility check. Private
 // R2/internal versioned caching still avoids rendering the same image twice.
 export const OG_CACHE_CONTROL = 'no-store';
@@ -22,13 +22,22 @@ export async function imageVersion(
 		startsAt: string;
 		timezone?: string | null;
 		media?: unknown;
+		poster?: unknown;
+		uris?: unknown;
 	}
 ) {
 	const basis = JSON.stringify([
 		OG_TEMPLATE_VERSION,
 		did,
 		event.rkey,
-		event.cid ?? [event.name, event.startsAt, event.timezone ?? '', event.media ?? null]
+		event.cid ?? [
+			event.name,
+			event.startsAt,
+			event.timezone ?? '',
+			event.media ?? null,
+			event.poster ?? null,
+			event.uris ?? null
+		]
 	]);
 	const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(basis));
 	const hash = Array.from(new Uint8Array(digest), (byte) =>
