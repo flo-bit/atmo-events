@@ -231,7 +231,7 @@
 <div class="mx-auto max-w-4xl px-6 py-10">
 	<a
 		href="/p/{data.actor}/e/{data.rkey}"
-		class="text-muted hover:text-base-700 dark:hover:text-base-200 inline-flex items-center gap-1 text-sm"
+		class="text-base-600 dark:text-base-400 hover:text-base-700 dark:hover:text-base-200 inline-flex items-center gap-1 text-sm"
 	>
 		<Icon img={ArrowLeft} size={16} />
 		{data.eventName}
@@ -242,7 +242,7 @@
 		<!-- Step 1: designate the event as a conference -->
 		<div class="border-base-200 dark:border-base-800 mb-8 rounded-2xl border p-6">
 			<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Set up as conference</h2>
-			<p class="text-muted mt-1 mb-4 text-sm">
+			<p class="text-base-600 dark:text-base-400 mt-1 mb-4 text-sm">
 				This marks <strong>{data.eventName}</strong> as a conference so talks can be attached to it and
 				shown as a timetable. Talks are laid out in the conference's timezone.
 			</p>
@@ -270,7 +270,7 @@
 				<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upload talks</h2>
 				<span class="text-base-400 text-xs">Times in {data.timezone}</span>
 			</div>
-			<p class="text-muted mb-4 text-sm">
+			<p class="text-base-600 dark:text-base-400 mb-4 text-sm">
 				Upload a CSV, JSON or YAML file, then map its columns to talk fields. Rows with an
 				<em>ID</em> update existing talks; rows without one are created new.
 			</p>
@@ -285,7 +285,7 @@
 			{/if}
 
 			{#if parsed}
-				<p class="text-muted mt-4 text-sm">
+				<p class="text-base-600 dark:text-base-400 mt-4 text-sm">
 					{parsed.rows.length} rows · {parsed.columns.length} columns ({parsed.format.toUpperCase()})
 				</p>
 
@@ -334,7 +334,7 @@
 				<div class="mt-6">
 					<div class="mb-2 flex items-center justify-between">
 						<h3 class="text-base-700 dark:text-base-200 text-sm font-semibold">Preview</h3>
-						<span class="text-muted text-xs">
+						<span class="text-base-600 dark:text-base-400 text-xs">
 							{validCount} ready{invalidCount ? ` · ${invalidCount} with errors` : ''}
 						</span>
 					</div>
@@ -342,7 +342,9 @@
 						class="border-base-200 dark:border-base-800 max-h-96 overflow-auto rounded-xl border"
 					>
 						<table class="w-full text-left text-sm">
-							<thead class="text-muted bg-base-100 dark:bg-base-900 sticky top-0 text-xs uppercase">
+							<thead
+								class="text-base-600 dark:text-base-400 bg-base-100 dark:bg-base-900 sticky top-0 text-xs uppercase"
+							>
 								<tr>
 									<th class="px-3 py-2 font-medium">Name</th>
 									<th class="px-3 py-2 font-medium">Type</th>
@@ -413,7 +415,7 @@
 				{/if}
 			</div>
 			{#if data.talks.length === 0}
-				<p class="text-muted text-sm">No talks yet.</p>
+				<p class="text-base-600 dark:text-base-400 text-sm">No talks yet.</p>
 			{:else}
 				<div class="divide-base-200 dark:divide-base-800 divide-y">
 					{#each data.talks as t (t.rkey)}

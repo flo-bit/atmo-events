@@ -50,7 +50,7 @@
 <ModeWatcher />
 <a
 	href="#app-main"
-	class="rounded-ui bg-page text-action sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only sm:left-20"
+	class="rounded-ui bg-base-50 dark:bg-base-925 text-accent-700 dark:text-accent-300 sr-only fixed top-3 left-4 z-50 p-3 focus:not-sr-only sm:left-20"
 	>Skip to content</a
 >
 <IconRail
@@ -168,11 +168,11 @@
 				<a
 					href={resolve('/(app)')}
 					aria-label="atmo.rsvp home"
-					class="text-ink focus-visible:outline-focus inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
+					class="text-base-950 dark:text-base-50 focus-visible:outline-accent-700 dark:focus-visible:outline-accent-300 inline-flex items-center gap-2 outline-offset-4 focus-visible:outline-2"
 				>
 					<Icon img={CalendarDays} size={26} />
 					<span class="text-2xl leading-none font-semibold tracking-tight"
-						>atmo<span class="text-muted">.rsvp</span></span
+						>atmo<span class="text-base-600 dark:text-base-400">.rsvp</span></span
 					>
 				</a>
 			{/if}
