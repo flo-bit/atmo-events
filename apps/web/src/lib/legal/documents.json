@@ -164,6 +164,17 @@
 		"updated": "2026-10-31",
 		"sections": [
 			{
+				"id": "city-data",
+				"title": "City data",
+				"paragraphs": [
+					"City location data is derived from GeoNames and has been filtered and reformatted."
+				],
+				"links": [
+					{ "label": "GeoNames", "href": "https://www.geonames.org/" },
+					{ "label": "CC BY 4.0", "href": "https://creativecommons.org/licenses/by/4.0/" }
+				]
+			},
+			{
 				"id": "operator",
 				"title": "Operator",
 				"address": ["Florian Killius"],

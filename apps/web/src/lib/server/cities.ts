@@ -4,6 +4,7 @@ import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
 import { discoverableSql } from '#lib/contrail/discoverability.js';
 import { countryCode, normalizeCityAddress } from './city-normalization';
 import { cachedRead } from './edge-cache';
+import { normalizeCityField } from '#lib/cities.js';
 
 export const CITY_SNAPSHOT_INTERVAL_MS = 24 * 60 * 60 * 1000;
 const LEASE_MS = 5 * 60 * 1000;
@@ -380,6 +381,99 @@ export async function readCitySuggestions(
 		})),
 		nearby: nearby.slice(0, TOP_CITIES_LIMIT),
 		inCountry: inCountry.slice(0, TOP_CITIES_LIMIT)
+	};
+}
+
+/** Resolve the IP city and, if necessary, the closest event city from one snapshot. */
+export async function readNearbyPage(
+	db: Database,
+	location?: {
+		city?: unknown;
+		country?: unknown;
+		region?: unknown;
+		regionCode?: unknown;
+		latitude?: unknown;
+		longitude?: unknown;
+	},
+	search = ''
+): Promise<{
+	detected: CityScope | null;
+	matched: City | null;
+	nearest: City | null;
+	cities: CityScope[];
+}> {
+	const entries = await catalog(db);
+	if (!entries) throw new Error('City snapshot is not available yet');
+	const { cityPoint, searchCityGazetteer } = await import('./city-gazetteer');
+	const display = ({ city, country, region, count }: CatalogCity): City => ({
+		city,
+		country,
+		region,
+		count
+	});
+	const query = normalizeCityField(search.slice(0, 256));
+	const eventCities = entries
+		.filter((entry) => !query || normalizeCityField(entry.city).includes(query))
+		.slice(0, 30)
+		.map(display);
+	const cities: CityScope[] = [];
+	const seen = new Set<string>();
+	for (const city of [...eventCities, ...(query ? searchCityGazetteer(query) : [])]) {
+		const normalized = normalizeCityAddress(city);
+		if (!normalized) continue;
+		const id = scopeKey(normalized.scope);
+		if (seen.has(id)) continue;
+		seen.add(id);
+		cities.push(city);
+		if (cities.length === 30) break;
+	}
+	const detected = normalizeCityAddress({
+		city: typeof location?.city === 'string' ? location.city : '',
+		country: typeof location?.country === 'string' ? location.country : '',
+		region:
+			typeof location?.region === 'string'
+				? location.region
+				: typeof location?.regionCode === 'string'
+					? location.regionCode
+					: ''
+	});
+	if (!detected || !countryCode(detected.label.country))
+		return { detected: null, matched: null, nearest: null, cities };
+	const candidates = entries.filter(
+		(entry) =>
+			entry.scope.city === detected.scope.city && entry.scope.country === detected.scope.country
+	);
+	const exact = candidates.filter((entry) => entry.scope.region === detected.scope.region);
+	const withoutRegion = candidates.filter((entry) => !entry.scope.region);
+	const matched =
+		exact.length === 1
+			? exact[0]
+			: exact.length === 0 &&
+				  candidates.length === 1 &&
+				  withoutRegion.length === 1 &&
+				  cityPoint(detected.label)
+				? withoutRegion[0]
+				: null;
+	const visitor = validPoint(location) ?? cityPoint(detected.label);
+	let closest: CatalogCity | null = null;
+	let distance = Infinity;
+	if (visitor) {
+		for (const entry of entries) {
+			if (entry === matched) continue;
+			const point = entry.point ?? cityPoint(entry);
+			if (!point) continue;
+			const km = distanceKm(visitor, point);
+			if (km < distance) {
+				distance = km;
+				closest = entry;
+			}
+		}
+	}
+	return {
+		detected: detected.label,
+		matched: matched ? display(matched) : null,
+		nearest: closest ? display(closest) : null,
+		cities
 	};
 }
 

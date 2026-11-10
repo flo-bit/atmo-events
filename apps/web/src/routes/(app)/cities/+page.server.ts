@@ -1,27 +1,62 @@
 import { env } from 'cloudflare:workers';
 import { dev } from '$app/env';
-import { ensureInit } from '#lib/contrail/index.js';
-import { readCitySuggestions, refreshCitySnapshot } from '#lib/server/cities.js';
+import { cityScope } from '#lib/cities.js';
+import { ensureInit, getServerClient } from '#lib/contrail/index.js';
+import { cityQuery, EMPTY_PAGE } from '#lib/contrail/queries.js';
+import { readNearbyPage, refreshCitySnapshot } from '#lib/server/cities.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ request, setHeaders }) => {
-	// Results vary by visitor, so they must never be shared by an intermediary.
+export const load: PageServerLoad = async ({ request, url, setHeaders }) => {
 	setHeaders({ 'cache-control': 'private, no-store' });
-	const meta = {
-		pageTitle: 'Browse Cities',
-		pageDescription: 'Find upcoming events by city on the open social web.'
-	};
+	const meta = { pageTitle: 'Events nearby', pageDescription: 'Find events near you.' };
 	try {
 		if (dev) {
 			await ensureInit(env.DB);
 			await refreshCitySnapshot(env.DB);
 		}
 		const cf = (
-			request as Request & { cf?: { latitude?: string; longitude?: string; country?: string } }
+			request as Request & {
+				cf?: {
+					city?: string;
+					country?: string;
+					region?: string;
+					regionCode?: string;
+					latitude?: string;
+					longitude?: string;
+				};
+			}
 		).cf;
-		return { ...meta, ...(await readCitySuggestions(env.DB, cf)) };
+		const choosing = url.searchParams.has('choose');
+		const search = (url.searchParams.get('q') ?? '').slice(0, 256);
+		const selected = url.searchParams.has('city')
+			? {
+					city: (url.searchParams.get('city') ?? '').slice(0, 256),
+					country: (url.searchParams.get('country') ?? '').slice(0, 256),
+					region: (url.searchParams.get('region') ?? '').slice(0, 256)
+				}
+			: cf;
+		const result = await readNearbyPage(env.DB, choosing ? undefined : selected, search);
+		if (choosing || !result.detected)
+			return { ...meta, mode: 'choose' as const, cities: result.cities, search };
+		let shown = result.matched;
+		let page = shown
+			? await cityQuery(getServerClient(env.DB), cityScope(shown)!, null, env.DB)
+			: EMPTY_PAGE;
+		const noLocalEvents = !shown || (!page.events.length && !page.cursor);
+		if (noLocalEvents && result.nearest) {
+			shown = result.nearest;
+			page = await cityQuery(getServerClient(env.DB), cityScope(shown)!, null, env.DB);
+		}
+		return {
+			...meta,
+			mode: 'events' as const,
+			detected: result.detected,
+			shown,
+			noLocalEvents,
+			...page
+		};
 	} catch (error) {
-		console.warn('[cities] upcoming cities unavailable:', error);
-		return { ...meta, cities: null, nearby: [], inCountry: [] };
+		console.warn('[cities] nearby events unavailable:', error);
+		return { ...meta, mode: 'unavailable' as const };
 	}
 };

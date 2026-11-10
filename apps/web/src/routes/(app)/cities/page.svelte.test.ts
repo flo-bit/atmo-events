@@ -2,9 +2,33 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
 import CitiesPage from './+page.svelte';
 
-// Use the real $app/paths resolver: it inserts parameters verbatim and throws
-// for leading/trailing slashes unless the caller encodes the path component.
+// City names and qualifiers must survive query-string encoding.
 describe('city links', () => {
+	it('shows the empty city and the closest city without extra explanatory text', () => {
+		const html = render(CitiesPage, {
+			props: {
+				data: {
+					did: null,
+					profile: null,
+					canPostToBluesky: false,
+					isModerator: false,
+					pageTitle: 'Events nearby',
+					pageDescription: 'Find events near you.',
+					mode: 'events',
+					detected: { city: 'Potsdam', country: 'DE', region: '' },
+					shown: { city: 'Berlin', country: 'DE', region: '', count: 1 },
+					noLocalEvents: true,
+					events: [],
+					handles: {},
+					cursor: null
+				}
+			}
+		}).body;
+		expect(html).toContain('Events in Potsdam');
+		expect(html).toContain('No events in Potsdam');
+		expect(html).toContain('Events in Berlin');
+		expect(html).not.toContain('approximate IP location');
+	});
 	it.each(['Biel/Bienne', 'A?B', 'A#B', 'A%2FB', '/', '/Berlin', 'Berlin/', 'São Paulo'])(
 		'preserves %s as one encoded path component without breaking rendering',
 		(city) => {
@@ -17,21 +41,21 @@ describe('city links', () => {
 						profile: null,
 						canPostToBluesky: false,
 						isModerator: false,
-						pageTitle: 'Browse Cities',
-						pageDescription: 'Find upcoming events by city on the open social web.',
-						cities: [{ city, country, region, count: 1 }],
-						nearby: [],
-						inCountry: []
+						pageTitle: 'Events nearby',
+						pageDescription: 'Find events near you.',
+						mode: 'choose',
+						search: '',
+						cities: [{ city, country, region }]
 					}
 				}
 			}).body;
 			const href = html.match(/href="([^"]+)"/)?.[1].replace(/&amp;/g, '&');
 			expect(href).toBeDefined();
 			const url = new URL(href!, 'https://atmo.test');
-			expect(url.pathname).toBe(`/cities/${encodeURIComponent(city)}`);
-			expect(decodeURIComponent(url.pathname.split('/').at(-1)!)).toBe(city);
+			expect(url.pathname).toBe('/cities');
 			expect(url.hash).toBe('');
 			expect([...url.searchParams]).toEqual([
+				['city', city],
 				['country', country],
 				['region', region]
 			]);

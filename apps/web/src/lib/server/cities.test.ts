@@ -7,6 +7,7 @@ import {
 	cityConditions,
 	readTopCities,
 	readCitySuggestions,
+	readNearbyPage,
 	readCitySnapshot,
 	refreshCitySnapshot,
 	CITY_SNAPSHOT_INTERVAL_MS
@@ -311,6 +312,56 @@ describe('existing-field city discovery', () => {
 				(city) => city.city
 			)
 		).toEqual(['Date Line']);
+	});
+
+	it('finds the IP city and the nearest event city even when event addresses lack coordinates', async () => {
+		const { db, add } = setup();
+		add({ locations: [address('Berlin')] });
+		add({ locations: [address('Leipzig', 'DE', 'Saxony')] });
+		add({ locations: [address('Paris', 'FR')] });
+		await refreshCitySnapshot(db);
+		const berlin = await readNearbyPage(db, {
+			city: 'Berlin',
+			country: 'DE',
+			region: 'Berlin',
+			latitude: '52.52',
+			longitude: '13.405'
+		});
+		expect(berlin.matched?.city).toBe('Berlin');
+		expect(berlin.nearest?.city).toBe('Leipzig');
+		const potsdam = await readNearbyPage(db, {
+			city: 'Potsdam',
+			country: 'DE',
+			region: 'Brandenburg',
+			latitude: '52.39',
+			longitude: '13.06'
+		});
+		expect(potsdam.matched).toBeNull();
+		expect(potsdam.nearest?.city).toBe('Berlin');
+		expect((await readNearbyPage(db, undefined, 'leip')).cities.map((c) => c.city)).toContain(
+			'Leipzig'
+		);
+		// The picker can select a city with no events, not just catalog entries.
+		expect((await readNearbyPage(db, undefined, 'potsdam')).cities.map((c) => c.city)).toContain(
+			'Potsdam'
+		);
+	});
+
+	it('does not confuse same-named cities in different regions', async () => {
+		const { db, add } = setup();
+		add({ locations: [address('Springfield', 'US', 'IL')] });
+		add({ locations: [address('Springfield', 'US', 'MA')] });
+		await refreshCitySnapshot(db);
+		const massachusetts = await readNearbyPage(db, {
+			city: 'Springfield',
+			country: 'US',
+			region: 'Massachusetts',
+			latitude: '42.1',
+			longitude: '-72.6'
+		});
+		expect(massachusetts.matched?.region).toBe('Massachusetts');
+		const ambiguous = await readNearbyPage(db, { city: 'Springfield', country: 'US' });
+		expect(ambiguous.matched).toBeNull();
 	});
 
 	it('searches the entire catalog for nearby cities rather than only the worldwide top 20', async () => {
