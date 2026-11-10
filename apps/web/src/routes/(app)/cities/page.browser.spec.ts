@@ -17,7 +17,7 @@ const base = {
 	profile: null,
 	canPostToBluesky: false,
 	isModerator: false,
-	pageTitle: 'Events nearby',
+	pageTitle: 'Nearby',
 	pageDescription: 'Find upcoming events near you.'
 };
 const local: Extract<PageData, { mode: 'events' }> = {
@@ -27,7 +27,7 @@ const local: Extract<PageData, { mode: 'events' }> = {
 	detected: { city: 'Berlin', country: 'DE', region: 'Berlin' },
 	shown: { city: 'Berlin', country: 'DE', region: 'Berlin', count: 1 },
 	noLocalEvents: false,
-	radiusKm: 100,
+	radiusKm: 200,
 	distanceKm: null,
 	events: [],
 	handles: {},
@@ -116,8 +116,38 @@ describe('nearby events UI', () => {
 	it('keeps the empty state brief with only the city-change control', async () => {
 		await render(CitiesPage, { data: { ...local, shown: null, noLocalEvents: true } });
 		await expect.element(page.getByText('No nearby events.', { exact: true })).toBeVisible();
-		await expect.element(page.getByRole('link', { name: 'Change city' })).toBeVisible();
+		const changeCity = page.getByRole('link', { name: 'Change city' });
+		await expect.element(changeCity).toBeVisible();
+		await expect.element(changeCity).toHaveAttribute('data-slot', 'button');
+		await expect.element(changeCity).toHaveAttribute('data-size', 'md');
+		await expect.element(changeCity).toHaveAttribute('data-variant', 'secondary');
 		await expect.element(page.getByRole('link', { name: /IP location/ })).not.toBeInTheDocument();
+	});
+	it('opens location information from the plain icon and supports keyboard dismissal', async () => {
+		await page.viewport(390, 844);
+		await render(CitiesPage, { data: { ...local, locationSource: 'ip' } });
+		const icon = page.getByRole('button', { name: 'About this location', exact: true });
+		await expect.element(page.getByRole('dialog')).not.toBeInTheDocument();
+		await expect.element(icon).not.toHaveAttribute('data-slot', 'button');
+		await icon.click();
+		const info = page.getByRole('dialog', { name: 'About this location' });
+		await expect.element(info).toBeVisible();
+		await expect
+			.element(info)
+			.toHaveTextContent(
+				'Your location is estimated from your internet connection. Learn more in our privacy policy.'
+			);
+		expect(info.element().classList.contains('text-xs')).toBe(true);
+		expect(icon.element().classList.contains('text-accent-700')).toBe(true);
+		expect(info.element().querySelectorAll('p')).toHaveLength(1);
+		await expect
+			.element(info.getByRole('link', { name: 'privacy policy' }))
+			.toHaveAttribute('href', '/privacy');
+		await userEvent.keyboard('{Escape}');
+		await expect.element(info).not.toBeInTheDocument();
+		await expect.element(icon).toHaveFocus();
+		await userEvent.keyboard('{Enter}');
+		await expect.element(info).toBeVisible();
 	});
 	it('keeps load-more usable when a sparse snapshot page has no live events yet', async () => {
 		await render(CitiesPage, { data: { ...local, cursor: 'remaining-city-events' } });

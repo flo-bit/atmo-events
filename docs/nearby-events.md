@@ -6,7 +6,7 @@
 
 - `/cities` uses Cloudflare's approximate IP location. Picking a city sets it in the URL for that visit, not a persistent preference. Opening `/cities` again uses IP location. Legacy `nearby-city` cookies are cleared.
 - Without a usable location, show the searchable picker. It shows the city cards immediately, ranked by snapshot event count. Typing filters the cards using a debounced server lookup; clearing the field restores them. Searches also include the bundled GeoNames cities. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
-- Show the matched city's live upcoming events first. If it has no live results and no continuation, check at most five other city candidates, ordered by approximate straight-line distance, within **100 km**. Borders do not restrict proximity. Stop at the first candidate with results or a continuation.
+- Show the matched city's live upcoming events first. If it has no live results and no continuation, check at most five other city candidates, ordered by approximate straight-line distance, within **200 km**. Borders do not restrict proximity. Stop at the first candidate with results or a continuation.
 - A continuation on an empty page means there are still candidates to check, not that the city is empty. Retain “Load more”.
 - If none of the bounded candidates qualify, show an empty state and let the user choose another city. Do not call a distant city “nearby.” Distances are approximate, not travel distances.
 - Virtual and cancelled events are excluded; hybrid events qualify. Events already underway are not included: this is explicitly an **upcoming** list.

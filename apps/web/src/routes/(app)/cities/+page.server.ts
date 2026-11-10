@@ -9,7 +9,7 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ request, url, setHeaders, cookies }) => {
 	setHeaders({ 'cache-control': 'private, no-store' });
 	if (cookies.get('nearby-city')) cookies.delete('nearby-city', { path: '/cities' });
-	const meta = { pageTitle: 'Events nearby', pageDescription: 'Find upcoming events near you.' };
+	const meta = { pageTitle: 'Nearby', pageDescription: 'Find upcoming events near you.' };
 	try {
 		if (dev) {
 			await ensureInit(env.DB);

@@ -75,7 +75,7 @@
 		},
 
 		{
-			label: 'Events nearby',
+			label: 'Nearby',
 			icon: MapPin,
 			href: '/cities',
 			active: path.startsWith('/cities')

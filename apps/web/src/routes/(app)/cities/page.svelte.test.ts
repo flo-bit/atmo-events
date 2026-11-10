@@ -14,11 +14,11 @@ describe('city links', () => {
 						profile: null,
 						canPostToBluesky: false,
 						isModerator: false,
-						pageTitle: 'Events nearby',
+						pageTitle: 'Nearby',
 						pageDescription: 'Find events near you.',
 						mode: 'events',
 						locationSource: source,
-						radiusKm: 100,
+						radiusKm: 200,
 						distanceKm: 28,
 						detected: { city: 'Potsdam', country: 'DE', region: 'Brandenburg' },
 						shown: { city: 'Berlin', country: 'DE', region: '', count: 1 },
@@ -33,10 +33,8 @@ describe('city links', () => {
 			expect(html).toContain('Berlin');
 			expect(html).toContain('28 km away');
 			expect(html).not.toContain('Brandenburg');
-			expect(html.includes('Your location is estimated from your internet connection.')).toBe(
-				source === 'ip'
-			);
-			expect(html.includes('href="/privacy"')).toBe(source === 'ip');
+			expect(html.includes('aria-label="About this location"')).toBe(source === 'ip');
+			expect(html).not.toContain('Your location is estimated from your internet connection.');
 			expect(html).not.toContain('approximate IP location');
 			expect(html).not.toContain('Listings refresh');
 			expect(html).not.toContain('Upcoming in-person');
@@ -54,7 +52,7 @@ describe('city links', () => {
 						profile: null,
 						canPostToBluesky: false,
 						isModerator: false,
-						pageTitle: 'Events nearby',
+						pageTitle: 'Nearby',
 						pageDescription: 'Find events near you.',
 						mode: 'choose',
 						search: '',

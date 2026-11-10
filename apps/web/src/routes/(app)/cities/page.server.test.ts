@@ -10,7 +10,7 @@ vi.mock('#lib/contrail/queries.js', () => ({
 vi.mock('#lib/server/cities.js', () => ({
 	readNearbyPage: vi.fn(),
 	refreshCitySnapshot: vi.fn(),
-	NEARBY_RADIUS_KM: 100
+	NEARBY_RADIUS_KM: 200
 }));
 
 import { load } from './+page.server';
@@ -51,7 +51,7 @@ describe('events nearby', () => {
 			noLocalEvents: false,
 			locationSource: 'ip',
 			distanceKm: null,
-			radiusKm: 100
+			radiusKm: 200
 		});
 		expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
 		expect(cityQuery).toHaveBeenCalledOnce();

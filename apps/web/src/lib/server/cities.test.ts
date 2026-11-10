@@ -362,7 +362,9 @@ describe('existing-field city discovery', () => {
 			longitude: '13.405'
 		});
 		expect(berlin.matched?.city).toBe('Berlin');
-		expect(berlin.nearby).toEqual([]); // Leipzig is beyond the nearby radius.
+		expect(berlin.nearby.map(({ city }) => city.city)).toEqual(['Leipzig']);
+		expect(berlin.nearby[0].distanceKm).toBeGreaterThan(100);
+		expect(berlin.nearby[0].distanceKm).toBeLessThan(200);
 		const potsdam = await readNearbyPage(db, {
 			city: 'Potsdam',
 			country: 'DE',
@@ -450,8 +452,8 @@ describe('existing-field city discovery', () => {
 	it('enforces the radius boundary and wraps distance across the date line', async () => {
 		const { db, add } = setup();
 		for (const [city, longitude] of [
-			['Inside', '0.89'],
-			['Outside', '0.91'],
+			['Inside', '1.79'],
+			['Outside', '1.81'],
 			['Date Line', '-179.8']
 		]) {
 			add({

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Icon } from '@atmo-dev/kit';
-	import { MapPin } from '@sketchyicons/svelte';
+	import { Button, Icon, Popover } from '@atmo-dev/kit';
+	import { CircleQuestionMark, MapPin } from '@sketchyicons/svelte';
 	import { cityContext } from '#lib/cities.js';
 	import CityPicker from '#lib/components/CityPicker.svelte';
 	import EventList from '#lib/components/EventList.svelte';
@@ -11,7 +11,7 @@
 
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	{#if data.mode === 'unavailable'}
-		<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">Events nearby</h1>
+		<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">Nearby</h1>
 		<p class="text-base-600 dark:text-base-400 mt-6">Events are unavailable right now.</p>
 		<a class="mt-4 inline-block underline" href={resolve('/(app)/cities')}>Try again</a>
 	{:else if data.mode === 'choose'}
@@ -20,32 +20,41 @@
 			<CityPicker cities={data.cities} search={data.search} />
 		{/key}
 	{:else}
-		<header class="mb-8 flex flex-wrap items-center justify-between gap-4">
-			<div>
-				<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">
-					{data.noLocalEvents ? 'Events near' : 'Events in'}
-					{data.detected.city}
-				</h1>
-				{#if data.locationSource === 'ip'}
-					<p class="text-base-600 dark:text-base-400 mt-2 text-sm">
-						Your location is estimated from your internet connection.
-						<span class="block"
-							>Learn more in our <a class="underline" href={resolve('/(app)/privacy')}
-								>privacy policy</a
-							>.</span
-						>
-					</p>
-				{/if}
+		<header class="mb-8">
+			<div class="flex flex-wrap items-center justify-between gap-4">
+				<div class="flex min-w-0 items-center gap-1">
+					<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">
+						{data.noLocalEvents ? 'Events near' : 'Events in'}
+						{data.detected.city}
+					</h1>
+					{#if data.locationSource === 'ip'}
+						<Popover aria-label="About this location" side="top" align="start" class="w-72 text-xs">
+							{#snippet trigger({ props })}
+								<button
+									{...props}
+									type="button"
+									aria-label="About this location"
+									class="text-accent-700 dark:text-accent-300 hover:text-accent-800 dark:hover:text-accent-200 inline-flex shrink-0 cursor-pointer items-center justify-center p-1.5"
+								>
+									<Icon img={CircleQuestionMark} size={20} />
+								</button>
+							{/snippet}
+							<p>
+								Your location is estimated from your internet connection. Learn more in our <a
+									class="underline"
+									href={resolve('/(app)/privacy')}>privacy policy</a
+								>.
+							</p>
+						</Popover>
+					{/if}
+				</div>
+				<!-- eslint-disable svelte/no-navigation-without-resolve -->
+				<Button variant="secondary" href={`${resolve('/(app)/cities')}?choose=1`}>
+					<Icon img={MapPin} size={16} />
+					Change city
+				</Button>
+				<!-- eslint-enable svelte/no-navigation-without-resolve -->
 			</div>
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a
-				class="rounded-ui border-base-300 bg-base-100 dark:border-base-800 dark:bg-base-950 text-base-950 dark:text-base-50 hover:border-accent-400 inline-flex items-center gap-2 border px-3 py-2 text-sm font-medium transition-colors"
-				href={`${resolve('/(app)/cities')}?choose=1`}
-			>
-				<Icon img={MapPin} size={16} />
-				Change city
-			</a>
-			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		</header>
 		{#if data.noLocalEvents && data.shown}
 			<h2 class="text-base-950 dark:text-base-50 mb-2 text-2xl font-bold">{data.shown.city}</h2>

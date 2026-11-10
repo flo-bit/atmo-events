@@ -13,7 +13,7 @@ import { normalizeCityField } from '#lib/cities.js';
 
 export const CITY_SNAPSHOT_INTERVAL_MS = 15 * 60 * 1000;
 export const CITY_SNAPSHOT_RETENTION_MS = 24 * 60 * 60 * 1000;
-export const NEARBY_RADIUS_KM = 100;
+export const NEARBY_RADIUS_KM = 200;
 export const NEARBY_CANDIDATE_LIMIT = 5;
 const LEASE_MS = 5 * 60 * 1000;
 const CHUNK_CHARACTERS = 64 * 1024; // At most 256 KB UTF-8, below D1's 2 MB value limit.
