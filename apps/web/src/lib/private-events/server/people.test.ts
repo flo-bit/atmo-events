@@ -2,7 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { clearSpaceLookups } from '#lib/spaces/server/space-credential.js';
 import { HOST_SCOPE } from '../scopes';
 import { addGuest, PrivateEventRefused } from './events';
-import { verifiedHandle } from './people';
+import { publicProfiles, verifiedHandle } from './people';
+
+const profilesOf = vi.fn();
+vi.mock('#lib/contrail/index.js', () => ({
+	profilesOf: (...args: unknown[]) => profilesOf(...args)
+}));
 
 // The network object keeps the fetch it is made with, and these tests stub a new one each time.
 vi.mock('#lib/atproto/network.js', async () => {
@@ -115,4 +120,44 @@ describe('addGuest', () => {
 			expect(handle).not.toHaveBeenCalled();
 		}
 	);
+});
+
+describe('publicProfiles', () => {
+	const ALICE = 'did:plc:aliceenaliceenaliceenali';
+	const BOB = 'did:plc:bobbobbobbobbobbobbobbob';
+	beforeEach(() => {
+		profilesOf.mockReset();
+	});
+
+	it('gives each person the profile the index holds, and leaves out who it has none for', async () => {
+		profilesOf.mockResolvedValue({
+			[ALICE]: [
+				{
+					did: ALICE,
+					handle: 'alice.test',
+					collection: 'app.bsky.actor.profile',
+					value: { displayName: 'Alice' }
+				}
+			],
+			[BOB]: [{ did: BOB, handle: 'bob.test' }]
+		});
+
+		const found = await publicProfiles([ALICE, BOB]);
+
+		expect(profilesOf).toHaveBeenCalledTimes(1);
+		expect(found.get(ALICE)).toEqual({ displayName: 'Alice' });
+		expect(found.has(BOB)).toBe(false);
+	});
+
+	it('gives no one a profile when the index cannot be read, rather than failing the page', async () => {
+		profilesOf.mockImplementation(async () => {
+			throw new Error('D1 unavailable');
+		});
+		expect((await publicProfiles([ALICE])).size).toBe(0);
+	});
+
+	it('does not ask the index about no one', async () => {
+		expect((await publicProfiles([])).size).toBe(0);
+		expect(profilesOf).not.toHaveBeenCalled();
+	});
 });

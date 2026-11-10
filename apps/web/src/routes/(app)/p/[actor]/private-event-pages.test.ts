@@ -17,7 +17,7 @@ vi.mock('#lib/actor.js', () => ({
 }));
 vi.mock('#lib/private-events/server/people.js', () => ({
 	verifiedHandle: async () => null,
-	publicProfile: async () => null
+	publicProfiles: async () => new Map()
 }));
 vi.mock('#lib/private-events/server/enabled.js', () => ({
 	privateEventsEnabled: () => true,

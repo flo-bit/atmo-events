@@ -22,9 +22,15 @@ const actorToDid = vi.fn();
 vi.mock('#lib/actor.js', () => ({ actorToDid: (actor: string) => actorToDid(actor) }));
 const publicProfile =
 	vi.fn<(did: string) => Promise<{ displayName?: string; avatar?: unknown } | null>>();
+const publicProfiles = vi.fn(async (dids: string[]) => {
+	const found = await Promise.all(
+		dids.map(async (did) => [did, await publicProfile(did)] as const)
+	);
+	return new Map(found.filter(([, profile]) => profile !== null)) as Map<string, object>;
+});
 vi.mock('./people', () => ({
 	verifiedHandle: async (did: string) => `${did.split(':').at(-1)}.example.com`,
-	publicProfile: (did: string) => publicProfile(did)
+	publicProfiles: (dids: string[]) => publicProfiles(dids)
 }));
 
 const {
@@ -114,6 +120,7 @@ function theSpaceHolds(answers: Record<string, ReturnType<typeof rsvp>>, event =
 beforeEach(() => {
 	publicProfile.mockReset();
 	publicProfile.mockResolvedValue(null);
+	publicProfiles.mockClear();
 	reader.get.mockReset();
 	reader.writers.mockReset();
 	actorToDid.mockReset();
@@ -470,6 +477,16 @@ describe('readPrivateEventPage', () => {
 			])
 		);
 		expect(page?.host).toMatchObject({ did: HOST, value: { displayName: 'Host Person' } });
+	});
+
+	it('looks up everyone it names in one go, and not someone who said no', async () => {
+		reader.writers.mockResolvedValue([GUEST, OTHER]);
+		theSpaceHolds({ [GUEST]: rsvp('going'), [OTHER]: rsvp('notgoing') });
+
+		await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);
+
+		expect(publicProfiles).toHaveBeenCalledTimes(1);
+		expect([...publicProfiles.mock.calls[0][0]].sort()).toEqual([GUEST, HOST].sort());
 	});
 
 	it('shows the avatar a person set in their public profile', async () => {

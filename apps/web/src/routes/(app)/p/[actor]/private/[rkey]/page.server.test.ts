@@ -27,7 +27,12 @@ const publicProfile = vi.fn<(did: string) => Promise<Record<string, unknown> | n
 );
 vi.mock('#lib/private-events/server/people.js', () => ({
 	verifiedHandle: async (did: string) => `${did.split(':').at(-1)}.example.com`,
-	publicProfile: (did: string) => publicProfile(did)
+	publicProfiles: async (dids: string[]) => {
+		const found = await Promise.all(
+			dids.map(async (did) => [did, await publicProfile(did)] as const)
+		);
+		return new Map(found.filter(([, profile]) => profile !== null));
+	}
 }));
 vi.mock('#lib/private-events/server/enabled.js', () => ({
 	privateEventsEnabled: () => true,
@@ -96,6 +101,8 @@ function spaceHolds(value: Record<string, unknown>) {
 }
 
 beforeEach(() => {
+	publicProfile.mockReset();
+	publicProfile.mockResolvedValue(null);
 	credentialSpaceReader.mockClear();
 	reader.get.mockReset();
 	reader.writers.mockReset();
@@ -157,8 +164,6 @@ describe('the host', () => {
 		const data = await load(
 			request(HOST, HOST_SCOPE, browser(), `https://atmo.example.com${PATH}`, { members: [] })
 		);
-		publicProfile.mockReset();
-		publicProfile.mockResolvedValue(null);
 
 		expect(data.hostProfile).toMatchObject({
 			displayName: 'Host Person',

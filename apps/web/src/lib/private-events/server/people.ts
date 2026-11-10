@@ -1,8 +1,6 @@
 // How a page names a person it knows only by DID.
-import type { Did } from '@atcute/lexicons';
 import { env } from 'cloudflare:workers';
-import { getProfileFromContrail } from '#lib/contrail.js';
-import { getServerClient } from '#lib/contrail/index.js';
+import { profilesOf } from '#lib/contrail/index.js';
 import { spaceIdentity } from '#lib/spaces/server/space-credential.js';
 import { errorKind } from '#lib/spaces/server/xrpc.js';
 
@@ -22,15 +20,20 @@ export async function verifiedHandle(did: string): Promise<string | null> {
 	}
 }
 
-/** What a public page shows of a person: their profile from atmo's index, which fetches it from
- *  their server the first time it is asked. Null for someone moderation hides, or when it can't be
- *  read, so the page names them by handle as before. */
-export async function publicProfile(did: string): Promise<PublicProfile | null> {
+/** What a public page shows of each person, from one lookup in atmo's index for all of them.
+ *  Someone moderation hides, or with no profile, is left out, and so is everyone when the index
+ *  can't be read, so the page names them by handle as before. */
+export async function publicProfiles(dids: string[]): Promise<Map<string, PublicProfile>> {
+	const found = new Map<string, PublicProfile>();
+	if (dids.length === 0) return found;
 	try {
-		const profile = await getProfileFromContrail(getServerClient(env.DB), did as Did);
-		return profile?.value ?? null;
+		const profiles = await profilesOf(env.DB, dids);
+		for (const [did, entries] of Object.entries(profiles)) {
+			const value = entries.find((entry) => entry.value && typeof entry.value === 'object')?.value;
+			if (value) found.set(did, value as PublicProfile);
+		}
 	} catch (e) {
-		console.info(`[private-events] a profile unread: ${errorKind(e)}`);
-		return null;
+		console.info(`[private-events] profiles unread: ${errorKind(e)}`);
 	}
+	return found;
 }

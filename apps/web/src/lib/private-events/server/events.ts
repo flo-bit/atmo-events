@@ -30,7 +30,7 @@ import {
 } from '../ids';
 import { holdsGuestGrant, holdsHostGrant } from '../scopes';
 import type { CallerSession } from './caller';
-import { publicProfile, verifiedHandle } from './people';
+import { publicProfiles, verifiedHandle } from './people';
 
 const REFUSALS = {
 	'no-grant': "atmo doesn't have your permission for this yet, so nothing changed.",
@@ -273,13 +273,29 @@ export interface Person {
 	value?: { displayName?: string; avatar?: unknown };
 }
 
-async function person(did: string): Promise<Person> {
-	const [handle, profile] = await Promise.all([verifiedHandle(did), publicProfile(did)]);
-	return {
-		did,
-		...(handle ? { handle } : {}),
-		...(profile ? { value: { displayName: profile.displayName, avatar: profile.avatar } } : {})
-	};
+/** Everyone a page shows, from one lookup of public profiles for all of them. */
+async function namePeople(dids: string[]): Promise<Map<string, Person>> {
+	const unique = [...new Set(dids)];
+	const [profiles, handles] = await Promise.all([
+		publicProfiles(unique),
+		Promise.all(unique.map((did) => verifiedHandle(did)))
+	]);
+	return new Map(
+		unique.map((did, i): [string, Person] => {
+			const handle = handles[i];
+			const profile = profiles.get(did);
+			return [
+				did,
+				{
+					did,
+					...(handle ? { handle } : {}),
+					...(profile
+						? { value: { displayName: profile.displayName, avatar: profile.avatar } }
+						: {})
+				}
+			];
+		})
+	);
 }
 
 const LIST_LIMIT = 100;
@@ -326,8 +342,7 @@ export async function readPrivateEventPage(
 	});
 	const unread = new Set<string>();
 	const answers = new Map<string, RsvpStatus>();
-	const going: AttendeeInfo[] = [];
-	const interested: AttendeeInfo[] = [];
+	const shown: { did: string; status: 'going' | 'interested' }[] = [];
 	let viewerStatus: RsvpStatus | null = null;
 	await Promise.all(
 		(writers ?? []).map(async (did) => {
@@ -342,11 +357,16 @@ export async function readPrivateEventPage(
 			if (!status) return;
 			answers.set(did, status);
 			if (did === caller.did) viewerStatus = status;
-			if (status === 'notgoing') return;
-			const attendee = buildAttendee(did, status, [await person(did)]);
-			(status === 'going' ? going : interested).push(attendee);
+			if (status !== 'notgoing') shown.push({ did, status });
 		})
 	);
+	const people = await namePeople([host, ...shown.map(({ did }) => did)]);
+	const going: AttendeeInfo[] = [];
+	const interested: AttendeeInfo[] = [];
+	for (const { did, status } of shown) {
+		const attendee = buildAttendee(did, status, [people.get(did) ?? { did }]);
+		(status === 'going' ? going : interested).push(attendee);
+	}
 
 	let guests: Guest[] | null = null;
 	let guestsCapped = false;
@@ -365,7 +385,7 @@ export async function readPrivateEventPage(
 
 	return {
 		event,
-		host: await person(host),
+		host: people.get(host) ?? { did: host },
 		attendees: {
 			going,
 			interested,
