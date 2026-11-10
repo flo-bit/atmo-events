@@ -18,6 +18,7 @@ vi.mock('#lib/atproto/auth.svelte.js', () => ({ user }));
 vi.mock('#lib/components/editor/adapter.js', () => ({ createInAppAdapter: () => ({}) }));
 vi.mock('#lib/moderation/reports.remote', () => ({ submitReport: vi.fn() }));
 vi.mock('#lib/starter-packs/packs.remote.js', () => ({ openStarterPack: vi.fn() }));
+vi.mock('#lib/contrail/attendees.remote.js', () => ({ loadEventAttendees: vi.fn() }));
 vi.mock('$app/state', () => ({ page: { url: new URL('https://atmo.rsvp/p/host/e/event') } }));
 
 import EventPage from './+page.svelte';

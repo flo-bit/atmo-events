@@ -30,11 +30,11 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(@atcute/identity@2.0.2(@atcute/lexicons@2.1.1)(typescript@6.0.2))(@atcute/lexicons@2.1.1)(typescript@6.0.2)
       '@atmo-dev/contrail':
-        specifier: 0.27.0
-        version: 0.27.0(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))
+        specifier: 0.29.1
+        version: 0.29.1(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))
       '@atmo-dev/kit':
-        specifier: 0.10.0
-        version: 0.10.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
+        specifier: 0.11.1
+        version: 0.11.1(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
       '@internationalized/date':
         specifier: ^3.12.4
         version: 3.12.4
@@ -374,8 +374,8 @@ packages:
     peerDependencies:
       '@atcute/lexicons': ^2.0.0
 
-  '@atmo-dev/contrail@0.27.0':
-    resolution: {integrity: sha512-jNhSKuZTCzMIHk0LUExuDfsk/E8bWpFPHyPD9mZ1+NSZLYnndfqpE+f65gQrPMp4mYrnfllwGRMNa147CZK83Q==}
+  '@atmo-dev/contrail@0.29.1':
+    resolution: {integrity: sha512-9aQCFM9/UKddnYe80xThNJfMmno2zvMLMB0oSaAlG9ZS0kcUfDTnPTBulqchXXlkjvtoBJnNk44Z4FANGoirBA==}
     engines: {node: '>=22.15.0'}
     hasBin: true
     peerDependencies:
@@ -390,8 +390,8 @@ packages:
       wrangler:
         optional: true
 
-  '@atmo-dev/kit@0.10.0':
-    resolution: {integrity: sha512-0xUGCowwvaMNJ5G3LEqQg9Bu7txhpMkFveKXK3UH3rRMkzYQeqgIfTOP/H4VNLjoJR+HooSDHPilsLleryXWSg==}
+  '@atmo-dev/kit@0.11.1':
+    resolution: {integrity: sha512-6dapxKsa/TMrWLfrCB2ILnsFUD4zjSYSl4W/KYtfzfHmJyDfKPnbrnifQ0zvLWFn24FlaxRjzvJfP2Su0QLJTA==}
     peerDependencies:
       maplibre-gl: ^6.16.0
       plyr: ^3.8.5
@@ -3538,7 +3538,7 @@ snapshots:
       - '@atcute/cid'
       - typescript
 
-  '@atmo-dev/contrail@0.27.0(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))':
+  '@atmo-dev/contrail@0.29.1(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))':
     dependencies:
       '@atcute/atproto': 4.0.4(@atcute/lexicons@2.1.1)
       '@atcute/cbor': 2.3.8(@atcute/cid@2.5.0)
@@ -3569,7 +3569,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@atmo-dev/kit@0.10.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
+  '@atmo-dev/kit@0.11.1(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(maplibre-gl@6.16.0)(plyr@3.8.5)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
     dependencies:
       '@atcute/bluesky-richtext-parser': 2.1.2
       '@atcute/lexicons': 2.1.1

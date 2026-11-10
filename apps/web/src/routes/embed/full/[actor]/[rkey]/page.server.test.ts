@@ -11,7 +11,7 @@ vi.mock('#lib/contrail.js', () => ({
 	getProfileFromContrail: vi.fn(),
 	getRsvpStatus: () => null,
 	getViewerRsvpFromContrail: vi.fn(),
-	listEventAttendeesFromContrail: async () => ({
+	eventAttendeesFromRecord: () => ({
 		going: [],
 		interested: [],
 		goingCount: 0,

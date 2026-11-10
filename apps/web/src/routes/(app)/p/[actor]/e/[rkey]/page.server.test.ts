@@ -13,10 +13,10 @@ vi.mock('#lib/contrail.js', () => ({
 	getRsvpStatus: vi.fn(),
 	getViewerRsvpFromContrail: vi.fn(),
 	listConferenceTalksFromContrail: vi.fn(),
-	listEventAttendeesFromContrail: vi.fn()
+	eventAttendeesFromRecord: () => ({ going: [], interested: [], goingCount: 0, interestedCount: 0 })
 }));
 import { load } from './+page.server';
-import { flattenEventRecord, listEventAttendeesFromContrail } from '#lib/contrail.js';
+import { flattenEventRecord } from '#lib/contrail.js';
 const event = {
 	params: { actor: 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa', rkey: 'event' },
 	locals: { did: null },
@@ -36,7 +36,6 @@ describe('event visibility fails closed', () => {
 			name: 'Meetup',
 			startsAt: '2026-11-03T12:00:00Z'
 		} as never);
-		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
 		const data = await load({ ...event, params: { actor: 'host.test', rkey: 'event' } });
 		expect(data.atTags).toEqual({
 			canonical: [uri],
@@ -55,7 +54,6 @@ describe('event visibility fails closed', () => {
 			startsAt: '2026-11-03T12:00:00Z',
 			description: '# Plan\n\nBring **snacks** <b>now</b>'
 		} as never);
-		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
 		const data = await load(event);
 		expect(data.description?.markdown).toBe(true);
 		expect(data.description?.children[0]).toMatchObject({ type: 'heading', depth: 1 });
@@ -73,7 +71,6 @@ describe('event visibility fails closed', () => {
 			startsAt: '2026-11-03T12:00:00Z',
 			description: '  '
 		} as never);
-		vi.mocked(listEventAttendeesFromContrail).mockRejectedValueOnce(new Error('Unavailable'));
 		const data = await load(event);
 		expect(data.description).toBeNull();
 		expect(data.pageDescription).toBe('Event: Meetup');

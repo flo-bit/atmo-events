@@ -3,6 +3,7 @@ import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
+	eventAttendeesFromRecord,
 	flattenEventRecord,
 	flattenEventRecords,
 	getEventRecordFromContrail,
@@ -12,7 +13,6 @@ import {
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
 	listConferenceTalksFromContrail,
-	listEventAttendeesFromContrail,
 	withD1Retry,
 	RSVP_HYDRATE_LIMIT
 } from '#lib/contrail.js';
@@ -96,23 +96,20 @@ export async function load({ params, locals, url }) {
 		string | undefined;
 	const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
+	// The avatar strip renders from the RSVPs hydrated onto the record above. The
+	// full list (two 200-row profile hydrations, seconds on large events) is
+	// fetched by `loadAttendees` only when someone opens a list.
+	const attendees = eventAttendeesFromRecord(fullEventRecord);
+
 	// Secondary hydration is best-effort: the event already loaded, so a hiccup
-	// fetching attendees/rsvp/parent/talks/speakers must not take down (or 404)
-	// the page.
+	// fetching rsvp/parent/talks/speakers must not take down (or 404) the page.
 	const [
-		attendees,
 		viewerRsvpRecord,
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
 		...speakerProfiles
 	] = await Promise.all([
-		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
-			going: [],
-			interested: [],
-			goingCount: 0,
-			interestedCount: 0
-		})),
 		locals.did
 			? getViewerRsvpFromContrail(client, {
 					eventUri,

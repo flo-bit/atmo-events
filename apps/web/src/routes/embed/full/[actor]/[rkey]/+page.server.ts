@@ -4,6 +4,7 @@ import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import { getActor } from '#lib/actor.js';
 import {
+	eventAttendeesFromRecord,
 	flattenEventRecord,
 	getEventRecordFromContrail,
 	getHostProfile,
@@ -11,7 +12,6 @@ import {
 	getProfileFromContrail,
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
-	listEventAttendeesFromContrail,
 	RSVP_HYDRATE_LIMIT
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
@@ -50,8 +50,10 @@ export async function load({ params, url }) {
 
 		const viewerDid = url.searchParams.get('did') ?? null;
 
-		const [attendees, viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
-			listEventAttendeesFromContrail(client, fullEventRecord.uri),
+		// Rendered from the hydrated sample; the full list loads when a list is opened.
+		const attendees = eventAttendeesFromRecord(fullEventRecord);
+
+		const [viewerRsvpRecord, parentEvent, ...speakerProfiles] = await Promise.all([
 			viewerDid
 				? getViewerRsvpFromContrail(client, {
 						eventUri: fullEventRecord.uri,
