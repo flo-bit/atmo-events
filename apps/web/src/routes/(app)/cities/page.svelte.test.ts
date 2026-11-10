@@ -4,36 +4,44 @@ import CitiesPage from './+page.svelte';
 
 // City names and qualifiers must survive query-string encoding.
 describe('city links', () => {
-	it('shows the fallback city and distance without extra explanatory copy', () => {
-		const html = render(CitiesPage, {
-			props: {
-				data: {
-					did: null,
-					profile: null,
-					canPostToBluesky: false,
-					isModerator: false,
-					pageTitle: 'Events nearby',
-					pageDescription: 'Find events near you.',
-					mode: 'events',
-					locationSource: 'ip',
-					radiusKm: 100,
-					distanceKm: 28,
-					detected: { city: 'Potsdam', country: 'DE', region: '' },
-					shown: { city: 'Berlin', country: 'DE', region: '', count: 1 },
-					noLocalEvents: true,
-					events: [],
-					handles: {},
-					cursor: null
+	it.each(['ip', 'selected'] as const)(
+		'shows fallback details and the right location note for %s',
+		(source) => {
+			const html = render(CitiesPage, {
+				props: {
+					data: {
+						did: null,
+						profile: null,
+						canPostToBluesky: false,
+						isModerator: false,
+						pageTitle: 'Events nearby',
+						pageDescription: 'Find events near you.',
+						mode: 'events',
+						locationSource: source,
+						radiusKm: 100,
+						distanceKm: 28,
+						detected: { city: 'Potsdam', country: 'DE', region: 'Brandenburg' },
+						shown: { city: 'Berlin', country: 'DE', region: '', count: 1 },
+						noLocalEvents: true,
+						events: [],
+						handles: {},
+						cursor: null
+					}
 				}
-			}
-		}).body;
-		expect(html).toMatch(/Events near\s+Potsdam/);
-		expect(html).toContain('Berlin');
-		expect(html).toContain('28 km away');
-		expect(html).not.toContain('approximate IP location');
-		expect(html).not.toContain('Listings refresh');
-		expect(html).not.toContain('Upcoming in-person');
-	});
+			}).body;
+			expect(html).toMatch(/Events near\s+Potsdam/);
+			expect(html).toContain('Berlin');
+			expect(html).toContain('28 km away');
+			expect(html).not.toContain('Brandenburg');
+			expect(html.includes('Your location is estimated from your internet connection.')).toBe(
+				source === 'ip'
+			);
+			expect(html.includes('href="/privacy"')).toBe(source === 'ip');
+			expect(html).not.toContain('approximate IP location');
+			expect(html).not.toContain('Listings refresh');
+			expect(html).not.toContain('Upcoming in-person');
+		}
+	);
 	it.each(['Biel/Bienne', 'A?B', 'A#B', 'A%2FB', '/', '/Berlin', 'Berlin/', 'São Paulo'])(
 		'preserves %s in the city-selection query without breaking rendering',
 		(city) => {

@@ -26,9 +26,12 @@
 					{data.noLocalEvents ? 'Events near' : 'Events in'}
 					{data.detected.city}
 				</h1>
-				{#if cityContext(data.detected)}<p class="text-base-600 dark:text-base-400 mt-2">
-						{cityContext(data.detected)}
-					</p>{/if}
+				{#if data.locationSource === 'ip'}
+					<p class="text-base-600 dark:text-base-400 mt-2 text-sm">
+						Your location is estimated from your internet connection. Learn more in our
+						<a class="underline" href={resolve('/(app)/privacy')}>privacy policy</a>.
+					</p>
+				{/if}
 			</div>
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
