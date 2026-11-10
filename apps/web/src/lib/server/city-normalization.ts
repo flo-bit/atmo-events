@@ -200,6 +200,18 @@ export function cityNameKey(name: string, country: string): string {
 	return Object.hasOwn(aliases, normalized) ? aliases[normalized] : normalized;
 }
 
+export function citySearchNames(name: string, country: string): string[] {
+	const canonical = cityNameKey(name, country);
+	const aliases = Object.hasOwn(CITY_NAMES, country) ? CITY_NAMES[country] : {};
+	return [
+		...new Set([
+			normalizeCityField(name),
+			canonical,
+			...Object.keys(aliases).filter((alias) => aliases[alias] === canonical)
+		])
+	];
+}
+
 export type NormalizedAddress = { scope: CityScope; label: CityScope };
 
 /** Cleans only supplied text. A comma is not automatically a city separator:

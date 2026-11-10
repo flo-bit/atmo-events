@@ -4,10 +4,10 @@
 
 `/cities` shows **upcoming events in one city**, not a combined radius feed.
 
-- A city explicitly selected in the picker takes precedence over Cloudflare's approximate IP location. The selected city is remembered on this device for 90 days in an HttpOnly, SameSite=Lax cookie scoped to `/cities`. “Use approximate IP location” clears it. Neither the IP coordinates nor this preference is published to ATProto. Selection/reset links disable SvelteKit data preloading so hovering never changes the preference.
-- Without a usable location, show the searchable picker. Its initial suggestions are event cities, ranked by snapshot event count. Searches also include the bundled GeoNames cities. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
+- A city explicitly selected in the picker takes precedence over Cloudflare's approximate IP location. The selected city is remembered on this device for 90 days in an HttpOnly, SameSite=Lax cookie scoped to `/cities`. The picker changes this preference; browser settings can clear it. Neither the IP coordinates nor this preference is published to ATProto. Selection links disable SvelteKit data preloading so hovering never changes the preference.
+- Without a usable location, show the searchable picker. Its initial suggestions are event cities, ranked by snapshot event count. Suggestions update as you type, using a debounced server lookup; searches also include the bundled GeoNames cities. Arrow keys and Enter select a suggestion. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
 - Show the matched city's live upcoming events first. If it has no live results and no continuation, check at most five other city candidates, ordered by approximate straight-line distance, within **100 km**. Borders do not restrict proximity. Stop at the first candidate with results or a continuation.
-- A continuation on an empty page means there are still candidates to check, not that the city is empty. Retain “Load more” and explain this state.
+- A continuation on an empty page means there are still candidates to check, not that the city is empty. Retain “Load more”.
 - If none of the bounded candidates qualify, show an empty state and let the user choose another city. Do not call a distant city “nearby.” Distances are approximate, not travel distances.
 - Virtual and cancelled events are excluded; hybrid events qualify. Events already underway are not included: this is explicitly an **upcoming** list.
 
@@ -44,4 +44,4 @@ pnpm --filter web build
 
 Regression coverage includes offset timestamps, cancellation, rescheduling, periodic freshness and immutable cursors, missing/ambiguous regions, scoped name aliases, incomplete-address picker selections, bounded cross-border candidates, stale fallback cities, preference cookies and private caching.
 
-After deployment, verify a successful v4 snapshot, an IP-detected visit (including a VPN/missing-location case), selecting and remembering a city, clearing that preference, fallback distance/empty states, and pagination. Local geolocation alone is not proof that production Cloudflare metadata is available.
+After deployment, verify a successful v4 snapshot, an IP-detected visit (including a VPN/missing-location case), live city suggestions, selecting and remembering a city, fallback distance/empty states, and pagination. Local geolocation alone is not proof that production Cloudflare metadata is available.

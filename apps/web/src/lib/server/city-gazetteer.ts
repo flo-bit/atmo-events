@@ -1,15 +1,27 @@
 import data from './geonames/cities.json';
 import { normalizeCityField, type CityScope } from '#lib/cities.js';
-import { cityNameKey, countryCode, normalizeCityAddress } from './city-normalization';
+import {
+	cityNameKey,
+	citySearchNames,
+	countryCode,
+	normalizeCityAddress
+} from './city-normalization';
 
 type Entry = [string, string, string, string, string, string, number, number];
 export type CityPoint = { latitude: number; longitude: number };
 const index = new Map<string, Entry[]>();
+const searchIndex: { entry: Entry; names: string[] }[] = [];
 let initialized = false;
 const key = (country: string, name: string) => `${country}:${cityNameKey(name, country)}`;
 function initialize() {
 	if (initialized) return;
 	for (const entry of data as Entry[]) {
+		searchIndex.push({
+			entry,
+			names: [
+				...new Set([...citySearchNames(entry[0], entry[2]), ...citySearchNames(entry[1], entry[2])])
+			]
+		});
 		for (const k of new Set([key(entry[2], entry[0]), key(entry[2], entry[1])])) {
 			const matches = index.get(k) ?? [];
 			matches.push(entry);
@@ -22,21 +34,21 @@ function initialize() {
 export function searchCityGazetteer(query: string, limit = 30): CityScope[] {
 	const term = normalizeCityField(query);
 	if (!term) return [];
+	initialize();
 	const matches: CityScope[] = [];
 	const seen = new Set<string>();
-	// Exact matches first, then prefixes, then substrings. Source-file order is
-	// not a relevance ranking (e.g. Boulder City must not outrank Boulder).
 	for (const match of ['exact', 'prefix', 'substring'] as const) {
-		for (const [name, ascii, country, , region] of data as Entry[]) {
-			const names = [cityNameKey(name, country), cityNameKey(ascii, country)];
-			const canonicalTerm = cityNameKey(term, country);
+		for (const {
+			entry: [name, , country, , region],
+			names
+		} of searchIndex) {
 			if (
 				!names.some((value) =>
 					match === 'exact'
-						? value === canonicalTerm
+						? value === term
 						: match === 'prefix'
-							? value.startsWith(canonicalTerm)
-							: value.includes(canonicalTerm)
+							? value.startsWith(term)
+							: value.includes(term)
 				)
 			)
 				continue;

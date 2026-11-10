@@ -4,7 +4,7 @@ import CitiesPage from './+page.svelte';
 
 // City names and qualifiers must survive query-string encoding.
 describe('city links', () => {
-	it('explains approximate location and the nearby fallback', () => {
+	it('shows the fallback city and distance without extra explanatory copy', () => {
 		const html = render(CitiesPage, {
 			props: {
 				data: {
@@ -27,12 +27,12 @@ describe('city links', () => {
 				}
 			}
 		}).body;
-		expect(html).toContain('Events in Potsdam');
-		expect(html).toContain('No upcoming events matched this location.');
-		expect(html).toContain('Events in Berlin');
-		expect(html).toContain('approximate IP location');
-		expect(html).toContain('About 28 km away');
-		expect(html).toContain('within 100 km');
+		expect(html).toMatch(/Events near\s+Potsdam/);
+		expect(html).toContain('Berlin');
+		expect(html).toContain('28 km away');
+		expect(html).not.toContain('approximate IP location');
+		expect(html).not.toContain('Listings refresh');
+		expect(html).not.toContain('Upcoming in-person');
 	});
 	it.each(['Biel/Bienne', 'A?B', 'A#B', 'A%2FB', '/', '/Berlin', 'Berlin/', 'São Paulo'])(
 		'preserves %s in the city-selection query without breaking rendering',

@@ -1,10 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import '../../../app.css';
 
 const mocks = vi.hoisted(() => ({
-	loadMore: vi.fn(async () => ({ events: [], handles: {}, cursor: null as string | null }))
+	loadMore: vi.fn(async () => ({ events: [], handles: {}, cursor: null as string | null })),
+	search: vi.fn<typeof fetch>()
 }));
 vi.mock('#lib/contrail/events.remote.js', () => ({ loadMoreEvents: mocks.loadMore }));
 
@@ -32,49 +33,100 @@ const local: Extract<PageData, { mode: 'events' }> = {
 	handles: {},
 	cursor: null
 };
-beforeEach(() => vi.clearAllMocks());
+beforeEach(() => {
+	vi.clearAllMocks();
+	mocks.search
+		.mockReset()
+		.mockImplementation(async () =>
+			Response.json({ cities: [{ city: 'Munich', country: 'DE', region: 'Bavaria' }] })
+		);
+	vi.stubGlobal('fetch', mocks.search);
+});
 afterEach(async () => {
+	vi.unstubAllGlobals();
 	await page.viewport(1280, 1000);
 });
 
 describe('nearby events UI', () => {
-	it('offers an accessible city search and does not preload preference-changing links', async () => {
+	it('suggests cities while typing and supports keyboard selection without preloading', async () => {
 		await page.viewport(390, 844);
 		await render(CitiesPage, {
 			data: {
 				...base,
 				mode: 'choose',
 				search: '',
-				cities: [{ city: 'Munich', country: 'DE', region: 'Bavaria' }]
+				cities: [{ city: 'Berlin', country: 'DE', region: 'Berlin' }]
 			}
 		});
-		await page.getByRole('textbox', { name: 'City', exact: true }).fill('München');
-		await expect.element(page.getByRole('button', { name: 'Search', exact: true })).toBeVisible();
-		const choice = page.getByRole('link', { name: 'Munich Bavaria, Germany' });
+		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		await input.fill('München');
+		await expect
+			.element(page.getByRole('button', { name: 'Search', exact: true }))
+			.not.toBeInTheDocument();
+		const choice = page.getByRole('option', { name: 'Munich Bavaria, Germany' });
 		await expect.element(choice).toHaveAttribute('data-sveltekit-preload-data', 'off');
 		await expect
 			.element(choice)
 			.toHaveAttribute('href', '/cities?city=Munich&country=DE&region=Bavaria');
+		expect(mocks.search).toHaveBeenCalledWith('/api/cities?q=M%C3%BCnchen', {
+			signal: expect.any(AbortSignal)
+		});
+		const select = vi.fn((event: Event) => event.preventDefault());
+		choice.element().addEventListener('click', select, { once: true });
+		await userEvent.keyboard('{ArrowDown}{Enter}');
+		expect(select).toHaveBeenCalledOnce();
 	});
-	it('explains an exhausted nearby search and lets the user clear their preference', async () => {
-		await render(CitiesPage, { data: { ...local, shown: null, noLocalEvents: true } });
+	it('ignores an outdated search response after the query changes', async () => {
+		let finish!: (response: Response) => void;
+		const pending = new Promise<Response>((resolve) => {
+			finish = resolve;
+		});
+		mocks.search
+			.mockImplementationOnce(() => pending)
+			.mockImplementation(async () =>
+				Response.json({ cities: [{ city: 'Berlin', country: 'DE', region: 'Berlin' }] })
+			);
+		await render(CitiesPage, { data: { ...base, mode: 'choose', search: '', cities: [] } });
+		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		await input.fill('par');
+		await expect.poll(() => mocks.search.mock.calls.length).toBe(1);
+		const signal = mocks.search.mock.calls[0][1]?.signal;
+		await input.fill('ber');
 		await expect
-			.element(page.getByText('No nearby results found. Try another city.'))
+			.element(page.getByRole('option', { name: 'Berlin Berlin, Germany' }))
 			.toBeVisible();
+		expect(signal?.aborted).toBe(true);
+		finish(Response.json({ cities: [{ city: 'Paris', country: 'FR', region: '' }] }));
+		await pending;
+		await expect
+			.element(page.getByRole('option', { name: 'Paris France' }))
+			.not.toBeInTheDocument();
+		await expect
+			.element(page.getByRole('option', { name: 'Berlin Berlin, Germany' }))
+			.toBeVisible();
+	});
+	it('allows retrying failed searches and closing suggestions with Escape', async () => {
+		mocks.search.mockResolvedValueOnce(new Response(null, { status: 503 }));
+		await render(CitiesPage, { data: { ...base, mode: 'choose', search: '', cities: [] } });
+		const input = page.getByRole('combobox', { name: 'City', exact: true });
+		await input.fill('mun');
+		await page.getByRole('button', { name: 'Retry', exact: true }).click();
+		await expect
+			.element(page.getByRole('option', { name: 'Munich Bavaria, Germany' }))
+			.toBeVisible();
+		await input.click();
+		await userEvent.keyboard('{Escape}');
+		await expect.element(input).toHaveAttribute('aria-expanded', 'false');
+		await expect.element(page.getByRole('listbox', { includeHidden: true })).not.toBeVisible();
+	});
+	it('keeps the empty state brief with only the city-change control', async () => {
+		await render(CitiesPage, { data: { ...local, shown: null, noLocalEvents: true } });
+		await expect.element(page.getByText('No nearby events.', { exact: true })).toBeVisible();
 		await expect.element(page.getByRole('link', { name: 'Change city' })).toBeVisible();
-		const reset = page.getByRole('link', { name: 'Use approximate IP location' });
-		await expect.element(reset).toHaveAttribute('data-sveltekit-preload-data', 'off');
-		await expect.element(reset).toHaveAttribute('href', '/cities?locate=1');
+		await expect.element(page.getByRole('link', { name: /IP location/ })).not.toBeInTheDocument();
 	});
 	it('keeps load-more usable when a sparse snapshot page has no live events yet', async () => {
 		await render(CitiesPage, { data: { ...local, cursor: 'remaining-city-events' } });
-		await expect
-			.element(
-				page.getByText(
-					'Some listings are no longer available. Load more to check the remaining events.'
-				)
-			)
-			.toBeVisible();
 		await page.getByRole('button', { name: 'Load more', exact: true }).click();
 		expect(mocks.loadMore).toHaveBeenCalledExactlyOnceWith({ cursor: 'remaining-city-events' });
 		await expect

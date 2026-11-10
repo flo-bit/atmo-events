@@ -2,7 +2,12 @@ import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
 import { cellToLatLng, getResolution, isValidCell } from 'h3-js';
 import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
 import { discoverableSql } from '#lib/contrail/discoverability.js';
-import { cityNameKey, countryCode, normalizeCityAddress } from './city-normalization';
+import {
+	cityNameKey,
+	citySearchNames,
+	countryCode,
+	normalizeCityAddress
+} from './city-normalization';
 import { cachedRead } from './edge-cache';
 import { normalizeCityField } from '#lib/cities.js';
 
@@ -431,7 +436,7 @@ export async function readNearbyPage(
 	const eventCities = entries
 		.filter(
 			(entry) =>
-				!query || cityNameKey(entry.city, entry.country).includes(cityNameKey(query, entry.country))
+				!query || citySearchNames(entry.city, entry.country).some((name) => name.includes(query))
 		)
 		.sort(
 			(a, b) =>

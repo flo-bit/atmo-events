@@ -19,6 +19,13 @@ describe('city gazetteer', () => {
 			cityPoint({ city: 'Berlin', country: 'DE', region: 'Berlin' })
 		);
 	});
+	it.each(['münch', 'muench', 'munic'])('suggests Munich while typing %s', (query) => {
+		expect(searchCityGazetteer(query, 8)).toContainEqual({
+			city: 'Munich',
+			country: 'DE',
+			region: 'Bavaria'
+		});
+	});
 	it('prioritizes exact search results before prefixes', () => {
 		expect(searchCityGazetteer('boulder')[0]).toMatchObject({
 			city: 'Boulder',

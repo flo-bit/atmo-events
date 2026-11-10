@@ -136,7 +136,7 @@
 				"title": "Cookies and browser storage",
 				"paragraphs": [
 					"We use cookies to keep you signed in and browser storage to remember your theme and recent accounts.",
-					"If you choose a city for nearby events, we remember that choice in a cookie on this device for up to 90 days. It is not published to your AT Protocol account. Choosing approximate IP location clears this preference."
+					"If you choose a city for nearby events, we remember that choice in a cookie on this device for up to 90 days. It is not published to your AT Protocol account. You can change the city in the picker or clear the cookie in your browser settings."
 				]
 			},
 			{
