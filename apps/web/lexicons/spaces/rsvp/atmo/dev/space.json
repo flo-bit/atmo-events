@@ -6,6 +6,7 @@
 			"type": "space",
 			"key": "any",
 			"name": "atmo.rsvp development",
+			"title": "atmo.rsvp development",
 			"description": "For development and testing of atmo.rsvp spaces.",
 			"collections": []
 		}
