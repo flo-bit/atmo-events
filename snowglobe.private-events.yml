@@ -1,0 +1,76 @@
+# The network for atmo's private events: two PDSes with spaces support, so a guest can be on another
+# server than the host, and a stock release without it, for the person whose server can't take part.
+# Beside snowglobe.yml, so one checkout can run both. A snowglobe command reads it through SG_FILE.
+#
+#   SG_FILE=snowglobe.private-events.yml pnpm exec snowglobe up
+#   SG_FILE=snowglobe.private-events.yml pnpm exec snowglobe run --app atmo -- pnpm --filter web dev --strictPort
+#   SG_FILE=snowglobe.private-events.yml pnpm exec snowglobe run --app walk -- pnpm --filter web exec node e2e/private-events.walk.mjs
+
+globe: atmoprivate # every name below is under atmoprivate.local.snowglobe.at
+
+pds:
+  - name: alpha # the spaces alpha of 11/12 (pds-b27a037c7); handles <name>.atmoprivate.local.snowglobe.at
+    image: ghcr.io/bluesky-social/atproto@sha256:1b3113b40eac2581b8f928bcec8840c8a0912c3a3d90bf3b965a775f8a97067a
+    bare_handles: true
+    invites: required
+  - name: beta
+    image: ghcr.io/bluesky-social/atproto@sha256:1b3113b40eac2581b8f928bcec8840c8a0912c3a3d90bf3b965a775f8a97067a
+    invites: required
+  - name: regular
+    image: ghcr.io/bluesky-social/pds:0.4.5037
+
+services:
+  jetstream: true
+  slingshot: true
+  pdsls: false
+  cdn: true
+
+lexicons:
+  # Every PDS here resolves lexicons from this one: the permission sets atmo's sign-in asks for, and
+  # the space type its private events use.
+  authority: alpha
+  publish: apps/web/e2e/lexicons
+
+accounts:
+  - alice@alpha
+  - bob@alpha
+  - mallory@alpha
+  - dana@beta
+  - carol@regular
+
+apps:
+  - name: atmo
+    env:
+      CLOUDFLARE_INCLUDE_PROCESS_ENV: 'true'
+      LOCAL_STATE_DIR: .wrangler/snowglobe-private
+      # Empty: atmo's loopback OAuth client, which needs no keys.
+      OAUTH_PUBLIC_URL: ''
+      # Only for this local network. The walk sends it to run atmo's ingest.
+      CRON_SECRET: local-network-only
+      PRIVATE_EVENTS: 'true'
+      SPACES_PDS_URL: ${pds.alpha.url}
+      PUBLIC_PLC_URL: ${services.plc.url}
+      PUBLIC_SLINGSHOT_URL: ${services.slingshot.url}
+      PUBLIC_JETSTREAM_URL: ${services.jetstream.url}
+      PUBLIC_RELAY_URLS: ${services.relay.url}
+      PUBLIC_SIGNUP_PDS_URL: ${pds.alpha.url}
+      PUBLIC_CDN_URL: ${services.cdn.url}
+
+  # What a test or a walk through atmo's pages needs to know.
+  - name: walk
+    env:
+      ALPHA_URL: ${pds.alpha.url}
+      BETA_URL: ${pds.beta.url}
+      REGULAR_URL: ${pds.regular.url}
+      JETSTREAM_URL: ${services.jetstream.url}
+      CRON_SECRET: local-network-only
+      ALICE_HANDLE: ${accounts.alice.handle}
+      ALICE_PASSWORD: ${accounts.alice.password}
+      BOB_HANDLE: ${accounts.bob.handle}
+      BOB_PASSWORD: ${accounts.bob.password}
+      MALLORY_HANDLE: ${accounts.mallory.handle}
+      MALLORY_PASSWORD: ${accounts.mallory.password}
+      DANA_HANDLE: ${accounts.dana.handle}
+      DANA_PASSWORD: ${accounts.dana.password}
+      CAROL_HANDLE: ${accounts.carol.handle}
+      CAROL_PASSWORD: ${accounts.carol.password}

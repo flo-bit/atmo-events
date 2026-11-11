@@ -1,0 +1,14 @@
+{
+	"lexicon": 1,
+	"id": "rsvp.atmo.dev.space",
+	"defs": {
+		"main": {
+			"type": "space",
+			"description": "For development and testing of atmo.rsvp spaces.",
+			"key": "any",
+			"name": "atmo.rsvp development",
+			"title": "atmo.rsvp development",
+			"collections": []
+		}
+	}
+}
