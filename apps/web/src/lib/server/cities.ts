@@ -1,6 +1,6 @@
 import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
 import { cellToLatLng, getResolution, isValidCell } from 'h3-js';
-import { TOP_CITIES_LIMIT, type City, type CityScope } from '#lib/cities.js';
+import { normalizeCityField, type City, type CityScope } from '#lib/cities.js';
 import { discoverableSql } from '#lib/contrail/discoverability.js';
 import {
 	cityNameKey,
@@ -9,9 +9,8 @@ import {
 	normalizeCityAddress
 } from './city-normalization';
 import { cachedRead } from './edge-cache';
-import { normalizeCityField } from '#lib/cities.js';
 
-export const CITY_SNAPSHOT_INTERVAL_MS = 15 * 60 * 1000;
+export const CITY_SNAPSHOT_INTERVAL_MS = 6 * 60 * 60 * 1000;
 export const CITY_SNAPSHOT_RETENTION_MS = 24 * 60 * 60 * 1000;
 export const NEARBY_RADIUS_KM = 200;
 export const NEARBY_CANDIDATE_LIMIT = 5;
@@ -60,7 +59,7 @@ function validPoint(value: unknown): Point | undefined {
 }
 
 // H3 cells coarser than resolution 4 cover too large an area for a useful
-// 500 km proximity estimate. Use the center; this is not an exact venue.
+// nearby-city estimate. Use the center; this is not an exact venue.
 function eventPoint(value: unknown): Point | undefined {
 	if (!value || typeof value !== 'object') return undefined;
 	const location = value as Record<string, unknown>;
@@ -88,7 +87,7 @@ function distanceKm(a: Point, b: Point): number {
 }
 
 /** The only events-wide city query. Cron runs it once per global refresh interval. */
-async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
+export async function buildCatalog(db: Database, asOf: string): Promise<BuiltCity[]> {
 	const result = await db
 		.prepare(
 			`SELECT
@@ -305,7 +304,11 @@ async function readParts<T>(db: Database, version: string, key: string): Promise
 	});
 }
 
-async function catalog(db: Database, version?: string): Promise<CatalogCity[] | null> {
+/** The published global catalog, or null before the first cron rebuild. */
+export async function readCityCatalog(
+	db: Database,
+	version?: string
+): Promise<CatalogCity[] | null> {
 	const id = version ?? (await currentVersion(db));
 	return id ? readParts<CatalogCity>(db, id, '') : null;
 }
@@ -334,7 +337,7 @@ export async function readCitySnapshot(
 } | null> {
 	const id = version ?? (await currentVersion(db));
 	if (!id) return null;
-	const cities = await catalog(db, id);
+	const cities = await readCityCatalog(db, id);
 	const city = cities && resolveCity(cities, input);
 	if (!city) return null;
 	const events = await readParts<CityMember>(db, id, scopeKey(city.scope));
@@ -350,7 +353,7 @@ export async function cityConditions(
 ): Promise<{ conditions: string[]; params: string[] }> {
 	const empty = { conditions: ['0 = 1'], params: [] };
 	if (!normalizeCityAddress(input)) return empty;
-	const cities = await catalog(db, version);
+	const cities = await readCityCatalog(db, version);
 	const city = cities && resolveCity(cities, input);
 	if (!city) return empty;
 	return {
@@ -366,38 +369,6 @@ export async function cityConditions(
 				AND ${text('region')} = json_extract(v.value, '$[2]'))`
 		],
 		params: [new Date().toISOString(), JSON.stringify(city.variants)]
-	};
-}
-
-/** Select from the complete cached catalog, not just the worldwide top 20.
- * Coordinates come only from events with one address and one geo or precise H3 point; cities
- * with widely conflicting event coordinates fall back to country matching. */
-export async function readCitySuggestions(
-	db: Database,
-	location?: { latitude?: unknown; longitude?: unknown; country?: unknown },
-	asOf?: string
-): Promise<{ cities: City[]; nearby: City[]; inCountry: City[] }> {
-	const cities = asOf ? await buildCatalog(db, asOf) : await catalog(db);
-	if (!cities) throw new Error('City snapshot is not available yet');
-	const visitor = validPoint(location);
-	const country = typeof location?.country === 'string' ? countryCode(location.country) : undefined;
-	const nearby: City[] = [];
-	const inCountry: City[] = [];
-	for (const { city, country: cityCountry, region, count, point } of cities) {
-		const result = { city, country: cityCountry, region, count };
-		if (visitor && point && distanceKm(visitor, point) <= 500) nearby.push(result);
-		else if ((!visitor || !point) && country && countryCode(cityCountry) === country)
-			inCountry.push(result);
-	}
-	return {
-		cities: cities.slice(0, TOP_CITIES_LIMIT).map(({ city, country, region, count }) => ({
-			city,
-			country,
-			region,
-			count
-		})),
-		nearby: nearby.slice(0, TOP_CITIES_LIMIT),
-		inCountry: inCountry.slice(0, TOP_CITIES_LIMIT)
 	};
 }
 
@@ -423,7 +394,7 @@ export async function readNearbyPage(
 	nearby: NearbyCity[];
 	cities: CityScope[];
 }> {
-	const entries = await catalog(db);
+	const entries = await readCityCatalog(db);
 	if (!entries) throw new Error('City snapshot is not available yet');
 	const { cityPoint, searchCityGazetteer } = await import('./city-gazetteer');
 	const display = ({ city, country, region, count }: CatalogCity): City => ({
@@ -516,13 +487,4 @@ export async function readNearbyPage(
 		nearby: nearby.slice(0, NEARBY_CANDIDATE_LIMIT),
 		cities
 	};
-}
-
-/** Optional asOf bypasses snapshot storage for deterministic tests/diagnostics. */
-export async function readTopCities(db: Database, asOf?: string): Promise<City[]> {
-	const cities = asOf ? await buildCatalog(db, asOf) : await catalog(db);
-	if (!cities) throw new Error('City snapshot is not available yet');
-	return cities
-		.slice(0, TOP_CITIES_LIMIT)
-		.map(({ city, country, region, count }) => ({ city, country, region, count }));
 }

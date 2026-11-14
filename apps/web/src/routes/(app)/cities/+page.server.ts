@@ -6,9 +6,8 @@ import { cityQuery, EMPTY_PAGE } from '#lib/contrail/queries.js';
 import { NEARBY_RADIUS_KM, readNearbyPage, refreshCitySnapshot } from '#lib/server/cities.js';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ request, url, setHeaders, cookies }) => {
+export const load: PageServerLoad = async ({ request, url, setHeaders }) => {
 	setHeaders({ 'cache-control': 'private, no-store' });
-	if (cookies.get('nearby-city')) cookies.delete('nearby-city', { path: '/cities' });
 	const meta = { pageTitle: 'Nearby', pageDescription: 'Find upcoming events near you.' };
 	try {
 		if (dev) {

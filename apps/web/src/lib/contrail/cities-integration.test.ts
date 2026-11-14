@@ -103,16 +103,18 @@ describe('city snapshots with published Contrail', () => {
 	});
 	it('does not drop a rescheduled event because its snapshot start time elapsed', async () => {
 		const uri = `at://${did}/${collection}/event-0`;
+		const refreshAt = Date.now() + CITY_SNAPSHOT_INTERVAL_MS;
+		const at = (minutes: number) => new Date(refreshAt + minutes * 60_000).toISOString();
 		await db
 			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
-			.bind('2026-10-28T12:30:00Z', uri)
+			.bind(at(30), uri)
 			.run();
-		vi.setSystemTime(new Date(Date.now() + CITY_SNAPSHOT_INTERVAL_MS));
+		vi.setSystemTime(new Date(refreshAt));
 		await refreshCitySnapshot(snapshotDb);
-		vi.setSystemTime(new Date('2026-10-28T13:00:00Z'));
+		vi.setSystemTime(new Date(at(60)));
 		await db
 			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
-			.bind('2026-10-28T14:00:00Z', uri)
+			.bind(at(120), uri)
 			.run();
 		expect((await cityQuery(client, scope, null, db)).events.map(({ uri }) => uri)).toContain(uri);
 	});

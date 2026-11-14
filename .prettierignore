@@ -4,4 +4,4 @@ pnpm-lock.yaml
 yarn.lock
 
 # Generated GeoNames dataset
-apps/web/src/lib/server/geonames/cities.json
+apps/web/src/lib/server/geonames/*.tsv

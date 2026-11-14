@@ -4,7 +4,7 @@
 
 `/cities` shows **upcoming events in one city**, not a combined radius feed.
 
-- `/cities` uses Cloudflare's approximate IP location. Picking a city sets it in the URL for that visit, not a persistent preference. Opening `/cities` again uses IP location. Legacy `nearby-city` cookies are cleared.
+- `/cities` uses Cloudflare's approximate IP location. Picking a city sets it in the URL (`/cities?city=…&country=…&region=…`) for that visit, not a persistent preference. Opening `/cities` again uses IP location.
 - Without a usable location, show the searchable picker. It shows the city cards immediately, ranked by snapshot event count. Typing filters the cards using a debounced server lookup; clearing the field restores them. Searches also include the bundled GeoNames cities. Exact names rank before prefixes within the gazetteer; known event cities remain preferred.
 - Show the matched city's live upcoming events first. If it has no live results and no continuation, check at most five other city candidates, ordered by approximate straight-line distance, within **200 km**. Borders do not restrict proximity. Stop at the first candidate with results or a continuation.
 - A continuation on an empty page means there are still candidates to check, not that the city is empty. Retain “Load more”.
@@ -23,7 +23,7 @@ Distance calculations prefer a uniquely resolved city center. Otherwise, an even
 
 ## Freshness, pagination and cost
 
-- The existing authenticated cron runs every minute. A persisted lease allows only one global city rebuild per **15-minute interval**, not one rebuild per visitor or edge location.
+- The existing authenticated cron runs every minute. A persisted lease allows only one global city rebuild per **6-hour interval**, not one rebuild per visitor or edge location.
 - A rebuild scans the indexed event records, groups normalized cities and publishes immutable city memberships atomically. New events normally appear within one interval **after ingestion**, plus up to one minute of edge head-cache lag. Network ingestion and failed cron jobs can add delay.
 - The new definition is `cities:v4`. The next successful cron rebuild upgrades it automatically; no publisher migration or external geocoding is required. Before that initial rebuild, the page reports temporary unavailability rather than scanning events during a production request.
 - SQL compares timestamps as instants using `julianday`; snapshot ordering stores UTC-normalized times. Author records retain their original timestamps and offsets.
@@ -31,17 +31,17 @@ Distance calculations prefer a uniquely resolved city center. Otherwise, an even
 - Pages contain up to 20 events and check at most 60 record candidates per city request. Old snapshot IDs keep an in-flight walk stable. Snapshots are retained in D1 for 24 hours, independently of the rebuild interval; expired cursors end rather than silently restarting.
 - Only global catalog/membership data uses the shared edge cache. The personalized page is `private, no-store`.
 
-The 15-minute interval trades additional background work/storage for usable freshness. It means up to 96 published snapshots per day instead of one. Monitor D1 reads/writes, snapshot age (`city_snapshot_state.updated_at`), and `[cron] refreshCitySnapshot failed` logs as the corpus grows. An incremental city index is a future optimization, not part of this change.
+The 6-hour interval means up to 4 full rebuilds and stored snapshots per day. Newly published events can take up to 6 hours to join a city list; changes to existing events (time, cancellation, visibility) apply immediately because they are checked live. Monitor D1 reads/writes, snapshot age (`city_snapshot_state.updated_at`), and `[cron] refreshCitySnapshot failed` logs as the corpus grows. An incremental city index is a future optimization, not part of this change.
 
 ## Validation and PR checklist
 
 ```sh
 pnpm --filter web check
-pnpm --filter web exec vitest run src/lib/server/cities.test.ts src/lib/server/city-gazetteer.test.ts src/lib/server/city-normalization.test.ts src/lib/contrail/cities-integration.test.ts 'src/routes/(app)/cities'
+pnpm --filter web exec vitest run src/lib/server/cities.test.ts src/lib/server/city-gazetteer.test.ts src/lib/server/city-normalization.test.ts src/lib/contrail/cities-integration.test.ts src/lib/contrail/city-query.test.ts 'src/routes/(app)/cities'
 pnpm --filter web exec vitest run --config vitest.browser.config.ts 'src/routes/(app)/cities/page.browser.spec.ts'
 pnpm --filter web build
 ```
 
-Regression coverage includes offset timestamps, cancellation, rescheduling, periodic freshness and immutable cursors, missing/ambiguous regions, scoped name aliases, incomplete-address picker selections, bounded cross-border candidates, stale fallback cities, legacy-cookie cleanup and private caching.
+Regression coverage includes offset timestamps, cancellation, rescheduling, periodic freshness and immutable cursors, missing/ambiguous regions, scoped name aliases, incomplete-address picker selections, bounded cross-border candidates, stale fallback cities, and private caching.
 
 After deployment, verify a successful v4 snapshot, an IP-detected visit (including a VPN/missing-location case), live city filtering, explicit city selection, a fresh visit using IP location, fallback distance/empty states, and pagination. Local geolocation alone is not proof that production Cloudflare metadata is available.

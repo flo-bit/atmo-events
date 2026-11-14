@@ -1,4 +1,5 @@
-import data from './geonames/cities.json';
+import citiesTsv from './geonames/cities.tsv?raw';
+import regionsTsv from './geonames/regions.tsv?raw';
 import { normalizeCityField, type CityScope } from '#lib/cities.js';
 import {
 	cityNameKey,
@@ -7,21 +8,39 @@ import {
 	normalizeCityAddress
 } from './city-normalization';
 
-type Entry = [string, string, string, string, string, string, number, number];
+// Compact tab-separated data; see scripts/build-city-gazetteer.mjs.
+type Entry = [
+	name: string,
+	ascii: string,
+	country: string,
+	regionCode: string,
+	regionName: string,
+	regionAscii: string,
+	latitude: number,
+	longitude: number
+];
 export type CityPoint = { latitude: number; longitude: number };
 const index = new Map<string, Entry[]>();
-const searchIndex: { entry: Entry; names: string[] }[] = [];
+const searchIndex: { entry: Entry; names: string[]; text: string }[] = [];
 let initialized = false;
 const key = (country: string, name: string) => `${country}:${cityNameKey(name, country)}`;
 function initialize() {
 	if (initialized) return;
-	for (const entry of data as Entry[]) {
-		searchIndex.push({
-			entry,
-			names: [
-				...new Set([...citySearchNames(entry[0], entry[2]), ...citySearchNames(entry[1], entry[2])])
-			]
-		});
+	const rows = (tsv: string) =>
+		tsv
+			.split('\n')
+			.filter(Boolean)
+			.map((line) => line.split('\t'));
+	const regions = new Map(rows(regionsTsv).map(([key, ...names]) => [key, names]));
+	for (const [name, country, code, lat, lon, ascii = name] of rows(citiesTsv)) {
+		const [regionName = '', regionAscii = regionName] = regions.get(`${country}.${code}`) ?? [];
+		const latitude = Number(lat);
+		const longitude = Number(lon);
+		const entry: Entry = [name, ascii, country, code, regionName, regionAscii, latitude, longitude];
+		const names = [
+			...new Set([...citySearchNames(name, country), ...citySearchNames(ascii, country)])
+		];
+		searchIndex.push({ entry, names, text: names.join('\n') });
 		for (const k of new Set([key(entry[2], entry[0]), key(entry[2], entry[1])])) {
 			const matches = index.get(k) ?? [];
 			matches.push(entry);
@@ -35,30 +54,27 @@ export function searchCityGazetteer(query: string, limit = 30): CityScope[] {
 	const term = normalizeCityField(query);
 	if (!term) return [];
 	initialize();
+	// One pass over the index: exact names rank before prefixes before substrings.
+	// `text` joins an entry's names so most entries are rejected with one check.
+	const buckets: Entry[][] = [[], [], []];
+	for (const { entry, names, text } of searchIndex) {
+		if (!text.includes(term)) continue;
+		const rank = names.some((value) => value === term)
+			? 0
+			: names.some((value) => value.startsWith(term))
+				? 1
+				: 2;
+		buckets[rank].push(entry);
+	}
 	const matches: CityScope[] = [];
 	const seen = new Set<string>();
-	for (const match of ['exact', 'prefix', 'substring'] as const) {
-		for (const {
-			entry: [name, , country, , region],
-			names
-		} of searchIndex) {
-			if (
-				!names.some((value) =>
-					match === 'exact'
-						? value === term
-						: match === 'prefix'
-							? value.startsWith(term)
-							: value.includes(term)
-				)
-			)
-				continue;
-			const city = { city: name, country, region };
-			const id = JSON.stringify([normalizeCityField(name), country, normalizeCityField(region)]);
-			if (seen.has(id) || !cityPoint(city)) continue;
-			seen.add(id);
-			matches.push(city);
-			if (matches.length >= limit) return matches;
-		}
+	for (const [name, , country, , region] of buckets.flat()) {
+		const city = { city: name, country, region };
+		const id = JSON.stringify([normalizeCityField(name), country, normalizeCityField(region)]);
+		if (seen.has(id) || !cityPoint(city)) continue;
+		seen.add(id);
+		matches.push(city);
+		if (matches.length >= limit) break;
 	}
 	return matches;
 }

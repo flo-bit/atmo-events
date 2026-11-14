@@ -22,13 +22,11 @@ const potsdam = { city: 'Potsdam', country: 'DE', region: 'Brandenburg', count: 
 const brandenburg = { city: 'Brandenburg', country: 'DE', region: 'Brandenburg', count: 1 };
 const cf = { city: 'Berlin', country: 'DE', latitude: '52.5', longitude: '13.4' };
 const empty = { events: [], handles: {}, cursor: null };
-const jar = (value?: string) => ({ get: vi.fn(() => value), set: vi.fn(), delete: vi.fn() });
-const run = (query = '', location: unknown = cf, setHeaders = vi.fn(), cookies = jar()) =>
+const run = (query = '', location: unknown = cf, setHeaders = vi.fn()) =>
 	load({
 		request: { cf: location },
 		url: new URL(`https://atmo.test/cities${query}`),
-		setHeaders,
-		cookies
+		setHeaders
 	} as never);
 beforeEach(() => {
 	vi.mocked(readNearbyPage).mockResolvedValue({
@@ -105,16 +103,14 @@ describe('events nearby', () => {
 		expect(await run()).toMatchObject({ shown: null, noLocalEvents: true, ...empty });
 		expect(cityQuery).not.toHaveBeenCalled();
 	});
-	it('uses an explicit city for this URL without saving it', async () => {
-		const cookies = jar();
-		await run('?city=Berlin&country=DE&region=Berlin', cf, vi.fn(), cookies);
+	it('uses an explicit city from the URL', async () => {
+		await run('?city=Berlin&country=DE&region=Berlin');
 		expect(readNearbyPage).toHaveBeenCalledWith(
 			expect.anything(),
 			{ city: 'Berlin', country: 'DE', region: 'Berlin' },
 			'',
 			{ explicit: true }
 		);
-		expect(cookies.set).not.toHaveBeenCalled();
 	});
 	it('allows an explicit countryless catalog choice', async () => {
 		await run('?city=Legacy+City&country=&region=');
@@ -125,19 +121,10 @@ describe('events nearby', () => {
 			{ explicit: true }
 		);
 	});
-	it.each([JSON.stringify({ city: 'Munich', country: 'DE', region: 'Bavaria' }), 'not json'])(
-		'uses IP location and removes an old saved choice: %s',
-		async (value) => {
-			const cookies = jar(value);
-			expect(await run('', cf, vi.fn(), cookies)).toMatchObject({
-				locationSource: 'ip',
-				detected: berlin
-			});
-			expect(cookies.delete).toHaveBeenCalledWith('nearby-city', { path: '/cities' });
-			expect(cookies.set).not.toHaveBeenCalled();
-			expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
-		}
-	);
+	it('uses IP location by default', async () => {
+		expect(await run()).toMatchObject({ locationSource: 'ip', detected: berlin });
+		expect(readNearbyPage).toHaveBeenCalledWith(expect.anything(), cf, '', { explicit: false });
+	});
 	it('offers a picker when location is unavailable or another city is requested', async () => {
 		vi.mocked(readNearbyPage).mockResolvedValue({
 			detected: null,
@@ -159,9 +146,7 @@ describe('events nearby', () => {
 			nearby: [],
 			cities: []
 		});
-		const cookies = jar();
-		expect(await run('?city=unknown', cf, vi.fn(), cookies)).toMatchObject({ mode: 'choose' });
-		expect(cookies.set).not.toHaveBeenCalled();
+		expect(await run('?city=unknown')).toMatchObject({ mode: 'choose' });
 	});
 	it('shows an error when the catalog is unavailable', async () => {
 		vi.spyOn(console, 'warn').mockImplementation(() => {});

@@ -2,11 +2,11 @@ import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { latLngToCell } from 'h3-js';
 import { config } from '#lib/contrail.config.js';
-import { TOP_CITIES_LIMIT } from '#lib/cities.js';
+import type { Database } from '@atmo-dev/contrail';
 import {
+	buildCatalog,
 	cityConditions,
-	readTopCities,
-	readCitySuggestions,
+	readCityCatalog,
 	readNearbyPage,
 	readCitySnapshot,
 	refreshCitySnapshot,
@@ -20,6 +20,17 @@ const NOW = '2026-10-28T12:00:00.000Z';
 const FUTURE = '2026-11-15T12:00:00.000Z';
 const PAST = '2026-10-27T12:00:00.000Z';
 const databases: DatabaseSync[] = [];
+// Ranked catalog as stored in the snapshot, or built directly for a given time.
+async function readTopCities(db: Database, asOf?: string) {
+	const cities = asOf ? await buildCatalog(db, asOf) : await readCityCatalog(db);
+	if (!cities) throw new Error('City snapshot is not available yet');
+	return cities.map(({ city, country, region, count }) => ({ city, country, region, count }));
+}
+// Nearby event cities for a visitor at a point outside the gazetteer.
+async function nearbyTo(db: Database, latitude: string, longitude: string) {
+	const page = await readNearbyPage(db, { city: 'Nowhere', country: 'DE', latitude, longitude });
+	return page.nearby.map(({ city }) => city.city);
+}
 beforeEach(() => {
 	vi.useFakeTimers();
 	vi.setSystemTime(new Date(NOW));
@@ -236,7 +247,7 @@ describe('existing-field city discovery', () => {
 		]);
 	});
 
-	it('finds nearby cities across borders and falls back to unlocated cities in the country', async () => {
+	it('finds nearby cities across borders within the radius', async () => {
 		const { db, add } = setup();
 		const geo = (latitude: unknown, longitude: unknown) => ({
 			$type: 'community.lexicon.location.geo',
@@ -250,22 +261,8 @@ describe('existing-field city discovery', () => {
 		add({ locations: [address('Sampletown'), geo('', '13')] });
 		add({ locations: [address('Ambiguous'), address('Other'), geo('52.52', '13.405')] });
 		await refreshCitySnapshot(db);
-		const result = await readCitySuggestions(db, {
-			latitude: '52.52',
-			longitude: '13.405',
-			country: 'DE'
-		});
-		expect(result.nearby.map((city) => city.city)).toEqual(['Berlin', 'Szczecin']);
-		expect(result.inCountry.map((city) => city.city)).toEqual(['Ambiguous', 'Other', 'Sampletown']);
-		const fallback = await readCitySuggestions(db, { latitude: '', longitude: '', country: 'DE' });
-		expect(fallback.nearby).toEqual([]);
-		expect(fallback.inCountry.map((city) => city.city)).toEqual([
-			'Berlin',
-			'Ambiguous',
-			'Munich',
-			'Other',
-			'Sampletown'
-		]);
+		expect(await nearbyTo(db, '52.52', '13.405')).toEqual(['Berlin', 'Szczecin']);
+		expect(await nearbyTo(db, '', '')).toEqual([]);
 	});
 
 	it('does not guess coordinates for multiple locations or conflicting city points', async () => {
@@ -282,17 +279,7 @@ describe('existing-field city discovery', () => {
 		add({ locations: [address('Agreement'), geo('52.52', '13.405')] });
 		add({ locations: [address('Agreement'), geo('52.53', '13.41')] });
 		await refreshCitySnapshot(db);
-		const result = await readCitySuggestions(db, {
-			latitude: '52.52',
-			longitude: '13.405',
-			country: 'DE'
-		});
-		expect(result.nearby.map((city) => city.city)).toEqual(['Agreement']);
-		expect(result.inCountry.map((city) => city.city)).toEqual([
-			'Conflicting',
-			'Multi Address',
-			'Multi Geo'
-		]);
+		expect(await nearbyTo(db, '52.52', '13.405')).toEqual(['Agreement']);
 	});
 
 	it('uses sufficiently precise H3 cells but not malformed, coarse, or ambiguous locations', async () => {
@@ -313,39 +300,23 @@ describe('existing-field city discovery', () => {
 			]
 		});
 		await refreshCitySnapshot(db);
-		const result = await readCitySuggestions(db, {
-			latitude: '52.52',
-			longitude: '13.405',
-			country: 'DE'
-		});
-		expect(result.nearby.map((city) => city.city)).toEqual(['Precise']);
-		expect(result.inCountry.map((city) => city.city)).toEqual([
-			'Ambiguous Formats',
-			'Coarse',
-			'Invalid'
-		]);
+		expect(await nearbyTo(db, '52.52', '13.405')).toEqual(['Precise']);
 	});
 
-	it('calculates the 500 km boundary and wraps across the date line', async () => {
+	it('calculates the radius boundary and wraps across the date line', async () => {
 		const { db, add } = setup();
 		const addPoint = (city: string, latitude: string, longitude: string) =>
 			add({
 				locations: [address(city), { $type: 'community.lexicon.location.geo', latitude, longitude }]
 			});
-		addPoint('Inside', '0', '4.49');
-		addPoint('Outside', '0', '4.50');
-		addPoint('Date Line', '0', '-179');
+		// One degree of longitude at the equator is ~111.19 km.
+		const edge = NEARBY_RADIUS_KM / 111.19;
+		addPoint('Inside', '0', (edge - 0.01).toFixed(2));
+		addPoint('Outside', '0', (edge + 0.01).toFixed(2));
+		addPoint('Date Line', '0', '-179.5');
 		await refreshCitySnapshot(db);
-		expect(
-			(await readCitySuggestions(db, { latitude: '0', longitude: '0' })).nearby.map(
-				(city) => city.city
-			)
-		).toEqual(['Inside']);
-		expect(
-			(await readCitySuggestions(db, { latitude: '0', longitude: '179' })).nearby.map(
-				(city) => city.city
-			)
-		).toEqual(['Date Line']);
+		expect(await nearbyTo(db, '0', '0')).toEqual(['Inside']);
+		expect(await nearbyTo(db, '0', '179.5')).toEqual(['Date Line']);
 	});
 
 	it('finds the IP city and the nearest event city even when event addresses lack coordinates', async () => {
@@ -552,25 +523,23 @@ describe('existing-field city discovery', () => {
 			]
 		});
 		await refreshCitySnapshot(db);
-		expect((await readTopCities(db)).some((city) => city.city === 'Local')).toBe(false);
-		expect(
-			(await readCitySuggestions(db, { latitude: '52.5', longitude: '13.4' })).nearby.map(
-				(city) => city.city
-			)
-		).toEqual(['Local']);
+		expect((await readTopCities(db)).slice(0, 20).some((city) => city.city === 'Local')).toBe(
+			false
+		);
+		expect(await nearbyTo(db, '52.5', '13.4')).toEqual(['Local']);
 	});
 
-	it('returns only the top 20 with stable tie-breaking and no zero-count cities', async () => {
+	it('ranks by count with stable tie-breaking and no zero-count cities', async () => {
 		const { db, add } = setup();
 		for (let i = 0; i < 25; i++)
 			add({ locations: [address(`City ${String(i).padStart(2, '0')}`)] });
 		add({ locations: [address('City 24')] });
 		add({ locations: [address('Ended City')], startsAt: PAST });
 		const cities = await readTopCities(db, NOW);
-		expect(cities).toHaveLength(TOP_CITIES_LIMIT);
+		expect(cities).toHaveLength(25);
 		expect(cities[0]).toMatchObject({ city: 'City 24', count: 2 });
 		expect(cities.slice(1).map(({ city }) => city)).toEqual(
-			Array.from({ length: 19 }, (_, i) => `City ${String(i).padStart(2, '0')}`)
+			Array.from({ length: 24 }, (_, i) => `City ${String(i).padStart(2, '0')}`)
 		);
 	});
 
@@ -639,7 +608,7 @@ describe('existing-field city discovery', () => {
 		expect(await matching({ city: 'Springfield', country: 'US', region: '' })).toHaveLength(1);
 	});
 
-	it('applies top-20 AFTER merging variants, not before', async () => {
+	it('ranks AFTER merging variants, not before', async () => {
 		const { db, add } = setup();
 		for (let i = 0; i < 20; i++) {
 			add({ locations: [address(`Other ${i}`)] });
@@ -648,7 +617,7 @@ describe('existing-field city discovery', () => {
 		for (const raw of ['Boulder', 'Boulder, CO, 80302', 'Boulder, Colorado, 80304'])
 			add({ locations: [address(raw, 'US', 'CO')] });
 		const cities = await readTopCities(db, NOW);
-		expect(cities).toHaveLength(20);
+		expect(cities).toHaveLength(21);
 		expect(cities[0]).toMatchObject({ city: 'Boulder', count: 3 });
 	});
 
