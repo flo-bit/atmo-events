@@ -165,15 +165,11 @@ export async function load({ params, locals, url }) {
 			}
 		}
 	}
-	const conferenceVods: Record<string, { playlistUrl: string; subtitlesUrl?: string }> = {};
+	const conferenceVods: Record<string, { playlistUrl: string }> = {};
 	for (const talk of conferenceTalks) {
 		const talkVod = (talk.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
 			string | undefined;
-		if (talkVod)
-			conferenceVods[talk.uri] = {
-				...vodFromAtUri(talkVod),
-				subtitlesUrl: `/vods/${talk.rkey}-karaoke.vtt`
-			};
+		if (talkVod) conferenceVods[talk.uri] = vodFromAtUri(talkVod);
 	}
 
 	const description = parseEventDescription(eventData);
