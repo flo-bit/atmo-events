@@ -80,7 +80,7 @@
 		"@atcute/jetstream": "^2.2.0",
 		"@atcute/password-session": "^1.0.2",
 		"@atmo-dev/contrail": "0.29.1",
-		"@atmo-dev/kit": "0.11.1",
+		"@atmo-dev/kit": "0.13.0",
 		"@internationalized/date": "^3.12.4",
 		"@number-flow/svelte": "^0.4.2",
 		"@sketchyicons/svelte": "^0.5.0",
