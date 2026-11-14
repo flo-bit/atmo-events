@@ -18,7 +18,8 @@ describe('Contrail configuration', () => {
 	it('keeps authored and conference-talk filters server owned', async () => {
 		const queries = config.collections.event.pipelineQueries!;
 		const authored = await queries.listAuthored(undefined as never, new URLSearchParams(), config);
-		expect(authored.conditions?.join(' ')).toContain('IS NULL');
+		expect(authored.conditions?.join(' ')).toContain('NOT');
+		expect(authored.conditions?.join(' ')).toContain('parentEvent.uri');
 		const talks = await queries.listTalks(
 			undefined as never,
 			new URLSearchParams('parentUri=at://example/c/key'),

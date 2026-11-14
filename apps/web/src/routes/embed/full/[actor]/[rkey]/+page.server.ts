@@ -17,6 +17,7 @@ import {
 import { getServerClient } from '#lib/contrail/index.js';
 import { vodFromAtUri } from '#lib/vods.js';
 import { parseEventDescription } from '#lib/server/event-description.js';
+import { getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
 
 export async function load({ params, url }) {
 	const client = getServerClient(env.DB);
@@ -39,8 +40,8 @@ export async function load({ params, url }) {
 		if (!eventData) throw error(404, 'Event not found');
 
 		const fullEventRecord = eventRecord!;
-		const isAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)
-			?.isAtmosphereconf;
+		const parentRef = getParentEventRef(eventData);
+		const parentParts = parentRef ? parseEventUri(parentRef.uri) : null;
 		const speakers =
 			((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
 				Array<{ id: string; name: string }> | undefined) ?? [];
@@ -60,10 +61,10 @@ export async function load({ params, url }) {
 						actor: viewerDid as ActorIdentifier
 					})
 				: null,
-			isAtmosphereconf
+			parentParts
 				? getEventRecordFromContrail(client, {
-						did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq',
-						rkey: '3lte3c7x43l2e',
+						did: parentParts.did,
+						rkey: parentParts.rkey,
 						profiles: true
 					})
 						.then((r) => (r ? flattenEventRecord(r) : null))

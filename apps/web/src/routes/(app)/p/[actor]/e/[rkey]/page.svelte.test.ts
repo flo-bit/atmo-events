@@ -87,7 +87,6 @@ function markup(
 					viewerRsvpRkey: null,
 					parentEvent: null,
 					parentEventActor: null,
-					parentScheduleUrl: null,
 					vod: null,
 					isConference: false,
 					conferenceTalks: [],

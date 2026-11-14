@@ -22,6 +22,7 @@ import { vodFromAtUri } from '#lib/vods.js';
 import { eventDescriptionTexts, parseEventDescription } from '#lib/server/event-description.js';
 import { richTextToPlainText } from '@atmo-dev/kit/richtext';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
+import { conferenceTalksActor } from '#lib/legacy-conference.js';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -77,16 +78,7 @@ export async function load({ params, locals, url }) {
 	// pointing back at it via additionalData.parentEvent.
 	const isConference = isConferenceEvent(eventData);
 	const parentRef = getParentEventRef(eventData);
-	// Back-compat: atmosphereconf talks predate `parentEvent` (they carry an
-	// `isAtmosphereconf` flag instead). Point them at the conference event until
-	// the migration backfills `additionalData.parentEvent`. Remove after that.
-	const legacyAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)
-		?.isAtmosphereconf;
-	const parentParts = parentRef
-		? parseEventUri(parentRef.uri)
-		: legacyAtmosphereconf
-			? { did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e' }
-			: null;
+	const parentParts = parentRef ? parseEventUri(parentRef.uri) : null;
 
 	const speakers =
 		((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
@@ -128,7 +120,7 @@ export async function load({ params, locals, url }) {
 		isConference
 			? listConferenceTalksFromContrail(client, {
 					parentUri: eventUri,
-					actor: did as ActorIdentifier
+					actor: conferenceTalksActor(eventUri, did) as ActorIdentifier
 				}).catch(() => null)
 			: null,
 		// The viewer's RSVPs, so the timetable can show per-talk going/interested.
@@ -157,11 +149,6 @@ export async function load({ params, locals, url }) {
 	const parentEventActor = parentParts
 		? (getHostProfile(parentParts.did, parentRecord?.profiles)?.handle ?? parentParts.did)
 		: null;
-	// Legacy atmosphereconf talks link to the dedicated schedule route rather
-	// than the conference event page (which only renders a timetable once the
-	// event is migrated to type=conference). Drop after migration.
-	const parentScheduleUrl = !parentRef && legacyAtmosphereconf ? '/p/atmosphereconf.org' : null;
-
 	// Conference talks → schedule maps (RSVP status/rkey + VODs keyed by event URI).
 	const conferenceTalks = conferenceTalksResp
 		? flattenEventRecords(conferenceTalksResp.records)
@@ -218,7 +205,6 @@ export async function load({ params, locals, url }) {
 		viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
 		parentEvent,
 		parentEventActor,
-		parentScheduleUrl,
 		vod,
 		isConference,
 		conferenceTalks,

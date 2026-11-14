@@ -2,12 +2,16 @@ import type { ContrailConfig } from '@atmo-dev/contrail';
 import { discoverableSql } from './contrail/discoverability';
 import { moderatorDids } from './moderation/config';
 import { cityConditions } from './server/cities';
+import { hasParentEventSql, parentEventSql } from './legacy-conference';
 
 const MAX_CITY_HYDRATION_URIS = 60;
 
 // Missing preferences default to discoverable. All discovery pipelines share
 // this predicate; Contrail additionally applies current moderation visibility.
 const DISCOVERABLE_CONDITION = discoverableSql('r.record');
+// Talks and other child events are reached through their parent event, so
+// discovery and authored listings show top-level events only.
+const TOP_LEVEL_CONDITION = `NOT ${hasParentEventSql('r.record')}`;
 
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',
@@ -58,9 +62,9 @@ export const config: ContrailConfig = {
 			},
 			pipelineQueries: {
 				// Endpoint: rsvp.atmo.event.listDiscoverable
-				// Same shape as listRecords, but filters out unlisted events.
+				// Same shape as listRecords, but filters out unlisted and child events.
 				listDiscoverable: async () => ({
-					conditions: [DISCOVERABLE_CONDITION]
+					conditions: [DISCOVERABLE_CONDITION, TOP_LEVEL_CONDITION]
 				}),
 				// Snapshot pages pass at most 60 candidate URIs. Existing primary keys
 				// narrow the live address/visibility check to those records, not the
@@ -75,6 +79,7 @@ export const config: ContrailConfig = {
 						},
 						params.get('snapshot') ?? undefined
 					);
+					source.conditions.push(TOP_LEVEL_CONDITION);
 					if (params.has('uris')) {
 						const uris = params
 							.getAll('uris')
@@ -94,10 +99,13 @@ export const config: ContrailConfig = {
 				// pass actor=<organizer did> to scope to the organizer's own talks.
 				// json_extract runs at query time, so this needs no reindex; an
 				// empty/missing parentUri matches nothing (safe default).
-				listTalks: async (_db, params) => ({
-					conditions: [`json_extract(r.record, '$.additionalData.parentEvent.uri') = ?`],
-					params: [params.get('parentUri') ?? '']
-				}),
+				listTalks: async (_db, params) => {
+					const { condition, params: values } = parentEventSql(
+						'r.record',
+						params.get('parentUri') ?? ''
+					);
+					return { conditions: [condition], params: values };
+				},
 				// Endpoint: rsvp.atmo.event.listAuthored
 				// Same shape as listRecords, but excludes conference talks (events
 				// that belong to a parent conference via additionalData.parentEvent),
@@ -105,7 +113,7 @@ export const config: ContrailConfig = {
 				// the conference event itself still appears. Filtered in SQL so
 				// pagination/cursors stay correct.
 				listAuthored: async () => ({
-					conditions: [`json_extract(r.record, '$.additionalData.parentEvent.uri') IS NULL`]
+					conditions: [TOP_LEVEL_CONDITION]
 				})
 			}
 		},
