@@ -94,7 +94,6 @@
 		"i18n-iso-countries": "^7.14.0",
 		"maplibre-gl": "^6.16.0",
 		"mode-watcher": "^1.1.0",
-		"plyr": "^3.8.5",
 		"qr-scanner": "^1.4.2",
 		"qrcode": "^1.5.4",
 		"svelte-boring-avatars": "^1.2.6",
