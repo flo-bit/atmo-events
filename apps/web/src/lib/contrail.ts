@@ -55,6 +55,7 @@ type EventRsvps = EventListRecord['rsvps'] | EventGetOutput['rsvps'];
 
 export type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/kit/events-data';
 import type { FlatEventRecord, HostProfile, AttendeeInfo } from '@atmo-dev/kit/events-data';
+import { normalizeLegacyConference } from '#lib/legacy-conference.js';
 
 export type EventAttendeesResult = {
 	going: AttendeeInfo[];
@@ -132,7 +133,7 @@ export function flattenEventRecord(record: FlattenableEventRecord): FlatEventRec
 	if (!body?.startsAt) return null;
 
 	return {
-		...body,
+		...normalizeLegacyConference(record.uri, body),
 		cid: record.cid ?? null,
 		did: record.did,
 		rkey: record.rkey,
