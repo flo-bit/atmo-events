@@ -40,6 +40,10 @@ declare global {
 			OG_CYCLE_GENERATION_LIMIT?: string;
 			OG_BILLING_CYCLE_START_DAY?: string;
 			CRON_SECRET: string;
+			/** 'true' offers private events: spaces on each person's own PDS, read directly. */
+			PRIVATE_EVENTS?: string;
+			/** A PDS with spaces support, to point people at when theirs can't do private events. */
+			SPACES_PDS_URL?: string;
 			/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
 			BOT_IDENTIFIER?: string;
 			/** App password for the bot account (set via `wrangler secret put`). */

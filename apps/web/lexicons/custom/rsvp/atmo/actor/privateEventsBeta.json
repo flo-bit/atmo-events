@@ -1,0 +1,22 @@
+{
+	"lexicon": 1,
+	"id": "rsvp.atmo.actor.privateEventsBeta",
+	"defs": {
+		"main": {
+			"type": "record",
+			"key": "literal:self",
+			"description": "Whether an actor has turned on atmo.rsvp's private events beta. Private events made during the beta use the testing space type rsvp.atmo.dev.space and can be lost while it changes. Other preferences belong in separate records.",
+			"record": {
+				"type": "object",
+				"required": ["privateEvents", "updatedAt"],
+				"properties": {
+					"privateEvents": {
+						"type": "boolean",
+						"description": "true when the actor makes private events in the beta."
+					},
+					"updatedAt": { "type": "string", "format": "datetime" }
+				}
+			}
+		}
+	}
+}

@@ -12,6 +12,7 @@ const appFixture = fileURLToPath(new URL('./src/lib/meet/test-app.ts', import.me
 const publicEnvFixture = fileURLToPath(
 	new URL('./src/lib/atproto/test-env-public.ts', import.meta.url)
 );
+const envFixture = fileURLToPath(new URL('./src/lib/atproto/test-env.ts', import.meta.url));
 
 export default defineConfig({
 	plugins: [svelte(), tailwindcss()],
@@ -20,6 +21,10 @@ export default defineConfig({
 		exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'],
 		include: [
 			'mode-watcher',
+			'@svelte-atproto/oauth/helper',
+			'@atcute/lexicons/validations',
+			'@atcute/atproto/types/repo/strongRef',
+			'@atcute/bluesky/types/app/actor/profile',
 			'@sketchyicons/svelte/icons/calendar',
 			'@sketchyicons/svelte/icons/message-circle',
 			'@sketchyicons/svelte/icons/handshake'
@@ -39,7 +44,9 @@ export default defineConfig({
 			'$app/forms': appFixture,
 			'$app/navigation': appFixture,
 			'$app/paths': appFixture,
-			'$app/env/public': publicEnvFixture
+			'$app/env/public': publicEnvFixture,
+			// After $app/env/public: an alias also matches the paths below it, and the first match wins.
+			'$app/env': envFixture
 		}
 	},
 	test: {

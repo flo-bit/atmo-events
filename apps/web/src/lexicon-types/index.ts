@@ -5,6 +5,7 @@ export * as CommunityLexiconLocationAddress from "./types/community/lexicon/loca
 export * as CommunityLexiconLocationFsq from "./types/community/lexicon/location/fsq.js";
 export * as CommunityLexiconLocationGeo from "./types/community/lexicon/location/geo.js";
 export * as CommunityLexiconLocationHthree from "./types/community/lexicon/location/hthree.js";
+export * as RsvpAtmoActorPrivateEventsBeta from "./types/rsvp/atmo/actor/privateEventsBeta.js";
 export * as RsvpAtmoEventGetRecord from "./types/rsvp/atmo/event/getRecord.js";
 export * as RsvpAtmoEventListAuthored from "./types/rsvp/atmo/event/listAuthored.js";
 export * as RsvpAtmoEventListDiscoverable from "./types/rsvp/atmo/event/listDiscoverable.js";
