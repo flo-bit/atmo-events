@@ -126,6 +126,7 @@
 				"title": "Hosting and external services",
 				"paragraphs": [
 					"Cloudflare hosts the app and stores its data. Hosting can process request metadata, such as IP addresses, for delivery and security.",
+					"We use Cloudflare’s approximate IP-based location to suggest cities with events; it may not reflect your actual location.",
 					"Maps, images, and embedded media can connect to external providers, which may receive your IP address. Address searches go to a geocoding provider; event imports fetch their source page.",
 					"Opening an event starter pack can create or update a public Bluesky list through our service bot."
 				]
@@ -162,6 +163,17 @@
 		"status": "draft",
 		"updated": "2026-10-31",
 		"sections": [
+			{
+				"id": "city-data",
+				"title": "City data",
+				"paragraphs": [
+					"City location data is derived from GeoNames and has been filtered and reformatted."
+				],
+				"links": [
+					{ "label": "GeoNames", "href": "https://www.geonames.org/" },
+					{ "label": "CC BY 4.0", "href": "https://creativecommons.org/licenses/by/4.0/" }
+				]
+			},
 			{
 				"id": "operator",
 				"title": "Operator",

@@ -75,7 +75,7 @@
 		},
 
 		{
-			label: 'Cities',
+			label: 'Nearby',
 			icon: MapPin,
 			href: '/cities',
 			active: path.startsWith('/cities')

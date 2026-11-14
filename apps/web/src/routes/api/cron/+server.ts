@@ -45,7 +45,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		console.error('[cron] refreshTopicCounts failed:', error);
 	}
 
-	// Daily global city membership/catalog; failures preserve the previous version.
+	// Periodic global city membership/catalog; failures preserve the previous version.
 	try {
 		await refreshCitySnapshot(db);
 	} catch (e) {

@@ -3,7 +3,7 @@ import { Client } from '@atcute/client';
 import { Contrail, createIngestEvent, ingestRecords } from '@atmo-dev/contrail';
 import { createSqliteDatabase } from '@atmo-dev/contrail/sqlite';
 import { config } from '../contrail.config';
-import { refreshCitySnapshot } from '../server/cities';
+import { refreshCitySnapshot, CITY_SNAPSHOT_INTERVAL_MS } from '../server/cities';
 import { cityQuery } from './queries';
 import { decodeCursor } from './cursor';
 
@@ -11,6 +11,7 @@ const did = 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa';
 const collection = 'community.lexicon.calendar.event';
 let db: ReturnType<typeof createSqliteDatabase>;
 let client: Client;
+let snapshotDb: D1Database;
 beforeEach(async () => {
 	vi.useFakeTimers({ toFake: ['Date'] });
 	vi.setSystemTime(new Date('2026-10-28T12:00:00Z'));
@@ -42,7 +43,7 @@ beforeEach(async () => {
 	);
 	// The native adapter returns SQLite run results; the app's cron consumes D1's
 	// meta.changes shape. Keep the real SQL and atomic batches underneath.
-	const snapshotDb = {
+	snapshotDb = {
 		...db,
 		prepare(sql: string) {
 			function wrap(statement: ReturnType<typeof db.prepare>): ReturnType<typeof db.prepare> {
@@ -57,8 +58,8 @@ beforeEach(async () => {
 			}
 			return wrap(db.prepare(sql));
 		}
-	};
-	await refreshCitySnapshot(snapshotDb as unknown as D1Database);
+	} as unknown as D1Database;
+	await refreshCitySnapshot(snapshotDb);
 	const handle = contrail.handler({ db });
 	client = new Client({
 		handler: (path, init) => handle(new Request(new URL(path, 'http://localhost'), init))
@@ -80,6 +81,42 @@ describe('city snapshots with published Contrail', () => {
 		expect(uris).toHaveLength(45);
 		expect(new Set(uris).size).toBe(45);
 		expect(cursor).toBeNull();
+	});
+	it('hydrates offset timestamps and checks cancellations against live records', async () => {
+		const uri = (index: number) => `at://${did}/${collection}/event-${index}`;
+		await db
+			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
+			.bind('2026-10-28T08:00:00-05:00', uri(0))
+			.run(); // 13:00Z: future
+		await db
+			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
+			.bind('2026-10-28T13:00:00+02:00', uri(1))
+			.run(); // 11:00Z: past
+		await db
+			.prepare("UPDATE records_event SET record = json_set(record, '$.status', ?) WHERE uri = ?")
+			.bind('community.lexicon.calendar.event#cancelled', uri(2))
+			.run();
+		const page = await cityQuery(client, scope, null, db);
+		expect(page.events.map(({ uri }) => uri)).toContain(uri(0));
+		expect(page.events.map(({ uri }) => uri)).not.toContain(uri(1));
+		expect(page.events.map(({ uri }) => uri)).not.toContain(uri(2));
+	});
+	it('does not drop a rescheduled event because its snapshot start time elapsed', async () => {
+		const uri = `at://${did}/${collection}/event-0`;
+		const refreshAt = Date.now() + CITY_SNAPSHOT_INTERVAL_MS;
+		const at = (minutes: number) => new Date(refreshAt + minutes * 60_000).toISOString();
+		await db
+			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
+			.bind(at(30), uri)
+			.run();
+		vi.setSystemTime(new Date(refreshAt));
+		await refreshCitySnapshot(snapshotDb);
+		vi.setSystemTime(new Date(at(60)));
+		await db
+			.prepare("UPDATE records_event SET record = json_set(record, '$.startsAt', ?) WHERE uri = ?")
+			.bind(at(120), uri)
+			.run();
+		expect((await cityQuery(client, scope, null, db)).events.map(({ uri }) => uri)).toContain(uri);
 	});
 	it('applies current record and account hides even to an existing snapshot', async () => {
 		const first = await cityQuery(client, scope, null, db);
