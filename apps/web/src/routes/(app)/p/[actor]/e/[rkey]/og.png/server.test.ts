@@ -136,7 +136,7 @@ describe('event OG route', () => {
 		async (role) => {
 			// Inlined as base64 into the old Satori markup, an image this size took
 			// tens of seconds of CPU to parse. Takumi receives the raw bytes.
-			const jpeg = readFileSync('static/topics/sustainability.jpg');
+			const jpeg = readFileSync('src/test/fixtures/large.jpg');
 			const cdn = vi
 				.spyOn(globalThis, 'fetch')
 				.mockImplementation(
@@ -170,7 +170,7 @@ describe('event OG route', () => {
 			const url = 'https://laugh.town/cdn/p/posters/47fee09eaa4c3fab.webp';
 			const cdn = vi.spyOn(globalThis, 'fetch').mockImplementation(
 				async () =>
-					new Response(readFileSync('static/topics/sustainability.jpg'), {
+					new Response(readFileSync('src/test/fixtures/large.jpg'), {
 						headers: { 'Content-Type': 'image/jpeg' }
 					})
 			);
