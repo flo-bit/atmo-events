@@ -12,6 +12,9 @@ vi.mock('#lib/contrail.js', () => ({
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	withD1Retry: vi.fn((fn: () => unknown) => fn())
 }));
+vi.mock('#lib/server/recommendations.js', () => ({
+	getRecommendedEvents: vi.fn(async () => [])
+}));
 // Keep a spy to guard against reintroducing the unused homepage query.
 vi.mock('#lib/contrail/ongoing.js', () => ({ ongoingQuery: vi.fn() }));
 vi.mock('#lib/server/edge-cache.js', () => ({
@@ -23,6 +26,7 @@ import { load } from './+page.server';
 import { listDiscoverableEventsFromContrail } from '#lib/contrail.js';
 import { ongoingQuery } from '#lib/contrail/ongoing.js';
 import { cachedRead } from '#lib/server/edge-cache.js';
+import { getRecommendedEvents } from '#lib/server/recommendations.js';
 
 const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 
@@ -42,8 +46,7 @@ const event = {
 	startsAt: '2026-07-01T00:00:00Z',
 	createdAt: '2026-06-01T00:00:00Z'
 };
-const request = () =>
-	({ locals: {} }) as unknown as Parameters<typeof load>[0];
+const request = () => ({ locals: {} }) as unknown as Parameters<typeof load>[0];
 
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -64,6 +67,20 @@ describe('home page load', () => {
 			order: 'asc',
 			limit: 20
 		});
+	});
+
+	it('streams recommendations independently and marks signed-in responses private', async () => {
+		let resolve!: (events: never[]) => void;
+		const recommendations = new Promise<never[]>((r) => {
+			resolve = r;
+		});
+		vi.mocked(getRecommendedEvents).mockReturnValueOnce(recommendations);
+		const setHeaders = vi.fn();
+		const input = { locals: { did: 'did:plc:alice' }, setHeaders };
+		const data = await load(input as unknown as Parameters<typeof load>[0]);
+		expect(data).toHaveProperty('recommendedEvents', recommendations);
+		expect(setHeaders).toHaveBeenCalledWith({ 'cache-control': 'private, no-store' });
+		resolve([]);
 	});
 
 	it('does not fetch, cache, or return a happening-now section on the homepage', async () => {

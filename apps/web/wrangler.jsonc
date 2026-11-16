@@ -41,6 +41,13 @@
 			"database_name": "atmo-events-reports",
 			// Stable private storage; never replace during projection rebuilds.
 			"database_id": "451dce30-46b2-4e2d-a09c-f7ed4ccdfc4c"
+		},
+		{
+			"binding": "RECOMMENDATIONS_DB",
+			"database_name": "atmo-events-recommendations",
+			"database_id": "f09cb5dd-5725-4634-9751-7217d611f560",
+			// Keep separate from reports and projection rebuilds; use local storage in dev.
+			"remote": false
 		}
 	],
 	"r2_buckets": [

@@ -12,6 +12,10 @@ Attach Grain photo albums and Streamplace streams through the dedicated
 [linked-record pickers](docs/linked-records.md).
 Use [Meet](docs/meet.md) under Tools to exchange QR codes and save public,
 reciprocal meeting records compatible with You & Me.
+The signed-in homepage can show [personalized event recommendations](docs/recommendations.md)
+from For You, with a private daily cache and per-user refresh deduplication.
+Production recommendations require the dedicated `RECOMMENDATIONS_DB` binding;
+see the [storage setup](docs/recommendations.md#storage-setup-and-deployment) before deploying.
 
 ## Development
 

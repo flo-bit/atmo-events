@@ -8,6 +8,7 @@ import {
 import { page } from '$app/state';
 import { preferredClientCache } from './preferred-client.svelte';
 import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
+import { FOR_YOU_SCOPE } from './recommendations.js';
 import {
 	login as oauthLogin,
 	signup as oauthSignup,
@@ -73,7 +74,7 @@ export function authorizeMeetings() {
 export function signup(context?: LoginContext) {
 	if (!ALLOW_SIGNUP) throw new Error('Signup is not enabled');
 	return oauthSignup({
-		scope: getLoginScopes([blueskyPostingScope], context),
+		scope: getLoginScopes([blueskyPostingScope, FOR_YOU_SCOPE], context),
 		saveReturnTo: REDIRECT_TO_LAST_PAGE_ON_LOGIN
 	});
 }

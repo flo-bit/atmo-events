@@ -11,6 +11,7 @@ import {
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { cachedRead } from '#lib/server/edge-cache.js';
+import { getRecommendedEvents } from '#lib/server/recommendations.js';
 import { dedupeByUri } from '#lib/dedupe-by-uri.js';
 import type { PageServerLoad } from './$types';
 
@@ -30,7 +31,10 @@ const GLOBAL_CACHE_TTL_S = 60;
  *  social signal). */
 const ACTIVITY_RECENT_EVENT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, setHeaders }) => {
+	if (locals.did) setHeaders({ 'cache-control': 'private, no-store' });
+	// Stream this independent section; a slow recommender must not delay the page.
+	const recommendedEvents = getRecommendedEvents(locals);
 	const publicClient = getServerClient(env.DB);
 	const nowIso = new Date().toISOString();
 
@@ -288,6 +292,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (!response) {
 		return {
 			events: [],
+			recommendedEvents,
 			handles: {} as Record<string, string>,
 			myUpcoming: myEvents.upcoming,
 			myPast: myEvents.past,
@@ -303,6 +308,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	return {
 		events: flattenEventRecords(response.records),
+		recommendedEvents,
 		handles,
 		myUpcoming: myEvents.upcoming,
 		myPast: myEvents.past,
