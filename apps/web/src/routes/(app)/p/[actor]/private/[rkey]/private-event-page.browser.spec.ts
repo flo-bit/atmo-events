@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import { eventUri, singleEvent } from '#lib/private-events/ids.js';
+import { GIF, gifHostRequests } from '#lib/private-events/held-embeds.fixture.js';
 import '../../../../../../app.css';
 import EventPage from './+page.svelte';
 
@@ -91,7 +92,6 @@ function watchRequests() {
 
 /** A description with a Klipy GIF alone on its line, as the page's load parses it (parseRichText's
  *  output); a link alone on its line is the kind that shows as an embed. */
-const GIF = 'https://static.klipy.com/ii/abc123/def456.gif';
 const WITH_GIF = {
 	version: 1,
 	markdown: true,
@@ -103,13 +103,6 @@ const WITH_GIF = {
 		}
 	]
 };
-
-/** Anything the page asked the GIF host for: a fetch, or a media element pointing there. */
-function gifHostRequests(seen: string[]): string[] {
-	const media = [...document.querySelectorAll('[src]')].map((e) => e.getAttribute('src') ?? '');
-	const loaded = performance.getEntriesByType('resource').map((e) => e.name);
-	return [...seen, ...media, ...loaded].filter((url) => /klipy\.com|k\.gifs\.bsky\.app/.test(url));
-}
 
 afterEach(() => {
 	vi.unstubAllGlobals();

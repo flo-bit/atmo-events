@@ -1,7 +1,14 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import { page as appPage } from '$app/state';
+import {
+	DESCRIPTION_WITH_GIF,
+	GIF,
+	embedSettled,
+	gifHostRequests,
+	loadButton
+} from '#lib/private-events/held-embeds.fixture.js';
 import '../../../app.css';
 import CreatePage from './+page.svelte';
 
@@ -90,6 +97,19 @@ async function choosePrivate() {
 	await choice('Private').click();
 	await makePrivate().click();
 	await expect.element(choice('Private')).toBeChecked();
+}
+
+/** Pastes text into the event's description, as a person would. */
+async function pasteIntoDescription(text: string) {
+	const description = page.getByRole('textbox', { name: /description/i });
+	await description.click();
+	const clipboard = new DataTransfer();
+	clipboard.setData('text/plain', text);
+	description
+		.element()
+		.dispatchEvent(
+			new ClipboardEvent('paste', { clipboardData: clipboard, bubbles: true, cancelable: true })
+		);
 }
 
 afterEach(() => {
@@ -203,6 +223,31 @@ describe('publishing a private event on /create', () => {
 		await publish().click();
 		await expect.poll(() => mocks.putRecord).toHaveBeenCalled();
 		expect(mocks.savePrivateEvent).not.toHaveBeenCalled();
+	});
+});
+
+describe('a link in a private event’s description on /create', () => {
+	beforeEach(() => performance.clearResourceTimings());
+
+	it('asks nothing of a GIF host until the host loads the GIF', async () => {
+		at('?audience=private');
+		filledIn({ description: DESCRIPTION_WITH_GIF });
+		render(CreatePage, { data: data() } as never);
+		await expect.element(page.getByText('Bring snacks', { exact: false })).toBeVisible();
+		await embedSettled();
+		expect(gifHostRequests()).toEqual([]);
+		await loadButton().click();
+		await expect.poll(() => gifHostRequests()).not.toEqual([]);
+	});
+
+	it('holds a GIF added after the host chose Private', async () => {
+		// A GIF of its own, so a request left over from another test can't count here.
+		const pasted = GIF.replace('abc123', 'pasted1');
+		render(CreatePage, { data: data() } as never);
+		await choosePrivate();
+		await pasteIntoDescription(pasted);
+		await expect.element(loadButton()).toBeVisible();
+		expect(gifHostRequests().filter((url) => url.includes('pasted1'))).toEqual([]);
 	});
 });
 
