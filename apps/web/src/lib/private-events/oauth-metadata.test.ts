@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AtprotoAuthConfig } from '@svelte-atproto/oauth/server';
 import { scopes } from '#lib/atproto/settings.js';
 import { BETA_SCOPE } from './beta';
-import { PRIVATE_EVENT_SCOPES } from './scopes';
+import { HOST_SCOPES } from './scopes';
 
 const mocks = vi.hoisted(() => ({
 	create: vi.fn<(config: AtprotoAuthConfig) => unknown>(() => ({ api: {}, handlers: {} }))
@@ -33,7 +33,7 @@ afterEach(async () => {
 
 describe('the sign-in permissions a deployment declares', () => {
 	it('adds the private event permissions and the beta switch when private events are on', async () => {
-		expect(await declared('true')).toEqual([...scopes, ...PRIVATE_EVENT_SCOPES, BETA_SCOPE]);
+		expect(await declared('true')).toEqual([...scopes, ...HOST_SCOPES, BETA_SCOPE]);
 	});
 	it('adds neither when they are off', async () => {
 		expect(await declared(undefined)).toEqual(scopes);

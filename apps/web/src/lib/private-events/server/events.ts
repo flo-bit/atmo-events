@@ -214,7 +214,7 @@ function flatEvent(host: string, record: SpaceRecord): FlatEventRecord | null {
 /** Null for an event that isn't there and for a caller kept out alike, so a page can't tell one
  *  from the other. Any other failure throws, so "could not read" never passes for "none". Only the
  *  host's own record is the event. */
-export async function readEvent(
+async function readEvent(
 	reader: SpaceReader,
 	address: EventAddress
 ): Promise<FlatEventRecord | null> {
@@ -509,7 +509,7 @@ export interface MyPrivateEvent {
 	href: string;
 }
 
-export interface MyPrivateEvents {
+interface MyPrivateEvents {
 	events: MyPrivateEvent[];
 	/** A server didn't answer, or there were too many to list, so there may be more than these. */
 	incomplete: boolean;

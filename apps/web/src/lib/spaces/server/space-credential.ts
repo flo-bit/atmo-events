@@ -173,7 +173,7 @@ const resolveDid = (did: string) =>
 const identities = new Map<string, { value: SpaceIdentity; at: number }>();
 const resolved = new Map<string, { value: string; at: number }>();
 
-export interface SpaceIdentity {
+interface SpaceIdentity {
 	pds: string;
 	/** `handle.invalid` unless the handle points back at the DID. */
 	handle: string;

@@ -15,7 +15,6 @@ export const GUEST_SCOPE = `space:${PRIVATE_CALENDAR_TYPE}?authority=*&collectio
 /** A host may also be someone else's guest, and a new grant must not cost them the other. */
 export const HOST_SCOPES: readonly string[] = [HOST_SCOPE, GUEST_SCOPE];
 export const GUEST_SCOPES: readonly string[] = [GUEST_SCOPE];
-export const PRIVATE_EVENT_SCOPES: readonly string[] = HOST_SCOPES;
 
 const DEFAULT_ACTIONS: readonly string[] = ['read', 'create', 'update', 'delete'];
 

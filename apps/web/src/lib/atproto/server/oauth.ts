@@ -11,7 +11,7 @@ import { ALLOW_SIGNUP, DEV_PORT, REDIRECT_PATH, scopes, signUpPDS } from '../set
 import { atprotoNetwork } from '../network';
 import { oauthOrigin } from './origin';
 import { BETA_SCOPE } from '../../private-events/beta';
-import { PRIVATE_EVENT_SCOPES } from '../../private-events/scopes';
+import { HOST_SCOPES } from '../../private-events/scopes';
 import { privateEventsEnabled } from '../../private-events/server/enabled';
 
 const pending = new Map<string, Promise<unknown>>();
@@ -41,7 +41,7 @@ export function getAuth(): AtprotoAuth {
 		cookieSecret: env.COOKIE_SECRET,
 		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
 		// Declared when a deployment offers them; requested only when someone first hosts or opens one.
-		scope: privateEventsEnabled() ? [...scopes, ...PRIVATE_EVENT_SCOPES, BETA_SCOPE] : scopes,
+		scope: privateEventsEnabled() ? [...scopes, ...HOST_SCOPES, BETA_SCOPE] : scopes,
 		signupPDS: ALLOW_SIGNUP
 			? (PUBLIC_SIGNUP_PDS_URL ?? signUpPDS[dev ? 'development' : 'production'])
 			: undefined,

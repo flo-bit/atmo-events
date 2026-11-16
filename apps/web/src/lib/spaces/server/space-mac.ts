@@ -29,7 +29,7 @@ export async function recordCid(value: unknown): Promise<string> {
 }
 
 /** Made per request, since each takes a key of its own. */
-export interface RecordMacCheck {
+interface RecordMacCheck {
 	/** The `Accept-Signature` value. */
 	header: string;
 	/** Whether the answer carries a MAC for this request that names this record. */

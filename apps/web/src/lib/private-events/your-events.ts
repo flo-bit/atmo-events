@@ -8,7 +8,7 @@ export interface PrivateLink {
 	href: string;
 }
 
-export interface YourEvents {
+interface YourEvents {
 	upcoming: FlatEventRecord[];
 	past: FlatEventRecord[];
 	/** By event URI, for the private ones only. */

@@ -3,7 +3,7 @@
 
 export type XrpcHandle = (pathname: string, init: RequestInit) => Promise<Response>;
 
-export type XrpcRequest = { body: Record<string, unknown> } | { query: Record<string, string> };
+type XrpcRequest = { body: Record<string, unknown> } | { query: Record<string, string> };
 
 export class XrpcError extends Error {
 	constructor(
@@ -28,7 +28,7 @@ export function errorKind(e: unknown): string {
 	return e instanceof Error && WORD.test(e.name) ? e.name : 'unknown';
 }
 
-export type XrpcAnswer =
+type XrpcAnswer =
 	| { ok: true; status: number; data: Record<string, unknown> }
 	| { ok: false; status: number; error: string | null };
 

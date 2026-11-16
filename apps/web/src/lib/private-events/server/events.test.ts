@@ -694,7 +694,7 @@ describe('every write', () => {
 					() => Response.json({ policy: { $type: 'com.atproto.managedspace.policy' } }),
 					'not-private'
 				],
-				// atmo never makes one, so it is another app's, or an older build's shared one.
+				// atmo never makes one, so it is another app's.
 				[
 					'shows its people to everyone on it',
 					() =>
