@@ -3,6 +3,7 @@
 	import { browser } from '$app/env';
 	import { requestPermissions } from '@svelte-atproto/oauth/client';
 	import { BETA_REQUIREMENTS, BETA_SCOPE } from '../beta';
+	import { HOST_SCOPES } from '../scopes';
 	import { getPrivateEventsBeta, setPrivateEventsBeta } from '../private-events.remote';
 
 	// Only in the browser. On a Worker, a query started while the page renders on the server
@@ -21,7 +22,12 @@
 		authorizing = true;
 		failure = '';
 		try {
-			await requestPermissions(BETA_SCOPE, {
+			// Turning this on is choosing to host, so one consent covers hosting too and making a
+			// private event doesn't ask again. Done once the setting can be saved: a server without
+			// spaces drops the hosting grant, and /create still asks there. Someone it's already on
+			// for may only want it off, so they're asked just for the setting.
+			const turningOn = !beta?.current?.on;
+			await requestPermissions(turningOn ? [BETA_SCOPE, ...HOST_SCOPES] : [BETA_SCOPE], {
 				requirements: [...BETA_REQUIREMENTS],
 				saveReturnTo: true
 			});

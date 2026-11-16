@@ -40,7 +40,8 @@ export function getAuth(): AtprotoAuth {
 		origin: oauthOrigin(env.OAUTH_PUBLIC_URL),
 		cookieSecret: env.COOKIE_SECRET,
 		clientAssertionKey: env.CLIENT_ASSERTION_KEY,
-		// Declared when a deployment offers them; requested only when someone first hosts or opens one.
+		// Declared when a deployment offers them; requested only when someone turns the beta on in
+		// Settings, or first hosts or opens one.
 		scope: privateEventsEnabled() ? [...scopes, ...HOST_SCOPES, BETA_SCOPE] : scopes,
 		signupPDS: ALLOW_SIGNUP
 			? (PUBLIC_SIGNUP_PDS_URL ?? signUpPDS[dev ? 'development' : 'production'])

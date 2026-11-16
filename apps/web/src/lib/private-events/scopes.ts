@@ -1,5 +1,5 @@
-// What a person's own sign-in needs for private events, asked for when they first host or open one
-// and never at sign-in, since most servers can't grant it yet. Values and pure checks only, so the
+// What a person's own sign-in needs for private events, asked for when they turn the beta on in
+// Settings or first host or open one, and never at sign-in, since most servers can't grant it yet. Values and pure checks only, so the
 // OAuth config can import them.
 import { EVENT_COLLECTION, PRIVATE_CALENDAR_TYPE, RSVP_COLLECTION } from './ids';
 
