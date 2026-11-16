@@ -20,3 +20,16 @@ minimumReleaseAgeExclude:
   # Runs the e2e tests' local network. Exempt so a new release can be tested as
   # soon as it is published.
   - '@openmeet/snowglobe'
+# @atproto/space is published only as dated spaces alphas, which depend on each other
+# through caret ranges. Those ranges also match 0.0.0-stage, which sorts above every alpha
+# and was published with workspace: dependencies that cannot install. These pin the alpha's
+# own dependencies to that same alpha, and leave every other @atproto version as it was.
+# Change them together with @atproto/space's version: pnpm applies an override to any range
+# that overlaps it, so a later alpha's dependencies would land on these.
+overrides:
+  '@atproto/crypto@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
+  '@atproto/lex-cbor@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
+  '@atproto/lex-data@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
+  '@atproto/lex-schema@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
+  '@atproto/star@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
+  '@atproto/syntax@^0.0.0-spaces-alpha-20261112204144': 0.0.0-spaces-alpha-20261112204144
