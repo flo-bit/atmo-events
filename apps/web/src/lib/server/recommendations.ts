@@ -139,12 +139,14 @@ export async function hydrateRecommendations(
 	if (!uris.length) return [];
 	await ensureInit(db);
 	const now = new Date().toISOString();
+	// Records may use timezone offsets; compare instants, not timestamp text.
 	const eligible = await db
 		.prepare(
 			`SELECT r.uri FROM records_event r
 		WHERE r.uri IN (SELECT value FROM json_each(?))
 		AND ${discoverableSql('r.record')} AND ${visibleRecordSql('r')}
-		AND (json_extract(r.record, '$.startsAt') >= ? OR json_extract(r.record, '$.endsAt') >= ?)`
+		AND (julianday(json_extract(r.record, '$.startsAt')) >= julianday(?)
+			OR julianday(json_extract(r.record, '$.endsAt')) >= julianday(?))`
 		)
 		.bind(JSON.stringify(uris), now, now)
 		.all<{ uri: string }>();

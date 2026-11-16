@@ -192,6 +192,38 @@ describe('For You private daily cache', () => {
 });
 
 describe('recommendation visibility', () => {
+	describe.each(['startsAt', 'endsAt'])('%s instant comparison', (field) => {
+		it.each([
+			['2026-11-01T13:00:00+02:00', false], // 11:00 UTC, despite sorting after noon
+			['2026-11-01T11:00:00-02:00', true], // 13:00 UTC, despite sorting before noon
+			['2026-11-01T15:00:00+02:00', true],
+			['2026-11-01T09:00:00-02:00', false],
+			['2026-11-01T14:00:00+02:00', true], // exactly now
+			['2026-11-01T10:00:00-02:00', true],
+			['2026-11-01T11:59:59.999Z', false],
+			['2026-11-01T12:00:00.001Z', true]
+		])('checks %s by UTC instant (eligible: %s)', async (timestamp, included) => {
+			vi.useFakeTimers({ toFake: ['Date'] });
+			vi.setSystemTime(NOW);
+			try {
+				const { db, sqlite } = setup();
+				sqlite
+					.prepare('INSERT INTO records_event VALUES (?, ?, ?, ?)')
+					.run(
+						uri('offset'),
+						JSON.stringify({ startsAt: '2020-01-01T00:00:00Z', [field]: timestamp }),
+						did,
+						'cid'
+					);
+				expect((await hydrateRecommendations(db, [uri('offset')])).map((e) => e.uri)).toEqual(
+					included ? [uri('offset')] : []
+				);
+				expect(mocks.get).toHaveBeenCalledTimes(included ? 1 : 0);
+			} finally {
+				vi.useRealTimers();
+			}
+		});
+	});
 	it('hydrates a full 100-URI feed within the D1 100-parameter limit', async () => {
 		const { db, sqlite, bindCounts } = setup();
 		const ranked = Array.from({ length: 100 }, (_, i) => uri(`event-${99 - i}`));
