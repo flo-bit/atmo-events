@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { waitUntil } from 'cloudflare:workers';
 import { clearSpaceLookups } from '#lib/spaces/server/space-credential.js';
 import { HOST_SCOPE } from '../scopes';
 import { addGuest, PrivateEventRefused } from './events';
@@ -154,6 +155,32 @@ describe('publicProfiles', () => {
 			throw new Error('D1 unavailable');
 		});
 		expect((await publicProfiles([ALICE])).size).toBe(0);
+	});
+
+	it('gives no one a profile when the index is slow, rather than holding the page', async () => {
+		vi.useFakeTimers();
+		try {
+			profilesOf.mockImplementation(() => new Promise(() => {}));
+			const found = publicProfiles([ALICE]);
+			await vi.advanceTimersByTimeAsync(3_000);
+			expect((await found).size).toBe(0);
+		} finally {
+			vi.useRealTimers();
+		}
+	});
+
+	it('keeps looking up after it stops waiting, until the lookup is done', async () => {
+		vi.mocked(waitUntil).mockClear();
+		let finish = () => {};
+		profilesOf.mockImplementation(() => new Promise((resolve) => (finish = () => resolve({}))));
+		void publicProfiles([ALICE]);
+		expect(waitUntil).toHaveBeenCalledOnce();
+		let done = false;
+		void vi.mocked(waitUntil).mock.calls[0][0].then(() => (done = true));
+		await new Promise((resolve) => setTimeout(resolve, 10));
+		expect(done).toBe(false);
+		finish();
+		await vi.waitFor(() => expect(done).toBe(true));
 	});
 
 	it('does not ask the index about no one', async () => {
