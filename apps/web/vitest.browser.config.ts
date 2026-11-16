@@ -22,13 +22,19 @@ export default defineConfig({
 			'@atcute/atproto/types/repo/strongRef',
 			'@atcute/bluesky/types/app/actor/profile',
 			'@atcute/lexicons/validations',
+			'mode-watcher',
 			'@sketchyicons/svelte/icons/calendar',
 			'@sketchyicons/svelte/icons/compass',
 			'@sketchyicons/svelte/icons/message-circle',
 			'@sketchyicons/svelte/icons/handshake'
 		]
 	},
-	server: { fs: { allow: [searchForWorkspaceRoot(process.cwd()), kitRoot] } },
+	server: {
+		fs: { allow: [searchForWorkspaceRoot(process.cwd()), kitRoot] },
+		// Let browser mocks intercept remote functions before Vite speculatively
+		// transforms their server-only Cloudflare/SvelteKit dependencies.
+		preTransformRequests: false
+	},
 	resolve: {
 		dedupe: ['svelte', 'bits-ui', '@internationalized/date'],
 		alias: {

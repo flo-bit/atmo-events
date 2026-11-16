@@ -31,7 +31,7 @@ beforeEach(() => {
 });
 
 describe('page AT metadata', () => {
-	it('renders route metadata for both app and embed pages in the root layout', () => {
+	it('renders route metadata in the root layout', () => {
 		page.data.atTags = {
 			canonical: ['at://did:plc:host/community.lexicon.calendar.event/event'],
 			author: ['at://did:plc:host']

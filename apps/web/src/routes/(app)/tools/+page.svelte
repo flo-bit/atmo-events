@@ -11,12 +11,14 @@
 	<div class="grid gap-4 md:grid-cols-2">
 		<a
 			href={resolve('/(app)/tools/meet')}
-			class="border-line bg-recess hover:border-accent-400 dark:hover:border-accent-600 flex items-center gap-4 rounded-xl border p-5 shadow-(--ui-recess-shadow) transition-colors"
+			class="border-base-300 dark:bg-base-950 hover:border-accent-400 dark:hover:border-accent-600 flex items-center gap-4 rounded-xl border bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))] p-5 shadow-[inset_0_2px_4px_color-mix(in_srgb,var(--base-950)_8%,transparent),inset_0_5px_12px_color-mix(in_srgb,var(--base-950)_2%,transparent)] transition-colors dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))] dark:shadow-[inset_0_2px_4px_#0006,inset_0_5px_12px_#0002]"
 		>
 			<Icon img={Handshake} size={28} />
 			<div class="min-w-0 flex-1">
 				<h2 class="font-semibold">Meet</h2>
-				<p class="text-muted mt-1 text-sm">Scan a QR code to remember someone you met.</p>
+				<p class="text-base-600 dark:text-base-400 mt-1 text-sm">
+					Scan a QR code to remember someone you met.
+				</p>
 			</div>
 			<Icon img={ArrowRight} size={20} />
 		</a>

@@ -43,8 +43,6 @@ function markup(
 					isModerator: false,
 					did: null,
 					profile: null,
-					preferredSocialClient: null,
-					preferredClientLoadFailed: false,
 					actor: 'host.example.com',
 					actorDid: 'did:plc:host',
 					eventCounts: { created: 130, rsvpd: 42 },

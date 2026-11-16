@@ -3,9 +3,10 @@ import type { Did } from '@atcute/lexicons';
 import { PREFERRED_CLIENT_COLLECTION, PREFERRED_CLIENT_RKEY } from '@atmo-dev/kit/social';
 
 /** Read directly from the viewer's PDS; no appview indexing is required. */
-export async function getPreferredClientRecord(client: Client, did: Did) {
+export async function getPreferredClientRecord(client: Client, did: Did, signal?: AbortSignal) {
 	const response = await client.get('com.atproto.repo.getRecord', {
-		params: { repo: did, collection: PREFERRED_CLIENT_COLLECTION, rkey: PREFERRED_CLIENT_RKEY }
+		params: { repo: did, collection: PREFERRED_CLIENT_COLLECTION, rkey: PREFERRED_CLIENT_RKEY },
+		signal
 	});
 	if (!response.ok) {
 		if (response.data.error === 'RecordNotFound') return null;

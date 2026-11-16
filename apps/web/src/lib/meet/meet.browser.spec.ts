@@ -89,8 +89,6 @@ function data(overrides: Partial<PageData> = {}): PageData {
 		profile: null,
 		canPostToBluesky: false,
 		isModerator: false,
-		preferredSocialClient: null,
-		preferredClientLoadFailed: false,
 		pageTitle: 'Meet · atmo.rsvp',
 		pageDescription: 'Meet people.',
 		target: null,

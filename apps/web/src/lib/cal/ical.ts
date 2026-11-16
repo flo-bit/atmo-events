@@ -1,4 +1,5 @@
 import type { EventData } from '#lib/event-types.js';
+import { eventDescriptionText } from '#lib/server/event-description.js';
 
 /**
  * Escape text for iCal fields (RFC 5545 Section 3.3.11).
@@ -56,8 +57,7 @@ function getLocationString(locations: EventData['locations']): string | undefine
 	if (!locations || locations.length === 0) return undefined;
 
 	const loc = locations.find((v) => v.$type === 'community.lexicon.location.address') as
-		| { street?: string; locality?: string; region?: string }
-		| undefined;
+		{ street?: string; locality?: string; region?: string } | undefined;
 	if (!loc) return undefined;
 
 	const street = loc.street || undefined;
@@ -128,8 +128,9 @@ function generateVEvent(event: ICalEvent): string | null {
 
 	// Description: text + links
 	const descParts: string[] = [];
-	if (eventData.description) {
-		descParts.push(eventData.description);
+	const description = eventDescriptionText(eventData);
+	if (description) {
+		descParts.push(description);
 	}
 	if (eventData.uris && eventData.uris.length > 0) {
 		descParts.push('');

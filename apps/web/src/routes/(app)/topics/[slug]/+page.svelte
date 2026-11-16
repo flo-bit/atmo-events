@@ -19,7 +19,7 @@
 	<header class="mb-10">
 		<a
 			href="/topics"
-			class="text-muted hover:text-ink mb-6 inline-flex items-center gap-1 text-sm transition-colors"
+			class="text-base-600 dark:text-base-400 hover:text-base-950 dark:hover:text-base-50 mb-6 inline-flex items-center gap-1 text-sm transition-colors"
 		>
 			<Icon img={ChevronLeft} size={16} />
 			All topics
@@ -28,10 +28,12 @@
 			<div class="text-accent-600 dark:text-accent-400 shrink-0">
 				<TopicIcon slug={data.topic.slug} class="size-8 sm:size-10" />
 			</div>
-			<h1 class="text-ink text-3xl font-bold sm:text-4xl">{data.topic.name}</h1>
+			<h1 class="text-base-950 dark:text-base-50 text-3xl font-bold sm:text-4xl">
+				{data.topic.name}
+			</h1>
 		</div>
 		{#if data.topic.hashtags.length}
-			<div class="text-muted mt-4 text-sm">
+			<div class="text-base-600 dark:text-base-400 mt-4 text-sm">
 				<ul class="flex flex-wrap gap-x-3 gap-y-1" aria-label="Tracked hashtags">
 					{#each data.topic.hashtags as hashtag (hashtag)}
 						<li class="max-w-full break-words">{hashtag}</li>
@@ -43,7 +45,7 @@
 
 	{#if data.events.length === 0 && data.ongoing.length === 0}
 		<div class="py-16 text-center">
-			<p class="text-muted text-lg">No events found for this topic yet.</p>
+			<p class="text-base-600 dark:text-base-400 text-lg">No events found for this topic yet.</p>
 			<p class="text-base-400 dark:text-base-500 mt-2 text-sm">
 				Try posting an event with {data.topic.hashtags[0]} to be the first!
 			</p>

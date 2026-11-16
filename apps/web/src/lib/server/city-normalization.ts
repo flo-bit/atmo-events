@@ -41,6 +41,24 @@ export function countryCode(value: string): string | undefined {
 // Small, explicit administrative-name equivalences, NOT a list of cities.
 // Unknown regions are preserved rather than guessed. Codes are country-scoped.
 const REGIONS: Record<string, Record<string, string>> = {
+	DE: {
+		BW: 'Baden-Württemberg',
+		BY: 'Bavaria',
+		BE: 'Berlin',
+		BB: 'Brandenburg',
+		HB: 'Bremen',
+		HH: 'Hamburg',
+		HE: 'Hesse',
+		MV: 'Mecklenburg-Vorpommern',
+		NI: 'Lower Saxony',
+		NW: 'North Rhine-Westphalia',
+		RP: 'Rheinland-Pfalz',
+		SL: 'Saarland',
+		SN: 'Saxony',
+		ST: 'Saxony-Anhalt',
+		SH: 'Schleswig-Holstein',
+		TH: 'Thuringia'
+	},
 	US: {
 		AL: 'Alabama',
 		AK: 'Alaska',
@@ -131,6 +149,16 @@ const REGIONS: Record<string, Record<string, string>> = {
 	GB: { ENG: 'England', SCT: 'Scotland', WLS: 'Wales', NIR: 'Northern Ireland' }
 };
 const extraRegions: Record<string, Record<string, string>> = {
+	DE: {
+		Bayern: 'BY',
+		Hessen: 'HE',
+		Niedersachsen: 'NI',
+		'Nordrhein-Westfalen': 'NW',
+		'Rhineland-Palatinate': 'RP',
+		Sachsen: 'SN',
+		'Sachsen-Anhalt': 'ST',
+		Thüringen: 'TH'
+	},
 	US: { 'D.C.': 'DC', 'Washington DC': 'DC', 'Washington, D.C.': 'DC' },
 	CA: { Quebec: 'QC', 'Newfoundland & Labrador': 'NL' },
 	NL: { 'North Holland': 'NH', 'South Holland': 'ZH', 'North Brabant': 'NB', Fryslân: 'FR' }
@@ -151,6 +179,37 @@ for (const [country, entries] of Object.entries(extraRegions)) {
 }
 function region(value: string, country: string) {
 	return regions.get(`${country}:${countryKey(value)}`);
+}
+
+// Deliberately small, country-scoped equivalences, not fuzzy geocoding. Keep
+// publisher labels intact; only lookup/grouping keys use these known aliases.
+const CITY_NAMES: Record<string, Record<string, string>> = {
+	DE: {
+		münchen: 'munich',
+		muenchen: 'munich',
+		köln: 'cologne',
+		koeln: 'cologne',
+		nürnberg: 'nuremberg',
+		nuernberg: 'nuremberg'
+	}
+};
+export function cityNameKey(name: string, country: string): string {
+	const normalized = normalizeCityField(name);
+	if (!Object.hasOwn(CITY_NAMES, country)) return normalized;
+	const aliases = CITY_NAMES[country];
+	return Object.hasOwn(aliases, normalized) ? aliases[normalized] : normalized;
+}
+
+export function citySearchNames(name: string, country: string): string[] {
+	const canonical = cityNameKey(name, country);
+	const aliases = Object.hasOwn(CITY_NAMES, country) ? CITY_NAMES[country] : {};
+	return [
+		...new Set([
+			normalizeCityField(name),
+			canonical,
+			...Object.keys(aliases).filter((alias) => aliases[alias] === canonical)
+		])
+	];
 }
 
 export type NormalizedAddress = { scope: CityScope; label: CityScope };
@@ -208,6 +267,10 @@ export function normalizeCityAddress(input: CityScope): NormalizedAddress | null
 	)
 		return null;
 	const label = { city: name, country, region: knownRegion?.name ?? regionName };
-	const scope = cityScope({ ...label, region: knownRegion?.key ?? regionName });
+	const scope = cityScope({
+		...label,
+		city: cityNameKey(name, country),
+		region: knownRegion?.key ?? regionName
+	});
 	return scope ? { scope, label } : null;
 }

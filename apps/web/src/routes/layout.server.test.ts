@@ -23,27 +23,17 @@ beforeEach(() => {
 });
 
 describe('viewer permission state', () => {
-	it('loads the signed-in viewer’s public social-client selection', async () => {
-		mocks.preferredClient.mockResolvedValue({ record: { client: 'mu' }, cid: 'cid' });
-		expect(await load(request('did:plc:alice'))).toMatchObject({
-			preferredSocialClient: { client: 'mu' },
-			preferredClientLoadFailed: false
-		});
-	});
-	it('keeps the viewer signed in when their PDS is unavailable', async () => {
-		mocks.preferredClient.mockRejectedValue(new Error('offline'));
-		expect(await load(request('did:plc:alice'))).toMatchObject({
-			did: 'did:plc:alice',
-			preferredSocialClient: null,
-			preferredClientLoadFailed: true
-		});
+	it('does not fetch or wait for the preferred client while rendering a page', async () => {
+		mocks.preferredClient.mockImplementation(() => new Promise(() => {}));
+		const data = await load(request('did:plc:alice'));
+		expect(data).toMatchObject({ did: 'did:plc:alice' });
+		expect(data).not.toHaveProperty('preferredSocialClient');
+		expect(mocks.preferredClient).not.toHaveBeenCalled();
 	});
 	it('never grants posting to a signed-out viewer', async () => {
 		expect(await load(request(null))).toEqual({
 			did: null,
 			profile: null,
-			preferredSocialClient: null,
-			preferredClientLoadFailed: false,
 			canPostToBluesky: false,
 			isModerator: false
 		});

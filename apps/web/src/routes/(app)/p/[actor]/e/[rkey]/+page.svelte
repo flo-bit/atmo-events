@@ -4,6 +4,7 @@
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
 	import { page } from '$app/state';
 	import { openStarterPack } from '#lib/starter-packs/packs.remote.js';
+	import { loadEventAttendees } from '#lib/contrail/attendees.remote.js';
 
 	let { data } = $props();
 
@@ -19,16 +20,24 @@
 	let adapter = $derived(createInAppAdapter({ viewer }));
 </script>
 
-<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)}>
-	{#snippet attendeeActions({ goingCount, interestedCount })}
-		{#if data.starterPacksEnabled && goingCount + interestedCount > 5}
-			{#key data.eventData.uri}
-				<StarterPackButton
-					eventUri={data.eventData.uri}
-					socialClient={user.preferredSocialClient}
-					openPack={async (eventUri) => (await openStarterPack({ eventUri })).url}
-				/>
-			{/key}
-		{/if}
-	{/snippet}
-</EventView>
+{#key data.eventData.uri}
+	<EventView
+		{data}
+		{adapter}
+		{viewer}
+		pageUrl={new URL(page.url.href)}
+		loadAttendees={() => loadEventAttendees({ eventUri: data.eventData.uri })}
+	>
+		{#snippet attendeeActions({ goingCount, interestedCount })}
+			{#if data.starterPacksEnabled && goingCount + interestedCount > 5}
+				{#key data.eventData.uri}
+					<StarterPackButton
+						eventUri={data.eventData.uri}
+						socialClient={user.preferredSocialClient}
+						openPack={async (eventUri) => (await openStarterPack({ eventUri })).url}
+					/>
+				{/key}
+			{/if}
+		{/snippet}
+	</EventView>
+{/key}

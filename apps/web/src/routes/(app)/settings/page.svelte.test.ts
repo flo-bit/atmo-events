@@ -4,8 +4,7 @@ import { render } from 'svelte/server';
 const { user } = vi.hoisted(() => ({ user: { isLoggedIn: true, did: 'did:plc:alice' } }));
 vi.mock('#lib/atproto/auth.svelte.js', () => ({
 	user,
-	authorizePreferredSocialClient: vi.fn(),
-	logout: vi.fn()
+	authorizePreferredSocialClient: vi.fn()
 }));
 vi.mock('#lib/components/LoginModal.svelte', () => ({ atProtoLoginModalState: { show: vi.fn() } }));
 import SettingsPage from './+page.svelte';
@@ -38,9 +37,9 @@ beforeEach(() => {
 
 describe('settings page', () => {
 	it.each([{}, { canSaveClient: false }, { preferredClientLoadFailed: true }])(
-		'offers sign-out in every signed-in state: %j',
+		'leaves sign-out to the sidebar account menu in every signed-in state: %j',
 		(state) => {
-			expect(markup(state)).toContain('Sign out');
+			expect(markup(state)).not.toContain('Sign out');
 		}
 	);
 	it('renders the saved custom selection on the server, with public-storage disclosure', () => {

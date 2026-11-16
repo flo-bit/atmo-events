@@ -1,4 +1,5 @@
 import { visibleRecordSql, type Database } from '@atmo-dev/contrail';
+import { hasParentEventSql } from '#lib/legacy-conference.js';
 
 export type ProfileCounts = { created: number; rsvpd: number };
 
@@ -16,7 +17,7 @@ export async function getProfileCounts(
 					`SELECT
 			(SELECT COUNT(*) FROM records_event e
 			 WHERE e.did = ? AND ${visibleRecordSql('e')}
-			 AND json_extract(e.record, '$.additionalData.parentEvent.uri') IS NULL) AS created,
+			 AND NOT ${hasParentEventSql('e.record')}) AS created,
 			(SELECT COUNT(DISTINCT e.uri) FROM records_rsvp r
 			 JOIN records_event e ON e.uri = json_extract(r.record, '$.subject.uri')
 			 WHERE r.did = ? AND ${visibleRecordSql('r')} AND ${visibleRecordSql('e')}

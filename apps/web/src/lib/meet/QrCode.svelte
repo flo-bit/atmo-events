@@ -36,9 +36,9 @@
 		height="320"
 		role="img"
 		aria-label="Your meeting QR code"
-		class="text-ink mx-auto aspect-square h-auto w-full max-w-80"
+		class="text-base-950 dark:text-base-50 mx-auto aspect-square h-auto w-full max-w-80"
 	>
-		<rect width={code.size} height={code.size} fill="var(--ui-page)" />
+		<rect width={code.size} height={code.size} class="fill-base-50 dark:fill-base-925" />
 		<g fill="currentColor" stroke="currentColor" stroke-width="0.025" stroke-linejoin="round">
 			<path d={code.modules} />
 			{#each code.finders as finder, index (index)}<path d={finder} fill-rule="evenodd" />{/each}
@@ -46,7 +46,7 @@
 	</svg>
 {:else}
 	<p
-		class="text-muted flex aspect-square w-full max-w-80 items-center justify-center text-sm"
+		class="text-base-600 dark:text-base-400 flex aspect-square w-full max-w-80 items-center justify-center text-sm"
 		role="status"
 	>
 		{failed ? 'Could not generate QR code. Share the link below instead.' : 'Loading QR code…'}

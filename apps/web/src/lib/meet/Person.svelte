@@ -28,6 +28,8 @@
 	<Avatar src={profile?.avatar} name={profile?.displayName || profile?.handle || did} size={44} />
 	<div class="min-w-0">
 		<p class="truncate font-medium">{profile?.displayName || profile?.handle || did}</p>
-		{#if profile?.handle}<p class="text-muted truncate text-sm">@{profile.handle}</p>{/if}
+		{#if profile?.handle}<p class="text-base-600 dark:text-base-400 truncate text-sm">
+				@{profile.handle}
+			</p>{/if}
 	</div>
 </a>

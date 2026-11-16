@@ -5,16 +5,12 @@ import { getAuth } from '#lib/atproto/server/oauth.js';
 import { blueskyPostCapability } from '#lib/atproto/settings.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { isModerator } from '#lib/moderation/server.js';
-import { getPreferredClientRecord } from '#lib/atproto/preferred-client.server.js';
-import { parsePreferredSocialClient, type PreferredSocialClient } from '@atmo-dev/kit/social';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.did || !locals.client) {
 		return {
 			did: null,
 			profile: null,
-			preferredSocialClient: null,
-			preferredClientLoadFailed: false,
 			canPostToBluesky: false,
 			isModerator: false
 		};
@@ -23,18 +19,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	// Warm the first authenticated page after login. This keeps the network-feed
 	// bootstrap out of the response path without replacing the library callback.
 	if (env.DB) waitUntil(prewarmNetworkFeed(locals.did));
-	const [profile, preferredClient] = await Promise.all([
-		getViewerProfileFromContrail(getServerClient(env.DB), locals.did),
-		getPreferredClientRecord(locals.client, locals.did)
-			.then((value) => ({
-				preferredSocialClient: parsePreferredSocialClient(value?.record),
-				preferredClientLoadFailed: false
-			}))
-			.catch(() => ({
-				preferredSocialClient: null as PreferredSocialClient | null,
-				preferredClientLoadFailed: true
-			}))
-	]);
+	const profile = await getViewerProfileFromContrail(getServerClient(env.DB), locals.did);
 	let canPostToBluesky = false;
 	try {
 		canPostToBluesky = await getAuth().api.can(blueskyPostCapability);
@@ -45,7 +30,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	return {
 		did: locals.did,
 		profile,
-		...preferredClient,
 		canPostToBluesky,
 		isModerator: isModerator(locals.did)
 	};

@@ -12,6 +12,7 @@ import { render } from 'svelte/server';
 import { imageVersion, serveOgImage } from '#lib/server/og/cache.js';
 import { IMAGE_PLACEHOLDERS, withOgRenderer } from '#lib/server/og/takumi.js';
 import { loadThumbnail } from '#lib/server/og/thumbnail.js';
+import { loadEventPoster } from '#lib/server/og/event-poster.js';
 import type { RequestHandler } from './$types';
 
 const CARD = { width: 1200, height: 630 };
@@ -76,6 +77,7 @@ export const GET: RequestHandler = async ({ params, request, fetch: localFetch }
 				getEventThumbnail(eventData.media) ?? eventData.media?.find((m) => m.role === 'header');
 			// Keep Takumi's JPEG fast path; the library CDN helper defaults to WebP.
 			// The blurred backdrop only needs the 128px preset.
+			const poster = media?.content ? null : await loadEventPoster(eventData);
 			const photo = media?.content
 				? await Promise.all([
 						loadThumbnail(
@@ -94,7 +96,9 @@ export const GET: RequestHandler = async ({ params, request, fetch: localFetch }
 							}).replace(/@webp$/, '@jpeg')
 						).catch(() => null)
 					])
-				: null;
+				: poster
+					? ([poster, null] as const)
+					: null;
 			const png = await withOgRenderer(async (renderer) => {
 				let images: Record<string, Uint8Array>;
 				if (photo) {

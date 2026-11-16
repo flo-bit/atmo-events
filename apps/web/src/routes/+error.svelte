@@ -25,7 +25,9 @@
 	);
 </script>
 
-<main class="bg-page text-ink flex min-h-dvh flex-col lg:grid lg:grid-cols-2">
+<main
+	class="bg-base-50 dark:bg-base-925 text-base-950 dark:text-base-50 flex min-h-dvh flex-col lg:grid lg:grid-cols-2"
+>
 	<div
 		class="relative order-last h-[48svh] min-h-72 shrink-0 overflow-hidden lg:order-first lg:h-auto lg:min-h-dvh"
 	>
@@ -39,9 +41,11 @@
 	</div>
 	<div class="flex flex-1 items-center justify-center px-6 pt-12 pb-6 lg:px-20 lg:py-16">
 		<div class="w-full max-w-md text-center lg:text-left">
-			<p class="text-action font-mono text-sm">{page.status}</p>
+			<p class="text-accent-700 dark:text-accent-300 font-mono text-sm">{page.status}</p>
 			<h1 class="mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{title}</h1>
-			<p class="text-muted mt-4 leading-relaxed text-pretty wrap-anywhere">{message}</p>
+			<p class="text-base-600 dark:text-base-400 mt-4 leading-relaxed text-pretty wrap-anywhere">
+				{message}
+			</p>
 			<div class="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
 				<Button href={resolve('/(app)')}>Back to home</Button>
 				{#if serverError}

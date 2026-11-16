@@ -7,7 +7,7 @@ import {
 	type Database,
 	type Statement
 } from '@atmo-dev/contrail';
-import { cityConditions, readTopCities, refreshCitySnapshot } from '#lib/server/cities.js';
+import { buildCatalog, cityConditions, refreshCitySnapshot } from '#lib/server/cities.js';
 
 // Regression found by walking all 657 Boulder events: the old keyset skipped
 // one record at a page boundary when startsAt AND time_us were identical.
@@ -85,7 +85,9 @@ describe('Contrail record-field keyset URI tie-breaker', () => {
 		async (direction) => {
 			const { sqlite, db, config } = setup();
 			try {
-				const cities = await readTopCities(db, '2049-01-01T00:00:00.000Z');
+				const cities = (await buildCatalog(db, '2049-01-01T00:00:00.000Z')).map(
+					({ city, country, region, count }) => ({ city, country, region, count })
+				);
 				expect(cities).toEqual([{ city: 'Boulder', country: 'US', region: 'Colorado', count: 45 }]);
 				await refreshCitySnapshot(
 					db as unknown as D1Database,

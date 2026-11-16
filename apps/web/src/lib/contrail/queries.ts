@@ -212,7 +212,7 @@ export async function topicQuery(
 	return toPage('topic', { slug: args.slug }, response);
 }
 
-/** Daily ordered membership, live cards. Snapshot ID + offset are deliberately
+/** Periodically refreshed ordered membership, live cards. Snapshot ID + offset are deliberately
  * distinct from Contrail keysets: a refresh must never shift an in-flight walk.
  * Old/malformed/expired cursors end cleanly, never restart on a different set. */
 export async function cityQuery(
@@ -233,7 +233,6 @@ export async function cityQuery(
 	}
 	const snapshot = await readCitySnapshot(db, scope, version);
 	if (!snapshot || offset > snapshot.events.length) return EMPTY_PAGE;
-	const asOf = now();
 	const events: EventsPage['events'] = [];
 	const handles: Record<string, string> = {};
 	// Refill holes from deleted/hidden/moved records, but bound work to 60
@@ -241,15 +240,16 @@ export async function cityQuery(
 	for (let attempt = 0; attempt < 3 && events.length < PAGE_SIZE; attempt++) {
 		const uris: string[] = [];
 		while (offset < snapshot.events.length && uris.length < PAGE_SIZE - events.length) {
-			const [uri, startsAt] = snapshot.events[offset++];
-			if (startsAt >= asOf) uris.push(uri);
+			// Do not prefilter by the OLD start time: an author may have
+			// rescheduled it. The pipeline checks the current timestamp in SQL.
+			const [uri] = snapshot.events[offset++];
+			uris.push(uri);
 		}
 		if (!uris.length) break;
 		const response = await listCityEventsFromContrail(client, {
 			...scope,
 			uris,
 			snapshot: snapshot.version,
-			startsAtMin: asOf,
 			profiles: true,
 			limit: uris.length
 		});

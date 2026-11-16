@@ -2,7 +2,7 @@ import '../../lexicon-types/index.js';
 import type { Client } from '@atcute/client';
 import type { Did, ResourceUri } from '@atcute/lexicons';
 import { isDid, isHandle } from '@atcute/lexicons/syntax';
-import { tokenize } from '@atcute/bluesky-richtext-parser';
+import { detectTokens } from '@atmo-dev/kit/richtext';
 import { error } from '@sveltejs/kit';
 import { MAX_MEMBERS, parseEventUri, type PackSource } from './service';
 import { withDeadline } from './deadline';
@@ -68,7 +68,7 @@ async function loadSource(
 	if (value.description) {
 		const handles = new Set<string>();
 		let byteOffset = 0;
-		for (const token of tokenize(value.description)) {
+		for (const token of detectTokens(value.description)) {
 			const end = byteOffset + new TextEncoder().encode(token.raw).length;
 			if (token.type === 'mention' && !coveredMentions.has(`${byteOffset}:${end}`))
 				handles.add(token.handle);

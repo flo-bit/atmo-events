@@ -3,6 +3,7 @@ import { recordAtTags } from '@atmo-dev/kit/at-tags';
 import { error } from '@sveltejs/kit';
 import type { ActorIdentifier } from '@atcute/lexicons';
 import {
+	eventAttendeesFromRecord,
 	flattenEventRecord,
 	flattenEventRecords,
 	getEventRecordFromContrail,
@@ -12,14 +13,16 @@ import {
 	getRsvpStatus,
 	getViewerRsvpFromContrail,
 	listConferenceTalksFromContrail,
-	listEventAttendeesFromContrail,
 	withD1Retry,
 	RSVP_HYDRATE_LIMIT
 } from '#lib/contrail.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import type { Client } from '@atcute/client';
 import { vodFromAtUri } from '#lib/vods.js';
+import { eventDescriptionTexts, parseEventDescription } from '#lib/server/event-description.js';
+import { richTextToPlainText } from '@atmo-dev/kit/richtext';
 import { isConferenceEvent, getParentEventRef, parseEventUri } from '@atmo-dev/kit/events-data';
+import { conferenceTalksActor } from '#lib/legacy-conference.js';
 
 type EventRecord = Awaited<ReturnType<typeof getEventRecordFromContrail>>;
 
@@ -75,16 +78,7 @@ export async function load({ params, locals, url }) {
 	// pointing back at it via additionalData.parentEvent.
 	const isConference = isConferenceEvent(eventData);
 	const parentRef = getParentEventRef(eventData);
-	// Back-compat: atmosphereconf talks predate `parentEvent` (they carry an
-	// `isAtmosphereconf` flag instead). Point them at the conference event until
-	// the migration backfills `additionalData.parentEvent`. Remove after that.
-	const legacyAtmosphereconf = !!(eventData.additionalData as Record<string, unknown> | undefined)
-		?.isAtmosphereconf;
-	const parentParts = parentRef
-		? parseEventUri(parentRef.uri)
-		: legacyAtmosphereconf
-			? { did: 'did:plc:lehcqqkwzcwvjvw66uthu5oq', rkey: '3lte3c7x43l2e' }
-			: null;
+	const parentParts = parentRef ? parseEventUri(parentRef.uri) : null;
 
 	const speakers =
 		((eventData.additionalData as Record<string, unknown> | undefined)?.speakers as
@@ -94,23 +88,20 @@ export async function load({ params, locals, url }) {
 		string | undefined;
 	const vod = vodAtUri ? vodFromAtUri(vodAtUri) : null;
 
+	// The avatar strip renders from the RSVPs hydrated onto the record above. The
+	// full list (two 200-row profile hydrations, seconds on large events) is
+	// fetched by `loadAttendees` only when someone opens a list.
+	const attendees = eventAttendeesFromRecord(fullEventRecord);
+
 	// Secondary hydration is best-effort: the event already loaded, so a hiccup
-	// fetching attendees/rsvp/parent/talks/speakers must not take down (or 404)
-	// the page.
+	// fetching rsvp/parent/talks/speakers must not take down (or 404) the page.
 	const [
-		attendees,
 		viewerRsvpRecord,
 		parentRecord,
 		conferenceTalksResp,
 		conferenceRsvpResp,
 		...speakerProfiles
 	] = await Promise.all([
-		listEventAttendeesFromContrail(client, eventUri).catch(() => ({
-			going: [],
-			interested: [],
-			goingCount: 0,
-			interestedCount: 0
-		})),
 		locals.did
 			? getViewerRsvpFromContrail(client, {
 					eventUri,
@@ -129,7 +120,7 @@ export async function load({ params, locals, url }) {
 		isConference
 			? listConferenceTalksFromContrail(client, {
 					parentUri: eventUri,
-					actor: did as ActorIdentifier
+					actor: conferenceTalksActor(eventUri, did) as ActorIdentifier
 				}).catch(() => null)
 			: null,
 		// The viewer's RSVPs, so the timetable can show per-talk going/interested.
@@ -158,11 +149,6 @@ export async function load({ params, locals, url }) {
 	const parentEventActor = parentParts
 		? (getHostProfile(parentParts.did, parentRecord?.profiles)?.handle ?? parentParts.did)
 		: null;
-	// Legacy atmosphereconf talks link to the dedicated schedule route rather
-	// than the conference event page (which only renders a timetable once the
-	// event is migrated to type=conference). Drop after migration.
-	const parentScheduleUrl = !parentRef && legacyAtmosphereconf ? '/p/atmosphereconf.org' : null;
-
 	// Conference talks → schedule maps (RSVP status/rkey + VODs keyed by event URI).
 	const conferenceTalks = conferenceTalksResp
 		? flattenEventRecords(conferenceTalksResp.records)
@@ -179,16 +165,14 @@ export async function load({ params, locals, url }) {
 			}
 		}
 	}
-	const conferenceVods: Record<string, { playlistUrl: string; subtitlesUrl?: string }> = {};
+	const conferenceVods: Record<string, { playlistUrl: string }> = {};
 	for (const talk of conferenceTalks) {
 		const talkVod = (talk.additionalData as Record<string, unknown> | undefined)?.vodAtUri as
 			string | undefined;
-		if (talkVod)
-			conferenceVods[talk.uri] = {
-				...vodFromAtUri(talkVod),
-				subtitlesUrl: `/vods/${talk.rkey}-karaoke.vtt`
-			};
+		if (talkVod) conferenceVods[talk.uri] = vodFromAtUri(talkVod);
 	}
+
+	const description = parseEventDescription(eventData);
 
 	return {
 		atTags: recordAtTags(fullEventRecord, [
@@ -204,9 +188,11 @@ export async function load({ params, locals, url }) {
 				}
 			: undefined,
 		starterPacksEnabled: !!env.BOT_IDENTIFIER && !!env.BOT_APP_PASSWORD,
-		pageDescription: eventData.description || `Event: ${eventData.name}`,
+		pageDescription:
+			(description && richTextToPlainText(description)) || `Event: ${eventData.name}`,
 		ogImage: `${url.origin}${url.pathname}/og.png`,
 		eventData,
+		description,
 		actorDid: did,
 		rkey,
 		hostProfile: getHostProfile(did, fullEventRecord.profiles) ?? null,
@@ -215,10 +201,10 @@ export async function load({ params, locals, url }) {
 		viewerRsvpRkey: viewerRsvpRecord?.rkey ?? null,
 		parentEvent,
 		parentEventActor,
-		parentScheduleUrl,
 		vod,
 		isConference,
 		conferenceTalks,
+		conferenceTalkDescriptions: eventDescriptionTexts(conferenceTalks),
 		conferenceTimezone: eventData.timezone ?? 'UTC',
 		conferenceRsvpStatuses,
 		conferenceRsvpRkeys,

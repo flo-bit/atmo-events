@@ -9,14 +9,16 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<div class="mb-8">
 		<h1 class="text-base-900 dark:text-base-50 text-3xl font-bold sm:text-4xl">Browse Topics</h1>
-		<p class="text-muted mt-3 text-lg">Find events about the things you care about.</p>
+		<p class="text-base-600 dark:text-base-400 mt-3 text-lg">
+			Find events about the things you care about.
+		</p>
 	</div>
 
 	<div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
 		{#each TOPICS as topic (topic.slug)}
 			<a
 				href={resolve('/(app)/topics/[slug]', { slug: topic.slug })}
-				class="rounded-ui border-line bg-recess text-ink hover:border-accent-400 dark:hover:border-accent-600 flex min-h-18 items-center gap-3 border p-4 inset-shadow-sm transition-colors"
+				class="rounded-ui border-base-300 dark:bg-base-950 text-base-950 dark:text-base-50 hover:border-accent-400 dark:hover:border-accent-600 flex min-h-18 items-center gap-3 border bg-[color-mix(in_srgb,var(--base-100)_75%,var(--base-200))] p-4 inset-shadow-sm transition-colors dark:border-[color-mix(in_srgb,var(--base-800)_80%,var(--base-950))]"
 			>
 				<div class="text-accent-600 dark:text-accent-400 flex shrink-0">
 					<TopicIcon slug={topic.slug} class="size-6" />
@@ -26,7 +28,7 @@
 					>
 					{#if data.topicCounts?.[topic.slug] !== undefined}
 						<p
-							class="text-muted mt-1 text-xs tabular-nums"
+							class="text-base-600 dark:text-base-400 mt-1 text-xs tabular-nums"
 							title="Upcoming and ongoing events · updated daily"
 						>
 							{data.topicCounts[topic.slug]} upcoming

@@ -70,13 +70,11 @@ describe('withOgRenderer', () => {
 			withOgRenderer((renderer) =>
 				renderer.renderHtml(markup, size, { [IMAGE_PLACEHOLDERS.card]: readFileSync(file) })
 			);
-		const first = await render('static/topics/sustainability.jpg');
-		const second = await render('static/topics/arts-culture.jpg');
+		const first = await render('static/og.png');
+		const second = await render('static/icon-512.png');
 		expect(Buffer.from(first).equals(Buffer.from(second))).toBe(false);
 		// Deterministic for the same input.
-		expect(Buffer.from(await render('static/topics/sustainability.jpg'))).toEqual(
-			Buffer.from(first)
-		);
+		expect(Buffer.from(await render('static/og.png'))).toEqual(Buffer.from(first));
 	});
 
 	it('applies Tailwind classes and fonts', async () => {

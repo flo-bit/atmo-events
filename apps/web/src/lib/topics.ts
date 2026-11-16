@@ -3,9 +3,6 @@ export type Topic = {
 	name: string;
 	byline?: string;
 	hashtags: string[];
-	image: string;
-	icon: string;
-	gif?: string;
 };
 
 export const TOPICS: Topic[] = [
@@ -36,33 +33,25 @@ export const TOPICS: Topic[] = [
 			'#ethereum',
 			'#bitcoin',
 			'#defi'
-		],
-		image: '/topics/technology.jpg',
-		icon: 'tabler:cpu'
+		]
 	},
 	{
 		slug: 'design',
 		name: 'Design & UX',
 		byline: 'Making things beautiful and usable.',
-		hashtags: ['#design', '#ux', '#ui', '#uxdesign', '#productdesign', '#graphicdesign'],
-		image: '/topics/design.jpg',
-		icon: 'tabler:palette'
+		hashtags: ['#design', '#ux', '#ui', '#uxdesign', '#productdesign', '#graphicdesign']
 	},
 	{
 		slug: 'science',
 		name: 'Science',
 		byline: 'Curiosity as a lifestyle.',
-		hashtags: ['#science', '#stem', '#research', '#physics', '#biology', '#chemistry'],
-		image: '/topics/science.jpg',
-		icon: 'tabler:flask'
+		hashtags: ['#science', '#stem', '#research', '#physics', '#biology', '#chemistry']
 	},
 	{
 		slug: 'music',
 		name: 'Music',
 		byline: 'Live shows, listening sessions, and jam nights.',
-		hashtags: ['#music', '#livemusic', '#concert', '#gig', '#jazz', '#electronic'],
-		image: '/topics/music.jpg',
-		icon: 'tabler:music'
+		hashtags: ['#music', '#livemusic', '#concert', '#gig', '#jazz', '#electronic']
 	},
 	{
 		slug: 'arts-culture',
@@ -85,9 +74,7 @@ export const TOPICS: Topic[] = [
 			'#filmmaking',
 			'#documentary',
 			'#shorts'
-		],
-		image: '/topics/arts-culture.jpg',
-		icon: 'tabler:theater'
+		]
 	},
 	{
 		slug: 'food-drink',
@@ -106,9 +93,7 @@ export const TOPICS: Topic[] = [
 			'#culinary',
 			'#chef',
 			'#recipe'
-		],
-		image: '/topics/food-drink.jpg',
-		icon: 'tabler:tools-kitchen-2'
+		]
 	},
 	{
 		slug: 'fitness',
@@ -126,96 +111,67 @@ export const TOPICS: Topic[] = [
 			'#meditation',
 			'#mindfulness',
 			'#mentalhealth'
-		],
-		image: '/topics/fitness.jpg',
-		icon: 'tabler:barbell'
+		]
 	},
 	{
 		slug: 'outdoors',
 		name: 'Outdoors',
 		byline: 'Hiking, camping, and connecting with nature.',
-		hashtags: ['#outdoors', '#hiking', '#nature', '#camping', '#climbing', '#trail'],
-		image: '/topics/outdoors.jpg',
-		icon: 'tabler:mountain'
+		hashtags: ['#outdoors', '#hiking', '#nature', '#camping', '#climbing', '#trail']
 	},
 	{
 		slug: 'gaming',
 		name: 'Gaming',
 		byline: 'Tabletop, video games, and esports.',
-		hashtags: ['#gaming', '#games', '#videogames', '#tabletop', '#boardgames', '#esports', '#dnd'],
-		image: '/topics/gaming.jpg',
-		icon: 'tabler:device-gamepad-2'
+		hashtags: ['#gaming', '#games', '#videogames', '#tabletop', '#boardgames', '#esports', '#dnd']
 	},
 	{
 		slug: 'books',
 		name: 'Books & Writing',
 		byline: 'Book clubs, author talks, and writing workshops.',
-		hashtags: ['#books', '#reading', '#writing', '#bookclub', '#literature', '#poetry'],
-		image: '/topics/books.jpg',
-		icon: 'tabler:book'
+		hashtags: ['#books', '#reading', '#writing', '#bookclub', '#literature', '#poetry']
 	},
 	{
 		slug: 'entrepreneurship',
 		name: 'Entrepreneurship',
 		byline: 'Founders, startups, and building things.',
-		hashtags: [
-			'#startup',
-			'#entrepreneurship',
-			'#founder',
-			'#business',
-			'#venture',
-			'#solofounder'
-		],
-		image: '/topics/entrepreneurship.jpg',
-		icon: 'tabler:rocket'
+		hashtags: ['#startup', '#entrepreneurship', '#founder', '#business', '#venture', '#solofounder']
 	},
 	{
 		slug: 'education',
 		name: 'Education',
 		byline: 'Workshops, lectures, and lifelong learning.',
-		hashtags: ['#education', '#learning', '#workshop', '#lecture', '#course', '#teaching'],
-		image: '/topics/education.jpg',
-		icon: 'tabler:school'
+		hashtags: ['#education', '#learning', '#workshop', '#lecture', '#course', '#teaching']
 	},
 	{
 		slug: 'community',
 		name: 'Community',
 		byline: 'Social meetups and local gatherings.',
-		hashtags: ['#community', '#social', '#networking', '#meetup', '#local'],
-		image: '/topics/community.jpg',
-		icon: 'tabler:users'
+		hashtags: ['#community', '#social', '#networking', '#meetup', '#local']
 	},
 	{
 		slug: 'sustainability',
 		name: 'Sustainability',
 		byline: 'Working toward a livable planet.',
-		hashtags: ['#sustainability', '#climate', '#environment', '#climatechange', '#green', '#eco'],
-		image: '/topics/sustainability.jpg',
-		icon: 'tabler:plant'
+		hashtags: ['#sustainability', '#climate', '#environment', '#climatechange', '#green', '#eco']
 	},
 	{
 		slug: 'travel',
 		name: 'Travel',
 		byline: 'Adventures near and far.',
-		hashtags: ['#travel', '#adventure', '#wanderlust', '#backpacking', '#explore'],
-		image: '/topics/travel.jpg',
-		icon: 'tabler:plane'
+		hashtags: ['#travel', '#adventure', '#wanderlust', '#backpacking', '#explore']
 	},
 	{
 		slug: 'sports',
 		name: 'Sports',
 		byline: 'Watch parties, leagues, and pickup games.',
-		hashtags: ['#sports', '#football', '#basketball', '#soccer', '#tennis', '#cycling'],
-		image: '/topics/sports.jpg',
-		icon: 'tabler:ball-football'
+		hashtags: ['#sports', '#football', '#basketball', '#soccer', '#tennis', '#cycling']
 	},
 	{
 		slug: 'activism',
 		name: 'Activism',
 		byline: 'Organizing, protesting, and making change.',
-		hashtags: ['#activism', '#politics', '#civilrights', '#protest', '#advocacy', '#organizing'],
-		image: '/topics/activism.jpg',
-		icon: 'tabler:speakerphone'
+		hashtags: ['#activism', '#politics', '#civilrights', '#protest', '#advocacy', '#organizing']
 	}
 ];
 
