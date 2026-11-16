@@ -2,7 +2,7 @@
 	import { Button, Checkbox } from '@atmo-dev/kit';
 	import { browser } from '$app/env';
 	import { requestPermissions } from '@svelte-atproto/oauth/client';
-	import { BETA_REQUIREMENTS, BETA_SCOPE, BETA_WARNING } from '../beta';
+	import { BETA_REQUIREMENTS, BETA_SCOPE } from '../beta';
 	import { getPrivateEventsBeta, setPrivateEventsBeta } from '../private-events.remote';
 
 	// Only in the browser. On a Worker, a query started while the page renders on the server
@@ -60,7 +60,7 @@
 >
 	<h2 id="private-events-beta-heading" class="font-semibold">Private events (beta)</h2>
 	<p class="text-base-600 dark:text-base-400 text-sm">
-		Make events that only the people you add can see. {BETA_WARNING}
+		Make events that only the people you add can see.
 	</p>
 	{#if beta?.error}
 		<p class="text-base-600 dark:text-base-400 text-sm" role="alert">

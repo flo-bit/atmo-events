@@ -4,7 +4,6 @@
 	import { page } from '$app/state';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
-	import { BETA_WARNING, BETA_WARNING_SHORT } from '../beta';
 	import { singleEvent } from '../ids';
 	import { createPrivateRsvpAdapter } from '../rsvp-adapter';
 	import { GUEST_SCOPES, HOST_SCOPES } from '../scopes';
@@ -63,15 +62,11 @@
 				</p>
 				{#if answered}<FindAgainOffer />{/if}
 			{/if}
-			<p class="text-base-500 text-xs" data-testid="beta-notice">{BETA_WARNING_SHORT}</p>
 		{/snippet}
 	</EventView>
 {:else}
 	<div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Private event</h1>
-		<p class="text-base-600 dark:text-base-400 mt-2 text-sm" data-testid="beta-notice">
-			{BETA_WARNING}
-		</p>
 		{#if data.view === 'signed-out'}
 			<p class="text-base-600 dark:text-base-400 mt-2">Sign in to see whether you were invited.</p>
 			<Button class="mt-4" onclick={() => atProtoLoginModalState.show()}>Sign in</Button>

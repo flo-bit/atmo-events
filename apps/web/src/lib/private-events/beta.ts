@@ -13,14 +13,6 @@ export const BETA_REQUIREMENTS = [
 	{ type: 'repo', collection: BETA_COLLECTION, action: 'update' }
 ] as const;
 
-/** What the beta costs, said wherever private events are offered or shown. */
-export const BETA_WARNING =
-	"Private events are in beta. While they're being built, and when they move to their public release, private events and their answers will be lost.";
-
-/** The same warning where an event's own page has little room. */
-export const BETA_WARNING_SHORT =
-	'Beta: private events and their answers will be lost when private events are released.';
-
 /** On only when the record says so; a missing or unreadable record is off. */
 export function privateEventsBetaOn(record: unknown): boolean {
 	return (
