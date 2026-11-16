@@ -79,7 +79,9 @@
 		<p class="text-base-600 dark:text-base-400 text-sm" role="status">Loading…</p>
 	{:else if !beta.current.canSave}
 		<p class="text-base-600 dark:text-base-400 text-sm">
-			We need additional permission to save this setting.
+			{beta.current.on
+				? 'atmo needs your permission to save this setting.'
+				: 'atmo needs your permission to save this setting and to keep your private events on your own server.'}
 		</p>
 		<Button onclick={authorize} disabled={authorizing} class="justify-self-start">
 			{authorizing ? 'Authorizing…' : 'Authorize now'}
