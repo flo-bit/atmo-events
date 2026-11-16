@@ -33,7 +33,8 @@ export async function GET({ url, locals, fetch }) {
 			osmId: point.osmId
 		});
 	} catch (error) {
-		console.error('Error fetching location:', q, error);
+		// Not the address itself: someone's search is theirs, not the logs'.
+		console.error('Error fetching location:', error);
 		return json({ error: 'Failed to fetch location' }, { status: 500 });
 	}
 }

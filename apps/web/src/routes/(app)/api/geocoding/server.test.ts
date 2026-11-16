@@ -116,4 +116,15 @@ describe('GET /api/geocoding', () => {
 		expect(spy).not.toHaveBeenCalled();
 		spy.mockRestore();
 	});
+
+	it('logs a failed lookup without the address searched for', async () => {
+		const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+		const { fn } = fakeFetch(503, {});
+		const res = await GET(event({ q: '12 Secret Lane', did: 'did:plc:abc', fetch: fn }));
+		expect(res.status).toBe(500);
+		expect(spy).toHaveBeenCalled();
+		const logged = spy.mock.calls.flat().map((arg) => String(arg));
+		expect(logged.join(' ')).not.toContain('Secret Lane');
+		spy.mockRestore();
+	});
 });
