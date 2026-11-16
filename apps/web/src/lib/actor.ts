@@ -1,13 +1,17 @@
 import type { Did, Handle } from '@atcute/lexicons';
 import { isDid } from '@atcute/lexicons/syntax';
 import { resolveHandle } from '@svelte-atproto/oauth/helper';
+import type { AtprotoNetwork } from '@svelte-atproto/oauth/network';
 import { atprotoNetwork } from '#lib/atproto/network.js';
 
 const HANDLE_CACHE_TTL_MS = 60 * 60 * 1000;
 const handleCache = new Map<string, { did: Did; at: number }>();
 
 /** Keep successful actor lookups warm; retry transient DNS/PDS failures. */
-export async function actorToDid(actor: string): Promise<Did> {
+export async function actorToDid(
+	actor: string,
+	network: AtprotoNetwork = atprotoNetwork()
+): Promise<Did> {
 	if (isDid(actor)) return actor;
 	const cached = handleCache.get(actor);
 	if (cached && Date.now() - cached.at < HANDLE_CACHE_TTL_MS) return cached.did;
@@ -17,7 +21,7 @@ export async function actorToDid(actor: string): Promise<Did> {
 		try {
 			const did = await resolveHandle({
 				handle: actor as Handle,
-				network: atprotoNetwork(),
+				network,
 				slingshot: false
 			});
 			handleCache.set(actor, { did, at: Date.now() });
@@ -31,9 +35,9 @@ export async function actorToDid(actor: string): Promise<Did> {
 }
 
 /** Route-facing variant: an unresolved actor is a not-found result. */
-export async function getActor(actor: string): Promise<string | null> {
+export async function getActor(actor: string, network?: AtprotoNetwork): Promise<string | null> {
 	try {
-		return await actorToDid(actor);
+		return await actorToDid(actor, network);
 	} catch {
 		return null;
 	}

@@ -17,9 +17,11 @@ export function setNextSaveFailure(message: string) {
 	nextFailure = message;
 }
 export function resolve(route: string, params?: Record<string, string>) {
-	return route
+	const path = route
 		.replace('/(app)', '')
 		.replace(/\[([^\]]+)\]/g, (_, key: string) => encodeURIComponent(params?.[key] ?? ''));
+	// As SvelteKit's own: the home page's route, `/(app)`, is `/`.
+	return path || '/';
 }
 export async function goto(url: string, options?: { replace?: boolean; reset?: boolean }) {
 	navigations.push(url);

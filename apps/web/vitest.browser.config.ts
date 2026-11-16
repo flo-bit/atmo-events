@@ -12,17 +12,34 @@ const appFixture = fileURLToPath(new URL('./src/lib/meet/test-app.ts', import.me
 const publicEnvFixture = fileURLToPath(
 	new URL('./src/lib/atproto/test-env-public.ts', import.meta.url)
 );
+const envFixture = fileURLToPath(new URL('./src/lib/atproto/test-env.ts', import.meta.url));
 
 export default defineConfig({
 	plugins: [svelte(), tailwindcss()],
 	optimizeDeps: {
-		// Keep shared network settings in one module; Vite also handles MapLibre's worker ?url.
-		exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'],
+		// Keep shared network settings in one module; Vite also handles MapLibre's worker ?url. The kit's
+		// root is left out too, so a page's setLinkEmbeds reaches the EventView it renders: pre-bundled,
+		// the root would carry its own copy of the embed settings. cloudflare:workers exists only on the
+		// Worker, and a component's remote functions lead to server code that imports it: unresolved, it
+		// stops Vite's dependency scan, so every dependency is found mid-run and reloads the whole run.
+		exclude: [
+			'@atmo-dev/kit',
+			'@atmo-dev/kit/events',
+			'@atmo-dev/kit/events-data',
+			'cloudflare:workers'
+		],
 		include: [
 			'mode-watcher',
+			'@svelte-atproto/oauth/helper',
+			'@atcute/lexicons/validations',
+			'@atcute/atproto/types/repo/strongRef',
+			'@atcute/bluesky/types/app/actor/profile',
 			'@sketchyicons/svelte/icons/calendar',
 			'@sketchyicons/svelte/icons/message-circle',
-			'@sketchyicons/svelte/icons/handshake'
+			'@sketchyicons/svelte/icons/handshake',
+			// A page's commands import it. Browser tests mock them, but a slow run can still ask Vite
+			// for the real module, and a dependency found that late reloads the whole run.
+			'valibot'
 		]
 	},
 	server: {
@@ -39,7 +56,9 @@ export default defineConfig({
 			'$app/forms': appFixture,
 			'$app/navigation': appFixture,
 			'$app/paths': appFixture,
-			'$app/env/public': publicEnvFixture
+			'$app/env/public': publicEnvFixture,
+			// After $app/env/public: an alias also matches the paths below it, and the first match wins.
+			'$app/env': envFixture
 		}
 	},
 	test: {

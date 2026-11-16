@@ -36,7 +36,11 @@ export default defineConfig(({ mode }) => {
 			tailwindcss()
 		],
 		// Both entries share the same runtime network settings during development.
-		optimizeDeps: { exclude: ['@atmo-dev/kit/events', '@atmo-dev/kit/events-data'] },
+		// The kit's root stays out of pre-bundling with its events entry, so the embed settings a private
+		// event's page makes with setLinkEmbeds are the ones its EventView reads, in dev as in a build.
+		optimizeDeps: {
+			exclude: ['@atmo-dev/kit', '@atmo-dev/kit/events', '@atmo-dev/kit/events-data']
+		},
 		resolve: {
 			alias: {
 				// OAuth 0.4.1 supports Kit 3 but its bundle retains this Kit 2 import.
