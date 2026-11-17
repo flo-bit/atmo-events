@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getEventExternalImage } from '@atmo-dev/kit/events-data';
-import { buildEventRecord } from '@atmo-dev/kit/events/editor';
+import { buildEventRecord, buildThumbnailMedia } from '@atmo-dev/kit/events/editor';
 import { SpaceAccessDenied } from '#lib/spaces/server/space-credential.js';
 import { HOST_SCOPE, GUEST_SCOPE } from '../scopes';
 import {
@@ -59,6 +59,14 @@ const RECORD = {
 	createdAt: '2026-11-04T00:00:00.000Z',
 	startsAt: '2026-11-07T00:00:00.000Z'
 };
+
+/** A picture as atmo's upload hands it back, cited by the event's `media`. */
+const CID = 'bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku';
+const picture = (blob: Record<string, unknown> = {}, cid = CID) => ({
+	role: 'thumbnail',
+	content: { $type: 'blob', ref: { $link: cid }, mimeType: 'image/webp', size: 1234, ...blob },
+	aspect_ratio: { width: 800, height: 800 }
+});
 
 type Sent = { pathname: string; body?: Record<string, unknown>; query: URLSearchParams };
 
@@ -130,7 +138,7 @@ beforeEach(() => {
 });
 
 describe('savePrivateEvent', () => {
-	const input = { rkey: RKEY, record: { ...RECORD, media: [{ image: 'public-blob' }] } };
+	const input = { rkey: RKEY, record: { ...RECORD, media: [picture()] } };
 
 	it('makes a member-only space, then writes the event into it and never to the public repo', async () => {
 		const host = caller(HOST, HOST_SCOPE, { 'com.atproto.space.getSpace': privateSpace });
@@ -157,10 +165,30 @@ describe('savePrivateEvent', () => {
 		});
 	});
 
-	it("stores no image, since atmo can't show a private one yet", async () => {
+	it('stores the picture uploaded with it', async () => {
 		const host = caller(HOST, HOST_SCOPE, { 'com.atproto.space.getSpace': privateSpace });
 		await savePrivateEvent(host, input);
-		expect(host.sent[2].body?.record).not.toHaveProperty('media');
+		expect(host.sent[2].body?.record).toMatchObject({ media: [picture()] });
+	});
+
+	it.each([
+		['media that is not a list', { media: picture() }],
+		['an item with no blob', { media: [{ role: 'thumbnail', image: 'x' }] }],
+		['an item with no role', { media: [{ ...picture(), role: undefined }] }],
+		['a blob that is not an image', { media: [picture({ mimeType: 'text/html' })] }],
+		['a blob of an image type browsers sniff', { media: [picture({ mimeType: 'image/svg+xml' })] }],
+		['a blob with no type', { media: [picture({ mimeType: undefined })] }],
+		['a blob with no size', { media: [picture({ size: undefined })] }],
+		['a blob too large', { media: [picture({ size: 50 * 1024 * 1024 })] }],
+		['a blob ref that is not a CID', { media: [picture({}, '../../xrpc/elsewhere')] }],
+		['a blob ref of the old shape', { media: [{ role: 'thumbnail', content: { cid: CID } }] }],
+		['one bad item among good ones', { media: [picture(), picture({ mimeType: 'text/html' })] }]
+	])('refuses %s, and writes nothing', async (_, bad) => {
+		const host = caller(HOST, HOST_SCOPE, { 'com.atproto.space.getSpace': privateSpace });
+		await expect(
+			savePrivateEvent(host, { rkey: RKEY, record: { ...RECORD, ...bad } })
+		).rejects.toMatchObject({ reason: 'not-an-event' });
+		expect(host.sent).toHaveLength(0);
 	});
 
 	it('saves an edit into the space that is already there', async () => {
@@ -200,16 +228,15 @@ describe('an edit of a private event', () => {
 	const menu = { name: 'Menu', uri: 'https://example.com/menu' };
 	const flyer = { name: 'Event Image', uri: 'https://images.example.com/flyer.jpg' };
 	const poster = { url: 'https://images.example.com/poster.jpg' };
-	const media = [{ role: 'thumbnail', content: { $type: 'blob', ref: { $link: 'bafkrei' } } }];
+	const media = [picture()];
 
-	it('keeps the image and links the edit page left out', async () => {
-		reader.get.mockImplementation(async ({ collection }: { collection: string }) =>
-			spaceRecord(HOST, collection, { ...RECORD, media, poster, uris: [flyer, menu] })
-		);
-		const host = caller(HOST, HOST_SCOPE, { 'com.atproto.space.getSpace': privateSpace });
-		const eventData = await readPrivateEventForEdit(host, RKEY);
-		// As the kit's editor saves the edit page's copy with only the name changed and no image offered.
-		const record = await buildEventRecord({
+	/** What the kit's editor saves from the edit page's copy, with the name changed and `media` as
+	 *  its picture section left it. */
+	async function edited(
+		eventData: Awaited<ReturnType<typeof readPrivateEventForEdit>>,
+		media?: unknown
+	) {
+		return buildEventRecord({
 			eventData,
 			isNew: false,
 			name: 'Supper',
@@ -223,16 +250,81 @@ describe('an edit of a private event', () => {
 			links: (eventData?.uris ?? []).map((l) => ({ uri: l.uri, name: l.name ?? '' })),
 			location: null,
 			locationChanged: false,
-			media: undefined,
+			media: media as Array<Record<string, unknown>> | undefined,
 			resolveHandle: async () => HOST
 		});
-		await savePrivateEvent(host, { rkey: RKEY, record });
-		const saved = host.sent.find((s) => s.pathname.endsWith('.putRecord'))?.body?.record as {
-			uris?: unknown[];
+	}
+
+	/** The host's event as stored, its edit page's copy, and what a save of `record` stores. */
+	async function editing(stored: Record<string, unknown>) {
+		reader.get.mockImplementation(async ({ collection }: { collection: string }) =>
+			spaceRecord(HOST, collection, stored)
+		);
+		const host = caller(HOST, HOST_SCOPE, { 'com.atproto.space.getSpace': privateSpace });
+		const eventData = await readPrivateEventForEdit(host, RKEY);
+		const save = async (record: Record<string, unknown>) => {
+			await savePrivateEvent(host, { rkey: RKEY, record });
+			return host.sent.find((s) => s.pathname.endsWith('.putRecord'))?.body?.record as {
+				uris?: unknown[];
+				media?: unknown;
+			};
 		};
-		expect(saved).toMatchObject({ name: 'Supper', media, poster });
+		return { eventData, save };
+	}
+
+	/** What the kit's picture section gives the save when no new image was chosen. */
+	const picturePart = (
+		eventData: Awaited<ReturnType<typeof readPrivateEventForEdit>>,
+		change: { thumbnailChanged: boolean; thumbnailFile: null }
+	) =>
+		buildThumbnailMedia({
+			isNew: false,
+			...change,
+			existingMedia: (eventData?.media ?? []) as Array<Record<string, unknown>>,
+			uploadBlob: async () => {
+				throw new Error('nothing to upload');
+			}
+		});
+
+	it('keeps the outside image and links the edit page left out', async () => {
+		const { eventData, save } = await editing({ ...RECORD, poster, uris: [flyer, menu] });
+		expect(eventData).not.toHaveProperty('poster');
+		const saved = await save(await edited(eventData));
+		expect(saved).toMatchObject({ name: 'Supper', poster });
 		expect(saved.uris).toHaveLength(2);
 		expect(saved.uris).toEqual(expect.arrayContaining([flyer, menu]));
+	});
+
+	it('keeps the picture when it was left as it was', async () => {
+		const { eventData, save } = await editing({ ...RECORD, media });
+		expect(eventData?.media).toEqual(media);
+		const kept = await picturePart(eventData, { thumbnailChanged: false, thumbnailFile: null });
+		expect(await save(await edited(eventData, kept))).toMatchObject({ name: 'Supper', media });
+	});
+
+	it('stores the new picture when it was replaced', async () => {
+		const { eventData, save } = await editing({ ...RECORD, media });
+		// As the kit's buildThumbnailMedia gives it, which needs a browser to shrink the image first:
+		// the other media as they were, and the new upload in the old one's role.
+		const other = picture({}, 'bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+		const header = picture({}, 'bafkreibbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+		const { eventData: withHeader } = await editing({
+			...RECORD,
+			media: [...media, { ...header, role: 'header' }]
+		});
+		const replaced = [{ ...header, role: 'header' }, other];
+		expect(withHeader?.media).toHaveLength(2);
+		expect(eventData?.media).toEqual(media);
+		const saved = await save(await edited(eventData, replaced));
+		expect(saved.media).toEqual(replaced);
+	});
+
+	it('stores no picture when it was removed, though one is stored', async () => {
+		const { eventData, save } = await editing({ ...RECORD, media, poster });
+		const removed = await picturePart(eventData, { thumbnailChanged: true, thumbnailFile: null });
+		const saved = await save(await edited(eventData, removed));
+		expect(saved).not.toHaveProperty('media');
+		expect(saved).toMatchObject({ poster });
 	});
 });
 
@@ -327,7 +419,7 @@ describe('readPrivateEventPage', () => {
 		}
 	);
 
-	it('keeps an event whose stored image is malformed, since the image is never shown', async () => {
+	it('keeps an event whose stored image is malformed, and shows no image', async () => {
 		theSpaceHolds({}, { ...RECORD, media: 'not-media' } as unknown as typeof RECORD);
 		reader.writers.mockResolvedValue([]);
 		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);
@@ -410,7 +502,15 @@ describe('readPrivateEventPage', () => {
 		expect(page?.guests).toHaveLength(10);
 	});
 
-	it('shows no image, which would hand a public CDN the host’s DID', async () => {
+	it('shows the pictures uploaded through atmo, and only the well-formed ones', async () => {
+		const svg = picture({ mimeType: 'image/svg+xml' });
+		theSpaceHolds({}, { ...RECORD, media: [{ image: 'x' }, picture(), svg] } as typeof RECORD);
+		reader.writers.mockResolvedValue([]);
+		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);
+		expect(page?.event.media).toEqual([picture()]);
+	});
+
+	it('shows no media when none of it is well-formed', async () => {
 		theSpaceHolds({}, { ...RECORD, media: [{ image: 'x' }] } as typeof RECORD);
 		reader.writers.mockResolvedValue([]);
 		const page = await readPrivateEventPage(caller(GUEST, GUEST_SCOPE), EVENT);

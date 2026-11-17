@@ -28,6 +28,7 @@ import {
 	type EventAddress,
 	type RsvpStatus
 } from '../ids';
+import { isPicture } from '../pictures';
 import { holdsGuestGrant, holdsHostGrant } from '../scopes';
 import type { CallerSession } from './caller';
 import { publicProfiles, verifiedHandle } from './people';
@@ -131,10 +132,10 @@ function isEventImage(link: unknown): boolean {
 }
 
 /** What `flatEvent` leaves out of every page's copy, put back from the stored record, so an edit
- *  made from that copy keeps it. */
+ *  made from that copy keeps it. Not `media`: the edit page shows the pictures, so what it sends is
+ *  what the host left there, and a picture they removed stays removed. */
 function keepUnshown(record: Record<string, unknown>, stored: Record<string, unknown> | undefined) {
 	if (!stored) return;
-	if (stored.media !== undefined) record.media = stored.media;
 	if (stored.poster !== undefined) record.poster = stored.poster;
 	const images = Array.isArray(stored.uris) ? stored.uris.filter(isEventImage) : [];
 	if (images.length > 0) {
@@ -142,17 +143,23 @@ function keepUnshown(record: Record<string, unknown>, stored: Record<string, unk
 	}
 }
 
-/** The event, with no image from the page, since atmo can't show a private one yet; an edit keeps
- *  the one stored. It gets a space of its own. */
+/** Each item an image blob atmo would serve, as the editor sends one it uploaded. */
+function arePictures(media: unknown): boolean {
+	return media === undefined || (Array.isArray(media) && media.every(isPicture));
+}
+
+/** The event, with the pictures the page sends; an edit keeps the outside image stored. It gets a
+ *  space of its own. */
 export async function savePrivateEvent(
 	caller: CallerSession,
 	input: { rkey: string; record: Record<string, unknown> }
 ): Promise<{ uri: string; cid: string }> {
 	requireHost(caller);
 	const record: Record<string, unknown> = { ...input.record, $type: EVENT_COLLECTION };
-	delete record.media;
 	// A PDS doesn't validate a space record at all.
-	if (!v.safeParse(eventSchema, record).ok) throw new PrivateEventRefused('not-an-event');
+	if (!v.safeParse(eventSchema, record).ok || !arePictures(record.media)) {
+		throw new PrivateEventRefused('not-an-event');
+	}
 	const address = singleEvent(caller.did, input.rkey);
 	const reader = credentialSpaceReader(caller);
 	try {
@@ -189,14 +196,16 @@ export async function cancelPrivateEvent(caller: CallerSession, rkey: string): P
 	await write(caller, 'com.atproto.space.deleteSpace', { space }, 'event not cancelled');
 }
 
-/** As the event components take it: the record whole, its address beside it, and no image, since a
- *  page would build a public CDN URL from it, or load a poster or an "Event Image" link from
- *  wherever it points without a click. Null for what isn't an event, since a PDS doesn't
- *  validate a space record and any host could write one that breaks their guests' pages, and with
- *  no start, which every page needs. */
+/** As the event components take it: the record whole, its address beside it, and only the pictures
+ *  atmo serves itself, which every page loads through its own route. No other image, since a page
+ *  would load a poster or an "Event Image" link from wherever it points without a click. Null for
+ *  what isn't an event, since a PDS doesn't validate a space record and any host could write one
+ *  that breaks their guests' pages, and with no start, which every page needs. */
 function flatEvent(host: string, record: SpaceRecord): FlatEventRecord | null {
 	const value = { ...record.value };
+	const pictures = Array.isArray(value.media) ? value.media.filter(isPicture) : [];
 	delete value.media;
+	if (pictures.length > 0) value.media = pictures;
 	delete value.poster;
 	if (Array.isArray(value.uris)) {
 		value.uris = value.uris.filter((link) => !isEventImage(link));
