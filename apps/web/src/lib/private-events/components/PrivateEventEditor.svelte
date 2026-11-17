@@ -4,6 +4,7 @@
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createPrivateEventAdapter } from '../editor-adapter';
 	import { holdPrivateEmbeds } from '../embeds';
+	import { pictureUrl } from '../pictures';
 
 	// A host's own event.
 	let {
@@ -30,4 +31,5 @@
 	rkey={data.rkey}
 	{adapter}
 	{viewer}
+	mediaUrl={pictureUrl(data.rkey)}
 />

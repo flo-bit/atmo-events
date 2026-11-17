@@ -1,6 +1,7 @@
 // A private event's pictures: images uploaded through atmo and cited by the event's own `media`.
 // Kept in the event's space, so only atmo can show them, to the people who can see the event; never
 // a public CDN. Values only, so the server and the pages can both import them.
+import type { EventMediaUrl } from '@atmo-dev/kit/events-data';
 
 /** Image types a browser shows as an image and never runs; SVG, which can carry a script, is not
  *  one. A picture's response says its type from this list, never what a PDS sent. */
@@ -67,4 +68,11 @@ export function isPicture(item: unknown): item is Picture {
 export function citedPicture(media: unknown, cid: string): Picture | null {
 	if (!Array.isArray(media)) return null;
 	return media.find((item) => isPicture(item) && item.content.ref.$link === cid) ?? null;
+}
+
+/** Where a page loads one of a private event's pictures: atmo's own route, which serves it only to
+ *  someone who can see the event. The kit's components load it from a public CDN without this. */
+export function pictureUrl(rkey: string): EventMediaUrl {
+	return ({ did, blob }) =>
+		`/p/${encodeURIComponent(did)}/private/${encodeURIComponent(rkey)}/picture/${encodeURIComponent(blob.ref.$link)}`;
 }

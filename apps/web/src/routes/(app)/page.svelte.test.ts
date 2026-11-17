@@ -83,4 +83,24 @@ describe('Your events on the home page', () => {
 	it('says nothing of the kind when none are missing', () => {
 		expect(markup({})).not.toContain('your-private-events-incomplete');
 	});
+
+	it('loads a private event’s picture from atmo’s own route, and a public one’s as before', () => {
+		const blob = (cid: string) => ({
+			$type: 'blob' as const,
+			ref: { $link: cid },
+			mimeType: 'image/png',
+			size: 10
+		});
+		const media = (cid: string) => [{ role: 'thumbnail', content: blob(cid) }];
+		const dinner = { ...DINNER, media: media('bafkreidinner') };
+		const picnic = { ...PICNIC, media: media('bafkreipicnic') };
+		const body = markup(
+			{ [DINNER.uri]: { href: '/p/host.example.com/private/3ldinner' } },
+			{ mine: [dinner, picnic] }
+		);
+		const sources = [...body.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]);
+		expect(sources).toContain('/p/did%3Aplc%3Ahost/private/3ldinner/picture/bafkreidinner');
+		expect(sources.filter((src) => src.includes('bafkreidinner'))).toHaveLength(1);
+		expect(sources.find((src) => src.includes('bafkreipicnic'))).toMatch(/^https:\/\/cdn\./);
+	});
 });

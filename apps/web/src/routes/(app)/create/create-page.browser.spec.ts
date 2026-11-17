@@ -226,6 +226,57 @@ describe('publishing a private event on /create', () => {
 	});
 });
 
+describe('a private event’s picture on /create', () => {
+	const uploaded = {
+		$type: 'blob',
+		ref: { $link: 'bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku' },
+		mimeType: 'image/webp',
+		size: 1000
+	};
+	const saved = () =>
+		(mocks.savePrivateEvent.mock.calls[0] as unknown as [{ record: Record<string, unknown> }])[0]
+			.record;
+
+	it('is uploaded through the host’s own sign-in and saved with the event', async () => {
+		mocks.uploadBlob.mockResolvedValue(uploaded);
+		filledIn();
+		render(CreatePage, { data: data() } as never);
+		await choosePrivate();
+		await publish().click();
+		await expect.poll(() => mocks.savePrivateEvent).toHaveBeenCalled();
+		expect(mocks.uploadBlob).toHaveBeenCalledTimes(1);
+		expect(saved().media).toEqual([expect.objectContaining({ content: uploaded })]);
+	});
+
+	it('does not stop the event being created when the cover won’t upload', async () => {
+		mocks.uploadBlob.mockRejectedValue(new Error('upload refused'));
+		const warned = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		filledIn();
+		render(CreatePage, { data: data() } as never);
+		await choosePrivate();
+		await publish().click();
+		await expect.poll(() => mocks.savePrivateEvent).toHaveBeenCalled();
+		expect(mocks.uploadBlob).toHaveBeenCalledTimes(1);
+		expect(saved()).not.toHaveProperty('media');
+		warned.mockRestore();
+	});
+
+	it('stays private when private events turn off while it saves', async () => {
+		let release: (blob: unknown) => void = () => {};
+		mocks.uploadBlob.mockImplementation(() => new Promise((done) => (release = done)));
+		filledIn();
+		const view = await render(CreatePage, { data: data() } as never);
+		await choosePrivate();
+		await publish().click();
+		await expect.poll(() => mocks.uploadBlob.mock.calls.length).toBe(1);
+		await view.rerender({ data: data(false) } as never);
+		await expect.element(page.getByTestId('private-off')).toBeVisible();
+		release(uploaded);
+		await expect.poll(() => mocks.savePrivateEvent.mock.calls.length).toBe(1);
+		expect(mocks.putRecord).not.toHaveBeenCalled();
+	});
+});
+
 describe('a link in a private event’s description on /create', () => {
 	beforeEach(() => performance.clearResourceTimings());
 

@@ -5,6 +5,7 @@
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
 	import { singleEvent } from '../ids';
+	import { pictureUrl } from '../pictures';
 	import { createPrivateRsvpAdapter } from '../rsvp-adapter';
 	import { GUEST_SCOPES, HOST_SCOPES } from '../scopes';
 	import type { loadEventPage } from '../server/event-page';
@@ -40,8 +41,16 @@
 		viewer,
 		(status) => (answered = status)
 	)}
-	<!-- A private event has no public page to share, so the page offers no Bluesky post. -->
-	<EventView {data} {adapter} {viewer} pageUrl={new URL(page.url.href)} share={false}>
+	<!-- A private event has no public page to share, so the page offers no Bluesky post. Its
+	     pictures load from atmo's own route, never a public CDN. -->
+	<EventView
+		{data}
+		{adapter}
+		{viewer}
+		pageUrl={new URL(page.url.href)}
+		share={false}
+		mediaUrl={pictureUrl(data.rkey)}
+	>
 		{#snippet extraActions()}
 			{#if data.answersUnread}
 				<p

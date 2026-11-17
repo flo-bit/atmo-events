@@ -9,6 +9,7 @@
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
 	import { createEventModalState } from '#lib/components/CreateEventModal.svelte';
 	import { describeLinkBy, privateNoteId } from '#lib/private-events/describe-link.js';
+	import { pictureUrl } from '#lib/private-events/pictures.js';
 
 	let { data } = $props();
 
@@ -23,7 +24,7 @@
 	{#if link}
 		{@const noteId = privateNoteId(event.uri)}
 		<div data-testid="your-private-event" {@attach describeLinkBy(noteId)}>
-			<EventCard {event} href={link.href} />
+			<EventCard {event} href={link.href} mediaUrl={pictureUrl(event.rkey)} />
 			<p id={noteId} class="text-base-600 dark:text-base-400 mt-1 text-xs">
 				<Icon img={LockKeyhole} size={12} class="mr-1 inline align-[-2px]" />Private event
 			</p>

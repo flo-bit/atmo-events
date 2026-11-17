@@ -45,10 +45,17 @@ vi.mock('#lib/atproto/auth.svelte.js', () => ({
 	authorizeMeetings: vi.fn()
 }));
 
+const CID = 'bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku';
+const PICTURE = {
+	role: 'thumbnail',
+	content: { $type: 'blob', ref: { $link: CID }, mimeType: 'image/png', size: 10 }
+};
+
 /** The host's event, as the edit page's load returns it. */
-function editView() {
+function editView(more: Record<string, unknown> = {}) {
 	return {
 		eventData: {
+			...more,
 			name: 'Dinner',
 			description: DESCRIPTION_WITH_GIF,
 			startsAt: '2099-01-01T18:00:00Z',
@@ -71,5 +78,18 @@ describe('editing a private event', () => {
 		expect(gifHostRequests()).toEqual([]);
 		await loadButton().click();
 		await expect.poll(() => gifHostRequests()).not.toEqual([]);
+	});
+
+	it('offers a picture, and shows the one it has from atmo’s own route', async () => {
+		render(EditPage, { data: editView({ media: [PICTURE] }) } as never);
+		await expect
+			.poll(() => document.querySelectorAll('input[type=file]').length)
+			.toBeGreaterThan(0);
+		const route = `/p/${encodeURIComponent(HOST)}/private/3kabc/picture/${CID}`;
+		await expect
+			.poll(() => [...document.querySelectorAll('img')].map((img) => img.getAttribute('src')))
+			.toContain(route);
+		const sources = [...document.querySelectorAll('img')].map((img) => img.src);
+		expect(sources.filter((src) => src.includes('cdn.bsky.app'))).toEqual([]);
 	});
 });

@@ -1,7 +1,7 @@
 import { render } from 'svelte/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EVENT_COLLECTION, privateEventPath, privateEventSpace } from '#lib/private-events/ids.js';
-import { HOST_SCOPE } from '#lib/private-events/scopes.js';
+import { GUEST_SCOPE, HOST_SCOPE } from '#lib/private-events/scopes.js';
 
 const HOST = 'did:plc:hosthosthosthosthosthost';
 const GUEST = 'did:plc:guestguestguestguestgues';
@@ -51,21 +51,9 @@ vi.mock('$app/state', () => ({ page: { url: new URL(`https://atmo.example.com${P
 const route = await import('./+page.server');
 const { default: EventPage } = await import('./+page.svelte');
 
-/** The browser's cookies, which outlive a request. */
-function browser() {
-	const jar = new Map<string, string>();
-	return {
-		get: (name: string) => jar.get(name),
-		set: (name: string, value: string) => void jar.set(name, value),
-		delete: (name: string) => void jar.delete(name),
-		size: () => jar.size
-	};
-}
-
 function request(
 	did: string | null,
 	scope: string,
-	cookies: ReturnType<typeof browser>,
 	url = `https://atmo.example.com${PATH}`,
 	answers: Record<string, unknown> = {}
 ) {
@@ -77,7 +65,6 @@ function request(
 	return {
 		params: { actor: HOST, rkey: RKEY },
 		locals: { session },
-		cookies,
 		url: new URL(url),
 		setHeaders
 	} as never;
@@ -116,7 +103,7 @@ describe('a description written in Markdown', () => {
 		const description = '## Plan\n\nBring **snacks** <script>x</script>';
 		reader.get.mockImplementation(spaceHolds({ ...RECORD, description }));
 		const data = await load(
-			request(HOST, HOST_SCOPE, browser(), `https://atmo.example.com${PATH}`, { members: [] })
+			request(HOST, HOST_SCOPE, `https://atmo.example.com${PATH}`, { members: [] })
 		);
 		const body = page(data).replace(/<!--.*?-->/g, '');
 		expect(body).toMatch(/<h3[^>]*>Plan<\/h3>/);
@@ -130,9 +117,7 @@ describe('a host whose guests’ answers could not be read', () => {
 	it('is told so, rather than that nobody has answered', async () => {
 		reader.writers.mockRejectedValue(new Error('503'));
 		const answers = { members: [{ did: GUEST }] };
-		const data = await load(
-			request(HOST, HOST_SCOPE, browser(), `https://atmo.example.com${PATH}`, answers)
-		);
+		const data = await load(request(HOST, HOST_SCOPE, `https://atmo.example.com${PATH}`, answers));
 		const body = page(data);
 		expect(body).toContain('data-testid="answers-unread"');
 		expect(body).not.toContain('hasn&#39;t answered');
@@ -140,16 +125,45 @@ describe('a host whose guests’ answers could not be read', () => {
 	});
 });
 
+describe('a private event’s picture', () => {
+	it('loads from atmo’s own route, never a public CDN', async () => {
+		const cid = 'bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku';
+		const content = { $type: 'blob', ref: { $link: cid }, mimeType: 'image/png', size: 10 };
+		reader.get.mockImplementation(
+			spaceHolds({ ...RECORD, media: [{ role: 'thumbnail', content }] })
+		);
+		const data = await load(request(GUEST, GUEST_SCOPE));
+		const body = page(data);
+		const sources = [...body.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]);
+		expect(sources).toContain(`/p/${encodeURIComponent(HOST)}/private/${RKEY}/picture/${cid}`);
+		expect(body).not.toContain('cdn.bsky.app');
+	});
+});
+
 describe('a private event’s page, to search engines', () => {
 	it.each([
-		['event', () => request(HOST, HOST_SCOPE, browser(), undefined, { members: [] })],
-		['signed-out', () => request(null, '', browser())],
-		['grant', () => request(GUEST, 'atproto', browser())]
+		['event', () => request(HOST, HOST_SCOPE, undefined, { members: [] })],
+		['signed-out', () => request(null, '')],
+		['grant', () => request(GUEST, 'atproto')]
 	])('asks not to be indexed in its %s view', async (view, asked) => {
 		const data = await load(asked());
 		expect(data).toMatchObject({ view });
 		const { head } = render(EventPage, { props: { data } as never });
 		expect(head).toMatch(/<meta name="robots" content="noindex"/);
+	});
+});
+
+describe('coming back from asking for the permission, without it', () => {
+	it('tells the person who asked that their server said no, and offers anyone else the ask', async () => {
+		const back = `https://atmo.example.com${PATH}?asked=${GUEST}`;
+		expect(await load(request(GUEST, 'atproto', back))).toMatchObject({
+			view: 'grant',
+			access: 'refused'
+		});
+		expect(await load(request(HOST, GUEST_SCOPE, back))).toMatchObject({
+			view: 'grant',
+			access: 'ask'
+		});
 	});
 });
 
@@ -162,7 +176,7 @@ describe('the host', () => {
 		);
 		reader.get.mockImplementation(spaceHolds(RECORD));
 		const data = await load(
-			request(HOST, HOST_SCOPE, browser(), `https://atmo.example.com${PATH}`, { members: [] })
+			request(HOST, HOST_SCOPE, `https://atmo.example.com${PATH}`, { members: [] })
 		);
 
 		expect(data.hostProfile).toMatchObject({
