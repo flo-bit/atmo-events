@@ -28,7 +28,7 @@ import {
 	type EventAddress,
 	type RsvpStatus
 } from '../ids';
-import { isPicture } from '../pictures';
+import { citedPicture, isPicture, MAX_PICTURE_BYTES } from '../pictures';
 import { holdsGuestGrant, holdsHostGrant } from '../scopes';
 import type { CallerSession } from './caller';
 import { publicProfiles, verifiedHandle } from './people';
@@ -421,6 +421,24 @@ function requireAccess(caller: CallerSession, host: string): void {
 	const held =
 		caller.did === host ? holdsHostGrant(caller.scope, caller.did) : holdsGuestGrant(caller.scope);
 	if (!held) throw new PrivateEventRefused('no-grant');
+}
+
+/** One of the event's pictures, read with the caller's own access, so only someone who can see the
+ *  event gets it, and only a picture the event cites in a way atmo serves. Null for an event that
+ *  isn't there for them, a CID it doesn't cite and a blob that isn't there alike. `type` is the
+ *  record's, from the allowed image types, never what the host's server sends. */
+export async function readPrivateEventPicture(
+	caller: CallerSession,
+	address: EventAddress,
+	cid: string
+): Promise<{ bytes: Uint8Array<ArrayBuffer>; type: string } | null> {
+	requireAccess(caller, address.host);
+	const reader = credentialSpaceReader(caller);
+	const picture = citedPicture((await readEvent(reader, address))?.media, cid);
+	if (!picture) return null;
+	const query = { space: eventSpace(address), repo: address.host, cid };
+	const bytes = await reader.blob(query, MAX_PICTURE_BYTES);
+	return bytes && { bytes, type: picture.content.mimeType };
 }
 
 function ownRsvp(caller: CallerSession, address: EventAddress) {

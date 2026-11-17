@@ -20,7 +20,7 @@ export const MAX_PICTURE_BYTES = 5 * 1024 * 1024;
  *  is taken. */
 const CID = /^b[a-z2-7]{20,100}$/;
 
-function isPictureCid(value: unknown): value is string {
+export function isPictureCid(value: unknown): value is string {
 	return typeof value === 'string' && CID.test(value);
 }
 
@@ -61,4 +61,10 @@ export function isPicture(item: unknown): item is Picture {
 		typeof picture.role === 'string' &&
 		isPictureBlob(picture.content)
 	);
+}
+
+/** The picture `media` cites under this CID, if it does. */
+export function citedPicture(media: unknown, cid: string): Picture | null {
+	if (!Array.isArray(media)) return null;
+	return media.find((item) => isPicture(item) && item.content.ref.$link === cid) ?? null;
 }

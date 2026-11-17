@@ -30,9 +30,17 @@ export interface SpaceReader {
 	/** The repos the space's authority tracks as writers: on its list, and written since. A repo
 	 *  taken off the writer set is listed as removed, and left out here. Every page, or a throw. */
 	writers(space: string): Promise<string[]>;
+	/** A blob a record in the space cites, as bytes; null when the repo's host says it isn't there,
+	 *  or it is longer than `limit` bytes. The bytes are what the host sent: nothing checks them
+	 *  against the CID, and their type is the caller's to decide. */
+	blob(
+		query: { space: string; repo: string; cid: string },
+		limit: number
+	): Promise<Uint8Array<ArrayBuffer> | null>;
 }
 
 const LIST_WRITERS = 'com.atproto.space.listWriters';
+const GET_BLOB = 'com.atproto.space.getBlob';
 const LIST_WRITERS_LIMIT = 100;
 // Each entry is a repo's latest state, in the order of the space's revisions; the other kind,
 // `#repoRemoved`, is a repo taken off the writer set. A repo changed while the pages are read
@@ -42,6 +50,32 @@ const MAX_WRITER_PAGES = 10;
 
 function asRecord(value: unknown): Record<string, unknown> {
 	return value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
+}
+
+/** The body, or null past `limit` bytes, read no further than that. */
+async function readUpTo(res: Response, limit: number): Promise<Uint8Array<ArrayBuffer> | null> {
+	if (Number(res.headers.get('content-length')) > limit) {
+		await res.body?.cancel();
+		return null;
+	}
+	if (!res.body) return new Uint8Array();
+	const chunks: Uint8Array[] = [];
+	let length = 0;
+	for await (const chunk of res.body) {
+		length += chunk.byteLength;
+		if (length > limit) {
+			await res.body.cancel().catch(() => {});
+			return null;
+		}
+		chunks.push(chunk);
+	}
+	const bytes = new Uint8Array(length);
+	let at = 0;
+	for (const chunk of chunks) {
+		bytes.set(chunk, at);
+		at += chunk.byteLength;
+	}
+	return bytes;
 }
 
 /** A space the holder may not read throws `SpaceAccessDenied`: no access, not an outage.
@@ -54,7 +88,7 @@ export function credentialSpaceReader(
 ): SpaceReader {
 	// By space, so reads that start together share one exchange and a refusal reaches them all.
 	const credentials = new Map<string, Promise<SpaceCredential>>();
-	const ask = async (space: string, call: SpaceCall) => {
+	const send = async (space: string, call: SpaceCall) => {
 		let credential = credentials.get(space);
 		if (!credential) {
 			credential = hosts
@@ -62,8 +96,9 @@ export function credentialSpaceReader(
 				.then((authorityHost) => exchangeSpaceCredential(holder, space, authorityHost));
 			credentials.set(space, credential);
 		}
-		return readXrpc(await fetchWithCredential(await credential, hosts, call));
+		return fetchWithCredential(await credential, hosts, call);
 	};
+	const ask = async (space: string, call: SpaceCall) => readXrpc(await send(space, call));
 
 	return {
 		async get(query) {
@@ -110,6 +145,21 @@ export function credentialSpaceReader(
 				cursor = next;
 			}
 			throw new Error(`${LIST_WRITERS} went past ${MAX_WRITER_PAGES} pages`);
+		},
+		async blob(query, limit) {
+			const res = await send(query.space, {
+				host: await hosts.repoHost(query.repo),
+				audience: query.repo,
+				nsid: GET_BLOB,
+				query
+			});
+			if (res.ok) return readUpTo(res, limit);
+			const answer = await readXrpc(res);
+			const error = answer.ok ? null : answer.error;
+			// Only these say the blob isn't there. Anything else throws, so an outage never reads as
+			// "no blob".
+			if (res.status === 404 || (res.status === 400 && error === 'BlobNotFound')) return null;
+			throw answerError(GET_BLOB, { status: res.status, error });
 		}
 	};
 }

@@ -104,11 +104,14 @@ function network(options: {
 	exchange?: () => Response | null;
 	/** `listWriters` pages, by the cursor asked with ('' for the first). */
 	writers?: Record<string, unknown>;
+	/** `getBlob`'s answer; three bytes by default. */
+	blob?: () => Response;
 }) {
 	const delegations: string[] = [];
 	const exchanges: { headers: Headers; body: ExchangeBody }[] = [];
 	const reads: { url: URL; headers: Headers }[] = [];
 	const listed: URL[] = [];
+	const blobs: { url: URL; headers: Headers }[] = [];
 
 	const holder: SpaceHolder = {
 		handle: async (pathname) => {
@@ -140,6 +143,13 @@ function network(options: {
 				value: { n: 1 }
 			});
 		}
+		if (url.pathname === '/xrpc/com.atproto.space.getBlob') {
+			blobs.push({ url, headers });
+			return (
+				options.blob?.() ??
+				new Response(new Uint8Array([1, 2, 3]), { headers: { 'content-type': '*/*' } })
+			);
+		}
 		if (url.pathname === '/xrpc/com.atproto.space.listWriters') {
 			listed.push(url);
 			const page = options.writers?.[url.searchParams.get('cursor') ?? ''];
@@ -148,7 +158,7 @@ function network(options: {
 		return json(404, { error: 'NotFound' });
 	});
 
-	return { holder, delegations, exchanges, reads, listed };
+	return { holder, delegations, exchanges, reads, listed, blobs };
 }
 
 const READ = { space: MEMBERS, repo: GROUP_DID, collection: 'x.y.z', rkey: 'self' };
@@ -292,6 +302,61 @@ describe('exchanges under way', () => {
 
 		expect(await credentialSpaceReader(holder, hosts).get(read)).toMatchObject({ value: { n: 1 } });
 		expect(net.exchanges).toHaveLength(1);
+	});
+});
+
+describe('a blob read with a credential', () => {
+	const BLOB = { space: MEMBERS, repo: GROUP_DID, cid: 'bafkreiblob' };
+	const LIMIT = 10;
+	const blobAs = (net: ReturnType<typeof network>) =>
+		credentialSpaceReader(net.holder, hosts).blob(BLOB, LIMIT);
+
+	it('asks the repo’s host for the blob in the space, signed for the repo, and returns its bytes', async () => {
+		const net = network({});
+		expect(await blobAs(net)).toEqual(new Uint8Array([1, 2, 3]));
+		const [read] = net.blobs;
+		expect(read.url.origin).toBe(GROUP_HOST);
+		expect(Object.fromEntries(read.url.searchParams)).toEqual(BLOB);
+		expect(read.headers.get('authorization')).toBe(
+			`Atproto-Space-Credential ${credentialFor(VIEWER)}`
+		);
+		expect(read.headers.get('atproto-space-audience')).toBe(GROUP_DID);
+	});
+
+	it('shares the credential with the reader’s record reads', async () => {
+		const net = network({});
+		const reader = credentialSpaceReader(net.holder, hosts);
+		await reader.get(READ);
+		await reader.blob(BLOB, LIMIT);
+		expect(net.exchanges).toHaveLength(1);
+	});
+
+	it.each([
+		['the host has no such blob', () => json(400, { error: 'BlobNotFound' })],
+		['the host says it is not there', () => json(404, { error: 'NotFound' })],
+		[
+			'it says it is longer than the limit',
+			() => new Response(new Uint8Array(4), { headers: { 'content-length': String(LIMIT + 1) } })
+		],
+		['it is longer than the limit', () => new Response(new Uint8Array(LIMIT + 1))]
+	])('reads as nothing when %s', async (_, blob) => {
+		expect(await blobAs(network({ blob }))).toBeNull();
+	});
+
+	it('reads a blob of exactly the limit', async () => {
+		const blob = () => new Response(new Uint8Array(LIMIT));
+		expect(await blobAs(network({ blob }))).toHaveLength(LIMIT);
+	});
+
+	it('does not pass an outage off as nothing there', async () => {
+		const blob = () => json(500, { error: 'InternalServerError' });
+		await expect(blobAs(network({ blob }))).rejects.toThrow('com.atproto.space.getBlob');
+	});
+
+	it('throws SpaceAccessDenied when the holder may not read the space', async () => {
+		const net = network({ exchange: () => json(400, { error: 'AccountNotAuthorized' }) });
+		await expect(blobAs(net)).rejects.toBeInstanceOf(SpaceAccessDenied);
+		expect(net.blobs).toHaveLength(0);
 	});
 });
 

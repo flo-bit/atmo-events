@@ -10,10 +10,11 @@ import {
 	RSVP_COLLECTION,
 	singleEvent
 } from '../ids';
+import { MAX_PICTURE_BYTES } from '../pictures';
 import type { CallerSession } from './caller';
 import type { Refusal } from './events';
 
-const reader = { get: vi.fn(), writers: vi.fn() };
+const reader = { get: vi.fn(), writers: vi.fn(), blob: vi.fn() };
 const credentialSpaceReader = vi.fn<(...args: unknown[]) => typeof reader>(() => reader);
 vi.mock('#lib/spaces/server/space-read.js', () => ({
 	credentialSpaceReader: (...args: unknown[]) => credentialSpaceReader(...args)
@@ -42,6 +43,7 @@ const {
 	putPrivateRsvp,
 	readPrivateEventForEdit,
 	readPrivateEventPage,
+	readPrivateEventPicture,
 	removeGuest,
 	savePrivateEvent
 } = await import('./events');
@@ -131,6 +133,7 @@ beforeEach(() => {
 	publicProfiles.mockClear();
 	reader.get.mockReset();
 	reader.writers.mockReset();
+	reader.blob.mockReset();
 	actorToDid.mockReset();
 	credentialSpaceReader.mockClear();
 	vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -379,6 +382,73 @@ describe('putPrivateRsvp', () => {
 		theSpaceHolds({});
 		const host = caller(HOST, HOST_SCOPE);
 		await expect(putPrivateRsvp(host, EVENT, answer)).resolves.toBeUndefined();
+	});
+});
+
+describe('readPrivateEventPicture', () => {
+	const BYTES = new Uint8Array([1, 2, 3]);
+	const read = (who = caller(GUEST, GUEST_SCOPE), cid = CID) =>
+		readPrivateEventPicture(who, EVENT, cid);
+
+	beforeEach(() => reader.blob.mockResolvedValue(BYTES));
+
+	it('reads a picture the event cites from the host’s repo in its space, with the reader’s own access', async () => {
+		theSpaceHolds({}, { ...RECORD, media: [picture()] } as typeof RECORD);
+		expect(await read()).toEqual({ bytes: BYTES, type: 'image/webp' });
+		expect(reader.blob).toHaveBeenCalledWith(
+			{ space: SPACE, repo: HOST, cid: CID },
+			MAX_PICTURE_BYTES
+		);
+		expect(credentialSpaceReader).toHaveBeenCalledTimes(1);
+	});
+
+	it('reads no blob the event does not cite', async () => {
+		theSpaceHolds({}, { ...RECORD, media: [picture()] } as typeof RECORD);
+		const other = 'bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+		expect(await read(undefined, other)).toBeNull();
+		expect(reader.blob).not.toHaveBeenCalled();
+	});
+
+	it('reads no blob the event cites in a way atmo would not serve', async () => {
+		const svg = picture({ mimeType: 'image/svg+xml' });
+		theSpaceHolds({}, { ...RECORD, media: [svg] } as typeof RECORD);
+		expect(await read()).toBeNull();
+		expect(reader.blob).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		['not there', async () => null],
+		[
+			'kept from the reader',
+			async () => {
+				throw new SpaceAccessDenied(SPACE, '400 SpaceNotFound');
+			}
+		]
+	])('reads nothing when the event is %s', async (_, get) => {
+		reader.get.mockImplementation(get);
+		expect(await read()).toBeNull();
+		expect(reader.blob).not.toHaveBeenCalled();
+	});
+
+	it('reads nothing when the host has no such blob', async () => {
+		theSpaceHolds({}, { ...RECORD, media: [picture()] } as typeof RECORD);
+		reader.blob.mockResolvedValue(null);
+		expect(await read()).toBeNull();
+	});
+
+	it('does not pass an outage off as nothing there', async () => {
+		reader.get.mockRejectedValue(new Error('500'));
+		await expect(read()).rejects.toThrow();
+	});
+
+	it('refuses without a grant, and without reading', async () => {
+		await expect(read(caller(OTHER, 'atproto'))).rejects.toMatchObject({ reason: 'no-grant' });
+		expect(reader.get).not.toHaveBeenCalled();
+	});
+
+	it('lets the host read their own event’s picture with the host grant alone', async () => {
+		theSpaceHolds({}, { ...RECORD, media: [picture()] } as typeof RECORD);
+		expect(await read(caller(HOST, HOST_SCOPE))).toMatchObject({ bytes: BYTES });
 	});
 });
 
