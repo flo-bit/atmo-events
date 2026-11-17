@@ -690,6 +690,35 @@ describe('readPrivateEventPage', () => {
 		expect(page?.attendees.interestedCount).toBe(1);
 	});
 
+	it("names the host's guests as the page names attendees, from the same one lookup", async () => {
+		const avatar = {
+			$type: 'blob',
+			ref: { $link: 'bafkreiavatar' },
+			mimeType: 'image/jpeg',
+			size: 1
+		};
+		publicProfile.mockImplementation(async (did) =>
+			did === OTHER ? { displayName: 'Other Person', avatar } : null
+		);
+		theSpaceHolds({ [GUEST]: rsvp('going') });
+		reader.writers.mockResolvedValue([HOST, GUEST]);
+		const answers = {
+			'com.atproto.memberspace.listMembers': () =>
+				Response.json({ members: [{ did: GUEST }, { did: OTHER }] })
+		};
+
+		const page = await readPrivateEventPage(caller(HOST, HOST_SCOPE, answers), EVENT);
+
+		const byDid = Object.fromEntries((page?.guests ?? []).map((g) => [g.did, g]));
+		// OTHER hasn't answered, so only the guest list names them.
+		expect(byDid[OTHER]).toMatchObject({ name: 'Other Person' });
+		expect(byDid[OTHER].avatar).toContain(`${OTHER}/bafkreiavatar`);
+		expect(byDid[GUEST].name).toBe(byDid[GUEST].handle);
+		expect(byDid[GUEST].avatar).toBeUndefined();
+		expect(publicProfiles).toHaveBeenCalledTimes(1);
+		expect([...publicProfiles.mock.calls[0][0]].sort()).toEqual([HOST, GUEST, OTHER].sort());
+	});
+
 	it("gives the guest list to the host alone, with each guest's answer", async () => {
 		theSpaceHolds({ [GUEST]: rsvp('going') });
 		reader.writers.mockResolvedValue([HOST, GUEST]);
@@ -699,8 +728,20 @@ describe('readPrivateEventPage', () => {
 		};
 		const host = await readPrivateEventPage(caller(HOST, HOST_SCOPE, answers), EVENT);
 		expect(host?.guests).toEqual([
-			{ did: GUEST, handle: expect.any(String), answer: 'going', answerUnread: false },
-			{ did: OTHER, handle: expect.any(String), answer: null, answerUnread: false }
+			{
+				did: GUEST,
+				handle: expect.any(String),
+				name: expect.any(String),
+				answer: 'going',
+				answerUnread: false
+			},
+			{
+				did: OTHER,
+				handle: expect.any(String),
+				name: expect.any(String),
+				answer: null,
+				answerUnread: false
+			}
 		]);
 
 		const guest = caller(GUEST, GUEST_SCOPE, answers);

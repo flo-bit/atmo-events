@@ -187,4 +187,42 @@ describe('a private event’s page, for its host', () => {
 		render(EventPage, { data: hostView() } as never);
 		await expect.element(page.getByTestId('guest-list')).toBeVisible();
 	});
+
+	it("names each guest on the host's list, with their avatar and handle", async () => {
+		watchRequests();
+		mocks.user.did = HOST;
+		const OTHER = 'did:plc:otherotherotherotherother';
+		const avatar = 'https://cdn.test/img/avatar/plain/other/bafkreiavatar@jpeg';
+		render(EventPage, {
+			data: {
+				...hostView(),
+				guests: [
+					{
+						did: GUEST,
+						handle: 'guest.example.com',
+						name: 'guest.example.com',
+						answer: 'going',
+						answerUnread: false
+					},
+					{
+						did: OTHER,
+						handle: 'other.example.com',
+						name: 'Other Person',
+						avatar,
+						answer: null,
+						answerUnread: false
+					}
+				]
+			}
+		} as never);
+		const named = page.getByTestId('guest-list').element().querySelector(`[data-guest="${OTHER}"]`);
+		await expect.poll(() => named?.textContent ?? '').toContain('Other Person');
+		expect(named?.textContent).toContain('other.example.com');
+		expect(named?.querySelector('img')?.getAttribute('src')).toBe(avatar);
+		// The name is already beside the avatar, so the avatar isn't announced as well.
+		expect(named?.querySelector('[role="img"]')?.getAttribute('aria-hidden')).toBe('true');
+		// No profile: the handle once, not twice.
+		const plain = page.getByTestId('guest-list').element().querySelector(`[data-guest="${GUEST}"]`);
+		expect(plain?.textContent?.split('guest.example.com').length).toBe(2);
+	});
 });

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Input } from '@atmo-dev/kit';
+	import { Avatar, Button, Input } from '@atmo-dev/kit';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
 	import { ANSWER_WORDS } from '../ids';
@@ -88,11 +88,23 @@
 		<ul class="mt-3 space-y-2">
 			{#each guests as guest (guest.did)}
 				<li class="flex items-center justify-between gap-2 text-sm" data-guest={guest.did}>
-					<span class="min-w-0">
-						<span class="text-base-900 dark:text-base-50 block truncate font-medium"
-							>{guest.handle ?? guest.did}</span
-						>
-						<span class="text-base-600 dark:text-base-400 block text-xs">{answerWords(guest)}</span>
+					<span class="flex min-w-0 items-center gap-2">
+						<!-- The name is written beside it, so a screen reader shouldn't hear it twice. -->
+						<Avatar src={guest.avatar} name={guest.name} size={28} aria-hidden="true" />
+						<span class="min-w-0">
+							<span class="text-base-900 dark:text-base-50 block truncate font-medium"
+								>{guest.name}</span
+							>
+							<!-- The handle says exactly who was added, so it stays under a public name. -->
+							{#if guest.handle && guest.handle !== guest.name}
+								<span class="text-base-600 dark:text-base-400 block truncate text-xs"
+									>{guest.handle}</span
+								>
+							{/if}
+							<span class="text-base-600 dark:text-base-400 block text-xs"
+								>{answerWords(guest)}</span
+							>
+						</span>
 					</span>
 					<Button size="sm" variant="ghost" disabled={busy} onclick={() => remove(guest.did)}
 						>Remove</Button

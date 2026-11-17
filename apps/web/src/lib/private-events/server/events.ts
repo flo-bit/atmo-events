@@ -3,7 +3,12 @@
 // or a public URL. A single event has a space of its own, under the event's key, so each one has
 // its own guest list.
 import * as v from '@atcute/lexicons/validations';
-import { buildAttendee, type AttendeeInfo, type FlatEventRecord } from '#lib/contrail.js';
+import {
+	buildAttendee,
+	getProfileBlobUrl,
+	type AttendeeInfo,
+	type FlatEventRecord
+} from '#lib/contrail.js';
 import { actorToDid } from '#lib/actor.js';
 import { timeLimitedNetwork } from '#lib/spaces/server/other-servers.js';
 import { isSpaceAccessDenied } from '#lib/spaces/server/space-credential.js';
@@ -250,6 +255,9 @@ function rsvpStatus(address: EventAddress, value: Record<string, unknown>): Rsvp
 export interface Guest {
 	did: string;
 	handle: string | null;
+	/** Their public name, else their handle, as an attendee is named. */
+	name: string;
+	avatar?: string;
 	/** What they answered, so a record of theirs is in the space; null until they do. */
 	answer: RsvpStatus | null;
 	/** An answer may be there that could not be read, so null above says nothing about them. */
@@ -369,7 +377,9 @@ export async function readPrivateEventPage(
 			if (status !== 'notgoing') shown.push({ did, status });
 		})
 	);
-	const people = await namePeople([host, ...shown.map(({ did }) => did)]);
+	// The host's guests are named in the same lookup, including those who haven't answered.
+	const members = caller.did === host ? await memberPages(caller, space) : null;
+	const people = await namePeople([host, ...shown.map(({ did }) => did), ...(members?.dids ?? [])]);
 	const going: AttendeeInfo[] = [];
 	const interested: AttendeeInfo[] = [];
 	for (const { did, status } of shown) {
@@ -379,17 +389,20 @@ export async function readPrivateEventPage(
 
 	let guests: Guest[] | null = null;
 	let guestsCapped = false;
-	const members = caller.did === host ? await memberPages(caller, space) : null;
 	if (members) {
 		guestsCapped = members.capped;
-		guests = await Promise.all(
-			members.dids.map(async (did) => ({
+		guests = members.dids.map((did) => {
+			const person = people.get(did) ?? { did };
+			const avatar = getProfileBlobUrl(did, person.value?.avatar);
+			return {
 				did,
-				handle: await verifiedHandle(did),
+				handle: person.handle ?? null,
+				name: person.value?.displayName || person.handle || did,
+				...(avatar ? { avatar } : {}),
 				answer: answers.get(did) ?? null,
 				answerUnread: writers === null || unread.has(did)
-			}))
-		);
+			};
+		});
 	}
 
 	return {
@@ -521,7 +534,9 @@ export async function addGuest(
 	const space = await ownPrivateSpace(caller, input.rkey, 'no-event');
 	const body = { space, members: [{ did, read: true, write: true }] };
 	await write(caller, 'com.atproto.memberspace.putMembers', body, 'guest not added');
-	return { did, handle: await verifiedHandle(did), answer: null, answerUnread: false };
+	// The page is read again after this, which names them; the handle stands in until then.
+	const handle = await verifiedHandle(did);
+	return { did, handle, name: handle ?? did, answer: null, answerUnread: false };
 }
 
 export async function removeGuest(
