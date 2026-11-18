@@ -7,6 +7,7 @@
 	import { Button, SocialClientPicker } from '@atmo-dev/kit';
 	import { user, authorizePreferredSocialClient } from '#lib/atproto/auth.svelte.js';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
+	import PrivateEventsBetaSetting from '#lib/private-events/components/PrivateEventsBetaSetting.svelte';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -95,5 +96,8 @@
 					Saved.
 				</p>{/if}
 		</form>
+	{/if}
+	{#if user.isLoggedIn && data.privateEventsEnabled}
+		<div class="mt-12"><PrivateEventsBetaSetting /></div>
 	{/if}
 </div>

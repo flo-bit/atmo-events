@@ -1,5 +1,5 @@
 import { env } from 'cloudflare:workers';
-import { Contrail } from '@atmo-dev/contrail';
+import { Contrail, resolveProfiles } from '@atmo-dev/contrail';
 import { createHandler } from '@atmo-dev/contrail/server';
 import { Client } from '@atcute/client';
 import { config } from '../contrail.config';
@@ -55,4 +55,12 @@ export function getServerClient(db: D1Database) {
 export async function handleContrailRequest(request: Request, db: D1Database): Promise<Response> {
 	await ensureInit(db);
 	return instance(db).handle(request, db);
+}
+
+/** Public profiles for several people in one pass over the index, the way a list's authors get
+ *  theirs: hidden accounts are left out, and a profile it hasn't seen is fetched once from the
+ *  person's server, with its absence remembered for a while. */
+export async function profilesOf(db: D1Database, dids: string[]) {
+	const contrail = await ensureInit(db);
+	return resolveProfiles(db, contrail.config, dids);
 }
