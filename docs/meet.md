@@ -45,7 +45,7 @@ silently substituting today's date. Existing outgoing records are not re-dated.
 Our QR codes use `/tools/meet?actor=your.handle`, falling back to `?did=…` if a
 handle is unavailable. Legacy DID links and `https://youandme.at/connect?did=…`
 codes still work. The lookup accepts handles (with or without `@`), DIDs and
-meeting links. It reuses the login's `ActorSearchField` and public AppView
+meeting links. It reuses the login's `ActorSearchField` and its typeahead.cove.town
 suggestions; URLs and DIDs are never sent to account search. Handles resolve to
 DIDs on the server before displaying the confirmation, and records always store
 DIDs. Handle links follow the current owner of the handle; use a DID link for a

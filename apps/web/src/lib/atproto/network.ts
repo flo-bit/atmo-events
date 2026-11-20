@@ -42,6 +42,12 @@ export function serviceUrl(name: NetworkEndpoint): string {
 	return requiredEndpoint({ network: atprotoNetwork() }, name);
 }
 
+/** Where handle suggestions come from: typeahead.cove.town, or the AppView of a network
+ * that names its own (a local test network has no accounts cove knows). */
+export function actorSearchHost(): string {
+	return PUBLIC_APPVIEW_URL ? serviceUrl('appview') : 'https://typeahead.cove.town';
+}
+
 /** The same network, in contrail's settings. Unset addresses keep contrail's defaults. */
 export function contrailNetwork(): Pick<
 	ContrailConfig,

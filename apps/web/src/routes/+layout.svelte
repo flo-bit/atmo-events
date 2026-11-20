@@ -3,13 +3,14 @@
 	import { page } from '$app/state';
 	import { untrack } from 'svelte';
 	import { preferredClientCache } from '#lib/atproto/preferred-client.svelte.js';
-	import { AtTags, PageTitle } from '@atmo-dev/kit';
+	import { AtTags, PageTitle, configureActorSearch } from '@atmo-dev/kit';
 	import { configureAtproto } from '@atmo-dev/kit/events-data';
-	import { serviceUrl } from '#lib/atproto/network.js';
+	import { actorSearchHost, serviceUrl } from '#lib/atproto/network.js';
 	let { children } = $props();
 
 	// Before any page renders: the shared components read these addresses.
 	configureAtproto({ appview: serviceUrl('appview'), cdn: serviceUrl('cdn') });
+	configureActorSearch({ host: actorSearchHost() });
 
 	// Effects run only in the browser: never block SSR or share viewer preferences
 	// across server requests. Navigation with the same DID does not trigger a read.
