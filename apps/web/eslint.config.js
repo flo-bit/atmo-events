@@ -9,6 +9,16 @@ const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default ts.config(
 	includeIgnoreFile(gitignorePath),
+	{
+		// Build output, generated code, and the globe component (not yet linted)
+		ignores: [
+			'.svelte-kit/',
+			'src/lexicon-types/',
+			'lexicons/generated/',
+			'lexicons/pulled/',
+			'src/lib/components/globe/'
+		]
+	},
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs['flat/recommended'],
