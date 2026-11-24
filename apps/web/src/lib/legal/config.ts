@@ -25,7 +25,7 @@ export const legalDraftConfig: LegalDraftConfig = {
 			id: 'public-records',
 			title: 'Public data',
 			paragraphs: [
-				'We index public events, RSVPs, profiles, follows, and moderation records to display and find events. We also cache previews and share images. Events and RSVPs are public, not private invitations.',
+				'We index public events, RSVPs, profiles, and moderation records to display and find events. We also cache previews and share images. Events and RSVPs are public, not private invitations.',
 				'Changes and deletions are reflected as the index updates; this may not be immediate. Other services can retain their own copies.'
 			]
 		},

@@ -2,7 +2,7 @@
  * Read-through edge cache backed by the Cloudflare Cache API (`caches.default`).
  *
  * Use for reads whose result is identical for every visitor (global discovery
- * lists, global activity feeds) so we serve them from the colo cache instead of
+ * lists, city snapshots) so we serve them from the colo cache instead of
  * re-querying D1 on every request. A hit skips both the DB round-trips AND any
  * post-processing folded into `fn`.
  *

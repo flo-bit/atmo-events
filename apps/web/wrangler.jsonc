@@ -32,9 +32,9 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			// Backfilled candidate; the old production DB is retained for rollback.
-			"database_name": "atmo-events-records-g20261028",
-			"database_id": "2e4b6ea4-6c67-444a-b37d-73594c5b2c01"
+			// Backfilled candidate; the old production DB (atmo-events-records-g20261028) is retained for rollback.
+			"database_name": "atmo-events-records-g20261124",
+			"database_id": "796c0a65-654c-411b-8bb4-032e888295a3"
 		},
 		{
 			"binding": "REPORTS_DB",

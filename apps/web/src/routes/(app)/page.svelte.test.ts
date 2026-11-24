@@ -36,9 +36,7 @@ function markup(
 				myUpcoming: mine,
 				myPast: [],
 				privateLinks,
-				privateEventsIncomplete: incomplete,
-				recentActivity: [],
-				recentActivityIsPersonalized: false
+				privateEventsIncomplete: incomplete
 			} as never
 		}
 	}).body;

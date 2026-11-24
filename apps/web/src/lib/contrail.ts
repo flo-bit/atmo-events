@@ -64,19 +64,6 @@ export type EventAttendeesResult = {
 	interestedCount: number;
 };
 
-export type ActivityCluster = {
-	event: FlatEventRecord;
-	attendees: AttendeeInfo[];
-	/** Set when the cluster's source was the event itself being authored by
-	 *  someone in the viewer's follow set (vs. only an RSVP from a follow).
-	 *  Used by the UI to render "Hosted by X" when `attendees` is empty. */
-	host?: HostProfile;
-	/** ms since epoch of the most recent activity in this cluster — the latest
-	 *  RSVP `createdAt`, or the event's own `createdAt` for event-only clusters.
-	 *  Drives display order. */
-	latestCreatedAtMs: number;
-};
-
 type ListEventsParams = {
 	actor?: ActorIdentifier;
 	search?: string;
@@ -172,7 +159,7 @@ export function getHostProfile(did: string, profiles?: AttendeeProfileEntry[]): 
 }
 
 /** Structural minimum buildAttendee needs — every contrail profile-entry
- *  shape (event.listRecords, rsvp.listRecords, getProfile, getFeed) widens to
+ *  shape (event.listRecords, rsvp.listRecords, getProfile) widens to
  *  this. Using a structural type avoids a union of nominally-distinct lex types
  *  whose `$type` literals don't match. */
 type AttendeeProfileEntry = {

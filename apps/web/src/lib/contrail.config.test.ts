@@ -3,11 +3,13 @@ import { resolveConfig } from '@atmo-dev/contrail';
 import { config } from './contrail.config';
 
 describe('Contrail configuration', () => {
-	it('resolves without service auth or external search consumers', () => {
+	it('resolves without feeds, follow collection, service auth, or external search consumers', () => {
 		const resolved = resolveConfig(config);
 		expect(resolved.moderation?.reports).toBe(false);
 		expect(resolved.serviceAuth).toBeUndefined();
 		expect(resolved.changes).toBeUndefined();
+		expect(resolved.feeds).toBeUndefined();
+		expect('follow' in resolved.collections).toBe(false);
 		expect('sinks' in resolved).toBe(false);
 	});
 	it('keeps discoverability in the public listing pipeline', async () => {
