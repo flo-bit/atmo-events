@@ -1,4 +1,4 @@
-import { env, waitUntil } from 'cloudflare:workers';
+import { env } from 'cloudflare:workers';
 import type { LayoutServerLoad } from './$types';
 import { getViewerProfileFromContrail } from '#lib/contrail.js';
 import { getAuth } from '#lib/atproto/server/oauth.js';
@@ -16,9 +16,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		};
 	}
 
-	// Warm the first authenticated page after login. This keeps the network-feed
-	// bootstrap out of the response path without replacing the library callback.
-	if (env.DB) waitUntil(prewarmNetworkFeed(locals.did));
 	const profile = await getViewerProfileFromContrail(getServerClient(env.DB), locals.did);
 	let canPostToBluesky = false;
 	try {
@@ -34,13 +31,3 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		isModerator: isModerator(locals.did)
 	};
 };
-
-async function prewarmNetworkFeed(did: `did:${string}:${string}`): Promise<void> {
-	try {
-		await getServerClient(env.DB).get('rsvp.atmo.getFeed', {
-			params: { feed: 'network', actor: did, collection: 'rsvp', limit: 1 }
-		});
-	} catch {
-		console.warn('[oauth] feed pre-warm failed');
-	}
-}

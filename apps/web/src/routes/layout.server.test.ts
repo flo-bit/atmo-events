@@ -48,10 +48,7 @@ describe('viewer permission state', () => {
 			collection: 'app.bsky.feed.post',
 			action: 'create'
 		});
-		expect(mocks.get).toHaveBeenCalledWith(
-			'rsvp.atmo.getFeed',
-			expect.objectContaining({ params: expect.objectContaining({ actor: 'did:plc:alice' }) })
-		);
+		expect(mocks.get).not.toHaveBeenCalled();
 	});
 	it('fails closed without discarding the authenticated viewer after a transient check failure', async () => {
 		mocks.can.mockRejectedValue(new Error('temporary failure'));

@@ -14,7 +14,6 @@ export * as RsvpAtmoEventListRecords from "./types/rsvp/atmo/event/listRecords.j
 export * as RsvpAtmoEventListTalks from "./types/rsvp/atmo/event/listTalks.js";
 export * as RsvpAtmoEventStarterPack from "./types/rsvp/atmo/eventStarterPack.js";
 export * as RsvpAtmoGetCursor from "./types/rsvp/atmo/getCursor.js";
-export * as RsvpAtmoGetFeed from "./types/rsvp/atmo/getFeed.js";
 export * as RsvpAtmoGetProfile from "./types/rsvp/atmo/getProfile.js";
 export * as RsvpAtmoNotifyOfUpdate from "./types/rsvp/atmo/notifyOfUpdate.js";
 export * as RsvpAtmoRsvpGetRecord from "./types/rsvp/atmo/rsvp/getRecord.js";

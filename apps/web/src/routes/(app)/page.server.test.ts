@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+const mockClientGet = vi.hoisted(() => vi.fn(async () => ({ ok: false })));
 vi.mock('#lib/contrail/index.js', () => ({
-	getServerClient: vi.fn(() => ({ get: vi.fn(async () => ({ ok: false })) }))
+	getServerClient: vi.fn(() => ({ get: mockClientGet }))
 }));
 vi.mock('#lib/contrail.js', () => ({
 	listDiscoverableEventsFromContrail: vi.fn(),
 	listEventRecordsFromContrail: vi.fn(),
-	getHostProfile: vi.fn(),
-	buildAttendee: vi.fn(),
 	flattenEventRecord: vi.fn((r: unknown) => r),
 	flattenEventRecords: vi.fn((records: unknown[]) => records),
 	withD1Retry: vi.fn((fn: () => unknown) => fn())
@@ -44,7 +43,6 @@ const mockDiscoverable = vi.mocked(listDiscoverableEventsFromContrail);
 type LoadResult = {
 	events: unknown[];
 	handles: Record<string, string>;
-	recentActivity: unknown[];
 	myUpcoming: { name: string }[];
 	myPast: unknown[];
 	privateLinks: Record<string, { href: string }>;
@@ -82,13 +80,18 @@ describe('home page load', () => {
 		});
 	});
 
-	it('does not fetch, cache, or return a happening-now section on the homepage', async () => {
+	it('does not fetch, cache, or return happening-now or recent-activity sections on the homepage', async () => {
 		const data = await load(request());
 		expect(ongoingQuery).not.toHaveBeenCalled();
-		expect(vi.mocked(cachedRead).mock.calls.map(([key]) => key)).not.toContain('home:ongoing');
+		expect(mockClientGet).not.toHaveBeenCalled();
+		const cacheKeys = vi.mocked(cachedRead).mock.calls.map(([key]) => key);
+		expect(cacheKeys).not.toContain('home:ongoing');
+		expect(cacheKeys).not.toContain('home:global-activity');
 		expect(data).not.toHaveProperty('ongoing');
 		expect(data).not.toHaveProperty('ongoingTotal');
 		expect(data).not.toHaveProperty('ongoingTotalIsFloor');
+		expect(data).not.toHaveProperty('recentActivity');
+		expect(data).not.toHaveProperty('recentActivityIsPersonalized');
 	});
 
 	it('still returns the other homepage sections when discovery is unavailable', async () => {
@@ -98,7 +101,7 @@ describe('home page load', () => {
 		expect(data.handles).toEqual({});
 		expect(data.myUpcoming).toEqual([]);
 		expect(data.myPast).toEqual([]);
-		expect(data.recentActivity).toEqual([]);
+		expect(data).not.toHaveProperty('recentActivity');
 		expect(ongoingQuery).not.toHaveBeenCalled();
 	});
 });

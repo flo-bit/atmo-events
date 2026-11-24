@@ -16,7 +16,7 @@ const TOP_LEVEL_CONDITION = `NOT ${hasParentEventSql('r.record')}`;
 export const config: ContrailConfig = {
 	namespace: 'rsvp.atmo',
 	// Pin this projection generation to its captured Jetstream continuity epoch.
-	orderedSource: { source: 'jetstream', epoch: 'atmo-events-records-g20261028' },
+	orderedSource: { source: 'jetstream', epoch: 'atmo-events-records-g20261124' },
 	// Enable the rsvp.atmo.notifyOfUpdate endpoint. The client calls it after
 	// writing records to the PDS so contrail re-fetches and indexes them
 	// immediately instead of waiting for the jetstream.
@@ -130,25 +130,6 @@ export const config: ContrailConfig = {
 					field: 'subject.uri'
 				}
 			}
-		}
-		// `follow` (app.bsky.graph.follow) is auto-added by contrail 0.5+ when
-		// `feeds` is configured: discover:false, subjectField:'subject' (so only
-		// follows whose subject is already in identities are indexed).
-	},
-	feeds: {
-		// Exposed as rsvp.atmo.getFeed?feed=network&actor=<did>&collection=<nsid>.
-		// Powers the home-page "from people you follow" surface.
-		network: {
-			// Per-target caps so RSVPs (high-volume) can't squeeze events
-			// (low-volume) out of the cap. Kept deliberately modest: feed_items is
-			// pruned every cycle with a ROW_NUMBER()-over-the-table query, so large
-			// caps bloat the table and make the prune exceed D1's per-query CPU
-			// limit (which then thrashes the DB and fails concurrent reads). These
-			// values are enough to surface recent items after the JS-side filter.
-			targets: [
-				{ collection: 'event', maxItems: 100 },
-				{ collection: 'rsvp', maxItems: 250 }
-			]
 		}
 	}
 };

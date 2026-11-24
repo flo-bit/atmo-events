@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { EventCard } from '@atmo-dev/kit/events';
 	import { LockKeyhole } from '@sketchyicons/svelte';
-	import RecentActivity from '#lib/components/RecentActivity.svelte';
 	import HeroGlobe from '#lib/components/HeroGlobe.svelte';
 	import AtmosphereFeatures from '#lib/components/AtmosphereFeatures.svelte';
 	import { Button, Icon } from '@atmo-dev/kit';
@@ -132,24 +131,6 @@
 					<EventCard {event} actor={data.handles[event.did]} />
 				{/each}
 			</div>
-		{/if}
-
-		{#if data.recentActivity.length > 0}
-			<section class="mt-16">
-				<h2
-					class="text-base-900 dark:text-base-50 text-xl font-bold {data.recentActivityIsPersonalized
-						? 'mb-1'
-						: 'mb-4'}"
-				>
-					{data.recentActivityIsPersonalized ? 'From people you follow' : 'Recent activity'}
-				</h2>
-				{#if data.recentActivityIsPersonalized}
-					<p class="text-base-600 dark:text-base-400 mb-4 text-sm">
-						Events your Bluesky follows are hosting or going to.
-					</p>
-				{/if}
-				<RecentActivity activities={data.recentActivity} />
-			</section>
 		{/if}
 
 		<AtmosphereFeatures />
