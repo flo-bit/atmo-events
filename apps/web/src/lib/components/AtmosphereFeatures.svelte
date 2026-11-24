@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Icon } from '@atmo-dev/kit';
 	import { Users, UserPlus, Camera, MessageCircle, Video, Handshake } from '@sketchyicons/svelte';
 </script>
@@ -73,7 +74,10 @@
 			</dt>
 			<dd class="text-base-600 dark:text-base-400 mt-1 text-sm leading-relaxed">
 				Exchange QR codes with
-				<a href="/tools/meet" class="text-accent-600 dark:text-accent-400 hover:underline">Meet</a>
+				<a
+					href={resolve('/(app)/tools/meet')}
+					class="text-accent-600 dark:text-accent-400 hover:underline">Meet</a
+				>
 				and save public connections compatible with You &amp; Me.
 			</dd>
 		</div>

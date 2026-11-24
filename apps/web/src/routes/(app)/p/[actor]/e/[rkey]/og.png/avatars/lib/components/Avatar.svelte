@@ -19,8 +19,6 @@
 	export let size = DEFAULTS.size;
 	let className = '';
 
-	let props = { colors, name, square, size };
-
 	let finalVariant: Variants[number] = 'bauhaus';
 
 	const avatars = {

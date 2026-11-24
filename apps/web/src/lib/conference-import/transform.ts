@@ -114,7 +114,7 @@ function parseWhen(dateRaw: string, timeRaw: string, tz: string): { iso?: string
 	}
 
 	let datePart = normalizeDate(dateRaw);
-	let timePart: string | null = '';
+	let timePart: string | null;
 
 	const combined = raw.match(/^(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})[ T](.+)$/);
 	if (combined) {

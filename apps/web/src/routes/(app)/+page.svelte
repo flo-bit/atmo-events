@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { EventCard } from '@atmo-dev/kit/events';
 	import { LockKeyhole } from '@sketchyicons/svelte';
 	import HeroGlobe from '#lib/components/HeroGlobe.svelte';
@@ -49,7 +50,7 @@
 					<Button onclick={() => atProtoLoginModalState.show()}>Create Event</Button>
 				{/if}
 				<a
-					href="/events"
+					href={resolve('/(app)/events')}
 					class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 				>
 					Browse Events &rarr;
@@ -67,7 +68,7 @@
 				<div class="mb-8 flex items-baseline justify-between">
 					<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Your events</h2>
 					<a
-						href={`/p/${user.profile?.handle || user.did}`}
+						href={resolve('/(app)/p/[actor]', { actor: user.profile?.handle || user.did || '' })}
 						class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 					>
 						Your profile &rarr;
@@ -116,7 +117,7 @@
 		<div class="mb-8 flex items-baseline justify-between">
 			<h2 class="text-base-900 dark:text-base-50 text-xl font-bold">Upcoming Popular Events</h2>
 			<a
-				href="/events"
+				href={resolve('/(app)/events')}
 				class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 shrink-0 text-sm font-medium whitespace-nowrap transition-colors"
 			>
 				See all &rarr;

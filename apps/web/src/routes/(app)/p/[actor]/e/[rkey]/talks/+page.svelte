@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ArrowLeft } from '@sketchyicons/svelte';
+	import { resolve } from '$app/paths';
 	import { Button, Checkbox, Icon } from '@atmo-dev/kit';
 	import { user } from '#lib/atproto/auth.svelte.js';
 	import { createInAppAdapter } from '#lib/components/editor/adapter.js';
@@ -230,7 +231,7 @@
 
 <div class="mx-auto max-w-4xl px-6 py-10">
 	<a
-		href="/p/{data.actor}/e/{data.rkey}"
+		href={resolve('/(app)/p/[actor]/e/[rkey]', { actor: data.actor, rkey: data.rkey })}
 		class="text-base-600 dark:text-base-400 hover:text-base-700 dark:hover:text-base-200 inline-flex items-center gap-1 text-sm"
 	>
 		<Icon img={ArrowLeft} size={16} />
@@ -422,7 +423,7 @@
 						<div class="flex items-center justify-between gap-3 py-2">
 							<div class="min-w-0">
 								<a
-									href="/p/{data.actor}/e/{t.rkey}"
+									href={resolve('/(app)/p/[actor]/e/[rkey]', { actor: data.actor, rkey: t.rkey })}
 									class="text-base-900 dark:text-base-100 truncate text-sm font-medium hover:underline"
 								>
 									{t.name}

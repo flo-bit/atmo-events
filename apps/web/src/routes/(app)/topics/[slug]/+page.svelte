@@ -18,7 +18,7 @@
 <div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
 	<header class="mb-10">
 		<a
-			href="/topics"
+			href={resolve('/(app)/topics')}
 			class="text-base-600 dark:text-base-400 hover:text-base-950 dark:hover:text-base-50 mb-6 inline-flex items-center gap-1 text-sm transition-colors"
 		>
 			<Icon img={ChevronLeft} size={16} />
