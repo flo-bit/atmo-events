@@ -13,6 +13,9 @@
 		if (val === 'all') url.searchParams.set('filter', 'all');
 		else url.searchParams.delete('filter');
 		url.searchParams.delete('cursor');
+		// The URL is a copy of the current page's, so its base path and fragment are kept;
+		// the rule only accepts a direct resolve() call here.
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
 		goto(url, { reset: false });
 	}
 </script>

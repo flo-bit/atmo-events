@@ -128,7 +128,7 @@
 				<a
 					href={reporter.href}
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="external noopener noreferrer"
 					class="text-base-950 dark:text-base-50 inline-block max-w-full font-medium [overflow-wrap:anywhere] hover:underline"
 				>
 					{reporter.name}{#if reporter.handle && reporter.name !== `@${reporter.handle}`}<span
@@ -182,7 +182,7 @@
 						<a
 							href={subject.href}
 							target="_blank"
-							rel="noopener noreferrer"
+							rel="external noopener noreferrer"
 							class="decoration-accent-700/50 dark:decoration-accent-300/50 underline-offset-4 hover:underline"
 						>
 							{subject.title}<Icon
@@ -200,7 +200,7 @@
 						<a
 							href={subject.profile.href}
 							target="_blank"
-							rel="noopener noreferrer"
+							rel="external noopener noreferrer"
 							class="hover:text-base-950 dark:hover:text-base-50 hover:underline"
 							>@{subject.profile.handle}</a
 						>

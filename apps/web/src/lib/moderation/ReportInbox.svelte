@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Button, Icon } from '@atmo-dev/kit';
 	import { EyeOff } from '@sketchyicons/svelte';
 	import { untrack } from 'svelte';
@@ -10,11 +11,7 @@
 		type InboxReport
 	} from './inbox';
 
-	let {
-		data,
-		actions,
-		basePath = '/mod'
-	}: { data: InboxData; actions: InboxActions; basePath?: string } = $props();
+	let { data, actions }: { data: InboxData; actions: InboxActions } = $props();
 	let reports = $state(untrack(() => data.reports));
 	let cursor = $state(untrack(() => data.cursor));
 	let openCount = $state(untrack(() => data.openCount));
@@ -63,7 +60,7 @@
 		<h1 class="text-base-950 dark:text-base-50 text-2xl font-medium tracking-tight">Reports</h1>
 		<nav aria-label="Report status" class="flex gap-1 text-sm">
 			<a
-				href={basePath}
+				href={resolve('/(app)/mod')}
 				aria-label={`Open reports (${openCount})`}
 				aria-current={data.status === 'open' ? 'page' : undefined}
 				class={[
@@ -78,7 +75,7 @@
 				></a
 			>
 			<a
-				href={`${basePath}?status=resolved`}
+				href={resolve('/(app)/mod?status=resolved')}
 				aria-current={data.status === 'resolved' ? 'page' : undefined}
 				class={[
 					'rounded-lg px-3 py-2 transition-colors',

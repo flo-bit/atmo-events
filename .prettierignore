@@ -5,3 +5,16 @@ yarn.lock
 
 # Generated GeoNames dataset
 apps/web/src/lib/server/geonames/*.tsv
+
+# Written by `pnpm generate` / `pnpm generate:pull` in apps/web
+apps/web/src/lexicon-types/
+apps/web/lexicons/generated/
+apps/web/lexicons/pulled/
+
+# Globe component: not yet formatted or linted
+apps/web/src/lib/components/globe/
+
+# One-line JSON payloads used by the importer tests
+apps/web/src/lib/import/__fixtures__/guild-london-graphql.json
+apps/web/src/lib/import/__fixtures__/guild-react-summit.json
+apps/web/src/lib/import/__fixtures__/guild-svelte-chicago.json

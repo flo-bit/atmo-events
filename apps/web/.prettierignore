@@ -1,0 +1,15 @@
+# Written by `svelte-kit sync` and `vite build`
+.svelte-kit/
+
+# Written by `pnpm generate` / `pnpm generate:pull`
+src/lexicon-types/
+lexicons/generated/
+lexicons/pulled/
+
+# Globe component: not yet formatted or linted
+src/lib/components/globe/
+
+# One-line JSON payloads used by the importer tests
+src/lib/import/__fixtures__/guild-london-graphql.json
+src/lib/import/__fixtures__/guild-react-summit.json
+src/lib/import/__fixtures__/guild-svelte-chicago.json

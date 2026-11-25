@@ -9,7 +9,7 @@ import { load } from './+page.server';
 const run = (search = '') =>
 	load({ url: new URL(`https://atmo.rsvp/events/now${search}`) } as Parameters<
 		typeof load
-	>[0]) as Promise<any>;
+	>[0]) as Promise<Record<string, unknown>>;
 afterEach(() => vi.clearAllMocks());
 
 describe('happening-now page', () => {

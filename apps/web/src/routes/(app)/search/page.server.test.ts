@@ -14,7 +14,7 @@ import { ongoingQuery } from '#lib/contrail/ongoing.js';
 const run = (search: string) =>
 	load({ url: new URL(`https://atmo.rsvp/search${search}`) } as Parameters<
 		typeof load
-	>[0]) as Promise<any>;
+	>[0]) as Promise<Record<string, unknown>>;
 afterEach(() => vi.clearAllMocks());
 
 describe('database-backed search', () => {

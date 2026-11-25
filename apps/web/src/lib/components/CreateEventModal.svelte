@@ -147,6 +147,8 @@
 			}
 		};
 		const out: Array<{ uri: string; name: string }> = [];
+		// A local lookup, discarded on return; nothing renders from it.
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const seen = new Set<string>();
 		const sourceKey = normalize(source);
 		for (const l of fromPrefill) {

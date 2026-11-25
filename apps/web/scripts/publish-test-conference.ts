@@ -23,12 +23,7 @@ import {
 	WellKnownHandleResolver
 } from '@atcute/identity-resolver';
 import { isActorIdentifier } from '@atcute/lexicons/syntax';
-import {
-	MemoryStore,
-	OAuthClient,
-	type StoredState,
-	scope
-} from '@atcute/oauth-node-client';
+import { MemoryStore, OAuthClient, type StoredState, scope } from '@atcute/oauth-node-client';
 import { resolveTxt } from 'node:dns/promises';
 
 const TEN_MINUTES_MS = 10 * 60_000;
@@ -81,7 +76,10 @@ using server = Bun.serve({
 server.unref();
 
 const redirectUri = `http://127.0.0.1:${server.port}/callback`;
-const timeout = setTimeout(() => deferred.reject(new Error('OAuth callback timed out')), 5 * 60_000);
+const timeout = setTimeout(
+	() => deferred.reject(new Error('OAuth callback timed out')),
+	5 * 60_000
+);
 
 const oauth = new OAuthClient({
 	metadata: {
@@ -140,7 +138,9 @@ const at = (offsetMin: number) => new Date(dayStart.getTime() + offsetMin * 60_0
 const ROOM_MAIN = 'Main Hall';
 const ROOM_WORKSHOP = 'Workshop Room';
 
-async function createEvent(record: Record<string, unknown>): Promise<{ uri: string; rkey: string }> {
+async function createEvent(
+	record: Record<string, unknown>
+): Promise<{ uri: string; rkey: string }> {
 	const data = (await ok(
 		rpc.post('com.atproto.repo.createRecord', {
 			input: { repo: did, collection: COLLECTION, record }

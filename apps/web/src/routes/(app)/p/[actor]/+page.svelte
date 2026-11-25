@@ -102,7 +102,7 @@
 						<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Upcoming Events</h2>
 						{#if data.hasMoreUpcoming}
 							<a
-								href="/p/{data.actor}/hosting"
+								href={resolve('/(app)/p/[actor]/hosting', { actor: data.actor })}
 								class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 							>
 								See all &rarr;
@@ -136,7 +136,7 @@
 						<h2 class="text-base-900 dark:text-base-50 text-lg font-semibold">Past Events</h2>
 						{#if data.hasMorePast}
 							<a
-								href="/p/{data.actor}/past-events"
+								href={resolve('/(app)/p/[actor]/past-events', { actor: data.actor })}
 								class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 							>
 								See all &rarr;

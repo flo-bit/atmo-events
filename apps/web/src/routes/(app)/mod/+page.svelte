@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import { invalidateAll } from '$app/navigation';
 	import { login } from '@svelte-atproto/oauth/client';
 	import {
@@ -20,7 +19,6 @@
 
 <ReportInbox
 	{data}
-	basePath={resolve('/(app)/mod')}
 	actions={{
 		load: loadReports,
 		resolve: resolveReport,

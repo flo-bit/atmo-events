@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
 import { getRecord, resolveHandle } from '@svelte-atproto/oauth/helper';
 import { atprotoNetwork } from '#lib/atproto/network.js';
 import { putRecord, createRecord, deleteRecord, uploadBlob } from '#lib/atproto/repo.remote.js';
@@ -64,12 +65,15 @@ export function createInAppAdapter(opts: { viewer: EditorViewer }): EditorAdapte
 			});
 		},
 		onSaved({ rkey, isNew }) {
-			const handle = handleOrDid(viewer);
-			const created = isNew ? '?created=true' : '';
-			goto(`/p/${handle}/e/${rkey}${created}`);
+			const params = { actor: handleOrDid(viewer), rkey };
+			goto(
+				isNew
+					? resolve('/(app)/p/[actor]/e/[rkey]?created=true', params)
+					: resolve('/(app)/p/[actor]/e/[rkey]', params)
+			);
 		},
 		onDeleted() {
-			goto(`/p/${handleOrDid(viewer)}`);
+			goto(resolve('/(app)/p/[actor]', { actor: handleOrDid(viewer) }));
 		},
 		requestLogin() {
 			atProtoLoginModalState.show();

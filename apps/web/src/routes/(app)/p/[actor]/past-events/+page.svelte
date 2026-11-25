@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getProfileBlobUrl } from '#lib/contrail.js';
 	import EventList from '#lib/components/EventList.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 
@@ -10,13 +11,17 @@
 	let hostAvatar = $derived(
 		hostProfile?.value?.avatar ? getProfileBlobUrl(hostDid, hostProfile.value.avatar) : undefined
 	);
+
+	// An invalid actor leaves `data` empty. String() keeps these links rendering
+	// (to /p/undefined) where resolve() would throw on a missing parameter.
+	let profileActor = $derived(String(data.actor));
 </script>
 
 <div class="min-h-screen px-6 py-12 sm:py-12">
 	<div class="mx-auto max-w-2xl">
 		<div class="mb-6">
 			<a
-				href="/p/{data.actor}"
+				href={resolve('/(app)/p/[actor]', { actor: profileActor })}
 				class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 text-sm font-medium transition-colors"
 			>
 				&larr; Back to profile
@@ -25,7 +30,7 @@
 
 		<h1 class="text-base-900 dark:text-base-50 text-2xl font-bold">Past Events</h1>
 		<a
-			href="/p/{data.actor}"
+			href={resolve('/(app)/p/[actor]', { actor: profileActor })}
 			class="text-base-600 dark:text-base-400 mt-4 mb-6 flex items-center gap-2 text-sm"
 		>
 			by
