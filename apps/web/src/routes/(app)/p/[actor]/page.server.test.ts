@@ -85,6 +85,15 @@ beforeEach(() => {
 });
 
 describe('profile page load', () => {
+	it.each(['...', '{did', 'atproto.wi..'])(
+		'answers not found for an invalid actor: %s',
+		async (actor) => {
+			const event = { params: { actor }, locals: {} } as unknown as Parameters<typeof load>[0];
+			await expect(load(event)).rejects.toMatchObject({ status: 404 });
+			expect(mockProfile).not.toHaveBeenCalled();
+		}
+	);
+
 	it('returns DID-based AT metadata for a handle-addressed profile', async () => {
 		const uri = 'at://did:plc:alice/app.bsky.actor.profile/self';
 		mockProfile.mockResolvedValueOnce({ did: 'did:plc:alice', uri } as never);

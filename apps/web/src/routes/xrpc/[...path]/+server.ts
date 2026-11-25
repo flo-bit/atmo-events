@@ -1,5 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { handleContrailRequest } from '#lib/contrail/index.js';
+import { withLiteralSearchFallback } from '#lib/contrail/search.js';
 import { parseAtUri, MAX_NOTIFY_URIS } from '@atmo-dev/contrail';
 import type { RequestHandler } from './$types';
 
@@ -11,7 +12,9 @@ const CORS_HEADERS = {
 };
 
 export const GET: RequestHandler = async ({ request }) => {
-	const response = await handleContrailRequest(request, env.DB);
+	const response = await withLiteralSearchFallback(request, (r) =>
+		handleContrailRequest(r, env.DB)
+	);
 	const headers = new Headers(response.headers);
 	for (const [key, value] of Object.entries(CORS_HEADERS)) headers.set(key, value);
 	return new Response(response.body, { status: response.status, headers });

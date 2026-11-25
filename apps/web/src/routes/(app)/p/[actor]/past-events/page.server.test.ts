@@ -68,6 +68,10 @@ afterEach(() => {
 });
 
 describe('past-events page load', () => {
+	it('answers not found for an invalid actor', async () => {
+		await expect(load(event('...'))).rejects.toMatchObject({ status: 404 });
+	});
+
 	it("mints a 'past-events' envelope, bounded ABOVE by now", async () => {
 		mockAuthored.mockResolvedValue(page('keyset-p1'));
 		const result = await runLoad(ACTOR);
