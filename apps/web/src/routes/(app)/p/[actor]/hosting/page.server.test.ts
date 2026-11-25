@@ -59,6 +59,10 @@ const bandCall = () =>
 afterEach(() => vi.clearAllMocks());
 
 describe('hosting page load', () => {
+	it('answers not found for an invalid actor', async () => {
+		await expect(load(event('...'))).rejects.toMatchObject({ status: 404 });
+	});
+
 	// The envelope names the query that minted it, so this also pins that the
 	// route called the hosting query — the past-events one would say so here.
 	it("mints a 'hosting' envelope scoped to this actor", async () => {

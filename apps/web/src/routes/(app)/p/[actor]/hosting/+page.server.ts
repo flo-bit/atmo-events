@@ -10,7 +10,8 @@ import { error } from '@sveltejs/kit';
 
 export async function load({ params, url }) {
 	const client = getServerClient(env.DB);
-	if (!isActorIdentifier(params.actor)) return;
+	// Not a handle or DID: nothing to look up, and the page cannot render without data.
+	if (!isActorIdentifier(params.actor)) throw error(404, 'Actor not found');
 
 	const actor = params.actor;
 	const did = await getActor(actor);

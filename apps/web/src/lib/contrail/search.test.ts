@@ -3,7 +3,7 @@ import { Client } from '@atcute/client';
 import { Contrail, createIngestEvent, ingestRecords } from '@atmo-dev/contrail';
 import { createSqliteDatabase } from '@atmo-dev/contrail/sqlite';
 import { config } from '../contrail.config';
-import { literalSearch } from './search';
+import { literalSearch, withLiteralSearchFallback } from './search';
 import { happeningNowQuery, searchD1Query, topicQuery } from './queries';
 import { ongoingQuery } from './ongoing';
 import { decodeCursor } from './cursor';
@@ -12,6 +12,7 @@ import { getServerClient } from './index';
 import { runLoadMoreEvents } from './events-load-more';
 
 let client: Client;
+let handle: (request: Request) => Promise<Response>;
 const did = 'did:plc:aaaaaaaaaaaaaaaaaaaaaaaa';
 beforeEach(async () => {
 	vi.useFakeTimers({ toFake: ['Date'] });
@@ -40,7 +41,8 @@ beforeEach(async () => {
 		),
 		contrail.config
 	);
-	const handle = contrail.handler({ db });
+	const handler = contrail.handler({ db });
+	handle = async (request) => handler(request);
 	client = new Client({
 		handler: (path, init) => handle(new Request(new URL(path, 'http://localhost'), init))
 	});
@@ -89,5 +91,46 @@ describe('literal user searches against a populated FTS5 index', () => {
 		expect(
 			(await runLoadMoreEvents({} as Cloudflare.Env, { cursor: live.cursor! })).events
 		).toHaveLength(5);
+	});
+});
+
+describe('raw searches from outside callers of the public API', () => {
+	const records = async (response: Response) =>
+		((await response.json()) as { records: unknown[] }).records;
+	const get = (search: string) =>
+		new Request(
+			`http://localhost/xrpc/rsvp.atmo.event.listDiscoverable?limit=5&search=${encodeURIComponent(search)}`
+		);
+	it.each(['web-development', 'music: live', 'C++'])(
+		'answers text FTS5 rejects instead of failing: %s',
+		async (term) => {
+			expect((await handle(get(term))).status).toBe(500);
+			const response = await withLiteralSearchFallback(get(term), handle);
+			expect(response.status).toBe(200);
+			expect(await records(response)).toHaveLength(5);
+		}
+	);
+	it('leaves a valid expression to mean what the caller wrote', async () => {
+		const seen: string[] = [];
+		const response = await withLiteralSearchFallback(get('missing OR party'), (request) => {
+			seen.push(new URL(request.url).searchParams.get('search')!);
+			return handle(request);
+		});
+		expect(await records(response)).toHaveLength(5);
+		expect(seen).toEqual(['missing OR party']);
+	});
+	it('answers a dotted name, which matches nothing here', async () => {
+		expect((await handle(get('example.com'))).status).toBe(500);
+		const response = await withLiteralSearchFallback(get('example.com'), handle);
+		expect(response.status).toBe(200);
+		expect(await records(response)).toEqual([]);
+	});
+	it('retries once at most, and only when there is a search to rewrite', async () => {
+		const failing = vi.fn(async () => new Response(null, { status: 500 }));
+		const plain = new Request('http://localhost/xrpc/rsvp.atmo.event.listDiscoverable');
+		expect((await withLiteralSearchFallback(plain, failing)).status).toBe(500);
+		expect(failing).toHaveBeenCalledTimes(1);
+		expect((await withLiteralSearchFallback(get('C++'), failing)).status).toBe(500);
+		expect(failing).toHaveBeenCalledTimes(3);
 	});
 });
