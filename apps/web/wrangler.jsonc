@@ -45,9 +45,8 @@
 		{
 			"binding": "NOTIFY_DB",
 			"database_name": "atmo-events-notifications",
-			// Stable private notifications. Placeholder: create the database with
-			// `wrangler d1 create atmo-events-notifications` and paste its id before deploying.
-			"database_id": "00000000-0000-0000-0000-000000000000"
+			// Stable private storage; never replace during projection rebuilds.
+			"database_id": "fdabe8e2-16a1-4f9d-ac50-b8d2ee067920"
 		}
 	],
 	"r2_buckets": [

@@ -12,8 +12,9 @@ the library's private `notify_*` tables and RSVP's `rsvp_watched_events` and
 NOTIFY_DB as though it were a projection. Tables are created idempotently on first
 use; there is no migration command.
 
-Create the production database once and put its id in `apps/web/wrangler.jsonc`
-(the committed id is a placeholder, so this branch cannot deploy until then):
+`apps/web/wrangler.jsonc` binds `NOTIFY_DB` to `atmo-events-notifications`. If
+provisioning a separate environment, create its database once and put its id in
+`apps/web/wrangler.jsonc`:
 
 ```sh
 pnpm --filter web exec wrangler d1 create atmo-events-notifications
