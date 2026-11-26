@@ -31,6 +31,8 @@ export default defineConfig(({ mode }) => {
 						? { platformProxy: { persist: { path: resolve(webRoot, LOCAL_STATE_DIR, 'v3') } } }
 						: {}
 				),
+				// The push UI registers the module worker only for signed-in users with VAPID.
+				serviceWorker: { register: false },
 				experimental: { remoteFunctions: true }
 			}),
 			tailwindcss()
@@ -39,7 +41,13 @@ export default defineConfig(({ mode }) => {
 		// The kit's root stays out of pre-bundling with its events entry, so the embed settings a private
 		// event's page makes with setLinkEmbeds are the ones its EventView reads, in dev as in a build.
 		optimizeDeps: {
-			exclude: ['@atmo-dev/kit', '@atmo-dev/kit/events', '@atmo-dev/kit/events-data']
+			// The push worker is loaded separately; discovering it late must not rebuild the page's deps.
+			exclude: [
+				'@atmo-dev/kit',
+				'@atmo-dev/kit/events',
+				'@atmo-dev/kit/events-data',
+				'@atmo-dev/notify/sw'
+			]
 		},
 		resolve: {
 			alias: {

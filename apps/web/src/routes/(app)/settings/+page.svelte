@@ -1,103 +1,30 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
-	import { untrack } from 'svelte';
-	import { parsePreferredSocialClient } from '@atmo-dev/kit/social';
-	import { preferredClientCache } from '#lib/atproto/preferred-client.svelte.js';
-	import { Button, SocialClientPicker } from '@atmo-dev/kit';
-	import { user, authorizePreferredSocialClient } from '#lib/atproto/auth.svelte.js';
+	import { Button, Icon } from '@atmo-dev/kit';
+	import { Bell, ChevronRight, MessageCircle, Lock } from '@sketchyicons/svelte';
 	import { atProtoLoginModalState } from '#lib/components/LoginModal.svelte';
-	import PrivateEventsBetaSetting from '#lib/private-events/components/PrivateEventsBetaSetting.svelte';
 	import type { PageProps } from './$types';
 
-	let { data, form }: PageProps = $props();
-	let saving = $state(false);
-	let authorizing = $state(false);
-	let authorizationError = $state('');
-	$effect(() => {
-		const { did, preferredSocialClient, preferredClientLoadFailed } = data;
-		if (did && !preferredClientLoadFailed) {
-			untrack(() => preferredClientCache.remember(did, preferredSocialClient));
-		}
-	});
-	async function authorize() {
-		authorizing = true;
-		authorizationError = '';
-		try {
-			await authorizePreferredSocialClient();
-			// The helper returns without navigating if access is already granted.
-			await invalidateAll();
-		} catch {
-			authorizationError = 'Could not authorize access. Try again.';
-		} finally {
-			authorizing = false;
-		}
-	}
+	let { data }: PageProps = $props();
+	const pages = $derived([
+		{ title: 'Social app', href: '/settings/social', icon: MessageCircle },
+		{ title: 'Notifications', href: '/settings/notifications', icon: Bell },
+		...(data.privateEventsEnabled
+			? [{ title: 'Private events', href: '/settings/private-events', icon: Lock }]
+			: [])
+	]);
 </script>
 
-<div class="mx-auto max-w-3xl px-6 py-8 sm:py-12">
-	<h1 class="mb-8 text-2xl font-semibold tracking-tight">Settings</h1>
-	{#if !user.isLoggedIn}
-		<p class="text-base-600 dark:text-base-400 mb-4">Log in to choose your preferred social app.</p>
-		<Button onclick={() => atProtoLoginModalState.show()}>Log in</Button>
-	{:else if !data.canSaveClient}
-		<section class="grid gap-4" aria-labelledby="social-client-heading">
-			<h2 id="social-client-heading" class="font-semibold">Preferred social app</h2>
-			<p class="text-base-600 dark:text-base-400 text-sm">
-				We need additional permission to save your preferred social app client.
-			</p>
-			<Button onclick={authorize} disabled={authorizing} class="justify-self-start">
-				{authorizing ? 'Authorizing…' : 'Authorize now'}
+<h1 class="mb-6 text-2xl font-semibold tracking-tight">Settings</h1>
+{#if !data.did}
+	<Button onclick={() => atProtoLoginModalState.show()}>Log in</Button>
+{:else}
+	<nav aria-label="Settings" class="grid gap-1">
+		{#each pages as item (item.href)}
+			<Button href={item.href} variant="ghost" class="min-h-14 w-full justify-start gap-3 px-3">
+				<Icon img={item.icon} size={22} />
+				<span class="flex-1 text-left">{item.title}</span>
+				<Icon img={ChevronRight} size={18} />
 			</Button>
-			{#if authorizationError}<p role="alert" class="text-base-950 dark:text-base-50 text-sm">
-					{authorizationError}
-				</p>{/if}
-		</section>
-	{:else if data.preferredClientLoadFailed}
-		<p class="text-base-600 dark:text-base-400 mb-4" role="alert">
-			Could not load your social app selection.
-		</p>
-		<Button variant="secondary" onclick={() => invalidateAll()}>Try again</Button>
-	{:else}
-		<form
-			class="grid gap-5"
-			method="POST"
-			use:enhance={() => {
-				saving = true;
-				return async ({ result, update }) => {
-					try {
-						if (
-							result.type === 'success' &&
-							result.data?.saved &&
-							typeof result.data.did === 'string' &&
-							result.data.did === user.did
-						) {
-							const value = parsePreferredSocialClient(result.data.preferredSocialClient);
-							if (value) preferredClientCache.remember(result.data.did, value);
-						}
-						await update({ reset: false });
-					} finally {
-						saving = false;
-					}
-				};
-			}}
-		>
-			<SocialClientPicker value={data.preferredSocialClient} disabled={saving} />
-			<p class="text-base-600 dark:text-base-400 text-sm">
-				Your selection is public and can be used by other apps.
-			</p>
-			<Button type="submit" disabled={saving} class="justify-self-start"
-				>{saving ? 'Saving…' : 'Save'}</Button
-			>
-			{#if form?.message}<p role="alert" class="text-base-950 dark:text-base-50 text-sm">
-					{form.message}
-				</p>
-			{:else if form?.saved}<p role="status" class="text-base-600 dark:text-base-400 text-sm">
-					Saved.
-				</p>{/if}
-		</form>
-	{/if}
-	{#if user.isLoggedIn && data.privateEventsEnabled}
-		<div class="mt-12"><PrivateEventsBetaSetting /></div>
-	{/if}
-</div>
+		{/each}
+	</nav>
+{/if}

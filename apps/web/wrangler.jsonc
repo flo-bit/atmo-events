@@ -41,6 +41,12 @@
 			"database_name": "atmo-events-reports",
 			// Stable private storage; never replace during projection rebuilds.
 			"database_id": "451dce30-46b2-4e2d-a09c-f7ed4ccdfc4c"
+		},
+		{
+			"binding": "NOTIFY_DB",
+			"database_name": "atmo-events-notifications",
+			// Stable private storage; never replace during projection rebuilds.
+			"database_id": "fdabe8e2-16a1-4f9d-ac50-b8d2ee067920"
 		}
 	],
 	"r2_buckets": [

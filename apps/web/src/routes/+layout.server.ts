@@ -5,6 +5,7 @@ import { getAuth } from '#lib/atproto/server/oauth.js';
 import { blueskyPostCapability } from '#lib/atproto/settings.js';
 import { getServerClient } from '#lib/contrail/index.js';
 import { isModerator } from '#lib/moderation/server.js';
+import { pushConfigured } from '#lib/notifications/server.js';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.did || !locals.client) {
@@ -26,6 +27,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	}
 	return {
 		did: locals.did,
+		pushAvailable: pushConfigured(),
 		profile,
 		canPostToBluesky,
 		isModerator: isModerator(locals.did)

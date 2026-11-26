@@ -1,10 +1,13 @@
 import { env } from 'cloudflare:workers';
-import { ensureInit } from '#lib/contrail/index.js';
+import { ensureInit, getServerClient } from '#lib/contrail/index.js';
 import { processBotMentions } from '#lib/bot/process-mentions.js';
 import { refreshTopicCounts } from '#lib/server/topic-counts.js';
 import { refreshCitySnapshot } from '#lib/server/cities.js';
 import { syncEventStarterPacks } from '#lib/starter-packs/runtime.js';
 import type { RequestHandler } from './$types';
+import { getNotifications } from '#lib/notifications/server.js';
+import { processNotifications, pruneNotificationState } from '#lib/notifications/process.js';
+import { config } from '#lib/contrail.config.js';
 
 export const POST: RequestHandler = async ({ request }) => {
 	if (!env.CRON_SECRET || request.headers.get('X-Cron-Secret') !== env.CRON_SECRET) {
@@ -32,6 +35,34 @@ export const POST: RequestHandler = async ({ request }) => {
 		} catch (error) {
 			console.error('[cron] backfill retries failed:', error);
 		}
+	}
+	if (contrail) {
+		try {
+			const result = await processNotifications({
+				db,
+				stable: env.NOTIFY_DB,
+				notify: await getNotifications(),
+				client: getServerClient(db),
+				now: Date.now(),
+				epoch: config.orderedSource?.epoch,
+				sources: [config.orderedSource?.source ?? 'jetstream', 'pds-notify']
+			});
+			if (result.failed) console.warn(`[notifications] ${result.failed} jobs will retry`);
+		} catch (error) {
+			console.error('[notifications] triggers failed:', error);
+		}
+	}
+	// Delivery retries continue even if ingestion or trigger processing failed.
+	try {
+		const notify = await getNotifications();
+		await notify.deliver({ limit: 50 });
+		const now = Date.now();
+		if (new Date(now).getUTCMinutes() < 2) {
+			await notify.prune(now - 90 * 24 * 60 * 60_000);
+			await pruneNotificationState(env.NOTIFY_DB, now);
+		}
+	} catch (error) {
+		console.error('[notifications] delivery failed:', error);
 	}
 	// Public bot-owned packs reconcile after ingestion, independently of other jobs.
 	try {

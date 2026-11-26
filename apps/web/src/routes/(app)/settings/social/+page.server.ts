@@ -40,7 +40,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			: { preferredSocialClient: null, preferredClientLoadFailed: false }
 	]);
 	return {
-		pageTitle: 'Settings · atmo.rsvp',
+		pageTitle: 'Social app settings',
 		pageDescription: 'Choose your preferred social app.',
 		canSaveClient: !!canSave,
 		...preference
