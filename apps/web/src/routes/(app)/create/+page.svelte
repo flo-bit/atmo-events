@@ -122,7 +122,7 @@
 			Private events are off for you right now, so this page can't make a private event. Turn on
 			private events in
 			<a
-				href={resolve('/(app)/settings')}
+				href={resolve('/(app)/settings/private-events')}
 				class="text-accent-600 dark:text-accent-400 hover:underline">Settings</a
 			>, or reload to try again.
 		</p>

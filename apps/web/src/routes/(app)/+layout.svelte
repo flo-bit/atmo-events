@@ -13,9 +13,16 @@
 		LogIn,
 		Settings,
 		Wrench,
-		Menu
+		Menu,
+		Bell
 	} from '@sketchyicons/svelte';
 	import { page } from '$app/state';
+	import { untrack } from 'svelte';
+	import {
+		notificationState,
+		refreshNotifications,
+		syncPush
+	} from '#lib/notifications/client.svelte.js';
 	import { afterNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { ModeWatcher } from 'mode-watcher';
@@ -25,6 +32,48 @@
 
 	let { children } = $props();
 	let navigationOpen = $state(false);
+	let signoutError = $state('');
+	const viewerDid = $derived(user.did);
+	const viewerCanPush = $derived(page.data.pushAvailable);
+	$effect(() => {
+		const did = viewerDid;
+		const pushAvailable = viewerCanPush;
+		if (!did) {
+			notificationState.unread = 0;
+			return;
+		}
+		let active = true;
+		let enrolled = false;
+		async function refresh() {
+			try {
+				if (!active || user.did !== did) return;
+				const unread = await refreshNotifications(!enrolled);
+				enrolled = true;
+				if (active && user.did === did) notificationState.unread = unread;
+			} catch {
+				/* Inbox remains independently retryable. */
+			}
+		}
+		untrack(() => {
+			void refresh();
+			if (pushAvailable) void syncPush().catch(() => {});
+		});
+		const timer = setInterval(() => {
+			if (document.visibilityState === 'visible') void refresh();
+		}, 60_000);
+		return () => {
+			active = false;
+			clearInterval(timer);
+		};
+	});
+	async function signout() {
+		signoutError = '';
+		try {
+			await logout();
+		} catch {
+			signoutError = 'Could not sign out. Try again.';
+		}
+	}
 
 	afterNavigate(({ shallow, type }) => {
 		if (shallow && type === 'goto') return;
@@ -108,10 +157,35 @@
 		<div class={expanded ? 'grid gap-1' : 'flex flex-col items-center gap-3'}>
 			{#if user.isLoggedIn}
 				<Button
+					href="/notifications"
+					variant="ghost"
+					title={notificationState.unread
+						? `Notifications (${notificationState.unread} unread)`
+						: 'Notifications'}
+					aria-label={notificationState.unread
+						? `Notifications (${notificationState.unread} unread)`
+						: 'Notifications'}
+					aria-current={path === '/notifications' ? 'page' : undefined}
+					onclick={close}
+					class={expanded
+						? 'min-h-11 w-full justify-start gap-3 px-3 text-sm'
+						: 'relative size-11 p-0'}
+				>
+					<Icon img={Bell} size={22} />
+					<span class={expanded ? '' : 'sr-only'}>Notifications</span>
+					{#if notificationState.unread > 0}<span
+							aria-hidden="true"
+							class={expanded
+								? 'text-accent-700 dark:text-accent-300 text-xs'
+								: 'bg-accent-500 absolute top-1 right-1 size-2 rounded-full'}
+							>{expanded ? notificationState.unread : ''}</span
+						>{/if}
+				</Button>
+				<Button
 					href={resolve('/(app)/settings')}
 					variant="ghost"
 					title="Settings"
-					aria-current={path === '/settings' ? 'page' : undefined}
+					aria-current={path === '/settings' || path.startsWith('/settings/') ? 'page' : undefined}
 					onclick={close}
 					class={expanded ? 'min-h-11 w-full justify-start gap-3 px-3 text-sm' : 'size-11 p-0'}
 				>
@@ -129,7 +203,7 @@
 					onprofile={close}
 					onsignout={() => {
 						close();
-						void logout();
+						void signout();
 					}}
 				/>
 			{:else}
@@ -178,6 +252,7 @@
 			{/if}
 		</div>
 	</header>
+	{#if signoutError}<p role="alert" class="px-6 pt-4 text-sm">{signoutError}</p>{/if}
 	<main id="app-main" tabindex="-1" class="flex-1 outline-none">{@render children()}</main>
 	<AppFooter subject={page.data.reportSubject} />
 </div>

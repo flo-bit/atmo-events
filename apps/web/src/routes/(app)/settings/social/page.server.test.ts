@@ -15,7 +15,7 @@ function event(fields: Record<string, string | undefined> = { client: 'mu' }, si
 			did: signedIn ? 'did:plc:alice' : null,
 			client: signedIn ? { get: mocks.get, post: mocks.post } : null
 		},
-		request: new Request('https://atmo.rsvp/settings', { method: 'POST', body })
+		request: new Request('https://atmo.rsvp/settings/social', { method: 'POST', body })
 	} as unknown as Parameters<NonNullable<typeof actions.default>>[0];
 }
 

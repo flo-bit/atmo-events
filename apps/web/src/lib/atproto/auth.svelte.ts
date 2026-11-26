@@ -11,9 +11,16 @@ import { CONNECTION_SCOPE, connectionCapability } from '../meet/connection';
 import {
 	login as oauthLogin,
 	signup as oauthSignup,
-	requestPermissions
+	requestPermissions,
+	logout as oauthLogout
 } from '@svelte-atproto/oauth/client';
-export { logout } from '@svelte-atproto/oauth/client';
+import { signOutWithPush } from '#lib/notifications/client.svelte.js';
+
+/** Detach the device while the authenticated session still exists. */
+export async function logout() {
+	if (typeof navigator !== 'undefined') return signOutWithPush(oauthLogout);
+	return oauthLogout();
+}
 import {
 	ALLOW_SIGNUP,
 	REDIRECT_TO_LAST_PAGE_ON_LOGIN,

@@ -31,6 +31,8 @@ declare global {
 			DB: D1Database;
 			/** Stable private report storage; never swap with projection generations. */
 			REPORTS_DB: D1Database;
+			/** Stable private notification storage; never swap with projection generations. */
+			NOTIFY_DB: D1Database;
 			/** Comma-separated trusted moderator DIDs; empty grants nobody access. */
 			MODERATOR_DIDS?: string;
 			ASSETS?: Fetcher;
@@ -44,6 +46,10 @@ declare global {
 			PRIVATE_EVENTS?: string;
 			/** A PDS with spaces support, to point people at when theirs can't do private events. */
 			SPACES_PDS_URL?: string;
+			VAPID_PUBLIC_KEY?: string;
+			/** Secret JSON P-256 JWK; never pass to the browser. */
+			VAPID_PRIVATE_JWK?: string;
+			VAPID_SUBJECT?: string;
 			/** Handle or DID of the reply bot, e.g. `going.atmo.rsvp`. */
 			BOT_IDENTIFIER?: string;
 			/** App password for the bot account (set via `wrangler secret put`). */

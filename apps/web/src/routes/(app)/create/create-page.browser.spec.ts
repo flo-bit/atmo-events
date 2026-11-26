@@ -382,7 +382,7 @@ describe('a private choice, while private events are off', () => {
 		await expect.element(page.getByTestId('private-off')).toBeVisible();
 		await expect
 			.element(page.getByTestId('private-off').getByRole('link', { name: 'Settings' }))
-			.toHaveAttribute('href', '/settings');
+			.toHaveAttribute('href', '/settings/private-events');
 		expect(publish().elements()).toHaveLength(0);
 		expect(page.getByRole('radio').elements()).toHaveLength(0);
 	});

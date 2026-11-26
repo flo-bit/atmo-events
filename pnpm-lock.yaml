@@ -47,8 +47,11 @@ importers:
         specifier: 0.33.0
         version: 0.33.0(@atproto/lex@0.3.14)(prettier@3.9.10)(typescript@6.0.2)(wrangler@4.153.0(@cloudflare/workers-types@5.20261026.1)(@types/node@24.19.2))
       '@atmo-dev/kit':
-        specifier: 0.17.0
-        version: 0.17.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(maplibre-gl@6.16.0)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
+        specifier: 0.22.0
+        version: 0.22.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(maplibre-gl@6.16.0)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)
+      '@atmo-dev/notify':
+        specifier: file:../../vendor/notify-0.0.1.tgz
+        version: file:vendor/notify-0.0.1.tgz
       '@atproto/crypto':
         specifier: 0.0.0-spaces-alpha-20261112204144
         version: 0.0.0-spaces-alpha-20261112204144
@@ -410,8 +413,8 @@ packages:
       wrangler:
         optional: true
 
-  '@atmo-dev/kit@0.17.0':
-    resolution: {integrity: sha512-zl/igS+jE+li7X09f89CK9CY4DqNGLXLtOSfzE/geovgaZ/WS1X861kL3U16RKpAdOk7qzEYxEuuNexkoQfvJQ==}
+  '@atmo-dev/kit@0.22.0':
+    resolution: {integrity: sha512-JBVEPfejiavQqoD3DV+yBgrSxSwTNwC4MkpYWa7pgUuegUBAcdI33zqt6uF9tan2/bWujdrX1Sj7Q1psab/1Gg==}
     peerDependencies:
       maplibre-gl: ^6.16.0
       svelte: '>=5.48.0 <6'
@@ -422,6 +425,11 @@ packages:
         optional: true
       svelte-maplibre-gl:
         optional: true
+
+  '@atmo-dev/notify@file:vendor/notify-0.0.1.tgz':
+    resolution: {integrity: sha512-H5mZXP7d6NrBOzIsm8D262ybcpwMrjysd1JPjxzPLvxARAm5y4TQbkBVsHvl5hA6+DGOFuwkATtnv9gqlQAZsg==, tarball: file:vendor/notify-0.0.1.tgz}
+    version: 0.0.1
+    hasBin: true
 
   '@atproto-labs/did-resolver@0.3.11':
     resolution: {integrity: sha512-CeAC6VY3xaXQ8CaOXLz4EOopSvfcQBcuJvX3J5ew2nbf+BM0nes45ZvxUieP5ZlLPXbJborwJh5zDeJcYpwCFQ==}
@@ -1599,6 +1607,12 @@ packages:
     resolution: {integrity: sha512-rwzbX83SceQvdx/IcPqU5oF+7a7zB2SJFLAEkLUaXZkycCX//PC0abpaFC3KtUJ4EOCsGNxUNhXoddasgQRSKw==}
     peerDependencies:
       '@tiptap/core': 3.34.0
+
+  '@tiptap/extension-table@3.35.0':
+    resolution: {integrity: sha512-4XnShXqUmlTZTUaURKyDfvodWQxF+PJNukPdGgqrqEfZvB3v/N2ROuAGZ3NVMaaulCeeve3GRXzaAyn+Zp9mdw==}
+    peerDependencies:
+      '@tiptap/core': 3.35.0
+      '@tiptap/pm': 3.35.0
 
   '@tiptap/extension-text@3.34.0':
     resolution: {integrity: sha512-90gNJ24bsTrJVxfnnbXXFhsmPGUsk9ZGjwbbJ4OvqIoYX4BjmwuPBHL4NePL7kKwPtTKhcIHsm3C3ofZlVH/rg==}
@@ -3581,25 +3595,31 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@atmo-dev/kit@0.17.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(maplibre-gl@6.16.0)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
+  '@atmo-dev/kit@0.22.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))(maplibre-gl@6.16.0)(svelte-maplibre-gl@2.2.1(maplibre-gl@6.16.0)(svelte@5.57.3(@typescript-eslint/types@8.72.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(tailwindcss@4.3.3)(typescript@6.0.2)':
     dependencies:
       '@atcute/bluesky-richtext-parser': 2.1.2
       '@atcute/lexicons': 2.1.1
       '@atcute/tid': 1.1.4
+      '@floating-ui/dom': 1.8.0
       '@fontsource-variable/figtree': 5.3.0
       '@internationalized/date': 3.12.4
       '@number-flow/svelte': 0.4.2(svelte@5.57.3(@typescript-eslint/types@8.72.1))
       '@sketchyicons/svelte': 0.5.0(svelte@5.57.3(@typescript-eslint/types@8.72.1))
       '@tiptap/core': 3.34.0(@tiptap/pm@3.34.0)
+      '@tiptap/extension-blockquote': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)
+      '@tiptap/extension-code-block': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)
       '@tiptap/extension-document': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))
       '@tiptap/extension-hard-break': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))
       '@tiptap/extension-history': 3.32.0(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))
+      '@tiptap/extension-list': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)
       '@tiptap/extension-mention': 3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)(@tiptap/suggestion@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))
       '@tiptap/extension-paragraph': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))
       '@tiptap/extension-placeholder': 3.32.0(@tiptap/extensions@3.32.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0))
+      '@tiptap/extension-table': 3.35.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)
       '@tiptap/extension-text': 3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))
       '@tiptap/pm': 3.34.0
       '@tiptap/starter-kit': 3.34.0
+      '@tiptap/suggestion': 3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)
       bits-ui: 2.20.2(@internationalized/date@3.12.4)(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3(@typescript-eslint/types@8.72.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))(typescript@6.0.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)))(svelte@5.57.3(@typescript-eslint/types@8.72.1))
       canvas-confetti: 1.9.4
       clsx: 2.1.1
@@ -3619,8 +3639,9 @@ snapshots:
     transitivePeerDependencies:
       - '@sveltejs/kit'
       - '@tiptap/extensions'
-      - '@tiptap/suggestion'
       - typescript
+
+  '@atmo-dev/notify@file:vendor/notify-0.0.1.tgz': {}
 
   '@atproto-labs/did-resolver@0.3.11':
     dependencies:
@@ -4674,6 +4695,11 @@ snapshots:
   '@tiptap/extension-strike@3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))':
     dependencies:
       '@tiptap/core': 3.34.0(@tiptap/pm@3.34.0)
+
+  '@tiptap/extension-table@3.35.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))(@tiptap/pm@3.34.0)':
+    dependencies:
+      '@tiptap/core': 3.34.0(@tiptap/pm@3.34.0)
+      '@tiptap/pm': 3.34.0
 
   '@tiptap/extension-text@3.34.0(@tiptap/core@3.34.0(@tiptap/pm@3.34.0))':
     dependencies:
